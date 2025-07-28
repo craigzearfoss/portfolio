@@ -14,16 +14,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FrontendController::class, 'index'])->name('index');
 
 // Admin
-Route::get('/admin', [AdminIndexController::class, 'index'])->name('admin.index');
-
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/login', [AdminIndexController::class, 'login'])->name('login');
-    Route::post('/login', [AdminIndexController::class, 'login'])->name('login_submit');
-    Route::get('/logout', [AdminIndexController::class, 'logout'])->name('logout');
-    Route::get('/forgot-password', [AdminIndexController::class, 'forgot_password'])->name('forgot_password');
-    Route::post('/forgot-password', [AdminIndexController::class, 'forgot_password'])->name('forgot_password_submit');
-    Route::get('/reset-password/{token}/{email}', [AdminIndexController::class, 'reset_password'])->name('reset_password');
-    Route::post('/reset-password/{token}/{email}', [AdminIndexController::class, 'reset_password_submit'])->name('reset_password_submit');
+Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminIndexController::class, 'dashboard'])->name('admin.dashboard');
     Route::resource('admin', AdminAdminController::class);
     Route::resource('user', AdminUserController::class);
     Route::resource('link', AdminLinkController::class);
@@ -31,8 +23,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('video', AdminVideoController::class);
 });
 
-Route::middleware('admin')->prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminIndexController::class, 'dashboard'])->name('admin.dashboard');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminIndexController::class, 'index'])->name('index');
+    Route::get('/login', [AdminIndexController::class, 'login'])->name('login');
+    Route::post('/login', [AdminIndexController::class, 'login'])->name('login_submit');
+    Route::get('/logout', [AdminIndexController::class, 'logout'])->name('logout');
+    Route::get('/forgot-password', [AdminIndexController::class, 'forgot_password'])->name('forgot_password');
+    Route::post('/forgot-password', [AdminIndexController::class, 'forgot_password'])->name('forgot_password_submit');
+    Route::get('/reset-password/{token}/{email}', [AdminIndexController::class, 'reset_password'])->name('reset_password');
+    Route::post('/reset-password/{token}/{email}', [AdminIndexController::class, 'reset_password_submit'])->name('reset_password_submit');
 });
 
 // User
