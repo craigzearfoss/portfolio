@@ -24,7 +24,7 @@ class UserController extends Controller
 
     public function register(Request $request): RedirectResponse | View
     {
-        if ($request->isMethod('post')) {
+        if ($request->isMethod('post') && config('app.open_enrollment')) {
 
             $request->validate((new UserStoreRequest())->rules());
 
