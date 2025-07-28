@@ -11,7 +11,7 @@ use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Frontend
-Route::get('/', [FrontendController::class, 'index'])->name('index');
+Route::get('/', [FrontendController::class, 'index'])->name('homepage');
 
 // Admin
 Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {

@@ -9,7 +9,7 @@
                     <div class="card-body md:p-10">
                         <div class="text-center">
                             <div class="logo">
-                                <img class="mx-auto" src="{{asset('backend/assets/img/logo/logo-light-streamline.png')}}" alt="Elstar logo">
+                                <img class="mx-auto" src="{{asset('images/site/logo-thumb-sm.png')}}" alt="site logo">
                             </div>
                         </div>
                         <div class="text-center">
