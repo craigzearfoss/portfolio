@@ -15,7 +15,7 @@ Route::get('/', [FrontendController::class, 'index'])->name('index');
 
 // Admin
 Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminIndexController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/dashboard', [AdminIndexController::class, 'dashboard'])->name('dashboard');
     Route::resource('admin', AdminAdminController::class);
     Route::resource('link', AdminLinkController::class);
     Route::resource('reading', AdminReadingController::class);
