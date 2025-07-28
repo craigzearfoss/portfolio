@@ -82,8 +82,11 @@
     </div>
 
     <div class="footer">
-        <p>&copy; 2024 Mjnamadi. All rights reserved.</p>
+        @if(config('app.copyright') && config('app.owner'))
+            <span>© {{ config('app.copyright') }} {{ config('app.owner') }}. All rights reserved.</span>
+        @endif
     </div>
+
 </div>
 
 </body>

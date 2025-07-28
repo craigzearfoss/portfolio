@@ -77,7 +77,7 @@ class IndexController extends Controller
             $admin->update();
 
             $pResetLink = route('admin_reset_password', ['token' => $admin->token , 'email' => urlencode($email)]);
-            $subject = "Reset Password from " . getenv('APP_NAME');
+            $subject = "Reset Password from " . config('app.name');
             $info = [
                 'user' => $admin->username,
                 'email' => $email,

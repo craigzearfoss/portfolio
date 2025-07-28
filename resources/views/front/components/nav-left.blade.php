@@ -1,7 +1,7 @@
 <div class="side-nav side-nav-transparent side-nav-expand">
     <div class="side-nav-header">
         <div class="logo px-6">
-            <h4 style="margin: 10px 0; color: #222;">{{ getenv('APP_NAME') ?? 'Laravel Multi-Guard System' }}</h4>
+            <h4 style="margin: 10px 0; color: #222;">{{ config('app.name') }}</h4>
         </div>
     </div>
     <div class="side-nav-content relative side-nav-scroll">

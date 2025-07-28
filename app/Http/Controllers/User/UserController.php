@@ -39,7 +39,7 @@ class UserController extends Controller
             $user->save();
 
             $verificationLink = route('email_verification', ['token' => $user->token , 'email' => urlencode($request->email)]);
-            $subject = "Email Verification from " . getenv('APP_NAME');
+            $subject = "Email Verification from " . config('app.name');
             $info = [
                 'name' => $user->name,
                 'verificationLink' => $verificationLink
@@ -129,7 +129,7 @@ class UserController extends Controller
             $user->update();
 
             $pResetLink = route('reset_password', ['token' => $user->token , 'email' => urlencode($email)]);
-            $subject = "Reset Password from " . getenv('APP_NAME');
+            $subject = "Reset Password from " . config('app.name');
             $info = [
                 'user' => $user->name,
                 'email' => $user->email,

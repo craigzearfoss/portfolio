@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="{{asset('backend/assets/img/favicon.ico')}}">
-    <title>{{ getenv('APP_NAME') ?? 'Laravel Multi-Guard System' }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Core CSS -->
     <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/css/style.css')}}">

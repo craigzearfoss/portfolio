@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'copyright' => env('APP_COPYRIGHT', ''),
+    'name'      => env('APP_NAME', 'Laravel'),
+    'owner'     => env('APP_OWNER', ''),
 
     /*
     |--------------------------------------------------------------------------
@@ -123,4 +125,5 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'APP_NAME' => env('APP_NAME', 'Laravel'),
 ];
