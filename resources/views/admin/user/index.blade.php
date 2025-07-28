@@ -48,7 +48,11 @@
                                 <td>{{ $user->email }}</td>
                                 <td class="text-center">{{ $user->email_verified_at ? '1' : '0' }}</td>
                                 <td class="text-center">{{ $user->status == 0 ? 'pending' : ($user->status == 1 ? 'active' : $user->status) }}</td>
-                                <td class="text-center">{!! $user->disabled ? '<i class="fa-solid fa-check ml-2">' : '' !!}</td>
+                                <td class="text-center">
+                                    @if ($user->disabled)
+                                        <i class="fa-solid fa-check ml-2"></i>
+                                    @endif
+                                </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST">
                                         <a class="btn btn-sm" href="{{ route('admin.user.show', $user->id) }}"><i class="fa-solid fa-list"></i>{{--  Show--}}</a>

@@ -1,8 +1,18 @@
 <div class="side-nav side-nav-transparent side-nav-expand">
     <div class="side-nav-header">
         <div class="logo px-6">
-            <h4 style="margin: 10px 0; color: #222;">{{ config('app.name') }}</h4>
+
+            @if (Auth::guard('admin'))
+                <a href="{{route('admin.dashboard')}}">
+                    <h4 style="margin: 10px 0; color: #222;">{{ config('app.name') }}</h4>
+                </a>
+            @else
+                <a href="{{route('admin.index')}}">
+                    <h4 style="margin: 10px 0; color: #222;">{{ config('app.name') }}</h4>
+                </a>
+            @endif
         </div>
+
     </div>
     <div class="side-nav-content relative side-nav-scroll">
         <nav class="menu menu-transparent px-4 pb-4">

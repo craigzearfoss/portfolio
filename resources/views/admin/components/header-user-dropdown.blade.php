@@ -3,7 +3,7 @@
         <div class="header-action-item flex items-center gap-2">
             <span class="avatar avatar-circle" data-avatar-size="32" style="width: 32px">
                 <img class="avatar-img avatar-circle"
-                     src="{{asset('images/users/avatars/0-thumb.png')}}"
+                     src="{{asset('images/admin/avatars/0-thumb.png')}}"
                      loading="lazy" alt="">
             </span>
             <div class="hidden md:block">
@@ -18,7 +18,7 @@
             <div class="py-2 px-3 flex items-center gap-2">
                 <span class="avatar avatar-circle avatar-md">
                     <img class="avatar-img avatar-circle"
-                         src="{{asset('images/users/avatars/0-thumb.png')}}"
+                         src="{{asset('images/admin/avatars/0-thumb.png')}}"
                          loading="lazy" alt="">
                 </span>
                 <div>

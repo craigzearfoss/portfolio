@@ -48,7 +48,11 @@
                                 <td>{{ $reading->author }}</td>
                                 <td class="text-center">{{ $reading->paper }}</td>
                                 <td class="text-center">{{ $reading->audio }}</td>
-                                <td class="text-center">{!! $reading->disabled ? '<i class="fa-solid fa-check ml-2">' : '' !!}</td>
+                                <td class="text-center">
+                                    @if ($reading->disabled)
+                                        <i class="fa-solid fa-check ml-2"></i>
+                                    @endif
+                                </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.reading.destroy', $reading->id) }}" method="POST">
                                         <a class="btn btn-sm" href="{{ route('admin.reading.show', $reading->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>

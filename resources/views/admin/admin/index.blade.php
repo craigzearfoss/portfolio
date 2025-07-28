@@ -45,7 +45,11 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $admin->username }}</td>
                                 <td>{{ $admin->email }}</td>
-                                <td class="text-center">{!! $admin->disabled ? '<i class="fa-solid fa-check ml-2">' : '' !!}</td>
+                                <td class="text-center">
+                                    @if ($admin->disabled)
+                                        <i class="fa-solid fa-check ml-2"></i>
+                                    @endif
+                                </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.admin.destroy', $admin->id) }}" method="POST">
                                         <a class="btn btn-sm" href="{{ route('admin.admin.show', $admin->id) }}"><i class="fa-solid fa-list"></i>{{--  Show--}}</a>

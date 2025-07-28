@@ -38,7 +38,20 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>disabled</strong>: {{ $admin->disabled ? '<i class="fa-solid fa-check ml-2">' : '' }}
+                                                <strong>disabled</strong>:
+                                                @if ($admin->disabled)
+                                                    <i class="fa-solid fa-check ml-2"></i>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>created at</strong>: {{ $admin->created_at }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>updated at</strong>: {{ $admin->updated_at }}
                                             </div>
                                         </div>
                                     </div>

@@ -43,12 +43,25 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>disabled</strong>: {{ $user->disabled ? '<i class="fa-solid fa-check ml-2">' : '' }}
+                                                <strong>disabled</strong>:
+                                                @if ($user->disabled)
+                                                    <i class="fa-solid fa-check ml-2"></i>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>email verified at</strong>: {{ $user->email_verified_at }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>created at</strong>: {{ $user->created_at }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>updated at</strong>: {{ $user->updated_at }}
                                             </div>
                                         </div>
                                     </div>
