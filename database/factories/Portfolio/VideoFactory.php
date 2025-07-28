@@ -1,12 +1,12 @@
 <?php
 
-namespace Database\Factories\Personal;
+namespace Database\Factories\Portfolio;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Personal\Video>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Video>
  */
 class VideoFactory extends Factory
 {
@@ -15,6 +15,7 @@ class VideoFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
     public function definition(): array
     {
         return [

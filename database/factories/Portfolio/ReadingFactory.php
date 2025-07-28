@@ -1,12 +1,12 @@
 <?php
 
-namespace Database\Factories\Personal;
+namespace Database\Factories\Portfolio;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Personal\Reading>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Reading>
  */
 class ReadingFactory extends Factory
 {

@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Models\Personal;
+namespace App\Models\Portfolio;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
 {
-    /** @use HasFactory<\Database\Factories\Personal\VideoFactory> */
+    /** @use HasFactory<\Database\Factories\Portfolio\VideoFactory> */
     use HasFactory;
 
-    protected $connection = 'personal_db';
+    protected $connection = 'portfolio_db';
 
     protected $table = 'videos';
 

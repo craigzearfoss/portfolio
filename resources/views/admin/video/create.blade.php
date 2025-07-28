@@ -44,10 +44,11 @@
                                                 @csrf
 
                                                 <div class="mb-3">
-                                                    <label for="title" class="form-label mb-1">title</label>
+                                                    <label for="inputTitle" class="form-label mb-1">title</label>
                                                     <input
                                                         type="text"
                                                         name="title"
+                                                        id="inputTitle"
                                                         class="form-control @error('title') is-invalid @enderror"
                                                         value="{{ old('title') }}"
                                                         placeholder="title"
@@ -59,10 +60,11 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="year" class="form-label mb-1">year</label>
+                                                    <label for="inputYear" class="form-label mb-1">year</label>
                                                     <input
                                                         type="number"
                                                         name="year"
+                                                        id="inputYear"
                                                         class="form-control @error('year') is-invalid @enderror"
                                                         value="{{ old('year') }}"
                                                         placeholder="year"
@@ -73,10 +75,11 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="company" class="form-label mb-1">company</label>
+                                                    <label for="inputCompany" class="form-label mb-1">company</label>
                                                     <input
                                                         type="text"
                                                         name="company"
+                                                        id="inputCompany"
                                                         class="form-control @error('company') is-invalid @enderror"
                                                         value="{{ old('company') }}"
                                                         placeholder="company"
@@ -87,10 +90,11 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="credit" class="form-label mb-1">credit</label>
+                                                    <label for="inputCredit" class="form-label mb-1">credit</label>
                                                     <input
                                                         type="text"
                                                         name="credit"
+                                                        id="inputCredit"
                                                         class="form-control @error('credit') is-invalid @enderror"
                                                         value="{{ old('credit') }}"
                                                         placeholder="credit"
@@ -101,10 +105,11 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="location" class="form-label mb-1">location</label>
+                                                    <label for="inputLocation" class="form-label mb-1">location</label>
                                                     <input
                                                         type="text"
                                                         name="location"
+                                                        id="inputLocation"
                                                         class="form-control @error('location') is-invalid @enderror"
                                                         value="{{ old('location') }}"
                                                         placeholder="location"
@@ -115,10 +120,11 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="link" class="form-label mb-1">link</label>
+                                                    <label for="inputLink" class="form-label mb-1">link</label>
                                                     <input
                                                         type="text"
                                                         name="link"
+                                                        id="inputLink"
                                                         class="form-control @error('link') is-invalid @enderror"
                                                         value="{{ old('link') }}"
                                                         placeholder="link"
@@ -128,16 +134,29 @@
                                                     @enderror
                                                 </div>
 
+                                                <div class="mb-3">
+                                                    <label for="inputDescription" class="form-label mb-1">description</label>
+                                                    <textarea
+                                                        name="description"
+                                                        id="inputDescription"
+                                                        class="form-control"
+                                                        rows="3">{{ old('description') }}</textarea>
+                                                    @error('description')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
                                                 <div class="mb-4">
-                                                    <label for="disabled" class="form-label mb-1">disabled</label>
+                                                    <input type="hidden" name="disabled" value="0">
                                                     <input
-                                                        type="number"
+                                                        type="checkbox"
                                                         name="disabled"
-                                                        value="{{ old('disabled') ?? '0' }}"
-                                                        class="form-control @error('disabled') is-invalid @enderror"
-                                                        placeholder="0-not disabled, 1-disabled"
-                                                        required
+                                                        id="inputDisabled"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ old('disabled') ? 'checked' : '' }}
                                                     >
+                                                    <label for="inputDisabled" class="form-check-label mb-1 font-semibold">disabled</label>
                                                     @error('disabled')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror

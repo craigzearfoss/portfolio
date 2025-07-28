@@ -44,10 +44,11 @@
                                                 @csrf
 
                                                 <div class="mb-3">
-                                                    <label for="title" class="form-label mb-1">title</label>
+                                                    <label for="inputTitle" class="form-label mb-1">title</label>
                                                     <input
                                                         type="text"
                                                         name="title"
+                                                        id="inputTitle"
                                                         class="form-control @error('title') is-invalid @enderror"
                                                         value="{{ old('title') }}"
                                                         placeholder="title"
@@ -59,10 +60,11 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="email" class="form-label mb-1">author</label>
+                                                    <label for="inputEmail" class="form-label mb-1">author</label>
                                                     <input
                                                         type="text"
                                                         name="author"
+                                                        id="inputEmail"
                                                         class="form-control @error('author') is-invalid @enderror"
                                                         value="{{ old('author') }}"
                                                         placeholder="author"
@@ -73,45 +75,48 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="paper" class="form-label mb-1">paper</label>
+                                                    <input type="hidden" name="paper" value="0">
                                                     <input
-                                                        type="number"
+                                                        type="checkbox"
                                                         name="paper"
-                                                        value="{{ old('paper') ?? '1' }}"
-                                                        class="form-control @error('paper') is-invalid @enderror"
-                                                        placeholder="1"
-                                                        required
+                                                        id="inputPaper"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ old('paper') ? 'checked' : '' }}
                                                     >
+                                                    <label for="inputPaper" class="form-check-label mb-1 font-semibold">paper</label>
                                                     @error('paper')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="audio" class="form-label mb-1">audio</label>
+                                                    <input type="hidden" name="audio" value="0">
                                                     <input
-                                                        type="number"
+                                                        type="checkbox"
                                                         name="audio"
-                                                        value="{{ old('audio') ?? '0' }}"
-                                                        class="form-control @error('audio') is-invalid @enderror"
-                                                        placeholder="0"
-                                                        required
+                                                        id="inputAudio"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ old('audio') ? 'checked' : '' }}
                                                     >
+                                                    <label for="inputAudio" class="form-check-label mb-1 font-semibold">audio</label>
                                                     @error('audio')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="disabled" class="form-label mb-1">disabled</label>
+                                                    <input type="hidden" name="disabled" value="0">
                                                     <input
-                                                        type="number"
+                                                        type="checkbox"
                                                         name="disabled"
-                                                        value="{{ old('disabled') ?? '0' }}"
-                                                        class="form-control @error('disabled') is-invalid @enderror"
-                                                        placeholder="0-not disabled, 1-disabled"
-                                                        required
+                                                        id="inputDisabled"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ old('disabled') ? 'checked' : '' }}
                                                     >
+                                                    <label for="inputDisabled" class="form-check-label mb-1 font-semibold">disabled</label>
                                                     @error('disabled')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror

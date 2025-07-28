@@ -48,7 +48,7 @@
                                 <td>{{ $link->url }}</td>
                                 <td>{{ $link->website }}</td>
                                 <td>{{ $link->description }}</td>
-                                <td class="text-center">{{ $link->disabled }}</td>
+                                <td class="text-center">{!! $link->disabled ? '<i class="fa-solid fa-check ml-2">' : '' !!}</td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.link.destroy', $link->id) }}" method="POST">
                                         <a class="btn btn-sm" href="{{ route('admin.link.show', $link->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>

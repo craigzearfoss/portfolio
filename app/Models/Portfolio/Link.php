@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Models\Personal;
+namespace App\Models\Portfolio;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Reading extends Model
+class Link extends Model
 {
-    /** @use HasFactory<\Database\Factories\Personal\ReadingFactory> */
+    /** @use HasFactory<\Database\Factories\Portfolio\LinkFactory> */
     use HasFactory;
 
-    protected $connection = 'personal_db';
+    protected $connection = 'portfolio_db';
 
-    protected $table = 'readings';
+    protected $table = 'links';
 
     /**
      * The attributes that are mass assignable.
@@ -20,10 +20,10 @@ class Reading extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'title',
-        'author',
-        'paper',
-        'audio',
+        'name',
+        'url',
+        'website',
+        'description',
         'disabled',
     ];
 }

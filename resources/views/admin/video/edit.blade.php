@@ -46,10 +46,11 @@
                                                 @method('PUT')
 
                                                 <div class="mb-3">
-                                                    <label for="title" class="form-label mb-1">title</label>
+                                                    <label for="inputTitle" class="form-label mb-1">title</label>
                                                     <input
                                                         type="text"
                                                         name="title"
+                                                        id="inputTitle"
                                                         value="{{ $video->title }}"
                                                         class="form-control @error('title') is-invalid @enderror"
                                                         placeholder="title"
@@ -60,10 +61,11 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="url" class="form-label mb-1">year</label>
+                                                    <label for="inputYear" class="form-label mb-1">year</label>
                                                     <input
                                                         type="number"
                                                         name="year"
+                                                        id="inputYear"
                                                         value="{{ $video->year }}"
                                                         class="form-control @error('year') is-invalid @enderror"
                                                         placeholder="year"
@@ -74,10 +76,11 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="company" class="form-label mb-1">company</label>
+                                                    <label for="inputCompany" class="form-label mb-1">company</label>
                                                     <input
                                                         type="text"
                                                         name="company"
+                                                        id="inputCompany"
                                                         value="{{ $video->company }}"
                                                         class="form-control @error('company') is-invalid @enderror"
                                                         placeholder="company"
@@ -88,10 +91,11 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="credit" class="form-label mb-1">credit</label>
+                                                    <label for="inputCredit" class="form-label mb-1">credit</label>
                                                     <input
                                                         type="text"
                                                         name="credit"
+                                                        id="inputCredit"
                                                         value="{{ $video->credit }}"
                                                         class="form-control @error('credit') is-invalid @enderror"
                                                         placeholder="credit"
@@ -102,10 +106,11 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="location" class="form-label mb-1">location</label>
+                                                    <label for="inputLocation" class="form-label mb-1">location</label>
                                                     <input
                                                         type="text"
                                                         name="location"
+                                                        id="inputLocation"
                                                         value="{{ $video->location }}"
                                                         class="form-control @error('location') is-invalid @enderror"
                                                         placeholder="location"
@@ -116,10 +121,11 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="link" class="form-label mb-1">link</label>
+                                                    <label for="inputLink" class="form-label mb-1">link</label>
                                                     <input
                                                         type="text"
                                                         name="link"
+                                                        id="inputLink"
                                                         value="{{ $video->link }}"
                                                         class="form-control @error('link') is-invalid @enderror"
                                                         placeholder="link"
@@ -130,14 +136,29 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="disabled" class="form-label mb-1">disabled</label>
+                                                    <label for="inputDescription" class="form-label mb-1">description</label>
+                                                    <textarea
+                                                        name="description"
+                                                        id="inputDescription
+                                                        "
+                                                        class="form-control"
+                                                        rows="3">{{ $video->description }}</textarea>
+                                                    @error('description')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-4 justify-end">
+                                                    <input type="hidden" name="disabled" value="0">
                                                     <input
-                                                        type="number"
+                                                        type="checkbox"
                                                         name="disabled"
-                                                        value="{{ $video->disabled }}"
-                                                        class="form-control @error('disabled') is-invalid @enderror"
-                                                        placeholder="0-not disabled, 1-disabled"
+                                                        id="inputDisabled"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ $video->disabled ? 'checked' : '' }}
                                                     >
+                                                    <label for="inputDisabled" class="form-check-label mb-1 font-semibold">disabled</label>
                                                     @error('disabled')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror

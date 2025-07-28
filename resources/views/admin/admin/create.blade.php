@@ -44,10 +44,11 @@
                                                 @csrf
 
                                                 <div class="mb-3">
-                                                    <label for="username" class="form-label mb-1">user name</label>
+                                                    <label for="inputUsername" class="form-label mb-1">user name</label>
                                                     <input
                                                         type="text"
                                                         name="username"
+                                                        id="inputUsername"
                                                         class="form-control @error('username') is-invalid @enderror"
                                                         value="{{ old('username') }}"
                                                         placeholder="user name"
@@ -59,10 +60,11 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="email" class="form-label mb-1">email</label>
+                                                    <label for="inputEmail" class="form-label mb-1">email</label>
                                                     <input
                                                         type="email"
                                                         name="email"
+                                                        id="inputEmail"
                                                         class="form-control @error('email') is-invalid @enderror"
                                                         value="{{ old('email') }}"
                                                         placeholder="email"
@@ -74,10 +76,11 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="password" class="form-label mb-1">Password</label>
+                                                    <label for="inputPassword" class="form-label mb-1">Password</label>
                                                     <input
                                                         type="password"
                                                         name="password"
+                                                        id="inputPassword"
                                                         class="form-control @error('password') is-invalid @enderror"
                                                         placeholder="Password"
                                                         required
@@ -88,16 +91,33 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="confirm_password" class="form-label mb-1">Confirm Password</label>
+                                                    <label for="inputConfirm_password" class="form-label mb-1">Confirm Password</label>
                                                     <input
                                                         type="password"
                                                         name="confirm_password"
+                                                        id="inputConfirm_password"
                                                         class="form-control @error('confirm_password') is-invalid @enderror"
                                                         placeholder="Confirm Password"
                                                         required
                                                     >
                                                     @error('confirm_password')
                                                         <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <input type="hidden" name="disabled" value="0">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="disabled"
+                                                        id="inputDisabled"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ old('disabled') ? 'checked' : '' }}
+                                                    >
+                                                    <label for="inputDisabled" class="form-check-label mb-1 font-semibold">disabled</label>
+                                                    @error('disabled')
+                                                    <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 

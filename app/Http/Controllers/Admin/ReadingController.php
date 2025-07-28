@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReadingStoreRequest;
 use App\Http\Requests\ReadingUpdateRequest;
-use App\Models\Personal\Reading;
+use App\Models\Portfolio\Reading;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 

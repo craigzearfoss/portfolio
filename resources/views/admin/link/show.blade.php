@@ -48,7 +48,7 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>disabled</strong>: {{ $link->disabled }}
+                                                <strong>disabled</strong>: {{ $link->disabled ? '<i class="fa-solid fa-check ml-2">' : '' }}
                                             </div>
                                         </div>
                                     </div>

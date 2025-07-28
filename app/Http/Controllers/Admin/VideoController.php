@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VideoStoreRequest;
 use App\Http\Requests\VideoUpdateRequest;
-use App\Models\Personal\Video;
+use App\Models\Portfolio\Video;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 

@@ -46,10 +46,11 @@
                                                 @method('PUT')
 
                                                 <div class="mb-3">
-                                                    <label for="username" class="form-label mb-1">user name</label>
+                                                    <label for="inputUsername" class="form-label mb-1">user name</label>
                                                     <input
                                                         type="text"
                                                         name="username"
+                                                        id="inputUsername"
                                                         value="{{ $admin->username }}"
                                                         class="form-control @error('username') is-invalid @enderror"
                                                         placeholder="user name"
@@ -61,10 +62,11 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="email" class="form-label mb-1">email</label>
+                                                    <label for="inputEmail" class="form-label mb-1">email</label>
                                                     <input
                                                         type="email"
                                                         name="email"
+                                                        id="inputEmail"
                                                         value="{{ $admin->email }}"
                                                         class="form-control @error('email') is-invalid @enderror"
                                                         placeholder="email"
@@ -76,15 +78,16 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="disabled" class="form-label mb-1">disabled</label>
+                                                    <input type="hidden" name="disabled" value="0">
                                                     <input
-                                                        type="number"
+                                                        type="checkbox"
                                                         name="disabled"
-                                                        value="{{ $admin->disabled }}"
-                                                        class="form-control @error('disabled') is-invalid @enderror"
-                                                        placeholder="0-not disabled, 1-disabled"
-                                                        required
+                                                        id="inputDisabled"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ $admin->disabled ? 'checked' : '' }}
                                                     >
+                                                    <label for="inputDisabled" class="form-check-label mb-1 font-semibold">disabled</label>
                                                     @error('disabled')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror

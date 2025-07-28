@@ -38,12 +38,12 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>status</strong>: {{ $user->status == 0 ? 'pending' : ($user->status == 1 ? 'pending' : $user->status) }}
+                                                <strong>status</strong>: {{ $user->status == 0 ? 'pending' : ($user->status == 1 ? 'active' : $user->status) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>disabled</strong>: {{ $user->disabled }}
+                                                <strong>disabled</strong>: {{ $user->disabled ? '<i class="fa-solid fa-check ml-2">' : '' }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">

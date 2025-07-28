@@ -54,7 +54,7 @@
                                 <td>{{ $video->location }}</td>
                                 <td>{{ $video->link }}</td>
                                 <td>{{ $video->description }}</td>
-                                <td class="text-center">{{ $video->disabled }}</td>
+                                <td class="text-center">{!! $video->disabled ? '<i class="fa-solid fa-check ml-2">' : '' !!}</td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.video.destroy', $video->id) }}" method="POST">
                                         <a class="btn btn-sm" href="{{ route('admin.video.show', $video->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>

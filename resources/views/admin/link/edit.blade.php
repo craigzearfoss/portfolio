@@ -46,10 +46,11 @@
                                                 @method('PUT')
 
                                                 <div class="mb-3">
-                                                    <label for="name" class="form-label mb-1">name</label>
+                                                    <label for="inputName" class="form-label mb-1">name</label>
                                                     <input
                                                         type="text"
                                                         name="name"
+                                                        id="inputName"
                                                         value="{{ $link->name }}"
                                                         class="form-control @error('name') is-invalid @enderror"
                                                         placeholder="name"
@@ -60,10 +61,11 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="url" class="form-label mb-1">url</label>
+                                                    <label for="inputUrl" class="form-label mb-1">url</label>
                                                     <input
                                                         type="text"
                                                         name="url"
+                                                        id="inputUrl"
                                                         value="{{ $link->url }}"
                                                         class="form-control @error('url') is-invalid @enderror"
                                                         placeholder="url"
@@ -74,10 +76,11 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="website" class="form-label mb-1">website</label>
+                                                    <label for="inputWebsite" class="form-label mb-1">website</label>
                                                     <input
                                                         type="text"
                                                         name="website"
+                                                        id="inputWebsite"
                                                         value="{{ $link->website }}"
                                                         class="form-control @error('website') is-invalid @enderror"
                                                         placeholder="website"
@@ -88,14 +91,28 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="disabled" class="form-label mb-1">disabled</label>
+                                                    <label for="inputDescription" class="form-label mb-1">description</label>
+                                                    <textarea
+                                                        name="description"
+                                                        class="form-control"
+                                                        id="inputDescription"
+                                                        rows="3">{{ $link->description }}</textarea>
+                                                    @error('description')
+                                                    <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-4">
+                                                    <input type="hidden" name="disabled" value="0">
                                                     <input
-                                                        type="number"
+                                                        type="checkbox"
                                                         name="disabled"
-                                                        value="{{ $link->disabled }}"
-                                                        class="form-control @error('disabled') is-invalid @enderror"
-                                                        placeholder="0-not disabled, 1-disabled"
+                                                        id="inputDisabled"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ $link->disabled ? 'checked' : '' }}
                                                     >
+                                                    <label for="inputDisabled" class="form-check-label mb-1 font-semibold">disabled</label>
                                                     @error('disabled')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror

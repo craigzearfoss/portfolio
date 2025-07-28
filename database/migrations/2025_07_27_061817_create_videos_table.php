@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('personal_db')->create('videos', function (Blueprint $table) {
+        Schema::connection('portfolio_db')->create('videos', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->year('year')->nullable();
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('personal_db')->dropIfExists('videos');
+        Schema::connection('portfolio_db')->dropIfExists('videos');
     }
 };

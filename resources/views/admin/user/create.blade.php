@@ -44,10 +44,11 @@
                                                 @csrf
 
                                                 <div class="mb-3">
-                                                    <label for="name" class="form-label mb-1">name</label>
+                                                    <label for="inputName" class="form-label mb-1">name</label>
                                                     <input
                                                         type="text"
                                                         name="name"
+                                                        id="inputName"
                                                         class="form-control @error('name') is-invalid @enderror"
                                                         value="{{ old('name') }}"
                                                         placeholder="name"
@@ -58,10 +59,11 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="email" class="form-label mb-1">email</label>
+                                                    <label for="inputEmail" class="form-label mb-1">email</label>
                                                     <input
                                                         type="email"
                                                         name="email"
+                                                        id="inputEmail"
                                                         class="form-control @error('email') is-invalid @enderror"
                                                         value="{{ old('email') }}"
                                                         placeholder="email"
@@ -72,10 +74,11 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="password" class="form-label mb-1">password</label>
+                                                    <label for="inputPassword" class="form-label mb-1">password</label>
                                                     <input
                                                         type="password"
                                                         name="password"
+                                                        id="inputPassword"
                                                         class="form-control @error('password') is-invalid @enderror"
                                                         placeholder="password"
                                                         required
@@ -86,10 +89,11 @@
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="confirm_password" class="form-label mb-1">confirm password</label>
+                                                    <label for="inputConfirm_password" class="form-label mb-1">confirm password</label>
                                                     <input
                                                         type="password"
                                                         name="confirm_password"
+                                                        id="inputConfirm_password"
                                                         class="form-control @error('confirm_password') is-invalid @enderror"
                                                         placeholder="confirm password"
                                                         required
@@ -101,28 +105,36 @@
 
 
                                                 <div class="mb-4">
-                                                    <label for="status" class="form-label mb-1">status</label>
-                                                    <input
-                                                        type="number"
+                                                    <label for="inputStatus" class="form-label mb-1">status</label>
+                                                    <select
                                                         name="status"
-                                                        value="{{ old('status') ?? '1' }}"
-                                                        class="form-control @error('status') is-invalid @enderror"
-                                                        placeholder="0-pending, 1-active"
+                                                        id="inputStatus"
+                                                        class="form-select"
+                                                        aria-label="Default select example"
                                                     >
+                                                        @foreach([0=>'pending', 1=>'active'] as $value=>$label)
+                                                            <option
+                                                                value="{{ $value }}"
+                                                                {{ $value == old('status') ? 'selected' : '' }}
+                                                            >{{ $label }}</option>
+                                                        @endforeach
+                                                    </select>
                                                     @error('status')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
                                                 <div class="mb-4">
-                                                    <label for="disabled" class="form-label mb-1">disabled</label>
+                                                    <input type="hidden" name="disabled" value="0">
                                                     <input
-                                                        type="number"
+                                                        type="checkbox"
                                                         name="disabled"
-                                                        value="{{ old('disabled') ?? '0' }}"
-                                                        class="form-control @error('disabled') is-invalid @enderror"
-                                                        placeholder="0-not disabled, 1-disabled"
+                                                        id="inputDisabled"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ old('disabled') ? 'checked' : '' }}
                                                     >
+                                                    <label for="inputDisabled" class="form-check-label mb-1 font-semibold">disabled</label>
                                                     @error('disabled')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
