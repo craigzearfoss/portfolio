@@ -86,7 +86,6 @@
             <span>© {{ config('app.copyright') }} {{ config('app.owner') }}. All rights reserved.</span>
         @endif
     </div>
-
 </div>
 
 </body>
