@@ -53,14 +53,14 @@
                                                         id="inputName"
                                                         value="{{ $link->name }}"
                                                         class="form-control @error('name') is-invalid @enderror"
-                                                        placeholder="name"
+                                                        placeholder=""
                                                     >
                                                     @error('name')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <label for="inputUrl" class="form-label mb-1">url</label>
                                                     <input
                                                         type="text"
@@ -68,14 +68,14 @@
                                                         id="inputUrl"
                                                         value="{{ $link->url }}"
                                                         class="form-control @error('url') is-invalid @enderror"
-                                                        placeholder="url"
+                                                        placeholder=""
                                                     >
                                                     @error('url')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <label for="inputWebsite" class="form-label mb-1">website</label>
                                                     <input
                                                         type="text"
@@ -83,26 +83,28 @@
                                                         id="inputWebsite"
                                                         value="{{ $link->website }}"
                                                         class="form-control @error('website') is-invalid @enderror"
-                                                        placeholder="website"
+                                                        placeholder=""
                                                     >
                                                     @error('website')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <label for="inputDescription" class="form-label mb-1">description</label>
                                                     <textarea
                                                         name="description"
                                                         class="form-control"
                                                         id="inputDescription"
-                                                        rows="3">{{ $link->description }}</textarea>
+                                                        rows="3"
+                                                        placeholder=""
+                                                    >{{ $link->description }}</textarea>
                                                     @error('description')
-                                                    <div class="form-text text-danger">{{ $message }}</div>
+                                                        <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <input type="hidden" name="disabled" value="0">
                                                     <input
                                                         type="checkbox"
@@ -118,7 +120,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <button type="submit" class="btn btn-sm btn-solid btn-sm"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                                                <button type="submit" class="btn btn-sm btn-solid"><i class="fa-solid fa-floppy-disk"></i> Update</button>
 
                                             </form>
 

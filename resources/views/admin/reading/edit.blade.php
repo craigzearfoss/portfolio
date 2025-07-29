@@ -53,7 +53,7 @@
                                                         id="inputTitle"
                                                         value="{{ $reading->title }}"
                                                         class="form-control @error('title') is-invalid @enderror"
-                                                        placeholder="title"
+                                                        placeholder=""
                                                         required
                                                     >
                                                     @error('title')
@@ -69,14 +69,14 @@
                                                         id="inputAuthor"
                                                         value="{{ $reading->author }}"
                                                         class="form-control @error('author') is-invalid @enderror"
-                                                        placeholder="author"
+                                                        placeholder=""
                                                     >
                                                     @error('author')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <input type="hidden" name="paper" value="0">
                                                     <input
                                                         type="checkbox"
@@ -108,7 +108,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <input type="hidden" name="disabled" value="0">
                                                     <input
                                                         type="checkbox"
@@ -124,7 +124,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <button type="submit" class="btn btn-sm btn-solid btn-sm"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                                                <button type="submit" class="btn btn-sm btn-solid"><i class="fa-solid fa-floppy-disk"></i> Update</button>
 
                                             </form>
 

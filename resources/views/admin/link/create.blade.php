@@ -49,9 +49,9 @@
                                                         type="text"
                                                         name="name"
                                                         id="inputName"
-                                                        class="form-control @error('name') is-invalid @enderror"
                                                         value="{{ old('name') }}"
-                                                        placeholder="name"
+                                                        class="form-control @error('name') is-invalid @enderror"
+                                                        placeholder=""
                                                     >
                                                     @error('name')
                                                         <div class="form-text text-danger">{{ $message }}</div>
@@ -64,9 +64,9 @@
                                                         type="text"
                                                         name="url"
                                                         id="inputUrl"
-                                                        class="form-control @error('url') is-invalid @enderror"
                                                         value="{{ old('url') }}"
-                                                        placeholder="url"
+                                                        class="form-control @error('url') is-invalid @enderror"
+                                                        placeholder=""
                                                         required
                                                     >
                                                     @error('url')
@@ -80,9 +80,9 @@
                                                         type="text"
                                                         name="website"
                                                         id="inputWebsite"
-                                                        class="form-control @error('website') is-invalid @enderror"
                                                         value="{{ old('website') }}"
-                                                        placeholder="website"
+                                                        class="form-control @error('website') is-invalid @enderror"
+                                                        placeholder=""
                                                     >
                                                     @error('website')
                                                         <div class="form-text text-danger">{{ $message }}</div>
@@ -93,15 +93,17 @@
                                                     <label for="inputDescription" class="form-label mb-1">description</label>
                                                     <textarea
                                                         name="description"
-                                                        id="inputDescription"
                                                         class="form-control"
-                                                        rows="3">{{ old('description') }}</textarea>
+                                                        id="inputDescription"
+                                                        rows="3"
+                                                        placeholder=""
+                                                    >{{ old('description') }}</textarea>
                                                     @error('description')
-                                                    <div class="form-text text-danger">{{ $message }}</div>
+                                                        <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <input type="hidden" name="disabled" value="0">
                                                     <input
                                                         type="checkbox"

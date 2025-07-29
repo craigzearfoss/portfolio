@@ -53,14 +53,14 @@
                                                         id="inputName"
                                                         value="{{ $user->name }}"
                                                         class="form-control @error('name') is-invalid @enderror"
-                                                        placeholder="name"
+                                                        placeholder=""
                                                     >
                                                     @error('name')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <label for="inputEmail" class="form-label mb-1">email</label>
                                                     <input
                                                         type="email"
@@ -68,20 +68,20 @@
                                                         id="inputEmail"
                                                         value="{{ $user->email }}"
                                                         class="form-control @error('email') is-invalid @enderror"
-                                                        placeholder="email"
+                                                        placeholder=""
                                                     >
                                                     @error('email')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <label for="inputStatus" class="form-label mb-1">status</label>
                                                     <select
                                                         name="status"
                                                         id="inputStatus"
                                                         class="form-select"
-                                                        aria-label="Default select example"
+                                                        required
                                                     >
                                                         @foreach([0=>'pending', 1=>'active'] as $value=>$label)
                                                             <option
@@ -95,7 +95,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <input type="hidden" name="disabled" value="0">
                                                     <input
                                                         type="checkbox"
@@ -111,7 +111,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <button type="submit" class="btn btn-sm btn-solid btn-sm"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                                                <button type="submit" class="btn btn-sm btn-solid"><i class="fa-solid fa-floppy-disk"></i> Update</button>
 
                                             </form>
 

@@ -45,7 +45,9 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $link->name }}</td>
-                                <td>{{ $link->url }}</td>
+                                <td>
+                                    <a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a>
+                                </td>
                                 <td>{{ $link->website }}</td>
                                 <td>{{ $link->description }}</td>
                                 <td class="text-center">
@@ -65,7 +67,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">There are no links.</td>
+                                <td colspan="7">There are no links.</td>
                             </tr>
                         @endforelse
 

@@ -53,14 +53,14 @@
                                                         id="inputTitle"
                                                         value="{{ $video->title }}"
                                                         class="form-control @error('title') is-invalid @enderror"
-                                                        placeholder="title"
+                                                        placeholder=""
                                                     >
                                                     @error('title')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <label for="inputYear" class="form-label mb-1">year</label>
                                                     <input
                                                         type="number"
@@ -68,14 +68,14 @@
                                                         id="inputYear"
                                                         value="{{ $video->year }}"
                                                         class="form-control @error('year') is-invalid @enderror"
-                                                        placeholder="year"
+                                                        placeholder=""
                                                     >
                                                     @error('year')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <label for="inputCompany" class="form-label mb-1">company</label>
                                                     <input
                                                         type="text"
@@ -83,14 +83,14 @@
                                                         id="inputCompany"
                                                         value="{{ $video->company }}"
                                                         class="form-control @error('company') is-invalid @enderror"
-                                                        placeholder="company"
+                                                        placeholder=""
                                                     >
                                                     @error('company')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <label for="inputCredit" class="form-label mb-1">credit</label>
                                                     <input
                                                         type="text"
@@ -98,14 +98,14 @@
                                                         id="inputCredit"
                                                         value="{{ $video->credit }}"
                                                         class="form-control @error('credit') is-invalid @enderror"
-                                                        placeholder="credit"
+                                                        placeholder=""
                                                     >
                                                     @error('credit')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <label for="inputLocation" class="form-label mb-1">location</label>
                                                     <input
                                                         type="text"
@@ -113,14 +113,14 @@
                                                         id="inputLocation"
                                                         value="{{ $video->location }}"
                                                         class="form-control @error('location') is-invalid @enderror"
-                                                        placeholder="location"
+                                                        placeholder=""
                                                     >
                                                     @error('location')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <label for="inputLink" class="form-label mb-1">link</label>
                                                     <input
                                                         type="text"
@@ -128,27 +128,27 @@
                                                         id="inputLink"
                                                         value="{{ $video->link }}"
                                                         class="form-control @error('link') is-invalid @enderror"
-                                                        placeholder="link"
+                                                        placeholder=""
                                                     >
                                                     @error('link')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <label for="inputDescription" class="form-label mb-1">description</label>
                                                     <textarea
                                                         name="description"
-                                                        id="inputDescription
-                                                        "
+                                                        id="inputDescription"
                                                         class="form-control"
-                                                        rows="3">{{ $video->description }}</textarea>
+                                                        rows="3"
+                                                        placeholder="">{{ $video->description }}</textarea>
                                                     @error('description')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4 justify-end">
+                                                <div class="mb-3">
                                                     <input type="hidden" name="disabled" value="0">
                                                     <input
                                                         type="checkbox"
@@ -164,7 +164,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <button type="submit" class="btn btn-sm btn-solid btn-sm"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                                                <button type="submit" class="btn btn-sm btn-solid"><i class="fa-solid fa-floppy-disk"></i> Update</button>
 
                                             </form>
 

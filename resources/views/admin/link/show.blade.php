@@ -33,7 +33,7 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>year</strong>: {{ $link->url }}
+                                                <strong>year</strong>: <a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">

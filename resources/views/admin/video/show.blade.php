@@ -48,7 +48,7 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>link</strong>: {{ $video->link }}
+                                                <strong>link</strong>: <a href="{{ $video->link }}" target="_blank">{{ $video->link }}</a>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">

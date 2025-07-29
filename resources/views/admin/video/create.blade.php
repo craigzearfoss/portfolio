@@ -49,9 +49,9 @@
                                                         type="text"
                                                         name="title"
                                                         id="inputTitle"
-                                                        class="form-control @error('title') is-invalid @enderror"
                                                         value="{{ old('title') }}"
-                                                        placeholder="title"
+                                                        class="form-control @error('title') is-invalid @enderror"
+                                                        placeholder=""
                                                         required
                                                     >
                                                     @error('title')
@@ -65,9 +65,9 @@
                                                         type="number"
                                                         name="year"
                                                         id="inputYear"
-                                                        class="form-control @error('year') is-invalid @enderror"
                                                         value="{{ old('year') }}"
-                                                        placeholder="year"
+                                                        class="form-control @error('year') is-invalid @enderror"
+                                                        placeholder=""
                                                     >
                                                     @error('year')
                                                         <div class="form-text text-danger">{{ $message }}</div>
@@ -80,9 +80,9 @@
                                                         type="text"
                                                         name="company"
                                                         id="inputCompany"
-                                                        class="form-control @error('company') is-invalid @enderror"
                                                         value="{{ old('company') }}"
-                                                        placeholder="company"
+                                                        class="form-control @error('company') is-invalid @enderror"
+                                                        placeholder=""
                                                     >
                                                     @error('company')
                                                         <div class="form-text text-danger">{{ $message }}</div>
@@ -95,9 +95,9 @@
                                                         type="text"
                                                         name="credit"
                                                         id="inputCredit"
-                                                        class="form-control @error('credit') is-invalid @enderror"
                                                         value="{{ old('credit') }}"
-                                                        placeholder="credit"
+                                                        class="form-control @error('credit') is-invalid @enderror"
+                                                        placeholder=""
                                                     >
                                                     @error('credit')
                                                         <div class="form-text text-danger">{{ $message }}</div>
@@ -110,9 +110,9 @@
                                                         type="text"
                                                         name="location"
                                                         id="inputLocation"
-                                                        class="form-control @error('location') is-invalid @enderror"
                                                         value="{{ old('location') }}"
-                                                        placeholder="location"
+                                                        class="form-control @error('location') is-invalid @enderror"
+                                                        placeholder=""
                                                     >
                                                     @error('location')
                                                         <div class="form-text text-danger">{{ $message }}</div>
@@ -125,9 +125,9 @@
                                                         type="text"
                                                         name="link"
                                                         id="inputLink"
-                                                        class="form-control @error('link') is-invalid @enderror"
                                                         value="{{ old('link') }}"
-                                                        placeholder="link"
+                                                        class="form-control @error('link') is-invalid @enderror"
+                                                        placeholder=""
                                                     >
                                                     @error('link')
                                                         <div class="form-text text-danger">{{ $message }}</div>
@@ -140,13 +140,14 @@
                                                         name="description"
                                                         id="inputDescription"
                                                         class="form-control"
-                                                        rows="3">{{ old('description') }}</textarea>
+                                                        rows="3"
+                                                        placeholder="">{{ old('description') }}</textarea>
                                                     @error('description')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <input type="hidden" name="disabled" value="0">
                                                     <input
                                                         type="checkbox"

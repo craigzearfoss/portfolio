@@ -65,7 +65,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">There are no readings.</td>
+                                <td colspan="7">There are no readings.</td>
                             </tr>
                         @endforelse
 

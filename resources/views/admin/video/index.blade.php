@@ -52,7 +52,9 @@
                                 <td>{{ $video->company }}</td>
                                 <td>{{ $video->credit }}</td>
                                 <td>{{ $video->location }}</td>
-                                <td>{{ $video->link }}</td>
+                                <td>
+                                    <a href="{{ $video->link }}" target="_blank">{{ $video->link }}</a>
+                                </td>
                                 <td>{{ $video->description }}</td>
                                 <td class="text-center">
                                     @if ($video->disabled)
@@ -71,7 +73,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">There are no videos.</td>
+                                <td colspan="10">There are no videos.</td>
                             </tr>
                         @endforelse
 

@@ -49,9 +49,9 @@
                                                         type="text"
                                                         name="name"
                                                         id="inputName"
-                                                        class="form-control @error('name') is-invalid @enderror"
                                                         value="{{ old('name') }}"
-                                                        placeholder="name"
+                                                        class="form-control @error('name') is-invalid @enderror"
+                                                        placeholder=""
                                                     >
                                                     @error('name')
                                                         <div class="form-text text-danger">{{ $message }}</div>
@@ -64,9 +64,9 @@
                                                         type="email"
                                                         name="email"
                                                         id="inputEmail"
-                                                        class="form-control @error('email') is-invalid @enderror"
                                                         value="{{ old('email') }}"
-                                                        placeholder="email"
+                                                        class="form-control @error('email') is-invalid @enderror"
+                                                        placeholder=""
                                                     >
                                                     @error('email')
                                                         <div class="form-text text-danger">{{ $message }}</div>
@@ -80,7 +80,7 @@
                                                         name="password"
                                                         id="inputPassword"
                                                         class="form-control @error('password') is-invalid @enderror"
-                                                        placeholder="password"
+                                                        placeholder="Password"
                                                         required
                                                     >
                                                     @error('password')
@@ -95,7 +95,7 @@
                                                         name="confirm_password"
                                                         id="inputConfirm_password"
                                                         class="form-control @error('confirm_password') is-invalid @enderror"
-                                                        placeholder="confirm password"
+                                                        placeholder="Confirm Password"
                                                         required
                                                     >
                                                     @error('confirm_password')
@@ -104,13 +104,13 @@
                                                 </div>
 
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <label for="inputStatus" class="form-label mb-1">status</label>
                                                     <select
                                                         name="status"
                                                         id="inputStatus"
                                                         class="form-select"
-                                                        aria-label="Default select example"
+                                                        required
                                                     >
                                                         @foreach([0=>'pending', 1=>'active'] as $value=>$label)
                                                             <option
@@ -124,7 +124,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <input type="hidden" name="disabled" value="0">
                                                     <input
                                                         type="checkbox"

@@ -20,31 +20,6 @@
             <div class="menu-group">
                 <ul>
                     <li class="menu-collapse">
-                        <a href="{{route('admin.admin.index')}}">
-                            <div class="menu-item">
-                                <span class="text-xl opacity-50">
-                                    <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                    </svg>
-                                </span>
-                                <span>Admins</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-collapse">
-                        <a href="{{route('admin.user.index')}}">
-                            <div class="menu-item">
-                                <span class="text-xl opacity-50">
-                                    <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                    </svg>
-                                </span>
-                                <span>Users</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
-                    <li class="menu-collapse">
                         <a href="{{route('admin.link.index')}}">
                             <div class="menu-item">
                                 <span class="text-xl opacity-50">
@@ -53,6 +28,18 @@
                                     </svg>
                                 </span>
                                 <span>Links</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
+                        <a href="{{route('admin.project.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </span>
+                                <span>Projects</span>
                             </div>
                         </a>
                     </li>
@@ -80,6 +67,95 @@
                             </div>
                         </a>
                     </li>
+
+                    <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
+                    <li class="menu-collapse">
+                        <a href="{{route('admin.application.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </span>
+                                <span>Applications</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
+                        <a href="{{route('admin.certificate.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </span>
+                                <span>Certificates</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
+                        <a href="{{route('admin.company.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </span>
+                                <span>Companies</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
+                        <a href="{{route('admin.contact.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </span>
+                                <span>Contacts</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
+                        <a href="{{route('admin.resume.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </span>
+                                <span>Resumes</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
+                    <li class="menu-collapse">
+                        <a href="{{route('admin.admin.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </span>
+                                <span>Admins</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
+                        <a href="{{route('admin.user.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </span>
+                                <span>Users</span>
+                            </div>
+                        </a>
+                    </li>
+
                     <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
                     <li class="menu-collapse">
                         <a href="#">

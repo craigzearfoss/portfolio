@@ -49,9 +49,9 @@
                                                         type="text"
                                                         name="username"
                                                         id="inputUsername"
-                                                        class="form-control @error('username') is-invalid @enderror"
                                                         value="{{ old('username') }}"
-                                                        placeholder="user name"
+                                                        class="form-control @error('username') is-invalid @enderror"
+                                                        placeholder=""
                                                         required
                                                     >
                                                     @error('username')
@@ -65,9 +65,9 @@
                                                         type="email"
                                                         name="email"
                                                         id="inputEmail"
-                                                        class="form-control @error('email') is-invalid @enderror"
                                                         value="{{ old('email') }}"
-                                                        placeholder="email"
+                                                        class="form-control @error('email') is-invalid @enderror"
+                                                        placeholder=""
                                                         required
                                                     >
                                                     @error('email')
@@ -90,7 +90,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <label for="inputConfirm_password" class="form-label mb-1">Confirm Password</label>
                                                     <input
                                                         type="password"
@@ -105,7 +105,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <input type="hidden" name="disabled" value="0">
                                                     <input
                                                         type="checkbox"
@@ -117,7 +117,7 @@
                                                     >
                                                     <label for="inputDisabled" class="form-check-label mb-1 font-semibold">disabled</label>
                                                     @error('disabled')
-                                                    <div class="form-text text-danger">{{ $message }}</div>
+                                                        <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 

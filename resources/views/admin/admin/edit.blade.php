@@ -53,7 +53,7 @@
                                                         id="inputUsername"
                                                         value="{{ $admin->username }}"
                                                         class="form-control @error('username') is-invalid @enderror"
-                                                        placeholder="user name"
+                                                        placeholder=""
                                                         required
                                                     >
                                                     @error('username')
@@ -61,7 +61,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <label for="inputEmail" class="form-label mb-1">email</label>
                                                     <input
                                                         type="email"
@@ -69,7 +69,7 @@
                                                         id="inputEmail"
                                                         value="{{ $admin->email }}"
                                                         class="form-control @error('email') is-invalid @enderror"
-                                                        placeholder="email"
+                                                        placeholder=""
                                                         required
                                                     >
                                                     @error('email')
@@ -77,7 +77,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <input type="hidden" name="disabled" value="0">
                                                     <input
                                                         type="checkbox"

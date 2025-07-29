@@ -49,9 +49,9 @@
                                                         type="text"
                                                         name="title"
                                                         id="inputTitle"
-                                                        class="form-control @error('title') is-invalid @enderror"
                                                         value="{{ old('title') }}"
-                                                        placeholder="title"
+                                                        class="form-control @error('title') is-invalid @enderror"
+                                                        placeholder=""
                                                         required
                                                     >
                                                     @error('title')
@@ -60,21 +60,21 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="inputEmail" class="form-label mb-1">author</label>
+                                                    <label for="inputAuthor" class="form-label mb-1">author</label>
                                                     <input
                                                         type="text"
                                                         name="author"
-                                                        id="inputEmail"
-                                                        class="form-control @error('author') is-invalid @enderror"
+                                                        id="inputAuthor"
                                                         value="{{ old('author') }}"
-                                                        placeholder="author"
+                                                        class="form-control @error('author') is-invalid @enderror"
+                                                        placeholder=""
                                                     >
                                                     @error('author')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <input type="hidden" name="paper" value="0">
                                                     <input
                                                         type="checkbox"
@@ -106,7 +106,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-4">
+                                                <div class="mb-3">
                                                     <input type="hidden" name="disabled" value="0">
                                                     <input
                                                         type="checkbox"
