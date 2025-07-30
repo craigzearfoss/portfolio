@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::connection('career_db')->create('resumes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->date('date')->nullable();
             $table->string('link')->nullable();
             $table->string('alt_link')->nullable();
             $table->text('description')->nullable();

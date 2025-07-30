@@ -62,6 +62,66 @@
                                                 </div>
 
                                                 <div class="mb-3">
+                                                    <label for="inputOrganization" class="form-label mb-1">organization</label>
+                                                    <input
+                                                        type="text"
+                                                        name="organization"
+                                                        id="inputOrganization"
+                                                        value="{{ $certificate->organization }}"
+                                                        class="form-control @error('organization') is-invalid @enderror"
+                                                        placeholder=""
+                                                    >
+                                                    @error('organization')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="inputYear" class="form-label mb-1">year</label>
+                                                    <input
+                                                        type="text"
+                                                        name="year"
+                                                        id="inputYear"
+                                                        value="{{ $certificate->year }}"
+                                                        class="form-control @error('year') is-invalid @enderror"
+                                                        placeholder=""
+                                                    >
+                                                    @error('year')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="receiveDate" class="form-label mb-1">receive date</label>
+                                                    <input
+                                                        type="date"
+                                                        name="receive"
+                                                        id="receiveDate"
+                                                        value="{{ $certificate->receive }}"
+                                                        class="form-control @error('receive') is-invalid @enderror"
+                                                        placeholder=""
+                                                    >
+                                                    @error('receive')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="expireDate" class="form-label mb-1">expire date</label>
+                                                    <input
+                                                        type="date"
+                                                        name="expire"
+                                                        id="expireDate"
+                                                        value="{{ $certificate->expire }}"
+                                                        class="form-control @error('expire') is-invalid @enderror"
+                                                        placeholder=""
+                                                    >
+                                                    @error('expire')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
                                                     <input type="hidden" name="professional" value="0">
                                                     <input
                                                         type="checkbox"
@@ -94,21 +154,6 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="inputRepository" class="form-label mb-1">repository</label>
-                                                    <input
-                                                        type="text"
-                                                        name="repository"
-                                                        id="inputRepository"
-                                                        value="{{ $certificate->repository }}"
-                                                        class="form-control @error('repository') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('repository')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="mb-3">
                                                     <label for="inputLink" class="form-label mb-1">link</label>
                                                     <input
                                                         type="text"
@@ -125,18 +170,17 @@
 
                                                 <div class="mb-3">
                                                     <label for="inputDescription" class="form-label mb-1">description</label>
-                                                    <input
-                                                        type="text"
+                                                    <textarea
                                                         name="description"
+                                                        class="form-control"
                                                         id="inputDescription"
-                                                        value="{{ $certificate->description }}"
-                                                        class="form-control @error('description') is-invalid @enderror"
+                                                        rows="3"
                                                         placeholder=""
-                                                    >
-                                                    @error('description')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
+                                                    >{{ $certificate->description }}</textarea>
                                                 </div>
+                                                @error('description')
+                                                    <div class="form-text text-danger">{{ $message }}</div>
+                                                @enderror
 
                                                 <div class="mb-3">
                                                     <input type="hidden" name="disabled" value="0">

@@ -14,13 +14,24 @@ return new class extends Migration
         Schema::connection('career_db')->create('applications', function (Blueprint $table) {
             $table->id();
             $table->string('role');
+            $table->tinyInteger('rating')->default(0);
+            $table->tinyInteger('active')->default(1);
+            $table->date('post_date')->nullable();
             $table->date('apply_date')->nullable();
+            $table->date('close_date')->nullable();
             $table->string('compensation')->nullable();
             $table->string('duration')->nullable();
-            $table->tinyInteger('type')->default(0)->comment('0-onsite,1-remote,2-hybrid');
-            $table->string('location')->nullable();
+            $table->tinyInteger('type')->default(0)->comment('0-permanent,1-contract,2-contract to hire');
+            $table->tinyInteger('office')->default(0)->comment('0-onsite,1-remote,2-hybrid');
+            $table->string('city')->nullable();
+            $table->string('state', 20)->nullable();
+            $table->integer('bonus')->default(0);
+            $table->tinyInteger('w2')->default(0);
+            $table->tinyInteger('relocation')->default(0);
+            $table->tinyInteger('benefits')->default(0);
+            $table->tinyInteger('vacation')->default(0);
+            $table->tinyInteger('health')->default(0);
             $table->string('source')->nullable();
-            $table->tinyInteger('rating')->default(0);
             $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();

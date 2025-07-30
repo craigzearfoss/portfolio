@@ -32,67 +32,42 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>street</strong>: {{ $contact->street }}
+                                                <strong>street</strong>: {{ $contact->street }}@if ($contact->street2), {{ $contact->street2 }}@endif
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>street 2</strong>: {{ $contact->street2 }}
+                                                <strong>location</strong>:
+                                                @if ($contact->city)
+                                                    {{ $contact->city }}@if ($contact->state), {{ $contact->state }}@endif
+                                                @else
+                                                    {{ $contact->state }}
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>city</strong>: {{ $contact->city }}
+                                                <strong>zip</strong>: {{ $contact->zip }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>state</strong>: {{ $contact->state }}
+                                                <strong>{{ $contact->phone_label ?? 'phone '}}</strong>: {{ $contact->phone }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>country</strong>: {{ $contact->country }}
+                                                <strong>{{ $contact->alt_phone_label ?? 'alt phone '}}</strong>: {{ $contact->alt_phone }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>phone</strong>: {{ $contact->phone }}
+                                                <strong>{{ $contact->email_label ?? 'email' }}</strong>: {{ $contact->email }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>phone label</strong>: {{ $contact->phone_label }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>alt phone</strong>: {{ $contact->alt_phone }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>alt phone label</strong>: {{ $contact->alt_phone_label }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>email</strong>: {{ $contact->email }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>email label</strong>: {{ $contact->email_label }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>alt email</strong>: {{ $contact->alt_email }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>alt email label</strong>: {{ $contact->alt_email_label }}
+                                                <strong>{{ $contact->alt_email_label ?? 'alt_email' }}</strong>: {{ $contact->alt_email }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -102,7 +77,7 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>wdescription</strong>: {{ $contact->description }}
+                                                <strong>description</strong>: {{ $contact->description }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">

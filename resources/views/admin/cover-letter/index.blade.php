@@ -29,8 +29,10 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th>no.</th>
+                            <th></th>
                             <th>name</th>
+                            <th>recipient(s)</th>
+                            <th>date</th>
                             <th>link</th>
                             <th>description</th>
                             <th class="text-center">primary</th>
@@ -45,6 +47,8 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $coverLetter->name }}</td>
+                                <td>{{ $coverLetter->recipient }}</td>
+                                <td>{{ $coverLetter->date }}</td>
                                 <td><a href="{{ $coverLetter->link }}" target="_blank">{{ $coverLetter->link }}</a></td>
                                 <td>{{ $coverLetter->description }}</td>
                                 <td class="text-center">
@@ -69,7 +73,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">There are no cover letters.</td>
+                                <td colspan="9">There are no cover letters.</td>
                             </tr>
                         @endforelse
 

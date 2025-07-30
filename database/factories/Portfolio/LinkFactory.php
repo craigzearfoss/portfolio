@@ -18,10 +18,13 @@ class LinkFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'        => fake()->sentence(),
-            'url'         => fake()->url(),
-            'website'     => fake()-> company(),
-            'description' => fake()->text(200),
+            'name'         => fake()->sentence(6),
+            'professional' => fake()->numberBetween(0, 1),
+            'personal'     => fake()->numberBetween(0, 1),
+            'url'          => fake()->url(),
+            'website'      => fake()->domainName(),
+            'description'  => fake()->text(200),
+            'disabled'     => fake()->numberBetween(0, 1),
         ];
     }
 }

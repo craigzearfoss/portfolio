@@ -94,6 +94,21 @@
                                                 </div>
 
                                                 <div class="mb-3">
+                                                    <label for="inputYear" class="form-label mb-1">year</label>
+                                                    <input
+                                                        type="number"
+                                                        name="year"
+                                                        id="inputYear"
+                                                        value="{{ $project->year }}"
+                                                        class="form-control @error('year') is-invalid @enderror"
+                                                        placeholder=""
+                                                    >
+                                                    @error('year')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
                                                     <label for="inputRepository" class="form-label mb-1">repository</label>
                                                     <input
                                                         type="text"

@@ -29,10 +29,11 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th>no.</th>
+                            <th></th>
                             <th>name</th>
                             <th>professional</th>
                             <th>personal</th>
+                            <th>year</th>
                             <th>repository</th>
                             <th>description</th>
                             <th class="text-center">disabled</th>
@@ -56,6 +57,7 @@
                                         <i class="fa-solid fa-check ml-2"></i>
                                     @endif
                                 </td>
+                                <td>{{ $project->year }}</td>
                                 <td>{{ $project->repository }}</td>
                                 <td>{{ $project->description }}</td>
                                 <td class="text-center">
@@ -75,7 +77,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8">There are no projects.</td>
+                                <td colspan="9">There are no projects.</td>
                             </tr>
                         @endforelse
 

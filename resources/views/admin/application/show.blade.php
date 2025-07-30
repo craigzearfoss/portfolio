@@ -32,7 +32,33 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>apply_date</strong>: {{ $application->apply_date }}
+                                                <strong>rating</strong>:
+                                                @for ($star=1; $star<$application->rating; $star++)
+                                                    <i class="fa-solid fa-star"></i>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>active</strong>:
+                                                @if ($application->active)
+                                                    <i class="fa-solid fa-check ml-2"></i>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>post date</strong>: {{ $application->post_date }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>apply date</strong>: {{ $application->apply_date }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>close date</strong>: {{ $application->close_date }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -48,22 +74,73 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>type</strong>:
-                                                {{ $application->type == 0 ? 'onsite' : ($application->type == 1 ? 'remote' : ($application->type == 2 ? 'hybrid' : '?')) }}
+                                                {{ $application->type == 0 ? 'permanent' : ($application->type == 1 ? 'contract' : ($application->type == 2 ? 'contract to hire' : '?')) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>location</strong>: {{ $application->location }}
+                                                <strong>office</strong>:
+                                                {{ $application->office == 0 ? 'onsite' : ($application->office == 1 ? 'remote' : ($application->office == 2 ? 'hybrid' : '?')) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>location</strong>:
+                                                @if ($application->city)
+                                                    {{ $application->city }}@if ($application->state), {{ $application->state }}@endif
+                                                @else
+                                                    {{ $application->state }}
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>bonus</strong>: ${{ $application->bonus }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>w2</strong>:
+                                                @if ($application->w2)
+                                                    <i class="fa-solid fa-check ml-2"></i>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>relocation</strong>:
+                                                @if ($application->relocation)
+                                                    <i class="fa-solid fa-check ml-2"></i>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>benefits</strong>:
+                                                @if ($application->benefits)
+                                                    <i class="fa-solid fa-check ml-2"></i>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>vacation</strong>:
+                                                @if ($application->vacation)
+                                                    <i class="fa-solid fa-check ml-2"></i>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>health</strong>:
+                                                @if ($application->health)
+                                                    <i class="fa-solid fa-check ml-2"></i>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>source</strong>: {{ $application->source }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>rating</strong>: {{ $application->rating }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">

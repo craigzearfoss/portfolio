@@ -44,17 +44,65 @@
                                                 @csrf
 
                                                 <div class="mb-3">
-                                                    <label for="inputTitle" class="form-label mb-1">title</label>
+                                                    <label for="inputName" class="form-label mb-1">name</label>
                                                     <input
                                                         type="text"
-                                                        name="title"
-                                                        id="inputTitle"
-                                                        value="{{ old('title') }}"
-                                                        class="form-control @error('title') is-invalid @enderror"
+                                                        name="name"
+                                                        id="inputName"
+                                                        value="{{ old('name') }}"
+                                                        class="form-control @error('name') is-invalid @enderror"
                                                         placeholder=""
                                                         required
                                                     >
-                                                    @error('title')
+                                                    @error('name')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+
+                                                <div class="mb-3">
+                                                    <input type="hidden" name="professional" value="0">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="professional"
+                                                        id="inputProfessional"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ old('professional') ? 'checked' : '' }}
+                                                    >
+                                                    <label for="inputProfessional" class="form-check-label mb-1 font-semibold">professional</label>
+                                                    @error('professional')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <input type="hidden" name="personal" value="0">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="personal"
+                                                        id="inputPersonal"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ old('personal') ? 'checked' : '' }}
+                                                    >
+                                                    <label for="inputPersonal" class="form-check-label mb-1 font-semibold">personal</label>
+                                                    @error('personal')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="inputDate" class="form-label mb-1">date</label>
+                                                    <input
+                                                        type="date"
+                                                        name="date"
+                                                        id="inputDate"
+                                                        value="{{ old('date') }}"
+                                                        class="form-control @error('date') is-invalid @enderror"
+                                                        placeholder=""
+                                                    >
+                                                    @error('date')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>

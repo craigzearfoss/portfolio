@@ -23,6 +23,7 @@ class Contact extends Model
      */
     protected $fillable = [
         'name',
+        'title',
         'street',
         'street2',
         'city',

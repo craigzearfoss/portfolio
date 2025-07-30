@@ -23,8 +23,9 @@ class Resume extends Model
      */
     protected $fillable = [
         'name',
+        'date',
         'link',
-        'alt_title',
+        'alt_link',
         'description',
         'primary',
         'public',

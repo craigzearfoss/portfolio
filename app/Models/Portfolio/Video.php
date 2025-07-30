@@ -20,7 +20,10 @@ class Video extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'title',
+        'name',
+        'professional',
+        'personal',
+        'date',
         'year',
         'company',
         'credit',

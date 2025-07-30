@@ -32,6 +32,16 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
+                                                <strong>recipient(s)</strong>: {{ $coverLetter->recipient }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>date</strong>: {{ $coverLetter->date }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
                                                 <strong>link</strong>: <a href="{{ $coverLetter->link }}">{{ $coverLetter->link }}</a>
                                             </div>
                                         </div>

@@ -28,12 +28,28 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>title</strong>: {{ $link->name }}
+                                                <strong>name</strong>: {{ $link->name }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>year</strong>: <a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a>
+                                                <strong>professional</strong>:
+                                                @if ($link->professional)
+                                                    <i class="fa-solid fa-check ml-2"></i>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>personal</strong>:
+                                                @if ($link->personal)
+                                                    <i class="fa-solid fa-check ml-2"></i>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>url</strong>: <a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">

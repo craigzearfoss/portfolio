@@ -32,6 +32,11 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
+                                                <strong>date</strong>: {{ $resume->date }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
                                                 <strong>link</strong>: <a href="{{ $resume->link }}" target="_blank">{{ $resume->link }}</a>
                                             </div>
                                         </div>

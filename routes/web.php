@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\Admin\AdminController as AdminAdminController;
 use App\Http\Controllers\Admin\ApplicationController as AdminApplicationController;
-use App\Http\Controllers\Admin\CompanyController as AdminCompanyController;
 use App\Http\Controllers\Admin\CertificateController as AdminCertificateController;
+use App\Http\Controllers\Admin\CommunicationController as AdminCommunicationController;
+use App\Http\Controllers\Admin\CompanyController as AdminCompanyController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\CoverLetterController as AdminCoverLetterController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\LinkController as AdminLinkController;
+use App\Http\Controllers\Admin\NoteController as AdminNoteController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Admin\ReadingController as AdminReadingController;
 use App\Http\Controllers\Admin\ResumeController as AdminResumeController;
@@ -26,10 +28,12 @@ Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::resource('admin', AdminAdminController::class);
     Route::resource('application', AdminApplicationController::class);
     Route::resource('certificate', AdminCertificateController::class);
+    Route::resource('communication', AdminCommunicationController::class);
     Route::resource('company', AdminCompanyController::class);
     Route::resource('contact', AdminContactController::class);
     Route::resource('cover-letter', AdminCoverLetterController::class);
     Route::resource('link', AdminLinkController::class);
+    Route::resource('note', AdminNoteController::class);
     Route::resource('project', AdminProjectController::class);
     Route::resource('reading', AdminReadingController::class);
     Route::resource('resume', AdminResumeController::class);

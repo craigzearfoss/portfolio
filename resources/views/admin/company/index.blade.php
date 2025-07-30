@@ -29,10 +29,9 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th>no.</th>
+                            <th></th>
                             <th>name</th>
-                            <th>city</th>
-                            <th>state</th>
+                            <th>location</th>
                             <th>phone</th>
                             <th>email</th>
                             <th>website</th>
@@ -47,8 +46,13 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $company->name }}</td>
-                                <td>{{ $company->city }}</td>
-                                <td>{{ $company->state }}</td>
+                                <td>
+                                    @if ($company->city)
+                                        {{ $company->city }}@if ($company->state), {{ $company->state }}@endif
+                                    @else
+                                        {{ $company->state }}
+                                    @endif
+                                </td>
                                 <td>{{ $company->phone }}</td>
                                 <td>{{ $company->email }}</td>
                                 <td>
@@ -71,7 +75,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9">There are no companies.</td>
+                                <td colspan="8">There are no companies.</td>
                             </tr>
                         @endforelse
 

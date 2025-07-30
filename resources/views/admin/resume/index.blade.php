@@ -29,8 +29,9 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th>no.</th>
+                            <th></th>
                             <th>name</th>
+                            <th>date</th>
                             <th>link</th>
                             <th>description</th>
                             <th class="text-center">primary</th>
@@ -46,6 +47,7 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $resume->name }}</td>
+                                <td>{{ $resume->date }}</td>
                                 <td>
                                     <a href="{{ $resume->link }}" target="_blank">{{ $resume->link }}</a>
                                 </td>
@@ -77,7 +79,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8">There are no resumes.</td>
+                                <td colspan="9">There are no resumes.</td>
                             </tr>
                         @endforelse
 

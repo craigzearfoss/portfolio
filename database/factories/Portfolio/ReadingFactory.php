@@ -18,9 +18,11 @@ class ReadingFactory extends Factory
     public function definition(): array
     {
         return [
-            'title'  => fake()->sentence(),
-            'author' => fake()->name(),
-            'paper'  => 1,
+            'title'    => fake()->sentence(6),
+            'author'   => fake()->name(),
+            'paper'    => fake()->numberBetween(0, 1),
+            'audio'    => fake()->numberBetween(0, 1),
+            'disabled' => fake()->numberBetween(0, 1),
         ];
     }
 }

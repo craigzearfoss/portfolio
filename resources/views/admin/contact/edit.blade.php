@@ -108,14 +108,19 @@
 
                                                 <div class="mb-3">
                                                     <label for="inputState" class="form-label mb-1">state</label>
-                                                    <input
-                                                        type="text"
+                                                    <select
                                                         name="state"
                                                         id="inputState"
-                                                        value="{{ $contact->state }}"
-                                                        class="form-control @error('state') is-invalid @enderror"
-                                                        placeholder=""
+                                                        class="form-select"
+                                                        required
                                                     >
+                                                        @foreach(['', 'AL','AK','AR','AZ','CA','CO','CT','DC','DE','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME','MI','MN','MS','MT','NC','ND','NE','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','WA','WI','WY'] as $state)
+                                                            <option
+                                                                value="{{ $state }}"
+                                                                {{ $state == $contact->state ? 'selected' : '' }}
+                                                            >{{ $state }}</option>
+                                                        @endforeach
+                                                    </select>
                                                     @error('state')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror

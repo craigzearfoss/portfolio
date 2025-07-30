@@ -29,7 +29,7 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th>no.</th>
+                            <th></th>
                             <th>title</th>
                             <th>author</th>
                             <th class="text-center">paper</th>
@@ -46,8 +46,16 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $reading->title }}</td>
                                 <td>{{ $reading->author }}</td>
-                                <td class="text-center">{{ $reading->paper }}</td>
-                                <td class="text-center">{{ $reading->audio }}</td>
+                                <td class="text-center">
+                                    @if ($reading->paper)
+                                        <i class="fa-solid fa-check ml-2"></i>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($reading->audio)
+                                        <i class="fa-solid fa-check ml-2"></i>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     @if ($reading->disabled)
                                         <i class="fa-solid fa-check ml-2"></i>

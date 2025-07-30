@@ -29,10 +29,9 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th>no.</th>
+                            <th></th>
                             <th>name</th>
-                            <th>city</th>
-                            <th>state</th>
+                            <th>location</th>
                             <th>phone</th>
                             <th>email</th>
                             <th>website</th>
@@ -47,8 +46,13 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $contact->name }}</td>
-                                <td>{{ $contact->city }}</td>
-                                <td>{{ $contact->state }}</td>
+                                <td>
+                                    @if ($contact->city)
+                                        {{ $contact->city }}@if ($contact->state), {{ $contact->state }}@endif
+                                    @else
+                                        {{ $contact->state }}
+                                    @endif
+                                </td>
                                 <td>{{ $contact->phone }}</td>
                                 <td>{{ $contact->email }}</td>
                                 <td>
@@ -60,9 +64,9 @@
                                     @endif
                                 </td>
                                 <td class="text-nowrap">
-                                    <form action="{{ route('admin.company.destroy', $contact->id) }}" method="POST">
-                                        <a class="btn btn-sm" href="{{ route('admin.company.show', $contact->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                        <a class="btn btn-sm" href="{{ route('admin.company.edit', $contact->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
+                                    <form action="{{ route('admin.contact.destroy', $contact->id) }}" method="POST">
+                                        <a class="btn btn-sm" href="{{ route('admin.contact.show', $contact->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                        <a class="btn btn-sm" href="{{ route('admin.contact.edit', $contact->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
@@ -71,7 +75,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9">There are no contacts.</td>
+                                <td colspan="8">There are no contacts.</td>
                             </tr>
                         @endforelse
 

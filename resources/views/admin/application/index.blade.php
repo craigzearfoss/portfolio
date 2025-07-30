@@ -29,13 +29,21 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th>no.</th>
+                            <th></th>
                             <th>role</th>
+                            <th>active</th>
+                            <th>rating</th>
                             <th class="text-nowrap">apply date</th>
                             <th>duration</th>
                             <th>compensation</th>
                             <th>type</th>
+                            <th>office</th>
                             <th>location</th>
+                            <th>w2</th>
+                            <th>relo</th>
+                            <th>ben</th>
+                            <th>vac</th>
+                            <th>health</th>
                             <th>source</th>
                             <th>rating</th>
                             <th>actions</th>
@@ -48,13 +56,57 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $application->role }}</td>
+                                <td class="text-center">
+                                    @if ($application->active)
+                                        <i class="fa-solid fa-check ml-2"></i>
+                                    @endif
+                                </td>
+                                <td>
+                                    @for ($star=1; $star<$application->rating; $star++)
+                                        <i class="fa-solid fa-star"></i>
+                                    @endfor
+                                </td>
                                 <td>{{ $application->apply_date }}</td>
                                 <td>{{ $application->duration }}</td>
                                 <td>{{ $application->compensation }}</td>
                                 <td>
                                     {{ $application->type == 0 ? 'onsite' : ($application->type == 1 ? 'remote' : ($application->type == 2 ? 'hybrid' : '?')) }}
                                 </td>
-                                <td>{{ $application->location }}</td>
+                                <td>
+                                    {{ $application->office == 0 ? 'perm' : ($application->type == 1 ? 'cont' : ($application->type == 2 ? 'c-t-hire' : '?')) }}
+                                </td>
+                                <td>
+                                    @if ($application->city)
+                                        {{ $application->city }}@if ($application->state), {{ $application->state }}@endif
+                                    @else
+                                        {{ $application->state }}
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($application->w2)
+                                        <i class="fa-solid fa-check ml-2"></i>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($application->relocation)
+                                        <i class="fa-solid fa-check ml-2"></i>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($application->benefits)
+                                        <i $application="fa-solid fa-check ml-2"></i>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($application->vacation)
+                                        <i class="fa-solid fa-check ml-2"></i>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($application->health)
+                                        <i class="fa-solid fa-check ml-2"></i>
+                                    @endif
+                                </td>
                                 <td>{{ $application->source }}</td>
                                 <td>{{ $application->rating }}</td>
                                 <td class="text-nowrap">
@@ -69,7 +121,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="10">There are no applications.</td>
+                                <td colspan="18">There are no applications.</td>
                             </tr>
                         @endforelse
 

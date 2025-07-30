@@ -17,7 +17,16 @@ class CertificateFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name'         => fake()->sentence(6),
+            'organization' => fake()->company(),
+            'year'         => fake()->year(),
+            'receive'      => fake()->date(),
+            'expire'       => fake()->date(),
+            'professional' => fake()->numberBetween(0, 1),
+            'personal'     => fake()->numberBetween(0, 1),
+            'link'         => fake()->url(),
+            'description'  => fake()->text(200),
+            'disabled'     => fake()->numberBetween(0, 1),
         ];
     }
 }

@@ -61,6 +61,38 @@
                                                 </div>
 
                                                 <div class="mb-3">
+                                                    <input type="hidden" name="professional" value="0">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="professional"
+                                                        id="inputProfessional"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ $link->professional ? 'checked' : '' }}
+                                                    >
+                                                    <label for="inputProfessional" class="form-check-label mb-1 font-semibold">professional</label>
+                                                    @error('professional')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <input type="hidden" name="personal" value="0">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="personal"
+                                                        id="inputPersonal"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ $link->personal ? 'checked' : '' }}
+                                                    >
+                                                    <label for="inputPersonal" class="form-check-label mb-1 font-semibold">personal</label>
+                                                    @error('personal')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
                                                     <label for="inputUrl" class="form-label mb-1">url</label>
                                                     <input
                                                         type="text"

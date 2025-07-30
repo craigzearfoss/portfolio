@@ -14,7 +14,7 @@ class CoverLetter extends Model
 
     protected $connection = 'career_db';
 
-    protected $table = 'cover_letters';
+    protected $table = 'cover-letters';
 
     /**
      * The attributes that are mass assignable.
@@ -23,6 +23,8 @@ class CoverLetter extends Model
      */
     protected $fillable = [
         'name',
+        'recipient',
+        'date',
         'link',
         'alt_link',
         'description',

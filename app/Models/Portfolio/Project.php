@@ -25,6 +25,7 @@ class Project extends Model
         'name',
         'professional',
         'personal',
+        'year',
         'repository',
         'link',
         'description',

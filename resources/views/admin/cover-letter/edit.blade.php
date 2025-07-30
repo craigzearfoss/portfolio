@@ -32,7 +32,7 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.cover-letter.show', $coverLetter }}"><i class="fa fa-list"></i> Show</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.cover-letter.show', $coverLetter) }}"><i class="fa fa-list"></i> Show</a>
                                                     <a class="btn btn-sm btn-solid" href="{{ route('admin.cover-letter.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
@@ -57,6 +57,37 @@
                                                         required
                                                     >
                                                     @error('name')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="inputRecipient" class="form-label mb-1">recipient(s)</label>
+                                                    <input
+                                                        type="text"
+                                                        name="recipient"
+                                                        id="inputRecipient"
+                                                        value="{{ $coverLetter->recipient }}"
+                                                        class="form-control @error('recipient') is-invalid @enderror"
+                                                        placeholder=""
+                                                        required
+                                                    >
+                                                    @error('recipient')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="inputDate" class="form-label mb-1">date</label>
+                                                    <input
+                                                        type="date"
+                                                        name="date"
+                                                        id="inputDate"
+                                                        value="{{ $coverLetter->date }}"
+                                                        class="form-control @error('date') is-invalid @enderror"
+                                                        placeholder=""
+                                                    >
+                                                    @error('date')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
@@ -107,7 +138,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-3>
+                                                <div class="mb-3">
                                                     <input type="hidden" name="disabled" value="0">
                                                     <input
                                                         type="checkbox"

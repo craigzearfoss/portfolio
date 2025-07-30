@@ -60,12 +60,28 @@
                                                 </div>
 
                                                 <div class="mb-3">
+                                                    <label for="inputDate" class="form-label mb-1">date</label>
+                                                    <input
+                                                        type="date"
+                                                        name="date"
+                                                        id="inputDate"
+                                                        value="{{ old('date') }}"
+                                                        class="form-control @error('date') is-invalid @enderror"
+                                                        placeholder=""
+                                                        required
+                                                    >
+                                                    @error('date')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
                                                     <label for="inputLink" class="form-label mb-1">link</label>
                                                     <input
                                                         type="text"
                                                         name="link"
                                                         id="inputLink"
-                                                        value="{{ old('link') }}"
+                                                        value="{{ old('link')}}"
                                                         class="form-control @error('link') is-invalid @enderror"
                                                         placeholder=""
                                                     >

@@ -30,7 +30,7 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th>no.</th>
+                            <th></th>
                             <th class="whitespace-nowrap">user name</th>
                             <th>email</th>
                             <th class="text-center">disabled</th>

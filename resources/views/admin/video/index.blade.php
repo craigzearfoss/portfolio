@@ -29,8 +29,8 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th>no.</th>
-                            <th>title</th>
+                            <th></th>
+                            <th>name</th>
                             <th>year</th>
                             <th>company</th>
                             <th>credit</th>
@@ -47,7 +47,7 @@
                         @forelse ($videos as $video)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $video->title }}</td>
+                                <td>{{ $video->name }}</td>
                                 <td>{{ $video->year }}</td>
                                 <td>{{ $video->company }}</td>
                                 <td>{{ $video->credit }}</td>

@@ -19,13 +19,17 @@ class VideoFactory extends Factory
     public function definition(): array
     {
         return [
-            'title'       => fake()->sentence(),
-            'year'        => fake()->year(),
-            'company'     => fake()->company(),
-            'credit'      => fake()->name(),
-            'location'    => fake()->city(),
-            'link'        => fake()->url(),
-            'description' => fake()->text(),
+            'name'         => fake()->sentence(6),
+            'professional' => fake()->numberBetween(0, 1),
+            'personal'     => fake()->numberBetween(0, 1),
+            'date'         => fake()->date(),
+            'year'         => fake()->year(),
+            'company'      => fake()->company(),
+            'credit'       => fake()->name(),
+            'location'     => fake()->city(),
+            'link'         => fake()->url(),
+            'description'  => fake()->text(200),
+            'disabled'     => fake()->numberBetween(0, 1),
         ];
     }
 }

@@ -32,6 +32,26 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
+                                                <strong>organization</strong>: {{ $certificate->organization }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>year</strong>: {{ $certificate->year }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>receive</strong>: {{ $certificate->receive }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>expire</strong>: {{ $certificate->expire }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
                                                 <strong>professional</strong>:
                                                 @if ($certificate->professional)
                                                     <i class="fa-solid fa-check ml-2"></i>
@@ -44,11 +64,6 @@
                                                 @if ($certificate->personal)
                                                     <i class="fa-solid fa-check ml-2"></i>
                                                 @endif
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>repository</strong>: {{ $certificate->repository }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">

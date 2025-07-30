@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::connection('career_db')->create('contacts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('title')->nullable();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city')->nullable();

@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::connection('portfolio_db')->create('videos', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('name');
+            $table->tinyInteger('professional')->default(1);
+            $table->tinyInteger('personal')->default(0);
+            $table->date('date')->nullable();
             $table->year('year')->nullable();
             $table->string('company')->nullable();
             $table->string('credit')->nullable();

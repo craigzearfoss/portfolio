@@ -28,7 +28,23 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>title</strong>: {{ $video->title }}
+                                                <strong>name</strong>: {{ $video->name }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>professional</strong>:
+                                                @if ($video->professional)
+                                                    <i class="fa-solid fa-check ml-2"></i>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>personal</strong>:
+                                                @if ($video->personal)
+                                                    <i class="fa-solid fa-check ml-2"></i>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">

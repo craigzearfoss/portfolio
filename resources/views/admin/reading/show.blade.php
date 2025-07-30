@@ -37,12 +37,20 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>paper</strong>: {{ $reading->paper }}
+                                                <strong>paper</strong>:
+                                                <strong>disabled</strong>:
+                                                @if ($reading->paper)
+                                                    <i class="fa-solid fa-check ml-2"></i>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>audio</strong>: {{ $reading->audio }}
+                                                <strong>audio</strong>:
+                                                <strong>disabled</strong>:
+                                                @if ($reading->audio)
+                                                    <i class="fa-solid fa-check ml-2"></i>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">

@@ -29,8 +29,10 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th>no.</th>
+                            <th></th>
                             <th>name</th>
+                            <th>professional</th>
+                            <th>personal</th>
                             <th>url</th>
                             <th>website</th>
                             <th>description</th>
@@ -45,6 +47,16 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $link->name }}</td>
+                                <td class="text-center">
+                                    @if ($link->professional)
+                                        <i class="fa-solid fa-check ml-2"></i>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if ($link->personal)
+                                        <i class="fa-solid fa-check ml-2"></i>
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a>
                                 </td>
@@ -67,7 +79,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7">There are no links.</td>
+                                <td colspan="9">There are no links.</td>
                             </tr>
                         @endforelse
 

@@ -23,9 +23,12 @@ class Certificate extends Model
      */
     protected $fillable = [
         'name',
+        'organization',
         'professional',
         'personal',
-        'repository',
+        'year',
+        'receive',
+        'expire',
         'link',
         'description',
         'disabled',

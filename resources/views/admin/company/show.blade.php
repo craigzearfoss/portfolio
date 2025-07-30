@@ -32,67 +32,42 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>street</strong>: {{ $company->street }}
+                                                <strong>street</strong>: {{ $company->street }}@if ($company->street2), {{ $company->street2 }}@endif
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>street 2</strong>: {{ $company->street2 }}
+                                                <strong>location</strong>:
+                                                @if ($company->city)
+                                                    {{ $company->city }}@if ($company->state), {{ $company->state }}@endif
+                                                @else
+                                                    {{ $company->state }}
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>city</strong>: {{ $company->city }}
+                                                <strong>zip</strong>: {{ $company->zip }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>state</strong>: {{ $company->state }}
+                                                <strong>{{ $company->phone_label ?? 'phone '}}</strong>: {{ $company->phone }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>country</strong>: {{ $company->country }}
+                                                <strong>{{ $company->alt_phone_label ?? 'alt phone '}}</strong>: {{ $company->alt_phone }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>phone</strong>: {{ $company->phone }}
+                                                <strong>{{ $company->email_label ?? 'email' }}</strong>: {{ $company->email }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>phone label</strong>: {{ $company->phone_label }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>alt phone</strong>: {{ $company->alt_phone }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>alt phone label</strong>: {{ $company->alt_phone_label }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>email</strong>: {{ $company->email }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>email label</strong>: {{ $company->email_label }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>alt email</strong>: {{ $company->alt_email }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>alt email label</strong>: {{ $company->alt_email_label }}
+                                                <strong>{{ $company->alt_email_label ?? 'alt_email' }}</strong>: {{ $company->alt_email }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -102,7 +77,7 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>wdescription</strong>: {{ $company->description }}
+                                                <strong>description</strong>: {{ $company->description }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">

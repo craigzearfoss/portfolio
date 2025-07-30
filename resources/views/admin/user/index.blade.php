@@ -29,7 +29,7 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th>no.</th>
+                            <th></th>
                             <th>name</th>
                             <th>email</th>
                             <th class="text-center">verified</th>
@@ -65,7 +65,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4">There are no users.</td>
+                                <td colspan="7">There are no users.</td>
                             </tr>
                         @endforelse
 
