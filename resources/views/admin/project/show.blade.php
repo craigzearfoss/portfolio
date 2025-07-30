@@ -53,12 +53,18 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>repository</strong>: {{ $project->repository }}
+                                                <strong>repository</strong>:
+                                                @if ($project->repository)
+                                                    <a href="{{ $project->repository }}" target="_bank">{{ $project->repository }}</a>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>link</strong>: <a href="{{ $project->link }}" target="_blank">{{ $project->link }}</a>
+                                                <strong>link</strong>:
+                                                @if ($project->link)
+                                                    <a href="{{ $project->link }}" target="_bank">{{ $project->link }}</a>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">

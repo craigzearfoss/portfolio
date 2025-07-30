@@ -64,7 +64,10 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>link</strong>: <a href="{{ $video->link }}" target="_blank">{{ $video->link }}</a>
+                                                <strong>link</strong>:
+                                                @if ($video->link)
+                                                    <a href="{{ $video->link }}" target="_blank">{{ $video->link }}</a>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">

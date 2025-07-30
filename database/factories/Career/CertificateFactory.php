@@ -26,6 +26,7 @@ class CertificateFactory extends Factory
             'personal'     => fake()->numberBetween(0, 1),
             'link'         => fake()->url(),
             'description'  => fake()->text(200),
+            'seq'          => 0,
             'disabled'     => fake()->numberBetween(0, 1),
         ];
     }

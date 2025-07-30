@@ -16,11 +16,21 @@ use App\Http\Controllers\Admin\ResumeController as AdminResumeController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\VideoController as AdminVideoController;
 use App\Http\Controllers\Front\FrontendController;
+use App\Http\Controllers\Front\CertificateController as FrontCertificateController;
+use App\Http\Controllers\Front\LinkController as FrontLinkController;
+use App\Http\Controllers\Front\ProjectController as FrontProjectController;
+use App\Http\Controllers\Front\ReadingController as FrontReadingController;
+use App\Http\Controllers\Front\VideoController as FrontVideoController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Frontend
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
+Route::get('/certificate', [FrontCertificateController::class, 'index'])->name('certificate.index');
+Route::get('/link', [FrontLinkController::class, 'index'])->name('link.index');
+Route::get('/project', [FrontProjectController::class, 'index'])->name('project.index');
+Route::get('/reading', [FrontReadingController::class, 'index'])->name('reading.index');
+Route::get('/video', [FrontVideoController::class, 'index'])->name('video.index');
 
 // Admin
 Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {

@@ -29,6 +29,7 @@ class Project extends Model
         'repository',
         'link',
         'description',
+        'seq',
         'disabled',
     ];
 }

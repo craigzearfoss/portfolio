@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('author')->nullable();
             $table->tinyInteger('paper')->default(1);
             $table->tinyInteger('audio')->default(0);
+            $table->tinyInteger('seq')->default(0);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
         });

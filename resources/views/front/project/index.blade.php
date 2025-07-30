@@ -1,17 +1,17 @@
-@extends('admin.layouts.default')
+@extends('front.layouts.default')
 
 @section('content')
 
     <div class="app-layout-modern flex flex-auto flex-col">
         <div class="flex flex-auto min-w-0">
 
-            @include('admin.components.nav-left')
+            @include('front.components.nav-left')
 
             <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
 
-                @include('admin.components.header')
+                @include('front.components.header')
 
-                @include('admin.components.popup')
+                @include('front.components.popup')
 
                 <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
 
@@ -19,10 +19,7 @@
 
                     <div class="d-grid gap-2 d-md-flex justify-between">
                         <div>
-                            @include('admin.components.messages', [$errors])
-                        </div>
-                        <div>
-                            <a class="btn btn-solid btn-sm" href="{{ route('admin.project.create') }}"><i class="fa fa-plus"></i> Add New Project</a>
+                            @include('front.components.messages', [$errors])
                         </div>
                     </div>
 
@@ -35,8 +32,8 @@
                             <th>personal</th>
                             <th>year</th>
                             <th>repository</th>
+                            <th>link</th>
                             <th>description</th>
-                            <th class="text-center">disabled</th>
                             <th>actions</th>
                         </tr>
                         </thead>
@@ -63,20 +60,13 @@
                                         <a href="{{ $project->repository }}" target="_bank">{{ $project->repository }}</a>
                                     @endif
                                 </td>
-                                <td>{{ $project->description }}</td>
-                                <td class="text-center">
-                                    @if ($project->disabled)
-                                        <i class="fa-solid fa-check ml-2"></i>
+                                <td>
+                                    @if ($project->link)
+                                        <a href="{{ $project->link }}" target="_bank">{{ $project->link }}</a>
                                     @endif
                                 </td>
+                                <td>{{ $project->description }}</td>
                                 <td class="text-nowrap">
-                                    <form action="{{ route('admin.project.destroy', $project->id) }}" method="POST">
-                                        <a class="btn btn-sm" href="{{ route('admin.project.show', $project->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                        <a class="btn btn-sm" href="{{ route('admin.project.edit', $project->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
-                                    </form>
                                 </td>
                             </tr>
                         @empty
@@ -90,7 +80,7 @@
 
                     {!! $projects->links() !!}
 
-                    @include('admin.components.footer')
+                    @include('front.components.footer')
 
                 </div>
             </div>

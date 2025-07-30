@@ -24,6 +24,7 @@ class Reading extends Model
         'author',
         'paper',
         'audio',
+        'seq',
         'disabled',
     ];
 }

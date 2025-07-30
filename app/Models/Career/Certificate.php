@@ -31,6 +31,7 @@ class Certificate extends Model
         'expire',
         'link',
         'description',
+        'seq',
         'disabled',
     ];
 }

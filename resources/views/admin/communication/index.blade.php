@@ -64,6 +64,7 @@
                         </tbody>
                     </table>
 
+
                     {!! $communications->links() !!}
 
                     @include('admin.components.footer')

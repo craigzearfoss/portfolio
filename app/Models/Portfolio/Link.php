@@ -26,6 +26,7 @@ class Link extends Model
         'url',
         'website',
         'description',
+        'seq',
         'disabled',
     ];
 }

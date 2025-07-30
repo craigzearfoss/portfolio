@@ -15,7 +15,7 @@ return [
 
     'copyright'       => env('APP_COPYRIGHT', ''),
     'name'            => env('APP_NAME', 'Laravel'),
-    'open_enrollment' => env('APP_OPEN_ENROLLMENT', ''),
+    'open_enrollment' => env('APP_OPEN_ENROLLMENT', '0'),
     'owner'           => env('APP_OWNER', ''),
 
     /*

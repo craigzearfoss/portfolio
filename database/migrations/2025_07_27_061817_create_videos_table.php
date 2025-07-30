@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('link')->nullable();
             $table->text('description')->nullable();
+            $table->tinyInteger('seq')->default(0);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
         });

@@ -29,6 +29,7 @@ class VideoFactory extends Factory
             'location'     => fake()->city(),
             'link'         => fake()->url(),
             'description'  => fake()->text(200),
+            'seq'          => 0,
             'disabled'     => fake()->numberBetween(0, 1),
         ];
     }

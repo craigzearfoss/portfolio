@@ -30,6 +30,7 @@ class Video extends Model
         'location',
         'link',
         'description',
+        'seq',
         'disabled',
     ];
 }

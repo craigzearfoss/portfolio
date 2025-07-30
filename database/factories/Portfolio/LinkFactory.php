@@ -24,6 +24,7 @@ class LinkFactory extends Factory
             'url'          => fake()->url(),
             'website'      => fake()->domainName(),
             'description'  => fake()->text(200),
+            'seq'          => 0,
             'disabled'     => fake()->numberBetween(0, 1),
         ];
     }
