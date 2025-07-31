@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::connection('portfolio_db')->create('links', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
-            $table->string('url')->nullable();
+            $table->string('url');
             $table->string('website')->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('seq')->default(0);

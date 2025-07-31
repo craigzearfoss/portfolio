@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('career_db')->create('cover-letters', function (Blueprint $table) {
+        Schema::connection('career_db')->create('cover_letters', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('recipient')->nullable();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cover-letters');
+        Schema::dropIfExists('cover_letters');
     }
 };

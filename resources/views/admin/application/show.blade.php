@@ -63,7 +63,15 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>compensation</strong>: {{ $application->compensation }}
+                                                <strong>compensation</strong>:
+                                                @if ($application->compensation)
+                                                    {{ Number::currency($application->compensation) }}
+                                                    @if ($application->compensation_unit)
+                                                        / {{ $application->compensation_unit }}
+                                                    @endif
+                                                @else
+                                                    ?
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -74,7 +82,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>type</strong>:
-                                                {{ $application->type == 0 ? 'permanent' : ($application->type == 1 ? 'contract' : ($application->type == 2 ? 'contract to hire' : '?')) }}
+                                                {{ $application->type == 0 ? 'permanent' : ($application->type == 1 ? 'contract' : ($application->type == 2 ? 'contract-to-hire' : ($application->type == 2 ? 'project' : '?'))) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -148,6 +156,28 @@
                                                 <strong>link</strong>: <a href="{{ $application->link }}" target="_blank">{{ $application->link }}</a>
                                             </div>
                                         </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>contact(s)</strong>: <a href="{{ $application->link }}" target="_blank">{{ $application->contacts }}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>phone(s)</strong>: <a href="{{ $application->link }}" target="_blank">{{ $application->phones }}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>email(s)</strong>: <a href="{{ $application->link }}" target="_blank">{{ $application->emails }}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>website</strong>: <a href="{{ $application->link }}" target="_blank">{{ $application->website }}</a>
+                                            </div>
+                                        </div>
+
+
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>description</strong>: {{ $application->description }}

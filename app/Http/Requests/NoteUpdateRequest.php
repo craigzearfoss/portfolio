@@ -22,8 +22,8 @@ class NoteUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => ['string', 'min:1'],
-            'body'    => ['string', 'min:1'],
+            'subject' => ['string', 'min:1', 'max:255', 'unique:notes,name,'.$this->note->id],
+            'body'    => [],
         ];
     }
 }

@@ -62,6 +62,52 @@
                                                 </div>
 
                                                 <div class="mb-3">
+                                                    <label for="inputRating" class="form-label mb-1">rating</label>
+                                                    <input
+                                                        type="number"
+                                                        name="rating"
+                                                        id="inputRating"
+                                                        value="{{ $application->rating }}"
+                                                        class="form-control @error('rating') is-invalid @enderror"
+                                                        placeholder="0, 1, 2, 3, or 4"
+                                                    >
+                                                    @error('rating')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <input type="hidden" name="active" value="0">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="active"
+                                                        id="inputActive"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ $application->active ? 'checked' : '' }}
+                                                    >
+                                                    <label for="inputActive" class="form-check-label mb-1 font-semibold">active</label>
+                                                    @error('active')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="inputPostDate" class="form-label mb-1">post date</label>
+                                                    <input
+                                                        type="date"
+                                                        name="post_date"
+                                                        id="inputPostDate"
+                                                        value="{{ $application->post_date }}"
+                                                        class="form-control @error('post_date') is-invalid @enderror"
+                                                        placeholder=""
+                                                    >
+                                                    @error('post_date')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
                                                     <label for="inputApplyDate" class="form-label mb-1">apply date</label>
                                                     <input
                                                         type="date"
@@ -77,9 +123,24 @@
                                                 </div>
 
                                                 <div class="mb-3">
+                                                    <label for="inputCloseDate" class="form-label mb-1">close date</label>
+                                                    <input
+                                                        type="date"
+                                                        name="close_date"
+                                                        id="inputCloseDate"
+                                                        value="{{ $application->close_date }}"
+                                                        class="form-control @error('close_date') is-invalid @enderror"
+                                                        placeholder=""
+                                                    >
+                                                    @error('close_date')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
                                                     <label for="inputCompensation" class="form-label mb-1">compensation</label>
                                                     <input
-                                                        type="text"
+                                                        type="number"
                                                         name="compensation"
                                                         id="inputCompensation"
                                                         value="{{ $application->compensation }}"
@@ -87,6 +148,26 @@
                                                         placeholder=""
                                                     >
                                                     @error('compensation')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="inputCompensationUnit" class="form-label mb-1">compensation unit</label>
+                                                    <select
+                                                        name="compensation_unit"
+                                                        id="inputCompensationUnit"
+                                                        class="form-select"
+                                                        required
+                                                    >
+                                                        @foreach(['', 'hour', 'year', 'month', 'week', 'day', 'project'] as $unit)
+                                                            <option
+                                                                value="{{ $unit }}"
+                                                                {{ $unit == $application->compensation_unit ? 'selected' : '' }}
+                                                            >{{ $unit }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('compensation_unit')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
@@ -114,10 +195,10 @@
                                                         class="form-select"
                                                         required
                                                     >
-                                                        @foreach([0=>'onsite', 1=>'remote', 2=>'hybrid'] as $value=>$label)
+                                                        @foreach([0=>'permanent', 1>'contract', 2=>'contract-to-hire',3=>'project'] as $value=>$label)
                                                             <option
                                                                 value="{{ $value }}"
-                                                                {{ $value == $user->type ? 'selected' : '' }}
+                                                                {{ $value == $application->type ? 'selected' : '' }}
                                                             >{{ $label }}</option>
                                                         @endforeach
                                                     </select>
@@ -127,16 +208,151 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="inputLocation" class="form-label mb-1">location</label>
+                                                    <label for="inputOffice" class="form-label mb-1">office</label>
+                                                    <select
+                                                        name="office"
+                                                        id="inputOffice"
+                                                        class="form-select"
+                                                        required
+                                                    >
+                                                        @foreach([0=>'onsite', 1=>'remote', 2=>'hybrid'] as $value=>$label)
+                                                            <option
+                                                                value="{{ $value }}"
+                                                                {{ $value == $application->office ? 'selected' : '' }}
+                                                            >{{ $label }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('office')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="inputCity" class="form-label mb-1">city</label>
                                                     <input
                                                         type="text"
-                                                        name="location"
-                                                        id="inputLocation"
-                                                        value="{{ $application->location }}"
-                                                        class="form-control @error('location') is-invalid @enderror"
+                                                        name="city"
+                                                        id="inputCity"
+                                                        value="{{ $application->city }}"
+                                                        class="form-control @error('city') is-invalid @enderror"
                                                         placeholder=""
                                                     >
-                                                    @error('location')
+                                                    @error('city')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="inputState" class="form-label mb-1">state</label>
+                                                    <select
+                                                        name="state"
+                                                        id="inputState"
+                                                        class="form-select"
+                                                        required
+                                                    >
+                                                        @foreach(['', 'AL','AK','AR','AZ','CA','CO','CT','DC','DE','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME','MI','MN','MS','MT','NC','ND','NE','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','WA','WI','WY'] as $state)
+                                                            <option
+                                                                value="{{ $state }}"
+                                                                {{ $state == $application->state ? 'selected' : '' }}
+                                                            >{{ $state }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('state')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="inputBonus" class="form-label mb-1">bonus</label>
+                                                    <input
+                                                        type="text"
+                                                        name="bonus"
+                                                        id="inputBonus"
+                                                        value="{{ $application->bonus }}"
+                                                        class="form-control @error('bonus') is-invalid @enderror"
+                                                        placeholder=""
+                                                    >
+                                                    @error('bonus')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <input type="hidden" name="w2" value="0">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="w2"
+                                                        id="inputW2"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ $application->w2 ? 'checked' : '' }}
+                                                    >
+                                                    <label for="inputW2" class="form-check-label mb-1 font-semibold">w2</label>
+                                                    @error('w2')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <input type="hidden" name="relocation" value="0">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="relocation"
+                                                        id="inputBenefits"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ $application->relocation ? 'checked' : '' }}
+                                                    >
+                                                    <label for="inputBenefits" class="form-check-label mb-1 font-semibold">relocation</label>
+                                                    @error('relocation')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <input type="hidden" name="benefits" value="0">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="benefits"
+                                                        id="inputBenefits"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ $application->benefits ? 'checked' : '' }}
+                                                    >
+                                                    <label for="inputBenefits" class="form-check-label mb-1 font-semibold">benefits</label>
+                                                    @error('benefits')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <input type="hidden" name="inputVacation" value="0">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="vacation"
+                                                        id="inputVacation"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ $application->vacation ? 'checked' : '' }}
+                                                    >
+                                                    <label for="inputDisabled" class="form-check-label mb-1 font-semibold">vacation</label>
+                                                    @error('vacation')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <input type="hidden" name="health" value="0">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="health"
+                                                        id="inputHealth"
+                                                        class="form-check-input"
+                                                        value="1"
+                                                        {{ $application->health ? 'checked' : '' }}
+                                                    >
+                                                    <label for="inputHealth" class="form-check-label mb-1 font-semibold">health</label>
+                                                    @error('health')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
@@ -157,21 +373,6 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="inputRating" class="form-label mb-1">rating</label>
-                                                    <input
-                                                        type="number"
-                                                        name="rating"
-                                                        id="inputRating"
-                                                        value="{{ $application->rating }}"
-                                                        class="form-control @error('rating') is-invalid @enderror"
-                                                        placeholder="1, 2, 3, 4, or 5"
-                                                    >
-                                                    @error('rating')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="mb-3">
                                                     <label for="inputLink" class="form-label mb-1">link</label>
                                                     <input
                                                         type="text"
@@ -185,6 +386,70 @@
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror
                                                 </div>
+
+                                                <div class="mb-3">
+                                                    <label for="inputContacts" class="form-label mb-1">contact(s)</label>
+                                                    <input
+                                                        type="text"
+                                                        name="contacts"
+                                                        id="inputContacts"
+                                                        value="{{ $application->contacts }}"
+                                                        class="form-control @error('contacts') is-invalid @enderror"
+                                                        placeholder=""
+                                                    >
+                                                    @error('contacts')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="inputPhones" class="form-label mb-1">phone(s)</label>
+                                                    <input
+                                                        type="text"
+                                                        name="phones"
+                                                        id="inputPhones"
+                                                        value="{{ $application->phones }}"
+                                                        class="form-control @error('phones') is-invalid @enderror"
+                                                        placeholder=""
+                                                    >
+                                                    @error('phones')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="inputEmails" class="form-label mb-1">email(s)</label>
+                                                    <input
+                                                        type="text"
+                                                        name="emails"
+                                                        id="inputEmails"
+                                                        value="{{ $application->emails }}"
+                                                        class="form-control @error('emails') is-invalid @enderror"
+                                                        placeholder=""
+                                                    >
+                                                    @error('emails')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="inputWebsite" class="form-label mb-1">website</label>
+                                                    <input
+                                                        type="text"
+                                                        name="website"
+                                                        id="inputWebsite"
+                                                        value="{{ $application->website }}"
+                                                        class="form-control @error('website') is-invalid @enderror"
+                                                        placeholder=""
+                                                    >
+                                                    @error('website')
+                                                        <div class="form-text text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+
+
+
+
 
                                                 <div class="mb-3">
                                                     <label for="inputDescription" class="form-label mb-1">description</label>

@@ -23,11 +23,12 @@ class ReadingUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'     => ['string', 'min:1'],
-            'author'    => ['nullable', 'string'],
-            'paper'     => ['integer', 'min:0', 'max:1'],
-            'audio'     => ['integer', 'min:0', 'max:1'],
-            'disabled'  => ['integer', 'min:0', 'max:1'],
+            'title'    => ['string', 'min:1', 'max:255', 'unique:readings,name,'.$this->reading->id],
+            'author'   => ['nullable', 'string', 'max:255'],
+            'paper'    => ['integer', 'between:0,1'],
+            'audio'    => ['integer', 'between:0,1'],
+            'seq'      => ['integer'],
+            'disabled' => ['integer', 'between:0,1'],
         ];
     }
 }

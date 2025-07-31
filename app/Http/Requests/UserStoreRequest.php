@@ -24,12 +24,16 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'             => ['required', 'min:5', 'max:200'],
-            'email'            => ['required', 'email', 'unique:users,email'],
-            'password'         => ['required', 'string', 'min:8'],
-            'confirm_password' => ['required', 'string', 'same:password'],
-            'status'           => ['integer', 'min:0', 'max:1'],
-            'disabled'         => ['integer', 'min:0', 'max:1'],
+            'name'              => ['required','string', 'min:6', 'max:255'],
+            'email'             => ['required','email', 'max:255', 'unique:users,email,'.$this->user->id],
+            //'email_verified_at' => ['nullable'],
+            'password'          => ['required','string', 'min:8', 'max:255'],
+            'confirm_password'  => ['required','string', 'same:password'],
+            //'remember_token'    => ['nullable', 'string', 'max:200'],
+            //'token'             => ['nullable', 'string', 'max:255'],
+            'status'            => ['integer', 'between:0,1'],
+            'disabled'          => ['integer', 'between:0,1'],
+
         ];
     }
 }

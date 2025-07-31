@@ -23,11 +23,14 @@ class LinkUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['nullable', 'string'],
-            'url'         => ['nullable', 'string', 'min:1'],
-            'website'     => ['nullable', 'string'],
-            'description' => [],
-            'disabled'    => ['integer', 'min:0', 'max:1'],
+            'name'         => ['nullable', 'string', 'min:1', 'max:255', 'unique:links,name,'.$this->link->id],
+            'professional' => ['integer', 'between:0,1'],
+            'personal'     => ['integer', 'between:0,1'],
+            'url'          => ['nullable', 'string', 'max:255'],
+            'website'      => ['nullable', 'string', 'max:255'],
+            'description'  => ['nullable'],
+            'seq'          => ['integer'],
+            'disabled'     => ['integer', 'between:0,1'],
         ];
     }
 }

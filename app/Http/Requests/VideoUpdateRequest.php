@@ -23,14 +23,18 @@ class VideoUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => ['string', 'min:1'],
-            'year'        => ['nullable', 'integer'],
-            'company'     => ['nullable', 'string'],
-            'credit'      => ['nullable', 'string'],
-            'location'    => ['nullable', 'string'],
-            'link'        => ['nullable', 'string'],
-            'description' => [],
-            'disabled'    => ['integer', 'min:0', 'max:1'],
+            'name'         => ['string', 'min:1', 'max:255', 'unique:videos,name,'.$this->video->id],
+            'professional' => ['integer', 'between:0,1'],
+            'personal'     => ['integer', 'between:0,1'],
+            'date'         => ['nullable', 'date'],
+            'year'         => ['nullable', 'integer', 'between:0,3000'],
+            'company'      => ['nullable', 'string', 'max:255'],
+            'credit'       => ['nullable'],
+            'location'     => ['nullable', 'string', 'max:255'],
+            'link'         => ['nullable', 'string', 'max:255'],
+            'description'  => ['nullable'],
+            'seq'          => ['integer'],
+            'disabled'     => ['integer', 'between:0,1'],
         ];
     }
 }

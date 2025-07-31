@@ -22,8 +22,8 @@ class NoteStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => ['required', 'string', 'min:1'],
-            'body'    => ['required', 'string', 'min:1'],
+            'subject' => ['required', 'string', 'min:1', 'max:255', 'unique:notes,name,'.$this->note->id],
+            'body'    => ['required'],
         ];
     }
 }

@@ -23,12 +23,15 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'             => ['string', 'min:6', 'max:200'],
-            'email'            => ['email', 'unique:users,email,'.$this->user->id],
-            //'password'         => ['string', 'min:8'],
-            //'confirm_password' => ['string', 'same:password'],
-            'status'           => ['integer', 'min:0', 'max:1'],
-            'disabled'         => ['integer', 'min:0', 'max:1'],
+            'name'              => ['string', 'min:6', 'max:255'],
+            'email'             => ['email', 'max:255', 'unique:users,email,'.$this->user->id],
+            //'email_verified_at' => ['nullable'],
+            'password'          => ['string', 'min:8', 'max:255'],
+            'confirm_password'  => ['string', 'same:password'],
+            //'remember_token'    => ['nullable', 'string', 'max:200'],
+            //'token'             => ['nullable', 'string', 'max:255'],
+            'status'            => ['integer', 'between:0,1'],
+            'disabled'          => ['integer', 'between:0,1'],
         ];
     }
 }

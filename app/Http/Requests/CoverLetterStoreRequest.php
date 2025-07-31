@@ -22,7 +22,14 @@ class CoverLetterStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:cover_letters,name,'.$this->cover_letter->id],
+            'recipient'    => ['nullable', 'string', 'max:255'],
+            'date'         => ['nullable', 'date'],
+            'link'         => ['nullable', 'string', 'max:255'],
+            'alt_link'     => ['nullable', 'string', 'max:255'],
+            'description'  => ['nullable'],
+            'primary'      => ['integer', 'between:0,1'],
+            'disabled'     => ['integer', 'between:0,1'],
         ];
     }
 }

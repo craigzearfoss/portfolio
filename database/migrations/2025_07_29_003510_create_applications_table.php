@@ -19,9 +19,10 @@ return new class extends Migration
             $table->date('post_date')->nullable();
             $table->date('apply_date')->nullable();
             $table->date('close_date')->nullable();
-            $table->string('compensation')->nullable();
-            $table->string('duration')->nullable();
-            $table->tinyInteger('type')->default(0)->comment('0-permanent,1-contract,2-contract to hire');
+            $table->integer('compensation')->default(0);
+            $table->string('compensation_unit', 20)->nullable();
+            $table->string('duration',100)->nullable();
+            $table->tinyInteger('type')->default(0)->comment('0-permanent,1-contract,2-contract-to-hire,3-project');
             $table->tinyInteger('office')->default(0)->comment('0-onsite,1-remote,2-hybrid');
             $table->string('city')->nullable();
             $table->string('state', 20)->nullable();
@@ -33,6 +34,10 @@ return new class extends Migration
             $table->tinyInteger('health')->default(0);
             $table->string('source')->nullable();
             $table->string('link')->nullable();
+            $table->string('contacts')->nullable();
+            $table->string('phones')->nullable();
+            $table->string('emails')->nullable();
+            $table->string('website')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

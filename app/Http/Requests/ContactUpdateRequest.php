@@ -22,7 +22,24 @@ class ContactUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'            => ['string', 'min:1', 'max:255', 'unique:contacts,name,'.$this->contact->id],
+            'title'           => ['nullable', 'string', 'max:50'],
+            'street'          => ['nullable', 'string', 'max:255'],
+            'street2'         => ['nullable', 'string', 'max:255'],
+            'city'            => ['nullable', 'string', 'max:100'],
+            'state'           => ['nullable', 'string', 'max:100'],
+            'zip'             => ['nullable', 'string', 'max:20'],
+            'phone'           => ['nullable', 'string', 'max:20'],
+            'phone_label'     => ['nullable', 'string', 'max:20'],
+            'alt_phone'       => ['nullable', 'string', 'max:20'],
+            'alt_phone_label' => ['nullable', 'string', 'max:20'],
+            'email'           => ['nullable', 'string', 'max:255'],
+            'email_label'     => ['nullable', 'string', 'max:255'],
+            'alt_email'       => ['nullable', 'string', 'max:255'],
+            'alt_email_label' => ['nullable', 'string', 'max:255'],
+            'website'         => ['nullable', 'string', 'max:255'],
+            'description'     => ['nullable'],
+            'disabled'        => ['integer', 'between:0,1'],
         ];
     }
 }

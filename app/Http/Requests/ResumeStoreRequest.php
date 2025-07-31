@@ -22,7 +22,15 @@ class ResumeStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:resumes,name,'.$this->resume->id],
+            'date'         => ['nullable', 'date'],
+            'year'         => ['nullable', 'integer', 'between:0,3000'],
+            'link'         => ['nullable', 'string', 'max:255'],
+            'alt_link'     => ['nullable', 'string', 'max:255'],
+            'description'  => ['nullable'],
+            'primary'      => ['integer', 'between:0,1'],
+            'public'       => ['integer', 'between:0,1'],
+            'disabled'     => ['integer', 'between:0,1'],
         ];
     }
 }

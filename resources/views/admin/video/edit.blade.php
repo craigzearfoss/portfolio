@@ -139,14 +139,12 @@
 
                                                 <div class="mb-3">
                                                     <label for="inputCredit" class="form-label mb-1">credit</label>
-                                                    <input
-                                                        type="text"
+                                                    <textarea
                                                         name="credit"
                                                         id="inputCredit"
-                                                        value="{{ $video->credit }}"
-                                                        class="form-control @error('credit') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
+                                                        class="form-control"
+                                                        rows="3"
+                                                        placeholder="">{{ $video->credit }}</textarea>
                                                     @error('credit')
                                                         <div class="form-text text-danger">{{ $message }}</div>
                                                     @enderror

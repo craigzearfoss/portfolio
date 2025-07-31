@@ -45,7 +45,6 @@
                             <th>vac</th>
                             <th>health</th>
                             <th>source</th>
-                            <th>rating</th>
                             <th>actions</th>
                         </tr>
                         </thead>
@@ -61,19 +60,28 @@
                                         <i class="fa-solid fa-check ml-2"></i>
                                     @endif
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     @for ($star=1; $star<$application->rating; $star++)
                                         <i class="fa-solid fa-star"></i>
                                     @endfor
                                 </td>
                                 <td>{{ $application->apply_date }}</td>
                                 <td>{{ $application->duration }}</td>
-                                <td>{{ $application->compensation }}</td>
-                                <td>
-                                    {{ $application->type == 0 ? 'onsite' : ($application->type == 1 ? 'remote' : ($application->type == 2 ? 'hybrid' : '?')) }}
+                                <td class="text-nowrap">
+                                    @if ($application->compensation)
+                                        {{ Number::currency($application->compensation) }}
+                                        @if ($application->compensation_unit)
+                                            / {{ $application->compensation_unit }}
+                                        @endif
+                                    @else
+                                        ?
+                                    @endif
                                 </td>
-                                <td>
-                                    {{ $application->office == 0 ? 'perm' : ($application->type == 1 ? 'cont' : ($application->type == 2 ? 'c-t-hire' : '?')) }}
+                                <td class="text-nowrap">
+                                    {{ $application->type == 0 ? 'perm' : ($application->type == 1 ? 'cont' : ($application->type == 2 ? 'c-t-h' : ($application->type == 3 ? 'proj' : '?'))) }}
+                                </td>
+                                <td class="text-nowrap">
+                                    {{ $application->office == 0 ? 'onsite' : ($application->office == 1 ? 'remote' : ($application->office == 2 ? 'hybrid' : '?')) }}
                                 </td>
                                 <td>
                                     @if ($application->city)
@@ -108,7 +116,6 @@
                                     @endif
                                 </td>
                                 <td>{{ $application->source }}</td>
-                                <td>{{ $application->rating }}</td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.application.destroy', $application->id) }}" method="POST">
                                         <a class="btn btn-sm" href="{{ route('admin.application.show', $application->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>

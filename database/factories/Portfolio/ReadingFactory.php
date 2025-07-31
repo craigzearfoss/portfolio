@@ -22,7 +22,7 @@ class ReadingFactory extends Factory
             'author'   => fake()->name(),
             'paper'    => fake()->numberBetween(0, 1),
             'audio'    => fake()->numberBetween(0, 1),
-            'seq'          => 0,
+            'seq'      => 0,
             'disabled' => fake()->numberBetween(0, 1),
         ];
     }

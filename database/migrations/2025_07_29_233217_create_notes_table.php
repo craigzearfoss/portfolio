@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::connection('career_db')->create('notes', function (Blueprint $table) {
             $table->id();
             $table->string('subject');
-            $table->string('body');
+            $table->text('body');
             $table->timestamps();
             $table->softDeletes();
         });
