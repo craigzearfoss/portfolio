@@ -54,7 +54,7 @@ class ReadingController extends Controller
     /**
      * Show the form for editing the specified reading.
      */
-    public function edit(Reading $reading)
+    public function edit(Reading $reading): View
     {
         return view('admin.reading.edit', compact('reading'));
     }

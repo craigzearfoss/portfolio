@@ -21,9 +21,11 @@
                         <div>
                             @include('admin.components.messages', [$errors])
                         </div>
-                        <div>
-                            <a class="btn btn-solid btn-sm" href="{{ route('admin.application.create') }}"><i class="fa fa-plus"></i> Add New Application</a>
-                        </div>
+                        @if (!$readonly)
+                            <div>
+                                <a class="btn btn-solid btn-sm" href="{{ route('admin.application.create') }}"><i class="fa fa-plus"></i> Add New Application</a>
+                            </div>
+                        @endif
                     </div>
 
                     <table class="table table-bordered table-striped mt-4">
@@ -56,20 +58,18 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $application->role }}</td>
                                 <td class="text-center">
-                                    @if ($application->active)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $application->active ])
                                 </td>
-                                <td class="text-center">
-                                    @for ($star=1; $star<$application->rating; $star++)
-                                        <i class="fa-solid fa-star"></i>
-                                    @endfor
+                                <td class="text-center text-nowrap">
+                                    @include('admin.components.star-ratings', [ 'rating' => $application->rating ])
                                 </td>
-                                <td>{{ $application->apply_date }}</td>
+                                <td class="text-nowrap">
+                                    {{ shortDate($application->apply_date) }}
+                                </td>
                                 <td>{{ $application->duration }}</td>
                                 <td class="text-nowrap">
                                     @if ($application->compensation)
-                                        {{ Number::currency($application->compensation) }}
+                                        {{ explode('.', Number::currency($application->compensation))[0] }}
                                         @if ($application->compensation_unit)
                                             / {{ $application->compensation_unit }}
                                         @endif
@@ -91,38 +91,30 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    @if ($application->w2)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $application->w2 ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($application->relocation)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $application->relocation ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($application->benefits)
-                                        <i $application="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $application->benefits ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($application->vacation)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $application->vacation ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($application->health)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $application->health ])
                                 </td>
                                 <td>{{ $application->source }}</td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.application.destroy', $application->id) }}" method="POST">
-                                        <a class="btn btn-sm" href="{{ route('admin.application.show', $application->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                        <a class="btn btn-sm" href="{{ route('admin.application.edit', $application->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
                                         @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
+                                        <a class="btn btn-sm" href="{{ route('admin.application.show', $application->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                        @if (!$readonly)
+                                            <a class="btn btn-sm" href="{{ route('admin.application.edit', $application->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
+                                        @endif
                                     </form>
                                 </td>
                             </tr>

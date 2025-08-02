@@ -54,7 +54,7 @@ class CommunicationController extends Controller
     /**
      * Show the form for editing the specified communication.
      */
-    public function edit(Communication $communication)
+    public function edit(Communication $communication): View
     {
         return view('admin.communication.edit', compact('communication'));
     }

@@ -55,7 +55,7 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified project.
      */
-    public function edit(Project $project)
+    public function edit(Project $project): View
     {
         return view('admin.project.edit', compact('project'));
     }

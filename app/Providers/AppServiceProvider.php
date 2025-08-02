@@ -21,5 +21,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrap();
+
+        view()->share('demo', boolval(config('app.demo')));
+        view()->share('readonly', boolval(config('app.readonly')));
     }
 }

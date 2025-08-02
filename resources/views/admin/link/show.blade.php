@@ -34,22 +34,19 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>professional</strong>:
-                                                @if ($link->professional)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $link->professional ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>personal</strong>:
-                                                @if ($link->personal)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $link->personal ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>url</strong>: <a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a>
+                                                <strong>url</strong>:
+                                                @include('admin.components.link', [ 'url' => $link->url, 'target' => '_blank' ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -64,20 +61,32 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
+                                                <strong>hidden</strong>:
+                                                @include('admin.components.checkmark', [ 'checked' => $link->hidden ])
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
                                                 <strong>disabled</strong>:
-                                                @if ($link->disabled)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $link->disabled ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>created at</strong>: {{ $link->created_at }}
+                                                <strong>created at</strong>:
+                                                {{ longDateTime($link->created_at) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>updated at</strong>: {{ $link->updated_at }}
+                                                <strong>updated at</strong>:
+                                                {{ longDateTime($link->updated_at) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>deleted at</strong>:
+                                                {{ longDateTime($link->deleted_at) }}
                                             </div>
                                         </div>
                                     </div>

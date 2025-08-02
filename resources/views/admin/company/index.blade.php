@@ -56,12 +56,10 @@
                                 <td>{{ $company->phone }}</td>
                                 <td>{{ $company->email }}</td>
                                 <td>
-                                    <a href="{{ $company->website }}" target="_blank">{{ $company->website }}</a>
+                                    @include('admin.components.link', [ 'url' => $company->website, 'target' => '_blank' ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($company->disabled)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $company->disabled ])
                                 </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.company.destroy', $company->id) }}" method="POST">

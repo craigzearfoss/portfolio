@@ -16,7 +16,11 @@ class IndexController extends Controller
 {
     public function index(): View
     {
-        return view('admin.index');
+        if (Auth::guard('admin')->check()) {
+            return view('admin.dashboard');
+        } else {
+            return view('admin.index');
+        }
     }
 
     public function dashboard(): View
@@ -127,5 +131,47 @@ class IndexController extends Controller
 
         return redirect()->route('admin.login')->with('success', 'Your password has been changed. You can login
         with your new password.');
+    }
+
+    /**
+     * Display the current admin.
+     */
+    public function profile(): View
+    {
+        $admin = Auth::guard('admin')->user();
+
+        $title = $admin->username;
+        return view('admin.profile', compact('admin', 'title'));
+    }
+
+    /**
+     * Show the form for editing the current admin.
+     */
+    public function profile_edit(): View
+    {
+        $admin = Auth::guard('admin')->user();
+
+        $title = 'Edit My Profile';
+        return view('admin.profile-edit', compact('admin', 'title'));
+    }
+
+    /**
+     * Update the current user in storage.
+     */
+    public function profile_update(Request $request): RedirectResponse
+    {
+        $admin = Auth::guard('admin')->user();
+
+        $request->validate([
+            'username' => ['string', 'min:6', 'max:200', 'unique:admins,username,'.$admin->id],
+            'email'    => ['email', 'max:255', 'unique:admins,email,'.$admin->id],
+        ]);
+
+        $admin->username = $request->username;
+        $admin->email    = $request->email;
+        $admin->save();
+
+        return redirect()->route('admin.profile')
+            ->with('success', 'Profile updated successfully.');
     }
 }

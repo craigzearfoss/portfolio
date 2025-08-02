@@ -38,30 +38,38 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>status</strong>: {{ $user->status == 0 ? 'pending' : ($user->status == 1 ? 'active' : $user->status) }}
+                                                <strong>status</strong>:
+                                                {{ \App\Models\User::statusName($user->status) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>disabled</strong>:
-                                                @if ($user->disabled)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>email verified at</strong>: {{ $user->email_verified_at }}
+                                                <strong>email verified at</strong>:
+                                                {{ longDateTime($user->email_verified_at) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>created at</strong>: {{ $user->created_at }}
+                                                <strong>created at</strong>:
+                                                {{ longDateTime($user->created_at) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>updated at</strong>: {{ $user->updated_at }}
+                                                <strong>updated at</strong>:
+                                                {{ longDateTime($user->updated_at) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>deleted at</strong>:
+                                                {{ longDateTime($user->deleted_at) }}
                                             </div>
                                         </div>
                                     </div>

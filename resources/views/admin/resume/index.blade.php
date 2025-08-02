@@ -47,25 +47,19 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $resume->name }}</td>
-                                <td>{{ $resume->date }}</td>
+                                <td class="text-nowrap">{{ shortDate($resume->date) }}</td>
                                 <td>
-                                    <a href="{{ $resume->link }}" target="_blank">{{ $resume->link }}</a>
+                                    @include('admin.components.link', [ 'url' => $resume->link, 'target' => '_blank' ])
                                 </td>
                                 <td>{{ $resume->description }}</td>
                                 <td class="text-center">
-                                    @if ($resume->primary)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $resume->primary ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($resume->public)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $resume->public ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($resume->disabled)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $resume->disabled ])
                                 </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.resume.destroy', $resume->id) }}" method="POST">

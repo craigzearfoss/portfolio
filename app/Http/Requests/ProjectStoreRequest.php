@@ -22,14 +22,15 @@ class ProjectStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required','string', 'min:1', 'max:255', 'unique:projects,name,'.$this->project->id],
+            'name'         => ['required','string', 'min:1', 'max:255', 'unique:projects,name'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'year'         => ['nullable', 'integer', 'between:0,3000'],
             'repository'   => ['nullable', 'string', 'max:255'],
             'link'         => ['nullable', 'string', 'max:255'],
             'description'  => ['nullable'],
-            'seq'          => ['integer'],
+            'hidden'       => ['integer', 'between:0,1'],
+            'seq'          => ['integer', 'min:0'],
             'disabled'     => ['integer', 'between:0,1'],
         ];
     }

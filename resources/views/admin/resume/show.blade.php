@@ -32,17 +32,20 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>date</strong>: {{ $resume->date }}
+                                                <strong>date</strong>:
+                                                {{ shortDate($resume->date) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>link</strong>: <a href="{{ $resume->link }}" target="_blank">{{ $resume->link }}</a>
+                                                <strong>link</strong>:
+                                                @include('admin.components.link', [ 'url' => $resume->link, 'target' => '_blank' ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>alt link</strong>: <a href="{{ $resume->alt_link }}" target="_blank">{{ $resume->alt_link }}</a>
+                                                <strong>alt link</strong>:
+                                                @include('admin.components.link', [ 'url' => $resume->alt_link, 'target' => '_blank' ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -53,35 +56,37 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>primary</strong>:
-                                                @if ($resume->primary)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $resume->primary ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>public</strong>:
-                                                @if ($resume->public)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $resume->public ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>disabled</strong>:
-                                                @if ($resume->disabled)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $resume->disabled ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>created at</strong>: {{ $resume->created_at }}
+                                                <strong>created at</strong>:
+                                                {{ longDateTime($resume->created_at) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>updated at</strong>: {{ $resume->updated_at }}
+                                                <strong>updated at</strong>:
+                                                {{ longDateTime($resume->updated_at) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>deleted at</strong>:
+                                                {{ longDateTime($resume->deleted_at) }}
                                             </div>
                                         </div>
                                     </div>

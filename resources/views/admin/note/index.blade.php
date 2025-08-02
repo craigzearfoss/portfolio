@@ -44,7 +44,7 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $note->subject }}</td>
                                 <td>{{ $note->body }}</td>
-                                <td class="text-nowrap">{{ $note->created_at }}</td>
+                                <td class="text-nowrap">{{ shortDateTime($note->created_at) }}</td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.note.destroy', $note->id) }}" method="POST">
                                         <a class="btn btn-sm" href="{{ route('admin.note.show', $note->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>

@@ -31,11 +31,12 @@
                         <tr>
                             <th></th>
                             <th>name</th>
-                            <th>professional</th>
-                            <th>personal</th>
+                            <th class="text-center">professional</th>
+                            <th class="text-center">personal</th>
                             <th>url</th>
                             <th>website</th>
                             <th>description</th>
+                            <th class="text-center">hidden</th>
                             <th class="text-center">disabled</th>
                             <th>actions</th>
                         </tr>
@@ -48,24 +49,21 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $link->name }}</td>
                                 <td class="text-center">
-                                    @if ($link->professional)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $link->professional ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($link->personal)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $link->personal ])
                                 </td>
                                 <td>
-                                    <a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a>
+                                    @include('admin.components.link', [ 'url' => $link->url, 'target' => '_blank' ])
                                 </td>
                                 <td>{{ $link->website }}</td>
                                 <td>{{ $link->description }}</td>
                                 <td class="text-center">
-                                    @if ($link->disabled)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $link->hidden ])
+                                </td>
+                                <td class="text-center">
+                                    @include('admin.components.checkmark', [ 'checked' => $link->disabled ])
                                 </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.link.destroy', $link->id) }}" method="POST">

@@ -37,6 +37,7 @@
                             <th>location</th>
                             <th>link</th>
                             <th>description</th>
+                            <th class="text-center">hidden</th>
                             <th class="text-center">disabled</th>
                             <th>actions</th>
                         </tr>
@@ -53,15 +54,14 @@
                                 <td>{{ $video->credit }}</td>
                                 <td>{{ $video->location }}</td>
                                 <td>
-                                    @if ($video->link)
-                                        <a href="{{ $video->link }}" target="_blank">{{ $video->link }}</a>
-                                    @endif
+                                    @include('admin.components.link', [ 'url' => $video->link, 'target' => '_blank' ])
                                 </td>
                                 <td>{{ $video->description }}</td>
                                 <td class="text-center">
-                                    @if ($video->disabled)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $video->hidden ])
+                                </td>
+                                <td class="text-center">
+                                    @include('admin.components.checkmark', [ 'checked' => $video->disabled ])
                                 </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.video.destroy', $video->id) }}" method="POST">

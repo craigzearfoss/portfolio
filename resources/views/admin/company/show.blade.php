@@ -21,7 +21,8 @@
                                 <div class="card-body md:p-5">
 
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.company.edit', $company) }}"><i class="fa fa-pen-to-square"></i> Edit</a>                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.company.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.company.edit', $company) }}"><i class="fa fa-pen-to-square"></i> Edit</a>
+                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.company.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                     </div>
 
                                     <div class="row">
@@ -72,7 +73,8 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>website</strong>: <a href="{{ $company->website }}" target="_blank">{{ $company->website }}</a>
+                                                <strong>website</strong>:
+                                                @include('admin.components.link', [ 'url' => $company->website, 'target' => '_blank' ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -83,19 +85,25 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>disabled</strong>:
-                                                @if ($company->disabled)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $company->w2 ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>created at</strong>: {{ $company->created_at }}
+                                                <strong>created at</strong>:
+                                                {{ longDateTime($company->created_at) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>updated at</strong>: {{ $company->updated_at }}
+                                                <strong>updated at</strong>:
+                                                {{ longDateTime($company->updated_at) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>deleted at</strong>:
+                                                {{ longDateTime($company->deleted_at) }}
                                             </div>
                                         </div>
                                     </div>

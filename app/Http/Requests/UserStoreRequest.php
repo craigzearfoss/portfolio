@@ -25,7 +25,7 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'name'              => ['required','string', 'min:6', 'max:255'],
-            'email'             => ['required','email', 'max:255', 'unique:users,email,'.$this->user->id],
+            'email'             => ['required','email', 'max:255', 'unique:users,email'],
             //'email_verified_at' => ['nullable'],
             'password'          => ['required','string', 'min:8', 'max:255'],
             'confirm_password'  => ['required','string', 'same:password'],

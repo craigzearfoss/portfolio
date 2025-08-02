@@ -34,7 +34,6 @@
                             <th>repository</th>
                             <th>link</th>
                             <th>description</th>
-                            <th>actions</th>
                         </tr>
                         </thead>
 
@@ -45,33 +44,23 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $project->name }}</td>
                                 <td class="text-center">
-                                    @if ($project->professional)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('front.components.checkmark', [ 'checked' => $project->professional ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($project->personal)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('front.components.checkmark', [ 'checked' => $project->personal ])
                                 </td>
                                 <td>{{ $project->year }}</td>
                                 <td>
-                                    @if ($project->repository)
-                                        <a href="{{ $project->repository }}" target="_bank">{{ $project->repository }}</a>
-                                    @endif
+                                    @include('front.components.link', [ 'url' => $project->repository, 'target' => '_blank' ])
                                 </td>
                                 <td>
-                                    @if ($project->link)
-                                        <a href="{{ $project->link }}" target="_bank">{{ $project->link }}</a>
-                                    @endif
+                                    @include('front.components.link', [ 'url' => $project->link, 'target' => '_blank' ])
                                 </td>
                                 <td>{{ $project->description }}</td>
-                                <td class="text-nowrap">
-                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9">There are no projects.</td>
+                                <td colspan="8">There are no projects.</td>
                             </tr>
                         @endforelse
 

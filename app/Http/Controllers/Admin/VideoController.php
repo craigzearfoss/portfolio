@@ -54,7 +54,7 @@ class VideoController extends Controller
     /**
      * Show the form for editing the specified video.
      */
-    public function edit(Video $video)
+    public function edit(Video $video): View
     {
         return view('admin.video.edit', compact('video'));
     }

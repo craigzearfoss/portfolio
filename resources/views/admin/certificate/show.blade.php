@@ -42,33 +42,30 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>receive</strong>: {{ $certificate->receive }}
+                                                <strong>received</strong>: {{ $certificate->received }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>expire</strong>: {{ $certificate->expire }}
+                                                <strong>expiration</strong>: {{ $certificate->expiration }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>professional</strong>:
-                                                @if ($certificate->professional)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $certificate->professional ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>personal</strong>:
-                                                @if ($certificate->personal)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $certificate->personal ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>link</strong>: <a href="{{ $certificate->link }}" target="_blank">{{ $certificate->link }}</a>
+                                                <strong>link</strong>:
+                                                @include('admin.components.link', [ 'url' => $certificate->link, 'target' => '_blank' ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -78,20 +75,32 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
+                                                <strong>hidden</strong>:
+                                                @include('admin.components.checkmark', [ 'checked' => $certificate->hidden ])
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
                                                 <strong>disabled</strong>:
-                                                @if ($certificate->disabled)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $certificate->disabled ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>created at</strong>: {{ $certificate->created_at }}
+                                                <strong>created at</strong>:
+                                                {{ longDateTime($certificate->created_at) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>updated at</strong>: {{ $certificate->updated_at }}
+                                                <strong>updated at</strong>:
+                                                {{ longDateTime($certificate->updated_at) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>deleted at at</strong>:
+                                                {{ longDateTime($certificate->deleted_at) }}
                                             </div>
                                         </div>
                                     </div>

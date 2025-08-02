@@ -4,11 +4,12 @@ namespace App\Models\Portfolio;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Video extends Model
 {
     /** @use HasFactory<\Database\Factories\Portfolio\VideoFactory> */
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 
@@ -31,6 +32,7 @@ class Video extends Model
         'link',
         'description',
         'seq',
+        'hidden',
         'disabled',
     ];
 }

@@ -46,12 +46,14 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td class="text-center">{{ $user->email_verified_at ? '1' : '0' }}</td>
-                                <td class="text-center">{{ $user->status == 0 ? 'pending' : ($user->status == 1 ? 'active' : $user->status) }}</td>
                                 <td class="text-center">
-                                    @if ($user->disabled)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $user->email_verified_at ])
+                                </td>
+                                <td class="text-center">
+                                    {{ \App\Models\User::statusName($user->status) }}
+                                </td>
+                                <td class="text-center">
+                                    @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
                                 </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST">

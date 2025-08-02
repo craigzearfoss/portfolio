@@ -23,12 +23,16 @@ class ReadingStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'    => ['required', 'string', 'min:1', 'max:255', 'unique:readings,name,'.$this->reading->id],
-            'author'   => ['nullable', 'string', 'max:255'],
-            'paper'    => ['integer', 'between:0,1'],
-            'audio'    => ['integer', 'between:0,1'],
-            'seq'      => ['integer'],
-            'disabled' => ['integer', 'between:0,1'],
+            'title'     => ['required', 'string', 'min:1', 'max:255', 'unique:readings,name'],
+            'author'    => ['nullable', 'string', 'max:255'],
+            'paper'     => ['integer', 'between:0,1'],
+            'audio'     => ['integer', 'between:0,1'],
+            'link'      => [],
+            'link_name' => [],
+            'notes'     => [],
+            'hidden'    => ['integer', 'between:0,1'],
+            'seq'       => ['integer', 'min:0'],
+            'disabled'  => ['integer', 'between:0,1'],
         ];
     }
 }

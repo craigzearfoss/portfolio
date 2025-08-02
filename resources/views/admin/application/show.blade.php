@@ -41,31 +41,32 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>active</strong>:
-                                                @if ($application->active)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $application->active ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>post date</strong>: {{ $application->post_date }}
+                                                <strong>post date</strong>:
+                                                {{ longDate($application->post_date) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>apply date</strong>: {{ $application->apply_date }}
+                                                <strong>apply date</strong>:
+                                                {{ longDate($application->apply_date) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>close date</strong>: {{ $application->close_date }}
+                                                <strong>close date</strong>:
+                                                {{ longDate($application->close_date) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>compensation</strong>:
                                                 @if ($application->compensation)
-                                                    {{ Number::currency($application->compensation) }}
+                                                    {{ explode('.', Number::currency($application->compensation))[0] }}
                                                     @if ($application->compensation_unit)
                                                         / {{ $application->compensation_unit }}
                                                     @endif
@@ -82,13 +83,13 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>type</strong>:
-                                                {{ $application->type == 0 ? 'permanent' : ($application->type == 1 ? 'contract' : ($application->type == 2 ? 'contract-to-hire' : ($application->type == 2 ? 'project' : '?'))) }}
+                                                {{ \App\Models\Career\Application::typeName($application->type) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>office</strong>:
-                                                {{ $application->office == 0 ? 'onsite' : ($application->office == 1 ? 'remote' : ($application->office == 2 ? 'hybrid' : '?')) }}
+                                                {{ \App\Models\Career\Application::officeName($application->office) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -109,41 +110,31 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>w2</strong>:
-                                                @if ($application->w2)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $application->w2 ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>relocation</strong>:
-                                                @if ($application->relocation)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $application->relocation ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>benefits</strong>:
-                                                @if ($application->benefits)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $application->benefits ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>vacation</strong>:
-                                                @if ($application->vacation)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $application->vacation ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>health</strong>:
-                                                @if ($application->health)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $application->health ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -153,31 +144,31 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>link</strong>: <a href="{{ $application->link }}" target="_blank">{{ $application->link }}</a>
+                                                <strong>link</strong>:
+                                                @include('admin.components.link', [ 'url' => $application->link, 'target' => '_blank' ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>contact(s)</strong>: <a href="{{ $application->link }}" target="_blank">{{ $application->contacts }}</a>
+                                                <strong>contact(s)</strong>: {{ $application->contacts }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>phone(s)</strong>: <a href="{{ $application->link }}" target="_blank">{{ $application->phones }}</a>
+                                                <strong>phone(s)</strong>: {{ $application->phones }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>email(s)</strong>: <a href="{{ $application->link }}" target="_blank">{{ $application->emails }}</a>
+                                                <strong>email(s)</strong>: {{ $application->emails }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>website</strong>: <a href="{{ $application->link }}" target="_blank">{{ $application->website }}</a>
+                                                <strong>website</strong>:
+                                                @include('admin.components.link', [ 'url' => $application->website, 'target' => '_blank' ])
                                             </div>
                                         </div>
-
-
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>description</strong>: {{ $application->description }}
@@ -185,12 +176,20 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>created at</strong>: {{ $application->created_at }}
+                                                <strong>created at</strong>:
+                                                {{ longDateTime($application->created_at) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>updated at</strong>: {{ $application->updated_at }}
+                                                <strong>updated at</strong>:
+                                                {{ longDateTime($application->updated_at) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>deleted at</strong>:
+                                                {{ longDateTime($application->deleted_at) }}
                                             </div>
                                         </div>
                                     </div>

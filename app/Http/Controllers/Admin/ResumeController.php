@@ -55,7 +55,7 @@ class ResumeController extends Controller
     /**
      * Show the form for editing the specified resume.
      */
-    public function edit(Resume $resume)
+    public function edit(Resume $resume): View
     {
         return view('admin.resume.edit', compact('resume'));
     }

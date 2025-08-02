@@ -5,12 +5,11 @@ namespace App\Models\Portfolio;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
 
 class Project extends Model
 {
     /** @use HasFactory<\Database\Factories\Portfolio\ProjectFactory> */
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 
@@ -30,6 +29,7 @@ class Project extends Model
         'link',
         'description',
         'seq',
+        'hidden',
         'disabled',
     ];
 }

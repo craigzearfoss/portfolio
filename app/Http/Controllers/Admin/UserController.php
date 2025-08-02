@@ -58,7 +58,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified user.
      */
-    public function edit(User $user)
+    public function edit(User $user): View
     {
         return view('admin.user.edit', compact('user'));
     }

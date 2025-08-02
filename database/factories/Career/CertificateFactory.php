@@ -20,13 +20,14 @@ class CertificateFactory extends Factory
             'name'         => fake()->sentence(6),
             'organization' => fake()->company(),
             'year'         => fake()->year(),
-            'receive'      => fake()->date(),
-            'expire'       => fake()->date(),
+            'received'     => fake()->date(),
+            'expiration'   => fake()->date(),
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
             'link'         => fake()->url(),
             'description'  => fake()->text(200),
             'seq'          => 0,
+            'hidden'       => fake()->numberBetween(0, 1),
             'disabled'     => fake()->numberBetween(0, 1),
         ];
     }

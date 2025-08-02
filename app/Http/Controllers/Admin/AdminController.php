@@ -64,7 +64,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified admin.
      */
-    public function edit(Admin $admin)
+    public function edit(Admin $admin): View
     {
         return view('admin.admin.edit', compact('admin'));
     }

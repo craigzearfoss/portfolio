@@ -55,7 +55,7 @@ class ContactController extends Controller
     /**
      * Show the form for editing the specified contact.
      */
-    public function edit(Contact $contact)
+    public function edit(Contact $contact): View
     {
         return view('admin.contact.edit', compact('contact'));
     }

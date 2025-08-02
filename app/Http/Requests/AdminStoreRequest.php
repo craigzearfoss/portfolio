@@ -23,8 +23,8 @@ class AdminStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => ['required', 'string', 'min:6', 'max:200', 'unique:users,username,'.$this->admin->id],
-            'email'    => ['required', 'email', 'max:255', 'unique:users,email,'.$this->admin->id],
+            'username' => ['required', 'string', 'min:6', 'max:200', 'unique:users,username'],
+            'email'    => ['required', 'email', 'max:255', 'unique:users,email'],
             //'password' => ['required', 'required', 'string', 'min:8'],
             //'token'  => ['nullable', 'string', 'max:255'],
             'disabled' => ['integer', 'between:0,1'],

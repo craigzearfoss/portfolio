@@ -36,12 +36,20 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>created at</strong>: {{ $communication->created_at }}
+                                                <strong>created at</strong>:
+                                                {{ longDateTime($communication->created_at) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>updated at</strong>: {{ $communication->updated_at }}
+                                                <strong>updated at</strong>:
+                                                {{ longDateTime($communication->updated_at) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>deleted at</strong>:
+                                                {{ longDateTime($communication->deleted_at) }}
                                             </div>
                                         </div>
                                     </div>

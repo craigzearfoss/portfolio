@@ -55,7 +55,7 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified company.
      */
-    public function edit(Company $company)
+    public function edit(Company $company): View
     {
         return view('admin.company.edit', compact('company'));
     }

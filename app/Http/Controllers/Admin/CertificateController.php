@@ -54,7 +54,7 @@ class CertificateController extends Controller
     /**
      * Show the form for editing the specified certificate.
      */
-    public function edit(Certificate $certificate)
+    public function edit(Certificate $certificate): View
     {
         return view('admin.certificate.edit', compact('certificate'));
     }

@@ -2,8 +2,9 @@
     <div class="side-nav-header">
         <div class="logo px-6">
 
+            {{-- Note: In the User->index() action we check if the user is logged in, but include it here in case you want to change the routes. --}}
             @if (Auth::guard('web'))
-                <a class="no-underline" href="{{route('dashboard')}}">
+                <a class="no-underline" href="{{route('homepage')}}">
                     <h4 style="margin: 10px 0; color: #222;">{{ config('app.name') }}</h4>
                 </a>
             @else
@@ -19,8 +20,62 @@
 
             <div class="menu-group">
                 <ul>
+
+                    <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
                     <li class="menu-collapse">
-                        <a href="#">
+                        <a href="{{route('project.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <i class="fa-solid fa-wrench"></i>
+                                </span>
+                                <span>Projects</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
+                        <a href="{{route('certificate.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <i class="fa-solid fa-certificate"></i>
+                                </span>
+                                <span>Certificates</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
+                        <a href="{{route('link.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <i class="fa-solid fa-link"></i>
+                                </span>
+                                <span>Links</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
+                        <a href="{{route('reading.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <i class="fa-solid fa-book"></i>
+                                </span>
+                                <span>Readings</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
+                        <a href="{{route('video.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <i class="fa-solid fa-video-camera"></i>
+                                </span>
+                                <span>Videos</span>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
+                    <li class="menu-collapse">
+                        <a href="{{ route('profile') }}">
                             <div class="menu-item">
                                 <span class="text-xl opacity-50">
                                     <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">

@@ -36,12 +36,20 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>created at</strong>: {{ $note->created_at }}
+                                                <strong>created at</strong>:
+                                                {{ longDateTime($note->created_at) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>updated at</strong>: {{ $note->updated_at }}
+                                                <strong>updated at</strong>:
+                                                {{ longDateTime($note->updated_at) }}
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>deleted at</strong>:
+                                                    {{ longDateTime($note->deleted_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

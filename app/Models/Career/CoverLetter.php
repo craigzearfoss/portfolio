@@ -5,12 +5,11 @@ namespace App\Models\Career;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
 
 class CoverLetter extends Model
 {
     /** @use HasFactory<\Database\Factories\Career\CoverLetterFactory> */
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $connection = 'career_db';
 

@@ -34,6 +34,7 @@
                             <th>author</th>
                             <th class="text-center">paper</th>
                             <th class="text-center">audio</th>
+                            <th class="text-center">hidden</th>
                             <th class="text-center">disabled</th>
                             <th>actions</th>
                         </tr>
@@ -47,19 +48,16 @@
                                 <td>{{ $reading->title }}</td>
                                 <td>{{ $reading->author }}</td>
                                 <td class="text-center">
-                                    @if ($reading->paper)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $reading->paper ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($reading->audio)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $reading->audio ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($reading->disabled)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $reading->hidden ])
+                                </td>
+                                <td class="text-center">
+                                    @include('admin.components.checkmark', [ 'checked' => $reading->disabled ])
                                 </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.reading.destroy', $reading->id) }}" method="POST">

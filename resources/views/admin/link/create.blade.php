@@ -135,23 +135,34 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-3">
-                                                    <input type="hidden" name="disabled" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="disabled"
-                                                        id="inputDisabled"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ old('disabled') ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputDisabled" class="form-check-label mb-1 font-semibold">disabled</label>
-                                                    @error('disabled')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'type'        => 'number',
+                                                    'name'        => 'sequence',
+                                                    'value'       => old('seq'),
+                                                    'min'         => 0,
+                                                    'message'     => $message ?? '',
+                                                ])
 
-                                                <button type="submit" class="btn btn-sm btn-solid"><i class="fa-solid fa-floppy-disk"></i> Submit</button>
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'hidden',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('hidden'),
+                                                    'message'         => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'disabled',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('disabled'),
+                                                    'message'         => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-button-submit', [
+                                                    'label' => 'Save',
+                                                    'cancel_url' => route('admin.link.index')
+                                                ])
 
                                             </form>
 

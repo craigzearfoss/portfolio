@@ -55,7 +55,7 @@ class ApplicationController extends Controller
     /**
      * Show the form for editing the specified application.
      */
-    public function edit(Application $application)
+    public function edit(Application $application): View
     {
         return view('admin.application.edit', compact('application'));
     }

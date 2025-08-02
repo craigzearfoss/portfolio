@@ -22,7 +22,7 @@ class ResumeStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:resumes,name,'.$this->resume->id],
+            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:resumes,name'],
             'date'         => ['nullable', 'date'],
             'year'         => ['nullable', 'integer', 'between:0,3000'],
             'link'         => ['nullable', 'string', 'max:255'],

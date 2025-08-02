@@ -27,13 +27,11 @@
                         <thead>
                         <tr>
                             <th></th>
-                            <th>name</th>
                             <th>professional</th>
                             <th>personal</th>
-                            <th>url</th>
+                            <th>link</th>
                             <th>website</th>
                             <th>description</th>
-                            <th>actions</th>
                         </tr>
                         </thead>
 
@@ -42,27 +40,26 @@
                         @forelse ($links as $link)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $link->name }}</td>
                                 <td class="text-center">
-                                    @if ($link->professional)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('front.components.checkmark', [ 'checked' => $link->professional ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($link->personal)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('front.components.checkmark', [ 'checked' => $link->personal ])
                                 </td>
                                 <td>
+                                    @include('front.components.link', [
+                                        'name'   => $link->name ?? $link->url,
+                                        'url'    => $link->url,
+                                        'target' => '_blank'
+                                    ])
                                     <a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a>
                                 </td>
                                 <td>{{ $link->website }}</td>
                                 <td>{{ $link->description }}</td>
-                                <td class="text-nowrap"></td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9">There are no links.</td>
+                                <td colspan="6">There are no links.</td>
                             </tr>
                         @endforelse
 

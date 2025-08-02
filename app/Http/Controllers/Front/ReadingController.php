@@ -17,7 +17,8 @@ class ReadingController extends Controller
     {
         $readings = Reading::where('disabled', 0)->orderBy('seq')->paginate(self::NUM_PER_PAGE);
 
-        return view('front.reading.index', compact('readings'))
+        $title = 'Readings';
+        return view('front.reading.index', compact('readings', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 }

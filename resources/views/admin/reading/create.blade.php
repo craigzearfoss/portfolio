@@ -43,86 +43,94 @@
                                             <form action="{{ route('admin.reading.store') }}" method="POST">
                                                 @csrf
 
-                                                <div class="mb-3">
-                                                    <label for="inputTitle" class="form-label mb-1">title</label>
-                                                    <input
-                                                        type="text"
-                                                        name="title"
-                                                        id="inputTitle"
-                                                        value="{{ old('title') }}"
-                                                        class="form-control @error('title') is-invalid @enderror"
-                                                        placeholder=""
-                                                        required
-                                                    >
-                                                    @error('title')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'        => 'title',
+                                                    'value'       => old('title'),
+                                                    'required'    => true,
+                                                    'maxlength'   => 255,
+                                                    'message'     => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputAuthor" class="form-label mb-1">author</label>
-                                                    <input
-                                                        type="text"
-                                                        name="author"
-                                                        id="inputAuthor"
-                                                        value="{{ old('author') }}"
-                                                        class="form-control @error('author') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('author')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'        => 'author',
+                                                    'value'       => old('author'),
+                                                    'required'    => true,
+                                                    'maxlength'   => 255,
+                                                    'message'     => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <input type="hidden" name="paper" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="paper"
-                                                        id="inputPaper"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ old('paper') ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputPaper" class="form-check-label mb-1 font-semibold">paper</label>
-                                                    @error('paper')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'paper',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('paper'),
+                                                    'message'         => $message ?? '',
+                                                ])
 
-                                                <div class="mb-4">
-                                                    <input type="hidden" name="audio" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="audio"
-                                                        id="inputAudio"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ old('audio') ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputAudio" class="form-check-label mb-1 font-semibold">audio</label>
-                                                    @error('audio')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'audio',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('audio'),
+                                                    'message'         => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <input type="hidden" name="disabled" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="disabled"
-                                                        id="inputDisabled"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ old('disabled') ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputDisabled" class="form-check-label mb-1 font-semibold">disabled</label>
-                                                    @error('disabled')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'wishlist',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('wishlist'),
+                                                    'message'         => $message ?? '',
+                                                ])
 
-                                                <button type="submit" class="btn btn-sm btn-solid"><i class="fa-solid fa-floppy-disk"></i> Submit</button>
+                                                @include('admin.components.form-input', [
+                                                    'name'        => 'link',
+                                                    'value'       => old('link'),
+                                                    'maxlength'   => 255,
+                                                    'message'     => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'        => 'link name',
+                                                    'value'       => old('link_name'),
+                                                    'maxlength'   => 255,
+                                                    'message'     => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-textarea', [
+                                                    'name'    => 'notes',
+                                                    'value'   => old('notes'),
+                                                    'message' => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'type'        => 'number',
+                                                    'name'        => 'sequence',
+                                                    'value'       => old('seq'),
+                                                    'min'         => 0,
+                                                    'message'     => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'hidden',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('hidden'),
+                                                    'message'         => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'disabled',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('disabled'),
+                                                    'message'         => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-button-submit', [
+                                                    'label' => 'Save',
+                                                    'cancel_url' => route('admin.reading.index')
+                                                ])
 
                                             </form>
 

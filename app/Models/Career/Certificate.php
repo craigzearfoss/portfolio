@@ -5,12 +5,11 @@ namespace App\Models\Career;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
 
 class Certificate extends Model
 {
     /** @use HasFactory<\Database\Factories\Career\CertificateFactory> */
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $connection = 'career_db';
 
@@ -27,11 +26,12 @@ class Certificate extends Model
         'professional',
         'personal',
         'year',
-        'receive',
-        'expire',
+        'received',
+        'expiration',
         'link',
         'description',
         'seq',
+        'hidden',
         'disabled',
     ];
 }

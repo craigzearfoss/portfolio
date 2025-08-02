@@ -22,16 +22,17 @@ class CertificateStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:certificates,name,'.$this->certificate->id],
+            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:certificates,name'],
             'organization' => ['nullable', 'string', 'max:255'],
             'year'         => ['nullable', 'integer', 'between:0,3000'],
-            'receive'      => ['nullable', 'date'],
-            'expire'       => ['nullable', 'date'],
+            'received'     => ['nullable', 'date'],
+            'expiration'   => ['nullable', 'date'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'link'         => ['nullable', 'string', 'max:255'],
             'description'  => ['nullable'],
-            'seq'          => ['integer'],
+            'hidden'       => ['integer', 'between:0,1'],
+            'seq'          => ['integer', 'min:0'],
             'disabled'     => ['integer', 'between:0,1'],
         ];
     }

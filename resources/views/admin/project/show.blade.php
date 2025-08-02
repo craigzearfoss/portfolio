@@ -33,17 +33,13 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>professional</strong>:
-                                                @if ($project->professional)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $project->profesional ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>personal</strong>:
-                                                @if ($project->personal)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $project->personal ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -54,17 +50,13 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>repository</strong>:
-                                                @if ($project->repository)
-                                                    <a href="{{ $project->repository }}" target="_bank">{{ $project->repository }}</a>
-                                                @endif
+                                                @include('admin.components.link', [ 'url' => $project->repository, 'target' => '_blank' ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>link</strong>:
-                                                @if ($project->link)
-                                                    <a href="{{ $project->link }}" target="_bank">{{ $project->link }}</a>
-                                                @endif
+                                                @include('admin.components.link', [ 'url' => $project->link, 'target' => '_blank' ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -74,20 +66,32 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
+                                                <strong>hidden</strong>:
+                                                @include('admin.components.checkmark', [ 'checked' => $project->hidden ])
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
                                                 <strong>disabled</strong>:
-                                                @if ($project->disabled)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $project->disabled ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>created at</strong>: {{ $project->created_at }}
+                                                <strong>created at</strong>:
+                                                {{ longDateTime($project->created_at) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>updated at</strong>: {{ $project->updated_at }}
+                                                <strong>updated at</strong>:
+                                                {{ longDateTime($project->updated_at) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>deleted at</strong>:
+                                                {{ longDateTime($project->deleted_at) }}
                                             </div>
                                         </div>
                                     </div>

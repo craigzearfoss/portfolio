@@ -45,55 +45,35 @@
                                                 @csrf
                                                 @method('PUT')
 
-                                                <div class="mb-3">
-                                                    <label for="inputUsername" class="form-label mb-1">user name</label>
-                                                    <input
-                                                        type="text"
-                                                        name="username"
-                                                        id="inputUsername"
-                                                        value="{{ $admin->username }}"
-                                                        class="form-control @error('username') is-invalid @enderror"
-                                                        placeholder=""
-                                                        required
-                                                    >
-                                                    @error('username')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'username',
+                                                    'value'     => old('username') ?? $admin->username,
+                                                    'required'  => true,
+                                                    'minlength' => 6,
+                                                    'maxlength' => 200,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputEmail" class="form-label mb-1">email</label>
-                                                    <input
-                                                        type="email"
-                                                        name="email"
-                                                        id="inputEmail"
-                                                        value="{{ $admin->email }}"
-                                                        class="form-control @error('email') is-invalid @enderror"
-                                                        placeholder=""
-                                                        required
-                                                    >
-                                                    @error('email')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'email',
+                                                    'value'     => old('email') ?? $admin->email,
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <input type="hidden" name="disabled" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="disabled"
-                                                        id="inputDisabled"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ $admin->disabled ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputDisabled" class="form-check-label mb-1 font-semibold">disabled</label>
-                                                    @error('disabled')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'disabled',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('disabled') ?? $application->disabled,
+                                                    'message'         => $message ?? '',
+                                                ])
 
-                                                <button type="submit" class="btn btn-sm btn-solid btn-sm"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                                                @include('admin.components.form-button-submit', [
+                                                    'label' => 'Save',
+                                                    'cancel_url' => route('admin.admin.index')
+                                                ])
 
                                             </form>
 

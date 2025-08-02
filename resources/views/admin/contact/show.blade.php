@@ -50,29 +50,38 @@
                                                 <strong>zip</strong>: {{ $contact->zip }}
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>{{ $contact->phone_label ?? 'phone '}}</strong>: {{ $contact->phone }}
+                                        @if (!empty($contact->phone))
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>{{ $contact->phone_label ?? 'phone '}}</strong>: {{ $contact->phone }}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>{{ $contact->alt_phone_label ?? 'alt phone '}}</strong>: {{ $contact->alt_phone }}
+                                        @endif
+                                        @if (!empty($contact->alt_phone))
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>{{ $contact->alt_phone_label ?? 'alt phone '}}</strong>: {{ $contact->alt_phone }}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>{{ $contact->email_label ?? 'email' }}</strong>: {{ $contact->email }}
+                                        @endif
+                                        @if (!empty($contact->email))
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <strong>{{ $contact->email_label ?? 'email' }}</strong>: {{ $contact->email }}
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
+                                        @if (!empty($contact->alt_email))
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>{{ $contact->alt_email_label ?? 'alt_email' }}</strong>: {{ $contact->alt_email }}
                                             </div>
                                         </div>
+                                        @endif
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>website</strong>: <a href="{{ $contact->website }}" target="_blank">{{ $contact->website }}</a>
+                                                <strong>website</strong>:
+                                                @include('admin.components.link', [ 'url' => $contact->website, 'target' => '_blank' ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -83,19 +92,25 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>disabled</strong>:
-                                                @if ($contact->disabled)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $contact->w2 ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>created at</strong>: {{ $contact->created_at }}
+                                                <strong>created at</strong>:
+                                                {{ longDateTime($contact->created_at) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>updated at</strong>: {{ $contact->updated_at }}
+                                                <strong>updated at</strong>:
+                                                {{ longDateTime($contact->updated_at) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>deleted at</strong>:
+                                                {{ longDateTime($contact->deleted_at) }}
                                             </div>
                                         </div>
                                     </div>

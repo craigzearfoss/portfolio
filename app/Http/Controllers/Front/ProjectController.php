@@ -17,7 +17,8 @@ class ProjectController extends Controller
     {
         $projects = Project::where('disabled', 0)->orderBy('seq')->paginate(self::NUM_PER_PAGE);
 
-        return view('front.project.index', compact('projects'))
+        $title = 'Projects';
+        return view('front.project.index', compact('projects', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 }

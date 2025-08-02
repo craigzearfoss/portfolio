@@ -32,11 +32,12 @@
                             <th></th>
                             <th>name</th>
                             <th>organization</th>
-                            <th>receive</th>
-                            <th>expire</th>
-                            <th>professional</th>
-                            <th>personal</th>
+                            <th>received</th>
+                            <th>expiration</th>
+                            <th class="text-center">professional</th>
+                            <th class="text-center">personal</th>
                             <th>description</th>
+                            <th class="text-center">hidden</th>
                             <th class="text-center">disabled</th>
                             <th>actions</th>
                         </tr>
@@ -49,23 +50,25 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $certificate->name }}</td>
                                 <td>{{ $certificate->organization }}</td>
-                                <td class="text-nowrap">{{ $certificate->receive }}</td>
-                                <td class="text-nowrap">{{ $certificate->expire }}</td>
-                                <td class="text-center">
-                                    @if ($certificate->professional)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                <td class="text-nowrap">
+                                    {{ shortDate($certificate->received) }}
+                                </td>
+                                <td class="text-nowrap">
+                                    {{ shortDate($certificate->expiration) }}
                                 </td>
                                 <td class="text-center">
-                                    @if ($certificate->personal)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $certificate->professional ])
+                                </td>
+                                <td class="text-center">
+                                    @include('admin.components.checkmark', [ 'checked' => $certificate->personal ])
                                 </td>
                                 <td>{{ $certificate->description }}</td>
+
                                 <td class="text-center">
-                                    @if ($certificate->disabled)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $certificate->hidden ])
+                                </td>
+                                <td class="text-center">
+                                    @include('admin.components.checkmark', [ 'checked' => $certificate->disabled ])
                                 </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.certificate.destroy', $certificate->id) }}" method="POST">

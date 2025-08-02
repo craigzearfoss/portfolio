@@ -34,17 +34,13 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>professional</strong>:
-                                                @if ($video->professional)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $video->professional ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>personal</strong>:
-                                                @if ($video->personal)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $video->personal ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -65,9 +61,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>link</strong>:
-                                                @if ($video->link)
-                                                    <a href="{{ $video->link }}" target="_blank">{{ $video->link }}</a>
-                                                @endif
+                                                @include('admin.components.link', [ 'url' => $video->link, 'target' => '_blank' ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -77,21 +71,33 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
+                                                <strong>hidden</strong>:
+                                                @include('admin.components.checkmark', [ 'checked' => $video->hidden ])
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
                                                 <strong>disabled</strong>:
-                                                @if ($video->disabled)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $video->disabled ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>created at</strong>: {{ $video->created_at }}
+                                                <strong>created at</strong>:
+                                                {{ longDateTime($video->created_at) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>updated at</strong>: {{ $video->updated_at }}
+                                                <strong>updated at</strong>:
+                                                {{ longDateTime($video->updated_at) }}
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <strong>deleted at</strong>:
+                                            {{ longDateTime($video->deleted_at) }}
                                         </div>
                                     </div>
 

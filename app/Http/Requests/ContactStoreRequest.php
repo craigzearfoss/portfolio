@@ -22,7 +22,7 @@ class ContactStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'            => ['required', 'string', 'min:1', 'max:255', 'unique:contacts,name,'.$this->contact->id],
+            'name'            => ['required', 'string', 'min:1', 'max:255', 'unique:contacts,name'],
             'title'           => ['nullable', 'string', 'max:50'],
             'street'          => ['nullable', 'string', 'max:255'],
             'street2'         => ['nullable', 'string', 'max:255'],

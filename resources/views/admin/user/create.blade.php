@@ -43,104 +43,65 @@
                                             <form action="{{ route('admin.user.store') }}" method="POST">
                                                 @csrf
 
-                                                <div class="mb-3">
-                                                    <label for="inputName" class="form-label mb-1">name</label>
-                                                    <input
-                                                        type="text"
-                                                        name="name"
-                                                        id="inputName"
-                                                        value="{{ old('name') }}"
-                                                        class="form-control @error('name') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('name')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'name',
+                                                    'value'     => old('name'),
+                                                    'required'  => true,
+                                                    'minlength' => 6,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputEmail" class="form-label mb-1">email</label>
-                                                    <input
-                                                        type="email"
-                                                        name="email"
-                                                        id="inputEmail"
-                                                        value="{{ old('email') }}"
-                                                        class="form-control @error('email') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('email')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'email',
+                                                    'value'     => old('email'),
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputPassword" class="form-label mb-1">password</label>
-                                                    <input
-                                                        type="password"
-                                                        name="password"
-                                                        id="inputPassword"
-                                                        class="form-control @error('password') is-invalid @enderror"
-                                                        placeholder="Password"
-                                                        required
-                                                    >
-                                                    @error('password')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'type'        => 'password',
+                                                    'name'        => 'password',
+                                                    'value'       => old('password'),
+                                                    'required'    => true,
+                                                    'minlength'   => 8,
+                                                    'maxlength'   => 255,
+                                                    'message'     => $message ?? '',
+                                                    'placeholder' => 'Password'
+                                                ])
 
-                                                <div class="mb-4">
-                                                    <label for="inputConfirm_password" class="form-label mb-1">confirm password</label>
-                                                    <input
-                                                        type="password"
-                                                        name="confirm_password"
-                                                        id="inputConfirm_password"
-                                                        class="form-control @error('confirm_password') is-invalid @enderror"
-                                                        placeholder="Confirm Password"
-                                                        required
-                                                    >
-                                                    @error('confirm_password')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'label'       => 'confirm password',
+                                                    'type'        => 'password',
+                                                    'name'        => 'confirm_password',
+                                                    'value'       => old('confirm_password'),
+                                                    'required'    => true,
+                                                    'minlength'   => 8,
+                                                    'maxlength'   => 255,
+                                                    'message'     => $message ?? '',
+                                                    'placeholder' => 'Confirm Password'
+                                                ])
 
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'status',
+                                                    'value'   => old('status'),
+                                                    'list'    => \App\Models\User::statusListOptions(),
+                                                    'message' => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputStatus" class="form-label mb-1">status</label>
-                                                    <select
-                                                        name="status"
-                                                        id="inputStatus"
-                                                        class="form-select"
-                                                        required
-                                                    >
-                                                        @foreach([0=>'pending', 1=>'active'] as $value=>$label)
-                                                            <option
-                                                                value="{{ $value }}"
-                                                                {{ $value == old('status') ? 'selected' : '' }}
-                                                            >{{ $label }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('status')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'disabled',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('disabled'),
+                                                    'message'         => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <input type="hidden" name="disabled" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="disabled"
-                                                        id="inputDisabled"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ old('disabled') ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputDisabled" class="form-check-label mb-1 font-semibold">disabled</label>
-                                                    @error('disabled')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-
-                                                <button type="submit" class="btn btn-sm btn-solid"><i class="fa-solid fa-floppy-disk"></i> Submit</button>
+                                                @include('admin.components.form-button-submit', [
+                                                    'label' => 'Save',
+                                                    'cancel_url' => route('admin.user.index')
+                                                ])
 
                                             </form>
 

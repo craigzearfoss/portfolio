@@ -42,12 +42,14 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>link</strong>: <a href="{{ $coverLetter->link }}">{{ $coverLetter->link }}</a>
+                                                <strong>link</strong>:
+                                                @include('admin.components.link', [ 'url' => $coverLetter->link, 'target' => '_blank' ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>alt link</strong>: <a href="{{ $coverLetter->alt_link }}">{{ $coverLetter->alt_link }}</a>
+                                                <strong>alt link</strong>:
+                                                @include('admin.components.link', [ 'url' => $coverLetter->alt_link, 'target' => '_blank' ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -58,29 +60,34 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>primary</strong>:
-                                                @if ($coverLetter->primary)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $coverLetter->primary ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>disabled</strong>:
-                                                @if ($coverLetter->disabled)
-                                                    <i class="fa-solid fa-check ml-2"></i>
-                                                @endif
+                                                @include('admin.components.checkmark', [ 'checked' => $coverLetter->disabled ])
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>created at</strong>: {{ $coverLetter->created_at }}
+                                                <strong>created at</strong>:
+                                                {{ longDateTime($coverLetter->created_at) }}
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>updated at</strong>: {{ $coverLetter->updated_at }}
+                                                <strong>updated at</strong>:
+                                                {{ longDateTime($coverLetter->updated_at) }}
                                             </div>
                                         </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="form-group">
+                                                <strong>deleted at</strong>:
+                                                {{ longDateTime($coverLetter->deleted_at) }}
+                                            </div>
+                                        </div>
+
                                     </div>
 
                                 </div>

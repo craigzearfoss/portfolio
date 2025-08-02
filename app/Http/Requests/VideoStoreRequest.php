@@ -23,7 +23,7 @@ class VideoStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:videos,name,'.$this->video->id],
+            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:videos,name'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'date'         => ['nullable', 'date'],
@@ -33,7 +33,8 @@ class VideoStoreRequest extends FormRequest
             'location'     => ['nullable', 'string'],
             'link'         => ['nullable', 'string', 'max:255'],
             'description'  => ['nullable'],
-            'seq'          => ['integer'],
+            'hidden'       => ['integer', 'between:0,1'],
+            'seq'          => ['integer', 'min:0'],
             'disabled'     => ['integer', 'between:0,1'],
         ];
     }

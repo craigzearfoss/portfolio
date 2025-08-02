@@ -46,9 +46,7 @@
                                 <td>{{ $admin->username }}</td>
                                 <td>{{ $admin->email }}</td>
                                 <td class="text-center">
-                                    @if ($admin->disabled)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $admin->disabled ])
                                 </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.admin.destroy', $admin->id) }}" method="POST">

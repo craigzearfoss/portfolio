@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cover_letters');
+        Schema::connection('career_db')->dropIfExists('cover_letters');
     }
 };

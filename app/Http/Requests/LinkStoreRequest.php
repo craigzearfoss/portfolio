@@ -23,13 +23,14 @@ class LinkStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['nullable', 'string', 'min:1', 'max:255', 'unique:links,name,'.$this->link->id],
+            'name'         => ['nullable', 'string', 'min:1', 'max:255', 'unique:links,name'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'url'          => ['required', 'string', 'max:255'],
             'website'      => ['nullable', 'string', 'max:255'],
             'description'  => ['nullable'],
-            'seq'          => ['integer'],
+            'hidden'       => ['integer', 'between:0,1'],
+            'seq'          => ['integer', 'min:0'],
             'disabled'     => ['integer', 'between:0,1'],
         ];
     }

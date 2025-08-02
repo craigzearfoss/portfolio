@@ -8,8 +8,8 @@
         <nav class="menu menu-transparent px-4 pb-4">
 
             <div class="menu-group">
-                <div class="menu-title">Authentication</div>
                 <ul>
+
                     <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
                     <li class="menu-collapse">
                         <a href="{{route('project.index')}}">
@@ -61,6 +61,10 @@
                             </div>
                         </a>
                     </li>
+                </ul>
+
+                <div class="menu-title">Authentication</div>
+                <ul>
 
                     <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
                     <li class="menu-collapse">
@@ -105,6 +109,7 @@
                         </a>
                     </li>
                     */ ?>
+
                 </ul>
             </div>
 

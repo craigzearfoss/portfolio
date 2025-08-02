@@ -4,9 +4,13 @@
             @include('user.components.copyright'))
         @endif
         <div>
-            <a class="text-gray" href="#">Terms &amp; Conditions</a>
+            <a class="text-gray" href="{{ route('about') }}">About</a>
             <span class="mx-2 text-muted"> | </span>
-            <a class="text-gray" href="#">Privacy &amp; Policy</a>
+            <a class="text-gray" href="{{ route('terms_and_conditions') }}">Terms & Conditions</a>
+            <span class="mx-2 text-muted"> | </span>
+            <a class="text-gray" href="{{ route('privacy_policy') }}">Privacy policy</a>
+            <span class="mx-2 text-muted"> | </span>
+            <a class="text-gray" href="{{ route('contact') }}">Contact</a>
         </div>
     </div>
 </footer>

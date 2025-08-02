@@ -29,7 +29,8 @@ class ProjectUpdateRequest extends FormRequest
             'repository'   => ['nullable', 'string', 'max:255'],
             'link'         => ['nullable', 'string', 'max:255'],
             'description'  => ['nullable'],
-            'seq'          => ['integer'],
+            'hidden'       => ['integer', 'between:0,1'],
+            'seq'          => ['integer', 'min:0'],
             'disabled'     => ['integer', 'between:0,1'],
         ];
     }

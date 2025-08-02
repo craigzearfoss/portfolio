@@ -54,7 +54,7 @@ class NoteController extends Controller
     /**
      * Show the form for editing the specified note.
      */
-    public function edit(Note $note)
+    public function edit(Note $note): View
     {
         return view('admin.note.edit', compact('note'));
     }

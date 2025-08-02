@@ -44,7 +44,7 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $communication->subject }}</td>
                                 <td>{{ $communication->body }}</td>
-                                <td class="text-nowrap">{{ $communication->created_at }}</td>
+                                <td class="text-nowrap">{{ shortDateTime($communication->created_at)}}</td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.communication.destroy', $communication->id) }}" method="POST">
                                         <a class="btn btn-sm" href="{{ route('admin.communication.show', $communication->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>

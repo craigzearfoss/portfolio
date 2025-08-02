@@ -29,8 +29,8 @@
                             <th></th>
                             <th>name</th>
                             <th>organization</th>
-                            <th>receive</th>
-                            <th>expire</th>
+                            <th>received</th>
+                            <th>expiration</th>
                             <th>professional</th>
                             <th>personal</th>
                             <th>description</th>
@@ -45,23 +45,23 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $certificate->name }}</td>
                                 <td>{{ $certificate->organization }}</td>
-                                <td class="text-nowrap">{{ $certificate->receive }}</td>
-                                <td class="text-nowrap">{{ $certificate->expire }}</td>
-                                <td class="text-center">
-                                    @if ($certificate->professional)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                <td class="text-nowrap">
+                                    {{ shortDate($certificate->received) }}
+                                </td>
+                                <td class="text-nowrap">
+                                    {{ shortDate($certificate->expiration) }}
                                 </td>
                                 <td class="text-center">
-                                    @if ($certificate->personal)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('front.components.checkmark', [ 'checked' => $certificate->professional ])
+                                </td>
+                                <td class="text-center">
+                                    @include('front.components.checkmark', [ 'checked' => $certificate->personal ])
                                 </td>
                                 <td>{{ $certificate->description }}</td>
                                 <td class="text-nowrap">
                                     @if ($certificate->link)
-                                        <a class="btn btn-sm" href="{{ $certificate->link }}" target="_blank" title="download">
-                                            <i class="fa-solid fa-download"></i>{{-- Download--}}
+                                        <a class="btn btn-sm" href="{{ $certificate->link }}" target="_blank">
+                                            <i class="fa-solid fa-external-link"></i>{{-- Download--}}
                                         </a>
                                     @endif
                                 </td>

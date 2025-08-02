@@ -13,10 +13,16 @@ return [
     |
     */
 
-    'copyright'       => env('APP_COPYRIGHT', ''),
-    'name'            => env('APP_NAME', 'Laravel'),
-    'open_enrollment' => env('APP_OPEN_ENROLLMENT', '0'),
-    'owner'           => env('APP_OWNER', ''),
+    'copyright'             => env('APP_COPYRIGHT', ''),
+    'date_format_short'     => env('APP_DATE_FORMAT_SHORT', 'm/d/Y'),
+    'date_format_long'      => env('APP_DATE_FORMAT_LONG', 'F j, Y'),
+    'datetime_format_short' => env('APP_DATETIME_FORMAT_SHORT', 'm/d/Y h:i:s a'),
+    'datetime_format_long'  => env('APP_DATETIME_FORMAT_LONG', 'F j, Y h:i:s a'),
+    'demo'                  => env('APP_DEMO', '0'),
+    'name'                  => env('APP_NAME', 'Laravel'),
+    'open_enrollment'       => env('APP_OPEN_ENROLLMENT', '0'),
+    'owner'                 => env('APP_OWNER', ''),
+    'readonly'              => env('APP_READONLY', '0'),
 
     /*
     |--------------------------------------------------------------------------

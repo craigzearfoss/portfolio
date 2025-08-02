@@ -48,18 +48,16 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $coverLetter->name }}</td>
                                 <td>{{ $coverLetter->recipient }}</td>
-                                <td>{{ $coverLetter->date }}</td>
-                                <td><a href="{{ $coverLetter->link }}" target="_blank">{{ $coverLetter->link }}</a></td>
+                                <td class="text-nowrap">{{ shortDate($coverLetter->date) }}</td>
+                                <td>
+                                    @include('admin.components.link', [ 'url' => $coverLetter->link, 'target' => '_blank' ])
+                                </td>
                                 <td>{{ $coverLetter->description }}</td>
                                 <td class="text-center">
-                                    @if ($coverLetter->primary)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $coverLetter->primary ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($coverLetter->disabled)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $coverLetter->disabled ])
                                 </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.cover-letter.destroy', $coverLetter->id) }}" method="POST">

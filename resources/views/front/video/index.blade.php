@@ -47,30 +47,26 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $video->name }}</td>
                                 <td class="text-center">
-                                    @if ($video->professional)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('front.components.checkmark', [ 'checked' => $video->professional ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($video->personal)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('front.components.checkmark', [ 'checked' => $video->personal ])
                                 </td>
-                                <td class="text-nowrap">{{ $video->date }}</td>
+                                <td class="text-nowrap">
+                                    {{ shortDate($video->date) }}
+                                </td>
                                 <td>{{ $video->year }}</td>
                                 <td>{{ $video->company }}</td>
                                 <td>{{ $video->credit }}</td>
                                 <td>{{ $video->location }}</td>
                                 <td>
-                                    @if ($video->link)
-                                        <a href="{{ $video->link }}" target="_blank">{{ $video->link }}</a>
-                                    @endif
+                                    @include('front.components.link', [ 'url' => $video->link, 'target' => '_blank' ])
                                 </td>
                                 <td>{{ $video->description }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="12">There are no videos.</td>
+                                <td colspan="11">There are no videos.</td>
                             </tr>
                         @endforelse
 

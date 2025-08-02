@@ -4,11 +4,12 @@ namespace App\Models\Portfolio;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Link extends Model
 {
     /** @use HasFactory<\Database\Factories\Portfolio\LinkFactory> */
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 
@@ -27,6 +28,7 @@ class Link extends Model
         'website',
         'description',
         'seq',
+        'hidden',
         'disabled',
     ];
 }

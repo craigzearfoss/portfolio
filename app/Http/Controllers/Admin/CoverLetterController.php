@@ -55,7 +55,7 @@ class CoverLetterController extends Controller
     /**
      * Show the form for editing the specified cover letter.
      */
-    public function edit(CoverLetter $coverLetter)
+    public function edit(CoverLetter $coverLetter): View
     {
         return view('admin.cover-letter.edit', compact('coverLetter'));
     }

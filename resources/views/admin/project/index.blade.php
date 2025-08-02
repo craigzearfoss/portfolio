@@ -31,11 +31,12 @@
                         <tr>
                             <th></th>
                             <th>name</th>
-                            <th>professional</th>
-                            <th>personal</th>
+                            <th class="text-center">professional</th>
+                            <th class="text-center">personal</th>
                             <th>year</th>
                             <th>repository</th>
                             <th>description</th>
+                            <th class="text-center">hidden</th>
                             <th class="text-center">disabled</th>
                             <th>actions</th>
                         </tr>
@@ -48,26 +49,21 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $project->name }}</td>
                                 <td class="text-center">
-                                    @if ($project->professional)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $project->professional ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($project->personal)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $project->personal ])
                                 </td>
                                 <td>{{ $project->year }}</td>
                                 <td>
-                                    @if ($project->repository)
-                                        <a href="{{ $project->repository }}" target="_bank">{{ $project->repository }}</a>
-                                    @endif
+                                    @include('admin.components.link', [ 'url' => $project->repository, 'target' => '_blank' ])
                                 </td>
                                 <td>{{ $project->description }}</td>
                                 <td class="text-center">
-                                    @if ($project->disabled)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('admin.components.checkmark', [ 'checked' => $project->hidden ])
+                                </td>
+                                <td class="text-center">
+                                    @include('admin.components.checkmark', [ 'checked' => $project->disabled ])
                                 </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.project.destroy', $project->id) }}" method="POST">

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->tinyInteger('seq')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->tinyInteger('hidden')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

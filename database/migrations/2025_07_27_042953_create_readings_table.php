@@ -17,9 +17,15 @@ return new class extends Migration
             $table->string('author')->nullable();
             $table->tinyInteger('paper')->default(1);
             $table->tinyInteger('audio')->default(0);
+            $table->tinyInteger('wishlist')->default(0);
+            $table->string('link')->nullable();
+            $table->string('link_name')->nullable();
+            $table->text('notes')->nullable();
             $table->tinyInteger('seq')->default(0);
+            $table->tinyInteger('hidden')->default(0);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

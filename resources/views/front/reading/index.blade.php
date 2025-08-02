@@ -23,7 +23,7 @@
                         </div>
                     </div>
 
-                    <table class="table table-bordered table-striped mt-4">
+                    <table id=myGrid" class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
                             <th></th>
@@ -42,19 +42,15 @@
                                 <td>{{ $reading->title }}</td>
                                 <td>{{ $reading->author }}</td>
                                 <td class="text-center">
-                                    @if ($reading->paper)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('front.components.checkmark', [ 'checked' => $reading->paper ])
                                 </td>
                                 <td class="text-center">
-                                    @if ($reading->audio)
-                                        <i class="fa-solid fa-check ml-2"></i>
-                                    @endif
+                                    @include('front.components.checkmark', [ 'checked' => $reading->audio ])
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="">There are no readings.</td>
+                                <td colspan="5">There are no readings.</td>
                             </tr>
                         @endforelse
 

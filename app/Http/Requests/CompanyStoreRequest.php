@@ -22,7 +22,7 @@ class CompanyStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'            => ['required', 'string', 'min:1', 'max:255', 'unique:companies,name,'.$this->company->id],
+            'name'            => ['required', 'string', 'min:1', 'max:255', 'unique:companies,name'],
             'street'          => ['nullable', 'string', 'max:255'],
             'street2'         => ['nullable', 'string', 'max:255'],
             'city'            => ['nullable', 'string', 'max:100'],

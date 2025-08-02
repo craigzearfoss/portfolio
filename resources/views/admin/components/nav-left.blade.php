@@ -164,15 +164,14 @@
                             </div>
                         </a>
                     </li>
-
-                    <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
+                   <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
                     <li class="menu-collapse">
-                        <a href="#">
+                        <a href="{{ route('admin.profile') }}">
                             <div class="menu-item">
                                 <span class="text-xl opacity-50">
                                     <i class="fa-solid fa-user-circle"></i>
                                 </span>
-                                <span class="menu-item-text">Profile</span>
+                                <span>Profile</span>
                             </div>
                         </a>
                     </li>
