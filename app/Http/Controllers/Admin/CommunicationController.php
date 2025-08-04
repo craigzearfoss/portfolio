@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CommunicationStoreRequest;
-use App\Http\Requests\CommunicationUpdateRequest;
+use App\Http\Requests\CareerCommunicationStoreRequest;
+use App\Http\Requests\CareerCommunicationUpdateRequest;
 use App\Models\Career\Communication;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class CommunicationController extends Controller
     /**
      * Store a newly created communication in storage.
      */
-    public function store(CommunicationStoreRequest $request): RedirectResponse
+    public function store(CareerCommunicationStoreRequest $request): RedirectResponse
     {
         Communication::create($request->validated());
 
@@ -62,7 +62,7 @@ class CommunicationController extends Controller
     /**
      * Update the specified communication in storage.
      */
-    public function update(CommunicationUpdateRequest $request, Communication $communication): RedirectResponse
+    public function update(CareerCommunicationUpdateRequest $request, Communication $communication): RedirectResponse
     {
         $communication->update($request->validated());
 

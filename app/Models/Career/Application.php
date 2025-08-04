@@ -5,6 +5,7 @@ namespace App\Models\Career;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Application extends Model
@@ -74,17 +75,17 @@ class Application extends Model
     ];
 
     /**
-     * Get the contacts for the application.
+     * The application has one company.
      */
-    public function contacts(): HasMany
+    public function application(): HasOne
     {
-        return $this->hasMany(Note::class);
+        return $this->hasOne(Company::class);
     }
 
     /**
-     * Get the notes for the application.
+     * The application has many notes.
      */
-    public function notes(): HasMany
+    public function note(): HasMany
     {
         return $this->hasMany(Note::class);
     }
@@ -93,18 +94,18 @@ class Application extends Model
      * Returns an array of options for a select list for office types.
      *
      * @param bool $includeBlank
-     * @param bool $codesAsKey
+     * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function officeListOptions(bool $includeBlank = false, bool $codesAsKey = false): array
+    public static function officeListOptions(bool $includeBlank = false, bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
-            $options = $codesAsKey ? [ '' => '' ] : [ 0 => '' ];
+            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
         }
 
         foreach (self::OFFICES as $i=>$office) {
-            $options[$codesAsKey ? $office : $i] = $office;
+            $options[$nameAsKey ? $office : $i] = $office;
         }
 
         return $options;
@@ -136,18 +137,18 @@ class Application extends Model
      * Returns an array of options for a select list for compensation units.
      *
      * @param bool $includeBlank
-     * @param bool $codesAsKey
+     * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function compensationUnitListOptions(bool $includeBlank = false, bool $codesAsKey = false): array
+    public static function compensationUnitListOptions(bool $includeBlank = false, bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
-            $options = $codesAsKey ? [ '' => '' ] : [ 0 => '' ];
+            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
         }
 
         foreach (self::COMPENSATION_UNITS as $i=>$compensationUnit) {
-            $options[$codesAsKey ? $compensationUnit : $i] = $compensationUnit;
+            $options[$nameAsKey ? $compensationUnit : $i] = $compensationUnit;
         }
 
         return $options;
@@ -157,18 +158,18 @@ class Application extends Model
      * Returns an array of options for a select list for types of employment.
      *
      * @param bool $includeBlank
-     * @param bool $codesAsKey
+     * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function typeListOptions(bool $includeBlank = false, bool $codesAsKey = false): array
+    public static function typeListOptions(bool $includeBlank = false, bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
-            $options = $codesAsKey ? [ '' => '' ] : [ 0 => '' ];
+            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
         }
 
         foreach (self::TYPES as $i=>$type) {
-            $options[$codesAsKey ? $type : $i] = $type;
+            $options[$nameAsKey ? $type : $i] = $type;
         }
 
         return $options;

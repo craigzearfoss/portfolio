@@ -46,9 +46,10 @@ class Contact extends Model
      * Returns an array of options for a select list.
      *
      * @param bool $includeBlank
+     * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false): array
+    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
@@ -56,7 +57,7 @@ class Contact extends Model
         }
 
         foreach (self::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
-            $options[$row->id] = $row->name;
+            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
         }
 
         return $options;

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LinkStoreRequest;
-use App\Http\Requests\LinkUpdateRequest;
+use App\Http\Requests\PortfolioLinkStoreRequest;
+use App\Http\Requests\PortfolioLinkUpdateRequest;
 use App\Models\Portfolio\Link;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class LinkController extends Controller
     /**
      * Store a newly created link in storage.
      */
-    public function store(LinkStoreRequest $request): RedirectResponse
+    public function store(PortfolioLinkStoreRequest $request): RedirectResponse
     {
         Link::create($request->validated());
 
@@ -62,7 +62,7 @@ class LinkController extends Controller
     /**
      * Update the specified link in storage.
      */
-    public function update(LinkUpdateRequest $request, Link $link): RedirectResponse
+    public function update(PortfolioLinkUpdateRequest $request, Link $link): RedirectResponse
     {
         $link->update($request->validated());
 

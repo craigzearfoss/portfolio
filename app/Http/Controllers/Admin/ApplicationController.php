@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApplicationStoreRequest;
-use App\Http\Requests\ApplicationUpdateRequest;
+use App\Http\Requests\PortfolioApplicationStoreRequest;
+use App\Http\Requests\PortfolioApplicationUpdateRequest;
 use App\Models\Career\Application;
 use App\Models\Career\Company;
 use Illuminate\Http\RedirectResponse;
@@ -37,7 +37,7 @@ class ApplicationController extends Controller
     /**
      * Store a newly created application in storage.
      */
-    public function store(ApplicationStoreRequest $request): RedirectResponse
+    public function store(PortfolioApplicationStoreRequest $request): RedirectResponse
     {
         Application::create($request->validated());
 
@@ -64,7 +64,7 @@ class ApplicationController extends Controller
     /**
      * Update the specified application in storage.
      */
-    public function update(ApplicationUpdateRequest $request, Application $application): RedirectResponse
+    public function update(PortfolioApplicationUpdateRequest $request, Application $application): RedirectResponse
     {
         $application->update($request->validated());
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\NoteStoreRequest;
-use App\Http\Requests\NoteUpdateRequest;
+use App\Http\Requests\CareerNoteStoreRequest;
+use App\Http\Requests\CareerNoteUpdateRequest;
 use App\Models\Career\Note;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class NoteController extends Controller
     /**
      * Store a newly created note in storage.
      */
-    public function store(NoteStoreRequest $request): RedirectResponse
+    public function store(CareerNoteStoreRequest $request): RedirectResponse
     {
         Note::create($request->validated());
 
@@ -62,7 +62,7 @@ class NoteController extends Controller
     /**
      * Update the specified note in storage.
      */
-    public function update(NoteUpdateRequest $request, Note $note): RedirectResponse
+    public function update(CareerNoteUpdateRequest $request, Note $note): RedirectResponse
     {
         $note->update($request->validated());
 

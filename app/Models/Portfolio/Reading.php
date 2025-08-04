@@ -36,11 +36,13 @@ class Reading extends Model
 
     /**
      * Returns an array of options for a select list.
+     * Note that there probably will be duplicate authors.
      *
      * @param bool $includeBlank
+     * @param bool $authorAsKey
      * @return array|string[]
      */
-    public static function authorListOptions(bool $includeBlank = false): array
+    public static function authorListOptions(bool $includeBlank = false, bool $authorAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
@@ -48,7 +50,7 @@ class Reading extends Model
         }
 
         foreach (self::select('id', 'author')->distinct('author')->orderBy('author', 'asc')->get() as $row) {
-            $options[$row->id] = $row->author;
+            $options[$authorAsKey ? $row->author : $row->id] = $row->author;
         }
 
         return $options;
@@ -56,19 +58,21 @@ class Reading extends Model
 
     /**
      * Returns an array of options for a select list.
+     * Note that there might will be duplicate titles.
      *
      * @param bool $includeBlank
+     * @param bool $titleAsKey
      * @return array|string[]
      */
-    public static function titleListOptions(bool $includeBlank = false): array
+    public static function titleListOptions(bool $includeBlank = false, bool $titleAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
             $options = [ '' => '' ];
         }
 
-        foreach (self::select('id', 'title')->orderBy('title', 'asc')->get() as $row) {
-            $options[$row->id] = $row->title;
+        foreach (self::select('id', 'title')->distinct('title')->orderBy('title', 'asc')->get() as $row) {
+            $options[$titleAsKey ? $row->title : $row->id] = $row->title;
         }
 
         return $options;

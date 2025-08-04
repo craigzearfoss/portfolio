@@ -21,6 +21,16 @@
                 <ul>
                     <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
                     <li class="menu-collapse">
+                        <a href="{{route('admin.certificate.index')}}">
+                            <div class="menu-item">
+                                <span class="text-xl opacity-50">
+                                    <i class="fa-solid fa-certificate"></i>
+                                </span>
+                                <span>Certificates</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu-collapse">
                         <a href="{{route('admin.link.index')}}">
                             <div class="menu-item">
                                 <span class="text-xl opacity-50">
@@ -69,16 +79,6 @@
                                     <i class="fa-solid fa-chevron-circle-right"></i>
                                 </span>
                                 <span>Applications</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="menu-collapse">
-                        <a href="{{route('admin.certificate.index')}}">
-                            <div class="menu-item">
-                                <span class="text-xl opacity-50">
-                                    <i class="fa-solid fa-certificate"></i>
-                                </span>
-                                <span>Certificates</span>
                             </div>
                         </a>
                     </li>

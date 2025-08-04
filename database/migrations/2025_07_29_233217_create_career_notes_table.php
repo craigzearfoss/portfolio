@@ -1,0 +1,34 @@
+<?php
+
+use App\Models\Admin;
+use App\Models\Career\Application;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::connection('career_db')->create('notes', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('admin_id', Admin::class)->nullable();
+            $table->foreignId('application_id', Application::class)->nullable();
+            $table->string('subject');
+            $table->text('body');
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::connection('career_db')->dropIfExists('notes');
+    }
+};

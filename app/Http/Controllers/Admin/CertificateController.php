@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CertificateStoreRequest;
-use App\Http\Requests\CertificateUpdateRequest;
+use App\Http\Requests\PortfolioCertificateStoreRequest;
+use App\Http\Requests\PortfolioCertificateUpdateRequest;
 use App\Models\Career\Certificate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class CertificateController extends Controller
     /**
      * Store a newly created certificate in storage.
      */
-    public function store(CertificateStoreRequest $request): RedirectResponse
+    public function store(PortfolioCertificateStoreRequest $request): RedirectResponse
     {
         Certificate::create($request->validated());
 
@@ -62,7 +62,7 @@ class CertificateController extends Controller
     /**
      * Update the specified certificate in storage.
      */
-    public function update(CertificateUpdateRequest $request, Certificate $certificate): RedirectResponse
+    public function update(PortfolioCertificateUpdateRequest $request, Certificate $certificate): RedirectResponse
     {
         $certificate->update($request->validated());
 

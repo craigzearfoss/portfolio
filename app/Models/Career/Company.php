@@ -4,6 +4,8 @@ namespace App\Models\Career;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -43,15 +45,15 @@ class Company extends Model
     ];
 
     /**
-     * Get the applications for the company.
+     * The company belongs to many application.
      */
-    public function applications(): HasMany
+    public function applications(): BelongsToMany
     {
-        return $this->hasMany(Application::class);
+        return $this->belongsToMany(Application::class, 'application_company', 'company_id', 'application_id');
     }
 
     /**
-     * Get the contacts for the company.
+     * The company hase many contacts.
      */
     public function contacts(): HasMany
     {
@@ -62,9 +64,10 @@ class Company extends Model
      * Returns an array of options for a select list.
      *
      * @param bool $includeBlank
+     * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false): array
+    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
@@ -72,7 +75,7 @@ class Company extends Model
         }
 
         foreach (self::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
-            $options[$row->id] = $row->name;
+            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
         }
 
         return $options;

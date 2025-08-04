@@ -24,10 +24,10 @@ class JobBoard extends Model
      * Returns an array of options for a select list.
      *
      * @param bool $includeBlank
-     * @param bool $namesAsKey
+     * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false, bool $namesAsKey = true): array
+    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = true): array
     {
         $options = [];
         if ($includeBlank) {
@@ -35,7 +35,7 @@ class JobBoard extends Model
         }
 
         foreach (JobBoard::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
-            $options[$namesAsKey ? $row->name : $row->id] = $row->name;
+            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
         }
 
         return $options;

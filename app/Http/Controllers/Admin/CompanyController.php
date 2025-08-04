@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CompanyStoreRequest;
-use App\Http\Requests\CompanyUpdateRequest;
+use App\Http\Requests\CareerCompanyStoreRequest;
+use App\Http\Requests\CareerCompanyUpdateRequest;
 use App\Models\Career\Company;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -36,7 +36,7 @@ class CompanyController extends Controller
     /**
      * Store a newly created company in storage.
      */
-    public function store(CompanyStoreRequest $request): RedirectResponse
+    public function store(CareerCompanyStoreRequest $request): RedirectResponse
     {
         Company::create($request->validated());
 
@@ -63,7 +63,7 @@ class CompanyController extends Controller
     /**
      * Update the specified company in storage.
      */
-    public function update(CompanyUpdateRequest $request, Company $company): RedirectResponse
+    public function update(CareerCompanyUpdateRequest $request, Company $company): RedirectResponse
     {
         $company->update($request->validated());
 

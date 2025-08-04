@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Communication extends Model
 {
-    /** @use HasFactory<\Database\Factories\Career\CertificateFactory> */
+    /** @use HasFactory<\Database\Factories\Portfolio\CertificateFactory> */
     use HasFactory, SoftDeletes;
 
     protected $connection = 'career_db';
