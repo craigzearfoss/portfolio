@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PortfolioCertificateStoreRequest;
 use App\Http\Requests\PortfolioCertificateUpdateRequest;
-use App\Models\Career\Certificate;
+use App\Models\Portfolio\Certificate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 

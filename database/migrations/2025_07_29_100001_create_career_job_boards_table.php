@@ -15,11 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100)->unique();
             $table->string('website')->nullable();
-            $table->timestamps();
         });
 
         $data = [
-            [ 'name' => '(none)',          'website' => null ],
             [ 'name' => 'Dice',            'website' => 'https://dice.com' ],
             [ 'name' => 'Indeed',          'website' => 'https://indeed.com' ],
             [ 'name' => 'iHireTechnology', 'website' => 'https://ihiretechnology.com' ],
@@ -38,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('job_boards');
+        Schema::connection('career_db')->dropIfExists('job_boards');
     }
 };

@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Admin;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -21,6 +23,14 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        Admin::insert([
+            'username' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('changeme'),
+            'token' => ''
+        ]);
+
     }
 
     /**

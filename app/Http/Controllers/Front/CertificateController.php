@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\Models\Career\Certificate;
+use App\Models\Portfolio\Certificate;
 use Illuminate\View\View;
 
 class CertificateController extends Controller

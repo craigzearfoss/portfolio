@@ -77,7 +77,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9">There are no links.</td>
+                                <td colspan="10">There are no links.</td>
                             </tr>
                         @endforelse
 
