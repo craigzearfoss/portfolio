@@ -38,7 +38,7 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="form-container">
 
                                             <form action="{{ route('admin.user.store') }}" method="POST">
                                                 @csrf
@@ -53,6 +53,7 @@
                                                 ])
 
                                                 @include('admin.components.form-input', [
+                                                    'type'      => 'email',
                                                     'name'      => 'email',
                                                     'value'     => old('email'),
                                                     'required'  => true,
@@ -99,7 +100,7 @@
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
-                                                    'label' => 'Save',
+                                                    'label'      => 'Add Video',
                                                     'cancel_url' => route('admin.user.index')
                                                 ])
 

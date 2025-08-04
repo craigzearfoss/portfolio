@@ -22,7 +22,7 @@ class ContactUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'            => ['string', 'min:1', 'max:255', 'unique:contacts,name,'.$this->contact->id],
+            'name'            => ['string', 'min:1', 'max:255', 'unique:career_db.contacts,name,'.$this->contact->id],
             'title'           => ['nullable', 'string', 'max:50'],
             'street'          => ['nullable', 'string', 'max:255'],
             'street2'         => ['nullable', 'string', 'max:255'],

@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
+            $table->foreignId('company_id');
             $table->string('title', 50)->nullable();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();

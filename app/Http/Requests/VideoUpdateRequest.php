@@ -23,7 +23,7 @@ class VideoUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['string', 'min:1', 'max:255', 'unique:videos,name,'.$this->video->id],
+            'name'         => ['string', 'min:1', 'max:255', 'unique:portfolio_db.videos,name,'.$this->video->id],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'date'         => ['nullable', 'date'],

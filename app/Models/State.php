@@ -2,9 +2,31 @@
 
 namespace App\Models;
 
+use App\Http\Resources\V1\StateResource;
 use Illuminate\Database\Eloquent\Model;
 
 class State extends Model
 {
     protected $table = 'states';
+
+    /**
+     * Returns an array of options for a select list.
+     *
+     * @param bool $includeBlank
+     * @param bool $codesAsKey
+     * @return array|string[]
+     */
+    public static function listOptions(bool $includeBlank = false, bool $codesAsKey = true): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options = $codesAsKey ? [ '' => '' ] : [ 0 => '' ];
+        }
+
+        foreach (self::all() as $row) {
+            $options[$codesAsKey ? $row->code : $row->id] = $row->name;
+        }
+
+        return $options;
+    }
 }

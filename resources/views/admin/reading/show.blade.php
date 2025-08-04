@@ -26,77 +26,107 @@
 
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>title</strong>: {{ $reading->title }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>title</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $reading->title }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>author</strong>: {{ $reading->author }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>author</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $reading->author }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>paper</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $reading->paper ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>paper</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.checkmark', [ 'checked' => $reading->paper ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>audio</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $reading->audio ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>audio</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.checkmark', [ 'checked' => $reading->audio ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>wishlist</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $reading->wishlist ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>wishlist</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.checkmark', [ 'checked' => $reading->wishlist ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>link</strong>:
-                                                @include('admin.components.link', [ 'url' => $reading->link, 'target' => '_blank' ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>link</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.link', [ 'url' => $reading->link, 'target' => '_blank' ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>link_name</strong>: {{ $reading->link_name }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>link name</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $reading->link_name }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>description</strong>: {{ $reading->description }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>description</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $reading->description }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>hidden</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $reading->hidden ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>hidden</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.checkmark', [ 'checked' => $reading->hidden ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>disabled</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $reading->disabled ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>disabled</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.checkmark', [ 'checked' => $reading->disabled ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>created at</strong>:
-                                                {{ longDateTime($reading->created_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($reading->created_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>updated at</strong>:
-                                                {{ longDateTime($reading->updated_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($reading->updated_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>deleted at</strong>:
-                                                {{ longDateTime($reading->deleted_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>deleted at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($reading->deleted_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

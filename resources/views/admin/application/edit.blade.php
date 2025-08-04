@@ -39,7 +39,7 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="form-container">
 
                                             <form action="{{ route('admin.application.update', $application) }}" method="POST">
                                                 @csrf
@@ -52,6 +52,15 @@
                                                     'maxlength'   => 255,
                                                     'message'     => $message ?? '',
                                                 ])
+
+                                                <?php /*
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'company',
+                                                    'value'   => old('company_id') ?? $application->company(),
+                                                    'list'    => \App\Models\Career\Company::listOptions(true),
+                                                    'message' => $message ?? '',
+                                                ])
+                                                */ ?>
 
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
@@ -193,11 +202,12 @@
                                                     'message'         => $message ?? '',
                                                 ])
 
-                                                @include('admin.components.form-input', [
-                                                    'name'      => old('source') ?? 'source',
-                                                    'value'     => $application->source,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
+                                                @include('admin.components.form-select', [
+                                                    'label'   => 'source',
+                                                    'name'    => 'source',
+                                                    'value'   => old('source') ?? $application->source,
+                                                    'list'    => \App\Models\Career\JobBoard::listOptions(true, true),
+                                                    'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
@@ -240,12 +250,13 @@
 
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'description',
+                                                    'id'      => 'inputEditor',
                                                     'value'   => old('description') ?? $application->description,
                                                     'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
-                                                    'label' => 'Update',
+                                                    'label'      => 'Save',
                                                     'cancel_url' => route('admin.application.index')
                                                 ])
 

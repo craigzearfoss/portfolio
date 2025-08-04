@@ -22,7 +22,7 @@ class CoverLetterStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:cover_letters,name'],
+            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:career_db.cover_letters,name'],
             'recipient'    => ['nullable', 'string', 'max:255'],
             'date'         => ['nullable', 'date'],
             'link'         => ['nullable', 'string', 'max:255'],

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ApplicationStoreRequest;
 use App\Http\Requests\ApplicationUpdateRequest;
 use App\Models\Career\Application;
+use App\Models\Career\Company;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;

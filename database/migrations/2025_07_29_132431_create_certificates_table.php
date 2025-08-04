@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('certificates', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('organization')->nullable();
             $table->year('year')->nullable();
             $table->date('received')->nullable();

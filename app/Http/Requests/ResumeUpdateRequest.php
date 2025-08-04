@@ -22,7 +22,7 @@ class ResumeUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['string', 'min:1', 'max:255', 'unique:resumes,name,'.$this->resume->id],
+            'name'         => ['string', 'min:1', 'max:255', 'unique:career_db.resumes,name,'.$this->resume->id],
             'date'         => ['nullable', 'date'],
             'year'         => ['nullable', 'integer', 'between:0,3000'],
             'link'         => ['nullable', 'string', 'max:255'],

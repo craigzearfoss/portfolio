@@ -77,26 +77,24 @@ class User extends Authenticatable
     }
 
     /**
-     * Returns the status name for the giving index or null if not found.
+     * Returns the status name for the given id or null if not found.
      *
-     * @param integer $index
+     * @param int $id
      * @return string|null
      */
-    public static function statusName($index): string | null
+    public static function statusName(int $id): string | null
     {
-        return self::STATUSES[$index] ?? null;
+        return self::STATUSES[$id] ?? null;
     }
 
     /**
-     * Returns the status index for the giving name or null if not found.
+     * Returns the status id for the giving name or false if not found.
      *
      * @param string $name
-     * @return int|null
+     * @return int|bool
      */
-    public static function statusIndex($name): integer | null
+    public static function statusIndex(string $name): string |bool
     {
-        $key = array_search($name, self::STATUSES);
-
-        return self::STATUSES[$key] ?? null;
+        return array_search($name, self::STATUSES);
     }
 }

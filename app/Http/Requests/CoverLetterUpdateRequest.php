@@ -22,7 +22,7 @@ class CoverLetterUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['string', 'min:1', 'max:255', 'unique:cover_letters,name,'.$this->cover_letter->id],
+            'name'         => ['string', 'min:1', 'max:255', 'unique:career_db.cover_letters,name,'.$this->cover_letter->id],
             'recipient'    => ['nullable', 'string', 'max:255'],
             'date'         => ['nullable', 'date'],
             'link'         => ['nullable', 'string', 'max:255'],

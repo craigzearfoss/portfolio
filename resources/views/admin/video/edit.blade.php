@@ -39,7 +39,7 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="form-container">
 
                                             <form action="{{ route('admin.video.update', $video->id) }}" method="POST">
                                                 @csrf
@@ -137,18 +137,11 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-3">
-                                                    <label for="inputCredit" class="form-label mb-1">credit</label>
-                                                    <textarea
-                                                        name="credit"
-                                                        id="inputCredit"
-                                                        class="form-control"
-                                                        rows="3"
-                                                        placeholder="">{{ $video->credit }}</textarea>
-                                                    @error('credit')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-textarea', [
+                                                    'name'    => 'credit',
+                                                    'value'   => old('credit') ?? $video->credit,
+                                                    'message' => $message ?? '',
+                                                ])
 
                                                 <div class="mb-3">
                                                     <label for="inputLocation" class="form-label mb-1">location</label>
@@ -180,18 +173,12 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-3">
-                                                    <label for="inputDescription" class="form-label mb-1">description</label>
-                                                    <textarea
-                                                        name="description"
-                                                        id="inputDescription"
-                                                        class="form-control"
-                                                        rows="3"
-                                                        placeholder="">{{ $video->description }}</textarea>
-                                                    @error('description')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-textarea', [
+                                                    'name'    => 'description',
+                                                    'id'      => 'inputEditor',
+                                                    'value'   => old('description') ?? $video->description,
+                                                    'message' => $message ?? '',
+                                                ])
 
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
@@ -218,7 +205,7 @@
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
-                                                    'label' => 'Update',
+                                                    'label'      => 'Save',
                                                     'cancel_url' => route('admin.video.index')
                                                 ])
 

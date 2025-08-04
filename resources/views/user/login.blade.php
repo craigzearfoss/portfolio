@@ -27,7 +27,7 @@
                                         <div class="form-item vertical mb-3">
                                             <label class="form-label mb-1">Email</label>
                                             <div>
-                                                <input class="input" type="text" name="email" value="{{ old('email') }}" placeholder="Email">
+                                                <input class="input" type="email" name="email" value="{{ old('email') }}" placeholder="Email">
                                             </div>
                                         </div>
                                         <div class="form-item vertical mb-3">

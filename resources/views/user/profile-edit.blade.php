@@ -38,42 +38,32 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="form-container">
 
                                             <form action="{{ route('profile.update') }}" method="POST">
                                                 @csrf
 
-                                                <div class="mb-3">
-                                                    <label for="inputName" class="form-label mb-1">name</label>
-                                                    <input
-                                                        type="text"
-                                                        name="name"
-                                                        id="inputName"
-                                                        value="{{ old('name') ?? $user->name }}"
-                                                        class="form-control @error('name') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('name')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('user.components.form-input', [
+                                                    'name'      => 'name',
+                                                    'value'     => old('name') ?? $user->name,
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputEmail" class="form-label mb-1">email</label>
-                                                    <input
-                                                        type="email"
-                                                        name="email"
-                                                        id="inputEmail"
-                                                        value="{{ old('email') ?? $user->email }}"
-                                                        class="form-control @error('email') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('email')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('user.components.form-input', [
+                                                    'type'      => 'email',
+                                                    'name'      => 'email',
+                                                    'value'     => old('email') ?? $user->email,
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <button type="submit" class="btn btn-sm btn-solid"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                                                @include('user.components.form-button-submit', [
+                                                    'label'      => 'Save',
+                                                    'cancel_url' => route('user.profile')
+                                                ])
 
                                             </form>
 

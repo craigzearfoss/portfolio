@@ -22,7 +22,7 @@ class NoteStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => ['required', 'string', 'min:1', 'max:255', 'unique:notes,name'],
+            'subject' => ['required', 'string', 'min:1', 'max:255'],
             'body'    => ['required'],
         ];
     }

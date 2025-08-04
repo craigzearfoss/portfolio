@@ -23,7 +23,7 @@ class ReadingStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'     => ['required', 'string', 'min:1', 'max:255', 'unique:readings,name'],
+            'title'     => ['required', 'string', 'min:1', 'max:255', 'unique:portfolio_db.readings,name'],
             'author'    => ['nullable', 'string', 'max:255'],
             'paper'     => ['integer', 'between:0,1'],
             'audio'     => ['integer', 'between:0,1'],

@@ -39,7 +39,7 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="form-container">
 
                                             <form action="{{ route('admin.contact.update', $contact) }}" method="POST">
                                                 @csrf
@@ -204,7 +204,7 @@
                                                 <div class="mb-3">
                                                     <label for="inputEmail" class="form-label mb-1">email</label>
                                                     <input
-                                                        type="text"
+                                                        type="email"
                                                         name="email"
                                                         id="inputEmail"
                                                         value="{{ $contact->email }}"
@@ -276,22 +276,12 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-3">
-                                                    <label for="inputDescription" class="form-label mb-1">description</label>
-                                                    <textarea
-                                                        name="description"
-                                                        class="form-control"
-                                                        id="inputDescription"
-                                                        rows="3"
-                                                        placeholder=""
-                                                    >{{ $contact->description }}</textarea>
-                                                    @error('description')
-                                                    <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                    @error('email')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-textarea', [
+                                                    'name'    => 'description',
+                                                    'id'      => 'inputEditor',
+                                                    'value'   => old('description') ?? $contact->description,
+                                                    'message' => $message ?? '',
+                                                ])
 
                                                 <div class="mb-4">
                                                     <input type="hidden" name="disabled" value="0">
@@ -309,7 +299,10 @@
                                                     @enderror
                                                 </div>
 
-                                                <button type="submit" class="btn btn-sm btn-solid"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                                                @include('admin.components.form-button-submit', [
+                                                    'label'      => 'Save',
+                                                    'cancel_url' => route('admin.contact.index')
+                                                ])
 
                                             </form>
 

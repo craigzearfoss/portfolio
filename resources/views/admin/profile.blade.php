@@ -26,34 +26,43 @@
 
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>user name</strong>: {{ $admin->username }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>user name</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $admin->username }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>email</strong>: {{ $admin->email }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>email</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $admin->email }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>disabled</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $admin->disabled ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>disabled</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.checkmark', [ 'checked' => $admin->disabled ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>email verified at</strong>: {{ $admin->email_verified_at }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>created at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($admin->created_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>created at</strong>: {{ $admin->created_at }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>updated at</strong>: {{ $admin->updated_at }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>updated at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($admin->updated_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

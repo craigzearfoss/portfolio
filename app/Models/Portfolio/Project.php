@@ -32,4 +32,24 @@ class Project extends Model
         'hidden',
         'disabled',
     ];
+
+    /**
+     * Returns an array of options for a select list.
+     *
+     * @param bool $includeBlank
+     * @return array|string[]
+     */
+    public static function listOptions(bool $includeBlank = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options = [ '' => '' ];
+        }
+
+        foreach (self::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
+            $options[$row->id] = $row->name;
+        }
+
+        return $options;
+    }
 }

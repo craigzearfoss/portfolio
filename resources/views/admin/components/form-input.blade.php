@@ -1,8 +1,11 @@
+@php
+    $id = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
+@endphp
 <div class="mb-3">
-    <label for="input{{ !empty($name) ? ucfirst($name) : 'Name' }}" class="form-label mb-1">{{ $label ?? $name ?? '#label#' }}</label>
+    <label for="{{ $id }}" class="form-label mb-1">{{ $label ?? $name ?? '#label#' }}</label>
     <input
         type="{{ $type ?? 'text' }}"
-        id="input{{ !empty($name) ? ucfirst($name) : 'Name' }}"
+        id="{{ $id }}"
         name="{{ $name ?? 'name' }}"
         value="{{ $value ?? '' }}"
         class="form-control {{ $class ?? '' }} @error('role') is-invalid @enderror"

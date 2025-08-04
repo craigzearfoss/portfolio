@@ -38,7 +38,7 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="form-container">
 
                                             <form action="{{ route('admin.reading.store') }}" method="POST">
                                                 @csrf
@@ -99,7 +99,8 @@
 
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'notes',
-                                                    'value'   => old('notes'),
+                                                    'id'      => 'inputEditor',
+                                                    'value'   => old('description'),
                                                     'message' => $message ?? '',
                                                 ])
 
@@ -128,7 +129,7 @@
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
-                                                    'label' => 'Save',
+                                                    'label'      => 'Add Reading',
                                                     'cancel_url' => route('admin.reading.index')
                                                 ])
 

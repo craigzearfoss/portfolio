@@ -4,6 +4,7 @@ namespace App\Models\Career;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Application extends Model
@@ -72,6 +73,21 @@ class Application extends Model
         'apply_date',
     ];
 
+    /**
+     * Get the contacts for the application.
+     */
+    public function contacts(): HasMany
+    {
+        return $this->hasMany(Note::class);
+    }
+
+    /**
+     * Get the notes for the application.
+     */
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class);
+    }
 
     /**
      * Returns an array of options for a select list for office types.
@@ -95,27 +111,25 @@ class Application extends Model
     }
 
     /**
-     * Returns the office name for the giving index or null if not found.
+     * Returns the office name for the given id or null if not found.
      *
-     * @param integer $index
+     * @param int $id
      * @return string|null
      */
-    public static function officeName($index): string | null
+    public static function officeName(int $id): string | null
     {
-        return self::OFFICES[$index] ?? null;
+        return self::OFFICES[$id] ?? null;
     }
 
     /**
-     * Returns the office index for the giving name or null if not found.
+     * Returns the office id for the given name or null if not found.
      *
      * @param string $name
-     * @return int|null
+     * @return int|bool
      */
-    public static function officeIndex($name): integer | null
+    public static function officeIndex(string $name): string | bool
     {
-        $key = array_search($name, self::OFFICES);
-
-        return self::OFFICES[$key] ?? null;
+        return array_search($name, self::OFFICES);
     }
 
     /**
@@ -161,26 +175,24 @@ class Application extends Model
     }
 
     /**
-     * Returns the type name for the giving index or null if not found.
+     * Returns the type name for the given id or null if not found.
      *
-     * @param integer $index
+     * @param int $id
      * @return string|null
      */
-    public static function typeName($index): string | null
+    public static function typeName(int $id): string | null
     {
-        return self::TYPES[$index] ?? null;
+        return self::TYPES[$id] ?? null;
     }
 
     /**
-     * Returns the type index for the giving name or null if not found.
+     * Returns the type id for the given name or null if not found.
      *
      * @param string $name
-     * @return int|null
+     * @return string|bool
      */
-    public static function typeIndex($name): integer | null
+    public static function typeIndex(string $name): string | bool
     {
-        $key = array_search($name, self::TYPES);
-
-        return self::TYPES[$key] ?? null;
+        return array_search($name, self::TYPES);
     }
 }

@@ -14,3 +14,12 @@
         </div>
     </div>
 </footer>
+
+<script>
+    console.log(document.querySelector('#inputEditor'));
+    ClassicEditor
+        .create(document.querySelector('#inputEditor'))
+        .catch(error => {
+            console.error( error );
+        });
+</script>

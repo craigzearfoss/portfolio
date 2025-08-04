@@ -39,7 +39,7 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="form-container">
 
                                             <form action="{{ route('admin.project.update', $project) }}" method="POST">
                                                 @csrf
@@ -138,20 +138,12 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-3">
-                                                    <label for="inputDescription" class="form-label mb-1">description</label>
-                                                    <input
-                                                        type="text"
-                                                        name="description"
-                                                        id="inputDescription"
-                                                        value="{{ $project->description }}"
-                                                        class="form-control @error('description') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('description')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-textarea', [
+                                                    'name'    => 'description',
+                                                    'id'      => 'inputEditor',
+                                                    'value'   => old('description') ?? $project->description,
+                                                    'message' => $message ?? '',
+                                                ])
 
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
@@ -178,7 +170,7 @@
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
-                                                    'label' => 'Update',
+                                                    'label'      => 'Save',
                                                     'cancel_url' => route('admin.project.index')
                                                 ])
 

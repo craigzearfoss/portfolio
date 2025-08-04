@@ -25,7 +25,7 @@
                                     @csrf
                                     <div class="form-container vertical">
                                         <div class="form-item vertical">
-                                            <input class="input" type="text" name="email" value="{{ old('email') }}" placeholder="Email">
+                                            <input class="input" type="email" name="email" value="{{ old('email') }}" placeholder="Email">
                                         </div>
                                         <button class="btn btn-solid w-full" type="submit">Send Email</button>
                                         <div class="mt-4 text-center">

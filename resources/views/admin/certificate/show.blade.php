@@ -26,81 +26,117 @@
 
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>name</strong>: {{ $certificate->name }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>name</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $certificate->name }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="row">
+                                                <div class="col-2"><strong>organization</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $certificate->organization }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="row">
+                                                <div class="col-2"><strong>year</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $certificate->year }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="row">
+                                                <div class="col-2"><strong>received</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDate($certificate->received) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="row">
+                                                <div class="col-2"><strong>expiration</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDate($certificate->expiration) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
-                                                <strong>organization</strong>: {{ $certificate->organization }}
+                                                <div class="row">
+                                                    <div class="col-2"><strong>professional</strong>:</div>
+                                                    <div class="col-10 pl-0">
+                                                        @include('admin.components.checkmark', [ 'checked' => $certificate->professional ])
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>year</strong>: {{ $certificate->year }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>personal</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.checkmark', [ 'checked' => $certificate->personal ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>received</strong>: {{ $certificate->received }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>link</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.link', [ 'url' => $certificate->link, 'target' => '_blank' ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>expiration</strong>: {{ $certificate->expiration }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>description</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $certificate->description }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>professional</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $certificate->professional ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>hidden</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.checkmark', [ 'checked' => $certificate->hidden ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>personal</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $certificate->personal ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>disabled</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.checkmark', [ 'checked' => $certificate->disabled ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>link</strong>:
-                                                @include('admin.components.link', [ 'url' => $certificate->link, 'target' => '_blank' ])
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($certificate->created_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>description</strong>: {{ $certificate->description }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($certificate->updated_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>hidden</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $certificate->hidden ])
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>disabled</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $certificate->disabled ])
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>created at</strong>:
-                                                {{ longDateTime($certificate->created_at) }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>updated at</strong>:
-                                                {{ longDateTime($certificate->updated_at) }}
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>deleted at at</strong>:
-                                                {{ longDateTime($certificate->deleted_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>deleted at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($certificate->deleted_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

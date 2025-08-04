@@ -151,7 +151,10 @@
                                                     @enderror
                                                 </div>
 
-                                                <button type="submit" class="btn btn-sm btn-solid"><i class="fa-solid fa-floppy-disk"></i> Submit</button>
+                                                @include('admin.components.form-button-submit', [
+                                                    'label'      => 'Add Cover Letter',
+                                                    'cancel_url' => route('admin.cover-letter.index')
+                                                ])
 
                                             </form>
 

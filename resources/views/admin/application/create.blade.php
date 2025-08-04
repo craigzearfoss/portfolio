@@ -38,7 +38,7 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="form-container">
 
                                             <form action="{{ route('admin.application.store') }}" method="POST">
                                                 @csrf
@@ -49,6 +49,13 @@
                                                     'required'    => true,
                                                     'maxlength'   => 255,
                                                     'message'     => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'company',
+                                                    'value'   => old('company_id'),
+                                                    'list'    => \App\Models\Career\Company::listOptions(true),
+                                                    'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
@@ -176,24 +183,24 @@
                                                 ])
 
                                                 @include('admin.components.form-checkbox', [
-                                                    'name'            => old('vacation'),
+                                                    'name'            => 'vacation',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => $application->vacation,
+                                                    'checked'         => old('vacation'),
                                                     'message'         => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-checkbox', [
-                                                    'name'            => old('health'),
+                                                    'name'            => 'health',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => $application->health,
+                                                    'checked'         => old('health'),
                                                     'message'         => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
-                                                    'name'      => old('source'),
-                                                    'value'     => $application->source,
+                                                    'name'      => 'source',
+                                                    'value'     => old('source'),
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -243,7 +250,7 @@
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
-                                                    'label' => 'Update',
+                                                    'label'      => 'Add Application',
                                                     'cancel_url' => route('admin.application.index')
                                                 ])
 \

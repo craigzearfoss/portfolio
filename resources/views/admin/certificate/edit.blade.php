@@ -39,7 +39,7 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="form-container">
 
                                             <form action="{{ route('admin.certificate.update', $certificate) }}" method="POST">
                                                 @csrf
@@ -168,19 +168,12 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-3">
-                                                    <label for="inputDescription" class="form-label mb-1">description</label>
-                                                    <textarea
-                                                        name="description"
-                                                        class="form-control"
-                                                        id="inputDescription"
-                                                        rows="3"
-                                                        placeholder=""
-                                                    >{{ $certificate->description }}</textarea>
-                                                </div>
-                                                @error('description')
-                                                    <div class="form-text text-danger">{{ $message }}</div>
-                                                @enderror
+                                                @include('admin.components.form-textarea', [
+                                                    'name'    => 'description',
+                                                    'id'      => 'inputEditor',
+                                                    'value'   => old('description') ?? $certificate->description,
+                                                    'message' => $message ?? '',
+                                                ])
 
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
@@ -207,7 +200,7 @@
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
-                                                    'label' => 'Update',
+                                                    'label'      => 'Save',
                                                     'cancel_url' => route('admin.certificate.index')
                                                 ])
 

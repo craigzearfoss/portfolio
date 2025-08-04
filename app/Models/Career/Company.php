@@ -4,6 +4,7 @@ namespace App\Models\Career;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
@@ -40,4 +41,40 @@ class Company extends Model
         'description',
         'disabled',
     ];
+
+    /**
+     * Get the applications for the company.
+     */
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
+    }
+
+    /**
+     * Get the contacts for the company.
+     */
+    public function contacts(): HasMany
+    {
+        return $this->hasMany(Contact::class);
+    }
+
+    /**
+     * Returns an array of options for a select list.
+     *
+     * @param bool $includeBlank
+     * @return array|string[]
+     */
+    public static function listOptions(bool $includeBlank = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options = [ '' => '' ];
+        }
+
+        foreach (self::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
+            $options[$row->id] = $row->name;
+        }
+
+        return $options;
+    }
 }

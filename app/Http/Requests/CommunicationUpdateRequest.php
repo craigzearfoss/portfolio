@@ -22,7 +22,7 @@ class CommunicationUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => ['string', 'min:1', 'max:255', 'unique:communications,name,'.$this->communication->id],
+            'subject' => ['string', 'min:1', 'max:255', 'unique:career_db.communications,name,'.$this->communication->id],
             'body'    => [],
         ];
     }

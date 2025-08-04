@@ -22,7 +22,7 @@ class ProjectUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['string', 'min:1', 'max:255', 'unique:projects,name,'.$this->project->id],
+            'name'         => ['string', 'min:1', 'max:255', 'unique:portfolio_db.projects,name,'.$this->project->id],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'year'         => ['nullable', 'integer', 'between:0,3000'],

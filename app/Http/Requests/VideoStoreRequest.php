@@ -23,7 +23,7 @@ class VideoStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:videos,name'],
+            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:portfolio_db.videos,name'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'date'         => ['nullable', 'date'],

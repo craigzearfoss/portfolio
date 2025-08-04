@@ -33,4 +33,44 @@ class Reading extends Model
         'hidden',
         'disabled',
     ];
+
+    /**
+     * Returns an array of options for a select list.
+     *
+     * @param bool $includeBlank
+     * @return array|string[]
+     */
+    public static function authorListOptions(bool $includeBlank = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options = [ '' => '' ];
+        }
+
+        foreach (self::select('id', 'author')->distinct('author')->orderBy('author', 'asc')->get() as $row) {
+            $options[$row->id] = $row->author;
+        }
+
+        return $options;
+    }
+
+    /**
+     * Returns an array of options for a select list.
+     *
+     * @param bool $includeBlank
+     * @return array|string[]
+     */
+    public static function titleListOptions(bool $includeBlank = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options = [ '' => '' ];
+        }
+
+        foreach (self::select('id', 'title')->orderBy('title', 'asc')->get() as $row) {
+            $options[$row->id] = $row->title;
+        }
+
+        return $options;
+    }
 }

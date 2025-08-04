@@ -22,7 +22,7 @@ class CommunicationStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => ['required', 'string', 'min:1', 'max:255', 'unique:communications,name'],
+            'subject' => ['required', 'string', 'min:1', 'max:255', 'unique:career_db.communications,name'],
             'body'    => ['required'],
         ];
     }

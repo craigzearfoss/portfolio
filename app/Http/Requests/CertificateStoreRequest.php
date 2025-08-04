@@ -22,7 +22,7 @@ class CertificateStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:certificates,name'],
+            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:career_db.certificates,name'],
             'organization' => ['nullable', 'string', 'max:255'],
             'year'         => ['nullable', 'integer', 'between:0,3000'],
             'received'     => ['nullable', 'date'],

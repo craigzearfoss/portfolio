@@ -58,7 +58,7 @@
                                     @include('admin.components.link', [ 'url' => $link->url, 'target' => '_blank' ])
                                 </td>
                                 <td>{{ $link->website }}</td>
-                                <td>{{ $link->description }}</td>
+                                <td>{!! $link->description !!}</td>
                                 <td class="text-center">
                                     @include('admin.components.checkmark', [ 'checked' => $link->hidden ])
                                 </td>

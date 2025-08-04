@@ -23,7 +23,7 @@ class LinkStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['nullable', 'string', 'min:1', 'max:255', 'unique:links,name'],
+            'name'         => ['nullable', 'string', 'min:1', 'max:255', 'unique:portfolio_db.links,name'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'url'          => ['required', 'string', 'max:255'],

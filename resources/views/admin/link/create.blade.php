@@ -38,7 +38,7 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="form-container">
 
                                             <form action="{{ route('admin.link.store') }}" method="POST">
                                                 @csrf
@@ -121,19 +121,12 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="mb-3">
-                                                    <label for="inputDescription" class="form-label mb-1">description</label>
-                                                    <textarea
-                                                        name="description"
-                                                        class="form-control"
-                                                        id="inputDescription"
-                                                        rows="3"
-                                                        placeholder=""
-                                                    >{{ old('description') }}</textarea>
-                                                    @error('description')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-textarea', [
+                                                    'name'    => 'description',
+                                                    'id'      => 'inputEditor',
+                                                    'value'   => old('description'),
+                                                    'message' => $message ?? '',
+                                                ])
 
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
@@ -160,7 +153,7 @@
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
-                                                    'label' => 'Save',
+                                                    'label'      => 'Add Link',
                                                     'cancel_url' => route('admin.link.index')
                                                 ])
 

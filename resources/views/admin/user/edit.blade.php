@@ -39,7 +39,7 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="form-container">
 
                                             <form action="{{ route('admin.user.update', $user->id) }}" method="POST">
                                                 @csrf
@@ -55,6 +55,7 @@
                                                 ])
 
                                                 @include('admin.components.form-input', [
+                                                    'type'      => 'email',
                                                     'name'      => 'email',
                                                     'value'     => old('email') ?? $user->email,
                                                     'required'  => true,
@@ -78,7 +79,7 @@
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
-                                                    'label' => 'Save',
+                                                    'label'      => 'Save',
                                                     'cancel_url' => route('admin.user.index')
                                                 ])
 

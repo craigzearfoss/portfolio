@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::connection('portfolio_db')->create('readings', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->unique();
             $table->string('author')->nullable();
             $table->tinyInteger('paper')->default(1);
             $table->tinyInteger('audio')->default(0);

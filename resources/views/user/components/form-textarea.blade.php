@@ -1,7 +1,10 @@
+@php
+    $id = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
+@endphp
 <div class="mb-3">
-    <label for="input{{ !empty($name) ? ucfirst($name) : 'Name' }}" class="form-label mb-1">{{ $label ?? $name ?? '#label#' }}</label>
+    <label for="{{ $id }}" class="form-label mb-1">{{ $label ?? $name ?? '#label#' }}</label>
     <textarea
-        id="input{{ !empty($name) ? ucfirst($name) : 'Name' }}"
+        id="{{ $id }}"
         name="{{ $name ?? 'name' }}"
         class="form-control {{ $class ?? '' }}"
         @if (!empty($style))style="{{ is_array($style) ? implode('; ', $style) . ';' : $style }}" @endif

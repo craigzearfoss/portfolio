@@ -22,7 +22,7 @@ class CompanyUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'            => ['string', 'min:1', 'max:255', 'unique:videos,companies,'.$this->company->id],
+            'name'            => ['string', 'min:1', 'max:255', 'unique:career_db.companies,name,'.$this->company->id],
             'street'          => ['nullable', 'string', 'max:255'],
             'street2'         => ['nullable', 'string', 'max:255'],
             'city'            => ['nullable', 'string', 'max:100'],

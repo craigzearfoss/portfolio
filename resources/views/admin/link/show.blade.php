@@ -27,66 +27,90 @@
 
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>name</strong>: {{ $link->name }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>name</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $link->name }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>professional</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $link->professional ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>professional</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.checkmark', [ 'checked' => $link->professional ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>personal</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $link->personal ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>personal</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.checkmark', [ 'checked' => $link->personal ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>url</strong>:
-                                                @include('admin.components.link', [ 'url' => $link->url, 'target' => '_blank' ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>url</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.link', [ 'url' => $link->url, 'target' => '_blank' ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>website</strong>: {{ $link->website }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>website</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $link->website }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>description</strong>: {{ $link->description }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>description</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {!! $link->description !!}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>hidden</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $link->hidden ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>hidden</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.checkmark', [ 'checked' => $link->hidden ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>disabled</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $link->disabled ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>disabled</strong>:</div>
+                                                    @include('admin.components.checkmark', [ 'checked' => $link->disabled ])
+                                                <div class="col-10 pl-0"></div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>created at</strong>:
-                                                {{ longDateTime($link->created_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($link->created_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>updated at</strong>:
-                                                {{ longDateTime($link->updated_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($link->updated_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>deleted at</strong>:
-                                                {{ longDateTime($link->deleted_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>deleted at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($link->deleted_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

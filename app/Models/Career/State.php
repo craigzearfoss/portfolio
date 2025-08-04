@@ -24,7 +24,7 @@ class State extends Model
             $options = $codesAsKey ? [ '' => '' ] : [ 0 => '' ];
         }
 
-        foreach (State::all() as $row) {
+        foreach (self::all() as $row) {
             $options[$codesAsKey ? $row->code : $row->id] = $row->name;
         }
 

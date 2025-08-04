@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('States', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 10)->nullable();
-            $table->string('name', 50)->nullable();
+            $table->string('code', 10)->unique();
+            $table->string('name', 50);
         });
     }
 

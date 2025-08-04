@@ -38,7 +38,7 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="form-container">
 
                                             <form action="{{ route('admin.resume.store') }}" method="POST">
                                                 @csrf
@@ -168,7 +168,10 @@
                                                     @enderror
                                                 </div>
 
-                                                <button type="submit" class="btn btn-sm btn-solid"><i class="fa-solid fa-floppy-disk"></i> Submit</button>
+                                                @include('admin.components.form-button-submit', [
+                                                    'label'      => 'Add Resume',
+                                                    'cancel_url' => route('admin.resume.index')
+                                                ])
 
                                             </form>
 

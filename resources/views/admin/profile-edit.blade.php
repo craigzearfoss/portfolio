@@ -53,6 +53,7 @@
                                                 ])
 
                                                 @include('admin.components.form-input', [
+                                                    'type'      => 'email',
                                                     'name'      => 'email',
                                                     'value'     => old('email') ?? $admin->email,
                                                     'required'  => true,
@@ -61,7 +62,7 @@
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
-                                                    'label' => 'Save',
+                                                    'label'      => 'Save',
                                                     'cancel_url' => route('admin.profile')
                                                 ])
 

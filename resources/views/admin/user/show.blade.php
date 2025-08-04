@@ -27,49 +27,67 @@
 
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>name</strong>: {{ $user->name }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>name</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $user->name }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>email</strong>: {{ $user->email }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>email</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $user->email }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>status</strong>:
-                                                {{ \App\Models\User::statusName($user->status) }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>status</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ \App\Models\User::statusName($user->status) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>disabled</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>disabled</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>email verified at</strong>:
-                                                {{ longDateTime($user->email_verified_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>email verified at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($user->email_verified_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>created at</strong>:
-                                                {{ longDateTime($user->created_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($user->created_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>updated at</strong>:
-                                                {{ longDateTime($user->updated_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($user->updated_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>deleted at</strong>:
-                                                {{ longDateTime($user->deleted_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>deleted at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($user->deleted_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

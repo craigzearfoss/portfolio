@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('cover_letters', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('recipient')->nullable();
             $table->date('date')->nullable();
             $table->string('link')->nullable();

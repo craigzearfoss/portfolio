@@ -39,7 +39,7 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="form-container">
 
                                             <form action="{{ route('admin.reading.update', $reading) }}" method="POST">
                                                 @csrf
@@ -101,7 +101,8 @@
 
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'notes',
-                                                    'value'   => old('notes') ?? $reading->notes,
+                                                    'id'      => 'inputEditor',
+                                                    'value'   => old('description') ?? $reading->notes,
                                                     'message' => $message ?? '',
                                                 ])
 
@@ -130,7 +131,7 @@
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
-                                                    'label' => 'Update',
+                                                    'label'      => 'Save',
                                                     'cancel_url' => route('admin.reading.index')
                                                 ])
 

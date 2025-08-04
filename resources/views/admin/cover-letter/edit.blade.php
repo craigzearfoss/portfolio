@@ -154,7 +154,10 @@
                                                     @enderror
                                                 </div>
 
-                                                <button type="submit" class="btn btn-sm btn-solid"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                                                @include('admin.components.form-button-submit', [
+                                                    'label'      => 'Save',
+                                                    'cancel_url' => route('admin.cover-letter.index')
+                                                ])
 
                                             </form>
 

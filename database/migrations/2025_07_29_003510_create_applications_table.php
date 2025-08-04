@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::connection('career_db')->create('applications', function (Blueprint $table) {
             $table->id();
             $table->string('role');
+            $table->foreignId('company_id');
             $table->tinyInteger('rating')->default(0);
             $table->tinyInteger('active')->default(1);
             $table->date('post_date')->nullable();

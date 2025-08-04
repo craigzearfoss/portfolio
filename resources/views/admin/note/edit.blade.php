@@ -39,43 +39,31 @@
                                             </div>
 
                                         </div>
-                                        <div>
+                                        <div class="form-container">
 
                                             <form action="{{ route('admin.note.update', $note->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
 
-                                                <div class="mb-3">
-                                                    <label for="inputSubject" class="form-label mb-1">subject</label>
-                                                    <input
-                                                        type="text"
-                                                        name="subject"
-                                                        id="inputSubject"
-                                                        value="{{ $note->subject }}"
-                                                        class="form-control @error('subject') is-invalid @enderror"
-                                                        placeholder=""
-                                                        required
-                                                    >
-                                                    @error('subject')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'        => 'subject',
+                                                    'value'       => old('subject') ?? $note->subject,
+                                                    'required'    => true,
+                                                    'maxlength'   => 255,
+                                                    'message'     => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputBody" class="form-label mb-1">body</label>
-                                                    <textarea
-                                                        name="body"
-                                                        class="form-control"
-                                                        id="inputBody"
-                                                        rows="3"
-                                                        placeholder=""
-                                                    >{{ $note->body }}</textarea>
-                                                    @error('body')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-textarea', [
+                                                    'name'    => 'body',
+                                                    'id'      => 'inputEditor',
+                                                    'value'   => old('body') ?? $note->body,
+                                                    'message' => $message ?? '',
+                                                ])
 
-                                                <button type="submit" class="btn btn-sm btn-solid"><i class="fa-solid fa-floppy-disk"></i> Update</button>
+                                                @include('admin.components.form-button-submit', [
+                                                    'label'      => 'Save',
+                                                    'cancel_url' => route('admin.note.index')
+                                                ])
 
                                             </form>
 

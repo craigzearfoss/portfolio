@@ -22,7 +22,7 @@ class ProjectStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required','string', 'min:1', 'max:255', 'unique:projects,name'],
+            'name'         => ['required','string', 'min:1', 'max:255', 'portfolio_db.unique:projects,name'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'year'         => ['nullable', 'integer', 'between:0,3000'],
