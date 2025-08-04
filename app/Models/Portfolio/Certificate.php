@@ -11,7 +11,7 @@ class Certificate extends Model
     /** @use HasFactory<\Database\Factories\Portfolio\CertificateFactory> */
     use HasFactory, SoftDeletes;
 
-    protected $connection = 'career_db';
+    protected $connection = 'portfolio_db';
 
     protected $table = 'certificates';
 

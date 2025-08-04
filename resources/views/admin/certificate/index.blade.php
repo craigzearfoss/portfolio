@@ -82,7 +82,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="10">There are no certificates.</td>
+                                <td colspan="11">There are no certificates.</td>
                             </tr>
                         @endforelse
 
