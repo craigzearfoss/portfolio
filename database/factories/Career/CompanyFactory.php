@@ -21,7 +21,7 @@ class CompanyFactory extends Factory
             'street'          => fake()->streetAddress(),
             'street2'         => null,
             'city'            => fake()->city(),
-            'state'           => fake()->randomElement(['AL','AK','AR','AZ','CA','CO','CT','DC','DE','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME','MI','MN','MS','MT','NC','ND','NE','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','WA','WI','WY']),
+            'state'           => fake()->randomElement(\App\Models\Career\State::all()->pluck('code')->toArray()),
             'zip'             => fake()->postcode(),
             'phone'           => fake()->phoneNumber(),
             'phone_label'     => fake()->randomElement(['home', 'mobile', 'work']),
