@@ -15,7 +15,10 @@ class CertificateController extends Controller
      */
     public function index(): View
     {
-        $certificates = Certificate::where('disabled', 0)->orderBy('seq')->paginate(self::NUM_PER_PAGE);
+        $certificates = Certificate::where('public', 1)
+            ->where('disabled', 0)
+            ->orderBy('seq', 'asc')
+            ->paginate(self::NUM_PER_PAGE);
 
         $title = 'Certificates';
         return view('front.certificate.index', compact('certificates', 'title'))

@@ -61,13 +61,6 @@
                                                 ])
 
                                                 @include('admin.components.form-input', [
-                                                    'name'      => 'title',
-                                                    'value'     => old('title') ?? $contact->title,
-                                                    'maxlength' => 100,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
                                                     'name'      => 'street',
                                                     'value'     => old('street') ?? $contact->street,
                                                     'maxlength' => 255,

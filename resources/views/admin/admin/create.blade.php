@@ -44,11 +44,26 @@
                                                 @csrf
 
                                                 @include('admin.components.form-input', [
+                                                    'name'      => 'name',
+                                                    'value'     => old('name'),
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
                                                     'name'      => 'username',
                                                     'value'     => old('username'),
                                                     'required'  => true,
                                                     'minlength' => 6,
                                                     'maxlength' => 200,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'phone',
+                                                    'value'     => old('phone'),
+                                                    'required'  => true,
+                                                    'maxlength' => 20,
                                                     'message'   => $message ?? '',
                                                 ])
 

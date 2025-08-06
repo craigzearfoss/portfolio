@@ -46,11 +46,26 @@
                                                 @method('PUT')
 
                                                 @include('admin.components.form-input', [
+                                                    'name'      => 'name',
+                                                    'value'     => old('name') ?? $admin->name,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
                                                     'name'      => 'username',
                                                     'value'     => old('username') ?? $admin->username,
                                                     'required'  => true,
                                                     'minlength' => 6,
                                                     'maxlength' => 200,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'phone',
+                                                    'value'     => old('phone') ?? $admin->phone,
+                                                    'required'  => true,
+                                                    'maxlength' => 20,
                                                     'message'   => $message ?? '',
                                                 ])
 

@@ -15,7 +15,10 @@ class LinkController extends Controller
      */
     public function index(): View
     {
-        $links = Link::where('disabled', 0)->orderBy('seq')->paginate(self::NUM_PER_PAGE);
+        $links = Link::where('public', 1)
+            ->where('disabled', 0)
+            ->orderBy('seq', 'asc')
+            ->paginate(self::NUM_PER_PAGE);
 
         $title = 'Links';
         return view('front.link.index', compact('links', 'title'))

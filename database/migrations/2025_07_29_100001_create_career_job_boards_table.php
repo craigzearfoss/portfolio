@@ -18,15 +18,16 @@ return new class extends Migration
         });
 
         $data = [
-            [ 'name' => 'Dice',            'website' => 'https://dice.com' ],
-            [ 'name' => 'Indeed',          'website' => 'https://indeed.com' ],
-            [ 'name' => 'iHireTechnology', 'website' => 'https://ihiretechnology.com' ],
-            [ 'name' => 'JobLeads',        'website' => 'https://jobleads.com' ],
-            [ 'name' => 'Lensa',           'website' => 'https://lensa.com' ],
-            [ 'name' => 'LinkedIn',        'website' => 'https://linkedin.com' ],
-            [ 'name' => 'Monster',         'website' => 'https://monster.com' ],
-            [ 'name' => 'SimplyHired',     'website' => 'https://simplyhired.com' ],
-            [ 'name' => 'ZipRecruiter',    'website' => 'https://ziprecruiter.com' ],
+            [ 'name' => 'Dice',             'website' => 'https://dice.com/' ],
+            [ 'name' => 'Indeed',           'website' => 'https://indeed.com/' ],
+            [ 'name' => 'iHireTechnology',  'website' => 'https://ihiretechnology.com/' ],
+            [ 'name' => 'JobLeads',         'website' => 'https://jobleads.com/' ],
+            [ 'name' => 'Lensa',            'website' => 'https://lensa.com/' ],
+            [ 'name' => 'LinkedIn',         'website' => 'https://linkedin.com/' ],
+            [ 'name' => 'Monster',          'website' => 'https://monster.com/' ],
+            [ 'name' => 'SimplyHired',      'website' => 'https://simplyhired.com/' ],
+            [ 'name' => 'VirtualVocations', 'website' => 'https://www.virtualvocations.com/' ],
+            [ 'name' => 'ZipRecruiter',     'website' => 'https://ziprecruiter.com/' ],
         ];
         App\Models\Career\JobBoard::insert($data);
     }

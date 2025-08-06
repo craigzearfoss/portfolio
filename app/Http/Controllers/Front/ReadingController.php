@@ -15,7 +15,10 @@ class ReadingController extends Controller
      */
     public function index(): View
     {
-        $readings = Reading::where('disabled', 0)->orderBy('seq')->paginate(self::NUM_PER_PAGE);
+        $readings = Reading::where('public', 1)
+            ->where('disabled', 0)
+            ->orderBy('seq', 'asc')
+            ->paginate(self::NUM_PER_PAGE);
 
         $title = 'Readings';
         return view('front.reading.index', compact('readings', 'title'))

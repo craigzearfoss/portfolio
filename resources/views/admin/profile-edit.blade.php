@@ -44,11 +44,65 @@
                                                 @csrf
 
                                                 @include('admin.components.form-input', [
-                                                    'name'      => 'username',
-                                                    'value'     => old('username') ?? $admin->username,
-                                                    'required'  => true,
-                                                    'minlength' => 6,
-                                                    'maxlength' => 200,
+                                                    'name'      => 'name',
+                                                    'value'     => old('name') ?? $user->name,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'title',
+                                                    'value'   => old('title') ?? $user->title,
+                                                    'list'    => \App\Models\Career\Contact::titleListOptions(true, true),
+                                                    'message' => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'street',
+                                                    'value'     => old('street') ?? $user->street,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'street2',
+                                                    'value'     => old('street2') ?? $user->street2,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'city',
+                                                    'value'     => old('city') ?? $user->city,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'state',
+                                                    'value'   => old('state') ?? $user->state,
+                                                    'list'    => \App\Models\State::listOptions(true, true),
+                                                    'message' => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'zip',
+                                                    'value'     => old('zip') ?? $user->zip,
+                                                    'maxlength' => 20,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'country',
+                                                    'value'   => old('country') ?? $user->country,
+                                                    'list'    => \App\Models\Country::listOptions(true, true),
+                                                    'message' => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'phone',
+                                                    'value'     => old('phone') ?? $user->phone,
+                                                    'maxlength' => 20,
                                                     'message'   => $message ?? '',
                                                 ])
 
@@ -57,6 +111,13 @@
                                                     'name'      => 'email',
                                                     'value'     => old('email') ?? $admin->email,
                                                     'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'website',
+                                                    'value'     => old('website') ?? $user->website,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])

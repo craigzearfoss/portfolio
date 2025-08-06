@@ -15,7 +15,10 @@ class VideoController extends Controller
      */
     public function index(): View
     {
-        $videos = Video::where('disabled', 0)->orderBy('seq')->paginate(self::NUM_PER_PAGE);
+        $videos = Video::where('public', 1)
+            ->where('disabled', 0)
+            ->orderBy('seq', 'asc')
+            ->paginate(self::NUM_PER_PAGE);
 
         $title = 'Videos';
         return view('front.video.index', compact('videos', 'title'))

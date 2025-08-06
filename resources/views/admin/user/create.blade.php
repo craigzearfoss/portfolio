@@ -46,9 +46,63 @@
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'name',
                                                     'value'     => old('name'),
-                                                    'required'  => true,
-                                                    'minlength' => 6,
                                                     'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'title',
+                                                    'value'   => old('title'),
+                                                    'list'    => \App\Models\Career\Contact::titleListOptions(true, true),
+                                                    'message' => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'street',
+                                                    'value'     => old('street'),
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'street2',
+                                                    'value'     => old('street2'),
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'city',
+                                                    'value'     => old('city'),
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'state',
+                                                    'value'   => old('state'),
+                                                    'list'    => \App\Models\State::listOptions(true, true),
+                                                    'message' => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'zip',
+                                                    'value'     => old('zip'),
+                                                    'maxlength' => 20,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'country',
+                                                    'value'   => old('country'),
+                                                    'list'    => \App\Models\Country::listOptions(true, true),
+                                                    'message' => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'phone',
+                                                    'value'     => old('phone'),
+                                                    'maxlength' => 20,
                                                     'message'   => $message ?? '',
                                                 ])
 
@@ -62,26 +116,10 @@
                                                 ])
 
                                                 @include('admin.components.form-input', [
-                                                    'type'        => 'password',
-                                                    'name'        => 'password',
-                                                    'value'       => old('password'),
-                                                    'required'    => true,
-                                                    'minlength'   => 8,
-                                                    'maxlength'   => 255,
-                                                    'message'     => $message ?? '',
-                                                    'placeholder' => 'Password'
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'label'       => 'confirm password',
-                                                    'type'        => 'password',
-                                                    'name'        => 'confirm_password',
-                                                    'value'       => old('confirm_password'),
-                                                    'required'    => true,
-                                                    'minlength'   => 8,
-                                                    'maxlength'   => 255,
-                                                    'message'     => $message ?? '',
-                                                    'placeholder' => 'Confirm Password'
+                                                    'name'      => 'website',
+                                                    'value'     => old('website'),
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-select', [
@@ -100,8 +138,8 @@
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
-                                                    'label'      => 'Add Video',
-                                                    'cancel_url' => route('admin.user.index')
+                                                    'label'      => 'Save',
+                                                    'cancel_url' => route('admin.profile')
                                                 ])
 
                                             </form>
