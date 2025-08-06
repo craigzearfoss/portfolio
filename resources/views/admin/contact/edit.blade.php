@@ -55,11 +55,10 @@
 
                                                 @include('admin.components.form-select', [
                                                     'name'    => 'title',
-                                                    'value'   => old('title') ?? $user->title,
+                                                    'value'   => old('title') ?? $contact->title,
                                                     'list'    => \App\Models\Career\Contact::titleListOptions(true, true),
                                                     'message' => $message ?? '',
                                                 ])
-
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'title',
@@ -101,6 +100,13 @@
                                                     'value'     => old('zip') ?? $contact->zip,
                                                     'maxlength' => 20,
                                                     'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'country',
+                                                    'value'   => old('country') ?? $contact->country,
+                                                    'list'    => \App\Models\Country::listOptions(true, true),
+                                                    'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [

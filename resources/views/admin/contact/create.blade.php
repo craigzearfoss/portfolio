@@ -93,6 +93,13 @@
                                                     'message'   => $message ?? '',
                                                 ])
 
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'country',
+                                                    'value'   => old('country'),
+                                                    'list'    => \App\Models\Country::listOptions(true, true),
+                                                    'message' => $message ?? '',
+                                                ])
+
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'phone',
                                                     'value'     => old('phone'),

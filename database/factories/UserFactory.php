@@ -30,6 +30,7 @@ class UserFactory extends Factory
             'street2'           => null,
             'city'              => fake()->city(),
             'state'             => fake()->randomElement(\App\Models\State::all()->pluck('code')->toArray()),
+            'country'           => fake()->randomElement(\App\Models\Country::all()->pluck('iso_alpha3')->toArray()),
             'zip'               => fake()->postcode(),
             'phone'             => fake()->phoneNumber(),
             'email'             => fake()->unique()->safeEmail(),
