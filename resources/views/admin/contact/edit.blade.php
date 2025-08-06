@@ -45,236 +45,132 @@
                                                 @csrf
                                                 @method('PUT')
 
-                                                <div class="mb-3">
-                                                    <label for="inputName" class="form-label mb-1">name</label>
-                                                    <input
-                                                        type="text"
-                                                        name="name"
-                                                        id="inputName"
-                                                        value="{{ $contact->name }}"
-                                                        class="form-control @error('name') is-invalid @enderror"
-                                                        placeholder=""
-                                                        required
-                                                    >
-                                                    @error('name')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'name',
+                                                    'value'     => old('name') ?? $contact->name,
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputStreet" class="form-label mb-1">street</label>
-                                                    <input
-                                                        type="text"
-                                                        name="street"
-                                                        id="inputStreet"
-                                                        value="{{ $contact->street }}"
-                                                        class="form-control @error('street') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('street')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'title',
+                                                    'value'   => old('title') ?? $user->title,
+                                                    'list'    => \App\Models\Career\Contact::titleListOptions(true, true),
+                                                    'message' => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputStreet2" class="form-label mb-1">street 2</label>
-                                                    <input
-                                                        type="text"
-                                                        name="street2"
-                                                        id="inputStreet2"
-                                                        value="{{ $contact->street2 }}"
-                                                        class="form-control @error('street2') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('street2')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
 
-                                                <div class="mb-3">
-                                                    <label for="inputCity" class="form-label mb-1">city</label>
-                                                    <input
-                                                        type="text"
-                                                        name="city"
-                                                        id="inputCity"
-                                                        value="{{ $contact->city }}"
-                                                        class="form-control @error('city') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('city')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'title',
+                                                    'value'     => old('title') ?? $contact->title,
+                                                    'maxlength' => 100,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputState" class="form-label mb-1">state</label>
-                                                    <select
-                                                        name="state"
-                                                        id="inputState"
-                                                        class="form-select"
-                                                        required
-                                                    >
-                                                        @foreach(['', 'AL','AK','AR','AZ','CA','CO','CT','DC','DE','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME','MI','MN','MS','MT','NC','ND','NE','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','WA','WI','WY'] as $state)
-                                                            <option
-                                                                value="{{ $state }}"
-                                                                {{ $state == $contact->state ? 'selected' : '' }}
-                                                            >{{ $state }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('state')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'street',
+                                                    'value'     => old('street') ?? $contact->street,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputZip" class="form-label mb-1">zip</label>
-                                                    <input
-                                                        type="text"
-                                                        name="zip"
-                                                        id="inputZip"
-                                                        value="{{ $contact->zip }}"
-                                                        class="form-control @error('zip') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('zip')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'street2',
+                                                    'value'     => old('street2') ?? $contact->street2,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputPhone" class="form-label mb-1">phone</label>
-                                                    <input
-                                                        type="text"
-                                                        name="phone"
-                                                        id="inputPhone"
-                                                        value="{{ $contact->phone }}"
-                                                        class="form-control @error('phone') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('phone')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'city',
+                                                    'value'     => old('city') ?? $contact->city,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputPhoneLabel" class="form-label mb-1">phone label</label>
-                                                    <input
-                                                        type="text"
-                                                        name="phone_label"
-                                                        id="input"
-                                                        value="{{ $contact->phone_label }}"
-                                                        class="form-control @error('phone_label') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('phone_label')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'state',
+                                                    'value'   => old('state') ?? $contact->state,
+                                                    'list'    => \App\Models\State::listOptions(true, true),
+                                                    'message' => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputAltPhone" class="form-label mb-1">alt phone</label>
-                                                    <input
-                                                        type="text"
-                                                        name="alt_phone"
-                                                        id="inputAltPhone"
-                                                        value="{{ $contact->alt_phone }}"
-                                                        class="form-control @error('alt_phone') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('alt_phone')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'zip',
+                                                    'value'     => old('zip') ?? $contact->zip,
+                                                    'maxlength' => 20,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputAltPhoneLabel" class="form-label mb-1">alt phone label</label>
-                                                    <input
-                                                        type="text"
-                                                        name="inputAltPhoneLabel"
-                                                        id="input"
-                                                        value="{{ $contact->alt_phone_label }}"
-                                                        class="form-control @error('alt_phone_label') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('alt_phone_label')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'phone',
+                                                    'value'     => old('phone') ?? $contact->phone,
+                                                    'maxlength' => 20,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputEmail" class="form-label mb-1">email</label>
-                                                    <input
-                                                        type="email"
-                                                        name="email"
-                                                        id="inputEmail"
-                                                        value="{{ $contact->email }}"
-                                                        class="form-control @error('email') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('email')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'phone_label',
+                                                    'label'     => 'phone label',
+                                                    'value'     => old('phone_label') ?? $contact->phone_label,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputEmailLabel" class="form-label mb-1">email label</label>
-                                                    <input
-                                                        type="text"
-                                                        name="email_label"
-                                                        id="input"
-                                                        value="{{ $contact->email_label }}"
-                                                        class="form-control @error('email_label') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('email_label')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'alt_phone',
+                                                    'label'     => 'alt phone',
+                                                    'value'     => old('alt_phone') ?? $contact->alt_phone,
+                                                    'maxlength' => 20,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputAltEmail" class="form-label mb-1">alt email</label>
-                                                    <input
-                                                        type="text"
-                                                        name="alt_email"
-                                                        id="inputAltEmail"
-                                                        value="{{ $contact->alt_email }}"
-                                                        class="form-control @error('alt_email') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('alt_email')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'alt_phone_label',
+                                                    'label'     => 'alt phone label',
+                                                    'value'     => old('alt_phone_label') ?? $contact->alt_phone_label,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputAltEmailLabel" class="form-label mb-1">alt email label</label>
-                                                    <input
-                                                        type="text"
-                                                        name="inputAltEmailLabel"
-                                                        id="input"
-                                                        value="{{ $contact->alt_email_label }}"
-                                                        class="form-control @error('alt_email_label') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('alt_email_label')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'email',
+                                                    'value'     => old('email') ?? $contact->email,
+                                                    'maxlength' => 20,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputWebsite" class="form-label mb-1">website</label>
-                                                    <input
-                                                        type="text"
-                                                        name="website"
-                                                        id="inputWebsite"
-                                                        value="{{ $contact->website }}"
-                                                        class="form-control @error('website') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('website')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'email_label',
+                                                    'label'     => 'email label',
+                                                    'value'     => old('email_label') ?? $contact->email_label,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'alt_email',
+                                                    'label'     => 'alt email',
+                                                    'value'     => old('alt_email') ?? $contact->alt_email,
+                                                    'maxlength' => 20,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'alt_email_label',
+                                                    'label'     => 'alt email label',
+                                                    'value'     => old('alt_email_label') ?? $contact->alt_email_label,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'website',
+                                                    'value'     => old('website') ?? $contact->website,
+                                                    'maxlength' => 20,
+                                                    'message'   => $message ?? '',
+                                                ])
 
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'description',
@@ -283,21 +179,13 @@
                                                     'message' => $message ?? '',
                                                 ])
 
-                                                <div class="mb-4">
-                                                    <input type="hidden" name="disabled" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="disabled"
-                                                        id="inputDisabled"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ $contact->disabled ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputDisabled" class="form-check-label mb-1 font-semibold">disabled</label>
-                                                    @error('disabled')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'disabled',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('disabled') ?? $contact->disabled,
+                                                    'message'         => $message ?? '',
+                                                ])
 
                                                 @include('admin.components.form-button-submit', [
                                                     'label'      => 'Save',

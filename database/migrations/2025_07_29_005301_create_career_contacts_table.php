@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->foreignId('company_id', Company::class)->nullable()->index();
-            $table->string('title', 50)->nullable();
+            $table->string('title', 100)->nullable();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();

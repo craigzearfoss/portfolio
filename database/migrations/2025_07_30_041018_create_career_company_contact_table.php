@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('career_db')->dropIfExists('career_db.company_contact');
+        Schema::connection('career_db')->dropIfExists('company_contact');
     }
 };

@@ -57,7 +57,7 @@
                                 <td class="text-center">
                                     @include('front.components.checkmark', [ 'checked' => $certificate->personal ])
                                 </td>
-                                <td>{{ $certificate->description }}</td>
+                                <td>{!! $certificate->description !!}</td>
                                 <td class="text-nowrap">
                                     @if ($certificate->link)
                                         <a class="btn btn-sm" href="{{ $certificate->link }}" target="_blank">

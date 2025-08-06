@@ -27,7 +27,7 @@ class CertificateFactory extends Factory
             'link'         => fake()->url(),
             'description'  => fake()->text(200),
             'seq'          => 0,
-            'hidden'       => fake()->numberBetween(0, 1),
+            'public'       => fake()->numberBetween(0, 1),
             'disabled'     => fake()->numberBetween(0, 1),
         ];
     }

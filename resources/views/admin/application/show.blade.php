@@ -224,7 +224,7 @@
                                             <div class="row">
                                                 <div class="col-2"><strong>description</strong>:</div>
                                                 <div class="col-10 pl-0">
-                                                    {{ $application->description }}
+                                                    {!! $application->description !!}
                                                 </div>
                                             </div>
                                         </div>

@@ -48,82 +48,43 @@
                                                 @csrf
                                                 @method('PUT')
 
-                                                <div class="mb-3">
-                                                    <label for="inputName" class="form-label mb-1">name</label>
-                                                    <input
-                                                        type="text"
-                                                        name="name"
-                                                        id="inputName"
-                                                        value="{{ $link->name }}"
-                                                        class="form-control @error('name') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('name')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'name',
+                                                    'value'     => old('name') ?? $link->name,
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <input type="hidden" name="professional" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="professional"
-                                                        id="inputProfessional"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ $link->professional ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputProfessional" class="form-check-label mb-1 font-semibold">professional</label>
-                                                    @error('professional')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'professional',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('professional') ?? $link->professional,
+                                                    'message'         => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <input type="hidden" name="personal" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="personal"
-                                                        id="inputPersonal"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ $link->personal ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputPersonal" class="form-check-label mb-1 font-semibold">personal</label>
-                                                    @error('personal')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'personal',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('personal') ?? $link->personal,
+                                                    'message'         => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputUrl" class="form-label mb-1">url</label>
-                                                    <input
-                                                        type="text"
-                                                        name="url"
-                                                        id="inputUrl"
-                                                        value="{{ $link->url }}"
-                                                        class="form-control @error('url') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('url')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'url',
+                                                    'value'     => old('url') ?? $link->url,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputWebsite" class="form-label mb-1">website</label>
-                                                    <input
-                                                        type="text"
-                                                        name="website"
-                                                        id="inputWebsite"
-                                                        value="{{ $link->website }}"
-                                                        class="form-control @error('website') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('website')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'website',
+                                                    'value'     => old('website') ?? $link->website,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'description',
@@ -141,10 +102,10 @@
                                                 ])
 
                                                 @include('admin.components.form-checkbox', [
-                                                    'name'            => 'hidden',
+                                                    'name'            => 'public',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('hidden') ?? $link->hidden,
+                                                    'checked'         => old('public') ?? $link->public,
                                                     'message'         => $message ?? '',
                                                 ])
 

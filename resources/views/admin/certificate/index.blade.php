@@ -62,10 +62,10 @@
                                 <td class="text-center">
                                     @include('admin.components.checkmark', [ 'checked' => $certificate->personal ])
                                 </td>
-                                <td>{{ $certificate->description }}</td>
+                                <td>{!! $certificate->description !!}</td>
 
                                 <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $certificate->hidden ])
+                                    @include('admin.components.checkmark', [ 'checked' => $certificate->public ])
                                 </td>
                                 <td class="text-center">
                                     @include('admin.components.checkmark', [ 'checked' => $certificate->disabled ])

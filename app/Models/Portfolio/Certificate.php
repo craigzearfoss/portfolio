@@ -31,7 +31,7 @@ class Certificate extends Model
         'link',
         'description',
         'seq',
-        'hidden',
+        'public',
         'disabled',
     ];
 }

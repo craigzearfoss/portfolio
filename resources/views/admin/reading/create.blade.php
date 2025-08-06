@@ -113,10 +113,10 @@
                                                 ])
 
                                                 @include('admin.components.form-checkbox', [
-                                                    'name'            => 'hidden',
+                                                    'name'            => 'public',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('hidden'),
+                                                    'checked'         => old('public'),
                                                     'message'         => $message ?? '',
                                                 ])
 

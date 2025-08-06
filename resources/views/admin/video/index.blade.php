@@ -56,9 +56,9 @@
                                 <td>
                                     @include('admin.components.link', [ 'url' => $video->link, 'target' => '_blank' ])
                                 </td>
-                                <td>{{ $video->description }}</td>
+                                <td>{!! $video->description !!}</td>
                                 <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $video->hidden ])
+                                    @include('admin.components.checkmark', [ 'checked' => $video->public ])
                                 </td>
                                 <td class="text-center">
                                     @include('admin.components.checkmark', [ 'checked' => $video->disabled ])

@@ -52,7 +52,7 @@
                                 <td>
                                     @include('admin.components.link', [ 'url' => $coverLetter->link, 'target' => '_blank' ])
                                 </td>
-                                <td>{{ $coverLetter->description }}</td>
+                                <td>{!! $coverLetter->description !!}</td>
                                 <td class="text-center">
                                     @include('admin.components.checkmark', [ 'checked' => $coverLetter->primary ])
                                 </td>

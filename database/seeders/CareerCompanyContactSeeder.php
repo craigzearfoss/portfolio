@@ -29,6 +29,7 @@ class CareerCompanyContactSeeder extends Seeder
                 $companyContacts = [];
                 for($index = 0; $index < $numContacts; $index++) {
                     $contactId = $contactIds[mt_rand(0, count($contactIds) - 1)];
+                    $companyContacts[] = $contactId;
                     if (!in_array($contactId, $companyContacts)) {
                         $pivots[] = [
                             'company_id' => $companyId,

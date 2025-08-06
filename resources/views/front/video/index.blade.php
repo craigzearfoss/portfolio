@@ -62,7 +62,7 @@
                                 <td>
                                     @include('front.components.link', [ 'url' => $video->link, 'target' => '_blank' ])
                                 </td>
-                                <td>{{ $video->description }}</td>
+                                <td>{!! $video->description !!}</td>
                             </tr>
                         @empty
                             <tr>

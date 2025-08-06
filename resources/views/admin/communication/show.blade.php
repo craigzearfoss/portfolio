@@ -27,32 +27,45 @@
 
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <strong>subject</strong>: {{ $communication->subject }}
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>body</strong>: {{ $communication->body }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>subject</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $communication->subject }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>created at</strong>:
-                                                {{ longDateTime($communication->created_at) }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>body</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {!! $communication->body !!}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>updated at</strong>:
-                                                {{ longDateTime($communication->updated_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($communication->created_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>deleted at</strong>:
-                                                {{ longDateTime($communication->deleted_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($communication->updated_at) }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>deleted at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($communication->deleted_at) }}
+                                                </div>
+                                            </div>
+                                        </div>
 
                                 </div>
                             </div>

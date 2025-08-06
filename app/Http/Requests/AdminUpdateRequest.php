@@ -23,10 +23,12 @@ class AdminUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name'     => ['string', 'nullable'],
             'username' => ['string', 'min:6', 'max:200', 'unique:admins,username,'.$this->admin->id],
+            'phone'    => ['string', 'max:20', 'nullable'],
             'email'    => ['email', 'max:255', 'unique:admins,email,'.$this->admin->id],
             //'password' => ['required', 'string', 'min:8'],
-            //'token'  => ['nullable', 'string', 'max:255'],
+            //'token'  => ['string', 'max:255', 'nullable'],
             'disabled' => ['integer', 'between:0,1'],
         ];
     }

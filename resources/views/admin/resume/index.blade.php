@@ -51,7 +51,7 @@
                                 <td>
                                     @include('admin.components.link', [ 'url' => $resume->link, 'target' => '_blank' ])
                                 </td>
-                                <td>{{ $resume->description }}</td>
+                                <td>{!! $resume->description !!}</td>
                                 <td class="text-center">
                                     @include('admin.components.checkmark', [ 'checked' => $resume->primary ])
                                 </td>

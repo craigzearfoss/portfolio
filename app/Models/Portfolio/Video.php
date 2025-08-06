@@ -32,7 +32,7 @@ class Video extends Model
         'link',
         'description',
         'seq',
-        'hidden',
+        'public',
         'disabled',
     ];
 

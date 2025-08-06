@@ -54,7 +54,7 @@
                                     @include('admin.components.checkmark', [ 'checked' => $reading->audio ])
                                 </td>
                                 <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $reading->hidden ])
+                                    @include('admin.components.checkmark', [ 'checked' => $reading->public ])
                                 </td>
                                 <td class="text-center">
                                     @include('admin.components.checkmark', [ 'checked' => $reading->disabled ])

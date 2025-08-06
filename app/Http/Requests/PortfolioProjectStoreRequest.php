@@ -22,14 +22,14 @@ class PortfolioProjectStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required','string', 'min:1', 'max:255', 'portfolio_db.unique:projects,name'],
+            'name'         => ['string', 'min:1', 'max:255', 'required', 'portfolio_db.unique:projects,name'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
-            'year'         => ['nullable', 'integer', 'between:0,3000'],
-            'repository'   => ['nullable', 'string', 'max:255'],
-            'link'         => ['nullable', 'string', 'max:255'],
+            'year'         => ['integer', 'between:0,3000', 'nullable'],
+            'repository'   => ['string', 'max:255', 'nullable'],
+            'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
-            'hidden'       => ['integer', 'between:0,1'],
+            'public'       => ['integer', 'between:0,1'],
             'seq'          => ['integer', 'min:0'],
             'disabled'     => ['integer', 'between:0,1'],
         ];

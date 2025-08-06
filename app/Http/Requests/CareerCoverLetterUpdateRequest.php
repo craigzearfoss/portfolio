@@ -23,10 +23,10 @@ class CareerCoverLetterUpdateRequest extends FormRequest
     {
         return [
             'name'         => ['string', 'min:1', 'max:255', 'unique:career_db.cover_letters,name,'.$this->cover_letter->id],
-            'recipient'    => ['nullable', 'string', 'max:255'],
-            'date'         => ['nullable', 'date'],
-            'link'         => ['nullable', 'string', 'max:255'],
-            'alt_link'     => ['nullable', 'string', 'max:255'],
+            'recipient'    => ['string', 'max:255', 'nullable'],
+            'date'         => ['date', 'nullable'],
+            'link'         => ['string', 'max:255', 'nullable'],
+            'alt_link'     => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'primary'      => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],

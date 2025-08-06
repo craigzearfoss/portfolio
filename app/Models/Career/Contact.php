@@ -4,6 +4,8 @@ namespace App\Models\Career;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
@@ -42,6 +44,21 @@ class Contact extends Model
         'disabled',
     ];
 
+    const TITLES = [
+        'Miss',
+        'Mr.',
+        'Mrs.',
+        'Ms',
+    ];
+
+    /**
+     * The company has one contact.
+     */
+    public function company(): HasOne
+    {
+        return $this->hasOne(Company::class);
+    }
+
     /**
      * Returns an array of options for a select list.
      *
@@ -61,5 +78,48 @@ class Contact extends Model
         }
 
         return $options;
+    }
+
+    /**
+     * Returns an array of options for a select list for title.
+     *
+     * @param bool $includeBlank
+     * @param bool $nameAsKey
+     * @return array|string[]
+     */
+    public static function titleListOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
+        }
+
+        foreach (self::TITLES as $i=>$title) {
+            $options[$nameAsKey ? $title : $i] = $title;
+        }
+
+        return $options;
+    }
+
+    /**
+     * Returns the title name for the given id or null if not found.
+     *
+     * @param int $id
+     * @return string|null
+     */
+    public static function titleName(int $id): string | null
+    {
+        return self::TITLES[$id] ?? null;
+    }
+
+    /**
+     * Returns the title id for the giving name or false if not found.
+     *
+     * @param string $name
+     * @return int|bool
+     */
+    public static function titleIndex(string $name): string |bool
+    {
+        return array_search($name, self::TITLES);
     }
 }

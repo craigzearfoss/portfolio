@@ -49,7 +49,7 @@ class ApplicationController extends Controller
      * Display the specified application.
      */
     public function show(Application $application): View
-    {
+    { dd($application->company);
         return view('admin.application.show', compact('application'));
     }
 

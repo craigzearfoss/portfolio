@@ -46,8 +46,10 @@ class Application extends Model
      */
     protected $fillable = [
         'role',
+        'company_id',
         'rating',
         'active',
+        'resume_id',
         'post_date',
         'apply_date',
         'close_date',

@@ -24,14 +24,14 @@ class PortfolioReadingUpdateRequest extends FormRequest
     {
         return [
             'title'     => ['string', 'min:1', 'max:255', 'unique:portfolio_db.readings,name,'.$this->reading->id],
-            'author'    => ['nullable', 'string', 'max:255'],
+            'author'    => ['string', 'max:255', 'nullable'],
             'paper'     => ['integer', 'between:0,1'],
             'audio'     => ['integer', 'between:0,1'],
             'wishlist'  => ['wishlist', 'between:0,1'],
-            'link'      => [],
-            'link_name' => [],
-            'notes'     => [],
-            'hidden'    => ['integer', 'between:0,1'],
+            'link'      => ['string', 'nullable'],
+            'link_name' => ['string', 'nullable'],
+            'notes'     => ['nullable'],
+            'public'    => ['integer', 'between:0,1'],
             'seq'       => ['integer', 'min:0'],
             'disabled'  => ['integer', 'between:0,1'],
         ];

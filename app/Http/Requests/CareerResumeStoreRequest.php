@@ -22,11 +22,11 @@ class CareerResumeStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:career_db.resumes,name'],
-            'date'         => ['nullable', 'date'],
-            'year'         => ['nullable', 'integer', 'between:0,3000'],
-            'link'         => ['nullable', 'string', 'max:255'],
-            'alt_link'     => ['nullable', 'string', 'max:255'],
+            'name'         => ['string', 'min:1', 'max:255', 'required', 'unique:career_db.resumes,name'],
+            'date'         => ['date', 'nullable'],
+            'year'         => ['integer', 'between:0,3000', 'nullable'],
+            'link'         => ['string', 'max:255', 'nullable'],
+            'alt_link'     => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'primary'      => ['integer', 'between:0,1'],
             'public'       => ['integer', 'between:0,1'],

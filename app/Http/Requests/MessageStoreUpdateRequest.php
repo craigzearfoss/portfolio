@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CareerCommunicationStoreRequest extends FormRequest
+class MessageStoreUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,10 @@ class CareerCommunicationStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => ['string', 'min:1', 'max:255', 'required', 'unique:career_db.communications,name'],
-            'body'    => ['required'],
+            'name'    => ['string', 'min:1', 'max:255'],
+            'email'   => ['email', 'max:255'],
+            'subject' => ['string', 'max:255'],
+            'message' => [],
         ];
     }
 }

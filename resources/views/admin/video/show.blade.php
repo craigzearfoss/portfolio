@@ -86,15 +86,15 @@
                                             <div class="row">
                                                 <div class="col-2"><strong>description</strong>:</div>
                                                 <div class="col-10 pl-0">
-                                                    {{ $video->description }}
+                                                    {!! $video->description !!}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="row">
-                                                <div class="col-2"><strong>hidden</strong>:</div>
+                                                <div class="col-2"><strong>public</strong>:</div>
                                                 <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $video->hidden ])
+                                                    @include('admin.components.checkmark', [ 'checked' => $video->public ])
                                                 </div>
                                             </div>
                                         </div>

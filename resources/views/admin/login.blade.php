@@ -15,7 +15,7 @@
                         <div class="text-center">
                             <div class="mb-4">
                                 <h3 class="mb-1">Welcome back.</h3>
-                                <p>Please enter your credentials to Login.</p>
+                                <p>Please enter your credentials to login.</p>
 
                                 @include('admin.components.messages', [$errors])
 

@@ -30,7 +30,7 @@ class Reading extends Model
         'link_name',
         'notes',
         'seq',
-        'hidden',
+        'public',
         'disabled',
     ];
 

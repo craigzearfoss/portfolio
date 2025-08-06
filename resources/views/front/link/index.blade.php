@@ -55,7 +55,7 @@
                                     <a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a>
                                 </td>
                                 <td>{{ $link->website }}</td>
-                                <td>{{ $link->description }}</td>
+                                <td>{!! $link->description !!}</td>
                             </tr>
                         @empty
                             <tr>

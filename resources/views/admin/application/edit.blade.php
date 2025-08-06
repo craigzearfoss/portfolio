@@ -151,7 +151,7 @@
                                                 @include('admin.components.form-select', [
                                                     'name'    => 'state',
                                                     'value'   => old('state') ?? $application->state,
-                                                    'list'    => \App\Models\Career\State::listOptions(true),
+                                                    'list'    => \App\Models\State::listOptions(true),
                                                     'message' => $message ?? '',
                                                 ])
 

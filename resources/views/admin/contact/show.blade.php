@@ -26,91 +26,131 @@
 
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>name</strong>: {{ $contact->name }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>name</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @if (!empty($contact->title))
+                                                        {{ $contact->title }} {{ $user->name }}
+                                                    @else
+                                                        {{ $contact->name }}
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>street</strong>: {{ $contact->street }}@if ($contact->street2), {{ $contact->street2 }}@endif
+                                            <div class="row">
+                                                <div class="col-2"><strong>street</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $contact->street }}@if ($contact->street2), {{ $contact->street2 }}@endif
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>location</strong>:
-                                                @if ($contact->city)
-                                                    {{ $contact->city }}@if ($contact->state), {{ $contact->state }}@endif
-                                                @else
-                                                    {{ $contact->state }}
-                                                @endif
+                                            <div class="row">
+                                                <div class="col-2"><strong>location</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @if ($contact->city)
+                                                        {{ $contact->city }}@if ($contact->state), {{ $contact->state }}@endif
+                                                    @else
+                                                        {{ $contact->state }}
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>zip</strong>: {{ $contact->zip }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>zip</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $contact->zip }}
+                                                </div>
                                             </div>
                                         </div>
                                         @if (!empty($contact->phone))
                                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>{{ $contact->phone_label ?? 'phone '}}</strong>: {{ $contact->phone }}
+                                                <div class="row">
+                                                    <div class="col-2"><strong>{{ $contact->phone_label ?? 'phone '}}</strong>:</div>
+                                                    <div class="col-10 pl-0">
+                                                        {{ $contact->phone }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         @endif
                                         @if (!empty($contact->alt_phone))
                                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>{{ $contact->alt_phone_label ?? 'alt phone '}}</strong>: {{ $contact->alt_phone }}
+                                                <div class="row">
+                                                    <div class="col-2"><strong>{{ $contact->alt_phone_label ?? 'alt phone '}}</strong>:</div>
+                                                    <div class="col-10 pl-0">
+                                                        {{ $contact->alt_phone }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         @endif
                                         @if (!empty($contact->email))
                                             <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <strong>{{ $contact->email_label ?? 'email' }}</strong>: {{ $contact->email }}
+                                                <div class="row">
+                                                    <div class="col-2"><strong>{{ $contact->email_label ?? 'email' }}</strong>:</div>
+                                                    <div class="col-10 pl-0">
+                                                        {{ $contact->email }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         @endif
                                         @if (!empty($contact->alt_email))
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>{{ $contact->alt_email_label ?? 'alt_email' }}</strong>: {{ $contact->alt_email }}
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="row">
+                                                    <div class="col-2"><strong>{{ $contact->alt_email_label ?? 'alt email' }}</strong>:</div>
+                                                    <div class="col-10 pl-0">
+                                                        {{ $contact->alt_email }}
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
                                         @endif
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>website</strong>:
-                                                @include('admin.components.link', [ 'url' => $contact->website, 'target' => '_blank' ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>website</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('user.components.link', [ 'url' => $contact->website, 'target' => '_blank' ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>description</strong>: {{ $contact->description }}
+                                            <div class="row">
+                                                <div class="col-2"><strong>description</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {!! $contact->description !!}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>disabled</strong>:
-                                                @include('admin.components.checkmark', [ 'checked' => $contact->w2 ])
+                                            <div class="row">
+                                                <div class="col-2"><strong>disabled</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    @include('admin.components.checkmark', [ 'checked' => $contact->disabled ])
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>created at</strong>:
-                                                {{ longDateTime($contact->created_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($contact->created_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>updated at</strong>:
-                                                {{ longDateTime($contact->updated_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($contact->updated_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <strong>deleted at</strong>:
-                                                {{ longDateTime($contact->deleted_at) }}
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>deleted at</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ longDateTime($contact->deleted_at) }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

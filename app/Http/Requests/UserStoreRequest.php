@@ -25,12 +25,20 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'name'              => ['required','string', 'min:6', 'max:255'],
+            'title'             => ['string', 'max:100', 'nullable'],
+            'street'            => ['string', 'max:255', 'nullable'],
+            'street2'           => ['string', 'max:255', 'nullable'],
+            'city'              => ['string', 'max:100', 'nullable'],
+            'state'             => ['string', 'max:100', 'nullable'],
+            'zip'               => ['string', 'max:20', 'nullable'],
+            'phone'             => ['string', 'max:20', 'nullable'],
             'email'             => ['required','email', 'max:255', 'unique:users,email'],
             //'email_verified_at' => ['nullable'],
+            'website'           => ['string', 'max:255', 'nullable'],
             'password'          => ['required','string', 'min:8', 'max:255'],
             'confirm_password'  => ['required','string', 'same:password'],
-            //'remember_token'    => ['nullable', 'string', 'max:200'],
-            //'token'             => ['nullable', 'string', 'max:255'],
+            //'remember_token'    => ['string', 'max:200', 'nullable'],
+            //'token'             => ['string', 'max:255', 'nullable'],
             'status'            => ['integer', 'between:0,1'],
             'disabled'          => ['integer', 'between:0,1'],
 

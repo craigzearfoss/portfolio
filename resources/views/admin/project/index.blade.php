@@ -58,9 +58,9 @@
                                 <td>
                                     @include('admin.components.link', [ 'url' => $project->repository, 'target' => '_blank' ])
                                 </td>
-                                <td>{{ $project->description }}</td>
+                                <td>{!! $project->description !!}</td>
                                 <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $project->hidden ])
+                                    @include('admin.components.checkmark', [ 'checked' => $project->public ])
                                 </td>
                                 <td class="text-center">
                                     @include('admin.components.checkmark', [ 'checked' => $project->disabled ])

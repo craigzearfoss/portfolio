@@ -29,7 +29,7 @@ class Project extends Model
         'link',
         'description',
         'seq',
-        'hidden',
+        'public',
         'disabled',
     ];
 

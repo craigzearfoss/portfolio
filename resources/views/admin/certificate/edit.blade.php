@@ -45,128 +45,70 @@
                                                 @csrf
                                                 @method('PUT')
 
-                                                <div class="mb-3">
-                                                    <label for="inputName" class="form-label mb-1">name</label>
-                                                    <input
-                                                        type="text"
-                                                        name="name"
-                                                        id="inputName"
-                                                        value="{{ $certificate->name }}"
-                                                        class="form-control @error('name') is-invalid @enderror"
-                                                        placeholder=""
-                                                        required
-                                                    >
-                                                    @error('name')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'name',
+                                                    'value'     => old('name') ?? $certificate->name,
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputOrganization" class="form-label mb-1">organization</label>
-                                                    <input
-                                                        type="text"
-                                                        name="organization"
-                                                        id="inputOrganization"
-                                                        value="{{ $certificate->organization }}"
-                                                        class="form-control @error('organization') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('organization')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'organization',
+                                                    'value'     => old('organization') ?? $certificate->organization,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputYear" class="form-label mb-1">year</label>
-                                                    <input
-                                                        type="text"
-                                                        name="year"
-                                                        id="inputYear"
-                                                        value="{{ $certificate->year }}"
-                                                        class="form-control @error('year') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('year')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'type'      => 'number',
+                                                    'name'      => 'year',
+                                                    'value'     => old('year') ?? $certificate->year,
+                                                    'min'       => 0,
+                                                    'max'       => 2050,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="receivedDate" class="form-label mb-1">received</label>
-                                                    <input
-                                                        type="date"
-                                                        name="received"
-                                                        id="receivedDate"
-                                                        value="{{ $certificate->received }}"
-                                                        class="form-control @error('received') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('received')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'type'      => 'date',
+                                                    'name'      => 'received',
+                                                    'value'     => old('received') ?? $certificate->received,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="expirationDate" class="form-label mb-1">expiration</label>
-                                                    <input
-                                                        type="date"
-                                                        name="expiration"
-                                                        id="expirationDate"
-                                                        value="{{ $certificate->expiration }}"
-                                                        class="form-control @error('expiration') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('expiration')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'type'      => 'date',
+                                                    'name'      => 'expiration',
+                                                    'value'     => old('expiration') ?? $certificate->expiration,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <input type="hidden" name="professional" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="professional"
-                                                        id="inputProfessional"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ $certificate->professional ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputProfessional" class="form-check-label mb-1 font-semibold">professional</label>
-                                                    @error('professional')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'professional',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('professional') ?? $certificate->professional,
+                                                    'message'         => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <input type="hidden" name="personal" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="personal"
-                                                        id="inputPersonal"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ $certificate->personal ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputPersonal" class="form-check-label mb-1 font-semibold">personal</label>
-                                                    @error('personal')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'personal',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('personal') ?? $certificate->personal,
+                                                    'message'         => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputLink" class="form-label mb-1">link</label>
-                                                    <input
-                                                        type="text"
-                                                        name="link"
-                                                        id="inputLink"
-                                                        value="{{ $certificate->link }}"
-                                                        class="form-control @error('link') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('link')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'link',
+                                                    'value'     => old('link') ?? $certificate->link,
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
 
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'description',
@@ -184,10 +126,10 @@
                                                 ])
 
                                                 @include('admin.components.form-checkbox', [
-                                                    'name'            => 'hidden',
+                                                    'name'            => 'public',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('hidden') ?? $certificate->hidden,
+                                                    'checked'         => old('public') ?? $certificate->public,
                                                     'message'         => $message ?? '',
                                                 ])
 

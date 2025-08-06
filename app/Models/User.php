@@ -13,6 +13,8 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, SoftDeletes;
 
+    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +22,15 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'title',
+        'street',
+        'street2',
+        'city',
+        'state',
+        'zip',
+        'phone',
         'email',
+        'website',
         'password',
         'token',
         'status',
@@ -42,6 +52,13 @@ class User extends Authenticatable
         'active',
     ];
 
+    const TITLES = [
+        'Miss',
+        'Mr.',
+        'Mrs.',
+        'Ms',
+    ];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -59,18 +76,18 @@ class User extends Authenticatable
      * Returns an array of options for a select list for statuses.
      *
      * @param bool $includeBlank
-     * @param bool $codesAsKey
+     * @param bool $codeAsKey
      * @return array|string[]
      */
-    public static function statusListOptions(bool $includeBlank = false, bool $codesAsKey = false): array
+    public static function statusListOptions(bool $includeBlank = false, bool $codeAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
-            $options = $codesAsKey ? [ '' => '' ] : [ 0 => '' ];
+            $options = $codeAsKey ? [ '' => '' ] : [ 0 => '' ];
         }
 
         foreach (self::STATUSES as $i=>$status) {
-            $options[$codesAsKey ? $status : $i] = $status;
+            $options[$codeAsKey ? $status : $i] = $status;
         }
 
         return $options;
@@ -96,5 +113,48 @@ class User extends Authenticatable
     public static function statusIndex(string $name): string |bool
     {
         return array_search($name, self::STATUSES);
+    }
+
+    /**
+     * Returns an array of options for a select list for title.
+     *
+     * @param bool $includeBlank
+     * @param bool $nameAsKey
+     * @return array|string[]
+     */
+    public static function titleListOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
+        }
+
+        foreach (self::TITLES as $i=>$title) {
+            $options[$nameAsKey ? $title : $i] = $title;
+        }
+
+        return $options;
+    }
+
+    /**
+     * Returns the title name for the given id or null if not found.
+     *
+     * @param int $id
+     * @return string|null
+     */
+    public static function titleName(int $id): string | null
+    {
+        return self::TITLES[$id] ?? null;
+    }
+
+    /**
+     * Returns the title id for the giving name or false if not found.
+     *
+     * @param string $name
+     * @return int|bool
+     */
+    public static function titleIndex(string $name): string |bool
+    {
+        return array_search($name, self::TITLES);
     }
 }

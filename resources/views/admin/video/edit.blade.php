@@ -45,97 +45,52 @@
                                                 @csrf
                                                 @method('PUT')
 
-                                                <div class="mb-3">
-                                                    <label for="inputName" class="form-label mb-1">name</label>
-                                                    <input
-                                                        type="text"
-                                                        name="name"
-                                                        id="inputName"
-                                                        value="{{ $video->name }}"
-                                                        class="form-control @error('name') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('name')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'name',
+                                                    'value'     => old('name') ?? $video->name,
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <input type="hidden" name="professional" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="professional"
-                                                        id="inputProfessional"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ $video->professional ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputProfessional" class="form-check-label mb-1 font-semibold">professional</label>
-                                                    @error('professional')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'professional',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('professional') ?? $video->professional,
+                                                    'message'         => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <input type="hidden" name="personal" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="personal"
-                                                        id="inputPersonal"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ $video->personal ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputPersonal" class="form-check-label mb-1 font-semibold">personal</label>
-                                                    @error('personal')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'personal',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('personal') ?? $video->personal,
+                                                    'message'         => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputDate" class="form-label mb-1">date</label>
-                                                    <input
-                                                        type="date"
-                                                        name="date"
-                                                        id="inputDate"
-                                                        value="{{ $video->date }}"
-                                                        class="form-control @error('date') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('date')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'type'      => 'date',
+                                                    'name'      => 'date',
+                                                    'value'     => old('date') ?? $video->date,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputYear" class="form-label mb-1">year</label>
-                                                    <input
-                                                        type="number"
-                                                        name="year"
-                                                        id="inputYear"
-                                                        value="{{ $video->year }}"
-                                                        class="form-control @error('year') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('year')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'type'      => 'number',
+                                                    'name'      => 'year',
+                                                    'value'     => old('year') ?? $video->year,
+                                                    'min'       => 0,
+                                                    'max'       => 2050,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputCompany" class="form-label mb-1">company</label>
-                                                    <input
-                                                        type="text"
-                                                        name="company"
-                                                        id="inputCompany"
-                                                        value="{{ $video->company }}"
-                                                        class="form-control @error('company') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('company')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'company',
+                                                    'value'     => old('company') ?? $video->company,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'credit',
@@ -143,35 +98,19 @@
                                                     'message' => $message ?? '',
                                                 ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputLocation" class="form-label mb-1">location</label>
-                                                    <input
-                                                        type="text"
-                                                        name="location"
-                                                        id="inputLocation"
-                                                        value="{{ $video->location }}"
-                                                        class="form-control @error('location') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('location')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'location',
+                                                    'value'     => old('location') ?? $video->location,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputLink" class="form-label mb-1">link</label>
-                                                    <input
-                                                        type="text"
-                                                        name="link"
-                                                        id="inputLink"
-                                                        value="{{ $video->link }}"
-                                                        class="form-control @error('link') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('link')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'link',
+                                                    'value'     => old('link') ?? $video->link,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'description',
@@ -189,10 +128,10 @@
                                                 ])
 
                                                 @include('admin.components.form-checkbox', [
-                                                    'name'            => 'hidden',
+                                                    'name'            => 'public',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('hidden') ?? $video->hidden,
+                                                    'checked'         => old('public') ?? $video->public,
                                                     'message'         => $message ?? '',
                                                 ])
 

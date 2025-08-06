@@ -23,10 +23,12 @@ class AdminStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name'     => ['string', 'nullable'],
             'username' => ['required', 'string', 'min:6', 'max:200', 'unique:admins,username'],
+            'phone'    => ['string', 'max:20', 'nullable'],
             'email'    => ['required', 'email', 'max:255', 'unique:admins,email'],
             //'password' => ['required', 'required', 'string', 'min:8'],
-            //'token'  => ['nullable', 'string', 'max:255'],
+            //'token'  => ['string', 'max:255', 'nullable'],
             'disabled' => ['integer', 'between:0,1'],
         ];
     }

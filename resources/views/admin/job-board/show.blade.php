@@ -51,7 +51,7 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="row">
-                                                <div class="col-2 text-nowrap""><strong>updated at</strong>:</div>
+                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
                                                 <div class="col-10 pl-0">
                                                     {{ longDateTime($jobBoard->updated_at) }}
                                                 </div>

@@ -23,15 +23,15 @@ class PortfolioCertificateUpdateRequest extends FormRequest
     {
         return [
             'name'         => ['string', 'min:1', 'max:255', 'unique:portfolio_db.certificates,name,'.$this->certificate->id],
-            'organization' => ['nullable', 'string', 'max:255'],
-            'year'         => ['nullable', 'integer', 'between:0,3000'],
-            'received'     => ['nullable', 'date'],
-            'expiration'   => ['nullable', 'date'],
+            'organization' => ['string', 'max:255', 'nullable'],
+            'year'         => ['integer', 'between:0,3000', 'nullable'],
+            'received'     => ['date', 'nullable'],
+            'expiration'   => ['date', 'nullable'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
-            'link'         => ['nullable', 'string', 'max:255'],
+            'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
-            'hidden'       => ['integer', 'between:0,1'],
+            'public'       => ['integer', 'between:0,1'],
             'seq'          => ['integer', 'min:0'],
             'disabled'     => ['integer', 'between:0,1'],
         ];

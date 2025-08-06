@@ -24,7 +24,9 @@ class AdminFactory extends Factory
     public function definition(): array
     {
         return [
+            'name'     => fake()->name(),
             'username' => fake()->userName(),
+            'phone'    => fake()->phoneNumber(),
             'email'    => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
             'disabled' => fake()->numberBetween(0, 1),

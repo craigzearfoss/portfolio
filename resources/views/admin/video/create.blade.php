@@ -43,99 +43,52 @@
                                             <form action="{{ route('admin.video.store') }}" method="POST">
                                                 @csrf
 
-                                                <div class="mb-3">
-                                                    <label for="inputName" class="form-label mb-1">name</label>
-                                                    <input
-                                                        type="text"
-                                                        name="name"
-                                                        id="inputName"
-                                                        value="{{ old('name') }}"
-                                                        class="form-control @error('name') is-invalid @enderror"
-                                                        placeholder=""
-                                                        required
-                                                    >
-                                                    @error('name')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'name',
+                                                    'value'     => old('name'),
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'professional',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('professional'),
+                                                    'message'         => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <input type="hidden" name="professional" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="professional"
-                                                        id="inputProfessional"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ old('professional') ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputProfessional" class="form-check-label mb-1 font-semibold">professional</label>
-                                                    @error('professional')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'personal',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('personal'),
+                                                    'message'         => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <input type="hidden" name="personal" value="0">
-                                                    <input
-                                                        type="checkbox"
-                                                        name="personal"
-                                                        id="inputPersonal"
-                                                        class="form-check-input"
-                                                        value="1"
-                                                        {{ old('personal') ? 'checked' : '' }}
-                                                    >
-                                                    <label for="inputPersonal" class="form-check-label mb-1 font-semibold">personal</label>
-                                                    @error('personal')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'type'      => 'date',
+                                                    'name'      => 'date',
+                                                    'value'     => old('date'),
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputDate" class="form-label mb-1">date</label>
-                                                    <input
-                                                        type="date"
-                                                        name="date"
-                                                        id="inputDate"
-                                                        value="{{ old('date') }}"
-                                                        class="form-control @error('date') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('date')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'type'      => 'number',
+                                                    'name'      => 'year',
+                                                    'value'     => old('year'),
+                                                    'min'       => 0,
+                                                    'max'       => 2050,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputYear" class="form-label mb-1">year</label>
-                                                    <input
-                                                        type="number"
-                                                        name="year"
-                                                        id="inputYear"
-                                                        value="{{ old('year') }}"
-                                                        class="form-control @error('year') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('year')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <label for="inputCompany" class="form-label mb-1">company</label>
-                                                    <input
-                                                        type="text"
-                                                        name="company"
-                                                        id="inputCompany"
-                                                        value="{{ old('company') }}"
-                                                        class="form-control @error('company') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('company')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'company',
+                                                    'value'     => old('company'),
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'credit',
@@ -143,35 +96,19 @@
                                                     'message' => $message ?? '',
                                                 ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputLocation" class="form-label mb-1">location</label>
-                                                    <input
-                                                        type="text"
-                                                        name="location"
-                                                        id="inputLocation"
-                                                        value="{{ old('location') }}"
-                                                        class="form-control @error('location') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('location')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'location',
+                                                    'value'     => old('location'),
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
-                                                <div class="mb-3">
-                                                    <label for="inputLink" class="form-label mb-1">link</label>
-                                                    <input
-                                                        type="text"
-                                                        name="link"
-                                                        id="inputLink"
-                                                        value="{{ old('link') }}"
-                                                        class="form-control @error('link') is-invalid @enderror"
-                                                        placeholder=""
-                                                    >
-                                                    @error('link')
-                                                        <div class="form-text text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'link',
+                                                    'value'     => old('link'),
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'description',
@@ -189,10 +126,10 @@
                                                 ])
 
                                                 @include('admin.components.form-checkbox', [
-                                                    'name'            => 'hidden',
+                                                    'name'            => 'public',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('hidden'),
+                                                    'checked'         => old('public'),
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -205,7 +142,7 @@
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
-                                                    'label'      => 'Add Video',
+                                                    'label'      => 'Save',
                                                     'cancel_url' => route('admin.video.index')
                                                 ])
 

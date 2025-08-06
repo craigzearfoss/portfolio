@@ -54,6 +54,13 @@
                                                     'message'   => $message ?? '',
                                                 ])
 
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'title',
+                                                    'value'   => old('title') ?? $user->title,
+                                                    'list'    => \App\Models\User::titleListOptions(true, true),
+                                                    'message' => $message ?? '',
+                                                ])
+
                                                 @include('admin.components.form-input', [
                                                     'type'      => 'email',
                                                     'name'      => 'email',

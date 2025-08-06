@@ -56,7 +56,7 @@
                                 <td>
                                     @include('front.components.link', [ 'url' => $project->link, 'target' => '_blank' ])
                                 </td>
-                                <td>{{ $project->description }}</td>
+                                <td>{!! $project->description !!}</td>
                             </tr>
                         @empty
                             <tr>

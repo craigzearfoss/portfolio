@@ -28,7 +28,7 @@ class Link extends Model
         'website',
         'description',
         'seq',
-        'hidden',
+        'public',
         'disabled',
     ];
 

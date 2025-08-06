@@ -27,7 +27,7 @@ class ReadingFactory extends Factory
             'link_name' => fake()->sentence(6),
             'notes'     => fake()->text(200),
             'seq'       => 0,
-            'hidden'       => fake()->numberBetween(0, 1),
+            'public'       => fake()->numberBetween(0, 1),
             'disabled'  => fake()->numberBetween(0, 1),
         ];
     }

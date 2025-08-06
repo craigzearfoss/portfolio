@@ -45,22 +45,22 @@ class Company extends Model
     ];
 
     /**
-     * The company belongs to many application.
+     * The company has many application.
      */
-    public function applications(): BelongsToMany
+    public function applications(): HasMany
     {
-        return $this->belongsToMany(Application::class, 'application_company', 'company_id', 'application_id');
+        return $this->HasMany(Application::class);
     }
 
     /**
-     * The company hase many contacts.
+     * The company has many contacts.
      */
     public function contacts(): HasMany
     {
         return $this->hasMany(Contact::class);
     }
 
-    /**
+    /**0
      * Returns an array of options for a select list.
      *
      * @param bool $includeBlank

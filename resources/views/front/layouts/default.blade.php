@@ -23,4 +23,17 @@
 <script src="{{asset('backend/assets/js/app.min.js')}}"></script>
 
 </body>
+
+<script type="text/javascript">
+    $('#reload').click(function() {
+        $.ajax({
+            type: 'GET',
+            url: 'reload-captcha',
+            success: function(data) {
+                $(".captcha span").html(data.captcha);
+            }
+        });
+    });
+</script>
+
 </html>

@@ -22,11 +22,11 @@ class CareerCoverLetterStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:career_db.cover_letters,name'],
-            'recipient'    => ['nullable', 'string', 'max:255'],
-            'date'         => ['nullable', 'date'],
-            'link'         => ['nullable', 'string', 'max:255'],
-            'alt_link'     => ['nullable', 'string', 'max:255'],
+            'name'         => ['string', 'min:1', 'max:255', 'required', 'unique:career_db.cover_letters,name'],
+            'recipient'    => ['string', 'max:255', 'nullable'],
+            'date'         => ['date'],
+            'link'         => ['string', 'max:255', 'nullable'],
+            'alt_link'     => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'primary'      => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],

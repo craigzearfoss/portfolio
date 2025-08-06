@@ -18,6 +18,7 @@ class ApplicationFactory extends Factory
     {
         return [
             'role'              => fake()->jobTitle(),
+            'company_id'        => 1,   // dummy value
             'rating'            => fake()->numberBetween(1, 4),
             'active'            => 1,
             'post_date'         => fake()->date(),

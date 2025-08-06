@@ -23,14 +23,14 @@ class PortfolioReadingStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'     => ['required', 'string', 'min:1', 'max:255', 'unique:portfolio_db.readings,name'],
-            'author'    => ['nullable', 'string', 'max:255'],
+            'title'     => ['string', 'min:1', 'max:255', 'required', 'unique:portfolio_db.readings,name'],
+            'author'    => ['string', 'max:255', 'nullable'],
             'paper'     => ['integer', 'between:0,1'],
             'audio'     => ['integer', 'between:0,1'],
-            'link'      => [],
-            'link_name' => [],
-            'notes'     => [],
-            'hidden'    => ['integer', 'between:0,1'],
+            'link'      => ['string', 'nullable'],
+            'link_name' => ['string', 'nullable'],
+            'notes'     => ['nullable'],
+            'public'    => ['integer', 'between:0,1'],
             'seq'       => ['integer', 'min:0'],
             'disabled'  => ['integer', 'between:0,1'],
         ];

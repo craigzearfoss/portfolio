@@ -22,7 +22,7 @@ class ContactFactory extends Factory
             'street'          => fake()->streetAddress(),
             'street2'         => null,
             'city'            => fake()->city(),
-            'state'           => fake()->randomElement(\App\Models\Career\State::all()->pluck('code')->toArray()),
+            'state'           => fake()->randomElement(\App\Models\State::all()->pluck('code')->toArray()),
             'zip'             => fake()->postcode(),
             'phone'           => fake()->phoneNumber(),
             'phone_label'     => fake()->randomElement(['home', 'mobile', 'work']),

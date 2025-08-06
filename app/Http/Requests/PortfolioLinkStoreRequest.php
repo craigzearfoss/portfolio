@@ -23,13 +23,13 @@ class PortfolioLinkStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['nullable', 'string', 'min:1', 'max:255', 'unique:portfolio_db.links,name'],
+            'name'         => ['string', 'min:1', 'max:255', 'nullable', 'unique:portfolio_db.links,name'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
-            'url'          => ['required', 'string', 'max:255'],
-            'website'      => ['nullable', 'string', 'max:255'],
+            'url'          => ['string', 'max:255', 'required'],
+            'website'      => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
-            'hidden'       => ['integer', 'between:0,1'],
+            'public'       => ['integer', 'between:0,1'],
             'seq'          => ['integer', 'min:0'],
             'disabled'     => ['integer', 'between:0,1'],
         ];

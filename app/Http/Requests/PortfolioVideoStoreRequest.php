@@ -23,17 +23,17 @@ class PortfolioVideoStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'min:1', 'max:255', 'unique:portfolio_db.videos,name'],
+            'name'         => ['string', 'min:1', 'max:255', 'required', 'unique:portfolio_db.videos,name'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
-            'date'         => ['nullable', 'date'],
-            'year'         => ['nullable', 'integer', 'between:0,3000'],
-            'company'      => ['nullable', 'string', 'max:255'],
-            'credit'       => ['nullable', 'max:255'],
-            'location'     => ['nullable', 'string'],
-            'link'         => ['nullable', 'string', 'max:255'],
+            'date'         => ['date', 'nullable'],
+            'year'         => ['integer', 'between:0,3000', 'nullable'],
+            'company'      => ['string', 'max:255', 'nullable'],
+            'credit'       => ['nullable'],
+            'location'     => ['string', 'max:255', 'nullable'],
+            'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
-            'hidden'       => ['integer', 'between:0,1'],
+            'public'       => ['integer', 'between:0,1'],
             'seq'          => ['integer', 'min:0'],
             'disabled'     => ['integer', 'between:0,1'],
         ];

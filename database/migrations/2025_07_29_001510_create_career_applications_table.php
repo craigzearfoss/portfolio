@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::connection('career_db')->create('applications', function (Blueprint $table) {
             $table->id();
             $table->string('role');
-            $table->foreignId('company_id', Company::class)->nullable()->index();
+            //$table->foreignId('company_id')->constrained('career_db.companies');
             $table->tinyInteger('rating')->default(0);
             $table->tinyInteger('active')->default(1);
             $table->foreignId('resume_id', Resume::class)->nullable();

@@ -60,7 +60,7 @@
                                 <td>{{ $link->website }}</td>
                                 <td>{!! $link->description !!}</td>
                                 <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $link->hidden ])
+                                    @include('admin.components.checkmark', [ 'checked' => $link->public ])
                                 </td>
                                 <td class="text-center">
                                     @include('admin.components.checkmark', [ 'checked' => $link->disabled ])
