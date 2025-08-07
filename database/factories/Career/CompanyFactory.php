@@ -23,6 +23,7 @@ class CompanyFactory extends Factory
             'city'            => fake()->city(),
             'state'           => fake()->randomElement(\App\Models\State::all()->pluck('code')->toArray()),
             'zip'             => fake()->postcode(),
+            'country'         => fake()->randomElement(\App\Models\Country::all()->pluck('iso_alpha3')->toArray()),
             'phone'           => fake()->phoneNumber(),
             'phone_label'     => fake()->randomElement(['home', 'mobile', 'work']),
             'alt_phone'       => fake()->phoneNumber(),

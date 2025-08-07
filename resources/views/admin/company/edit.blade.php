@@ -7,7 +7,8 @@
 
             @include('admin.components.nav-left')
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            <div
+                class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
 
                 @include('admin.components.header')
 
@@ -32,8 +33,12 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.company.show', $company) }}"><i class="fa fa-list"></i> Show</a>
-                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.company.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid"
+                                                       href="{{ route('admin.company.show', $company) }}"><i
+                                                            class="fa fa-list"></i> Show</a>
+                                                    <a class="btn btn-sm btn-solid"
+                                                       href="{{ route('admin.company.index') }}"><i
+                                                            class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -86,6 +91,13 @@
                                                     'value'     => old('zip') ?? $company->zip,
                                                     'maxlength' => 20,
                                                     'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'country',
+                                                    'value'   => old('country') ?? $company->country,
+                                                    'list'    => \App\Models\Country::listOptions(true, true),
+                                                    'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [

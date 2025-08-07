@@ -7,7 +7,8 @@
 
             @include('admin.components.nav-left')
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            <div
+                class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
 
                 @include('admin.components.header')
 
@@ -32,7 +33,9 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.job-board.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid"
+                                                       href="{{ route('admin.job-board.index') }}"><i
+                                                            class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>

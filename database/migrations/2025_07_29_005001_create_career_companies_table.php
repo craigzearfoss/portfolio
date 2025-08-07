@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('city', 100)->nullable();
             $table->string('state', 100)->nullable();
             $table->string('zip', 20)->nullable();
+            $table->string('country', 100)->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('phone_label', 255)->nullable();
             $table->string('alt_phone', 20)->nullable();
@@ -40,6 +41,13 @@ return new class extends Migration
      */
     public function down(): void
     {
+        if (Schema::connection('career_db')->hasTable('applications')) {
+            Schema::connection('career_db')->table('applications', function (Blueprint $table) {
+                $table->dropForeign('applications_company_id_foreign');
+                $table->dropColumn('company_id');
+            });
+        }
+
         Schema::connection('career_db')->dropIfExists('companies');
     }
 };

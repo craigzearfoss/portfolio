@@ -29,6 +29,7 @@ class UserUpdateRequest extends FormRequest
             'street2'           => ['string', 'max:255', 'nullable'],
             'city'              => ['string', 'max:100', 'nullable'],
             'state'             => ['string', 'max:100', 'nullable'],
+            'country'         => ['string', 'max:100', 'nullable'],
             'zip'               => ['string', 'max:20', 'nullable'],
             'phone'             => ['string', 'max:20', 'nullable'],
             'email'             => ['email', 'max:255', 'unique:users,email,'.$this->user->id],

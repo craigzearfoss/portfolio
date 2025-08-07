@@ -28,6 +28,7 @@ class CareerCompanyStoreRequest extends FormRequest
             'city'            => ['string', 'max:100', 'nullable'],
             'state'           => ['string', 'max:100', 'nullable'],
             'zip'             => ['string', 'max:20', 'nullable'],
+            'country'         => ['string', 'max:100', 'nullable'],
             'phone'           => ['string', 'max:20', 'nullable'],
             'phone_label'     => ['string', 'max:255', 'nullable'],
             'alt_phone'       => ['string', 'max:20', 'nullable'],

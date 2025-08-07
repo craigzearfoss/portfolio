@@ -9,7 +9,7 @@
                     <div class="card-body md:p-6">
                         <div class="text-center">
                             <div class="logo">
-                                <img class="mx-auto" src="{{asset('images/site/logo-thumb-sm.png')}}" alt="site logo">
+                                <img class="mx-auto" src="{{ asset('images/site/logo-thumb-sm.png') }}" alt="site logo">
                             </div>
                         </div>
                         <div class="text-center">
@@ -19,11 +19,11 @@
 
                             </div>
                             <div>
-                                <form action="{{route('admin.login_submit')}}" method="POST">
+                                <form action="{{ route('admin.login_submit') }}" method="POST">
                                     @csrf
                                     <div class="form-container vertical">
                                         <div class="flex justify-between mb-3">
-                                            <a class="btn btn-solid w-full"  href="{{route('admin.login')}}">
+                                            <a class="btn btn-solid w-full"  href="{{ route('admin.login') }}">
                                                 Admin Login
                                             </a>
                                         </div>
