@@ -58,6 +58,13 @@
                                                     'message'   => $message ?? '',
                                                 ])
 
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'industry_id',
+                                                    'value'   => old('industry_id') ?? $company->industry_id,
+                                                    'list'    => \App\Models\Career\Industry::listOptions(false),
+                                                    'message' => $message ?? '',
+                                                ])
+
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'street',
                                                     'value'     => old('street') ?? $company->street,

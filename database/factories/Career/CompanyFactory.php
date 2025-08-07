@@ -18,6 +18,7 @@ class CompanyFactory extends Factory
     {
         return [
             'name'            => fake()->company(),
+            'industry_id'     => fake()->randomElement(\App\Models\Career\Industry::all()->pluck('id')->toArray()),
             'street'          => fake()->streetAddress(),
             'street2'         => null,
             'city'            => fake()->city(),

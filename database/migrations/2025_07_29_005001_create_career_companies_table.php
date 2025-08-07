@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Career\Industry;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,6 +15,7 @@ return new class extends Migration
         Schema::connection('career_db')->create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->foreignIdFor(Industry::class);
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();

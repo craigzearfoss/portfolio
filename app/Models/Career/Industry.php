@@ -4,11 +4,11 @@ namespace App\Models\Career;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JobBoard extends Model
+class Industry extends Model
 {
     protected $connection = 'career_db';
 
-    protected $table = 'job_boards';
+    protected $table = 'industries';
 
     public $timestamps = false;
 
@@ -19,25 +19,25 @@ class JobBoard extends Model
      */
     protected $fillable = [
         'name',
-        'website',
+        'abbreviation',
     ];
 
     /**
      * Returns an array of options for a select list.
      *
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
+     * @param bool $useAbbreviation
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = true): array
+    public static function listOptions(bool $useAbbreviation = false): array
     {
         $options = [];
-        if ($includeBlank) {
-            $options = [ '' => '' ];
-        }
 
-        foreach (JobBoard::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
-            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
+        $labelField = $useAbbreviation ? 'abbreviation' : 'name';
+
+        if  ($useAbbreviation) {
+            foreach (JobBoard::select('id', $labelField)->orderBy($labelField, 'asc')->get() as $row) {
+                $options[$row->id] = $row->{$labelField};
+            }
         }
 
         return $options;

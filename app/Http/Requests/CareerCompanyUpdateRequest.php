@@ -23,6 +23,7 @@ class CareerCompanyUpdateRequest extends FormRequest
     {
         return [
             'name'            => ['string', 'min:1', 'max:255', 'unique:career_db.companies,name,'.$this->company->id],
+            'industry_id'     => ['integer', 'max:100'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],
