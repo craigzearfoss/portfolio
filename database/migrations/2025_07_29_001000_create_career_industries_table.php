@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::connection('career_db')->create('industries', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->unique();
+            $table->string('abbreviation', 10)->unique();
         });
 
         $data = [
@@ -38,7 +39,7 @@ return new class extends Migration
             [ 'name' => 'Utilities',                          'abbreviation' => 'UT' ],
             [ 'name' => 'Wholesale & Distribution',           'abbreviation' => 'WD' ],
         ];
-        App\Models\Career\JobBoard::insert($data);
+        App\Models\Career\Industry::insert($data);
     }
 
     /**

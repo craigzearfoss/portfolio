@@ -34,10 +34,8 @@ class Industry extends Model
 
         $labelField = $useAbbreviation ? 'abbreviation' : 'name';
 
-        if  ($useAbbreviation) {
-            foreach (JobBoard::select('id', $labelField)->orderBy($labelField, 'asc')->get() as $row) {
-                $options[$row->id] = $row->{$labelField};
-            }
+        foreach (Industry::select('id', $labelField)->orderBy($labelField, 'asc')->get() as $row) {
+            $options[$row->id] = $row->{$labelField};
         }
 
         return $options;

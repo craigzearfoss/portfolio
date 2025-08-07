@@ -60,6 +60,7 @@
 
                                                 @include('admin.components.form-select', [
                                                     'name'    => 'industry_id',
+                                                    'label'   => 'industry',
                                                     'value'   => old('industry_id') ?? $company->industry_id,
                                                     'list'    => \App\Models\Career\Industry::listOptions(false),
                                                     'message' => $message ?? '',
