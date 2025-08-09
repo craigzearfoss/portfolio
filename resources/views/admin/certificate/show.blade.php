@@ -25,128 +25,88 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>name</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $certificate->name }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>organization</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $certificate->organization }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>year</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $certificate->year }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>received</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDate($certificate->received) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>expiration</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDate($certificate->expiration) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-2"><strong>professional</strong>:</div>
-                                                    <div class="col-10 pl-0">
-                                                        @include('admin.components.checkmark', [ 'checked' => $certificate->professional ])
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>personal</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $certificate->personal ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>link</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.link', [ 'url' => $certificate->link, 'target' => '_blank' ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>description</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {!! $certificate->description !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>public</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $certificate->public ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>disabled</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $certificate->disabled ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>owner</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $certificate->admin['username'] ?? '' }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($certificate->created_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($certificate->updated_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>deleted at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($certificate->deleted_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'name',
+                                            'value' => $certificate->name
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'organization',
+                                            'value' => $certificate->organization
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'year',
+                                            'value' => $certificate->year
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'received',
+                                            'value' => longDate($certificate->received)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'expiration',
+                                            'value' => longDate($certificate->expiration)
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'professional',
+                                            'checked' => $certificate->professional
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'personal',
+                                            'checked' => $certificate->personal
+                                        ])
+
+                                        @include('admin.components.show-row-link', [
+                                            'name'   => 'link',
+                                            'url'    => $certificate->link,
+                                            'target' => '_blank'
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'description',
+                                            'value' => $certificate->description
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'sequence',
+                                            'value' => $certificate->sequence
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'public',
+                                            'checked' => $certificate->public
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'disabled',
+                                            'checked' => $certificate->disabled
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'owner',
+                                            'value' => $certificate->admin['username'] ?? ''
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'created at',
+                                            'value' => longDateTime($certificate->created_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'updated at',
+                                            'value' => longDateTime($certificate->updated_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'deleted at',
+                                            'value' => longDateTime($certificate->deleted_at)
+                                        ])
+
                                     </div>
 
                                 </div>

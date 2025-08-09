@@ -40,7 +40,7 @@ class ApplicationFactory extends Factory
             'benefits'          => fake()->numberBetween(0, 1),
             'vacation'          => fake()->numberBetween(0, 1),
             'health'            => fake()->numberBetween(0, 1),
-            'source'            => fake()->domainName(),
+            'source'            => \App\Models\Career\JobBoard::all()->random()->name,
             'link'              => fake()->url(),
             'contacts'          => fake()->sentence(),
             'phones'            => fake()->sentence(),

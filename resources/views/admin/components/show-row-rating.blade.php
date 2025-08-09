@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-2 text-nowrap"><strong>{{ $name ?? '#name#' }}</strong>:</div>
         <div class="col-10 pl-0">
-            @include('admin.components.checkmark', [ 'checked' => !empty($checked) ])
+            @include('admin.components.star-ratings', [ 'rating' => $value ?? 0 ])
         </div>
     </div>
 </div>

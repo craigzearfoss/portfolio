@@ -25,102 +25,68 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>name</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $coverLetter->name }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>recipient</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $coverLetter->recipient }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>date</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $coverLetter->date }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>link</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.link', [ 'url' => $coverLetter->link, 'target' => '_blank' ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>alt link</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.link', [ 'url' => $coverLetter->alt_link, 'target' => '_blank' ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>description</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {!! $coverLetter->description !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>primary</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.link', [ 'url' => $coverLetter->alt_link, 'target' => '_blank' ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>disabled</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $coverLetter->disabled ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>owner</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $coverLetter->admin['username'] ?? '' }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($coverLetter->created_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($coverLetter->updated_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>deleted at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($coverLetter->deleted_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'name',
+                                            'value' => $coverLetter->name
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'recipient',
+                                            'value' => $coverLetter->recipient
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'date',
+                                            'value' => longDate($coverLetter->date)
+                                        ])
+
+                                        @include('admin.components.show-row-link', [
+                                            'name'   => 'link',
+                                            'url'    => $coverLetter->link,
+                                            'target' => '_blank'
+                                        ])
+
+                                        @include('admin.components.show-row-link', [
+                                            'name'   => 'alt link',
+                                            'url'    => $coverLetter->alt_link,
+                                            'target' => '_blank'
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'description',
+                                            'value' => $coverLetter->description
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'primary',
+                                            'checked' => $coverLetter->primary
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'disabled',
+                                            'checked' => $coverLetter->disabled
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'owner',
+                                            'value' => $coverLetter->admin['username'] ?? ''
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'created at',
+                                            'value' => longDateTime($coverLetter->created_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'updated at',
+                                            'value' => longDateTime($coverLetter->updated_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'deleted at',
+                                            'value' => longDateTime($coverLetter->deleted_at)
+                                        ])
 
                                     </div>
 

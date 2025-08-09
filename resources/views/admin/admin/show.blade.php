@@ -26,70 +26,47 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>name</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $admin->name }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>user name</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $admin->username }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>phone</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $admin->phone }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>email</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $admin->email }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>disabled</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('user.components.checkmark', [ 'checked' => $admin->disabled ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($admin->created_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($admin->updated_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>deleted at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($admin->deleted_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'name',
+                                            'value' => $admin->name
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'user name',
+                                            'value' => $admin->username
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'phone',
+                                            'value' => $admin->phone
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'email',
+                                            'value' => $admin->email
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'disabled',
+                                            'checked' => $admin->disabled
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'created at',
+                                            'value' => longDateTime($admin->created_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'updated at',
+                                            'value' => longDateTime($admin->updated_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'deleted at',
+                                            'value' => longDateTime($admin->deleted_at)
+                                        ])
+
                                     </div>
 
                                 </div>

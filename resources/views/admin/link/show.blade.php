@@ -63,6 +63,16 @@
                                             'value' => $link->sequence
                                         ])
 
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'public',
+                                            'checked' => $link->public
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'disabled',
+                                            'checked' => $link->disabled
+                                        ])
+
                                         @include('admin.components.show-row', [
                                             'name'  => 'owner',
                                             'value' => $link->admin['username'] ?? ''
