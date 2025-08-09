@@ -50,6 +50,11 @@
                                                 @csrf
                                                 @method('PUT')
 
+                                                @include('admin.components.form-hidden', [
+                                                    'name'  => old('admin_id') ?? Auth::guard('admin')->user()->id,
+                                                    'value' => '0',
+                                                ])
+
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'name',
                                                     'value'     => old('name') ?? $project->name,
@@ -78,8 +83,8 @@
                                                     'type'      => 'number',
                                                     'name'      => 'year',
                                                     'value'     => old('year') ?? $project->year,
-                                                    'min'       => 0,
-                                                    'max'       => 2050,
+                                                    'min'       => 2000,
+                                                    'max'       => date('Y'),
                                                     'message'   => $message ?? '',
                                                 ])
 
@@ -107,7 +112,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('seq') ?? $project->seq,
+                                                    'value'       => old('sequence') ?? $project->sequence,
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])

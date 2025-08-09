@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CareerNoteStoreRequest extends FormRequest
 {
@@ -22,8 +23,9 @@ class CareerNoteStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => ['required', 'string', 'min:1', 'max:255'],
-            'body'    => ['required'],
+            'admin_id' => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'subject'  => ['required', 'required', 'string', 'min:1', 'max:255'],
+            'body'     => ['required', 'required'],
         ];
     }
 }

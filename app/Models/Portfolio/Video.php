@@ -2,8 +2,10 @@
 
 namespace App\Models\Portfolio;
 
+use App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Video extends Model
@@ -21,6 +23,7 @@ class Video extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'admin_id',
         'name',
         'professional',
         'personal',
@@ -31,10 +34,18 @@ class Video extends Model
         'location',
         'link',
         'description',
-        'seq',
+        'sequence',
         'public',
         'disabled',
     ];
+
+    /**
+     * Get the admin who owns the video.
+     */
+    public function admin(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+    }
 
     /**
      * Returns an array of options for a select list.

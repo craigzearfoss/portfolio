@@ -7,6 +7,7 @@ use App\Http\Requests\PortfolioReadingStoreRequest;
 use App\Http\Requests\PortfolioReadingUpdateRequest;
 use App\Models\Portfolio\Reading;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ReadingController extends Controller

@@ -23,7 +23,8 @@ class PortfolioVideoStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['string', 'min:1', 'max:255', 'required', 'unique:portfolio_db.videos,name'],
+            'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'         => ['required', 'string', 'min:1', 'max:255', 'required', 'unique:portfolio_db.videos,name'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'date'         => ['date', 'nullable'],
@@ -33,8 +34,8 @@ class PortfolioVideoStoreRequest extends FormRequest
             'location'     => ['string', 'max:255', 'nullable'],
             'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
+            'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],
-            'seq'          => ['integer', 'min:0'],
             'disabled'     => ['integer', 'between:0,1'],
         ];
     }

@@ -29,4 +29,16 @@ class State extends Model
 
         return $options;
     }
+
+
+    /**
+     * Returns the state name given the state code or the code passed in if not found.
+     *
+     * @param string $code
+     * @return string
+     */
+    public static function getName(string $code): string
+    {
+        return State::where('code', $code)->first()->name ?? $code;
+    }
 }

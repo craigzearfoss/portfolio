@@ -51,6 +51,11 @@
                                                 @csrf
                                                 @method('PUT')
 
+                                                @include('admin.components.form-hidden', [
+                                                    'name'  => old('admin_id') ?? Auth::guard('admin')->user()->id,
+                                                    'value' => '0',
+                                                ])
+
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'name',
                                                     'value'     => old('name') ?? $certificate->name,
@@ -70,8 +75,8 @@
                                                     'type'      => 'number',
                                                     'name'      => 'year',
                                                     'value'     => old('year') ?? $certificate->year,
-                                                    'min'       => 0,
-                                                    'max'       => 2050,
+                                                    'min'       => 2000,
+                                                    'max'       => date('Y'),
                                                     'message'   => $message ?? '',
                                                 ])
 

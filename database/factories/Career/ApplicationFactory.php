@@ -17,8 +17,11 @@ class ApplicationFactory extends Factory
     public function definition(): array
     {
         return [
+            'admin_id'          => \App\Models\Admin::all()->random()->id,
+            'company_id'        => \App\Models\Career\Company::all()->random()->id,
+            'cover_letter_id'   => \App\Models\Career\CoverLetter::all()->random()->id,
+            'resume_id'         => \App\Models\Career\Resume::all()->random()->id,
             'role'              => fake()->jobTitle(),
-            'company_id'        => 1,   // dummy value
             'rating'            => fake()->numberBetween(1, 4),
             'active'            => 1,
             'post_date'         => fake()->date(),

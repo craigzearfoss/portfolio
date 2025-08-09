@@ -35,6 +35,14 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="row">
+                                                <div class="col-2"><strong>company</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $application->company['name'] ?? '' }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="row">
                                                 <div class="col-2"><strong>rating</strong>:</div>
                                                 <div class="col-10 pl-0">
                                                     @include('admin.components.star-ratings', [ 'rating' => $application->rating ])
@@ -51,9 +59,25 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>cover letter</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $application->cover_letter['name'] ?? '' }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>resume</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $application->resume['name'] ?? '' }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="row">
                                                 <div class="col-2 text-nowrap"><strong>post date</strong>:</div>
                                                 <div class="col-10 pl-0">
-                                                    {{ longDate($application->post_date) }}
+                                                    {{ longDate($application->post_date ?? null) }}
                                                 </div>
                                             </div>
                                         </div>
@@ -61,7 +85,7 @@
                                             <div class="row">
                                                 <div class="col-2 text-nowrap"><strong>apply date</strong>:</div>
                                                 <div class="col-10 pl-0">
-                                                    {{ longDate($application->apply_date) }}
+                                                    {{ longDate($application->apply_date ?? null) }}
                                                 </div>
                                             </div>
                                         </div>
@@ -225,6 +249,14 @@
                                                 <div class="col-2"><strong>description</strong>:</div>
                                                 <div class="col-10 pl-0">
                                                     {!! $application->description !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>owner</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $application->admin['username'] ?? '' }}
                                                 </div>
                                             </div>
                                         </div>

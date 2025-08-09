@@ -17,6 +17,7 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         return [
+            'admin_id'        => \App\Models\Admin::all()->random()->id,
             'name'            => fake()->company(),
             'industry_id'     => fake()->randomElement(\App\Models\Career\Industry::all()->pluck('id')->toArray()),
             'street'          => fake()->streetAddress(),

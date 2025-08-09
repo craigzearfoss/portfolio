@@ -25,110 +25,83 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>title</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $reading->title }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>author</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $reading->author }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>paper</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $reading->paper ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>audio</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $reading->audio ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>wishlist</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $reading->wishlist ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>link</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.link', [ 'url' => $reading->link, 'target' => '_blank' ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>link name</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $reading->link_name }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>notes</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $reading->notes }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>public</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $reading->public ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>disabled</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $reading->disabled ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($reading->created_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($reading->updated_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>deleted at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($reading->deleted_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'title',
+                                            'value' => $reading->title
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'author',
+                                            'value' => $reading->author
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'paper',
+                                            'checked' => $reading->paper
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'audio',
+                                            'checked' => $reading->audio
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'wishlist',
+                                            'checked' => $reading->wishlist
+                                        ])
+
+                                        @include('admin.components.show-row-link', [
+                                            'name'   => 'link',
+                                            'url'    => $reading->link,
+                                            'target' => '_blank'
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'link name',
+                                            'value' => $reading->link_name
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'notes',
+                                            'value' => $reading->notes
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'sequence',
+                                            'value' => $reading->sequence
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'public',
+                                            'checked' => $reading->public
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'disabled',
+                                            'checked' => $reading->disabled
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'owner',
+                                            'value' => $reading->admin['username'] ?? ''
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'created at',
+                                            'value' => longDateTime($reading->created_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'updated at',
+                                            'value' => longDateTime($reading->updated_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'deleted at',
+                                            'value' => longDateTime($reading->deleted_at)
+                                        ])
+
                                     </div>
 
                                 </div>

@@ -7,6 +7,7 @@ use App\Http\Requests\CareerNoteStoreRequest;
 use App\Http\Requests\CareerNoteUpdateRequest;
 use App\Models\Career\Note;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class NoteController extends Controller

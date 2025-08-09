@@ -26,111 +26,82 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>title</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $video->name }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>professional</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $video->professional ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>personal</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $video->personal ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>year</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $video->year }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>company</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $video->company }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>credit</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $video->credit }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>link</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.link', [ 'url' => $video->link, 'target' => '_blank' ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>description</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {!! $video->description !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>public</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $video->public ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>disabled</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $video->disabled ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($video->created_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($video->updated_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <div class="row">
-                                            <div class="col-2 text-nowrap"><strong>deleted at</strong>:</div>
-                                            <div class="col-10 pl-0">
-                                                {{ longDateTime($video->deleted_at) }}
-                                            </div>
-                                        </div>
-                                    </div>
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'name',
+                                            'value' => $video->name
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'professional',
+                                            'checked' => $video->professional
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'personal',
+                                            'checked' => $video->personal
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'year',
+                                            'value' => $video->year
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'company',
+                                            'value' => $video->company
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'credit',
+                                            'value' => $video->credit
+                                        ])
+
+                                        @include('admin.components.show-row-link', [
+                                            'name'   => 'link',
+                                            'url'    => $video->link,
+                                            'target' => '_blank'
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'description',
+                                            'value' => $video->description
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'sequence',
+                                            'value' => $video->sequence
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'public',
+                                            'checked' => $video->public
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'disabled',
+                                            'checked' => $video->disabled
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'owner',
+                                            'value' => $video->admin['username'] ?? ''
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'created at',
+                                            'value' => longDateTime($video->created_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'updated at',
+                                            'value' => longDateTime($video->updated_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'deleted at',
+                                            'value' => longDateTime($video->deleted_at)
+                                        ])
 
                                 </div>
                             </div>

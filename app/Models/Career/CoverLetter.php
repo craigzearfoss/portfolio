@@ -2,8 +2,10 @@
 
 namespace App\Models\Career;
 
+use App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CoverLetter extends Model
@@ -21,6 +23,7 @@ class CoverLetter extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'admin_id',
         'name',
         'recipient',
         'date',
@@ -30,4 +33,12 @@ class CoverLetter extends Model
         'primary',
         'disabled',
     ];
+
+    /**
+     * Get the admin who owns the cover letter.
+     */
+    public function admin(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+    }
 }

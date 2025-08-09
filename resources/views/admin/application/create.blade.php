@@ -46,6 +46,11 @@
                                             <form action="{{ route('admin.application.store') }}" method="POST">
                                                 @csrf
 
+                                                @include('admin.components.form-hidden', [
+                                                    'name'  => Auth::guard('admin')->user()->id,
+                                                    'value' => '0',
+                                                ])
+
                                                 @include('admin.components.form-input', [
                                                     'name'        => 'role',
                                                     'value'       => old('role'),

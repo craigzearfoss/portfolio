@@ -28,4 +28,15 @@ class Country extends Model
 
         return $options;
     }
+
+    /**
+     * Returns the country name given the iso alpha3 or m49 value or the abbreviation passed in if not found.
+     *
+     * @param string $abbreviation
+     * @return string
+     */
+    public static function getName(string $abbreviation): string
+    {
+        return Country::where(ctype_digit($abbreviation) ? 'm49' : 'iso_alpha3', $abbreviation)->first()->name ?? $abbreviation;
+    }
 }

@@ -8,6 +8,7 @@ use App\Http\Requests\AdminUpdateRequest;
 use App\Models\Admin;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
@@ -42,6 +43,7 @@ class AdminController extends Controller
         $request->validate($request->rules());
 
         $admin = new Admin();
+        $admin->admin_id = Auth::guard('admin')->user()->id;
         $admin->username = $request->username;
         $admin->email = $request->email;
         $admin->password = Hash::make($request->password);

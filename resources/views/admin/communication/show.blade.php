@@ -26,45 +26,37 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>subject</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $communication->subject }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>body</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {!! $communication->body !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($communication->created_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($communication->updated_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>deleted at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($communication->deleted_at) }}
-                                                </div>
-                                            </div>
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'subject',
+                                            'value' => $communication->subject
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'body',
+                                            'value' => $communication->body
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'owner',
+                                            'value' => $communication->admin['username'] ?? ''
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'created at',
+                                            'value' => longDateTime($communication->created_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'updated at',
+                                            'value' => longDateTime($communication->updated_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'deleted at',
+                                            'value' => longDateTime($communication->deleted_at)
+                                        ])
+
                                         </div>
 
                                 </div>

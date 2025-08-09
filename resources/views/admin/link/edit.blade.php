@@ -53,6 +53,11 @@
                                                 @csrf
                                                 @method('PUT')
 
+                                                @include('admin.components.form-hidden', [
+                                                    'name'  => old('admin_id') ?? Auth::guard('admin')->user()->id,
+                                                    'value' => '0',
+                                                ])
+
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'name',
                                                     'value'     => old('name') ?? $link->name,
@@ -101,7 +106,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('seq') ?? $link->seq,
+                                                    'value'       => old('sequence') ?? $link->sequence,
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])

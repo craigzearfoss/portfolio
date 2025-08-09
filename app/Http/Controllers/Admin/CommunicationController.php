@@ -7,6 +7,7 @@ use App\Http\Requests\CareerCommunicationStoreRequest;
 use App\Http\Requests\CareerCommunicationUpdateRequest;
 use App\Models\Career\Communication;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CommunicationController extends Controller

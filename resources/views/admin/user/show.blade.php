@@ -26,126 +26,88 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>name</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @if (!empty($user->$title))
-                                                        {{ $user->title }} {{ $user->name }}
-                                                    @else
-                                                        {{ $user->name }}
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>street</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $user->street }}@if ($user->street2), {{ $user->street2 }}@endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>location</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @if ($user->city)
-                                                        {{ $user->city }}@if ($user->state), {{ $user->state }}@endif
-                                                    @else
-                                                        {{ $user->state }}
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>zip</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $user->zip }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>country</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $user->country }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>phone</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $user->phone }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>email</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ $user->email }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>website</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('user.components.link', [ 'url' => $user->website, 'target' => '_blank' ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>status</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ \App\Models\User::statusName($user->status) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2"><strong>disabled</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>email verified at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($user->email_verified_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($user->created_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>updated at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($user->updated_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="row">
-                                                <div class="col-2 text-nowrap"><strong>deleted at</strong>:</div>
-                                                <div class="col-10 pl-0">
-                                                    {{ longDateTime($user->deleted_at) }}
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'name',
+                                            'value' => $user->name
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'street',
+                                            'value' => $user->street
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'street2',
+                                            'value' => $user->street2
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'city',
+                                            'value' => $user->city
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'state',
+                                            'value' => \App\Models\State::getName($user->state)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'zip',
+                                            'value' => $user->zip
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'country',
+                                            'value' => \App\Models\Country::getName($user->country)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'phone',
+                                            'value' => $user->phone
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'email',
+                                            'value' => $user->email
+                                        ])
+
+                                        @include('admin.components.show-row-link', [
+                                            'name'   => 'website',
+                                            'url'    => $user->website,
+                                            'target' => '_blank'
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'status',
+                                            'value' => \App\Models\User::statusName($user->status)
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'disabled',
+                                            'checked' => $user->disabled
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'email verified at',
+                                            'value' => longDateTime($user->email_verified_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'created at',
+                                            'value' => longDateTime($user->created_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'updated at',
+                                            'value' => longDateTime($user->updated_at)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'deleted at',
+                                            'value' => longDateTime($user->deleted_at)
+                                        ])
+
                                     </div>
 
                                 </div>

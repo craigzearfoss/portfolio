@@ -117,6 +117,14 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="row">
+                                                <div class="col-2 text-nowrap"><strong>owner</strong>:</div>
+                                                <div class="col-10 pl-0">
+                                                    {{ $certificate->admin['username'] ?? '' }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="row">
                                                 <div class="col-2 text-nowrap"><strong>created at</strong>:</div>
                                                 <div class="col-10 pl-0">
                                                     {{ longDateTime($certificate->created_at) }}

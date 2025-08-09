@@ -17,6 +17,7 @@ class CoverLetterFactory extends Factory
     public function definition(): array
     {
         return [
+            'admin_id'     => \App\Models\Admin::all()->random()->id,
             'name'         => fake()->sentence(6),
             'recipient'    => fake()->name(),
             'date'         => fake()->date(),

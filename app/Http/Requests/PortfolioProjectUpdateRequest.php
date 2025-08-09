@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PortfolioProjectUpdateRequest extends FormRequest
 {
@@ -22,6 +23,7 @@ class PortfolioProjectUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
             'name'         => ['string', 'min:1', 'max:255', 'unique:portfolio_db.projects,name,'.$this->project->id],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
@@ -29,8 +31,8 @@ class PortfolioProjectUpdateRequest extends FormRequest
             'repository'   => ['string', 'max:255', 'nullable'],
             'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
+            'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],
-            'seq'          => ['integer', 'min:0'],
             'disabled'     => ['integer', 'between:0,1'],
         ];
     }

@@ -46,6 +46,11 @@
                                             <form action="{{ route('admin.reading.store') }}" method="POST">
                                                 @csrf
 
+                                                @include('admin.components.form-hidden', [
+                                                    'name'  => Auth::guard('admin')->user()->id,
+                                                    'value' => '0',
+                                                ])
+
                                                 @include('admin.components.form-input', [
                                                     'name'        => 'title',
                                                     'value'       => old('title'),
@@ -110,7 +115,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('seq'),
+                                                    'value'       => old('sequence'),
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])

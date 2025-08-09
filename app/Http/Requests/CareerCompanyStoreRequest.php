@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CareerCompanyStoreRequest extends FormRequest
 {
@@ -22,7 +23,8 @@ class CareerCompanyStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'            => ['string', 'min:1', 'max:255', 'required', 'unique:career_db.companies,name'],
+            'admin_id'        => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'            => ['required', 'string', 'min:1', 'max:255', 'required', 'unique:career_db.companies,name'],
             'industry_id'     => ['integer', 'max:100'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],

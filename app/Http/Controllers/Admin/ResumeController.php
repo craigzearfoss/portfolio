@@ -8,6 +8,7 @@ use App\Http\Requests\CareerResumeUpdateRequest;
 use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ResumeController extends Controller

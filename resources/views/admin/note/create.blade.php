@@ -46,6 +46,11 @@
                                             <form action="{{ route('admin.note.store') }}" method="POST">
                                                 @csrf
 
+                                                @include('admin.components.form-hidden', [
+                                                    'name'  => Auth::guard('admin')->user()->id,
+                                                    'value' => '0',
+                                                ])
+
                                                 @include('admin.components.form-input', [
                                                     'name'        => 'subject',
                                                     'value'       => old('subject'),
@@ -53,7 +58,6 @@
                                                     'maxlength'   => 255,
                                                     'message'     => $message ?? '',
                                                 ])
-
 
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'body',

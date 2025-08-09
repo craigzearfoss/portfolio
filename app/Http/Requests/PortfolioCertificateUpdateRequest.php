@@ -22,6 +22,7 @@ class PortfolioCertificateUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'admin_id'     => ['required', 'integer', 'exists:admins,id'],
             'name'         => ['string', 'min:1', 'max:255', 'unique:portfolio_db.certificates,name,'.$this->certificate->id],
             'organization' => ['string', 'max:255', 'nullable'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
@@ -31,8 +32,8 @@ class PortfolioCertificateUpdateRequest extends FormRequest
             'personal'     => ['integer', 'between:0,1'],
             'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
+            'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],
-            'seq'          => ['integer', 'min:0'],
             'disabled'     => ['integer', 'between:0,1'],
         ];
     }

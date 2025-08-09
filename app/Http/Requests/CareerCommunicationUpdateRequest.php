@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CareerCommunicationUpdateRequest extends FormRequest
 {
@@ -22,8 +23,9 @@ class CareerCommunicationUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => ['string', 'min:1', 'max:255', 'unique:career_db.communications,name,'.$this->communication->id],
-            'body'    => [],
+            'admin_id' => ['integer', 'in:' . Auth::guard('admin')->user()->id],
+            'subject'  => ['string', 'min:1', 'max:255', 'unique:career_db.communications,name,'.$this->communication->id],
+            'body'     => [],
         ];
     }
 }

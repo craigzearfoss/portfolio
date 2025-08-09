@@ -17,6 +17,7 @@ class CertificateFactory extends Factory
     public function definition(): array
     {
         return [
+            'admin_id'     => \App\Models\Admin::all()->random()->id,
             'name'         => fake()->sentence(6),
             'organization' => fake()->company(),
             'year'         => fake()->year(),
@@ -26,7 +27,7 @@ class CertificateFactory extends Factory
             'personal'     => fake()->numberBetween(0, 1),
             'link'         => fake()->url(),
             'description'  => fake()->text(200),
-            'seq'          => 0,
+            'sequence'     => 0,
             'public'       => fake()->numberBetween(0, 1),
             'disabled'     => fake()->numberBetween(0, 1),
         ];

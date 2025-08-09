@@ -2,8 +2,13 @@
 
 namespace App\Models\Career;
 
+use App\Models\Admin;
+use App\Models\Career\Company;
+use App\Models\Career\CoverLetter;
+use App\Models\Career\Resume;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -45,8 +50,11 @@ class Application extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'role',
+        'admin_id',
         'company_id',
+        'cover_letter_id',
+        'resume_id',
+        'role',
         'rating',
         'active',
         'resume_id',
@@ -77,19 +85,36 @@ class Application extends Model
     ];
 
     /**
-     * The application has one company.
+     * Get the admin who owns the application.
      */
-    public function application(): HasOne
+    public function admin(): BelongsTo
     {
-        return $this->hasOne(Company::class);
+        return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+    }
+
+
+    /**
+     * Get the company who owns the application.
+     */
+    public function company(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Company::class, 'company_id');
     }
 
     /**
-     * The application has many notes.
+     * Get the cover letter who owns the application.
      */
-    public function note(): HasMany
+    public function coverLetter(): BelongsTo
     {
-        return $this->hasMany(Note::class);
+        return $this->setConnection('default_db')->belongsTo(CoverLetter::class, 'cover_letter_id');
+    }
+
+    /**
+     * Get the cover letter who owns the application.
+     */
+    public function resume(): BelongsTo
+    {
+        return $this->belongsTo(Resume::class, 'resume_id');
     }
 
     /**

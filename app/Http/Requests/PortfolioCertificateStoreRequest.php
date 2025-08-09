@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PortfolioCertificateStoreRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class PortfolioCertificateStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::guard('admin')->check();
     }
 
     /**
@@ -21,8 +22,9 @@ class PortfolioCertificateStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name'         => ['string', 'min:1', 'max:255', 'required', 'unique:portfolio_db.certificates,name'],
+        return[
+            'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'         => ['required', 'string', 'min:1', 'max:255', 'required', 'unique:portfolio_db.certificates,name'],
             'organization' => ['string', 'max:255', 'nullable'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'received'     => ['date', 'nullable'],
@@ -31,8 +33,8 @@ class PortfolioCertificateStoreRequest extends FormRequest
             'personal'     => ['integer', 'between:0,1'],
             'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
+            'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],
-            'seq'          => ['integer', 'min:0'],
             'disabled'     => ['integer', 'between:0,1'],
         ];
     }

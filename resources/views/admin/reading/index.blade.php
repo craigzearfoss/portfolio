@@ -34,7 +34,7 @@
                             <th>author</th>
                             <th class="text-center">paper</th>
                             <th class="text-center">audio</th>
-                            <th class="text-center">hidden</th>
+                            <th class="text-center">public</th>
                             <th class="text-center">disabled</th>
                             <th>actions</th>
                         </tr>

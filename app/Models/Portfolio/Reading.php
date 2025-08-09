@@ -2,8 +2,10 @@
 
 namespace App\Models\Portfolio;
 
+use App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reading extends Model
@@ -21,6 +23,7 @@ class Reading extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'admin_id',
         'title',
         'author',
         'paper',
@@ -29,10 +32,18 @@ class Reading extends Model
         'link',
         'link_name',
         'notes',
-        'seq',
+        'sequence',
         'public',
         'disabled',
     ];
+
+    /**
+     * Get the admin who owns the reading.
+     */
+    public function admin(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+    }
 
     /**
      * Returns an array of options for a select list.

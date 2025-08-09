@@ -46,6 +46,11 @@
                                             <form action="{{ route('admin.certificate.store') }}" method="POST">
                                                 @csrf
 
+                                                @include('admin.components.form-hidden', [
+                                                    'name'  => Auth::guard('admin')->user()->id,
+                                                    'value' => '0',
+                                                ])
+
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'name',
                                                     'value'     => old('name'),
@@ -64,9 +69,9 @@
                                                 @include('admin.components.form-input', [
                                                     'type'      => 'number',
                                                     'name'      => 'year',
-                                                    'value'     => old('year'),
-                                                    'min'       => 0,
-                                                    'max'       => 2050,
+                                                    'value'     => old('year') ?? date('Y'),
+                                                    'min'       => 2000,
+                                                    'max'       => date('Y'),
                                                     'message'   => $message ?? '',
                                                 ])
 
@@ -121,7 +126,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('seq'),
+                                                    'value'       => old('seq') ?? '0',
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])

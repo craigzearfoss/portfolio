@@ -7,6 +7,7 @@ use App\Http\Requests\PortfolioCertificateStoreRequest;
 use App\Http\Requests\PortfolioCertificateUpdateRequest;
 use App\Models\Portfolio\Certificate;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CertificateController extends Controller
@@ -64,6 +65,8 @@ class CertificateController extends Controller
      */
     public function update(PortfolioCertificateUpdateRequest $request, Certificate $certificate): RedirectResponse
     {
+        dd($request);
+
         $certificate->update($request->validated());
 
         return redirect()->route('admin.certificate.index')

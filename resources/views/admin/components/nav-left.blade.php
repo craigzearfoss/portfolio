@@ -19,6 +19,19 @@
 
             <div class="menu-group">
                 <ul>
+                    @foreach(\App\Models\Resource::all() as $resource)
+                        <li class="menu-collapse">
+                            <a href="{{ route('admin.' . $resource->type . '.index') }}">
+                                <div class="menu-item">
+                                <span class="text-xl">
+                                    <i class="fa-solid {{ $resource->icon ? $resource->icon : 'fa-circle' }}"></i>
+                                </span>
+                                    <span>{{ !empty($resource->plural) ? $resource->plural : $resource->name }}</span>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
+
                     <li id="menu-item-portfolio" class="menu-item-divider"></li>
                     <li class="menu-collapse">
                         <a href="{{ route('admin.certificate.index') }}">
@@ -113,7 +126,7 @@
                         </a>
                     </li>
                     <li class="menu-collapse">
-                        <a href="{{ route('admin.cover-letter.index') }}">
+                        <a href="{{ route('admin.cover_letter.index') }}">
                             <div class="menu-item">
                                 <span class="text-xl">
                                     <i class="fa-solid fa-file-text"></i>

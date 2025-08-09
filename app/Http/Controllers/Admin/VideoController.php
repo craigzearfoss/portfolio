@@ -7,6 +7,7 @@ use App\Http\Requests\PortfolioVideoStoreRequest;
 use App\Http\Requests\PortfolioVideoUpdateRequest;
 use App\Models\Portfolio\Video;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class VideoController extends Controller

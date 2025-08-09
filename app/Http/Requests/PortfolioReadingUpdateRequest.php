@@ -23,6 +23,7 @@ class PortfolioReadingUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'admin_id'  => ['integer', 'in:' . Auth::guard('admin')->user()->id],
             'title'     => ['string', 'min:1', 'max:255', 'unique:portfolio_db.readings,name,'.$this->reading->id],
             'author'    => ['string', 'max:255', 'nullable'],
             'paper'     => ['integer', 'between:0,1'],
@@ -31,8 +32,8 @@ class PortfolioReadingUpdateRequest extends FormRequest
             'link'      => ['string', 'nullable'],
             'link_name' => ['string', 'nullable'],
             'notes'     => ['nullable'],
+            'sequence'  => ['integer', 'min:0'],
             'public'    => ['integer', 'between:0,1'],
-            'seq'       => ['integer', 'min:0'],
             'disabled'  => ['integer', 'between:0,1'],
         ];
     }

@@ -8,6 +8,7 @@ use App\Http\Requests\CareerCompanyUpdateRequest;
 use App\Models\Career\Company;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CompanyController extends Controller

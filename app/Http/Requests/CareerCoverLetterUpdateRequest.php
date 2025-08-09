@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CareerCoverLetterUpdateRequest extends FormRequest
 {
@@ -22,6 +23,7 @@ class CareerCoverLetterUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
             'name'         => ['string', 'min:1', 'max:255', 'unique:career_db.cover_letters,name,'.$this->cover_letter->id],
             'recipient'    => ['string', 'max:255', 'nullable'],
             'date'         => ['date', 'nullable'],

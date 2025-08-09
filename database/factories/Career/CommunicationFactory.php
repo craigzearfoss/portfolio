@@ -17,8 +17,9 @@ class CommunicationFactory extends Factory
     public function definition(): array
     {
         return [
-            'subject' => fake()->sentence(6),
-            'body'    => fake()->text(200),
+            'admin_id' => \App\Models\Admin::all()->random()->id,
+            'subject'  => fake()->sentence(6),
+            'body'     => fake()->text(200),
         ];
     }
 }

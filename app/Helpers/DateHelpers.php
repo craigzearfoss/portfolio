@@ -12,10 +12,14 @@ if (! function_exists('convertYmdToMdy')) {
     function convertYmdToMdy(string | null $YmdDate): string | null
     {
         if (empty($YmdDate)) {
-            return null;
+            return '';
         }
 
-        return Carbon::createFromFormat('Y-m-d', $YmdDate)->format('m-d-Y');
+        try {
+            return Carbon::createFromFormat('Y-m-d', $YmdDate)->format('m-d-Y');
+        } catch (\Exception $e) {
+            return $YmdDate;
+        }
     }
 }
 
@@ -29,10 +33,14 @@ if (! function_exists('convertMdyToYmd')) {
     function convertMdyToYmd(string | null $mdYDate): string | null
     {
         if (empty($mdYDate)) {
-            return null;
+            return '';
         }
 
-        return Carbon::createFromFormat('m-d-Y', $mdYDate)->format('Y-m-d');
+        try {
+            return Carbon::createFromFormat('m-d-Y', $mdYDate)->format('Y-m-d');
+        } catch (\Exception $e) {
+            return $mdYDate;
+        }
     }
 }
 
@@ -46,14 +54,18 @@ if (! function_exists('shortDate')) {
     function shortDate(string|null $YmdDate): string | null
     {
         if (empty($YmdDate)) {
-            return null;
+            return '';
         }
 
         if (!$dateFormat = config( 'app.date_format_short')) {
             $dateFormat = 'm/d/Y';
         }
 
-        return Carbon::createFromFormat('Y-m-d', $YmdDate)->format($dateFormat);
+        try {
+            return Carbon::createFromFormat('Y-m-d', $YmdDate)->format($dateFormat);
+        } catch (\Exception $e) {
+            return $YmdDate;
+        }
     }
 }
 
@@ -67,14 +79,18 @@ if (! function_exists('longDate')) {
     function longDate(string|null $YmdDate): string | null
     {
         if (empty($YmdDate)) {
-            return null;
+            return '';
         }
 
         if (!$dateTime = config( 'app.date_format_long')) {
             $dateTime = 'F j, Y';
         }
 
-        return Carbon::createFromFormat('Y-m-d', $YmdDate)->format($dateTime);
+        try {
+            return Carbon::createFromFormat('Y-m-d', $YmdDate)->format($dateTime);
+        } catch (\Exception $e) {
+            return $YmdDate;
+        }
     }
 }
 
@@ -89,7 +105,7 @@ if (! function_exists('shortDateTime')) {
     function shortDateTime(string|null $YmdHisDateTime, bool $includeSeconds = false): string | null
     {
         if (empty($YmdHisDateTime)) {
-            return null;
+            return '';
         }
 
         if (!$dateTimeFormat = config( 'app.datetime_format_short')) {
@@ -100,7 +116,11 @@ if (! function_exists('shortDateTime')) {
             $dateTimeFormat = str_replace(':s', '', $dateTimeFormat);
         }
 
-        return Carbon::createFromFormat('Y-m-d H:i:s', $YmdHisDateTime)->format($dateTimeFormat);
+        try {
+            return Carbon::createFromFormat('Y-m-d H:i:s', $YmdHisDateTime)->format($dateTimeFormat);
+        } catch (\Exception $e) {
+            return $YmdHisDateTime;
+        }
     }
 }
 
@@ -115,7 +135,7 @@ if (! function_exists('longDateTime')) {
     function longDateTime(string|null $YmdHisDateTime, bool $includeSeconds = false): string | null
     {
         if (empty($YmdHisDateTime)) {
-            return null;
+            return '';
         }
 
         if (!$dateTimeFormat = config( 'app.datetime_format_long')) {
@@ -126,6 +146,10 @@ if (! function_exists('longDateTime')) {
             $dateTimeFormat = str_replace(':s', '', $dateTimeFormat);
         }
 
-        return Carbon::createFromFormat('Y-m-d H:i:s', $YmdHisDateTime)->format($dateTimeFormat);
+        try {
+            return Carbon::createFromFormat('Y-m-d H:i:s', $YmdHisDateTime)->format($dateTimeFormat);
+        } catch (\Exception $e) {
+            return $YmdHisDateTime;
+        }
     }
 }

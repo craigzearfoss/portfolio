@@ -12,7 +12,7 @@ class PortfolioVideoUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check() || Auth::guard('web')->check();
+        return Auth::guard('admin')->check();
     }
 
     /**
@@ -23,6 +23,7 @@ class PortfolioVideoUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
             'name'         => ['string', 'min:1', 'max:255', 'unique:portfolio_db.videos,name,'.$this->video->id],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
@@ -33,8 +34,8 @@ class PortfolioVideoUpdateRequest extends FormRequest
             'location'     => ['string', 'max:255', 'nullable'],
             'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
+            'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],
-            'seq'          => ['integer', 'min:0'],
             'disabled'     => ['integer', 'between:0,1'],
         ];
     }

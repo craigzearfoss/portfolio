@@ -36,7 +36,7 @@
                             <th>url</th>
                             <th>website</th>
                             <th>description</th>
-                            <th class="text-center">hidden</th>
+                            <th class="text-center">public</th>
                             <th class="text-center">disabled</th>
                             <th>actions</th>
                         </tr>

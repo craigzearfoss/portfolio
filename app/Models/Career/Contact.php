@@ -2,10 +2,10 @@
 
 namespace App\Models\Career;
 
+use App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
@@ -24,6 +24,7 @@ class Contact extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'admin_id',
         'name',
         'title',
         'street',
@@ -52,11 +53,11 @@ class Contact extends Model
     ];
 
     /**
-     * The company has one contact.
+     * Get the admin who owns the contact.
      */
-    public function company(): HasOne
+    public function admin(): BelongsTo
     {
-        return $this->hasOne(Company::class);
+        return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
     }
 
     /**

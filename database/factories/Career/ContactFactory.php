@@ -17,6 +17,7 @@ class ContactFactory extends Factory
     public function definition(): array
     {
         return [
+            'admin_id'        => \App\Models\Admin::all()->random()->id,
             'name'            => fake()->name(),
             'title'           => fake()->jobTitle(),
             'street'          => fake()->streetAddress(),

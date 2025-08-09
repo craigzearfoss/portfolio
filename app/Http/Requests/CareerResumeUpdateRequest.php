@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CareerResumeUpdateRequest extends FormRequest
 {
@@ -22,6 +23,7 @@ class CareerResumeUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
             'name'         => ['string', 'min:1', 'max:255', 'unique:career_db.resumes,name,'.$this->resume->id],
             'date'         => ['date', 'nullable'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],

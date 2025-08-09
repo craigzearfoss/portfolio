@@ -46,6 +46,11 @@
                                             <form action="{{ route('admin.project.store') }}" method="POST">
                                                 @csrf
 
+                                                @include('admin.components.form-hidden', [
+                                                    'name'  => Auth::guard('admin')->user()->id,
+                                                    'value' => '0',
+                                                ])
+
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'name',
                                                     'value'     => old('name'),
@@ -74,8 +79,8 @@
                                                     'type'      => 'number',
                                                     'name'      => 'year',
                                                     'value'     => old('year'),
-                                                    'min'       => 0,
-                                                    'max'       => 2050,
+                                                    'min'       => 2000,
+                                                    'max'       => date('Y'),
                                                     'message'   => $message ?? '',
                                                 ])
 
@@ -103,7 +108,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('seq'),
+                                                    'value'       => old('sequence'),
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])

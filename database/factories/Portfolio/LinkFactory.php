@@ -18,13 +18,14 @@ class LinkFactory extends Factory
     public function definition(): array
     {
         return [
+            'admin_id'     => \App\Models\Admin::all()->random()->id,
             'name'         => fake()->sentence(6),
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
             'url'          => fake()->url(),
             'website'      => fake()->domainName(),
             'description'  => fake()->text(200),
-            'seq'          => 0,
+            'sequence'     => 0,
             'public'       => fake()->numberBetween(0, 1),
             'disabled'     => fake()->numberBetween(0, 1),
         ];
