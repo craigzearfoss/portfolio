@@ -24,4 +24,12 @@ class LinkController extends Controller
         return view('front.link.index', compact('links', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
+
+    /**
+     * Display the specified link.
+     */
+    public function show(Link $link): View
+    {
+        return view('link.show', compact('link'));
+    }
 }

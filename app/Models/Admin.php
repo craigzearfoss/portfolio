@@ -54,6 +54,14 @@ class Admin extends Authenticatable
     }
 
     /**
+     * Get the courses for the admin.
+     */
+    public function courses(): HasMany
+    {
+        return $this->hasMany(\App\Models\Portfolio\Course::class);
+    }
+
+    /**
      * Get the communications for the admin.
      */
     public function communications(): HasMany

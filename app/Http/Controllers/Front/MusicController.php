@@ -26,4 +26,12 @@ class MusicController extends Controller
         return view('front.music.index', compact('musics', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
+
+    /**
+     * Display the specified music.
+     */
+    public function show(Music $music): View
+    {
+        return view('music.show', compact('music'));
+    }
 }

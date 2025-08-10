@@ -24,4 +24,12 @@ class ProjectController extends Controller
         return view('front.project.index', compact('projects', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
+
+    /**
+     * Display the specified project.
+     */
+    public function show(Project $project): View
+    {
+        return view('front.project.show', compact('project'));
+    }
 }

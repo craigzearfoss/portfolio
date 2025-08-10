@@ -24,4 +24,12 @@ class VideoController extends Controller
         return view('front.video.index', compact('videos', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
+
+    /**
+     * Display the specified video.
+     */
+    public function show(Video $video): View
+    {
+        return view('front.video.show', compact('video'));
+    }
 }

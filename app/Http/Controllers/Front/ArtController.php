@@ -25,4 +25,12 @@ class ArtController extends Controller
         return view('front.art.index', compact('arts', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
+
+    /**
+     * Display the specified art.
+     */
+    public function show(Art $art): View
+    {
+        return view('front.art.show', compact('art'));
+    }
 }

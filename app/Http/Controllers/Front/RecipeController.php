@@ -25,4 +25,12 @@ class RecipeController extends Controller
         return view('front.recipe.index', compact('recipes', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
+
+    /**
+     * Display the specified recipe.
+     */
+    public function show(Recipe $recipe): View
+    {
+        return view('front.recipe.show', compact('recipe'));
+    }
 }

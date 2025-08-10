@@ -3,33 +3,34 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\Models\Portfolio\Reading;
+use App\Models\Portfolio\Course;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class ReadingController extends Controller
+class CourseController extends Controller
 {
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the reading.
+     * Display a listing of the course.
      */
     public function index(): View
     {
-        $readings = Reading::where('public', 1)
+        $courses = Course::where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence', 'asc')
             ->paginate(self::NUM_PER_PAGE);
 
-        $title = 'Readings';
-        return view('front.reading.index', compact('readings', 'title'))
+        $title = 'Courses';
+        return view('front.course.index', compact('courses', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
     /**
-     * Display the specified reading.
+     * Display the specified course.
      */
-    public function show(Reading $reading): View
+    public function show(Course $course): View
     {
-        return view('front.reading.show', compact('reading'));
+        return view('front.course.show', compact('course'));
     }
 }

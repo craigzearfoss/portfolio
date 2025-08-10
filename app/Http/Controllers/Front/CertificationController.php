@@ -24,4 +24,12 @@ class CertificationController extends Controller
         return view('front.certification.index', compact('certifications', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
+
+    /**
+     * Display the specified certification.
+     */
+    public function show(Certification $certification): View
+    {
+        return view('front.certification.show', compact('certification'));
+    }
 }
