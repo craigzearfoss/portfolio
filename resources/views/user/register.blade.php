@@ -40,7 +40,7 @@
                                         <form action="{{ route('register_submit') }}" method="POST">
                                             @csrf
 
-                                            @include('admin.components.form-input', [
+                                            @include('user.components.form-input', [
                                                 'name'      => 'name',
                                                 'label'     => 'Name',
                                                 'value'     => old('name'),

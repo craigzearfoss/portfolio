@@ -17,7 +17,7 @@ class CertificateController extends Controller
     {
         $certificates = Certificate::where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('seq', 'asc')
+            ->orderBy('sequence', 'asc')
             ->paginate(self::NUM_PER_PAGE);
 
         $title = 'Certificates';

@@ -3,25 +3,26 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\Models\Portfolio\Video;
+use App\Models\Portfolio\Recipe;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class VideoController extends Controller
+class RecipeController extends Controller
 {
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the video.
+     * Display a listing of the art.
      */
     public function index(): View
     {
-        $videos = Video::where('public', 1)
+        $recipes = Recipe::where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence', 'asc')
             ->paginate(self::NUM_PER_PAGE);
 
-        $title = 'Videos';
-        return view('front.video.index', compact('videos', 'title'))
+        $title = 'Recipes';
+        return view('front.recipe.index', compact('recipes', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 }

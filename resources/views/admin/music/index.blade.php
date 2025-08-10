@@ -80,7 +80,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="11">There are no musics.</td>
+                                <td colspan="9">There is no music.</td>
                             </tr>
                         @endforelse
 

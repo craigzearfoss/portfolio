@@ -37,6 +37,7 @@
                             <th>location</th>
                             <th>link</th>
                             <th>description</th>
+                            <th>actions</th>
                         </tr>
                         </thead>
 
@@ -63,10 +64,13 @@
                                     @include('front.components.link', [ 'url' => $video->link, 'target' => '_blank' ])
                                 </td>
                                 <td>{!! $video->description !!}</td>
+                                <td>
+                                    <a class="btn btn-sm" href="{{ route('video.show', $video->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="11">There are no videos.</td>
+                                <td colspan="12">There are no videos.</td>
                             </tr>
                         @endforelse
 

@@ -17,7 +17,7 @@ class ProjectController extends Controller
     {
         $projects = Project::where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('seq', 'asc')
+            ->orderBy('sequence', 'asc')
             ->paginate(self::NUM_PER_PAGE);
 
         $title = 'Projects';

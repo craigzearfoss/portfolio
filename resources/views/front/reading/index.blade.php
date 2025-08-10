@@ -31,6 +31,7 @@
                             <th>author</th>
                             <th class="text-center">paper</th>
                             <th class="text-center">audio</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
 
@@ -47,10 +48,13 @@
                                 <td class="text-center">
                                     @include('front.components.checkmark', [ 'checked' => $reading->audio ])
                                 </td>
+                                <td>
+                                    <a class="btn btn-sm" href="{{ route('reading.show', $reading->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">There are no readings.</td>
+                                <td colspan="6">There are no readings.</td>
                             </tr>
                         @endforelse
 

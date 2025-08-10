@@ -15,7 +15,7 @@
 
                 <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
 
-                    <h3 class="card-header">Arts</h3>
+                    <h3 class="card-header">Art</h3>
 
                     <div class="d-grid gap-2 d-md-flex justify-between">
                         <div>
@@ -80,7 +80,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="11">There are no arts.</td>
+                                <td colspan="9">There is no art.</td>
                             </tr>
                         @endforelse
 

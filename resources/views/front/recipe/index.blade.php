@@ -15,7 +15,7 @@
 
                 <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
 
-                    <h3 class="card-header">Links</h3>
+                    <h3 class="card-header">Recipes</h3>
 
                     <div class="d-grid gap-2 d-md-flex justify-between">
                         <div>
@@ -27,50 +27,46 @@
                         <thead>
                         <tr>
                             <th></th>
+                            <th>name</th>
                             <th>professional</th>
                             <th>personal</th>
-                            <th>link</th>
-                            <th>website</th>
                             <th>description</th>
-                            <th>Actions</th>
+                            <th>actions</th>
                         </tr>
                         </thead>
 
                         <tbody>
 
-                        @forelse ($links as $link)
+                        @forelse ($recipes as $recipe)
                             <tr>
                                 <td>{{ ++$i }}</td>
+                                <td>{{ $recipe->name }}</td>
                                 <td class="text-center">
-                                    @include('front.components.checkmark', [ 'checked' => $link->professional ])
+                                    @include('front.components.checkmark', [ 'checked' => $recipe->professional ])
                                 </td>
                                 <td class="text-center">
-                                    @include('front.components.checkmark', [ 'checked' => $link->personal ])
+                                    @include('front.components.checkmark', [ 'checked' => $recipe->personal ])
                                 </td>
-                                <td>
-                                    @include('front.components.link', [
-                                        'name'   => $link->name ?? $link->url,
-                                        'url'    => $link->url,
-                                        'target' => '_blank'
-                                    ])
-                                    <a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a>
+                                <td>{!! $recipe->description !!}</td>
+                                <td class="text-nowrap">
+                                    <a class="btn btn-sm" href="{{ route('recipe.show', $recipe->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>                                    @if ($recipe->link)
+                                        <a class="btn btn-sm" href="{{ $recipe->link }}" target="_blank">
+                                            <i class="fa-solid fa-external-link"></i>{{-- Download--}}
+                                        </a>
+                                    @endif
                                 </td>
-                                <td>{{ $link->website }}</td>
-                                <td>{!! $link->description !!}</td>
-                                <td>
-                                    <a class="btn btn-sm" href="{{ route('music.show', $music->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                </td>
+
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7">There are no links.</td>
+                                <td colspan="7">There is no recipe.</td>
                             </tr>
                         @endforelse
 
                         </tbody>
                     </table>
 
-                    {!! $links->links() !!}
+                    {!! $recipes->links() !!}
 
                     @include('front.components.footer')
 

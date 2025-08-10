@@ -59,6 +59,7 @@
                                 </td>
                                 <td>{!! $certificate->description !!}</td>
                                 <td class="text-nowrap">
+                                    <a class="btn btn-sm" href="{{ route('art.show', $certificate->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
                                     @if ($certificate->link)
                                         <a class="btn btn-sm" href="{{ $certificate->link }}" target="_blank">
                                             <i class="fa-solid fa-external-link"></i>{{-- Download--}}

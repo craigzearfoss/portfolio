@@ -34,6 +34,7 @@
                             <th>repository</th>
                             <th>link</th>
                             <th>description</th>
+                            <th>actions</th>
                         </tr>
                         </thead>
 
@@ -57,10 +58,13 @@
                                     @include('front.components.link', [ 'url' => $project->link, 'target' => '_blank' ])
                                 </td>
                                 <td>{!! $project->description !!}</td>
+                                <td>
+                                    <a class="btn btn-sm" href="{{ route('project.show', $project->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8">There are no projects.</td>
+                                <td colspan="9">There are no projects.</td>
                             </tr>
                         @endforelse
 
