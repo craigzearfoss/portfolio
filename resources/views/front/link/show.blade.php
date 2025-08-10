@@ -1,17 +1,17 @@
-@extends('admin.layouts.default')
+@extends('front.layouts.default')
 
 @section('content')
 
     <div class="app-layout-modern flex flex-auto flex-col">
         <div class="flex flex-auto min-w-0">
 
-            @include('admin.components.nav-left')
+            @include('front.components.nav-left')
 
             <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
 
-                @include('admin.components.header')
+                @include('front.components.header')
 
-                @include('admin.components.popup')
+                @include('front.components.popup')
 
                 <div class="page-container relative h-full flex flex-auto flex-col">
                     <div class="h-full">
@@ -26,33 +26,33 @@
 
                                     <div class="row">
 
-                                        @include('admin.components.show-row', [
+                                        @include('front.components.show-row', [
                                             'name'  => 'name',
                                             'value' => $link->name
                                         ])
 
-                                        @include('admin.components.show-row-checkbox', [
+                                        @include('front.components.show-row-checkbox', [
                                             'name'    => 'professional',
                                             'checked' => $link->professional
                                         ])
 
-                                        @include('admin.components.show-row-checkbox', [
+                                        @include('front.components.show-row-checkbox', [
                                             'name'    => 'personal',
                                             'checked' => $link->personal
                                         ])
 
-                                        @include('admin.components.show-row-link', [
+                                        @include('front.components.show-row-link', [
                                             'name'   => 'url',
                                             'url'    => $link->url,
                                             'target' => '_blank'
                                         ])
 
-                                        @include('admin.components.show-row', [
+                                        @include('front.components.show-row', [
                                             'name'  => 'website',
                                             'value' => $link->website
                                         ])
 
-                                        @include('admin.components.show-row', [
+                                        @include('front.components.show-row', [
                                             'name'  => 'description',
                                             'value' => $link->description
                                         ])
@@ -64,7 +64,7 @@
                         </div>
                     </div>
 
-                    @include('admin.components.footer')
+                    @include('front.components.footer')
 
                 </div>
             </div>

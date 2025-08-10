@@ -10,6 +10,19 @@
             <div class="menu-group">
                 <ul>
 
+                    @foreach(\App\Models\Resource::all()->where('public', 1) as $resource)
+                        <li class="menu-collapse">
+                            <a href="{{ route($resource->type . '.index') }}">
+                                <div class="menu-item">
+                                <span class="text-xl">
+                                    <i class="fa-solid {{ $resource->icon ? $resource->icon : 'fa-circle' }}"></i>
+                                </span>
+                                    <span>{{ !empty($resource->plural) ? $resource->plural : $resource->name }}</span>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
+
                     <li id="menu-item-29-2VewETdxAb" class="menu-item-divider"></li>
                     <li class="menu-collapse">
                         <a href="{{ route('certification.index') }}">

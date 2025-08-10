@@ -47,10 +47,10 @@
                                     {{ shortDate($course->completed) }}
                                 </td>
                                 <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $course->professional ])
+                                    @include('front.components.checkmark', [ 'checked' => $course->professional ])
                                 </td>
                                 <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $course->personal ])
+                                    @include('front.components.checkmark', [ 'checked' => $course->personal ])
                                 </td>
                                 <td>{{ $course->academy }}</td>
                                 <td>{{ $course->instructor }}</td>

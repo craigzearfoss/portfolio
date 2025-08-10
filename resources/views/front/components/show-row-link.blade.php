@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-2 text-nowrap"><strong>{{ $name ?? '#name#' }}</strong>:</div>
         <div class="col-10 pl-0">
-            @include('admin.components.link', [
+            @include('front.components.link', [
                 'url'    => $url ?? '#',
                 'name'   => $label ?? ($url ?? '#'),
                 'target' => $target ?? ''

@@ -20,6 +20,7 @@ Route::get('/art', [ArtController::class, 'index'])->name('art.index');
 Route::get('/art/{slug}', [ArtController::class, 'show'])->name('art.show');
 Route::get('/certifications', [CertificationController::class, 'index'])->name('certification.index');
 Route::get('/certification/{slug}', [CertificationController::class, 'show'])->name('certification.show');
+Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
 Route::get('/courses', [CourseController::class, 'index'])->name('course.index');
 Route::post('/course/{slug}', [CourseController::class, 'show'])->name('course.show');
 Route::get('/links', [LinkController::class, 'index'])->name('link.index');

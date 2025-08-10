@@ -24,6 +24,12 @@ class IndexController extends Controller
         return view('front.about', compact('title'));
     }
 
+    public function contact(): View
+    {
+        $title = 'Contact Us';
+        return view('front.contact', compact('title'));
+    }
+
     public function privacy_policy(): View
     {
         $title = 'Privacy Policy';

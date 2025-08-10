@@ -123,7 +123,7 @@ return new class extends Migration
                 'icon' => 'fa-chevron-circle-right',
                 'resource_database_id' => 3,
                 'sequence' => 10,
-                'public' => 1,
+                'public' => 0,
                 'disabled' => 0
             ],
             [
@@ -133,7 +133,7 @@ return new class extends Migration
                 'icon' => 'fa-phone',
                 'resource_database_id' => 3,
                 'sequence' => 11,
-                'public' => 1,
+                'public' => 0,
                 'disabled' => 0
             ],
             [
@@ -143,7 +143,7 @@ return new class extends Migration
                 'icon' => 'fa-industry',
                 'resource_database_id' => 3,
                 'sequence' => 12,
-                'public' => 1,
+                'public' => 0,
                 'disabled' => 0
             ],
             [
@@ -153,7 +153,7 @@ return new class extends Migration
                 'icon' => 'fa-address-book',
                 'resource_database_id' => 3,
                 'sequence' => 13,
-                'public' => 1,
+                'public' => 0,
                 'disabled' => 0
             ],
             [
@@ -163,7 +163,7 @@ return new class extends Migration
                 'icon' => 'fa-file-text',
                 'resource_database_id' => 3,
                 'sequence' => 14,
-                'public' => 1,
+                'public' => 0,
                 'disabled' => 0
             ],
             [
@@ -173,7 +173,7 @@ return new class extends Migration
                 'icon' => 'fa-sticky-note',
                 'resource_database_id' => 3,
                 'sequence' => 15,
-                'public' => 1,
+                'public' => 0,
                 'disabled' => 0
             ],
             [
@@ -183,7 +183,7 @@ return new class extends Migration
                 'icon' => 'fa-sticky-note',
                 'resource_database_id' => 3,
                 'sequence' => 16,
-                'public' => 1,
+                'public' => 0,
                 'disabled' => 0
             ],
             [
@@ -193,7 +193,7 @@ return new class extends Migration
                 'icon' => '',
                 'resource_database_id' => 3,
                 'sequence' => 17,
-                'public' => 1,
+                'public' => 0,
                 'disabled' => 0
             ],
             [
@@ -203,7 +203,7 @@ return new class extends Migration
                 'icon' => 'fa-file',
                 'resource_database_id' => 3,
                 'sequence' => 18,
-                'public' => 1,
+                'public' => 0,
                 'disabled' => 0
             ],
             [
@@ -213,7 +213,7 @@ return new class extends Migration
                 'icon' => 'fa-file',
                 'resource_database_id' => 3,
                 'sequence' => 19,
-                'public' => 1,
+                'public' => 0,
                 'disabled' => 0
             ],
         ];

@@ -1,17 +1,17 @@
-@extends('admin.layouts.default')
+@extends('front.layouts.default')
 
 @section('content')
 
     <div class="app-layout-modern flex flex-auto flex-col">
         <div class="flex flex-auto min-w-0">
 
-            @include('admin.components.nav-left')
+            @include('front.components.nav-left')
 
             <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
 
-                @include('admin.components.header')
+                @include('front.components.header')
 
-                @include('admin.components.popup')
+                @include('front.components.popup')
 
                 <div class="page-container relative h-full flex flex-auto flex-col">
                     <div class="h-full">
@@ -26,48 +26,48 @@
 
                                     <div class="row">
 
-                                        @include('admin.components.show-row', [
+                                        @include('front.components.show-row', [
                                             'name'  => 'name',
                                             'value' => $certification->name
                                         ])
 
-                                        @include('admin.components.show-row', [
+                                        @include('front.components.show-row', [
                                             'name'  => 'organization',
                                             'value' => $certification->organization
                                         ])
 
-                                        @include('admin.components.show-row', [
+                                        @include('front.components.show-row', [
                                             'name'  => 'received',
                                             'value' => longDate($certification->received)
                                         ])
 
-                                        @include('admin.components.show-row', [
+                                        @include('front.components.show-row', [
                                             'name'  => 'expiration',
                                             'value' => longDate($certification->expiration)
                                         ])
 
-                                        @include('admin.components.show-row', [
+                                        @include('front.components.show-row', [
                                             'name'  => 'year',
                                             'value' => $certification->year
                                         ])
 
-                                        @include('admin.components.show-row-checkbox', [
+                                        @include('front.components.show-row-checkbox', [
                                             'name'    => 'professional',
                                             'checked' => $certification->professional
                                         ])
 
-                                        @include('admin.components.show-row-checkbox', [
+                                        @include('front.components.show-row-checkbox', [
                                             'name'    => 'personal',
                                             'checked' => $certification->personal
                                         ])
 
-                                        @include('admin.components.show-row-link', [
+                                        @include('front.components.show-row-link', [
                                             'name'   => 'link',
                                             'url'    => $certification->link,
                                             'target' => '_blank'
                                         ])
 
-                                        @include('admin.components.show-row', [
+                                        @include('front.components.show-row', [
                                             'name'  => 'description',
                                             'value' => $certification->description
                                         ])
@@ -79,7 +79,7 @@
                         </div>
                     </div>
 
-                    @include('admin.components.footer')
+                    @include('front.components.footer')
 
                 </div>
             </div>
