@@ -15,14 +15,14 @@
 
                 <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
 
-                    <h3 class="card-header">Certificates</h3>
+                    <h3 class="card-header">Certifications</h3>
 
                     <div class="d-grid gap-2 d-md-flex justify-between">
                         <div>
                             @include('admin.components.messages', [$errors])
                         </div>
                         <div>
-                            <a class="btn btn-solid btn-sm" href="{{ route('admin.certificate.create') }}"><i class="fa fa-plus"></i> Add New Certificate</a>
+                            <a class="btn btn-solid btn-sm" href="{{ route('admin.certification.create') }}"><i class="fa fa-plus"></i> Add New Certification</a>
                         </div>
                     </div>
 
@@ -45,35 +45,35 @@
 
                         <tbody>
 
-                        @forelse ($certificates as $certificate)
+                        @forelse ($certifications as $certification)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $certificate->name }}</td>
-                                <td>{{ $certificate->organization }}</td>
+                                <td>{{ $certification->name }}</td>
+                                <td>{{ $certification->organization }}</td>
                                 <td class="text-nowrap">
-                                    {{ shortDate($certificate->received) }}
+                                    {{ shortDate($certification->received) }}
                                 </td>
                                 <td class="text-nowrap">
-                                    {{ shortDate($certificate->expiration) }}
+                                    {{ shortDate($certification->expiration) }}
                                 </td>
                                 <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $certificate->professional ])
+                                    @include('admin.components.checkmark', [ 'checked' => $certification->professional ])
                                 </td>
                                 <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $certificate->personal ])
+                                    @include('admin.components.checkmark', [ 'checked' => $certification->personal ])
                                 </td>
-                                <td>{!! $certificate->description !!}</td>
+                                <td>{!! $certification->description !!}</td>
 
                                 <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $certificate->public ])
+                                    @include('admin.components.checkmark', [ 'checked' => $certification->public ])
                                 </td>
                                 <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $certificate->disabled ])
+                                    @include('admin.components.checkmark', [ 'checked' => $certification->disabled ])
                                 </td>
                                 <td class="text-nowrap">
-                                    <form action="{{ route('admin.certificate.destroy', $certificate->id) }}" method="POST">
-                                        <a class="btn btn-sm" href="{{ route('admin.certificate.show', $certificate->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                        <a class="btn btn-sm" href="{{ route('admin.certificate.edit', $certificate->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
+                                    <form action="{{ route('admin.certification.destroy', $certification->id) }}" method="POST">
+                                        <a class="btn btn-sm" href="{{ route('admin.certification.show', $certification->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                        <a class="btn btn-sm" href="{{ route('admin.certification.edit', $certification->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
@@ -82,14 +82,14 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="11">There are no certificates.</td>
+                                <td colspan="11">There are no certifications.</td>
                             </tr>
                         @endforelse
 
                         </tbody>
                     </table>
 
-                    {!! $certificates->links() !!}
+                    {!! $certifications->links() !!}
 
                     @include('admin.components.footer')
 

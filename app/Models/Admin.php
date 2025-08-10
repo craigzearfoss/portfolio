@@ -46,11 +46,11 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the certificates for the admin.
+     * Get the certifications for the admin.
      */
-    public function certificates(): HasMany
+    public function certifications(): HasMany
     {
-        return $this->hasMany(\App\Models\Portfolio\Certificate::class);
+        return $this->hasMany(\App\Models\Portfolio\Certification::class);
     }
 
     /**

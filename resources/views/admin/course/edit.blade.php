@@ -16,7 +16,7 @@
 
                 <div class="page-container relative h-full flex flex-auto flex-col">
                     <div class="h-full">
-                        <h3 class="card-header ml-3">Edit Certificate</h3>
+                        <h3 class="card-header ml-3">Edit Course</h3>
                         <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
                             <div class="card min-w-[320px] md:min-w-[450px] card-shadow" role="presentation">
                                 <div class="card-body md:p-5">
@@ -34,10 +34,10 @@
 
                                                 <div>
                                                     <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.certificate.show', $certificate) }}"><i
+                                                       href="{{ route('admin.course.show', $course) }}"><i
                                                             class="fa fa-list"></i> Show</a>
                                                     <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.certificate.index') }}"><i
+                                                       href="{{ route('admin.course.index') }}"><i
                                                             class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
@@ -46,7 +46,7 @@
                                         </div>
                                         <div class="form-container">
 
-                                            <form action="{{ route('admin.certificate.update', $certificate) }}"
+                                            <form action="{{ route('admin.course.update', $course) }}"
                                                   method="POST">
                                                 @csrf
                                                 @method('PUT')
@@ -58,7 +58,7 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'name',
-                                                    'value'     => old('name') ?? $certificate->name,
+                                                    'value'     => old('name') ?? $course->name,
                                                     'required'  => true,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
@@ -66,7 +66,7 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'slug',
-                                                    'value'     => old('slug') ?? $certificate->slug,
+                                                    'value'     => old('slug') ?? $course->slug,
                                                     'required'  => true,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
@@ -74,7 +74,7 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'organization',
-                                                    'value'     => old('organization') ?? $certificate->organization,
+                                                    'value'     => old('organization') ?? $course->organization,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -82,7 +82,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'      => 'number',
                                                     'name'      => 'year',
-                                                    'value'     => old('year') ?? $certificate->year,
+                                                    'value'     => old('year') ?? $course->year,
                                                     'min'       => 2000,
                                                     'max'       => date('Y'),
                                                     'message'   => $message ?? '',
@@ -91,7 +91,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'      => 'date',
                                                     'name'      => 'received',
-                                                    'value'     => old('received') ?? $certificate->received,
+                                                    'value'     => old('received') ?? $course->received,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -99,7 +99,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'      => 'date',
                                                     'name'      => 'expiration',
-                                                    'value'     => old('expiration') ?? $certificate->expiration,
+                                                    'value'     => old('expiration') ?? $course->expiration,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -108,7 +108,7 @@
                                                     'name'            => 'professional',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('professional') ?? $certificate->professional,
+                                                    'checked'         => old('professional') ?? $course->professional,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -116,13 +116,13 @@
                                                     'name'            => 'personal',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('personal') ?? $certificate->personal,
+                                                    'checked'         => old('personal') ?? $course->personal,
                                                     'message'         => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'link',
-                                                    'value'     => old('link') ?? $certificate->link,
+                                                    'value'     => old('link') ?? $course->link,
                                                     'required'  => true,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
@@ -132,7 +132,7 @@
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'description',
                                                     'id'      => 'inputEditor',
-                                                    'value'   => old('description') ?? $certificate->description,
+                                                    'value'   => old('description') ?? $course->description,
                                                     'message' => $message ?? '',
                                                 ])
 
@@ -164,13 +164,13 @@
                                                     'name'            => 'disabled',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('disabled') ?? $certificate->disabled,
+                                                    'checked'         => old('disabled') ?? $course->disabled,
                                                     'message'         => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
                                                     'label'      => 'Save',
-                                                    'cancel_url' => route('admin.certificate.index')
+                                                    'cancel_url' => route('admin.course.index')
                                                 ])
 
                                             </form>

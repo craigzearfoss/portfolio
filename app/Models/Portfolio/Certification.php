@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Certificate extends Model
+class Certification extends Model
 {
-    /** @use HasFactory<\Database\Factories\Portfolio\CertificateFactory> */
+    /** @use HasFactory<\Database\Factories\Portfolio\CertificationFactory> */
     use HasFactory, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 
-    protected $table = 'certificates';
+    protected $table = 'certifications';
 
     /**
      * The attributes that are mass assignable.
@@ -40,7 +40,7 @@ class Certificate extends Model
     ];
 
     /**
-     * Get the admin who owns the certificate.
+     * Get the admin who owns the certification.
      */
     public function admin(): BelongsTo
     {

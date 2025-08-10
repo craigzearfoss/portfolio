@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController as AdminAdminController;
 use App\Http\Controllers\Admin\CareerApplicationController as AdminApplicationController;
-use App\Http\Controllers\Admin\PortfolioCertificateController as AdminCertificateController;
+use App\Http\Controllers\Admin\PortfolioCertificationController as AdminCertificateController;
 use App\Http\Controllers\Admin\CareerCommunicationController as AdminCommunicationController;
 use App\Http\Controllers\Admin\CareerCompanyController as AdminCompanyController;
 use App\Http\Controllers\Admin\CareerContactController as AdminContactController;

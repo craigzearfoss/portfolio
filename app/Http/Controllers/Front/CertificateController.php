@@ -3,25 +3,25 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\Models\Portfolio\Certificate;
+use App\Models\Portfolio\Certification;
 use Illuminate\View\View;
 
-class CertificateController extends Controller
+class CertificationController extends Controller
 {
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the certificate.
+     * Display a listing of the certification.
      */
     public function index(): View
     {
-        $certificates = Certificate::where('public', 1)
+        $certifications = Certification::where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence', 'asc')
             ->paginate(self::NUM_PER_PAGE);
 
-        $title = 'Certificates';
-        return view('front.certificate.index', compact('certificates', 'title'))
+        $title = 'Certifications';
+        return view('front.certification.index', compact('certifications', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 }

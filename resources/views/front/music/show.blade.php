@@ -15,56 +15,41 @@
 
                 <div class="page-container relative h-full flex flex-auto flex-col">
                     <div class="h-full">
-                        <h3 class="card-header ml-3">Show Reference</h3>
+                        <h3 class="card-header ml-3">Show Music</h3>
                         <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
                             <div class="card min-w-[320px] md:min-w-[450px] max-w-[800px] card-shadow" role="presentation">
                                 <div class="card-body md:p-5">
 
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.reference.edit', $reference) }}"><i class="fa fa-pen-to-square"></i> Edit</a>
-                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.reference.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+                                        <a class="btn btn-solid btn-sm" href="{{ route('music.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                     </div>
 
                                     <div class="row">
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'name',
-                                            'value' => $reference->name
-                                        ])
-
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'slug',
-                                            'value' => $reference->slug
+                                            'value' => $music->name
                                         ])
 
                                         @include('admin.components.show-row-checkbox', [
-                                            'name'    => 'public',
-                                            'checked' => $reference->public
+                                            'name'    => 'professional',
+                                            'checked' => $music->professional
                                         ])
 
                                         @include('admin.components.show-row-checkbox', [
-                                            'name'    => 'disabled',
-                                            'checked' => $reference->disabled
+                                            'name'    => 'personal',
+                                            'checked' => $music->personal
+                                        ])
+
+                                        @include('admin.components.show-row-link', [
+                                            'name'   => 'link',
+                                            'url'    => $music->link,
+                                            'target' => '_blank'
                                         ])
 
                                         @include('admin.components.show-row', [
-                                            'name'  => 'owner',
-                                            'value' => $reference->admin['username'] ?? ''
-                                        ])
-
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'created at',
-                                            'value' => longDateTime($reference->created_at)
-                                        ])
-
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'updated at',
-                                            'value' => longDateTime($reference->updated_at)
-                                        ])
-
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'deleted at',
-                                            'value' => longDateTime($reference->deleted_at)
+                                            'name'  => 'description',
+                                            'value' => $music->description
                                         ])
 
                                     </div>

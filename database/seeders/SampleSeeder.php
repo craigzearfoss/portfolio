@@ -24,9 +24,17 @@ class SampleSeeder extends Seeder
             ])
             ->create();
 
-        echo 'Portfolio/Certificate' . PHP_EOL;
-        \App\Models\Portfolio\Certificate::factory()
+        echo 'Portfolio/Certification' . PHP_EOL;
+        \App\Models\Portfolio\Certification::factory()
             ->count(41)
+            ->sequence(fn ($sequence) => [
+                'sequence' => $sequence->index + 1
+            ])
+            ->create();
+
+        echo 'Portfolio/Course' . PHP_EOL;
+        \App\Models\Portfolio\Course::factory()
+            ->count(34)
             ->sequence(fn ($sequence) => [
                 'sequence' => $sequence->index + 1
             ])

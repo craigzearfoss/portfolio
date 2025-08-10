@@ -15,82 +15,96 @@
 
                 <div class="page-container relative h-full flex flex-auto flex-col">
                     <div class="h-full">
-                        <h3 class="card-header ml-3">Show Resume</h3>
+                        <h3 class="card-header ml-3">Show Course</h3>
                         <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
                             <div class="card min-w-[320px] md:min-w-[450px] max-w-[800px] card-shadow" role="presentation">
                                 <div class="card-body md:p-5">
 
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.resume.edit', $resume) }}"><i class="fa fa-pen-to-square"></i> Edit</a>
-                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.resume.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.course.edit', $course) }}"><i class="fa fa-pen-to-square"></i> Edit</a>
+                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.course.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                     </div>
 
                                     <div class="row">
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'name',
-                                            'value' => $resume->name
+                                            'value' => $course->name
                                         ])
 
                                         @include('admin.components.show-row', [
-                                            'name'  => 'slug',
-                                            'value' => $resume->slug
+                                            'name'  => 'name',
+                                            'value' => $course->slug
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'professional',
+                                            'checked' => $course->professional
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'personal',
+                                            'checked' => $course->personal
                                         ])
 
                                         @include('admin.components.show-row', [
-                                            'name'  => 'date',
-                                            'value' => longDate($resume->date)
+                                            'name'  => 'completed',
+                                            'value' => longDate($course->completed)
                                         ])
 
-                                        @include('admin.components.show-row-link', [
-                                            'name'   => 'link',
-                                            'url'    => $resume->link,
-                                            'target' => 'blank'
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'academy',
+                                            'value' => $course->academy
                                         ])
 
-                                        @include('admin.components.show-row-link', [
-                                            'name'   => 'alt link',
-                                            'url'    => $resume->alt_link,
-                                            'target' => 'blank'
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'website',
+                                            'value' => $course->website
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'instructor',
+                                            'value' => $course->instructor
                                         ])
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'description',
-                                            'value' => $resume->description
+                                            'value' => $course->description
                                         ])
-                                        @include('admin.components.show-row-checkbox', [
-                                            'name'    => 'primary',
-                                            'checked' => $resume->primary
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'sequence',
+                                            'value' => $course->sequence
                                         ])
 
                                         @include('admin.components.show-row-checkbox', [
                                             'name'    => 'public',
-                                            'checked' => $resume->public
+                                            'checked' => $course->public
                                         ])
 
                                         @include('admin.components.show-row-checkbox', [
                                             'name'    => 'disabled',
-                                            'checked' => $resume->disabled
+                                            'checked' => $course->disabled
                                         ])
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'owner',
-                                            'value' => $resume->admin['username'] ?? ''
+                                            'value' => $course->admin['username'] ?? ''
                                         ])
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'created at',
-                                            'value' => longDateTime($resume->created_at)
+                                            'value' => longDateTime($course->created_at)
                                         ])
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'updated at',
-                                            'value' => longDateTime($resume->updated_at)
+                                            'value' => longDateTime($course->updated_at)
                                         ])
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'deleted at',
-                                            'value' => longDateTime($resume->deleted_at)
+                                            'value' => longDateTime($course->deleted_at)
                                         ])
 
                                     </div>

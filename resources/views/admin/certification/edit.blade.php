@@ -16,7 +16,7 @@
 
                 <div class="page-container relative h-full flex flex-auto flex-col">
                     <div class="h-full">
-                        <h3 class="card-header ml-3">Add Certificate</h3>
+                        <h3 class="card-header ml-3">Edit Certification</h3>
                         <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
                             <div class="card min-w-[320px] md:min-w-[450px] card-shadow" role="presentation">
                                 <div class="card-body md:p-5">
@@ -34,7 +34,10 @@
 
                                                 <div>
                                                     <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.certificate.index') }}"><i
+                                                       href="{{ route('admin.certification.show', $certification) }}"><i
+                                                            class="fa fa-list"></i> Show</a>
+                                                    <a class="btn btn-sm btn-solid"
+                                                       href="{{ route('admin.certification.index') }}"><i
                                                             class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
@@ -43,17 +46,19 @@
                                         </div>
                                         <div class="form-container">
 
-                                            <form action="{{ route('admin.certificate.store') }}" method="POST">
+                                            <form action="{{ route('admin.certification.update', $certification) }}"
+                                                  method="POST">
                                                 @csrf
+                                                @method('PUT')
 
                                                 @include('admin.components.form-hidden', [
-                                                    'name'  => Auth::guard('admin')->user()->id,
+                                                    'name'  => old('admin_id') ?? Auth::guard('admin')->user()->id,
                                                     'value' => '0',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'name',
-                                                    'value'     => old('name'),
+                                                    'value'     => old('name') ?? $certification->name,
                                                     'required'  => true,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
@@ -61,7 +66,7 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'slug',
-                                                    'value'     => old('slug'),
+                                                    'value'     => old('slug') ?? $certification->slug,
                                                     'required'  => true,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
@@ -69,7 +74,7 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'organization',
-                                                    'value'     => old('organization'),
+                                                    'value'     => old('organization') ?? $certification->organization,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -77,7 +82,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'      => 'number',
                                                     'name'      => 'year',
-                                                    'value'     => old('year') ?? date('Y'),
+                                                    'value'     => old('year') ?? $certification->year,
                                                     'min'       => 2000,
                                                     'max'       => date('Y'),
                                                     'message'   => $message ?? '',
@@ -86,7 +91,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'      => 'date',
                                                     'name'      => 'received',
-                                                    'value'     => old('received'),
+                                                    'value'     => old('received') ?? $certification->received,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -94,7 +99,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'      => 'date',
                                                     'name'      => 'expiration',
-                                                    'value'     => old('expiration'),
+                                                    'value'     => old('expiration') ?? $certification->expiration,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -103,7 +108,7 @@
                                                     'name'            => 'professional',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('professional'),
+                                                    'checked'         => old('professional') ?? $certification->professional,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -111,13 +116,13 @@
                                                     'name'            => 'personal',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('personal'),
+                                                    'checked'         => old('personal') ?? $certification->personal,
                                                     'message'         => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'link',
-                                                    'value'     => old('link'),
+                                                    'value'     => old('link') ?? $certification->link,
                                                     'required'  => true,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
@@ -127,14 +132,14 @@
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'description',
                                                     'id'      => 'inputEditor',
-                                                    'value'   => old('description'),
+                                                    'value'   => old('description') ?? $certification->description,
                                                     'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('seq') ?? '0',
+                                                    'value'       => old('sequence'),
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])
@@ -155,9 +160,17 @@
                                                     'message'         => $message ?? '',
                                                 ])
 
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'disabled',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('disabled') ?? $certification->disabled,
+                                                    'message'         => $message ?? '',
+                                                ])
+
                                                 @include('admin.components.form-button-submit', [
                                                     'label'      => 'Save',
-                                                    'cancel_url' => route('admin.certificate.index')
+                                                    'cancel_url' => route('admin.certification.index')
                                                 ])
 
                                             </form>

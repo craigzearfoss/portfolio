@@ -5,14 +5,14 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class PortfolioCertificateStoreRequest extends FormRequest
+class PortfolioCourseUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return false;
     }
 
     /**
@@ -22,17 +22,17 @@ class PortfolioCertificateStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return[
-            'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.certificates,name', 'filled'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.certificates,slug', 'filled'],
-            'organization' => ['string', 'max:255', 'nullable'],
-            'year'         => ['integer', 'between:0,3000', 'nullable'],
-            'received'     => ['date', 'nullable'],
-            'expiration'   => ['date', 'nullable'],
+        return [
+            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'         => ['string', 'max:255', 'nullable', 'unique:portfolio_db.courses,name,'.$this->course->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.courses,slug,'.$this->course->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
-            'link'         => ['string', 'max:255', 'nullable'],
+            'completed'    => ['date', 'nullable'],
+            'academy'      => ['string', 'max:255', 'nullable'],
+            'website'      => ['string', 'max:255', 'nullable'],
+            'instructor'   => ['string', 'max:255', 'nullable'],
+            'sponsor'      => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],

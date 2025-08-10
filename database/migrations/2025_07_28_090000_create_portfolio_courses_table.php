@@ -11,21 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('portfolio_db')->create('certificates', function (Blueprint $table) {
+        Schema::connection('portfolio_db')->create('courses', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\Admin::class)->default(1);
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('organization')->nullable();
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
-            $table->year('year')->nullable();
-            $table->date('received')->nullable();
-            $table->date('expiration')->nullable();
-            $table->string('link')->nullable();
+            $table->date('completed')->nullable();
+            $table->string('academy')->nullable();
+            $table->string('website')->nullable();
+            $table->string('instructor')->nullable();
+            $table->string('sponsor')->nullable();
             $table->text('description')->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(0);
+            $table->tinyInteger('public')->default(1);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
             $table->softDeletes();
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('portfolio_db')->dropIfExists('certificates');
+        Schema::connection('portfolio_db')->dropIfExists('courses');
     }
 };

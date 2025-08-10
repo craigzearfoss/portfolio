@@ -110,9 +110,9 @@ return new class extends Migration
             });
         }
 
-        if (Schema::connection('portfolio_db')->hasTable('certificates')) {
-            Schema::connection('portfolio_db')->table('certificates', function (Blueprint $table) {
-                $table->dropForeign('certificates_admin_id_foreign');
+        if (Schema::connection('portfolio_db')->hasTable('certifications')) {
+            Schema::connection('portfolio_db')->table('certifications', function (Blueprint $table) {
+                $table->dropForeign('certifications_admin_id_foreign');
                 $table->dropColumn('admin_id');
             });
         }

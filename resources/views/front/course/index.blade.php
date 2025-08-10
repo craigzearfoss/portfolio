@@ -15,7 +15,7 @@
 
                 <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
 
-                    <h3 class="card-header">Certificates</h3>
+                    <h3 class="card-header">Courses</h3>
 
                     <div class="d-grid gap-2 d-md-flex justify-between">
                         <div>
@@ -28,56 +28,46 @@
                         <tr>
                             <th></th>
                             <th>name</th>
-                            <th>organization</th>
-                            <th>received</th>
-                            <th>expiration</th>
-                            <th>professional</th>
-                            <th>personal</th>
-                            <th>description</th>
+                            <th>completed</th>
+                            <th class="text-center">professional</th>
+                            <th class="text-center">personal</th>
+                            <th>academy</th>
+                            <th>instructor</th>
                             <th>actions</th>
                         </tr>
                         </thead>
 
                         <tbody>
 
-                        @forelse ($certificates as $certificate)
+                        @forelse ($courses as $course)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td>{{ $certificate->name }}</td>
-                                <td>{{ $certificate->organization }}</td>
-                                <td class="text-nowrap">
-                                    {{ shortDate($certificate->received) }}
-                                </td>
-                                <td class="text-nowrap">
-                                    {{ shortDate($certificate->expiration) }}
+                                <td>{{ $course->name }}</td>
+                                <td>
+                                    {{ shortDate($course->completed) }}
                                 </td>
                                 <td class="text-center">
-                                    @include('front.components.checkmark', [ 'checked' => $certificate->professional ])
+                                    @include('admin.components.checkmark', [ 'checked' => $course->professional ])
                                 </td>
                                 <td class="text-center">
-                                    @include('front.components.checkmark', [ 'checked' => $certificate->personal ])
+                                    @include('admin.components.checkmark', [ 'checked' => $course->personal ])
                                 </td>
-                                <td>{!! $certificate->description !!}</td>
+                                <td>{{ $course->academy }}</td>
+                                <td>{{ $course->instructor }}</td>
                                 <td class="text-nowrap">
-                                    <a class="btn btn-sm" href="{{ route('art.show', $certificate->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                    @if ($certificate->link)
-                                        <a class="btn btn-sm" href="{{ $certificate->link }}" target="_blank">
-                                            <i class="fa-solid fa-external-link"></i>{{-- Download--}}
-                                        </a>
-                                    @endif
+                                    <a class="btn btn-sm" href="{{ route('art.show', $course->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
                                 </td>
-
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="9">There are no certificates.</td>
+                                <td colspan="11">There are no courses.</td>
                             </tr>
                         @endforelse
 
                         </tbody>
                     </table>
 
-                    {!! $certificates->links() !!}
+                    {!! $courses->links() !!}
 
                     @include('front.components.footer')
 

@@ -34,12 +34,12 @@
 
                     <li id="menu-item-portfolio" class="menu-item-divider"></li>
                     <li class="menu-collapse">
-                        <a href="{{ route('admin.certificate.index') }}">
+                        <a href="{{ route('admin.certification.index') }}">
                             <div class="menu-item">
                                 <span class="text-xl">
-                                    <i class="fa-solid fa-certificate"></i>
+                                    <i class="fa-solid fa-certification"></i>
                                 </span>
-                                <span>Certificates</span>
+                                <span>Certifications</span>
                             </div>
                         </a>
                     </li>

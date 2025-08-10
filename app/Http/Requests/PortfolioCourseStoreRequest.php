@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PortfolioCertificateUpdateRequest extends FormRequest
+class PortfolioCourseStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,16 +22,16 @@ class PortfolioCertificateUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'     => ['integer', 'exists:admins,id'],
-            'name'         => ['string', 'max:255', 'unique:portfolio_db.certificates,name,'.$this->certificate->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.certificates,slug,'.$this->certificate->id, 'filled'],
-            'organization' => ['string', 'max:255', 'nullable'],
-            'year'         => ['integer', 'between:0,3000', 'nullable'],
-            'received'     => ['date', 'nullable'],
-            'expiration'   => ['date', 'nullable'],
+            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.courses,name', 'filled'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.courses,slug', 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
-            'link'         => ['string', 'max:255', 'nullable'],
+            'completed'    => ['date', 'nullable'],
+            'academy'      => ['string', 'max:255', 'nullable'],
+            'website'      => ['string', 'max:255', 'nullable'],
+            'instructor'   => ['string', 'max:255', 'nullable'],
+            'sponsor'      => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],
