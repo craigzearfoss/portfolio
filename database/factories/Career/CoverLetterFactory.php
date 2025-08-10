@@ -18,8 +18,8 @@ class CoverLetterFactory extends Factory
     {
         return [
             'admin_id'     => \App\Models\Admin::all()->random()->id,
-            'name'         => fake()->sentence(6),
-            'slug'         => fake()->slug(6),
+            'name'         => fake()->unique()->sentence(6),
+            'slug'         => fake()->unique()->slug(6),
             'recipient'    => fake()->name(),
             'date'         => fake()->date(),
             'link'         => fake()->url(),

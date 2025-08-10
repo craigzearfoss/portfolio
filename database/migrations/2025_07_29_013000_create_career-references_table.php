@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::connection('career_db')->create('references', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\Admin::class)->default(1);
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->tinyInteger('sequence')->default(0);
+            $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(1);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();

@@ -26,6 +26,8 @@ class Job extends Model
         'admin_id',
         'name',
         'slug',
+        'link',
+        'description',
         'sequence',
         'public',
         'disabled',

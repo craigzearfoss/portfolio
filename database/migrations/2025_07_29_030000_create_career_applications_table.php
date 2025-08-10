@@ -44,7 +44,7 @@ return new class extends Migration
             $table->string('emails')->nullable();
             $table->string('website')->nullable();
             $table->text('description')->nullable();
-            $table->tinyInteger('sequence')->default(0);
+            $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(1);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();

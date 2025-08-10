@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('property', 50);
             $table->string('title', 100);
-            $table->tinyInteger('sequence')->default(0);
+            $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('disabled')->default(0);
         });

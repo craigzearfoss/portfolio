@@ -12,6 +12,10 @@ class Music extends Model
     /** @use HasFactory<\Database\Factories\Portfolio\MusicFactory> */
     use HasFactory;
 
+    protected $connection = 'portfolio_db';
+
+    protected $table = 'music';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +27,8 @@ class Music extends Model
         'slug',
         'professional',
         'personal',
+        'link',
+        'description',
         'sequence',
         'public',
         'disabled',

@@ -12,6 +12,10 @@ class Reference extends Model
     /** @use HasFactory<\Database\Factories\Career\ReferenceFactory> */
     use HasFactory;
 
+    protected $connection = 'career_db';
+
+    protected $table = 'references';
+
     /**
      * The attributes that are mass assignable.
      *

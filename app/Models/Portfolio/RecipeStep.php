@@ -9,4 +9,8 @@ class RecipeStep extends Model
 {
     /** @use HasFactory<\Database\Factories\Portfolio\RecipeStepFactory> */
     use HasFactory;
+
+    protected $connection = 'portfolio_db';
+
+    protected $table = 'recipe_steps';
 }

@@ -33,7 +33,7 @@
                                         ])
 
                                         @include('admin.components.show-row', [
-                                            'name'  => 'name',
+                                            'name'  => 'slug',
                                             'value' => $link->slug
                                         ])
 

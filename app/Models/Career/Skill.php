@@ -26,6 +26,7 @@ class Skill extends Model
         'admin_id',
         'name',
         'slug',
+        'description',
         'sequence',
         'public',
         'disabled',

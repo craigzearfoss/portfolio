@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::connection('portfolio_db')->create('videos', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\Admin::class)->default(1);
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('link')->nullable();
             $table->text('description')->nullable();
-            $table->tinyInteger('sequence')->default(0);
+            $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();

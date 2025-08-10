@@ -12,6 +12,10 @@ class Recipe extends Model
     /** @use HasFactory<\Database\Factories\Portfolio\RecipeFactory> */
     use HasFactory;
 
+    protected $connection = 'portfolio_db';
+
+    protected $table = 'recipes';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +27,8 @@ class Recipe extends Model
         'slug',
         'professional',
         'personal',
+        'link',
+        'description',
         'sequence',
         'public',
         'disabled',

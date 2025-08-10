@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::connection('portfolio_db')->create('readings', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\Admin::class)->default(1);
-            $table->string('title');
+            $table->string('title')->unique();
             $table->string('slug')->unique();
             $table->string('author')->nullable();
             $table->tinyInteger('professional')->default(1);
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
             $table->text('notes')->nullable();
-            $table->tinyInteger('sequence')->default(0);
+            $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();

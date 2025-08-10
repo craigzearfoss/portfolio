@@ -32,7 +32,7 @@
                                         ])
 
                                         @include('admin.components.show-row', [
-                                            'name'  => 'name',
+                                            'name'  => 'slug',
                                             'value' => $coverLetter->slug
                                         ])
 

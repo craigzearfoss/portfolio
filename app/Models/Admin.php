@@ -86,6 +86,14 @@ class Admin extends Authenticatable
     }
 
     /**
+     * Get the jobs for the admin.
+     */
+    public function jobs(): HasMany
+    {
+        return $this->hasMany(\App\Models\Career\Job::class);
+    }
+
+    /**
      * Get the links for the admin.
      */
     public function links(): HasMany
@@ -120,7 +128,7 @@ class Admin extends Authenticatable
     /**
      * Get the readings for the admin.
      */
-    public function reading(): HasMany
+    public function readings(): HasMany
     {
         return $this->hasMany(\App\Models\Portfolio\Reading::class);
     }
@@ -147,6 +155,14 @@ class Admin extends Authenticatable
     public function resumes(): HasMany
     {
         return $this->hasMany(\App\Models\Career\Resume::class);
+    }
+
+    /**
+     * Get the skills for the admin.
+     */
+    public function skills(): HasMany
+    {
+        return $this->hasMany(\App\Models\Career\Skill::class);
     }
 
     /**

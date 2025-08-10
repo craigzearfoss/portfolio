@@ -12,6 +12,10 @@ class Art extends Model
     /** @use HasFactory<\Database\Factories\Portfolio\ArtFactory> */
     use HasFactory;
 
+    protected $connection = 'portfolio_db';
+
+    protected $table = 'art';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +27,8 @@ class Art extends Model
         'slug',
         'professional',
         'personal',
+        'link',
+        'description',
         'sequence',
         'public',
         'disabled',

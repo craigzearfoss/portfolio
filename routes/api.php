@@ -1,20 +1,20 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController as AdminAdminController;
-use App\Http\Controllers\Admin\ApplicationController as AdminApplicationController;
-use App\Http\Controllers\Admin\CertificateController as AdminCertificateController;
-use App\Http\Controllers\Admin\CommunicationController as AdminCommunicationController;
-use App\Http\Controllers\Admin\CompanyController as AdminCompanyController;
-use App\Http\Controllers\Admin\ContactController as AdminContactController;
-use App\Http\Controllers\Admin\CoverLetterController as AdminCoverLetterController;
+use App\Http\Controllers\Admin\CareerApplicationController as AdminApplicationController;
+use App\Http\Controllers\Admin\PortfolioCertificateController as AdminCertificateController;
+use App\Http\Controllers\Admin\CareerCommunicationController as AdminCommunicationController;
+use App\Http\Controllers\Admin\CareerCompanyController as AdminCompanyController;
+use App\Http\Controllers\Admin\CareerContactController as AdminContactController;
+use App\Http\Controllers\Admin\CareerCoverLetterController as AdminCoverLetterController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
-use App\Http\Controllers\Admin\LinkController as AdminLinkController;
-use App\Http\Controllers\Admin\NoteController as AdminNoteController;
-use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
-use App\Http\Controllers\Admin\ReadingController as AdminReadingController;
-use App\Http\Controllers\Admin\ResumeController as AdminResumeController;
+use App\Http\Controllers\Admin\PortfolioLinkController as AdminLinkController;
+use App\Http\Controllers\Admin\CareerNoteController as AdminNoteController;
+use App\Http\Controllers\Admin\PortfolioProjectController as AdminProjectController;
+use App\Http\Controllers\Admin\PortfolioReadingController as AdminReadingController;
+use App\Http\Controllers\Admin\CareerResumeController as AdminResumeController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
-use App\Http\Controllers\Admin\VideoController as AdminVideoController;
+use App\Http\Controllers\Admin\PortfolioVideoController as AdminVideoController;
 use App\Http\Controllers\Front\FrontendController;
 use App\Http\Controllers\Front\CertificateController as FrontCertificateController;
 use App\Http\Controllers\Front\LinkController as FrontLinkController;

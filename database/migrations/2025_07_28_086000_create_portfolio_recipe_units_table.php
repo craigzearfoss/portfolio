@@ -14,10 +14,10 @@ return new class extends Migration
     {
         Schema::connection('portfolio_db')->create('recipe_units', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->string('abbreviation', 10);
+            $table->string('name', 50)->unique();
+            $table->string('abbreviation', 10)->unique();
             $table->string('system', 10);
-            $table->tinyInteger('sequence')->default(0);
+            $table->integer('sequence')->default(0);
         });
 
         $data = [

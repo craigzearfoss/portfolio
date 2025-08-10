@@ -17,12 +17,13 @@ class SkillFactory extends Factory
     public function definition(): array
     {
         return [
-            'admin_id' => \App\Models\Admin::all()->random()->id,
-            'name'     => fake()->sentence(6),
-            'slug'     => fake()->slug(6),
-            'sequence' => 0,
-            'public'   => fake()->numberBetween(0, 1),
-            'disabled' => fake()->numberBetween(0, 1),
+            'admin_id'    => \App\Models\Admin::all()->random()->id,
+            'name'        => fake()->unique()->word(),
+            'slug'        => fake()->unique()->word(),
+            'description' => fake()->text(200),
+            'sequence'    => 0,
+            'public'      => fake()->numberBetween(0, 1),
+            'disabled'    => fake()->numberBetween(0, 1),
         ];
     }
 }

@@ -10,6 +10,10 @@ class Ingredient extends Model
     /** @use HasFactory<\Database\Factories\Portfolio\IngredientFactory> */
     use HasFactory;
 
+    protected $connection = 'portfolio_db';
+
+    protected $table = 'ingedients';
+
     /**
      * The attributes that are mass assignable.
      *

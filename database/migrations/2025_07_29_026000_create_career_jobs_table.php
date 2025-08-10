@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::connection('career_db')->create('jobs', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\Admin::class)->default(1);
             $table->string('name');
             $table->string('slug')->unique();
-            $table->tinyInteger('sequence')->default(0);
+            $table->string('link')->nullable();
+            $table->text('description')->nullable();
+            $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(1);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jobs');
+        Schema::connection('career_db')->dropIfExists('jobs');
     }
 };

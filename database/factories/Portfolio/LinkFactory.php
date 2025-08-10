@@ -19,8 +19,8 @@ class LinkFactory extends Factory
     {
         return [
             'admin_id'     => \App\Models\Admin::all()->random()->id,
-            'name'         => fake()->sentence(6),
-            'slug'         => fake()->slug(6),
+            'name'         => fake()->unique()->sentence(6),
+            'slug'         => fake()->unique()->slug(6),
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
             'url'          => fake()->url(),

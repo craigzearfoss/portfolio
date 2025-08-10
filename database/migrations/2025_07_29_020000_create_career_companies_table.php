@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('alt_email_label', 255)->nullable();
             $table->string('website')->nullable();
             $table->text('description')->nullable();
-            $table->tinyInteger('sequence')->default(0);
+            $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(1);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();

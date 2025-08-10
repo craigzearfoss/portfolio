@@ -15,7 +15,7 @@ class Note extends Model
 
     protected $connection = 'career_db';
 
-    protected $table = 'communications';
+    protected $table = 'notes';
 
     /**
      * The attributes that are mass assignable.

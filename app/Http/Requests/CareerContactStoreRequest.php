@@ -24,7 +24,7 @@ class CareerContactStoreRequest extends FormRequest
     {
         return [
             'admin_id'        => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'            => ['required', 'string', 'max:255', 'required', 'unique:career_db.contacts,name', 'filled'],
+            'name'            => ['required', 'string', 'max:255', 'unique:career_db.contacts,name', 'filled'],
             'slug'            => ['required', 'string', 'max:255', 'unique:portfolio_db.contacts,slug', 'filled'],
             'title'           => ['string', 'max:100', 'nullable'],
             'street'          => ['string', 'max:255', 'nullable'],

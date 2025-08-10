@@ -18,8 +18,8 @@ class CompanyFactory extends Factory
     {
         return [
             'admin_id'        => \App\Models\Admin::all()->random()->id,
-            'name'            => fake()->company(),
-            'slug'            => fake()->slug(6),
+            'name'            => fake()->unique()->company(),
+            'slug'            => fake()->unique()->slug(6),
             'industry_id'     => fake()->randomElement(\App\Models\Career\Industry::all()->pluck('id')->toArray()),
             'street'          => fake()->streetAddress(),
             'street2'         => null,

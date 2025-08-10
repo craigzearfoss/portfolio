@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('plural', 50);
             $table->string('icon', 50)->nullable();
             $table->foreignIdFor(\App\Models\ResourceDatabase::class);
-            $table->tinyInteger('sequence')->default(0);
+            $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(1);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
@@ -157,12 +157,22 @@ return new class extends Migration
                 'disabled' => 0
             ],
             [
+                'type' => 'job',
+                'name' => 'Job',
+                'plural' => 'Jobs',
+                'icon' => 'fa-sticky-note',
+                'resource_database_id' => 3,
+                'sequence' => 13,
+                'public' => 1,
+                'disabled' => 0
+            ],
+            [
                 'type' => 'note',
                 'name' => 'Note',
                 'plural' => 'Notes',
                 'icon' => 'fa-sticky-note',
                 'resource_database_id' => 3,
-                'sequence' => 13,
+                'sequence' => 14,
                 'public' => 1,
                 'disabled' => 0
             ],
@@ -172,7 +182,7 @@ return new class extends Migration
                 'plural' => 'References',
                 'icon' => '',
                 'resource_database_id' => 3,
-                'sequence' => 14,
+                'sequence' => 15,
                 'public' => 1,
                 'disabled' => 0
             ],
@@ -182,7 +192,17 @@ return new class extends Migration
                 'plural' => 'Resumes',
                 'icon' => 'fa-file',
                 'resource_database_id' => 3,
-                'sequence' => 15,
+                'sequence' => 16,
+                'public' => 1,
+                'disabled' => 0
+            ],
+            [
+                'type' => 'skill',
+                'name' => 'Skill',
+                'plural' => 'Skills',
+                'icon' => 'fa-file',
+                'resource_database_id' => 3,
+                'sequence' => 16,
                 'public' => 1,
                 'disabled' => 0
             ],

@@ -18,8 +18,8 @@ class ContactFactory extends Factory
     {
         return [
             'admin_id'        => \App\Models\Admin::all()->random()->id,
-            'name'            => fake()->name(),
-            'slug'            => fake()->slug(6),
+            'name'            => fake()->unique()->name(),
+            'slug'            => fake()->unique()->slug(6),
             'title'           => fake()->jobTitle(),
             'street'          => fake()->streetAddress(),
             'street2'         => null,
