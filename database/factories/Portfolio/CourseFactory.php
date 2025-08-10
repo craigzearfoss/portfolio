@@ -25,7 +25,7 @@ class CourseFactory extends Factory
             'completed'    => fake()->date(),
             'academy'      => fake()->randomElement(\App\Models\Portfolio\Course::academyListOptions()),
             'website'      => fake()->domainName(),
-            'sponsor'      => fake()->companyName(),
+            'sponsor'      => fake()->company(),
             'instructor'   => fake()->name(),
             'description'  => fake()->text(200),
             'sequence'     => 0,
