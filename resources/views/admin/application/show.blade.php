@@ -178,6 +178,16 @@
                                             'value' => $application->description
                                         ])
 
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'public',
+                                            'checked' => $application->public
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'disabled',
+                                            'checked' => $application->disabled
+                                        ])
+
                                         @include('admin.components.show-row', [
                                             'name'  => 'owner',
                                             'value' => $application->admin['username'] ?? ''

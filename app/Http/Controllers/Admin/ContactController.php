@@ -79,7 +79,7 @@ class ContactController extends Controller
     {
         $contact->delete();
 
-        return redirect()->route('user.link.index')
+        return redirect()->route('admin.contact.index')
             ->with('success', 'Contact deleted successfully');
     }
 }

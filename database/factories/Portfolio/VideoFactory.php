@@ -19,8 +19,9 @@ class VideoFactory extends Factory
     public function definition(): array
     {
         return [
-            'admin_id' => \App\Models\Admin::all()->random()->id,
+            'admin_id'     => \App\Models\Admin::all()->random()->id,
             'name'         => fake()->sentence(6),
+            'slug'         => fake()->slug(6),
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
             'date'         => fake()->date(),

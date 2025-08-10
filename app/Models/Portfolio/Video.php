@@ -25,6 +25,7 @@ class Video extends Model
     protected $fillable = [
         'admin_id',
         'name',
+        'slug',
         'professional',
         'personal',
         'date',

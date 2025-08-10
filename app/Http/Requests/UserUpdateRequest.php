@@ -23,7 +23,7 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'              => ['string', 'min:6', 'max:255'],
+            'name'              => ['string', 'min:6', 'max:255', 'filled'],
             'title'             => ['string', 'max:100', 'nullable'],
             'street'            => ['string', 'max:255', 'nullable'],
             'street2'           => ['string', 'max:255', 'nullable'],
@@ -32,7 +32,7 @@ class UserUpdateRequest extends FormRequest
             'country'         => ['string', 'max:100', 'nullable'],
             'zip'               => ['string', 'max:20', 'nullable'],
             'phone'             => ['string', 'max:20', 'nullable'],
-            'email'             => ['email', 'max:255', 'unique:users,email,'.$this->user->id],
+            'email'             => ['email', 'max:255', 'unique:users,email,'.$this->user->id, 'filled'],
             //'email_verified_at' => ['nullable'],
             'website'           => ['string', 'max:255', 'nullable'],
             'password'          => ['string', 'min:8', 'max:255'],

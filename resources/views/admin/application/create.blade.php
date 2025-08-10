@@ -257,6 +257,30 @@
                                                     'message' => $message ?? '',
                                                 ])
 
+                                                @include('admin.components.form-input', [
+                                                    'type'        => 'number',
+                                                    'name'        => 'sequence',
+                                                    'value'       => old('sequence'),
+                                                    'min'         => 0,
+                                                    'message'     => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'public',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('public'),
+                                                    'message'         => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'disabled',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('disabled'),
+                                                    'message'         => $message ?? '',
+                                                ])
+
                                                 @include('admin.components.form-button-submit', [
                                                     'label'      => 'Add Application',
                                                     'cancel_url' => route('admin.application.index')

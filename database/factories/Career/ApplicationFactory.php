@@ -47,6 +47,9 @@ class ApplicationFactory extends Factory
             'emails'            => fake()->sentence(),
             'website'           => fake()->url(),
             'description'       => fake()->text(200),
+            'sequence'          => 0,
+            'public'            => fake()->numberBetween(0, 1),
+            'disabled'          => fake()->numberBetween(0, 1),
         ];
     }
 }

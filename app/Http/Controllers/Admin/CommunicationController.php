@@ -78,7 +78,7 @@ class CommunicationController extends Controller
     {
         $communication->delete();
 
-        return redirect()->route('user.link.index')
+        return redirect()->route('admin.communication.index')
             ->with('success', 'Communication deleted successfully');
     }
 }

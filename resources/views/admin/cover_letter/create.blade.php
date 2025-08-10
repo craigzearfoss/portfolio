@@ -60,6 +60,14 @@
                                                 ])
 
                                                 @include('admin.components.form-input', [
+                                                    'name'      => 'slug',
+                                                    'value'     => old('slug') ?? $video->slug,
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
                                                     'name'      => 'recipient',
                                                     'value'     => old('recipient'),
                                                     'required'  => true,
@@ -94,6 +102,22 @@
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
                                                     'checked'         => old('primary'),
+                                                    'message'         => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'type'        => 'number',
+                                                    'name'        => 'sequence',
+                                                    'value'       => old('sequence'),
+                                                    'min'         => 0,
+                                                    'message'     => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'public',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('public'),
                                                     'message'         => $message ?? '',
                                                 ])
 

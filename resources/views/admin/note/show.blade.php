@@ -37,6 +37,16 @@
                                             'value' => $note->body
                                         ])
 
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'public',
+                                            'checked' => $note->public
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'disabled',
+                                            'checked' => $note->disabled
+                                        ])
+
                                         @include('admin.components.show-row', [
                                             'name'  => 'owner',
                                             'value' => $note->admin['username'] ?? ''

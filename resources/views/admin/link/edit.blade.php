@@ -66,6 +66,14 @@
                                                     'message'   => $message ?? '',
                                                 ])
 
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'slug',
+                                                    'value'     => old('slug') ?? $link->slug,
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
                                                 @include('admin.components.form-checkbox', [
                                                     'name'            => 'professional',
                                                     'value'           => 1,

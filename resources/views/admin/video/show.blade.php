@@ -32,6 +32,11 @@
                                             'value' => $video->name
                                         ])
 
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'name',
+                                            'value' => $video->slug
+                                        ])
+
                                         @include('admin.components.show-row-checkbox', [
                                             'name'    => 'professional',
                                             'checked' => $video->professional

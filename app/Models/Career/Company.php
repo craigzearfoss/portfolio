@@ -27,6 +27,7 @@ class Company extends Model
         'admin_id',
         'industry_id',
         'name',
+        'slug',
         'street',
         'street2',
         'city',
@@ -42,6 +43,8 @@ class Company extends Model
         'alt_email_label',
         'website',
         'description',
+        'sequence',
+        'public',
         'disabled',
     ];
 

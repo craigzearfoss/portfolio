@@ -24,7 +24,8 @@ class PortfolioVideoUpdateRequest extends FormRequest
     {
         return [
             'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['string', 'min:1', 'max:255', 'unique:portfolio_db.videos,name,'.$this->video->id],
+            'name'         => ['string', 'max:255', 'unique:portfolio_db.videos,name,'.$this->video->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.videos,slug,'.$this->video->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'date'         => ['date', 'nullable'],

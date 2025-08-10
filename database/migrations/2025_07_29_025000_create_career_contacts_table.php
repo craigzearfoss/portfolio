@@ -15,9 +15,10 @@ return new class extends Migration
         Schema::connection('career_db')->create('contacts', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\Admin::class)->default(1);
-            $table->string('name')->unique();
-            $table->foreignId('company_id', Company::class)->nullable()->index();
+            $table->string('name');
+            $table->string('slug')->unique();
             $table->string('title', 100)->nullable();
+            $table->foreignId('company_id', Company::class)->nullable()->index();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();
@@ -34,6 +35,8 @@ return new class extends Migration
             $table->string('alt_email_label', 255)->nullable();
             $table->string('website')->nullable();
             $table->text('description')->nullable();
+            $table->tinyInteger('sequence')->default(0);
+            $table->tinyInteger('public')->default(1);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
             $table->softDeletes();

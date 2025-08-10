@@ -26,6 +26,7 @@ class Contact extends Model
     protected $fillable = [
         'admin_id',
         'name',
+        'slug',
         'title',
         'street',
         'street2',
@@ -42,6 +43,8 @@ class Contact extends Model
         'alt_email_label',
         'website',
         'description',
+        'sequence',
+        'public',
         'disabled',
     ];
 

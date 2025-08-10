@@ -22,10 +22,10 @@ class MessageStoreUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'    => ['string', 'min:1', 'max:255'],
-            'email'   => ['email', 'max:255'],
-            'subject' => ['string', 'max:255'],
-            'message' => [],
+            'name'    => ['string', 'min:1', 'max:255', 'filled'],
+            'email'   => ['email', 'max:255', 'filled'],
+            'subject' => ['string', 'max:255', 'filled'],
+            'message' => ['filled'],
         ];
     }
 }

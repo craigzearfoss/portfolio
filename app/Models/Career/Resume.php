@@ -25,11 +25,13 @@ class Resume extends Model
     protected $fillable = [
         'admin_id',
         'name',
+        'slug',
         'date',
         'link',
         'alt_link',
         'description',
         'primary',
+        'sequence',
         'public',
         'disabled',
     ];

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('username', 200)->unique();
             $table->string('name')->nullable(); // note that name is not required for admins
             $table->string('phone', 20)->nullable();
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('password');
             $table->string('token')->nullable();
             $table->tinyInteger('disabled')->default(0);

@@ -25,6 +25,7 @@ class Certificate extends Model
     protected $fillable = [
         'admin_id',
         'name',
+        'slug',
         'organization',
         'professional',
         'personal',

@@ -32,6 +32,11 @@
                                         ])
 
                                         @include('admin.components.show-row', [
+                                            'name'  => 'name',
+                                            'value' => $contact->slug
+                                        ])
+
+                                        @include('admin.components.show-row', [
                                             'name'  => 'title',
                                             'value' => $contact->title
                                         ])
@@ -95,6 +100,11 @@
                                         @include('admin.components.show-row', [
                                             'name'  => 'description',
                                             'value' => $contact->description
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'public',
+                                            'checked' => $contact->public
                                         ])
 
                                         @include('admin.components.show-row-checkbox', [

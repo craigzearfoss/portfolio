@@ -24,7 +24,8 @@ class PortfolioLinkUpdateRequest extends FormRequest
     {
         return [
             'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['string', 'min:1', 'max:255', 'nullable', 'unique:portfolio_db.links,name,'.$this->link->id],
+            'name'         => ['string', 'max:255', 'nullable', 'unique:portfolio_db.links,name,'.$this->link->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.links,slug,'.$this->link->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'url'          => ['string', 'max:255', 'required'],

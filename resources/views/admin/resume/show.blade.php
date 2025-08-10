@@ -33,6 +33,11 @@
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'name',
+                                            'value' => $resume->slug
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'name',
                                             'value' => longDate($resume->date)
                                         ])
 

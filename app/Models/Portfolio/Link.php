@@ -25,6 +25,7 @@ class Link extends Model
     protected $fillable = [
         'admin_id',
         'name',
+        'slug',
         'professional',
         'personal',
         'url',

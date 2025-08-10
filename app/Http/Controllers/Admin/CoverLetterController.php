@@ -79,7 +79,7 @@ class CoverLetterController extends Controller
     {
         $coverLetter->delete();
 
-        return redirect()->route('user.link.index')
+        return redirect()->route('admin.colver_letter.index')
             ->with('success', 'Cover letter deleted successfully');
     }
 }

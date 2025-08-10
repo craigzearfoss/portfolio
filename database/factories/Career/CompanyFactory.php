@@ -19,6 +19,7 @@ class CompanyFactory extends Factory
         return [
             'admin_id'        => \App\Models\Admin::all()->random()->id,
             'name'            => fake()->company(),
+            'slug'            => fake()->slug(6),
             'industry_id'     => fake()->randomElement(\App\Models\Career\Industry::all()->pluck('id')->toArray()),
             'street'          => fake()->streetAddress(),
             'street2'         => null,
@@ -36,6 +37,8 @@ class CompanyFactory extends Factory
             'alt_email_label' => fake()->randomElement(['home', 'mobile', 'work']),
             'website'         => fake()->url(),
             'description'     => fake()->text(200),
+            'sequence'        => 0,
+            'public'          => fake()->numberBetween(0, 1),
             'disabled'        => fake()->numberBetween(0, 1),
         ];
     }

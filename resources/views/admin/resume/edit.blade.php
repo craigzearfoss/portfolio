@@ -64,6 +64,14 @@
                                                 ])
 
                                                 @include('admin.components.form-input', [
+                                                    'name'      => 'slug',
+                                                    'value'     => old('slug') ?? $resume->slug,
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
                                                     'type'      => 'date',
                                                     'name'      => 'date',
                                                     'value'     => old('date') ?? $resume->date,
@@ -97,6 +105,14 @@
                                                     'unchecked_value' => 0,
                                                     'checked'         => old('primary') ?? $resume->primary,
                                                     'message'         => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'type'        => 'number',
+                                                    'name'        => 'sequence',
+                                                    'value'       => old('sequence') ?? $resume->sequence,
+                                                    'min'         => 0,
+                                                    'message'     => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-checkbox', [

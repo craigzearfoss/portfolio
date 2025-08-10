@@ -24,7 +24,8 @@ class PortfolioReadingUpdateRequest extends FormRequest
     {
         return [
             'admin_id'  => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'title'     => ['string', 'min:1', 'max:255', 'unique:portfolio_db.readings,name,'.$this->reading->id],
+            'title'     => ['string', 'max:255', 'unique:portfolio_db.readings,name,'.$this->reading->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.readings,slug,'.$this->reading->id, 'filled'],
             'author'    => ['string', 'max:255', 'nullable'],
             'paper'     => ['integer', 'between:0,1'],
             'audio'     => ['integer', 'between:0,1'],

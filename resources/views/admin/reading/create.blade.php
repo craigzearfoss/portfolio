@@ -60,6 +60,14 @@
                                                 ])
 
                                                 @include('admin.components.form-input', [
+                                                    'name'      => 'slug',
+                                                    'value'     => old('slug'),
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
                                                     'name'        => 'author',
                                                     'value'       => old('author'),
                                                     'required'    => true,

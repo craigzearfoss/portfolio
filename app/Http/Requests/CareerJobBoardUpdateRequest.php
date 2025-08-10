@@ -22,8 +22,8 @@ class CareerJobBoardUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'    => ['string', 'min:1', 'max:100', 'unique:career_db.job_boards,name,'.$this->job_board->id],
-            'website' => ['string', 'max:255'],
+            'name'    => ['string', 'max:100', 'unique:career_db.job_boards,name,'.$this->job_board->id, 'filled'],
+            'website' => ['string', 'max:255', 'nullable'],
         ];
     }
 }

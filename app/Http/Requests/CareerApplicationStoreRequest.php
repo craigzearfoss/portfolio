@@ -30,7 +30,7 @@ class CareerApplicationStoreRequest extends FormRequest
             'company_id'        => ['integer', 'in:' . implode(',', Company::all('id')->pluck('id')->toArray())],
             'cover_letter_id'   => ['integer', 'in:' . implode(',', CoverLetter::all('id')->pluck('id')->toArray())],
             'resume_id'         => ['integer', 'in:' . implode(',', Resume::all('id')->pluck('id')->toArray())],
-            'role'              => ['required', 'string', 'min:1', 'max:255', 'required'],
+            'role'              => ['required', 'string', 'max:255', 'filled'],
             'rating'            => ['integer', 'between:1,5'],
             'active'            => ['integer', 'between:0,1'],
             'post_date'         => ['date', 'nullable'],
@@ -56,6 +56,9 @@ class CareerApplicationStoreRequest extends FormRequest
             'emails'            => ['string', 'max:255', 'nullable'],
             'website'           => ['string', 'max:255', 'nullable'],
             'description'       => ['nullable'],
+            'sequence'          => ['integer', 'min:0'],
+            'public'            => ['integer', 'between:0,1'],
+            'disabled'          => ['integer', 'between:0,1'],
         ];
     }
 }

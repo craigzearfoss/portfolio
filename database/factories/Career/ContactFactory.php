@@ -19,6 +19,7 @@ class ContactFactory extends Factory
         return [
             'admin_id'        => \App\Models\Admin::all()->random()->id,
             'name'            => fake()->name(),
+            'slug'            => fake()->slug(6),
             'title'           => fake()->jobTitle(),
             'street'          => fake()->streetAddress(),
             'street2'         => null,
@@ -36,6 +37,8 @@ class ContactFactory extends Factory
             'alt_email_label' => fake()->randomElement(['home', 'mobile', 'work']),
             'website'         => fake()->url(),
             'description'     => fake()->text(200),
+            'sequence'        => 0,
+            'public'          => fake()->numberBetween(0, 1),
             'disabled'        => fake()->numberBetween(0, 1),
         ];
     }

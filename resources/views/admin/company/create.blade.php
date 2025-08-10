@@ -59,6 +59,14 @@
                                                     'message'   => $message ?? '',
                                                 ])
 
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'slug',
+                                                    'value'     => old('slug'),
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
                                                 @include('admin.components.form-select', [
                                                     'name'    => 'industry_id',
                                                     'label'   => 'industry',

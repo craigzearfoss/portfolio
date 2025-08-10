@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor( \App\Models\Admin::class)->default(1);
             $table->string('type', 50);
             $table->string('name', 50);
-            $table->string('plural', 50)->nullable();
+            $table->string('plural', 50);
             $table->string('icon', 50)->nullable();
             $table->foreignIdFor(\App\Models\ResourceDatabase::class);
             $table->tinyInteger('sequence')->default(0);

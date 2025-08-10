@@ -79,7 +79,7 @@ class CompanyController extends Controller
     {
         $company->delete();
 
-        return redirect()->route('user.link.index')
+        return redirect()->route('admin.company.index')
             ->with('success', 'Company deleted successfully');
     }
 }

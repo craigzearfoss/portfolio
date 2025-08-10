@@ -31,6 +31,11 @@
                                             'value' => $project->name
                                         ])
 
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'name',
+                                            'value' => $poject->slug
+                                        ])
+
                                         @include('admin.components.show-row-checkbox', [
                                             'name'    => 'professional',
                                             'checked' => $project->professional

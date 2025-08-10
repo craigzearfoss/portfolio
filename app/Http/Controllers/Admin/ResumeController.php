@@ -79,7 +79,7 @@ class ResumeController extends Controller
     {
         $resume->delete();
 
-        return redirect()->route('user.link.index')
+        return redirect()->route('admin.resume.index')
             ->with('success', 'Resume deleted successfully');
     }
 }

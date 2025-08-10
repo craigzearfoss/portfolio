@@ -23,8 +23,9 @@ class CareerContactUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'          => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'            => ['string', 'min:1', 'max:255', 'unique:career_db.contacts,name,'.$this->contact->id],
+            'admin_id'        => ['integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'            => ['string', 'max:255', 'unique:career_db.contacts,name,'.$this->contact->id, 'filled'],
+            'slug'            => ['string', 'max:255', 'unique:portfolio_db.contacts,slug,'.$this->contact->id, 'filled'],
             'title'           => ['string', 'max:100', 'nullable'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
@@ -42,6 +43,8 @@ class CareerContactUpdateRequest extends FormRequest
             'alt_email_label' => ['string', 'max:255', 'nullable'],
             'website'         => ['string', 'max:255', 'nullable'],
             'description'     => ['nullable'],
+            'sequence'        => ['integer', 'min:0'],
+            'public'          => ['integer', 'between:0,1'],
             'disabled'        => ['integer', 'between:0,1'],
         ];
     }

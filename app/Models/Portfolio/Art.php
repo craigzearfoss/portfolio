@@ -19,6 +19,13 @@ class Art extends Model
      */
     protected $fillable = [
         'admin_id',
+        'name',
+        'slug',
+        'professional',
+        'personal',
+        'sequence',
+        'public',
+        'disabled',
     ];
 
     /**

@@ -80,7 +80,7 @@ class ApplicationController extends Controller
     {
         $application->delete();
 
-        return redirect()->route('user.link.index')
+        return redirect()->route('admin.application.index')
             ->with('success', 'Application deleted successfully');
     }
 }

@@ -22,8 +22,9 @@ class PortfolioCertificateUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'     => ['required', 'integer', 'exists:admins,id'],
-            'name'         => ['string', 'min:1', 'max:255', 'unique:portfolio_db.certificates,name,'.$this->certificate->id],
+            'admin_id'     => ['integer', 'exists:admins,id'],
+            'name'         => ['string', 'max:255', 'unique:portfolio_db.certificates,name,'.$this->certificate->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.certificates,slug,'.$this->certificate->id, 'filled'],
             'organization' => ['string', 'max:255', 'nullable'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'received'     => ['date', 'nullable'],

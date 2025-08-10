@@ -80,7 +80,7 @@ class CertificateController extends Controller
     {
         $certificate->delete();
 
-        return redirect()->route('user.link.index')
+        return redirect()->route('admin.certificate.index')
             ->with('success', 'Certificate deleted successfully');
     }
 }

@@ -20,6 +20,9 @@ class NoteFactory extends Factory
             'admin_id' => \App\Models\Admin::all()->random()->id,
             'subject'  => fake()->sentence(6),
             'body'     => fake()->text(200),
+            'sequence' => 0,
+            'public'   => fake()->numberBetween(0, 1),
+            'disabled' => fake()->numberBetween(0, 1),
         ];
     }
 }

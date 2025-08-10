@@ -32,6 +32,11 @@
                                         ])
 
                                         @include('admin.components.show-row', [
+                                            'name'  => 'name',
+                                            'value' => $coverLetter->slug
+                                        ])
+
+                                        @include('admin.components.show-row', [
                                             'name'  => 'recipient',
                                             'value' => $coverLetter->recipient
                                         ])
@@ -61,6 +66,11 @@
                                         @include('admin.components.show-row-checkbox', [
                                             'name'    => 'primary',
                                             'checked' => $coverLetter->primary
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'public',
+                                            'checked' => $coverLetter->public
                                         ])
 
                                         @include('admin.components.show-row-checkbox', [

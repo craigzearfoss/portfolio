@@ -37,6 +37,16 @@
                                             'value' => $communication->body
                                         ])
 
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'public',
+                                            'checked' => $communication->public
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'disabled',
+                                            'checked' => $communication->disabled
+                                        ])
+
                                         @include('admin.components.show-row', [
                                             'name'  => 'owner',
                                             'value' => $communication->admin['username'] ?? ''
@@ -57,7 +67,7 @@
                                             'value' => longDateTime($communication->deleted_at)
                                         ])
 
-                                        </div>
+                                    </div>
 
                                 </div>
                             </div>

@@ -32,6 +32,11 @@
                                             'value' => $link->name
                                         ])
 
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'name',
+                                            'value' => $link->slug
+                                        ])
+
                                         @include('admin.components.show-row-checkbox', [
                                             'name'    => 'professional',
                                             'checked' => $link->professional

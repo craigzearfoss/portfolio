@@ -25,6 +25,9 @@ class Reading extends Model
     protected $fillable = [
         'admin_id',
         'title',
+        'slug',
+        'professional',
+        'personal',
         'author',
         'paper',
         'audio',

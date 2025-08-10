@@ -18,6 +18,9 @@ return new class extends Migration
             $table->foreignId('application_id', Application::class)->nullable();
             $table->string('subject');
             $table->text('body');
+            $table->tinyInteger('sequence')->default(0);
+            $table->tinyInteger('public')->default(1);
+            $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

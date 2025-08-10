@@ -32,13 +32,13 @@
                                         ])
 
                                         @include('admin.components.show-row', [
-                                            'name'  => 'organization',
-                                            'value' => $certificate->organization
+                                            'name'  => 'name',
+                                            'value' => $certificate->slug
                                         ])
 
                                         @include('admin.components.show-row', [
-                                            'name'  => 'year',
-                                            'value' => $certificate->year
+                                            'name'  => 'organization',
+                                            'value' => $certificate->organization
                                         ])
 
                                         @include('admin.components.show-row', [
@@ -49,6 +49,11 @@
                                         @include('admin.components.show-row', [
                                             'name'  => 'expiration',
                                             'value' => longDate($certificate->expiration)
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'year',
+                                            'value' => $certificate->year
                                         ])
 
                                         @include('admin.components.show-row-checkbox', [

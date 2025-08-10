@@ -65,6 +65,14 @@
                                                 ])
 
                                                 @include('admin.components.form-input', [
+                                                    'name'      => 'slug',
+                                                    'value'     => old('slug') ?? $certificate->slug,
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
                                                     'name'      => 'organization',
                                                     'value'     => old('organization') ?? $certificate->organization,
                                                     'maxlength' => 255,
@@ -131,7 +139,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('seq') ?? $certificate->seq,
+                                                    'value'       => old('sequence'),
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])
@@ -140,7 +148,15 @@
                                                     'name'            => 'public',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('public') ?? $certificate->public,
+                                                    'checked'         => old('public'),
+                                                    'message'         => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'disabled',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('disabled'),
                                                     'message'         => $message ?? '',
                                                 ])
 

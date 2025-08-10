@@ -26,6 +26,9 @@ class Note extends Model
         'admin_id',
         'subject',
         'body',
+        'sequence',
+        'public',
+        'disabled',
     ];
 
     /**

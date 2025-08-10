@@ -22,8 +22,8 @@ class CareerJobBoardStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'    => ['required', 'string', 'min:1', 'max:100', 'unique:career_db.job_boards,name'],
-            'website' => ['string', 'max:255'],
+            'name'    => ['required', 'string', 'max:100', 'unique:career_db.job_boards,name', 'filled'],
+            'website' => ['string', 'max:255', 'nullable'],
         ];
     }
 }

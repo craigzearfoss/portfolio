@@ -82,6 +82,9 @@ class Application extends Model
         'website',
         'description',
         'apply_date',
+        'sequence',
+        'public',
+        'disabled',
     ];
 
     /**

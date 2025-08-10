@@ -24,7 +24,8 @@ class CareerCompanyStoreRequest extends FormRequest
     {
         return [
             'admin_id'        => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'            => ['required', 'string', 'min:1', 'max:255', 'required', 'unique:career_db.companies,name'],
+            'name'            => ['required', 'string', 'max:255', 'required', 'unique:career_db.companies,name', 'filled'],
+            'slug'            => ['required', 'string', 'max:255', 'unique:portfolio_db.companies,slug', 'filled'],
             'industry_id'     => ['integer', 'max:100'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
@@ -42,6 +43,8 @@ class CareerCompanyStoreRequest extends FormRequest
             'alt_email_label' => ['string', 'max:255', 'nullable'],
             'website'         => ['string', 'max:255', 'nullable'],
             'description'     => ['nullable'],
+            'sequence'        => ['integer', 'min:0'],
+            'public'          => ['integer', 'between:0,1'],
             'disabled'        => ['integer', 'between:0,1'],
         ];
     }

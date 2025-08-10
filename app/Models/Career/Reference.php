@@ -19,6 +19,11 @@ class Reference extends Model
      */
     protected $fillable = [
         'admin_id',
+        'name',
+        'slug',
+        'sequence',
+        'public',
+        'disabled',
     ];
 
 

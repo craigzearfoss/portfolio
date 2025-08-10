@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor( \App\Models\Admin::class)->default(1);
             $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->foreignIdFor(Industry::class);
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
@@ -33,6 +34,8 @@ return new class extends Migration
             $table->string('alt_email_label', 255)->nullable();
             $table->string('website')->nullable();
             $table->text('description')->nullable();
+            $table->tinyInteger('sequence')->default(0);
+            $table->tinyInteger('public')->default(1);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
             $table->softDeletes();

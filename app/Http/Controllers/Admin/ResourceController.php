@@ -79,7 +79,7 @@ class ResourceController extends Controller
     {
         $resource->delete();
 
-        return redirect()->route('user.link.index')
+        return redirect()->route('admin.resource.index')
             ->with('success', 'Resource deleted successfully');
     }
 }

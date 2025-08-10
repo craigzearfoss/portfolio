@@ -78,7 +78,7 @@ class NoteController extends Controller
     {
         $note->delete();
 
-        return redirect()->route('user.link.index')
+        return redirect()->route('admin.note.index')
             ->with('success', 'Note deleted successfully');
     }
 }

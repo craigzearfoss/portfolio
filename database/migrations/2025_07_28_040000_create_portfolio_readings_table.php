@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::connection('portfolio_db')->create('readings', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\Admin::class)->default(1);
-            $table->string('title')->unique();
+            $table->string('title');
+            $table->string('slug')->unique();
             $table->string('author')->nullable();
+            $table->tinyInteger('professional')->default(1);
+            $table->tinyInteger('personal')->default(0);
             $table->tinyInteger('paper')->default(1);
             $table->tinyInteger('audio')->default(0);
             $table->tinyInteger('wishlist')->default(0);

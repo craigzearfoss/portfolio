@@ -24,8 +24,11 @@ class CareerCommunicationUpdateRequest extends FormRequest
     {
         return [
             'admin_id' => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'subject'  => ['string', 'min:1', 'max:255', 'unique:career_db.communications,name,'.$this->communication->id],
-            'body'     => [],
+            'subject'  => ['string', 'min:1', 'max:255', 'filled'],
+            'body'     => ['filled'],
+            'sequence' => ['integer', 'min:0'],
+            'public'   => ['integer', 'between:0,1'],
+            'disabled' => ['integer', 'between:0,1'],
         ];
     }
 }

@@ -25,12 +25,15 @@ class CoverLetter extends Model
     protected $fillable = [
         'admin_id',
         'name',
+        'slug',
         'recipient',
         'date',
         'link',
         'alt_link',
         'description',
         'primary',
+        'sequence',
+        'public',
         'disabled',
     ];
 

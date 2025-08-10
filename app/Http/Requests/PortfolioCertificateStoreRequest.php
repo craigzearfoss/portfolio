@@ -24,7 +24,8 @@ class PortfolioCertificateStoreRequest extends FormRequest
     {
         return[
             'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['required', 'string', 'min:1', 'max:255', 'required', 'unique:portfolio_db.certificates,name'],
+            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.certificates,name', 'filled'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.certificates,slug', 'filled'],
             'organization' => ['string', 'max:255', 'nullable'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'received'     => ['date', 'nullable'],

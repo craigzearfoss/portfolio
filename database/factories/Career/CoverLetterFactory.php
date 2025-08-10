@@ -19,12 +19,15 @@ class CoverLetterFactory extends Factory
         return [
             'admin_id'     => \App\Models\Admin::all()->random()->id,
             'name'         => fake()->sentence(6),
+            'slug'         => fake()->slug(6),
             'recipient'    => fake()->name(),
             'date'         => fake()->date(),
             'link'         => fake()->url(),
             'alt_link'     => fake()->url(),
             'description'  => fake()->text(200),
             'primary'      => fake()->numberBetween(0, 1),
+            'sequence'     => 0,
+            'public'       => fake()->numberBetween(0, 1),
             'disabled'     => fake()->numberBetween(0, 1),
         ];
     }

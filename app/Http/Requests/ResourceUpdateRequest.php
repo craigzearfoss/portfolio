@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ResourceUpdateRequest extends FormRequest
 {
@@ -22,14 +23,15 @@ class ResourceUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type'                 => ['string', 'max:50'],
-            'name'                 => ['string', 'max:50'],
-            'resource_database_id' => ['string', 'max:50'],
+            'admin_id'             => ['integer', 'in:' . Auth::guard('admin')->user()->id],
+            'type'                 => ['string', 'max:50', 'filled'],
+            'name'                 => ['string', 'max:50', 'filled'],
+            'plural'               => ['string', 'max:50', 'filled'],
+            'icon'                 => ['string', 'max:50', 'nullable'],
+            'resource_database_id' => ['string', 'max:50', 'filled'],
             'sequence'             => ['integer', 'min:0'],
             'public'               => ['integer', 'between:0,1'],
             'disabled'             => ['integer', 'between:0,1'],
-
-            'name1'         => ['string', 'max:50', 'unique:portfolio_db.videos,name,'.$this->video->id],
         ];
     }
 }

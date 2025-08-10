@@ -32,8 +32,23 @@
                                         ])
 
                                         @include('admin.components.show-row', [
+                                            'name'  => 'name',
+                                            'value' => $reading->slug
+                                        ])
+
+                                        @include('admin.components.show-row', [
                                             'name'  => 'author',
                                             'value' => $reading->author
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'professional',
+                                            'checked' => $reading->professional
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'personal',
+                                            'checked' => $reading->personal
                                         ])
 
                                         @include('admin.components.show-row-checkbox', [

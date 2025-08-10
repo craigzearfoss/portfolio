@@ -78,7 +78,7 @@ class VideoController extends Controller
     {
         $video->delete();
 
-        return redirect()->route('user.link.index')
+        return redirect()->route('admin.video.index')
             ->with('success', 'Video deleted successfully');
     }
 }
