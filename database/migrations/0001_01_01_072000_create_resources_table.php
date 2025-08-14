@@ -236,6 +236,28 @@ return new class extends Migration
                 'public' => 0,
                 'disabled' => 0
             ],
+            [
+                'type' => 'user',
+                'name' => 'User',
+                'plural' => 'Users',
+                'section' => 'System',
+                'icon' => 'fa-user',
+                'resource_database_id' => 1,
+                'sequence' => 20,
+                'public' => 0,
+                'disabled' => 0
+            ],
+            [
+                'type' => 'admin',
+                'name' => 'Admin',
+                'plural' => 'Admins',
+                'section' => 'System',
+                'icon' => 'fa-user-plus',
+                'resource_database_id' => 1,
+                'sequence' => 21,
+                'public' => 0,
+                'disabled' => 0
+            ],
         ];
         Resource::insert($data);
     }
