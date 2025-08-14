@@ -95,9 +95,8 @@ class Application extends Model
         return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
     }
 
-
     /**
-     * Get the company who owns the application.
+     * Get the company that owns the application.
      */
     public function company(): BelongsTo
     {
@@ -105,7 +104,7 @@ class Application extends Model
     }
 
     /**
-     * Get the cover letter who owns the application.
+     * Get the cover_letter that owns the application.
      */
     public function coverLetter(): BelongsTo
     {
@@ -113,7 +112,7 @@ class Application extends Model
     }
 
     /**
-     * Get the cover letter who owns the application.
+     * Get the cover_letter that owns the application.
      */
     public function resume(): BelongsTo
     {

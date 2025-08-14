@@ -21,7 +21,7 @@
 
                             </div>
                             <div>
-                                <form action="{{ route('login_submit') }}" method="POST">
+                                <form action="{{ route('user.login_submit') }}" method="POST">
                                     @csrf
                                     <div class="form-container vertical">
                                         <div class="form-item vertical mb-3">
@@ -46,12 +46,12 @@
                                             </div>
                                         </div>
                                         <div class="flex justify-between mb-3">
-                                            <a class="text-primary-600 hover:underline" href="{{ route('forgot_password') }}">Forgot Password?</a>
+                                            <a class="text-primary-600 hover:underline" href="{{ route('user.forgot_password') }}">Forgot Password?</a>
                                         </div>
                                         <button class="btn btn-solid w-full" type="submit">Login</button>
                                         <div class="mt-4 text-center">
                                             <span>Don't have an account yet?</span>
-                                            <a class="text-primary-600 hover:underline" href="{{ route('register') }}">Register</a>
+                                            <a class="text-primary-600 hover:underline" href="{{ route('user.register') }}">Register</a>
                                         </div>
                                     </div>
                                 </form>

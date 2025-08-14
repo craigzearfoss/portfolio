@@ -59,7 +59,7 @@
                                 </td>
                                 <td>{!! $project->description !!}</td>
                                 <td>
-                                    <a class="btn btn-sm" href="{{ route('project.show', $project->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                    <a class="btn btn-sm" href="{{ route('front.project.show', $project->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
                                 </td>
                             </tr>
                         @empty

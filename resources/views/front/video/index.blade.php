@@ -65,7 +65,7 @@
                                 </td>
                                 <td>{!! $video->description !!}</td>
                                 <td>
-                                    <a class="btn btn-sm" href="{{ route('video.show', $video->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                    <a class="btn btn-sm" href="{{ route('front.video.show', $video->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
                                 </td>
                             </tr>
                         @empty

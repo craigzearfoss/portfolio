@@ -4,13 +4,13 @@
             @include('admin.components.copyright')
         @endif
         <div>
-            <a class="text-gray" href="{{ route('about') }}">About</a>
+            <a class="text-gray" href="{{ route('front.about') }}">About</a>
             <span class="mx-2 text-muted"> | </span>
-            <a class="text-gray" href="{{ route('terms_and_conditions') }}">Terms & Conditions</a>
+            <a class="text-gray" href="{{ route('front.terms_and_conditions') }}">Terms & Conditions</a>
             <span class="mx-2 text-muted"> | </span>
-            <a class="text-gray" href="{{ route('privacy_policy') }}">Privacy policy</a>
+            <a class="text-gray" href="{{ route('front.privacy_policy') }}">Privacy policy</a>
             <span class="mx-2 text-muted"> | </span>
-            <a class="text-gray" href="{{ route('contact') }}">Contact</a>
+            <a class="text-gray" href="{{ route('front.contact') }}">Contact</a>
         </div>
     </div>
 </footer>

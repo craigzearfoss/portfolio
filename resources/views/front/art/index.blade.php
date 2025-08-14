@@ -49,7 +49,7 @@
                                 </td>
                                 <td>{!! $art->description !!}</td>
                                 <td class="text-nowrap">
-                                    <a class="btn btn-sm" href="{{ route('art.show', $art->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                    <a class="btn btn-sm" href="{{ route('front.art.show', $art->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
                                     @if ($art->link)
                                         <a class="btn btn-sm" href="{{ $art->link }}" target="_blank">
                                             <i class="fa-solid fa-external-link"></i>{{-- Download--}}

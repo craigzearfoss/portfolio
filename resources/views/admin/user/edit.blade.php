@@ -25,20 +25,22 @@
 
                                             <div class="d-grid gap-2 d-md-flex justify-between">
 
-                                                <?php /* @include('admin.components.messages', [$errors]) */ ?>
+                                                @if (session('success'))
+                                                    @include('user.components.message-success', ['message'=> session('success')])
+                                                @endif
+
+                                                @if (session('error'))
+                                                    @include('user.components.message-success', ['message'=> session('danger')])
+                                                @endif
+
                                                 @if ($errors->any())
                                                     @include('admin.components.error-message', ['message'=>'Fix the indicated errors before saving.'])
-                                                @else
-                                                    <div></div>
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.user.show', $user) }}"><i
-                                                            class="fa fa-list"></i> Show</a>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.user.index') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.user.change_password', $user->id) }}"><i class="fa fa-key"></i> Change Password</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.user.show', $user) }}"><i class="fa fa-list"></i> Show</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.user.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>

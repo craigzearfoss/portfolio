@@ -53,10 +53,10 @@ class User extends Authenticatable
     ];
 
     const TITLES = [
-        'Miss',
         'Mr.',
-        'Mrs.',
         'Ms',
+        'Mrs.',
+        'Miss',
     ];
 
     /**

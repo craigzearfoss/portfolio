@@ -85,4 +85,23 @@ class UserController extends Controller
         return redirect()->route('admin.user.index')
             ->with('success', 'User deleted successfully');
     }
+
+    /**
+     * Display the change password page.
+     */
+    public function change_password(User $user): View
+    {
+        return view('admin.user.change_password', compact('user'));
+    }
+
+    /**
+     * Update the new password.
+     */
+    public function change_password_submit(UserUpdateRequest $request, User $user): RedirectResponse|View
+    {
+        $user->update($request->validated());
+
+        return redirect()->route('admin.user.show', $user)
+            ->with('success', 'User password updated successfully');
+    }
 }

@@ -49,7 +49,7 @@
                                 </td>
                                 <td>{!! $music->description !!}</td>
                                 <td class="text-nowrap">
-                                    <a class="btn btn-sm" href="{{ route('music.show', $music->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                    <a class="btn btn-sm" href="{{ route('front.music.show', $music->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
                                     @if ($music->link)
                                         <a class="btn btn-sm" href="{{ $music->link }}" target="_blank">
                                             <i class="fa-solid fa-external-link"></i>{{-- Download--}}

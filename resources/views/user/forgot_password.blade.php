@@ -21,7 +21,7 @@
 
                             </div>
                             <div>
-                                <form action="{{ route('forgot_password_submit') }}" method="POST">
+                                <form action="{{ route('user.forgot_password_submit') }}" method="POST">
                                     @csrf
                                     <div class="form-container vertical">
                                         <div class="form-item vertical">
@@ -30,7 +30,7 @@
                                         <button class="btn btn-solid w-full" type="submit">Send Email</button>
                                         <div class="mt-4 text-center">
                                             <span>Back to </span>
-                                            <a class="text-primary-600 hover:underline" href="{{ route('login') }}">Login</a>
+                                            <a class="text-primary-600 hover:underline" href="{{ route('user.login') }}">Login</a>
                                         </div>
                                     </div>
                                 </form>

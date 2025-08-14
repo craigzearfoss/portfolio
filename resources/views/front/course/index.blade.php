@@ -55,7 +55,7 @@
                                 <td>{{ $course->academy }}</td>
                                 <td>{{ $course->instructor }}</td>
                                 <td class="text-nowrap">
-                                    <a class="btn btn-sm" href="{{ route('art.show', $course->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                    <a class="btn btn-sm" href="{{ route('front.art.show', $course->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
                                 </td>
                             </tr>
                         @empty

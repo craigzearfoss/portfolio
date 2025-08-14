@@ -16,7 +16,7 @@
 
                 <div class="page-container relative h-full flex flex-auto flex-col">
                     <div class="h-full">
-                        <h3 class="card-header ml-3">Edit My Profile</h3>
+                        <h3 class="card-header ml-3">Change Password</h3>
                         <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
                             <div class="card min-w-[320px] md:min-w-[450px] card-shadow" role="presentation">
                                 <div class="card-body md:p-5">
@@ -25,7 +25,6 @@
 
                                             <div class="d-grid gap-2 d-md-flex justify-between">
 
-                                                <?php /* @include('user.components.messages', [$errors]) */ ?>
                                                 @if ($errors->any())
                                                     @include('user.components.error-message', ['message'=>'Fix the indicated errors before saving.'])
                                                 @else
@@ -33,8 +32,6 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid" href="{{ route('profile') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -42,29 +39,34 @@
                                         </div>
                                         <div class="form-container">
 
-                                            <form action="{{ route('profile.update') }}" method="POST">
+                                            <form action="{{ route('user.change_password_submit') }}" method="POST">
                                                 @csrf
 
                                                 @include('user.components.form-input', [
-                                                    'name'      => 'name',
-                                                    'value'     => old('name') ?? $user->name,
-                                                    'required'  => true,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
+                                                    'type'        => 'password',
+                                                    'name'        => 'password',
+                                                    'label'       => 'Password',
+                                                    'placeholder' => 'New password',
+                                                    'value'       => '',
+                                                    'required'    => true,
+                                                    'maxlength'   => 255,
+                                                    'message'     => $message ?? '',
                                                 ])
 
                                                 @include('user.components.form-input', [
-                                                    'type'      => 'email',
-                                                    'name'      => 'email',
-                                                    'value'     => old('email') ?? $user->email,
-                                                    'required'  => true,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
+                                                    'type'        => 'password',
+                                                    'name'        => 'confirm_password',
+                                                    'label'       => 'Confirm Password',
+                                                    'placeholder' => 'Confirm new password',
+                                                    'value'       => '',
+                                                    'required'    => true,
+                                                    'maxlength'   => 255,
+                                                    'message'     => $message ?? '',
                                                 ])
 
                                                 @include('user.components.form-button-submit', [
                                                     'label'      => 'Save',
-                                                    'cancel_url' => route('user.profile')
+                                                    'cancel_url' => route('user.show')
                                                 ])
 
                                             </form>

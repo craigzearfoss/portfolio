@@ -28,11 +28,16 @@
 
                                             <div class="d-grid gap-2 d-md-flex justify-between">
 
-                                                <?php /* @include('admin.components.messages', [$errors]) */ ?>
+                                                @if (session('success'))
+                                                    @include('admin.components.message-success', ['message'=> session('success')])
+                                                @endif
+
+                                                @if (session('error'))
+                                                    @include('admin.components.message-success', ['message'=> session('danger')])
+                                                @endif
+
                                                 @if ($errors->any())
                                                     @include('admin.components.error-message', ['message'=>'Fix the indicated errors before saving.'])
-                                                @else
-                                                    <div></div>
                                                 @endif
 
                                                 <div>

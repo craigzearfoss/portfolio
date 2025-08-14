@@ -49,7 +49,7 @@
                                 </td>
                                 <td>{!! $recipe->description !!}</td>
                                 <td class="text-nowrap">
-                                    <a class="btn btn-sm" href="{{ route('recipe.show', $recipe->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>                                    @if ($recipe->link)
+                                    <a class="btn btn-sm" href="{{ route('front.recipe.show', $recipe->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>                                    @if ($recipe->link)
                                         <a class="btn btn-sm" href="{{ $recipe->link }}" target="_blank">
                                             <i class="fa-solid fa-external-link"></i>{{-- Download--}}
                                         </a>

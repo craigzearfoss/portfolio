@@ -20,6 +20,10 @@
                             <div class="card min-w-[320px] md:min-w-[450px] max-w-[800px] card-shadow" role="presentation">
                                 <div class="card-body md:p-5">
 
+                                    <div>
+                                        @include('admin.components.messages', [$errors])
+                                    </div>
+
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                         <a class="btn btn-solid btn-sm" href="{{ route('admin.link.edit', $link) }}"><i class="fa fa-pen-to-square"></i> Edit</a>
                                         <a class="btn btn-solid btn-sm" href="{{ route('admin.link.index') }}"><i class="fa fa-arrow-left"></i> Back</a>

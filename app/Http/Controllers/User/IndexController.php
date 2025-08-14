@@ -50,7 +50,7 @@ class IndexController extends Controller
             ];
 
             if (Auth::guard('web')->attempt($data)) {
-                return redirect()->route('homepage');
+                return redirect()->route('front.homepage');
             } else {
                 $title = 'Login';
                 return view('user.login', compact('title'))->withErrors('Invalid login credentials. Please try again.');
@@ -67,7 +67,7 @@ class IndexController extends Controller
     {
         Auth::guard('web')->logout();
 
-        return redirect()->route('homepage')->with('error', 'User logout successful.');
+        return redirect()->route('front.homepage')->with('error', 'User logout successful.');
     }
 
     public function forgot_password(Request $request): RedirectResponse|View
@@ -87,7 +87,7 @@ class IndexController extends Controller
             $user->token = hash('sha256', time());
             $user->update();
 
-            $pResetLink = route('reset_password', ['token' => $user->token, 'email' => urlencode($email)]);
+            $pResetLink = route('user.reset_password', ['token' => $user->token, 'email' => urlencode($email)]);
             $subject = "Reset Password from " . config('app.name');
             $info = [
                 'user' => $user->name,
@@ -111,7 +111,7 @@ class IndexController extends Controller
     {
         $user = User::where('email', $email)->where('token', $token)->first();
         if (!$user) {
-            return redirect()->route('login')->with('error', 'Your reset password token is expired. Please try again.');
+            return redirect()->route('user.login')->with('error', 'Your reset password token is expired. Please try again.');
         } else {
             $title = 'Reset Password';
             return view('user.reset_password', compact('token', 'email', 'title'));
@@ -138,7 +138,7 @@ class IndexController extends Controller
         $user->token = null;
         $user->update();
 
-        return redirect()->route('login')->with('success', 'Your password has been changed. You can login
+        return redirect()->route('user.login')->with('success', 'Your password has been changed. You can login
         with your new password.');
     }
 
@@ -158,7 +158,7 @@ class IndexController extends Controller
 
             $user->save();
 
-            $verificationLink = route('email_verification', ['token' => $user->token, 'email' => urlencode($request->email)]);
+            $verificationLink = route('user.email_verification', ['token' => $user->token, 'email' => urlencode($request->email)]);
             $subject = "Email Verification from " . config('app.name');
             $info = [
                 'name' => $user->name,
@@ -182,7 +182,7 @@ class IndexController extends Controller
     {
         $user = User::where('email', $email)->where('token', $token)->first();
         if (!$user) {
-            return redirect()->route('login');
+            return redirect()->route('user.login');
         }
 
         $user->token = null;
@@ -192,49 +192,7 @@ class IndexController extends Controller
 
         $user->markEmailAsVerified();
 
-        return redirect()->route('login')->with('success', 'Your email has been verified. You can now login
+        return redirect()->route('user.login')->with('success', 'Your email has been verified. You can now login
         to your account.');
-    }
-
-    /**
-     * Display the current user.
-     */
-    public function profile(): View
-    {
-        $user = Auth::user();
-
-        $title = $user->name;
-        return view('user.profile', compact('user', 'title'));
-    }
-
-    /**
-     * Show the form for editing the current user.
-     */
-    public function profile_edit(): View
-    {
-        $user = Auth::user();
-
-        $title = 'Edit My Profile';
-        return view('user.profile-edit', compact('user', 'title'));
-    }
-
-    /**
-     * Update the current user in storage.
-     */
-    public function profile_update(Request $request): RedirectResponse
-    {
-        $user = Auth::user();
-
-        $request->validate([
-            'name'  => ['string', 'min:6', 'max:255'],
-            'email' => ['email', 'max:255', 'unique:users,email,'.$user->id],
-        ]);
-
-        $user->name  = $request->name;
-        $user->email = $request->email;
-        $user->save();
-
-        return redirect()->route('profile')
-            ->with('success', 'Profile updated successfully.');
     }
 }

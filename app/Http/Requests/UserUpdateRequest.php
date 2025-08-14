@@ -22,6 +22,8 @@ class UserUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $userId = $this->user->id ?? Auth::guard('web')->user()->id;
+
         return [
             'name'              => ['string', 'min:6', 'max:255', 'filled'],
             'title'             => ['string', 'max:100', 'nullable'],
@@ -29,10 +31,10 @@ class UserUpdateRequest extends FormRequest
             'street2'           => ['string', 'max:255', 'nullable'],
             'city'              => ['string', 'max:100', 'nullable'],
             'state'             => ['string', 'max:100', 'nullable'],
-            'country'         => ['string', 'max:100', 'nullable'],
+            'country'           => ['string', 'max:100', 'nullable'],
             'zip'               => ['string', 'max:20', 'nullable'],
             'phone'             => ['string', 'max:20', 'nullable'],
-            'email'             => ['email', 'max:255', 'unique:users,email,'.$this->user->id, 'filled'],
+            //'email'             => ['email', 'max:255', 'unique:users,email,'.$userId, 'filled'], // you can't update the email
             //'email_verified_at' => ['nullable'],
             'website'           => ['string', 'max:255', 'nullable'],
             'password'          => ['string', 'min:8', 'max:255'],

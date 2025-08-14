@@ -21,7 +21,7 @@
                                 <div class="card-body md:p-5">
 
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-solid btn-sm" href="{{ route('certification.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+                                        <a class="btn btn-solid btn-sm" href="{{ route('front.certification.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                     </div>
 
                                     <div class="row">

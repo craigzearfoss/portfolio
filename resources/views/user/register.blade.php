@@ -31,13 +31,13 @@
 
                                         <h4>We are not currently accepting new users.</h4>
                                         <p class="p-4">
-                                            <a class="btn btn-sm btn-solid" href="{{ route('homepage') }}"><i
+                                            <a class="btn btn-sm btn-solid" href="{{ route('front.homepage') }}"><i
                                                     class="fa fa-house"></i> Home</a>
                                         </p>
 
                                     @else
 
-                                        <form action="{{ route('register_submit') }}" method="POST">
+                                        <form action="{{ route('user.register_submit') }}" method="POST">
                                             @csrf
 
                                             @include('user.components.form-input', [
@@ -86,7 +86,7 @@
 
                                             <div class="mt-3 text-center">
                                                 <span>Already have an account?</span>
-                                                <a class="text-primary-600 hover:underline" href="{{ route('login') }}">Login</a>
+                                                <a class="text-primary-600 hover:underline" href="{{ route('user.login') }}">Login</a>
                                             </div>
 
                                         </form>

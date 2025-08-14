@@ -59,7 +59,7 @@
                                 </td>
                                 <td>{!! $certification->description !!}</td>
                                 <td class="text-nowrap">
-                                    <a class="btn btn-sm" href="{{ route('art.show', $certification->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                    <a class="btn btn-sm" href="{{ route('front.certification.show', $certification->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
                                     @if ($certification->link)
                                         <a class="btn btn-sm" href="{{ $certification->link }}" target="_blank">
                                             <i class="fa-solid fa-external-link"></i>{{-- Download--}}

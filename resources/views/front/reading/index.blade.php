@@ -49,7 +49,7 @@
                                     @include('front.components.checkmark', [ 'checked' => $reading->audio ])
                                 </td>
                                 <td>
-                                    <a class="btn btn-sm" href="{{ route('reading.show', $reading->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                    <a class="btn btn-sm" href="{{ route('front.reading.show', $reading->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
                                 </td>
                             </tr>
                         @empty
