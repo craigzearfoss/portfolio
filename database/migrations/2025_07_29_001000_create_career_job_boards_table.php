@@ -23,6 +23,7 @@ return new class extends Migration
             [ 'name' => 'iHireTechnology',  'website' => 'https://ihiretechnology.com/' ],
             [ 'name' => 'JobLeads',         'website' => 'https://jobleads.com/' ],
             [ 'name' => 'Jobright',         'website' => 'https://jobright.ai/' ],
+            [ 'name' => 'LaraJobs',         'website' => 'https://larajobs.com/' ],
             [ 'name' => 'Lensa',            'website' => 'https://lensa.com/' ],
             [ 'name' => 'LinkedIn',         'website' => 'https://linkedin.com/' ],
             [ 'name' => 'Monster',          'website' => 'https://monster.com/' ],
