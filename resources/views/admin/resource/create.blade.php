@@ -56,7 +56,7 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'type',
-                                                    'value'     => old('type'),
+                                                    'value'     => old('type') ?? '',
                                                     'required'  => true,
                                                     'maxlength' => 50,
                                                     'message'   => $message ?? '',
@@ -64,7 +64,28 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'name',
-                                                    'value'     => old('name'),
+                                                    'value'     => old('name') ?? '',
+                                                    'maxlength' => 50,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'plural',
+                                                    'value'     => old('plural') ?? '',
+                                                    'maxlength' => 50,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'section',
+                                                    'value'     => old('section') ?? '',
+                                                    'maxlength' => 50,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'icon',
+                                                    'value'     => old('icon') ?? '',
                                                     'maxlength' => 50,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -72,7 +93,7 @@
                                                 @include('admin.components.form-select', [
                                                     'name'     => 'resource_database_id',
                                                     'label'    => 'database',
-                                                    'value'    => old('resource_database_id'),
+                                                    'value'    => old('resource_database_id') ?? '',
                                                     'required' => true,
                                                     'list'     => \App\Models\ResourceDatabase::listOptions(false),
                                                     'message'  => $message ?? '',
@@ -81,7 +102,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('sequence'),
+                                                    'value'       => old('sequence') ?? 0,
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])
@@ -90,7 +111,7 @@
                                                     'name'            => 'public',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('public'),
+                                                    'checked'         => old('public') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -98,7 +119,7 @@
                                                     'name'            => 'disabled',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('disabled'),
+                                                    'checked'         => old('disabled') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 

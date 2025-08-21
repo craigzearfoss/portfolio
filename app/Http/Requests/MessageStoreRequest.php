@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class MessageStoreRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class MessageStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::guard('admin')->check();
     }
 
     /**
@@ -25,7 +26,7 @@ class MessageStoreRequest extends FormRequest
             'name'    => ['required', 'required', 'string', 'max:255', 'filled'],
             'email'   => ['required', 'email', 'max:255', 'filled'],
             'subject' => ['required', 'string', 'max:255', 'filled'],
-            'message' => ['required', 'filled'],
+            'body'    => ['required', 'filled'],
         ];
     }
 }

@@ -38,9 +38,7 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.contact.index') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.contact.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -58,7 +56,7 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'name',
-                                                    'value'     => old('name'),
+                                                    'value'     => old('name') ?? '',
                                                     'required'  => true,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
@@ -66,64 +64,64 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'slug',
-                                                    'value'     => old('slug'),
+                                                    'value'     => old('slug') ?? '',
                                                     'required'  => true,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
-                                                @include('admin.components.form-input', [
+                                                @include('admin.components.form-select', [
                                                     'name'      => 'title',
-                                                    'value'     => old('title'),
-                                                    'maxlength' => 100,
+                                                    'value'     => old('title') ?? '',
+                                                    'list'      => \App\Models\Career\Contact::titleListOptions(true, true),
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'street',
-                                                    'value'     => old('street'),
+                                                    'value'     => old('street') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'street2',
-                                                    'value'     => old('street2'),
+                                                    'value'     => old('street2') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'city',
-                                                    'value'     => old('city'),
+                                                    'value'     => old('city') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-select', [
                                                     'name'    => 'state',
-                                                    'value'   => old('state'),
+                                                    'value'   => old('state') ?? '',
                                                     'list'    => \App\Models\State::listOptions(true, true),
                                                     'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'zip',
-                                                    'value'     => old('zip'),
+                                                    'value'     => old('zip') ?? '',
                                                     'maxlength' => 20,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-select', [
                                                     'name'    => 'country',
-                                                    'value'   => old('country'),
+                                                    'value'   => old('country') ?? '',
                                                     'list'    => \App\Models\Country::listOptions(true, true),
                                                     'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'phone',
-                                                    'value'     => old('phone'),
+                                                    'value'     => old('phone') ?? '',
                                                     'maxlength' => 20,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -131,7 +129,7 @@
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'phone_label',
                                                     'label'     => 'phone label',
-                                                    'value'     => old('phone_label'),
+                                                    'value'     => old('phone_label') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -139,7 +137,7 @@
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'alt_phone',
                                                     'label'     => 'alt phone',
-                                                    'value'     => old('alt_phone'),
+                                                    'value'     => old('alt_phone') ?? '',
                                                     'maxlength' => 20,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -147,14 +145,14 @@
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'alt_phone_label',
                                                     'label'     => 'alt phone label',
-                                                    'value'     => old('alt_phone_label'),
+                                                    'value'     => old('alt_phone_label') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'email',
-                                                    'value'     => old('email'),
+                                                    'value'     => old('email') ?? '',
                                                     'maxlength' => 20,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -162,7 +160,7 @@
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'email_label',
                                                     'label'     => 'email label',
-                                                    'value'     => old('email_label'),
+                                                    'value'     => old('email_label') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -170,7 +168,7 @@
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'alt_email',
                                                     'label'     => 'alt email',
-                                                    'value'     => old('alt_email'),
+                                                    'value'     => old('alt_email') ?? '',
                                                     'maxlength' => 20,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -178,14 +176,14 @@
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'alt_email_label',
                                                     'label'     => 'alt email label',
-                                                    'value'     => old('alt_email_label'),
+                                                    'value'     => old('alt_email_label') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'website',
-                                                    'value'     => old('website'),
+                                                    'value'     => old('website') ?? '',
                                                     'maxlength' => 20,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -193,14 +191,14 @@
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'description',
                                                     'id'      => 'inputEditor',
-                                                    'value'   => old('description'),
+                                                    'value'   => old('description') ?? '',
                                                     'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('sequence'),
+                                                    'value'       => old('sequence') ?? 0,
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])
@@ -209,7 +207,7 @@
                                                     'name'            => 'public',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('public'),
+                                                    'checked'         => old('public') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -217,7 +215,7 @@
                                                     'name'            => 'disabled',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('disabled'),
+                                                    'checked'         => old('disabled') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 

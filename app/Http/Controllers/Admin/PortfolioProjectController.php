@@ -16,7 +16,7 @@ class PortfolioProjectController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the project.
+     * Display a listing of projects.
      */
     public function index(): View
     {

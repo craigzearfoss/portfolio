@@ -15,7 +15,7 @@ class CareerSkillController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the skill.
+     * Display a listing of skills.
      */
     public function index(): View
     {

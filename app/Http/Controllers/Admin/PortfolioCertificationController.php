@@ -15,7 +15,7 @@ class PortfolioCertificationController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the certification.
+     * Display a listing of certifications.
      */
     public function index(): View
     {

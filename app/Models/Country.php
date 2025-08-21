@@ -6,7 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
+    protected $connection = 'default_db';
+
     protected $table = 'countries';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'name',
+        'm49',
+        'iso_alpha3',
+    ];
 
     /**
      * Returns an array of options for a select list.

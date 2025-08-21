@@ -56,7 +56,7 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'name',
-                                                    'value'     => old('name'),
+                                                    'value'     => old('name') ?? '',
                                                     'required'  => true,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
@@ -64,7 +64,7 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'slug',
-                                                    'value'     => old('slug'),
+                                                    'value'     => old('slug') ?? '',
                                                     'required'  => true,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
@@ -74,7 +74,7 @@
                                                     'name'            => 'professional',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('professional'),
+                                                    'checked'         => old('professional') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -82,21 +82,21 @@
                                                     'name'            => 'personal',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('personal'),
+                                                    'checked'         => old('personal') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'type'      => 'date',
                                                     'name'      => 'date',
-                                                    'value'     => old('date'),
+                                                    'value'     => old('date') ?? null,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'type'      => 'number',
                                                     'name'      => 'year',
-                                                    'value'     => old('year'),
+                                                    'value'     => old('year') ?? null,
                                                     'min'       => 2000,
                                                     'max'       => date('Y'),
                                                     'message'   => $message ?? '',
@@ -104,27 +104,27 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'company',
-                                                    'value'     => old('company'),
+                                                    'value'     => old('company') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'credit',
-                                                    'value'   => old('credit'),
+                                                    'value'   => old('credit') ?? '',
                                                     'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'location',
-                                                    'value'     => old('location'),
+                                                    'value'     => old('location') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'link',
-                                                    'value'     => old('link'),
+                                                    'value'     => old('link') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -132,14 +132,14 @@
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'description',
                                                     'id'      => 'inputEditor',
-                                                    'value'   => old('description'),
+                                                    'value'   => old('description') ?? '',
                                                     'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('sequence'),
+                                                    'value'       => old('sequence') ?? 0,
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])
@@ -148,7 +148,7 @@
                                                     'name'            => 'public',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('public'),
+                                                    'checked'         => old('public') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -156,7 +156,7 @@
                                                     'name'            => 'disabled',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('disabled'),
+                                                    'checked'         => old('disabled') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 

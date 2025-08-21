@@ -38,9 +38,7 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.admin.index') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.admin.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -55,7 +53,7 @@
 
                                                     @include('admin.components.form-input', [
                                                         'name'      => 'username',
-                                                        'value'     => old('username'),
+                                                        'value'     => old('username') ?? '',
                                                         'required'  => true,
                                                         'minlength' => 6,
                                                         'maxlength' => 200,
@@ -65,7 +63,7 @@
                                                     @include('admin.components.form-input', [
                                                         'type'      => 'email',
                                                         'name'      => 'email',
-                                                        'value'     => old('email'),
+                                                        'value'     => old('email') ?? '',
                                                         'required'  => true,
                                                         'maxlength' => 255,
                                                         'message'   => $message ?? '',
@@ -74,7 +72,7 @@
                                                     @include('admin.components.form-input', [
                                                         'type'        => 'password',
                                                         'name'        => 'password',
-                                                        'value'       => old('password'),
+                                                        'value'       => old('password') ?? '',
                                                         'required'    => true,
                                                         'minlength'   => 8,
                                                         'maxlength'   => 255,
@@ -86,7 +84,7 @@
                                                         'label'       => 'confirm password',
                                                         'type'        => 'password',
                                                         'name'        => 'confirm_password',
-                                                        'value'       => old('confirm_password'),
+                                                        'value'       => old('confirm_password') ?? '',
                                                         'required'    => true,
                                                         'minlength'   => 8,
                                                         'maxlength'   => 255,
@@ -98,14 +96,14 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'name',
-                                                    'value'     => old('name'),
+                                                    'value'     => old('name') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'phone',
-                                                    'value'     => old('phone'),
+                                                    'value'     => old('phone') ?? '',
                                                     'required'  => true,
                                                     'maxlength' => 20,
                                                     'message'   => $message ?? '',
@@ -115,7 +113,7 @@
                                                     'name'            => 'disabled',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('disabled'),
+                                                    'checked'         => old('disabled') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 

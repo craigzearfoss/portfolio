@@ -12,7 +12,19 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check() || Auth::guard('web')->check();
+        // admins can update any user
+        if (Auth::guard('admin')->check()) {
+            return true;
+        }
+
+        if (Auth::guard('web')->check()) {
+            // users can only update themselves
+            if ($this->user->id === Auth::guard('web')->user()->id) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -35,12 +47,12 @@ class UserUpdateRequest extends FormRequest
             'zip'               => ['string', 'max:20', 'nullable'],
             'phone'             => ['string', 'max:20', 'nullable'],
             //'email'             => ['email', 'max:255', 'unique:users,email,'.$userId, 'filled'], // you can't update the email
-            //'email_verified_at' => ['nullable'],
+            'email_verified_at' => ['nullable'],
             'website'           => ['string', 'max:255', 'nullable'],
             'password'          => ['string', 'min:8', 'max:255'],
             'confirm_password'  => ['string', 'same:password'],
-            //'remember_token'    => ['string', 'max:200', 'nullable'],
-            //'token'             => ['string', 'max:255', 'nullable'],
+            'remember_token'    => ['string', 'max:200', 'nullable'],
+            'token'             => ['string', 'max:255', 'nullable'],
             'status'            => ['integer', 'between:0,1'],
             'disabled'          => ['integer', 'between:0,1'],
         ];

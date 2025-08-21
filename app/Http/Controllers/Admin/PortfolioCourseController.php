@@ -14,7 +14,7 @@ class PortfolioCourseController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the course.
+     * Display a listing of courses.
      */
     public function index(): View
     {

@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Resource extends Model
 {
+    protected $connection = 'default_db';
+
     protected $table = 'resources';
 
     /**
@@ -22,6 +24,7 @@ class Resource extends Model
         'type',
         'name',
         'plural',
+        'section',
         'icon',
         'resource_database_id',
         'sequence',

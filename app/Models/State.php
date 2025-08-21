@@ -7,7 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class State extends Model
 {
+    protected $connection = 'default_db';
+
     protected $table = 'states';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'code',
+        'name',
+    ];
 
     /**
      * Returns an array of options for a select list.
@@ -29,7 +41,6 @@ class State extends Model
 
         return $options;
     }
-
 
     /**
      * Returns the state name given the state code or the code passed in if not found.

@@ -38,12 +38,8 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.communication.show', $communication) }}"><i
-                                                            class="fa fa-list"></i> Show</a>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.communication.index') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.communication.show', $communication) }}"><i class="fa fa-list"></i> Show</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.communication.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -51,8 +47,7 @@
                                         </div>
                                         <div class="form-container">
 
-                                            <form action="{{ route('admin.communication.update', $communication->id) }}"
-                                                  method="POST">
+                                            <form action="{{ route('admin.communication.update', $communication->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
 
@@ -74,6 +69,30 @@
                                                     'id'      => 'inputEditor',
                                                     'value'   => old('body') ?? $communication->body,
                                                     'message' => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'type'        => 'number',
+                                                    'name'        => 'sequence',
+                                                    'value'       => old('sequence') ?? $communication->sequence,
+                                                    'min'         => 0,
+                                                    'message'     => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'public',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('public') ?? $communication->public,
+                                                    'message'         => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'disabled',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('disabled') ?? $communication->disabled,
+                                                    'message'         => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [

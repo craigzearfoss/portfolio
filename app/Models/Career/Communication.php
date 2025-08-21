@@ -3,6 +3,8 @@
 namespace App\Models\Career;
 
 use App\Models\Admin;
+use App\Models\Career\Application;
+use App\Models\Career\Contact;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,6 +38,23 @@ class Communication extends Model
      */
     public function admin(): BelongsTo
     {
-        return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+        return $this->setConnection('career_db')->belongsTo(Admin::class, 'admin_id');
+    }
+
+    /**
+     * Get the application that owns the communication.
+     */
+    public function communication(): BelongsTo
+    {
+        return $this->setConnection('career_db')->belongsTo(Communication::class, 'communication_id');
+    }
+
+    /**
+     * Get the contact who owns the communication.
+     */
+    public function contact(): BelongsTo
+    {
+        return $this->setConnection('career_db')->
+        belongsTo(Contact::class, 'contact_id');
     }
 }

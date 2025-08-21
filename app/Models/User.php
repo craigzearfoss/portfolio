@@ -13,6 +13,8 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, SoftDeletes;
 
+    protected $connection = 'default_db';
+
     protected $table = 'users';
 
     /**
@@ -28,10 +30,12 @@ class User extends Authenticatable
         'city',
         'state',
         'zip',
+        'country',
         'phone',
         'email',
         'website',
         'password',
+        'remember_token',
         'token',
         'status',
         'disabled'

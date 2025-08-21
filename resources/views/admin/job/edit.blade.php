@@ -38,12 +38,8 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.job.show', $job) }}"><i
-                                                            class="fa fa-list"></i> Show</a>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.job.index') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.job.show', $job) }}"><i class="fa fa-list"></i> Show</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.job.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -88,6 +84,14 @@
                                                     'id'      => 'inputEditor',
                                                     'value'   => old('description') ?? $job->description,
                                                     'message' => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'type'        => 'number',
+                                                    'name'        => 'sequence',
+                                                    'value'       => old('sequence') ?? $job->sequence,
+                                                    'min'         => 0,
+                                                    'message'     => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-checkbox', [

@@ -14,6 +14,8 @@ class Admin extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, SoftDeletes;
 
+    protected $connection = 'default_db';
+
     protected $table = 'admins';
 
     /**
@@ -22,10 +24,12 @@ class Admin extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
         'username',
+        'name',
         'phone',
         'email',
+        'password',
+        'token',
         'disabled'
     ];
 

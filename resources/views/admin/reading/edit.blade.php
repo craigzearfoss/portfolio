@@ -81,6 +81,22 @@
                                                 ])
 
                                                 @include('admin.components.form-checkbox', [
+                                                    'name'            => 'professional',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('professional') ?? $reading->professional,
+                                                    'message'         => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'personal',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('personal') ?? $reading->personal,
+                                                    'message'         => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-checkbox', [
                                                     'name'            => 'paper',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
@@ -100,7 +116,7 @@
                                                     'name'            => 'wishlist',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('wishlist') ?? $reading->disabled,
+                                                    'checked'         => old('wishlist') ?? $reading->wishlist,
                                                     'message'         => $message ?? '',
                                                 ])
 

@@ -19,7 +19,7 @@ class UserController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the user.
+     * Display a listing of users.
      */
     public function index(): View
     {
@@ -61,6 +61,14 @@ class UserController extends Controller
      */
     public function edit(User $user): View
     {
+        // admins can only edit any user
+        if (!Auth::guard('admin')->check()) {
+            // users can only edit themselves
+            if ($user->id !== Auth::guard('web')->user()->id) {
+                abort(403);
+            }
+        }
+
         return view('admin.user.edit', compact('user'));
     }
 

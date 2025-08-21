@@ -38,12 +38,8 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.admin.show', $admin) }}"><i
-                                                            class="fa fa-list"></i> Show</a>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.admin.index') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.admin.show', $admin) }}"><i class="fa fa-list"></i> Show</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.admin.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -56,13 +52,6 @@
                                                 @method('PUT')
 
                                                 @include('admin.components.form-input', [
-                                                    'name'      => 'name',
-                                                    'value'     => old('name') ?? $admin->name,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
                                                     'name'      => 'username',
                                                     'value'     => old('username') ?? $admin->username,
                                                     'required'  => true,
@@ -72,10 +61,9 @@
                                                 ])
 
                                                 @include('admin.components.form-input', [
-                                                    'name'      => 'phone',
-                                                    'value'     => old('phone') ?? $admin->phone,
-                                                    'required'  => true,
-                                                    'maxlength' => 20,
+                                                    'name'      => 'name',
+                                                    'value'     => old('name') ?? $admin->name,
+                                                    'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
@@ -88,11 +76,19 @@
                                                     'message'   => $message ?? '',
                                                 ])
 
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'phone',
+                                                    'value'     => old('phone') ?? $admin->phone,
+                                                    'required'  => true,
+                                                    'maxlength' => 20,
+                                                    'message'   => $message ?? '',
+                                                ])
+
                                                 @include('admin.components.form-checkbox', [
                                                     'name'            => 'disabled',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('disabled') ?? $application->disabled,
+                                                    'checked'         => old('disabled') ?? $admin->disabled,
                                                     'message'         => $message ?? '',
                                                 ])
 

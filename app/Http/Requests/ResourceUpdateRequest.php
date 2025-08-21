@@ -12,7 +12,7 @@ class ResourceUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::guard('admin')->check();
     }
 
     /**
@@ -27,6 +27,7 @@ class ResourceUpdateRequest extends FormRequest
             'type'                 => ['string', 'max:50', 'filled'],
             'name'                 => ['string', 'max:50', 'filled'],
             'plural'               => ['string', 'max:50', 'filled'],
+            'section'              => ['string', 'max:50'], 'filled',
             'icon'                 => ['string', 'max:50', 'nullable'],
             'resource_database_id' => ['string', 'max:50', 'filled'],
             'sequence'             => ['integer', 'min:0'],

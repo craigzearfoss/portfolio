@@ -44,7 +44,9 @@
 
                                         @include('admin.components.show-row', [
                                             'name'  => 'company',
-                                            'value' => $application->company['name'] ?? ''
+                                            'value' => !empty($application->company)
+                                                ? '<a href="' . route('admin.company.show', $application->company['id']) . '">' . $application->company['name'] . '</a>'
+                                                : ''
                                         ])
 
                                         @include('admin.components.show-row-rating', [
@@ -211,6 +213,71 @@
                                             'name'  => 'deleted at',
                                             'value' => longDateTime($application->deleted_at)
                                         ])
+
+                                    </div>
+
+                                    <div class="row mt-4">
+
+                                        <h4 class="m-0">Notes</h4>
+                                        <table class="table table-bordered table-striped mt-0 mb-0">
+
+                                            <thead>
+                                            <tr>
+                                                <th>subject</th>
+                                                <th>body</th>
+                                                <th>created at</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                            @foreach($application->notes as $note)
+                                                <tr>
+                                                    <td>{{ $note->subject }}</td>
+                                                    <td>{{ $note->body }}</td>
+                                                    <td>
+                                                        {{ shortDate($note->created_at) }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                    <div class="row mt-4">
+
+                                        <h4 class="m-0">Communications</h4>
+                                        <table class="table table-bordered table-striped mt-0 mb-0">
+
+                                            <thead>
+                                            <tr>
+                                                <th>subject</th>
+                                                <th>body</th>
+                                                <th>contact</th>
+                                                <th>created at</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                            @foreach($application->communications as $communication)
+                                                @php  dd($communication); @endphp
+                                                <tr>
+                                                    <td>{{ $communication->subject }}</td>
+                                                    <td>{{ $communication->body }}</td>
+                                                    <td>
+                                                        {{ $communication->concact->name ?? '' }}
+                                                    </td>
+                                                    <td>
+                                                        {{ shortDate($communication->created_at) }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
+                                            </tbody>
+                                        </table>
 
                                     </div>
 

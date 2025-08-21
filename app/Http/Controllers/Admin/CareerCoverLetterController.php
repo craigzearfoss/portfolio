@@ -16,7 +16,7 @@ class CareerCoverLetterController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the cover letter.
+     * Display a listing of cover letters.
      */
     public function index(): View
     {

@@ -16,7 +16,7 @@ class ResourceController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of resources.
      */
     public function index(): View
     {

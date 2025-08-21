@@ -12,7 +12,7 @@ class PortfolioCourseUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::guard('admin')->check();
     }
 
     /**
@@ -28,12 +28,14 @@ class PortfolioCourseUpdateRequest extends FormRequest
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.courses,slug,'.$this->course->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
+            'year'         => ['integer', 'between:0,3000', 'nullable'],
             'completed'    => ['date', 'nullable'],
             'academy'      => ['string', 'max:255', 'nullable'],
             'website'      => ['string', 'max:255', 'nullable'],
             'instructor'   => ['string', 'max:255', 'nullable'],
             'sponsor'      => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
+            'link'         => ['string', 'max:255', 'nullable'],
             'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],

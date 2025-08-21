@@ -38,12 +38,8 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.course.show', $course) }}"><i
-                                                            class="fa fa-list"></i> Show</a>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.course.index') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.course.show', $course) }}"><i class="fa fa-list"></i> Show</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.course.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -51,8 +47,7 @@
                                         </div>
                                         <div class="form-container">
 
-                                            <form action="{{ route('admin.course.update', $course) }}"
-                                                  method="POST">
+                                            <form action="{{ route('admin.course.update', $course) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
 
@@ -78,13 +73,6 @@
                                                 ])
 
                                                 @include('admin.components.form-input', [
-                                                    'name'      => 'organization',
-                                                    'value'     => old('organization') ?? $course->organization,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
                                                     'type'      => 'number',
                                                     'name'      => 'year',
                                                     'value'     => old('year') ?? $course->year,
@@ -95,17 +83,8 @@
 
                                                 @include('admin.components.form-input', [
                                                     'type'      => 'date',
-                                                    'name'      => 'received',
-                                                    'value'     => old('received') ?? $course->received,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'type'      => 'date',
-                                                    'name'      => 'expiration',
-                                                    'value'     => old('expiration') ?? $course->expiration,
-                                                    'maxlength' => 255,
+                                                    'name'      => 'completed',
+                                                    'value'     => old('completed') ?? $course->completed,
                                                     'message'   => $message ?? '',
                                                 ])
 
@@ -126,13 +105,32 @@
                                                 ])
 
                                                 @include('admin.components.form-input', [
-                                                    'name'      => 'link',
-                                                    'value'     => old('link') ?? $course->link,
-                                                    'required'  => true,
+                                                    'name'      => 'academy',
+                                                    'value'     => old('academy') ?? $course->academy,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'website',
+                                                    'value'     => old('website') ?? $course->website,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'instructor',
+                                                    'value'     => old('instructor') ?? $course->instructor,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'sponsor',
+                                                    'value'     => old('sponsor') ?? $course->sponsor,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
 
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'description',
@@ -142,9 +140,17 @@
                                                 ])
 
                                                 @include('admin.components.form-input', [
+                                                    'name'      => 'link',
+                                                    'value'     => old('link') ?? $course->link,
+                                                    'required'  => true,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('sequence'),
+                                                    'value'       => old('sequence') ?? $course->sequence,
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])
@@ -153,15 +159,7 @@
                                                     'name'            => 'public',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('public'),
-                                                    'message'         => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'disabled',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('disabled'),
+                                                    'checked'         => old('public') ?? $course->public,
                                                     'message'         => $message ?? '',
                                                 ])
 

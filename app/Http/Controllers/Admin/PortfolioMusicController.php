@@ -14,7 +14,7 @@ class PortfolioMusicController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the music.
+     * Display a listing of music.
      */
     public function index(): View
     {

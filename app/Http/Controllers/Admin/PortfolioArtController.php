@@ -15,7 +15,7 @@ class PortfolioArtController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the art.
+     * Display a listing of art.
      */
     public function index(): View
     {

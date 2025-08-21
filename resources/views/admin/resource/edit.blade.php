@@ -47,8 +47,7 @@
                                         </div>
                                         <div class="form-container">
 
-                                            <form action="{{ route('admin.resource.update', $resource) }}"
-                                                  method="POST">
+                                            <form action="{{ route('admin.resource.update', $resource) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
 
@@ -68,6 +67,27 @@
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'name',
                                                     'value'     => old('name') ?? $resource->name,
+                                                    'maxlength' => 50,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'plural',
+                                                    'value'     => old('plural') ?? $resource->plural,
+                                                    'maxlength' => 50,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'section',
+                                                    'value'     => old('section') ?? $resource->section,
+                                                    'maxlength' => 50,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'icon',
+                                                    'value'     => old('icon') ?? $resource->icon,
                                                     'maxlength' => 50,
                                                     'message'   => $message ?? '',
                                                 ])

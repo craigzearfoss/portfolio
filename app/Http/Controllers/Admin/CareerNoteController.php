@@ -15,7 +15,7 @@ class CareerNoteController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the note.
+     * Display a listing of notes.
      */
     public function index(): View
     {

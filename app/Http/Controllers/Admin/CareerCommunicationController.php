@@ -15,7 +15,7 @@ class CareerCommunicationController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the communication.
+     * Display a listing of communications.
      */
     public function index(): View
     {

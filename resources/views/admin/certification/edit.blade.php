@@ -38,12 +38,8 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.certification.show', $certification) }}"><i
-                                                            class="fa fa-list"></i> Show</a>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.certification.index') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.certification.show', $certification) }}"><i class="fa fa-list"></i> Show</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.certification.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -51,8 +47,7 @@
                                         </div>
                                         <div class="form-container">
 
-                                            <form action="{{ route('admin.certification.update', $certification) }}"
-                                                  method="POST">
+                                            <form action="{{ route('admin.certification.update', $certification) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
 
@@ -97,7 +92,6 @@
                                                     'type'      => 'date',
                                                     'name'      => 'received',
                                                     'value'     => old('received') ?? $certification->received,
-                                                    'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
@@ -133,7 +127,6 @@
                                                     'message'   => $message ?? '',
                                                 ])
 
-
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'description',
                                                     'id'      => 'inputEditor',
@@ -144,7 +137,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('sequence'),
+                                                    'value'       => old('sequence') ?? $certification->sequence,
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])
@@ -153,15 +146,7 @@
                                                     'name'            => 'public',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('public'),
-                                                    'message'         => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'disabled',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('disabled'),
+                                                    'checked'         => old('public') ?? $certification->public,
                                                     'message'         => $message ?? '',
                                                 ])
 

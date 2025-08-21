@@ -3,15 +3,16 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class MessageStoreUpdateRequest extends FormRequest
+class PortfolioRecipeIngredientStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::guard('admin')->check();
     }
 
     /**
@@ -22,10 +23,9 @@ class MessageStoreUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'    => ['string', 'min:1', 'max:255', 'filled'],
-            'email'   => ['email', 'max:255', 'filled'],
-            'subject' => ['string', 'max:255', 'filled'],
-            'message' => ['filled'],
+            'name'        => ['string', 'max:255', 'unique:portfolio_db.recipe_ingredients,name', 'filled'],
+            'slug'        => ['string', 'max:255', 'unique:portfolio_db.recipe_ingredients,slug', 'filled'],
+            'description' => ['nullable'],
         ];
     }
 }

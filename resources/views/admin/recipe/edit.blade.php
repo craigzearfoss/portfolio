@@ -47,8 +47,7 @@
                                         </div>
                                         <div class="form-container">
 
-                                            <form action="{{ route('admin.recipe.update', $recipe) }}"
-                                                  method="POST">
+                                            <form action="{{ route('admin.recipe.update', $recipe) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
 
@@ -107,7 +106,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('sequence'),
+                                                    'value'       => old('sequence') ?? $recipe->sequence,
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])
@@ -116,15 +115,7 @@
                                                     'name'            => 'public',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('public'),
-                                                    'message'         => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'disabled',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('disabled'),
+                                                    'checked'         => old('public') ?? $recipe->public,
                                                     'message'         => $message ?? '',
                                                 ])
 

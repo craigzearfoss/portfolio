@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ResourceDatabase extends Model
 {
+    protected $connection = 'default_db';
+
     protected $table = 'resource_databases';
 
     /**

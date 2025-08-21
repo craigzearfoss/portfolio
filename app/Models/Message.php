@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Message extends Model
 {
-    /** @use HasFactory<\Database\Factories\MessagesFactory> */
+    /** @use HasFactory<\Database\Factories\MessageFactory> */
     use HasFactory, SoftDeletes;
+
+    protected $connection = 'default_db';
 
     protected $table = 'messages';
 
@@ -22,7 +24,6 @@ class Message extends Model
         'name',
         'email',
         'subject',
-        'message',
-        'disabled'
+        'body',
     ];
 }

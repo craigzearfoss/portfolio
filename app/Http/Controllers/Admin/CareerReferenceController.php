@@ -15,7 +15,7 @@ class CareerReferenceController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the reference.
+     * Display a listing of references.
      */
     public function index(): View
     {

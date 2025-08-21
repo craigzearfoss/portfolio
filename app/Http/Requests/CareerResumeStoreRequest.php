@@ -12,7 +12,7 @@ class CareerResumeStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::guard('admin')->check();
     }
 
     /**

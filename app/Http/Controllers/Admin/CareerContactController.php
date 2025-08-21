@@ -16,7 +16,7 @@ class CareerContactController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the contact.
+     * Display a listing of contacts.
      */
     public function index(): View
     {

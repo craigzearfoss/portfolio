@@ -32,13 +32,11 @@
                             <th></th>
                             <th>name</th>
                             <th>completed</th>
-                            <th>received</th>
                             <th class="text-center">professional</th>
                             <th class="text-center">personal</th>
                             <th>academy</th>
                             <th>instructor</th>
                             <th class="text-center">public</th>
-                            <th class="text-center">disabled</th>
                             <th>actions</th>
                         </tr>
                         </thead>
@@ -64,9 +62,6 @@
                                 <td class="text-center">
                                     @include('admin.components.checkmark', [ 'checked' => $course->public ])
                                 </td>
-                                <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $course->disabled ])
-                                </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.course.destroy', $course->id) }}" method="POST">
                                         <a class="btn btn-sm" href="{{ route('admin.course.show', $course->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
@@ -79,7 +74,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="11">There are no courses.</td>
+                                <td colspan="8">There are no courses.</td>
                             </tr>
                         @endforelse
 

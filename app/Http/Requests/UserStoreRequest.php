@@ -30,7 +30,7 @@ class UserStoreRequest extends FormRequest
             'street2'           => ['string', 'max:255', 'nullable'],
             'city'              => ['string', 'max:100', 'nullable'],
             'state'             => ['string', 'max:100', 'nullable'],
-            'country'         => ['string', 'max:100', 'nullable'],
+            'country'           => ['string', 'max:100', 'nullable'],
             'zip'               => ['string', 'max:20', 'nullable'],
             'phone'             => ['string', 'max:20', 'nullable'],
             'email'             => ['required','email', 'max:255', 'unique:users,email'],
@@ -38,11 +38,10 @@ class UserStoreRequest extends FormRequest
             'website'           => ['string', 'max:255', 'nullable'],
             'password'          => ['required','string', 'min:8', 'max:255'],
             'confirm_password'  => ['required','string', 'same:password'],
-            //'remember_token'    => ['string', 'max:200', 'nullable'],
-            //'token'             => ['string', 'max:255', 'nullable'],
+            'remember_token'    => ['string', 'max:200', 'nullable'],
+            'token'             => ['string', 'max:255', 'nullable'],
             'status'            => ['integer', 'between:0,1'],
             'disabled'          => ['integer', 'between:0,1'],
-
         ];
     }
 }

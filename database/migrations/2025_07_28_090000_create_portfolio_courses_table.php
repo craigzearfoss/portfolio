@@ -18,12 +18,14 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
+            $table->year('year')->nullable();
             $table->date('completed')->nullable();
             $table->string('academy')->nullable();
             $table->string('website')->nullable();
             $table->string('instructor')->nullable();
             $table->string('sponsor')->nullable();
             $table->text('description')->nullable();
+            $table->string('link')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(1);
             $table->tinyInteger('disabled')->default(0);

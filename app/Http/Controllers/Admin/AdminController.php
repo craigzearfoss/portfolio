@@ -17,7 +17,7 @@ class AdminController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the admin.
+     * Display a listing of admins.
      */
     public function index(): View
     {
@@ -68,6 +68,11 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin): View
     {
+        // admins can only edit themselves
+        if ($admin->id !== Auth::guard('admin')->user()->id) {
+            abort(403);
+        }
+
         return view('admin.admin.edit', compact('admin'));
     }
 

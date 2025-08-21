@@ -38,9 +38,7 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.note.index') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.note.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -58,7 +56,7 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'        => 'subject',
-                                                    'value'       => old('subject'),
+                                                    'value'       => old('subject') ?? '',
                                                     'required'    => true,
                                                     'maxlength'   => 255,
                                                     'message'     => $message ?? '',
@@ -67,8 +65,32 @@
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'body',
                                                     'id'      => 'inputEditor',
-                                                    'value'   => old('body'),
+                                                    'value'   => old('body') ?? '',
                                                     'message' => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'type'        => 'number',
+                                                    'name'        => 'sequence',
+                                                    'value'       => old('sequence') ?? 0,
+                                                    'min'         => 0,
+                                                    'message'     => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'public',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('public') ?? 0,
+                                                    'message'         => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-checkbox', [
+                                                    'name'            => 'disabled',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('disabled') ?? 0,
+                                                    'message'         => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [

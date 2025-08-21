@@ -15,7 +15,7 @@ class CareerJobController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the job.
+     * Display a listing of jobs.
      */
     public function index(): View
     {

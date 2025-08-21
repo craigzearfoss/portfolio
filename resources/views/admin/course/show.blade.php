@@ -37,7 +37,7 @@
                                         ])
 
                                         @include('admin.components.show-row', [
-                                            'name'  => 'name',
+                                            'name'  => 'slug',
                                             'value' => $course->slug
                                         ])
 
@@ -49,6 +49,11 @@
                                         @include('admin.components.show-row-checkbox', [
                                             'name'    => 'personal',
                                             'checked' => $course->personal
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'year',
+                                            'value' => $course->year
                                         ])
 
                                         @include('admin.components.show-row', [
@@ -72,8 +77,18 @@
                                         ])
 
                                         @include('admin.components.show-row', [
+                                            'name'  => 'sponsor',
+                                            'value' => $course->sponsor
+                                        ])
+
+                                        @include('admin.components.show-row', [
                                             'name'  => 'description',
                                             'value' => $course->description
+                                        ])
+
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'link',
+                                            'value' => $course->link
                                         ])
 
                                         @include('admin.components.show-row', [

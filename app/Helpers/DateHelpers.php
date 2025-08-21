@@ -56,6 +56,7 @@ if (! function_exists('shortDate')) {
         if (empty($YmdDate)) {
             return '';
         }
+        $YmdDate = explode(' ', $YmdDate)[0];
 
         if (!$dateFormat = config( 'app.date_format_short')) {
             $dateFormat = 'm/d/Y';
@@ -81,6 +82,7 @@ if (! function_exists('longDate')) {
         if (empty($YmdDate)) {
             return '';
         }
+        $YmdDate = explode(' ', $YmdDate)[0];
 
         if (!$dateTime = config( 'app.date_format_long')) {
             $dateTime = 'F j, Y';

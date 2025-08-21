@@ -51,10 +51,14 @@
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.admin.destroy', $admin->id) }}" method="POST">
                                         <a class="btn btn-sm" href="{{ route('admin.admin.show', $admin->id) }}"><i class="fa-solid fa-list"></i>{{--  Show--}}</a>
-                                        <a class="btn btn-sm" href="{{ route('admin.admin.edit', $admin->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{--  Edit--}}</a>
+                                        @if ($admin->id === Auth::guard('admin')->user()->id)
+                                            <a class="btn btn-sm" href="{{ route('admin.admin.edit', $admin->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{--  Edit--}}</a>
+                                        @endif
                                         @csrf
+                                        <?php /*
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i>{{-- Delete--}}</button>
+                                        */ ?>
                                     </form>
                                 </td>
                             </tr>

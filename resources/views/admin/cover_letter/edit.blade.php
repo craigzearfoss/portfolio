@@ -38,12 +38,8 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.cover_letter.show', $coverLetter) }}"><i
-                                                            class="fa fa-list"></i> Show</a>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.cover_letter.index') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.cover_letter.show', $coverLetter) }}"><i class="fa fa-list"></i> Show</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.cover_letter.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -51,8 +47,7 @@
                                         </div>
                                         <div>
 
-                                            <form action="{{ route('admin.cover_letter.update', $coverLetter) }}"
-                                                  method="POST">
+                                            <form action="{{ route('admin.cover_letter.update', $coverLetter) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
 
@@ -88,7 +83,6 @@
                                                     'type'      =>'date',
                                                     'name'      => 'date',
                                                     'value'     => old('date') ?? $coverLetter->date,
-                                                    'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
@@ -105,6 +99,13 @@
                                                     'value'     => old('alt_link') ?? $coverLetter->alt_link,
                                                     'required'  => true,
                                                     'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-textarea', [
+                                                    'name'    => 'description',
+                                                    'id'      => 'inputEditor',
+                                                    'value'   => old('description') ?? $coverLetter->description,
+                                                    'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-checkbox', [

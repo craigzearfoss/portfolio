@@ -72,6 +72,14 @@
                                                     'message'   => $message ?? '',
                                                 ])
 
+                                                @include('admin.components.form-input', [
+                                                    'type'        => 'number',
+                                                    'name'        => 'sequence' ?? $reference->sequence,
+                                                    'value'       => old('sequence'),
+                                                    'min'         => 0,
+                                                    'message'     => $message ?? '',
+                                                ])
+
                                                 @include('admin.components.form-checkbox', [
                                                     'name'            => 'public',
                                                     'value'           => 1,

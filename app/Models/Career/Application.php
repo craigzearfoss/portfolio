@@ -3,8 +3,10 @@
 namespace App\Models\Career;
 
 use App\Models\Admin;
+use App\Models\Career\Communication;
 use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
+use App\Models\Career\Note;
 use App\Models\Career\Resume;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -117,6 +119,22 @@ class Application extends Model
     public function resume(): BelongsTo
     {
         return $this->belongsTo(Resume::class, 'resume_id');
+    }
+
+    /**
+     * Get the communications for the application.
+     */
+    public function communications(): HasMany
+    {
+        return $this->hasMany(Communication::class, 'application_id')->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Get the notes for the application.
+     */
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class, 'application_id')->orderBy('created_at', 'desc');
     }
 
     /**

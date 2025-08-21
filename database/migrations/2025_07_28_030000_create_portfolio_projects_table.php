@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('disabled')->default(0);
             $table->tinyInteger('public')->default(0);
+            $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

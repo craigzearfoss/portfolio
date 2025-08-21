@@ -45,6 +45,11 @@
                                             'value' => $communication->body
                                         ])
 
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'sequence',
+                                            'value' => $communication->sequence
+                                        ])
+
                                         @include('admin.components.show-row-checkbox', [
                                             'name'    => 'public',
                                             'checked' => $communication->public

@@ -16,7 +16,7 @@ class CareerResumeController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the resume.
+     * Display a listing of resumes.
      */
     public function index(): View
     {

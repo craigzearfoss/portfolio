@@ -42,6 +42,6 @@ return new class extends Migration
             });
         }
 
-        Schema::connection('career_db')->dropIfExists('technology_types');
+        Schema::connection('career_db')->dropIfExists('technology_categories');
     }
 };

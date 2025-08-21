@@ -38,12 +38,8 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.application.show', $application) }}"><i
-                                                            class="fa fa-list"></i> Show</a>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.application.index') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.application.show', $application) }}"><i class="fa fa-list"></i> Show</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.application.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -51,8 +47,7 @@
                                         </div>
                                         <div class="form-container">
 
-                                            <form action="{{ route('admin.application.update', $application) }}"
-                                                  method="POST">
+                                            <form action="{{ route('admin.application.update', $application) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
 
@@ -219,7 +214,6 @@
                                                 ])
 
                                                 @include('admin.components.form-select', [
-                                                    'label'   => 'source',
                                                     'name'    => 'source',
                                                     'value'   => old('source') ?? $application->source,
                                                     'list'    => \App\Models\Career\JobBoard::listOptions(true, true),

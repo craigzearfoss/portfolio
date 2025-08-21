@@ -15,7 +15,7 @@ class PortfolioReadingController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the reading.
+     * Display a listing of readings.
      */
     public function index(): View
     {

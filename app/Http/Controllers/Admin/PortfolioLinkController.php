@@ -15,7 +15,7 @@ class PortfolioLinkController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the link.
+     * Display a listing of links.
      */
     public function index(): View
     {

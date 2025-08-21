@@ -76,7 +76,6 @@
                                                     'type'      => 'date',
                                                     'name'      => 'date',
                                                     'value'     => old('date') ?? $resume->date,
-                                                    'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 

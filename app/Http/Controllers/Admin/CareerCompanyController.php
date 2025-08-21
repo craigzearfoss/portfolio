@@ -16,7 +16,7 @@ class CareerCompanyController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the company.
+     * Display a listing of companies.
      */
     public function index(): View
     {

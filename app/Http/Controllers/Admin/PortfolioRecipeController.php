@@ -14,7 +14,7 @@ class PortfolioRecipeController extends Controller
     const NUM_PER_PAGE = 20;
 
     /**
-     * Display a listing of the recipe.
+     * Display a listing of recipes.
      */
     public function index(): View
     {

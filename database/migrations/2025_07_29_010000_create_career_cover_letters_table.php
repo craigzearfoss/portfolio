@@ -37,9 +37,9 @@ return new class extends Migration
     {
         if (Schema::connection('career_db')->hasTable('cover_letters')) {
             Schema::connection('career_db')->table('cover_letters', function (Blueprint $table) {
-                try {
-                    $table->dropForeign('cover_letters_company_id_foreign');
-                    $table->dropColumn('company_id');
+                try {//die('ere');
+                    //$table->dropForeign('cover_letters_company_id_foreign');
+                    //$table->dropColumn('company_id');
                 } catch (\Exception $e) {
                 }
             });

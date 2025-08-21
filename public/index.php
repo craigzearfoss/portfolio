@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
-
+//echo xdebug_info();die;
 define('LARAVEL_START', microtime(true));
 
 // Determine if the application is in maintenance mode...

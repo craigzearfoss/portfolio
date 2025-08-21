@@ -18,7 +18,7 @@ Route::name('user.')->group(function () {
     Route::get('/verify-email/{token}/{email}', [UserIndexController::class, 'email_verification'])->name('email_verification');
 });
 
-Route::middleware('auth')->name('user.')->group(function () {
+Route::middleware('web')->name('user.')->group(function () {
     Route::get('/dashboard', [UserIndexController::class, 'dashboard'])->name('dashboard');
     Route::get('/logout', [UserIndexController::class, 'logout'])->name('logout');
     Route::get('/profile/change-password', [UserProfileController::class, 'change_password'])->name('change_password');

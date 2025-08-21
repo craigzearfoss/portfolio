@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Message>
  */
-class MessagesFactory extends Factory
+class MessageFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,7 +20,7 @@ class MessagesFactory extends Factory
             'name'    => fake()->name(),
             'email'   => fake()->unique()->safeEmail(),
             'subject' => fake()->sentence(),
-            'message' => fake()->text(200),
+            'body'    => fake()->text(200),
         ];
     }
 }

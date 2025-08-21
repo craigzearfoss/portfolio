@@ -38,9 +38,7 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.link.index') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.link.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -58,7 +56,7 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'name',
-                                                    'value'     => old('name'),
+                                                    'value'     => old('name') ?? '',
                                                     'required'  => true,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
@@ -66,7 +64,7 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'slug',
-                                                    'value'     => old('slug'),
+                                                    'value'     => old('slug') ?? '',
                                                     'required'  => true,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
@@ -76,7 +74,7 @@
                                                     'name'            => 'professional',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('professional'),
+                                                    'checked'         => old('professional') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -84,20 +82,20 @@
                                                     'name'            => 'personal',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('personal'),
+                                                    'checked'         => old('personal') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'url',
-                                                    'value'     => old('url'),
+                                                    'value'     => old('url') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'website',
-                                                    'value'     => old('website'),
+                                                    'value'     => old('website') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -105,14 +103,14 @@
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'description',
                                                     'id'      => 'inputEditor',
-                                                    'value'   => old('description'),
+                                                    'value'   => old('description') ?? '',
                                                     'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('sequence'),
+                                                    'value'       => old('sequence') ?? 0,
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])
@@ -121,7 +119,7 @@
                                                     'name'            => 'public',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('public'),
+                                                    'checked'         => old('public') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -129,7 +127,7 @@
                                                     'name'            => 'disabled',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('disabled'),
+                                                    'checked'         => old('disabled') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 

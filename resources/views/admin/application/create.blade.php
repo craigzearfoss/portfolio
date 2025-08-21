@@ -38,9 +38,7 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.application.index') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.application.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -58,7 +56,7 @@
 
                                                 @include('admin.components.form-input', [
                                                     'name'        => 'role',
-                                                    'value'       => old('role'),
+                                                    'value'       => old('role') ?? '',
                                                     'required'    => true,
                                                     'maxlength'   => 255,
                                                     'message'     => $message ?? '',
@@ -66,7 +64,7 @@
 
                                                 @include('admin.components.form-select', [
                                                     'name'    => 'company',
-                                                    'value'   => old('company_id'),
+                                                    'value'   => old('company_id') ?? '',
                                                     'list'    => \App\Models\Career\Company::listOptions(true),
                                                     'message' => $message ?? '',
                                                 ])
@@ -74,7 +72,7 @@
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'rating',
-                                                    'value'       => old('rating'),
+                                                    'value'       => old('rating') ?? 0,
                                                     'placeholder' => "0, 1, 2, 3, or 4",
                                                     'min'         => 1,
                                                     'max'         => 4,
@@ -85,7 +83,7 @@
                                                     'name'            => 'active',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('active'),
+                                                    'checked'         => old('active') ?? 1,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -93,7 +91,7 @@
                                                     'type'    => 'date',
                                                     'label'   => 'post date',
                                                     'name'    => 'post_date',
-                                                    'value'   => old('post_date'),
+                                                    'value'   => old('post_date') ?? null,
                                                     'message' => $message ?? '',
                                                 ])
 
@@ -101,7 +99,7 @@
                                                     'type'    => 'date',
                                                     'label'   => 'apply date',
                                                     'name'    => 'apply_date',
-                                                    'value'   => old('apply_date'),
+                                                    'value'   => old('apply_date') ?? null,
                                                     'message' => $message ?? '',
                                                 ])
 
@@ -109,14 +107,14 @@
                                                     'type'    => 'date',
                                                     'label'   => 'close date',
                                                     'name'    => 'close_date',
-                                                    'value'   => old('close_date'),
+                                                    'value'   => old('close_date') ?? null,
                                                     'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'type'    => 'number',
                                                     'name'    => 'compensation',
-                                                    'value'   => old('compensation'),
+                                                    'value'   => old('compensation') ?? 0,
                                                     'min'     => 0,
                                                     'message' => $message ?? '',
                                                 ])
@@ -124,49 +122,49 @@
                                                 @include('admin.components.form-select', [
                                                     'label'   => 'compensation unit',
                                                     'name'    => 'compensation_unit',
-                                                    'value'   => old('compensation_unit'),
+                                                    'value'   => old('compensation_unit') ?? '',
                                                     'list'    => \App\Models\Career\Application::compensationUnitListOptions(true, true),
                                                     'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'duration',
-                                                    'value'     => old('duration'),
+                                                    'value'     => old('duration') ?? 0,
                                                     'maxlength' => 100,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-select', [
                                                     'name'    => 'type',
-                                                    'value'   => old('type'),
+                                                    'value'   => old('type') ?? 'permanent' ,
                                                     'list'    => \App\Models\Career\Application::typeListOptions(),
                                                     'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-select', [
                                                     'name'    => 'office',
-                                                    'value'   => old('office'),
+                                                    'value'   => old('office') ?? 'onsite',
                                                     'list'    => \App\Models\Career\Application::officeListOptions(),
                                                     'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'city',
-                                                    'value'     => old('city'),
+                                                    'value'     => old('city') ?? '',
                                                     'maxlength' => 100,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-select', [
                                                     'name'    => 'state',
-                                                    'value'   => old('state'),
+                                                    'value'   => old('state') ?? '',
                                                     'list'    => \App\Models\State::listOptions(true),
                                                     'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'bonus',
-                                                    'value'     => old('bonus'),
+                                                    'value'     => old('bonus') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -175,7 +173,7 @@
                                                     'name'            => 'w2',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('w2'),
+                                                    'checked'         => old('w2') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -183,7 +181,7 @@
                                                     'name'            => 'relocation',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('relocation'),
+                                                    'checked'         => old('relocation') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -191,7 +189,7 @@
                                                     'name'            => 'benefits',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('benefits'),
+                                                    'checked'         => old('benefits') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -199,7 +197,7 @@
                                                     'name'            => 'vacation',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('vacation'),
+                                                    'checked'         => old('vacation') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -207,20 +205,20 @@
                                                     'name'            => 'health',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('health'),
+                                                    'checked'         => old('health') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'source',
-                                                    'value'     => old('source'),
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
+                                                @include('admin.components.form-select', [
+                                                    'name'    => 'source',
+                                                    'value'   => old('source') ?? '',
+                                                    'list'    => \App\Models\Career\JobBoard::listOptions(true, true),
+                                                    'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'link',
-                                                    'value'     => old('link'),
+                                                    'value'     => old('link') ?? '',
                                                     'maxlength' => 100,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -228,7 +226,7 @@
                                                 @include('admin.components.form-input', [
                                                     'label'     => 'contact(s)',
                                                     'name'      => 'contacts',
-                                                    'value'     => old('contacts'),
+                                                    'value'     => old('contacts') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -236,7 +234,7 @@
                                                 @include('admin.components.form-input', [
                                                     'label'     => 'phone(s)',
                                                     'name'      => 'phones',
-                                                    'value'     => old('phones'),
+                                                    'value'     => old('phones') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -244,28 +242,29 @@
                                                 @include('admin.components.form-input', [
                                                     'label'     => 'email(s)',
                                                     'name'      => 'emails',
-                                                    'value'     => old('emails'),
+                                                    'value'     => old('emails') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'website',
-                                                    'value'     => old('website'),
+                                                    'value'     => old('website') ?? '',
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-textarea', [
                                                     'name'    => 'description',
-                                                    'value'   => old('description'),
+                                                    'id'      => 'inputEditor',
+                                                    'value'   => old('description') ?? '',
                                                     'message' => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-input', [
                                                     'type'        => 'number',
                                                     'name'        => 'sequence',
-                                                    'value'       => old('sequence'),
+                                                    'value'       => old('sequence') ?? 0,
                                                     'min'         => 0,
                                                     'message'     => $message ?? '',
                                                 ])
@@ -274,7 +273,7 @@
                                                     'name'            => 'public',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('public'),
+                                                    'checked'         => old('public') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -282,7 +281,7 @@
                                                     'name'            => 'disabled',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
-                                                    'checked'         => old('disabled'),
+                                                    'checked'         => old('disabled') ?? 0,
                                                     'message'         => $message ?? '',
                                                 ])
 
@@ -290,7 +289,7 @@
                                                     'label'      => 'Add Application',
                                                     'cancel_url' => route('admin.application.index')
                                                 ])
-                                                \
+
                                             </form>
                                         </div>
                                     </div>

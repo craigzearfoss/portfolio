@@ -40,13 +40,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (Schema::connection('career_db')->hasTable('job_skills')) {
-            Schema::connection('career_db')->table('job_skills', function (Blueprint $table) {
+        if (Schema::connection('career_db')->hasTable('job_skill_categories')) {
+            Schema::connection('career_db')->table('job_skill_categories', function (Blueprint $table) {
                 $table->dropForeign('skills_job_skill_category_id_foreign');
                 $table->dropColumn('job_skill_category_id');
             });
         }
 
-        Schema::connection('career_db')->dropIfExists('skill_categories');
+        Schema::connection('career_db')->dropIfExists('job_skill_categories');
     }
 };

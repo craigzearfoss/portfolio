@@ -15,6 +15,7 @@ class SampleSeeder extends Seeder
         // populate tables
         \App\Models\User::factory()->count(65)->create();
         \App\Models\Admin::factory()->count(3)->create();
+        \App\Models\Message::factory()->count(24)->create();
 
         echo 'Portfolio/Art' . PHP_EOL;
         \App\Models\Portfolio\Art::factory()
@@ -70,6 +71,11 @@ class SampleSeeder extends Seeder
             ->sequence(fn ($sequence) => [
                 'sequence' => $sequence->index + 1
             ])
+            ->create();
+
+        echo 'Portfolio/RecipeIngredient' . PHP_EOL;
+        \App\Models\Portfolio\RecipeIngredient::factory()
+            ->count(23)
             ->create();
 
         echo 'Portfolio/Recipe' . PHP_EOL;
