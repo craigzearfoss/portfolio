@@ -23,8 +23,8 @@ class PortfolioRecipeIngredientStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['string', 'max:255', 'unique:portfolio_db.recipe_ingredients,name', 'filled'],
-            'slug'        => ['string', 'max:255', 'unique:portfolio_db.recipe_ingredients,slug', 'filled'],
+            'name'        => ['required', 'string', 'max:255', 'unique:portfolio_db.recipe_ingredients,name'],
+            'slug'        => ['required', 'string', 'max:255', 'unique:portfolio_db.recipe_ingredients,slug'],
             'description' => ['nullable'],
         ];
     }

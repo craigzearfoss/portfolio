@@ -32,7 +32,10 @@
                         <tr>
                             <th></th>
                             <th class="whitespace-nowrap">user name</th>
+                            <th>name</th>
                             <th>email</th>
+                            <th>phone</th>
+                            <th class="text-center">root</th>
                             <th class="text-center">disabled</th>
                             <th>actions</th>
                         </tr>
@@ -44,21 +47,26 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $admin->username }}</td>
+                                <td>{{ $admin->name }}</td>
                                 <td>{{ $admin->email }}</td>
+                                <td>{{ $admin->phone }}</td>
+                                <td class="text-center">
+                                    @include('admin.components.checkmark', [ 'checked' => $admin->root ])
+                                </td>
                                 <td class="text-center">
                                     @include('admin.components.checkmark', [ 'checked' => $admin->disabled ])
                                 </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.admin.destroy', $admin->id) }}" method="POST">
-                                        <a class="btn btn-sm" href="{{ route('admin.admin.show', $admin->id) }}"><i class="fa-solid fa-list"></i>{{--  Show--}}</a>
-                                        @if ($admin->id === Auth::guard('admin')->user()->id)
+                                        <a class="btn btn-sm" href="{{ route('admin.admin.show', $admin->id) }}" title="Show"><i class="fa-solid fa-list"></i>{{--  Show--}}</a>
+                                        @if (Auth::guard('admin')->user()->root || ($admin->id === Auth::guard('admin')->user()->id))
                                             <a class="btn btn-sm" href="{{ route('admin.admin.edit', $admin->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{--  Edit--}}</a>
                                         @endif
                                         @csrf
-                                        <?php /*
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i>{{-- Delete--}}</button>
-                                        */ ?>
+                                        @if (Auth::guard('admin')->user()->root && ($admin->id !== Auth::guard('admin')->user()->id))
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i>{{-- Delete--}}</button>
+                                        @endif
                                     </form>
                                 </td>
                             </tr>

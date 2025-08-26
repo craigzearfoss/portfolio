@@ -37,7 +37,7 @@ class CareerJobBoardController extends Controller
     /**
      * Store a newly created job board in storage.
      */
-    public function store(CareerJobBoardUpdateRequest $request): RedirectResponse
+    public function store(CareerJobBoardStoreRequest $request): RedirectResponse
     {
         JobBoard::create($request->validated());
 

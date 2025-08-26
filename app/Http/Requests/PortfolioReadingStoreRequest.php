@@ -24,11 +24,12 @@ class PortfolioReadingStoreRequest extends FormRequest
     {
         return [
             'admin_id'  => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'title'     => ['required', 'string', 'max:255', 'required', 'unique:portfolio_db.readings,name', 'filled'],
-            'slug'      => ['required', 'string', 'max:255', 'unique:portfolio_db.readings,slug', 'filled'],
+            'title'     => ['required', 'string', 'max:255', 'unique:portfolio_db.readings,name'],
+            'slug'      => ['required', 'string', 'max:255', 'unique:portfolio_db.readings,slug'],
             'author'    => ['string', 'max:255', 'nullable'],
             'paper'     => ['integer', 'between:0,1'],
             'audio'     => ['integer', 'between:0,1'],
+            'wishlist'  => ['wishlist', 'between:0,1'],
             'link'      => ['string', 'nullable'],
             'link_name' => ['string', 'nullable'],
             'notes'     => ['nullable'],

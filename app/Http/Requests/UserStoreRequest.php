@@ -24,7 +24,7 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'              => ['required','string', 'min:6', 'max:255'],
+            'name'              => ['required', 'string', 'min:6', 'max:255'],
             'title'             => ['string', 'max:100', 'nullable'],
             'street'            => ['string', 'max:255', 'nullable'],
             'street2'           => ['string', 'max:255', 'nullable'],
@@ -33,11 +33,11 @@ class UserStoreRequest extends FormRequest
             'country'           => ['string', 'max:100', 'nullable'],
             'zip'               => ['string', 'max:20', 'nullable'],
             'phone'             => ['string', 'max:20', 'nullable'],
-            'email'             => ['required','email', 'max:255', 'unique:users,email'],
-            //'email_verified_at' => ['nullable'],
+            'email'             => ['required', 'email', 'max:255', 'unique:users,email'],
+            'email_verified_at' => ['nullable'],
             'website'           => ['string', 'max:255', 'nullable'],
-            'password'          => ['required','string', 'min:8', 'max:255'],
-            'confirm_password'  => ['required','string', 'same:password'],
+            'password'          => ['required', 'string', 'min:8', 'max:255'],
+            'confirm_password'  => ['required', 'string', 'same:password'],
             'remember_token'    => ['string', 'max:200', 'nullable'],
             'token'             => ['string', 'max:255', 'nullable'],
             'status'            => ['integer', 'between:0,1'],

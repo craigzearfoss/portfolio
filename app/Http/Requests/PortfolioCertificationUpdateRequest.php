@@ -23,7 +23,7 @@ class PortfolioCertificationUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'     => ['integer', 'exists:admins,id'],
+            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
             'name'         => ['string', 'max:255', 'unique:portfolio_db.certifications,name,'.$this->certification->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.certifications,slug,'.$this->certification->id, 'filled'],
             'organization' => ['string', 'max:255', 'nullable'],

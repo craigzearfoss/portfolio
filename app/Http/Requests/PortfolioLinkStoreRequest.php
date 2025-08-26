@@ -24,8 +24,8 @@ class PortfolioLinkStoreRequest extends FormRequest
     {
         return [
             'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['required', 'string', 'max:255', 'nullable', 'unique:portfolio_db.links,name', 'filled'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.links,slug', 'filled'],
+            'name'         => ['required', 'string', 'max:255', 'nullable', 'unique:portfolio_db.links,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.links,slug'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'url'          => ['string', 'max:255', 'required'],

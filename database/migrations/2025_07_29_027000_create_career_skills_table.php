@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::connection('career_db')->create('skills', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\Admin::class)->default(1);
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->integer('sequence')->default(0);
@@ -22,6 +22,9 @@ return new class extends Migration
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['admin_id', 'name'], 'admin_id_name_unique');
+            $table->unique(['admin_id', 'slug'], 'admin_id_slug_unique');
         });
     }
 

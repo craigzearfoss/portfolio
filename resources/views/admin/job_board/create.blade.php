@@ -57,7 +57,6 @@
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'website',
                                                     'value'     => old('website'),
-                                                    'required'  => true,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])

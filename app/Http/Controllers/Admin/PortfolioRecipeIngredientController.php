@@ -65,7 +65,8 @@ class PortfolioRecipeIngredientController extends Controller
     /**
      * Update the specified recipe ingredient in storage.
      */
-    public function update(PortfolioRecipeIngredientUpdateRequest $request, RecipeIngredient $recipeIngredient): RedirectResponse
+    public function update(PortfolioRecipeIngredientUpdateRequest $request,
+                           RecipeIngredient $recipeIngredient): RedirectResponse
     {
         $recipeIngredient->update($request->validated());
 

@@ -24,7 +24,7 @@ class PortfolioCourseUpdateRequest extends FormRequest
     {
         return [
             'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['string', 'max:255', 'nullable', 'unique:portfolio_db.courses,name,'.$this->course->id, 'filled'],
+            'name'         => ['string', 'max:255', 'unique:portfolio_db.courses,name,'.$this->course->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.courses,slug,'.$this->course->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],

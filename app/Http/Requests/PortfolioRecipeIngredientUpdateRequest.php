@@ -23,8 +23,8 @@ class PortfolioRecipeIngredientUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['required', 'string', 'max:255', 'unique:portfolio_db.recipe_ingredients,name,'.$this->recipe_ingredient->id, 'filled'],
-            'slug'        => ['required', 'string', 'max:255', 'unique:portfolio_db.recipe_ingredients,slug,'.$this->recipe_ingredient->id, 'filled'],
+            'name'        => ['string', 'max:255', 'unique:portfolio_db.recipe_ingredients,name,'.$this->recipe_ingredient->id, 'filled'],
+            'slug'        => ['string', 'max:255', 'unique:portfolio_db.recipe_ingredients,slug,'.$this->recipe_ingredient->id, 'filled'],
             'description' => ['nullable'],
         ];
     }

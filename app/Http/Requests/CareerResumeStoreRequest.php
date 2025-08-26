@@ -24,8 +24,8 @@ class CareerResumeStoreRequest extends FormRequest
     {
         return [
             'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['required', 'string', 'max:255', 'required', 'unique:career_db.resumes,name', 'filled'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.resumes,slug', 'filled'],
+            'name'         => ['required', 'string', 'max:255', 'unique:career_db.resumes,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.resumes,slug'],
             'date'         => ['date', 'nullable'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'link'         => ['string', 'max:255', 'nullable'],

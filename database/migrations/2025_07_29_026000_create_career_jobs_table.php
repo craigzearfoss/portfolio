@@ -23,6 +23,8 @@ return new class extends Migration
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['admin_id', 'slug'], 'admin_id_slug_unique');
         });
     }
 

@@ -68,12 +68,13 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin): View
     {
-        // admins can only edit themselves
-        if ($admin->id !== Auth::guard('admin')->user()->id) {
+        // Note that any admin can edit themselves but only root admins can edit other admins.
+        if (!Auth::guard('admin')->user()->root && ($admin->id !== Auth::guard('admin')->user()->id)) {
             abort(403);
         }
 
         return view('admin.admin.edit', compact('admin'));
+
     }
 
     /**
@@ -92,7 +93,12 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin): RedirectResponse
     {
-        $admin->delete();
+        // Note that only root admins can delete other admins, but they cannot delete themselves.
+        if (Auth::guard('admin')->user()->root && ($admin->id !== Auth::guard('admin')->user()->id)) {
+            $admin->delete();
+        } else {
+            abort(403);
+        }
 
         return redirect()->route('admin.index')
             ->with('success', 'Admin deleted successfully');

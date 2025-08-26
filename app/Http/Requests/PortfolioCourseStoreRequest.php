@@ -23,9 +23,9 @@ class PortfolioCourseStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.courses,name', 'filled'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.courses,slug', 'filled'],
+            'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.courses,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.courses,slug'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],

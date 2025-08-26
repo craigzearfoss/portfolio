@@ -12,7 +12,7 @@ class CareerJobBoardStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return Auth::guard('admin')->check() && Auth::guard('admin')->user()->root;
     }
 
     /**
@@ -23,7 +23,7 @@ class CareerJobBoardStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'    => ['required', 'string', 'max:100', 'unique:career_db.job_boards,name', 'filled'],
+            'name'    => ['required', 'string', 'max:100', 'unique:career_db.job_boards,name'],
             'website' => ['string', 'max:255', 'nullable'],
         ];
     }

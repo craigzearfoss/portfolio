@@ -23,9 +23,9 @@ class CareerJobStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id' => ['required', 'integer', 'exists:admins,id'],
-            'name'     => ['required', 'string', 'max:255', 'unique:portfolio_db.jobs,name', 'filled'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.jobs,slug', 'filled'],
+            'admin_id' => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'     => ['required', 'string', 'max:255', 'unique:portfolio_db.jobs,name'],
+            'slug'     => ['required', 'string', 'max:255', 'unique:portfolio_db.jobs,slug'],
             'sequence' => ['integer', 'min:0'],
             'public'   => ['integer', 'between:0,1'],
             'disabled' => ['integer', 'between:0,1'],

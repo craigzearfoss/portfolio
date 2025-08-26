@@ -24,15 +24,15 @@ class CareerCompanyUpdateRequest extends FormRequest
     {
         return [
             'admin_id'        => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'            => ['string', 'min:1', 'max:255', 'unique:career_db.companies,name,'.$this->company->id, 'filled'],
+            'name'            => ['string', 'max:255', 'unique:career_db.companies,name,'.$this->company->id, 'filled'],
             'slug'            => ['string', 'max:255', 'unique:portfolio_db.companies,slug,'.$this->company->id, 'filled'],
             'industry_id'     => ['integer', 'max:100'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],
             'state'           => ['string', 'max:100', 'nullable'],
-            'country'         => ['string', 'max:100', 'nullable'],
             'zip'             => ['string', 'max:20', 'nullable'],
+            'country'         => ['string', 'max:100', 'nullable'],
             'phone'           => ['string', 'max:20', 'nullable'],
             'phone_label'     => ['string', 'max:255', 'nullable'],
             'alt_phone'       => ['string', 'max:20', 'nullable'],

@@ -24,8 +24,8 @@ class PortfolioProjectStoreRequest extends FormRequest
     {
         return [
             'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['required', 'string', 'max:255', 'required', 'portfolio_db.unique:projects,name', 'filled'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.projects,slug', 'filled'],
+            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.projects,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.projects,slug'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],

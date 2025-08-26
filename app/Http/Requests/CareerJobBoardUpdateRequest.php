@@ -12,7 +12,7 @@ class CareerJobBoardUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return Auth::guard('admin')->check() && Auth::guard('admin')->user()->root;
     }
 
     /**
@@ -21,7 +21,7 @@ class CareerJobBoardUpdateRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {
+    {dd($this);
         return [
             'name'    => ['string', 'max:100', 'unique:career_db.job_boards,name,'.$this->job_board->id, 'filled'],
             'website' => ['string', 'max:255', 'nullable'],

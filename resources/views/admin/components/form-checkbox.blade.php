@@ -6,7 +6,7 @@
     <input
         type="checkbox"
         id="{{ $id }}"
-        name="active"
+        name="{{ $name ?? 'name' }}"
         value="{{ $value ?? '0' }}"
         @if (!empty($checked))checked @endif
         class="form-check-input {{ $class ?? '' }}"

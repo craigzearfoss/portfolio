@@ -62,7 +62,6 @@
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'website',
                                                     'value'     => old('website') ?? $jobBoard->website,
-                                                    'required'  => true,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])

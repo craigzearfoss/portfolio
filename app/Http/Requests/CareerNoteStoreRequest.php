@@ -24,8 +24,8 @@ class CareerNoteStoreRequest extends FormRequest
     {
         return [
             'admin_id' => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'subject'  => ['required', 'string', 'max:255', 'filled'],
-            'body'     => ['required', 'filled'],
+            'subject'  => ['required', 'string', 'max:255'],
+            'body'     => ['required'],
             'sequence' => ['integer', 'min:0'],
             'public'   => ['integer', 'between:0,1'],
             'disabled' => ['integer', 'between:0,1'],

@@ -1,0 +1,85 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CareerDictionaryDatabaseStoreRequest;
+use App\Http\Requests\CareerDictionaryDatabaseUpdateRequest;
+use App\Models\Career\DictionaryDatabase;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+
+class CareerDictionaryDatabaseController extends Controller
+{
+    const NUM_PER_PAGE = 20;
+
+    /**
+     * Display a listing of dictionary databases.
+     */
+    public function index(): View
+    {
+        $dictionaryDatabases = DictionaryDatabase::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
+
+        return view('admin.dictionary.database.index', compact('dictionaryDatabases'))
+            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+    }
+
+    /**
+     * Show the form for creating a new dictionary database.
+     */
+    public function create(): View
+    {
+        return view('admin.dictionary.database.create');
+    }
+
+    /**
+     * Store a newly created dictionary database in storage.
+     */
+    public function store(CareerDictionaryDatabaseStoreRequest $request): RedirectResponse
+    {
+        DictionaryDatabase::create($request->validated());
+
+        return redirect()->route('admin.dictionary.database.index')
+            ->with('success', 'Dictionary database created successfully.');
+    }
+
+    /**
+     * Display the specified dictionary database.
+     */
+    public function show(DictionaryDatabase $dictionaryDatabase): View
+    {
+        return view('admin.dictionary.database.show', compact('dictionaryDatabase'));
+    }
+
+    /**
+     * Show the form for editing the specified dictionary database.
+     */
+    public function edit(DictionaryDatabase $dictionaryDatabase): View
+    {
+        return view('admin.dictionary.database.edit', compact('dictionaryDatabase'));
+    }
+
+    /**
+     * Update the specified dictionary database in storage.
+     */
+    public function update(CareerDictionaryDatabaseUpdateRequest $request,
+                           DictionaryDatabase $dictionaryDatabase): RedirectResponse
+    {
+        $dictionaryDatabase->update($request->validated());
+
+        return redirect()->route('admin.dictionary.database.index')
+            ->with('success', 'Dictionary database updated successfully');
+    }
+
+    /**
+     * Remove the specified dictionary database from storage.
+     */
+    public function destroy(DictionaryDatabase $dictionaryDatabase): RedirectResponse
+    {
+        $dictionaryDatabase->delete();
+
+        return redirect()->route('admin.dictionary.database.index')
+            ->with('success', 'Dictionary database deleted successfully');
+    }
+}

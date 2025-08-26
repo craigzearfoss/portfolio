@@ -57,6 +57,7 @@
                                                     'required'  => true,
                                                     'minlength' => 6,
                                                     'maxlength' => 200,
+                                                    'disabled'  => true,
                                                     'message'   => $message ?? '',
                                                 ])
 
@@ -85,10 +86,20 @@
                                                 ])
 
                                                 @include('admin.components.form-checkbox', [
+                                                    'name'            => 'root',
+                                                    'value'           => 1,
+                                                    'unchecked_value' => 0,
+                                                    'checked'         => old('root') ?? $admin->root,
+                                                    'disabled'        => !\Auth::guard('admin')->user()->root,
+                                                    'message'         => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-checkbox', [
                                                     'name'            => 'disabled',
                                                     'value'           => 1,
                                                     'unchecked_value' => 0,
                                                     'checked'         => old('disabled') ?? $admin->disabled,
+                                                    'disabled'        => $admin->id === \Auth::guard('admin')->user()->id,
                                                     'message'         => $message ?? '',
                                                 ])
 

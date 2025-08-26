@@ -23,9 +23,9 @@ class PortfolioArtStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'     => ['required', 'integer', 'exists:admins,id'],
-            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.art,name', 'filled'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.art,slug', 'filled'],
+            'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.art,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.art,slug'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0'],

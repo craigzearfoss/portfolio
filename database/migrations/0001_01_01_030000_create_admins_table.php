@@ -21,17 +21,30 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('password');
             $table->string('token')->nullable();
+            $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
 
-        Admin::insert([
-            'username' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('changeme'),
-            'token' => ''
-        ]);
+        $data = [
+            [
+                'username' => 'root',
+                'email'    => 'root@gmail.com',
+                'password' => Hash::make('changeme'),
+                'token'    => '',
+                'root'     => 1,
+            ],
+            [
+                'username' => 'admin',
+                'email'    => 'admin@gmail.com',
+                'password' => Hash::make('changeme'),
+                'token'    => '',
+                'root'     => 0,
+            ]
+        ];
+
+        Admin::insert($data);
 
     }
 

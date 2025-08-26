@@ -23,9 +23,9 @@ class PortfolioRecipeStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'     => ['required', 'integer', 'exists:admins,id'],
-            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.recipes,name', 'filled'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.recipees,slug', 'filled'],
+            'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.recipes,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.recipes,slug'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0'],

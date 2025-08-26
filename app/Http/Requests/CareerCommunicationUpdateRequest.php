@@ -24,7 +24,7 @@ class CareerCommunicationUpdateRequest extends FormRequest
     {
         return [
             'admin_id' => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'subject'  => ['string', 'min:1', 'max:255', 'filled'],
+            'subject'  => ['string', 'max:255', 'filled'],
             'body'     => ['filled'],
             'sequence' => ['integer', 'min:0'],
             'public'   => ['integer', 'between:0,1'],

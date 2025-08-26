@@ -24,10 +24,10 @@ class CareerCoverLetterStoreRequest extends FormRequest
     {
         return [
             'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['required', 'string', 'max:255', 'required', 'unique:career_db.cover_letters,name', 'filled'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.cover_letters,slug', 'filled'],
+            'name'         => ['required', 'string', 'max:255', 'unique:career_db.cover_letters,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.cover_letters,slug'],
             'recipient'    => ['string', 'max:255', 'nullable'],
-            'date'         => ['date'],
+            'date'         => ['date', 'nullable'],
             'link'         => ['string', 'max:255', 'nullable'],
             'alt_link'     => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

@@ -52,6 +52,11 @@
                                         ])
 
                                         @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'root',
+                                            'checked' => $admin->root
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
                                             'name'    => 'disabled',
                                             'checked' => $admin->disabled
                                         ])
