@@ -41,15 +41,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/reset-password/{token}/{email}', [IndexController::class, 'reset_password_submit'])->name('reset_password_submit');
 });
 
-Route::prefix('admin')->middleware('admin')->name('admin.dictionary.')->group(function () {
-    Route::resource('dictionary/category',  \App\Http\Controllers\Admin\Dictionary\CategoryController::class);
-    Route::resource('dictionary/database', \App\Http\Controllers\Admin\Dictionary\DatabaseController::class);
-    Route::resource('dictionary/framework', \App\Http\Controllers\Admin\Dictionary\FrameworkController::class);
-    Route::resource('dictionary/language', \App\Http\Controllers\Admin\Dictionary\LanguageController::class);
-    Route::resource('dictionary/library', \App\Http\Controllers\Admin\Dictionary\LibraryController::class);
-    Route::resource('dictionary/operating-system', \App\Http\Controllers\Admin\Dictionary\OperatingSystemController::class);
-    Route::resource('dictionary/server', \App\Http\Controllers\Admin\Dictionary\ServerController::class);
-    Route::resource('dictionary/stack', \App\Http\Controllers\Admin\Dictionary\StackController::class);
+Route::prefix('admin/dictionary')->middleware('admin')->name('admin.dictionary.')->group(function () {
+      Route::resource('category',  \App\Http\Controllers\Admin\Dictionary\CategoryController::class)->parameter('category', 'dictionary_category');
+      Route::resource('database', \App\Http\Controllers\Admin\Dictionary\DatabaseController::class)->parameter('database', 'dictionary_database');
+      Route::resource('framework', \App\Http\Controllers\Admin\Dictionary\FrameworkController::class)->parameter('framework', 'dictionary_framework');
+      Route::resource('language', \App\Http\Controllers\Admin\Dictionary\LanguageController::class)->parameter('language', 'dictionary_language');
+      Route::resource('library', \App\Http\Controllers\Admin\Dictionary\LibraryController::class)->parameter('library', 'dictionary_library');
+      Route::resource('operating-system', \App\Http\Controllers\Admin\Dictionary\OperatingSystemController::class)->parameter('operating-system', 'dictionary_operating_system');
+      Route::resource('server', \App\Http\Controllers\Admin\Dictionary\ServerController::class)->parameter('server', 'dictionary_server');
+      Route::resource('stack', \App\Http\Controllers\Admin\Dictionary\StackController::class)->parameter('stack', 'dictionary_stack');
 });
 
 Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
@@ -65,7 +65,7 @@ Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::resource('cover-letter', CareerCoverLetterController::class);
     Route::resource('dictionary', CareerDictionaryController::class);
     Route::resource('job', CareerJobController::class);
-    Route::resource('job_board', CareerJobBoardController::class);
+    Route::resource('job-board', CareerJobBoardController::class)->parameter('job-board', 'job_board');
     Route::resource('link', PortfolioLinkController::class);
     Route::resource('message', MessageController::class);
     Route::resource('music', PortfolioMusicController::class);

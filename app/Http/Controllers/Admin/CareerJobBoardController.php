@@ -22,7 +22,7 @@ class CareerJobBoardController extends Controller
     {
         $jobBoards = JobBoard::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.job_board.index', compact('jobBoards'))
+        return view('admin.job-board.index', compact('jobBoards'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -31,7 +31,7 @@ class CareerJobBoardController extends Controller
      */
     public function create(): View
     {
-        return view('admin.job_board.create');
+        return view('admin.job-board.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class CareerJobBoardController extends Controller
     {
         JobBoard::create($request->validated());
 
-        return redirect()->route('admin.job_board.index')
+        return redirect()->route('admin.job-board.index')
             ->with('success', 'Cover letter created successfully.');
     }
 
@@ -50,7 +50,7 @@ class CareerJobBoardController extends Controller
      */
     public function show(JobBoard $jobBoard): View
     {
-        return view('admin.job_board.show', compact('jobBoard'));
+        return view('admin.job-board.show', compact('jobBoard'));
     }
 
     /**
@@ -58,7 +58,7 @@ class CareerJobBoardController extends Controller
      */
     public function edit(JobBoard $jobBoard): View
     {
-        return view('admin.job_board.edit', compact('jobBoard'));
+        return view('admin.job-board.edit', compact('jobBoard'));
     }
 
     /**
@@ -68,7 +68,7 @@ class CareerJobBoardController extends Controller
     {
         $jobBoard->update($request->validated());
 
-        return redirect()->route('admin.job_board.index')
+        return redirect()->route('admin.job-board.index')
             ->with('success', 'Cover letter updated successfully');
     }
 

@@ -2,13 +2,13 @@
     'title' => $jobBoard->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Job Boards',      'url' => route('admin.job_board.index') ],
+        [ 'name' => 'Job Boards',      'url' => route('admin.job-board.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.job_board.edit', $jobBoard) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Board', 'url' => route('admin.job_board.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => route('admin.job_board.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.job-board.edit', $jobBoard) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Board', 'url' => route('admin.job-board.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => route('admin.job-board.index') ],
     ],
     'errors' => $errors ?? [],
 ])
