@@ -15,26 +15,25 @@
     <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
         <thead>
         <tr>
-            <th>Name</th>
-            <th class="px-2">Servers</th>
-            <th class="px-2"><abbr title="Operating System">OS</abbr></th>
-            <th class="px-2">Frameworks</th>
-            <th class="px-2">Languages</th>
-            <th class="px-2">Databases</th>
-            <th class="px-2">Actions</th>
+            <th class="is-1">name</th>
+            <th class="is-2 px-1">servers</th>
+            <th class="is-2 px-1"><abbr title="operating system">os</abbr></th>
+            <th class="is-2 px-1">frameworks</th>
+            <th class="is-2 px-1">languages</th>
+            <th class="is-2 px-1">databases</th>
+            <th class="is-1 px-1">actions</th>
         </tr>
         </thead>
         <?php /*
         <tfoot>
         <tr>
-            <th>name</th>
-            <th class="px-2">servers</th>
-            <th class="px-2"><abbr title="operating system">OS</abbr></th>
-            <th class="px-2">frameworks</th>
-            <th class="px-2">languages</th>
-            <th class="px-2">databases</th>
-            <th class="px-2">website</th>
-            <th>actions</th>
+            <th class="is-1">name</th>
+            <th class="is-2 px-1">servers</th>
+            <th class="is-2 px-1"><abbr title="operating system">os</abbr></th>
+            <th class="is-2 px-1">frameworks</th>
+            <th class="is-2 px-1">languages</th>
+            <th class="is-2 px-1">databases</th>
+            <th class="is-1 px-1">actions</th>
         </tr>
         </tfoot>
         */ ?>
@@ -43,20 +42,22 @@
         @forelse ($dictionaryStacks as $dictionaryStack)
 
             <tr>
-                <td class="is-1 py-0">{{ $dictionaryStack->name }}</td>
-                <td class="is-2 py-0 px-2">
+                <td class="is-1 py-0">
+                    {{ $dictionaryStack->name }}
+                </td>
+                <td class="is-2 py-0 px-1">
                     {{ implode(', ',  $dictionaryStack->servers->pluck('name')->toArray()) }}
                 </td>
-                <td class="is-2 py-0 px-2">
+                <td class="is-2 py-0 px-1">
                     {{ implode(', ',  $dictionaryStack->operating_systems->pluck('name')->toArray()) }}
                 </td>
-                <td class="is-2 py-0 px-2">
+                <td class="is-2 py-0 px-1">
                     {{ implode(', ',  $dictionaryStack->frameworks->pluck('name')->toArray()) }}
                 </td>
-                <td class="is-2 py-0 px-2">
+                <td class="is-2 py-0 px-1">
                     {{ implode(', ',  $dictionaryStack->languages->pluck('name')->toArray()) }}
                 </td>
-                <td class="is-2 py-0 px-2">
+                <td class="is-2 py-0 px-1">
                     {{ implode(', ',  $dictionaryStack->databases->pluck('name')->toArray()) }}
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
@@ -102,7 +103,6 @@
 
         </tbody>
     </table>
-
 
     {!! $dictionaryStacks->links('vendor.pagination.bulma') !!}
 

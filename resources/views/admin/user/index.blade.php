@@ -15,12 +15,12 @@
     <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
         <thead>
         <tr>
-            <th class="px-2">name</th>
-            <th class="px-2">email</th>
-            <th class="px-2 text-center">verified</th>
-            <th class="px-2 text-center">status</th>
-            <th class="px-2 text-center">disabled</th>
-            <th class="px-2">actions</th>
+            <th class="px-1">name</th>
+            <th class="px-1">email</th>
+            <th class="px-1 text-center">verified</th>
+            <th class="px-1 text-center">status</th>
+            <th class="px-1 text-center">disabled</th>
+            <th class="px-1">actions</th>
         </tr>
         </thead>
         <?php /*
@@ -52,10 +52,10 @@
                 <td class="py-0">
                     {{ \App\Models\User::statusName($user->status) }}
                 </td>
-                <td class="is-2 py-0 px-2">
+                <td class="py-0">
                     @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
                 </td>
-                <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                <td class="white-space-nowrap py-0" style="white-space: nowrap;">
                     <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
@@ -92,7 +92,6 @@
 
         </tbody>
     </table>
-
 
     {!! $users->links('vendor.pagination.bulma') !!}
 

@@ -151,7 +151,7 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
+                'label'      => 'Add User',
                 'cancel_url' => route('admin.user.index')
             ])
 

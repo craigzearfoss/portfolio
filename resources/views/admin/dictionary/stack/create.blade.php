@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
-    'title' => 'Add stack',
+    'title' => 'Add New Stack',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard',  'url' => route('admin.dashboard')],
-        [ 'name' => 'Stacks', 'url' => route('admin.dictionary_stack.index')],
+        [ 'name' => 'Stacks',           'url' => route('admin.dictionary_stack.index')],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
@@ -67,7 +67,7 @@
             ])
 
             @include('admin.components.form-button-submit', [
-                'label'      => 'Save',
+                'label'      => 'Add Stack',
                 'cancel_url' => route('admin.dictionary_stack.index')
             ])
 
