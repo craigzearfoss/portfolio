@@ -1,91 +1,99 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' => 'Dictionary Databases',
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Databases' ]
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'url' => route('admin.dictionary.database.create') ],
+    ],
+    'errors' => $errors ?? [],
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+        <thead>
+        <tr>
+            <th>name</th>
+            <th>abbreviation</th>
+            <th>owner</th>
+            <th class="text-nowrap">wiki page</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <?php /*
+        <tfoot>
+        <tr>
+            <th>name</th>
+            <th>abbreviation</th>
+            <th>owner</th>
+            <th class="text-nowrap">wiki page</th>
+            <th>actions</th>
+        </tr>
+        </tfoot>
+        */ ?>
+        <tbody>
 
-            @include('admin.components.nav-left_ORIGINAL')
+        @forelse ($dictionaryDatabases as $dictionaryDatabase)
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            <tr>
+                <td class="py-0">
+                    {{ $dictionaryDatabase->name }}
+                </td>
+                <td class="py-0">
+                    {{ $dictionaryDatabase->abbreviation }}
+                </td>
+                <td class="py-0">
+                    {{ $dictionaryDatabase->owner }}
+                </td>
+                <td class="py-0 px-2">
+                    @include('admin.components.link', [ 'url' => $dictionaryDatabase->wiki_page, 'target' => '_blank' ])
+                </td>
+                <td class="white-space-nowrap py-0" style="white-space: nowrap;">
+                    <form action="{{ route('admin.dictionary.database.destroy', $dictionaryDatabase->id) }}" method="POST">
 
-                @include('admin.components.header')
+                        <a title="show" class="button is-small px-1 py-0"
+                           href="{{ route('admin.dictionary.database.show', $dictionaryDatabase->id) }}">
+                            <i class="fa-solid fa-list"></i>{{-- Show--}}
+                        </a>
 
-                @include('admin.components.popup')
+                        <a title="edit" class="button is-small px-1 py-0"
+                           href="{{ route('admin.dictionary.database.edit', $dictionaryDatabase->id) }}">
+                            <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                        </a>
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
+                        @if (!empty($dictionaryDatabase->website))
+                            <a title="website" class="button is-small px-1 py-0" href="{{ $dictionaryDatabase->website }}"
+                               target="_blank">
+                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                            </a>
+                        @else
+                            <a title="website" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                            </a>
+                        @endif
 
-                    <h3 class="card-header">Dictionary Databases</h3>
+                        @csrf
+                        @method('DELETE')
+                        <button title="delete" type="submit" class="button is-small px-1 py-0">
+                            <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                        </button>
+                    </form>
+                </td>
+            </tr>
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('admin.components.messages', [$errors])
-                        </div>
-                        <div>
-                            <a class="btn btn-solid btn-sm" href="{{ route('admin.dictionary_database.create') }}"><i
-                                        class="fa fa-plus"></i> Add New Dictionary Database</a>
-                        </div>
-                    </div>
+        @empty
 
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>name</th>
-                            <th>abbreviation</th>
-                            <th>owner</th>
-                            <th>website</th>
-                            <th class="text-nowrap">wiki page</th>
-                            <th>actions</th>
-                        </tr>
-                        </thead>
+            <tr>
+                <td colspan="5">There are no dictionary databases.</td>
+            </tr>
 
-                        <tbody>
+        @endforelse
 
-                        @forelse ($dictionaryDatabases as $dictionaryDatabase)
-                            <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $dictionaryDatabase->name }}</td>
-                                <td>{{ $dictionaryDatabase->abbreviation }}</td>
-                                <td>{{ $dictionaryDatabase->owner }}</td>
-                                <td>
-                                    @include('admin.components.link', [ 'url' => $dictionaryDatabase->website, 'target' => '_blank' ])
-                                </td>
-                                <td>
-                                    @include('admin.components.link', [ 'url' => $dictionaryDatabase->wiki_page, 'target' => '_blank' ])
-                                </td>
-                                <td class="text-nowrap">
-                                    <form action="{{ route('admin.dictionary_database.destroy', $dictionaryDatabase->id) }}"
-                                          method="POST">
-                                        <a class="btn btn-sm"
-                                           href="{{ route('admin.dictionary_database.show', $dictionaryDatabase->id) }}"><i
-                                                    class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                        <a class="btn btn-sm"
-                                           href="{{ route('admin.dictionary_database.edit', $dictionaryDatabase->id) }}"><i
-                                                    class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm"><i
-                                                    class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7">There are no dictionary databases.</td>
-                            </tr>
-                        @endforelse
+        </tbody>
+    </table>
 
-                        </tbody>
-                    </table>
-
-                    {!! $dictionaryDatabases->links() !!}
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
-    </div>
+    {!! $dictionaryDatabases->links('vendor.pagination.bulma') !!}
 
 @endsection

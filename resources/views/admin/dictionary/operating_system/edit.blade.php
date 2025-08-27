@@ -2,12 +2,12 @@
     'title' => $dictionaryOperatingSystem->name . ' operating system',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard',   'url' => route('admin.dashboard') ],
-        [ 'name' => 'Operating Systems', 'url' => route('admin.dictionary_operating_system.index') ],
+        [ 'name' => 'Operating Systems', 'url' => route('admin.dictionary.operating-system.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary_operating_system.show', $dictionaryOperatingSystem) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary_operating_system.index') ],
+        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.operating-system.show', $dictionaryOperatingSystem) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.operating-system.index') ],
     ],
     'errors' => $errors ?? [],
     'success' => session('success') ?? null,
@@ -19,7 +19,7 @@
     <div class="form-container">
 
         <form
-            action="{{ route('admin.dictionary_operating_system.update', $dictionaryOperatingSystem) }}"
+            action="{{ route('admin.dictionary.operating-system.update', $dictionaryOperatingSystem) }}"
             method="POST">
             @csrf
             @method('PUT')
@@ -104,7 +104,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => route('admin.dictionary_operating_system.index')
+                'cancel_url' => route('admin.dictionary.operating-system.index')
             ])
 
         </form>

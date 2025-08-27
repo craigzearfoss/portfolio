@@ -66,32 +66,32 @@
                 </a>
                 <ul>
                     <li>
-                        <a href="{{ route('admin.dictionary_database.index') }}">
+                        <a href="{{ route('admin.dictionary.database.index') }}">
                             <span>Databases</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.dictionary_framework.index') }}">
+                        <a href="{{ route('admin.dictionary.framework.index') }}">
                             <span>Frameworks</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.dictionary_language.index') }}">
+                        <a href="{{ route('admin.dictionary.language.index') }}">
                             <span>Languages</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.dictionary_operating_system.index') }}">
+                        <a href="{{ route('admin.dictionary.operating-system.index') }}">
                             <span>Operating Systems</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.dictionary_server.index') }}">
+                        <a href="{{ route('admin.dictionary.server.index') }}">
                             <span>Servers</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.dictionary_stack.index') }}">
+                        <a href="{{ route('admin.dictionary.stack.index') }}">
                             <span>Stacks</span>
                         </a>
                     </li>

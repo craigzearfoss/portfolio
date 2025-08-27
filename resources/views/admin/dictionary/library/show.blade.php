@@ -2,13 +2,13 @@
     'title' => $dictionaryLibrary->name . ' library',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Libraries',       'url' => route('admin.dictionary_library.index') ],
+        [ 'name' => 'Libraries',       'url' => route('admin.dictionary.library.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'url' => route('admin.dictionary_library.edit', $dictionaryLibrary) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Library', 'url' => route('admin.dictionary_library.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => route('admin.dictionary_library.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'url' => route('admin.dictionary.library.edit', $dictionaryLibrary) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Library', 'url' => route('admin.dictionary.library.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => route('admin.dictionary.library.index') ],
     ],
     'errors' => $errors ?? [],
 ])

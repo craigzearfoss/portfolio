@@ -2,11 +2,11 @@
     'title' => 'Add New Operating System',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard',   'url' => route('admin.dashboard') ],
-        [ 'name' => 'Operating Systems', 'url' => route('admin.dictionary_operating_system.index') ],
+        [ 'name' => 'Operating Systems', 'url' => route('admin.dictionary.operating-system.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary_operating_system.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.operating-system.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -17,7 +17,7 @@
 
     <div class="form-container">
 
-        <form action="{{ route('admin.dictionary_operating_system.store') }}"
+        <form action="{{ route('admin.dictionary.operating-system.store') }}"
               method="POST">
             @csrf
 
@@ -101,7 +101,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Operating System',
-                'cancel_url' => route('admin.dictionary_operating_system.index')
+                'cancel_url' => route('admin.dictionary.operating-system.index')
             ])
 
         </form>

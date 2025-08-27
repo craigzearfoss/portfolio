@@ -2,11 +2,11 @@
     'title' => 'Add New Framework',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Frameworks',      'url' => route('admin.dictionary_framework.index') ],
+        [ 'name' => 'Frameworks',      'url' => route('admin.dictionary.framework.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary_framework.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.framework.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -17,7 +17,7 @@
 
     <div class="form">
 
-        <form action="{{ route('admin.dictionary_framework.store') }}"
+        <form action="{{ route('admin.dictionary.framework.store') }}"
               method="POST">
             @csrf
 
@@ -109,7 +109,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Framework',
-                'cancel_url' => route('admin.dictionary_framework.index')
+                'cancel_url' => route('admin.dictionary.framework.index')
             ])
 
         </form>

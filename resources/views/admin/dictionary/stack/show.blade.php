@@ -2,13 +2,13 @@
     'title' => $dictionaryStack->name . ' stack',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Stacks',          'url' => route('admin.dictionary_stack.index') ],
+        [ 'name' => 'Stacks',          'url' => route('admin.dictionary.stack.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.dictionary_stack.edit', $dictionaryStack) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'url' => route('admin.dictionary_stack.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => route('admin.dictionary_stack.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.dictionary.stack.edit', $dictionaryStack) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'url' => route('admin.dictionary.stack.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => route('admin.dictionary.stack.index') ],
     ],
     'errors' => $errors ?? [],
 ])

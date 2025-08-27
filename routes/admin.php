@@ -6,24 +6,15 @@ use App\Http\Controllers\Admin\CareerCommunicationController;
 use App\Http\Controllers\Admin\CareerCompanyController;
 use App\Http\Controllers\Admin\CareerContactController;
 use App\Http\Controllers\Admin\CareerCoverLetterController;
-use App\Http\Controllers\Admin\CareerDictionaryCategoryController;
-use App\Http\Controllers\Admin\CareerDictionaryController;
-use App\Http\Controllers\Admin\CareerDictionaryDatabaseController;
-use App\Http\Controllers\Admin\CareerDictionaryFrameworkController;
-use App\Http\Controllers\Admin\CareerDictionaryLanguageController;
-use App\Http\Controllers\Admin\CareerDictionaryLibraryController;
-use App\Http\Controllers\Admin\CareerDictionaryOperatingSystemController;
-use App\Http\Controllers\Admin\CareerDictionaryServerController;
-use App\Http\Controllers\Admin\CareerDictionaryStackController;
 use App\Http\Controllers\Admin\CareerJobBoardController;
 use App\Http\Controllers\Admin\CareerJobController;
 use App\Http\Controllers\Admin\CareerNoteController;
 use App\Http\Controllers\Admin\CareerReferenceController;
 use App\Http\Controllers\Admin\CareerResumeController;
 use App\Http\Controllers\Admin\CareerSkillController;
+use App\Http\Controllers\Admin\Dictionary\IndexController as CareerDictionaryController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\MessageController;
-use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\PortfolioArtController;
 use App\Http\Controllers\Admin\PortfolioCertificationController;
 use App\Http\Controllers\Admin\PortfolioCourseController;
@@ -34,9 +25,9 @@ use App\Http\Controllers\Admin\PortfolioReadingController;
 use App\Http\Controllers\Admin\PortfolioRecipeController;
 use App\Http\Controllers\Admin\PortfolioRecipeIngredientController;
 use App\Http\Controllers\Admin\PortfolioVideoController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ResourceController;
 use App\Http\Controllers\Admin\UserController;
-
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -50,6 +41,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/reset-password/{token}/{email}', [IndexController::class, 'reset_password_submit'])->name('reset_password_submit');
 });
 
+Route::prefix('admin')->middleware('admin')->name('admin.dictionary.')->group(function () {
+    Route::resource('dictionary/category',  \App\Http\Controllers\Admin\Dictionary\CategoryController::class);
+    Route::resource('dictionary/database', \App\Http\Controllers\Admin\Dictionary\DatabaseController::class);
+    Route::resource('dictionary/framework', \App\Http\Controllers\Admin\Dictionary\FrameworkController::class);
+    Route::resource('dictionary/language', \App\Http\Controllers\Admin\Dictionary\LanguageController::class);
+    Route::resource('dictionary/library', \App\Http\Controllers\Admin\Dictionary\LibraryController::class);
+    Route::resource('dictionary/operating-system', \App\Http\Controllers\Admin\Dictionary\OperatingSystemController::class);
+    Route::resource('dictionary/server', \App\Http\Controllers\Admin\Dictionary\ServerController::class);
+    Route::resource('dictionary/stack', \App\Http\Controllers\Admin\Dictionary\StackController::class);
+});
+
 Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [IndexController::class, 'dashboard'])->name('dashboard');
     Route::resource('admin', AdminController::class);
@@ -60,16 +62,8 @@ Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::resource('company', CareerCompanyController::class);
     Route::resource('contact', CareerContactController::class);
     Route::resource('course', PortfolioCourseController::class);
-    Route::resource('cover_letter', CareerCoverLetterController::class);
+    Route::resource('cover-letter', CareerCoverLetterController::class);
     Route::resource('dictionary', CareerDictionaryController::class);
-    Route::resource('dictionary_category', CareerDictionaryCategoryController::class);
-    Route::resource('dictionary_database', CareerDictionaryDatabaseController::class);
-    Route::resource('dictionary_framework', CareerDictionaryFrameworkController::class);
-    Route::resource('dictionary_language', CareerDictionaryLanguageController::class);
-    Route::resource('dictionary_library', CareerDictionaryLibraryController::class);
-    Route::resource('dictionary_operating_system', CareerDictionaryOperatingSystemController::class);
-    Route::resource('dictionary_server', CareerDictionaryServerController::class);
-    Route::resource('dictionary_stack', CareerDictionaryStackController::class);
     Route::resource('job', CareerJobController::class);
     Route::resource('job_board', CareerJobBoardController::class);
     Route::resource('link', PortfolioLinkController::class);

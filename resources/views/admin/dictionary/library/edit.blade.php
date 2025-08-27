@@ -2,12 +2,12 @@
     'title' => $dictionaryLibrary->name . ' library',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Libraries',       'url' => route('admin.dictionary_library.index') ],
+        [ 'name' => 'Libraries',       'url' => route('admin.dictionary.library.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary_library.show', $dictionaryLibrary) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary_library.index') ],
+        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.library.show', $dictionaryLibrary) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.library.index') ],
     ],
     'errors' => $errors ?? [],
     'success' => session('success') ?? null,
@@ -18,7 +18,7 @@
 
     <div class="form-container">
 
-        <form action="{{ route('admin.dictionary_library.update', $dictionaryLibrary) }}"
+        <form action="{{ route('admin.dictionary.library.update', $dictionaryLibrary) }}"
               method="POST">
             @csrf
             @method('PUT')
@@ -111,7 +111,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => route('admin.dictionary_library.index')
+                'cancel_url' => route('admin.dictionary.library.index')
             ])
 
         </form>

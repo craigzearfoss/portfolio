@@ -2,13 +2,13 @@
     'title' => $dictionaryFramework->name . ' language',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Frameworks',      'url' => route('admin.dictionary_framework.index') ],
+        [ 'name' => 'Frameworks',      'url' => route('admin.dictionary.framework.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'url' => route('admin.dictionary_framework.edit', $dictionaryFramework) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Framework', 'url' => route('admin.dictionary_framework.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',        'url' => route('admin.dictionary_framework.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'url' => route('admin.dictionary.framework.edit', $dictionaryFramework) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Framework', 'url' => route('admin.dictionary.framework.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',        'url' => route('admin.dictionary.framework.index') ],
     ],
     'errors' => $errors ?? [],
 ])

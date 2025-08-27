@@ -2,12 +2,12 @@
     'title' => $dictionaryStack->name . ' stack',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Stacks',          'url' => route('admin.dictionary_stack.index') ],
+        [ 'name' => 'Stacks',          'url' => route('admin.dictionary.stack.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary_stack.show', $dictionaryStack) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary_stack.index') ],
+        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.stack.show', $dictionaryStack) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.stack.index') ],
     ],
     'errors' => $errors ?? [],
     'success' => session('success') ?? null,
@@ -18,7 +18,7 @@
 
     <div class="form-container">
 
-        <form action="{{ route('admin.dictionary_stack.update', $dictionaryStack) }}" method="POST">
+        <form action="{{ route('admin.dictionary.stack.update', $dictionaryStack) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -71,7 +71,7 @@
 
             @include('admin.components.form-button-submit', [
                 'label'      => 'Save',
-                'cancel_url' => route('admin.dictionary_stack.index')
+                'cancel_url' => route('admin.dictionary.stack.index')
             ])
 
         </form>

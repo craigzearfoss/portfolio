@@ -171,7 +171,7 @@ return new class extends Migration
                 'disabled' => 0
             ],
             [
-                'type' => 'cover_letter',
+                'type' => 'cover-letter',
                 'name' => 'Cover Letter',
                 'plural' => 'Cover Letters',
                 'section' => 'Career',

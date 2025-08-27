@@ -5,7 +5,7 @@
         [ 'name' => 'Stacks' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'url' => route('admin.dictionary_stack.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'url' => route('admin.dictionary.stack.create') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -61,15 +61,15 @@
                     {{ implode(', ',  $dictionaryStack->databases->pluck('name')->toArray()) }}
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.dictionary_stack.destroy', $dictionaryStack->id) }}" method="POST">
+                    <form action="{{ route('admin.dictionary.stack.destroy', $dictionaryStack->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary_stack.show', $dictionaryStack->id) }}">
+                           href="{{ route('admin.dictionary.stack.show', $dictionaryStack->id) }}">
                             <i class="fa-solid fa-list"></i>{{-- Show--}}
                         </a>
 
                         <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary_stack.edit', $dictionaryStack->id) }}">
+                           href="{{ route('admin.dictionary.stack.edit', $dictionaryStack->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
 

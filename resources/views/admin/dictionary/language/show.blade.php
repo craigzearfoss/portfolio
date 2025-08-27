@@ -2,13 +2,13 @@
     'title' => $dictionaryLanguage->name . ' language',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Languages',       'url' => route('admin.dictionary_language.index') ],
+        [ 'name' => 'Languages',       'url' => route('admin.dictionary.language.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'url' => route('admin.dictionary_language.edit', $dictionaryLanguage) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Language', 'url' => route('admin.dictionary_language.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => route('admin.dictionary_language.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'url' => route('admin.dictionary.language.edit', $dictionaryLanguage) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Language', 'url' => route('admin.dictionary.language.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => route('admin.dictionary.language.index') ],
     ],
     'errors' => $errors ?? [],
 ])

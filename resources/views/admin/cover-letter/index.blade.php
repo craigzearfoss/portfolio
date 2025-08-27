@@ -23,7 +23,7 @@
                             @include('admin.components.messages', [$errors])
                         </div>
                         <div>
-                            <a class="btn btn-solid btn-sm" href="{{ route('admin.cover_letter.create') }}"><i
+                            <a class="btn btn-solid btn-sm" href="{{ route('admin.cover-letter.create') }}"><i
                                     class="fa fa-plus"></i> Add New Cover Letter</a>
                         </div>
                     </div>
@@ -62,13 +62,13 @@
                                     @include('admin.components.checkmark', [ 'checked' => $coverLetter->disabled ])
                                 </td>
                                 <td class="text-nowrap">
-                                    <form action="{{ route('admin.cover_letter.destroy', $coverLetter->id) }}"
+                                    <form action="{{ route('admin.cover-letter.destroy', $coverLetter->id) }}"
                                           method="POST">
                                         <a class="btn btn-sm"
-                                           href="{{ route('admin.cover_letter.show', $coverLetter->id) }}"><i
+                                           href="{{ route('admin.cover-letter.show', $coverLetter->id) }}"><i
                                                 class="fa-solid fa-list"></i>{{-- Show--}}</a>
                                         <a class="btn btn-sm"
-                                           href="{{ route('admin.cover_letter.edit', $coverLetter->id) }}"><i
+                                           href="{{ route('admin.cover-letter.edit', $coverLetter->id) }}"><i
                                                 class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
                                         @csrf
                                         @method('DELETE')

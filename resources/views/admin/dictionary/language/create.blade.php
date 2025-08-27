@@ -2,11 +2,11 @@
     'title' => 'Add New Language',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Languages',       'url' => route('admin.dictionary_language.index') ],
+        [ 'name' => 'Languages',       'url' => route('admin.dictionary.language.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary_language.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.language.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -17,7 +17,7 @@
 
     <div class="form">
 
-        <form action="{{ route('admin.dictionary_language.store') }}" method="POST">
+        <form action="{{ route('admin.dictionary.language.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-input-horizontal', [
@@ -108,7 +108,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Language',
-                'cancel_url' => route('admin.dictionary_language.index')
+                'cancel_url' => route('admin.dictionary.language.index')
             ])
 
         </form>

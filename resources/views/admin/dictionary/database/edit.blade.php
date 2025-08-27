@@ -1,169 +1,120 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' => $dictionaryDatabase->name . ' database',
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Databases',       'url' => route('admin.dictionary.database.index') ],
+        [ 'name' => 'Edit' ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.database.show', $dictionaryDatabase) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.database.index') ],
+    ],
+    'errors' => $errors ?? [],
+    'success' => session('success') ?? null,
+    'error' => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="form">
 
-            @include('admin.components.nav-left_ORIGINAL')
+        <form action="{{ route('admin.dictionary.database.update', $dictionaryDatabase) }}"
+              method="POST">
+            @csrf
+            @method('PUT')
 
-            <div
-                    class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'full_name',
+                'value'     => old('full_name') ?? $dictionaryDatabase->full_name,
+                'required'  => true,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
 
-                @include('admin.components.header')
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'name',
+                'value'     => old('name') ?? $dictionaryDatabase->name,
+                'required'  => true,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
 
-                @include('admin.components.popup')
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'slug',
+                'value'     => old('slug') ?? $dictionaryDatabase->slug,
+                'required'  => true,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
 
-                <div class="page-container relative h-full flex flex-auto flex-col">
-                    <div class="h-full">
-                        <h3 class="card-header ml-3">Edit Dictionary Database</h3>
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
-                            <div class="card min-w-[320px] md:min-w-[450px] card-shadow" role="presentation">
-                                <div class="card-body md:p-5">
-                                    <div class="text-center">
-                                        <div class="mb-4">
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'abbreviation',
+                'value'     => old('abbreviation') ?? $dictionaryDatabase->abbreviation,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
 
-                                            <div class="d-grid gap-2 d-md-flex justify-between">
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'owner',
+                'value'     => old('owner') ?? $dictionaryDatabase->owner,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
 
-                                                @if (session('success'))
-                                                    @include('admin.components.message-success', ['message'=> session('success')])
-                                                @endif
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'open_source',
+                'label'           => 'open source',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('public') ?? $dictionaryDatabase->open_source,
+                'message'         => $message ?? '',
+            ])
 
-                                                @if (session('error'))
-                                                    @include('admin.components.message-success', ['message'=> session('danger')])
-                                                @endif
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'proprietary',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('proprietary') ?? $dictionaryDatabase->proprietary,
+                'message'         => $message ?? '',
+            ])
 
-                                                @if ($errors->any())
-                                                    @include('admin.components.error-message', ['message'=>'Fix the indicated errors before saving.'])
-                                                @endif
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'compiled',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('compiled') ?? $dictionaryDatabase->compiled,
+                'message'         => $message ?? '',
+            ])
 
-                                                <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.dictionary_database.show', $dictionaryDatabase) }}"><i
-                                                                class="fa fa-list"></i> Show</a>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.dictionary_database.index') }}"><i
-                                                                class="fa fa-arrow-left"></i> Back</a>
-                                                </div>
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'website',
+                'value'     => old('website') ?? $dictionaryDatabase->website,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
 
-                                            </div>
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'wiki_page',
+                'label'     => 'wiki page',
+                'value'     => old('wiki_page') ?? $dictionaryDatabase->wiki_page,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
 
-                                        </div>
-                                        <div class="form-container">
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'description',
+                'id'      => 'inputEditor',
+                'value'   => old('description') ?? $dictionaryDatabase->description,
+                'message' => $message ?? '',
+            ])
 
-                                            <form action="{{ route('admin.dictionary_database.update', $dictionaryDatabase) }}"
-                                                  method="POST">
-                                                @csrf
-                                                @method('PUT')
+            @include('admin.components.form-button-submit-horizontal', [
+                'label'      => 'Save',
+                'cancel_url' => route('admin.dictionary.database.index')
+            ])
 
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'full_name',
-                                                    'value'     => old('full_name') ?? $dictionaryDatabase->full_name,
-                                                    'required'  => true,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
+        </form>
 
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'name',
-                                                    'value'     => old('name') ?? $dictionaryDatabase->name,
-                                                    'required'  => true,
-                                                    'maxlength' => 100,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'slug',
-                                                    'value'     => old('slug') ?? $dictionaryDatabase->slug,
-                                                    'required'  => true,
-                                                    'maxlength' => 100,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'abbreviation',
-                                                    'value'     => old('abbreviation') ?? $dictionaryDatabase->abbreviation,
-                                                    'required'  => true,
-                                                    'maxlength' => 100,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'owner',
-                                                    'value'     => old('owner') ?? $dictionaryDatabase->owner,
-                                                    'required'  => true,
-                                                    'maxlength' => 100,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'open_source',
-                                                    'label'           => 'open source',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('public') ?? $dictionaryDatabase->open_source,
-                                                    'message'         => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'proprietary',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('proprietary') ?? $dictionaryDatabase->proprietary,
-                                                    'message'         => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'compiled',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('compiled') ?? $dictionaryDatabase->compiled,
-                                                    'message'         => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'website',
-                                                    'value'     => old('website') ?? $dictionaryDatabase->website,
-                                                    'required'  => true,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'wiki_page',
-                                                    'label'     => 'wiki page',
-                                                    'value'     => old('wiki_page') ?? $dictionaryDatabase->wiki_page,
-                                                    'required'  => true,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-textarea', [
-                                                    'name'    => 'description',
-                                                    'id'      => 'inputEditor',
-                                                    'value'   => old('description') ?? $dictionaryDatabase->description,
-                                                    'message' => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-button-submit', [
-                                                    'label'      => 'Save',
-                                                    'cancel_url' => route('admin.dictionary_database.index')
-                                                ])
-
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

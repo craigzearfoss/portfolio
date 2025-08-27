@@ -5,7 +5,7 @@
         [ 'name' => 'Servers' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Server', 'url' => route('admin.dictionary_server.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Server', 'url' => route('admin.dictionary.server.create') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -51,15 +51,15 @@
                     @include('admin.components.link', [ 'url' => $dictionaryServer->wiki_page, 'target' => '_blank' ])
                 </td>
                 <td class="white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.dictionary_server.destroy', $dictionaryServer->id) }}" method="POST">
+                    <form action="{{ route('admin.dictionary.server.destroy', $dictionaryServer->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary_server.show', $dictionaryServer->id) }}">
+                           href="{{ route('admin.dictionary.server.show', $dictionaryServer->id) }}">
                             <i class="fa-solid fa-list"></i>{{-- Show--}}
                         </a>
 
                         <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary_server.edit', $dictionaryServer->id) }}">
+                           href="{{ route('admin.dictionary.server.edit', $dictionaryServer->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
 

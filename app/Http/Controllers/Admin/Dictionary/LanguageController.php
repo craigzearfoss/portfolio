@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CareerDictionaryLanguageStoreRequest;
 use App\Http\Requests\CareerDictionaryLanguageUpdateRequest;
 use App\Models\Career\DictionaryLanguage;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class CareerDictionaryLanguageController extends Controller
+class LanguageController extends Controller
 {
     const NUM_PER_PAGE = 20;
 

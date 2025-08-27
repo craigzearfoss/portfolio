@@ -27,10 +27,10 @@
 
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                         <a class="btn btn-solid btn-sm"
-                                           href="{{ route('admin.cover_letter.edit', $coverLetter) }}"><i
+                                           href="{{ route('admin.cover-letter.edit', $coverLetter) }}"><i
                                                     class="fa fa-pen-to-square"></i> Edit</a>
                                         <a class="btn btn-solid btn-sm"
-                                           href="{{ route('admin.cover_letter.index') }}"><i
+                                           href="{{ route('admin.cover-letter.index') }}"><i
                                                     class="fa fa-arrow-left"></i> Back</a>
                                     </div>
 

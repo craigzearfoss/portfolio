@@ -2,13 +2,13 @@
     'title' => $dictionaryServer->name . ' server',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Servers',         'url' => route('admin.dictionary_server.index') ],
+        [ 'name' => 'Servers',         'url' => route('admin.dictionary.server.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.dictionary_server.edit', $dictionaryServer) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Server', 'url' => route('admin.dictionary_server.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => route('admin.dictionary_server.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.dictionary.server.edit', $dictionaryServer) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Server', 'url' => route('admin.dictionary.server.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => route('admin.dictionary.server.index') ],
     ],
     'errors' => $errors ?? [],
 ])

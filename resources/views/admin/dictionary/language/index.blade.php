@@ -5,13 +5,12 @@
         [ 'name' => 'Languages' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Language', 'url' => route('admin.dictionary_language.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Language', 'url' => route('admin.dictionary.language.create') ],
     ],
     'errors' => $errors ?? [],
 ])
 
 @section('content')
-
 
     <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
         <thead>
@@ -52,15 +51,15 @@
                     @include('admin.components.link', [ 'url' => $dictionaryLanguage->wiki_page, 'target' => '_blank' ])
                 </td>
                 <td class="white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.dictionary_language.destroy', $dictionaryLanguage->id) }}" method="POST">
+                    <form action="{{ route('admin.dictionary.language.destroy', $dictionaryLanguage->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary_language.show', $dictionaryLanguage->id) }}">
+                           href="{{ route('admin.dictionary.language.show', $dictionaryLanguage->id) }}">
                             <i class="fa-solid fa-list"></i>{{-- Show--}}
                         </a>
 
                         <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary_language.edit', $dictionaryLanguage->id) }}">
+                           href="{{ route('admin.dictionary.language.edit', $dictionaryLanguage->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
 

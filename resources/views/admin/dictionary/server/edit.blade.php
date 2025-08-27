@@ -2,12 +2,12 @@
     'title' => $dictionaryServer->name . ' server',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Servers',         'url' => route('admin.dictionary_server.index') ],
+        [ 'name' => 'Servers',         'url' => route('admin.dictionary.server.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary_server.show', $dictionaryServer) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary_server.index') ],
+        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.server.show', $dictionaryServer) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.server.index') ],
     ],
     'errors' => $errors ?? [],
     'success' => session('success') ?? null,
@@ -18,7 +18,7 @@
 
     <div class="form-container">
 
-        <form action="{{ route('admin.dictionary_server.update', $dictionaryServer) }}"
+        <form action="{{ route('admin.dictionary.server.update', $dictionaryServer) }}"
               method="POST">
             @csrf
             @method('PUT')
@@ -111,7 +111,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => route('admin.dictionary_server.index')
+                'cancel_url' => route('admin.dictionary.server.index')
             ])
 
         </form>

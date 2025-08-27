@@ -75,6 +75,7 @@
                 'name'      => 'zip',
                 'value'     => old('zip') ?? $user->zip,
                 'maxlength' => 20,
+
                 'message'   => $message ?? '',
             ])
 

@@ -2,11 +2,11 @@
     'title' => 'Add New Stack',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Stacks',          'url' => route('admin.dictionary_stack.index') ],
+        [ 'name' => 'Stacks',          'url' => route('admin.dictionary.stack.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary_stack.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.stack.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -17,7 +17,7 @@
 
     <div class="form-container">
 
-        <form action="{{ route('admin.dictionary_stack.store') }}" method="POST">
+        <form action="{{ route('admin.dictionary.stack.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-input', [
@@ -68,7 +68,7 @@
 
             @include('admin.components.form-button-submit', [
                 'label'      => 'Add Stack',
-                'cancel_url' => route('admin.dictionary_stack.index')
+                'cancel_url' => route('admin.dictionary.stack.index')
             ])
 
         </form>

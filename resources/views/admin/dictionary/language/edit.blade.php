@@ -2,12 +2,12 @@
     'title' => $dictionaryLanguage->name . ' language',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Languages',       'url' => route('admin.dictionary_language.index') ],
+        [ 'name' => 'Languages',       'url' => route('admin.dictionary.language.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary_language.show', $dictionaryLanguage) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary_language.index') ],
+        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.language.show', $dictionaryLanguage) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.language.index') ],
     ],
     'errors' => $errors ?? [],
     'success' => session('success') ?? null,
@@ -19,7 +19,7 @@
     <div class="form">
 
         <form
-            action="{{ route('admin.dictionary_language.update', $dictionaryLanguage) }}"
+            action="{{ route('admin.dictionary.language.update', $dictionaryLanguage) }}"
             method="POST">
             @csrf
             @method('PUT')
@@ -112,7 +112,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => route('admin.dictionary_language.index')
+                'cancel_url' => route('admin.dictionary.language.index')
             ])
 
         </form>

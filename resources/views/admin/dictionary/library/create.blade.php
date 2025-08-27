@@ -2,11 +2,11 @@
     'title' => 'Add New Library',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Libraries',       'url' => route('admin.dictionary_library.index') ],
+        [ 'name' => 'Libraries',       'url' => route('admin.dictionary.library.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary_library.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.library.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -17,7 +17,7 @@
 
     <div class="form-container">
 
-        <form action="{{ route('admin.dictionary_library.store') }}" method="POST">
+        <form action="{{ route('admin.dictionary.library.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-input-horizontal', [
@@ -108,7 +108,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Library',
-                'cancel_url' => route('admin.dictionary_library.index')
+                'cancel_url' => route('admin.dictionary.library.index')
             ])
 
         </form>

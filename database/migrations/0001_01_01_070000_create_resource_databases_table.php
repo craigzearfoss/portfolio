@@ -53,7 +53,6 @@ return new class extends Migration
             ],
         ];
         ResourceDatabase::insert($data);
-
     }
 
     /**

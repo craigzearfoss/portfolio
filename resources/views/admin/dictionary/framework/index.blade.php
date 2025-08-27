@@ -5,13 +5,12 @@
         [ 'name' => 'Frameworks' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Framework', 'url' => route('admin.dictionary_framework.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Framework', 'url' => route('admin.dictionary.framework.create') ],
     ],
     'errors' => $errors ?? [],
 ])
 
 @section('content')
-
 
     <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
         <thead>
@@ -57,15 +56,15 @@
                     @include('admin.components.link', [ 'url' => $dictionaryFramework->wiki_page, 'target' => '_blank' ])
                 </td>
                 <td class="white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.dictionary_framework.destroy', $dictionaryFramework->id) }}" method="POST">
+                    <form action="{{ route('admin.dictionary.framework.destroy', $dictionaryFramework->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary_framework.show', $dictionaryFramework->id) }}">
+                           href="{{ route('admin.dictionary.framework.show', $dictionaryFramework->id) }}">
                             <i class="fa-solid fa-list"></i>{{-- Show--}}
                         </a>
 
                         <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary_framework.edit', $dictionaryFramework->id) }}">
+                           href="{{ route('admin.dictionary.framework.edit', $dictionaryFramework->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
 

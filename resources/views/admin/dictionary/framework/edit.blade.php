@@ -2,12 +2,12 @@
     'title' => $dictionaryFramework->name . ' framework',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Frameworks',      'url' => route('admin.dictionary_framework.index') ],
+        [ 'name' => 'Frameworks',      'url' => route('admin.dictionary.framework.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary_framework.show', $dictionaryFramework) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary_framework.index') ],
+        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.framework.show', $dictionaryFramework) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.framework.index') ],
     ],
     'errors' => $errors ?? [],
     'success' => session('success') ?? null,
@@ -18,7 +18,7 @@
 
     <div class="form">
 
-        <form action="{{ route('admin.dictionary_framework.update', $dictionaryFramework) }}"
+        <form action="{{ route('admin.dictionary.framework.update', $dictionaryFramework) }}"
               method="POST">
             @csrf
             @method('PUT')
@@ -111,7 +111,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => route('admin.dictionary_framework.index')
+                'cancel_url' => route('admin.dictionary.framework.index')
             ])
 
         </form>

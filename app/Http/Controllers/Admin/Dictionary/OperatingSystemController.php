@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CareerDictionaryOperatingSystemStoreRequest;
 use App\Http\Requests\CareerDictionaryOperatingSystemUpdateRequest;
 use App\Models\Career\DictionaryOperatingSystem;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class CareerDictionaryOperatingSystemController extends Controller
+class OperatingSystemController extends Controller
 {
     const NUM_PER_PAGE = 20;
 

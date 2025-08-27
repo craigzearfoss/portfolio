@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CareerDictionaryStackStoreRequest;
 use App\Http\Requests\CareerDictionaryStackUpdateRequest;
 use App\Models\Career\DictionaryStack;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class CareerDictionaryStackController extends Controller
+class StackController extends Controller
 {
     const NUM_PER_PAGE = 20;
 
@@ -41,7 +40,7 @@ class CareerDictionaryStackController extends Controller
     {
         $dictionaryStack =DictionaryStack::create($request->validated());
 
-        return redirect()->route('admin.dictionary_stack.show', $dictionaryStack)
+        return redirect()->route('admin.dictionary.stack.show', $dictionaryStack)
             ->with('success', 'Dictionary stack created successfully.');
     }
 
@@ -77,7 +76,7 @@ class CareerDictionaryStackController extends Controller
 
         $dictionaryStack->update($request->validated());
 
-        return redirect()->route('admin.dictionary_stack.show', $dictionaryStack)
+        return redirect()->route('admin.dictionary.stack.show', $dictionaryStack)
             ->with('success', 'Dictionary stack updated successfully');
     }
 
@@ -88,7 +87,7 @@ class CareerDictionaryStackController extends Controller
     {
         $dictionaryStack->delete();
 
-        return redirect()->route('admin.dictionary_stack.index')
+        return redirect()->route('admin.dictionary.stack.index')
             ->with('success', 'Dictionary stack deleted successfully');
     }
 }
