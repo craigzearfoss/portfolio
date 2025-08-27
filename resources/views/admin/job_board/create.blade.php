@@ -20,7 +20,7 @@
         <form action="{{ route('admin.job_board.store') }}" method="POST">
             @csrf
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name'),
                 'required'  => true,
@@ -28,15 +28,15 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'website',
                 'value'     => old('website'),
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-button-submit', [
-                'label'      => 'Add New Job Board',
+            @include('admin.components.form-button-submit-horizontal', [
+                'label'      => 'Add Job Board',
                 'cancel_url' => route('admin.job_board.index')
             ])
 

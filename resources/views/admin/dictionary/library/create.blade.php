@@ -48,7 +48,6 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'abbreviation',
                 'value'     => old('abbreviation') ?? '',
-                'required'  => true,
                 'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
@@ -56,7 +55,6 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'owner',
                 'value'     => old('owner') ?? '',
-                'required'  => true,
                 'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
@@ -89,7 +87,6 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'website',
                 'value'     => old('website') ?? '',
-                'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -98,7 +95,6 @@
                 'name'      => 'wiki_page',
                 'label'     => 'wiki page',
                 'value'     => old('wiki_page') ?? '',
-                'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -111,7 +107,7 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add New',
+                'label'      => 'Add Library',
                 'cancel_url' => route('admin.dictionary_library.index')
             ])
 

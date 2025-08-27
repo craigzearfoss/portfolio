@@ -1,95 +1,105 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' => 'Dictionary Frameworks',
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Frameworks' ]
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Framework', 'url' => route('admin.dictionary_framework.create') ],
+    ],
+    'errors' => $errors ?? [],
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
 
-            @include('admin.components.nav-left_ORIGINAL')
+    <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+        <thead>
+        <tr>
+            <th>name</th>
+            <th>abbreviation</th>
+            <th>owner</th>
+            <th>languages</th>
+            <th class="text-nowrap">wiki page</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <?php /*
+        <tfoot>
+        <tr>
+            <th>name</th>
+            <th>abbreviation</th>
+            <th>owner</th>
+            <th>languages</th>
+            <th class="text-nowrap">wiki page</th>
+            <th>actions</th>
+        </tr>
+        </tfoot>
+        */ ?>
+        <tbody>
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+        @forelse ($dictionaryFrameworks as $dictionaryFramework)
 
-                @include('admin.components.header')
+            <tr>
+                <td class="py-0">
+                    {{ $dictionaryFramework->name }}
+                </td>
+                <td class="py-0">
+                    {{ $dictionaryFramework->abbreviation }}
+                </td>
+                <td class="py-0">
+                    {{ $dictionaryFramework->owner }}
+                </td>
+                <td class="py-0">
+                    {{ implode(', ',  $dictionaryFramework->languages->pluck('name')->toArray()) }}
+                </td>
+                <td class="py-0 px-2">
+                    @include('admin.components.link', [ 'url' => $dictionaryFramework->wiki_page, 'target' => '_blank' ])
+                </td>
+                <td class="white-space-nowrap py-0" style="white-space: nowrap;">
+                    <form action="{{ route('admin.dictionary_framework.destroy', $dictionaryFramework->id) }}" method="POST">
 
-                @include('admin.components.popup')
+                        <a title="show" class="button is-small px-1 py-0"
+                           href="{{ route('admin.dictionary_framework.show', $dictionaryFramework->id) }}">
+                            <i class="fa-solid fa-list"></i>{{-- Show--}}
+                        </a>
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
+                        <a title="edit" class="button is-small px-1 py-0"
+                           href="{{ route('admin.dictionary_framework.edit', $dictionaryFramework->id) }}">
+                            <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                        </a>
 
-                    <h3 class="card-header">Dictionary Frameworks</h3>
+                        @if (!empty($dictionaryFramework->website))
+                            <a title="website" class="button is-small px-1 py-0" href="{{ $dictionaryFramework->website }}"
+                               target="_blank">
+                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                            </a>
+                        @else
+                            <a title="website" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                            </a>
+                        @endif
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('admin.components.messages', [$errors])
-                        </div>
-                        <div>
-                            <a class="btn btn-solid btn-sm" href="{{ route('admin.dictionary_framework.create') }}"><i
-                                        class="fa fa-plus"></i> Add New Dictionary Framework</a>
-                        </div>
-                    </div>
+                        @csrf
+                        @method('DELETE')
+                        <button title="delete" type="submit" class="button is-small px-1 py-0">
+                            <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                        </button>
+                    </form>
+                </td>
+            </tr>
 
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>name</th>
-                            <th>abbreviation</th>
-                            <th>owner</th>
-                            <th>languages</th>
-                            <th>website</th>
-                            <th class="text-nowrap">wiki page</th>
-                            <th>actions</th>
-                        </tr>
-                        </thead>
+        @empty
 
-                        <tbody>
+            <tr>
+                <td colspan="6">There are no dictionary frameworks.</td>
+            </tr>
 
-                        @forelse ($dictionaryFrameworks as $dictionaryFramework)
-                            <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $dictionaryFramework->name }}</td>
-                                <td>{{ $dictionaryFramework->abbreviation }}</td>
-                                <td>{{ $dictionaryFramework->owner }}</td>
-                                <td>
-                                    {{ implode(', ',  $dictionaryFramework->languages->pluck('name')->toArray()) }}
-                                </td>
-                                <td>
-                                    @include('admin.components.link', [ 'url' => $dictionaryFramework->website, 'target' => '_blank' ])
-                                </td>
-                                <td>
-                                    @include('admin.components.link', [ 'url' => $dictionaryFramework->wiki_page, 'target' => '_blank' ])
-                                </td>
-                                <td class="text-nowrap">
-                                    <form action="{{ route('admin.dictionary_framework.destroy', $dictionaryFramework->id) }}"
-                                          method="POST">
-                                        <a class="btn btn-sm"
-                                           href="{{ route('admin.dictionary_framework.show', $dictionaryFramework->id) }}"><i
-                                                    class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                        <a class="btn btn-sm"
-                                           href="{{ route('admin.dictionary_framework.edit', $dictionaryFramework->id) }}"><i
-                                                    class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm"><i
-                                                    class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="8">There are no dictionary frameworks.</td>
-                            </tr>
-                        @endforelse
+        @endforelse
 
-                        </tbody>
-                    </table>
+        </tbody>
+    </table>
 
-                    {!! $dictionaryFrameworks->links() !!}
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
-    </div>
+    {!! $dictionaryFrameworks->links('vendor.pagination.bulma') !!}
 
 @endsection

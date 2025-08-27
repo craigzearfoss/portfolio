@@ -23,7 +23,7 @@
             @csrf
             @method('PUT')
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? $jobBoard->name,
                 'required'  => true,
@@ -31,14 +31,14 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'website',
                 'value'     => old('website') ?? $jobBoard->website,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-button-submit', [
+            @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
                 'cancel_url' => route('admin.job_board.index')
             ])

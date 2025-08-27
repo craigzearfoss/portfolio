@@ -18,6 +18,7 @@
             <th>name</th>
             <th>abbreviation</th>
             <th>owner</th>
+            <th>languages</th>
             <th class="text-nowrap">wiki page</th>
             <th>actions</th>
         </tr>
@@ -28,6 +29,7 @@
             <th>name</th>
             <th>abbreviation</th>
             <th>owner</th>
+            <th>languages</th>
             <th class="text-nowrap">wiki page</th>
             <th>actions</th>
         </tr>
@@ -46,6 +48,9 @@
                 </td>
                 <td class="py-0">
                     {{ $dictionaryLibrary->owner }}
+                </td>
+                <td class="py-0">
+                    {{ implode(', ',  $dictionaryLibrary->languages->pluck('name')->toArray()) }}
                 </td>
                 <td class="py-0 px-2">
                     @include('admin.components.link', [ 'url' => $dictionaryLibrary->wiki_page, 'target' => '_blank' ])
@@ -86,7 +91,7 @@
         @empty
 
             <tr>
-                <td colspan="5">There are no dictionary operating systems.</td>
+                <td colspan="6">There are no dictionary libraries.</td>
             </tr>
 
         @endforelse
