@@ -8,6 +8,7 @@ use App\Http\Requests\CareerDictionaryOperatingSystemUpdateRequest;
 use App\Models\Career\DictionaryOperatingSystem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CareerDictionaryOperatingSystemController extends Controller
@@ -30,6 +31,10 @@ class CareerDictionaryOperatingSystemController extends Controller
      */
     public function create(): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add dictionary operating system entries.');
+        }
+
         return view('admin.dictionary.operating_system.create');
     }
 
@@ -38,6 +43,10 @@ class CareerDictionaryOperatingSystemController extends Controller
      */
     public function store(CareerDictionaryOperatingSystemStoreRequest $request): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add dictionary operating system entries.');
+        }
+
         DictionaryOperatingSystem::create($request->validated());
 
         return redirect()->route('admin.dictionary.operating_system.index')
@@ -57,6 +66,10 @@ class CareerDictionaryOperatingSystemController extends Controller
      */
     public function edit(DictionaryOperatingSystem $dictionaryOperatingSystem): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can edit dictionary operating system entries.');
+        }
+
         return view('admin.dictionary.operating_system.edit', compact('dictionaryOperatingSystem'));
     }
 
@@ -66,6 +79,10 @@ class CareerDictionaryOperatingSystemController extends Controller
     public function update(CareerDictionaryOperatingSystemUpdateRequest $request,
                            DictionaryOperatingSystem $dictionaryOperatingSystem): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can update dictionary operating system entries.');
+        }
+
         $dictionaryOperatingSystem->update($request->validated());
 
         return redirect()->route('admin.dictionary.operating_system.index')
@@ -77,6 +94,10 @@ class CareerDictionaryOperatingSystemController extends Controller
      */
     public function destroy(DictionaryOperatingSystem $dictionaryOperatingSystem): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can delete dictionary operating system entries.');
+        }
+
         $dictionaryOperatingSystem->delete();
 
         return redirect()->route('admin.dictionary.operating_system.index')

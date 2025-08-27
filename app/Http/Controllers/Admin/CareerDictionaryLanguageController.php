@@ -8,6 +8,7 @@ use App\Http\Requests\CareerDictionaryLanguageUpdateRequest;
 use App\Models\Career\DictionaryLanguage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CareerDictionaryLanguageController extends Controller
@@ -30,6 +31,10 @@ class CareerDictionaryLanguageController extends Controller
      */
     public function create(): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add dictionary language entries.');
+        }
+
         return view('admin.dictionary.language.create');
     }
 
@@ -38,6 +43,10 @@ class CareerDictionaryLanguageController extends Controller
      */
     public function store(CareerDictionaryLanguageStoreRequest $request): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add dictionary language entries.');
+        }
+
         DictionaryLanguage::create($request->validated());
 
         return redirect()->route('admin.dictionary.language.index')
@@ -57,6 +66,10 @@ class CareerDictionaryLanguageController extends Controller
      */
     public function edit(DictionaryLanguage $dictionaryLanguage): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can edit dictionary language entries.');
+        }
+
         return view('admin.dictionary.language.edit', compact('dictionaryLanguage'));
     }
 
@@ -66,6 +79,10 @@ class CareerDictionaryLanguageController extends Controller
     public function update(CareerDictionaryLanguageUpdateRequest $request,
                            DictionaryLanguage $dictionaryLanguage): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can update dictionary language entries.');
+        }
+
         $dictionaryLanguage->update($request->validated());
 
         return redirect()->route('admin.dictionary.language.index')
@@ -77,6 +94,10 @@ class CareerDictionaryLanguageController extends Controller
      */
     public function destroy(DictionaryLanguage $dictionaryLanguage): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can delete dictionary language entries.');
+        }
+
         $dictionaryLanguage->delete();
 
         return redirect()->route('admin.dictionary.language.index')

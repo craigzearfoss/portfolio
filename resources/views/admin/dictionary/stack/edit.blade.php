@@ -1,123 +1,81 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' => $dictionaryStack->name . ' stack',
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard',  'url' => route('admin.dashboard')],
+        [ 'name' => 'Stacks', 'url' => route('admin.dictionary_stack.index')],
+        [ 'name' => 'Edit' ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary_stack.show', $dictionaryStack) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary_stack.index') ],
+    ],
+    'errors' => $errors ?? [],
+    'success' => session('success') ?? null,
+    'error' => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="form-container">
 
-            @include('admin.components.nav-left')
+        <form action="{{ route('admin.dictionary_stack.update', $dictionaryStack) }}" method="POST">
+            @csrf
+            @method('PUT')
 
-            <div
-                class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'full_name',
+                'label'     => 'full name',
+                'value'     => old('full_name') ?? $dictionaryStack->full_name,
+                'required'  => true,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
 
-                @include('admin.components.header')
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'name',
+                'value'     => old('name') ?? $dictionaryStack->name,
+                'required'  => true,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
 
-                @include('admin.components.popup')
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'slug',
+                'value'     => old('slug') ?? $dictionaryStack->slug,
+                'required'  => true,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
 
-                <div class="page-container relative h-full flex flex-auto flex-col">
-                    <div class="h-full">
-                        <h3 class="card-header ml-3">Edit Dictionary Stack</h3>
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
-                            <div class="card min-w-[320px] md:min-w-[450px] card-shadow" role="presentation">
-                                <div class="card-body md:p-5">
-                                    <div class="text-center">
-                                        <div class="mb-4">
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'website',
+                'value'     => old('website') ?? $dictionaryStack->website,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
 
-                                            <div class="d-grid gap-2 d-md-flex justify-between">
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'wiki_page',
+                'label'     => 'wiki page',
+                'value'     => old('wiki_page') ?? $dictionaryStack->wiki_page,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
 
-                                                @if (session('success'))
-                                                    @include('admin.components.message-success', ['message'=> session('success')])
-                                                @endif
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'description',
+                'id'      => 'inputEditor',
+                'value'   => old('description') ?? $dictionaryStack->description,
+                'message' => $message ?? '',
+            ])
 
-                                                @if (session('error'))
-                                                    @include('admin.components.message-success', ['message'=> session('danger')])
-                                                @endif
+            @include('admin.components.form-button-submit', [
+                'label'      => 'Save',
+                'cancel_url' => route('admin.dictionary_stack.index')
+            ])
 
-                                                @if ($errors->any())
-                                                    @include('admin.components.error-message', ['message'=>'Fix the indicated errors before saving.'])
-                                                @endif
+        </form>
 
-                                                <div>
-                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.dictionary_stack.show', $dictionaryStack) }}"><i class="fa fa-list"></i> Show</a>
-                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.dictionary_stack.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="form-container">
-
-                                            <form action="{{ route('admin.dictionary_stack.update', $dictionaryStack) }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'full_name',
-                                                    'value'     => old('full_name') ?? $dictionaryStack->full_name,
-                                                    'required'  => true,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'name',
-                                                    'value'     => old('name') ?? $dictionaryStack->name,
-                                                    'required'  => true,
-                                                    'maxlength' => 100,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'slug',
-                                                    'value'     => old('slug') ?? $dictionaryStack->slug,
-                                                    'required'  => true,
-                                                    'maxlength' => 100,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'website',
-                                                    'value'     => old('website') ?? $dictionaryStack->website,
-                                                    'required'  => true,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'wiki_page',
-                                                    'label'     => 'wiki page',
-                                                    'value'     => old('wiki_page') ?? $dictionaryStack->wiki_page,
-                                                    'required'  => true,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-textarea', [
-                                                    'name'    => 'description',
-                                                    'id'      => 'inputEditor',
-                                                    'value'   => old('description') ?? $dictionaryStack->description,
-                                                    'message' => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-button-submit', [
-                                                    'label'      => 'Save',
-                                                    'cancel_url' => route('admin.dictionary_stack.index')
-                                                ])
-
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

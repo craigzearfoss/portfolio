@@ -8,6 +8,7 @@ use App\Http\Requests\CareerDictionaryDatabaseUpdateRequest;
 use App\Models\Career\DictionaryDatabase;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CareerDictionaryDatabaseController extends Controller
@@ -30,6 +31,10 @@ class CareerDictionaryDatabaseController extends Controller
      */
     public function create(): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add dictionary database entries.');
+        }
+
         return view('admin.dictionary.database.create');
     }
 
@@ -38,6 +43,10 @@ class CareerDictionaryDatabaseController extends Controller
      */
     public function store(CareerDictionaryDatabaseStoreRequest $request): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add dictionary database entries.');
+        }
+
         DictionaryDatabase::create($request->validated());
 
         return redirect()->route('admin.dictionary.database.index')
@@ -57,6 +66,10 @@ class CareerDictionaryDatabaseController extends Controller
      */
     public function edit(DictionaryDatabase $dictionaryDatabase): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can edit dictionary database entries.');
+        }
+
         return view('admin.dictionary.database.edit', compact('dictionaryDatabase'));
     }
 
@@ -66,6 +79,10 @@ class CareerDictionaryDatabaseController extends Controller
     public function update(CareerDictionaryDatabaseUpdateRequest $request,
                            DictionaryDatabase $dictionaryDatabase): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can update dictionary database entries.');
+        }
+
         $dictionaryDatabase->update($request->validated());
 
         return redirect()->route('admin.dictionary.database.index')
@@ -77,6 +94,10 @@ class CareerDictionaryDatabaseController extends Controller
      */
     public function destroy(DictionaryDatabase $dictionaryDatabase): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can de dictionary database entries.');
+        }
+
         $dictionaryDatabase->delete();
 
         return redirect()->route('admin.dictionary.database.index')

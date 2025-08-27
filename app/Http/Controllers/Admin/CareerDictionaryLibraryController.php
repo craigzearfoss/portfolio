@@ -8,6 +8,7 @@ use App\Http\Requests\CareerDictionaryLibraryUpdateRequest;
 use App\Models\Career\DictionaryLibrary;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CareerDictionaryLibraryController extends Controller
@@ -30,6 +31,10 @@ class CareerDictionaryLibraryController extends Controller
      */
     public function create(): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add dictionary library entries.');
+        }
+
         return view('admin.dictionary.library.create');
     }
 
@@ -38,6 +43,10 @@ class CareerDictionaryLibraryController extends Controller
      */
     public function store(CareerDictionaryLibraryStoreRequest $request): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add dictionary library entries.');
+        }
+
         DictionaryLibrary::create($request->validated());
 
         return redirect()->route('admin.dictionary.library.index')
@@ -57,6 +66,10 @@ class CareerDictionaryLibraryController extends Controller
      */
     public function edit(DictionaryLibrary $dictionaryLibrary): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can edit dictionary library entries.');
+        }
+
         return view('admin.dictionary.library.edit', compact('dictionaryLibrary'));
     }
 
@@ -66,6 +79,10 @@ class CareerDictionaryLibraryController extends Controller
     public function update(CareerDictionaryLibraryUpdateRequest $request,
                            DictionaryLibrary $dictionaryLibrary): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can update dictionary library entries.');
+        }
+
         $dictionaryLibrary->update($request->validated());
 
         return redirect()->route('admin.dictionary.library.index')
@@ -77,6 +94,10 @@ class CareerDictionaryLibraryController extends Controller
      */
     public function destroy(DictionaryLibrary $dictionaryLibrary): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can delete dictionary library entries.');
+        }
+
         $dictionaryLibrary->delete();
 
         return redirect()->route('admin.dictionary.library.index')

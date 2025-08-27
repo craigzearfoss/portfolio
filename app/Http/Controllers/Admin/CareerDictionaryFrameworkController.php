@@ -8,6 +8,7 @@ use App\Http\Requests\CareerDictionaryFrameworkUpdateRequest;
 use App\Models\Career\DictionaryFramework;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CareerDictionaryFrameworkController extends Controller
@@ -30,6 +31,10 @@ class CareerDictionaryFrameworkController extends Controller
      */
     public function create(): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add dictionary framework entries.');
+        }
+
         return view('admin.dictionary.framework.create');
     }
 
@@ -38,6 +43,10 @@ class CareerDictionaryFrameworkController extends Controller
      */
     public function store(CareerDictionaryFrameworkStoreRequest $request): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add dictionary framework entries.');
+        }
+
         DictionaryFramework::create($request->validated());
 
         return redirect()->route('admin.dictionary.framework.index')
@@ -57,6 +66,10 @@ class CareerDictionaryFrameworkController extends Controller
      */
     public function edit(DictionaryFramework $dictionaryFramework): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can edit dictionary framework entries.');
+        }
+
         return view('admin.dictionary.framework.edit', compact('dictionaryFramework'));
     }
 
@@ -66,6 +79,10 @@ class CareerDictionaryFrameworkController extends Controller
     public function update(CareerDictionaryFrameworkUpdateRequest $request,
                            DictionaryFramework $dictionaryFramework): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can update dictionary framework entries.');
+        }
+
         $dictionaryFramework->update($request->validated());
 
         return redirect()->route('admin.dictionary.framework.index')
@@ -77,6 +94,10 @@ class CareerDictionaryFrameworkController extends Controller
      */
     public function destroy(DictionaryFramework $dictionaryFramework): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can delete dictionary framework entries.');
+        }
+
         $dictionaryFramework->delete();
 
         return redirect()->route('admin.dictionary.framework.index')

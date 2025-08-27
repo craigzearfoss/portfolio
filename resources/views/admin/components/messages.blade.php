@@ -1,13 +1,13 @@
-@if (session('success'))
-    @include('user.components.message-success', ['message'=> session('success')])
+@if (!empty($success))
+    @include('admin.components.message-success', ['message'=> $success ?? null])
 @endif
 
-@if (session('error'))
-    @include('user.components.message-success', ['message'=> session('danger')])
+@if (!empty($error))
+    @include('admin.components.message-danger', ['message'=> $error ?? null])
 @endif
 
-@if ($errors->any())
-    @foreach ($errors->all() as $error)
-        @include('user.components.message-info', ['message'=> $error])
+@if (!empty($errors))
+    @foreach ($errors as $error)
+        @include('admin.components.message-danger', ['message'=> $error])
     @endforeach
 @endif

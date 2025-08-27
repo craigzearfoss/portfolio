@@ -8,6 +8,7 @@ use App\Http\Requests\CareerJobUpdateRequest;
 use App\Models\Career\Job;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CareerJobController extends Controller
@@ -30,6 +31,10 @@ class CareerJobController extends Controller
      */
     public function create(): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add job board entries.');
+        }
+
         return view('admin.job.create');
     }
 
@@ -38,6 +43,10 @@ class CareerJobController extends Controller
      */
     public function store(CareerJobStoreRequest $request): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add job board entries.');
+        }
+
         Job::create($request->validated());
 
         return redirect()->route('admin.job.index')
@@ -57,6 +66,10 @@ class CareerJobController extends Controller
      */
     public function edit(Job $job): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can edit job board entries.');
+        }
+
         return view('admin.job.edit', compact('job'));
     }
 
@@ -65,7 +78,9 @@ class CareerJobController extends Controller
      */
     public function update(CareerJobUpdateRequest $request, Job $job): RedirectResponse
     {
-        dd($request);
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can update job board entries.');
+        }
 
         $job->update($request->validated());
 
@@ -78,6 +93,10 @@ class CareerJobController extends Controller
      */
     public function destroy(Job $job): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can delete job board entries.');
+        }
+
         $job->delete();
 
         return redirect()->route('admin.job.index')

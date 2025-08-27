@@ -8,6 +8,7 @@ use App\Http\Requests\CareerDictionaryStackUpdateRequest;
 use App\Models\Career\DictionaryStack;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CareerDictionaryStackController extends Controller
@@ -38,9 +39,9 @@ class CareerDictionaryStackController extends Controller
      */
     public function store(CareerDictionaryStackStoreRequest $request): RedirectResponse
     {
-        DictionaryStack::create($request->validated());
+        $dictionaryStack =DictionaryStack::create($request->validated());
 
-        return redirect()->route('admin.dictionary.stack.index')
+        return redirect()->route('admin.dictionary_stack.show', $dictionaryStack)
             ->with('success', 'Dictionary stack created successfully.');
     }
 
@@ -48,7 +49,7 @@ class CareerDictionaryStackController extends Controller
      * Display the specified dictionary stack.
      */
     public function show(DictionaryStack $dictionaryStack): View
-    {dd($dictionaryStack->databases()->pivot);
+    {
         return view('admin.dictionary.stack.show', compact('dictionaryStack'));
     }
 
@@ -57,6 +58,10 @@ class CareerDictionaryStackController extends Controller
      */
     public function edit(DictionaryStack $dictionaryStack): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can edit dictionary stack entries.');
+        }
+
         return view('admin.dictionary.stack.edit', compact('dictionaryStack'));
     }
 
@@ -66,9 +71,13 @@ class CareerDictionaryStackController extends Controller
     public function update(CareerDictionaryStackUpdateRequest $request,
                            DictionaryStack $dictionaryStack): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can update dictionary stack entries.');
+        }
+
         $dictionaryStack->update($request->validated());
 
-        return redirect()->route('admin.dictionary.stack.index')
+        return redirect()->route('admin.dictionary_stack.show', $dictionaryStack)
             ->with('success', 'Dictionary stack updated successfully');
     }
 
@@ -79,7 +88,7 @@ class CareerDictionaryStackController extends Controller
     {
         $dictionaryStack->delete();
 
-        return redirect()->route('admin.dictionary.stack.index')
+        return redirect()->route('admin.dictionary_stack.index')
             ->with('success', 'Dictionary stack deleted successfully');
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Requests\CareerDictionaryServerUpdateRequest;
 use App\Models\Career\DictionaryServer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CareerDictionaryServerController extends Controller
@@ -30,6 +31,10 @@ class CareerDictionaryServerController extends Controller
      */
     public function create(): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add dictionary server entries.');
+        }
+
         return view('admin.dictionary.server.create');
     }
 
@@ -38,6 +43,10 @@ class CareerDictionaryServerController extends Controller
      */
     public function store(CareerDictionaryServerStoreRequest $request): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add dictionary server entries.');
+        }
+
         DictionaryServer::create($request->validated());
 
         return redirect()->route('admin.dictionary.server.index')
@@ -57,6 +66,10 @@ class CareerDictionaryServerController extends Controller
      */
     public function edit(DictionaryServer $dictionaryServer): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can edit dictionary server entries.');
+        }
+
         return view('admin.dictionary.server.edit', compact('dictionaryServer'));
     }
 
@@ -66,6 +79,10 @@ class CareerDictionaryServerController extends Controller
     public function update(CareerDictionaryServerUpdateRequest $request,
                            DictionaryServer $dictionaryServer): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can update dictionary server entries.');
+        }
+
         $dictionaryServer->update($request->validated());
 
         return redirect()->route('admin.dictionary.server.index')
@@ -77,6 +94,10 @@ class CareerDictionaryServerController extends Controller
      */
     public function destroy(DictionaryServer $dictionaryServer): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can delete dictionary server entries.');
+        }
+
         $dictionaryServer->delete();
 
         return redirect()->route('admin.dictionary.server.index')

@@ -5,7 +5,7 @@
     <div class="app-layout-modern flex flex-auto flex-col">
         <div class="flex flex-auto min-w-0">
 
-            @include('admin.components.nav-left')
+            @include('admin.components.nav-left_ORIGINAL')
 
             <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
 
@@ -23,7 +23,8 @@
                             @include('admin.components.messages', [$errors])
                         </div>
                         <div>
-                            <a class="btn btn-solid btn-sm" href="{{ route('admin.admin.create') }}"><i class="fa fa-plus"></i> Create New Admin</a>
+                            <a class="btn btn-solid btn-sm" href="{{ route('admin.admin.create') }}"><i
+                                        class="fa fa-plus"></i> Create New Admin</a>
                         </div>
                     </div>
 
@@ -58,14 +59,17 @@
                                 </td>
                                 <td class="text-nowrap">
                                     <form action="{{ route('admin.admin.destroy', $admin->id) }}" method="POST">
-                                        <a class="btn btn-sm" href="{{ route('admin.admin.show', $admin->id) }}" title="Show"><i class="fa-solid fa-list"></i>{{--  Show--}}</a>
+                                        <a class="btn btn-sm" href="{{ route('admin.admin.show', $admin->id) }}"
+                                           title="Show"><i class="fa-solid fa-list"></i>{{--  Show--}}</a>
                                         @if (Auth::guard('admin')->user()->root || ($admin->id === Auth::guard('admin')->user()->id))
-                                            <a class="btn btn-sm" href="{{ route('admin.admin.edit', $admin->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{--  Edit--}}</a>
+                                            <a class="btn btn-sm" href="{{ route('admin.admin.edit', $admin->id) }}"><i
+                                                        class="fa-solid fa-pen-to-square"></i>{{--  Edit--}}</a>
                                         @endif
                                         @csrf
                                         @if (Auth::guard('admin')->user()->root && ($admin->id !== Auth::guard('admin')->user()->id))
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i>{{-- Delete--}}</button>
+                                            <button type="submit" class="btn btn-sm"><i
+                                                        class="fa-solid fa-trash"></i>{{-- Delete--}}</button>
                                         @endif
                                     </form>
                                 </td>

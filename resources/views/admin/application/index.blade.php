@@ -5,7 +5,7 @@
     <div class="app-layout-modern flex flex-auto flex-col">
         <div class="flex flex-auto min-w-0">
 
-            @include('admin.components.nav-left')
+            @include('admin.components.nav-left_ORIGINAL')
 
             <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
 
@@ -23,7 +23,8 @@
                         </div>
                         @if (!$readonly)
                             <div>
-                                <a class="btn btn-solid btn-sm" href="{{ route('admin.application.create') }}"><i class="fa fa-plus"></i> Add New Application</a>
+                                <a class="btn btn-solid btn-sm" href="{{ route('admin.application.create') }}"><i
+                                            class="fa fa-plus"></i> Add New Application</a>
                             </div>
                         @endif
                     </div>
@@ -85,7 +86,9 @@
                                 </td>
                                 <td>
                                     @if ($application->city)
-                                        {{ $application->city }}@if ($application->state), {{ $application->state }}@endif
+                                        {{ $application->city }}@if ($application->state)
+                                            , {{ $application->state }}
+                                        @endif
                                     @else
                                         {{ $application->state }}
                                     @endif
@@ -107,13 +110,19 @@
                                 </td>
                                 <td>{{ $application->source }}</td>
                                 <td class="text-nowrap">
-                                    <form action="{{ route('admin.application.destroy', $application->id) }}" method="POST">
+                                    <form action="{{ route('admin.application.destroy', $application->id) }}"
+                                          method="POST">
                                         @csrf
-                                        <a class="btn btn-sm" href="{{ route('admin.application.show', $application->id) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                        <a class="btn btn-sm"
+                                           href="{{ route('admin.application.show', $application->id) }}"><i
+                                                    class="fa-solid fa-list"></i>{{-- Show--}}</a>
                                         @if (!$readonly)
-                                            <a class="btn btn-sm" href="{{ route('admin.application.edit', $application->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
+                                            <a class="btn btn-sm"
+                                               href="{{ route('admin.application.edit', $application->id) }}"><i
+                                                        class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
+                                            <button type="submit" class="btn btn-sm"><i
+                                                        class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
                                         @endif
                                     </form>
                                 </td>

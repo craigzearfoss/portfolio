@@ -1,86 +1,99 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' => 'Users',
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
+        [ 'name' => 'Users']
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'url' => route('admin.user.create') ],
+    ],
+    'errors' => $errors ?? [],
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+        <thead>
+        <tr>
+            <th class="px-2">name</th>
+            <th class="px-2">email</th>
+            <th class="px-2 text-center">verified</th>
+            <th class="px-2 text-center">status</th>
+            <th class="px-2 text-center">disabled</th>
+            <th class="px-2">actions</th>
+        </tr>
+        </thead>
+        <?php /*
+        <tfoot>
+        <tr>
+            <th class="px-2">name</th>
+            <th class="px-2">email</th>
+            <th class="px-2 text-center">verified</th>
+            <th class="px-2 text-center">status</th>
+            <th class="px-2 text-center">disabled</th>
+            <th class="px-2">actions</th>
+        </tr>
+        </tfoot>
+        */ ?>
+        <tbody>
 
-            @include('admin.components.nav-left')
+        @forelse ($users as $user)
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            <tr>
+                <td class="py-0">
+                    {{ $user->name }}
+                </td>
+                <td class="py-0">
+                    {{ $user->email }}
+                </td>
+                <td class="py-0">
+                    @include('admin.components.checkmark', [ 'checked' => $user->email_verified_at ])
+                </td>
+                <td class="py-0">
+                    {{ \App\Models\User::statusName($user->status) }}
+                </td>
+                <td class="is-2 py-0 px-2">
+                    @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
+                </td>
+                <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST">
 
-                @include('admin.components.header')
+                        <a title="show" class="button is-small px-1 py-0"
+                           href="{{ route('admin.user.show', $user->id) }}">
+                            <i class="fa-solid fa-list"></i>{{-- Show--}}
+                        </a>
 
-                @include('admin.components.popup')
+                        <a title="edit" class="button is-small px-1 py-0"
+                           href="{{ route('admin.user.edit', $user->id) }}">
+                            <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                        </a>
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
+                        <a title="change password" class="button is-small px-1 py-0"
+                           href="{{ route('admin.user.change_password', $user->id) }}">
+                            <i class="fa-solid fa-key"></i>{{-- Edit--}}
+                        </a>
 
-                    <h3 class="card-header">Users</h3>
+                        @csrf
+                        @method('DELETE')
+                        <button title="delete" type="submit" class="button is-small px-1 py-0">
+                            <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                        </button>
+                    </form>
+                </td>
+            </tr>
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('admin.components.messages', [$errors])
-                        </div>
-                        <div>
-                            <a class="btn btn-solid btn-sm" href="{{ route('admin.user.create') }}"><i class="fa fa-plus"></i> Create New User</a>
-                        </div>
-                    </div>
+        @empty
 
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>name</th>
-                            <th>email</th>
-                            <th class="text-center">verified</th>
-                            <th class="text-center">status</th>
-                            <th class="text-center">disabled</th>
-                            <th>actions</th>
-                        </tr>
-                        </thead>
+            <tr>
+                <td colspan="6">There are no user stacks.</td>
+            </tr>
 
-                        <tbody>
+        @endforelse
 
-                        @forelse ($users as $user)
-                            <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $user->email_verified_at ])
-                                </td>
-                                <td class="text-center">
-                                    {{ \App\Models\User::statusName($user->status) }}
-                                </td>
-                                <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
-                                </td>
-                                <td class="text-nowrap">
-                                    <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST">
-                                        <a class="btn btn-sm" href="{{ route('admin.user.show', $user->id) }}"><i class="fa-solid fa-list"></i>{{--  Show--}}</a>
-                                        <a class="btn btn-sm" href="{{ route('admin.user.edit', $user->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{--  Edit--}}</a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm"><i class="fa-solid fa-trash"></i>{{-- Delete--}}</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7">There are no users.</td>
-                            </tr>
-                        @endforelse
+        </tbody>
+    </table>
 
-                        </tbody>
-                    </table>
 
-                    {!! $users->links() !!}
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
-    </div>
+    {!! $users->links('vendor.pagination.bulma') !!}
 
 @endsection

@@ -26,6 +26,7 @@ return [
     'open_enrollment'       => env('APP_OPEN_ENROLLMENT', '0'),
     'owner'                 => env('APP_OWNER', ''),
     'readonly'              => env('APP_READONLY', '0'),
+    'root_resources'        => env('APP_ROOT_RESOURCES', ''),
 
     /*
     |--------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 <div class="side-nav side-nav-transparent side-nav-expand">
     <div class="side-nav-header">
+
         <div class="logo px-6">
 
             @if (Auth::guard('admin'))
@@ -11,6 +12,7 @@
                     <h4 style="margin: 10px 0; color: #222;">{{ config('app.name') }} Admin</h4>
                 </a>
             @endif
+
         </div>
 
     </div>

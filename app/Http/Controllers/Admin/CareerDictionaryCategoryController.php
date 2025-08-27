@@ -8,6 +8,7 @@ use App\Http\Requests\CareerDictionaryCategoryUpdateRequest;
 use App\Models\Career\DictionaryCategory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CareerDictionaryCategoryController extends Controller
@@ -30,6 +31,10 @@ class CareerDictionaryCategoryController extends Controller
      */
     public function create(): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add dictionary category entries.');
+        }
+
         return view('admin.dictionary.category.create');
     }
 
@@ -38,6 +43,10 @@ class CareerDictionaryCategoryController extends Controller
      */
     public function store(CareerDictionaryCategoryStoreRequest $request): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add dictionary category entries.');
+        }
+
         DictionaryCategory::create($request->validated());
 
         return redirect()->route('admin.dictionary.category.index')
@@ -57,6 +66,10 @@ class CareerDictionaryCategoryController extends Controller
      */
     public function edit(DictionaryCategory $dictionaryCategory): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can edit dictionary category entries.');
+        }
+
         return view('admin.dictionary.category.edit', compact('dictionaryCategory'));
     }
 
@@ -66,6 +79,10 @@ class CareerDictionaryCategoryController extends Controller
     public function update(CareerDictionaryCategoryUpdateRequest $request,
                            DictionaryCategory $dictionaryCategory): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can update dictionary category entries.');
+        }
+
         $dictionaryCategory->update($request->validated());
 
         return redirect()->route('admin.dictionary.category.index')
@@ -77,6 +94,10 @@ class CareerDictionaryCategoryController extends Controller
      */
     public function destroy(DictionaryCategory $dictionaryCategory): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can delete dictionary category entries.');
+        }
+
         $dictionaryCategory->delete();
 
         return redirect()->route('admin.dictionary.category.index')

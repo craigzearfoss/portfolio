@@ -5,10 +5,10 @@
     <div class="app-layout-modern flex flex-auto flex-col">
         <div class="flex flex-auto min-w-0">
 
-            @include('admin.components.nav-left')
+            @include('admin.components.nav-left_ORIGINAL')
 
             <div
-                class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+                    class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
 
                 @include('admin.components.header')
 
@@ -29,10 +29,10 @@
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                         <a class="btn btn-solid btn-sm"
                                            href="{{ route('admin.application.edit', $application) }}"><i
-                                                class="fa fa-pen-to-square"></i> Edit</a> <a
-                                            class="btn btn-solid btn-sm"
-                                            href="{{ route('admin.application.index') }}"><i
-                                                class="fa fa-arrow-left"></i> Back</a>
+                                                    class="fa fa-pen-to-square"></i> Edit</a> <a
+                                                class="btn btn-solid btn-sm"
+                                                href="{{ route('admin.application.index') }}"><i
+                                                    class="fa fa-arrow-left"></i> Back</a>
                                     </div>
 
                                     <div class="row">

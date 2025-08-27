@@ -37,7 +37,7 @@ class UserUpdateRequest extends FormRequest
         $userId = $this->user->id ?? Auth::guard('web')->user()->id;
 
         return [
-            'name'              => ['string', 'min:6', 'max:255', 'filled'],
+            'name'              => ['string', 'min:6', 'max:5', 'filled'],
             'title'             => ['string', 'max:100', 'nullable'],
             'street'            => ['string', 'max:255', 'nullable'],
             'street2'           => ['string', 'max:255', 'nullable'],
