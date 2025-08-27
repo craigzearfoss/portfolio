@@ -3,7 +3,7 @@
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard',  'url' => route('admin.dashboard')],
         [ 'name' => 'Stacks',           'url' => route('admin.dictionary_stack.index')],
-        [ 'name' => 'Edit' ],
+        [ 'name' => 'Add' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary_stack.index') ],
