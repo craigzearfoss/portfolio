@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Add New Server',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard',  'url' => route('admin.dashboard')],
-        [ 'name' => 'Servers',          'url' => route('admin.dictionary_server.index')],
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Servers',         'url' => route('admin.dictionary_server.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [

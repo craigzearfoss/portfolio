@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => $dictionaryOperatingSystem->name . ' operating system',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard',   'url' => route('admin.dashboard')],
-        [ 'name' => 'Operating Systems', 'url' => route('admin.dictionary_operating_system.index')],
+        [ 'name' => 'Admin Dashboard',   'url' => route('admin.dashboard') ],
+        [ 'name' => 'Operating Systems', 'url' => route('admin.dictionary_operating_system.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [

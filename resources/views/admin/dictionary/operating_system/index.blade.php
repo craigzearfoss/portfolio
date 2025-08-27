@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Dictionary Operating Systems',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Operating Systems']
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Operating Systems' ]
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Operating System', 'url' => route('admin.dictionary_operating_system.create') ],

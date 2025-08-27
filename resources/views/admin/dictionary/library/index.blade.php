@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Dictionary Libraries',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Libraries']
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Libraries' ]
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Library', 'url' => route('admin.dictionary_library.create') ],

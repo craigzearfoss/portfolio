@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Dictionary Stacks',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Stacks']
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Stacks' ]
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'url' => route('admin.dictionary_stack.create') ],

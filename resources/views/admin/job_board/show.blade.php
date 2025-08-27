@@ -1,59 +1,33 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' => $jobBoard->name,
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Job Boards',      'url' => route('admin.job_board.index') ],
+        [ 'name' => 'Show' ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.job_board.edit', $jobBoard) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Board', 'url' => route('admin.job_board.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => route('admin.job_board.index') ],
+    ],
+    'errors' => $errors ?? [],
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div>
 
-            @include('admin.components.nav-left_ORIGINAL')
+        @include('admin.components.show-row', [
+            'name'  => 'name',
+            'value' => $jobBoard->name
+        ])
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+        @include('admin.components.show-row-link', [
+            'name'   => 'website',
+            'url'    => $jobBoard->website,
+            'target' => '_blank'
+        ])
 
-                @include('admin.components.header')
-
-                @include('admin.components.popup')
-
-                <div class="page-container relative h-full flex flex-auto flex-col">
-                    <div class="h-full">
-                        <h3 class="card-header ml-3">Show Job Board</h3>
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
-                            <div class="card min-w-[320px] md:min-w-[450px] max-w-[800px] card-shadow"
-                                 role="presentation">
-                                <div class="card-body md:p-5">
-
-                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-solid btn-sm"
-                                           href="{{ route('admin.job_board.edit', $jobBoard) }}"><i
-                                                    class="fa fa-pen-to-square"></i> Edit</a>
-                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.job_board.index') }}"><i
-                                                    class="fa fa-arrow-left"></i> Back</a>
-                                    </div>
-
-                                    <div class="row">
-
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'name',
-                                            'value' => $jobBoard->name
-                                        ])
-
-                                        @include('admin.components.show-row-link', [
-                                            'name'   => 'website',
-                                            'url'    => $jobBoard->website,
-                                            'target' => '_blank'
-                                        ])
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection
