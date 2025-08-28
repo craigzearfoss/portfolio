@@ -20,7 +20,7 @@ class CertificationController extends Controller
     {
         $certifications = Certification::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.certification.index', compact('certifications'))
+        return view('admin.portfolio.certification.index', compact('certifications'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -29,7 +29,7 @@ class CertificationController extends Controller
      */
     public function create(): View
     {
-        return view('admin.certification.create');
+        return view('admin.portfolio.certification.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class CertificationController extends Controller
     {
         Certification::create($request->validated());
 
-        return redirect()->route('admin.certification.index')
+        return redirect()->route('admin.portfolio.certification.index')
             ->with('success', 'Certification created successfully.');
     }
 
@@ -48,7 +48,7 @@ class CertificationController extends Controller
      */
     public function show(Certification $certification): View
     {
-        return view('admin.certification.show', compact('certification'));
+        return view('admin.portfolio.certification.show', compact('certification'));
     }
 
     /**
@@ -56,7 +56,7 @@ class CertificationController extends Controller
      */
     public function edit(Certification $certification): View
     {
-        return view('admin.certification.edit', compact('certification'));
+        return view('admin.portfolio.certification.edit', compact('certification'));
     }
 
     /**
@@ -68,7 +68,7 @@ class CertificationController extends Controller
 
         $certification->update($request->validated());
 
-        return redirect()->route('admin.certification.index')
+        return redirect()->route('admin.portfolio.certification.index')
             ->with('success', 'Certification updated successfully');
     }
 
@@ -79,7 +79,7 @@ class CertificationController extends Controller
     {
         $certification->delete();
 
-        return redirect()->route('admin.certification.index')
+        return redirect()->route('admin.portfolio.certification.index')
             ->with('success', 'Certification deleted successfully');
     }
 }

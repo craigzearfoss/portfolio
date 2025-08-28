@@ -2,6 +2,7 @@
     $id = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
     $type = $type ?? 'text';
     $name = $name ?? 'name';
+    $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'website']);
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
@@ -9,7 +10,7 @@
     </div>
     <div class="field-body">
         <div class="field">
-            <div class="control {{ (($type === 'email') || in_array($name, ['username', 'password', 'confirm_password'])) ? 'has-icons-left' : '' }}">
+            <div class="control {{ $hasIcon ? 'has-icons-left' : '' }}">
                 <input class="input {{ $class ?? '' }} @error('role') is-invalid @enderror"
                        type="{{ $type }}"
                        id="{{ $id }}"
@@ -39,6 +40,9 @@
                 @endif
                 @if (in_array($name, ['password', 'confirm_password']))
                     <span class="icon is-small is-left"><i class="fas fa-key"></i></span>
+                @endif
+                @if (in_array($name, ['link', 'website']))
+                    <span class="icon is-small is-left"><i class="fas fa-link"></i></span>
                 @endif
 
             </div>

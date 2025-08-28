@@ -1,4 +1,4 @@
-<footer class="footer" style="position: absolute; bottom: 0; width: 100%;">
+<footer class="footer mt-4">
     <div class="container-fluid">
         <div class="level">
             <div class="level-left">
