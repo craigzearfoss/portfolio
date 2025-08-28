@@ -104,7 +104,6 @@
         </tbody>
     </table>
 
-
     {!! $arts->links('vendor.pagination.bulma') !!}
 
 @endsection

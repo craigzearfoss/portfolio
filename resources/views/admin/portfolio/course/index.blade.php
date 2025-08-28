@@ -109,7 +109,6 @@
         </tbody>
     </table>
 
-
     {!! $courses->links('vendor.pagination.bulma') !!}
 
 @endsection

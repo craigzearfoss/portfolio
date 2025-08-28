@@ -93,7 +93,6 @@
         </tbody>
     </table>
 
-
     {!! $admins->links('vendor.pagination.bulma') !!}
 
 @endsection

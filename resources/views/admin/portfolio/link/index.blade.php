@@ -1,11 +1,11 @@
 @extends('admin.layouts.default', [
-    'title' => 'Certifications',
+    'title' => 'Links',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Certifications']
+        [ 'name' => 'Links']
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Certification', 'url' => route('admin.portfolio.certification.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Link', 'url' => route('admin.portfolio.link.create') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -16,11 +16,9 @@
         <thead>
         <tr>
             <th>name</th>
-            <th>organization</th>
-            <th>received</th>
-            <th>expiration</th>
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
+            <th>website</th>
             <th class="text-center">public</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
@@ -30,11 +28,9 @@
         <tfoot>
         <tr>
             <th>name</th>
-            <th>organization</th>
-            <th>received</th>
-            <th>expiration</th>
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
+            <th>website</th>
             <th class="text-center">public</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
@@ -43,54 +39,48 @@
         */ ?>
         <tbody>
 
-        @forelse ($certifications as $certification)
+        @forelse ($links as $link)
 
             <tr>
                 <td>
-                    {{ $certification->name }}
+                    {{ $link->name }}
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $link->professional ])
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $link->personal ])
                 </td>
                 <td>
-                    {{ $certification->organization }}
-                </td>
-                <td class="text-nowrap">
-                    {{ shortDate($certification->received) }}
-                </td>
-                <td class="text-nowrap">
-                    {{ shortDate($certification->expiration) }}
+                    {{ $link->website }}
                 </td>
                 <td class="text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $certification->professional ])
+                    @include('admin.components.checkmark', [ 'checked' => $link->public ])
                 </td>
                 <td class="text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $certification->personal ])
-                </td>
-                <td class="text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $certification->public ])
-                </td>
-                <td class="text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $certification->disabled ])
+                    @include('admin.components.checkmark', [ 'checked' => $link->disabled ])
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.portfolio.certification.destroy', $certification->id) }}" method="POST">
+                    <form action="{{ route('admin.portfolio.link.destroy', $link->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.portfolio.certification.show', $certification->id) }}">
+                           href="{{ route('admin.portfolio.link.show', $link->id) }}">
                             <i class="fa-solid fa-list"></i>{{-- Show--}}
                         </a>
 
                         <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.portfolio.certification.edit', $certification->id) }}">
+                           href="{{ route('admin.portfolio.link.edit', $link->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
 
-                        @if (!empty($certification->link))
-                            <a title="link" class="button is-small px-1 py-0" href="{{ $certification->link }}"
+                        @if (!empty($link->url))
+                            <a title="url" class="button is-small px-1 py-0" href="{{ $link->url }}"
                                target="_blank">
-                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                                <i class="fa-solid fa-external-link"></i>{{-- url--}}
                             </a>
                         @else
-                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                            <a title="url" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- url--}}
                             </a>
                         @endif
 
@@ -106,7 +96,7 @@
         @empty
 
             <tr>
-                <td colspan="9">There are no certifications.</td>
+                <td colspan="7">There are no links.</td>
             </tr>
 
         @endforelse
@@ -114,6 +104,6 @@
         </tbody>
     </table>
 
-    {!! $certifications->links('vendor.pagination.bulma') !!}
+    {!! $links->links('vendor.pagination.bulma') !!}
 
 @endsection

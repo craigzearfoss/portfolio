@@ -20,7 +20,7 @@ class LinkController extends Controller
     {
         $links = Link::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.link.index', compact('links'))
+        return view('admin.portfolio.link.index', compact('links'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -29,7 +29,7 @@ class LinkController extends Controller
      */
     public function create(): View
     {
-        return view('admin.link.create');
+        return view('admin.portfolio.link.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class LinkController extends Controller
     {
         Link::create($request->validated());
 
-        return redirect()->route('admin.link.index')
+        return redirect()->route('admin.portfolio.link.index')
             ->with('success', 'Link created successfully.');
     }
 
@@ -48,7 +48,7 @@ class LinkController extends Controller
      */
     public function show(Link $link): View
     {
-        return view('admin.link.show', compact('link'));
+        return view('admin.portfolio.link.show', compact('link'));
     }
 
     /**
@@ -56,7 +56,7 @@ class LinkController extends Controller
      */
     public function edit(Link $link): View
     {
-        return view('admin.link.edit', compact('link'));
+        return view('admin.portfolio.link.edit', compact('link'));
     }
 
     /**
@@ -66,7 +66,7 @@ class LinkController extends Controller
     {
         $link->update($request->validated());
 
-        return redirect()->route('admin.link.index')
+        return redirect()->route('admin.portfolio.link.index')
             ->with('success', 'Link updated successfully');
     }
 
@@ -77,7 +77,7 @@ class LinkController extends Controller
     {
         $link->delete();
 
-        return redirect()->route('admin.link.index')
+        return redirect()->route('admin.portfolio.link.index')
             ->with('success', 'Link deleted successfully');
     }
 }
