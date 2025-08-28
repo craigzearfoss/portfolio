@@ -20,7 +20,7 @@ class RecipeController extends Controller
     {
         $recipes = Recipe::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.recipe.index', compact('recipes'))
+        return view('admin.portfolio.recipe.index', compact('recipes'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -29,7 +29,7 @@ class RecipeController extends Controller
      */
     public function create(): View
     {
-        return view('admin.recipe.create');
+        return view('admin.portfolio.recipe.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class RecipeController extends Controller
     {
         Recipe::create($request->validated());
 
-        return redirect()->route('admin.recipe.index')
+        return redirect()->route('admin.portfolio.recipe.index')
             ->with('success', 'Recipe created successfully.');
     }
 
@@ -48,7 +48,7 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe): View
     {
-        return view('admin.recipe.show', compact('recipe'));
+        return view('admin.portfolio.recipe.show', compact('recipe'));
     }
 
     /**
@@ -56,7 +56,7 @@ class RecipeController extends Controller
      */
     public function edit(Recipe $recipe): View
     {
-        return view('admin.recipe.edit', compact('recipe'));
+        return view('admin.portfolio.recipe.edit', compact('recipe'));
     }
 
     /**
@@ -66,7 +66,7 @@ class RecipeController extends Controller
     {
         $recipe->update($request->validated());
 
-        return redirect()->route('admin.recipe.index')
+        return redirect()->route('admin.portfolio.recipe.index')
             ->with('success', 'Recipe updated successfully');
     }
 
@@ -77,7 +77,7 @@ class RecipeController extends Controller
     {
         $recipe->delete();
 
-        return redirect()->route('admin.recipe.index')
+        return redirect()->route('admin.portfolio.recipe.index')
             ->with('success', 'Recipe deleted successfully');
     }
 }

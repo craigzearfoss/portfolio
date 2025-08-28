@@ -89,7 +89,7 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
     Route::resource('project', PortfolioProjectController::class);
     Route::resource('reading', PortfolioReadingController::class);
     Route::resource('recipe', PortfolioRecipeController::class);
-    Route::resource('recipe_ingredient', PortfolioRecipeIngredientController::class);
+    Route::resource('recipe-ingredient', PortfolioRecipeIngredientController::class)->parameter('recipe-ingredient', 'recipe_ingredient');
     Route::resource('video', PortfolioVideoController::class);
 });
 

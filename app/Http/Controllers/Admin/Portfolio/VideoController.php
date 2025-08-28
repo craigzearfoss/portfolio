@@ -20,7 +20,7 @@ class VideoController extends Controller
     {
         $videos = Video::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.video.index', compact('videos'))
+        return view('admin.portfolio.video.index', compact('videos'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -29,7 +29,7 @@ class VideoController extends Controller
      */
     public function create(): View
     {
-        return view('admin.video.create');
+        return view('admin.portfolio.video.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class VideoController extends Controller
     {
         Video::create($request->validated());
 
-        return redirect()->route('admin.video.index')
+        return redirect()->route('admin.portfolio.video.index')
             ->with('success', 'Video created successfully.');
     }
 
@@ -48,7 +48,7 @@ class VideoController extends Controller
      */
     public function show(Video $video): View
     {
-        return view('admin.video.show', compact('video'));
+        return view('admin.portfolio.video.show', compact('video'));
     }
 
     /**
@@ -56,7 +56,7 @@ class VideoController extends Controller
      */
     public function edit(Video $video): View
     {
-        return view('admin.video.edit', compact('video'));
+        return view('admin.portfolio.video.edit', compact('video'));
     }
 
     /**
@@ -66,7 +66,7 @@ class VideoController extends Controller
     {
         $video->update($request->validated());
 
-        return redirect()->route('admin.video.index')
+        return redirect()->route('admin.portfolio.video.index')
             ->with('success', 'Video updated successfully');
     }
 
@@ -77,7 +77,7 @@ class VideoController extends Controller
     {
         $video->delete();
 
-        return redirect()->route('admin.video.index')
+        return redirect()->route('admin.portfolio.video.index')
             ->with('success', 'Video deleted successfully');
     }
 }

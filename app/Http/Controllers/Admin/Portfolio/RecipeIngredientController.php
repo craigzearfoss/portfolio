@@ -20,7 +20,7 @@ class RecipeIngredientController extends Controller
     {
         $recipeIngredients = RecipeIngredient::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.recipe_ingredient.index', compact('recipeIngredients'))
+        return view('admin.portfolio.recipe-ingredient.index', compact('recipeIngredients'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -29,7 +29,7 @@ class RecipeIngredientController extends Controller
      */
     public function create(): View
     {
-        return view('admin.recipe_ingredient.create');
+        return view('admin.portfolio.recipe-ingredient.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class RecipeIngredientController extends Controller
     {
         RecipeIngredient::create($request->validated());
 
-        return redirect()->route('admin.recipe_ingredient.index')
+        return redirect()->route('admin.portfolio.recipe-ingredient.index')
             ->with('success', 'Recipe ingredient created successfully.');
     }
 
@@ -48,7 +48,7 @@ class RecipeIngredientController extends Controller
      */
     public function show(RecipeIngredient $recipeIngredient): View
     {
-        return view('admin.recipe_ingredient.show', compact('recipeIngredient'));
+        return view('admin.portfolio.recipe-ingredient.show', compact('recipeIngredient'));
     }
 
     /**
@@ -56,7 +56,7 @@ class RecipeIngredientController extends Controller
      */
     public function edit(RecipeIngredient $recipeIngredient): View
     {
-        return view('admin.recipe_ingredient.edit', compact('recipeIngredient'));
+        return view('admin.portfolio.recipe-ingredient.edit', compact('recipeIngredient'));
     }
 
     /**
@@ -67,7 +67,7 @@ class RecipeIngredientController extends Controller
     {
         $recipeIngredient->update($request->validated());
 
-        return redirect()->route('admin.recipe_ingredient.index')
+        return redirect()->route('admin.portfolio.recipe-ingredient.index')
             ->with('success', 'Recipe ingredient updated successfully');
     }
 
@@ -78,7 +78,7 @@ class RecipeIngredientController extends Controller
     {
         $recipeIngredient->delete();
 
-        return redirect()->route('admin.recipe_ingredient.index')
+        return redirect()->route('admin.portfolio.recipe-ingredient.index')
             ->with('success', 'Recipe ingredient deleted successfully');
     }
 }

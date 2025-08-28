@@ -20,7 +20,7 @@ class ReadingController extends Controller
     {
         $readings = Reading::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.reading.index', compact('readings'))
+        return view('admin.portfolio.reading.index', compact('readings'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -29,7 +29,7 @@ class ReadingController extends Controller
      */
     public function create(): View
     {
-        return view('admin.reading.create');
+        return view('admin.portfolio.reading.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class ReadingController extends Controller
     {
         Reading::create($request->validated());
 
-        return redirect()->route('admin.reading.index')
+        return redirect()->route('admin.portfolio.reading.index')
             ->with('success', 'Reading created successfully.');
     }
 
@@ -48,7 +48,7 @@ class ReadingController extends Controller
      */
     public function show(Reading $reading): View
     {
-        return view('admin.reading.show', compact('reading'));
+        return view('admin.portfolio.reading.show', compact('reading'));
     }
 
     /**
@@ -56,7 +56,7 @@ class ReadingController extends Controller
      */
     public function edit(Reading $reading): View
     {
-        return view('admin.reading.edit', compact('reading'));
+        return view('admin.portfolio.reading.edit', compact('reading'));
     }
 
     /**
@@ -66,7 +66,7 @@ class ReadingController extends Controller
     {
         $reading->update($request->validated());
 
-        return redirect()->route('admin.reading.index')
+        return redirect()->route('admin.portfolio.reading.index')
             ->with('success', 'Reading updated successfully');
     }
 
@@ -77,7 +77,7 @@ class ReadingController extends Controller
     {
         $reading->delete();
 
-        return redirect()->route('admin.reading.index')
+        return redirect()->route('admin.portfolio.reading.index')
             ->with('success', 'Reading deleted successfully');
     }
 }
