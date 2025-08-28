@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PortfolioReadingStoreRequest;
 use App\Http\Requests\PortfolioReadingUpdateRequest;
 use App\Models\Portfolio\Reading;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class PortfolioReadingController extends Controller
+class ReadingController extends Controller
 {
     const NUM_PER_PAGE = 20;
 

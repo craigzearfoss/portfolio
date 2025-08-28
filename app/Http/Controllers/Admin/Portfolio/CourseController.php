@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PortfolioCourseStoreRequest;
@@ -9,7 +9,7 @@ use App\Models\Portfolio\Course;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class PortfolioCourseController extends Controller
+class CourseController extends Controller
 {
     const NUM_PER_PAGE = 20;
 

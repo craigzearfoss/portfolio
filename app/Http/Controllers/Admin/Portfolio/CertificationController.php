@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PortfolioCertificationStoreRequest;
 use App\Http\Requests\PortfolioCertificationUpdateRequest;
 use App\Models\Portfolio\Certification;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class PortfolioCertificationController extends Controller
+class CertificationController extends Controller
 {
     const NUM_PER_PAGE = 20;
 

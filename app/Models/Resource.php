@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\ResourceDatabase;
+use App\Models\Database;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,12 +21,12 @@ class Resource extends Model
      */
     protected $fillable = [
         'admin_id',
+        'database_id',
         'type',
         'name',
         'plural',
         'section',
         'icon',
-        'resource_database_id',
         'sequence',
         'public',
         'disabled',
@@ -37,6 +37,13 @@ class Resource extends Model
      */
     public function database(): BelongsTo
     {
-        return $this->belongsTo(ResourceDatabase::class, 'resource_database_id');
+        return $this->belongsTo(Database::class, 'database_id');
+    }
+
+    public function path(): string
+    {
+        return ($this->database->name ?? '?') !== 'craigzearfoss'
+            ? ($this->database->name ?? '?') . '.' . ($this->type ?? '?')
+            : ($this->type ?? '?');
     }
 }

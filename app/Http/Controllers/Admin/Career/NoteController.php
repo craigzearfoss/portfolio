@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CareerNoteStoreRequest;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class CareerNoteController extends Controller
+class NoteController extends Controller
 {
     const NUM_PER_PAGE = 20;
 

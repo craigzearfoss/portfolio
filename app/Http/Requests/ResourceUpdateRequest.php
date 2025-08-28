@@ -23,16 +23,16 @@ class ResourceUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'             => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'type'                 => ['string', 'max:50', 'filled'],
-            'name'                 => ['string', 'max:50', 'filled'],
-            'plural'               => ['string', 'max:50', 'filled'],
-            'section'              => ['string', 'max:50'], 'filled',
-            'icon'                 => ['string', 'max:50', 'nullable'],
-            'resource_database_id' => ['string', 'max:50', 'filled'],
-            'sequence'             => ['integer', 'min:0'],
-            'public'               => ['integer', 'between:0,1'],
-            'disabled'             => ['integer', 'between:0,1'],
+            'admin_id'    => ['integer', 'in:' . Auth::guard('admin')->user()->id],
+            'database_id' => ['integer', 'min:1', 'filled'],
+            'type'        => ['string', 'max:50', 'filled'],
+            'name'        => ['string', 'max:50', 'filled'],
+            'plural'      => ['string', 'max:50', 'filled'],
+            'section'     => ['string', 'max:50'], 'filled',
+            'icon'        => ['string', 'max:50', 'nullable'],
+            'sequence'    => ['integer', 'min:0'],
+            'public'      => ['integer', 'between:0,1'],
+            'disabled'    => ['integer', 'between:0,1'],
         ];
     }
 }

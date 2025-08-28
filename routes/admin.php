@@ -1,30 +1,43 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\CareerApplicationController;
-use App\Http\Controllers\Admin\CareerCommunicationController;
-use App\Http\Controllers\Admin\CareerCompanyController;
-use App\Http\Controllers\Admin\CareerContactController;
-use App\Http\Controllers\Admin\CareerCoverLetterController;
-use App\Http\Controllers\Admin\CareerJobBoardController;
-use App\Http\Controllers\Admin\CareerJobController;
-use App\Http\Controllers\Admin\CareerNoteController;
-use App\Http\Controllers\Admin\CareerReferenceController;
-use App\Http\Controllers\Admin\CareerResumeController;
-use App\Http\Controllers\Admin\CareerSkillController;
-use App\Http\Controllers\Admin\Dictionary\IndexController as CareerDictionaryController;
+
+use App\Http\Controllers\Admin\Career\ApplicationController as CareerApplicationController;
+use App\Http\Controllers\Admin\Career\CommunicationController as CareerCommunicationController;
+use App\Http\Controllers\Admin\Career\CompanyController as CareerCompanyController;
+use App\Http\Controllers\Admin\Career\ContactController as CareerContactController;
+use App\Http\Controllers\Admin\Career\CoverLetterController as CareerCoverLetterController;
+use App\Http\Controllers\Admin\Career\JobBoardController as CareerJobBoardController;
+use App\Http\Controllers\Admin\Career\JobController as CareerJobController;
+use App\Http\Controllers\Admin\Career\NoteController as CareerNoteController;
+use App\Http\Controllers\Admin\Career\ReferenceController as CareerReferenceController;
+use App\Http\Controllers\Admin\Career\ResumeController as CareerResumeController;
+use App\Http\Controllers\Admin\Career\SkillController as CareerSkillController;
+
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\MessageController;
-use App\Http\Controllers\Admin\PortfolioArtController;
-use App\Http\Controllers\Admin\PortfolioCertificationController;
-use App\Http\Controllers\Admin\PortfolioCourseController;
-use App\Http\Controllers\Admin\PortfolioLinkController;
-use App\Http\Controllers\Admin\PortfolioMusicController;
-use App\Http\Controllers\Admin\PortfolioProjectController;
-use App\Http\Controllers\Admin\PortfolioReadingController;
-use App\Http\Controllers\Admin\PortfolioRecipeController;
-use App\Http\Controllers\Admin\PortfolioRecipeIngredientController;
-use App\Http\Controllers\Admin\PortfolioVideoController;
+
+use App\Http\Controllers\Admin\Dictionary\CategoryController as DictionaryCategoryController;
+use App\Http\Controllers\Admin\Dictionary\DatabaseController as DictionaryDatabaseController;
+use App\Http\Controllers\Admin\Dictionary\FrameworkController as DictionaryFrameworkController;
+use App\Http\Controllers\Admin\Dictionary\IndexController as CareerDictionaryController;
+use App\Http\Controllers\Admin\Dictionary\LanguageController as DictionaryLanguageController;
+use App\Http\Controllers\Admin\Dictionary\LibraryController as DictionaryLibraryController;
+use App\Http\Controllers\Admin\Dictionary\OperatingSystemController as DictionaryOperatingSystemController;
+use App\Http\Controllers\Admin\Dictionary\ServerController as DictionaryServerController;
+use App\Http\Controllers\Admin\Dictionary\StackController as DictionaryStackController;
+
+use App\Http\Controllers\Admin\Portfolio\ArtController as PortfolioArtController;
+use App\Http\Controllers\Admin\Portfolio\CertificationController as PortfolioCertificationController;
+use App\Http\Controllers\Admin\Portfolio\CourseController as PortfolioCourseController;
+use App\Http\Controllers\Admin\Portfolio\LinkController as PortfolioLinkController;
+use App\Http\Controllers\Admin\Portfolio\MusicController as PortfolioMusicController;
+use App\Http\Controllers\Admin\Portfolio\ProjectController as PortfolioProjectController;
+use App\Http\Controllers\Admin\Portfolio\ReadingController as PortfolioReadingController;
+use App\Http\Controllers\Admin\Portfolio\RecipeController as PortfolioRecipeController;
+use App\Http\Controllers\Admin\Portfolio\RecipeIngredientController as PortfolioRecipeIngredientController;
+use App\Http\Controllers\Admin\Portfolio\VideoController as PortfolioVideoController;
+
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ResourceController;
 use App\Http\Controllers\Admin\UserController;
@@ -41,50 +54,59 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/reset-password/{token}/{email}', [IndexController::class, 'reset_password_submit'])->name('reset_password_submit');
 });
 
+Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group(function () {
+    Route::resource('application', CareerApplicationController::class);
+    Route::resource('communication', CareerCommunicationController::class);
+    Route::resource('company', CareerCompanyController::class);
+    Route::resource('contact', CareerContactController::class);
+    Route::resource('cover-letter', CareerCoverLetterController::class);
+    Route::resource('job', CareerJobController::class);
+    Route::resource('job-board', CareerJobBoardController::class)->parameter('job-board', 'job_board');
+    Route::resource('note', CareerNoteController::class);
+    Route::resource('reference', CareerReferenceController::class);
+    Route::resource('resource', ResourceController::class);
+    Route::resource('resume', CareerResumeController::class);
+    Route::resource('skill', CareerSkillController::class);
+});
+
 Route::prefix('admin/dictionary')->middleware('admin')->name('admin.dictionary.')->group(function () {
-      Route::resource('category',  \App\Http\Controllers\Admin\Dictionary\CategoryController::class)->parameter('category', 'dictionary_category');
-      Route::resource('database', \App\Http\Controllers\Admin\Dictionary\DatabaseController::class)->parameter('database', 'dictionary_database');
-      Route::resource('framework', \App\Http\Controllers\Admin\Dictionary\FrameworkController::class)->parameter('framework', 'dictionary_framework');
-      Route::resource('language', \App\Http\Controllers\Admin\Dictionary\LanguageController::class)->parameter('language', 'dictionary_language');
-      Route::resource('library', \App\Http\Controllers\Admin\Dictionary\LibraryController::class)->parameter('library', 'dictionary_library');
-      Route::resource('operating-system', \App\Http\Controllers\Admin\Dictionary\OperatingSystemController::class)->parameter('operating-system', 'dictionary_operating_system');
-      Route::resource('server', \App\Http\Controllers\Admin\Dictionary\ServerController::class)->parameter('server', 'dictionary_server');
-      Route::resource('stack', \App\Http\Controllers\Admin\Dictionary\StackController::class)->parameter('stack', 'dictionary_stack');
+      Route::resource('category', DictionaryCategoryController::class)->parameter('category', 'dictionary_category');
+      Route::resource('database', DictionaryDatabaseController::class)->parameter('database', 'dictionary_database');
+      Route::resource('framework', DictionaryFrameworkController::class)->parameter('framework', 'dictionary_framework');
+      Route::resource('language', DictionaryLanguageController::class)->parameter('language', 'dictionary_language');
+      Route::resource('library', DictionaryLibraryController::class)->parameter('library', 'dictionary_library');
+      Route::resource('operating-system', DictionaryOperatingSystemController::class)->parameter('operating-system', 'dictionary_operating_system');
+      Route::resource('server', DictionaryServerController::class)->parameter('server', 'dictionary_server');
+      Route::resource('stack', DictionaryStackController::class)->parameter('stack', 'dictionary_stack');
+});
+
+Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')->group(function () {
+    Route::resource('art', PortfolioArtController::class);
+    Route::resource('certification', PortfolioCertificationController::class);
+    Route::resource('course', PortfolioCourseController::class);
+    Route::resource('link', PortfolioLinkController::class);
+    Route::resource('music', PortfolioMusicController::class);
+    Route::resource('project', PortfolioProjectController::class);
+    Route::resource('reading', PortfolioReadingController::class);
+    Route::resource('recipe', PortfolioRecipeController::class);
+    Route::resource('recipe_ingredient', PortfolioRecipeIngredientController::class);
+    Route::resource('video', PortfolioVideoController::class);
+});
+
+Route::prefix('admin/profile')->middleware('admin')->name('admin.portfolio.')->group(function () {
+    Route::get('/', [ProfileController::class, 'show'])->name('show');
+    Route::get('change-password', [ProfileController::class, 'change_password'])->name('change_password');
+    Route::post('change-password', [ProfileController::class, 'change_password_submit'])->name('change_password_submit');
+    Route::get('edit', [ProfileController::class, 'edit'])->name('edit');
+    Route::post('update', [ProfileController::class, 'update'])->name('update');
 });
 
 Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [IndexController::class, 'dashboard'])->name('dashboard');
     Route::resource('admin', AdminController::class);
-    Route::resource('application', CareerApplicationController::class);
-    Route::resource('art', PortfolioArtController::class);
-    Route::resource('certification', PortfolioCertificationController::class);
-    Route::resource('communication', CareerCommunicationController::class);
-    Route::resource('company', CareerCompanyController::class);
-    Route::resource('contact', CareerContactController::class);
-    Route::resource('course', PortfolioCourseController::class);
-    Route::resource('cover-letter', CareerCoverLetterController::class);
     Route::resource('dictionary', CareerDictionaryController::class);
-    Route::resource('job', CareerJobController::class);
-    Route::resource('job-board', CareerJobBoardController::class)->parameter('job-board', 'job_board');
-    Route::resource('link', PortfolioLinkController::class);
     Route::resource('message', MessageController::class);
-    Route::resource('music', PortfolioMusicController::class);
-    Route::resource('note', CareerNoteController::class);
-    Route::get('/profile/change-password', [ProfileController::class, 'change_password'])->name('change_password');
-    Route::post('/profile/change-password', [ProfileController::class, 'change_password_submit'])->name('change_password_submit');
-    Route::get('/profile', [ProfileController::class, 'show'])->name('show');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('edit');
-    Route::post('/profile/update', [ProfileController::class, 'update'])->name('update');
-    Route::resource('project', PortfolioProjectController::class);
-    Route::resource('reading', PortfolioReadingController::class);
-    Route::resource('recipe', PortfolioRecipeController::class);
-    Route::resource('recipe_ingredient', PortfolioRecipeIngredientController::class);
-    Route::resource('reference', CareerReferenceController::class);
-    Route::resource('resource', ResourceController::class);
-    Route::resource('resume', CareerResumeController::class);
-    Route::resource('skill', CareerSkillController::class);
     Route::resource('user', UserController::class);
     Route::get('/user/{user}/change-password', [UserController::class, 'change_password'])->name('user.change_password');
     Route::post('/user/{user}/change-password', [UserController::class, 'change_password_submit'])->name('user.change_password_submit');
-    Route::resource('video', PortfolioVideoController::class);
 });

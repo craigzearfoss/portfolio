@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\ResourceDatabase;
+use App\Models\Database;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('resource_databases', function (Blueprint $table) {
+        Schema::create('databases', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
             $table->string('property', 50);
@@ -52,7 +52,7 @@ return new class extends Migration
                 'disabled' => 0,
             ],
         ];
-        ResourceDatabase::insert($data);
+        Database::insert($data);
     }
 
     /**
@@ -60,6 +60,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('resource_databases');
+        Schema::dropIfExists('databases');
     }
 };

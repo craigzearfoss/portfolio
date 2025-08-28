@@ -42,8 +42,8 @@
             @endphp
 
             <li>
-                <a @if (strpos(Route::currentRouteName(), 'admin.' . $resource->type) !== 0)
-                       href="{{ route('admin.' . $resource->type . '.index') }}"
+                <a @if (strpos(Route::currentRouteName(), 'admin.' . $resource->path()) !== 0)
+                       href="{{ route('admin.' . $resource->path() . '.index') }}"
                    @endif
                >
                     <span class="text-xl">

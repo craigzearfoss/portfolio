@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CareerCompanyStoreRequest;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class CareerCompanyController extends Controller
+class CompanyController extends Controller
 {
     const NUM_PER_PAGE = 20;
 

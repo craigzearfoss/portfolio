@@ -26,9 +26,9 @@
                                     </div>
 
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.art.edit', $art) }}"><i
+                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.portfolio.art.edit', $art) }}"><i
                                                     class="fa fa-pen-to-square"></i> Edit</a>
-                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.art.index') }}"><i
+                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.portfolio.art.index') }}"><i
                                                     class="fa fa-arrow-left"></i> Back</a>
                                     </div>
 

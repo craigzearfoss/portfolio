@@ -24,11 +24,11 @@
                             $currentSection = $resource->database['title'];
                         @endphp
                         <li class="menu-collapse">
-                            <a @if (strpos(Route::currentRouteName(), 'admin.' . $resource->type) !== 0)
-                                   href="{{ route('admin.' . $resource->type . '.index') }}"
+                            <a @if (strpos(Route::currentRouteName(), 'admin.' . $resource->path()) !== 0)
+                                   href="{{ route('admin.' . $resource->path() . '.index') }}"
                                 @endif
                             >
-                                <div class="menu-item {{ (strpos(Route::currentRouteName(), 'admin.' . $resource->type) === 0) ? 'menu-item-active' : '' }}">
+                                <div class="menu-item {{ (strpos(Route::currentRouteName(), 'admin.' . $resource->path()) === 0) ? 'menu-item-active' : '' }}">
                                     <span class="text-xl">
                                         <i class="fa-solid {{ $resource->icon ? $resource->icon : 'fa-circle' }}"></i>
                                     </span>

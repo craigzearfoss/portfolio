@@ -6,11 +6,11 @@ use App\Models\Resource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ResourceDatabase extends Model
+class Database extends Model
 {
     protected $connection = 'default_db';
 
-    protected $table = 'resource_databases';
+    protected $table = 'databases';
 
     /**
      * The attributes that are mass assignable.
@@ -44,7 +44,7 @@ class ResourceDatabase extends Model
     {
         $options = [];
 
-        foreach (ResourceDatabase::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
+        foreach (Database::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
             $options[$nameAsKey ? $row->name : $row->id ] = $row->name;
         }
 

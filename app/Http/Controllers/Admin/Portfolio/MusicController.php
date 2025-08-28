@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PortfolioMusicStoreRequest;
@@ -9,7 +9,7 @@ use App\Models\Portfolio\Music;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class PortfolioMusicController extends Controller
+class MusicController extends Controller
 {
     const NUM_PER_PAGE = 20;
 

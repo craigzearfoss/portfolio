@@ -23,16 +23,16 @@ class ResourceStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'             => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'type'                 => ['required', 'string', 'max:50'],
-            'name'                 => ['required', 'string', 'max:50'],
-            'plural'               => ['required', 'string', 'max:50'],
-            'section'              => ['required', 'string', 'max:50'],
-            'icon'                 => ['string', 'max:50', 'nullable'],
-            'resource_database_id' => ['required', 'string', 'max:50','filled'],
-            'sequence'             => ['integer', 'min:0'],
-            'public'               => ['integer', 'between:0,1'],
-            'disabled'             => ['integer', 'between:0,1'],
+            'admin_id'    => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'database_id' => ['required', 'integer', 'min:1','filled'],
+            'type'        => ['required', 'string', 'max:50'],
+            'name'        => ['required', 'string', 'max:50'],
+            'plural'      => ['required', 'string', 'max:50'],
+            'section'     => ['required', 'string', 'max:50'],
+            'icon'        => ['string', 'max:50', 'nullable'],
+            'sequence'    => ['integer', 'min:0'],
+            'public'      => ['integer', 'between:0,1'],
+            'disabled'    => ['integer', 'between:0,1'],
         ];
     }
 }

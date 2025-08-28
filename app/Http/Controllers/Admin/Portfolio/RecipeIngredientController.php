@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PortfolioRecipeIngredientStoreRequest;
 use App\Http\Requests\PortfolioRecipeIngredientUpdateRequest;
-use App\Http\Requests\PortfolioRecipeStoreRequest;
-use App\Http\Requests\PortfolioRecipeUpdateRequest;
 use App\Models\Portfolio\RecipeIngredient;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class PortfolioRecipeIngredientController extends Controller
+class RecipeIngredientController extends Controller
 {
     const NUM_PER_PAGE = 20;
 

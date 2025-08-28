@@ -22,7 +22,7 @@
                             @include('admin.components.messages', [$errors])
                         </div>
                         <div>
-                            <a class="btn btn-solid btn-sm" href="{{ route('admin.art.create') }}"><i
+                            <a class="btn btn-solid btn-sm" href="{{ route('admin.portfolio.art.create') }}"><i
                                         class="fa fa-plus"></i> Add New Art</a>
                         </div>
                     </div>
@@ -70,10 +70,10 @@
                                     @include('admin.components.checkmark', [ 'checked' => $art->disabled ])
                                 </td>
                                 <td class="text-nowrap">
-                                    <form action="{{ route('admin.art.destroy', $art->id) }}" method="POST">
-                                        <a class="btn btn-sm" href="{{ route('admin.art.show', $art->id) }}"><i
+                                    <form action="{{ route('admin.portfolio.art.destroy', $art->id) }}" method="POST">
+                                        <a class="btn btn-sm" href="{{ route('admin.portfolio.art.show', $art->id) }}"><i
                                                     class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                        <a class="btn btn-sm" href="{{ route('admin.art.edit', $art->id) }}"><i
+                                        <a class="btn btn-sm" href="{{ route('admin.portfolio.art.edit', $art->id) }}"><i
                                                     class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
                                         @csrf
                                         @method('DELETE')

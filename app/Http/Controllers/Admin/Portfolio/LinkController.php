@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PortfolioLinkStoreRequest;
 use App\Http\Requests\PortfolioLinkUpdateRequest;
 use App\Models\Portfolio\Link;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class PortfolioLinkController extends Controller
+class LinkController extends Controller
 {
     const NUM_PER_PAGE = 20;
 

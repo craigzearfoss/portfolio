@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PortfolioVideoStoreRequest;
 use App\Http\Requests\PortfolioVideoUpdateRequest;
 use App\Models\Portfolio\Video;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class PortfolioVideoController extends Controller
+class VideoController extends Controller
 {
     const NUM_PER_PAGE = 20;
 

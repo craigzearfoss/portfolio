@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CareerReferenceStoreRequest;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class CareerReferenceController extends Controller
+class ReferenceController extends Controller
 {
     const NUM_PER_PAGE = 20;
 

@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PortfolioArtStoreRequest;
 use App\Http\Requests\PortfolioArtUpdateRequest;
 use App\Models\Portfolio\Art;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class PortfolioArtController extends Controller
+class ArtController extends Controller
 {
     const NUM_PER_PAGE = 20;
 
@@ -21,7 +20,7 @@ class PortfolioArtController extends Controller
     {
         $arts = Art::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.art.index', compact('arts'))
+        return view('admin.portfolio.art.index', compact('arts'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -30,7 +29,7 @@ class PortfolioArtController extends Controller
      */
     public function create(): View
     {
-        return view('admin.art.create');
+        return view('admin.portfolio.art.create');
     }
 
     /**
@@ -40,7 +39,7 @@ class PortfolioArtController extends Controller
     {
         Art::create($request->validated());
 
-        return redirect()->route('admin.art.index')
+        return redirect()->route('admin.portfolio.art.index')
             ->with('success', 'Art created successfully.');
     }
 
@@ -49,7 +48,7 @@ class PortfolioArtController extends Controller
      */
     public function show(Art $art): View
     {
-        return view('admin.art.show', compact('art'));
+        return view('admin.portfolio.art.show', compact('art'));
     }
 
     /**
@@ -57,7 +56,7 @@ class PortfolioArtController extends Controller
      */
     public function edit(Art $art): View
     {
-        return view('admin.art.edit', compact('art'));
+        return view('admin.portfolio.art.edit', compact('art'));
     }
 
     /**
@@ -67,7 +66,7 @@ class PortfolioArtController extends Controller
     {
         $art->update($request->validated());
 
-        return redirect()->route('admin.art.index')
+        return redirect()->route('admin.portfolio.art.index')
             ->with('success', 'Art updated successfully');
     }
 
@@ -78,7 +77,7 @@ class PortfolioArtController extends Controller
     {
         $art->delete();
 
-        return redirect()->route('admin.art.index')
+        return redirect()->route('admin.portfolio.art.index')
             ->with('success', 'Art deleted successfully');
     }
 }

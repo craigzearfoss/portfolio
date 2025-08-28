@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PortfolioProjectStoreRequest;
 use App\Http\Requests\PortfolioProjectUpdateRequest;
 use App\Models\Portfolio\Project;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class PortfolioProjectController extends Controller
+class ProjectController extends Controller
 {
     const NUM_PER_PAGE = 20;
 
