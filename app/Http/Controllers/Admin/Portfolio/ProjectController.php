@@ -20,7 +20,7 @@ class ProjectController extends Controller
     {
         $projects = Project::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.project.index', compact('projects'))
+        return view('admin.portfolio.project.index', compact('projects'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -29,7 +29,7 @@ class ProjectController extends Controller
      */
     public function create(): View
     {
-        return view('admin.project.create');
+        return view('admin.portfolio.project.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class ProjectController extends Controller
     {
         Project::create($request->validated());
 
-        return redirect()->route('admin.project.index')
+        return redirect()->route('admin.portfolio.project.index')
             ->with('success', 'Project created successfully.');
     }
 
@@ -48,7 +48,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project): View
     {
-        return view('admin.project.show', compact('project'));
+        return view('admin.portfolio.project.show', compact('project'));
     }
 
     /**
@@ -56,7 +56,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project): View
     {
-        return view('admin.project.edit', compact('project'));
+        return view('admin.portfolio.project.edit', compact('project'));
     }
 
     /**
@@ -66,7 +66,7 @@ class ProjectController extends Controller
     {
         $project->update($request->validated());
 
-        return redirect()->route('admin.project.index')
+        return redirect()->route('admin.portfolio.project.index')
             ->with('success', 'Project updated successfully');
     }
 
@@ -77,7 +77,7 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return redirect()->route('admin.project.index')
+        return redirect()->route('admin.portfolio.project.index')
             ->with('success', 'Project deleted successfully');
     }
 }

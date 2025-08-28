@@ -2,7 +2,7 @@
     'title' => $music->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Musics']
+        [ 'name' => 'Music']
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.portfolio.music.index') ],
