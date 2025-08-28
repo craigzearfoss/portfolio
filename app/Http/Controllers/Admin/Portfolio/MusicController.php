@@ -20,7 +20,7 @@ class MusicController extends Controller
     {
         $musics = Music::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.music.index', compact('musics'))
+        return view('admin.portfolio.music.index', compact('musics'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -29,7 +29,7 @@ class MusicController extends Controller
      */
     public function create(): View
     {
-        return view('admin.music.create');
+        return view('admin.portfolio.music.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class MusicController extends Controller
     {
         Music::create($request->validated());
 
-        return redirect()->route('admin.music.index')
+        return redirect()->route('admin.portfolio.music.index')
             ->with('success', 'Music created successfully.');
     }
 
@@ -48,7 +48,7 @@ class MusicController extends Controller
      */
     public function show(Music $music): View
     {
-        return view('admin.music.show', compact('music'));
+        return view('admin.portfolio.music.show', compact('music'));
     }
 
     /**
@@ -56,7 +56,7 @@ class MusicController extends Controller
      */
     public function edit(Music $music): View
     {
-        return view('admin.music.edit', compact('music'));
+        return view('admin.portfolio.music.edit', compact('music'));
     }
 
     /**
@@ -68,7 +68,7 @@ class MusicController extends Controller
 
         $music->update($request->validated());
 
-        return redirect()->route('admin.music.index')
+        return redirect()->route('admin.portfolio.music.index')
             ->with('success', 'Music updated successfully');
     }
 
@@ -79,7 +79,7 @@ class MusicController extends Controller
     {
         $music->delete();
 
-        return redirect()->route('admin.music.index')
+        return redirect()->route('admin.portfolio.music.index')
             ->with('success', 'Music deleted successfully');
     }
 }
