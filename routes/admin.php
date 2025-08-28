@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 
+use App\Http\Controllers\Admin\Career\IndexController as CareerController;
 use App\Http\Controllers\Admin\Career\ApplicationController as CareerApplicationController;
 use App\Http\Controllers\Admin\Career\CommunicationController as CareerCommunicationController;
 use App\Http\Controllers\Admin\Career\CompanyController as CareerCompanyController;
@@ -17,16 +18,17 @@ use App\Http\Controllers\Admin\Career\SkillController as CareerSkillController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\MessageController;
 
+use App\Http\Controllers\Admin\Dictionary\IndexController as DictionaryController;
 use App\Http\Controllers\Admin\Dictionary\CategoryController as DictionaryCategoryController;
 use App\Http\Controllers\Admin\Dictionary\DatabaseController as DictionaryDatabaseController;
 use App\Http\Controllers\Admin\Dictionary\FrameworkController as DictionaryFrameworkController;
-use App\Http\Controllers\Admin\Dictionary\IndexController as CareerDictionaryController;
 use App\Http\Controllers\Admin\Dictionary\LanguageController as DictionaryLanguageController;
 use App\Http\Controllers\Admin\Dictionary\LibraryController as DictionaryLibraryController;
 use App\Http\Controllers\Admin\Dictionary\OperatingSystemController as DictionaryOperatingSystemController;
 use App\Http\Controllers\Admin\Dictionary\ServerController as DictionaryServerController;
 use App\Http\Controllers\Admin\Dictionary\StackController as DictionaryStackController;
 
+use App\Http\Controllers\Admin\Portfolio\IndexController as PortfolioController;
 use App\Http\Controllers\Admin\Portfolio\ArtController as PortfolioArtController;
 use App\Http\Controllers\Admin\Portfolio\CertificationController as PortfolioCertificationController;
 use App\Http\Controllers\Admin\Portfolio\CourseController as PortfolioCourseController;
@@ -55,6 +57,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group(function () {
+    Route::get('/', [CareerController::class, 'index'])->name('index');
     Route::resource('application', CareerApplicationController::class);
     Route::resource('communication', CareerCommunicationController::class);
     Route::resource('company', CareerCompanyController::class);
@@ -70,17 +73,19 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
 });
 
 Route::prefix('admin/dictionary')->middleware('admin')->name('admin.dictionary.')->group(function () {
-      Route::resource('category', DictionaryCategoryController::class)->parameter('category', 'dictionary_category');
-      Route::resource('database', DictionaryDatabaseController::class)->parameter('database', 'dictionary_database');
-      Route::resource('framework', DictionaryFrameworkController::class)->parameter('framework', 'dictionary_framework');
-      Route::resource('language', DictionaryLanguageController::class)->parameter('language', 'dictionary_language');
-      Route::resource('library', DictionaryLibraryController::class)->parameter('library', 'dictionary_library');
-      Route::resource('operating-system', DictionaryOperatingSystemController::class)->parameter('operating-system', 'dictionary_operating_system');
-      Route::resource('server', DictionaryServerController::class)->parameter('server', 'dictionary_server');
-      Route::resource('stack', DictionaryStackController::class)->parameter('stack', 'dictionary_stack');
+    Route::get('/', [DictionaryController::class, 'index'])->name('index');
+    Route::resource('category', DictionaryCategoryController::class)->parameter('category', 'dictionary_category');
+    Route::resource('database', DictionaryDatabaseController::class)->parameter('database', 'dictionary_database');
+    Route::resource('framework', DictionaryFrameworkController::class)->parameter('framework', 'dictionary_framework');
+    Route::resource('language', DictionaryLanguageController::class)->parameter('language', 'dictionary_language');
+    Route::resource('library', DictionaryLibraryController::class)->parameter('library', 'dictionary_library');
+    Route::resource('operating-system', DictionaryOperatingSystemController::class)->parameter('operating-system', 'dictionary_operating_system');
+    Route::resource('server', DictionaryServerController::class)->parameter('server', 'dictionary_server');
+    Route::resource('stack', DictionaryStackController::class)->parameter('stack', 'dictionary_stack');
 });
 
 Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')->group(function () {
+    Route::get('/', [PortfolioController::class, 'index'])->name('index');
     Route::resource('art', PortfolioArtController::class);
     Route::resource('certification', PortfolioCertificationController::class);
     Route::resource('course', PortfolioCourseController::class);
@@ -104,7 +109,7 @@ Route::prefix('admin/profile')->middleware('admin')->name('admin.portfolio.')->g
 Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [IndexController::class, 'dashboard'])->name('dashboard');
     Route::resource('admin', AdminController::class);
-    Route::resource('dictionary', CareerDictionaryController::class);
+    Route::resource('dictionary', DictionaryController::class);
     Route::resource('message', MessageController::class);
     Route::resource('user', UserController::class);
     Route::get('/user/{user}/change-password', [UserController::class, 'change_password'])->name('user.change_password');

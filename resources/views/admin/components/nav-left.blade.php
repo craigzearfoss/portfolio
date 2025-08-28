@@ -34,7 +34,13 @@
                     <li id="menu-item-portfolio" class="menu-item-divider"></li>
                 @endif
 
-                <p class="menu-label">{{ $resource->database['title'] }}</p>
+                <p class="menu-label">
+                    @if (!empty($resource->database) && ($resource->database['name'] !== config('app.database')))
+                        <a href="{{ route('admin.'.strtolower($resource->database['name']).'.index') }}">{{ $resource->database['title'] }}</a>
+                    @else
+                        {{ $resource->database['title'] }}
+                    @endif
+                </p>
                     <ul class="menu-list pl-2">
             @endif
             @php

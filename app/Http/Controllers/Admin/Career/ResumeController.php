@@ -22,7 +22,7 @@ class ResumeController extends Controller
     {
         $resumes = Resume::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.resume.index', compact('resumes'))
+        return view('admin.career.resume.index', compact('resumes'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -31,7 +31,7 @@ class ResumeController extends Controller
      */
     public function create(): View
     {
-        return view('admin.resume.create');
+        return view('admin.career.resume.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class ResumeController extends Controller
     {
         Resume::create($request->validated());
 
-        return redirect()->route('admin.resume.index')
+        return redirect()->route('admin.career.resume.index')
             ->with('success', 'Resume created successfully.');
     }
 
@@ -50,7 +50,7 @@ class ResumeController extends Controller
      */
     public function show(Resume $resume): View
     {
-        return view('admin.resume.show', compact('resume'));
+        return view('admin.career.resume.show', compact('resume'));
     }
 
     /**
@@ -58,7 +58,7 @@ class ResumeController extends Controller
      */
     public function edit(Resume $resume): View
     {
-        return view('admin.resume.edit', compact('resume'));
+        return view('admin.career.resume.edit', compact('resume'));
     }
 
     /**
@@ -68,7 +68,7 @@ class ResumeController extends Controller
     {
         $resume->update($request->validated());
 
-        return redirect()->route('admin.resume.index')
+        return redirect()->route('admin.career.resume.index')
             ->with('success', 'Resume updated successfully');
     }
 
@@ -79,7 +79,7 @@ class ResumeController extends Controller
     {
         $resume->delete();
 
-        return redirect()->route('admin.resume.index')
+        return redirect()->route('admin.career.resume.index')
             ->with('success', 'Resume deleted successfully');
     }
 }

@@ -21,7 +21,7 @@ class SkillController extends Controller
     {
         $skills = Skill::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.skill.index', compact('skills'))
+        return view('admin.career.resume.skill.index', compact('skills'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -30,7 +30,7 @@ class SkillController extends Controller
      */
     public function create(): View
     {
-        return view('admin.skill.create');
+        return view('admin.career.resume.skill.create');
     }
 
     /**
@@ -40,7 +40,7 @@ class SkillController extends Controller
     {
         Skill::create($request->validated());
 
-        return redirect()->route('admin.skill.index')
+        return redirect()->route('admin.career.resume.skill.index')
             ->with('success', 'Skill created successfully.');
     }
 
@@ -49,7 +49,7 @@ class SkillController extends Controller
      */
     public function show(Skill $skill): View
     {
-        return view('admin.skill.show', compact('skill'));
+        return view('admin.career.resume.skill.show', compact('skill'));
     }
 
     /**
@@ -57,7 +57,7 @@ class SkillController extends Controller
      */
     public function edit(Skill $skill): View
     {
-        return view('admin.skill.edit', compact('skill'));
+        return view('admin.career.resume.skill.edit', compact('skill'));
     }
 
     /**
@@ -69,7 +69,7 @@ class SkillController extends Controller
 
         $skill->update($request->validated());
 
-        return redirect()->route('admin.skill.index')
+        return redirect()->route('admin.career.resume.skill.index')
             ->with('success', 'Skill updated successfully');
     }
 
@@ -80,7 +80,7 @@ class SkillController extends Controller
     {
         $skill->delete();
 
-        return redirect()->route('admin.skill.index')
+        return redirect()->route('admin.career.resume.skill.index')
             ->with('success', 'Skill deleted successfully');
     }
 }

@@ -32,6 +32,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'slug',
+
                 'value'     => old('slug') ?? '',
                 'required'  => true,
                 'maxlength' => 100,
