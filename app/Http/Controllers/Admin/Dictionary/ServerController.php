@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dictionary\CareerDictionaryServerStoreRequest;
-use App\Http\Requests\Dictionary\CareerDictionaryServerUpdateRequest;
+use App\Http\Requests\Dictionary\ServerStoreRequest;
+use App\Http\Requests\Dictionary\ServerUpdateRequest;
 use App\Models\Career\DictionaryServer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +40,7 @@ class ServerController extends Controller
     /**
      * Store a newly created dictionary server in storage.
      */
-    public function store(CareerDictionaryServerStoreRequest $request): RedirectResponse
+    public function store(ServerStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add dictionary server entries.');
@@ -75,7 +75,7 @@ class ServerController extends Controller
     /**
      * Update the specified dictionary server in storage.
      */
-    public function update(CareerDictionaryServerUpdateRequest $request,
+    public function update(ServerUpdateRequest $request,
                            DictionaryServer $dictionaryServer): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {

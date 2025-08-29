@@ -5,7 +5,7 @@ namespace App\Http\Requests\Dictionary;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CareerDictionaryFrameworkUpdateRequest extends FormRequest
+class StackStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,13 +23,9 @@ class CareerDictionaryFrameworkUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name'    => ['string', 'max:255', 'unique:career_db.dictionary_libraries,full_name,'.$this->dictionary_library->id, 'filled'],
-            'name'         => ['string', 'max:100', 'unique:career_db.dictionary_libraries,name,'.$this->dictionary_library->id, 'filled'],
-            'slug'         => ['string', 'max:100', 'unique:career_db.dictionary_libraries,slug,'.$this->dictionary_library->id, 'filled'],
-            'abbreviation' => ['string', 'max:100', 'nullable'],
-            'open_source'  => ['integer', 'between:0,1'],
-            'proprietary'  => ['integer', 'between:0,1'],
-            'owner'        => ['string', 'max:255', 'nullable'],
+            'full_name'    => ['required', 'string', 'max:255', 'unique:career_db.dictionary_stacks,full_name'],
+            'name'         => ['required', 'string', 'max:100', 'unique:career_db.dictionary_stacks,name'],
+            'slug'         => ['required', 'string', 'max:100', 'unique:career_db.dictionary_stacks,slug'],
             'website'      => ['string', 'max:255', 'nullable'],
             'wiki_page'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

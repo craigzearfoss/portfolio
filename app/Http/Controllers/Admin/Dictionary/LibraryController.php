@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dictionary\CareerDictionaryLibraryStoreRequest;
-use App\Http\Requests\Dictionary\CareerDictionaryLibraryUpdateRequest;
+use App\Http\Requests\Dictionary\LibraryStoreRequest;
+use App\Http\Requests\Dictionary\UpdateRequest;
 use App\Models\Career\DictionaryLibrary;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +40,7 @@ class LibraryController extends Controller
     /**
      * Store a newly created dictionary library in storage.
      */
-    public function store(CareerDictionaryLibraryStoreRequest $request): RedirectResponse
+    public function store(LibraryStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add dictionary library entries.');
@@ -75,7 +75,7 @@ class LibraryController extends Controller
     /**
      * Update the specified dictionary library in storage.
      */
-    public function update(CareerDictionaryLibraryUpdateRequest $request,
+    public function update(UpdateRequest $request,
                            DictionaryLibrary $dictionaryLibrary): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {

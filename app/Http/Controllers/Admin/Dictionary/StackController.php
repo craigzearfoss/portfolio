@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dictionary\CareerDictionaryStackStoreRequest;
-use App\Http\Requests\Dictionary\CareerDictionaryStackUpdateRequest;
+use App\Http\Requests\Dictionary\StackStoreRequest;
+use App\Http\Requests\Dictionary\StackUpdateRequest;
 use App\Models\Career\DictionaryStack;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +36,7 @@ class StackController extends Controller
     /**
      * Store a newly created dictionary stack in storage.
      */
-    public function store(CareerDictionaryStackStoreRequest $request): RedirectResponse
+    public function store(StackStoreRequest $request): RedirectResponse
     {
         $dictionaryStack =DictionaryStack::create($request->validated());
 
@@ -67,7 +67,7 @@ class StackController extends Controller
     /**
      * Update the specified dictionary stack in storage.
      */
-    public function update(CareerDictionaryStackUpdateRequest $request,
+    public function update(StackUpdateRequest $request,
                            DictionaryStack $dictionaryStack): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dictionary\CareerDictionaryLanguageStoreRequest;
-use App\Http\Requests\Dictionary\CareerDictionaryLanguageUpdateRequest;
+use App\Http\Requests\Dictionary\LanguageStoreRequest;
+use App\Http\Requests\Dictionary\LanguageUpdateRequest;
 use App\Models\Career\DictionaryLanguage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +40,7 @@ class LanguageController extends Controller
     /**
      * Store a newly created dictionary language in storage.
      */
-    public function store(CareerDictionaryLanguageStoreRequest $request): RedirectResponse
+    public function store(LanguageStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add dictionary language entries.');
@@ -75,7 +75,7 @@ class LanguageController extends Controller
     /**
      * Update the specified dictionary language in storage.
      */
-    public function update(CareerDictionaryLanguageUpdateRequest $request,
+    public function update(LanguageUpdateRequest $request,
                            DictionaryLanguage $dictionaryLanguage): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {

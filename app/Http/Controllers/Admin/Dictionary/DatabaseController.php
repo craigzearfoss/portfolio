@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dictionary\CareerDictionaryDatabaseStoreRequest;
-use App\Http\Requests\Dictionary\CareerDictionaryDatabaseUpdateRequest;
+use App\Http\Requests\Dictionary\DatabaseStoreRequest;
+use App\Http\Requests\Dictionary\DatabaseUpdateRequest;
 use App\Models\Career\DictionaryDatabase;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +40,7 @@ class DatabaseController extends Controller
     /**
      * Store a newly created dictionary database in storage.
      */
-    public function store(CareerDictionaryDatabaseStoreRequest $request): RedirectResponse
+    public function store(DatabaseStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add dictionary database entries.');
@@ -75,7 +75,7 @@ class DatabaseController extends Controller
     /**
      * Update the specified dictionary database in storage.
      */
-    public function update(CareerDictionaryDatabaseUpdateRequest $request,
+    public function update(DatabaseUpdateRequest $request,
                            DictionaryDatabase $dictionaryDatabase): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {

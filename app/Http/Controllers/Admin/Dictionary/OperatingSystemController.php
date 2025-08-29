@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dictionary\CareerDictionaryOperatingSystemStoreRequest;
-use App\Http\Requests\Dictionary\CareerDictionaryOperatingSystemUpdateRequest;
+use App\Http\Requests\Dictionary\OperatingSystemStoreRequest;
+use App\Http\Requests\Dictionary\OperatingSystemUpdateRequest;
 use App\Models\Career\DictionaryOperatingSystem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +40,7 @@ class OperatingSystemController extends Controller
     /**
      * Store a newly created dictionary operating system in storage.
      */
-    public function store(CareerDictionaryOperatingSystemStoreRequest $request): RedirectResponse
+    public function store(OperatingSystemStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add dictionary operating system entries.');
@@ -75,7 +75,7 @@ class OperatingSystemController extends Controller
     /**
      * Update the specified dictionary operating system in storage.
      */
-    public function update(CareerDictionaryOperatingSystemUpdateRequest $request,
+    public function update(OperatingSystemUpdateRequest $request,
                            DictionaryOperatingSystem $dictionaryOperatingSystem): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {

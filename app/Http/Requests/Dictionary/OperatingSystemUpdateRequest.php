@@ -5,7 +5,7 @@ namespace App\Http\Requests\Dictionary;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CareerDictionaryDatabaseStoreRequest extends FormRequest
+class OperatingSystemUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,9 @@ class CareerDictionaryDatabaseStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name'    => ['required', 'string', 'max:255', 'unique:career_db.dictionary_databases,full_name'],
-            'name'         => ['required', 'string', 'max:100', 'unique:career_db.dictionary_databases,name'],
-            'slug'         => ['required', 'string', 'max:100', 'unique:career_db.dictionary_databases,slug'],
+            'full_name'    => ['string', 'max:255', 'unique:career_db.dictionary_operating_systems,full_name,'.$this->dictionary_operating_system->id, 'filled'],
+            'name'         => ['string', 'max:100', 'unique:career_db.dictionary_operating_systems,name,'.$this->dictionary_operating_system->id, 'filled'],
+            'slug'         => ['string', 'max:100', 'unique:career_db.dictionary_operating_systems,slug,'.$this->dictionary_operating_system->id, 'filled'],
             'abbreviation' => ['string', 'max:100', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
             'proprietary'  => ['integer', 'between:0,1'],

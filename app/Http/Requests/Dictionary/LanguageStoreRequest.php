@@ -5,7 +5,7 @@ namespace App\Http\Requests\Dictionary;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CareerDictionaryLanguageStoreRequest extends FormRequest
+class LanguageStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

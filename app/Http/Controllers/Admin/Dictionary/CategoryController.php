@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dictionary\CareerDictionaryCategoryStoreRequest;
-use App\Http\Requests\Dictionary\CareerDictionaryCategoryUpdateRequest;
+use App\Http\Requests\Dictionary\CategoryStoreRequest;
+use App\Http\Requests\Dictionary\CategoryUpdateRequest;
 use App\Models\Career\DictionaryCategory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +40,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created dictionary category in storage.
      */
-    public function store(CareerDictionaryCategoryStoreRequest $request): RedirectResponse
+    public function store(CategoryStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add dictionary category entries.');
@@ -75,7 +75,7 @@ class CategoryController extends Controller
     /**
      * Update the specified dictionary category in storage.
      */
-    public function update(CareerDictionaryCategoryUpdateRequest $request,
+    public function update(CategoryUpdateRequest $request,
                            DictionaryCategory $dictionaryCategory): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {

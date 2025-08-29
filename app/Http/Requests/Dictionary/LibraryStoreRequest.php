@@ -5,7 +5,7 @@ namespace App\Http\Requests\Dictionary;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CareerDictionaryLanguageUpdateRequest extends FormRequest
+class LibraryStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,14 +23,13 @@ class CareerDictionaryLanguageUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name'    => ['string', 'max:255', 'unique:career_db.dictionary_languages,full_name,'.$this->dictionary_language->id, 'filled'],
-            'name'         => ['string', 'max:100', 'unique:career_db.dictionary_languages,name,'.$this->dictionary_language->id, 'filled'],
-            'slug'         => ['string', 'max:100', 'unique:career_db.dictionary_languages,slug,'.$this->dictionary_language->id, 'filled'],
+            'full_name'    => ['required', 'string', 'max:255', 'unique:career_db.dictionary_libraries,full_name'],
+            'name'         => ['required', 'string', 'max:100', 'unique:career_db.dictionary_libraries,name'],
+            'slug'         => ['required', 'string', 'max:100', 'unique:career_db.dictionary_libraries,slug'],
             'abbreviation' => ['string', 'max:100', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
             'proprietary'  => ['integer', 'between:0,1'],
-            'compiled'     => ['integer', 'between:0,1'],
-            'owner'        => ['string', 'max:100', 'nullable'],
+            'owner'        => ['string', 'max:255', 'nullable'],
             'website'      => ['string', 'max:255', 'nullable'],
             'wiki_page'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dictionary\CareerDictionaryFrameworkStoreRequest;
-use App\Http\Requests\Dictionary\CareerDictionaryFrameworkUpdateRequest;
+use App\Http\Requests\Dictionary\FrameworkStoreRequest;
+use App\Http\Requests\Dictionary\FrameworkUpdateRequest;
 use App\Models\Career\DictionaryFramework;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +40,7 @@ class FrameworkController extends Controller
     /**
      * Store a newly created dictionary framework in storage.
      */
-    public function store(CareerDictionaryFrameworkStoreRequest $request): RedirectResponse
+    public function store(FrameworkStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add dictionary framework entries.');
@@ -75,7 +75,7 @@ class FrameworkController extends Controller
     /**
      * Update the specified dictionary framework in storage.
      */
-    public function update(CareerDictionaryFrameworkUpdateRequest $request,
+    public function update(FrameworkUpdateRequest $request,
                            DictionaryFramework $dictionaryFramework): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
