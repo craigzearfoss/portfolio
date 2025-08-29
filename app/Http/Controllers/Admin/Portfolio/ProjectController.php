@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PortfolioProjectStoreRequest;
-use App\Http\Requests\PortfolioProjectUpdateRequest;
+use App\Http\Requests\Portfolio\ProjectStoreRequest;
+use App\Http\Requests\Portfolio\ProjectUpdateRequest;
 use App\Models\Portfolio\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class ProjectController extends Controller
     /**
      * Store a newly created project in storage.
      */
-    public function store(PortfolioProjectStoreRequest $request): RedirectResponse
+    public function store(ProjectStoreRequest $request): RedirectResponse
     {
         Project::create($request->validated());
 
@@ -62,7 +62,7 @@ class ProjectController extends Controller
     /**
      * Update the specified project in storage.
      */
-    public function update(PortfolioProjectUpdateRequest $request, Project $project): RedirectResponse
+    public function update(ProjectUpdateRequest $request, Project $project): RedirectResponse
     {
         $project->update($request->validated());
 

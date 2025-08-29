@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PortfolioCourseStoreRequest;
-use App\Http\Requests\PortfolioCourseUpdateRequest;
+use App\Http\Requests\Portfolio\CourseStoreRequest;
+use App\Http\Requests\Portfolio\CourseUpdateRequest;
 use App\Models\Portfolio\Course;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class CourseController extends Controller
     /**
      * Store a newly created course in storage.
      */
-    public function store(PortfolioCourseStoreRequest $request): RedirectResponse
+    public function store(CourseStoreRequest $request): RedirectResponse
     {
         Course::create($request->validated());
 
@@ -62,7 +62,7 @@ class CourseController extends Controller
     /**
      * Update the specified course in storage.
      */
-    public function update(PortfolioCourseUpdateRequest $request, Course $course): RedirectResponse
+    public function update(CourseUpdateRequest $request, Course $course): RedirectResponse
     {
         dd($request);
 

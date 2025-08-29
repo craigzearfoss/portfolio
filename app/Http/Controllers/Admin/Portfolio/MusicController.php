@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PortfolioMusicStoreRequest;
-use App\Http\Requests\PortfolioMusicUpdateRequest;
+use App\Http\Requests\Portfolio\MusicStoreRequest;
+use App\Http\Requests\Portfolio\MusicUpdateRequest;
 use App\Models\Portfolio\Music;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class MusicController extends Controller
     /**
      * Store a newly created music in storage.
      */
-    public function store(PortfolioMusicStoreRequest $request): RedirectResponse
+    public function store(MusicStoreRequest $request): RedirectResponse
     {
         Music::create($request->validated());
 
@@ -62,7 +62,7 @@ class MusicController extends Controller
     /**
      * Update the specified music in storage.
      */
-    public function update(PortfolioMusicUpdateRequest $request, Music $music): RedirectResponse
+    public function update(MusicUpdateRequest $request, Music $music): RedirectResponse
     {
         dd($request);
 

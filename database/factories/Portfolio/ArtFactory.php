@@ -22,6 +22,8 @@ class ArtFactory extends Factory
             'slug'         => fake()->unique()->slug(6),
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
+            'artist'       => fake()->name(),
+            'year'         => fake()->year(),
             'link'         => fake()->url(),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),

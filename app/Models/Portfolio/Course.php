@@ -17,7 +17,7 @@ class Course extends Model
     protected $table = 'courses';
 
     const ACADEMIES = [
-        'Amazon Web Services',
+        'Coursera',
         'Gymnasium',
         'KodeKloud',
         'MongoDB University',

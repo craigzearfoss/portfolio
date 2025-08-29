@@ -27,6 +27,7 @@ class CourseFactory extends Factory
             'website'      => fake()->domainName(),
             'instructor'   => fake()->name(),
             'sponsor'      => fake()->company(),
+            'link'         => fake()->url(),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),
             'thumbnail'    => fake()->imageUrl(),

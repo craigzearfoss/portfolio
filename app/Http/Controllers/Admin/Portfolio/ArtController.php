@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PortfolioArtStoreRequest;
-use App\Http\Requests\PortfolioArtUpdateRequest;
+use App\Http\Requests\Portfolio\ArtStoreRequest;
+use App\Http\Requests\Portfolio\ArtUpdateRequest;
 use App\Models\Portfolio\Art;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class ArtController extends Controller
     /**
      * Store a newly created art in storage.
      */
-    public function store(PortfolioArtStoreRequest $request): RedirectResponse
+    public function store(ArtStoreRequest $request): RedirectResponse
     {
         Art::create($request->validated());
 
@@ -62,7 +62,7 @@ class ArtController extends Controller
     /**
      * Update the specified art in storage.
      */
-    public function update(PortfolioArtUpdateRequest $request, Art $art): RedirectResponse
+    public function update(ArtUpdateRequest $request, Art $art): RedirectResponse
     {
         $art->update($request->validated());
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Portfolio;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class PortfolioCourseUpdateRequest extends FormRequest
+class ArtUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,12 @@ class PortfolioCourseUpdateRequest extends FormRequest
     {
         return [
             'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['string', 'max:255', 'unique:portfolio_db.courses,name,'.$this->course->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.courses,slug,'.$this->course->id, 'filled'],
+            'name'         => ['string', 'max:255', 'unique:portfolio_db.art,name,'.$this->art->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.art,slug,'.$this->art->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
+            'artist'       => ['string', 'max:255', 'nullable'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
-            'completed'    => ['date', 'nullable'],
-            'academy'      => ['string', 'max:255', 'nullable'],
-            'website'      => ['string', 'max:255', 'nullable'],
-            'instructor'   => ['string', 'max:255', 'nullable'],
-            'sponsor'      => ['string', 'max:255', 'nullable'],
             'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

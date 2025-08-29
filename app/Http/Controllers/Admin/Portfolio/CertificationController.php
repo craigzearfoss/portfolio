@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PortfolioCertificationStoreRequest;
-use App\Http\Requests\PortfolioCertificationUpdateRequest;
+use App\Http\Requests\Portfolio\CertificationStoreRequest;
+use App\Http\Requests\Portfolio\CertificationUpdateRequest;
 use App\Models\Portfolio\Certification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class CertificationController extends Controller
     /**
      * Store a newly created certification in storage.
      */
-    public function store(PortfolioCertificationStoreRequest $request): RedirectResponse
+    public function store(CertificationStoreRequest $request): RedirectResponse
     {
         Certification::create($request->validated());
 
@@ -62,7 +62,7 @@ class CertificationController extends Controller
     /**
      * Update the specified certification in storage.
      */
-    public function update(PortfolioCertificationUpdateRequest $request, Certification $certification): RedirectResponse
+    public function update(CertificationUpdateRequest $request, Certification $certification): RedirectResponse
     {
         dd($request);
 

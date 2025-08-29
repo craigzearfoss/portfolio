@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Portfolio;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class PortfolioCertificationUpdateRequest extends FormRequest
+class MusicUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,14 @@ class PortfolioCertificationUpdateRequest extends FormRequest
     {
         return [
             'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['string', 'max:255', 'unique:portfolio_db.certifications,name,'.$this->certification->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.certifications,slug,'.$this->certification->id, 'filled'],
-            'organization' => ['string', 'max:255', 'nullable'],
-            'year'         => ['integer', 'between:0,3000', 'nullable'],
-            'received'     => ['date', 'nullable'],
-            'expiration'   => ['date', 'nullable'],
+            'name'         => ['string', 'max:255', 'unique:portfolio_db.music,name,'.$this->music->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.music,slug,'.$this->music->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
+            'artist'       => ['string', 'max:255', 'nullable'],
+            'label'        => ['string', 'max:255', 'nullable'],
+            'year'         => ['integer', 'between:0,3000', 'nullable'],
+            'release_date' => ['date', 'nullable'],
             'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
+            $table->string('artist')->nullable();
+            $table->string('label')->nullable();
+            $table->year('year')->nullable();
+            $table->date('release_date')->nullable();
             $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();

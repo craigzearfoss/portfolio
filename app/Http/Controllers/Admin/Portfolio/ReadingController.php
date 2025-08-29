@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PortfolioReadingStoreRequest;
-use App\Http\Requests\PortfolioReadingUpdateRequest;
+use App\Http\Requests\Portfolio\ReadingStoreRequest;
+use App\Http\Requests\Portfolio\ReadingUpdateRequest;
 use App\Models\Portfolio\Reading;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class ReadingController extends Controller
     /**
      * Store a newly created reading in storage.
      */
-    public function store(PortfolioReadingStoreRequest $request): RedirectResponse
+    public function store(ReadingStoreRequest $request): RedirectResponse
     {
         Reading::create($request->validated());
 
@@ -62,7 +62,7 @@ class ReadingController extends Controller
     /**
      * Update the specified reading in storage.
      */
-    public function update(PortfolioReadingUpdateRequest $request, Reading $reading): RedirectResponse
+    public function update(ReadingUpdateRequest $request, Reading $reading): RedirectResponse
     {
         $reading->update($request->validated());
 
