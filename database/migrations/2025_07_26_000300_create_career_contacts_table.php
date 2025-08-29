@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignIdFor( \App\Models\Admin::class)->default(1);
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('title', 100)->nullable();
-            $table->foreignId('company_id', Company::class)->nullable()->index();
+            $table->string('title', 20)->nullable();
+            $table->string('job_title', 100)->nullable();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();
@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('email_label', 255)->nullable();
             $table->string('alt_email', 255)->nullable();
             $table->string('alt_email_label', 255)->nullable();
-            $table->string('website')->nullable();
+            $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);

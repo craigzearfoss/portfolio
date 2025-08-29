@@ -19,7 +19,10 @@ class Industry extends Model
      */
     protected $fillable = [
         'name',
+        'slug',
         'abbreviation',
+        'link',
+        'description',
         'sequence',
         'public',
         'readonly',

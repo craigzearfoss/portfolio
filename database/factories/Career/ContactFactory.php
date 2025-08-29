@@ -20,7 +20,8 @@ class ContactFactory extends Factory
             'admin_id'        => \App\Models\Admin::all()->random()->id,
             'name'            => fake()->unique()->name(),
             'slug'            => fake()->unique()->slug(6),
-            'title'           => fake()->jobTitle(),
+            'title'           => fake()->randomElement(['Miss','Mr.','Mrs.','Ms']),
+            'job_title'       => fake()->jobTitle(),
             'street'          => fake()->streetAddress(),
             'street2'         => null,
             'city'            => fake()->city(),
@@ -38,7 +39,9 @@ class ContactFactory extends Factory
             'website'         => fake()->url(),
             'description'     => fake()->text(200),
             'sequence'        => 0,
-            'public'          => fake()->numberBetween(0, 1),
+            'public'          => 0,
+            'readonly'        => 0,
+            'root'            => 0,
             'disabled'        => fake()->numberBetween(0, 1),
         ];
     }

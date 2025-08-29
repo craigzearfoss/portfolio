@@ -38,7 +38,9 @@ class CompanyFactory extends Factory
             'website'         => fake()->url(),
             'description'     => fake()->text(200),
             'sequence'        => 0,
-            'public'          => fake()->numberBetween(0, 1),
+            'public'          => 0,
+            'readonly'        => 0,
+            'root'            => 0,
             'disabled'        => fake()->numberBetween(0, 1),
         ];
     }

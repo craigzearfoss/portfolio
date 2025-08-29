@@ -5,14 +5,14 @@ namespace App\Http\Requests\Career;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CoverLetterStoreRequest extends FormRequest
+class IndustryUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return Auth::guard('admin')->check() && Auth::guard('admin')->user()->root;
     }
 
     /**
@@ -23,16 +23,11 @@ class CoverLetterStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['required', 'string', 'max:255', 'unique:career_db.cover_letters,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.cover_letters,slug'],
-            'recipient'    => ['string', 'max:255', 'nullable'],
-            'date'         => ['date', 'nullable'],
-            'content'      => ['nullable'],
-            'link'         => ['string', 'max:255', 'nullable'],
-            'alt_link'     => ['string', 'max:255', 'nullable'],
+            'name'         => ['string', 'max:255', 'unique:portfolio_db.industries,name,'.$this->industries->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.industries,slug,'.$this->industries->id, 'filled'],
+            'abbreviation' => ['string', 'max:255', 'unique:portfolio_db.industries,abbreviation,'.$this->industries->id, 'filled'],
+            'link'         => ['string', 'nullable'],
             'description'  => ['nullable'],
-            'primary'      => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],
             'readonly'     => ['integer', 'between:0,1'],

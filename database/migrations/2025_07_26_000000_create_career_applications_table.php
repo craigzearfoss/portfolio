@@ -27,7 +27,7 @@ return new class extends Migration
             $table->integer('compensation')->default(0);
             $table->string('compensation_unit', 20)->nullable();
             $table->string('duration',100)->nullable();
-            $table->tinyInteger('type')->default(0)->comment('0-permanent,1-contract,2-contract-to-hire,3-project');
+            $table->tinyInteger('type')->default(0)->comment('0-permanent,1-contract,2-contract-to-hire,3-project,4-temporary');
             $table->tinyInteger('office')->default(0)->comment('0-onsite,1-remote,2-hybrid');
             $table->string('city')->nullable();
             $table->string('state', 20)->nullable();
@@ -39,9 +39,14 @@ return new class extends Migration
             $table->tinyInteger('health')->default(0);
             $table->string('source')->nullable();
             $table->string('link')->nullable();
-            $table->string('contacts')->nullable();
-            $table->string('phones')->nullable();
-            $table->string('emails')->nullable();
+            $table->string('phone', 20)->nullable();
+            $table->string('phone_label', 255)->nullable();
+            $table->string('alt_phone', 20)->nullable();
+            $table->string('alt_phone_label', 255)->nullable();
+            $table->string('email', 255)->nullable();
+            $table->string('email_label', 255)->nullable();
+            $table->string('alt_email', 255)->nullable();
+            $table->string('alt_email_label', 255)->nullable();
             $table->string('website')->nullable();
             $table->text('description')->nullable();
             $table->integer('sequence')->default(0);

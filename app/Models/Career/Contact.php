@@ -29,6 +29,7 @@ class Contact extends Model
         'name',
         'slug',
         'title',
+        'job_title',
         'street',
         'street2',
         'city',
@@ -42,7 +43,7 @@ class Contact extends Model
         'email_label',
         'alt_email',
         'alt_email_label',
-        'website',
+        'link',
         'description',
         'sequence',
         'public',
@@ -65,7 +66,6 @@ class Contact extends Model
     {
         return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
     }
-
 
     /**
      * Get the notes for the application.

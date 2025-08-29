@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Industry;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +27,7 @@ class CompanyUpdateRequest extends FormRequest
             'admin_id'        => ['integer', 'in:' . Auth::guard('admin')->user()->id],
             'name'            => ['string', 'max:255', 'unique:career_db.companies,name,'.$this->company->id, 'filled'],
             'slug'            => ['string', 'max:255', 'unique:portfolio_db.companies,slug,'.$this->company->id, 'filled'],
-            'industry_id'     => ['integer', 'max:100'],
+            'industry_id'     => ['integer', 'in:' . Industry::all()->pluck('id')->toArray()],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],

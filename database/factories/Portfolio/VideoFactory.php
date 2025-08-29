@@ -34,8 +34,10 @@ class VideoFactory extends Factory
             'image'        => fake()->imageUrl(),
             'thumbnail'    => fake()->imageUrl(),
             'sequence'     => 0,
-            'public'       => fake()->numberBetween(0, 1),
-            'disabled'     => fake()->numberBetween(0, 1),
+            'public'       => 1,
+            'readonly'     => 0,
+            'root'         => 0,
+            'disabled'     => 0,
         ];
     }
 }

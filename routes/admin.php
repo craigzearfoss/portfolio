@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Career\CommunicationController as CareerCommunica
 use App\Http\Controllers\Admin\Career\CompanyController as CareerCompanyController;
 use App\Http\Controllers\Admin\Career\ContactController as CareerContactController;
 use App\Http\Controllers\Admin\Career\CoverLetterController as CareerCoverLetterController;
+use App\Http\Controllers\Admin\Career\IndustryController as CareerIndustryController;
 use App\Http\Controllers\Admin\Career\JobBoardController as CareerJobBoardController;
 use App\Http\Controllers\Admin\Career\JobController as CareerJobController;
 use App\Http\Controllers\Admin\Career\NoteController as CareerNoteController;
@@ -64,6 +65,7 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::resource('company', CareerCompanyController::class);
     Route::resource('contact', CareerContactController::class);
     Route::resource('cover-letter', CareerCoverLetterController::class);
+    Route::resource('industry', CareerIndustryController::class);
     Route::resource('job', CareerJobController::class);
     Route::resource('job-board', CareerJobBoardController::class)->parameter('job-board', 'job_board');
     Route::resource('note', CareerNoteController::class);

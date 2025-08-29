@@ -32,26 +32,10 @@ class CourseFactory extends Factory
             'image'        => fake()->imageUrl(),
             'thumbnail'    => fake()->imageUrl(),
             'sequence'     => 0,
-            'public'       => fake()->numberBetween(0, 1),
-            'disabled'     => fake()->numberBetween(0, 1),
+            'public'       => 1,
+            'readonly'     => 0,
+            'root'         => 0,
+            'disabled'     => 0,
         ];
-
-        $table->id();
-        $table->foreignIdFor( \App\Models\Admin::class)->default(1);
-        $table->string('name')->unique();
-        $table->string('slug')->unique();
-        $table->tinyInteger('professional')->default(1);
-        $table->tinyInteger('personal')->default(0);
-        $table->date('completed')->nullable();
-        $table->string('source');
-        $table->string('source_website');
-        $table->string('instructor');
-        $table->text('description')->nullable();
-        $table->integer('sequence')->default(0);
-        $table->tinyInteger('public')->default(1);
-        $table->tinyInteger('disabled')->default(0);
-        $table->timestamps();
-        $table->softDeletes();
-
     }
 }

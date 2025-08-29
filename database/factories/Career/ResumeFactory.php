@@ -26,7 +26,9 @@ class ResumeFactory extends Factory
             'description'  => fake()->text(200),
             'primary'      => fake()->numberBetween(0, 1),
             'sequence'     => 0,
-            'public'       => fake()->numberBetween(0, 1),
+            'public'       => 0,
+            'readonly'     => 0,
+            'root'         => 0,
             'disabled'     => fake()->numberBetween(0, 1),
         ];
     }

@@ -30,7 +30,7 @@ class ApplicationFactory extends Factory
             'compensation'      => fake()->numberBetween(80000, 150000),
             'compensation_unit' => fake()->randomElement(['hour', 'year', 'month', 'week', 'day', 'project']),
             'duration'          => fake()->randomElement(['permanent', '3 months', '6 months', '1 year']),
-            'type'              => fake()->numberBetween(0, 3), // 0-permanent,1-contract, 2-contract-to-hire,3-project
+            'type'              => fake()->numberBetween(0, 4), // 0-permanent,1-contract, 2-contract-to-hire,3-project,4-temporary
             'office'            => fake()->numberBetween(0, 2), // 0-onsite,1-remote,2-hybrid
             'city'              => fake()->city(),
             'state'             => fake()->randomElement(['AL','AK','AR','AZ','CA','CO','CT','DC','DE','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME','MI','MN','MS','MT','NC','ND','NE','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','WA','WI','WY']),
@@ -42,13 +42,20 @@ class ApplicationFactory extends Factory
             'health'            => fake()->numberBetween(0, 1),
             'source'            => \App\Models\Career\JobBoard::all()->random()->name,
             'link'              => fake()->url(),
-            'contacts'          => fake()->sentence(),
-            'phones'            => fake()->sentence(),
-            'emails'            => fake()->sentence(),
+            'phone'             => fake()->phoneNumber(),
+            'phone_label'       => fake()->randomElement(['home', 'mobile', 'work']),
+            'alt_phone'         => fake()->phoneNumber(),
+            'alt_phone_label'   => fake()->randomElement(['home', 'mobile', 'work']),
+            'email'             => fake()->companyEmail(),
+            'email_label'       => fake()->randomElement(['home', 'mobile', 'work']),
+            'alt_email'         => fake()->companyEmail(),
+            'alt_email_label'   => fake()->randomElement(['home', 'mobile', 'work']),
             'website'           => fake()->url(),
             'description'       => fake()->text(200),
             'sequence'          => 0,
-            'public'            => fake()->numberBetween(0, 1),
+            'public'            => 0,
+            'readonly'          => 0,
+            'root'              => 0,
             'disabled'          => fake()->numberBetween(0, 1),
         ];
     }

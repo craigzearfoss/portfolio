@@ -40,7 +40,7 @@ class Communication extends Model
      */
     public function admin(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(Admin::class, 'admin_id');
+        return $this->setConnection('defaut_db')->belongsTo(Admin::class, 'admin_id');
     }
 
     /**

@@ -28,15 +28,16 @@ class CoverLetterUpdateRequest extends FormRequest
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.cover_letters,slug,'.$this->cover_letter->id, 'filled'],
             'recipient'    => ['string', 'max:255', 'nullable'],
             'date'         => ['date', 'nullable'],
+            'content'      => ['nullable'],
             'link'         => ['string', 'max:255', 'nullable'],
             'alt_link'     => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'primary'      => ['integer', 'between:0,1'],
-            'sequence'        => ['integer', 'min:0'],
-            'public'          => ['integer', 'between:0,1'],
-            'readonly'        => ['integer', 'between:0,1'],
-            'root'            => ['integer', 'between:0,1'],
-            'disabled'        => ['integer', 'between:0,1'],
+            'sequence'     => ['integer', 'min:0'],
+            'public'       => ['integer', 'between:0,1'],
+            'readonly'     => ['integer', 'between:0,1'],
+            'root'         => ['integer', 'between:0,1'],
+            'disabled'     => ['integer', 'between:0,1'],
         ];
     }
 }

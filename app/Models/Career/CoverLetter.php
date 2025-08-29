@@ -28,6 +28,7 @@ class CoverLetter extends Model
         'slug',
         'recipient',
         'date',
+        'content',
         'link',
         'alt_link',
         'description',

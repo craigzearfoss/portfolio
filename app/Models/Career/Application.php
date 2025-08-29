@@ -28,12 +28,7 @@ class Application extends Model
         'permanent',
         'contract',
         'contract-to-hire',
-        'project',
-        'sequence',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
+        'temporary',
     ];
 
     const OFFICES = [
@@ -83,14 +78,20 @@ class Application extends Model
         'health',
         'source',
         'link',
-        'contacts',
-        'phones',
-        'emails',
+        'phone',
+        'phone_label',
+        'alt_phone',
+        'alt_phone_label',
+        'email',
+        'email_label',
+        'alt_email',
+        'alt_email_label',
         'website',
         'description',
-        'apply_date',
         'sequence',
         'public',
+        'readonly',
+        'root',
         'disabled',
     ];
 

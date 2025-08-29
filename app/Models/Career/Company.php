@@ -25,9 +25,9 @@ class Company extends Model
      */
     protected $fillable = [
         'admin_id',
-        'industry_id',
         'name',
         'slug',
+        'industry_id',
         'street',
         'street2',
         'city',

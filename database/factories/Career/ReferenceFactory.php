@@ -21,7 +21,9 @@ class ReferenceFactory extends Factory
             'name'     => fake()->unique()->name(6),
             'slug'     => fake()->unique()->slug(6),
             'sequence' => 0,
-            'public'   => fake()->numberBetween(0, 1),
+            'public'   => 0,
+            'readonly' => 0,
+            'root'     => 0,
             'disabled' => fake()->numberBetween(0, 1),
         ];
     }
