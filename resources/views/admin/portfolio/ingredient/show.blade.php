@@ -3,12 +3,12 @@
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
-        [ 'name' => 'Academies',       'url' => route('admin.portfolio.ingredient.index') ],
+        [ 'name' => 'Ingredients',     'url' => route('admin.portfolio.ingredient.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.portfolio.ingredient.edit', $ingredient) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New ingredient', 'url' => route('admin.portfolio.ingredient.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Ingredient', 'url' => route('admin.portfolio.ingredient.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => route('admin.portfolio.ingredient.index') ],
     ],
     'errors' => $errors ?? [],

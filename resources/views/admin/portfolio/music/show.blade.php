@@ -19,6 +19,11 @@
     <div>
 
         @include('admin.components.show-row', [
+            'name'  => 'owner',
+            'value' => $music->admin['username'] ?? ''
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $music->name
         ])
@@ -70,13 +75,18 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $music->disabled
+            'name'    => 'read-only',
+            'checked' => $music->readonly
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $music->admin['username'] ?? ''
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $music->root
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'disabled',
+            'checked' => $music->disabled
         ])
 
         @include('admin.components.show-row', [

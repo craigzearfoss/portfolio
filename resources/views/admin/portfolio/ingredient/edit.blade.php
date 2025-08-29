@@ -3,7 +3,7 @@
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
-        [ 'name' => 'Academies',       'url' => route('admin.portfolio.ingredient.index') ],
+        [ 'name' => 'Ingredients',     'url' => route('admin.portfolio.ingredient.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [

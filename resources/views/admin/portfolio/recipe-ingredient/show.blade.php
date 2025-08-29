@@ -50,7 +50,6 @@
             'value' => $recipeIngredient->thumbnail
         ])
 
-
         @include('admin.components.show-row', [
             'name'  => 'sequence',
             'value' => $recipeIngredient->sequence
@@ -73,7 +72,7 @@
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
-            'checked' => $academy->disabled
+            'checked' => $recipeIngredient->disabled
         ])
 
         @include('admin.components.show-row', [

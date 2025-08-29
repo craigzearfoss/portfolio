@@ -6,7 +6,7 @@
         [ 'name' => 'Academies' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New academy', 'url' => route('admin.portfolio.academy.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Academy', 'url' => route('admin.portfolio.academy.create') ],
     ],
     'errors' => $errors ?? [],
 ])

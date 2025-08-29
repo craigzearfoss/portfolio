@@ -19,6 +19,11 @@
     <div>
 
         @include('admin.components.show-row', [
+            'name'  => 'owner',
+            'value' => $video->admin['username'] ?? ''
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $video->name
         ])
@@ -85,13 +90,18 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $video->disabled
+            'name'    => 'read-only',
+            'checked' => $video->readonly
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $video->admin['username'] ?? ''
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $video->root
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'disabled',
+            'checked' => $video->disabled
         ])
 
         @include('admin.components.show-row', [

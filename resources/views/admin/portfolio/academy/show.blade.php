@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.portfolio.academy.edit', $academy) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New academy', 'url' => route('admin.portfolio.academy.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => route('admin.portfolio.academy.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'url' => route('admin.portfolio.academy.edit', $academy) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Academy', 'url' => route('admin.portfolio.academy.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => route('admin.portfolio.academy.index') ],
     ],
     'errors' => $errors ?? [],
 ])

@@ -19,6 +19,11 @@
     <div>
 
         @include('admin.components.show-row', [
+            'name'  => 'owner',
+            'value' => $project->admin['username'] ?? ''
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $project->name
         ])
@@ -81,13 +86,18 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $project->disabled
+            'name'    => 'read-only',
+            'checked' => $project->readonly
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $project->admin['username'] ?? ''
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $project->root
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'disabled',
+            'checked' => $project->disabled
         ])
 
         @include('admin.components.show-row', [

@@ -1,12 +1,12 @@
 @extends('admin.layouts.default', [
-    'title' => 'Academies',
+    'title' => 'Ingredients',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
-        [ 'name' => 'Academies' ],
+        [ 'name' => 'Ingredients' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New ingredient', 'url' => route('admin.portfolio.ingredient.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Ingredient', 'url' => route('admin.portfolio.ingredient.create') ],
     ],
     'errors' => $errors ?? [],
 ])

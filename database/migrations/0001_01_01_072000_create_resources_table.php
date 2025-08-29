@@ -22,7 +22,9 @@ return new class extends Migration
             $table->string('section', 50);
             $table->string('icon', 50)->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(1);
+            $table->tinyInteger('public')->default(0);
+            $table->integer('readonly')->default(0);
+            $table->integer('root')->default(1);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
         });

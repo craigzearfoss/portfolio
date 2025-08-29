@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add New Academy',
+    'title' =>'Add New Ingredient',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
-        [ 'name' => 'Academies',       'url' => route('admin.portfolio.ingredient.index') ],
+        [ 'name' => 'Ingredients',     'url' => route('admin.portfolio.ingredient.index') ],
         [ 'name' => 'Create' ],
     ],
     'buttons' => [
@@ -110,7 +110,7 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add Academy',
+                'label'      => 'Add Ingredient',
                 'cancel_url' => route('admin.portfolio.ingredient.index')
             ])
 

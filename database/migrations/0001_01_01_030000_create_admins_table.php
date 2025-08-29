@@ -24,6 +24,10 @@ return new class extends Migration
             $table->string('password');
             $table->string('token')->nullable();
             $table->tinyInteger('root')->default(0);
+            $table->integer('sequence')->default(0);
+            $table->tinyInteger('public')->default(0);
+            $table->integer('readonly')->default(0);
+            $table->integer('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
             $table->softDeletes();

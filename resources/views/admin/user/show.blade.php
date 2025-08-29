@@ -84,6 +84,26 @@
             'value' => \App\Models\User::statusName($user->status)
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'sequence',
+            'value' => $user->sequence
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'public',
+            'checked' => $user->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'read-only',
+            'checked' => $user->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $user->root
+        ])
+
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
             'checked' => $user->disabled

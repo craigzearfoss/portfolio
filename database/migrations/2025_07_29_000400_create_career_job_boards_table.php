@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100)->unique();
             $table->string('website')->nullable();
+            $table->integer('sequence')->default(0);
+            $table->tinyInteger('public')->default(1);
+            $table->integer('readonly')->default(0);
+            $table->integer('root')->default(1);
+            $table->tinyInteger('disabled')->default(0);
         });
 
         $data = [

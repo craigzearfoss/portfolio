@@ -65,19 +65,29 @@
                                             'value' => $resource->sequence
                                         ])
 
+                                        @include('admin.components.show-row', [
+                                            'name'  => 'sequence',
+                                            'value' => $resource->sequence
+                                        ])
+
                                         @include('admin.components.show-row-checkbox', [
                                             'name'    => 'public',
                                             'checked' => $resource->public
                                         ])
 
                                         @include('admin.components.show-row-checkbox', [
-                                            'name'    => 'disabled',
-                                            'checked' => $resource->disabled
+                                            'name'    => 'read-only',
+                                            'checked' => $resource->readonly
                                         ])
 
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'owner',
-                                            'value' => $resource->admin['username'] ?? ''
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'root',
+                                            'checked' => $resource->root
+                                        ])
+
+                                        @include('admin.components.show-row-checkbox', [
+                                            'name'    => 'disabled',
+                                            'checked' => $resource->disabled
                                         ])
 
                                         @include('admin.components.show-row', [
