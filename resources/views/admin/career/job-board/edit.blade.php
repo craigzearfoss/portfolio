@@ -2,23 +2,21 @@
     'title' => $jobBoard->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Job Boards',      'url' => route('admin.career.resume.job-board.index') ],
+        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
+        [ 'name' => 'Job Boards',      'url' => route('admin.career.job-board.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.career.resume.job-board.show', $jobBoard) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.resume.job-board.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.job-board.index') ],
     ],
     'errors' => $errors ?? [],
-    'success' => session('success') ?? null,
-    'error' => session('error') ?? null,
 ])
 
 @section('content')
 
     <div class="form">
 
-        <form action="{{ route('admin.job-board.update', $jobBoard) }}"
+        <form action="{{ route('admin.career.job-board.update', $jobBoard) }}"
               method="POST">
             @csrf
             @method('PUT')
@@ -40,7 +38,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => route('admin.career.resume.job-board.index')
+                'cancel_url' => route('admin.career.job-board.index')
             ])
 
         </form>

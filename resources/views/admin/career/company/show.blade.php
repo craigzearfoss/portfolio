@@ -1,153 +1,124 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' => $company->name,
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
+        [ 'name' => 'Companies',       'url' => route('admin.career.company.index') ],
+        [ 'name' => 'Show' ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'url' => route('admin.career.company.edit', $company) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Company', 'url' => route('admin.career.company.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => route('admin.career.company.index') ],
+    ],
+    'errors' => $errors ?? [],
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div>
 
-            @include('admin.components.nav-left_ORIGINAL')
+        @include('admin.components.show-row', [
+            'name'  => 'name',
+            'value' => $company->name
+        ])
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+        @include('admin.components.show-row', [
+            'name'  => 'slug',
+            'value' => $company->slug
+        ])
 
-                @include('admin.components.header')
+        @include('admin.components.show-row', [
+            'name'  => 'street',
+            'value' => $company->street
+        ])
 
-                @include('admin.components.popup')
+        @include('admin.components.show-row', [
+            'name'  => 'street2',
+            'value' => $company->street2
+        ])
 
-                <div class="page-container relative h-full flex flex-auto flex-col">
-                    <div class="h-full">
-                        <h3 class="card-header ml-3">Show Company</h3>
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
-                            <div class="card min-w-[320px] md:min-w-[450px] max-w-[800px] card-shadow"
-                                 role="presentation">
-                                <div class="card-body md:p-5">
+        @include('admin.components.show-row', [
+            'name'  => 'city',
+            'value' => $company->city
+        ])
 
-                                    <div>
-                                        @include('admin.components.messages', [$errors])
-                                    </div>
+        @include('admin.components.show-row', [
+            'name'  => 'state',
+            'value' => \App\Models\State::getName($company->state)
+        ])
 
-                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-solid btn-sm"
-                                           href="{{ route('admin.company.edit', $company) }}"><i
-                                                    class="fa fa-pen-to-square"></i> Edit</a>
-                                        <a class="btn btn-solid btn-sm" href="{{ route('admin.company.index') }}"><i
-                                                    class="fa fa-arrow-left"></i> Back</a>
-                                    </div>
+        @include('admin.components.show-row', [
+            'name'  => 'zip',
+            'value' => $company->zip
+        ])
 
-                                    <div class="row">
+        @include('admin.components.show-row', [
+            'name'  => 'country',
+            'value' => \App\Models\Country::getName($company->country)
+        ])
 
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'name',
-                                            'value' => $company->name
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => !empty($company->phone_label) ? $company->phone_label : 'phone',
+            'value' => $company->phone
+        ])
 
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'slug',
-                                            'value' => $company->slug
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => !empty($company->alt_phone_label) ? $company->alt_phone_label : 'alt phone',
+            'value' => $company->alt_phone
+        ])
 
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'street',
-                                            'value' => $company->street
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => !empty($company->email_label) ? $company->email_label : 'email',
+            'value' => $company->email
+        ])
 
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'street2',
-                                            'value' => $company->street2
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => !empty($company->alt_email_label) ? $company->alt_email_label : 'alt email',
+            'value' => $company->alt_email
+        ])
 
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'city',
-                                            'value' => $company->city
-                                        ])
+        @include('admin.components.show-row-link', [
+            'name'  => 'website',
+            'url'    => $company->website,
+            'target' => '_blank'
+        ])
 
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'state',
-                                            'value' => \App\Models\State::getName($company->state)
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => $company->description
+        ])
 
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'zip',
-                                            'value' => $company->zip
-                                        ])
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'public',
+            'checked' => $company->public
+        ])
 
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'country',
-                                            'value' => \App\Models\Country::getName($company->country)
-                                        ])
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'disabled',
+            'checked' => $company->disabled
+        ])
 
-                                        @include('admin.components.show-row', [
-                                            'name'  => !empty($company->phone_label) ? $company->phone_label : 'phone',
-                                            'value' => $company->phone
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => 'owner',
+            'value' => $company->admin['username'] ?? ''
+        ])
 
-                                        @include('admin.components.show-row', [
-                                            'name'  => !empty($company->alt_phone_label) ? $company->alt_phone_label : 'alt phone',
-                                            'value' => $company->alt_phone
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => 'created at',
+            'value' => longDateTime($company->created_at)
+        ])
 
-                                        @include('admin.components.show-row', [
-                                            'name'  => !empty($company->email_label) ? $company->email_label : 'email',
-                                            'value' => $company->email
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => 'updated at',
+            'value' => longDateTime($company->updated_at)
+        ])
 
-                                        @include('admin.components.show-row', [
-                                            'name'  => !empty($company->alt_email_label) ? $company->alt_email_label : 'alt email',
-                                            'value' => $company->alt_email
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => 'deleted at',
+            'value' => longDateTime($company->deleted_at)
+        ])
 
-                                        @include('admin.components.show-row-link', [
-                                            'name'  => 'website',
-                                            'url'    => $company->website,
-                                            'target' => '_blank'
-                                        ])
-
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'description',
-                                            'value' => $company->description
-                                        ])
-
-                                        @include('admin.components.show-row-checkbox', [
-                                            'name'    => 'public',
-                                            'checked' => $company->public
-                                        ])
-
-                                        @include('admin.components.show-row-checkbox', [
-                                            'name'    => 'disabled',
-                                            'checked' => $company->disabled
-                                        ])
-
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'owner',
-                                            'value' => $company->admin['username'] ?? ''
-                                        ])
-
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'created at',
-                                            'value' => longDateTime($company->created_at)
-                                        ])
-
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'updated at',
-                                            'value' => longDateTime($company->updated_at)
-                                        ])
-
-                                        @include('admin.components.show-row', [
-                                            'name'  => 'deleted at',
-                                            'value' => longDateTime($company->deleted_at)
-                                        ])
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

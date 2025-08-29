@@ -1,159 +1,114 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' => $resume->name,
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
+        [ 'name' => 'Resumes',         'url' => route('admin.career.resume.index') ],
+        [ 'name' => 'Edit' ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.resume.index') ],
+    ],
+    'errors' => $errors ?? [],
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="form">
 
-            @include('admin.components.nav-left_ORIGINAL')
+        <div class="form-container">
 
-            <div
-                    class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            <form action="{{ route('admin.career.resume.update', $resume) }}" method="POST">
+                @csrf
+                @method('PUT')
 
-                @include('admin.components.header')
+                @include('admin.components.form-hidden', [
+                    'name'  => old('admin_id') ?? Auth::guard('admin')->user()->id,
+                    'value' => '0',
+                ])
 
-                @include('admin.components.popup')
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? $resume->name,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-                <div class="page-container relative h-full flex flex-auto flex-col">
-                    <div class="h-full">
-                        <h3 class="card-header ml-3">Edit Resume</h3>
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
-                            <div class="card min-w-[320px] md:min-w-[450px] card-shadow" role="presentation">
-                                <div class="card-body md:p-5">
-                                    <div class="text-center">
-                                        <div class="mb-4">
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'slug',
+                    'value'     => old('slug') ?? $resume->slug,
+                    'required'  => true,
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
 
-                                            <div class="d-grid gap-2 d-md-flex justify-between">
+                @include('admin.components.form-input-horizontal', [
+                    'type'      => 'date',
+                    'name'      => 'date',
+                    'value'     => old('date') ?? $resume->date,
+                    'message'   => $message ?? '',
+                ])
 
-                                                @if (session('success'))
-                                                    @include('admin.components.message-success', ['message'=> session('success')])
-                                                @endif
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'link',
+                    'value'     => old('link') ?? $resume->link,
+                    'message'   => $message ?? '',
+                ])
 
-                                                @if (session('error'))
-                                                    @include('admin.components.message-success', ['message'=> session('danger')])
-                                                @endif
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'alt_link',
+                    'label'     => 'alt link',
+                    'value'     => old('alt_link') ?? $resume->alt_link,
+                    'message'   => $message ?? '',
+                ])
 
-                                                @if ($errors->any())
-                                                    @include('admin.components.error-message', ['message'=>'Fix the indicated errors before saving.'])
-                                                @endif
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'description',
+                    'id'      => 'inputEditor',
+                    'value'   => old('description') ?? $resume->description,
+                    'message' => $message ?? '',
+                ])
 
-                                                <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.career.resume.show', $resume) }}"><i
-                                                                class="fa fa-list"></i> Show</a>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.career.resume.index') }}"><i
-                                                                class="fa fa-arrow-left"></i> Back</a>
-                                                </div>
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'primary',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('primary') ?? $resume->primary,
+                    'message'         => $message ?? '',
+                ])
 
-                                            </div>
+                @include('admin.components.form-input-horizontal', [
+                    'type'        => 'number',
+                    'name'        => 'sequence',
+                    'value'       => old('sequence') ?? $resume->sequence,
+                    'min'         => 0,
+                    'message'     => $message ?? '',
+                ])
 
-                                        </div>
-                                        <div class="form-container">
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'public',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('public') ?? $resume->public,
+                    'message'         => $message ?? '',
+                ])
 
-                                            <form action="{{ route('admin.career.resume.update', $resume) }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'disabled',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('disabled') ?? $resume->disabled,
+                    'message'         => $message ?? '',
+                ])
 
-                                                @include('admin.components.form-hidden', [
-                                                    'name'  => old('admin_id') ?? Auth::guard('admin')->user()->id,
-                                                    'value' => '0',
-                                                ])
+                @include('admin.components.form-button-submit-horizontal', [
+                    'label'      => 'Save',
+                    'cancel_url' => route('admin.career.resume.index')
+                ])
 
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'name',
-                                                    'value'     => old('name') ?? $resume->name,
-                                                    'required'  => true,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
+            </form>
 
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'slug',
-                                                    'value'     => old('slug') ?? $resume->slug,
-                                                    'required'  => true,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'type'      => 'date',
-                                                    'name'      => 'date',
-                                                    'value'     => old('date') ?? $resume->date,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'link',
-                                                    'value'     => old('link') ?? $resume->link,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'alt_link',
-                                                    'label'     => 'alt link',
-                                                    'value'     => old('alt_link') ?? $resume->alt_link,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-textarea', [
-                                                    'name'    => 'description',
-                                                    'id'      => 'inputEditor',
-                                                    'value'   => old('description') ?? $resume->description,
-                                                    'message' => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'primary',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('primary') ?? $resume->primary,
-                                                    'message'         => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'type'        => 'number',
-                                                    'name'        => 'sequence',
-                                                    'value'       => old('sequence') ?? $resume->sequence,
-                                                    'min'         => 0,
-                                                    'message'     => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'public',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('public') ?? $resume->public,
-                                                    'message'         => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'disabled',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('disabled') ?? $resume->disabled,
-                                                    'message'         => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-button-submit', [
-                                                    'label'      => 'Save',
-                                                    'cancel_url' => route('admin.career.resume.index')
-                                                ])
-
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

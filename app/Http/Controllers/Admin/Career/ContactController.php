@@ -22,7 +22,7 @@ class ContactController extends Controller
     {
         $contacts = Contact::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.contact.index', compact('contacts'))
+        return view('admin.career.contact.index', compact('contacts'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -31,7 +31,7 @@ class ContactController extends Controller
      */
     public function create(): View
     {
-        return view('admin.contact.create');
+        return view('admin.career.contact.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class ContactController extends Controller
     {
         Contact::create($request->validated());
 
-        return redirect()->route('admin.contact.index')
+        return redirect()->route('admin.career.contact.index')
             ->with('success', 'Contact created successfully.');
     }
 
@@ -50,7 +50,7 @@ class ContactController extends Controller
      */
     public function show(Contact $contact): View
     {
-        return view('admin.contact.show', compact('contact'));
+        return view('admin.career.contact.show', compact('contact'));
     }
 
     /**
@@ -58,7 +58,7 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact): View
     {
-        return view('admin.contact.edit', compact('contact'));
+        return view('admin.career.contact.edit', compact('contact'));
     }
 
     /**
@@ -68,7 +68,7 @@ class ContactController extends Controller
     {
         $contact->update($request->validated());
 
-        return redirect()->route('admin.contact.index')
+        return redirect()->route('admin.career.contact.index')
             ->with('success', 'Contact updated successfully');
     }
 
@@ -79,7 +79,7 @@ class ContactController extends Controller
     {
         $contact->delete();
 
-        return redirect()->route('admin.contact.index')
+        return redirect()->route('admin.career.contact.index')
             ->with('success', 'Contact deleted successfully');
     }
 }

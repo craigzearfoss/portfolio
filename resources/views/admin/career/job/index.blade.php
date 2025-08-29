@@ -1,94 +1,101 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' => 'Jobs',
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
+        [ 'name' => 'Jobs' ]
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Job', 'url' => route('admin.career.job.create') ],
+    ],
+    'errors' => $errors ?? [],
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+        <thead>
+        <tr>
+            <th>name</th>
+            <th class="text-center">sequence</th>
+            <th class="text-center">public</th>
+            <th class="text-center">disabled</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <?php /*
+        <tfoot>
+        <tr>
+            <th>name</th>
+            <th class="text-center">sequence</th>
+            <th class="text-center">public</th>
+            <th class="text-center">disabled</th>
+            <th>actions</th>
+        </tr>
+        </tfoot>
+        */ ?>
+        <tbody>
 
-            @include('admin.components.nav-left_ORIGINAL')
+        @forelse ($jobs as $job)
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            <tr>
+                <td>
+                    {{ $job->name }}
+                </td>
+                <td class="text-center">
+                    {{ $job->sequence }}
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $job->public ])
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $job->disabled ])
+                </td>
+                <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <form action="{{ route('admin.career.job.destroy', $job->id) }}" method="POST">
 
-                @include('admin.components.header')
+                        <a title="show" class="button is-small px-1 py-0"
+                           href="{{ route('admin.career.job.show', $job->id) }}">
+                            <i class="fa-solid fa-list"></i>{{-- Show--}}
+                        </a>
 
-                @include('admin.components.popup')
+                        <a title="edit" class="button is-small px-1 py-0"
+                           href="{{ route('admin.career.job.edit', $job->id) }}">
+                            <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                        </a>
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
 
-                    <h3 class="card-header">Jobs</h3>
+                        @if (!empty($job->link))
+                            <a title="link" class="button is-small px-1 py-0" href="{{ $job->link }}"
+                               target="_blank">
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                            </a>
+                        @else
+                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                            </a>
+                        @endif
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('admin.components.messages', [$errors])
-                        </div>
-                        <div>
-                            <a class="btn btn-solid btn-sm" href="{{ route('admin.job.create') }}"><i
-                                        class="fa fa-plus"></i> Add New Job</a>
-                        </div>
-                    </div>
+                        @csrf
+                        @method('DELETE')
+                        <button title="delete" type="submit" class="button is-small px-1 py-0">
+                            <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                        </button>
+                    </form>
+                </td>
+            </tr>
 
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>name</th>
-                            <th>description</th>
-                            <th class="text-center">primary</th>
-                            <th class="text-center">public</th>
-                            <th class="text-center">disabled</th>
-                            <th>actions</th>
-                        </tr>
-                        </thead>
+        @empty
 
-                        <tbody>
+            <tr>
+                <td colspan="5">There are no jobs.</td>
+            </tr>
 
-                        @forelse ($jobs as $job)
-                            <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $job->name }}</td>
-                                <td class="text-nowrap">{{ shortDate($job->date) }}</td>
-                                <td>
-                                    @include('admin.components.link', [ 'url' => $job->link, 'target' => '_blank' ])
-                                </td>
-                                <td>{!! $job->description !!}</td>
-                                <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $job->primary ])
-                                </td>
-                                <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $job->public ])
-                                </td>
-                                <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $job->disabled ])
-                                </td>
-                                <td class="text-nowrap">
-                                    <form action="{{ route('admin.job.destroy', $job->id) }}" method="POST">
-                                        <a class="btn btn-sm" href="{{ route('admin.job.show', $job->id) }}"><i
-                                                    class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                        <a class="btn btn-sm" href="{{ route('admin.job.edit', $job->id) }}"><i
-                                                    class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm"><i
-                                                    class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="9">There are no jobs.</td>
-                            </tr>
-                        @endforelse
+        @endforelse
 
-                        </tbody>
-                    </table>
+        </tbody>
+    </table>
 
-                    {!! $jobs->links() !!}
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
-    </div>
+    {!! $jobs->links('vendor.pagination.bulma') !!}
 
 @endsection

@@ -1,23 +1,22 @@
 @extends('admin.layouts.default', [
-    'title' => 'Add New Job Board',
+    'title' =>'Add New Job Board',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Job Boards' ,     'url' => route('admin.job-board.index') ],
-        [ 'name' => 'Add' ],
+        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
+        [ 'name' => 'Job Boards',      'url' => route('admin.career.job-board.index') ],
+        [ 'name' => 'Create' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.job-board.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.job-board.index') ],
     ],
-    'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errors' => $errors ?? [],
 ])
 
 @section('content')
 
     <div class="form-container">
 
-        <form action="{{ route('admin.job-board.store') }}" method="POST">
+        <form action="{{ route('admin.career.job-board.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-input-horizontal', [
@@ -37,7 +36,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Job Board',
-                'cancel_url' => route('admin.job-board.index')
+                'cancel_url' => route('admin.career.job-board.index')
             ])
 
         </form>

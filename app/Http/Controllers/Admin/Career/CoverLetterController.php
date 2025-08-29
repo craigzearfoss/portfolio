@@ -22,7 +22,7 @@ class CoverLetterController extends Controller
     {
         $coverLetters = CoverLetter::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.cover-letter.index', compact('coverLetters'))
+        return view('admin.career.cover-letter.index', compact('coverLetters'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -31,7 +31,7 @@ class CoverLetterController extends Controller
      */
     public function create(): View
     {
-        return view('admin.cover-letter.create');
+        return view('admin.career.cover-letter.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class CoverLetterController extends Controller
     {
         CoverLetter::create($request->validated());
 
-        return redirect()->route('admin.cover-letter.index')
+        return redirect()->route('admin.career.cover-letter.index')
             ->with('success', 'Cover letter created successfully.');
     }
 
@@ -50,7 +50,7 @@ class CoverLetterController extends Controller
      */
     public function show(CoverLetter $coverLetter): View
     {
-        return view('admin.cover-letter.show', compact('coverLetter'));
+        return view('admin.career.cover-letter.show', compact('coverLetter'));
     }
 
     /**
@@ -58,7 +58,7 @@ class CoverLetterController extends Controller
      */
     public function edit(CoverLetter $coverLetter): View
     {
-        return view('admin.cover-letter.edit', compact('coverLetter'));
+        return view('admin.career.cover-letter.edit', compact('coverLetter'));
     }
 
     /**
@@ -68,7 +68,7 @@ class CoverLetterController extends Controller
     {
         $coverLetter->update($request->validated());
 
-        return redirect()->route('admin.cover-letter.index')
+        return redirect()->route('admin.career.cover-letter.index')
             ->with('success', 'Cover letter updated successfully');
     }
 

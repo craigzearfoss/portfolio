@@ -1,310 +1,267 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' =>'Add New Application',
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
+        [ 'name' => 'Applications',    'url' => route('admin.career.application.index') ],
+        [ 'name' => 'Create' ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.application.index') ],
+    ],
+    'errors' => $errors ?? [],
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="form">
 
-            @include('admin.components.nav-left_ORIGINAL')
+        <form action="{{ route('admin.career.application.store') }}" method="POST">
+            @csrf
 
-            <div
-                    class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            @include('admin.components.form-hidden', [
+                'name'  => Auth::guard('admin')->user()->id,
+                'value' => '0',
+            ])
 
-                @include('admin.components.header')
+            @include('admin.components.form-input-horizontal', [
+                'name'        => 'role',
+                'value'       => old('role') ?? '',
+                'required'    => true,
+                'maxlength'   => 255,
+                'message'     => $message ?? '',
+            ])
 
-                @include('admin.components.popup')
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'company',
+                'value'   => old('company_id') ?? '',
+                'list'    => \App\Models\Career\Company::listOptions(true),
+                'message' => $message ?? '',
+            ])
 
-                <div class="page-container relative h-full flex flex-auto flex-col">
-                    <div class="h-full">
-                        <h3 class="card-header ml-3">Add Application</h3>
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
-                            <div class="card min-w-[320px] md:min-w-[450px] card-shadow" role="presentation">
-                                <div class="card-body md:p-5">
-                                    <div class="text-center">
-                                        <div class="mb-4">
+            @include('admin.components.form-input-horizontal', [
+                'type'        => 'number',
+                'name'        => 'rating',
+                'value'       => old('rating') ?? 0,
+                'placeholder' => "0, 1, 2, 3, or 4",
+                'min'         => 1,
+                'max'         => 4,
+                'message'     => $message ?? '',
+            ])
 
-                                            <div class="d-grid gap-2 d-md-flex justify-between">
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'active',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('active') ?? 1,
+                'message'         => $message ?? '',
+            ])
 
-                                                @if (session('success'))
-                                                    @include('admin.components.message-success', ['message'=> session('success')])
-                                                @endif
+            @include('admin.components.form-input-horizontal', [
+                'type'    => 'date',
+                'label'   => 'post date',
+                'name'    => 'post_date',
+                'value'   => old('post_date') ?? null,
+                'message' => $message ?? '',
+            ])
 
-                                                @if (session('error'))
-                                                    @include('admin.components.message-success', ['message'=> session('danger')])
-                                                @endif
+            @include('admin.components.form-input-horizontal', [
+                'type'    => 'date',
+                'label'   => 'apply date',
+                'name'    => 'apply_date',
+                'value'   => old('apply_date') ?? null,
+                'message' => $message ?? '',
+            ])
 
-                                                @if ($errors->any())
-                                                    @include('admin.components.error-message', ['message'=>'Fix the indicated errors before saving.'])
-                                                @endif
+            @include('admin.components.form-input-horizontal', [
+                'type'    => 'date',
+                'label'   => 'close date',
+                'name'    => 'close_date',
+                'value'   => old('close_date') ?? null,
+                'message' => $message ?? '',
+            ])
 
-                                                <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.application.index') }}"><i
-                                                                class="fa fa-arrow-left"></i> Back</a>
-                                                </div>
+            @include('admin.components.form-input-horizontal', [
+                'type'    => 'number',
+                'name'    => 'compensation',
+                'value'   => old('compensation') ?? 0,
+                'min'     => 0,
+                'message' => $message ?? '',
+            ])
 
-                                            </div>
+            @include('admin.components.form-select-horizontal', [
+                'label'   => 'compensation unit',
+                'name'    => 'compensation_unit',
+                'value'   => old('compensation_unit') ?? '',
+                'list'    => \App\Models\Career\Application::compensationUnitListOptions(true, true),
+                'message' => $message ?? '',
+            ])
 
-                                        </div>
-                                        <div class="form-container">
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'duration',
+                'value'     => old('duration') ?? 0,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
 
-                                            <form action="{{ route('admin.application.store') }}" method="POST">
-                                                @csrf
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'type',
+                'value'   => old('type') ?? 'permanent' ,
+                'list'    => \App\Models\Career\Application::typeListOptions(),
+                'message' => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-hidden', [
-                                                    'name'  => Auth::guard('admin')->user()->id,
-                                                    'value' => '0',
-                                                ])
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'office',
+                'value'   => old('office') ?? 'onsite',
+                'list'    => \App\Models\Career\Application::officeListOptions(),
+                'message' => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-input', [
-                                                    'name'        => 'role',
-                                                    'value'       => old('role') ?? '',
-                                                    'required'    => true,
-                                                    'maxlength'   => 255,
-                                                    'message'     => $message ?? '',
-                                                ])
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'city',
+                'value'     => old('city') ?? '',
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-select', [
-                                                    'name'    => 'company',
-                                                    'value'   => old('company_id') ?? '',
-                                                    'list'    => \App\Models\Career\Company::listOptions(true),
-                                                    'message' => $message ?? '',
-                                                ])
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'state',
+                'value'   => old('state') ?? '',
+                'list'    => \App\Models\State::listOptions(true),
+                'message' => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-input', [
-                                                    'type'        => 'number',
-                                                    'name'        => 'rating',
-                                                    'value'       => old('rating') ?? 0,
-                                                    'placeholder' => "0, 1, 2, 3, or 4",
-                                                    'min'         => 1,
-                                                    'max'         => 4,
-                                                    'message'     => $message ?? '',
-                                                ])
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'bonus',
+                'value'     => old('bonus') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'active',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('active') ?? 1,
-                                                    'message'         => $message ?? '',
-                                                ])
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'w2',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('w2') ?? 0,
+                'message'         => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-input', [
-                                                    'type'    => 'date',
-                                                    'label'   => 'post date',
-                                                    'name'    => 'post_date',
-                                                    'value'   => old('post_date') ?? null,
-                                                    'message' => $message ?? '',
-                                                ])
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'relocation',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('relocation') ?? 0,
+                'message'         => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-input', [
-                                                    'type'    => 'date',
-                                                    'label'   => 'apply date',
-                                                    'name'    => 'apply_date',
-                                                    'value'   => old('apply_date') ?? null,
-                                                    'message' => $message ?? '',
-                                                ])
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'benefits',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('benefits') ?? 0,
+                'message'         => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-input', [
-                                                    'type'    => 'date',
-                                                    'label'   => 'close date',
-                                                    'name'    => 'close_date',
-                                                    'value'   => old('close_date') ?? null,
-                                                    'message' => $message ?? '',
-                                                ])
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'vacation',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('vacation') ?? 0,
+                'message'         => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-input', [
-                                                    'type'    => 'number',
-                                                    'name'    => 'compensation',
-                                                    'value'   => old('compensation') ?? 0,
-                                                    'min'     => 0,
-                                                    'message' => $message ?? '',
-                                                ])
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'health',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('health') ?? 0,
+                'message'         => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-select', [
-                                                    'label'   => 'compensation unit',
-                                                    'name'    => 'compensation_unit',
-                                                    'value'   => old('compensation_unit') ?? '',
-                                                    'list'    => \App\Models\Career\Application::compensationUnitListOptions(true, true),
-                                                    'message' => $message ?? '',
-                                                ])
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'source',
+                'value'   => old('source') ?? '',
+                'list'    => \App\Models\Career\JobBoard::listOptions(true, true),
+                'message' => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'duration',
-                                                    'value'     => old('duration') ?? 0,
-                                                    'maxlength' => 100,
-                                                    'message'   => $message ?? '',
-                                                ])
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'link',
+                'value'     => old('link') ?? '',
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-select', [
-                                                    'name'    => 'type',
-                                                    'value'   => old('type') ?? 'permanent' ,
-                                                    'list'    => \App\Models\Career\Application::typeListOptions(),
-                                                    'message' => $message ?? '',
-                                                ])
+            @include('admin.components.form-input-horizontal', [
+                'label'     => 'contact(s)',
+                'name'      => 'contacts',
+                'value'     => old('contacts') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-select', [
-                                                    'name'    => 'office',
-                                                    'value'   => old('office') ?? 'onsite',
-                                                    'list'    => \App\Models\Career\Application::officeListOptions(),
-                                                    'message' => $message ?? '',
-                                                ])
+            @include('admin.components.form-input-horizontal', [
+                'label'     => 'phone(s)',
+                'name'      => 'phones',
+                'value'     => old('phones') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'city',
-                                                    'value'     => old('city') ?? '',
-                                                    'maxlength' => 100,
-                                                    'message'   => $message ?? '',
-                                                ])
+            @include('admin.components.form-input-horizontal', [
+                'label'     => 'email(s)',
+                'name'      => 'emails',
+                'value'     => old('emails') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-select', [
-                                                    'name'    => 'state',
-                                                    'value'   => old('state') ?? '',
-                                                    'list'    => \App\Models\State::listOptions(true),
-                                                    'message' => $message ?? '',
-                                                ])
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'website',
+                'value'     => old('website') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'bonus',
-                                                    'value'     => old('bonus') ?? '',
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'description',
+                'id'      => 'inputEditor',
+                'value'   => old('description') ?? '',
+                'message' => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'w2',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('w2') ?? 0,
-                                                    'message'         => $message ?? '',
-                                                ])
+            @include('admin.components.form-input-horizontal', [
+                'type'        => 'number',
+                'name'        => 'sequence',
+                'value'       => old('sequence') ?? 0,
+                'min'         => 0,
+                'message'     => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'relocation',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('relocation') ?? 0,
-                                                    'message'         => $message ?? '',
-                                                ])
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'public',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('public') ?? 0,
+                'message'         => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'benefits',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('benefits') ?? 0,
-                                                    'message'         => $message ?? '',
-                                                ])
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'disabled',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('disabled') ?? 0,
+                'message'         => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'vacation',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('vacation') ?? 0,
-                                                    'message'         => $message ?? '',
-                                                ])
+            @include('admin.components.form-button-submit-horizontal', [
+                'label'      => 'Add Application',
+                'cancel_url' => route('admin.career.application.index')
+            ])
 
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'health',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('health') ?? 0,
-                                                    'message'         => $message ?? '',
-                                                ])
+        </form>
 
-                                                @include('admin.components.form-select', [
-                                                    'name'    => 'source',
-                                                    'value'   => old('source') ?? '',
-                                                    'list'    => \App\Models\Career\JobBoard::listOptions(true, true),
-                                                    'message' => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'link',
-                                                    'value'     => old('link') ?? '',
-                                                    'maxlength' => 100,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'label'     => 'contact(s)',
-                                                    'name'      => 'contacts',
-                                                    'value'     => old('contacts') ?? '',
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'label'     => 'phone(s)',
-                                                    'name'      => 'phones',
-                                                    'value'     => old('phones') ?? '',
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'label'     => 'email(s)',
-                                                    'name'      => 'emails',
-                                                    'value'     => old('emails') ?? '',
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'website',
-                                                    'value'     => old('website') ?? '',
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-textarea', [
-                                                    'name'    => 'description',
-                                                    'id'      => 'inputEditor',
-                                                    'value'   => old('description') ?? '',
-                                                    'message' => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'type'        => 'number',
-                                                    'name'        => 'sequence',
-                                                    'value'       => old('sequence') ?? 0,
-                                                    'min'         => 0,
-                                                    'message'     => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'public',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('public') ?? 0,
-                                                    'message'         => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'disabled',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('disabled') ?? 0,
-                                                    'message'         => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-button-submit', [
-                                                    'label'      => 'Add Application',
-                                                    'cancel_url' => route('admin.application.index')
-                                                ])
-
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

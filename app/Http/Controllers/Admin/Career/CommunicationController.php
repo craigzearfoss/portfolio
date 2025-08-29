@@ -21,7 +21,7 @@ class CommunicationController extends Controller
     {
         $communications = Communication::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.communication.index', compact('communications'))
+        return view('admin.career.communication.index', compact('communications'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -30,7 +30,7 @@ class CommunicationController extends Controller
      */
     public function create(): View
     {
-        return view('admin.communication.create');
+        return view('admin.career.communication.create');
     }
 
     /**
@@ -40,7 +40,7 @@ class CommunicationController extends Controller
     {
         Communication::create($request->validated());
 
-        return redirect()->route('admin.communication.index')
+        return redirect()->route('admin.career.communication.index')
             ->with('success', 'Communication created successfully.');
     }
 
@@ -49,7 +49,7 @@ class CommunicationController extends Controller
      */
     public function show(Communication $communication): View
     {
-        return view('admin.communication.show', compact('communication'));
+        return view('admin.career.communication.show', compact('communication'));
     }
 
     /**
@@ -57,7 +57,7 @@ class CommunicationController extends Controller
      */
     public function edit(Communication $communication): View
     {
-        return view('admin.communication.edit', compact('communication'));
+        return view('admin.career.communication.edit', compact('communication'));
     }
 
     /**
@@ -67,7 +67,7 @@ class CommunicationController extends Controller
     {
         $communication->update($request->validated());
 
-        return redirect()->route('admin.communication.index')
+        return redirect()->route('admin.career.communication.index')
             ->with('success', 'Communication updated successfully');
     }
 
@@ -78,7 +78,7 @@ class CommunicationController extends Controller
     {
         $communication->delete();
 
-        return redirect()->route('admin.communication.index')
+        return redirect()->route('admin.career.communication.index')
             ->with('success', 'Communication deleted successfully');
     }
 }

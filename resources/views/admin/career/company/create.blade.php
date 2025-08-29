@@ -39,7 +39,7 @@
 
                                                 <div>
                                                     <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.company.index') }}"><i
+                                                       href="{{ route('admin.career.company.index') }}"><i
                                                                 class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
@@ -48,7 +48,7 @@
                                         </div>
                                         <div class="form-container">
 
-                                            <form action="{{ route('admin.company.store') }}" method="POST">
+                                            <form action="{{ route('admin.career.company.store') }}" method="POST">
                                                 @csrf
 
                                                 @include('admin.components.form-hidden', [
@@ -224,7 +224,7 @@
 
                                                 @include('admin.components.form-button-submit', [
                                                     'label'      => 'Save',
-                                                    'cancel_url' => route('admin.company.index')
+                                                    'cancel_url' => route('admin.career.company.index')
                                                 ])
 
                                             </form>

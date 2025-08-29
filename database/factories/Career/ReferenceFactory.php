@@ -18,7 +18,7 @@ class ReferenceFactory extends Factory
     {
         return [
             'admin_id' => \App\Models\Admin::all()->random()->id,
-            'name'     => fake()->unique()->sentence(6),
+            'name'     => fake()->unique()->name(6),
             'slug'     => fake()->unique()->slug(6),
             'sequence' => 0,
             'public'   => fake()->numberBetween(0, 1),

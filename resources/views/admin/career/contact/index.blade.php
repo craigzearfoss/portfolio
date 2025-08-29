@@ -1,98 +1,116 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' => 'Contacts',
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
+        [ 'name' => 'Contacts' ]
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Contact', 'url' => route('admin.career.contact.create') ],
+    ],
+    'errors' => $errors ?? [],
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+        <thead>
+        <tr>
+            <th>name</th>
+            <th>location</th>
+            <th>phone</th>
+            <th>email</th>
+            <th class="text-center">public</th>
+            <th class="text-center">disabled</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <?php /*
+        <tfoot>
+        <tr>
+            <th>name</th>
+            <th>location</th>
+            <th>phone</th>
+            <th>email</th>
+            <th class="text-center">public</th>
+            <th class="text-center">disabled</th>
+            <th>actions</th>
+        </tr>
+        </tfoot>
+        */ ?>
+        <tbody>
 
-            @include('admin.components.nav-left_ORIGINAL')
+        @forelse ($contacts as $contact)
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            <tr>
+                <td>
+                    {{ $contact->name }}
+                </td>
+                <td>
+                    @if ($contact->city)
+                        {{ $contact->city }}@if ($contact->state)
+                            , {{ $contact->state }}
+                        @endif
+                    @else
+                        {{ $contact->state }}
+                    @endif
+                </td>
+                <td>
+                    {{ $contact->phone }}
+                </td>
+                <td>
+                    {{ $contact->email }}
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $contact->publicd ])
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $contact->disabled ])
+                </td>
+                <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <form action="{{ route('admin.career.contact.destroy', $contact->id) }}" method="POST">
 
-                @include('admin.components.header')
+                        <a title="show" class="button is-small px-1 py-0"
+                           href="{{ route('admin.career.contact.show', $contact->id) }}">
+                            <i class="fa-solid fa-list"></i>{{-- Show--}}
+                        </a>
 
-                @include('admin.components.popup')
+                        <a title="edit" class="button is-small px-1 py-0"
+                           href="{{ route('admin.career.contact.edit', $contact->id) }}">
+                            <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                        </a>
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
+                        @if (!empty($contact->website))
+                            <a title="website" class="button is-small px-1 py-0" href="{{ $contact->website }}"
+                               target="_blank">
+                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                            </a>
+                        @else
+                            <a title="website" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                            </a>
+                        @endif
 
-                    <h3 class="card-header">Contacts</h3>
+                        @csrf
+                        @method('DELETE')
+                        <button title="delete" type="submit" class="button is-small px-1 py-0">
+                            <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                        </button>
+                    </form>
+                </td>
+            </tr>
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('admin.components.messages', [$errors])
-                        </div>
-                        <div>
-                            <a class="btn btn-solid btn-sm" href="{{ route('admin.contact.create') }}"><i
-                                        class="fa fa-plus"></i> Add New Contact</a>
-                        </div>
-                    </div>
+        @empty
 
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>name</th>
-                            <th>location</th>
-                            <th>phone</th>
-                            <th>email</th>
-                            <th>website</th>
-                            <th class="text-center">disabled</th>
-                            <th>actions</th>
-                        </tr>
-                        </thead>
+            <tr>
+                <td colspan="7">There are no contacts.</td>
+            </tr>
 
-                        <tbody>
+        @endforelse
 
-                        @forelse ($contacts as $contact)
-                            <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $contact->name }}</td>
-                                <td>
-                                    @if ($contact->city)
-                                        {{ $contact->city }}@if ($contact->state)
-                                            , {{ $contact->state }}
-                                        @endif
-                                    @else
-                                        {{ $contact->state }}
-                                    @endif
-                                </td>
-                                <td>{{ $contact->phone }}</td>
-                                <td>{{ $contact->email }}</td>
-                                <td>
-                                    @include('admin.components.link', [ 'url' => $contact->website, 'target' => '_blank' ])
-                                </td>
-                                <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $contact->disabled ])
-                                </td>
-                                <td class="text-nowrap">
-                                    <form action="{{ route('admin.contact.destroy', $contact->id) }}" method="POST">
-                                        <a class="btn btn-sm" href="{{ route('admin.contact.show', $contact->id) }}"><i
-                                                    class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                        <a class="btn btn-sm" href="{{ route('admin.contact.edit', $contact->id) }}"><i
-                                                    class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm"><i
-                                                    class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="8">There are no contacts.</td>
-                            </tr>
-                        @endforelse
+        </tbody>
+    </table>
 
-                        </tbody>
-                    </table>
-
-                    {!! $contacts->links() !!}
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
-    </div>
+    {!! $contacts->links('vendor.pagination.bulma') !!}
 
 @endsection

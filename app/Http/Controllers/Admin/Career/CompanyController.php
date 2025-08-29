@@ -22,7 +22,7 @@ class CompanyController extends Controller
     {
         $companies = Company::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.company.index', compact('companies'))
+        return view('admin.career.company.index', compact('companies'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -31,7 +31,7 @@ class CompanyController extends Controller
      */
     public function create(): View
     {
-        return view('admin.company.create');
+        return view('admin.career.company.create');
     }
 
     /**
@@ -41,7 +41,7 @@ class CompanyController extends Controller
     {
         Company::create($request->validated());
 
-        return redirect()->route('admin.company.index')
+        return redirect()->route('admin.career.company.index')
             ->with('success', 'Company created successfully.');
     }
 
@@ -50,7 +50,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company): View
     {
-        return view('admin.company.show', compact('company'));
+        return view('admin.career.company.show', compact('company'));
     }
 
     /**
@@ -58,7 +58,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company): View
     {
-        return view('admin.company.edit', compact('company'));
+        return view('admin.career.company.edit', compact('company'));
     }
 
     /**
@@ -68,7 +68,7 @@ class CompanyController extends Controller
     {
         $company->update($request->validated());
 
-        return redirect()->route('admin.company.index')
+        return redirect()->route('admin.career.company.index')
             ->with('success', 'Company updated successfully');
     }
 
@@ -79,7 +79,7 @@ class CompanyController extends Controller
     {
         $company->delete();
 
-        return redirect()->route('admin.company.index')
+        return redirect()->route('admin.career.company.index')
             ->with('success', 'Company deleted successfully');
     }
 }

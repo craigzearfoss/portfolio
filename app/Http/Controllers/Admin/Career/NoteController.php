@@ -21,7 +21,7 @@ class NoteController extends Controller
     {
         $notes = Note::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.note.index', compact('notes'))
+        return view('admin.career.note.index', compact('notes'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -30,7 +30,7 @@ class NoteController extends Controller
      */
     public function create(): View
     {
-        return view('admin.note.create');
+        return view('admin.career.note.create');
     }
 
     /**
@@ -40,7 +40,7 @@ class NoteController extends Controller
     {
         Note::create($request->validated());
 
-        return redirect()->route('admin.note.index')
+        return redirect()->route('admin.career.note.index')
             ->with('success', 'Note created successfully.');
     }
 
@@ -49,7 +49,7 @@ class NoteController extends Controller
      */
     public function show(Note $note): View
     {
-        return view('admin.note.show', compact('note'));
+        return view('admin.career.note.show', compact('note'));
     }
 
     /**
@@ -57,7 +57,7 @@ class NoteController extends Controller
      */
     public function edit(Note $note): View
     {
-        return view('admin.note.edit', compact('note'));
+        return view('admin.career.note.edit', compact('note'));
     }
 
     /**
@@ -67,7 +67,7 @@ class NoteController extends Controller
     {
         $note->update($request->validated());
 
-        return redirect()->route('admin.note.index')
+        return redirect()->route('admin.career.note.index')
             ->with('success', 'Note updated successfully');
     }
 
@@ -78,7 +78,7 @@ class NoteController extends Controller
     {
         $note->delete();
 
-        return redirect()->route('admin.note.index')
+        return redirect()->route('admin.career.note.index')
             ->with('success', 'Note deleted successfully');
     }
 }

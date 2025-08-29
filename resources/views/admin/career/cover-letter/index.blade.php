@@ -1,98 +1,105 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' => 'Cover Letters',
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
+        [ 'name' => 'Cover Letters' ]
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Cover Letter', 'url' => route('admin.career.cover-letter.create') ],
+    ],
+    'errors' => $errors ?? [],
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+        <thead>
+        <tr>
+            <th>name</th>
+            <th>recipient(s)</th>
+            <th>date</th>
+            <th class="text-center">primary</th>
+            <th class="text-center">disabled</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <?php /*
+        <tfoot>
+        <tr>
+            <th>name</th>
+            <th>recipient(s)</th>
+            <th>date</th>
+            <th class="text-center">primary</th>
+            <th class="text-center">disabled</th>
+            <th>actions</th>
+        </tr>
+        </tfoot>
+        */ ?>
+        <tbody>
 
-            @include('admin.components.nav-left_ORIGINAL')
+        @forelse ($coverLetters as $coverLetter)
 
-            <div
-                class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            <tr>
+                <td>
+                    {{ $coverLetter->name }}
+                </td>
+                <td>
+                    {{ $coverLetter->recipient }}
+                </td>
+                <td class="text-nowrap">
+                    {{ shortDate($coverLetter->date) }}
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $coverLetter->primary ])
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $coverLetter->disabled ])
+                </td>
+                <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <form action="{{ route('admin.career.cover-letter.destroy', $coverLetter->id) }}" method="POST">
 
-                @include('admin.components.header')
+                        <a title="show" class="button is-small px-1 py-0"
+                           href="{{ route('admin.career.cover-letter.show', $coverLetter->id) }}">
+                            <i class="fa-solid fa-list"></i>{{-- Show--}}
+                        </a>
 
-                @include('admin.components.popup')
+                        <a title="edit" class="button is-small px-1 py-0"
+                           href="{{ route('admin.career.cover-letter.edit', $coverLetter->id) }}">
+                            <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                        </a>
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
+                        @if (!empty($coverLetter->link))
+                            <a title="link" class="button is-small px-1 py-0" href="{{ $coverLetter->link }}"
+                               target="_blank">
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                            </a>
+                        @else
+                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                            </a>
+                        @endif
 
-                    <h3 class="card-header">Cover Letters</h3>
+                        @csrf
+                        @method('DELETE')
+                        <button title="delete" type="submit" class="button is-small px-1 py-0">
+                            <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                        </button>
+                    </form>
+                </td>
+            </tr>
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('admin.components.messages', [$errors])
-                        </div>
-                        <div>
-                            <a class="btn btn-solid btn-sm" href="{{ route('admin.cover-letter.create') }}"><i
-                                    class="fa fa-plus"></i> Add New Cover Letter</a>
-                        </div>
-                    </div>
+        @empty
 
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>name</th>
-                            <th>recipient(s)</th>
-                            <th>date</th>
-                            <th>link</th>
-                            <th>description</th>
-                            <th class="text-center">primary</th>
-                            <th class="text-center">disabled</th>
-                            <th>actions</th>
-                        </tr>
-                        </thead>
+            <tr>
+                <td colspan="6">There are no jobs.</td>
+            </tr>
 
-                        <tbody>
+        @endforelse
 
-                        @forelse ($coverLetters as $coverLetter)
-                            <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $coverLetter->name }}</td>
-                                <td>{{ $coverLetter->recipient }}</td>
-                                <td class="text-nowrap">{{ shortDate($coverLetter->date) }}</td>
-                                <td>
-                                    @include('admin.components.link', [ 'url' => $coverLetter->link, 'target' => '_blank' ])
-                                </td>
-                                <td>{!! $coverLetter->description !!}</td>
-                                <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $coverLetter->primary ])
-                                </td>
-                                <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $coverLetter->disabled ])
-                                </td>
-                                <td class="text-nowrap">
-                                    <form action="{{ route('admin.cover-letter.destroy', $coverLetter->id) }}"
-                                          method="POST">
-                                        <a class="btn btn-sm"
-                                           href="{{ route('admin.cover-letter.show', $coverLetter->id) }}"><i
-                                                class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                        <a class="btn btn-sm"
-                                           href="{{ route('admin.cover-letter.edit', $coverLetter->id) }}"><i
-                                                class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm"><i
-                                                class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="9">There are no cover letters.</td>
-                            </tr>
-                        @endforelse
+        </tbody>
+    </table>
 
-                        </tbody>
-                    </table>
-
-                    {!! $coverLetters->links() !!}
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
-    </div>
+    {!! $coverLetters->links('vendor.pagination.bulma') !!}
 
 @endsection

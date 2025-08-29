@@ -22,7 +22,7 @@ class JobController extends Controller
     {
         $jobs = Job::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.job.index', compact('jobs'))
+        return view('admin.career.job.index', compact('jobs'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -35,7 +35,7 @@ class JobController extends Controller
             abort(403, 'Only admins with root access can add job board entries.');
         }
 
-        return view('admin.job.create');
+        return view('admin.career.job.create');
     }
 
     /**
@@ -49,7 +49,7 @@ class JobController extends Controller
 
         Job::create($request->validated());
 
-        return redirect()->route('admin.job.index')
+        return redirect()->route('admin.career.job.index')
             ->with('success', 'Job created successfully.');
     }
 
@@ -58,7 +58,7 @@ class JobController extends Controller
      */
     public function show(Job $job): View
     {
-        return view('admin.job.show', compact('job'));
+        return view('admin.career.job.show', compact('job'));
     }
 
     /**
@@ -70,7 +70,7 @@ class JobController extends Controller
             abort(403, 'Only admins with root access can edit job board entries.');
         }
 
-        return view('admin.job.edit', compact('job'));
+        return view('admin.career.job.edit', compact('job'));
     }
 
     /**
@@ -84,7 +84,7 @@ class JobController extends Controller
 
         $job->update($request->validated());
 
-        return redirect()->route('admin.job.index')
+        return redirect()->route('admin.career.job.index')
             ->with('success', 'Job updated successfully');
     }
 
@@ -99,7 +99,7 @@ class JobController extends Controller
 
         $job->delete();
 
-        return redirect()->route('admin.job.index')
+        return redirect()->route('admin.career.job.index')
             ->with('success', 'Job deleted successfully');
     }
 }

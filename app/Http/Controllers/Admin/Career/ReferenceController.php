@@ -21,7 +21,7 @@ class ReferenceController extends Controller
     {
         $references = Reference::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.reference.index', compact('references'))
+        return view('admin.career.reference.index', compact('references'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -30,7 +30,7 @@ class ReferenceController extends Controller
      */
     public function create(): View
     {
-        return view('admin.reference.create');
+        return view('admin.career.reference.create');
     }
 
     /**
@@ -40,7 +40,7 @@ class ReferenceController extends Controller
     {
         Reference::create($request->validated());
 
-        return redirect()->route('admin.reference.index')
+        return redirect()->route('admin.career.reference.index')
             ->with('success', 'Reference created successfully.');
     }
 
@@ -49,7 +49,7 @@ class ReferenceController extends Controller
      */
     public function show(Reference $reference): View
     {
-        return view('admin.reference.show', compact('reference'));
+        return view('admin.career.reference.show', compact('reference'));
     }
 
     /**
@@ -57,7 +57,7 @@ class ReferenceController extends Controller
      */
     public function edit(Reference $reference): View
     {
-        return view('admin.reference.edit', compact('reference'));
+        return view('admin.career.reference.edit', compact('reference'));
     }
 
     /**
@@ -69,7 +69,7 @@ class ReferenceController extends Controller
 
         $reference->update($request->validated());
 
-        return redirect()->route('admin.reference.index')
+        return redirect()->route('admin.career.reference.index')
             ->with('success', 'Reference updated successfully');
     }
 
@@ -80,7 +80,7 @@ class ReferenceController extends Controller
     {
         $reference->delete();
 
-        return redirect()->route('admin.reference.index')
+        return redirect()->route('admin.career.reference.index')
             ->with('success', 'Reference deleted successfully');
     }
 }

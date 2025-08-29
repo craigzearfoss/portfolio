@@ -23,7 +23,7 @@ class ApplicationController extends Controller
     {
         $applications = Application::latest()->paginate(self::NUM_PER_PAGE);
 
-        return view('admin.application.index', compact('applications'))
+        return view('admin.career.application.index', compact('applications'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
     }
 
@@ -32,7 +32,7 @@ class ApplicationController extends Controller
      */
     public function create(): View
     {
-        return view('admin.application.create');
+        return view('admin.career.application.create');
     }
 
     /**
@@ -42,7 +42,7 @@ class ApplicationController extends Controller
     {
         Application::create($request->validated());
 
-        return redirect()->route('admin.application.index')
+        return redirect()->route('admin.career.application.index')
             ->with('success', 'Application created successfully.');
     }
 
@@ -51,7 +51,7 @@ class ApplicationController extends Controller
      */
     public function show(Application $application): View
     {
-        return view('admin.application.show', compact('application'));
+        return view('admin.career.application.show', compact('application'));
     }
 
     /**
@@ -59,7 +59,7 @@ class ApplicationController extends Controller
      */
     public function edit(Application $application): View
     {
-        return view('admin.application.edit', compact('application'));
+        return view('admin.career.application.edit', compact('application'));
     }
 
     /**
@@ -69,7 +69,7 @@ class ApplicationController extends Controller
     {
         $application->update($request->validated());
 
-        return redirect()->route('admin.application.index')
+        return redirect()->route('admin.career.application.index')
             ->with('success', 'Application updated successfully');
     }
 
@@ -80,7 +80,7 @@ class ApplicationController extends Controller
     {
         $application->delete();
 
-        return redirect()->route('admin.application.index')
+        return redirect()->route('admin.career.application.index')
             ->with('success', 'Application deleted successfully');
     }
 }
