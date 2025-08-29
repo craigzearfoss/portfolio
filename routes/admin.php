@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\Dictionary\ServerController as DictionaryServerCo
 use App\Http\Controllers\Admin\Dictionary\StackController as DictionaryStackController;
 
 use App\Http\Controllers\Admin\Portfolio\IndexController as PortfolioController;
+use App\Http\Controllers\Admin\Portfolio\AcademyController as PortfolioAcademyController;
 use App\Http\Controllers\Admin\Portfolio\ArtController as PortfolioArtController;
 use App\Http\Controllers\Admin\Portfolio\CertificationController as PortfolioCertificationController;
 use App\Http\Controllers\Admin\Portfolio\CourseController as PortfolioCourseController;
@@ -86,6 +87,7 @@ Route::prefix('admin/dictionary')->middleware('admin')->name('admin.dictionary.'
 
 Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')->group(function () {
     Route::get('/', [PortfolioController::class, 'index'])->name('index');
+    Route::resource('academy', PortfolioAcademyController::class);
     Route::resource('art', PortfolioArtController::class);
     Route::resource('certification', PortfolioCertificationController::class);
     Route::resource('course', PortfolioCourseController::class);

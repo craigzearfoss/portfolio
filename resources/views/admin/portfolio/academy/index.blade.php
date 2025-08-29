@@ -1,13 +1,12 @@
 @extends('admin.layouts.default', [
-    'title' => 'Recipe Ingredients',
+    'title' => 'Academies',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
-        [ 'name' => 'Recipes',         'url' => route('admin.portfolio.recipe.index') ],
-        [ 'name' => 'Ingredients' ],
+        [ 'name' => 'Academies' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Ingredient', 'url' => route('admin.portfolio.recipe-ingredient.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New academy', 'url' => route('admin.portfolio.academy.create') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -39,36 +38,45 @@
         */ ?>
         <tbody>
 
-        @forelse ($recipeIngredients as $recipeIngredient)
+        @forelse ($academies as $academy)
 
             <tr>
                 <td>
-                    {{ $recipeIngredient->name }}
+                    {{ $academy->name }}
                 </td>
-                <td>
-                    {{ $recipeIngredient->description }}
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $academy->public ])
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $academy->readonly ])
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $academy->root ])
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $academy->disabled ])
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.portfolio.recipe-ingredient.destroy', $recipeIngredient->id) }}" method="POST">
+                    <form action="{{ route('admin.portfolio.academy.destroy', $academy->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.portfolio.recipe-ingredient.show', $recipeIngredient->id) }}">
-                            <i class="fa-solid fa-list"></i> {{-- Show --}}
+                           href="{{ route('admin.portfolio.academy.show', $academy->id) }}">
+                            <i class="fa-solid fa-list"></i>{{-- Show--}}
                         </a>
 
                         <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.portfolio.recipe-ingredient.edit', $recipeIngredient->id) }}">
+                           href="{{ route('admin.portfolio.academy.edit', $academy->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
 
-                        @if (!empty($academy->link))
-                            <a title="link" class="button is-small px-1 py-0" href="{{ $academy->link }}"
+                        @if (!empty($academy->website))
+                            <a title="website" class="button is-small px-1 py-0" href="{{ $academy->website }}"
                                target="_blank">
-                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
                             </a>
                         @else
-                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                            <a title="website" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
                             </a>
                         @endif
 
@@ -84,7 +92,7 @@
         @empty
 
             <tr>
-                <td colspan="6">There are no recipe ingredients.</td>
+                <td colspan="6">There are no academies.</td>
             </tr>
 
         @endforelse
@@ -92,6 +100,6 @@
         </tbody>
     </table>
 
-    {!! $recipeIngredients->links('vendor.pagination.bulma') !!}
+    {!! $academies->links('vendor.pagination.bulma') !!}
 
 @endsection

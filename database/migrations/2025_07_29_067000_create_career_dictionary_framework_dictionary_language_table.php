@@ -82,7 +82,6 @@ return new class extends Migration
             [ 'dictionary_framework_id' => 54, 'dictionary_language_id' => 46 ],
         ];
         App\Models\Career\DictionaryFrameworkDictionaryLanguage::insert($data);
-
     }
 
     /**

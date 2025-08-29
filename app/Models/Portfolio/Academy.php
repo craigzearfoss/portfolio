@@ -2,17 +2,13 @@
 
 namespace App\Models\Portfolio;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RecipeIngredient extends Model
+class Academy extends Model
 {
-    /** @use HasFactory<\Database\Factories\Portfolio\RecipeIngredientFactory> */
-    use HasFactory;
-
     protected $connection = 'portfolio_db';
 
-    protected $table = 'recipe_ingredients';
+    protected $table = 'academies';
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +18,7 @@ class RecipeIngredient extends Model
     protected $fillable = [
         'name',
         'slug',
-        'link',
+        'website',
         'description',
         'image',
         'thumbnail',
@@ -32,7 +28,6 @@ class RecipeIngredient extends Model
         'root',
         'disabled',
     ];
-
 
     /**
      * Returns an array of options for a select list.
@@ -48,7 +43,7 @@ class RecipeIngredient extends Model
             $options = [ '' => '' ];
         }
 
-        foreach (RecipeIngredient::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
+        foreach (Academy::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
             $options[$nameAsKey ? $row->name : $row->id] = $row->name;
         }
 

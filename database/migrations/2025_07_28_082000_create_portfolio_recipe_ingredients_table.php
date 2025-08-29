@@ -15,9 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
+            $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('thumbnail')->nullable();
+            $table->integer('sequence')->default(0);
+            $table->tinyInteger('public')->default(0);
+            $table->tinyInteger('readonly')->default(0);
+            $table->tinyInteger('root')->default(0);
+            $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
         });
     }
