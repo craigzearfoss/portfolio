@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CareerDictionaryLanguageStoreRequest;
-use App\Http\Requests\CareerDictionaryLanguageUpdateRequest;
+use App\Http\Requests\Dictionary\CareerDictionaryLanguageStoreRequest;
+use App\Http\Requests\Dictionary\CareerDictionaryLanguageUpdateRequest;
 use App\Models\Career\DictionaryLanguage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;

@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CareerContactStoreRequest;
-use App\Http\Requests\CareerContactUpdateRequest;
+use App\Http\Requests\Career\CareerContactStoreRequest;
+use App\Http\Requests\Career\CareerContactUpdateRequest;
 use App\Models\Career\Contact;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ContactController extends Controller

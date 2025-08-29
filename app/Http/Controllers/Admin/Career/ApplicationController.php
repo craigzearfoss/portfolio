@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CareerApplicationStoreRequest;
-use App\Http\Requests\CareerApplicationUpdateRequest;
+use App\Http\Requests\Career\CareerApplicationStoreRequest;
+use App\Http\Requests\Career\CareerApplicationUpdateRequest;
 use App\Models\Career\Application;
-use App\Models\Career\Company;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ApplicationController extends Controller

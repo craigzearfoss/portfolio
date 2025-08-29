@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CareerNoteStoreRequest;
-use App\Http\Requests\CareerNoteUpdateRequest;
+use App\Http\Requests\Career\CareerNoteStoreRequest;
+use App\Http\Requests\Career\CareerNoteUpdateRequest;
 use App\Models\Career\Note;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class NoteController extends Controller

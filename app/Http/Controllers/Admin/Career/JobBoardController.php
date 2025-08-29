@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CareerJobBoardStoreRequest;
-use App\Http\Requests\CareerJobBoardUpdateRequest;
+use App\Http\Requests\Career\CareerJobBoardStoreRequest;
+use App\Http\Requests\Career\CareerJobBoardUpdateRequest;
 use App\Models\Career\JobBoard;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class JobBoardController extends Controller

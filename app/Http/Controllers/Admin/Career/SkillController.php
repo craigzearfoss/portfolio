@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CareerSkillStoreRequest;
-use App\Http\Requests\CareerSkillUpdateRequest;
+use App\Http\Requests\Career\CareerSkillStoreRequest;
+use App\Http\Requests\Career\CareerSkillUpdateRequest;
 use App\Models\Career\Skill;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class SkillController extends Controller

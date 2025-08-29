@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CareerDictionaryOperatingSystemStoreRequest;
-use App\Http\Requests\CareerDictionaryOperatingSystemUpdateRequest;
+use App\Http\Requests\Dictionary\CareerDictionaryOperatingSystemStoreRequest;
+use App\Http\Requests\Dictionary\CareerDictionaryOperatingSystemUpdateRequest;
 use App\Models\Career\DictionaryOperatingSystem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;

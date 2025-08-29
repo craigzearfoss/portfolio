@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CareerReferenceStoreRequest;
-use App\Http\Requests\CareerReferenceUpdateRequest;
+use App\Http\Requests\Career\CareerReferenceStoreRequest;
+use App\Http\Requests\Career\CareerReferenceUpdateRequest;
 use App\Models\Career\Reference;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ReferenceController extends Controller

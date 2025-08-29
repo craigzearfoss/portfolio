@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CareerCommunicationStoreRequest;
-use App\Http\Requests\CareerCommunicationUpdateRequest;
+use App\Http\Requests\Career\CareerCommunicationStoreRequest;
+use App\Http\Requests\Career\CareerCommunicationUpdateRequest;
 use App\Models\Career\Communication;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CommunicationController extends Controller
