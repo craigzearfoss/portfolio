@@ -1,11 +1,13 @@
 @extends('admin.layouts.default', [
     'title' => $project->name,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Projects']
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Projects' ,       'url' => route('admin.portfolio.project.index') ],
+        [ 'name' => 'Show' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.portfolio.project.edit', $project) ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'url' => route('admin.portfolio.project.edit', $project) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Project', 'url' => route('admin.portfolio.project.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => route('admin.portfolio.project.index') ],
     ],

@@ -12,10 +12,22 @@
 
     <div>
 
-        <div class="card">
-            <div class="card-body p-4">
-                <h1>Portfolio</h1>
+        <div class="card m-4">
+
+            <div class="card-head p-4">
+                <h1>Portfolios</h1>
             </div>
+
+            <div class="card-body p-4">
+
+                <ul>
+                    @foreach ($portfolioTypes as $portfolioType)
+                        <li><a href="{{ route('admin.portfolio.'.$portfolioType->type.'.index') }}">{{ $portfolioType->name }}</a></li>
+                    @endforeach
+                </ul>
+
+            </div>
+
         </div>
 
     </div>

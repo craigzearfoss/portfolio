@@ -1,8 +1,10 @@
 @extends('admin.layouts.default', [
     'title' => $course->name,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Courses']
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Courses',         'url' => route('admin.portfolio.course.index') ],
+        [ 'name' => 'Show' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.portfolio.course.edit', $course) ],

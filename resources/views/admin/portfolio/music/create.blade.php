@@ -1,8 +1,10 @@
 @extends('admin.layouts.default', [
     'title' =>'Add New Music',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Music']
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Music',           'url' => route('admin.portfolio.music.index') ],
+        [ 'name' => 'Create' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.portfolio.music.index') ],

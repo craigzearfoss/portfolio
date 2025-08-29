@@ -1,8 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => 'Links',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Links']
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Links' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Link', 'url' => route('admin.portfolio.link.create') ],

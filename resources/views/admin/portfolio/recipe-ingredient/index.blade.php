@@ -1,8 +1,10 @@
 @extends('admin.layouts.default', [
     'title' => 'Recipe Ingredients',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Recipe Ingredients']
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Recipes',         'url' => route('admin.portfolio.recipe.index') ],
+        [ 'name' => 'Ingredients' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Ingredient', 'url' => route('admin.portfolio.recipe-ingredient.create') ],

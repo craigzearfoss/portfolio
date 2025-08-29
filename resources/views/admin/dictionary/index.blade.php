@@ -12,10 +12,22 @@
 
     <div>
 
-        <div class="card">
-            <div class="card-body p-4">
-                <h1>Dictionary</h1>
+        <div class="card m-4">
+
+            <div class="card-head p-4">
+                <h1>Dictionaries</h1>
             </div>
+
+            <div class="card-body p-4">
+
+                <ul>
+                    @foreach ($dictionaryTypes as $dictionaryType)
+                        <li><a href="{{ route('admin.dictionary.'.$dictionaryType->type.'.index') }}">{{ $dictionaryType->name }}</a></li>
+                    @endforeach
+                </ul>
+
+            </div>
+
         </div>
 
     </div>

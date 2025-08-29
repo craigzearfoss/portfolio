@@ -2,7 +2,10 @@
     'title' => $recipeIngredient->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Recipe Ingredients']
+        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Recipes',         'url' => route('admin.portfolio.recipe.index') ],
+        [ 'name' => 'Ingredients',     'url' => route('admin.portfolio.recipe-ingredient.index') ],
+        [ 'name' => 'Show' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',             'url' => route('admin.portfolio.recipe-ingredient.edit', $recipeIngredient) ],

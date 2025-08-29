@@ -1,8 +1,10 @@
 @extends('admin.layouts.default', [
     'title' =>'Add New Project',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Projects']
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Projects' ,       'url' => route('admin.portfolio.project.index') ],
+        [ 'name' => 'Create' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.portfolio.project.index') ],

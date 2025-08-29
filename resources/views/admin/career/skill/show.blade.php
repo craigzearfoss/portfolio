@@ -1,13 +1,15 @@
 @extends('admin.layouts.default', [
     'title' => $skill->name,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Skills']
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
+        [ 'name' => 'Skills',          'url' => route('admin.career.skill.index') ],
+        [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.career.resume.skill.edit', $skill) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Skill', 'url' => route('admin.career.resume.skill.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => route('admin.career.resume.skill.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.career.skill.edit', $skill) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Skill', 'url' => route('admin.career.skill.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => route('admin.career.skill.index') ],
     ],
     'errors' => $errors ?? [],
 ])

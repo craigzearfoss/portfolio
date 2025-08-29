@@ -1,13 +1,15 @@
 @extends('admin.layouts.default', [
-    'title' => $video->name,
+    'title' => $recipe->name,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Videos']
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Recipes',         'url' => route('admin.portfolio.recipe.index') ],
+        [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.portfolio.video.edit', $video) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Video', 'url' => route('admin.portfolio.video.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => route('admin.portfolio.video.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.portfolio.recipe.edit', $recipe) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe', 'url' => route('admin.portfolio.recipe.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => route('admin.portfolio.recipe.index') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -18,68 +20,68 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $video->name
+            'value' => $recipe->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'slug',
-            'value' => $video->slug
+            'value' => $recipe->slug
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'professional',
-            'checked' => $video->professional
+            'checked' => $recipe->professional
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'personal',
-            'checked' => $video->personal
+            'checked' => $recipe->personal
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $video->link,
+            'url'    => $recipe->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $video->description
+            'value' => $recipe->description
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'sequence',
-            'value' => $video->sequence
+            'value' => $recipe->sequence
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'public',
-            'checked' => $video->public
+            'checked' => $recipe->public
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
-            'checked' => $video->disabled
+            'checked' => $recipe->disabled
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'owner',
-            'value' => $video->admin['username'] ?? ''
+            'value' => $recipe->admin['username'] ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'created at',
-            'value' => longDateTime($video->created_at)
+            'value' => longDateTime($recipe->created_at)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'updated at',
-            'value' => longDateTime($video->updated_at)
+            'value' => longDateTime($recipe->updated_at)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'deleted at',
-            'value' => longDateTime($video->deleted_at)
+            'value' => longDateTime($recipe->deleted_at)
         ])
 
     </div>

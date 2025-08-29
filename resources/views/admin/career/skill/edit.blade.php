@@ -1,11 +1,13 @@
 @extends('admin.layouts.default', [
     'title' => $skill->name,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Skills']
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
+        [ 'name' => 'Skills',          'url' => route('admin.career.skill.index') ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.resume.skill.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.skill.index') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -14,7 +16,7 @@
 
     <div class="from">
 
-        <form action="{{ route('admin.career.resume.skill.update', $skill) }}" method="POST">
+        <form action="{{ route('admin.career.skill.update', $skill) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -72,7 +74,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => route('admin.career.resume.skill.index')
+                'cancel_url' => route('admin.career.skill.index')
             ])
 
         </form>

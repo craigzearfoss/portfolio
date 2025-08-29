@@ -1,8 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => 'Resumes',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Resumes']
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
+        [ 'name' => 'Resumes' ]
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'url' => route('admin.career.resume.create') ],
