@@ -2,6 +2,7 @@
     'title' => 'Add New Language',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
         [ 'name' => 'Languages',       'url' => route('admin.dictionary.language.index') ],
         [ 'name' => 'Add' ],
     ],

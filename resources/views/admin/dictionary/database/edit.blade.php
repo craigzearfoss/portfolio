@@ -2,6 +2,7 @@
     'title' => $dictionaryDatabase->name . ' database',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
         [ 'name' => 'Databases',       'url' => route('admin.dictionary.database.index') ],
         [ 'name' => 'Edit' ],
     ],

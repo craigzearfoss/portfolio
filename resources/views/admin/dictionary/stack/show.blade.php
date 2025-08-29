@@ -2,6 +2,7 @@
     'title' => $dictionaryStack->name . ' stack',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
         [ 'name' => 'Stacks',          'url' => route('admin.dictionary.stack.index') ],
         [ 'name' => 'Show' ],
     ],

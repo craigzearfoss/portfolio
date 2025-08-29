@@ -2,7 +2,8 @@
     'title' => 'Dictionary Stacks',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Stacks' ]
+        [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
+        [ 'name' => 'Stacks' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'url' => route('admin.dictionary.stack.create') ],

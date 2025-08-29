@@ -2,6 +2,7 @@
     'title' => 'Add New Category',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
         [ 'name' => 'Categories',      'url' => route('admin.dictionary.category.index') ],
         [ 'name' => 'Add' ],
     ],

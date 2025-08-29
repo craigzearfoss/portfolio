@@ -2,6 +2,7 @@
     'title' => $dictionaryServer->name . ' server',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
         [ 'name' => 'Servers',         'url' => route('admin.dictionary.server.index') ],
         [ 'name' => 'Show' ],
     ],

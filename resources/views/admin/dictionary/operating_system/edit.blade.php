@@ -2,6 +2,7 @@
     'title' => $dictionaryOperatingSystem->name . ' operating system',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard',   'url' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',        'url' => route('admin.dictionary.index') ],
         [ 'name' => 'Operating Systems', 'url' => route('admin.dictionary.operating-system.index') ],
         [ 'name' => 'Edit' ],
     ],

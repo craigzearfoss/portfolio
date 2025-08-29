@@ -2,6 +2,7 @@
     'title' => 'Add New Framework',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
         [ 'name' => 'Frameworks',      'url' => route('admin.dictionary.framework.index') ],
         [ 'name' => 'Add' ],
     ],
