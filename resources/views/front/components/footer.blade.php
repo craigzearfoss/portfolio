@@ -1,16 +1,36 @@
-<footer class="footer flex flex-auto items-center h-16 px-4 sm:px-6 md:px-8">
-    <div class="flex items-center justify-between flex-auto w-full">
-        @if(config('app.copyright') && config('app.owner'))
-            @include('front.components.copyright')
-        @endif
-        <div>
-            <a class="text-gray" href="{{ route('front.about') }}">About</a>
-            <span class="mx-2 text-muted"> | </span>
-            <a class="text-gray" href="{{ route('front.terms_and_conditions') }}">Terms & Conditions</a>
-            <span class="mx-2 text-muted"> | </span>
-            <a class="text-gray" href="{{ route('front.privacy_policy') }}">Privacy policy</a>
-            <span class="mx-2 text-muted"> | </span>
-            <a class="text-gray" href="{{ route('front.contact') }}">Contact</a>
+<footer class="footer mt-4">
+    <div class="container-fluid">
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    @if(config('app.copyright') && config('app.owner'))
+                        @include('front.components.copyright')
+                    @endif
+                </div>
+                <div class="level-item">
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <a href="{{ route('front.about') }}">About</a>
+                    <span class="mx-2"> | </span>
+                    <a href="{{ route('front.terms_and_conditions') }}">Terms & Conditions</a>
+                    <span class="mx-2"> | </span>
+                    <a ref="{{ route('front.privacy_policy') }}">Privacy policy</a>
+                    <span class="mx-2"> | </span>
+                    <a href="{{ route('front.contact') }}">Contact</a>
+                </div>
+            </div>
         </div>
     </div>
 </footer>
+
+<script>
+    console.log(document.querySelector('#inputEditor'));
+    ClassicEditor
+        .create(document.querySelector('#inputEditor'))
+        .catch(error => {
+            console.error( error );
+        });
+</script>
+

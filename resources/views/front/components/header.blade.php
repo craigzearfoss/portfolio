@@ -26,22 +26,11 @@
 
         <div class="header-action header-action-end">
 
-            <?php /*
-            @include('frontend.components.header-notification')
-            */ ?>
+            @include('front.components.header-notification')
 
-            <?php /*
-            @include('frontend.components.header-config')
-            */ ?>
+            @include('front.components.header-config')
 
-            <?php /*
-            @include('frontend.components.header-user-dropdown')
-            <!-- User Dropdown-->
-            <div class="dropdown">
-                <ul class="dropdown-menu bottom-end min-w-[240px]">
-                </ul>
-            </div>
-            */ ?>
+            @include('front.components.header-user-dropdown')
 
         </div>
 
