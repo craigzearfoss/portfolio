@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class NoteController extends Controller
 {
-    protected $numPerPage = 20;
+    const PER_PAGE = 20;
 
     /**
      * Display a listing of notes.
      */
-    public function index(): View
+    public function index(int $perPage = self::PER_PAGE): View
     {
-        $notes = Note::latest()->paginate($this->numPerPage);
+        $notes = Note::latest()->paginate($perPage);
 
         return view('admin.career.note.index', compact('notes'))
-            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**

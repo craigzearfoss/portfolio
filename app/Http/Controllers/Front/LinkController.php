@@ -8,7 +8,7 @@ use Illuminate\View\View;
 
 class LinkController extends Controller
 {
-    protected $numPerPage = 20;
+    const ROWS_PER_PAGE = 20;
 
     /**
      * Display a listing of the link.
@@ -18,11 +18,11 @@ class LinkController extends Controller
         $links = Link::where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence', 'asc')
-            ->paginate($this->numPerPage);
+            ->paginate(self::ROWS_PER_PAGE);
 
         $title = 'Links';
         return view('front.link.index', compact('links', 'title'))
-            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
+            ->with('i', (request()->input('page', 1) - 1) * self::ROWS_PER_PAGE);
     }
 
     /**

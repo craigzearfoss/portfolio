@@ -12,17 +12,17 @@ use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
-    protected $numPerPage = 20;
+    const PER_PAGE = 20;
 
     /**
      * Display a listing of dictionary categories.
      */
-    public function index(): View
+    public function index(int $perPage = self::PER_PAGE): View
     {
-        $dictionaryCategories = Category::orderBy('name', 'asc')->paginate($this->numPerPage);
+        $dictionaryCategories = Category::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.dictionary.category.index', compact('dictionaryCategories'))
-            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**

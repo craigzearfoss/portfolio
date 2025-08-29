@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class CompanyController extends Controller
 {
-    protected $numPerPage = 20;
+    const PER_PAGE = 20;
 
     /**
      * Display a listing of companies.
      */
-    public function index(): View
+    public function index(int $perPage = self::PER_PAGE): View
     {
-        $companies = Company::latest()->paginate($this->numPerPage);
+        $companies = Company::latest()->paginate($perPage);
 
         return view('admin.career.company.index', compact('companies'))
-            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**

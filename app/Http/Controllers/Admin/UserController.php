@@ -16,17 +16,17 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    protected $numPerPage = 20;
+    const ROWS_PER_PAGE = 20;
 
     /**
      * Display a listing of users.
      */
     public function index(): View
     {
-        $users = User::latest()->paginate($this->numPerPage);
+        $users = User::latest()->paginate(self::ROWS_PER_PAGE);
 
         return view('admin.user.index', compact('users'))
-            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
+            ->with('i', (request()->input('page', 1) - 1) * self::ROWS_PER_PAGE);
     }
 
     /**

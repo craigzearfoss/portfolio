@@ -9,7 +9,7 @@ use Illuminate\View\View;
 
 class RecipeController extends Controller
 {
-    protected $numPerPage = 20;
+    const ROWS_PER_PAGE = 20;
 
     /**
      * Display a listing of the art.
@@ -19,11 +19,11 @@ class RecipeController extends Controller
         $recipes = Recipe::where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence', 'asc')
-            ->paginate($this->numPerPage);
+            ->paginate(self::ROWS_PER_PAGE);
 
         $title = 'Recipes';
         return view('front.recipe.index', compact('recipes', 'title'))
-            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
+            ->with('i', (request()->input('page', 1) - 1) * self::ROWS_PER_PAGE);
     }
 
     /**

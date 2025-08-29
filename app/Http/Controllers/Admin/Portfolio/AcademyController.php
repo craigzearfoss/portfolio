@@ -9,17 +9,17 @@ use Illuminate\View\View;
 
 class AcademyController extends Controller
 {
-    protected $numPerPage = 20;
+    const ROWS_PER_PAGE = 20;
 
     /**
      * Display a listing of academies.
      */
     public function index(): View
     {
-        $academies = Academy::latest()->paginate($this->numPerPage);
+        $academies = Academy::latest()->paginate(self::ROWS_PER_PAGE);
 
         return view('admin.portfolio.academy.index', compact('academies'))
-            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
+            ->with('i', (request()->input('page', 1) - 1) * self::ROWS_PER_PAGE);
     }
 
     /**

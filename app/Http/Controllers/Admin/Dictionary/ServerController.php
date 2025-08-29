@@ -12,17 +12,17 @@ use Illuminate\View\View;
 
 class ServerController extends Controller
 {
-    protected $numPerPage = 20;
+    const PER_PAGE = 20;
 
     /**
      * Display a listing of dictionary servers.
      */
-    public function index(): View
+    public function index(int $perPage = self::PER_PAGE): View
     {
-        $dictionaryServers = Server::orderBy('name', 'asc')->paginate($this->numPerPage);
+        $dictionaryServers = Server::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.dictionary.server.index', compact('dictionaryServers'))
-            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**

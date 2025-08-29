@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class VideoController extends Controller
 {
-    protected $numPerPage = 20;
+    const ROWS_PER_PAGE = 20;
 
     /**
      * Display a listing of recipe ingredients.
      */
     public function index(): View
     {
-        $videos = Video::latest()->paginate($this->numPerPage);
+        $videos = Video::latest()->paginate(self::ROWS_PER_PAGE);
 
         return view('admin.portfolio.video.index', compact('videos'))
-            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
+            ->with('i', (request()->input('page', 1) - 1) * self::ROWS_PER_PAGE);
     }
 
     /**

@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class ProjectController extends Controller
 {
-    protected $numPerPage = 20;
+    const ROWS_PER_PAGE = 20;
 
     /**
      * Display a listing of projects.
      */
     public function index(): View
     {
-        $projects = Project::latest()->paginate($this->numPerPage);
+        $projects = Project::latest()->paginate(self::ROWS_PER_PAGE);
 
         return view('admin.portfolio.project.index', compact('projects'))
-            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
+            ->with('i', (request()->input('page', 1) - 1) * self::ROWS_PER_PAGE);
     }
 
     /**

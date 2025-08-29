@@ -12,17 +12,17 @@ use Illuminate\View\View;
 
 class DatabaseController extends Controller
 {
-    protected $numPerPage = 20;
+    const PER_PAGE = 20;
 
     /**
      * Display a listing of dictionary databases.
      */
-    public function index(): View
+    public function index(int $perPage = self::PER_PAGE): View
     {
-        $dictionaryDatabases = Database::orderBy('name', 'asc')->paginate($this->numPerPage);
+        $dictionaryDatabases = Database::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.dictionary.database.index', compact('dictionaryDatabases'))
-            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**

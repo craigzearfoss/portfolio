@@ -14,17 +14,17 @@ use Illuminate\View\View;
 
 class AdminController extends Controller
 {
-    protected $numPerPage = 20;
+    const ROWS_PER_PAGE = 20;
 
     /**
      * Display a listing of admins.
      */
     public function index(): View
     {
-        $admins = Admin::latest()->paginate($this->numPerPage);
+        $admins = Admin::latest()->paginate(self::ROWS_PER_PAGE);
 
         return view('admin.admin.index', compact('admins'))
-            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
+            ->with('i', (request()->input('page', 1) - 1) * self::ROWS_PER_PAGE);
     }
 
     /**

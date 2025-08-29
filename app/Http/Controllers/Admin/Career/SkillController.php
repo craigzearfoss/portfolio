@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class SkillController extends Controller
 {
-    protected $numPerPage = 20;
+    const PER_PAGE = 20;
 
     /**
      * Display a listing of skills.
      */
-    public function index(): View
+    public function index(int $perPage = self::PER_PAGE): View
     {
-        $skills = Skill::latest()->paginate($this->numPerPage);
+        $skills = Skill::latest()->paginate($perPage);
 
         return view('admin.career.skill.index', compact('skills'))
-            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
