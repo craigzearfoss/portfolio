@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Career\CareerResumeStoreRequest;
-use App\Http\Requests\Career\CareerResumeUpdateRequest;
+use App\Http\Requests\Career\ResumeStoreRequest;
+use App\Http\Requests\Career\ResumeUpdateRequest;
 use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class ResumeController extends Controller
     /**
      * Store a newly created resume in storage.
      */
-    public function store(CareerResumeStoreRequest $request): RedirectResponse
+    public function store(ResumeStoreRequest $request): RedirectResponse
     {
         Resume::create($request->validated());
 
@@ -62,7 +62,7 @@ class ResumeController extends Controller
     /**
      * Update the specified resume in storage.
      */
-    public function update(CareerResumeUpdateRequest $request, Resume $resume): RedirectResponse
+    public function update(ResumeUpdateRequest $request, Resume $resume): RedirectResponse
     {
         $resume->update($request->validated());
 

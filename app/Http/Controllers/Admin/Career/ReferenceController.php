@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Career\CareerReferenceStoreRequest;
-use App\Http\Requests\Career\CareerReferenceUpdateRequest;
+use App\Http\Requests\Career\ReferenceStoreRequest;
+use App\Http\Requests\Career\ReferenceUpdateRequest;
 use App\Models\Career\Reference;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class ReferenceController extends Controller
     /**
      * Store a newly created reference in storage.
      */
-    public function store(CareerReferenceStoreRequest $request): RedirectResponse
+    public function store(ReferenceStoreRequest $request): RedirectResponse
     {
         Reference::create($request->validated());
 
@@ -62,7 +62,7 @@ class ReferenceController extends Controller
     /**
      * Update the specified reference in storage.
      */
-    public function update(CareerReferenceUpdateRequest $request, Reference $reference): RedirectResponse
+    public function update(ReferenceUpdateRequest $request, Reference $reference): RedirectResponse
     {
         dd($request);
 

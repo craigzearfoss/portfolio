@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Career\CareerContactStoreRequest;
-use App\Http\Requests\Career\CareerContactUpdateRequest;
+use App\Http\Requests\Career\ContactStoreRequest;
+use App\Http\Requests\Career\rContactUpdateRequest;
 use App\Models\Career\Contact;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class ContactController extends Controller
     /**
      * Store a newly created contact in storage.
      */
-    public function store(CareerContactStoreRequest $request): RedirectResponse
+    public function store(ContactStoreRequest $request): RedirectResponse
     {
         Contact::create($request->validated());
 
@@ -62,7 +62,7 @@ class ContactController extends Controller
     /**
      * Update the specified contact in storage.
      */
-    public function update(CareerContactUpdateRequest $request, Contact $contact): RedirectResponse
+    public function update(rContactUpdateRequest $request, Contact $contact): RedirectResponse
     {
         $contact->update($request->validated());
 

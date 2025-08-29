@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Career\CareerSkillStoreRequest;
-use App\Http\Requests\Career\CareerSkillUpdateRequest;
+use App\Http\Requests\Career\SkillStoreRequest;
+use App\Http\Requests\Career\SkillUpdateRequest;
 use App\Models\Career\Skill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class SkillController extends Controller
     /**
      * Store a newly created skill in storage.
      */
-    public function store(CareerSkillStoreRequest $request): RedirectResponse
+    public function store(SkillStoreRequest $request): RedirectResponse
     {
         Skill::create($request->validated());
 
@@ -62,7 +62,7 @@ class SkillController extends Controller
     /**
      * Update the specified skill in storage.
      */
-    public function update(CareerSkillUpdateRequest $request, Skill $skill): RedirectResponse
+    public function update(SkillUpdateRequest $request, Skill $skill): RedirectResponse
     {
         dd($request);
 

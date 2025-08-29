@@ -5,7 +5,7 @@ namespace App\Http\Requests\Career;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CareerResumeUpdateRequest extends FormRequest
+class ResumeStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,9 @@ class CareerResumeUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['string', 'max:255', 'unique:career_db.resumes,name,'.$this->resume->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.resumes,slug,'.$this->resume->id, 'filled'],
+            'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'         => ['required', 'string', 'max:255', 'unique:career_db.resumes,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.resumes,slug'],
             'date'         => ['date', 'nullable'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'link'         => ['string', 'max:255', 'nullable'],

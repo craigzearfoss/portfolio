@@ -5,7 +5,7 @@ namespace App\Http\Requests\Career;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CareerJobUpdateRequest extends FormRequest
+class CommunicationUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class CareerJobUpdateRequest extends FormRequest
     {
         return [
             'admin_id' => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'     => ['string', 'max:255', 'unique:portfolio_db.jobs,name,'.$this->job->id, 'filled'],
-            'slug'     => ['string', 'max:255', 'unique:portfolio_db.jobs,slug,'.$this->job->id, 'filled'],
+            'subject'  => ['string', 'max:255', 'filled'],
+            'body'     => ['filled'],
             'sequence' => ['integer', 'min:0'],
             'public'   => ['integer', 'between:0,1'],
             'readonly' => ['integer', 'between:0,1'],

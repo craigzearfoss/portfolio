@@ -5,7 +5,7 @@ namespace App\Http\Requests\Career;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CareerCoverLetterUpdateRequest extends FormRequest
+class CoverLetterStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,9 @@ class CareerCoverLetterUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['string', 'max:255', 'unique:career_db.cover_letters,name,'.$this->cover_letter->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.cover_letters,slug,'.$this->cover_letter->id, 'filled'],
+            'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'         => ['required', 'string', 'max:255', 'unique:career_db.cover_letters,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.cover_letters,slug'],
             'recipient'    => ['string', 'max:255', 'nullable'],
             'date'         => ['date', 'nullable'],
             'link'         => ['string', 'max:255', 'nullable'],

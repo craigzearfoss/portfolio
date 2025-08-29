@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Career\CareerJobBoardStoreRequest;
-use App\Http\Requests\Career\CareerJobBoardUpdateRequest;
+use App\Http\Requests\Career\JobBoardStoreRequest;
+use App\Http\Requests\Career\JobBoardUpdateRequest;
 use App\Models\Career\JobBoard;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class JobBoardController extends Controller
     /**
      * Store a newly created job board in storage.
      */
-    public function store(CareerJobBoardStoreRequest $request): RedirectResponse
+    public function store(JobBoardStoreRequest $request): RedirectResponse
     {
         JobBoard::create($request->validated());
 
@@ -62,7 +62,7 @@ class JobBoardController extends Controller
     /**
      * Update the specified job board in storage.
      */
-    public function update(CareerJobBoardUpdateRequest $request, JobBoard $jobBoard): RedirectResponse
+    public function update(JobBoardUpdateRequest $request, JobBoard $jobBoard): RedirectResponse
     {
         $jobBoard->update($request->validated());
 

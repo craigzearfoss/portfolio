@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Career\CareerCoverLetterStoreRequest;
-use App\Http\Requests\Career\CareerCoverLetterUpdateRequest;
+use App\Http\Requests\Career\CoverLetterStoreRequest;
+use App\Http\Requests\Career\CoverLetterUpdateRequest;
 use App\Models\Career\CoverLetter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class CoverLetterController extends Controller
     /**
      * Store a newly created cover letter in storage.
      */
-    public function store(CareerCoverLetterStoreRequest $request): RedirectResponse
+    public function store(CoverLetterStoreRequest $request): RedirectResponse
     {
         CoverLetter::create($request->validated());
 
@@ -62,7 +62,7 @@ class CoverLetterController extends Controller
     /**
      * Update the specified cover letter in storage.
      */
-    public function update(CareerCoverLetterUpdateRequest $request, CoverLetter $coverLetter): RedirectResponse
+    public function update(CoverLetterUpdateRequest $request, CoverLetter $coverLetter): RedirectResponse
     {
         $coverLetter->update($request->validated());
 

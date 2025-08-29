@@ -5,7 +5,7 @@ namespace App\Http\Requests\Career;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CareerContactStoreRequest extends FormRequest
+class CompanyStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class CareerContactStoreRequest extends FormRequest
     {
         return [
             'admin_id'        => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'            => ['required', 'string', 'max:255', 'unique:career_db.contacts,name'],
-            'slug'            => ['required', 'string', 'max:255', 'unique:portfolio_db.contacts,slug'],
-            'title'           => ['string', 'max:100', 'nullable'],
+            'name'            => ['required', 'string', 'max:255', 'unique:career_db.companies,name'],
+            'slug'            => ['required', 'string', 'max:255', 'unique:portfolio_db.companies,slug'],
+            'industry_id'     => ['integer', 'max:100'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Career\CareerJobStoreRequest;
-use App\Http\Requests\Career\CareerJobUpdateRequest;
+use App\Http\Requests\Career\JobStoreRequest;
+use App\Http\Requests\Career\obUpdateRequest;
 use App\Models\Career\Job;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +40,7 @@ class JobController extends Controller
     /**
      * Store a newly created job in storage.
      */
-    public function store(CareerJobStoreRequest $request): RedirectResponse
+    public function store(JobStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add job board entries.');
@@ -75,7 +75,7 @@ class JobController extends Controller
     /**
      * Update the specified job in storage.
      */
-    public function update(CareerJobUpdateRequest $request, Job $job): RedirectResponse
+    public function update(obUpdateRequest $request, Job $job): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update job board entries.');

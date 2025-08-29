@@ -5,7 +5,7 @@ namespace App\Http\Requests\Career;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CareerContactUpdateRequest extends FormRequest
+class rContactUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -5,7 +5,7 @@ namespace App\Http\Requests\Career;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CareerSkillUpdateRequest extends FormRequest
+class NoteStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,9 @@ class CareerSkillUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id' => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'     => ['string', 'max:255', 'unique:portfolio_db.skills,name,'.$this->skill->id, 'filled'],
-            'slug'     => ['string', 'max:255', 'unique:portfolio_db.skills,slug,'.$this->skill->id, 'filled'],
+            'admin_id' => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'subject'  => ['required', 'string', 'max:255'],
+            'body'     => ['required'],
             'sequence' => ['integer', 'min:0'],
             'public'   => ['integer', 'between:0,1'],
             'readonly' => ['integer', 'between:0,1'],

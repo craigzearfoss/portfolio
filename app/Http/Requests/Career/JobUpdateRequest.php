@@ -5,14 +5,14 @@ namespace App\Http\Requests\Career;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CareerJobBoardStoreRequest extends FormRequest
+class obUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check() && Auth::guard('admin')->user()->root;
+        return Auth::guard('admin')->check();
     }
 
     /**
@@ -23,8 +23,9 @@ class CareerJobBoardStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => ['required', 'string', 'max:100', 'unique:career_db.job_boards,name'],
-            'website'  => ['string', 'max:255', 'nullable'],
+            'admin_id' => ['integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'     => ['string', 'max:255', 'unique:portfolio_db.jobs,name,'.$this->job->id, 'filled'],
+            'slug'     => ['string', 'max:255', 'unique:portfolio_db.jobs,slug,'.$this->job->id, 'filled'],
             'sequence' => ['integer', 'min:0'],
             'public'   => ['integer', 'between:0,1'],
             'readonly' => ['integer', 'between:0,1'],

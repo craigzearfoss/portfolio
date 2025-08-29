@@ -8,7 +8,7 @@ use App\Models\Career\Resume;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class CareerApplicationUpdateRequest extends FormRequest
+class ApplicationUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
