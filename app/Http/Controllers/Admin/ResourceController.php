@@ -13,17 +13,17 @@ use Illuminate\View\View;
 
 class ResourceController extends Controller
 {
-    const ROWS_PER_PAGE = 20;
+    const PER_PAGE = 20;
 
     /**
      * Display a listing of resources.
      */
-    public function index(): View
+    public function index(int $perPage = self::PER_PAGE): View
     {
-        $resources = Resource::latest()->paginate(self::ROWS_PER_PAGE);
+        $resources = Resource::latest()->paginate($perPage);
 
         return view('admin.resource.index', compact('resources'))
-            ->with('i', (request()->input('page', 1) - 1) * self::ROWS_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**

@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class ArtController extends Controller
 {
-    const ROWS_PER_PAGE = 20;
+    const PER_PAGE = 20;
 
     /**
      * Display a listing of art.
      */
-    public function index(): View
+    public function index(int $perPage = self::PER_PAGE): View
     {
-        $arts = Art::latest()->paginate(self::ROWS_PER_PAGE);
+        $arts = Art::latest()->paginate($perPage);
 
         return view('admin.portfolio.art.index', compact('arts'))
-            ->with('i', (request()->input('page', 1) - 1) * self::ROWS_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**

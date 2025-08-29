@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class RecipeIngredientController extends Controller
 {
-    const ROWS_PER_PAGE = 20;
+    const PER_PAGE = 20;
 
     /**
      * Display a listing of recipe ingredients.
      */
-    public function index(): View
+    public function index(int $perPage = self::PER_PAGE): View
     {
-        $recipeIngredients = RecipeIngredient::latest()->paginate(self::ROWS_PER_PAGE);
+        $recipeIngredients = RecipeIngredient::latest()->paginate($perPage);
 
         return view('admin.portfolio.recipe-ingredient.index', compact('recipeIngredients'))
-            ->with('i', (request()->input('page', 1) - 1) * self::ROWS_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
