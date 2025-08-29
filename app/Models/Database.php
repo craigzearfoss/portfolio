@@ -23,6 +23,8 @@ class Database extends Model
         'title',
         'sequence',
         'public',
+        'readonly',
+        'root',
         'disabled',
     ];
 

@@ -33,6 +33,8 @@ class Resume extends Model
         'primary',
         'sequence',
         'public',
+        'readonly',
+        'root',
         'disabled',
     ];
 

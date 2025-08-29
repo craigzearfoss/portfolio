@@ -23,10 +23,15 @@ class MessageUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'    => ['string', 'max:255', 'filled'],
-            'email'   => ['email', 'max:255', 'filled'],
-            'subject' => ['string', 'max:255', 'filled'],
-            'body'    => ['filled'],
+            'name'     => ['string', 'max:255', 'filled'],
+            'email'    => ['email', 'max:255', 'filled'],
+            'subject'  => ['string', 'max:255', 'filled'],
+            'body'     => ['filled'],
+            'sequence' => ['integer', 'min:0'],
+            'public'   => ['integer', 'between:0,1'],
+            'readonly' => ['integer', 'between:0,1'],
+            'root'     => ['integer', 'between:0,1'],
+            'disabled' => ['integer', 'between:0,1'],
         ];
     }
 }

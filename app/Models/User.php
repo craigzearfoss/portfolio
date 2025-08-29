@@ -40,7 +40,11 @@ class User extends Authenticatable
         'remember_token',
         'token',
         'status',
-        'disabled'
+        'sequence',
+        'public',
+        'readonly',
+        'root',
+        'disabled',
     ];
 
     /**

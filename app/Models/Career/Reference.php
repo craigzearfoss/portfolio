@@ -27,6 +27,8 @@ class Reference extends Model
         'slug',
         'sequence',
         'public',
+        'readonly',
+        'root',
         'disabled',
     ];
 

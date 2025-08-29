@@ -33,7 +33,11 @@ class Admin extends Authenticatable
         'password',
         'token',
         'root',
-        'disabled'
+        'sequence',
+        'public',
+        'readonly',
+        'root',
+        'disabled',
     ];
 
     /**

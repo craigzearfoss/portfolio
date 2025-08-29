@@ -23,7 +23,10 @@ class RecipeUnit extends Model
         'abbreviation',
         'system',
         'sequence',
-
+        'public',
+        'readonly',
+        'root',
+        'disabled',
     ];
 
 

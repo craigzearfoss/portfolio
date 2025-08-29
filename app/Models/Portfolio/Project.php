@@ -36,6 +36,8 @@ class Project extends Model
         'thumbnail',
         'sequence',
         'public',
+        'readonly',
+        'root',
         'disabled',
     ];
 

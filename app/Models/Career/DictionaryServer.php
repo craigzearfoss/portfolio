@@ -28,6 +28,11 @@ class DictionaryServer extends Model
         'website',
         'wiki_page',
         'description',
+        'sequence',
+        'public',
+        'readonly',
+        'root',
+        'disabled',
     ];
 
     /**

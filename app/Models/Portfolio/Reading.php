@@ -39,6 +39,8 @@ class Reading extends Model
         'thumbnail',
         'sequence',
         'public',
+        'readonly',
+        'root',
         'disabled',
     ];
 

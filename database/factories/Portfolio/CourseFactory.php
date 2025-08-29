@@ -23,7 +23,7 @@ class CourseFactory extends Factory
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
             'completed'    => fake()->date(),
-            'academy'      => fake()->randomElement(\App\Models\Portfolio\Course::academyListOptions()),
+            'academy_id'   => fake()->randomElement(\App\Models\Portfolio\Academy::all()->pluck('id')->toArray()),
             'website'      => fake()->domainName(),
             'instructor'   => fake()->name(),
             'sponsor'      => fake()->company(),

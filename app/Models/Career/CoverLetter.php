@@ -34,6 +34,8 @@ class CoverLetter extends Model
         'primary',
         'sequence',
         'public',
+        'readonly',
+        'root',
         'disabled',
     ];
 

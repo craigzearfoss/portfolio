@@ -30,6 +30,8 @@ class Communication extends Model
         'body',
         'sequence',
         'public',
+        'readonly',
+        'root',
         'disabled',
     ];
 

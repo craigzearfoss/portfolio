@@ -33,13 +33,18 @@ class AdminUpdateRequest extends FormRequest
         $ruleArray = [
             //'username'        => ['string', 'min:6', 'max:200', 'unique:admins,username,'.$adminId],  // cannot change the username
             'name'              => ['string', 'max:255', 'nullable'],
-            'phone'             => ['string', 'max:20', 'nullable'],
-            'email'             => ['email', 'max:255', 'unique:admins,email,'.$adminId, 'nullable'],
-            'image'             => ['string', 'max:255', 'nullable'],
-            'thumbnail'         => ['string', 'max:255', 'nullable'],
-            'password'          => ['string', 'min:8', 'max:255'],
-            'confirm_password'  => ['string', 'same:password'],
-            'token'             => ['string', 'max:255', 'nullable'],
+            'phone'            => ['string', 'max:20', 'nullable'],
+            'email'            => ['email', 'max:255', 'unique:admins,email,'.$adminId, 'nullable'],
+            'image'            => ['string', 'max:255', 'nullable'],
+            'thumbnail'        => ['string', 'max:255', 'nullable'],
+            'password'         => ['string', 'min:8', 'max:255'],
+            'confirm_password' => ['string', 'same:password'],
+            'token'            => ['string', 'max:255', 'nullable'],
+            'sequence'         => ['integer', 'min:0'],
+            'public'           => ['integer', 'between:0,1'],
+            'readonly'         => ['integer', 'between:0,1'],
+            'root'             => ['integer', 'between:0,1'],
+            'disabled'         => ['integer', 'between:0,1'],
         ];
 
         if (Auth::guard('admin')->user()->root) {

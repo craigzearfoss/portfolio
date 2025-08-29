@@ -29,6 +29,8 @@ class Resource extends Model
         'icon',
         'sequence',
         'public',
+        'readonly',
+        'root',
         'disabled',
     ];
 

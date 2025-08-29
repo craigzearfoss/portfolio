@@ -45,6 +45,8 @@ class CareerContactUpdateRequest extends FormRequest
             'description'     => ['nullable'],
             'sequence'        => ['integer', 'min:0'],
             'public'          => ['integer', 'between:0,1'],
+            'readonly'        => ['integer', 'between:0,1'],
+            'root'            => ['integer', 'between:0,1'],
             'disabled'        => ['integer', 'between:0,1'],
         ];
     }

@@ -29,6 +29,11 @@ class Application extends Model
         'contract',
         'contract-to-hire',
         'project',
+        'sequence',
+        'public',
+        'readonly',
+        'root',
+        'disabled',
     ];
 
     const OFFICES = [

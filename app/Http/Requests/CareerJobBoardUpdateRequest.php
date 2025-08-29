@@ -21,10 +21,15 @@ class CareerJobBoardUpdateRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {dd($this);
+    {
         return [
-            'name'    => ['string', 'max:100', 'unique:career_db.job_boards,name,'.$this->job_board->id, 'filled'],
-            'website' => ['string', 'max:255', 'nullable'],
+            'name'     => ['string', 'max:100', 'unique:career_db.job_boards,name,'.$this->job_board->id, 'filled'],
+            'website'  => ['string', 'max:255', 'nullable'],
+            'sequence' => ['integer', 'min:0'],
+            'public'   => ['integer', 'between:0,1'],
+            'readonly' => ['integer', 'between:0,1'],
+            'root'     => ['integer', 'between:0,1'],
+            'disabled' => ['integer', 'between:0,1'],
         ];
     }
 }

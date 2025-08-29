@@ -26,7 +26,6 @@ class CareerDictionaryStoreRequest extends FormRequest
             'name'                => ['required', 'string', 'max:100'],
             'slug'                => ['required', 'string', 'max:100', 'unique:career_db.dictionaries,slug'],
             'abbreviation'        => ['string', 'max:20', 'nullable'],
-
             'owner'               => ['string', 'max:100', 'nullable'],
             'license'             => ['string', 'max:100', 'nullable'],
             'source_language'     => ['string', 'max:100', 'nullable'],
@@ -35,6 +34,11 @@ class CareerDictionaryStoreRequest extends FormRequest
             'tags'                => ['string', 'max:255', 'nullable'],
             'website'             => ['string', 'max:255', 'nullable'],
             'wiki_page'           => ['string', 'max:255', 'nullable'],
+            'sequence'            => ['integer', 'min:0'],
+            'public'              => ['integer', 'between:0,1'],
+            'readonly'            => ['integer', 'between:0,1'],
+            'root'                => ['integer', 'between:0,1'],
+            'disabled'            => ['integer', 'between:0,1'],
         ];
     }
 }

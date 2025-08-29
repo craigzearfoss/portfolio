@@ -29,6 +29,8 @@ class Note extends Model
         'body',
         'sequence',
         'public',
+        'readonly',
+        'root',
         'disabled',
     ];
 

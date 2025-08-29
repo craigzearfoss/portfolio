@@ -30,6 +30,8 @@ class RecipeIngredient extends Model
         'public',
         'readonly',
         'root',
+        'readonly',
+        'root',
         'disabled',
     ];
 

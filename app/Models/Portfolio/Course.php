@@ -49,6 +49,8 @@ class Course extends Model
         'thumbnail',
         'sequence',
         'public',
+        'readonly',
+        'root',
         'disabled',
     ];
 

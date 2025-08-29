@@ -20,6 +20,11 @@ class JobBoard extends Model
     protected $fillable = [
         'name',
         'website',
+        'sequence',
+        'public',
+        'readonly',
+        'root',
+        'disabled',
     ];
 
     /**

@@ -38,6 +38,8 @@ class Certification extends Model
         'thumbnail',
         'sequence',
         'public',
+        'readonly',
+        'root',
         'disabled',
     ];
 

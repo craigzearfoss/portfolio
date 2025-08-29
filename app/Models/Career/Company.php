@@ -45,6 +45,8 @@ class Company extends Model
         'description',
         'sequence',
         'public',
+        'readonly',
+        'root',
         'disabled',
     ];
 

@@ -33,6 +33,8 @@ class Recipe extends Model
         'thumbnail',
         'sequence',
         'public',
+        'readonly',
+        'root',
         'disabled',
     ];
 

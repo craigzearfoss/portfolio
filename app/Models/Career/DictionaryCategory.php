@@ -21,6 +21,11 @@ class DictionaryCategory extends Model
         'name',
         'wiki_page',
         'description',
+        'sequence',
+        'public',
+        'readonly',
+        'root',
+        'disabled',
     ];
 
     /**
