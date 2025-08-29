@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dictionary\DatabaseStoreRequest;
 use App\Http\Requests\Dictionary\DatabaseUpdateRequest;
-use App\Models\Career\DictionaryDatabase;
+use App\Models\Dictionary\Database;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -19,7 +19,7 @@ class DatabaseController extends Controller
      */
     public function index(): View
     {
-        $dictionaryDatabases = DictionaryDatabase::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
+        $dictionaryDatabases = Database::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
 
         return view('admin.dictionary.database.index', compact('dictionaryDatabases'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
@@ -46,7 +46,7 @@ class DatabaseController extends Controller
             abort(403, 'Only admins with root access can add dictionary database entries.');
         }
 
-        DictionaryDatabase::create($request->validated());
+        Database::create($request->validated());
 
         return redirect()->route('admin.dictionary.database.index')
             ->with('success', 'Dictionary database created successfully.');
@@ -55,7 +55,7 @@ class DatabaseController extends Controller
     /**
      * Display the specified dictionary database.
      */
-    public function show(DictionaryDatabase $dictionaryDatabase): View
+    public function show(Database $dictionaryDatabase): View
     {
         return view('admin.dictionary.database.show', compact('dictionaryDatabase'));
     }
@@ -63,7 +63,7 @@ class DatabaseController extends Controller
     /**
      * Show the form for editing the specified dictionary database.
      */
-    public function edit(DictionaryDatabase $dictionaryDatabase): View
+    public function edit(Database $dictionaryDatabase): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit dictionary database entries.');
@@ -76,7 +76,7 @@ class DatabaseController extends Controller
      * Update the specified dictionary database in storage.
      */
     public function update(DatabaseUpdateRequest $request,
-                           DictionaryDatabase $dictionaryDatabase): RedirectResponse
+                           Database              $dictionaryDatabase): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update dictionary database entries.');
@@ -91,7 +91,7 @@ class DatabaseController extends Controller
     /**
      * Remove the specified dictionary database from storage.
      */
-    public function destroy(DictionaryDatabase $dictionaryDatabase): RedirectResponse
+    public function destroy(Database $dictionaryDatabase): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can de dictionary database entries.');

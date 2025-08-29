@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dictionary\FrameworkStoreRequest;
 use App\Http\Requests\Dictionary\FrameworkUpdateRequest;
-use App\Models\Career\DictionaryFramework;
+use App\Models\Dictionary\Framework;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -19,7 +19,7 @@ class FrameworkController extends Controller
      */
     public function index(): View
     {
-        $dictionaryFrameworks = DictionaryFramework::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
+        $dictionaryFrameworks = Framework::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
 
         return view('admin.dictionary.framework.index', compact('dictionaryFrameworks'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
@@ -46,7 +46,7 @@ class FrameworkController extends Controller
             abort(403, 'Only admins with root access can add dictionary framework entries.');
         }
 
-        DictionaryFramework::create($request->validated());
+        Framework::create($request->validated());
 
         return redirect()->route('admin.dictionary.framework.index')
             ->with('success', 'Dictionary framework created successfully.');
@@ -55,7 +55,7 @@ class FrameworkController extends Controller
     /**
      * Display the specified dictionary framework.
      */
-    public function show(DictionaryFramework $dictionaryFramework): View
+    public function show(Framework $dictionaryFramework): View
     {
         return view('admin.dictionary.framework.show', compact('dictionaryFramework'));
     }
@@ -63,7 +63,7 @@ class FrameworkController extends Controller
     /**
      * Show the form for editing the specified dictionary framework.
      */
-    public function edit(DictionaryFramework $dictionaryFramework): View
+    public function edit(Framework $dictionaryFramework): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit dictionary framework entries.');
@@ -76,7 +76,7 @@ class FrameworkController extends Controller
      * Update the specified dictionary framework in storage.
      */
     public function update(FrameworkUpdateRequest $request,
-                           DictionaryFramework $dictionaryFramework): RedirectResponse
+                           Framework              $dictionaryFramework): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update dictionary framework entries.');
@@ -91,7 +91,7 @@ class FrameworkController extends Controller
     /**
      * Remove the specified dictionary framework from storage.
      */
-    public function destroy(DictionaryFramework $dictionaryFramework): RedirectResponse
+    public function destroy(Framework $dictionaryFramework): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete dictionary framework entries.');

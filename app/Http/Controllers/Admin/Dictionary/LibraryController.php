@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dictionary\LibraryStoreRequest;
 use App\Http\Requests\Dictionary\UpdateRequest;
-use App\Models\Career\DictionaryLibrary;
+use App\Models\Dictionary\Library;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -19,7 +19,7 @@ class LibraryController extends Controller
      */
     public function index(): View
     {
-        $dictionaryLibraries = DictionaryLibrary::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
+        $dictionaryLibraries = Library::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
 
         return view('admin.dictionary.library.index', compact('dictionaryLibraries'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
@@ -46,7 +46,7 @@ class LibraryController extends Controller
             abort(403, 'Only admins with root access can add dictionary library entries.');
         }
 
-        DictionaryLibrary::create($request->validated());
+        Library::create($request->validated());
 
         return redirect()->route('admin.dictionary.library.index')
             ->with('success', 'Dictionary library created successfully.');
@@ -55,7 +55,7 @@ class LibraryController extends Controller
     /**
      * Display the specified dictionary library.
      */
-    public function show(DictionaryLibrary $dictionaryLibrary): View
+    public function show(Library $dictionaryLibrary): View
     {
         return view('admin.dictionary.library.show', compact('dictionaryLibrary'));
     }
@@ -63,7 +63,7 @@ class LibraryController extends Controller
     /**
      * Show the form for editing the specified dictionary library.
      */
-    public function edit(DictionaryLibrary $dictionaryLibrary): View
+    public function edit(Library $dictionaryLibrary): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit dictionary library entries.');
@@ -76,7 +76,7 @@ class LibraryController extends Controller
      * Update the specified dictionary library in storage.
      */
     public function update(UpdateRequest $request,
-                           DictionaryLibrary $dictionaryLibrary): RedirectResponse
+                           Library       $dictionaryLibrary): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update dictionary library entries.');
@@ -91,7 +91,7 @@ class LibraryController extends Controller
     /**
      * Remove the specified dictionary library from storage.
      */
-    public function destroy(DictionaryLibrary $dictionaryLibrary): RedirectResponse
+    public function destroy(Library $dictionaryLibrary): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete dictionary library entries.');

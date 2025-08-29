@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dictionary\StackStoreRequest;
 use App\Http\Requests\Dictionary\StackUpdateRequest;
-use App\Models\Career\DictionaryStack;
+use App\Models\Dictionary\Stack;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -19,7 +19,7 @@ class StackController extends Controller
      */
     public function index(): View
     {
-        $dictionaryStacks = DictionaryStack::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
+        $dictionaryStacks = Stack::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
 
         return view('admin.dictionary.stack.index', compact('dictionaryStacks'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
@@ -38,7 +38,7 @@ class StackController extends Controller
      */
     public function store(StackStoreRequest $request): RedirectResponse
     {
-        $dictionaryStack =DictionaryStack::create($request->validated());
+        $dictionaryStack =Stack::create($request->validated());
 
         return redirect()->route('admin.dictionary.stack.show', $dictionaryStack)
             ->with('success', 'Dictionary stack created successfully.');
@@ -47,7 +47,7 @@ class StackController extends Controller
     /**
      * Display the specified dictionary stack.
      */
-    public function show(DictionaryStack $dictionaryStack): View
+    public function show(Stack $dictionaryStack): View
     {
         return view('admin.dictionary.stack.show', compact('dictionaryStack'));
     }
@@ -55,7 +55,7 @@ class StackController extends Controller
     /**
      * Show the form for editing the specified dictionary stack.
      */
-    public function edit(DictionaryStack $dictionaryStack): View
+    public function edit(Stack $dictionaryStack): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit dictionary stack entries.');
@@ -68,7 +68,7 @@ class StackController extends Controller
      * Update the specified dictionary stack in storage.
      */
     public function update(StackUpdateRequest $request,
-                           DictionaryStack $dictionaryStack): RedirectResponse
+                           Stack              $dictionaryStack): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update dictionary stack entries.');
@@ -83,7 +83,7 @@ class StackController extends Controller
     /**
      * Remove the specified dictionary stack from storage.
      */
-    public function destroy(DictionaryStack $dictionaryStack): RedirectResponse
+    public function destroy(Stack $dictionaryStack): RedirectResponse
     {
         $dictionaryStack->delete();
 

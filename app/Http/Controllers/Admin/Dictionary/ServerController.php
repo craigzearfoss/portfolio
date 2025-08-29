@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dictionary\ServerStoreRequest;
 use App\Http\Requests\Dictionary\ServerUpdateRequest;
-use App\Models\Career\DictionaryServer;
+use App\Models\Dictionary\Server;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -19,7 +19,7 @@ class ServerController extends Controller
      */
     public function index(): View
     {
-        $dictionaryServers = DictionaryServer::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
+        $dictionaryServers = Server::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
 
         return view('admin.dictionary.server.index', compact('dictionaryServers'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
@@ -46,7 +46,7 @@ class ServerController extends Controller
             abort(403, 'Only admins with root access can add dictionary server entries.');
         }
 
-        DictionaryServer::create($request->validated());
+        Server::create($request->validated());
 
         return redirect()->route('admin.dictionary.server.index')
             ->with('success', 'Dictionary server created successfully.');
@@ -55,7 +55,7 @@ class ServerController extends Controller
     /**
      * Display the specified dictionary server.
      */
-    public function show(DictionaryServer $dictionaryServer): View
+    public function show(Server $dictionaryServer): View
     {
         return view('admin.dictionary.server.show', compact('dictionaryServer'));
     }
@@ -63,7 +63,7 @@ class ServerController extends Controller
     /**
      * Show the form for editing the specified dictionary server.
      */
-    public function edit(DictionaryServer $dictionaryServer): View
+    public function edit(Server $dictionaryServer): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit dictionary server entries.');
@@ -76,7 +76,7 @@ class ServerController extends Controller
      * Update the specified dictionary server in storage.
      */
     public function update(ServerUpdateRequest $request,
-                           DictionaryServer $dictionaryServer): RedirectResponse
+                           Server              $dictionaryServer): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update dictionary server entries.');
@@ -91,7 +91,7 @@ class ServerController extends Controller
     /**
      * Remove the specified dictionary server from storage.
      */
-    public function destroy(DictionaryServer $dictionaryServer): RedirectResponse
+    public function destroy(Server $dictionaryServer): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete dictionary server entries.');

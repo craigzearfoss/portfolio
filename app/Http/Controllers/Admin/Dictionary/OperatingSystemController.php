@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Dictionary;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dictionary\OperatingSystemStoreRequest;
 use App\Http\Requests\Dictionary\OperatingSystemUpdateRequest;
-use App\Models\Career\DictionaryOperatingSystem;
+use App\Models\Dictionary\OperatingSystem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -19,7 +19,7 @@ class OperatingSystemController extends Controller
      */
     public function index(): View
     {
-        $dictionaryOperatingSystems = DictionaryOperatingSystem::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
+        $dictionaryOperatingSystems = OperatingSystem::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
 
         return view('admin.dictionary.operating_system.index', compact('dictionaryOperatingSystems'))
             ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
@@ -46,7 +46,7 @@ class OperatingSystemController extends Controller
             abort(403, 'Only admins with root access can add dictionary operating system entries.');
         }
 
-        DictionaryOperatingSystem::create($request->validated());
+        OperatingSystem::create($request->validated());
 
         return redirect()->route('admin.dictionary.operating_system.index')
             ->with('success', 'Dictionary operating system created successfully.');
@@ -55,7 +55,7 @@ class OperatingSystemController extends Controller
     /**
      * Display the specified dictionary operating system.
      */
-    public function show(DictionaryOperatingSystem $dictionaryOperatingSystem): View
+    public function show(OperatingSystem $dictionaryOperatingSystem): View
     {
         return view('admin.dictionary.operating_system.show', compact('dictionaryOperatingSystem'));
     }
@@ -63,7 +63,7 @@ class OperatingSystemController extends Controller
     /**
      * Show the form for editing the specified dictionary operating system.
      */
-    public function edit(DictionaryOperatingSystem $dictionaryOperatingSystem): View
+    public function edit(OperatingSystem $dictionaryOperatingSystem): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit dictionary operating system entries.');
@@ -76,7 +76,7 @@ class OperatingSystemController extends Controller
      * Update the specified dictionary operating system in storage.
      */
     public function update(OperatingSystemUpdateRequest $request,
-                           DictionaryOperatingSystem $dictionaryOperatingSystem): RedirectResponse
+                           OperatingSystem              $dictionaryOperatingSystem): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update dictionary operating system entries.');
@@ -91,7 +91,7 @@ class OperatingSystemController extends Controller
     /**
      * Remove the specified dictionary operating system from storage.
      */
-    public function destroy(DictionaryOperatingSystem $dictionaryOperatingSystem): RedirectResponse
+    public function destroy(OperatingSystem $dictionaryOperatingSystem): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete dictionary operating system entries.');
