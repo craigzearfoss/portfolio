@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Portfolio;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class PortfolioRecipeStoreRequest extends FormRequest
+class VideoStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,15 @@ class PortfolioRecipeStoreRequest extends FormRequest
     {
         return [
             'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.recipes,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.recipes,slug'],
+            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.videos,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.videos.slug'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
+            'date'         => ['date', 'nullable'],
+            'year'         => ['integer', 'between:0,3000', 'nullable'],
+            'company'      => ['string', 'max:255', 'nullable'],
+            'credit'       => ['nullable'],
+            'location'     => ['string', 'max:255', 'nullable'],
             'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

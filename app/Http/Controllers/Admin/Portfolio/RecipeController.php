@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PortfolioRecipeStoreRequest;
-use App\Http\Requests\PortfolioRecipeUpdateRequest;
+use App\Http\Requests\Portfolio\RecipeStoreRequest;
+use App\Http\Requests\Portfolio\RecipeUpdateRequest;
 use App\Models\Portfolio\Recipe;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class RecipeController extends Controller
     /**
      * Store a newly created recipe in storage.
      */
-    public function store(PortfolioRecipeStoreRequest $request): RedirectResponse
+    public function store(RecipeStoreRequest $request): RedirectResponse
     {
         Recipe::create($request->validated());
 
@@ -62,7 +62,7 @@ class RecipeController extends Controller
     /**
      * Update the specified recipe in storage.
      */
-    public function update(PortfolioRecipeUpdateRequest $request, Recipe $recipe): RedirectResponse
+    public function update(RecipeUpdateRequest $request, Recipe $recipe): RedirectResponse
     {
         $recipe->update($request->validated());
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Portfolio;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class PortfolioRecipeIngredientUpdateRequest extends FormRequest
+class RecipeIngredientStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,8 @@ class PortfolioRecipeIngredientUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['string', 'max:255', 'unique:portfolio_db.recipe_ingredients,name,'.$this->recipe_ingredient->id, 'filled'],
-            'slug'        => ['string', 'max:255', 'unique:portfolio_db.recipe_ingredients,slug,'.$this->recipe_ingredient->id, 'filled'],
+            'name'        => ['required', 'string', 'max:255', 'unique:portfolio_db.recipe_ingredients,name'],
+            'slug'        => ['required', 'string', 'max:255', 'unique:portfolio_db.recipe_ingredients,slug'],
             'description' => ['nullable'],
             'image'       => ['string', 'max:255', 'nullable'],
             'thumbnail'   => ['string', 'max:255', 'nullable'],

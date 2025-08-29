@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PortfolioVideoStoreRequest;
-use App\Http\Requests\PortfolioVideoUpdateRequest;
+use App\Http\Requests\Portfolio\VideoStoreRequest;
+use App\Http\Requests\Portfolio\VideoUpdateRequest;
 use App\Models\Portfolio\Video;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -35,7 +35,7 @@ class VideoController extends Controller
     /**
      * Store a newly created video in storage.
      */
-    public function store(PortfolioVideoStoreRequest $request): RedirectResponse
+    public function store(VideoStoreRequest $request): RedirectResponse
     {
         Video::create($request->validated());
 
@@ -62,7 +62,7 @@ class VideoController extends Controller
     /**
      * Update the specified video in storage.
      */
-    public function update(PortfolioVideoUpdateRequest $request, Video $video): RedirectResponse
+    public function update(VideoUpdateRequest $request, Video $video): RedirectResponse
     {
         $video->update($request->validated());
 
