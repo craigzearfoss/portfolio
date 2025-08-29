@@ -31,6 +31,8 @@ class Link extends Model
         'url',
         'website',
         'description',
+        'image',
+        'thumbnail',
         'sequence',
         'public',
         'disabled',

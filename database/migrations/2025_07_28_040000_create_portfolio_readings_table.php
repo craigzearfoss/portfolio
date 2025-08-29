@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
             $table->text('notes')->nullable();
+            $table->string('image')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('disabled')->default(0);

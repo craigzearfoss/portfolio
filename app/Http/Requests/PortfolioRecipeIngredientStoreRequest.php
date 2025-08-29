@@ -26,6 +26,8 @@ class PortfolioRecipeIngredientStoreRequest extends FormRequest
             'name'        => ['required', 'string', 'max:255', 'unique:portfolio_db.recipe_ingredients,name'],
             'slug'        => ['required', 'string', 'max:255', 'unique:portfolio_db.recipe_ingredients,slug'],
             'description' => ['nullable'],
+            'image'       => ['string', 'max:255', 'nullable'],
+            'thumbnail'   => ['string', 'max:255', 'nullable'],
         ];
     }
 }

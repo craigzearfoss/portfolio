@@ -35,6 +35,8 @@ class Video extends Model
         'location',
         'link',
         'description',
+        'image',
+        'thumbnail',
         'sequence',
         'public',
         'disabled',

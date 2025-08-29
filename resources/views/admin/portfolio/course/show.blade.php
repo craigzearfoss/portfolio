@@ -69,13 +69,23 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'link',
+            'value' => $course->link
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $course->description
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'link',
-            'value' => $course->link
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $course->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $course->thumbnail
         ])
 
         @include('admin.components.show-row', [

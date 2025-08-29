@@ -23,5 +23,7 @@ class RecipeIngredient extends Model
         'name',
         'slug',
         'description',
+        'image',
+        'thumbnail',
     ];
 }

@@ -30,6 +30,8 @@ class ReadingFactory extends Factory
             'link'         => fake()->url(),
             'link_name'    => fake()->sentence(6),
             'notes'        => fake()->text(200),
+            'image'        => fake()->imageUrl(),
+            'thumbnail'    => fake()->imageUrl(),
             'sequence'     => 0,
             'public'       => fake()->numberBetween(0, 1),
             'disabled'     => fake()->numberBetween(0, 1),

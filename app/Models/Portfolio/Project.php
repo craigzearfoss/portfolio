@@ -32,6 +32,8 @@ class Project extends Model
         'repository',
         'link',
         'description',
+        'image',
+        'thumbnail',
         'sequence',
         'public',
         'disabled',

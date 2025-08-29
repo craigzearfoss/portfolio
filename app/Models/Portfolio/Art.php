@@ -29,6 +29,8 @@ class Art extends Model
         'personal',
         'link',
         'description',
+        'image',
+        'thumbnail',
         'sequence',
         'public',
         'disabled',

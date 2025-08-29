@@ -35,6 +35,8 @@ class AdminUpdateRequest extends FormRequest
             'name'              => ['string', 'max:255', 'nullable'],
             'phone'             => ['string', 'max:20', 'nullable'],
             'email'             => ['email', 'max:255', 'unique:admins,email,'.$adminId, 'nullable'],
+            'image'             => ['string', 'max:255', 'nullable'],
+            'thumbnail'         => ['string', 'max:255', 'nullable'],
             'password'          => ['string', 'min:8', 'max:255'],
             'confirm_password'  => ['string', 'same:password'],
             'token'             => ['string', 'max:255', 'nullable'],

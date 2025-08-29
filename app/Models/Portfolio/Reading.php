@@ -35,6 +35,8 @@ class Reading extends Model
         'link',
         'link_name',
         'notes',
+        'image',
+        'thumbnail',
         'sequence',
         'public',
         'disabled',

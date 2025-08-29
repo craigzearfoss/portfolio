@@ -19,9 +19,9 @@
     <div>
 
         @include('admin.components.show-row', [
-    'name'  => 'title',
-    'value' => $reading->title
-])
+            'name'  => 'title',
+            'value' => $reading->title
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'slug',
@@ -73,6 +73,16 @@
         @include('admin.components.show-row', [
             'name'  => 'notes',
             'value' => $reading->notes
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $reading->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $reading->thumbnail
         ])
 
         @include('admin.components.show-row', [

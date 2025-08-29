@@ -31,6 +31,8 @@ class PortfolioLinkUpdateRequest extends FormRequest
             'url'          => ['string', 'max:255', 'required'],
             'website'      => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
+            'image'        => ['string', 'max:255', 'nullable'],
+            'thumbnail'    => ['string', 'max:255', 'nullable'],
             'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],

@@ -34,6 +34,16 @@
             'value' => $recipeIngredient->description
         ])
 
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $recipeIngredient->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $recipeIngredient->thumbnail
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'created at',
             'value' => longDateTime($recipeIngredient->created_at)

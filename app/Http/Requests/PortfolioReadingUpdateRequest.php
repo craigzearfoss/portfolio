@@ -33,6 +33,8 @@ class PortfolioReadingUpdateRequest extends FormRequest
             'link'      => ['string', 'nullable'],
             'link_name' => ['string', 'nullable'],
             'notes'     => ['nullable'],
+            'image'     => ['string', 'max:255', 'nullable'],
+            'thumbnail' => ['string', 'max:255', 'nullable'],
             'sequence'  => ['integer', 'min:0'],
             'public'    => ['integer', 'between:0,1'],
             'disabled'  => ['integer', 'between:0,1'],

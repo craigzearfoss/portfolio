@@ -37,6 +37,18 @@
                     'message'   => $message ?? '',
                 ])
 
+                @include('admin.components.form-file-upload-horizontal', [
+                    'name'    => 'image',
+                    'value'   => old('image') ?? '',
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-file-upload-horizontal', [
+                    'name'    => 'thumbnail',
+                    'value'   => old('thumbnail') ?? '',
+                    'message' => $message ?? '',
+                ])
+
                 @include('admin.components.form-input-horizontal', [
                     'type'        => 'password',
                     'name'        => 'password',

@@ -10,7 +10,7 @@
     </div>
     <div class="field-body">
         <div class="field">
-            <div class="control {{ $hasIcon ? 'has-icons-left' : '' }}">
+            <div class="control {{ !empty($hasIcon) ? 'has-icons-left' : '' }}">
                 <input class="input {{ $class ?? '' }} @error('role') is-invalid @enderror"
                        type="{{ $type }}"
                        id="{{ $id }}"

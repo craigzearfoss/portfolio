@@ -49,6 +49,16 @@
             'value' => $recipe->description
         ])
 
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $recipe->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $recipe->thumbnail
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'sequence',
             'value' => $recipe->sequence

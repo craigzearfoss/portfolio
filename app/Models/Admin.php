@@ -28,6 +28,8 @@ class Admin extends Authenticatable
         'name',
         'phone',
         'email',
+        'image',
+        'thumbnail',
         'password',
         'token',
         'root',

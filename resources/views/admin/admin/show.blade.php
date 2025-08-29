@@ -36,6 +36,16 @@
             'value' => $admin->email
         ])
 
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $admin->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $admin->thumbnail
+        ])
+
         @include('admin.components.show-row-checkbox', [
             'name'    => 'root',
             'checked' => $admin->root

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->tinyInteger('personal')->default(0);
             $table->string('link')->nullable();
             $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(1);
             $table->tinyInteger('disabled')->default(0);

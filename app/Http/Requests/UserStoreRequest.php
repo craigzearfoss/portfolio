@@ -36,6 +36,8 @@ class UserStoreRequest extends FormRequest
             'email'             => ['required', 'email', 'max:255', 'unique:users,email'],
             'email_verified_at' => ['nullable'],
             'website'           => ['string', 'max:255', 'nullable'],
+            'image'             => ['string', 'max:255', 'nullable'],
+            'thumbnail'         => ['string', 'max:255', 'nullable'],
             'password'          => ['required', 'string', 'min:8', 'max:255'],
             'confirm_password'  => ['required', 'string', 'same:password'],
             'remember_token'    => ['string', 'max:200', 'nullable'],

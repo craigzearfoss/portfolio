@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('repository')->nullable();
             $table->string('link')->nullable();
             $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('disabled')->default(0);

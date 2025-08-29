@@ -49,6 +49,8 @@ class UserUpdateRequest extends FormRequest
             //'email'             => ['email', 'max:255', 'unique:users,email,'.$userId, 'filled'], // you can't update the email
             'email_verified_at' => ['nullable'],
             'website'           => ['string', 'max:255', 'nullable'],
+            'image'             => ['string', 'max:255', 'nullable'],
+            'thumbnail'         => ['string', 'max:255', 'nullable'],
             'password'          => ['string', 'min:8', 'max:255', 'filled'],
             'confirm_password'  => ['string', 'same:password', 'filled'],
             'remember_token'    => ['string', 'max:200', 'nullable'],

@@ -54,6 +54,16 @@
             'value' => $link->description
         ])
 
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $link->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $link->thumbnail
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'sequence',
             'value' => $link->sequence

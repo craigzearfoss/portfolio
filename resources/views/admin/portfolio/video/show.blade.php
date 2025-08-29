@@ -64,6 +64,16 @@
             'value' => $video->description
         ])
 
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $video->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $video->thumbnail
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'sequence',
             'value' => $video->sequence

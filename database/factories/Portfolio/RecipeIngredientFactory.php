@@ -20,6 +20,8 @@ class RecipeIngredientFactory extends Factory
             'name'        => fake()->unique()->word(1),
             'slug'        => fake()->unique()->slug(1),
             'description' => fake()->text(200),
+            'image'       => fake()->imageUrl(),
+            'thumbnail'   => fake()->imageUrl(),
         ];
     }
 }

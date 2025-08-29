@@ -28,6 +28,8 @@ class CertificationFactory extends Factory
             'expiration'   => fake()->date(),
             'link'         => fake()->url(),
             'description'  => fake()->text(200),
+            'image'        => fake()->imageUrl(),
+            'thumbnail'    => fake()->imageUrl(),
             'sequence'     => 0,
             'public'       => fake()->numberBetween(0, 1),
             'disabled'     => fake()->numberBetween(0, 1),

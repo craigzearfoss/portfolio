@@ -69,6 +69,16 @@
             'target' => '_blank'
         ])
 
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $user->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $user->thumbnail
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'status',
             'value' => \App\Models\User::statusName($user->status)

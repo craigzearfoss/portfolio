@@ -60,6 +60,16 @@
             'value' => $project->description
         ])
 
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $project->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $project->thumbnail
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'sequence',
             'value' => $project->sequence

@@ -26,6 +26,8 @@ class PortfolioRecipeIngredientUpdateRequest extends FormRequest
             'name'        => ['string', 'max:255', 'unique:portfolio_db.recipe_ingredients,name,'.$this->recipe_ingredient->id, 'filled'],
             'slug'        => ['string', 'max:255', 'unique:portfolio_db.recipe_ingredients,slug,'.$this->recipe_ingredient->id, 'filled'],
             'description' => ['nullable'],
+            'image'       => ['string', 'max:255', 'nullable'],
+            'thumbnail'   => ['string', 'max:255', 'nullable'],
         ];
     }
 }

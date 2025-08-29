@@ -49,6 +49,16 @@
             'value' => $music->description
         ])
 
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $music->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $music->thumbnail
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'sequence',
             'value' => $music->sequence

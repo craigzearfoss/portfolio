@@ -34,6 +34,8 @@ class PortfolioCertificationStoreRequest extends FormRequest
             'personal'     => ['integer', 'between:0,1'],
             'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
+            'image'        => ['string', 'max:255', 'nullable'],
+            'thumbnail'    => ['string', 'max:255', 'nullable'],
             'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],

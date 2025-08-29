@@ -34,6 +34,8 @@ class Certification extends Model
         'expiration',
         'link',
         'description',
+        'image',
+        'thumbnail',
         'sequence',
         'public',
         'disabled',

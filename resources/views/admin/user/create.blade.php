@@ -135,6 +135,18 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'image',
+                'value'   => old('image') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'thumbnail',
+                'value'   => old('thumbnail') ?? '',
+                'message' => $message ?? '',
+            ])
+
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'status',
                 'value'   => old('status') ?? 0,
