@@ -12,7 +12,7 @@ class ArtUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return !Auth::guard('admin')->check();
     }
 
     /**

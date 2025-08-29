@@ -69,16 +69,16 @@ return new class extends Migration
             });
         }
 
-        if (Schema::connection('career_db')->hasTable('companies')) {
-            Schema::connection('career_db')->table('companies', function (Blueprint $table) {
-                $table->dropForeign('companies_admin_id_foreign');
+        if (Schema::connection('career_db')->hasTable('communications')) {
+            Schema::connection('career_db')->table('communications', function (Blueprint $table) {
+                $table->dropForeign('communications_admin_id_foreign');
                 $table->dropColumn('admin_id');
             });
         }
 
-        if (Schema::connection('career_db')->hasTable('communications')) {
-            Schema::connection('career_db')->table('communications', function (Blueprint $table) {
-                $table->dropForeign('communications_admin_id_foreign');
+        if (Schema::connection('career_db')->hasTable('companies')) {
+            Schema::connection('career_db')->table('companies', function (Blueprint $table) {
+                $table->dropForeign('companies_admin_id_foreign');
                 $table->dropColumn('admin_id');
             });
         }
@@ -114,6 +114,13 @@ return new class extends Migration
         if (Schema::connection('career_db')->hasTable('resumes')) {
             Schema::connection('career_db')->table('resumes', function (Blueprint $table) {
                 $table->dropForeign('resumes_admin_id_foreign');
+                $table->dropColumn('admin_id');
+            });
+        }
+
+        if (Schema::connection('career_db')->hasTable('skills')) {
+            Schema::connection('career_db')->table('skills', function (Blueprint $table) {
+                $table->dropForeign('skills_admin_id_foreign');
                 $table->dropColumn('admin_id');
             });
         }

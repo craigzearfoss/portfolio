@@ -5,7 +5,7 @@ namespace App\Http\Requests\Portfolio;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class AcademyStoreRequest extends FormRequest
+class IngredientUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,8 @@ class AcademyStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['required', 'string', 'max:255', 'unique:portfolio_db.academies,name'],
-            'slug'        => ['required', 'string', 'max:255', 'unique:portfolio_db.academies,slug'],
+            'name'        => ['string', 'max:255', 'unique:portfolio_db.ingredients,name,'.$this->ingredients->id, 'filled'],
+            'slug'        => ['string', 'max:255', 'unique:portfolio_db.ingredients,slug,'.$this->ingredients->id, 'filled'],
             'website'     => ['string', 'nullable'],
             'description' => ['nullable'],
             'image'       => ['string', 'max:255', 'nullable'],

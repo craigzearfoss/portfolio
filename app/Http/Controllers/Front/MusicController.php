@@ -10,7 +10,7 @@ use Illuminate\View\View;
 
 class MusicController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of the art.
@@ -20,11 +20,11 @@ class MusicController extends Controller
         $musics = Music::where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence', 'asc')
-            ->paginate(self::NUM_PER_PAGE);
+            ->paginate($this->numPerPage);
 
         $title = 'Music';
         return view('front.music.index', compact('musics', 'title'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

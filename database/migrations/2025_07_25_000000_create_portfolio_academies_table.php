@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('academies', function (Blueprint $table) {
+        Schema::connection('portfolio_db')->create('academies', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('readonly')->default(0);
-            $table->tinyInteger('root')->default(0);
+            $table->tinyInteger('root')->default(1);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
         });
@@ -93,6 +93,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('academies');
+        Schema::connection('portfolio_db')->dropIfExists('academies');
     }
 };

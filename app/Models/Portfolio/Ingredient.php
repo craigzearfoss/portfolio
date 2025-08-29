@@ -5,7 +5,7 @@ namespace App\Models\Portfolio;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Academy extends Model
+class Ingredient extends Model
 {
     /** @use HasFactory<\Database\Factories\Portfolio\IngredientFactory> */
     use HasFactory;
@@ -22,7 +22,7 @@ class Academy extends Model
     protected $fillable = [
         'name',
         'slug',
-        'website',
+        'link',
         'description',
         'image',
         'thumbnail',

@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class JobBoardController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of job boards.
      */
     public function index(): View
     {
-        $jobBoards = JobBoard::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
+        $jobBoards = JobBoard::orderBy('name', 'asc')->paginate($this->numPerPage);
 
         return view('admin.career.job-board.index', compact('jobBoards'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

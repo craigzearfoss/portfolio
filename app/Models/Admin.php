@@ -41,7 +41,7 @@ class Admin extends Authenticatable
     ];
 
     /**
-     * Get the applications for the admin.
+     * Get the career applications for the admin.
      */
     public function applications(): HasMany
     {
@@ -49,31 +49,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the art for the admin.
-     */
-    public function art(): HasMany
-    {
-        return $this->hasMany(\App\Models\Portfolio\Art::class);
-    }
-
-    /**
-     * Get the certifications for the admin.
-     */
-    public function certifications(): HasMany
-    {
-        return $this->hasMany(\App\Models\Portfolio\Certification::class);
-    }
-
-    /**
-     * Get the courses for the admin.
-     */
-    public function courses(): HasMany
-    {
-        return $this->hasMany(\App\Models\Portfolio\Course::class);
-    }
-
-    /**
-     * Get the communications for the admin.
+     * Get the career communications for the admin.
      */
     public function communications(): HasMany
     {
@@ -81,7 +57,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the companies for the admin.
+     * Get the career companies for the admin.
      */
     public function companies(): HasMany
     {
@@ -89,7 +65,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the contacts for the admin.
+     * Get the career contacts for the admin.
      */
     public function contacts(): HasMany
     {
@@ -97,7 +73,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the cover letters for the admin.
+     * Get the career cover letters for the admin.
      */
     public function coverLetters(): HasMany
     {
@@ -105,7 +81,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the jobs for the admin.
+     * Get the career jobs for the admin.
      */
     public function jobs(): HasMany
     {
@@ -113,23 +89,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the links for the admin.
-     */
-    public function links(): HasMany
-    {
-        return $this->hasMany(\App\Models\Portfolio\Link::class);
-    }
-
-    /**
-     * Get the music for the admin.
-     */
-    public function music(): HasMany
-    {
-        return $this->hasMany(\App\Models\Portfolio\Music::class);
-    }
-
-    /**
-     * Get the notes for the admin.
+     * Get the career notes for the admin.
      */
     public function notes(): HasMany
     {
@@ -137,31 +97,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the projects for the admin.
-     */
-    public function projects(): HasMany
-    {
-        return $this->hasMany(\App\Models\Portfolio\Project::class);
-    }
-
-    /**
-     * Get the readings for the admin.
-     */
-    public function readings(): HasMany
-    {
-        return $this->hasMany(\App\Models\Portfolio\Reading::class);
-    }
-
-    /**
-     * Get the recipes for the admin.
-     */
-    public function recipes(): HasMany
-    {
-        return $this->hasMany(\App\Models\Portfolio\Recipe::class);
-    }
-
-    /**
-     * Get the references for the admin.
+     * Get the career references for the admin.
      */
     public function references(): HasMany
     {
@@ -169,7 +105,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the resumes for the admin.
+     * Get the career resumes for the admin.
      */
     public function resumes(): HasMany
     {
@@ -177,7 +113,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the skills for the admin.
+     * Get the career skills for the admin.
      */
     public function skills(): HasMany
     {
@@ -185,7 +121,71 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the videos for the admin.
+     * Get the portfolio art for the admin.
+     */
+    public function art(): HasMany
+    {
+        return $this->hasMany(\App\Models\Portfolio\Art::class);
+    }
+
+    /**
+     * Get the portfolio certifications for the admin.
+     */
+    public function certifications(): HasMany
+    {
+        return $this->hasMany(\App\Models\Portfolio\Certification::class);
+    }
+
+    /**
+     * Get the portfolio courses for the admin.
+     */
+    public function courses(): HasMany
+    {
+        return $this->hasMany(\App\Models\Portfolio\Course::class);
+    }
+
+    /**
+     * Get the portfolio links for the admin.
+     */
+    public function links(): HasMany
+    {
+        return $this->hasMany(\App\Models\Portfolio\Link::class);
+    }
+
+    /**
+     * Get the portfolio music for the admin.
+     */
+    public function music(): HasMany
+    {
+        return $this->hasMany(\App\Models\Portfolio\Music::class);
+    }
+
+    /**
+     * Get the portfolio projects for the admin.
+     */
+    public function projects(): HasMany
+    {
+        return $this->hasMany(\App\Models\Portfolio\Project::class);
+    }
+
+    /**
+     * Get the portfolio readings for the admin.
+     */
+    public function readings(): HasMany
+    {
+        return $this->hasMany(\App\Models\Portfolio\Reading::class);
+    }
+
+    /**
+     * Get the portfolio recipes for the admin.
+     */
+    public function recipes(): HasMany
+    {
+        return $this->hasMany(\App\Models\Portfolio\Recipe::class);
+    }
+
+    /**
+     * Get the portfolio videos for the admin.
      */
     public function videos(): HasMany
     {

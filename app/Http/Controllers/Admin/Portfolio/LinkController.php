@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class LinkController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of links.
      */
     public function index(): View
     {
-        $links = Link::latest()->paginate(self::NUM_PER_PAGE);
+        $links = Link::latest()->paginate($this->numPerPage);
 
         return view('admin.portfolio.link.index', compact('links'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

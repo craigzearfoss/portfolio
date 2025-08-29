@@ -12,17 +12,17 @@ use Illuminate\View\View;
 
 class LibraryController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of dictionary libraries.
      */
     public function index(): View
     {
-        $dictionaryLibraries = Library::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
+        $dictionaryLibraries = Library::orderBy('name', 'asc')->paginate($this->numPerPage);
 
         return view('admin.dictionary.library.index', compact('dictionaryLibraries'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

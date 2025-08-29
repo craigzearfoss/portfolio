@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class ApplicationController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of applications.
      */
     public function index(): View
     {
-        $applications = Application::latest()->paginate(self::NUM_PER_PAGE);
+        $applications = Application::latest()->paginate($this->numPerPage);
 
         return view('admin.career.application.index', compact('applications'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

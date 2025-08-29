@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class RecipeController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of recipes.
      */
     public function index(): View
     {
-        $recipes = Recipe::latest()->paginate(self::NUM_PER_PAGE);
+        $recipes = Recipe::latest()->paginate($this->numPerPage);
 
         return view('admin.portfolio.recipe.index', compact('recipes'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

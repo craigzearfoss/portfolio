@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class CoverLetterController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of cover letters.
      */
     public function index(): View
     {
-        $coverLetters = CoverLetter::latest()->paginate(self::NUM_PER_PAGE);
+        $coverLetters = CoverLetter::latest()->paginate($this->numPerPage);
 
         return view('admin.career.cover-letter.index', compact('coverLetters'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

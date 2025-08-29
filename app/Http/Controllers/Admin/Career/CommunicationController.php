@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class CommunicationController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of communications.
      */
     public function index(): View
     {
-        $communications = Communication::latest()->paginate(self::NUM_PER_PAGE);
+        $communications = Communication::latest()->paginate($this->numPerPage);
 
         return view('admin.career.communication.index', compact('communications'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

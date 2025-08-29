@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class CertificationController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of certifications.
      */
     public function index(): View
     {
-        $certifications = Certification::latest()->paginate(self::NUM_PER_PAGE);
+        $certifications = Certification::latest()->paginate($this->numPerPage);
 
         return view('admin.portfolio.certification.index', compact('certifications'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

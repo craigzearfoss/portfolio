@@ -12,17 +12,17 @@ use Illuminate\View\View;
 
 class StackController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of dictionary stacks.
      */
     public function index(): View
     {
-        $dictionaryStacks = Stack::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
+        $dictionaryStacks = Stack::orderBy('name', 'asc')->paginate($this->numPerPage);
 
         return view('admin.dictionary.stack.index', compact('dictionaryStacks'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

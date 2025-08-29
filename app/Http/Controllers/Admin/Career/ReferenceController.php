@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class ReferenceController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of references.
      */
     public function index(): View
     {
-        $references = Reference::latest()->paginate(self::NUM_PER_PAGE);
+        $references = Reference::latest()->paginate($this->numPerPage);
 
         return view('admin.career.reference.index', compact('references'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

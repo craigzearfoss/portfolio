@@ -12,17 +12,17 @@ use Illuminate\View\View;
 
 class FrameworkController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of dictionary frameworks.
      */
     public function index(): View
     {
-        $dictionaryFrameworks = Framework::orderBy('name', 'asc')->paginate(self::NUM_PER_PAGE);
+        $dictionaryFrameworks = Framework::orderBy('name', 'asc')->paginate($this->numPerPage);
 
         return view('admin.dictionary.framework.index', compact('dictionaryFrameworks'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

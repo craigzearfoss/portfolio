@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class ReadingController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of readings.
      */
     public function index(): View
     {
-        $readings = Reading::latest()->paginate(self::NUM_PER_PAGE);
+        $readings = Reading::latest()->paginate($this->numPerPage);
 
         return view('admin.portfolio.reading.index', compact('readings'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

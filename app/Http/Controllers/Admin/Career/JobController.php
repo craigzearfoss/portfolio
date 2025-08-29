@@ -12,17 +12,17 @@ use Illuminate\View\View;
 
 class JobController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of jobs.
      */
     public function index(): View
     {
-        $jobs = Job::latest()->paginate(self::NUM_PER_PAGE);
+        $jobs = Job::latest()->paginate($this->numPerPage);
 
         return view('admin.career.job.index', compact('jobs'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

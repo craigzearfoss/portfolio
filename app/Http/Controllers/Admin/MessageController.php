@@ -12,17 +12,17 @@ use Illuminate\View\View;
 
 class MessageController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of messages.
      */
     public function index(): View
     {//echo phpinfo();die;
-        $messages = Message::latest()->paginate(self::NUM_PER_PAGE);
+        $messages = Message::latest()->paginate($this->numPerPage);
 
         return view('admin.message.index', compact('messages'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

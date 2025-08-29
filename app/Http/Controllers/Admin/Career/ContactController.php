@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class ContactController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of contacts.
      */
     public function index(): View
     {
-        $contacts = Contact::latest()->paginate(self::NUM_PER_PAGE);
+        $contacts = Contact::latest()->paginate($this->numPerPage);
 
         return view('admin.career.contact.index', compact('contacts'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**

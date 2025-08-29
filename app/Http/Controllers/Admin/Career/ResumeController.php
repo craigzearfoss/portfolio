@@ -11,17 +11,17 @@ use Illuminate\View\View;
 
 class ResumeController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    protected $numPerPage = 20;
 
     /**
      * Display a listing of resumes.
      */
     public function index(): View
     {
-        $resumes = Resume::latest()->paginate(self::NUM_PER_PAGE);
+        $resumes = Resume::latest()->paginate($this->numPerPage);
 
         return view('admin.career.resume.index', compact('resumes'))
-            ->with('i', (request()->input('page', 1) - 1) * self::NUM_PER_PAGE);
+            ->with('i', (request()->input('page', 1) - 1) * $this->numPerPage);
     }
 
     /**
