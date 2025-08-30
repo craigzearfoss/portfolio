@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::connection('portfolio_db')->create('recipe_ingredients', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->unique();
-            $table->string('slug', 100)->unique();
-            $table->string('link')->nullable();
+            $table->foreignIdFor( \App\Models\Admin::class);
+            $table->foreignIdFor( \App\Models\Portfolio\Recipe::class);
+            $table->foreignIdFor( \App\Models\Portfolio\Ingredient::class);
+            $table->float('amount')->default(0);
+            $table->foreignIdFor( \App\Models\Portfolio\Unit::class);
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('thumbnail')->nullable();

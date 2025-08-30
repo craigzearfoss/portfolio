@@ -27,6 +27,7 @@ class Resume extends Model
         'name',
         'slug',
         'date',
+        'content',
         'link',
         'alt_link',
         'description',

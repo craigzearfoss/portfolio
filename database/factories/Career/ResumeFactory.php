@@ -21,6 +21,7 @@ class ResumeFactory extends Factory
             'name'         => fake()->unique()->sentence(6),
             'slug'         => fake()->unique()->slug(6),
             'date'         => fake()->date(),
+            'content'      => fake()->text(200),
             'link'         => fake()->url(),
             'alt_link'     => fake()->url(),
             'description'  => fake()->text(200),

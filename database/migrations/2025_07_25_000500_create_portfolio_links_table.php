@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::connection('portfolio_db')->create('links', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class)->default(1);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->tinyInteger('professional')->default(1);

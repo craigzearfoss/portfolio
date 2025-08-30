@@ -24,7 +24,7 @@ class JobBoardStoreRequest extends FormRequest
     {
         return [
             'name'        => ['required', 'string', 'max:100', 'unique:career_db.job_boards,name'],
-            'slug'        => ['required', 'string', 'max:255', 'unique:portfolio_db.job_boards,slug'],
+            'slug'        => ['required', 'string', 'max:100', 'unique:portfolio_db.job_boards,slug'],
             'website'     => ['string', 'max:255', 'nullable'],
             'description' => ['nullable'],
             'sequence'    => ['integer', 'min:0'],

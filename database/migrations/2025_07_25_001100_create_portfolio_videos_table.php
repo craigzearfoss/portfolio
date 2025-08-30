@@ -11,13 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('career_db')->create('references', function (Blueprint $table) {
+        Schema::connection('portfolio_db')->create('videos', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class)->default(1);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->string('name')->unique();
             $table->string('slug')->unique();
+            $table->tinyInteger('professional')->default(1);
+            $table->tinyInteger('personal')->default(0);
+            $table->date('date')->nullable();
+            $table->year('year')->nullable();
+            $table->string('company')->nullable();
+            $table->string('credit')->nullable();
+            $table->string('location')->nullable();
+            $table->string('link')->nullable();
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(0);
+            $table->tinyInteger('public')->default(1);
             $table->integer('readonly')->default(0);
             $table->integer('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
@@ -34,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('career_db')->dropIfExists('references');
+        Schema::connection('portfolio_db')->dropIfExists('videos');
     }
 };

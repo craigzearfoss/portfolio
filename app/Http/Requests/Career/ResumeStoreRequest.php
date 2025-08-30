@@ -28,6 +28,7 @@ class ResumeStoreRequest extends FormRequest
             'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.resumes,slug'],
             'date'         => ['date', 'nullable'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
+            'content'      => ['nullable'],
             'link'         => ['string', 'max:255', 'nullable'],
             'alt_link'     => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

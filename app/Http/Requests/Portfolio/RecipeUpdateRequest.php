@@ -24,8 +24,8 @@ class RecipeUpdateRequest extends FormRequest
     {
         return [
             'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'         => ['string', 'max:255', 'unique:portfolio_db.recipes,name,'.$this->recipe->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.recipes,slug,'.$this->recipe->id, 'filled'],
+            'name'         => ['string', 'max:255', 'unique:portfolio_db.recipes,name,'.$this->recipes->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.recipes,slug,'.$this->recipes->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'link'         => ['string', 'max:255', 'nullable'],

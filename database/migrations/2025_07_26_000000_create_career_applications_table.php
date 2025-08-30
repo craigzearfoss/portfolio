@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('applications', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class)->default(1);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->foreignIdFor( \App\Models\Career\Company::class);
             $table->foreignIdFor( \App\Models\Career\CoverLetter::class);
             $table->foreignIdFor( \App\Models\Career\Resume::class);

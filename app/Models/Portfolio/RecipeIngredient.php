@@ -20,16 +20,16 @@ class RecipeIngredient extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'slug',
-        'link',
+        'admin_id',
+        'recipe_id',
+        'ingredient_id',
+        'amount',
+        'unit_id',
         'description',
         'image',
         'thumbnail',
         'sequence',
         'public',
-        'readonly',
-        'root',
         'readonly',
         'root',
         'disabled',

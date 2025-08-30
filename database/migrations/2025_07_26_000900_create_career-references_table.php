@@ -11,16 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('career_db')->create('resumes', function (Blueprint $table) {
+        Schema::connection('career_db')->create('references', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class)->default(1);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->date('date')->nullable();
-            $table->string('link')->nullable();
-            $table->string('alt_link')->nullable();
+            $table->string('phone', 20)->nullable();
+            $table->string('phone_label', 255)->nullable();
+            $table->string('alt_phone', 20)->nullable();
+            $table->string('alt_phone_label', 255)->nullable();
+            $table->string('email', 255)->nullable();
+            $table->string('email_label', 255)->nullable();
+            $table->string('alt_email', 255)->nullable();
+            $table->string('alt_email_label', 255)->nullable();
+            $table->string('link', 255)->nullable();
             $table->text('description')->nullable();
-            $table->tinyInteger('primary')->default(0);
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->integer('readonly')->default(0);
@@ -39,18 +44,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        try {
-            if (Schema::connection('career_db')->hasTable('resumes')) {
-                Schema::connection('career_db')->table('resumes', function (Blueprint $table) {
-                    try {
-                        $table->dropForeign('resumes_company_id_foreign');
-                        $table->dropColumn('company_id');
-                    } catch (\Exception $e) {
-                    }
-                });
-            }
-        } catch (\Exception $e) {}
-
-        Schema::connection('career_db')->dropIfExists('resumes');
+        Schema::connection('career_db')->dropIfExists('references');
     }
 };

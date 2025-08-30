@@ -23,8 +23,8 @@ class IndustryStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.industries,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.industries,slug'],
+            'name'         => ['required', 'string', 'max:50', 'unique:portfolio_db.industries,name'],
+            'slug'         => ['required', 'string', 'max:50', 'unique:portfolio_db.industries,slug'],
             'abbreviation' => ['required', 'string', 'max:10', 'unique:portfolio_db.industries,abbreviation'],
             'link'         => ['string', 'nullable'],
             'description'  => ['nullable'],

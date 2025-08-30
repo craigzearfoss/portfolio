@@ -11,12 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('career_db')->create('skills', function (Blueprint $table) {
+        Schema::connection('career_db')->create('resumes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class)->default(1);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->string('name')->unique();
             $table->string('slug')->unique();
+            $table->date('date')->nullable();
+            $table->text('content')->nullable();
+            $table->string('link')->nullable();
+            $table->string('alt_link')->nullable();
             $table->text('description')->nullable();
+            $table->tinyInteger('primary')->default(0);
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->integer('readonly')->default(0);
@@ -35,6 +40,18 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('career_db')->dropIfExists('skills');
+        try {
+            if (Schema::connection('career_db')->hasTable('resumes')) {
+                Schema::connection('career_db')->table('resumes', function (Blueprint $table) {
+                    try {
+                        $table->dropForeign('resumes_company_id_foreign');
+                        $table->dropColumn('company_id');
+                    } catch (\Exception $e) {
+                    }
+                });
+            }
+        } catch (\Exception $e) {}
+
+        Schema::connection('career_db')->dropIfExists('resumes');
     }
 };

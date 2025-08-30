@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class)->default(1);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->string('name');
             $table->string('slug')->unique();
+            $table->string('role');
+            $table->start_date('date')->nullable();
+            $table->end_date('date')->nullable();
             $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->integer('sequence')->default(0);
@@ -25,8 +28,6 @@ return new class extends Migration
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->unique(['admin_id', 'slug'], 'admin_id_slug_unique');
         });
     }
 

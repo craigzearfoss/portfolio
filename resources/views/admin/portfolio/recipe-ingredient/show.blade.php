@@ -20,19 +20,23 @@
     <div>
 
         @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $recipeIngredient->name
+            'name'  => 'recipe',
+            'value' => $recipeIngredient->recipe['name']
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $recipeIngredient->slug
+            'name'  => 'ingredient',
+            'value' => $recipeIngredient->ingredient['name']
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'url'    => $academy->link,
-            'target' => '_blank'
+        @include('admin.components.show-row', [
+            'name'   => 'amount',
+            'value'  => $recipeIngredient->amount,
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'unit',
+            'value' => $recipeIngredient->unit['name']
         ])
 
         @include('admin.components.show-row', [

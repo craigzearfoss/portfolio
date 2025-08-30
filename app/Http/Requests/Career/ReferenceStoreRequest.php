@@ -23,14 +23,24 @@ class ReferenceStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id' => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'     => ['required', 'string', 'max:255', 'unique:portfolio_db.skills,name'],
-            'slug'     => ['required', 'string', 'max:255', 'unique:portfolio_db.skills,slug'],
-            'sequence' => ['integer', 'min:0'],
-            'public'   => ['integer', 'between:0,1'],
-            'readonly' => ['integer', 'between:0,1'],
-            'root'     => ['integer', 'between:0,1'],
-            'disabled' => ['integer', 'between:0,1'],
+            'admin_id'        => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'            => ['required', 'string', 'max:255', 'unique:portfolio_db.skills,name'],
+            'slug'            => ['required', 'string', 'max:255', 'unique:portfolio_db.skills,slug'],
+            'phone'           => ['string', 'max:20', 'nullable'],
+            'phone_label'     => ['string', 'max:255', 'nullable'],
+            'alt_phone'       => ['string', 'max:20', 'nullable'],
+            'alt_phone_label' => ['string', 'max:255', 'nullable'],
+            'email'           => ['string', 'max:255', 'nullable'],
+            'email_label'     => ['string', 'max:255', 'nullable'],
+            'alt_email'       => ['string', 'max:255', 'nullable'],
+            'alt_email_label' => ['string', 'max:255', 'nullable'],
+            'link'            => ['string', 'max:255', 'nullable'],
+            'description'     => ['nullable'],
+            'sequence'        => ['integer', 'min:0'],
+            'public'          => ['integer', 'between:0,1'],
+            'readonly'        => ['integer', 'between:0,1'],
+            'root'            => ['integer', 'between:0,1'],
+            'disabled'        => ['integer', 'between:0,1'],
         ];
     }
 }

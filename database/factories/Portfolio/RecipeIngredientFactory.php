@@ -17,9 +17,6 @@ class RecipeIngredientFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'        => fake()->unique()->word(1),
-            'slug'        => fake()->unique()->slug(1),
-            'link'        => fake()->url(),
             'description' => fake()->text(200),
             'image'       => fake()->imageUrl(),
             'thumbnail'   => fake()->imageUrl(),

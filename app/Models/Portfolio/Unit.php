@@ -5,11 +5,11 @@ namespace App\Models\Portfolio;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RecipeUnit extends Model
+class Unit extends Model
 {
     protected $connection = 'portfolio_db';
 
-    protected $table = 'recipe_units';
+    protected $table = 'units';
 
     public $timestamps = false;
 
@@ -22,6 +22,7 @@ class RecipeUnit extends Model
         'name',
         'abbreviation',
         'system',
+        'description',
         'sequence',
         'public',
         'readonly',
@@ -40,7 +41,7 @@ class RecipeUnit extends Model
     {
         $options = [];
 
-        foreach (RecipeUnit::select('id', 'name', 'abbreviation')->orderBy('name', 'asc')->get() as $row) {
+        foreach (Unit::select('id', 'name', 'abbreviation')->orderBy('name', 'asc')->get() as $row) {
             $options[$abbreviationAsKey ? $row->abbreviation : $row->name] = $row->name;
         }
 

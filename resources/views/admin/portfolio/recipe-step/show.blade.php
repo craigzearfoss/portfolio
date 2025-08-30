@@ -1,0 +1,84 @@
+@extends('admin.layouts.default', [
+    'title' => $recipeStep->recipe->name . ' step ' . $recipeStep->step,
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
+        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Recipes',         'url' => route('admin.portfolio.recipe.index') ],
+        [ 'name' => '#Recipe Name#',   'url' => route('admin.portfolio.recipe.show') ],
+        [ 'name' => 'Step #' ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.portfolio.recipe-step.edit', $recipeStep) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Step',  'url' => route('admin.portfolio.recipe-step.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => route('admin.portfolio.recipe.show') ],
+    ],
+    'errors' => $errors ?? [],
+])
+
+@section('content')
+
+    <div>
+
+        @include('admin.components.show-row', [
+            'name'  => 'recipe',
+            'value' => $recipeStep->recipe->name
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'step',
+            'value' => $recipeStep->step
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => $recipeStep->description
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $recipeStep->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $recipeStep->thumbnail
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'sequence',
+            'value' => $recipeStep->sequence
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'public',
+            'checked' => $recipeStep->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'read-only',
+            'checked' => $recipeStep->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $recipeStep->root
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'disabled',
+            'checked' => $recipeStep->disabled
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'created at',
+            'value' => longDateTime($recipeStep->created_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'updated at',
+            'value' => longDateTime($recipeStep->updated_at)
+        ])
+
+    </div>
+
+@endsection

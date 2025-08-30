@@ -40,6 +40,7 @@ use App\Http\Controllers\Admin\Portfolio\ProjectController as PortfolioProjectCo
 use App\Http\Controllers\Admin\Portfolio\ReadingController as PortfolioReadingController;
 use App\Http\Controllers\Admin\Portfolio\RecipeController as PortfolioRecipeController;
 use App\Http\Controllers\Admin\Portfolio\RecipeIngredientController as PortfolioRecipeIngredientController;
+use App\Http\Controllers\Admin\Portfolio\RecipeStepController as PortfolioRecipeStepController;
 use App\Http\Controllers\Admin\Portfolio\VideoController as PortfolioVideoController;
 
 use App\Http\Controllers\Admin\ProfileController;
@@ -99,6 +100,7 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
     Route::resource('reading', PortfolioReadingController::class);
     Route::resource('recipe', PortfolioRecipeController::class);
     Route::resource('recipe-ingredient', PortfolioRecipeIngredientController::class)->parameter('recipe-ingredient', 'recipe_ingredient');
+    Route::resource('recipe-step', PortfolioRecipeStepController::class)->parameter('recipe-step', 'recipe_step');
     Route::resource('video', PortfolioVideoController::class);
 });
 

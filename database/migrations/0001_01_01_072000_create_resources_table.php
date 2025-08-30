@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('resources', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class)->default(1);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->foreignIdFor(\App\Models\Database::class);
             $table->string('type', 50);
             $table->string('name', 50);

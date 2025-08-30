@@ -23,9 +23,9 @@ class IndustryUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['string', 'max:255', 'unique:portfolio_db.industries,name,'.$this->industries->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.industries,slug,'.$this->industries->id, 'filled'],
-            'abbreviation' => ['string', 'max:255', 'unique:portfolio_db.industries,abbreviation,'.$this->industries->id, 'filled'],
+            'name'         => ['string', 'max:50', 'unique:portfolio_db.industries,name,'.$this->industries->id, 'filled'],
+            'slug'         => ['string', 'max:50', 'unique:portfolio_db.industries,slug,'.$this->industries->id, 'filled'],
+            'abbreviation' => ['string', 'max:10', 'unique:portfolio_db.industries,abbreviation,'.$this->industries->id, 'filled'],
             'link'         => ['string', 'nullable'],
             'description'  => ['nullable'],
             'sequence'     => ['integer', 'min:0'],

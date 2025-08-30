@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class)->default(1);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->string('title', 20)->nullable();

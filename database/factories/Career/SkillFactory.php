@@ -18,8 +18,8 @@ class SkillFactory extends Factory
     {
         return [
             'admin_id'    => \App\Models\Admin::all()->random()->id,
-            'name'        => fake()->unique()->word(),
-            'slug'        => fake()->unique()->word(),
+            'rating'      => fake()->numberBetween(1, 10),
+            'years'       => fake()->numberBetween(0, 20),
             'description' => fake()->text(200),
             'sequence'    => 0,
             'public'      => 0,

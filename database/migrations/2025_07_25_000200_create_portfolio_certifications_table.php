@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::connection('portfolio_db')->create('certifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class)->default(1);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->string('organization')->nullable();
+            $table->foreignIdFor( \App\Models\Portfolio\Academy::class);
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
             $table->year('year')->nullable();

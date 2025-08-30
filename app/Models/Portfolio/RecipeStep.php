@@ -13,4 +13,24 @@ class RecipeStep extends Model
     protected $connection = 'portfolio_db';
 
     protected $table = 'recipe_steps';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'admin_id',
+        'recipe_id',
+        'step',
+        'description',
+        'image',
+        'thumbnail',
+        'sequence',
+        'public',
+        'readonly',
+        'root',
+        'disabled',
+    ];
+
 }

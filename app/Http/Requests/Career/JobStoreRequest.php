@@ -23,14 +23,17 @@ class JobStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id' => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
-            'name'     => ['required', 'string', 'max:255', 'unique:portfolio_db.jobs,name'],
-            'slug'     => ['required', 'string', 'max:255', 'unique:portfolio_db.jobs,slug'],
-            'sequence' => ['integer', 'min:0'],
-            'public'   => ['integer', 'between:0,1'],
-            'readonly' => ['integer', 'between:0,1'],
-            'root'     => ['integer', 'between:0,1'],
-            'disabled' => ['integer', 'between:0,1'],
+            'admin_id'   => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'name'       => ['required', 'string', 'max:255', 'unique:portfolio_db.jobs,name'],
+            'slug'       => ['required', 'string', 'max:255', 'unique:portfolio_db.jobs,slug'],
+            'role'       => ['string', 'max:255',],
+            'start_date' => ['date', 'nullable'],
+            'end_date'   => ['date', 'after_or_equal:start_date', 'nullable'],
+            'sequence'   => ['integer', 'min:0'],
+            'public'     => ['integer', 'between:0,1'],
+            'readonly'   => ['integer', 'between:0,1'],
+            'root'       => ['integer', 'between:0,1'],
+            'disabled'   => ['integer', 'between:0,1'],
         ];
     }
 }
