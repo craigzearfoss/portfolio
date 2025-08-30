@@ -17,7 +17,10 @@
         <thead>
         <tr>
             <th>name</th>
-            <th>website</th>
+            <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
+            <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
         </thead>
@@ -25,7 +28,10 @@
         <tfoot>
         <tr>
             <th>name</th>
-            <th>website</th>
+            <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
+            <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
         </tfoot>
@@ -38,8 +44,17 @@
                 <td class="py-0">
                     {{ $jobBoard->name }}
                 </td>
-                <td class="py-0">
-                    @include('admin.components.link', [ 'url' => $jobBoard->website, 'target' => '_blank' ])
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $jobBoard->public ])
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $jobBoard->readonly ])
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $jobBoard->root ])
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $jobBoard->disabled ])
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
                     <form action="{{ route('admin.career.job-board.destroy', $jobBoard->id) }}" method="POST">
@@ -77,7 +92,7 @@
         @empty
 
             <tr>
-                <td colspan="3">There are no job boards.</td>
+                <td colspan="6">There are no job boards.</td>
             </tr>
 
         @endforelse

@@ -23,10 +23,55 @@
             'value' => $jobBoard->name
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'slug',
+            'value' => $jobBoard->slug
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'website',
             'url'    => $jobBoard->website,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => $jobBoard->description
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'sequence',
+            'value' => $jobBoard->sequence
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'public',
+            'checked' => $jobBoard->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'read-only',
+            'checked' => $jobBoard->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $jobBoard->root
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'disabled',
+            'checked' => $jobBoard->disabled
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'created at',
+            'value' => longDateTime($jobBoard->created_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'updated at',
+            'value' => longDateTime($jobBoard->updated_at)
         ])
 
     </div>

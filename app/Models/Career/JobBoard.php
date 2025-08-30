@@ -19,7 +19,9 @@ class JobBoard extends Model
      */
     protected $fillable = [
         'name',
+        'slug',
         'website',
+        'description',
         'sequence',
         'public',
         'readonly',

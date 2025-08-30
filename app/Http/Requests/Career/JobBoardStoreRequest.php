@@ -23,13 +23,15 @@ class JobBoardStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => ['required', 'string', 'max:100', 'unique:career_db.job_boards,name'],
-            'website'  => ['string', 'max:255', 'nullable'],
-            'sequence' => ['integer', 'min:0'],
-            'public'   => ['integer', 'between:0,1'],
-            'readonly' => ['integer', 'between:0,1'],
-            'root'     => ['integer', 'between:0,1'],
-            'disabled' => ['integer', 'between:0,1'],
+            'name'        => ['required', 'string', 'max:100', 'unique:career_db.job_boards,name'],
+            'slug'        => ['required', 'string', 'max:255', 'unique:portfolio_db.job_boards,slug'],
+            'website'     => ['string', 'max:255', 'nullable'],
+            'description' => ['nullable'],
+            'sequence'    => ['integer', 'min:0'],
+            'public'      => ['integer', 'between:0,1'],
+            'readonly'    => ['integer', 'between:0,1'],
+            'root'        => ['integer', 'between:0,1'],
+            'disabled'    => ['integer', 'between:0,1'],
         ];
     }
 }
