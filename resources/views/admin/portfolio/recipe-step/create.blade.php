@@ -1,11 +1,11 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add New Recipe Ingredient',
+    'title' =>'Add New Recipe Step',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
         [ 'name' => 'Recipes',         'url' => route('admin.portfolio.recipe.index') ],
-        [ 'name' => 'Ingredients',     'url' => route('admin.portfolio.recipe-step.index') ],
-        [ 'name' => 'Create' ],
+        [ 'name' => 'Recipe' ],
+        [ 'name' => 'Create Step' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.portfolio.recipe-step.index') ],
@@ -25,27 +25,21 @@
                 'value' => '0',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? '',
-                'required'  => 100,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'recipe_id',
+                'label'    => 'recipe',
+                'value'    => old('recipe_id') ?? '',
+                'list'     => \App\Models\Portfolio\Recipe::listOptions(false),
+                'required' => true,
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'slug',
-                'value'     => old('slug') ?? '',
+                'type'      => 'number',
+                'name'      => 'step',
+                'value'     => old('step') ?? 1,
                 'required'  => true,
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? '',
-                'required'  => true,
-                'maxlength' => 255,
+                'min'       => 1,
                 'message'   => $message ?? '',
             ])
 
@@ -97,8 +91,8 @@
                 'name'            => 'root',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'disabled'        => !Auth::guard('admin')->user()->root,
                 'checked'         => old('root') ?? 0,
+                'disabled'        => !Auth::guard('admin')->user()->root,
                 'message'         => $message ?? '',
             ])
 

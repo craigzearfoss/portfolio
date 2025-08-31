@@ -42,9 +42,24 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'website',
-                'value'     => old('website') ?? $unit->website,
+                'name'      => 'abbreviation',
+                'value'     => old('slug') ?? $unit->abbreviation,
                 'required'  => true,
+                'maxlength' => 10,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'system',
+                'value'     => old('system') ?? $unit->system,
+                'required'  => true,
+                'maxlength' => 10,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'link',
+                'value'     => old('link') ?? $unit->link,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])

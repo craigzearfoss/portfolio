@@ -45,4 +45,29 @@ class Recipe extends Model
     {
         return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
     }
+
+    /**
+     * Returns an array of options for a select list.
+     *
+     * @param bool $includeBlank
+     * @param bool $nameAsKey
+     * @return array|string[]
+     */
+    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            if ($nameAsKey) {
+                $options = [ '' => '' ];
+            } else {
+                $options = [ 0 => '' ];
+            }
+        }
+
+        foreach (Academy::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
+            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
+        }
+
+        return $options;
+    }
 }

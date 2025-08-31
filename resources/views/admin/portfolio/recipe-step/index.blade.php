@@ -1,13 +1,14 @@
 @extends('admin.layouts.default', [
-    'title' => 'Recipe Ingredients',
+    'title' => 'Recipe Steps',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
-        [ 'name' => 'Recipes',         'url' => route('admin.portfolio.recipe.index') ],
-        [ 'name' => 'Ingredients' ],
+        [ 'name' => 'Admin Dashboard',           'url' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',                 'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Recipes',                   'url' => route('admin.portfolio.recipe.index') ],
+        [ 'name' => $recipeStep->recipe['name'], 'url' => route('admin.portfolio.recipe.show', $recipeStep->recipe) ],
+        [ 'name' => 'Steps' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Ingredient', 'url' => route('admin.portfolio.recipe-step.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Step', 'url' => route('admin.portfolio.recipe-step.create') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -17,7 +18,9 @@
     <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
         <thead>
         <tr>
-            <th>name</th>
+            <th>recipe</th>
+            <th>step</th>
+            <th>description</th>
             <th class="text-center">public</th>
             <th class="text-center">read-only</th>
             <th class="text-center">root</th>
@@ -28,7 +31,9 @@
         <?php /*
         <tfoot>
         <tr>
-            <th>name</th>
+            <th>recipe</th>
+            <th>step</th>
+            <th>description</th>
             <th class="text-center">public</th>
             <th class="text-center">read-only</th>
             <th class="text-center">root</th>
@@ -39,38 +44,27 @@
         */ ?>
         <tbody>
 
-        @forelse ($recipeIngredients as $recipeIngredient)
+        @forelse ($recipeSteps as $recipeStep)
 
             <tr>
                 <td>
-                    {{ $recipeIngredient->name }}
+                    {{ $recipeStep->name }}
                 </td>
                 <td>
-                    {{ $recipeIngredient->description }}
+                    {{ $recipeStep->description }}
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.portfolio.recipe-step.destroy', $recipeIngredient->id) }}" method="POST">
+                    <form action="{{ route('admin.portfolio.recipe-step.destroy', $recipeStep->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.portfolio.recipe-step.show', $recipeIngredient->id) }}">
+                           href="{{ route('admin.portfolio.recipe-step.show', $recipeStep->id) }}">
                             <i class="fa-solid fa-list"></i> {{-- Show --}}
                         </a>
 
                         <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.portfolio.recipe-step.edit', $recipeIngredient->id) }}">
+                           href="{{ route('admin.portfolio.recipe-step.edit', $recipeStep->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
-
-                        @if (!empty($academy->link))
-                            <a title="link" class="button is-small px-1 py-0" href="{{ $academy->link }}"
-                               target="_blank">
-                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
-                            </a>
-                        @else
-                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
-                            </a>
-                        @endif
 
                         @csrf
                         @method('DELETE')
@@ -84,7 +78,7 @@
         @empty
 
             <tr>
-                <td colspan="6">There are no recipe ingredients.</td>
+                <td colspan="8">There are no recipe steps.</td>
             </tr>
 
         @endforelse
@@ -92,6 +86,6 @@
         </tbody>
     </table>
 
-    {!! $recipeIngredients->links('vendor.pagination.bulma') !!}
+    {!! $recipeSteps->links('vendor.pagination.bulma') !!}
 
 @endsection

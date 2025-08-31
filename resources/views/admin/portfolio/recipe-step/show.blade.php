@@ -20,8 +20,13 @@
     <div>
 
         @include('admin.components.show-row', [
+            'name'  => 'owner',
+            'value' => $video->admin['username'] ?? ''
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'recipe',
-            'value' => $recipeStep->recipe->name
+            'value' => '<a href="' . route('admin.portfolio.recipe.show',$recipeStep->recipe ) . '">' . $recipeStep->recipe['name'] . '</a>'
         ])
 
         @include('admin.components.show-row', [

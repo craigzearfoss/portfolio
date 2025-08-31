@@ -19,6 +19,7 @@
             <th>name</th>
             <th>abbreviation</th>
             <th>system</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
             <th class="text-center">read-only</th>
             <th class="text-center">root</th>
@@ -32,6 +33,7 @@
             <th>name</th>
             <th>abbreviation</th>
             <th>system</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
             <th class="text-center">read-only</th>
             <th class="text-center">root</th>
@@ -45,25 +47,28 @@
         @forelse ($units as $unit)
 
             <tr>
-                <td>
+                <td class="py-0">
                     {{ $unit->name }}
                 </td>
-                <td>
+                <td class="py-0">
                     {{ $unit->abbreviation }}
                 </td>
-                <td>
+                <td class="py-0">
                     {{ $unit->system }}
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
+                    {{ $unit->system }}
+                </td>
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $unit->public ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $unit->readonly ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $unit->root ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $unit->disabled ])
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
@@ -102,7 +107,7 @@
         @empty
 
             <tr>
-                <td colspan="8">There are no units.</td>
+                <td colspan="9">There are no units.</td>
             </tr>
 
         @endforelse
