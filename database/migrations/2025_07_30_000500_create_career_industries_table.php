@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 50)->unique();
             $table->string('slug', 50)->unique();
             $table->string('abbreviation', 10)->unique();
-            $table->string('link', 10)->unique();
+            $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(1);

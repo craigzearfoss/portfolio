@@ -26,7 +26,7 @@ class IndustryUpdateRequest extends FormRequest
             'name'         => ['string', 'max:50', 'unique:portfolio_db.industries,name,'.$this->industries->id, 'filled'],
             'slug'         => ['string', 'max:50', 'unique:portfolio_db.industries,slug,'.$this->industries->id, 'filled'],
             'abbreviation' => ['string', 'max:10', 'unique:portfolio_db.industries,abbreviation,'.$this->industries->id, 'filled'],
-            'link'         => ['string', 'nullable'],
+            'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],

@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('resources', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class);
+            $table->foreignIdFor( \App\Models\Admin::class)->default(1);
             $table->foreignIdFor(\App\Models\Database::class);
             $table->string('type', 50);
             $table->string('name', 50);
@@ -31,6 +31,7 @@ return new class extends Migration
 
         $data = [
             [
+                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'art',
                 'name'        => 'Art',
@@ -42,6 +43,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'certification',
                 'name'        => 'Certification',
@@ -53,6 +55,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'course',
                 'name'        => 'Course',
@@ -64,6 +67,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'link',
                 'name'        => 'Link',
@@ -75,6 +79,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'music',
                 'name'        => 'Music',
@@ -86,6 +91,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'project',
                 'name'        => 'Project',
@@ -97,6 +103,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'reading',
                 'name'        => 'Reading',
@@ -108,6 +115,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'recipe',
                 'name'        => 'Recipe',
@@ -119,6 +127,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'video',
                 'name'        => 'Video',
@@ -130,6 +139,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'application',
                 'name'        => 'Application',
@@ -141,6 +151,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'communication',
                 'name'        => 'Communication',
@@ -152,6 +163,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'company',
                 'name'        => 'Company',
@@ -163,6 +175,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'contact',
                 'name'        => 'Contact',
@@ -174,6 +187,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'cover-letter',
                 'name'        => 'Cover Letter',
@@ -185,6 +199,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'job',
                 'name'        => 'Job',
@@ -196,6 +211,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'note',
                 'name'        => 'Note',
@@ -207,6 +223,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'reference',
                 'name'        => 'Reference',
@@ -218,6 +235,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'resume',
                 'name'        => 'Resume',
@@ -229,6 +247,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'skill',
                 'name'        => 'Skill',
@@ -240,6 +259,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 1,
                 'type'        => 'user',
                 'name'        => 'User',
@@ -251,6 +271,7 @@ return new class extends Migration
                 'disabled'    => 0
             ],
             [
+                'admin_id'    => 1,
                 'database_id' => 1,
                 'type'        => 'admin',
                 'name'        => 'Admin',

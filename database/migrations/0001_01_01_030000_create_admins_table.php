@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->string('password');
             $table->string('token')->nullable();
-            $table->tinyInteger('root')->default(0);
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->integer('readonly')->default(0);

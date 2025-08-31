@@ -22,7 +22,7 @@ return new class extends Migration
         $data = [
             ['server_id' => 1, 'stack_id' => 8],
         ];
-        \App\Models\Dictionary\ServeryStack::insert($data);
+        \App\Models\Dictionary\ServerStack::insert($data);
     }
 
     /**

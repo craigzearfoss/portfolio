@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('property', 50);
             $table->string('title', 100);
             $table->integer('sequence')->default(0);
-            $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->integer('readonly')->default(0);
             $table->integer('root')->default(1);

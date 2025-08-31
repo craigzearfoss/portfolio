@@ -4,7 +4,7 @@ namespace App\Models\Dictionary;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ServeryStack extends Pivot
+class ServerStack extends Pivot
 {
     protected $connection = 'dictionary_db';
 

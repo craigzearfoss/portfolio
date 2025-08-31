@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('role');
-            $table->start_date('date')->nullable();
-            $table->end_date('date')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->integer('sequence')->default(0);
