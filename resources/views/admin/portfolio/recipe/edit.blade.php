@@ -60,7 +60,6 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $recipe->link,
-                'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -97,6 +96,24 @@
                 'value'           => 1,
                 'unchecked_value' => 0,
                 'checked'         => old('public') ?? $recipe->public,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'readonly',
+                'label'           => 'read-only',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('readonly') ?? $recipe->readonly,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $recipe->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
                 'message'         => $message ?? '',
             ])
 

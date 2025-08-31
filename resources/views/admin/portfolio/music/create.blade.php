@@ -74,7 +74,8 @@
                 'type'      => 'number',
                 'name'      => 'year',
                 'value'     => old('year') ?? '',
-                'min'       => 1980,
+                'min'       => 1950,
+                'max'       => date('Y'),
                 'message'   => $message ?? '',
             ])
 
@@ -84,6 +85,14 @@
                 'label'     => 'release date',
                 'value'     => old('release_date') ?? '',
                 'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'catalog_number',
+                'label'     => 'catalog number',
+                'value'     => old('catalog_number') ?? '',
+                'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
 

@@ -31,6 +31,7 @@ class Music extends Model
         'label',
         'year',
         'release_date',
+        'catalog_number',,
         'link',
         'description',
         'image',

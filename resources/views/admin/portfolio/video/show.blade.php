@@ -44,6 +44,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'date',
+            'value' => longDate($video->date)
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'year',
             'value' => $video->year
         ])
@@ -56,6 +61,11 @@
         @include('admin.components.show-row', [
             'name'  => 'credit',
             'value' => $video->credit
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'location',
+            'value' => $video->location
         ])
 
         @include('admin.components.show-row-link', [

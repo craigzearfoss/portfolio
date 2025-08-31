@@ -20,7 +20,10 @@
             <th>year</th>
             <th>credit</th>
             <th>location</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
@@ -32,7 +35,10 @@
             <th>year</th>
             <th>credit</th>
             <th>location</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
@@ -43,22 +49,31 @@
         @forelse ($videos as $video)
 
             <tr>
-                <td>
+                <td class="py-0">
                     {{ $video->name }}
                 </td>
-                <td>
+                <td class="py-0">
                     {{ $video->year }}
                 </td>
-                <td>
+                <td class="py-0">
                     {{ $video->credit }}
                 </td>
-                <td>
+                <td class="py-0">
                     {{ $video->location }}
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
+                    {{ $video->sequence }}
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $video->readonly ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $video->root ])
+                </td>
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $video->public ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $video->disabled ])
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
@@ -97,7 +112,7 @@
         @empty
 
             <tr>
-                <td colspan="7">There are no videos.</td>
+                <td colspan="10">There are no videos.</td>
             </tr>
 
         @endforelse
