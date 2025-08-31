@@ -43,6 +43,31 @@
             'checked' => $music->personal
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'artist',
+            'value' => $music->artist
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'label',
+            'value' => $music->label
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'year',
+            'value' => $music->year
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'release_date',
+            'value' => longDate($music->release_date)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'catalog number',
+            'value' => $music->catalog_number
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'url'    => $music->link,

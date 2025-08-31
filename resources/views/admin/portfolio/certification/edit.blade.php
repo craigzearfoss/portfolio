@@ -49,6 +49,30 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-select-horizontal', [
+                'name'      => 'academy',
+                'value'     => old('academy_id') ?? $certification->academy_id,
+                'list'      => \App\Models\Portfolio\Academy::listOptions(),
+                'required'  => true,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'professional',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('professional') ?? $certification->professional,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'personal',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('personal') ?? $certification->personal,
+                'message'         => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
                 'name'      => 'year',
@@ -73,26 +97,9 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'professional',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('professional') ?? $certification->professional,
-                'message'         => $message ?? '',
-            ])
-
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'personal',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('personal') ?? $certification->personal,
-                'message'         => $message ?? '',
-            ])
-
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $certification->link,
-                'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -129,6 +136,24 @@
                 'value'           => 1,
                 'unchecked_value' => 0,
                 'checked'         => old('public') ?? $certification->public,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'readonly',
+                'label'           => 'read-only',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('readonly') ?? $certification->readonly,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $certification->root,
+                'disabled'        => !Auth('admin')->user()->root,
                 'message'         => $message ?? '',
             ])
 

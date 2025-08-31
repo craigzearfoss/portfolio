@@ -58,9 +58,39 @@
         ])
 
         @include('admin.components.form-input-horizontal', [
+            'name'      => 'artist',
+            'value'     => old('artist') ?? $music->artist,
+            'maxlength' => 255,
+            'message'   => $message ?? '',
+        ])
+
+        @include('admin.components.form-input-horizontal', [
+            'name'      => 'label',
+            'value'     => old('label') ?? $music->label,
+            'maxlength' => 255,
+            'message'   => $message ?? '',
+        ])
+
+        @include('admin.components.form-input-horizontal', [
+            'type'      => 'number',
+            'name'      => 'year',
+            'value'     => old('year') ?? $music->year,
+            'min'       => 1980,
+            'message'   => $message ?? '',
+        ])
+
+        @include('admin.components.form-input-horizontal', [
+            'type'      => 'date',
+            'name'      => 'release_date',
+            'label'     => 'release date',
+            'value'     => old('release_date') ?? $music->release_date,
+            'maxlength' => 255,
+            'message'   => $message ?? '',
+        ])
+
+        @include('admin.components.form-input-horizontal', [
             'name'      => 'link',
             'value'     => old('link') ?? $music->link,
-            'required'  => true,
             'maxlength' => 255,
             'message'   => $message ?? '',
         ])
@@ -97,6 +127,24 @@
             'value'           => 1,
             'unchecked_value' => 0,
             'checked'         => old('public') ?? $music->public,
+            'message'         => $message ?? '',
+        ])
+
+        @include('admin.components.form-checkbox-horizontal', [
+            'name'            => 'readonly',
+            'label'            => 'read-only',
+            'value'           => 1,
+            'unchecked_value' => 0,
+            'checked'         => old('readonly') ?? $music->readonly,
+            'message'         => $message ?? '',
+        ])
+
+        @include('admin.components.form-checkbox-horizontal', [
+            'name'            => 'root',
+            'value'           => 1,
+            'unchecked_value' => 0,
+            'checked'         => old('root') ?? $music->root,
+            'disabled'        => !Auth::guard('admin')->user()->root,
             'message'         => $message ?? '',
         ])
 

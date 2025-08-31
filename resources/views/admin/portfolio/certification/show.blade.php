@@ -39,18 +39,8 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'received',
-            'value' => longDate($certification->received)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'expiration',
-            'value' => longDate($certification->expiration)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'year',
-            'value' => $certification->year
+            'name'  => 'academy',
+            'value' => $certification->academy->name
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -61,6 +51,21 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'personal',
             'checked' => $certification->personal
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'year',
+            'value' => $certification->year
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'received',
+            'value' => longDate($certification->received)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'expiration',
+            'value' => longDate($certification->expiration)
         ])
 
         @include('admin.components.show-row-link', [

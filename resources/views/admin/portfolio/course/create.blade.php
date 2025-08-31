@@ -40,6 +40,22 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'professional',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('professional') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'personal',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('personal') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
                 'name'      => 'year',
@@ -56,20 +72,12 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'professional',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('professional') ?? 0,
-                'message'         => $message ?? '',
-            ])
-
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'personal',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('personal') ?? 0,
-                'message'         => $message ?? '',
+            @include('admin.components.form-select-horizontal', [
+                'name'      => 'academy',
+                'value'     => old('academy_id') ?? 0,
+                'list'      => \App\Models\Portfolio\Academy::listOptions(),
+                'required'  => true,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -140,6 +148,24 @@
                 'value'           => 1,
                 'unchecked_value' => 0,
                 'checked'         => old('public') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'readonly',
+                'label'           => 'read-only',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('readonly') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? 0,
+                'disabled'        => !Auth('admin')->user()->root,
                 'message'         => $message ?? '',
             ])
 

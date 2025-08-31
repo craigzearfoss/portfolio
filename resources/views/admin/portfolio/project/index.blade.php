@@ -21,7 +21,10 @@
             <th class="text-center">personal</th>
             <th>year</th>
             <th>repository</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
+            <th class="text-center">root</th>
+            <th class="text-center">read-only</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
@@ -34,7 +37,10 @@
             <th class="text-center">personal</th>
             <th>year</th>
             <th>repository</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
+            <th class="text-center">root</th>
+            <th class="text-center">read-only</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
@@ -91,7 +97,7 @@
         @empty
 
             <tr>
-                <td colspan="8">There are no projects.</td>
+                <td colspan="11">There are no projects.</td>
             </tr>
 
         @endforelse

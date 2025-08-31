@@ -22,7 +22,11 @@
             <th class="text-center">personal</th>
             <th>academy</th>
             <th>instructor</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
+            <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
         </thead>
@@ -35,7 +39,11 @@
             <th class="text-center">personal</th>
             <th>academy</th>
             <th>instructor</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
+            <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
         </tfoot>
@@ -45,26 +53,41 @@
         @forelse ($courses as $course)
 
             <tr>
-                <td>
+                <td class="py-0">
                     {{ $course->name }}
                 </td>
-                <td>
+                <td class="py-0">
                     {{ shortDate($course->completed) }}
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $course->professional ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $course->personal ])
                 </td>
-                <td>
-                    {{ $course->academy }}
+                <td class="py-0">
+                    {{ $course->academy->name }}
                 </td>
-                <td>
+                <td class="py-0">
                     {{ $course->instructor }}
                 </td>
-                <td class="text-center">
+                <td class="py-0">
+                    {{ $course->name }}
+                </td>
+                <td class="py-0">
+                    {{ $course->sequence }}
+                </td>
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $course->public ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $course->readonly ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $course->root ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $course->disabled ])
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
                     <form action="{{ route('admin.portfolio.course.destroy', $course->id) }}" method="POST">
@@ -102,7 +125,7 @@
         @empty
 
             <tr>
-                <td colspan="8">There are no courses.</td>
+                <td colspan="12">There are no courses.</td>
             </tr>
 
         @endforelse

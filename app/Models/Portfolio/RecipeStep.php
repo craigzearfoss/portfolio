@@ -2,8 +2,11 @@
 
 namespace App\Models\Portfolio;
 
+use App\Models\Admin;
+use App\Models\Portfolio\Recipe;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RecipeStep extends Model
 {
@@ -33,4 +36,19 @@ class RecipeStep extends Model
         'disabled',
     ];
 
+    /**
+     * Get the admin who owns the recipe ingredient.
+     */
+    public function admin(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+    }
+
+    /**
+     * Get the recipe that owns the recipe step.
+     */
+    public function recipe(): BelongsTo
+    {
+        return $this->setConnection('portfolio_db')->belongsTo(Recipe::class, 'recipe_id');
+    }
 }

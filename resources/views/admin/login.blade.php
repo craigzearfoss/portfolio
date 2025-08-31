@@ -26,7 +26,7 @@
 
                             @include('admin.components.form-input', [
                                 'name'        => 'username',
-                                'label'       => 'user name',
+                                'label'       => 'User Name',
                                 'value'       => old('username'),
                                 'placeholder' => 'User Name',
                                 'required'    => true,
@@ -36,8 +36,9 @@
 
                             @include('admin.components.form-input', [
                                 'name'        => 'password',
-                                'value'       => old('password'),
                                 'label'       => 'Password',
+                                'value'       => old('password'),
+                                'placeholder' => 'Password',
                                 'required'    => true,
                                 'maxlength'   => 255,
                                 'message'     => $message ?? '',

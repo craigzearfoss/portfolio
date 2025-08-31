@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\Academy;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,7 +31,7 @@ class CourseStoreRequest extends FormRequest
             'personal'     => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'completed'    => ['date', 'nullable'],
-            'academy'      => ['string', 'max:255', 'nullable'],
+            'academy_id'   => ['integer', 'in:' . Academy::all()->pluck('id')],
             'website'      => ['string', 'max:255', 'nullable'],
             'instructor'   => ['string', 'max:255', 'nullable'],
             'sponsor'      => ['string', 'max:255', 'nullable'],

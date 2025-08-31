@@ -22,7 +22,10 @@
             <th>expiration</th>
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
@@ -36,7 +39,10 @@
             <th>expiration</th>
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
@@ -53,22 +59,31 @@
                 <td>
                     {{ $certification->organization }}
                 </td>
-                <td class="text-nowrap">
+                <td class="py-0 text-nowrap">
                     {{ shortDate($certification->received) }}
                 </td>
-                <td class="text-nowrap">
+                <td class="py-0 text-nowrap">
                     {{ shortDate($certification->expiration) }}
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $certification->professional ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $certification->personal ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
+                    {{ $certification->sequence }}
+                </td>
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $certification->public ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $certification->readonly ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $certification->root ])
+                </td>
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $certification->disabled ])
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
@@ -107,7 +122,7 @@
         @empty
 
             <tr>
-                <td colspan="9">There are no certifications.</td>
+                <td colspan="12">There are no certifications.</td>
             </tr>
 
         @endforelse

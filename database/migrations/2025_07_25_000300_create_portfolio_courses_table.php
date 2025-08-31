@@ -20,7 +20,7 @@ return new class extends Migration
             $table->tinyInteger('personal')->default(0);
             $table->year('year')->nullable();
             $table->date('completed')->nullable();
-            $table->foreignIdFor( \App\Models\Portfolio\Academy::class);
+            $table->foreignIdFor( \App\Models\Portfolio\Academy::class)->default(0);
             $table->string('instructor')->nullable();
             $table->string('sponsor')->nullable();
             $table->string('link')->nullable();

@@ -17,9 +17,16 @@
         <thead>
         <tr>
             <th>name</th>
+            <th>artist</th>
+            <th>label</th>
+            <th>year</th>
+            <th>cat#</th>
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
@@ -28,9 +35,16 @@
         <tfoot>
         <tr>
             <th>name</th>
+            <th>artist</th>
+            <th>label</th>
+            <th>year</th>
+            <th>cat#</th>
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
@@ -41,19 +55,40 @@
         @forelse ($musics as $music)
 
             <tr>
-                <td>
+                <td class="py0">
                     {{ $music->name }}
                 </td>
-                <td class="text-center">
+                <td class="py0">
+                    {{ $music->artist }}
+                </td>
+                <td class="py0">
+                    {{ $music->label }}
+                </td>
+                <td class="py0">
+                    {{ $music->year }}
+                </td>
+                <td class="py0">
+                    {{ $music->catalog_number }}
+                </td>
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $music->professional ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $music->personal ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
+                    {{ $music->sequence }}
+                </td>
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $music->public ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $music->readonly ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $music->root ])
+                </td>
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $music->disabled ])
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
@@ -81,7 +116,7 @@
         @empty
 
             <tr>
-                <td colspan="6">There is no music.</td>
+                <td colspan="13">There is no music.</td>
             </tr>
 
         @endforelse

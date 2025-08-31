@@ -55,7 +55,7 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'sample link',
+            'name'   => 'link',
             'url'    => $project->link,
             'target' => '_blank'
         ])

@@ -3,6 +3,7 @@
 namespace App\Models\Portfolio;
 
 use App\Models\Admin;
+use App\Models\Portfolio\Academy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,6 +28,7 @@ class Certification extends Model
         'name',
         'slug',
         'organization',
+        'academy_id',
         'professional',
         'personal',
         'year',
@@ -49,5 +51,13 @@ class Certification extends Model
     public function admin(): BelongsTo
     {
         return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+    }
+
+    /**
+     * Get the academy that owns the certification.
+     */
+    public function academy(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Academy::class, 'academy_id');
     }
 }

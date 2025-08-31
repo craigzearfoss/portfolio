@@ -17,6 +17,7 @@
         <thead>
         <tr>
             <th>name</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
             <th class="text-center">read-only</th>
             <th class="text-center">root</th>
@@ -28,6 +29,7 @@
         <tfoot>
         <tr>
             <th>name</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
             <th class="text-center">read-only</th>
             <th class="text-center">root</th>
@@ -41,19 +43,22 @@
         @forelse ($academies as $academy)
 
             <tr>
-                <td>
+                <td class="py-0">
                     {{ $academy->name }}
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
+                    {{ $academy->sequence }}
+                </td>
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $academy->public ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $academy->readonly ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $academy->root ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $academy->disabled ])
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
@@ -92,7 +97,7 @@
         @empty
 
             <tr>
-                <td colspan="6">There are no academies.</td>
+                <td colspan="7">There are no academies.</td>
             </tr>
 
         @endforelse

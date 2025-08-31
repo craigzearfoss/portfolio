@@ -2,8 +2,13 @@
 
 namespace App\Models\Portfolio;
 
+use App\Models\Admin;
+use App\Models\Portfolio\Ingredient;
+use App\Models\Portfolio\Recipe;
+use App\Models\Portfolio\Unit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RecipeIngredient extends Model
 {
@@ -55,5 +60,38 @@ class RecipeIngredient extends Model
         }
 
         return $options;
+    }
+
+    /**
+     * Get the admin who owns the recipe ingredient.
+     */
+    public function admin(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+    }
+
+    /**
+     * Get the recipe that owns the recipe ingredient.
+     */
+    public function recipe(): BelongsTo
+    {
+        return $this->setConnection('portfolio_db')->belongsTo(Recipe::class, 'recipe_id');
+    }
+
+    /**
+     * Get the ingredient that owns the recipe ingredient.
+     */
+    public function ingredient(): BelongsTo
+    {
+        return $this->setConnection('portfolio_db')->belongsTo(Ingredient::class, 'ingredient_id');
+    }
+
+
+    /**
+     * Get the unit that owns the recipe ingredient.
+     */
+    public function unit(): BelongsTo
+    {
+        return $this->setConnection('portfolio_db')->belongsTo(Unit::class, 'unit_id');
     }
 }

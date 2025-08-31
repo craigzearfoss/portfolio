@@ -3,6 +3,7 @@
 namespace App\Models\Portfolio;
 
 use App\Models\Admin;
+use App\Models\Portfolio\Academy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,16 +16,6 @@ class Course extends Model
     protected $connection = 'portfolio_db';
 
     protected $table = 'courses';
-
-    const ACADEMIES = [
-        'Coursera',
-        'Gymnasium',
-        'KodeKloud',
-        'MongoDB University',
-        'Scrimba',
-        'SitePoint',
-        'Udemy',
-    ];
 
     /**
      * The attributes that are mass assignable.
@@ -39,7 +30,7 @@ class Course extends Model
         'personal',
         'year',
         'completed',
-        'academy',
+        'academy_id',
         'website',
         'instructor',
         'sponsor',
@@ -63,23 +54,10 @@ class Course extends Model
     }
 
     /**
-     * Returns an array of options for a select list for academy types.
-     *
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
+     * Get the academy that owns the course.
      */
-    public static function academyListOptions(bool $includeBlank = false, bool $nameAsKey = true): array
+    public function academy(): BelongsTo
     {
-        $options = [];
-        if ($includeBlank) {
-            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
-        }
-
-        foreach (self::ACADEMIES as $i=>$academy) {
-            $options[$nameAsKey ? $academy : $i] = $academy;
-        }
-
-        return $options;
+        return $this->setConnection('default_db')->belongsTo(Academy::class, 'academy_id');
     }
 }

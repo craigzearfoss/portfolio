@@ -21,6 +21,9 @@
             <th class="text-center">personal</th>
             <th>website</th>
             <th class="text-center">public</th>
+            <th class="text-center">sequence</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
@@ -32,7 +35,10 @@
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
             <th>website</th>
+            <th class="text-center">sequence</th>
             <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
@@ -43,22 +49,31 @@
         @forelse ($links as $link)
 
             <tr>
-                <td>
+                <td class="py-0">
                     {{ $link->name }}
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $link->professional ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $link->personal ])
                 </td>
-                <td>
+                <td class="py-0">
                     {{ $link->website }}
                 </td>
-                <td class="text-center">
+                <td class="py-0">
+                    {{ $link->sequence }}
+                </td>
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $link->public ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $link->readonly ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $link->root ])
+                </td>
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $link->disabled ])
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
@@ -97,7 +112,7 @@
         @empty
 
             <tr>
-                <td colspan="7">There are no links.</td>
+                <td colspan="10">There are no links.</td>
             </tr>
 
         @endforelse

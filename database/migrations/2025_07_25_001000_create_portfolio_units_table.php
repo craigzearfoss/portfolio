@@ -17,11 +17,14 @@ return new class extends Migration
             $table->string('name', 50)->unique();
             $table->string('abbreviation', 10)->unique();
             $table->string('system', 10);
+            $table->string('link')->nullable();
             $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(0);
+            $table->tinyInteger('public')->default(1);
             $table->tinyInteger('readonly')->default(0);
-            $table->tinyInteger('root')->default(0);
+            $table->tinyInteger('root')->default(1);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
         });

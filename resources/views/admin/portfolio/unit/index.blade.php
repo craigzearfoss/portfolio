@@ -1,12 +1,12 @@
 @extends('admin.layouts.default', [
-    'title' => 'Ingredients',
+    'title' => 'Units',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
-        [ 'name' => 'Ingredients' ],
+        [ 'name' => 'Units' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Ingredient', 'url' => route('admin.portfolio.ingredient.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Unit', 'url' => route('admin.portfolio.unit.create') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -17,7 +17,8 @@
         <thead>
         <tr>
             <th>name</th>
-            <th class="text-center">sequence</th>
+            <th>abbreviation</th>
+            <th>system</th>
             <th class="text-center">public</th>
             <th class="text-center">read-only</th>
             <th class="text-center">root</th>
@@ -29,6 +30,8 @@
         <tfoot>
         <tr>
             <th>name</th>
+            <th>abbreviation</th>
+            <th>system</th>
             <th class="text-center">public</th>
             <th class="text-center">read-only</th>
             <th class="text-center">root</th>
@@ -39,42 +42,45 @@
         */ ?>
         <tbody>
 
-        @forelse ($ingredients as $ingredient)
+        @forelse ($units as $unit)
 
             <tr>
-                <td class="py-0">
-                    {{ $ingredient->name }}
+                <td>
+                    {{ $unit->name }}
                 </td>
-                <td class="py-0 text-center">
-                    {{ $ingredient->sequence }}
+                <td>
+                    {{ $unit->abbreviation }}
                 </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $ingredient->public ])
+                <td>
+                    {{ $unit->system }}
                 </td>
-                <td class="py-0 text-center">
-                    @include('py-0 admin.components.checkmark', [ 'checked' => $ingredient->readonly ])
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $unit->public ])
                 </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $ingredient->root ])
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $unit->readonly ])
                 </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $ingredient->disabled ])
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $unit->root ])
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $unit->disabled ])
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.portfolio.ingredient.destroy', $ingredient->id) }}" method="POST">
+                    <form action="{{ route('admin.portfolio.unit.destroy', $unit->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.portfolio.ingredient.show', $ingredient->id) }}">
+                           href="{{ route('admin.portfolio.unit.show', $unit->id) }}">
                             <i class="fa-solid fa-list"></i>{{-- Show--}}
                         </a>
 
                         <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.portfolio.ingredient.edit', $ingredient->id) }}">
+                           href="{{ route('admin.portfolio.unit.edit', $unit->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
 
-                        @if (!empty($ingredient->link))
-                            <a title="link" class="button is-small px-1 py-0" href="{{ $ingredient->link }}"
+                        @if (!empty($unit->link))
+                            <a title="link" class="button is-small px-1 py-0" href="{{ $unit->link }}"
                                target="_blank">
                                 <i class="fa-solid fa-external-link"></i>{{-- link--}}
                             </a>
@@ -96,7 +102,7 @@
         @empty
 
             <tr>
-                <td colspan="7">There are no ingredients.</td>
+                <td colspan="8">There are no units.</td>
             </tr>
 
         @endforelse
@@ -104,6 +110,6 @@
         </tbody>
     </table>
 
-    {!! $ingredients->links('vendor.pagination.bulma') !!}
+    {!! $units->links('vendor.pagination.bulma') !!}
 
 @endsection

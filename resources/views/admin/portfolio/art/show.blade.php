@@ -43,6 +43,16 @@
             'checked' => $art->personal
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'artist',
+            'value' => $art->artist
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'year',
+            'value' => $art->year
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'url'    => $art->link,

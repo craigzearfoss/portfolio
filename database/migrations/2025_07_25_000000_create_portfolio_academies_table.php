@@ -29,6 +29,14 @@ return new class extends Migration
 
         $data = [
             [
+                'id' => 0,
+                'name' => '',
+                'slug' => '',
+                'website' => '',
+                'sequence' => 0,
+                'public' => 1,
+            ],
+            [
                 'id' => 1,
                 'name' => 'Coursera',
                 'slug' => 'coursera',

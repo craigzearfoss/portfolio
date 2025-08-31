@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Portfolio\AcademyStoreRequest;
+use App\Http\Requests\Portfolio\AcademyUpdateRequest;
 use App\Models\Portfolio\Academy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;

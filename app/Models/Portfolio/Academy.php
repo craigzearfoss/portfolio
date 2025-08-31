@@ -44,7 +44,11 @@ class Academy extends Model
     {
         $options = [];
         if ($includeBlank) {
-            $options = [ '' => '' ];
+            if ($nameAsKey) {
+                $options = [ '' => '' ];
+            } else {
+                $options = [ 0 => '' ];
+            }
         }
 
         foreach (Academy::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {

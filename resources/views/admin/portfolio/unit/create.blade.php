@@ -1,13 +1,13 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add New Art',
+    'title' =>'Add New Unit',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
-        [ 'name' => 'Art',             'url' => route('admin.portfolio.art.index') ],
+        [ 'name' => 'Units',           'url' => route('admin.portfolio.unit.index') ],
         [ 'name' => 'Create' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.portfolio.art.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.portfolio.unit.index') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -16,7 +16,7 @@
 
     <div class="form">
 
-        <form action="{{ route('admin.portfolio.art.store') }}" method="POST">
+        <form action="{{ route('admin.portfolio.unit.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
@@ -40,25 +40,9 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'professional',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('professional') ?? 0,
-                'message'         => $message ?? '',
-            ])
-
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'personal',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('personal') ?? 0,
-                'message'         => $message ?? '',
-            ])
-
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? '',
+                'name'      => 'website',
+                'value'     => old('website') ?? '',
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
@@ -112,8 +96,8 @@
                 'name'            => 'root',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('root') ?? 0,
                 'disabled'        => !Auth::guard('admin')->user()->root,
+                'checked'         => old('root') ?? 0,
                 'message'         => $message ?? '',
             ])
 
@@ -126,8 +110,8 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add Art',
-                'cancel_url' => route('admin.portfolio.art.index')
+                'label'      => 'Add Unit',
+                'cancel_url' => route('admin.portfolio.unit.index')
             ])
 
         </form>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Portfolio\Academy;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,6 +28,7 @@ class CertificationStoreRequest extends FormRequest
             'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.certifications,name'],
             'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.certifications,slug'],
             'organization' => ['string', 'max:255', 'nullable'],
+            'academy_id'   => ['integer', 'in:' . Academy::all()->pluck('id')],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],

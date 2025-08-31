@@ -17,9 +17,13 @@
         <thead>
         <tr>
             <th>name</th>
+            <th>artist</th>
+            <th>year</th>
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
             <th class="text-center">sequence</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">public</th>
             <th class="text-center">public</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
@@ -29,12 +33,17 @@
         <tfoot>
         <tr>
             <th>name</th>
+            <th>artist</th>
+            <th>year</th>
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
             <th class="text-center">sequence</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">public</th>
             <th class="text-center">public</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
+        </tr>
         </tr>
         </tfoot>
         */ ?>
@@ -47,6 +56,12 @@
                     {{ $art->name }}
                 </td>
                 <td class="py-0 text-center">
+                    {{ $art->artist }}
+                </td>
+                <td class="py-0 text-center">
+                    {{ $art->year }}
+                </td>
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $art->professional ])
                 </td>
                 <td class="py-0 text-center">
@@ -57,6 +72,12 @@
                 </td>
                 <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $art->public ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $art->readonly ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $art->root ])
                 </td>
                 <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $art->disabled ])
@@ -97,7 +118,7 @@
         @empty
 
             <tr>
-                <td colspan="7">There is no art.</td>
+                <td colspan="11">There is no art.</td>
             </tr>
 
         @endforelse

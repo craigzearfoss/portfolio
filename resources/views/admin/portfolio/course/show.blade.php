@@ -55,7 +55,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'academy',
-            'value' => $course->academy
+            'value' => $course->academy->name
         ])
 
         @include('admin.components.show-row', [
@@ -73,7 +73,7 @@
             'value' => $course->sponsor
         ])
 
-        @include('admin.components.show-row', [
+        @include('admin.components.show-row-link', [
             'name'  => 'link',
             'value' => $course->link
         ])

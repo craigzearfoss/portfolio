@@ -1,13 +1,13 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add New Art',
+    'title' => $unit->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
-        [ 'name' => 'Art',             'url' => route('admin.portfolio.art.index') ],
-        [ 'name' => 'Create' ],
+        [ 'name' => 'Units',           'url' => route('admin.portfolio.unit.index') ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.portfolio.art.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.portfolio.unit.index') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -16,17 +16,18 @@
 
     <div class="form">
 
-        <form action="{{ route('admin.portfolio.art.store') }}" method="POST">
+        <form action="{{ route('admin.portfolio.unit.update', $unit) }}" method="POST">
             @csrf
+            @method('PUT')
 
             @include('admin.components.form-hidden', [
-                'name'  => Auth::guard('admin')->user()->id,
+                'name'  => old('admin_id') ?? Auth::guard('admin')->user()->id,
                 'value' => '0',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
-                'value'     => old('name') ?? '',
+                'value'     => old('name') ?? $unit->name,
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
@@ -34,31 +35,15 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'slug',
-                'value'     => old('slug') ?? '',
+                'value'     => old('slug') ?? $unit->slug,
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'professional',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('professional') ?? 0,
-                'message'         => $message ?? '',
-            ])
-
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'personal',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('personal') ?? 0,
-                'message'         => $message ?? '',
-            ])
-
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? '',
+                'name'      => 'website',
+                'value'     => old('website') ?? $unit->website,
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
@@ -67,26 +52,26 @@
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
-                'value'   => old('description') ?? '',
+                'value'   => old('description') ?? $unit->description,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'image',
-                'value'   => old('image') ?? '',
+                'value'   => old('image') ?? $unit->image,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? '',
+                'value'   => old('thumbnail') ?? $unit->thumbnail,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'sequence',
-                'value'       => old('seq') ?? 0,
+                'value'       => old('sequence') ?? $unit->sequence,
                 'min'         => 0,
                 'message'     => $message ?? '',
             ])
@@ -95,16 +80,15 @@
                 'name'            => 'public',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('public') ?? 0,
+                'checked'         => old('public') ?? $unit->public,
                 'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'readonly',
-                'label'           => 'read-only',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('readonly') ?? 0,
+                'checked'         => old('readonly') ?? $unit->readonly,
                 'message'         => $message ?? '',
             ])
 
@@ -112,8 +96,8 @@
                 'name'            => 'root',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('root') ?? 0,
                 'disabled'        => !Auth::guard('admin')->user()->root,
+                'checked'         => old('root') ?? $unit->root,
                 'message'         => $message ?? '',
             ])
 
@@ -121,13 +105,13 @@
                 'name'            => 'disabled',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? 0,
+                'checked'         => old('disabled') ?? $unit->disabled,
                 'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add Art',
-                'cancel_url' => route('admin.portfolio.art.index')
+                'label'      => 'Save',
+                'cancel_url' => route('admin.portfolio.unit.index')
             ])
 
         </form>
