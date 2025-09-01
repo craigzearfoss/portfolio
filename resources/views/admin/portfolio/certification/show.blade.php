@@ -33,16 +33,6 @@
             'value' => $certification->slug
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'organization',
-            'value' => $certification->organization
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'academy',
-            'value' => $certification->academy->name
-        ])
-
         @include('admin.components.show-row-checkbox', [
             'name'    => 'professional',
             'checked' => $certification->professional
@@ -51,6 +41,16 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'personal',
             'checked' => $certification->personal
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'organization',
+            'value' => $certification->organization
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'academy',
+            'value' => $certification->academy->name
         ])
 
         @include('admin.components.show-row', [

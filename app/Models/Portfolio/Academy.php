@@ -22,7 +22,8 @@ class Academy extends Model
     protected $fillable = [
         'name',
         'slug',
-        'website',
+        'link',
+        'link_name',
         'description',
         'image',
         'thumbnail',

@@ -14,7 +14,7 @@ class VideoController extends Controller
     const PER_PAGE = 20;
 
     /**
-     * Display a listing of recipe ingredients.
+     * Display a listing of recipe videos.
      */
     public function index(int $perPage = self::PER_PAGE): View
     {

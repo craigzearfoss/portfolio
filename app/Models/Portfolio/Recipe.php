@@ -28,6 +28,7 @@ class Recipe extends Model
         'professional',
         'personal',
         'link',
+        'link_name',
         'description',
         'image',
         'thumbnail',

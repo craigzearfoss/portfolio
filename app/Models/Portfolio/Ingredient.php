@@ -23,6 +23,7 @@ class Ingredient extends Model
         'name',
         'slug',
         'link',
+        'link_name',
         'description',
         'image',
         'thumbnail',

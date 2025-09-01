@@ -17,12 +17,13 @@ class RecipeStepFactory extends Factory
     public function definition(): array
     {
         return [
-            'admin_id' => \App\Models\Admin::all()->random()->id,
-            'name'     => fake()->unique()->sentence(6),
-            'slug'     => fake()->unique()->slug(6),
-            'sequence' => 0,
-            'public'   => fake()->numberBetween(0, 1),
-            'disabled' => fake()->numberBetween(0, 1),
+            'admin_id'  => \App\Models\Admin::all()->random()->id,
+            'recipe_id' => \App\Models\Portfolio\Recipe::all()->random()->id,
+            'name'      => fake()->unique()->sentence(6),
+            'slug'      => fake()->unique()->slug(6),
+            'sequence'  => 0,
+            'public'    => fake()->numberBetween(0, 1),
+            'disabled'  => fake()->numberBetween(0, 1),
         ];
     }
 }

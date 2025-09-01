@@ -29,8 +29,8 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'website',
-            'url'    => $academy->website,
+            'name'   => 'link',
+            'url'    => $academy->link,
             'target' => '_blank'
         ])
 
@@ -82,6 +82,11 @@
         @include('admin.components.show-row', [
             'name'  => 'updated at',
             'value' => longDateTime($academy->updated_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'deleted at',
+            'value' => longDateTime($academy->deleted_at)
         ])
 
     </div>

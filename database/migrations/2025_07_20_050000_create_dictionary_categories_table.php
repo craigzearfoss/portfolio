@@ -13,48 +13,65 @@ return new class extends Migration
     {
         Schema::connection('dictionary_db')->create('categories', function (Blueprint $table) {
             $table->id();
+            $table->string('full_name')->unique();
             $table->string('name', 100)->unique();
+            $table->string('slug', 100)->unique();
+            $table->string('abbreviation', 100)->nullable();
+            $table->tinyInteger('open_source')->default(0);
+            $table->tinyInteger('proprietary')->default(0);
+            $table->string('owner', 100)->nullable();
             $table->string('wiki_page')->nullable();
+            $table->string('link')->nullable();
+            $table->string('link_name')->nullable();
             $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->integer('sequence')->default(0);
+            $table->tinyInteger('public')->default(1);
+            $table->integer('readonly')->default(0);
+            $table->integer('root')->default(0);
+            $table->tinyInteger('disabled')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
         });
 
         $data = [
-            //[ 'id' => 0,  'name' => '' ],
-            [ 'id' => 1,  'name' => 'algorithm' ],
-            [ 'id' => 2,  'name' => 'application' ],
-            [ 'id' => 3,  'name' => 'approach' ],
-            [ 'id' => 4,  'name' => 'architecture' ],
-            [ 'id' => 5,  'name' => 'business' ],
-            [ 'id' => 6,  'name' => 'certification' ],
-            [ 'id' => 7,  'name' => 'concept' ],
-            [ 'id' => 8,  'name' => 'database' ],
-            [ 'id' => 9,  'name' => 'field of study' ],
-            [ 'id' => 10, 'name' => 'interface' ],
-            [ 'id' => 11, 'name' => 'framework' ],
-            [ 'id' => 12, 'name' => 'language' ],
-            [ 'id' => 13, 'name' => 'library' ],
-            [ 'id' => 14, 'name' => 'method' ],
-            [ 'id' => 15, 'name' => 'model' ],
-            [ 'id' => 16, 'name' => 'network' ],
-            [ 'id' => 17, 'name' => 'operating system' ],
-            [ 'id' => 18, 'name' => 'paradigm' ],
-            [ 'id' => 19, 'name' => 'platform' ],
-            [ 'id' => 20, 'name' => 'practice' ],
-            [ 'id' => 21, 'name' => 'process' ],
-            [ 'id' => 22, 'name' => 'product' ],
-            [ 'id' => 23, 'name' => 'protocol' ],
-            [ 'id' => 24, 'name' => 'qualification' ],
-            [ 'id' => 25, 'name' => 'repository' ],
-            [ 'id' => 26, 'name' => 'server' ],
-            [ 'id' => 27, 'name' => 'service' ],
-            [ 'id' => 28, 'name' => 'software' ],
-            [ 'id' => 29, 'name' => 'specification' ],
-            [ 'id' => 30, 'name' => 'stack' ],
-            [ 'id' => 31, 'name' => 'standard' ],
-            [ 'id' => 32, 'name' => 'technique' ],
-            [ 'id' => 33, 'name' => 'technology' ],
-            [ 'id' => 34, 'name' => 'tool' ],
-            [ 'id' => 35, 'name' => 'vulnerability' ],
+            [ 'id' => 1,  'full_name' => 'algorithm',         'name' => 'algorithm',        'slug' => 'algorithm',        'abbreviation' => null ],
+            [ 'id' => 2,  'full_name' => 'application',       'name' => 'application',      'slug' => 'application',      'abbreviation' => null ],
+            [ 'id' => 3,  'full_name' => 'approach',          'name' => 'approach',         'slug' => 'approach',         'abbreviation' => null ],
+            [ 'id' => 4,  'full_name' => 'architecture',      'name' => 'architecture',     'slug' => 'architecture',     'abbreviation' => null ],
+            [ 'id' => 5,  'full_name' => 'business',          'name' => 'business',         'slug' => 'business',         'abbreviation' => null ],
+            [ 'id' => 6,  'full_name' => 'certification',     'name' => 'certification',    'slug' => 'certification',    'abbreviation' => null ],
+            [ 'id' => 7,  'full_name' => 'concept',           'name' => 'concept',          'slug' => 'concept',          'abbreviation' => null ],
+            [ 'id' => 8,  'full_name' => 'database',          'name' => 'database',         'slug' => 'database',         'abbreviation' => null ],
+            [ 'id' => 9,  'full_name' => 'field of study',    'name' => 'field of study',   'slug' => 'field-of-study',   'abbreviation' => null ],
+            [ 'id' => 10, 'full_name' => 'interface',         'name' => 'interface',        'slug' => 'interface',        'abbreviation' => null ],
+            [ 'id' => 11, 'full_name' => 'framework',         'name' => 'framework',        'slug' => 'framework',        'abbreviation' => null ],
+            [ 'id' => 12, 'full_name' => 'language',          'name' => 'language',         'slug' => 'language',         'abbreviation' => null ],
+            [ 'id' => 13, 'full_name' => 'library',           'name' => 'library',          'slug' => 'library',          'abbreviation' => null ],
+            [ 'id' => 14, 'full_name' => 'method',            'name' => 'method',           'slug' => 'method',           'abbreviation' => null ],
+            [ 'id' => 15, 'full_name' => 'model',             'name' => 'model',            'slug' => 'model',            'abbreviation' => null ],
+            [ 'id' => 16, 'full_name' => 'network',           'name' => 'network',          'slug' => 'network',          'abbreviation' => null ],
+            [ 'id' => 17, 'full_name' => 'operating system',  'name' => 'operating system', 'slug' => 'operating-system', 'abbreviation' => null ],
+            [ 'id' => 18, 'full_name' => 'paradigm',          'name' => 'paradigm',         'slug' => 'paradigm',         'abbreviation' => null ],
+            [ 'id' => 19, 'full_name' => 'platform',          'name' => 'platform',         'slug' => 'platform',         'abbreviation' => null ],
+            [ 'id' => 20, 'full_name' => 'practice',          'name' => 'practice',         'slug' => 'practice',         'abbreviation' => null ],
+            [ 'id' => 21, 'full_name' => 'process',           'name' => 'process',          'slug' => 'process',          'abbreviation' => null ],
+            [ 'id' => 22, 'full_name' => 'product',           'name' => 'product',          'slug' => 'product',          'abbreviation' => null ],
+            [ 'id' => 23, 'full_name' => 'protocol',          'name' => 'protocol',         'slug' => 'protocol',         'abbreviation' => null ],
+            [ 'id' => 24, 'full_name' => 'qualification',     'name' => 'qualification',    'slug' => 'qualification',    'abbreviation' => null ],
+            [ 'id' => 25, 'full_name' => 'repository',        'name' => 'repository',       'slug' => 'repository',       'abbreviation' => null ],
+            [ 'id' => 26, 'full_name' => 'server',            'name' => 'server',           'slug' => 'server',           'abbreviation' => null ],
+            [ 'id' => 27, 'full_name' => 'service',           'name' => 'service',          'slug' => 'service',          'abbreviation' => null ],
+            [ 'id' => 28, 'full_name' => 'software',          'name' => 'software',         'slug' => 'software',         'abbreviation' => null ],
+            [ 'id' => 29, 'full_name' => 'specification',     'name' => 'specification',    'slug' => 'specification',    'abbreviation' => null ],
+            [ 'id' => 30, 'full_name' => 'stack',             'name' => 'stack',            'slug' => 'stack',            'abbreviation' => null ],
+            [ 'id' => 31, 'full_name' => 'standard',          'name' => 'standard',         'slug' => 'standard',         'abbreviation' => null ],
+            [ 'id' => 32, 'full_name' => 'technique',         'name' => 'technique',        'slug' => 'technique',        'abbreviation' => null ],
+            [ 'id' => 33, 'full_name' => 'technology',        'name' => 'technology',       'slug' => 'technology',       'abbreviation' => null ],
+            [ 'id' => 34, 'full_name' => 'tool',              'name' => 'tool',             'slug' => 'tool',             'abbreviation' => null ],
+            [ 'id' => 35, 'full_name' => 'vulnerability',     'name' => 'vulnerability',    'slug' => 'vulnerability',    'abbreviation' => null ],
+            [ 'id' => 36, 'full_name' => 'other',             'name' => 'other',            'slug' => 'other',            'abbreviation' => null ],
         ];
         \App\Models\Dictionary\Category::insert($data);
     }

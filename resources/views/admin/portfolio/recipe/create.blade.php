@@ -103,7 +103,7 @@
                 'label'           => 'read-only',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('readonly') ?? $recipe->readonly,
+                'checked'         => old('readonly') ?? 0,
                 'message'         => $message ?? '',
             ])
 
@@ -111,7 +111,7 @@
                 'name'            => 'root',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('root') ?? $recipe->root,
+                'checked'         => old('root') ?? 0,
                 'disabled'        => !Auth::guard('admin')->user()->root,
                 'message'         => $message ?? '',
             ])

@@ -35,6 +35,7 @@ class Course extends Model
         'instructor',
         'sponsor',
         'link',
+        'link_name',
         'description',
         'image',
         'thumbnail',

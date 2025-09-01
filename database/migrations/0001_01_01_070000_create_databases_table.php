@@ -37,9 +37,9 @@ return new class extends Migration
             ],
             [
                 'id'       => 2,
-                'name'     => 'portfolio',  //config('app.database_portfolio'), //TODO: using config method brings back null?
-                'property' => 'portfolio_db',
-                'title'    => 'Portfolio',
+                'name'     => 'dictionary',     //config('app.database_career'),    //TODO: using config method brings back null?
+                'property' => 'dictionary_db',
+                'title'    => 'Dictionary',
                 'sequence' => 1,
                 'public'   => 1,
                 'disabled' => 0,
@@ -50,6 +50,15 @@ return new class extends Migration
                 'property' => 'career_db',
                 'title'    => 'Career',
                 'sequence' => 2,
+                'public'   => 1,
+                'disabled' => 0,
+            ],
+            [
+                'id'       => 4,
+                'name'     => 'portfolio',  //config('app.database_portfolio'), //TODO: using config method brings back null?
+                'property' => 'portfolio_db',
+                'title'    => 'Portfolio',
+                'sequence' => 3,
                 'public'   => 1,
                 'disabled' => 0,
             ],

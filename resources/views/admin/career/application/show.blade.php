@@ -18,6 +18,12 @@
 
     <div>
 
+
+        @include('admin.components.show-row', [
+            'name'  => 'owner',
+            'value' => $application->admin['username'] ?? ''
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $application->role

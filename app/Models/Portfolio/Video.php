@@ -34,6 +34,7 @@ class Video extends Model
         'credit',
         'location',
         'link',
+        'link_name',
         'description',
         'image',
         'thumbnail',

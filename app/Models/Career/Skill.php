@@ -24,9 +24,15 @@ class Skill extends Model
      */
     protected $fillable = [
         'admin_id',
+        'name',
+        'slug',
         'rating',
         'years',
+        'link',
+        'link_name',
         'description',
+        'image',
+        'thumbnail',
         'sequence',
         'public',
         'readonly',

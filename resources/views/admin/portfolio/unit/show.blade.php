@@ -24,6 +24,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'slug',
+            'value' => $unit->slug
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'abbreviation',
             'value' => $unit->abbreviation
         ])

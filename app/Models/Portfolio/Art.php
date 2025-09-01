@@ -30,6 +30,7 @@ class Art extends Model
         'artist',
         'year',
         'link',
+        'link_name',
         'description',
         'image',
         'thumbnail',

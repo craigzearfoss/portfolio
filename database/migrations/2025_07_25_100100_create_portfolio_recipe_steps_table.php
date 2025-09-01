@@ -25,6 +25,7 @@ return new class extends Migration
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -34,6 +34,7 @@ use App\Http\Controllers\Admin\Portfolio\AcademyController as PortfolioAcademyCo
 use App\Http\Controllers\Admin\Portfolio\ArtController as PortfolioArtController;
 use App\Http\Controllers\Admin\Portfolio\CertificationController as PortfolioCertificationController;
 use App\Http\Controllers\Admin\Portfolio\CourseController as PortfolioCourseController;
+use App\Http\Controllers\Admin\Portfolio\IngredientController as PortfolioIngredientController;
 use App\Http\Controllers\Admin\Portfolio\LinkController as PortfolioLinkController;
 use App\Http\Controllers\Admin\Portfolio\MusicController as PortfolioMusicController;
 use App\Http\Controllers\Admin\Portfolio\ProjectController as PortfolioProjectController;
@@ -78,14 +79,14 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
 
 Route::prefix('admin/dictionary')->middleware('admin')->name('admin.dictionary.')->group(function () {
     Route::get('/', [DictionaryController::class, 'index'])->name('index');
-    Route::resource('category', DictionaryCategoryController::class)->parameter('category', 'dictionary_category');
-    Route::resource('database', DictionaryDatabaseController::class)->parameter('database', 'dictionary_database');
-    Route::resource('framework', DictionaryFrameworkController::class)->parameter('framework', 'dictionary_framework');
-    Route::resource('language', DictionaryLanguageController::class)->parameter('language', 'dictionary_language');
-    Route::resource('library', DictionaryLibraryController::class)->parameter('library', 'dictionary_library');
-    Route::resource('operating-system', DictionaryOperatingSystemController::class)->parameter('operating-system', 'dictionary_operating_system');
-    Route::resource('server', DictionaryServerController::class)->parameter('server', 'dictionary_server');
-    Route::resource('stack', DictionaryStackController::class)->parameter('stack', 'dictionary_stack');
+    Route::resource('category', DictionaryCategoryController::class)->parameter('category', 'category');
+    Route::resource('database', DictionaryDatabaseController::class)->parameter('database', 'database');
+    Route::resource('framework', DictionaryFrameworkController::class)->parameter('framework', 'framework');
+    Route::resource('language', DictionaryLanguageController::class)->parameter('language', 'language');
+    Route::resource('library', DictionaryLibraryController::class)->parameter('library', 'library');
+    Route::resource('operating-system', DictionaryOperatingSystemController::class)->parameter('operating-system', 'operating_system');
+    Route::resource('server', DictionaryServerController::class)->parameter('server', 'server');
+    Route::resource('stack', DictionaryStackController::class)->parameter('stack', 'stack');
 });
 
 Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')->group(function () {
@@ -94,6 +95,7 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
     Route::resource('art', PortfolioArtController::class);
     Route::resource('certification', PortfolioCertificationController::class);
     Route::resource('course', PortfolioCourseController::class);
+    Route::resource('ingredient', PortfolioIngredientController::class);
     Route::resource('link', PortfolioLinkController::class);
     Route::resource('music', PortfolioMusicController::class);
     Route::resource('project', PortfolioProjectController::class);

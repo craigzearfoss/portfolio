@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('label')->nullable();
             $table->year('year')->nullable();
             $table->date('release_date')->nullable();
-            $table->date('catalog_number', 50)->nullable();
+            $table->string('catalog_number', 50)->nullable();
             $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();

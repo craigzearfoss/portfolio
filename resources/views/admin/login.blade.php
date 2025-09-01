@@ -35,6 +35,7 @@
                             ])
 
                             @include('admin.components.form-input', [
+                                'type'        => 'password',
                                 'name'        => 'password',
                                 'label'       => 'Password',
                                 'value'       => old('password'),

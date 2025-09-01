@@ -50,8 +50,8 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'website',
-            'value' => $link->website
+            'name'  => 'link',
+            'value' => $link->link
         ])
 
         @include('admin.components.show-row', [

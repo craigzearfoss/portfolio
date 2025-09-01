@@ -20,9 +20,11 @@ class Unit extends Model
      */
     protected $fillable = [
         'name',
+        'slug',
         'abbreviation',
         'system',
         'link',
+        'link_name',
         'description',
         'image',
         'thumbnail',

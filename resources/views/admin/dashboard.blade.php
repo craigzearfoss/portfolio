@@ -10,7 +10,7 @@
 @section('content')
 
 
-    <div class="card p-8 my4">
+    <div class="card p-8 my-4">
 
         <h1 class="p-4">Welcome to {{ config('app.name') }} Admin!</h1>
 

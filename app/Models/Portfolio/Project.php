@@ -31,6 +31,7 @@ class Project extends Model
         'year',
         'repository',
         'link',
+        'link_name',
         'description',
         'image',
         'thumbnail',

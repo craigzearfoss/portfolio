@@ -41,6 +41,14 @@ class SampleSeeder extends Seeder
             ])
             ->create();
 
+        echo 'Portfolio/Ingredient' . PHP_EOL;
+        \App\Models\Portfolio\Ingredient::factory()
+            ->count(31)
+            ->sequence(fn ($sequence) => [
+                'sequence' => $sequence->index + 1
+            ])
+            ->create();
+
         echo 'Portfolio/Link' . PHP_EOL;
         \App\Models\Portfolio\Link::factory()
             ->count(44)
@@ -73,13 +81,21 @@ class SampleSeeder extends Seeder
             ])
             ->create();
 
+        echo 'Portfolio/Recipe' . PHP_EOL;
+        \App\Models\Portfolio\Recipe::factory()
+            ->count(31)
+            ->sequence(fn ($sequence) => [
+                'sequence' => $sequence->index + 1
+            ])
+            ->create();
+
         echo 'Portfolio/RecipeIngredient' . PHP_EOL;
         \App\Models\Portfolio\RecipeIngredient::factory()
             ->count(23)
             ->create();
 
-        echo 'Portfolio/Recipe' . PHP_EOL;
-        \App\Models\Portfolio\Recipe::factory()
+        echo 'Portfolio/RecipeStep' . PHP_EOL;
+        \App\Models\Portfolio\RecipeStep::factory()
             ->count(31)
             ->sequence(fn ($sequence) => [
                 'sequence' => $sequence->index + 1

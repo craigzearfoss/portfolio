@@ -84,6 +84,11 @@
             'value' => longDateTime($ingredient->updated_at)
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'deleted at',
+            'value' => longDateTime($ingredient->deleted_at)
+        ])
+
     </div>
 
 @endsection

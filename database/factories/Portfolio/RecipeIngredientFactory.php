@@ -17,14 +17,19 @@ class RecipeIngredientFactory extends Factory
     public function definition(): array
     {
         return [
-            'description' => fake()->text(200),
-            'image'       => fake()->imageUrl(),
-            'thumbnail'   => fake()->imageUrl(),
-            'sequence'    => 0,
-            'public'      => 1,
-            'readonly'    => 0,
-            'root'        => 0,
-            'disabled'    => 0,
+            'admin_id'      => \App\Models\Admin::all()->random()->id,
+            'recipe_id'     => \App\Models\Portfolio\Recipe::all()->random()->id,
+            'ingredient_id' => \App\Models\Portfolio\Ingredient::all()->random()->id,
+            'amount'        => fake()->numberBetween(1,4),
+            'unit_id'       => \App\Models\Portfolio\Unit::all()->random()->id,
+            'description'   => fake()->text(200),
+            'image'         => fake()->imageUrl(),
+            'thumbnail'     => fake()->imageUrl(),
+            'sequence'      => 0,
+            'public'        => 1,
+            'readonly'      => 0,
+            'root'          => 0,
+            'disabled'      => 0,
         ];
     }
 }

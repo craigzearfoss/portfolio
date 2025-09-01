@@ -18,9 +18,19 @@ class Category extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'full_name',
         'name',
+        'slug',
+        'abbreviation',
+        'open_source',
+        'proprietary',
+        'owner',
         'wiki_page',
+        'link',
+        'link_name',
         'description',
+        'image',
+        'thumbnail',
         'sequence',
         'public',
         'readonly',

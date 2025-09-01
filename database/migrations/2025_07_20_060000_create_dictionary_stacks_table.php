@@ -16,51 +16,66 @@ return new class extends Migration
             $table->string('full_name')->unique();
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
-            $table->string('website')->nullable();
+            $table->string('abbreviation', 100)->nullable();
+            $table->tinyInteger('open_source')->default(0);
+            $table->tinyInteger('proprietary')->default(0);
+            $table->string('owner', 100)->nullable();
             $table->string('wiki_page')->nullable();
+            $table->string('link')->nullable();
+            $table->string('link_name')->nullable();
             $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->integer('sequence')->default(0);
+            $table->tinyInteger('public')->default(1);
+            $table->integer('readonly')->default(0);
+            $table->integer('root')->default(0);
+            $table->tinyInteger('disabled')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
         });
 
         $data = [
-            [ 'id' => 1,  'name' => 'BCH',           'full_name' => 'BCH',           'slug' => 'bch',           'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 2,  'name' => 'ELK',           'full_name' => 'ELK',           'slug' => 'elk',           'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 3,  'name' => 'Ganeti',        'full_name' => 'Ganeti',        'slug' => 'ganeti',        'website' => '',                                        'wiki_page' => 'https://en.wikipedia.org/wiki/Ganeti' ],
-            [ 'id' => 4,  'name' => 'GRANDstack',    'full_name' => 'GRANDstack',    'slug' => 'grandstack',    'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 5,  'name' => 'GLASS',         'full_name' => 'GLASS',         'slug' => 'glass',         'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 6,  'name' => 'JAMstack',      'full_name' => 'JAMstack',      'slug' => 'jamstack',      'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 7,  'name' => 'Java-Spring',   'full_name' => 'Java-Spring',   'slug' => 'java-spring',   'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 8,  'name' => 'LAMP',          'full_name' => 'LAMP',          'slug' => 'lamp',          'website' => null,                                      'wiki_page' => 'https://en.wikipedia.org/wiki/LAMP_(software_bundle)' ],
-            [ 'id' => 9,  'name' => 'LAPP',          'full_name' => 'LAPP',          'slug' => 'lapp',          'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 10, 'name' => 'LEAP',          'full_name' => 'LEAP',          'slug' => 'leap',          'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 11, 'name' => 'LEMP',          'full_name' => 'LEMP',          'slug' => 'lemp',          'website' => 'https://www.digitalocean.com/community/tutorials/what-is-lemp', 'wiki_page' => null ],
-            [ 'id' => 12, 'name' => 'LLMP',          'full_name' => 'LLMP',          'slug' => 'llmp',          'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 13, 'name' => 'LNMP',          'full_name' => 'LNMP',          'slug' => 'lnmp',          'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 14, 'name' => 'LYCE',          'full_name' => 'LYCE',          'slug' => 'lyce',          'website' => '',                                        'wiki_page' => 'https://en.wikipedia.org/wiki/LYME_(software_bundle)' ],
-            [ 'id' => 15, 'name' => 'LYME',          'full_name' => 'LYME',          'slug' => 'lyme',          'website' => '',                                        'wiki_page' => 'https://en.wikipedia.org/wiki/LYME_(software_bundle)' ],
-            [ 'id' => 16, 'name' => 'MAMP',          'full_name' => 'MAMP',          'slug' => 'mamp',          'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 17, 'name' => 'MARQS',         'full_name' => 'MARQS',         'slug' => 'marqs',         'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 18, 'name' => 'MEAN',          'full_name' => 'MEAN',          'slug' => 'mean',          'website' => 'https://www.mongodb.com/resources/languages/mean-stack', 'wiki_page' => 'https://en.wikipedia.org/wiki/JavaScript_stack#MEAN/MERN/MEVN' ],
-            [ 'id' => 19, 'name' => 'MENG',          'full_name' => 'MENG',          'slug' => 'meng',          'website' => '',                                        'wiki_page' => '' ],
-            [ 'id' => 20, 'name' => 'MERN',          'full_name' => 'MERN',          'slug' => 'mern',          'website' => 'https://www.mongodb.com/resources/languages/mern-stack', 'wiki_page' => 'https://en.wikipedia.org/wiki/JavaScript_stack#MEAN/MERN/MEVN' ],
-            [ 'id' => 21, 'name' => 'MEVN',          'full_name' => 'MEVN',          'slug' => 'mevn',          'website' => null,                                      'wiki_page' => 'https://en.wikipedia.org/wiki/JavaScript_stack#MEAN/MERN/MEVN' ],
-            [ 'id' => 22, 'name' => 'MLVN',          'full_name' => 'MLVN',          'slug' => 'mlvn',          'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 23, 'name' => 'NMP',           'full_name' => 'NMP',           'slug' => 'nmp',           'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 24, 'name' => 'OpenACS',       'full_name' => 'OpenACS',       'slug' => 'openacs',       'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 25, 'name' => 'PERN',          'full_name' => 'PERN',          'slug' => 'pern',          'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 26, 'name' => 'PLONK',         'full_name' => 'PLONK',         'slug' => 'plonk',         'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 27, 'name' => 'Python-Django', 'full_name' => 'Python-Django', 'slug' => 'python-django', 'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 28, 'name' => 'Ruby on Rails', 'full_name' => 'Ruby on Rails', 'slug' => 'ruby-on-rails', 'website' => 'https://rubyonrails.org/',                'wiki_page' => 'https://en.wikipedia.org/wiki/Ruby_on_Rails' ],
-            [ 'id' => 29, 'name' => 'SMACK',         'full_name' => 'SMACK',         'slug' => 'smack',         'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 30, 'name' => 'T-REx',         'full_name' => 'T-REx',         'slug' => 't-rex',         'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 31, 'name' => 'TALL',          'full_name' => 'TALL',          'slug' => 'tall',          'website' => 'https://tallstack.dev/',                  'wiki_page' => null ],
-            [ 'id' => 32, 'name' => 'WAMP',          'full_name' => 'WAMP',          'slug' => 'wamp',          'website' => '',                                        'wiki_page' => 'https://en.wikipedia.org/wiki/WampServer' ],
-            [ 'id' => 33, 'name' => 'WIMP',          'full_name' => 'WIMP',          'slug' => 'wimp',          'website' => '',                                        'wiki_page' => 'https://en.wikipedia.org/wiki/WIMP_(software_bundle)' ],
-            [ 'id' => 34, 'name' => 'WINS',          'full_name' => 'WINS',          'slug' => 'wins',          'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 35, 'name' => 'WIPAV',         'full_name' => 'WIPAV',         'slug' => 'wipav',         'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 36, 'name' => 'WISA',          'full_name' => 'WISA',          'slug' => 'wisa',          'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 37, 'name' => 'WISAV',         'full_name' => 'WISAV',         'slug' => 'wsav',          'website' => '',                                        'wiki_page' => null ],
-            [ 'id' => 38, 'name' => 'XAMPP',         'full_name' => 'XAMPP',         'slug' => 'xampp',         'website' => '',                                        'wiki_page' => 'https://en.wikipedia.org/wiki/XAMPP' ],
-            [ 'id' => 39, 'name' => 'XRX',           'full_name' => 'XRX',           'slug' => 'xrx',           'website' => '',                                        'wiki_page' => null ],
+            [ 'id' => 1,  'full_name' => 'BCH',           'name' => 'BCH',           'slug' => 'bch',           'abbreviation' => 'BCH',   'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 2,  'full_name' => 'ELK',           'name' => 'ELK',           'slug' => 'elk',           'abbreviation' => null,    'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 3,  'full_name' => 'Ganeti',        'name' => 'Ganeti',        'slug' => 'ganeti',        'abbreviation' => null,    'link' => '',                                        'wiki_page' => 'https://en.wikipedia.org/wiki/Ganeti'                                         ],
+            [ 'id' => 4,  'full_name' => 'GRANDstack',    'name' => 'GRANDstack',    'slug' => 'grandstack',    'abbreviation' => null,    'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 5,  'full_name' => 'GLASS',         'name' => 'GLASS',         'slug' => 'glass',         'abbreviation' => null,    'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 6,  'full_name' => 'JAMstack',      'name' => 'JAMstack',      'slug' => 'jamstack',      'abbreviation' => null,    'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 7,  'full_name' => 'Java-Spring',   'name' => 'Java-Spring',   'slug' => 'java-spring',   'abbreviation' => null,    'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 8,  'full_name' => 'LAMP',          'name' => 'LAMP',          'slug' => 'lamp',          'abbreviation' => 'LAMP',  'link' => null,                                      'wiki_page' => 'https://en.wikipedia.org/wiki/LAMP_(software_bundle)'                         ],
+            [ 'id' => 9,  'full_name' => 'LAPP',          'name' => 'LAPP',          'slug' => 'lapp',          'abbreviation' => 'LAPP',  'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 10, 'full_name' => 'LEAP',          'name' => 'LEAP',          'slug' => 'leap',          'abbreviation' => 'LEAP',  'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 11, 'full_name' => 'LEMP',          'name' => 'LEMP',          'slug' => 'lemp',          'abbreviation' => 'LEMP',  'link' => 'https://www.digitalocean.com/community/tutorials/what-is-lemp', 'wiki_page' => null                                                     ],
+            [ 'id' => 12, 'full_name' => 'LLMP',          'name' => 'LLMP',          'slug' => 'llmp',          'abbreviation' => 'LLMP',  'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 13, 'full_name' => 'LNMP',          'name' => 'LNMP',          'slug' => 'lnmp',          'abbreviation' => 'LNMP',  'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 14, 'full_name' => 'LYCE',          'name' => 'LYCE',          'slug' => 'lyce',          'abbreviation' => 'LYCE',  'link' => '',                                        'wiki_page' => 'https://en.wikipedia.org/wiki/LYME_(software_bundle)'                         ],
+            [ 'id' => 15, 'full_name' => 'LYME',          'name' => 'LYME',          'slug' => 'lyme',          'abbreviation' => 'LYME',  'link' => '',                                        'wiki_page' => 'https://en.wikipedia.org/wiki/LYME_(software_bundle)'                         ],
+            [ 'id' => 16, 'full_name' => 'MAMP',          'name' => 'MAMP',          'slug' => 'mamp',          'abbreviation' => 'MAMP',  'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 17, 'full_name' => 'MARQS',         'name' => 'MARQS',         'slug' => 'marqs',         'abbreviation' => 'MARQS', 'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 18, 'full_name' => 'MEAN',          'name' => 'MEAN',          'slug' => 'mean',          'abbreviation' => 'MEAN',  'link' => 'https://www.mongodb.com/resources/languages/mean-stack', 'wiki_page' => 'https://en.wikipedia.org/wiki/JavaScript_stack#MEAN/MERN/MEVN' ],
+            [ 'id' => 19, 'full_name' => 'MENG',          'name' => 'MENG',          'slug' => 'meng',          'abbreviation' => 'MENG',  'link' => '',                                        'wiki_page' => ''                                                                             ],
+            [ 'id' => 20, 'full_name' => 'MERN',          'name' => 'MERN',          'slug' => 'mern',          'abbreviation' => 'MERN',  'link' => 'https://www.mongodb.com/resources/languages/mern-stack', 'wiki_page' => 'https://en.wikipedia.org/wiki/JavaScript_stack#MEAN/MERN/MEVN' ],
+            [ 'id' => 21, 'full_name' => 'MEVN',          'name' => 'MEVN',          'slug' => 'mevn',          'abbreviation' => 'MEVN',  'link' => null,                                      'wiki_page' => 'https://en.wikipedia.org/wiki/JavaScript_stack#MEAN/MERN/MEVN'                ],
+            [ 'id' => 22, 'full_name' => 'MLVN',          'name' => 'MLVN',          'slug' => 'mlvn',          'abbreviation' => 'MLVN',  'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 23, 'full_name' => 'NMP',           'name' => 'NMP',           'slug' => 'nmp',           'abbreviation' => 'NMP',   'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 24, 'full_name' => 'OpenACS',       'name' => 'OpenACS',       'slug' => 'openacs',       'abbreviation' => null,    'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 25, 'full_name' => 'PERN',          'name' => 'PERN',          'slug' => 'pern',          'abbreviation' => null,    'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 26, 'full_name' => 'PLONK',         'name' => 'PLONK',         'slug' => 'plonk',         'abbreviation' => null,    'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 27, 'full_name' => 'Python-Django', 'name' => 'Python-Django', 'slug' => 'python-django', 'abbreviation' => null,    'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 28, 'full_name' => 'Ruby on Rails', 'name' => 'Ruby on Rails', 'slug' => 'ruby-on-rails', 'abbreviation' => null,    'link' => 'https://rubyonrails.org/',                'wiki_page' => 'https://en.wikipedia.org/wiki/Ruby_on_Rails'                                  ],
+            [ 'id' => 29, 'full_name' => 'SMACK',         'name' => 'SMACK',         'slug' => 'smack',         'abbreviation' => null,    'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 30, 'full_name' => 'T-REx',         'name' => 'T-REx',         'slug' => 't-rex',         'abbreviation' => 'T-REx', 'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 31, 'full_name' => 'TALL',          'name' => 'TALL',          'slug' => 'tall',          'abbreviation' => 'TALL',  'link' => 'https://tallstack.dev/',                  'wiki_page' => null                                                                           ],
+            [ 'id' => 32, 'full_name' => 'WAMP',          'name' => 'WAMP',          'slug' => 'wamp',          'abbreviation' => 'WAMP',  'link' => '',                                        'wiki_page' => 'https://en.wikipedia.org/wiki/WampServer'                                     ],
+            [ 'id' => 33, 'full_name' => 'WIMP',          'name' => 'WIMP',          'slug' => 'wimp',          'abbreviation' => 'WIMP',  'link' => '',                                        'wiki_page' => 'https://en.wikipedia.org/wiki/WIMP_(software_bundle)'                         ],
+            [ 'id' => 34, 'full_name' => 'WINS',          'name' => 'WINS',          'slug' => 'wins',          'abbreviation' => 'WINS',  'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 35, 'full_name' => 'WIPAV',         'name' => 'WIPAV',         'slug' => 'wipav',         'abbreviation' => 'WIPAV', 'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 36, 'full_name' => 'WISA',          'name' => 'WISA',          'slug' => 'wisa',          'abbreviation' => 'WISA',  'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 37, 'full_name' => 'WISAV',         'name' => 'WISAV',         'slug' => 'wsav',          'abbreviation' => 'WSAV',  'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 38, 'full_name' => 'XAMPP',         'name' => 'XAMPP',         'slug' => 'xampp',         'abbreviation' => 'XAMPP', 'link' => '',                                        'wiki_page' => 'https://en.wikipedia.org/wiki/XAMPP'                                          ],
+            [ 'id' => 39, 'full_name' => 'XRX',           'name' => 'XRX',           'slug' => 'xrx',           'abbreviation' => 'XRX',   'link' => '',                                        'wiki_page' => null                                                                           ],
+            [ 'id' => 40, 'full_name' => 'other',         'name' => 'other',         'slug' => 'xrx',           'abbreviation' => null,    'link' => '',                                        'wiki_page' => null                                                                           ],
         ];
         \App\Models\Dictionary\Stack::insert($data);
     }

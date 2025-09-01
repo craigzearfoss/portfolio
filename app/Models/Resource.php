@@ -44,8 +44,12 @@ class Resource extends Model
 
     public function path(): string
     {
-        return ($this->database->name ?? '?') !== 'craigzearfoss'
-            ? ($this->database->name ?? '?') . '.' . ($this->type ?? '?')
-            : ($this->type ?? '?');
+        $parts = [];
+        if (($this->database->name ?? '?') !== 'craigzearfoss') {
+            $parts[] = str_replace('_', '-', $this->database->name);
+        }
+        $parts[] = str_replace('_', '-', $this->type ?? '?');
+
+        return implode('.', $parts);
     }
 }
