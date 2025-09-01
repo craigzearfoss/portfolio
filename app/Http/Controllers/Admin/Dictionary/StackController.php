@@ -15,18 +15,18 @@ class StackController extends Controller
     const PER_PAGE = 20;
 
     /**
-     * Display a listing of dictionary stacks.
+     * Display a listing of stacks.
      */
     public function index(int $perPage = self::PER_PAGE): View
     {
-        $dictionaryStacks = Stack::orderBy('name', 'asc')->paginate($perPage);
+        $stacks = Stack::orderBy('name', 'asc')->paginate($perPage);
 
-        return view('admin.dictionary.stack.index', compact('dictionaryStacks'))
+        return view('admin.dictionary.stack.index', compact('stacks'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
-     * Show the form for creating a new dictionary stack.
+     * Show the form for creating a new stack.
      */
     public function create(): View
     {
@@ -34,60 +34,60 @@ class StackController extends Controller
     }
 
     /**
-     * Store a newly created dictionary stack in storage.
+     * Store a newly created stack in storage.
      */
     public function store(StackStoreRequest $request): RedirectResponse
     {
-        $dictionaryStack =Stack::create($request->validated());
+        $stack =Stack::create($request->validated());
 
-        return redirect()->route('admin.dictionary.stack.show', $dictionaryStack)
-            ->with('success', 'Dictionary stack created successfully.');
+        return redirect()->route('admin.dictionary.stack.show', $stack)
+            ->with('success', 'Stack created successfully.');
     }
 
     /**
-     * Display the specified dictionary stack.
+     * Display the specified stack.
      */
-    public function show(Stack $dictionaryStack): View
+    public function show(Stack $stack): View
     {
-        return view('admin.dictionary.stack.show', compact('dictionaryStack'));
+        return view('admin.dictionary.stack.show', compact('stack'));
     }
 
     /**
-     * Show the form for editing the specified dictionary stack.
+     * Show the form for editing the specified stack.
      */
-    public function edit(Stack $dictionaryStack): View
+    public function edit(Stack $stack): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit dictionary stack entries.');
+            abort(403, 'Only admins with root access can edit stack entries.');
         }
 
-        return view('admin.dictionary.stack.edit', compact('dictionaryStack'));
+        return view('admin.dictionary.stack.edit', compact('stack'));
     }
 
     /**
-     * Update the specified dictionary stack in storage.
+     * Update the specified stack in storage.
      */
     public function update(StackUpdateRequest $request,
-                           Stack              $dictionaryStack): RedirectResponse
+                           Stack              $stack): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update dictionary stack entries.');
+            abort(403, 'Only admins with root access can update stack entries.');
         }
 
-        $dictionaryStack->update($request->validated());
+        $stack->update($request->validated());
 
-        return redirect()->route('admin.dictionary.stack.show', $dictionaryStack)
-            ->with('success', 'Dictionary stack updated successfully');
+        return redirect()->route('admin.dictionary.stack.show', $stack)
+            ->with('success', 'Stack updated successfully');
     }
 
     /**
-     * Remove the specified dictionary stack from storage.
+     * Remove the specified stack from storage.
      */
-    public function destroy(Stack $dictionaryStack): RedirectResponse
+    public function destroy(Stack $stack): RedirectResponse
     {
-        $dictionaryStack->delete();
+        $stack->delete();
 
         return redirect()->route('admin.dictionary.stack.index')
-            ->with('success', 'Dictionary stack deleted successfully');
+            ->with('success', 'Stack deleted successfully');
     }
 }

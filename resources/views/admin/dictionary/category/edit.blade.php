@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $dictionaryCategory->name . ' category',
+    'title' => $category->name . ' category',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.category.show', $dictionaryCategory) ],
+        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.category.show', $category) ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.category.index') ],
     ],
     'errors' => $errors ?? [],
@@ -19,23 +19,71 @@
 
     <div class="form">
 
-        <form action="{{ route('admin.dictionary.category.update', $dictionaryCategory) }}"
+        <form action="{{ route('admin.dictionary.category.update', $category) }}"
               method="POST">
             @csrf
             @method('PUT')
 
             @include('admin.components.form-input', [
+                'name'      => 'full_name',
+                'value'     => old('full_name') ?? $category->full_name,
+                'required'  => true,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
                 'name'      => 'name',
-                'value'     => old('name') ?? $dictionaryCategory->name,
+                'value'     => old('name') ?? $category->name,
                 'required'  => true,
                 'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input', [
+                'name'      => 'abbreviation',
+                'value'     => old('abbreviation') ?? $category->abbreviation,
+                'required'  => true,
+                'maxlength' => 20,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'open_source',
+                'label'           => 'open source',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('open_source') ?? $category->open_source,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'proprietary',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('proprietary') ?? $category->proprietary,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
                 'name'      => 'wiki_page',
                 'label'     => 'wiki page',
-                'value'     => old('wiki_page') ?? $dictionaryCategory->wiki_page,
+                'value'     => old('wiki_page') ?? $category->wiki_page,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
+                'name'      => 'link',
+                'value'     => old('link') ?? $category->link,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
+                'name'      => 'link_name',
+                'label'     => 'link name',
+                'value'     => old('link') ?? $category->link_name,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -43,8 +91,62 @@
             @include('admin.components.form-textarea', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
-                'value'   => old('description') ?? $dictionaryCategory->description,
+                'value'   => old('description') ?? $category->description,
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'image',
+                'value'   => old('image') ?? $category->image,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'thumbnail',
+                'value'   => old('thumbnail') ?? $category->thumbnail,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'        => 'number',
+                'name'        => 'sequence',
+                'value'       => old('sequence') ?? $category->sequence,
+                'min'         => 0,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'public',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('public') ?? $category->public,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'readonly',
+                'label'           => 'read-only',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('readonly') ?? $category->readonly,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $category->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'disabled',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('disabled') ?? $category->disabled,
+                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-button-submit', [

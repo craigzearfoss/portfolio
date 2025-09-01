@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::connection('portfolio_db')->create('units', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->unique();
-            $table->string('abbreviation', 10)->unique();
+            $table->string('abbreviation', 20)->unique();
             $table->string('system', 10);
             $table->string('link')->nullable();
             $table->text('description')->nullable();

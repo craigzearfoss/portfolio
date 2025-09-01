@@ -25,7 +25,7 @@ class IndustryStoreRequest extends FormRequest
         return [
             'name'         => ['required', 'string', 'max:50', 'unique:portfolio_db.industries,name'],
             'slug'         => ['required', 'string', 'max:50', 'unique:portfolio_db.industries,slug'],
-            'abbreviation' => ['required', 'string', 'max:10', 'unique:portfolio_db.industries,abbreviation'],
+            'abbreviation' => ['required', 'string', 'max:20', 'unique:portfolio_db.industries,abbreviation'],
             'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'sequence'     => ['integer', 'min:0'],

@@ -15,91 +15,91 @@ class CategoryController extends Controller
     const PER_PAGE = 20;
 
     /**
-     * Display a listing of dictionary categories.
+     * Display a listing of categories.
      */
     public function index(int $perPage = self::PER_PAGE): View
     {
-        $dictionaryCategories = Category::orderBy('name', 'asc')->paginate($perPage);
+        $categories = Category::orderBy('name', 'asc')->paginate($perPage);
 
-        return view('admin.dictionary.category.index', compact('dictionaryCategories'))
+        return view('admin.dictionary.category.index', compact('categories'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
-     * Show the form for creating a new dictionary category.
+     * Show the form for creating a new category.
      */
     public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add dictionary category entries.');
+            abort(403, 'Only admins with root access can add category entries.');
         }
 
         return view('admin.dictionary.category.create');
     }
 
     /**
-     * Store a newly created dictionary category in storage.
+     * Store a newly created category in storage.
      */
     public function store(CategoryStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add dictionary category entries.');
+            abort(403, 'Only admins with root access can add category entries.');
         }
 
         Category::create($request->validated());
 
         return redirect()->route('admin.dictionary.category.index')
-            ->with('success', 'Dictionary category created successfully.');
+            ->with('success', 'category created successfully.');
     }
 
     /**
-     * Display the specified dictionary category.
+     * Display the specified category.
      */
-    public function show(Category $dictionaryCategory): View
+    public function show(Category $category): View
     {
-        return view('admin.dictionary.category.show', compact('dictionaryCategory'));
+        return view('admin.dictionary.category.show', compact('category'));
     }
 
     /**
-     * Show the form for editing the specified dictionary category.
+     * Show the form for editing the specified category.
      */
-    public function edit(Category $dictionaryCategory): View
+    public function edit(Category $category): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit dictionary category entries.');
+            abort(403, 'Only admins with root access can edit category entries.');
         }
 
-        return view('admin.dictionary.category.edit', compact('dictionaryCategory'));
+        return view('admin.dictionary.category.edit', compact('category'));
     }
 
     /**
-     * Update the specified dictionary category in storage.
+     * Update the specified category in storage.
      */
     public function update(CategoryUpdateRequest $request,
-                           Category              $dictionaryCategory): RedirectResponse
+                           Category              $category): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update dictionary category entries.');
+            abort(403, 'Only admins with root access can update category entries.');
         }
 
-        $dictionaryCategory->update($request->validated());
+        $category->update($request->validated());
 
         return redirect()->route('admin.dictionary.category.index')
-            ->with('success', 'Dictionary category updated successfully');
+            ->with('success', 'category updated successfully');
     }
 
     /**
-     * Remove the specified dictionary category from storage.
+     * Remove the specified category from storage.
      */
-    public function destroy(Category $dictionaryCategory): RedirectResponse
+    public function destroy(Category $category): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete dictionary category entries.');
+            abort(403, 'Only admins with root access can delete category entries.');
         }
 
-        $dictionaryCategory->delete();
+        $category->delete();
 
         return redirect()->route('admin.dictionary.category.index')
-            ->with('success', 'Dictionary category deleted successfully');
+            ->with('success', 'category deleted successfully');
     }
 }

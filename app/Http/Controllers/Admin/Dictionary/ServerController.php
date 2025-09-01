@@ -15,91 +15,91 @@ class ServerController extends Controller
     const PER_PAGE = 20;
 
     /**
-     * Display a listing of dictionary servers.
+     * Display a listing of servers.
      */
     public function index(int $perPage = self::PER_PAGE): View
     {
-        $dictionaryServers = Server::orderBy('name', 'asc')->paginate($perPage);
+        $servers = Server::orderBy('name', 'asc')->paginate($perPage);
 
-        return view('admin.dictionary.server.index', compact('dictionaryServers'))
+        return view('admin.dictionary.server.index', compact('servers'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
-     * Show the form for creating a new dictionary server.
+     * Show the form for creating a new server.
      */
     public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add dictionary server entries.');
+            abort(403, 'Only admins with root access can add server entries.');
         }
 
         return view('admin.dictionary.server.create');
     }
 
     /**
-     * Store a newly created dictionary server in storage.
+     * Store a newly created server in storage.
      */
     public function store(ServerStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add dictionary server entries.');
+            abort(403, 'Only admins with root access can add server entries.');
         }
 
         Server::create($request->validated());
 
         return redirect()->route('admin.dictionary.server.index')
-            ->with('success', 'Dictionary server created successfully.');
+            ->with('success', 'Server created successfully.');
     }
 
     /**
-     * Display the specified dictionary server.
+     * Display the specified server.
      */
-    public function show(Server $dictionaryServer): View
+    public function show(Server $server): View
     {
-        return view('admin.dictionary.server.show', compact('dictionaryServer'));
+        return view('admin.dictionary.server.show', compact('server'));
     }
 
     /**
-     * Show the form for editing the specified dictionary server.
+     * Show the form for editing the specified server.
      */
-    public function edit(Server $dictionaryServer): View
+    public function edit(Server $server): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit dictionary server entries.');
+            abort(403, 'Only admins with root access can edit server entries.');
         }
 
-        return view('admin.dictionary.server.edit', compact('dictionaryServer'));
+        return view('admin.dictionary.server.edit', compact('server'));
     }
 
     /**
-     * Update the specified dictionary server in storage.
+     * Update the specified server in storage.
      */
     public function update(ServerUpdateRequest $request,
-                           Server              $dictionaryServer): RedirectResponse
+                           Server              $server): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update dictionary server entries.');
+            abort(403, 'Only admins with root access can update server entries.');
         }
 
-        $dictionaryServer->update($request->validated());
+        $server->update($request->validated());
 
         return redirect()->route('admin.dictionary.server.index')
-            ->with('success', 'Dictionary server updated successfully');
+            ->with('success', 'Server updated successfully');
     }
 
     /**
-     * Remove the specified dictionary server from storage.
+     * Remove the specified server from storage.
      */
-    public function destroy(Server $dictionaryServer): RedirectResponse
+    public function destroy(Server $server): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete dictionary server entries.');
+            abort(403, 'Only admins with root access can delete server entries.');
         }
 
-        $dictionaryServer->delete();
+        $server->delete();
 
         return redirect()->route('admin.dictionary.server.index')
-            ->with('success', 'Dictionary server deleted successfully');
+            ->with('success', 'Server deleted successfully');
     }
 }

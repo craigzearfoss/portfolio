@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('full_name')->unique();
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
-            $table->string('abbreviation', 100)->nullable();
+            $table->string('abbreviation', 20)->nullable();
             $table->tinyInteger('open_source')->default(0);
             $table->tinyInteger('proprietary')->default(0);
             $table->tinyInteger('compiled')->default(0);

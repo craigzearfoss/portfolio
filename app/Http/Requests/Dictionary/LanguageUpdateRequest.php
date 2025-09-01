@@ -26,7 +26,7 @@ class LanguageUpdateRequest extends FormRequest
             'full_name'    => ['string', 'max:255', 'unique:career_db.dictionary_languages,full_name,'.$this->dictionary_language->id, 'filled'],
             'name'         => ['string', 'max:100', 'unique:career_db.dictionary_languages,name,'.$this->dictionary_language->id, 'filled'],
             'slug'         => ['string', 'max:100', 'unique:career_db.dictionary_languages,slug,'.$this->dictionary_language->id, 'filled'],
-            'abbreviation' => ['string', 'max:100', 'nullable'],
+            'abbreviation' => ['string', 'max:20', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
             'proprietary'  => ['integer', 'between:0,1'],
             'compiled'     => ['integer', 'between:0,1'],

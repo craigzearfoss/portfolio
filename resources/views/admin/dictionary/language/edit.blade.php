@@ -25,42 +25,27 @@
             @csrf
             @method('PUT')
 
-            @include('admin.components.form-input-horizontal', [
+            @include('admin.components.form-input', [
                 'name'      => 'full_name',
-                'label'     => 'full name',
-                'value'     => old('full_name') ?? $dictionaryLanguage->full_name,
+                'value'     => old('full_name') ?? $language->full_name,
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
+            @include('admin.components.form-input', [
                 'name'      => 'name',
-                'value'     => old('name') ?? $dictionaryLanguage->name,
+                'value'     => old('name') ?? $language->name,
                 'required'  => true,
                 'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'slug',
-                'value'     => old('slug') ?? $dictionaryLanguage->slug,
-                'required'  => true,
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
+            @include('admin.components.form-input', [
                 'name'      => 'abbreviation',
-                'value'     => old('abbreviation') ?? $dictionaryLanguage->abbreviation,
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'owner',
-                'value'     => old('owner') ?? $dictionaryLanguage->owner,
-                'maxlength' => 100,
+                'value'     => old('abbreviation') ?? $language->abbreviation,
+                'required'  => true,
+                'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
 
@@ -69,7 +54,7 @@
                 'label'           => 'open source',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('public') ?? $dictionaryLanguage->open_source,
+                'checked'         => old('open_source') ?? $language->open_source,
                 'message'         => $message ?? '',
             ])
 
@@ -77,38 +62,92 @@
                 'name'            => 'proprietary',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('proprietary') ?? $dictionaryLanguage->proprietary,
+                'checked'         => old('proprietary') ?? $language->proprietary,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
+                'name'      => 'wiki_page',
+                'label'     => 'wiki page',
+                'value'     => old('wiki_page') ?? $language->wiki_page,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
+                'name'      => 'link',
+                'value'     => old('link') ?? $language->link,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
+                'name'      => 'link_name',
+                'label'     => 'link name',
+                'value'     => old('link') ?? $language->link_name,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea', [
+                'name'    => 'description',
+                'id'      => 'inputEditor',
+                'value'   => old('description') ?? $language->description,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'image',
+                'value'   => old('image') ?? $language->image,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'thumbnail',
+                'value'   => old('thumbnail') ?? $language->thumbnail,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'        => 'number',
+                'name'        => 'sequence',
+                'value'       => old('sequence') ?? $language->sequence,
+                'min'         => 0,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'public',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('public') ?? $language->public,
                 'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'compiled',
+                'name'            => 'readonly',
+                'label'           => 'read-only',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('compiled') ?? $dictionaryLanguage->compiled,
+                'checked'         => old('readonly') ?? $language->readonly,
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'website',
-                'value'     => old('website') ?? $dictionaryLanguage->website,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $language->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
+                'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'wiki_page',
-                'label'     => 'wiki page',
-                'value'     => old('wiki_page') ?? $dictionaryLanguage->wiki_page,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $dictionaryLanguage->description,
-                'message' => $message ?? '',
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'disabled',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('disabled') ?? $language->disabled,
+                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

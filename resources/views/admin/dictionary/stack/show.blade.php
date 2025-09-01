@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $dictionaryStack->name . ' stack',
+    'title' => $stack->name . ' stack',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
@@ -7,7 +7,7 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.dictionary.stack.edit', $dictionaryStack) ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.dictionary.stack.edit', $stack) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'url' => route('admin.dictionary.stack.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => route('admin.dictionary.stack.index') ],
     ],
@@ -20,59 +20,110 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full name',
-            'value' => $dictionaryStack->full_name
+            'value' => $stack->full_name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $dictionaryStack->name
+            'value' => $stack->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'slug',
-            'value' => $dictionaryStack->slug
+            'value' => $stack->slug
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'servers',
-            'value' => implode(', ', $dictionaryStack->servers->pluck('name')->toArray())
+            'name'  => 'abbreviation',
+            'value' => $stack->abbreviation
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'open source',
+            'checked' => $stack->open_source
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'proprietary',
+            'checked' => $stack->proprietary
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'operating systems',
-            'value' => implode(', ', $dictionaryStack->operating_systems->pluck('name')->toArray())
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'frameworks',
-            'value' => implode(', ', $dictionaryStack->frameworks->pluck('name')->toArray())
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'languages',
-            'value' => implode(', ', $dictionaryStack->languages->pluck('name')->toArray())
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'databases',
-            'value' => implode(', ', $dictionaryStack->databases->pluck('name')->toArray())
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'  => 'website',
-            'url'    => $dictionaryStack->website,
-            'target' => '_blank'
+            'name'  => 'owner',
+            'value' => $stack->owner
         ])
 
         @include('admin.components.show-row-link', [
             'name'  => 'wiki page',
-            'url'    => $dictionaryStack->wiki_page,
+            'url'    => $stack->wiki_page,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'  => 'link',
+            'url'    => $stack->link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'  => 'link name',
+            'url'    => $stack->link_name,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $dictionaryStack->description
+            'value' => $stack->description
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $stack->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $stack->thumbnail
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'sequence',
+            'value' => $stack->sequence
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'public',
+            'checked' => $stack->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'read-only',
+            'checked' => $stack->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $stack->root
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'disabled',
+            'checked' => $stack->disabled
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'created at',
+            'value' => longDateTime($stack->created_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'updated at',
+            'value' => longDateTime($stack->updated_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'deleted at',
+            'value' => longDateTime($stack->deleted_at)
         ])
 
     </div>

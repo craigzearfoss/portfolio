@@ -26,7 +26,7 @@ class DatabaseStoreRequest extends FormRequest
             'full_name'    => ['required', 'string', 'max:255', 'unique:career_db.dictionary_databases,full_name'],
             'name'         => ['required', 'string', 'max:100', 'unique:career_db.dictionary_databases,name'],
             'slug'         => ['required', 'string', 'max:100', 'unique:career_db.dictionary_databases,slug'],
-            'abbreviation' => ['string', 'max:100', 'nullable'],
+            'abbreviation' => ['string', 'max:20', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
             'proprietary'  => ['integer', 'between:0,1'],
             'owner'        => ['string', 'max:255', 'nullable'],

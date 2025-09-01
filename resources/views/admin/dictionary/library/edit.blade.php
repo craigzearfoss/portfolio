@@ -24,42 +24,27 @@
             @csrf
             @method('PUT')
 
-            @include('admin.components.form-input-horizontal', [
+            @include('admin.components.form-input', [
                 'name'      => 'full_name',
-                'label'     => 'full name',
-                'value'     => old('full_name') ?? $dictionaryLibrary->full_name,
+                'value'     => old('full_name') ?? $library->full_name,
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
+            @include('admin.components.form-input', [
                 'name'      => 'name',
-                'value'     => old('name') ?? $dictionaryLibrary->name,
+                'value'     => old('name') ?? $library->name,
                 'required'  => true,
                 'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'slug',
-                'value'     => old('slug') ?? $dictionaryLibrary->slug,
-                'required'  => true,
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
+            @include('admin.components.form-input', [
                 'name'      => 'abbreviation',
-                'value'     => old('abbreviation') ?? $dictionaryLibrary->abbreviation,
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'owner',
-                'value'     => old('owner') ?? $dictionaryLibrary->owner,
-                'maxlength' => 100,
+                'value'     => old('abbreviation') ?? $library->abbreviation,
+                'required'  => true,
+                'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
 
@@ -68,7 +53,7 @@
                 'label'           => 'open source',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('public') ?? $dictionaryLibrary->open_source,
+                'checked'         => old('open_source') ?? $library->open_source,
                 'message'         => $message ?? '',
             ])
 
@@ -76,38 +61,92 @@
                 'name'            => 'proprietary',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('proprietary') ?? $dictionaryLibrary->proprietary,
+                'checked'         => old('proprietary') ?? $library->proprietary,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
+                'name'      => 'wiki_page',
+                'label'     => 'wiki page',
+                'value'     => old('wiki_page') ?? $library->wiki_page,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
+                'name'      => 'link',
+                'value'     => old('link') ?? $library->link,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
+                'name'      => 'link_name',
+                'label'     => 'link name',
+                'value'     => old('link') ?? $library->link_name,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea', [
+                'name'    => 'description',
+                'id'      => 'inputEditor',
+                'value'   => old('description') ?? $library->description,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'image',
+                'value'   => old('image') ?? $library->image,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'thumbnail',
+                'value'   => old('thumbnail') ?? $library->thumbnail,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'        => 'number',
+                'name'        => 'sequence',
+                'value'       => old('sequence') ?? $library->sequence,
+                'min'         => 0,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'public',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('public') ?? $library->public,
                 'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'compiled',
+                'name'            => 'readonly',
+                'label'           => 'read-only',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('compiled') ?? $dictionaryLibrary->compiled,
+                'checked'         => old('readonly') ?? $library->readonly,
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'website',
-                'value'     => old('website') ?? $dictionaryLibrary->website,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $library->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
+                'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'wiki_page',
-                'label'     => 'wiki page',
-                'value'     => old('wiki_page') ?? $dictionaryLibrary->wiki_page,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $dictionaryLibrary->description,
-                'message' => $message ?? '',
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'disabled',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('disabled') ?? $library->disabled,
+                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

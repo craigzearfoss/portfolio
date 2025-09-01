@@ -23,51 +23,129 @@
             @csrf
             @method('PUT')
 
-            @include('admin.components.form-input-horizontal', [
+            @include('admin.components.form-input', [
                 'name'      => 'full_name',
-                'label'     => 'full name',
-                'value'     => old('full_name') ?? $dictionaryStack->full_name,
+                'value'     => old('full_name') ?? $stack->full_name,
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
+            @include('admin.components.form-input', [
                 'name'      => 'name',
-                'value'     => old('name') ?? $dictionaryStack->name,
+                'value'     => old('name') ?? $stack->name,
                 'required'  => true,
                 'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'slug',
-                'value'     => old('slug') ?? $dictionaryStack->slug,
+            @include('admin.components.form-input', [
+                'name'      => 'abbreviation',
+                'value'     => old('abbreviation') ?? $stack->abbreviation,
                 'required'  => true,
-                'maxlength' => 100,
+                'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'website',
-                'value'     => old('website') ?? $dictionaryStack->website,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'open_source',
+                'label'           => 'open source',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('open_source') ?? $stack->open_source,
+                'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'proprietary',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('proprietary') ?? $stack->proprietary,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
                 'name'      => 'wiki_page',
                 'label'     => 'wiki page',
-                'value'     => old('wiki_page') ?? $dictionaryStack->wiki_page,
+                'value'     => old('wiki_page') ?? $stack->wiki_page,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-textarea-horizontal', [
+            @include('admin.components.form-input', [
+                'name'      => 'link',
+                'value'     => old('link') ?? $stack->link,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
+                'name'      => 'link_name',
+                'label'     => 'link name',
+                'value'     => old('link') ?? $stack->link_name,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
-                'value'   => old('description') ?? $dictionaryStack->description,
+                'value'   => old('description') ?? $stack->description,
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'image',
+                'value'   => old('image') ?? $stack->image,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'thumbnail',
+                'value'   => old('thumbnail') ?? $stack->thumbnail,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'        => 'number',
+                'name'        => 'sequence',
+                'value'       => old('sequence') ?? $stack->sequence,
+                'min'         => 0,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'public',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('public') ?? $stack->public,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'readonly',
+                'label'           => 'read-only',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('readonly') ?? $stack->readonly,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $stack->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'disabled',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('disabled') ?? $stack->disabled,
+                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-button-submit', [

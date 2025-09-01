@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $dictionaryDatabase->name . ' database',
+    'title' => $database->name . ' database',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
@@ -7,7 +7,7 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        //[ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'url' => route('admin.dictionary.database.edit', $dictionaryDatabase) ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'url' => route('admin.dictionary.category.edit', $database) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'url' => route('admin.dictionary.database.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => route('admin.dictionary.database.index') ],
     ],
@@ -20,59 +20,110 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full name',
-            'value' => $dictionaryDatabase->full_name
+            'value' => $database->full_name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $dictionaryDatabase->name
+            'value' => $database->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'slug',
-            'value' => $dictionaryDatabase->slug
+            'value' => $database->slug
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $dictionaryDatabase->abbreviation
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $dictionaryDatabase->owner
+            'value' => $database->abbreviation
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'open source',
-            'checked' => $dictionaryDatabase->open_source
+            'checked' => $database->open_source
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'proprietary',
-            'checked' => $dictionaryDatabase->proprietary
+            'checked' => $database->proprietary
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'compiled',
-            'checked' => $dictionaryDatabase->compiled
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'  => 'website',
-            'url'    => $dictionaryDatabase->website,
-            'target' => '_blank'
+        @include('admin.components.show-row', [
+            'name'  => 'owner',
+            'value' => $database->owner
         ])
 
         @include('admin.components.show-row-link', [
             'name'  => 'wiki page',
-            'url'    => $dictionaryDatabase->wiki_page,
+            'url'    => $database->wiki_page,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'  => 'link',
+            'url'    => $database->link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'  => 'link name',
+            'url'    => $database->link_name,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $dictionaryDatabase->description
+            'value' => $database->description
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $database->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $database->thumbnail
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'sequence',
+            'value' => $database->sequence
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'public',
+            'checked' => $database->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'read-only',
+            'checked' => $database->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $database->root
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'disabled',
+            'checked' => $database->disabled
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'created at',
+            'value' => longDateTime($database->created_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'updated at',
+            'value' => longDateTime($database->updated_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'deleted at',
+            'value' => longDateTime($database->deleted_at)
         ])
 
     </div>

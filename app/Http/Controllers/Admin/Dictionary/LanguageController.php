@@ -15,91 +15,91 @@ class LanguageController extends Controller
     const PER_PAGE = 20;
 
     /**
-     * Display a listing of dictionary languages.
+     * Display a listing of languages.
      */
     public function index(int $perPage = self::PER_PAGE): View
     {
-        $dictionaryLanguages = Language::orderBy('name', 'asc')->paginate($perPage);
+        $languages = Language::orderBy('name', 'asc')->paginate($perPage);
 
-        return view('admin.dictionary.language.index', compact('dictionaryLanguages'))
+        return view('admin.dictionary.language.index', compact('languages'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
-     * Show the form for creating a new dictionary language.
+     * Show the form for creating a new language.
      */
     public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add dictionary language entries.');
+            abort(403, 'Only admins with root access can add language entries.');
         }
 
         return view('admin.dictionary.language.create');
     }
 
     /**
-     * Store a newly created dictionary language in storage.
+     * Store a newly created language in storage.
      */
     public function store(LanguageStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add dictionary language entries.');
+            abort(403, 'Only admins with root access can add language entries.');
         }
 
         Language::create($request->validated());
 
         return redirect()->route('admin.dictionary.language.index')
-            ->with('success', 'Dictionary language created successfully.');
+            ->with('success', 'Language created successfully.');
     }
 
     /**
-     * Display the specified dictionary language.
+     * Display the specified language.
      */
-    public function show(Language $dictionaryLanguage): View
+    public function show(Language $language): View
     {
-        return view('admin.dictionary.language.show', compact('dictionaryLanguage'));
+        return view('admin.dictionary.language.show', compact('language'));
     }
 
     /**
-     * Show the form for editing the specified dictionary language.
+     * Show the form for editing the specified language.
      */
-    public function edit(Language $dictionaryLanguage): View
+    public function edit(Language $language): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit dictionary language entries.');
+            abort(403, 'Only admins with root access can edit language entries.');
         }
 
-        return view('admin.dictionary.language.edit', compact('dictionaryLanguage'));
+        return view('admin.dictionary.language.edit', compact('language'));
     }
 
     /**
-     * Update the specified dictionary language in storage.
+     * Update the specified language in storage.
      */
     public function update(LanguageUpdateRequest $request,
-                           Language              $dictionaryLanguage): RedirectResponse
+                           Language              $language): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update dictionary language entries.');
+            abort(403, 'Only admins with root access can update language entries.');
         }
 
-        $dictionaryLanguage->update($request->validated());
+        $language->update($request->validated());
 
         return redirect()->route('admin.dictionary.language.index')
-            ->with('success', 'Dictionary language updated successfully');
+            ->with('success', 'Language updated successfully');
     }
 
     /**
-     * Remove the specified dictionary language from storage.
+     * Remove the specified language from storage.
      */
-    public function destroy(Language $dictionaryLanguage): RedirectResponse
+    public function destroy(Language $language): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete dictionary language entries.');
+            abort(403, 'Only admins with root access can delete language entries.');
         }
 
-        $dictionaryLanguage->delete();
+        $language->delete();
 
         return redirect()->route('admin.dictionary.language.index')
-            ->with('success', 'Dictionary language deleted successfully');
+            ->with('success', 'Language deleted successfully');
     }
 }

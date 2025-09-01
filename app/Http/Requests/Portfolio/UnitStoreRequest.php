@@ -24,7 +24,7 @@ class UnitStoreRequest extends FormRequest
     {
         return [
             'name'         => ['required', 'string', 'max:50', 'unique:portfolio_db.units,name'],
-            'abbreviation' => ['required', 'string', 'max:10', 'unique:portfolio_db.units,abbreviation'],
+            'abbreviation' => ['required', 'string', 'max:20', 'unique:portfolio_db.units,abbreviation'],
             'system'       => ['required', 'string', 'max:10'],
             'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

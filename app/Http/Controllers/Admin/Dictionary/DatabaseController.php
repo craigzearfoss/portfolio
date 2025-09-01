@@ -15,91 +15,91 @@ class DatabaseController extends Controller
     const PER_PAGE = 20;
 
     /**
-     * Display a listing of dictionary databases.
+     * Display a listing of databases.
      */
     public function index(int $perPage = self::PER_PAGE): View
     {
-        $dictionaryDatabases = Database::orderBy('name', 'asc')->paginate($perPage);
+        $databases = Database::orderBy('name', 'asc')->paginate($perPage);
 
-        return view('admin.dictionary.database.index', compact('dictionaryDatabases'))
+        return view('admin.dictionary.database.index', compact('databases'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
-     * Show the form for creating a new dictionary database.
+     * Show the form for creating a new database.
      */
     public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add dictionary database entries.');
+            abort(403, 'Only admins with root access can add database entries.');
         }
 
         return view('admin.dictionary.database.create');
     }
 
     /**
-     * Store a newly created dictionary database in storage.
+     * Store a newly created database in storage.
      */
     public function store(DatabaseStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add dictionary database entries.');
+            abort(403, 'Only admins with root access can add database entries.');
         }
 
         Database::create($request->validated());
 
         return redirect()->route('admin.dictionary.database.index')
-            ->with('success', 'Dictionary database created successfully.');
+            ->with('success', 'Database created successfully.');
     }
 
     /**
-     * Display the specified dictionary database.
+     * Display the specified database.
      */
-    public function show(Database $dictionaryDatabase): View
+    public function show(Database $database): View
     {
-        return view('admin.dictionary.database.show', compact('dictionaryDatabase'));
+        return view('admin.dictionary.database.show', compact('database'));
     }
 
     /**
-     * Show the form for editing the specified dictionary database.
+     * Show the form for editing the specified database.
      */
-    public function edit(Database $dictionaryDatabase): View
+    public function edit(Database $database): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit dictionary database entries.');
+            abort(403, 'Only admins with root access can edit database entries.');
         }
 
-        return view('admin.dictionary.database.edit', compact('dictionaryDatabase'));
+        return view('admin.dictionary.database.edit', compact('database'));
     }
 
     /**
-     * Update the specified dictionary database in storage.
+     * Update the specified database in storage.
      */
     public function update(DatabaseUpdateRequest $request,
-                           Database              $dictionaryDatabase): RedirectResponse
+                           Database              $database): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update dictionary database entries.');
+            abort(403, 'Only admins with root access can update database entries.');
         }
 
-        $dictionaryDatabase->update($request->validated());
+        $database->update($request->validated());
 
         return redirect()->route('admin.dictionary.database.index')
-            ->with('success', 'Dictionary database updated successfully');
+            ->with('success', 'Database updated successfully');
     }
 
     /**
-     * Remove the specified dictionary database from storage.
+     * Remove the specified database from storage.
      */
-    public function destroy(Database $dictionaryDatabase): RedirectResponse
+    public function destroy(Database $database): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can de dictionary database entries.');
+            abort(403, 'Only admins with root access can de database entries.');
         }
 
-        $dictionaryDatabase->delete();
+        $database->delete();
 
         return redirect()->route('admin.dictionary.database.index')
-            ->with('success', 'Dictionary database deleted successfully');
+            ->with('success', 'Database deleted successfully');
     }
 }

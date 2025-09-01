@@ -26,7 +26,7 @@ class DatabaseUpdateRequest extends FormRequest
             'full_name'    => ['string', 'max:255', 'unique:career_db.dictionary_databases,full_name,'.$this->dictionary_database->id, 'filled'],
             'name'         => ['string', 'max:100', 'unique:career_db.dictionary_databases,name,'.$this->dictionary_database->id, 'filled'],
             'slug'         => ['string', 'max:100', 'unique:career_db.dictionary_databases,slug,'.$this->dictionary_database->id, 'filled'],
-            'abbreviation' => ['string', 'max:100', 'nullable'],
+            'abbreviation' => ['string', 'max:20', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
             'proprietary'  => ['integer', 'between:0,1'],
             'owner'        => ['string', 'max:255', 'nullable'],

@@ -15,91 +15,91 @@ class LibraryController extends Controller
     const PER_PAGE = 20;
 
     /**
-     * Display a listing of dictionary libraries.
+     * Display a listing of libraries.
      */
     public function index(int $perPage = self::PER_PAGE): View
     {
-        $dictionaryLibraries = Library::orderBy('name', 'asc')->paginate($perPage);
+        $libraries = Library::orderBy('name', 'asc')->paginate($perPage);
 
-        return view('admin.dictionary.library.index', compact('dictionaryLibraries'))
+        return view('admin.dictionary.library.index', compact('libraries'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
-     * Show the form for creating a new dictionary library.
+     * Show the form for creating a new library.
      */
     public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add dictionary library entries.');
+            abort(403, 'Only admins with root access can add library entries.');
         }
 
         return view('admin.dictionary.library.create');
     }
 
     /**
-     * Store a newly created dictionary library in storage.
+     * Store a newly created library in storage.
      */
     public function store(LibraryStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add dictionary library entries.');
+            abort(403, 'Only admins with root access can add library entries.');
         }
 
         Library::create($request->validated());
 
         return redirect()->route('admin.dictionary.library.index')
-            ->with('success', 'Dictionary library created successfully.');
+            ->with('success', 'Library created successfully.');
     }
 
     /**
-     * Display the specified dictionary library.
+     * Display the specified library.
      */
-    public function show(Library $dictionaryLibrary): View
+    public function show(Library $library): View
     {
-        return view('admin.dictionary.library.show', compact('dictionaryLibrary'));
+        return view('admin.dictionary.library.show', compact('library'));
     }
 
     /**
-     * Show the form for editing the specified dictionary library.
+     * Show the form for editing the specified library.
      */
-    public function edit(Library $dictionaryLibrary): View
+    public function edit(Library $library): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit dictionary library entries.');
+            abort(403, 'Only admins with root access can edit library entries.');
         }
 
-        return view('admin.dictionary.library.edit', compact('dictionaryLibrary'));
+        return view('admin.dictionary.library.edit', compact('library'));
     }
 
     /**
-     * Update the specified dictionary library in storage.
+     * Update the specified library in storage.
      */
     public function update(UpdateRequest $request,
-                           Library       $dictionaryLibrary): RedirectResponse
+                           Library       $library): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update dictionary library entries.');
+            abort(403, 'Only admins with root access can update library entries.');
         }
 
-        $dictionaryLibrary->update($request->validated());
+        $library->update($request->validated());
 
         return redirect()->route('admin.dictionary.library.index')
-            ->with('success', 'Dictionary library updated successfully');
+            ->with('success', 'Library updated successfully');
     }
 
     /**
-     * Remove the specified dictionary library from storage.
+     * Remove the specified library from storage.
      */
-    public function destroy(Library $dictionaryLibrary): RedirectResponse
+    public function destroy(Library $library): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete dictionary library entries.');
+            abort(403, 'Only admins with root access can delete library entries.');
         }
 
-        $dictionaryLibrary->delete();
+        $library->delete();
 
         return redirect()->route('admin.dictionary.library.index')
-            ->with('success', 'Dictionary library deleted successfully');
+            ->with('success', 'Library deleted successfully');
     }
 }
