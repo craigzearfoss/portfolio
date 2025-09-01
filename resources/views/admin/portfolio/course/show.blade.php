@@ -38,6 +38,41 @@
             'checked' => $course->personal
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'year',
+            'value' => $course->year
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'completed',
+            'value' => longDate($course->completed)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'academy',
+            'value' => $course->academy['name']
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'school',
+            'value' => $course->school
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'instructor',
+            'value' => $course->instructor
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'sponsor',
+            'value' => $course->sponsor
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'website',
+            'value' => $course->website
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'url'    => $course->link,
@@ -108,46 +143,6 @@
 
 
 
-
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $course->name
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $course->slug
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'year',
-            'value' => $course->year
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'completed',
-            'value' => longDate($course->completed)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'academy',
-            'value' => $course->academy->name
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'website',
-            'value' => $course->website
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'instructor',
-            'value' => $course->instructor
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'sponsor',
-            'value' => $course->sponsor
-        ])
 
         @include('admin.components.show-row-link', [
             'name'  => 'link',

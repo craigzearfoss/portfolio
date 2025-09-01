@@ -38,6 +38,16 @@
             'checked' => $recipe->personal
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'source',
+            'value' => $recipe->source
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'author',
+            'value' => $recipe->author
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'url'    => $recipe->link,

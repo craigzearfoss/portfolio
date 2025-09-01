@@ -38,77 +38,6 @@
             'checked' => $music->personal
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'url'    => $music->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $music->description
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'value' => $music->image
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'value' => $music->thumbnail
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $music->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $music->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $music->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $music->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $music->disabled
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'admin',
-            'value' => $music->admin['username'] ?? ''
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($music->created_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($music->updated_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($music->deleted_at)
-        ])
-
-
-
-
-
-
         @include('admin.components.show-row', [
             'name'  => 'artist',
             'value' => $music->artist
@@ -178,6 +107,11 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
             'checked' => $music->disabled
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'admin',
+            'value' => $music->admin['username'] ?? ''
         ])
 
         @include('admin.components.show-row', [

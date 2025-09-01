@@ -45,7 +45,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'academy',
-            'value' => $certification->academy->name
+            'value' => $certification->academy['name']
         ])
 
         @include('admin.components.show-row', [

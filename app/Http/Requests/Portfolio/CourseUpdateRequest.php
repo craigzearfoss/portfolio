@@ -31,7 +31,7 @@ class CourseUpdateRequest extends FormRequest
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'completed'    => ['date', 'nullable'],
             'academy_id'   => ['integer', 'in:' . Academy::all()->pluck('id')],
-            'website'      => ['string', 'max:255', 'nullable'],
+            'school'       => ['string', 'max:255', 'nullable'],
             'instructor'   => ['string', 'max:255', 'nullable'],
             'sponsor'      => ['string', 'max:255', 'nullable'],
             'link'         => ['string', 'max:255', 'nullable'],

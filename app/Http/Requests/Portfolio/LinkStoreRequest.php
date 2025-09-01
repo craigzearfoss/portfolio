@@ -28,7 +28,7 @@ class LinkStoreRequest extends FormRequest
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'url'          => ['string', 'max:255', 'required'],
-            'website'      => ['string', 'max:255', 'nullable'],
+            'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],
             'thumbnail'    => ['string', 'max:255', 'nullable'],

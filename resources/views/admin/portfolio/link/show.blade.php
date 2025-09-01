@@ -39,6 +39,12 @@
         ])
 
         @include('admin.components.show-row-link', [
+            'name'   => 'url',
+            'url'    => $link->url,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row-link', [
             'name'   => 'link',
             'url'    => $link->link,
             'target' => '_blank'
@@ -87,77 +93,6 @@
         @include('admin.components.show-row', [
             'name'  => 'admin',
             'value' => $link->admin['username'] ?? ''
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($link->created_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($link->updated_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($link->deleted_at)
-        ])
-
-
-
-
-
-
-        @include('admin.components.show-row-link', [
-            'name'   => 'url',
-            'url'    => $link->url,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link',
-            'value' => $link->link
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $link->description
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'value' => $link->image
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'value' => $link->thumbnail
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $link->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $link->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $link->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $link->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $link->disabled
         ])
 
         @include('admin.components.show-row', [

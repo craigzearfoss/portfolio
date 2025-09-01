@@ -21,6 +21,8 @@ class RecipeFactory extends Factory
             'slug'         => fake()->unique()->slug(6),
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
+            'source'       => fake()->company(),
+            'author'       => fake()->name(),
             'link'         => fake()->url(),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),

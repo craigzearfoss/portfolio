@@ -24,6 +24,7 @@ class CourseFactory extends Factory
             'year'         => fake()->year(),
             'completed'    => fake()->date(),
             'academy_id'   => fake()->randomElement(\App\Models\Portfolio\Academy::all()->pluck('id')->toArray()),
+            'school'       => fake()->company(),
             'instructor'   => fake()->name(),
             'sponsor'      => fake()->company(),
             'link'         => fake()->url(),

@@ -38,75 +38,6 @@
             'checked' => $project->personal
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'url'    => $project->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $project->description
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'value' => $project->image
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'value' => $project->thumbnail
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $project->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $project->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $project->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $project->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $project->disabled
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'admin',
-            'value' => $project->name
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($project->created_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($project->updated_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($project->deleted_at)
-        ])
-
-
-
-
         @include('admin.components.show-row', [
             'name'  => 'year',
             'value' => $project->year
@@ -162,6 +93,11 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
             'checked' => $project->disabled
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'admin',
+            'value' => $project->name
         ])
 
         @include('admin.components.show-row', [

@@ -27,6 +27,8 @@ class RecipeUpdateRequest extends FormRequest
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.recipes,slug,'.$this->recipes->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
+            'source'       => ['string', 'max:255', 'nullable'],
+            'author'       => ['string', 'max:255', 'nullable'],
             'link'         => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

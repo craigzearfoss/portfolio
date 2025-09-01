@@ -26,6 +26,8 @@ class Recipe extends Model
         'slug',
         'professional',
         'personal',
+        'source',
+        'author',
         'link',
         'link_name',
         'description',
