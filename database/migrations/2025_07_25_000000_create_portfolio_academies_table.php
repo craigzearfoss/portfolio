@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
-            $table->string('website')->nullable();
+            $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('thumbnail')->nullable();
@@ -33,7 +33,7 @@ return new class extends Migration
                 'id'       => 1,
                 'name'     => 'Coursera',
                 'slug'     => 'coursera',
-                'website'  => '',
+                'link'  => null,
                 'sequence' => 0,
                 'public'   => 1,
             ],
@@ -41,7 +41,7 @@ return new class extends Migration
                 'id'       => 2,
                 'name'     => 'Gymnasium',
                 'slug'     => 'gymnasium',
-                'website'  => '',
+                'link'  => null,
                 'sequence' => 1,
                 'public'   => 1,
             ],
@@ -49,7 +49,7 @@ return new class extends Migration
                 'id'       => 3,
                 'name'     => 'KodeKloud',
                 'slug'     => 'kodekloud',
-                'website'  => '',
+                'link'  => null,
                 'sequence' => 2,
                 'public'   => 1,
             ],
@@ -57,7 +57,7 @@ return new class extends Migration
                 'id'       => 4,
                 'name'     => 'MongoDB University',
                 'slug'     => 'mongodb-university',
-                'website'  => '',
+                'link'  => null,
                 'sequence' => 3,
                 'public'   => 1,
             ],
@@ -65,7 +65,7 @@ return new class extends Migration
                 'id'       => 5,
                 'name'     => 'Scrimba',
                 'slug'     => 'scrimba',
-                'website'  => '',
+                'link'  => null,
                 'sequence' => 4,
                 'public'   => 1,
             ],
@@ -73,7 +73,7 @@ return new class extends Migration
                 'id'       => 6,
                 'name'     => 'SitePoint',
                 'slug'     => 'sitepoint',
-                'website'  => '',
+                'link'  => null,
                 'sequence' => 5,
                 'public'   => 1,
             ],
@@ -81,7 +81,7 @@ return new class extends Migration
                 'id'       => 7,
                 'name'     => 'Udemy',
                 'slug'     => 'udemy',
-                'website'  => '',
+                'link'  => null,
                 'sequence' => 6,
                 'public'   => 1,
             ],

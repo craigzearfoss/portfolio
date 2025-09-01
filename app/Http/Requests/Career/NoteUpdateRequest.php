@@ -23,7 +23,6 @@ class NoteUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id' => ['integer', 'in:' . Auth::guard('admin')->user()->id],
             'subject'  => ['string', 'max:255', 'filled'],
             'body'     => ['filled'],
             'sequence' => ['integer', 'min:0'],
@@ -31,6 +30,7 @@ class NoteUpdateRequest extends FormRequest
             'readonly' => ['integer', 'between:0,1'],
             'root'     => ['integer', 'between:0,1'],
             'disabled' => ['integer', 'between:0,1'],
+            'admin_id' => ['integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

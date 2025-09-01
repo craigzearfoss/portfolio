@@ -17,7 +17,6 @@ class SkillFactory extends Factory
     public function definition(): array
     {
         return [
-            'admin_id'    => \App\Models\Admin::all()->random()->id,
             'rating'      => fake()->numberBetween(1, 10),
             'years'       => fake()->numberBetween(0, 20),
             'description' => fake()->text(200),
@@ -26,6 +25,7 @@ class SkillFactory extends Factory
             'readonly'    => 0,
             'root'        => 0,
             'disabled'    => fake()->numberBetween(0, 1),
+            'admin_id'    => \App\Models\Admin::all()->random()->id,
         ];
     }
 }

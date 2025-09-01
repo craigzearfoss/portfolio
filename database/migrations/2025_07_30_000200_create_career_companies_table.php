@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('companies', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class);
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->foreignIdFor(Industry::class);
@@ -32,13 +31,14 @@ return new class extends Migration
             $table->string('email_label', 255)->nullable();
             $table->string('alt_email', 255)->nullable();
             $table->string('alt_email_label', 255)->nullable();
-            $table->string('website')->nullable();
+            $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->integer('readonly')->default(0);
             $table->integer('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
 

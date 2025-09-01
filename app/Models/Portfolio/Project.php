@@ -23,7 +23,6 @@ class Project extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'name',
         'slug',
         'professional',
@@ -40,6 +39,7 @@ class Project extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**

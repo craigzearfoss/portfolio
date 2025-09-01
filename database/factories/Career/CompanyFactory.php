@@ -17,7 +17,6 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         return [
-            'admin_id'        => \App\Models\Admin::all()->random()->id,
             'name'            => fake()->unique()->company(),
             'slug'            => fake()->unique()->slug(6),
             'industry_id'     => fake()->randomElement(\App\Models\Career\Industry::all()->pluck('id')->toArray()),
@@ -35,13 +34,14 @@ class CompanyFactory extends Factory
             'email_label'     => fake()->randomElement(['home', 'mobile', 'work']),
             'alt_email'       => fake()->companyEmail(),
             'alt_email_label' => fake()->randomElement(['home', 'mobile', 'work']),
-            'website'         => fake()->url(),
+            'link'            => fake()->url(),
             'description'     => fake()->text(200),
             'sequence'        => 0,
             'public'          => 0,
             'readonly'        => 0,
             'root'            => 0,
             'disabled'        => fake()->numberBetween(0, 1),
+            'admin_id'        => \App\Models\Admin::all()->random()->id,
         ];
     }
 }

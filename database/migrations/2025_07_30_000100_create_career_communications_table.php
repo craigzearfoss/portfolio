@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('communications', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class);
             $table->foreignId('application_id', Application::class)->nullable()->index();
             $table->foreignId('contact_id', Contact::class)->nullable()->index();
             $table->string('subject');
@@ -25,6 +24,7 @@ return new class extends Migration
             $table->integer('readonly')->default(0);
             $table->integer('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
         });

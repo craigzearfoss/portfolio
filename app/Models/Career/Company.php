@@ -24,7 +24,6 @@ class Company extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'name',
         'slug',
         'industry_id',
@@ -51,6 +50,7 @@ class Company extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**

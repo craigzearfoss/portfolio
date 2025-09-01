@@ -23,7 +23,6 @@ class Reading extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'name',
         'slug',
         'professional',
@@ -33,7 +32,6 @@ class Reading extends Model
         'audio',
         'wishlist',
         'link',
-        'link_name',
         'description',
         'image',
         'thumbnail',
@@ -42,6 +40,7 @@ class Reading extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**

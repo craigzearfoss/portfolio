@@ -18,13 +18,12 @@ class LinkFactory extends Factory
     public function definition(): array
     {
         return [
-            'admin_id'     => \App\Models\Admin::all()->random()->id,
             'name'         => fake()->unique()->sentence(6),
             'slug'         => fake()->unique()->slug(6),
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
             'url'          => fake()->url(),
-            'website'      => fake()->domainName(),
+            'link'         => fake()->domainName(),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),
             'thumbnail'    => fake()->imageUrl(),
@@ -33,6 +32,7 @@ class LinkFactory extends Factory
             'readonly'     => 0,
             'root'         => 0,
             'disabled'     => 0,
+            'admin_id'     => \App\Models\Admin::all()->random()->id,
         ];
     }
 }

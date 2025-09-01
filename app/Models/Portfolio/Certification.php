@@ -24,7 +24,6 @@ class Certification extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'name',
         'slug',
         'professional',
@@ -44,6 +43,7 @@ class Certification extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**

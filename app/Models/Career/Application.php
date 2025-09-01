@@ -52,7 +52,6 @@ class Application extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'company_id',
         'cover_letter_id',
         'resume_id',
@@ -96,6 +95,7 @@ class Application extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**

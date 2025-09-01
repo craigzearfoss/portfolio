@@ -23,7 +23,6 @@ class ProjectUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
             'name'         => ['string', 'max:255', 'unique:portfolio_db.projects,name,'.$this->project->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.projects,slug,'.$this->project->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
@@ -39,6 +38,7 @@ class ProjectUpdateRequest extends FormRequest
             'readonly'     => ['integer', 'between:0,1'],
             'root'         => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],
+            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

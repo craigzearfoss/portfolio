@@ -23,7 +23,6 @@ class Skill extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'name',
         'slug',
         'rating',
@@ -38,6 +37,7 @@ class Skill extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**

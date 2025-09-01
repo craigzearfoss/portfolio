@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('resumes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class);
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->date('date')->nullable();
@@ -27,6 +26,7 @@ return new class extends Migration
             $table->integer('readonly')->default(0);
             $table->integer('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
 

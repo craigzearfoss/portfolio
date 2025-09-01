@@ -23,7 +23,6 @@ class SkillUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'    => ['integer', 'in:' . Auth::guard('admin')->user()->id],
             'rating'      => ['integer', 'between:1,10'],
             'years'       => ['integer', 'min:0'],
             'description' => ['nullable'],
@@ -32,6 +31,7 @@ class SkillUpdateRequest extends FormRequest
             'readonly'    => ['integer', 'between:0,1'],
             'root'        => ['integer', 'between:0,1'],
             'disabled'    => ['integer', 'between:0,1'],
+            'admin_id'    => ['integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

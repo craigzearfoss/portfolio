@@ -25,7 +25,6 @@ class RecipeIngredient extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'recipe_id',
         'ingredient_id',
         'amount',
@@ -38,6 +37,7 @@ class RecipeIngredient extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
 

@@ -23,7 +23,6 @@ class Resume extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'name',
         'slug',
         'date',
@@ -40,6 +39,7 @@ class Resume extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**

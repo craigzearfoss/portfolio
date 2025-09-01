@@ -19,11 +19,6 @@
     <div>
 
         @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $art->admin['username'] ?? ''
-        ])
-
-        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $art->name
         ])
@@ -97,6 +92,11 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
             'checked' => $art->disabled
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'admin',
+            'value' => $art->admin['username'] ?? ''
         ])
 
         @include('admin.components.show-row', [

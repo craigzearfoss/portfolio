@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('notes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class);
             $table->foreignId('application_id', Application::class)->nullable();
             $table->string('subject');
             $table->text('body');
@@ -23,6 +22,7 @@ return new class extends Migration
             $table->integer('readonly')->default(0);
             $table->integer('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
         });

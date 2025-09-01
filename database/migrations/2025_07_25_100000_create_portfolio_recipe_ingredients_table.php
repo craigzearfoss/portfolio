@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::connection('portfolio_db')->create('recipe_ingredients', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class);
             $table->foreignIdFor( \App\Models\Portfolio\Recipe::class);
             $table->foreignIdFor( \App\Models\Portfolio\Ingredient::class);
             $table->float('amount')->default(0);
@@ -26,6 +25,7 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
         });

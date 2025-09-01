@@ -23,7 +23,6 @@ class VideoUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
             'name'         => ['string', 'max:255', 'unique:portfolio_db.videos,name,'.$this->video->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.videos,slug,'.$this->video->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
@@ -42,6 +41,7 @@ class VideoUpdateRequest extends FormRequest
             'readonly'     => ['integer', 'between:0,1'],
             'root'         => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],
+            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

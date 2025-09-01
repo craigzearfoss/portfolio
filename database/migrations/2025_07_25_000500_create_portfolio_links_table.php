@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::connection('portfolio_db')->create('links', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class);
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
             $table->string('url');
-            $table->string('website')->nullable();
+            $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('thumbnail')->nullable();
@@ -28,6 +27,7 @@ return new class extends Migration
             $table->integer('readonly')->default(0);
             $table->integer('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->softDeletes();
             $table->timestamps();
 

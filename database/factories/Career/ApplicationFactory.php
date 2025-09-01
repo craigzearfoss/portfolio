@@ -17,7 +17,6 @@ class ApplicationFactory extends Factory
     public function definition(): array
     {
         return [
-            'admin_id'          => \App\Models\Admin::all()->random()->id,
             'company_id'        => \App\Models\Career\Company::all()->random()->id,
             'cover_letter_id'   => \App\Models\Career\CoverLetter::all()->random()->id,
             'resume_id'         => \App\Models\Career\Resume::all()->random()->id,
@@ -50,13 +49,14 @@ class ApplicationFactory extends Factory
             'email_label'       => fake()->randomElement(['home', 'mobile', 'work']),
             'alt_email'         => fake()->companyEmail(),
             'alt_email_label'   => fake()->randomElement(['home', 'mobile', 'work']),
-            'website'           => fake()->url(),
+            'link'              => fake()->url(),
             'description'       => fake()->text(200),
             'sequence'          => 0,
             'public'            => 0,
             'readonly'          => 0,
             'root'              => 0,
             'disabled'          => fake()->numberBetween(0, 1),
+            'admin_id'          => \App\Models\Admin::all()->random()->id,
         ];
     }
 }

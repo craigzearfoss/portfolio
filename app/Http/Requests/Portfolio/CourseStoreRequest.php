@@ -24,7 +24,6 @@ class CourseStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
             'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.courses,name'],
             'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.courses,slug'],
             'professional' => ['integer', 'between:0,1'],
@@ -44,6 +43,7 @@ class CourseStoreRequest extends FormRequest
             'readonly'     => ['integer', 'between:0,1'],
             'root'         => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],
+            'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

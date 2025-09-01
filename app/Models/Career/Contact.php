@@ -25,7 +25,6 @@ class Contact extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'name',
         'slug',
         'title',
@@ -53,6 +52,7 @@ class Contact extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     const TITLES = [

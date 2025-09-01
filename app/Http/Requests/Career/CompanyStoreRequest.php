@@ -24,7 +24,6 @@ class CompanyStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'        => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
             'name'            => ['required', 'string', 'max:255', 'unique:career_db.companies,name'],
             'slug'            => ['required', 'string', 'max:255', 'unique:portfolio_db.companies,slug'],
             'industry_id'     => ['integer', 'in:' . Industry::all()->pluck('id')->toArray()],
@@ -49,6 +48,7 @@ class CompanyStoreRequest extends FormRequest
             'readonly'        => ['integer', 'between:0,1'],
             'root'            => ['integer', 'between:0,1'],
             'disabled'        => ['integer', 'between:0,1'],
+            'admin_id'        => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

@@ -24,7 +24,6 @@ class Note extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'subject',
         'body',
         'sequence',
@@ -32,6 +31,7 @@ class Note extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
-            $table->string('website')->nullable();
+            $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(1);
@@ -27,18 +27,18 @@ return new class extends Migration
         });
 
         $data = [
-            [ 'id' => 1,  'name' => 'Dice',             'slug' => 'dice',             'website' => 'https://dice.com/' ],
-            [ 'id' => 2,  'name' => 'Indeed',           'slug' => 'indeed',           'website' => 'https://indeed.com/' ],
-            [ 'id' => 3,  'name' => 'iHireTechnology',  'slug' => 'ihiretechnology',  'website' => 'https://ihiretechnology.com/' ],
-            [ 'id' => 4,  'name' => 'JobLeads',         'slug' => 'jobleads',         'website' => 'https://jobleads.com/' ],
-            [ 'id' => 5,  'name' => 'Jobright',         'slug' => 'jobright',         'website' => 'https://jobright.ai/' ],
-            [ 'id' => 6,  'name' => 'LaraJobs',         'slug' => 'larajobs',         'website' => 'https://larajobs.com/' ],
-            [ 'id' => 7,  'name' => 'Lensa',            'slug' => 'lensa',            'website' => 'https://lensa.com/' ],
-            [ 'id' => 8,  'name' => 'LinkedIn',         'slug' => 'linked',           'website' => 'https://linkedin.com/' ],
-            [ 'id' => 9,  'name' => 'Monster',          'slug' => 'monster',          'website' => 'https://monster.com/' ],
-            [ 'id' => 10, 'name' => 'SimplyHired',      'slug' => 'simplehired',      'website' => 'https://simplyhired.com/' ],
-            [ 'id' => 11, 'name' => 'VirtualVocations', 'slug' => 'virtualvocations', 'website' => 'https://www.virtualvocations.com/' ],
-            [ 'id' => 12, 'name' => 'ZipRecruiter',     'slug' => 'ziprecruiter',     'website' => 'https://ziprecruiter.com/' ],
+            [ 'id' => 1,  'name' => 'Dice',             'slug' => 'dice',             'link' => 'https://dice.com/' ],
+            [ 'id' => 2,  'name' => 'Indeed',           'slug' => 'indeed',           'link' => 'https://indeed.com/' ],
+            [ 'id' => 3,  'name' => 'iHireTechnology',  'slug' => 'ihiretechnology',  'link' => 'https://ihiretechnology.com/' ],
+            [ 'id' => 4,  'name' => 'JobLeads',         'slug' => 'jobleads',         'link' => 'https://jobleads.com/' ],
+            [ 'id' => 5,  'name' => 'Jobright',         'slug' => 'jobright',         'link' => 'https://jobright.ai/' ],
+            [ 'id' => 6,  'name' => 'LaraJobs',         'slug' => 'larajobs',         'link' => 'https://larajobs.com/' ],
+            [ 'id' => 7,  'name' => 'Lensa',            'slug' => 'lensa',            'link' => 'https://lensa.com/' ],
+            [ 'id' => 8,  'name' => 'LinkedIn',         'slug' => 'linked',           'link' => 'https://linkedin.com/' ],
+            [ 'id' => 9,  'name' => 'Monster',          'slug' => 'monster',          'link' => 'https://monster.com/' ],
+            [ 'id' => 10, 'name' => 'SimplyHired',      'slug' => 'simplehired',      'link' => 'https://simplyhired.com/' ],
+            [ 'id' => 11, 'name' => 'VirtualVocations', 'slug' => 'virtualvocations', 'link' => 'https://www.virtualvocations.com/' ],
+            [ 'id' => 12, 'name' => 'ZipRecruiter',     'slug' => 'ziprecruiter',     'link' => 'https://ziprecruiter.com/' ],
         ];
         App\Models\Career\JobBoard::insert($data);
     }

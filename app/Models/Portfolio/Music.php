@@ -22,7 +22,6 @@ class Music extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'name',
         'slug',
         'professional',
@@ -42,6 +41,7 @@ class Music extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**

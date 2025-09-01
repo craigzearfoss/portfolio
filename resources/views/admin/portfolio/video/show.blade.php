@@ -19,11 +19,6 @@
     <div>
 
         @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $video->admin['username'] ?? ''
-        ])
-
-        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $video->name
         ])
@@ -42,6 +37,75 @@
             'name'    => 'personal',
             'checked' => $video->personal
         ])
+
+        @include('admin.components.show-row-link', [
+            'name'   => 'link',
+            'url'    => $video->link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => $video->description
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $video->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $video->thumbnail
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'sequence',
+            'value' => $video->sequence
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'public',
+            'checked' => $video->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'read-only',
+            'checked' => $video->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $video->root
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'disabled',
+            'checked' => $video->disabled
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'admin',
+            'value' => $video->admin['username'] ?? ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'created at',
+            'value' => longDateTime($video->created_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'updated at',
+            'value' => longDateTime($video->updated_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'deleted at',
+            'value' => longDateTime($video->deleted_at)
+        ])
+
+
+
 
         @include('admin.components.show-row', [
             'name'  => 'date',

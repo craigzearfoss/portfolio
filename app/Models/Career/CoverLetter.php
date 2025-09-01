@@ -23,7 +23,6 @@ class CoverLetter extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'name',
         'slug',
         'recipient',
@@ -41,6 +40,7 @@ class CoverLetter extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**

@@ -17,7 +17,6 @@ class RecipeFactory extends Factory
     public function definition(): array
     {
         return [
-            'admin_id'     => \App\Models\Admin::all()->random()->id,
             'name'         => fake()->unique()->sentence(6),
             'slug'         => fake()->unique()->slug(6),
             'professional' => fake()->numberBetween(0, 1),
@@ -31,6 +30,7 @@ class RecipeFactory extends Factory
             'readonly'     => 0,
             'root'         => 0,
             'disabled'     => 0,
+            'admin_id'     => \App\Models\Admin::all()->random()->id,
         ];
     }
 }

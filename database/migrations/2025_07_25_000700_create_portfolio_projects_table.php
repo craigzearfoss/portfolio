@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::connection('portfolio_db')->create('projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class);
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->tinyInteger('professional')->default(1);
@@ -29,6 +28,7 @@ return new class extends Migration
             $table->integer('readonly')->default(0);
             $table->integer('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
 

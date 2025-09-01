@@ -17,7 +17,6 @@ class RecipeIngredientFactory extends Factory
     public function definition(): array
     {
         return [
-            'admin_id'      => \App\Models\Admin::all()->random()->id,
             'recipe_id'     => \App\Models\Portfolio\Recipe::all()->random()->id,
             'ingredient_id' => \App\Models\Portfolio\Ingredient::all()->random()->id,
             'amount'        => fake()->numberBetween(1,4),
@@ -30,6 +29,7 @@ class RecipeIngredientFactory extends Factory
             'readonly'      => 0,
             'root'          => 0,
             'disabled'      => 0,
+            'admin_id'      => \App\Models\Admin::all()->random()->id,
         ];
     }
 }

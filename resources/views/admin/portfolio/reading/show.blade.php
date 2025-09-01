@@ -19,11 +19,6 @@
     <div>
 
         @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $reading->admin['username'] ?? ''
-        ])
-
-        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $reading->name
         ])
@@ -42,6 +37,77 @@
             'name'    => 'personal',
             'checked' => $reading->personal
         ])
+
+        @include('admin.components.show-row-link', [
+            'name'   => 'link',
+            'url'    => $reading->link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => $reading->description
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $reading->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'value' => $reading->thumbnail
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'sequence',
+            'value' => $reading->sequence
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'public',
+            'checked' => $reading->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'read-only',
+            'checked' => $reading->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $reading->root
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'disabled',
+            'checked' => $reading->disabled
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'admin',
+            'value' => $reading->admin['username'] ?? ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'created at',
+            'value' => longDateTime($reading->created_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'updated at',
+            'value' => longDateTime($reading->updated_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'deleted at',
+            'value' => longDateTime($reading->deleted_at)
+        ])
+
+
+
+
+
 
         @include('admin.components.show-row', [
             'name'  => 'author',

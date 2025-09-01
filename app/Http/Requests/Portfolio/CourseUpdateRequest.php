@@ -24,7 +24,6 @@ class CourseUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
             'name'         => ['string', 'max:255', 'unique:portfolio_db.courses,name,'.$this->course->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.courses,slug,'.$this->course->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
@@ -44,6 +43,7 @@ class CourseUpdateRequest extends FormRequest
             'readonly'     => ['integer', 'between:0,1'],
             'root'         => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],
+            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

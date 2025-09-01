@@ -26,7 +26,6 @@ class RecipeIngredientStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'      => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
             'recipe_id'     => [
                 'required',
                 'integer',
@@ -44,6 +43,7 @@ class RecipeIngredientStoreRequest extends FormRequest
             'readonly'      => ['integer', 'between:0,1'],
             'root'          => ['integer', 'between:0,1'],
             'disabled'      => ['integer', 'between:0,1'],
+            'admin_id'      => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

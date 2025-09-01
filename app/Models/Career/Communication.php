@@ -25,7 +25,6 @@ class Communication extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'subject',
         'body',
         'sequence',
@@ -33,6 +32,7 @@ class Communication extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**

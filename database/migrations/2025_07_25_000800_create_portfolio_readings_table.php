@@ -13,17 +13,15 @@ return new class extends Migration
     {
         Schema::connection('portfolio_db')->create('readings', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class);
             $table->string('title')->unique();
             $table->string('slug')->unique();
-            $table->string('author')->nullable();
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
+            $table->string('author')->nullable();
             $table->tinyInteger('paper')->default(1);
             $table->tinyInteger('audio')->default(0);
             $table->tinyInteger('wishlist')->default(0);
             $table->string('link')->nullable();
-            $table->string('link_name')->nullable();
             $table->text('notes')->nullable();
             $table->string('image')->nullable();
             $table->string('thumbnail')->nullable();
@@ -32,6 +30,7 @@ return new class extends Migration
             $table->integer('readonly')->default(0);
             $table->integer('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
 

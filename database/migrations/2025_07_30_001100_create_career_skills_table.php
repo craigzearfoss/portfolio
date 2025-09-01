@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('skills', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class);
             $table->tinyInteger('rating')->default(0);
             $table->integer('years')->default(0);
             $table->text('description')->nullable();
@@ -22,6 +21,7 @@ return new class extends Migration
             $table->integer('readonly')->default(0);
             $table->integer('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->foreignIdFor( \App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
         });

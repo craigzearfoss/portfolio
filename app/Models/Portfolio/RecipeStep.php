@@ -23,7 +23,6 @@ class RecipeStep extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'recipe_id',
         'step',
         'description',
@@ -34,6 +33,7 @@ class RecipeStep extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**

@@ -23,7 +23,6 @@ class Job extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'name',
         'slug',
         'role',
@@ -39,6 +38,7 @@ class Job extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**

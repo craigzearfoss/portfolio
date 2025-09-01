@@ -18,18 +18,16 @@ class ReadingFactory extends Factory
     public function definition(): array
     {
         return [
-            'admin_id'     => \App\Models\Admin::all()->random()->id,
-            'title'        => fake()->unique()->sentence(6),
+            'name'         => fake()->unique()->sentence(6),
             'slug'         => fake()->unique()->slug(6),
-            'author'       => fake()->name(),
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
+            'author'       => fake()->name(),
             'paper'        => fake()->numberBetween(0, 1),
             'audio'        => fake()->numberBetween(0, 1),
             'wishlist'     => fake()->numberBetween(0, 1),
             'link'         => fake()->url(),
-            'link_name'    => fake()->sentence(6),
-            'notes'        => fake()->text(200),
+            'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),
             'thumbnail'    => fake()->imageUrl(),
             'sequence'     => 0,
@@ -37,6 +35,7 @@ class ReadingFactory extends Factory
             'readonly'     => 0,
             'root'         => 0,
             'disabled'     => 0,
+            'admin_id'     => \App\Models\Admin::all()->random()->id,
         ];
     }
 }

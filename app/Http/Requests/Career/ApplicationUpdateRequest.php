@@ -26,7 +26,6 @@ class ApplicationUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'          => ['integer', 'in:' . Auth::guard('admin')->user()->id],
             'company_id'        => ['integer', 'in:' . implode(',', Company::all('id')->pluck('id')->toArray())],
             'cover_letter_id'   => ['integer', 'in:' . implode(',', CoverLetter::all('id')->pluck('id')->toArray())],
             'resume_id'         => ['integer', 'in:' . implode(',', Resume::all('id')->pluck('id')->toArray())],
@@ -66,6 +65,7 @@ class ApplicationUpdateRequest extends FormRequest
             'readonly'          => ['integer', 'between:0,1'],
             'root'              => ['integer', 'between:0,1'],
             'disabled'          => ['integer', 'between:0,1'],
+            'admin_id'          => ['integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

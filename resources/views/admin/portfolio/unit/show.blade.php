@@ -28,17 +28,6 @@
             'value' => $unit->slug
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'abbreviation',
-            'value' => $unit->abbreviation
-        ])
-
-        @include('admin.components.show-row', [
-            'name'   => 'system',
-            'url'    => $unit->system,
-            'target' => '_blank'
-        ])
-
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'url'    => $unit->link,
@@ -93,6 +82,11 @@
         @include('admin.components.show-row', [
             'name'  => 'updated at',
             'value' => longDateTime($unit->updated_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'deleted at',
+            'value' => longDateTime($unit->deleted_at)
         ])
 
     </div>
