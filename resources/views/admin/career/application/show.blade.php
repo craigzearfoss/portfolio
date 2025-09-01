@@ -18,12 +18,6 @@
 
     <div>
 
-
-        @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $application->admin['username'] ?? ''
-        ])
-
         @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $application->role
@@ -32,7 +26,7 @@
         @include('admin.components.show-row', [
             'name'  => 'company',
             'value' => !empty($application->company)
-                ? '<a href="' . route('admin.career.company.show', $application->company['id']) . '">' . $application->company['name'] . '</a>'
+                ? '<a href="' . route('admin.career.company.show', $application->company) . '">' . $application->company['name'] . '</a>'
                 : ''
         ])
 
@@ -48,12 +42,16 @@
 
         @include('admin.components.show-row', [
             'name'  => 'cover letter',
-            'value' => $application->cover_letter['name'] ?? ''
+            'value' => !empty($application->cover_letter)
+                ? '<a href="' . route('admin.career.cover-letter.show', $application->cover_letter) . '">' . $application->cover_letter['name'] . '</a>'
+                : ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'resume',
-            'value' => $application->resume['name'] ?? ''
+            'value' => !empty($application->resume)
+                ? '<a href="' . route('admin.career.resume.show', $application->resume) . '">' . $application->resume['name'] . '</a>'
+                : ''
         ])
 
         @include('admin.components.show-row', [
@@ -133,8 +131,28 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'source',
-            'value' => $application->source
+            'name'  => 'job board',
+            'value' => $application->job_board_id
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => !empty($contact->phone_label) ? $contact->phone_label : 'phone',
+            'value' => $contact->phone
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => !empty($contact->alt_phone_label) ? $contact->alt_phone_label : 'alt phone',
+            'value' => $contact->alt_phone
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => !empty($contact->email_label) ? $contact->email_label : 'email',
+            'value' => $contact->email
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => !empty($contact->alt_email_label) ? $contact->alt_email_label : 'alt email',
+            'value' => $contact->alt_email
         ])
 
         @include('admin.components.show-row-link', [
@@ -144,36 +162,29 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'contact(s)',
-            'value' => $application->contacts
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'phone(s)',
-            'value' => $application->phones
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'emails(s)',
-            'value' => $application->emails
-        ])
-
-        @if (!empty($application->website))
-            @include('admin.components.show-row-link', [
-                'name'   => 'website',
-                'url'    => $application->website,
-                'target' => '_blank'
-            ])
-        @endif
-
-        @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $application->description
+        ])
+
+        @include('admin.components.show-row', [
+            'name'    => 'sequence',
+            'checked' => $application->sequence
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'public',
             'checked' => $application->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'     => 'readonly',
+            'readonly' => 'read-only',
+            'checked'  => $application->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $application->root
         ])
 
         @include('admin.components.show-row-checkbox', [

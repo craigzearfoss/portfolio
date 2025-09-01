@@ -19,13 +19,34 @@
     <div>
 
         @include('admin.components.show-row', [
-            'name'  => 'subject',
-            'value' => $event->subject
+            'name'  => 'name',
+            'value' => $event->name
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'body',
-            'value' => $event->body
+            'name'  => 'timestamp',
+            'value' => longDateTime($event->timestamp)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'location',
+            'value' => $event->location
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'attendees',
+            'value' => $event->attendees
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'  => 'link',
+            'url'    => $event->link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => $event->description
         ])
 
         @include('admin.components.show-row', [
@@ -36,6 +57,17 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'public',
             'checked' => $event->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'readonly',
+            'label'   => 'read-only',
+            'checked' => $event->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $event->root
         ])
 
         @include('admin.components.show-row-checkbox', [

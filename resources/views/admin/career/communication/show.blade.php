@@ -19,8 +19,18 @@
     <div>
 
         @include('admin.components.show-row', [
+            'name'  => 'contact',
+            'value' => $communication->contact['name'] ?? ''
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'subject',
             'value' => $communication->subject
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'timestamp',
+            'value' => longDateTime($communication->timestamp)
         ])
 
         @include('admin.components.show-row', [
@@ -29,8 +39,8 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $communication->sequence
+            'name'    => 'sequence',
+            'checked' => $communication->sequence
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -39,8 +49,24 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
+            'name'     => 'readonly',
+            'readonly' => 'read-only',
+            'checked'  => $communication->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $communication->root
+        ])
+
+        @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
             'checked' => $communication->disabled
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'owner',
+            'value' => $communication->admin['username'] ?? ''
         ])
 
         @include('admin.components.show-row', [

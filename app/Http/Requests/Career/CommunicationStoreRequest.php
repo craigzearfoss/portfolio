@@ -23,14 +23,15 @@ class CommunicationStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject'  => ['required', 'string', 'max:255'],
-            'body'     => ['required'],
-            'sequence' => ['integer', 'min:0'],
-            'public'   => ['integer', 'between:0,1'],
-            'readonly' => ['integer', 'between:0,1'],
-            'root'     => ['integer', 'between:0,1'],
-            'disabled' => ['integer', 'between:0,1'],
-            'admin_id' => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'subject'   => ['required', 'string', 'max:255'],
+            'timestamp' => ['nullable', 'date'],
+            'body'      => ['required'],
+            'sequence'  => ['integer', 'min:0'],
+            'public'    => ['integer', 'between:0,1'],
+            'readonly'  => ['integer', 'between:0,1'],
+            'root'      => ['integer', 'between:0,1'],
+            'disabled'  => ['integer', 'between:0,1'],
+            'admin_id'  => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

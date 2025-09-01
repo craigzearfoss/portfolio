@@ -24,6 +24,7 @@ class EventUpdateRequest extends FormRequest
     {
         return [
             'name'        => ['string', 'max:255', 'filled'],
+            'timestamp'   => ['nullable', 'date'],
             'location'    => ['string', 'max:255', 'nullable'],
             'attendees'   => ['string', 'max:255', 'nullable'],
             'description' => ['nullable'],

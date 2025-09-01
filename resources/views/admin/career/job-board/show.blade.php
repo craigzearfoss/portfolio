@@ -29,8 +29,8 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'website',
-            'url'    => $jobBoard->website,
+            'name'  => 'link',
+            'url'    => $jobBoard->link,
             'target' => '_blank'
         ])
 
@@ -50,7 +50,8 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'read-only',
+            'name'    => 'readonly',
+            'label'   => 'read-only',
             'checked' => $jobBoard->readonly
         ])
 
@@ -72,6 +73,11 @@
         @include('admin.components.show-row', [
             'name'  => 'updated at',
             'value' => longDateTime($jobBoard->updated_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'deleted at',
+            'value' => longDateTime($jobBoard->deleted_at)
         ])
 
     </div>

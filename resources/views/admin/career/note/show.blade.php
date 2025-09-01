@@ -28,6 +28,17 @@
             'value' => $note->body
         ])
 
+        @include('admin.components.show-row-link', [
+            'name'  => 'link',
+            'url'    => $note->link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => $note->description
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'sequence',
             'value' => $note->sequence
@@ -36,6 +47,17 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'public',
             'checked' => $note->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'readonly',
+            'label'   => 'read-only',
+            'checked' => $note->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $note->root
         ])
 
         @include('admin.components.show-row-checkbox', [

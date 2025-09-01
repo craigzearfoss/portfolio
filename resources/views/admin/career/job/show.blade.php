@@ -28,8 +28,25 @@
             'value' => $job->slug
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'role',
+            'value' => $job->role
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'start_date',
+            'name'  => 'start date',
+            'value' => longDate($job->start_date)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'end_date',
+            'name'  => 'end date',
+            'value' => longDate($job->end_date)
+        ])
+
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
+            'name'  => 'link',
             'url'    => $job->link,
             'target' => '_blank'
         ])
@@ -39,19 +56,30 @@
             'value' => $job->description
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'sequence',
+            'value' => $job->sequence
+        ])
+
         @include('admin.components.show-row-checkbox', [
             'name'    => 'public',
             'checked' => $job->public
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $job->disabled
+            'name'    => 'readonly',
+            'label'   => 'read-only',
+            'checked' => $job->readonly
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $job->admin['username'] ?? ''
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $job->root
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'disabled',
+            'checked' => $job->disabled
         ])
 
         @include('admin.components.show-row', [

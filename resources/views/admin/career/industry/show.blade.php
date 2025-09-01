@@ -34,7 +34,7 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
+            'name'  => 'link',
             'url'    => $industry->link,
             'target' => '_blank'
         ])
@@ -55,7 +55,8 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'read-only',
+            'name'    => 'readonly',
+            'label'   => 'read-only',
             'checked' => $industry->readonly
         ])
 
@@ -77,6 +78,11 @@
         @include('admin.components.show-row', [
             'name'  => 'updated at',
             'value' => longDateTime($industry->updated_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'deleted at',
+            'value' => longDateTime($industry->deleted_at)
         ])
 
     </div>

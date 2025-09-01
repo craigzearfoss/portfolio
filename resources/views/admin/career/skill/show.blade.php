@@ -28,19 +28,46 @@
             'value' => $skill->slug
         ])
 
+        @include('admin.components.show-row-rating', [
+            'name'  => 'rating',
+            'value' => $application->rating
+        ])
+
+        @include('admin.components.show-row', [
+            'name'    => 'years',
+            'checked' => $application->years
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'  => 'link',
+            'url'    => $skill->link,
+            'target' => '_blank'
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $skill->description
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'sequence',
-            'checked' => $skill->sequence
+        @include('admin.components.show-row', [
+            'name'  => 'sequence',
+            'value' => $skill->sequence
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'public',
             'checked' => $skill->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'readonly',
+            'label'   => 'read-only',
+            'checked' => $skill->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $skill->root
         ])
 
         @include('admin.components.show-row-checkbox', [

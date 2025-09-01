@@ -34,6 +34,12 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'job_title',
+            'label' => 'job title',
+            'value' => $contact->job_title
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'street',
             'value' => $contact->street
         ])
@@ -50,7 +56,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'state',
-            'value' => \App\Models\State::getName($contact->state)
+            'value' => $contact->state
         ])
 
         @include('admin.components.show-row', [
@@ -60,7 +66,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'country',
-            'value' => \App\Models\Country::getName($contact->country)
+            'value' => $contact->country
         ])
 
         @include('admin.components.show-row', [
@@ -84,44 +90,60 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'  => 'website',
-            'url'    => $contact->website,
+            'name'  => 'link',
+            'url'    => $company->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $contact->description
+            'value' => $company->description
+        ])
+
+        @include('admin.components.show-row', [
+            'name'    => 'sequence',
+            'checked' => $company->sequence
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'public',
-            'checked' => $contact->public
+            'checked' => $company->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'     => 'readonly',
+            'readonly' => 'read-only',
+            'checked'  => $company->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $company->root
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
-            'checked' => $contact->disabled
+            'checked' => $company->disabled
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'owner',
-            'value' => $contact->admin['username'] ?? ''
+            'value' => $company->admin['username'] ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'created at',
-            'value' => longDateTime($contact->created_at)
+            'value' => longDateTime($company->created_at)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'updated at',
-            'value' => longDateTime($contact->updated_at)
+            'value' => longDateTime($company->updated_at)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'deleted at',
-            'value' => longDateTime($contact->deleted_at)
+            'value' => longDateTime($company->deleted_at)
         ])
 
     </div>

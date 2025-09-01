@@ -28,19 +28,61 @@
             'value' => $reference->slug
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => !empty($reference->phone_label) ? $reference->phone_label : 'phone',
+            'value' => $reference->phone
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => !empty($reference->alt_phone_label) ? $reference->alt_phone_label : 'alt phone',
+            'value' => $reference->alt_phone
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => !empty($reference->email_label) ? $reference->email_label : 'email',
+            'value' => $reference->email
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => !empty($reference->alt_email_label) ? $reference->alt_email_label : 'alt email',
+            'value' => $reference->alt_email
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'  => 'link',
+            'url'    => $reference->link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => $reference->description
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'sequence',
+            'value' => $reference->sequence
+        ])
+
         @include('admin.components.show-row-checkbox', [
             'name'    => 'public',
             'checked' => $reference->public
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $reference->disabled
+            'name'    => 'readonly',
+            'label'   => 'read-only',
+            'checked' => $reference->readonly
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $reference->admin['username'] ?? ''
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $reference->root
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'disabled',
+            'checked' => $reference->disabled
         ])
 
         @include('admin.components.show-row', [

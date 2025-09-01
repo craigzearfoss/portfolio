@@ -36,8 +36,7 @@ return new class extends Migration
             $table->tinyInteger('benefits')->default(0);
             $table->tinyInteger('vacation')->default(0);
             $table->tinyInteger('health')->default(0);
-            $table->string('source')->nullable();
-            $table->string('link')->nullable();
+            $table->string('job_board_id')->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('phone_label', 255)->nullable();
             $table->string('alt_phone', 20)->nullable();

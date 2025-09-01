@@ -29,6 +29,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'industry',
+            'value' => $company->industry_id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'street',
             'value' => $company->street
         ])
@@ -45,7 +50,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'state',
-            'value' => \App\Models\State::getName($company->state)
+            'value' => $company->state
         ])
 
         @include('admin.components.show-row', [
@@ -55,7 +60,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'country',
-            'value' => \App\Models\Country::getName($company->country)
+            'value' => $company->country
         ])
 
         @include('admin.components.show-row', [
@@ -79,8 +84,8 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'  => 'website',
-            'url'    => $company->website,
+            'name'  => 'link',
+            'url'    => $company->link,
             'target' => '_blank'
         ])
 
@@ -89,9 +94,25 @@
             'value' => $company->description
         ])
 
+        @include('admin.components.show-row', [
+            'name'    => 'sequence',
+            'checked' => $company->sequence
+        ])
+
         @include('admin.components.show-row-checkbox', [
             'name'    => 'public',
             'checked' => $company->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'     => 'readonly',
+            'readonly' => 'read-only',
+            'checked'  => $company->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $company->root
         ])
 
         @include('admin.components.show-row-checkbox', [

@@ -24,6 +24,7 @@ class EventStoreRequest extends FormRequest
     {
         return [
             'name'        => ['required', 'string', 'max:255'],
+            'timestamp'   => ['nullable', 'date'],
             'location'    => ['string', 'max:255', 'nullable'],
             'attendees'   => ['string', 'max:255', 'nullable'],
             'description' => ['nullable'],

@@ -38,15 +38,14 @@
             'value' => longDate($coverLetter->date)
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'url'    => $coverLetter->link,
-            'target' => '_blank'
+        @include('admin.components.show-row', [
+            'name'  => 'content',
+            'value' => $coverLetter->content
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'alt link',
-            'url'    => $coverLetter->alt_link,
+            'name'  => 'link',
+            'url'    => $coverLetter->link,
             'target' => '_blank'
         ])
 
@@ -60,9 +59,25 @@
             'checked' => $coverLetter->primary
         ])
 
+        @include('admin.components.show-row', [
+            'name'    => 'sequence',
+            'checked' => $coverLetter->sequence
+        ])
+
         @include('admin.components.show-row-checkbox', [
             'name'    => 'public',
             'checked' => $coverLetter->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'     => 'readonly',
+            'readonly' => 'read-only',
+            'checked'  => $coverLetter->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $coverLetter->root
         ])
 
         @include('admin.components.show-row-checkbox', [
