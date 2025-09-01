@@ -55,7 +55,7 @@
 
         @include('admin.components.show-row-link', [
             'name'  => 'wiki page',
-            'url'    => $framework->wiki_page,
+            'url'    => $framework->wikipedia,
             'target' => '_blank'
         ])
 

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->tinyInteger('open_source')->default(0);
             $table->tinyInteger('proprietary')->default(0);
             $table->string('owner', 100)->nullable();
-            $table->string('wiki_page')->nullable();
+            $table->string('wikipedia')->nullable();
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();

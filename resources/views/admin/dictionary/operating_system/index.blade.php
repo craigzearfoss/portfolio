@@ -17,9 +17,12 @@
         <thead>
         <tr>
             <th>name</th>
-            <th>abbreviation</th>
-            <th>owner</th>
-            <th class="text-nowrap">wiki page</th>
+            <th>abbrev</th>
+            <th class="text-center">sequence</th>
+            <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
+            <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
         </thead>
@@ -27,51 +30,74 @@
         <tfoot>
         <tr>
             <th>name</th>
-            <th>abbreviation</th>
-            <th>owner</th>
-            <th class="text-nowrap">wiki page</th>
+            <th>abbrev</th>
+            <th class="text-center">sequence</th>
+            <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
+            <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
         </tfoot>
         */ ?>
         <tbody>
 
-        @forelse ($dictionaryOperatingSystems as $dictionaryOperatingSystem)
+        @forelse ($operatingSystems as $operatingSystem)
 
             <tr>
                 <td class="py-0">
-                    {{ $dictionaryOperatingSystem->name }}
+                    {{ $operatingSystem->name }}
                 </td>
                 <td class="py-0">
-                    {{ $dictionaryOperatingSystem->abbreviation }}
+                    {{ $operatingSystem->abbreviation }}
                 </td>
-                <td class="py-0">
-                    {{ $dictionaryOperatingSystem->owner }}
+                <td class="py-0 text-center">
+                    {{ $operatingSystem->sequence }}
                 </td>
-                <td class="py-0 px-2">
-                    @include('admin.components.link', [ 'url' => $dictionaryOperatingSystem->wiki_page, 'target' => '_blank' ])
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $operatingSystem->professional ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $operatingSystem->personal ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $operatingSystem->public ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $operatingSystem->readonly ])
                 </td>
                 <td class="white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.dictionary.operating-system.destroy', $dictionaryOperatingSystem->id) }}" method="POST">
+                    <form action="{{ route('admin.dictionary.category.destroy', $operatingSystem->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.operating-system.show', $dictionaryOperatingSystem->id) }}">
+                           href="{{ route('admin.dictionary.category.show', $operatingSystem->id) }}">
                             <i class="fa-solid fa-list"></i>{{-- Show--}}
                         </a>
 
                         <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.operating-system.edit', $dictionaryOperatingSystem->id) }}">
+                           href="{{ route('admin.dictionary.category.edit', $operatingSystem->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
 
-                        @if (!empty($dictionaryOperatingSystem->website))
-                            <a title="website" class="button is-small px-1 py-0" href="{{ $dictionaryOperatingSystem->website }}"
+                        @if (!empty($operatingSystem->link))
+                            <a title="link" class="button is-small px-1 py-0" href="{{ $operatingSystem->link }}"
                                target="_blank">
-                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
                             </a>
                         @else
-                            <a title="website" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                            </a>
+                        @endif
+
+                        @if (!empty($operatingSystem->wikipedia))
+                            <a title="Wikipedia page" class="button is-small px-1 py-0" href="{{ $operatingSystem->wikipedia }}"
+                               target="_blank">
+                                <i class="fa-solid wikipedia_w"></i>{{-- wikipedia--}}
+                            </a>
+                        @else
+                            <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid wikipedia_w"></i>{{-- wikipedia--}}
                             </a>
                         @endif
 
@@ -87,7 +113,7 @@
         @empty
 
             <tr>
-                <td colspan="5">There are no dictionary operating systems.</td>
+                <td colspan="8">There are no operating systems.</td>
             </tr>
 
         @endforelse

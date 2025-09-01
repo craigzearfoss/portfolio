@@ -67,9 +67,9 @@
             ])
 
             @include('admin.components.form-input', [
-                'name'      => 'wiki_page',
+                'name'      => 'wikipedia',
                 'label'     => 'wiki page',
-                'value'     => old('wiki_page') ?? $language->wiki_page,
+                'value'     => old('wikipedia') ?? $language->wikipedia,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])

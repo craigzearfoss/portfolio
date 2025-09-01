@@ -32,7 +32,7 @@ class LanguageStoreRequest extends FormRequest
             'compiled'     => ['integer', 'between:0,1'],
             'owner'        => ['string', 'max:100', 'nullable'],
             'website'      => ['string', 'max:255', 'nullable'],
-            'wiki_page'    => ['string', 'max:255', 'nullable'],
+            'wikipedia'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],

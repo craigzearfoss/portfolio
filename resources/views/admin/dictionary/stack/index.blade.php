@@ -16,72 +16,88 @@
     <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
         <thead>
         <tr>
-            <th class="is-1">name</th>
-            <th class="is-2 px-1">servers</th>
-            <th class="is-2 px-1"><abbr title="operating system">os</abbr></th>
-            <th class="is-2 px-1">frameworks</th>
-            <th class="is-2 px-1">languages</th>
-            <th class="is-2 px-1">databases</th>
-            <th class="is-1 px-1">actions</th>
+            <th>name</th>
+            <th>abbrev</th>
+            <th class="text-center">sequence</th>
+            <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
+            <th class="text-center">disabled</th>
+            <th>actions</th>
         </tr>
         </thead>
         <?php /*
         <tfoot>
         <tr>
-            <th class="is-1">name</th>
-            <th class="is-2 px-1">servers</th>
-            <th class="is-2 px-1"><abbr title="operating system">os</abbr></th>
-            <th class="is-2 px-1">frameworks</th>
-            <th class="is-2 px-1">languages</th>
-            <th class="is-2 px-1">databases</th>
-            <th class="is-1 px-1">actions</th>
+            <th>name</th>
+            <th>abbrev</th>
+            <th class="text-center">sequence</th>
+            <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
+            <th class="text-center">disabled</th>
+            <th>actions</th>
         </tr>
         </tfoot>
         */ ?>
         <tbody>
 
-        @forelse ($dictionaryStacks as $dictionaryStack)
+        @forelse ($stacks as $stack)
 
             <tr>
-                <td class="is-1 py-0">
-                    {{ $dictionaryStack->name }}
+                <td class="py-0">
+                    {{ $stack->name }}
                 </td>
-                <td class="is-2 py-0 px-1">
-                    {{ implode(', ',  $dictionaryStack->servers->pluck('name')->toArray()) }}
+                <td class="py-0">
+                    {{ $stack->abbreviation }}
                 </td>
-                <td class="is-2 py-0 px-1">
-                    {{ implode(', ',  $dictionaryStack->operating_systems->pluck('name')->toArray()) }}
+                <td class="py-0 text-center">
+                    {{ $stack->sequence }}
                 </td>
-                <td class="is-2 py-0 px-1">
-                    {{ implode(', ',  $dictionaryStack->frameworks->pluck('name')->toArray()) }}
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $stack->professional ])
                 </td>
-                <td class="is-2 py-0 px-1">
-                    {{ implode(', ',  $dictionaryStack->languages->pluck('name')->toArray()) }}
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $stack->personal ])
                 </td>
-                <td class="is-2 py-0 px-1">
-                    {{ implode(', ',  $dictionaryStack->databases->pluck('name')->toArray()) }}
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $stack->public ])
                 </td>
-                <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.dictionary.stack.destroy', $dictionaryStack->id) }}" method="POST">
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $stack->readonly ])
+                </td>
+                <td class="white-space-nowrap py-0" style="white-space: nowrap;">
+                    <form action="{{ route('admin.dictionary.category.destroy', $stack->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.stack.show', $dictionaryStack->id) }}">
+                           href="{{ route('admin.dictionary.category.show', $stack->id) }}">
                             <i class="fa-solid fa-list"></i>{{-- Show--}}
                         </a>
 
                         <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.stack.edit', $dictionaryStack->id) }}">
+                           href="{{ route('admin.dictionary.category.edit', $stack->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
 
-                        @if (!empty($dictionaryStack->website))
-                            <a title="website" class="button is-small px-1 py-0" href="{{ $dictionaryStack->website }}"
+                        @if (!empty($stack->link))
+                            <a title="link" class="button is-small px-1 py-0" href="{{ $stack->link }}"
                                target="_blank">
-                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
                             </a>
                         @else
-                            <a title="website" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                            </a>
+                        @endif
+
+                        @if (!empty($stack->wikipedia))
+                            <a title="Wikipedia page" class="button is-small px-1 py-0" href="{{ $stack->wikipedia }}"
+                               target="_blank">
+                                <i class="fa-solid wikipedia_w"></i>{{-- wikipedia--}}
+                            </a>
+                        @else
+                            <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid wikipedia_w"></i>{{-- wikipedia--}}
                             </a>
                         @endif
 
@@ -97,7 +113,7 @@
         @empty
 
             <tr>
-                <td colspan="7">There are no dictionary stacks.</td>
+                <td colspan="8">There are no databases.</td>
             </tr>
 
         @endforelse

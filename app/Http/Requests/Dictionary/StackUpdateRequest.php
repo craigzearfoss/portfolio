@@ -27,7 +27,7 @@ class StackUpdateRequest extends FormRequest
             'name'         => ['string', 'max:100', 'unique:career_db.dictionary_stacks,name,'.$this->dictionary_stack->id, 'filled'],
             'slug'         => ['string', 'max:100', 'unique:career_db.dictionary_stacks,slug,'.$this->dictionary_stack->id, 'filled'],
             'website'      => ['string', 'max:255', 'nullable'],
-            'wiki_page'    => ['string', 'max:255', 'nullable'],
+            'wikipedia'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],

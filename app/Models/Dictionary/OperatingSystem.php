@@ -26,7 +26,7 @@ class OperatingSystem extends Model
         'proprietary',
         'owner',
         'website',
-        'wiki_page',
+        'wikipedia',
         'description',
         'sequence',
         'public',

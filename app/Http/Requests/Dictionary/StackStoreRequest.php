@@ -27,7 +27,7 @@ class StackStoreRequest extends FormRequest
             'name'         => ['required', 'string', 'max:100', 'unique:career_db.dictionary_stacks,name'],
             'slug'         => ['required', 'string', 'max:100', 'unique:career_db.dictionary_stacks,slug'],
             'website'      => ['string', 'max:255', 'nullable'],
-            'wiki_page'    => ['string', 'max:255', 'nullable'],
+            'wikipedia'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],

@@ -26,7 +26,7 @@ class Language extends Model
         'proprietary',
         'compiled',
         'owner',
-        'wiki_page',
+        'wikipedia',
         'link',
         'link_name',
         'description',

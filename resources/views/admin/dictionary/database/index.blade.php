@@ -17,9 +17,12 @@
         <thead>
         <tr>
             <th>name</th>
-            <th>abbreviation</th>
-            <th>owner</th>
-            <th class="text-nowrap">wiki page</th>
+            <th>abbrev</th>
+            <th class="text-center">sequence</th>
+            <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
+            <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
         </thead>
@@ -27,51 +30,74 @@
         <tfoot>
         <tr>
             <th>name</th>
-            <th>abbreviation</th>
-            <th>owner</th>
-            <th class="text-nowrap">wiki page</th>
+            <th>abbrev</th>
+            <th class="text-center">sequence</th>
+            <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
+            <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
         </tfoot>
         */ ?>
         <tbody>
 
-        @forelse ($dictionaryDatabases as $dictionaryDatabase)
+        @forelse ($databases as $database)
 
             <tr>
                 <td class="py-0">
-                    {{ $dictionaryDatabase->name }}
+                    {{ $database->name }}
                 </td>
                 <td class="py-0">
-                    {{ $dictionaryDatabase->abbreviation }}
+                    {{ $database->abbreviation }}
                 </td>
-                <td class="py-0">
-                    {{ $dictionaryDatabase->owner }}
+                <td class="py-0 text-center">
+                    {{ $database->sequence }}
                 </td>
-                <td class="py-0 px-2">
-                    @include('admin.components.link', [ 'url' => $dictionaryDatabase->wiki_page, 'target' => '_blank' ])
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $database->professional ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $database->personal ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $database->public ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $database->readonly ])
                 </td>
                 <td class="white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.dictionary.database.destroy', $dictionaryDatabase->id) }}" method="POST">
+                    <form action="{{ route('admin.dictionary.category.destroy', $database->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.database.show', $dictionaryDatabase->id) }}">
+                           href="{{ route('admin.dictionary.category.show', $database->id) }}">
                             <i class="fa-solid fa-list"></i>{{-- Show--}}
                         </a>
 
                         <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.database.edit', $dictionaryDatabase->id) }}">
+                           href="{{ route('admin.dictionary.category.edit', $database->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
 
-                        @if (!empty($dictionaryDatabase->website))
-                            <a title="website" class="button is-small px-1 py-0" href="{{ $dictionaryDatabase->website }}"
+                        @if (!empty($database->link))
+                            <a title="link" class="button is-small px-1 py-0" href="{{ $database->link }}"
                                target="_blank">
-                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
                             </a>
                         @else
-                            <a title="website" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                            </a>
+                        @endif
+
+                        @if (!empty($database->wikipedia))
+                            <a title="Wikipedia page" class="button is-small px-1 py-0" href="{{ $database->wikipedia }}"
+                               target="_blank">
+                                <i class="fa-solid wikipedia_w"></i>{{-- wikipedia--}}
+                            </a>
+                        @else
+                            <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid wikipedia_w"></i>{{-- wikipedia--}}
                             </a>
                         @endif
 
@@ -87,7 +113,7 @@
         @empty
 
             <tr>
-                <td colspan="5">There are no dictionary databases.</td>
+                <td colspan="8">There are no databases.</td>
             </tr>
 
         @endforelse

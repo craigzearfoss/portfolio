@@ -17,9 +17,12 @@
         <thead>
         <tr>
             <th>name</th>
-            <th>abbreviation</th>
-            <th>owner</th>
-            <th class="text-nowrap">wiki page</th>
+            <th>abbrev</th>
+            <th class="text-center">sequence</th>
+            <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
+            <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
         </thead>
@@ -27,51 +30,74 @@
         <tfoot>
         <tr>
             <th>name</th>
-            <th>abbreviation</th>
-            <th>owner</th>
-            <th class="text-nowrap">wiki page</th>
+            <th>abbrev</th>
+            <th class="text-center">sequence</th>
+            <th class="text-center">public</th>
+            <th class="text-center">read-only</th>
+            <th class="text-center">root</th>
+            <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
         </tfoot>
         */ ?>
         <tbody>
 
-        @forelse ($dictionaryLanguages as $dictionaryLanguage)
+        @forelse ($languages as $language)
 
             <tr>
                 <td class="py-0">
-                    {{ $dictionaryLanguage->name }}
+                    {{ $language->name }}
                 </td>
                 <td class="py-0">
-                    {{ $dictionaryLanguage->abbreviation }}
+                    {{ $language->abbreviation }}
                 </td>
-                <td class="py-0">
-                    {{ $dictionaryLanguage->owner }}
+                <td class="py-0 text-center">
+                    {{ $language->sequence }}
                 </td>
-                <td class="py-0 px-2">
-                    @include('admin.components.link', [ 'url' => $dictionaryLanguage->wiki_page, 'target' => '_blank' ])
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $language->professional ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $language->personal ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $language->public ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $language->readonly ])
                 </td>
                 <td class="white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.dictionary.language.destroy', $dictionaryLanguage->id) }}" method="POST">
+                    <form action="{{ route('admin.dictionary.category.destroy', $language->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.language.show', $dictionaryLanguage->id) }}">
+                           href="{{ route('admin.dictionary.category.show', $language->id) }}">
                             <i class="fa-solid fa-list"></i>{{-- Show--}}
                         </a>
 
                         <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.language.edit', $dictionaryLanguage->id) }}">
+                           href="{{ route('admin.dictionary.category.edit', $language->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
 
-                        @if (!empty($dictionaryLanguage->website))
-                            <a title="website" class="button is-small px-1 py-0" href="{{ $dictionaryLanguage->website }}"
+                        @if (!empty($language->link))
+                            <a title="link" class="button is-small px-1 py-0" href="{{ $language->link }}"
                                target="_blank">
-                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
                             </a>
                         @else
-                            <a title="website" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                            </a>
+                        @endif
+
+                        @if (!empty($language->wikipedia))
+                            <a title="Wikipedia page" class="button is-small px-1 py-0" href="{{ $language->wikipedia }}"
+                               target="_blank">
+                                <i class="fa-solid wikipedia_w"></i>{{-- wikipedia--}}
+                            </a>
+                        @else
+                            <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid wikipedia_w"></i>{{-- wikipedia--}}
                             </a>
                         @endif
 
@@ -87,7 +113,7 @@
         @empty
 
             <tr>
-                <td colspan="5">There are no dictionary languages.</td>
+                <td colspan="8">There are no databases.</td>
             </tr>
 
         @endforelse

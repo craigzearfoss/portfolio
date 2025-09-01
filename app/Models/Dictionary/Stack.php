@@ -25,7 +25,7 @@ class Stack extends Model
         'open_source',
         'proprietary',
         'owner',
-        'wiki_page',
+        'wikipedia',
         'link',
         'link_name',
         'description',
