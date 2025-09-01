@@ -18,7 +18,6 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->text('content')->nullable();
             $table->string('link')->nullable();
-            $table->string('alt_link')->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('primary')->default(0);
             $table->integer('sequence')->default(0);

@@ -81,6 +81,14 @@ class Admin extends Authenticatable
     }
 
     /**
+     * Get the career events for the admin.
+     */
+    public function events(): HasMany
+    {
+        return $this->hasMany(\App\Models\Career\Event::class);
+    }
+
+    /**
      * Get the career jobs for the admin.
      */
     public function jobs(): HasMany

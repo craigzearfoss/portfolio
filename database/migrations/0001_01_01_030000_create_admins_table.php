@@ -100,6 +100,20 @@ return new class extends Migration
             });
         }
 
+        if (Schema::connection('career_db')->hasTable('events')) {
+            Schema::connection('career_db')->table('events', function (Blueprint $table) {
+                $table->dropForeign('events_admin_id_foreign');
+                $table->dropColumn('admin_id');
+            });
+        }
+
+        if (Schema::connection('career_db')->hasTable('jobs')) {
+            Schema::connection('career_db')->table('jobs', function (Blueprint $table) {
+                $table->dropForeign('jobs_admin_id_foreign');
+                $table->dropColumn('admin_id');
+            });
+        }
+
         if (Schema::connection('career_db')->hasTable('notes')) {
             Schema::connection('career_db')->table('notes', function (Blueprint $table) {
                 $table->dropForeign('notes_admin_id_foreign');
@@ -142,6 +156,13 @@ return new class extends Migration
             });
         }
 
+        if (Schema::connection('portfolio_db')->hasTable('courses')) {
+            Schema::connection('portfolio_db')->table('courses', function (Blueprint $table) {
+                $table->dropForeign('courses_admin_id_foreign');
+                $table->dropColumn('admin_id');
+            });
+        }
+
         if (Schema::connection('portfolio_db')->hasTable('links')) {
             Schema::connection('portfolio_db')->table('links', function (Blueprint $table) {
                 $table->dropForeign('links_admin_id_foreign');
@@ -173,6 +194,20 @@ return new class extends Migration
         if (Schema::connection('portfolio_db')->hasTable('recipes')) {
             Schema::connection('portfolio_db')->table('recipes', function (Blueprint $table) {
                 $table->dropForeign('recipes_admin_id_foreign');
+                $table->dropColumn('admin_id');
+            });
+        }
+
+        if (Schema::connection('portfolio_db')->hasTable('recipe_ingredients')) {
+            Schema::connection('portfolio_db')->table('recipe_ingredients', function (Blueprint $table) {
+                $table->dropForeign('recipe_ingredients_admin_id_foreign');
+                $table->dropColumn('admin_id');
+            });
+        }
+
+        if (Schema::connection('portfolio_db')->hasTable('recipe_steps')) {
+            Schema::connection('portfolio_db')->table('recipe_steps', function (Blueprint $table) {
+                $table->dropForeign('recipe_steps_admin_id_foreign');
                 $table->dropColumn('admin_id');
             });
         }
