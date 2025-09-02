@@ -17,9 +17,9 @@
         <thead>
         <tr>
             <th>name</th>
-            <th>completed</th>
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
+            <th>completed</th>
             <th>academy</th>
             <th>instructor</th>
             <th class="text-center">sequence</th>
@@ -34,9 +34,9 @@
         <tfoot>
         <tr>
             <th>name</th>
-            <th>completed</th>
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
+            <th>completed</th>
             <th>academy</th>
             <th>instructor</th>
             <th class="text-center">sequence</th>
@@ -56,14 +56,14 @@
                 <td class="py-0">
                     {{ $course->name }}
                 </td>
-                <td class="py-0">
-                    {{ shortDate($course->completed) }}
-                </td>
                 <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $course->professional ])
                 </td>
                 <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $course->personal ])
+                </td>
+                <td class="py-0">
+                    {{ shortDate($course->completed) }}
                 </td>
                 <td class="py-0">
                     {{ $course->academy->name }}
@@ -102,14 +102,14 @@
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
 
-                        @if (!empty($course->website))
-                            <a title="website" class="button is-small px-1 py-0" href="{{ $course->website }}"
+                        @if (!empty($course->link))
+                            <a title="link" class="button is-small px-1 py-0" href="{{ $course->link }}"
                                target="_blank">
-                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
                             </a>
                         @else
-                            <a title="website" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
                             </a>
                         @endif
 

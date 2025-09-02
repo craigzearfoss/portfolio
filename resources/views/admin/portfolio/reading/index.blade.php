@@ -16,7 +16,9 @@
     <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
         <thead>
         <tr>
-            <th>title</th>
+            <th>name</th>
+            <th class="text-center">professional</th>
+            <th class="text-center">personal</th>
             <th>author</th>
             <th class="text-center">paper</th>
             <th class="text-center">audio</th>
@@ -29,7 +31,9 @@
         <?php /*
         <tfoot>
         <tr>
-            <th>title</th>
+            <th>name</th>
+            <th class="text-center">professional</th>
+            <th class="text-center">personal</th>
             <th>author</th>
             <th class="text-center">paper</th>
             <th class="text-center">audio</th>
@@ -46,7 +50,13 @@
 
             <tr>
                 <td>
-                    {{ $reading->title }}
+                    {{ $reading->name }}
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $reading->professional ])
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $reading->personal ])
                 </td>
                 <td>
                     {{ $reading->author }}
@@ -60,8 +70,17 @@
                 <td class="text-center">
                     @include('admin.components.checkmark', [ 'checked' => $reading->wishlist ])
                 </td>
+                <td>
+                    {{ $reading->sequence }}
+                </td>
                 <td class="text-center">
                     @include('admin.components.checkmark', [ 'checked' => $reading->public ])
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $reading->readonly ])
+                </td>
+                <td class="text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $reading->root ])
                 </td>
                 <td class="text-center">
                     @include('admin.components.checkmark', [ 'checked' => $reading->disabled ])
@@ -102,7 +121,7 @@
         @empty
 
             <tr>
-                <td colspan="8">There are no readings.</td>
+                <td colspan="10">There are no readings.</td>
             </tr>
 
         @endforelse

@@ -19,7 +19,6 @@
             <th>name</th>
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
-            <th>website</th>
             <th class="text-center">public</th>
             <th class="text-center">sequence</th>
             <th class="text-center">read-only</th>
@@ -34,7 +33,6 @@
             <th>name</th>
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
-            <th>website</th>
             <th class="text-center">sequence</th>
             <th class="text-center">public</th>
             <th class="text-center">read-only</th>
@@ -112,7 +110,7 @@
         @empty
 
             <tr>
-                <td colspan="10">There are no links.</td>
+                <td colspan="9">There are no links.</td>
             </tr>
 
         @endforelse

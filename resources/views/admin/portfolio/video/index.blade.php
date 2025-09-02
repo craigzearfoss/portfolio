@@ -17,6 +17,8 @@
         <thead>
         <tr>
             <th>name</th>
+            <th class="text-center">professional</th>
+            <th class="text-center">personal</th>
             <th>year</th>
             <th>credit</th>
             <th>location</th>
@@ -32,6 +34,8 @@
         <tfoot>
         <tr>
             <th>name</th>
+            <th class="text-center">professional</th>
+            <th class="text-center">personal</th>
             <th>year</th>
             <th>credit</th>
             <th>location</th>
@@ -51,6 +55,12 @@
             <tr>
                 <td class="py-0">
                     {{ $video->name }}
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $video->professional ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $video->personal ])
                 </td>
                 <td class="py-0">
                     {{ $video->year }}
@@ -112,7 +122,7 @@
         @empty
 
             <tr>
-                <td colspan="10">There are no videos.</td>
+                <td colspan="12">There are no videos.</td>
             </tr>
 
         @endforelse

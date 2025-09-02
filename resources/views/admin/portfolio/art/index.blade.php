@@ -17,14 +17,14 @@
         <thead>
         <tr>
             <th>name</th>
-            <th>artist</th>
-            <th>year</th>
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
+            <th>artist</th>
+            <th>year</th>
             <th class="text-center">sequence</th>
+            <th class="text-center">public</th>
             <th class="text-center">read-only</th>
-            <th class="text-center">public</th>
-            <th class="text-center">public</th>
+            <th class="text-center">root</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
@@ -33,14 +33,14 @@
         <tfoot>
         <tr>
             <th>name</th>
-            <th>artist</th>
-            <th>year</th>
             <th class="text-center">professional</th>
             <th class="text-center">personal</th>
+            <th>artist</th>
+            <th>year</th>
             <th class="text-center">sequence</th>
+            <th class="text-center">public</th>
             <th class="text-center">read-only</th>
-            <th class="text-center">public</th>
-            <th class="text-center">public</th>
+            <th class="text-center">root</th>
             <th class="text-center">disabled</th>
             <th>actions</th>
         </tr>
@@ -56,16 +56,16 @@
                     {{ $art->name }}
                 </td>
                 <td class="py-0 text-center">
-                    {{ $art->artist }}
-                </td>
-                <td class="py-0 text-center">
-                    {{ $art->year }}
-                </td>
-                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $art->professional ])
                 </td>
                 <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $art->personal ])
+                </td>
+                <td class="py-0 text-center">
+                    {{ $art->artist }}
+                </td>
+                <td class="py-0 text-center">
+                    {{ $art->year }}
                 </td>
                 <td class="py-0 text-center">
                     {{ $art->sequence }}

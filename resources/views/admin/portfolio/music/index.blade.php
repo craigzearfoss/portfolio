@@ -17,12 +17,12 @@
         <thead>
         <tr>
             <th>name</th>
+            <th class="text-center">professional</th>
+            <th class="text-center">personal</th>
             <th>artist</th>
             <th>label</th>
             <th>year</th>
             <th>cat#</th>
-            <th class="text-center">professional</th>
-            <th class="text-center">personal</th>
             <th class="text-center">sequence</th>
             <th class="text-center">public</th>
             <th class="text-center">read-only</th>
@@ -35,12 +35,12 @@
         <tfoot>
         <tr>
             <th>name</th>
+            <th class="text-center">professional</th>
+            <th class="text-center">personal</th>
             <th>artist</th>
             <th>label</th>
             <th>year</th>
             <th>cat#</th>
-            <th class="text-center">professional</th>
-            <th class="text-center">personal</th>
             <th class="text-center">sequence</th>
             <th class="text-center">public</th>
             <th class="text-center">read-only</th>
@@ -58,6 +58,12 @@
                 <td class="py0">
                     {{ $music->name }}
                 </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $music->professional ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $music->personal ])
+                </td>
                 <td class="py0">
                     {{ $music->artist }}
                 </td>
@@ -69,12 +75,6 @@
                 </td>
                 <td class="py0">
                     {{ $music->catalog_number }}
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $music->professional ])
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $music->personal ])
                 </td>
                 <td class="py-0 text-center">
                     {{ $music->sequence }}
@@ -103,6 +103,17 @@
                            href="{{ route('admin.portfolio.music.edit', $music->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
+
+                        @if (!empty($music->link))
+                            <a title="link" class="button is-small px-1 py-0" href="{{ $music->link }}"
+                               target="_blank">
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                            </a>
+                        @else
+                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                            </a>
+                        @endif
 
                         @csrf
                         @method('DELETE')

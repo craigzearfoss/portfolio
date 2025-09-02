@@ -28,6 +28,7 @@
         <?php /*
         <tfoot>
         <tr>
+            <th class="text-center">sequence</th>
             <th>name</th>
             <th class="text-center">public</th>
             <th class="text-center">read-only</th>

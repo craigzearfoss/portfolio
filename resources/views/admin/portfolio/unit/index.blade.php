@@ -53,11 +53,11 @@
                 <td class="py-0">
                     {{ $unit->abbreviation }}
                 </td>
-                <td class="py-0">
+                <td class="py-0 text-center">
                     {{ $unit->system }}
                 </td>
                 <td class="py-0 text-center">
-                    {{ $unit->system }}
+                    {{ $unit->sequence }}
                 </td>
                 <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $unit->public ])

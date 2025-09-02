@@ -66,10 +66,19 @@
                 <td>
                     @include('admin.components.link', [ 'url' => $project->repository, 'target' => '_blank' ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
+                    {{ $project->sequence }}
+                </td>
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $project->public ])
                 </td>
-                <td class="text-center">
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $project->readonly ])
+                </td>
+                <td class="py-0 text-center">
+                    @include('admin.components.checkmark', [ 'checked' => $project->root ])
+                </td>
+                <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $project->disabled ])
                 </td>
                 <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
@@ -84,6 +93,17 @@
                            href="{{ route('admin.portfolio.project.edit', $project->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
+
+                        @if (!empty($project->link))
+                            <a title="link" class="button is-small px-1 py-0" href="{{ $project->link }}"
+                               target="_blank">
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                            </a>
+                        @else
+                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                            </a>
+                        @endif
 
                         @csrf
                         @method('DELETE')
