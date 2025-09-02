@@ -55,6 +55,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $recipe->link_name,
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $recipe->description
         ])

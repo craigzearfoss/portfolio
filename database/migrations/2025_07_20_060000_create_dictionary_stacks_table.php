@@ -75,7 +75,7 @@ return new class extends Migration
             [ 'id' => 37, 'full_name' => 'WISAV',         'name' => 'WISAV',         'slug' => 'wsav',          'abbreviation' => 'WSAV',  'link' => '',                                        'wikipedia' => null                                                                           ],
             [ 'id' => 38, 'full_name' => 'XAMPP',         'name' => 'XAMPP',         'slug' => 'xampp',         'abbreviation' => 'XAMPP', 'link' => '',                                        'wikipedia' => 'https://en.wikipedia.org/wiki/XAMPP'                                          ],
             [ 'id' => 39, 'full_name' => 'XRX',           'name' => 'XRX',           'slug' => 'xrx',           'abbreviation' => 'XRX',   'link' => '',                                        'wikipedia' => null                                                                           ],
-            [ 'id' => 40, 'full_name' => 'other',         'name' => 'other',         'slug' => 'xrx',           'abbreviation' => null,    'link' => '',                                        'wikipedia' => null                                                                           ],
+            [ 'id' => 40, 'full_name' => 'other',         'name' => 'other',         'slug' => 'other',         'abbreviation' => null,    'link' => '',                                        'wikipedia' => null                                                                           ],
         ];
         \App\Models\Dictionary\Stack::insert($data);
     }

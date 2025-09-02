@@ -27,6 +27,7 @@ class UnitUpdateRequest extends FormRequest
             'abbreviation' => ['string', 'max:10', 'unique:portfolio_db.units,abbreviation,'.$this->units->id, 'filled'],
             'system'       => ['string', 'max:20', 'filled'],
             'link'         => ['string', 'max:255', 'nullable'],
+            'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],
             'thumbnail'    => ['string', 'max:255', 'nullable'],

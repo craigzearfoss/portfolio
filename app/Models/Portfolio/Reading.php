@@ -32,6 +32,7 @@ class Reading extends Model
         'audio',
         'wishlist',
         'link',
+        'link_name',
         'description',
         'image',
         'thumbnail',

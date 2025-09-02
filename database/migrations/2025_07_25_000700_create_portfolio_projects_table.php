@@ -20,6 +20,7 @@ return new class extends Migration
             $table->year('year')->nullable();
             $table->string('repository')->nullable();
             $table->string('link')->nullable();
+            $table->string('link_name')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('thumbnail')->nullable();

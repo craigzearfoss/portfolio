@@ -14,9 +14,11 @@ return new class extends Migration
     {
         Schema::connection('portfolio_db')->create('ingredients', function (Blueprint $table) {
             $table->id();
+            $table->string('full_name', 255)->unique();
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
             $table->string('link')->nullable();
+            $table->string('link_name')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('thumbnail')->nullable();

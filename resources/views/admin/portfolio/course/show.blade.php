@@ -80,6 +80,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $course->link_name,
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $course->description
         ])

@@ -35,6 +35,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $academy->link_name,
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $academy->description
         ])

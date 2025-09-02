@@ -19,6 +19,7 @@ return new class extends Migration
             $table->tinyInteger('personal')->default(0);
             $table->string('url');
             $table->string('link')->nullable();
+            $table->string('link_name')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('thumbnail')->nullable();

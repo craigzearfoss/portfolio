@@ -22,6 +22,7 @@ return new class extends Migration
             $table->tinyInteger('audio')->default(0);
             $table->tinyInteger('wishlist')->default(0);
             $table->string('link')->nullable();
+            $table->string('link_name')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('thumbnail')->nullable();

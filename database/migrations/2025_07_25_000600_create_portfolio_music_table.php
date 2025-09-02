@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('release_date')->nullable();
             $table->string('catalog_number', 50)->nullable();
             $table->string('link')->nullable();
+            $table->string('link_name')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('thumbnail')->nullable();

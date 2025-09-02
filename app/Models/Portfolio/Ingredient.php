@@ -20,6 +20,7 @@ class Ingredient extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'full_name',
         'name',
         'slug',
         'link',

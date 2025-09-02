@@ -33,6 +33,7 @@ class VideoUpdateRequest extends FormRequest
             'credit'       => ['nullable'],
             'location'     => ['string', 'max:255', 'nullable'],
             'link'         => ['string', 'max:255', 'nullable'],
+            'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],
             'thumbnail'    => ['string', 'max:255', 'nullable'],

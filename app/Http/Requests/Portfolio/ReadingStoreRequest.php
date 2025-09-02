@@ -32,6 +32,7 @@ class ReadingStoreRequest extends FormRequest
             'audio'            => ['integer', 'between:0,1'],
             'wishlist'         => ['wishlist', 'between:0,1'],
             'link'             => ['string', 'nullable'],
+            'link_name'        => ['string', 'nullable'],
             'description'      => ['nullable'],
             'image'            => ['string', 'max:255', 'nullable'],
             'thumbnail'        => ['string', 'max:255', 'nullable'],

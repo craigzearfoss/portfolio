@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('abbreviation', 20)->unique();
             $table->string('system', 10);
             $table->string('link')->nullable();
+            $table->string('link_name')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('thumbnail')->nullable();

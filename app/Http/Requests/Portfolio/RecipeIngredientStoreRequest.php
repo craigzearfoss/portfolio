@@ -34,7 +34,6 @@ class RecipeIngredientStoreRequest extends FormRequest
             'ingredient_id' => ['required', 'integer', 'in:' . Ingredient::all()->pluck('id')->toArray()],
             'amount'        => ['required', 'numeric', 'min:0:'],
             'unit_id'       => ['required', 'integer', 'in:' . Unit::all()->pluck('id')->toArray()],
-            'link'          => ['string', 'nullable'],
             'description'   => ['nullable'],
             'image'         => ['string', 'max:255', 'nullable'],
             'thumbnail'     => ['string', 'max:255', 'nullable'],

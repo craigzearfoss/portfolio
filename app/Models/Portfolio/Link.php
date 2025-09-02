@@ -29,6 +29,7 @@ class Link extends Model
         'personal',
         'url',
         'link',
+        'link_name',
         'description',
         'image',
         'thumbnail',
