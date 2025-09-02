@@ -7,17 +7,21 @@ use App\Http\Requests\Portfolio\CertificationStoreRequest;
 use App\Http\Requests\Portfolio\CertificationUpdateRequest;
 use App\Models\Portfolio\Certification;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CertificationController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of certifications.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $certifications = Certification::latest()->paginate($perPage);
 
         return view('admin.portfolio.certification.index', compact('certifications'))

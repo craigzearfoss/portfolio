@@ -7,17 +7,21 @@ use App\Http\Requests\Career\ReferenceStoreRequest;
 use App\Http\Requests\Career\ReferenceUpdateRequest;
 use App\Models\Career\Reference;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ReferenceController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of references.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $references = Reference::latest()->paginate($perPage);
 
         return view('admin.career.reference.index', compact('references'))

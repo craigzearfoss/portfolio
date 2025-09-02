@@ -7,17 +7,21 @@ use App\Http\Requests\Portfolio\VideoStoreRequest;
 use App\Http\Requests\Portfolio\VideoUpdateRequest;
 use App\Models\Portfolio\Video;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class VideoController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
-     * Display a listing of recipe videos.
+     * Display a listing of videos.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $videos = Video::latest()->paginate($perPage);
 
         return view('admin.portfolio.video.index', compact('videos'))

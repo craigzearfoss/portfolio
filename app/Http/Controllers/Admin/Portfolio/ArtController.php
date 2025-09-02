@@ -7,17 +7,21 @@ use App\Http\Requests\Portfolio\ArtStoreRequest;
 use App\Http\Requests\Portfolio\ArtUpdateRequest;
 use App\Models\Portfolio\Art;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ArtController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of art.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $arts = Art::latest()->paginate($perPage);
 
         return view('admin.portfolio.art.index', compact('arts'))

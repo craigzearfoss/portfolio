@@ -7,17 +7,21 @@ use App\Http\Requests\Career\SkillStoreRequest;
 use App\Http\Requests\Career\SkillUpdateRequest;
 use App\Models\Career\Skill;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class SkillController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of skills.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $skills = Skill::latest()->paginate($perPage);
 
         return view('admin.career.skill.index', compact('skills'))

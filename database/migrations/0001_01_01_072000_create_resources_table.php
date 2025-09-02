@@ -76,7 +76,7 @@ return new class extends Migration
                 'name'        => 'Category',
                 'plural'      => 'Categories',
                 'section'     => 'Dictionary',
-                'icon'        => 'fa-circle-o',
+                'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1000,
                 'public'      => 1,
                 'disabled'    => 0
@@ -88,7 +88,7 @@ return new class extends Migration
                 'name'        => 'Database',
                 'plural'      => 'Databases',
                 'section'     => 'Dictionary',
-                'icon'        => 'fa-circle-o',
+                'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1020,
                 'public'      => 1,
                 'disabled'    => 0
@@ -100,7 +100,7 @@ return new class extends Migration
                 'name'        => 'Framework',
                 'plural'      => 'Frameworks',
                 'section'     => 'Dictionary',
-                'icon'        => 'fa-circle-o',
+                'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1030,
                 'public'      => 1,
                 'disabled'    => 0
@@ -112,7 +112,7 @@ return new class extends Migration
                 'name'        => 'Language',
                 'plural'      => 'Languages',
                 'section'     => 'Dictionary',
-                'icon'        => 'fa-circle-o',
+                'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1040,
                 'public'      => 1,
                 'disabled'    => 0
@@ -124,7 +124,7 @@ return new class extends Migration
                 'name'        => 'Library',
                 'plural'      => 'Libraries',
                 'section'     => 'Dictionary',
-                'icon'        => 'fa-circle-o',
+                'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1050,
                 'public'      => 1,
                 'disabled'    => 0
@@ -136,7 +136,7 @@ return new class extends Migration
                 'name'        => 'Operating System',
                 'plural'      => 'Operating Systems',
                 'section'     => 'Dictionary',
-                'icon'        => 'fa-circle-o',
+                'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1060,
                 'public'      => 1,
                 'disabled'    => 0
@@ -148,7 +148,7 @@ return new class extends Migration
                 'name'        => 'Server',
                 'plural'      => 'Servers',
                 'section'     => 'Dictionary',
-                'icon'        => 'fa-circle-o',
+                'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1070,
                 'public'      => 1,
                 'disabled'    => 0
@@ -160,7 +160,7 @@ return new class extends Migration
                 'name'        => 'Stack',
                 'plural'      => 'Stacks',
                 'section'     => 'Dictionary',
-                'icon'        => 'fa-circle-o',
+                'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1080,
                 'public'      => 1,
                 'disabled'    => 0
@@ -174,7 +174,7 @@ return new class extends Migration
                 'name'        => 'Application',
                 'plural'      => 'Applications',
                 'section'     => 'Career',
-                'icon'        => 'fa-chevron-circle-right',
+                'icon'        => 'fa-thumbtack',
                 'sequence'    => 2000,
                 'public'      => 0,
                 'disabled'    => 0
@@ -198,7 +198,7 @@ return new class extends Migration
                 'name'        => 'Company',
                 'plural'      => 'Companies',
                 'section'     => 'Career',
-                'icon'        => 'fa-industry',
+                'icon'        => 'fa-chart-line',
                 'sequence'    => 2020,
                 'public'      => 0,
                 'disabled'    => 0
@@ -234,7 +234,7 @@ return new class extends Migration
                 'name'        => 'Industry',
                 'plural'      => 'Industries',
                 'section'     => 'Career',
-                'icon'        => 'fa-circle-o',
+                'icon'        => 'fa-industry',
                 'sequence'    => 2050,
                 'public'      => 0,
                 'disabled'    => 0
@@ -246,7 +246,7 @@ return new class extends Migration
                 'name'        => 'Job Board',
                 'plural'      => 'Job Boards',
                 'section'     => 'Career',
-                'icon'        => 'fa-circle-o',
+                'icon'        => 'fa-clipboard',
                 'sequence'    => 2060,
                 'public'      => 0,
                 'disabled'    => 0
@@ -258,7 +258,7 @@ return new class extends Migration
                 'name'        => 'Job',
                 'plural'      => 'Jobs',
                 'section'     => 'Career',
-                'icon'        => 'fa-sticky-note',
+                'icon'        => 'fa-briefcase',
                 'sequence'    => 2070,
                 'public'      => 0,
                 'disabled'    => 0
@@ -282,7 +282,7 @@ return new class extends Migration
                 'name'        => 'Reference',
                 'plural'      => 'References',
                 'section'     => 'Career',
-                'icon'        => 'fa-circle-o',
+                'icon'        => 'fa-person',
                 'sequence'    => 2090,
                 'public'      => 0,
                 'disabled'    => 0
@@ -306,7 +306,7 @@ return new class extends Migration
                 'name'        => 'Skill',
                 'plural'      => 'Skills',
                 'section'     => 'Career',
-                'icon'        => 'fa-file',
+                'icon'        => 'fa-certificate',
                 'sequence'    => 2110,
                 'public'      => 0,
                 'disabled'    => 0
@@ -320,7 +320,7 @@ return new class extends Migration
                 'name'        => 'Academy',
                 'plural'      => 'Academies',
                 'section'     => 'Portfolio',
-                'icon'        => 'fa-circle-o',
+                'icon'        => 'fa-school',
                 'sequence'    => 3000,
                 'public'      => 1,
                 'disabled'    => 0
@@ -344,7 +344,7 @@ return new class extends Migration
                 'name'        => 'Certification',
                 'plural'      => 'Certifications',
                 'section'     => 'Portfolio',
-                'icon'        => 'fa-certificate',
+                'icon'        => 'fa-graduation-cap',
                 'sequence'    => 3020,
                 'public'      => 1,
                 'disabled'    => 0
@@ -356,7 +356,7 @@ return new class extends Migration
                 'name'        => 'Course',
                 'plural'      => 'Courses',
                 'section'     => 'Portfolio',
-                'icon'        => '',
+                'icon'        => 'fa-chalkboard',
                 'sequence'    => 3030,
                 'public'      => 1,
                 'disabled'    => 0
@@ -428,7 +428,7 @@ return new class extends Migration
                 'name'        => 'Ingredient',
                 'plural'      => 'Ingredients',
                 'section'     => 'Portfolio',
-                'icon'        => 'fa-circle-o',
+                'icon'        => 'fa-pizza-slice',
                 'sequence'    => 3090,
                 'public'      => 1,
                 'disabled'    => 0

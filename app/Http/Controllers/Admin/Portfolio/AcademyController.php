@@ -7,17 +7,21 @@ use App\Http\Requests\Portfolio\AcademyStoreRequest;
 use App\Http\Requests\Portfolio\AcademyUpdateRequest;
 use App\Models\Portfolio\Academy;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AcademyController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of academies.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $academies = Academy::latest()->paginate($perPage);
 
         return view('admin.portfolio.academy.index', compact('academies'))

@@ -67,7 +67,7 @@ class Recipe extends Model
             }
         }
 
-        foreach (Academy::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
+        foreach (Recipe::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
             $options[$nameAsKey ? $row->name : $row->id] = $row->name;
         }
 

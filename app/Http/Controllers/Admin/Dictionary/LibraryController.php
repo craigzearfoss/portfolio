@@ -7,18 +7,22 @@ use App\Http\Requests\Dictionary\LibraryStoreRequest;
 use App\Http\Requests\Dictionary\UpdateRequest;
 use App\Models\Dictionary\Library;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class LibraryController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of libraries.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $libraries = Library::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.dictionary.library.index', compact('libraries'))

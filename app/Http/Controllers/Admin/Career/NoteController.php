@@ -7,17 +7,21 @@ use App\Http\Requests\Career\NoteStoreRequest;
 use App\Http\Requests\Career\NoteUpdateRequest;
 use App\Models\Career\Note;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class NoteController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of notes.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $notes = Note::latest()->paginate($perPage);
 
         return view('admin.career.note.index', compact('notes'))

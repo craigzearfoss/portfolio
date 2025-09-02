@@ -4,17 +4,21 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Portfolio\Certification;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CertificationController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
-     * Display a listing of the certification.
+     * Display a listing of certifications.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $certifications = Certification::where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence', 'asc')

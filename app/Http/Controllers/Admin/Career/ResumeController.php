@@ -7,17 +7,21 @@ use App\Http\Requests\Career\ResumeStoreRequest;
 use App\Http\Requests\Career\ResumeUpdateRequest;
 use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ResumeController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of resumes.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $resumes = Resume::latest()->paginate($perPage);
 
         return view('admin.career.resume.index', compact('resumes'))

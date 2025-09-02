@@ -7,18 +7,22 @@ use App\Http\Requests\Dictionary\DatabaseStoreRequest;
 use App\Http\Requests\Dictionary\DatabaseUpdateRequest;
 use App\Models\Dictionary\Database;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class DatabaseController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of databases.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $databases = Database::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.dictionary.database.index', compact('databases'))

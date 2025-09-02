@@ -53,7 +53,7 @@
                     @include('admin.components.checkmark', [ 'checked' => $ingredient->public ])
                 </td>
                 <td class="py-0 text-center">
-                    @include('py-0 admin.components.checkmark', [ 'checked' => $ingredient->readonly ])
+                    @include('admin.components.checkmark', [ 'checked' => $ingredient->readonly ])
                 </td>
                 <td class="py-0 text-center">
                     @include('admin.components.checkmark', [ 'checked' => $ingredient->root ])

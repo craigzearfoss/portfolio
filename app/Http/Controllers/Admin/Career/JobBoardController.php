@@ -7,17 +7,21 @@ use App\Http\Requests\Career\JobBoardStoreRequest;
 use App\Http\Requests\Career\JobBoardUpdateRequest;
 use App\Models\Career\JobBoard;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class JobBoardController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of job boards.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $jobBoards = JobBoard::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.career.job-board.index', compact('jobBoards'))

@@ -12,14 +12,17 @@ use Illuminate\View\View;
 
 class IngredientController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of ingredients.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
-        $ingredients = Ingredient::latest()->paginate($perPage);
+        $perPage= $request->query('per_page', $this->perPage);
+
+        $ingredients = Ingredient::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.portfolio.ingredient.index', compact('ingredients'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

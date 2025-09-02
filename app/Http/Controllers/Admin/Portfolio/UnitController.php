@@ -12,13 +12,16 @@ use Illuminate\View\View;
 
 class UnitController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of units.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $units = Unit::latest()->paginate($perPage);
 
         return view('admin.portfolio.unit.index', compact('units'))

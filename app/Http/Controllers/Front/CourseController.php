@@ -9,13 +9,16 @@ use Illuminate\View\View;
 
 class CourseController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
-     * Display a listing of the course.
+     * Display a listing of courses.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $courses = Course::where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence', 'asc')

@@ -4,17 +4,21 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Portfolio\Reading;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ReadingController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
-     * Display a listing of the reading.
+     * Display a listing of readings.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $readings = Reading::where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence', 'asc')

@@ -7,17 +7,21 @@ use App\Http\Requests\Career\CommunicationStoreRequest;
 use App\Http\Requests\Career\CommunicationUpdateRequest;
 use App\Models\Career\Communication;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CommunicationController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of communications.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $communications = Communication::latest()->paginate($perPage);
 
         return view('admin.career.communication.index', compact('communications'))

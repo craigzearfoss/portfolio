@@ -7,17 +7,21 @@ use App\Http\Requests\Portfolio\LinkStoreRequest;
 use App\Http\Requests\Portfolio\LinkUpdateRequest;
 use App\Models\Portfolio\Link;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class LinkController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of links.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $links = Link::latest()->paginate($perPage);
 
         return view('admin.portfolio.link.index', compact('links'))

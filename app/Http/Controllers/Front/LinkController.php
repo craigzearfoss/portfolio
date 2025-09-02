@@ -4,17 +4,21 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Portfolio\Link;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class LinkController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
-     * Display a listing of the link.
+     * Display a listing of links.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $links = Link::where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence', 'asc')

@@ -7,17 +7,21 @@ use App\Http\Requests\Career\ContactStoreRequest;
 use App\Http\Requests\Career\rContactUpdateRequest;
 use App\Models\Career\Contact;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ContactController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of contacts.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $contacts = Contact::latest()->paginate($perPage);
 
         return view('admin.career.contact.index', compact('contacts'))

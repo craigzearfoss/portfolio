@@ -7,17 +7,21 @@ use App\Http\Requests\Portfolio\CourseStoreRequest;
 use App\Http\Requests\Portfolio\CourseUpdateRequest;
 use App\Models\Portfolio\Course;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CourseController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of courses.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $courses = Course::latest()->paginate($perPage);
 
         return view('admin.portfolio.course.index', compact('courses'))

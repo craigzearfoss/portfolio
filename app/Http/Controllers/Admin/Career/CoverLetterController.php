@@ -7,17 +7,21 @@ use App\Http\Requests\Career\CoverLetterStoreRequest;
 use App\Http\Requests\Career\CoverLetterUpdateRequest;
 use App\Models\Career\CoverLetter;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CoverLetterController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of cover letters.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $coverLetters = CoverLetter::latest()->paginate($perPage);
 
         return view('admin.career.cover-letter.index', compact('coverLetters'))

@@ -7,17 +7,21 @@ use App\Http\Requests\Career\ApplicationStoreRequest;
 use App\Http\Requests\Career\ApplicationUpdateRequest;
 use App\Models\Career\Application;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ApplicationController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of applications.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $applications = Application::latest()->paginate($perPage);
 
         return view('admin.career.application.index', compact('applications'))

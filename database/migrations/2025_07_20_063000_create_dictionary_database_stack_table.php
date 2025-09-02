@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('dictionary_db')->dropIfExists('database_dictionary');
+        Schema::connection('dictionary_db')->dropIfExists('database_stack');
     }
 };

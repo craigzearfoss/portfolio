@@ -34,9 +34,13 @@
                     <li id="menu-item-portfolio" class="menu-item-divider"></li>
                 @endif
 
-                <p class="menu-label">
+                <p class="menu-label pb-0 mb-0">
                     @if (!empty($resource->database) && ($resource->database['name'] !== config('app.database')))
-                        <a href="{{ route('admin.'.strtolower($resource->database['name']).'.index') }}">{{ $resource->database['title'] }}</a>
+                        <a href="{{ route('admin.'.strtolower($resource->database['name']).'.index') }}"
+                           class="has-text-white"
+                        >
+                            {{ $resource->database['title'] }}
+                        </a>
                     @else
                         {{ $resource->database['title'] }}
                     @endif
@@ -60,51 +64,5 @@
         @endforeach
 
     </ul>
-
-    @if (Auth::guard('admin') && Auth::guard('admin')->user()->root)
-
-        <p class="menu-label">Root Admin Only</p>
-        <ul class="menu-list">
-            <li>
-                <a href="{{ route('admin.dictionary.index') }}" class="has-icon">
-                    <span class="icon has-update-mark"><i class="mdi mdi-table"></i></span>
-                    <span class="menu-item-label">Dictionary</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="{{ route('admin.dictionary.database.index') }}">
-                            <span>Databases</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.dictionary.framework.index') }}">
-                            <span>Frameworks</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.dictionary.language.index') }}">
-                            <span>Languages</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.dictionary.operating-system.index') }}">
-                            <span>Operating Systems</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.dictionary.server.index') }}">
-                            <span>Servers</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.dictionary.stack.index') }}">
-                            <span>Stacks</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-
-    @endif
 
 </aside>

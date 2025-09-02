@@ -7,17 +7,21 @@ use App\Http\Requests\Portfolio\RecipeIngredientStoreRequest;
 use App\Http\Requests\Portfolio\RecipeIngredientUpdateRequest;
 use App\Models\Portfolio\RecipeIngredient;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class RecipeIngredientController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of recipe ingredients.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $recipeIngredients = RecipeIngredient::latest()->paginate($perPage);
 
         return view('admin.portfolio.recipe-ingredient.index', compact('recipeIngredients'))

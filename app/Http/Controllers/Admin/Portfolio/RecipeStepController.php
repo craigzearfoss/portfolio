@@ -12,13 +12,16 @@ use Illuminate\View\View;
 
 class RecipeStepController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of recipe steps.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $recipeSteps = RecipeStep::latest()->paginate($perPage);
 
         return view('admin.portfolio.recipe-step.index', compact('recipeSteps'))

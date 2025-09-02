@@ -7,17 +7,21 @@ use App\Http\Requests\Portfolio\ReadingStoreRequest;
 use App\Http\Requests\Portfolio\ReadingUpdateRequest;
 use App\Models\Portfolio\Reading;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ReadingController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of readings.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $readings = Reading::latest()->paginate($perPage);
 
         return view('admin.portfolio.reading.index', compact('readings'))

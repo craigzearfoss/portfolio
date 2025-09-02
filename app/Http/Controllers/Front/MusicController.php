@@ -10,13 +10,16 @@ use Illuminate\View\View;
 
 class MusicController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
-     * Display a listing of the art.
+     * Display a listing of music.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $musics = Music::where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence', 'asc')

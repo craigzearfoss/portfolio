@@ -12,13 +12,16 @@ use Illuminate\View\View;
 
 class EventController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of events.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $events = Event::latest()->paginate($perPage);
 
         return view('admin.career.event.index', compact('events'))

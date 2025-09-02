@@ -19,6 +19,11 @@
     <div>
 
         @include('admin.components.show-row', [
+            'dull name'  => 'full_name',
+            'value'      => $ingredient->full_name
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $ingredient->name
         ])

@@ -16,13 +16,16 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    const PER_PAGE = 20;
-
     /**
      * Display a listing of users.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function index(int $perPage = self::PER_PAGE): View
+    public function index(Request $request): View
     {
+        $perPage= $request->query('per_page', $this->perPage);
+
         $users = User::latest()->paginate($perPage);
 
         return view('admin.user.index', compact('users'))
