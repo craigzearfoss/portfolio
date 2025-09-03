@@ -43,32 +43,52 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'recipient',
-                'value'     => old('recipient') ?? $coverLetter->recipient,
-                'required'  => true,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      =>'date',
+                'type'      => 'date',
                 'name'      => 'date',
                 'value'     => old('date') ?? $coverLetter->date,
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'content',
+                'id'      => 'inputEditor',
+                'value'   => old('content') ?? $coverLetter->content,
+                'message' => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? $coverLetter->link,
-                'required'  => true,
-                'message'   => $message ?? '',
+                'name'     => 'link',
+                'value'    => old('link') ?? $coverLetter->link,
+                'maxlength' => 255,
+                'required' => true,
+                'message'  => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'     => 'link_name',
+                'label'    => 'link name',
+                'value'    => old('link_name') ?? $coverLetter->link_name,
+                'maxlength' => 255,
+                'required' => true,
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'alt_link',
                 'label'     => 'alt link',
                 'value'     => old('alt_link') ?? $coverLetter->alt_link,
+                'maxlength' => 255,
                 'required'  => true,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'     => 'alt_link_name',
+                'label'    => 'alt link name',
+                'value'    => old('alt_link_name') ?? $coverLetter->alt_link_name,
+                'maxlength' => 255,
+                'required' => true,
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
@@ -99,6 +119,24 @@
                 'value'           => 1,
                 'unchecked_value' => 0,
                 'checked'         => old('public') ?? $coverLetter->public,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'readonly',
+                'label'           => 'read-only',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('readonly') ?? $coverLetter->readonly,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $coverLetter->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
                 'message'         => $message ?? '',
             ])
 

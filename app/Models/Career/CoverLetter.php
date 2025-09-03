@@ -25,7 +25,6 @@ class CoverLetter extends Model
     protected $fillable = [
         'name',
         'slug',
-        'recipient',
         'date',
         'content',
         'link',

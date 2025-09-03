@@ -41,24 +41,34 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'recipient',
-                'value'     => old('recipient') ?? '',
-                'required'  => true,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      =>'date',
+                'type'      => 'date',
                 'name'      => 'date',
-                'value'     => old('date')?? null,
+                'value'     => old('date') ?? '',
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'content',
+                'id'      => 'inputEditor',
+                'value'   => old('content') ?? '',
+                'message' => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? '',
-                'required'  => true,
-                'message'   => $message ?? '',
+                'name'     => 'link',
+                'value'    => old('link') ?? '',
+                'required' => true,
+                'maxlength' => 255,
+                'message'  => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'     => 'link_name',
+                'label'    => 'link name',
+                'value'    => old('link_name') ?? '',
+                'required' => true,
+                'maxlength' => 255,
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -66,7 +76,17 @@
                 'label'     => 'alt link',
                 'value'     => old('alt_link') ?? '',
                 'required'  => true,
+                'maxlength' => 255,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'     => 'alt_link_name',
+                'label'    => 'alt link name',
+                'value'    => old('alt_link_name') ?? '',
+                'required' => true,
+                'maxlength' => 255,
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
@@ -101,10 +121,29 @@
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'readonly',
+                'label'           => 'read-only',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('readonly') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @if (Auth::guard('admin')->user()->root)
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'root',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('root') ?? 0,
+                    'message'         => $message ?? '',
+                ])
+            @endif
+
+            @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'disabled',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? 0,
+                'checked'         => old('disabled') ?? $coverLetter->disabled,
                 'message'         => $message ?? '',
             ])
 

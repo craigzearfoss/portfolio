@@ -17,7 +17,6 @@
         <thead>
         <tr>
             <th>name</th>
-            <th>recipient(s)</th>
             <th>date</th>
             <th class="text-center">primary</th>
             <th class="text-center">disabled</th>
@@ -28,7 +27,6 @@
         <tfoot>
         <tr>
             <th>name</th>
-            <th>recipient(s)</th>
             <th>date</th>
             <th class="text-center">primary</th>
             <th class="text-center">disabled</th>
@@ -43,9 +41,6 @@
             <tr>
                 <td>
                     {{ $coverLetter->name }}
-                </td>
-                <td>
-                    {{ $coverLetter->recipient }}
                 </td>
                 <td class="text-nowrap">
                     {{ shortDate($coverLetter->date) }}
@@ -92,7 +87,7 @@
         @empty
 
             <tr>
-                <td colspan="6">There are no jobs.</td>
+                <td colspan="5">There are no jobs.</td>
             </tr>
 
         @endforelse

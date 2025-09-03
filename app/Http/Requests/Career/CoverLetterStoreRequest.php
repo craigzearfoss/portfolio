@@ -25,7 +25,6 @@ class CoverLetterStoreRequest extends FormRequest
         return [
             'name'          => ['required', 'string', 'max:255', 'unique:career_db.cover_letters,name'],
             'slug'          => ['required', 'string', 'max:255', 'unique:portfolio_db.cover_letters,slug'],
-            'recipient'     => ['string', 'max:255', 'nullable'],
             'date'          => ['date', 'nullable'],
             'content'       => ['nullable'],
             'link'          => ['string', 'max:255', 'nullable'],

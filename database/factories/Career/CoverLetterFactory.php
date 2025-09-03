@@ -19,7 +19,6 @@ class CoverLetterFactory extends Factory
         return [
             'name'         => fake()->unique()->sentence(6),
             'slug'         => fake()->unique()->slug(6),
-            'recipient'    => fake()->name(),
             'date'         => fake()->date(),
             'link'         => fake()->url(),
             'alt_link'     => fake()->url(),

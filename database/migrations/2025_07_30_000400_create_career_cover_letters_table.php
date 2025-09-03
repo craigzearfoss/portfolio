@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('recipient')->nullable();
             $table->date('date')->nullable();
             $table->text('content')->nullable();
             $table->string('link')->nullable();

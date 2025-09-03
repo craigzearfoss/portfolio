@@ -24,7 +24,8 @@ class CommunicationUpdateRequest extends FormRequest
     {
         return [
             'subject'   => ['string', 'max:255', 'filled'],
-            'timestamp' => ['required', 'date_format:Y-m-d H:i:s'],
+            'date'      => ['required', 'date_format:Y-m-d'],
+            'time'      => ['required', 'date_format:H:i:s'],
             'body'      => ['filled'],
             'sequence'  => ['integer', 'min:0'],
             'public'    => ['integer', 'between:0,1'],

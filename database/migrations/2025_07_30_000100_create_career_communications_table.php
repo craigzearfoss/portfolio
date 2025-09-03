@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignId('application_id', Application::class)->nullable()->index();
             $table->foreignId('contact_id', Contact::class)->nullable()->index();
             $table->string('subject');
-            $table->timestamp('timestamp');
+            $table->date('date')->nullable();
+            $table->time('time')->nullable();
             $table->text('body');
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);

@@ -26,7 +26,8 @@ class Communication extends Model
      */
     protected $fillable = [
         'subject',
-        'timestamp',
+        'date',
+        'time',
         'body',
         'sequence',
         'public',

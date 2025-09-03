@@ -50,12 +50,12 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image_credit',
+            'name'  => 'image credit',
             'value' => $jobBoard->image_credit
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_source',
+            'name'  => 'image source',
             'value' => $jobBoard->image_source
         ])
 

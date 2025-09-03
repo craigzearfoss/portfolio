@@ -34,6 +34,20 @@
                 'message'     => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'type'        => 'date',
+                'name'        => 'date',
+                'value'       => old('timestamp') ?? $communication->date,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'        => 'time',
+                'name'        => 'time',
+                'value'       => old('time') ?? $communication->time,
+                'message'     => $message ?? '',
+            ])
+
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'body',
                 'id'      => 'inputEditor',

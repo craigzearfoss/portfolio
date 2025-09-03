@@ -38,8 +38,16 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'website',
-                'value'     => old('website') ?? $jobBoard->website,
+                'name'      => 'link',
+                'value'     => old('link') ?? $jobBoard->link,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'link_name',
+                'label'     => 'link_name',
+                'value'     => old('link_name') ?? $jobBoard->link_name,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -49,6 +57,36 @@
                 'id'      => 'inputEditor',
                 'value'   => old('description') ?? $jobBoard->description,
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'      => 'image',
+                'value'     => old('image') ?? $jobBoard->image,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_credit',
+                'label'     => 'image credit',
+                'value'     => old('image_credit') ?? $jobBoard->image_credit,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+``          ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_source',
+                'label'     => 'image source',
+                'value'     => old('image_source') ?? $jobBoard->image_source,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'      => 'thumbnail',
+                'value'     => old('thumbnail') ?? $jobBoard->thumbnail,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -69,6 +107,7 @@
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'readonly',
+                'label'           => 'read-only',
                 'value'           => 1,
                 'unchecked_value' => 0,
                 'checked'         => old('readonly') ?? $jobBoard->readonly,

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::connection('career_db')->create('events', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->timestamp('timestamp');
+            $table->date('date')->nullable();
+            $table->time('time')->nullable();
             $table->string('location');
-            $table->string('attendees');
             $table->text('description');
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);

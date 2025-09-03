@@ -29,11 +29,6 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'recipient',
-            'value' => $coverLetter->recipient
-        ])
-
-        @include('admin.components.show-row', [
             'name'  => 'date',
             'value' => longDate($coverLetter->date)
         ])

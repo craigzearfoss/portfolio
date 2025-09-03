@@ -39,11 +39,6 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'timestamp',
-            'value' => longDateTime($communication->timestamp)
-        ])
-
-        @include('admin.components.show-row', [
             'name'  => 'body',
             'value' => $communication->body
         ])

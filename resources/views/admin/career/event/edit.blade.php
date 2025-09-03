@@ -26,17 +26,54 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'        => 'subject',
-                'value'       => old('subject') ?? $event->subject,
+                'name'        => 'name',
+                'value'       => old('subject') ?? $event->name,
                 'required'    => true,
                 'maxlength'   => 255,
                 'message'     => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'type'        => 'date',
+                'name'        => 'date',
+                'value'       => old('timestamp') ?? $event->date,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'        => 'time',
+                'name'        => 'time',
+                'value'       => old('time') ?? $event->time,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'        => 'location',
+                'value'       => old('location') ?? $event->location,
+                'required'    => true,
+                'maxlength'   => 255,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'link',
+                'value'     => old('link') ?? $event->link,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'link_name',
+                'label'     => 'link name',
+                'value'     => old('link_name') ?? $event->link_name,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'body',
+                'name'    => 'text',
                 'id'      => 'inputEditor',
-                'value'   => old('body') ?? $event->body,
+                'value'   => old('text') ?? $event->text,
                 'message' => $message ?? '',
             ])
 
@@ -53,6 +90,24 @@
                 'value'           => 1,
                 'unchecked_value' => 0,
                 'checked'         => old('public') ?? $event->public,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'readonly',
+                'label'           => 'read-only',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('readonly') ?? $event->readonly,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $event->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
                 'message'         => $message ?? '',
             ])
 

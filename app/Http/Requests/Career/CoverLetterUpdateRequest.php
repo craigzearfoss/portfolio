@@ -25,7 +25,6 @@ class CoverLetterUpdateRequest extends FormRequest
         return [
             'name'          => ['string', 'max:255', 'unique:career_db.cover_letters,name,'.$this->cover_letter->id, 'filled'],
             'slug'          => ['string', 'max:255', 'unique:portfolio_db.cover_letters,slug,'.$this->cover_letter->id, 'filled'],
-            'recipient'     => ['string', 'max:255', 'nullable'],
             'date'          => ['date', 'nullable'],
             'content'       => ['nullable'],
             'link'          => ['string', 'max:255', 'nullable'],
