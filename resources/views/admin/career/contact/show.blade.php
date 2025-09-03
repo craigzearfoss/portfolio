@@ -90,13 +90,13 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'  => 'link',
+            'name'   => 'link',
             'url'    => $contact->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'link_name',
+            'name'  => 'link name',
             'value' => $contact->link_name
         ])
 
@@ -111,12 +111,12 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image_credit',
+            'name'  => 'image credit',
             'value' => $contact->image_credit
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_source',
+            'name'  => 'image source',
             'value' => $contact->image_source
         ])
 

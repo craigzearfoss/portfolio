@@ -174,8 +174,8 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'link',
-            'value' => $application->link
+            'name'  => 'link name',
+            'value' => $application->link_name
         ])
 
         @include('admin.components.show-row', [
@@ -183,18 +183,18 @@
             'value' => $application->description
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image',
             'value' => $application->image
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'  => 'image_credit',
+        @include('admin.components.show-row', [
+            'name'  => 'image credit',
             'value' => $application->image_credit
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_source',
+            'name'  => 'image source',
             'value' => $application->image_source
         ])
 

@@ -19,18 +19,23 @@
     <div>
 
         @include('admin.components.show-row', [
-            'name'  => 'contact',
+            'name'  => 'application_id',
             'value' => $communication->application_id ?? ''
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'contact',
-            'value' => $communication->contact['name'] ?? ''
+            'name'  => 'contact_id',
+            'value' => $communication->contact_id ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'subject',
             'value' => $communication->subject
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'timestamp',
+            'value' => longDateTime($communication->timestamp)
         ])
 
         @include('admin.components.show-row', [

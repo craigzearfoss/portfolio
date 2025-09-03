@@ -56,6 +56,25 @@
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'readonly',
+                'label'           => 'read-only',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('readonly') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @if (Auth::guard('admin')->user()->root)
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'root',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('root') ?? 0,
+                    'message'         => $message ?? '',
+                ])
+            @endif
+
+            @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'disabled',
                 'value'           => 1,
                 'unchecked_value' => 0,

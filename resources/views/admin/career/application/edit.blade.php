@@ -331,6 +331,7 @@
                 'value'           => 1,
                 'unchecked_value' => 0,
                 'checked'         => old('root') ?? $application->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
                 'message'         => $message ?? '',
             ])
 

@@ -49,50 +49,57 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'    => 'job_title',
+                'label'    => 'title',
+                'value'   => old('job_title') ?? $contact->job_title,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'street',
-                'value'     => old('street') ?? $contact->street,
+                'value'     => old('street') ?? $company->street,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'street2',
-                'value'     => old('street2') ?? $contact->street2,
+                'value'     => old('street2') ?? $company->street2,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'city',
-                'value'     => old('city') ?? $contact->city,
+                'value'     => old('city') ?? $company->city,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'state',
-                'value'   => old('state') ?? $contact->state,
+                'value'   => old('state') ?? $company->state,
                 'list'    => \App\Models\State::listOptions(true, true),
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'zip',
-                'value'     => old('zip') ?? $contact->zip,
+                'value'     => old('zip') ?? $company->zip,
                 'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'country',
-                'value'   => old('country') ?? $contact->country,
+                'value'   => old('country') ?? $company->country,
                 'list'    => \App\Models\Country::listOptions(true, true),
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'phone',
-                'value'     => old('phone') ?? $contact->phone,
+                'value'     => old('phone') ?? $company->phone,
                 'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
@@ -100,7 +107,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'phone_label',
                 'label'     => 'phone label',
-                'value'     => old('phone_label') ?? $contact->phone_label,
+                'value'     => old('phone_label') ?? $company->phone_label,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -108,7 +115,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'alt_phone',
                 'label'     => 'alt phone',
-                'value'     => old('alt_phone') ?? $contact->alt_phone,
+                'value'     => old('alt_phone') ?? $company->alt_phone,
                 'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
@@ -116,14 +123,14 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'alt_phone_label',
                 'label'     => 'alt phone label',
-                'value'     => old('alt_phone_label') ?? $contact->alt_phone_label,
+                'value'     => old('alt_phone_label') ?? $company->alt_phone_label,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'email',
-                'value'     => old('email') ?? $contact->email,
+                'value'     => old('email') ?? $company->email,
                 'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
@@ -131,7 +138,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'email_label',
                 'label'     => 'email label',
-                'value'     => old('email_label') ?? $contact->email_label,
+                'value'     => old('email_label') ?? $company->email_label,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -139,7 +146,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'alt_email',
                 'label'     => 'alt email',
-                'value'     => old('alt_email') ?? $contact->alt_email,
+                'value'     => old('alt_email') ?? $company->alt_email,
                 'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
@@ -147,29 +154,65 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'alt_email_label',
                 'label'     => 'alt email label',
-                'value'     => old('alt_email_label') ?? $contact->alt_email_label,
+                'value'     => old('alt_email_label') ?? $company->alt_email_label,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'website',
-                'value'     => old('website') ?? $contact->website,
-                'maxlength' => 20,
+                'name'      => 'link',
+                'value'     => old('link') ?? $company->link,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'link_name',
+                'label'     => 'link name',
+                'value'     => old('link_name') ?? $company->link_name,
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
-                'value'   => old('description') ?? $contact->description,
+                'value'   => old('description') ?? $company->description,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'image',
+                'value'   => old('image') ?? $company->image,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_credit',
+                'label'     => 'image credit',
+                'value'     => old('image_credit') ?? $company->image_credit,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+``          ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_source',
+                'label'     => 'image source',
+                'value'     => old('image_source') ?? $company->image_source,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'thumbnail',
+                'value'   => old('thumbnail') ?? $company->thumbnail,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'sequence',
-                'value'       => old('sequence') ?? $contact->sequence,
+                'value'       => old('sequence') ?? $company->sequence,
                 'min'         => 0,
                 'message'     => $message ?? '',
             ])
@@ -178,7 +221,25 @@
                 'name'            => 'public',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('public') ?? $contact->public,
+                'checked'         => old('public') ?? $company->public,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'readonly',
+                'label'           => 'read-only',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('readonly') ?? $company->readonly,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $company->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
                 'message'         => $message ?? '',
             ])
 
@@ -186,7 +247,7 @@
                 'name'            => 'disabled',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? $contact->disabled,
+                'checked'         => old('disabled') ?? $company->disabled,
                 'message'         => $message ?? '',
             ])
 

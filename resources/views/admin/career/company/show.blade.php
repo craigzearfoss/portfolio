@@ -105,12 +105,12 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image_credit',
+            'name'  => 'image credit',
             'value' => $company->image_credit
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_source',
+            'name'  => 'image source',
             'value' => $company->image_source
         ])
 

@@ -48,6 +48,13 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'    => 'job_title',
+                'label'   => 'job title',
+                'value'   => old('job_title') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'street',
                 'value'     => old('street') ?? '',
                 'maxlength' => 255,
@@ -152,9 +159,17 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'website',
-                'value'     => old('website') ?? '',
-                'maxlength' => 20,
+                'name'      => 'link',
+                'value'     => old('link') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'link_name',
+                'label'     => 'link name',
+                'value'     => old('link_name') ?? '',
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
@@ -162,6 +177,34 @@
                 'name'    => 'description',
                 'id'      => 'inputEditor',
                 'value'   => old('description') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'image',
+                'value'   => old('image') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_credit',
+                'label'     => 'image credit',
+                'value'     => old('image_credit') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+``          ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_source',
+                'label'     => 'image source',
+                'value'     => old('image_source') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'thumbnail',
+                'value'   => old('thumbnail') ?? '',
                 'message' => $message ?? '',
             ])
 
@@ -182,6 +225,24 @@
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'readonly',
+                'label'           => 'read-only',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('readonly') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? 0,
+                'disabled'        => !Auth::guard('admin')->user()->root,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'disabled',
                 'value'           => 1,
                 'unchecked_value' => 0,
@@ -189,9 +250,9 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add Contact',
-                'cancel_url' => route('admin.career.contact.index')
+            @include('admin.components.form-button-submit', [
+                'label'      => 'Save Contact',
+                'cancel_url' => route('admin.career.company.index')
             ])
 
         </form>
