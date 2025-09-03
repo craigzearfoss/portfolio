@@ -19,12 +19,11 @@
 
     <div class="form">
 
-        <form action="{{ route('admin.dictionary.category.update', $category) }}"
-              method="POST">
+        <form action="{{ route('admin.dictionary.category.update', $category) }}" method="POST">
             @csrf
             @method('PUT')
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'full_name',
                 'value'     => old('full_name') ?? $category->full_name,
                 'required'  => true,
@@ -32,7 +31,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? $category->name,
                 'required'  => true,
@@ -40,7 +39,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'abbreviation',
                 'value'     => old('abbreviation') ?? $category->abbreviation,
                 'required'  => true,
@@ -65,7 +64,14 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'owner',
+                'value'     => old('owner') ?? $category->owner,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'wikipedia',
                 'label'     => 'wiki page',
                 'value'     => old('wikipedia') ?? $category->wikipedia,
@@ -73,14 +79,14 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $category->link,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'link_name',
                 'label'     => 'link name',
                 'value'     => old('link') ?? $category->link_name,
@@ -88,7 +94,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-textarea', [
+            @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
                 'value'   => old('description') ?? $category->description,
@@ -99,6 +105,22 @@
                 'name'    => 'image',
                 'value'   => old('image') ?? $category->image,
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_credit',
+                'label'     => 'image credit',
+                'value'     => old('image_credit') ?? $category->image_credit,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_source',
+                'label'     => 'image source',
+                'value'     => old('image_source') ?? $category->image_source,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
@@ -149,7 +171,7 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-button-submit', [
+            @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save Category',
                 'cancel_url' => route('admin.dictionary.category.index')
             ])

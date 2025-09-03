@@ -65,10 +65,9 @@
             'target' => '_blank'
         ])
 
-        @include('admin.components.show-row-link', [
+        @include('admin.components.show-row', [
             'name'  => 'link name',
-            'url'    => $framework->link_name,
-            'target' => '_blank'
+            'value' => $framework->link_name
         ])
 
         @include('admin.components.show-row', [
@@ -79,6 +78,16 @@
         @include('admin.components.show-row-image', [
             'name'  => 'image',
             'value' => $framework->image
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'image credit',
+            'value' => $ $framework->image_credit
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'image source',
+            'value' => $ $framework->image_source
         ])
 
         @include('admin.components.show-row-image', [

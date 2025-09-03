@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Add New Operating System',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard',   'url' => route('admin.dashboard') ],
-        [ 'name' => 'Dictionary',        'url' => route('admin.dictionary.index') ],
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
         [ 'name' => 'Operating Systems', 'url' => route('admin.dictionary.operating-system.index') ],
         [ 'name' => 'Add' ],
     ],
@@ -16,13 +16,12 @@
 
 @section('content')
 
-    <div class="form-container">
+    <div class="form">
 
-        <form action="{{ route('admin.dictionary.operating-system.store') }}"
-              method="POST">
+        <form action="{{ route('admin.dictionary.operating-system.store') }}" method="POST">
             @csrf
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'full_name',
                 'value'     => old('full_name') ?? '',
                 'required'  => true,
@@ -30,7 +29,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? '',
                 'required'  => true,
@@ -38,7 +37,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'slug',
                 'value'     => old('slug') ?? '',
                 'required'  => true,
@@ -46,7 +45,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'abbreviation',
                 'value'     => old('abbreviation') ?? '',
                 'maxlength' => 20,
@@ -69,7 +68,14 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'owner',
+                'value'     => old('owner') ?? '',
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'wikipedia',
                 'label'     => 'wiki page',
                 'value'     => old('wikipedia') ?? '',
@@ -77,21 +83,21 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? '',
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'link_name',
                 'value'     => old('link_name') ?? '',
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-textarea', [
+            @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
                 'value'   => old('description') ?? '',
@@ -102,6 +108,22 @@
                 'name'    => 'image',
                 'value'   => old('image') ?? '',
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_credit',
+                'label'     => 'image credit',
+                'value'     => old('image_credit') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_source',
+                'label'     => 'image source',
+                'value'     => old('image_source') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [

@@ -17,14 +17,13 @@
 
 @section('content')
 
-    <div class="form-container">
+    <div class="form">
 
-        <form action="{{ route('admin.dictionary.server.update', $dictionaryServer) }}"
-              method="POST">
+        <form action="{{ route('admin.dictionary.server.update', $dictionaryServer) }}" method="POST">
             @csrf
             @method('PUT')
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'full_name',
                 'value'     => old('full_name') ?? $server->full_name,
                 'required'  => true,
@@ -32,7 +31,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? $server->name,
                 'required'  => true,
@@ -40,7 +39,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'abbreviation',
                 'value'     => old('abbreviation') ?? $server->abbreviation,
                 'required'  => true,
@@ -65,7 +64,14 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'owner',
+                'value'     => old('owner') ?? $server->owner,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'wikipedia',
                 'label'     => 'wiki page',
                 'value'     => old('wikipedia') ?? $server->wikipedia,
@@ -73,14 +79,14 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $server->link,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'link_name',
                 'label'     => 'link name',
                 'value'     => old('link') ?? $server->link_name,
@@ -88,7 +94,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-textarea', [
+            @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
                 'value'   => old('description') ?? $server->description,
@@ -99,6 +105,22 @@
                 'name'    => 'image',
                 'value'   => old('image') ?? $server->image,
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_credit',
+                'label'     => 'image credit',
+                'value'     => old('image_credit') ?? $server->image_credit,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_source',
+                'label'     => 'image source',
+                'value'     => old('image_source') ?? $server->image_source,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
@@ -150,7 +172,7 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
+                'label'      => 'Save Server',
                 'cancel_url' => route('admin.dictionary.server.index')
             ])
 

@@ -19,12 +19,11 @@
 
     <div class="form">
 
-        <form action="{{ route('admin.dictionary.database.update', $dictionaryDatabase) }}"
-              method="POST">
+        <form action="{{ route('admin.dictionary.database.update', $dictionaryDatabase) }}" method="POST">
             @csrf
             @method('PUT')
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'full_name',
                 'value'     => old('full_name') ?? $database->full_name,
                 'required'  => true,
@@ -32,7 +31,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? $database->name,
                 'required'  => true,
@@ -40,7 +39,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'abbreviation',
                 'value'     => old('abbreviation') ?? $database->abbreviation,
                 'required'  => true,
@@ -65,7 +64,14 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'owner',
+                'value'     => old('owner') ?? $database->owner,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'wikipedia',
                 'label'     => 'wiki page',
                 'value'     => old('wikipedia') ?? $database->wikipedia,
@@ -73,14 +79,14 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $database->link,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'link_name',
                 'label'     => 'link name',
                 'value'     => old('link') ?? $database->link_name,
@@ -88,7 +94,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-textarea', [
+            @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
                 'value'   => old('description') ?? $database->description,
@@ -99,6 +105,22 @@
                 'name'    => 'image',
                 'value'   => old('image') ?? $database->image,
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_credit',
+                'label'     => 'image credit',
+                'value'     => old('image_credit') ?? $database->image_credit,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_source',
+                'label'     => 'image source',
+                'value'     => old('image_source') ?? $database->image_source,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
@@ -150,7 +172,7 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
+                'label'      => 'Save Database',
                 'cancel_url' => route('admin.dictionary.database.index')
             ])
 

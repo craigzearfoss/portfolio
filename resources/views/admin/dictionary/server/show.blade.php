@@ -65,10 +65,9 @@
             'target' => '_blank'
         ])
 
-        @include('admin.components.show-row-link', [
+        @include('admin.components.show-row', [
             'name'  => 'link name',
-            'url'    => $server->link_name,
-            'target' => '_blank'
+            'value' => $server->link_name
         ])
 
         @include('admin.components.show-row', [
@@ -79,6 +78,16 @@
         @include('admin.components.show-row-image', [
             'name'  => 'image',
             'value' => $server->image
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'image credit',
+            'value' => $server->image_credit
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'image source',
+            'value' => $server-->image_source
         ])
 
         @include('admin.components.show-row-image', [
