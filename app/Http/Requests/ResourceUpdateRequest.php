@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Database;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +13,7 @@ class ResourceUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return Auth::guard('admin')->check() && Auth::guard('admin')->user()->root;
     }
 
     /**
@@ -23,8 +24,7 @@ class ResourceUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'admin_id'    => ['integer', 'in:' . Auth::guard('admin')->user()->id],
-            'database_id' => ['integer', 'min:1', 'filled'],
+            'database_id' => ['integer', 'in:' . Database::all()->pluck('id')->toArray()],
             'type'        => ['string', 'max:50', 'filled'],
             'name'        => ['string', 'max:50', 'filled'],
             'plural'      => ['string', 'max:50', 'filled'],
@@ -35,6 +35,7 @@ class ResourceUpdateRequest extends FormRequest
             'readonly'    => ['integer', 'between:0,1'],
             'root'        => ['integer', 'between:0,1'],
             'disabled'    => ['integer', 'between:0,1'],
+            'admin_id'    => ['integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

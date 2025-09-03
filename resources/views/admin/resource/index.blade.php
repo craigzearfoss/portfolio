@@ -22,8 +22,7 @@
                             @include('admin.components.messages', [$errors])
                         </div>
                         <div>
-                            <a class="btn btn-solid btn-sm" href="{{ route('admin.resource.create') }}"><i
-                                        class="fa fa-plus"></i> Add New Resource</a>
+                            <a class="btn btn-solid btn-sm" href="{{ route('admin.resource.create') }}"><i class="fa fa-plus"></i> Add New Resource</a>
                         </div>
                     </div>
 

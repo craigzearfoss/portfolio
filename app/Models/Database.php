@@ -21,11 +21,13 @@ class Database extends Model
         'name',
         'property',
         'title',
+        'icon',
         'sequence',
         'public',
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**

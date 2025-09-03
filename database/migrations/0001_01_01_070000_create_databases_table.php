@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Admin;
 use App\Models\Database;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,11 +18,14 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('property', 50);
             $table->string('title', 100);
+            $table->string('icon', 50)->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->integer('readonly')->default(0);
             $table->integer('root')->default(1);
             $table->tinyInteger('disabled')->default(0);
+            $table->foreignIdFor( Admin::class);
+            $table->timestamps();
         });
 
 
@@ -31,6 +35,7 @@ return new class extends Migration
                 'name'     => config('app.database'),
                 'property' => 'db',
                 'title'    => '',
+                'icon'     => 'fa-cog',
                 'sequence' => 0,
                 'public'   => 1,
                 'disabled' => 0,
@@ -40,6 +45,7 @@ return new class extends Migration
                 'name'     => 'dictionary',     //config('app.database_career'),    //TODO: using config method brings back null?
                 'property' => 'dictionary_db',
                 'title'    => 'Dictionary',
+                'icon'     => 'fa-book',
                 'sequence' => 1,
                 'public'   => 1,
                 'disabled' => 0,
@@ -49,6 +55,7 @@ return new class extends Migration
                 'name'     => 'career',     //config('app.database_career'),    //TODO: using config method brings back null?
                 'property' => 'career_db',
                 'title'    => 'Career',
+                'icon'     => 'fa-briefcase',
                 'sequence' => 2,
                 'public'   => 1,
                 'disabled' => 0,
@@ -58,6 +65,7 @@ return new class extends Migration
                 'name'     => 'portfolio',  //config('app.database_portfolio'), //TODO: using config method brings back null?
                 'property' => 'portfolio_db',
                 'title'    => 'Portfolio',
+                'icon'     => 'fa-folder',
                 'sequence' => 3,
                 'public'   => 1,
                 'disabled' => 0,

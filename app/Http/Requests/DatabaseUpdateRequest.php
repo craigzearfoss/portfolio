@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Database;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class ResourceStoreRequest extends FormRequest
+class DatabaseUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,18 +23,16 @@ class ResourceStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'database_id' => ['required', 'integer', 'in:' . Database::all()->pluck('id')->toArray()],
-            'type'        => ['required', 'string', 'max:50'],
-            'name'        => ['required', 'string', 'max:50'],
-            'plural'      => ['required', 'string', 'max:50'],
-            'section'     => ['required', 'string', 'max:50'],
+            'name'        => ['string', 'max:50', 'filled'],
+            'property'    => ['string', 'max:50', 'filled'],
+            'title'       => ['string', 'max:100'], 'filled',
             'icon'        => ['string', 'max:50', 'nullable'],
             'sequence'    => ['integer', 'min:0'],
             'public'      => ['integer', 'between:0,1'],
             'readonly'    => ['integer', 'between:0,1'],
             'root'        => ['integer', 'between:0,1'],
             'disabled'    => ['integer', 'between:0,1'],
-            'admin_id'    => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'admin_id'    => ['integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

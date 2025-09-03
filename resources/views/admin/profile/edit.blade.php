@@ -32,11 +32,8 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.change_password', $admin->id) }}"><i
-                                                                class="fa fa-key"></i> Change Password</a>
-                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.show') }}"><i
-                                                                class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid"  href="{{ route('admin.change_password', $admin->id) }}"><i class="fa fa-key"></i> Change Password</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('admin.show') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -50,8 +47,16 @@
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'username',
                                                     'value'     => old('username') ?? $admin->username,
+                                                    'required'  => true,
                                                     'disabled'  => true,
                                                     'minlength' => 8,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input', [
+                                                    'name'      => 'name',
+                                                    'value'     => old('name') ?? $admin->name,
                                                     'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
@@ -66,13 +71,41 @@
                                                 @include('admin.components.form-input', [
                                                     'name'      => 'email',
                                                     'value'     => old('email') ?? $admin->email,
-                                                    'maxlength' => 20,
+                                                    'maxlength' => 255,
                                                     'message'   => $message ?? '',
                                                 ])
 
                                                 @include('admin.components.form-button-submit', [
                                                     'label'      => 'Save',
                                                     'cancel_url' => route('admin.show')
+                                                ])
+
+                                                @include('admin.components.form-file-upload-horizontal', [
+                                                    'name'    => 'image',
+                                                    'value'   => old('image') ?? $admin->image,
+                                                    'message' => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-input-horizontal', [
+                                                    'name'      => 'image_credit',
+                                                    'label'     => 'image credit',
+                                                    'value'     => old('image_credit') ?? $admin->image_credit,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                    ``          ])
+
+                                                @include('admin.components.form-input-horizontal', [
+                                                    'name'      => 'image_source',
+                                                    'label'     => 'image source',
+                                                    'value'     => old('image_source') ?? $admin->image_source,
+                                                    'maxlength' => 255,
+                                                    'message'   => $message ?? '',
+                                                ])
+
+                                                @include('admin.components.form-file-upload-horizontal', [
+                                                    'name'    => 'thumbnail',
+                                                    'value'   => old('thumbnail') ?? $admin->thumbnail,
+                                                    'message' => $message ?? '',
                                                 ])
 
                                             </form>

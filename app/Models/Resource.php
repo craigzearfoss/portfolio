@@ -20,7 +20,6 @@ class Resource extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
         'database_id',
         'type',
         'name',
@@ -32,6 +31,7 @@ class Resource extends Model
         'readonly',
         'root',
         'disabled',
+        'admin_id',
     ];
 
     /**
