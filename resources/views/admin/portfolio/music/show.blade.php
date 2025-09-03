@@ -84,12 +84,12 @@
             'value' => $music->image
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image credit',
             'value' => $music->image_credit
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image source',
             'value' => $music->image_source
         ])

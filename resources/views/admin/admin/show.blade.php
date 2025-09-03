@@ -41,14 +41,19 @@
             'value' => $admin->image
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'image credit',
+            'value' => $admin->image_credit
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'image source',
+            'value' => $admin->image_source
+        ])
+
         @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
             'value' => $admin->thumbnail
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $admin->root
         ])
 
         @include('admin.components.show-row', [

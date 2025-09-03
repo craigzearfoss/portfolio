@@ -24,6 +24,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'title',
+            'value' => $user->title
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'street',
             'value' => $user->street
         ])
@@ -72,6 +77,16 @@
         @include('admin.components.show-row-image', [
             'name'  => 'image',
             'value' => $user->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image credit',
+            'value' => $user->image_credit
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image source',
+            'value' => $user->image_source
         ])
 
         @include('admin.components.show-row-image', [

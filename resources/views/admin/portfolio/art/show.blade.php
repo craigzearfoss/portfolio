@@ -69,12 +69,12 @@
             'value' => $art->image
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image_credit',
             'value' => $art->image_credit
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image_source',
             'value' => $art->image_source
         ])

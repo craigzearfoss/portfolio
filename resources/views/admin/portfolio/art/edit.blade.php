@@ -60,7 +60,6 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $art->link,
-                'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -69,7 +68,6 @@
                 'name'      => 'link_name',
                 'label'     => 'link name',
                 'value'     => old('link_name') ?? $art->link_name,
-                'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -88,17 +86,19 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image_credit',
-                'label'   => 'image credit',
-                'value'   => old('image_credit') ?? $art->image_credit,
-                'message' => $message ?? '',
+                'name'      => 'image_credit',
+                'label'     => 'image credit',
+                'value'     => old('image_credit') ?? $art->image_credit,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image_source',
-                'label'   => 'image source',
-                'value'   => old('image_source') ?? $art->image_source,
-                'message' => $message ?? '',
+                'name'      => 'image_source',
+                'label'     => 'image source',
+                'value'     => old('image_source') ?? $art->image_source,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [

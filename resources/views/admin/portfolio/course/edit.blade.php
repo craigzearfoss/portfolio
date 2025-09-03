@@ -105,7 +105,6 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $course->link,
-                'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -114,7 +113,6 @@
                 'name'      => 'link_name',
                 'label'     => 'link name',
                 'value'     => old('link_name') ?? $course->link_name,
-                'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -132,18 +130,20 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image_credit',
-                'label'   => 'image credit',
-                'value'   => old('image_credit') ?? $course->image_credit,
-                'message' => $message ?? '',
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_credit',
+                'label'     => 'image credit',
+                'value'     => old('image_credit') ?? $course->image_credit,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image_source',
-                'label'   => 'image source',
-                'value'   => old('image_source') ?? $course->image_source,
-                'message' => $message ?? '',
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_source',
+                'label'     => 'image source',
+                'value'     => old('image_source') ?? $course->image_source,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [

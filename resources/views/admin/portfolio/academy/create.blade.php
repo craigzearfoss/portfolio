@@ -43,7 +43,6 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? '',
-                'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -54,20 +53,6 @@
                 'value'     => old('link_name') ?? '',
                 'maxlength' => 255,
                 'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-file-upload-horizontal', [
-              'name'    => 'image_credit',
-              'label'   => 'image credit',
-              'value'   => old('image_credit') ?? '',
-              'message' => $message ?? '',
-``          ])
-
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image_source',
-                'label'   => 'image source',
-                'value'   => old('image_source') ?? '',
-                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
@@ -83,18 +68,20 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-              'name'    => 'image_credit',
-              'label'   => 'image credit',
-              'value'   => old('image_credit') ?? '',
-              'message' => $message ?? '',
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_credit',
+                'label'     => 'image credit',
+                'value'     => old('image_credit') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
 ``          ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image_source',
-                'label'   => 'image source',
-                'value'   => old('image_source') ?? '',
-                'message' => $message ?? '',
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_source',
+                'label'     => 'image source',
+                'value'     => old('image_source') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [

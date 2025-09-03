@@ -89,12 +89,12 @@
             'value' => $video->image_credit
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image_source',
             'value' => $video->image_source
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'thumbnail',
             'value' => $video->thumbnail
         ])

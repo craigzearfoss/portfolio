@@ -102,17 +102,19 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image_credit',
-                'label'   => 'image credit',
-                'value'   => old('image_credit') ?? $project->image_credit,
-                'message' => $message ?? '',
+                'name'      => 'image_credit',
+                'label'     => 'image credit',
+                'value'     => old('image_credit') ?? $project->image_credit,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image_source',
-                'label'   => 'image source',
-                'value'   => old('image_source') ?? $project->image_source,
-                'message' => $message ?? '',
+                'name'      => 'image_source',
+                'label'     => 'image source',
+                'value'     => old('image_source') ?? $project->image_source,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
