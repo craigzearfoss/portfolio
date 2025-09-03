@@ -87,6 +87,8 @@ class Application extends Model
         'link',
         'description',
         'image',
+        'image_credit',
+        'image_source',
         'thumbnail',
         'sequence',
         'public',

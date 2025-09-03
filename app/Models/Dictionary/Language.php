@@ -32,6 +32,8 @@ class Language extends Model
         'description',
         'image',
         'thumbnail',
+        'image_credit',
+        'image_source',
         'sequence',
         'public',
         'readonly',

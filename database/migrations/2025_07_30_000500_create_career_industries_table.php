@@ -17,7 +17,12 @@ return new class extends Migration
             $table->string('slug', 50)->unique();
             $table->string('abbreviation', 20)->unique();
             $table->string('link')->nullable();
+            $table->string('link_name')->nullable();
             $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->string('image_credit')->nullable();
+            $table->string('image_source')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(1);
             $table->integer('readonly')->default(1);

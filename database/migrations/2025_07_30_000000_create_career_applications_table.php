@@ -46,7 +46,12 @@ return new class extends Migration
             $table->string('alt_email', 255)->nullable();
             $table->string('alt_email_label', 255)->nullable();
             $table->string('link')->nullable();
+            $table->string('link_name')->nullable();
             $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->string('image_credit')->nullable();
+            $table->string('image_source')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->integer('readonly')->default(0);

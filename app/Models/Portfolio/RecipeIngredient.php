@@ -31,6 +31,8 @@ class RecipeIngredient extends Model
         'unit_id',
         'description',
         'image',
+        'image_credit',
+        'image_source',
         'thumbnail',
         'sequence',
         'public',

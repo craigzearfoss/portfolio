@@ -33,6 +33,7 @@ class Communication extends Model
         'readonly',
         'root',
         'disabled',
+        'application_id',
         'admin_id',
     ];
 

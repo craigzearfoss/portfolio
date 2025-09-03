@@ -35,6 +35,8 @@ class User extends Authenticatable
         'email',
         'website',
         'image',
+        'image_credit',
+        'image_source',
         'thumbnail',
         'password',
         'remember_token',

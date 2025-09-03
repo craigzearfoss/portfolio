@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Application;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,14 +24,15 @@ class NoteUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject'  => ['string', 'max:255', 'filled'],
-            'body'     => ['filled'],
-            'sequence' => ['integer', 'min:0'],
-            'public'   => ['integer', 'between:0,1'],
-            'readonly' => ['integer', 'between:0,1'],
-            'root'     => ['integer', 'between:0,1'],
-            'disabled' => ['integer', 'between:0,1'],
-            'admin_id' => ['integer', 'in:' . Auth::guard('admin')->user()->id],
+            'application_id' => ['required', 'integer', 'in:'. implode(',', Application::all('id')->pluck('id')->toArray())],
+            'subject'        => ['string', 'max:255', 'filled'],
+            'body'           => ['filled'],
+            'sequence'       => ['integer', 'min:0'],
+            'public'         => ['integer', 'between:0,1'],
+            'readonly'       => ['integer', 'between:0,1'],
+            'root'           => ['integer', 'between:0,1'],
+            'disabled'       => ['integer', 'between:0,1'],
+            'admin_id'       => ['integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

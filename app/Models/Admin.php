@@ -29,6 +29,8 @@ class Admin extends Authenticatable
         'phone',
         'email',
         'image',
+        'image_credit',
+        'image_source',
         'thumbnail',
         'password',
         'token',

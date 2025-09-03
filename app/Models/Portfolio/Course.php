@@ -37,6 +37,8 @@ class Course extends Model
         'link_name',
         'description',
         'image',
+        'image_credit',
+        'image_source',
         'thumbnail',
         'sequence',
         'public',

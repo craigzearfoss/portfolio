@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('phone', 20)->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('image')->nullable();
+            $table->string('image_credit')->nullable();
+            $table->string('image_source')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('password');
             $table->string('token')->nullable();

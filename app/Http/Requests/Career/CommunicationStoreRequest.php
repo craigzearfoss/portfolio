@@ -24,7 +24,7 @@ class CommunicationStoreRequest extends FormRequest
     {
         return [
             'subject'   => ['required', 'string', 'max:255'],
-            'timestamp' => ['nullable', 'date'],
+            'timestamp' => ['required', 'date_format:Y-m-d H:i:s'],
             'body'      => ['required'],
             'sequence'  => ['integer', 'min:0'],
             'public'    => ['integer', 'between:0,1'],

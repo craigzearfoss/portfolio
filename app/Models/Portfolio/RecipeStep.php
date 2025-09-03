@@ -27,6 +27,8 @@ class RecipeStep extends Model
         'step',
         'description',
         'image',
+        'image_credit',
+        'image_source',
         'thumbnail',
         'sequence',
         'public',
