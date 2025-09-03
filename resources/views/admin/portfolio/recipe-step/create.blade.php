@@ -57,6 +57,20 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'image_credit',
+                'label'   => 'image credit',
+                'value'   => old('image_credit') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'image_source',
+                'label'   => 'image source',
+                'value'   => old('image_source') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
                 'value'   => old('thumbnail') ?? '',
                 'message' => $message ?? '',

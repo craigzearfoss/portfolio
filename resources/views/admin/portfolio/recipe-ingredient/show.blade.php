@@ -50,6 +50,16 @@
         ])
 
         @include('admin.components.show-row-image', [
+            'name'  => 'image credit',
+            'value' => $recipeIngredient->image_credit
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image source',
+            'value' => $recipeIngredient->image_source
+        ])
+
+        @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
             'value' => $recipeIngredient->thumbnail
         ])

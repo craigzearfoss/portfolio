@@ -66,6 +66,16 @@
         ])
 
         @include('admin.components.show-row-image', [
+            'name'  => 'image_credit',
+            'value' => $link->image_credit
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image_source',
+            'value' => $link->image_source
+        ])
+
+        @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
             'value' => $link->thumbnail
         ])

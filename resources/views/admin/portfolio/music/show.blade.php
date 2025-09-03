@@ -85,6 +85,16 @@
         ])
 
         @include('admin.components.show-row-image', [
+            'name'  => 'image credit',
+            'value' => $music->image_credit
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image source',
+            'value' => $music->image_source
+        ])
+
+        @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
             'value' => $music->thumbnail
         ])

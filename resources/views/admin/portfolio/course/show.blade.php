@@ -95,6 +95,16 @@
         ])
 
         @include('admin.components.show-row-image', [
+            'name'  => 'image credit',
+            'value' => $course->image_credit
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image source',
+            'value' => $course->image_source
+        ])
+
+        @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
             'value' => $course->thumbnail
         ])

@@ -28,7 +28,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'     => 'recipe_id',
                 'label'    => 'recipe',
-                'value'    => old('recipe_id') ?? $company->recipe_id,
+                'value'    => old('recipe_id') ?? $recipeStep->recipe_id,
                 'list'     => \App\Models\Portfolio\Recipe::listOptions(false),
                 'required' => true,
                 'message'  => $message ?? '',
@@ -57,8 +57,22 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'image_credit',
+                'label'   => 'image credit',
+                'value'   => old('image_credit') ?? $recipeStep->image_credit,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'image_source',
+                'label'   => 'image source',
+                'value'   => old('image_source') ?? $recipeStep->image_source,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ??\  $recipeStep->thumbnail,
+                'value'   => old('thumbnail') ??  $recipeStep->thumbnail,
                 'message' => $message ?? '',
             ])
 
