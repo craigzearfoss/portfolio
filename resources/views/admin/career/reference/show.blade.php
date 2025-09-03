@@ -55,8 +55,33 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $reference->link_name
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $reference->description
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $reference->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image_credit',
+            'value' => $reference->image_credit
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'image_source',
+            'value' => $reference->image_source
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'thumbnail',
+            'value' => $reference->thumbnail
         ])
 
         @include('admin.components.show-row', [

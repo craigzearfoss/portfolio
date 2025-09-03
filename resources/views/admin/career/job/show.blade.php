@@ -52,8 +52,33 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $job->link_name
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $job->description
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $job->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image_credit',
+            'value' => $job->image_credit
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'image_source',
+            'value' => $job->image_source
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'thumbnail',
+            'value' => $job->thumbnail
         ])
 
         @include('admin.components.show-row', [

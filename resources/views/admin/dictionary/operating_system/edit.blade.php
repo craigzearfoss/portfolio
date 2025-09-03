@@ -172,7 +172,7 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save Operating System',
+                'label'      => 'Save',
                 'cancel_url' => route('admin.dictionary.operating-system.index')
             ])
 

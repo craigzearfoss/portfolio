@@ -24,6 +24,7 @@ class Note extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'application_id',
         'subject',
         'body',
         'sequence',

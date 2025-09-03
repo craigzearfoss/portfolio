@@ -38,12 +38,6 @@
             'value' => $event->attendees
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'  => 'link',
-            'url'    => $event->link,
-            'target' => '_blank'
-        ])
-
         @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $event->description

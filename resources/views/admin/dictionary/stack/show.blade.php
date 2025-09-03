@@ -67,7 +67,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'link name',
-            'url'    => $stack->link_name
+            'value' => $stack->link_name
         ])
 
         @include('admin.components.show-row', [

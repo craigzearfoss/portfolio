@@ -40,8 +40,33 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $industry->link_name
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $industry->description
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $industry->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image_credit',
+            'value' => $industry->image_credit
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'image_source',
+            'value' => $industry->image_source
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'thumbnail',
+            'value' => $industry->thumbnail
         ])
 
         @include('admin.components.show-row', [

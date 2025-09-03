@@ -20,6 +20,11 @@
 
         @include('admin.components.show-row', [
             'name'  => 'contact',
+            'value' => $communication->application_id ?? ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'contact',
             'value' => $communication->contact['name'] ?? ''
         ])
 

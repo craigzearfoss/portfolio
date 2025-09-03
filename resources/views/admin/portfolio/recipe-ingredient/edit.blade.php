@@ -43,21 +43,6 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? $recipeIngredient->link,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link_name',
-                'label'     => 'link name',
-                'value'     => old('link_name') ?? $recipeIngredient->link_name,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
@@ -121,8 +106,8 @@
                 'name'            => 'root',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'disabled'        => !Auth::guard('admin')->user()->root,
                 'checked'         => old('root') ?? $recipeIngredient->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
                 'message'         => $message ?? '',
             ])
 

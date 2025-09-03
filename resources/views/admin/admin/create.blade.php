@@ -25,6 +25,22 @@
                     'required'  => true,
                     'minlength' => 6,
                     'maxlength' => 200,
+                    'disabled'  => true,
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'name',
+                    'value'     => old('name') ?? '',
+                    'maxlength' => 255,
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'phone',
+                    'value'     => old('phone') ?? '',
+                    'required'  => true,
+                    'maxlength' => 20,
                     'message'   => $message ?? '',
                 ])
 
@@ -89,21 +105,6 @@
                 ])
 
             </div>
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'phone',
-                'value'     => old('phone') ?? '',
-                'required'  => true,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'public',

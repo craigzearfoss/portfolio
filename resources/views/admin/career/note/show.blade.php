@@ -19,6 +19,11 @@
     <div>
 
         @include('admin.components.show-row', [
+            'name'  => 'application_id',
+            'value' => $note->application_id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'subject',
             'value' => $note->subject
         ])
@@ -26,17 +31,6 @@
         @include('admin.components.show-row', [
             'name'  => 'body',
             'value' => $note->body
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'  => 'link',
-            'url'    => $note->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $note->description
         ])
 
         @include('admin.components.show-row', [

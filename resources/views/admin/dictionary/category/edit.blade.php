@@ -172,7 +172,7 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save Category',
+                'label'      => 'Save',
                 'cancel_url' => route('admin.dictionary.category.index')
             ])
 

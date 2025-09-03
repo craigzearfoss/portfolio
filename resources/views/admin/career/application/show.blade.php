@@ -19,15 +19,41 @@
     <div>
 
         @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $application->role
+            'name'  => 'id',
+            'value' => $application->company_id
         ])
-
         @include('admin.components.show-row', [
             'name'  => 'company',
             'value' => !empty($application->company)
                 ? '<a href="' . route('admin.career.company.show', $application->company) . '">' . $application->company['name'] . '</a>'
                 : ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $application->cover_letter_id
+        ])
+        @include('admin.components.show-row', [
+            'name'  => 'cover letter',
+            'value' => !empty($application->cover_letter)
+                ? '<a href="' . route('admin.career.cover-letter.show', $application->cover_letter) . '">' . $application->cover_letter['name'] . '</a>'
+                : ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $application->resume_id
+        ])
+        @include('admin.components.show-row', [
+            'name'  => 'resume',
+            'value' => !empty($application->resume)
+                ? '<a href="' . route('admin.career.resume.show', $application->resume) . '">' . $application->resume['name'] . '</a>'
+                : ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'name',
+            'value' => $application->role
         ])
 
         @include('admin.components.show-row-rating', [
@@ -38,20 +64,6 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'active',
             'checked' => $application->active
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'cover letter',
-            'value' => !empty($application->cover_letter)
-                ? '<a href="' . route('admin.career.cover-letter.show', $application->cover_letter) . '">' . $application->cover_letter['name'] . '</a>'
-                : ''
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'resume',
-            'value' => !empty($application->resume)
-                ? '<a href="' . route('admin.career.resume.show', $application->resume) . '">' . $application->resume['name'] . '</a>'
-                : ''
         ])
 
         @include('admin.components.show-row', [
@@ -162,8 +174,33 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'link',
+            'value' => $application->link
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $application->description
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $application->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image_credit',
+            'value' => $application->image_credit
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'image_source',
+            'value' => $application->image_source
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'thumbnail',
+            'value' => $application->thumbnail
         ])
 
         @include('admin.components.show-row', [

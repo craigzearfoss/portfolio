@@ -97,12 +97,13 @@
                 'message'         => $message ?? '',
             ])
 
+            @php /* Note that an admin can't change the root value for themselves. */ @endphp
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'root',
                 'value'           => 1,
                 'unchecked_value' => 0,
                 'checked'         => old('root') ?? $admin->root,
-                'disabled'        => !\Auth::guard('admin')->user()->root,
+                'disabled'        => !\Auth::guard('admin')->user()->root || ($admin->id == Auth::guard('admin')->user()->id),
                 'message'         => $message ?? '',
             ])
 

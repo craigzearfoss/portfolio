@@ -50,8 +50,44 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $coverLetter->link_name
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'  => 'alt link',
+            'url'    => $coverLetter->alt_link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'alt link name',
+            'url'    => $coverLetter->alt_link_name
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $coverLetter->description
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $coverLetter->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image_credit',
+            'value' => $coverLetter->image_credit
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'image_source',
+            'value' => $coverLetter->image_source
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'thumbnail',
+            'value' => $coverLetter->thumbnail
         ])
 
         @include('admin.components.show-row-checkbox', [

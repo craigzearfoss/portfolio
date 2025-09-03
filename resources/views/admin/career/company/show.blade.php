@@ -84,14 +84,39 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'  => 'link',
+            'name'   => 'link',
             'url'    => $company->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $company->link_name
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $company->description
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $company->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image_credit',
+            'value' => $company->image_credit
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'image_source',
+            'value' => $company->image_source
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'thumbnail',
+            'value' => $company->thumbnail
         ])
 
         @include('admin.components.show-row', [

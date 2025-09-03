@@ -98,6 +98,7 @@
                 'name'      => 'email',
                 'value'     => old('email') ?? $user->email,
                 'required'  => true,
+                'disabled'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -115,6 +116,22 @@
                 'message' => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_credit',
+                'label'     => 'image credit',
+                'value'     => old('image_credit') ?? $user->image_credit,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+``          ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_source',
+                'label'     => 'image source',
+                'value'     => old('image_source') ?? $user->image_cource,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
                 'value'   => old('thumbnail') ?? $user->thumbnail,
@@ -126,6 +143,32 @@
                 'value'   => old('status') ?? $user->status,
                 'list'    => \App\Models\User::statusListOptions(),
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'public',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('public') ?? $user->public,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'readonly',
+                'label'           => 'read-only',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('readonly') ?? $user->readonly,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $user->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
+                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [

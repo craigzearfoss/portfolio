@@ -167,14 +167,15 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'root',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('root') ?? '',
-                'disabled'        => !Auth::guard('admin')->user()->root,
-                'message'         => $message ?? '',
-            ])
+            @if (Auth::guard('admin')->user()->root)
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'root',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('root') ?? '',
+                    'message'         => $message ?? '',
+                ])
+            @endif
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'disabled',

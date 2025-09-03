@@ -45,6 +45,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $resume->link_name
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $resume->description
         ])
@@ -52,6 +57,26 @@
         @include('admin.components.show-row', [
             'name'  => 'sequence',
             'value' => $resume->sequence
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image',
+            'value' => $resume->image
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'  => 'image_credit',
+            'value' => $resume->image_credit
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'image_source',
+            'value' => $resume->image_source
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'thumbnail',
+            'value' => $resume->thumbnail
         ])
 
         @include('admin.components.show-row-checkbox', [

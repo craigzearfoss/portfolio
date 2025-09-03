@@ -135,8 +135,8 @@
                 'name'            => 'root',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'disabled'        => !Auth::guard('admin')->user()->root,
                 'checked'         => old('root') ?? $unit->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
                 'message'         => $message ?? '',
             ])
 
