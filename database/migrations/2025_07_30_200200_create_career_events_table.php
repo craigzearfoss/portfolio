@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Career\Application;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +14,7 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('events', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('application_id', Application::class)->nullable()->index();
             $table->string('name');
             $table->date('date')->nullable();
             $table->time('time')->nullable();

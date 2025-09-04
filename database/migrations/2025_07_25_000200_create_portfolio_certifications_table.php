@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('organization')->nullable();
-            $table->foreignIdFor( \App\Models\Portfolio\Academy::class)->default(1);
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
+            $table->string('organization')->nullable();
+            $table->foreignIdFor( \App\Models\Portfolio\Academy::class)->default(1);
             $table->year('year')->nullable();
             $table->date('received')->nullable();
             $table->date('expiration')->nullable();

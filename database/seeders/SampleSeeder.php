@@ -41,14 +41,6 @@ class SampleSeeder extends Seeder
             ])
             ->create();
 
-        echo 'Portfolio/Ingredient' . PHP_EOL;
-        \App\Models\Portfolio\Ingredient::factory()
-            ->count(31)
-            ->sequence(fn ($sequence) => [
-                'sequence' => $sequence->index + 1
-            ])
-            ->create();
-
         echo 'Portfolio/Link' . PHP_EOL;
         \App\Models\Portfolio\Link::factory()
             ->count(44)
@@ -83,7 +75,7 @@ class SampleSeeder extends Seeder
 
         echo 'Portfolio/Recipe' . PHP_EOL;
         \App\Models\Portfolio\Recipe::factory()
-            ->count(31)
+            ->count(21)
             ->sequence(fn ($sequence) => [
                 'sequence' => $sequence->index + 1
             ])
@@ -91,12 +83,12 @@ class SampleSeeder extends Seeder
 
         echo 'Portfolio/RecipeIngredient' . PHP_EOL;
         \App\Models\Portfolio\RecipeIngredient::factory()
-            ->count(23)
+            ->count(132)
             ->create();
 
         echo 'Portfolio/RecipeStep' . PHP_EOL;
         \App\Models\Portfolio\RecipeStep::factory()
-            ->count(31)
+            ->count(98)
             ->sequence(fn ($sequence) => [
                 'sequence' => $sequence->index + 1
             ])
@@ -105,32 +97,6 @@ class SampleSeeder extends Seeder
         echo 'Portfolio/Video' . PHP_EOL;
         \App\Models\Portfolio\Video::factory()
             ->count(41)
-            ->sequence(fn ($sequence) => [
-                'sequence' => $sequence->index + 1
-            ])
-            ->create();
-
-        echo 'Career/CoverLetter' . PHP_EOL;
-        \App\Models\Career\CoverLetter::factory()
-            ->count(70)
-            ->sequence(fn ($sequence) => [
-                'sequence' => $sequence->index + 1
-            ])
-            ->create();
-
-        echo 'Career/Resume' . PHP_EOL;
-        \App\Models\Career\Resume::factory()
-            ->count(8)
-            ->sequence(fn ($sequence) => [
-                'sequence' => $sequence->index + 1
-            ])
-            ->create();
-
-        // the following tables have foreign key dependencies so need to be run after the above factories
-
-        echo 'Career/Reference' . PHP_EOL;
-        \App\Models\Career\Reference::factory()
-            ->count(16)
             ->sequence(fn ($sequence) => [
                 'sequence' => $sequence->index + 1
             ])
@@ -152,9 +118,33 @@ class SampleSeeder extends Seeder
             ])
             ->create();
 
+        echo 'Career/CoverLetter' . PHP_EOL;
+        \App\Models\Career\CoverLetter::factory()
+            ->count(70)
+            ->sequence(fn ($sequence) => [
+                'sequence' => $sequence->index + 1
+            ])
+            ->create();
+
         echo 'Career/Job' . PHP_EOL;
         \App\Models\Career\Job::factory()
             ->count(79)
+            ->sequence(fn ($sequence) => [
+                'sequence' => $sequence->index + 1
+            ])
+            ->create();
+
+        echo 'Career/Reference' . PHP_EOL;
+        \App\Models\Career\Reference::factory()
+            ->count(16)
+            ->sequence(fn ($sequence) => [
+                'sequence' => $sequence->index + 1
+            ])
+            ->create();
+
+        echo 'Career/Resume' . PHP_EOL;
+        \App\Models\Career\Resume::factory()
+            ->count(8)
             ->sequence(fn ($sequence) => [
                 'sequence' => $sequence->index + 1
             ])
@@ -167,6 +157,8 @@ class SampleSeeder extends Seeder
                 'sequence' => $sequence->index + 1
             ])
             ->create();
+
+        // the following tables have foreign key dependencies so need to be run after the above factories
 
         echo 'Career/Application' . PHP_EOL;
         \App\Models\Career\Application::factory()
@@ -184,6 +176,14 @@ class SampleSeeder extends Seeder
             ])
             ->create();
 
+        echo 'Career/Communication' . PHP_EOL;
+        \App\Models\Career\Event::factory()
+            ->count(13)
+            ->sequence(fn ($sequence) => [
+                'sequence' => $sequence->index + 1
+            ])
+            ->create();
+
         echo 'Career/Note' . PHP_EOL;
         \App\Models\Career\Note::factory()
             ->count(159)
@@ -191,13 +191,5 @@ class SampleSeeder extends Seeder
                 'sequence' => $sequence->index + 1
             ])
             ->create();
-
-        // populate pivot tables
-        echo 'Career/CoverLetter' . PHP_EOL;
-        $this->call([
-            CareerCompanyContactSeeder::class,
-            CareerForeignKeySeeder::class,
-        ]);
-
     }
 }

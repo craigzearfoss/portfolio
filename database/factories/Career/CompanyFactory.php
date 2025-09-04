@@ -16,10 +16,13 @@ class CompanyFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->unique()->company();
+        $slug = str_replace(' ', '-', $name);
+
         return [
-            'name'            => fake()->unique()->company(),
-            'slug'            => fake()->unique()->slug(6),
-            'industry_id'     => fake()->randomElement(\App\Models\Career\Industry::all()->pluck('id')->toArray()),
+            'name'            => $name,
+            'slug'            => $slug,
+            'industry_id'     => \App\Models\Career\Industry::all()->random()->id,
             'street'          => fake()->streetAddress(),
             'street2'         => null,
             'city'            => fake()->city(),
@@ -35,7 +38,12 @@ class CompanyFactory extends Factory
             'alt_email'       => fake()->companyEmail(),
             'alt_email_label' => fake()->randomElement(['home', 'mobile', 'work']),
             'link'            => fake()->url(),
+            'link_name'       => fake()->words(4),
             'description'     => fake()->text(200),
+            'image'           => fake()->imageUrl(),
+            'image_credit'    => fake()->words(3),
+            'image_source'    => fake()->words(3),
+            'thumbnail'       => fake()->imageUrl(),
             'sequence'        => 0,
             'public'          => 0,
             'readonly'        => 0,

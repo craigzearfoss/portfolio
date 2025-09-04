@@ -16,9 +16,12 @@ class ArtFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->unique()->words(6);
+        $slug = str_replace(' ', '-', $name);
+
         return [
-            'name'         => fake()->unique()->sentence(6),
-            'slug'         => fake()->unique()->slug(6),
+            'name'         => $name,
+            'slug'         => $slug,
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
             'artist'       => fake()->name(),
@@ -26,6 +29,8 @@ class ArtFactory extends Factory
             'link'         => fake()->url(),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),
+            'image_credit' => fake()->words(3),
+            'image_source' => fake()->words(3),
             'thumbnail'    => fake()->imageUrl(),
             'sequence'     => 0,
             'public'       => 1,

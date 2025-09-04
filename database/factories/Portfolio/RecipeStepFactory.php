@@ -16,14 +16,23 @@ class RecipeStepFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->unique()->words(6);
+        $slug = str_replace(' ', '-', $name);
+
         return [
             'recipe_id' => \App\Models\Portfolio\Recipe::all()->random()->id,
-            'name'      => fake()->unique()->sentence(6),
-            'slug'      => fake()->unique()->slug(6),
-            'sequence'  => 0,
-            'public'    => fake()->numberBetween(0, 1),
-            'disabled'  => fake()->numberBetween(0, 1),
-            'admin_id'  => \App\Models\Admin::all()->random()->id,
+            'step'         => fake()->numberBetween(1, 6),
+            'description'  => fake()->text(200),
+            'image'        => fake()->imageUrl(),
+            'image_credit' => fake()->words(3),
+            'image_source' => fake()->words(3),
+            'thumbnail'    => fake()->imageUrl(),
+            'sequence'     => 0,
+            'public'       => 0,
+            'readonly'     => 0,
+            'root'         => 0,
+            'disabled'     => 0,
+            'admin_id'     => \App\Models\Admin::all()->random()->id,
         ];
     }
 }

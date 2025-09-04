@@ -16,10 +16,13 @@ class ContactFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->unique()->name();
+        $slug = str_replace(' ', '-', $name);
+
         return [
-            'name'            => fake()->unique()->name(),
-            'slug'            => fake()->unique()->slug(6),
-            'title'           => fake()->randomElement(['Miss','Mr.','Mrs.','Ms']),
+            'name'            => $name,
+            'slug'            => $slug,
+            'title'           => fake()->randomElement(['Miss','Mr.','Mrs.','Ms', '', null]),
             'job_title'       => fake()->jobTitle(),
             'street'          => fake()->streetAddress(),
             'street2'         => null,
@@ -36,7 +39,12 @@ class ContactFactory extends Factory
             'alt_email'       => fake()->safeEmail(),
             'alt_email_label' => fake()->randomElement(['home', 'mobile', 'work']),
             'link'            => fake()->url(),
+            'link_name'       => fake()->words(3),
             'description'     => fake()->text(200),
+            'image'           => fake()->imageUrl(),
+            'image_credit'    => fake()->words(3),
+            'image_source'    => fake()->words(3),
+            'thumbnail'       => fake()->imageUrl(),
             'sequence'        => 0,
             'public'          => 0,
             'readonly'        => 0,

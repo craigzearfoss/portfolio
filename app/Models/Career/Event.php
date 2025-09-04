@@ -23,6 +23,7 @@ class Event extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'application_id',
         'name',
         'date',
         'time',

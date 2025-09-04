@@ -16,9 +16,12 @@ class ReferenceFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->unique()->name();
+        $slug = str_replace(' ', '-', $name);
+
         return [
-            'name'            => fake()->unique()->name(6),
-            'slug'            => fake()->unique()->slug(6),
+            'name'            => $name,
+            'slug'            => $slug,
             'phone'           => fake()->phoneNumber(),
             'phone_label'     => fake()->randomElement(['home', 'mobile', 'work']),
             'alt_phone'       => fake()->phoneNumber(),
@@ -28,6 +31,11 @@ class ReferenceFactory extends Factory
             'alt_email'       => fake()->safeEmail(),
             'alt_email_label' => fake()->randomElement(['home', 'mobile', 'work']),
             'link'            => fake()->url(),
+            'link_name'       => fake()->words(4),
+            'image'           => fake()->imageUrl(),
+            'image_credit'    => fake()->words(3),
+            'image_source'    => fake()->words(3),
+            'thumbnail'       => fake()->imageUrl(),
             'description'     => fake()->text(200),
             'sequence'        => 0,
             'public'          => 0,

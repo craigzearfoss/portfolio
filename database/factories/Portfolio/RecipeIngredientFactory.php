@@ -23,6 +23,8 @@ class RecipeIngredientFactory extends Factory
             'unit_id'       => \App\Models\Portfolio\Unit::all()->random()->id,
             'description'   => fake()->text(200),
             'image'         => fake()->imageUrl(),
+            'image_credit'  => fake()->words(3),
+            'image_source'  => fake()->words(3),
             'thumbnail'     => fake()->imageUrl(),
             'sequence'      => 0,
             'public'        => 1,

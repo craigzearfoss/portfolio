@@ -40,21 +40,6 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'organization',
-                'value'     => old('organization') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'      => 'academy',
-                'value'     => old('academy_id') ?? 0,
-                'list'      => \App\Models\Portfolio\Academy::listOptions(),
-                'required'  => true,
-                'message'   => $message ?? '',
-            ])
-
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'professional',
                 'value'           => 1,
@@ -69,6 +54,21 @@
                 'unchecked_value' => 0,
                 'checked'         => old('personal') ?? 0,
                 'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'organization',
+                'value'     => old('organization') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'      => 'academy',
+                'value'     => old('academy_id') ?? 0,
+                'list'      => \App\Models\Portfolio\Academy::listOptions(),
+                'required'  => true,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
