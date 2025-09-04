@@ -54,29 +54,29 @@
             'value' => $resume->description
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $resume->sequence
-        ])
-
         @include('admin.components.show-row-image', [
             'name'  => 'image',
             'value' => $resume->image
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image_credit',
+            'name'  => 'image credit',
             'value' => $resume->image_credit
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_source',
+            'name'  => 'image source',
             'value' => $resume->image_source
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'thumbnail',
             'value' => $resume->thumbnail
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'sequence',
+            'value' => $resume->sequence
         ])
 
         @include('admin.components.show-row-checkbox', [

@@ -23,6 +23,8 @@ class SkillStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name'        => ['required', 'string', 'max:255', 'unique:portfolio_db.skills,name'],
+            'slug'        => ['required', 'string', 'max:255', 'unique:portfolio_db.skills,slug'],
             'rating'      => ['integer', 'between:1,10'],
             'years'       => ['integer', 'min:0'],
             'link'         => ['string', 'max:255', 'nullable'],

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('skills', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->tinyInteger('rating')->default(0);
             $table->integer('years')->default(0);
             $table->string('link')->nullable();

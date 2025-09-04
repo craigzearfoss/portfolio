@@ -70,12 +70,12 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image_credit',
+            'name'  => 'image credit',
             'value' => $reference->image_credit
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_source',
+            'name'  => 'image source',
             'value' => $reference->image_source
         ])
 
