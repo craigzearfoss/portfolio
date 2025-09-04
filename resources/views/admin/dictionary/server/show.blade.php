@@ -87,7 +87,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $server-->image_source
+            'value' => $server->image_source
         ])
 
         @include('admin.components.show-row-image', [

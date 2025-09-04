@@ -23,6 +23,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'full_name',
+                'label'     => 'full name',
                 'value'     => old('full_name') ?? '',
                 'required'  => true,
                 'maxlength' => 255,
@@ -54,6 +55,7 @@
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'open_source',
+                'label'           => 'open source',
                 'value'           => 1,
                 'unchecked_value' => 0,
                 'checked'         => old('open_source') ?? 0,

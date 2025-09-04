@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $dictionaryDatabase->name . ' database',
+    'title' => $database->name . ' database',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.database.show', $dictionaryDatabase) ],
+        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.database.show', $database) ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.database.index') ],
     ],
     'errors' => $errors ?? [],
@@ -19,12 +19,13 @@
 
     <div class="form">
 
-        <form action="{{ route('admin.dictionary.database.update', $dictionaryDatabase) }}" method="POST">
+        <form action="{{ route('admin.dictionary.database.update', $database) }}" method="POST">
             @csrf
             @method('PUT')
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'full_name',
+                'label'     => 'full name',
                 'value'     => old('full_name') ?? $database->full_name,
                 'required'  => true,
                 'maxlength' => 255,

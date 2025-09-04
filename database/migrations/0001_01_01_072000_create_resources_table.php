@@ -26,14 +26,13 @@ return new class extends Migration
             $table->integer('readonly')->default(0);
             $table->integer('root')->default(1);
             $table->tinyInteger('disabled')->default(0);
-            $table->foreignIdFor( Admin::class)->default(1);
+            $table->foreignIdFor( Admin::class);
             $table->timestamps();
         });
 
         $data = [
             // core database
             [
-                'admin_id'    => 1,
                 'database_id' => 1,
                 'type'        => 'admin',
                 'name'        => 'Admin',
@@ -42,10 +41,10 @@ return new class extends Migration
                 'icon'        => 'fa-user-plus',
                 'sequence'    => 1,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 1,
                 'type'        => 'user',
                 'name'        => 'User',
@@ -54,10 +53,10 @@ return new class extends Migration
                 'icon'        => 'fa-user',
                 'sequence'    => 20,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 1,
                 'type'        => 'message',
                 'name'        => 'Message',
@@ -66,12 +65,12 @@ return new class extends Migration
                 'icon'        => 'fa-user',
                 'sequence'    => 30,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
 
             // dictionary database
             [
-                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'category',
                 'name'        => 'Category',
@@ -80,10 +79,10 @@ return new class extends Migration
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1000,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'database',
                 'name'        => 'Database',
@@ -92,10 +91,10 @@ return new class extends Migration
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1020,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'framework',
                 'name'        => 'Framework',
@@ -104,10 +103,10 @@ return new class extends Migration
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1030,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'language',
                 'name'        => 'Language',
@@ -116,10 +115,10 @@ return new class extends Migration
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1040,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'library',
                 'name'        => 'Library',
@@ -128,10 +127,10 @@ return new class extends Migration
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1050,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'operating_system',
                 'name'        => 'Operating System',
@@ -140,10 +139,10 @@ return new class extends Migration
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1060,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'server',
                 'name'        => 'Server',
@@ -152,10 +151,10 @@ return new class extends Migration
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1070,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 2,
                 'type'        => 'stack',
                 'name'        => 'Stack',
@@ -164,12 +163,12 @@ return new class extends Migration
                 'icon'        => 'fa-chevron-circle-right',
                 'sequence'    => 1080,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
 
             // career database
             [
-                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'application',
                 'name'        => 'Application',
@@ -178,10 +177,10 @@ return new class extends Migration
                 'icon'        => 'fa-thumbtack',
                 'sequence'    => 2000,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'communication',
                 'name'        => 'Communication',
@@ -190,10 +189,10 @@ return new class extends Migration
                 'icon'        => 'fa-phone',
                 'sequence'    => 2010,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'company',
                 'name'        => 'Company',
@@ -202,10 +201,10 @@ return new class extends Migration
                 'icon'        => 'fa-chart-line',
                 'sequence'    => 2020,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'contact',
                 'name'        => 'Contact',
@@ -214,10 +213,10 @@ return new class extends Migration
                 'icon'        => 'fa-address-book',
                 'sequence'    => 2030,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'cover-letter',
                 'name'        => 'Cover Letter',
@@ -226,10 +225,10 @@ return new class extends Migration
                 'icon'        => 'fa-file-text',
                 'sequence'    => 2040,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'industry',
                 'name'        => 'Industry',
@@ -238,10 +237,10 @@ return new class extends Migration
                 'icon'        => 'fa-industry',
                 'sequence'    => 2050,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'job_board',
                 'name'        => 'Job Board',
@@ -250,10 +249,10 @@ return new class extends Migration
                 'icon'        => 'fa-clipboard',
                 'sequence'    => 2060,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'job',
                 'name'        => 'Job',
@@ -262,10 +261,10 @@ return new class extends Migration
                 'icon'        => 'fa-briefcase',
                 'sequence'    => 2070,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'note',
                 'name'        => 'Note',
@@ -274,10 +273,10 @@ return new class extends Migration
                 'icon'        => 'fa-sticky-note',
                 'sequence'    => 2080,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'reference',
                 'name'        => 'Reference',
@@ -286,10 +285,10 @@ return new class extends Migration
                 'icon'        => 'fa-address-card',
                 'sequence'    => 2090,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'resume',
                 'name'        => 'Resume',
@@ -298,10 +297,10 @@ return new class extends Migration
                 'icon'        => 'fa-file',
                 'sequence'    => 2100,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 3,
                 'type'        => 'skill',
                 'name'        => 'Skill',
@@ -310,12 +309,12 @@ return new class extends Migration
                 'icon'        => 'fa-certificate',
                 'sequence'    => 2110,
                 'public'      => 0,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
 
             // portfolio database
             [
-                'admin_id'    => 1,
                 'database_id' => 4,
                 'type'        => 'academy',
                 'name'        => 'Academy',
@@ -324,10 +323,10 @@ return new class extends Migration
                 'icon'        => 'fa-school',
                 'sequence'    => 3000,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 4,
                 'type'        => 'art',
                 'name'        => 'Art',
@@ -336,10 +335,10 @@ return new class extends Migration
                 'icon'        => 'fa-image',
                 'sequence'    => 3010,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 4,
                 'type'        => 'certification',
                 'name'        => 'Certification',
@@ -348,10 +347,10 @@ return new class extends Migration
                 'icon'        => 'fa-graduation-cap',
                 'sequence'    => 3020,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 4,
                 'type'        => 'course',
                 'name'        => 'Course',
@@ -360,10 +359,10 @@ return new class extends Migration
                 'icon'        => 'fa-chalkboard',
                 'sequence'    => 3030,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 4,
                 'type'        => 'link',
                 'name'        => 'Link',
@@ -372,10 +371,10 @@ return new class extends Migration
                 'icon'        => 'fa-link',
                 'sequence'    => 3040,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 4,
                 'type'        => 'music',
                 'name'        => 'Music',
@@ -384,10 +383,10 @@ return new class extends Migration
                 'icon'        => 'fa-music',
                 'sequence'    => 3050,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 4,
                 'type'        => 'project',
                 'name'        => 'Project',
@@ -396,10 +395,10 @@ return new class extends Migration
                 'icon'        => 'fa-wrench',
                 'sequence'    => 3060,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 4,
                 'type'        => 'reading',
                 'name'        => 'Reading',
@@ -408,10 +407,10 @@ return new class extends Migration
                 'icon'        => 'fa-book',
                 'sequence'    => 3070,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 4,
                 'type'        => 'recipe',
                 'name'        => 'Recipe',
@@ -420,10 +419,10 @@ return new class extends Migration
                 'icon'        => 'fa-cutlery',
                 'sequence'    => 3080,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 4,
                 'type'        => 'ingredient',
                 'name'        => 'Ingredient',
@@ -432,10 +431,10 @@ return new class extends Migration
                 'icon'        => 'fa-pizza-slice',
                 'sequence'    => 3090,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
             [
-                'admin_id'    => 1,
                 'database_id' => 4,
                 'type'        => 'video',
                 'name'        => 'Video',
@@ -444,7 +443,8 @@ return new class extends Migration
                 'icon'        => 'fa-video-camera',
                 'sequence'    => 3100,
                 'public'      => 1,
-                'disabled'    => 0
+                'disabled'    => 0,
+                'admin_id'    => 1,
             ],
         ];
         Resource::insert($data);

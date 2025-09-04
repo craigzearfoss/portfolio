@@ -121,6 +121,6 @@
         </tbody>
     </table>
 
-    {!! $dictionaryFrameworks->links('vendor.pagination.bulma') !!}
+    {!! $frameworks->links('vendor.pagination.bulma') !!}
 
 @endsection

@@ -25,6 +25,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'full_name',
+                'label'     => 'full name',
                 'value'     => old('full_name') ?? $category->full_name,
                 'required'  => true,
                 'maxlength' => 255,

@@ -39,6 +39,7 @@ return new class extends Migration
                 'sequence' => 0,
                 'public'   => 1,
                 'disabled' => 0,
+                'admin_id' => 1,
             ],
             [
                 'id'       => 2,
@@ -49,6 +50,7 @@ return new class extends Migration
                 'sequence' => 1,
                 'public'   => 1,
                 'disabled' => 0,
+                'admin_id' => 1,
             ],
             [
                 'id'       => 3,
@@ -59,6 +61,7 @@ return new class extends Migration
                 'sequence' => 2,
                 'public'   => 1,
                 'disabled' => 0,
+                'admin_id' => 1,
             ],
             [
                 'id'       => 4,
@@ -69,6 +72,7 @@ return new class extends Migration
                 'sequence' => 3,
                 'public'   => 1,
                 'disabled' => 0,
+                'admin_id' => 1,
             ],
         ];
         Database::insert($data);

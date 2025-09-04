@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $dictionaryStack->name . ' stack',
+    'title' => $stack->name . ' stack',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.stack.show', $dictionaryStack) ],
+        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.stack.show', $stack) ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.stack.index') ],
     ],
     'errors' => $errors ?? [],
@@ -19,12 +19,13 @@
 
     <div class="form">
 
-        <form action="{{ route('admin.dictionary.stack.update', $dictionaryStack) }}" method="POST">
+        <form action="{{ route('admin.dictionary.stack.update', $stack) }}" method="POST">
             @csrf
             @method('PUT')
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'full_name',
+                'label'     => 'full name',
                 'value'     => old('full_name') ?? $stack->full_name,
                 'required'  => true,
                 'maxlength' => 255,

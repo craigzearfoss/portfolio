@@ -2,7 +2,7 @@
     $id = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
     $type = $type ?? 'text';
     $name = $name ?? 'name';
-    $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'website']);
+    $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'website', 'wikipedia']);
 @endphp
 <div class="field">
     <label class="label">{{ $label ?? $name ?? '#label#' }}</label>
@@ -37,7 +37,7 @@
         @if (in_array($name, ['password', 'confirm_password']))
             <span class="icon is-small is-left"><i class="fas fa-key"></i></span>
         @endif
-        @if (in_array($name, ['link', 'website']))
+        @if (in_array($name, ['link', 'website', 'wikipedia']))
             <span class="icon is-small is-left"><i class="fas fa-link"></i></span>
         @endif
 

@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $dictionaryOperatingSystem->name . ' operating system',
+    'title' => $operatingSystem->name . ' operating system',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard',   'url' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',        'url' => route('admin.dictionary.index') ],
@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.operating-system.show', $dictionaryOperatingSystem) ],
+        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.operating-system.show', $operatingSystem) ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.operating-system.index') ],
     ],
     'errors' => $errors ?? [],
@@ -19,12 +19,13 @@
 
     <div class="form">
 
-        <form action="{{ route('admin.dictionary.operating-system.update', $dictionaryOperatingSystem) }}" method="POST">
+        <form action="{{ route('admin.dictionary.operating-system.update', $operatingSystem) }}" method="POST">
             @csrf
             @method('PUT')
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'full_name',
+                'label'     => 'full name',
                 'value'     => old('full_name') ?? $operatingSystem->full_name,
                 'required'  => true,
                 'maxlength' => 255,

@@ -67,15 +67,15 @@
                     @include('admin.components.checkmark', [ 'checked' => $stack->readonly ])
                 </td>
                 <td class="white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.dictionary.category.destroy', $stack->id) }}" method="POST">
+                    <form action="{{ route('admin.dictionary.stack.destroy', $stack->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.category.show', $stack->id) }}">
+                           href="{{ route('admin.dictionary.stack.show', $stack->id) }}">
                             <i class="fa-solid fa-list"></i>{{-- Show--}}
                         </a>
 
                         <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.category.edit', $stack->id) }}">
+                           href="{{ route('admin.dictionary.stack.edit', $stack->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
 
@@ -121,6 +121,6 @@
         </tbody>
     </table>
 
-    {!! $dictionaryStacks->links('vendor.pagination.bulma') !!}
+    {!! $stacks->links('vendor.pagination.bulma') !!}
 
 @endsection

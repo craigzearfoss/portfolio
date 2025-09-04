@@ -121,6 +121,6 @@
         </tbody>
     </table>
 
-    {!! $dictionaryLanguages->links('vendor.pagination.bulma') !!}
+    {!! $languages->links('vendor.pagination.bulma') !!}
 
 @endsection

@@ -67,15 +67,15 @@
                     @include('admin.components.checkmark', [ 'checked' => $operatingSystem->readonly ])
                 </td>
                 <td class="white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.dictionary.category.destroy', $operatingSystem->id) }}" method="POST">
+                    <form action="{{ route('admin.dictionary.operating-system.destroy', $operatingSystem->id) }}" method="POST">
 
                         <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.category.show', $operatingSystem->id) }}">
+                           href="{{ route('admin.dictionary.operating-system.show', $operatingSystem->id) }}">
                             <i class="fa-solid fa-list"></i>{{-- Show--}}
                         </a>
 
                         <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.category.edit', $operatingSystem->id) }}">
+                           href="{{ route('admin.dictionary.operating-system.edit', $operatingSystem->id) }}">
                             <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                         </a>
 
@@ -121,6 +121,6 @@
         </tbody>
     </table>
 
-    {!! $dictionaryOperatingSystems->links('vendor.pagination.bulma') !!}
+    {!! $operatingSystems->links('vendor.pagination.bulma') !!}
 
 @endsection
