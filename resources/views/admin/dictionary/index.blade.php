@@ -10,30 +10,16 @@
 
 @section('content')
 
-    <?php /*
-    <div>
 
-        <div class="card m-4">
+    @include('admin.components.form-select', [
+        'name'     => '',
+        'value'    => old('state') ?? '',
+        'list'     => \App\Models\Dictionary\DictionarySection::listOptions(true),
+        'onchange' => "alert('need to implement route.');",
+        'message'  => $message ?? '',
+    ])
 
-            <div class="card-head p-4">
-                <h1>Dictionaries</h1>
-            </div>
-
-            <div class="card-body p-4">
-
-                <ul>
-                    @foreach ($dictionaryTypes as $dictionaryType)
-                        <li><a href="{{ route('admin.dictionary.'.$dictionaryType->type.'.index') }}">{{ $dictionaryType->name }}</a></li>
-                    @endforeach
-                </ul>
-
-            </div>
-
-        </div>
-
-    </div>
- */ ?>
-
+    {!! $words->links('vendor.pagination.bulma') !!}
 
     <ul>
 
@@ -56,6 +42,5 @@
     </ul>
 
     {!! $words->links('vendor.pagination.bulma') !!}
-
 
 @endsection
