@@ -16,7 +16,7 @@ class ProjectFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(6);
+        $name = fake()->unique()->words(6, true);
         $slug = str_replace(' ', '-', $name);
 
         return [
@@ -27,11 +27,11 @@ class ProjectFactory extends Factory
             'year'         => fake()->year(),
             'repository'   => fake()->url(),
             'link'         => fake()->url(),
-            'link_name'    => fake()->words(5),
+            'link_name'    => fake()->words(5, true),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),
-            'image_credit' => fake()->words(3),
-            'image_source' => fake()->words(3),
+            'image_credit' => fake()->words(3, true),
+            'image_source' => fake()->words(3, true),
             'thumbnail'    => fake()->imageUrl(),
             'sequence'     => 0,
             'public'       => 1,

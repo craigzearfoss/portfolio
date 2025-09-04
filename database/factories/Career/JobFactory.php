@@ -16,7 +16,7 @@ class JobFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(6);
+        $name = fake()->unique()->words(6, true);
         $slug = str_replace(' ', '-', $name);
 
         return [
@@ -26,11 +26,11 @@ class JobFactory extends Factory
             'start_date'   => fake()->date(),
             'end_date'     => fake()->date(),
             'link'         => fake()->url(),
-            'link_name'    => fake()->words(4),
+            'link_name'    => fake()->words(4, true),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),
-            'image_credit' => fake()->words(3),
-            'image_source' => fake()->words(3),
+            'image_credit' => fake()->words(3, true),
+            'image_source' => fake()->words(3, true),
             'thumbnail'    => fake()->imageUrl(),
             'sequence'     => 0,
             'public'       => 0,

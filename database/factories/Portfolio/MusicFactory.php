@@ -28,7 +28,7 @@ class MusicFactory extends Factory
             'label'          => fake()->company(),
             'year'           => fake()->year(),
             'release_date'   => fake()->date(),
-            'catalog_number' => fake()->word(),
+            'catalog_number' => fake()->regexify('[A-Z]{3}-[0-9]{6}'),
             'link'           => fake()->url(),
             'link_name'      => fake()->words(6),
             'description'    => fake()->text(200),

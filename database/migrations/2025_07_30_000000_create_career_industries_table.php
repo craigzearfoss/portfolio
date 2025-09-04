@@ -25,8 +25,8 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(1);
-            $table->integer('readonly')->default(1);
-            $table->integer('root')->default(1);
+            $table->tinyInteger('readonly')->default(1);
+            $table->tinyInteger('root')->default(1);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
             $table->softDeletes();

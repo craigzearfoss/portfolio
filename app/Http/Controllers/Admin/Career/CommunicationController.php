@@ -23,7 +23,7 @@ class CommunicationController extends Controller
         $perPage= $request->query('per_page', $this->perPage);
 
         $communications = Communication::latest()->paginate($perPage);
-
+dd($communications);
         return view('admin.career.communication.index', compact('communications'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }

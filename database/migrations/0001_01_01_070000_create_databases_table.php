@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('icon', 50)->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
-            $table->integer('readonly')->default(0);
-            $table->integer('root')->default(1);
+            $table->tinyInteger('readonly')->default(0);
+            $table->tinyInteger('root')->default(1);
             $table->tinyInteger('disabled')->default(0);
             $table->foreignIdFor( Admin::class);
             $table->timestamps();
@@ -36,7 +36,7 @@ return new class extends Migration
                 'property' => 'db',
                 'title'    => '',
                 'icon'     => 'fa-cog',
-                'sequence' => 0,
+                'sequence' => 4000,
                 'public'   => 1,
                 'disabled' => 0,
                 'admin_id' => 1,
@@ -47,7 +47,7 @@ return new class extends Migration
                 'property' => 'dictionary_db',
                 'title'    => 'Dictionary',
                 'icon'     => 'fa-book',
-                'sequence' => 1,
+                'sequence' => 1000,
                 'public'   => 1,
                 'disabled' => 0,
                 'admin_id' => 1,
@@ -58,7 +58,7 @@ return new class extends Migration
                 'property' => 'career_db',
                 'title'    => 'Career',
                 'icon'     => 'fa-briefcase',
-                'sequence' => 2,
+                'sequence' => 2000,
                 'public'   => 1,
                 'disabled' => 0,
                 'admin_id' => 1,
@@ -69,7 +69,7 @@ return new class extends Migration
                 'property' => 'portfolio_db',
                 'title'    => 'Portfolio',
                 'icon'     => 'fa-folder',
-                'sequence' => 3,
+                'sequence' => 3000,
                 'public'   => 1,
                 'disabled' => 0,
                 'admin_id' => 1,

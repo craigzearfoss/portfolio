@@ -82,12 +82,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $ $framework->image_credit
+            'value' => $framework->image_credit
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $ $framework->image_source
+            'value' => $framework->image_source
         ])
 
         @include('admin.components.show-row-image', [

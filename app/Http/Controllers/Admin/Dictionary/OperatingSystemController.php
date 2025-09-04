@@ -25,7 +25,7 @@ class OperatingSystemController extends Controller
 
         $operatingSystems = OperatingSystem::orderBy('name', 'asc')->paginate($perPage);
 
-        return view('admin.dictionary.operating_system.index', compact('operatingSystems'))
+        return view('admin.dictionary.operating-system.index', compact('operatingSystems'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -38,7 +38,7 @@ class OperatingSystemController extends Controller
             abort(403, 'Only admins with root access can add operating system entries.');
         }
 
-        return view('admin.dictionary.operating_system.create');
+        return view('admin.dictionary.operating-system.create');
     }
 
     /**
@@ -52,7 +52,7 @@ class OperatingSystemController extends Controller
 
         OperatingSystem::create($request->validated());
 
-        return redirect()->route('admin.dictionary.operating_system.index')
+        return redirect()->route('admin.dictionary.operating-system.index')
             ->with('success', 'Operating system created successfully.');
     }
 
@@ -61,7 +61,7 @@ class OperatingSystemController extends Controller
      */
     public function show(OperatingSystem $operatingSystem): View
     {
-        return view('admin.dictionary.operating_system.show', compact('operatingSystem'));
+        return view('admin.dictionary.operating-system.show', compact('operatingSystem'));
     }
 
     /**
@@ -73,7 +73,7 @@ class OperatingSystemController extends Controller
             abort(403, 'Only admins with root access can edit operating system entries.');
         }
 
-        return view('admin.dictionary.operating_system.edit', compact('operatingSystem'));
+        return view('admin.dictionary.operating-system.edit', compact('operatingSystem'));
     }
 
     /**
@@ -88,7 +88,7 @@ class OperatingSystemController extends Controller
 
         $operatingSystem->update($request->validated());
 
-        return redirect()->route('admin.dictionary.operating_system.index')
+        return redirect()->route('admin.dictionary.operating-system.index')
             ->with('success', 'Operating system updated successfully');
     }
 
@@ -103,7 +103,7 @@ class OperatingSystemController extends Controller
 
         $operatingSystem->delete();
 
-        return redirect()->route('admin.dictionary.operating_system.index')
+        return redirect()->route('admin.dictionary.operating-system.index')
             ->with('success', 'Operating system deleted successfully');
     }
 }

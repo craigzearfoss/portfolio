@@ -17,7 +17,7 @@ class ReadingFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->sentence(6);
+        $name = fake()->unique()->sentence(6, true);
         $slug = str_replace(' ', '-', $name);
 
         return [
@@ -30,11 +30,11 @@ class ReadingFactory extends Factory
             'audio'        => fake()->numberBetween(0, 1),
             'wishlist'     => fake()->numberBetween(0, 1),
             'link'         => fake()->url(),
-            'link_name'    => fake()->words(),
+            'link_name'    => fake()->words(5, true),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),
-            'image_credit' => fake()->words(3),
-            'image_source' => fake()->words(3),
+            'image_credit' => fake()->words(3, true),
+            'image_source' => fake()->words(3, true),
             'thumbnail'    => fake()->imageUrl(),
             'sequence'     => 0,
             'public'       => 1,

@@ -19,6 +19,7 @@ return [
     'datetime_format_short' => env('APP_DATETIME_FORMAT_SHORT', 'm/d/Y h:i:s a'),
     'datetime_format_long'  => env('APP_DATETIME_FORMAT_LONG', 'F j, Y h:i:s a'),
     'database'              => env('DB_DATABASE'),
+    'db_dictionary'         => env('DB_DATABASE_DICTIONARY'),
     'database_career'       => env('DB_DATABASE_CAREER'),
     'database_portfolio'    => env('DB_DATABASE_PORTFOLIO'),
     'demo'                  => env('APP_DEMO', '0'),

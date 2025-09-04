@@ -16,7 +16,7 @@ class ResumeFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(6);
+        $name = fake()->unique()->words(6, true);
         $slug = str_replace(' ', '-', $name);
 
         return [
@@ -25,11 +25,11 @@ class ResumeFactory extends Factory
             'date'         => fake()->date(),
             'content'      => fake()->text(200),
             'link'         => fake()->url(),
-            'link_name'    => fake()->words(4),
+            'link_name'    => fake()->words(4, true),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),
-            'image_credit' => fake()->words(3),
-            'image_source' => fake()->words(3),
+            'image_credit' => fake()->words(3, true),
+            'image_source' => fake()->words(3, true),
             'thumbnail'    => fake()->imageUrl(),
             'primary'      => fake()->numberBetween(0, 1),
             'sequence'     => 0,

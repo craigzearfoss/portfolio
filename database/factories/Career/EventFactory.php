@@ -18,7 +18,7 @@ class EventFactory extends Factory
     {
         return [
             'application_id' => \App\Models\Career\Application::all()->random()->id,
-            'name'           => fake()->words(5),
+            'name'           => fake()->words(5, true),
             'date'           => fake()->date(),
             'time'           => fake()->time(),
             'location'       => fake()->city(),

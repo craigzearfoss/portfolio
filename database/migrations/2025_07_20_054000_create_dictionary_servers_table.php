@@ -30,8 +30,8 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(1);
-            $table->integer('readonly')->default(0);
-            $table->integer('root')->default(0);
+            $table->tinyInteger('readonly')->default(0);
+            $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
             $table->softDeletes();
@@ -39,7 +39,7 @@ return new class extends Migration
 
         $data = [
             [ 'id' => 1,   'full_name' => 'Apache HTTP Server',            'name' => 'Apache',         'slug' => 'apache-http-server',        'abbreviation' => null,   'open_source' => 1, 'proprietary' => 0, 'owner' => null,        'link' => 'https://httpd.apache.org/',                                   'wikipedia' => 'https://en.wikipedia.org/wiki/Apache_HTTP_Server'            ],
-            [ 'id' => 2,   'full_name' => 'Apache Tomcat',                 'name' => ' Tomcat',        'slug' => 'apache-tomcat',             'abbreviation' => null,   'open_source' => 1, 'proprietary' => 0, 'owner' => null,        'link' => 'https://tomcat.apache.org/',                                  'wikipedia' => 'https://en.wikipedia.org/wiki/Apache_Tomcat'                 ],
+            [ 'id' => 2,   'full_name' => 'Apache Tomcat',                 'name' => 'Tomcat',         'slug' => 'apache-tomcat',             'abbreviation' => null,   'open_source' => 1, 'proprietary' => 0, 'owner' => null,        'link' => 'https://tomcat.apache.org/',                                  'wikipedia' => 'https://en.wikipedia.org/wiki/Apache_Tomcat'                 ],
             [ 'id' => 3,   'full_name' => 'AWS Fargate',                   'name' => 'Fargate',        'slug' => 'aws-fargate',               'abbreviation' => null,   'open_source' => 0, 'proprietary' => 0, 'owner' => null,        'link' => 'https://aws.amazon.com/fargate/',                             'wikipedia' => null                                                          ],
             [ 'id' => 4,   'full_name' => 'Caddy',                         'name' => 'Caddy',          'slug' => 'caddy',                     'abbreviation' => null,   'open_source' => 1, 'proprietary' => 0, 'owner' => null,        'link' => 'https://caddyserver.com/',                                    'wikipedia' => 'https://en.wikipedia.org/wiki/Caddy_(web_server)'            ],
             [ 'id' => 5,   'full_name' => 'Cherokee',                      'name' => 'Cherokee',       'slug' => 'cherokee',                  'abbreviation' => null,   'open_source' => 1, 'proprietary' => 0, 'owner' => null,        'link' => 'https://cherokee-project.com/',                               'wikipedia' => 'https://en.wikipedia.org/wiki/Cherokee_(web_server)'         ],

@@ -4,5 +4,5 @@ namespace App\Http\Controllers;
 
 abstract class Controller
 {
-    protected $perPage = 10;
+    protected $perPage = 20;
 }

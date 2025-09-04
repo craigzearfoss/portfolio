@@ -18,7 +18,7 @@ class VideoFactory extends Factory
 
     public function definition(): array
     {
-        $name = fake()->unique()->words(6);
+        $name = fake()->unique()->words(5, true);
         $slug = str_replace(' ', '-', $name);
 
         return [
@@ -32,11 +32,11 @@ class VideoFactory extends Factory
             'credit'       => fake()->name(),
             'location'     => fake()->city(),
             'link'         => fake()->url(),
-            'link_name'    => fake()->words(6),
+            'link_name'    => fake()->words(6, true),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),
-            'image_credit' => fake()->words(3),
-            'image_source' => fake()->words(3),
+            'image_credit' => fake()->words(3, true),
+            'image_source' => fake()->words(3, true),
             'thumbnail'    => fake()->imageUrl(),
             'sequence'     => 0,
             'public'       => 1,

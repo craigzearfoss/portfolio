@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('body');
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
-            $table->integer('readonly')->default(0);
-            $table->integer('root')->default(0);
+            $table->tinyInteger('readonly')->default(0);
+            $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
             $table->foreignIdFor( \App\Models\Admin::class);
             $table->timestamps();

@@ -18,7 +18,7 @@ class CommunicationFactory extends Factory
     {
         return [
             'application_id' => \App\Models\Career\Application::all()->random()->id,
-            'subject'        => fake()->words(5),
+            'subject'        => fake()->words(5, true),
             'date'           => fake()->date(),
             'time'           => fake()->time(),
             'body'           => fake()->text(200),
