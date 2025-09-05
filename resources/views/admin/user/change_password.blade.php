@@ -18,7 +18,7 @@
 
     <div class="form-container">
 
-        <form action="{{ route('admin.user.change_password_submit', $user) }}"
+        <form action="{{ route('admin.user.change-password-submit', $user) }}"
               method="POST">
             @csrf
 
@@ -52,7 +52,7 @@
             </div>
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => route('admin.user.change_password_submit', $user)
+                'cancel_url' => route('admin.user.change-password-submit', $user)
             ])
 
         </form>

@@ -39,7 +39,7 @@
                                         </div>
                                         <div class="form-container">
 
-                                            <form action="{{ route('user.change_password_submit') }}" method="POST">
+                                            <form action="{{ route('user.change-password-submit') }}" method="POST">
                                                 @csrf
 
                                                 @include('user.components.form-input', [

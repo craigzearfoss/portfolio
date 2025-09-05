@@ -7,9 +7,9 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu();
         <div class="aside-tools-label">
 
             @if (Auth::guard('admin'))
-                <a href="{{ route('admin.dashboard') }}">{{ config('app.name') }} Admin</a>
+                <a class="has-text-primary" href="{{ route('admin.dashboard') }}"><strong>{{ config('app.name') }} Admin</strong></a>
             @else
-                <a href="{{ route('admin.index') }}">{{ config('app.name') }} Admin</a>
+                <a class="has-text-primary" href="{{ route('admin.index') }}"><strong>{{ config('app.name') }} Admin</strong></a>
             @endif
 
         </div>

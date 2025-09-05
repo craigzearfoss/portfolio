@@ -4,7 +4,10 @@
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'My Profile' ],
     ],
-    'buttons' => [],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-key"></i> Change Password', 'url' => route('admin.profile.change-password') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.profile.edit') ],
+    ],
     'errors' => $errors ?? [],
 ])
 

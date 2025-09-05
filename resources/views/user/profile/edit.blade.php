@@ -32,7 +32,7 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid" href="{{ route('user.change_password', $user->id) }}"><i class="fa fa-key"></i> Change Password</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('user.change-password', $user->id) }}"><i class="fa fa-key"></i> Change Password</a>
                                                     <a class="btn btn-sm btn-solid" href="{{ route('user.show') }}"><i class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 

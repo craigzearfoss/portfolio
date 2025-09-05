@@ -25,7 +25,7 @@
                                     </div>
 
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-sm btn-solid" href="{{ route('user.change_password', $user->id) }}"><i class="fa fa-key"></i> Change Password</a>
+                                        <a class="btn btn-sm btn-solid" href="{{ route('user.change-password', $user->id) }}"><i class="fa fa-key"></i> Change Password</a>
                                         <a class="btn btn-solid btn-sm" href="{{ route('user.edit', $user) }}"><i class="fa fa-pen-to-square"></i> Edit</a>
                                     </div>
 

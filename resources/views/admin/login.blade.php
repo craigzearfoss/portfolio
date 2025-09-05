@@ -1,70 +1,54 @@
-@extends('admin.layouts.blank')
+@extends('admin.layouts.empty', [
+    'title' => 'Login',
+    'errors' => $errors ?? [],
+    'success' => session('success') ?? null,
+    'error' => session('error') ?? null,
+])
 
 @section('content')
 
-    <div>
+    <div class="card column is-5 p-4">
 
-        <div class="card" style="max-width: 400px;">
+        <form action="{{ route('admin.login-submit') }}" method="POST">
+            @csrf
 
-            <div class="card-header p-4">
-                <div class="is-widescreen has-text-centered">
-                    <img class="mx-auto" src="{{ asset('images/site/logo-thumb-sm.png') }}" alt="site logo">
+            <div class="column is-12">
+
+                @include('admin.components.form-input', [
+                    'name'        => 'username',
+                    'label'       => 'User Name',
+                    'value'       => old('username'),
+                    'placeholder' => 'User Name',
+                    'required'    => true,
+                    'maxlength'   => 255,
+                    'message'     => $message ?? '',
+                ])
+
+                @include('admin.components.form-input', [
+                    'type'        => 'password',
+                    'name'        => 'password',
+                    'label'       => 'Password',
+                    'value'       => old('password'),
+                    'placeholder' => 'Password',
+                    'required'    => true,
+                    'maxlength'   => 255,
+                    'message'     => $message ?? '',
+                ])
+
+                <div class="has-text-centered my-3">
+                    <a class="text-primary-600 hover:underline" href="{{ route('admin.forgot-password') }}">Forgot Password?</a>
                 </div>
-                <div>
-                <h1 class="mb-1">Welcome back.</h1>
-                    <p>Please enter your credentials to login.</p>
+
+                <div class="has-text-centered">
+                    @include('admin.components.form-button', [
+                        'label'      => 'Login',
+                        'class'      => 'button is-dark'
+                    ])
                 </div>
+
             </div>
 
-            <div class="card-body p-4">
-                <div class="form">
-
-                    <form action="{{ route('admin.login_submit') }}" method="POST">
-                        @csrf
-
-                        <div>
-
-                            @include('admin.components.form-input', [
-                                'name'        => 'username',
-                                'label'       => 'User Name',
-                                'value'       => old('username'),
-                                'placeholder' => 'User Name',
-                                'required'    => true,
-                                'maxlength'   => 255,
-                                'message'     => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-input', [
-                                'type'        => 'password',
-                                'name'        => 'password',
-                                'label'       => 'Password',
-                                'value'       => old('password'),
-                                'placeholder' => 'Password',
-                                'required'    => true,
-                                'maxlength'   => 255,
-                                'message'     => $message ?? '',
-                            ])
-
-                        </div>
-
-                        <div class="my-3">
-                            <a class="text-primary-600 hover:underline" href="{{ route('admin.forgot_password') }}">Forgot Password?</a>
-                        </div>
-
-                        <div>
-
-                            @include('admin.components.form-button', [
-                                'label'      => 'Login',
-                            ])
-
-                        </div>
-
-                    </form>
-
-                </div>
-            </div>
-
-        </div>
+        </form>
 
     </div>
 

@@ -21,7 +21,7 @@
 
                             </div>
                             <div>
-                                <form action="{{ route('user.forgot_password_submit') }}" method="POST">
+                                <form action="{{ route('user.<div class="card p-4">_submit') }}" method="POST">
                                     @csrf
                                     <div class="form-container vertical">
                                         <div class="form-item vertical">

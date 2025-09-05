@@ -40,7 +40,7 @@ class ResetPassword extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.reset_password',
+            view: 'mail.reset-password',
             with: [ 'info' => $this->info ]
         );
     }

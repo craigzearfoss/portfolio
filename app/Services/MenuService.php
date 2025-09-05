@@ -52,7 +52,13 @@ class MenuService
             $menuItem = $this->createMenuItem();
             $menuItem->title  = 'Profile';
             $menuItem->link   = route('admin.profile.show');
-            $menuItem->active = $routeName == Route::currentRouteName() ? true : false;
+            $menuItem->active = 'admin.profile.show' == Route::currentRouteName() ? true : false;
+            $menu[] = $menuItem;
+
+            $menuItem = $this->createMenuItem();
+            $menuItem->title  = 'Change Password';
+            $menuItem->link   = route('admin.profile.change-password');
+            $menuItem->active = 'admin.profile.change-password' == Route::currentRouteName() ? true : false;
             $menu[] = $menuItem;
 
             $menuItem = $this->createMenuItem();

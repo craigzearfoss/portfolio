@@ -81,13 +81,13 @@ class IndexController extends Controller
             $email = $request->email ?? '';
             $user = User::where('email', $email)->where('status', 1)->first();
             if (!$user) {
-                return view('user.forgot_password')->withErrors('User with provided email does not exist.');
+                return view('user.reset-password')->withErrors('User with provided email does not exist.');
             }
 
             $user->token = hash('sha256', time());
             $user->update();
 
-            $pResetLink = route('user.reset_password', ['token' => $user->token, 'email' => urlencode($email)]);
+            $pResetLink = route('user.reset-password', ['token' => $user->token, 'email' => urlencode($email)]);
             $subject = "Reset Password from " . config('app.name');
             $info = [
                 'user' => $user->name,
@@ -103,7 +103,7 @@ class IndexController extends Controller
         } else {
 
             $title = 'Forgot Password';
-            return view('user.forgot_password', compact('title'));
+            return view('user.forgot-password', compact('title'));
         }
     }
 
@@ -114,7 +114,7 @@ class IndexController extends Controller
             return redirect()->route('user.login')->with('error', 'Your reset password token is expired. Please try again.');
         } else {
             $title = 'Reset Password';
-            return view('user.reset_password', compact('token', 'email', 'title'));
+            return view('user.reset-password', compact('token', 'email', 'title'));
         }
     }
 
@@ -158,7 +158,7 @@ class IndexController extends Controller
 
             $user->save();
 
-            $verificationLink = route('user.email_verification', ['token' => $user->token, 'email' => urlencode($request->email)]);
+            $verificationLink = route('user.email-verification', ['token' => $user->token, 'email' => urlencode($request->email)]);
             $subject = "Email Verification from " . config('app.name');
             $info = [
                 'name' => $user->name,

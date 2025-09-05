@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => config('app.name') . 'Admin Dashboard',
+    'title' => config('app.name') . ' Admin Dashboard',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard' ],
     ],

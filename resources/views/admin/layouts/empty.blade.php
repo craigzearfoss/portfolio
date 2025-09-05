@@ -15,7 +15,13 @@
             'errors' => $errors ?? [],
         ])
 
+        <div class="container">
+            @yield('content')
+        </div>
+
     </section>
+
+    @include('admin.components.footer')
 
 </div>
 

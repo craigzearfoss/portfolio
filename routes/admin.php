@@ -52,12 +52,12 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [IndexController::class, 'index'])->name('index');
     Route::get('/login', [IndexController::class, 'login'])->name('login');
-    Route::post('/login', [IndexController::class, 'login'])->name('login_submit');
+    Route::post('/login', [IndexController::class, 'login'])->name('login-submit');
     Route::get('/logout', [IndexController::class, 'logout'])->name('logout');
-    Route::get('/forgot-password', [IndexController::class, 'forgot_password'])->name('forgot_password');
-    Route::post('/forgot-password', [IndexController::class, 'forgot_password'])->name('forgot_password_submit');
-    Route::get('/reset-password/{token}/{email}', [IndexController::class, 'reset_password'])->name('reset_password');
-    Route::post('/reset-password/{token}/{email}', [IndexController::class, 'reset_password_submit'])->name('reset_password_submit');
+    Route::get('/forgot-password', [IndexController::class, 'forgot_password'])->name('forgot-password');
+    Route::post('/forgot-password', [IndexController::class, 'forgot_password'])->name('forgot-password-submit');
+    Route::get('/reset-password/{token}/{email}', [IndexController::class, 'reset_password'])->name('reset-password');
+    Route::post('/reset-password/{token}/{email}', [IndexController::class, 'reset_password_submit'])->name('reset-password-submit');
 });
 
 Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group(function () {
@@ -107,8 +107,8 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
 
 Route::prefix('admin/profile')->middleware('admin')->name('admin.profile.')->group(function () {
     Route::get('/', [ProfileController::class, 'show'])->name('show');
-    Route::get('change-password', [ProfileController::class, 'change_password'])->name('change_password');
-    Route::post('change-password', [ProfileController::class, 'change_password_submit'])->name('change_password_submit');
+    Route::get('change-password', [ProfileController::class, 'change_password'])->name('change-password');
+    Route::post('change-password', [ProfileController::class, 'change_password_submit'])->name('change-password-submit');
     Route::get('edit', [ProfileController::class, 'edit'])->name('edit');
     Route::post('update', [ProfileController::class, 'update'])->name('update');
 });
@@ -121,6 +121,6 @@ Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::resource('message', MessageController::class);
     Route::resource('resource', ResourceController::class);
     Route::resource('user', UserController::class);
-    Route::get('/user/{user}/change-password', [UserController::class, 'change_password'])->name('user.change_password');
-    Route::post('/user/{user}/change-password', [UserController::class, 'change_password_submit'])->name('user.change_password_submit');
+    Route::get('/user/{user}/change-password', [UserController::class, 'change_password'])->name('user.change-password');
+    Route::post('/user/{user}/change-password', [UserController::class, 'change_password_submit'])->name('user.change-password-submit');
 });

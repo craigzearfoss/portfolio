@@ -1,3 +1,6 @@
+
+
+
 @extends('admin.layouts.default', [
     'title' => 'Edit My Profile',
     'breadcrumbs' => [
@@ -6,7 +9,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-key"></i> Change Password', 'url' => '<a class="btn btn-sm btn-solid" href="' . route('admin.change_password', $admin->id) . '">' ],
+        [ 'name' => '<i class="fa fa-key"></i> Change Password', 'url' => '<a class="btn btn-sm btn-solid" href="' . route('admin.change-password', $admin->id) . '">' ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => route('admin.profile.index') ],
     ],
     'errors' => $errors ?? [],

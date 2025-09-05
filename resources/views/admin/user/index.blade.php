@@ -71,7 +71,7 @@
                             </a>
 
                             <a title="change password" class="button is-small px-1 py-0"
-                               href="{{ route('admin.user.change_password', $user->id) }}">
+                               href="{{ route('admin.user.change-password', $user->id) }}">
                                 <i class="fa-solid fa-key"></i>{{-- Edit--}}
                             </a>
 

@@ -102,7 +102,7 @@ class UserController extends BaseController
      */
     public function change_password(User $user): View
     {
-        return view('admin.user.change_password', compact('user'));
+        return view('admin.user.change-password', compact('user'));
     }
 
     /**

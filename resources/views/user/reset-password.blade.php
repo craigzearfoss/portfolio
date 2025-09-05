@@ -21,7 +21,7 @@
 
                             </div>
                             <div>
-                                <form action="{{ route('route.reset_password_submit', [$token, $email]) }}" method="POST">
+                                <form action="{{ route('route.<div class="card p-4">_submit', [$token, $email]) }}" method="POST">
                                     @csrf
                                     <div class="form-container vertical">
                                         <div class="form-item vertical">

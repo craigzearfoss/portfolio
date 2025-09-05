@@ -59,7 +59,7 @@ class IndexController extends BaseController
     public function logout(): RedirectResponse
     {
         Auth::guard('admin')->logout();
-        return redirect()->route('admin.login')->with('success', 'Admin logout successfully.');
+        return redirect()->route('admin.login')->with('success', 'Admin logout successful.');
     }
 
     public function forgot_password(Request $request): RedirectResponse | View
@@ -74,13 +74,13 @@ class IndexController extends BaseController
             $email = $request->email ?? '';
             $admin = Admin::where('email', $email)->first();
             if (!$admin) {
-                return view('admin.forgot_password')->withErrors('Admin with provided email does not exist.');
+                return view('admin.forgot-password')->withErrors('Admin with provided email does not exist.');
             }
 
             $admin->token = hash('sha256', time());
             $admin->update();
 
-            $pResetLink = route('admin_reset_password', ['token' => $admin->token , 'email' => urlencode($email)]);
+            $pResetLink = route('admin.reset-password', ['token' => $admin->token , 'email' => urlencode($email)]);
             $subject = "Reset Password from " . config('app.name');
             $info = [
                 'user' => $admin->username,
@@ -95,7 +95,7 @@ class IndexController extends BaseController
 
         } else {
 
-            return view('admin.forgot_password');
+            return view('admin.forgot-password');
         }
     }
 
@@ -105,7 +105,7 @@ class IndexController extends BaseController
         if (!$admin) {
             return redirect()->route('admin.login')->with('error', 'Your reset password token is expired. Please try again.');
         } else {
-            return view('admin.reset_password', compact('token', 'email'));
+            return view('admin.reset-password', compact('token', 'email'));
         }
     }
 

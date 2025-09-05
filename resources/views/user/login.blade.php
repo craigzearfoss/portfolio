@@ -1,3 +1,57 @@
+@extends('admin.layouts.empty', [
+    'title' => 'Login',
+    'errors' => $errors ?? [],
+    'success' => session('success') ?? null,
+    'error' => session('error') ?? null,
+])
+
+@section('content')
+
+    <div class="card form-container p-4">
+
+        <form action="{{ route('admin.profile.change-password-submit', $admin) }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            <div class="column is-5">
+
+                <input class="input pr-8" type="password" name="password" placeholder="Password">
+                @include('admin.components.form-input', [
+                    'type'        => 'password',
+                    'name'        => 'password',
+                    'label'       => 'Password',
+                    'placeholder' => 'New password',
+                    'value'       => '',
+                    'required'    => true,
+                    'maxlength'   => 255,
+                    'message'     => $message ?? '',
+                ])
+
+                @include('admin.components.form-input', [
+                    'type'        => 'password',
+                    'name'        => 'confirm_password',
+                    'label'       => 'Confirm Password',
+                    'placeholder' => 'Confirm new password',
+                    'value'       => '',
+                    'required'    => true,
+                    'maxlength'   => 255,
+                    'message'     => $message ?? '',
+                ])
+
+                @include('admin.components.form-button-submit', [
+                    'label'      => 'Save',
+                    'cancel_url' => route('admin.index')
+                ])
+
+            </div>
+
+        </form>
+
+    </div>
+
+@endsection
+
+
 @extends('user.layouts.login')
 
 @section('content')
@@ -21,7 +75,7 @@
 
                             </div>
                             <div>
-                                <form action="{{ route('user.login_submit') }}" method="POST">
+                                <form action="{{ route('user.login-submit') }}" method="POST">
                                     @csrf
                                     <div class="form-container vertical">
                                         <div class="form-item vertical mb-3">
@@ -46,7 +100,7 @@
                                             </div>
                                         </div>
                                         <div class="flex justify-between mb-3">
-                                            <a class="text-primary-600 hover:underline" href="{{ route('user.forgot_password') }}">Forgot Password?</a>
+                                            <a class="text-primary-600 hover:underline" href="{{ route('user.<div class="card p-4">') }}">Forgot Password?</a>
                                         </div>
                                         <button class="btn btn-solid w-full" type="submit">Login</button>
                                         <div class="mt-4 text-center">

@@ -52,7 +52,7 @@ class ProfileController extends BaseController
      */
     public function change_password(Admin $admin): View
     {
-        return view('admin.profile.change_password', compact('admin'));
+        return view('admin.profile.change-password', compact('admin'));
     }
 
     /**
