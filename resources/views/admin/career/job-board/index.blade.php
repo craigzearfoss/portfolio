@@ -13,93 +13,97 @@
 
 @section('content')
 
-    <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-        <thead>
-        <tr>
-            <th>name</th>
-            <th class="text-center">public</th>
-            <th class="text-center">read-only</th>
-            <th class="text-center">root</th>
-            <th class="text-center">disabled</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <?php /*
-        <tfoot>
-        <tr>
-            <th>name</th>
-            <th class="text-center">public</th>
-            <th class="text-center">read-only</th>
-            <th class="text-center">root</th>
-            <th class="text-center">disabled</th>
-            <th>actions</th>
-        </tr>
-        </tfoot>
-        */ ?>
-        <tbody>
+    <div class="card">
 
-        @forelse ($jobBoards as $jobBoard)
-
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <thead>
             <tr>
-                <td class="py-0">
-                    {{ $jobBoard->name }}
-                </td>
-                <td class="text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $jobBoard->public ])
-                </td>
-                <td class="text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $jobBoard->readonly ])
-                </td>
-                <td class="text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $jobBoard->root ])
-                </td>
-                <td class="text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $jobBoard->disabled ])
-                </td>
-                <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.career.job-board.destroy', $jobBoard->id) }}" method="POST">
-
-                        <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.career.job-board.show', $jobBoard->id) }}">
-                            <i class="fa-solid fa-list"></i>{{-- Show--}}
-                        </a>
-
-                        <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.career.job-board.edit', $jobBoard->id) }}">
-                            <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
-                        </a>
-
-                        @if (!empty($jobBoard->website))
-                            <a title="website" class="button is-small px-1 py-0" href="{{ $jobBoard->website }}"
-                               target="_blank">
-                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
-                            </a>
-                        @else
-                            <a title="website" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>{{-- website--}}
-                            </a>
-                        @endif
-
-                        @csrf
-                        @method('DELETE')
-                        <button title="delete" type="submit" class="button is-small px-1 py-0">
-                            <i class="fa-solid fa-trash"></i>{{--  Delete--}}
-                        </button>
-                    </form>
-                </td>
+                <th>name</th>
+                <th class="text-center">public</th>
+                <th class="text-center">read-only</th>
+                <th class="text-center">root</th>
+                <th class="text-center">disabled</th>
+                <th>actions</th>
             </tr>
-
-        @empty
-
+            </thead>
+            <?php /*
+            <tfoot>
             <tr>
-                <td colspan="6">There are no job boards.</td>
+                <th>name</th>
+                <th class="text-center">public</th>
+                <th class="text-center">read-only</th>
+                <th class="text-center">root</th>
+                <th class="text-center">disabled</th>
+                <th>actions</th>
             </tr>
+            </tfoot>
+            */ ?>
+            <tbody>
 
-        @endforelse
+            @forelse ($jobBoards as $jobBoard)
 
-        </tbody>
-    </table>
+                <tr>
+                    <td class="py-0">
+                        {{ $jobBoard->name }}
+                    </td>
+                    <td class="text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->public ])
+                    </td>
+                    <td class="text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->readonly ])
+                    </td>
+                    <td class="text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->root ])
+                    </td>
+                    <td class="text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->disabled ])
+                    </td>
+                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                        <form action="{{ route('admin.career.job-board.destroy', $jobBoard->id) }}" method="POST">
 
-    {!! $jobBoards->links('vendor.pagination.bulma') !!}
+                            <a title="show" class="button is-small px-1 py-0"
+                               href="{{ route('admin.career.job-board.show', $jobBoard->id) }}">
+                                <i class="fa-solid fa-list"></i>{{-- Show--}}
+                            </a>
+
+                            <a title="edit" class="button is-small px-1 py-0"
+                               href="{{ route('admin.career.job-board.edit', $jobBoard->id) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                            </a>
+
+                            @if (!empty($jobBoard->website))
+                                <a title="website" class="button is-small px-1 py-0" href="{{ $jobBoard->website }}"
+                                   target="_blank">
+                                    <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                                </a>
+                            @else
+                                <a title="website" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                    <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                                </a>
+                            @endif
+
+                            @csrf
+                            @method('DELETE')
+                            <button title="delete" type="submit" class="button is-small px-1 py-0">
+                                <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+            @empty
+
+                <tr>
+                    <td colspan="6">There are no job boards.</td>
+                </tr>
+
+            @endforelse
+
+            </tbody>
+        </table>
+
+        {!! $jobBoards->links('vendor.pagination.bulma') !!}
+
+    </div>
 
 @endsection

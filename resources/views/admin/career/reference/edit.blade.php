@@ -14,7 +14,7 @@
 
 @section('content')
 
-    <div class="form">
+    <div class="card form-container">
 
         <form action="{{ route('admin.career.reference.update', $reference) }}"
               method="POST">

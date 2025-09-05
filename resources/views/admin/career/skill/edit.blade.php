@@ -14,7 +14,7 @@
 
 @section('content')
 
-    <div class="from">
+    <div class="card form-container">
 
         <form action="{{ route('admin.career.skill.update', $skill) }}" method="POST">
             @csrf

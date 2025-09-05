@@ -14,7 +14,7 @@
 
 @section('content')
 
-    <div class="form">
+    <div class="card form-container">
 
         <form action="{{ route('admin.career.application.store') }}" method="POST">
             @csrf
@@ -183,7 +183,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
-                'value'     => old('link') ?? $application->link,
+                'value'     => old('link') ?? '',
                 'maxlength' => 100,
                 'message'   => $message ?? '',
             ])

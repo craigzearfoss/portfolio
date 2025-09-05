@@ -12,87 +12,91 @@
 
 @section('content')
 
-    <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-        <thead>
-        <tr>
-            <th class="px-2 whitespace-nowrap">user name</th>
-            <th class="px-2">name</th>
-            <th class="px-2">email</th>
-            <th class="px-2">phone</th>
-            <th class="px-2 text-center">root</th>
-            <th class="px-2 text-center">disabled</th>
-            <th class="px-2">actions</th>
-        </tr>
-        </thead>
-        <?php /*
-        <tfoot>
-        <tr>
-            <th class="px-2 whitespace-nowrap">user name</th>
-            <th class="px-2">name</th>
-            <th class="px-2">email</th>
-            <th class="px-2">phone</th>
-            <th class="px-2 text-center">root</th>
-            <th class="px-2 text-center">disabled</th>
-            <th class="px-2">actions</th>
-        </tr>
-        </tfoot>
-        */ ?>
-        <tbody>
+    <div class="card">
 
-        @forelse ($admins as $admin)
-
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <thead>
             <tr>
-                <td class="py-0">
-                    {{ $admin->username }}
-                </td>
-                <td class="py-0">
-                    {{ $admin->name }}
-                </td>
-                <td class="py-0">
-                    {{ $admin->email }}
-                </td>
-                <td class="py-0">
-                    {{ $admin->phone }}
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $admin->root ])
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $admin->disabled ])
-                </td>
-                <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.admin.destroy', $admin->id) }}" method="POST">
-
-                        <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.admin.show', $admin->id) }}">
-                            <i class="fa-solid fa-list"></i>{{-- Show--}}
-                        </a>
-
-                        <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.admin.edit', $admin->id) }}">
-                            <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
-                        </a>
-
-                        @csrf
-                        @method('DELETE')
-                        <button title="delete" type="submit" class="button is-small px-1 py-0">
-                            <i class="fa-solid fa-trash"></i>{{--  Delete--}}
-                        </button>
-                    </form>
-                </td>
+                <th class="px-2 whitespace-nowrap">user name</th>
+                <th class="px-2">name</th>
+                <th class="px-2">email</th>
+                <th class="px-2">phone</th>
+                <th class="px-2 text-center">root</th>
+                <th class="px-2 text-center">disabled</th>
+                <th class="px-2">actions</th>
             </tr>
-
-        @empty
-
+            </thead>
+            <?php /*
+            <tfoot>
             <tr>
-                <td colspan="6">There are no user stacks.</td>
+                <th class="px-2 whitespace-nowrap">user name</th>
+                <th class="px-2">name</th>
+                <th class="px-2">email</th>
+                <th class="px-2">phone</th>
+                <th class="px-2 text-center">root</th>
+                <th class="px-2 text-center">disabled</th>
+                <th class="px-2">actions</th>
             </tr>
+            </tfoot>
+            */ ?>
+            <tbody>
 
-        @endforelse
+            @forelse ($admins as $admin)
 
-        </tbody>
-    </table>
+                <tr>
+                    <td class="py-0">
+                        {{ $admin->username }}
+                    </td>
+                    <td class="py-0">
+                        {{ $admin->name }}
+                    </td>
+                    <td class="py-0">
+                        {{ $admin->email }}
+                    </td>
+                    <td class="py-0">
+                        {{ $admin->phone }}
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $admin->root ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $admin->disabled ])
+                    </td>
+                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                        <form action="{{ route('admin.admin.destroy', $admin->id) }}" method="POST">
 
-    {!! $admins->links('vendor.pagination.bulma') !!}
+                            <a title="show" class="button is-small px-1 py-0"
+                               href="{{ route('admin.admin.show', $admin->id) }}">
+                                <i class="fa-solid fa-list"></i>{{-- Show--}}
+                            </a>
+
+                            <a title="edit" class="button is-small px-1 py-0"
+                               href="{{ route('admin.admin.edit', $admin->id) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                            </a>
+
+                            @csrf
+                            @method('DELETE')
+                            <button title="delete" type="submit" class="button is-small px-1 py-0">
+                                <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+            @empty
+
+                <tr>
+                    <td colspan="6">There are no user stacks.</td>
+                </tr>
+
+            @endforelse
+
+            </tbody>
+        </table>
+
+        {!! $admins->links('vendor.pagination.bulma') !!}
+
+    </div>
 
 @endsection

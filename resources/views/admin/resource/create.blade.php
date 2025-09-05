@@ -15,7 +15,7 @@
 
 @section('content')
 
-    <div class="form">
+    <div class="form-container">
 
         <form action="{{ route('admin.resource.store') }}" method="POST">
             @csrf

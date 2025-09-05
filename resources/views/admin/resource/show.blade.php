@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => 'Message',
+    'title' => 'Resource',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Resources',       'url' => route('admin.resource.index') ],

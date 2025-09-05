@@ -14,7 +14,7 @@
 
 @section('content')
 
-    <div class="form">
+    <div class="card form-container">
 
         <form action="{{ route('admin.career.industry.update', $industry) }}" method="POST">
             @csrf

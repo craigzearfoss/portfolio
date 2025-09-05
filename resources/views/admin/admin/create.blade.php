@@ -12,7 +12,7 @@
 
 @section('content')
 
-    <div class="form-container">
+    <div class="card form-container">
 
         <form action="{{ route('admin.admin.store') }}" method="POST">
             @csrf

@@ -14,7 +14,7 @@
 
 @section('content')
 
-    <div class="form-container">
+    <div class="card form-container">
 
         <form action="{{ route('admin.career.job-board.store') }}" method="POST">
             @csrf

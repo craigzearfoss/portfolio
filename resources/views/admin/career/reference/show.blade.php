@@ -16,7 +16,7 @@
 
 @section('content')
 
-    <div>
+    <div class="card form-container">
 
         @include('admin.components.show-row', [
             'name'  => 'name',
