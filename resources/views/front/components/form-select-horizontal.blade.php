@@ -22,6 +22,7 @@
                     @if (!empty($multiple))multiple @endif
                     @if (!empty($required))required @endif
                     @if (!empty($size))size="{{ $size }}" @endif
+                    @if (!empty($onchange))onchange="{!! $onchange !!}" @endif
                 >
                     @foreach ($list as $listValue=>$listName)
                         <option value="{{ $listValue }}" @if ($listValue == $value)selected @endif >

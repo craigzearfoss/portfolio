@@ -1,154 +1,144 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' => 'Edit Resource',
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Resources',       'url' => route('admin.resource.index') ],
+        [ 'name' => 'Edit' ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.resource.show', $resource) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.resource.index') ],
+    ],
+    'errors' => $errors ?? [],
+    'success' => session('success') ?? null,
+    'error' => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="form">
 
-            @include('admin.components.nav-left_ORIGINAL')
+        <form action="{{ route('admin.resource.update', $resource) }}" method="POST">
+            @csrf
+            @method('PUT')
 
-            <div
-                class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            @include('admin.components.form-input', [
+                'name'      => 'type',
+                'value'     => old('type') ?? $resource->type,
+                'required'  => true,
+                'maxlength' => 50,
+                'message'   => $message ?? '',
+            ])
 
-                @include('admin.components.header')
+            @include('admin.components.form-input', [
+                'name'      => 'name',
+                'value'     => old('name') ?? $resource->name,
+                'maxlength' => 50,
+                'message'   => $message ?? '',
+            ])
 
-                @include('admin.components.popup')
+            @include('admin.components.form-input', [
+                'name'      => 'plural',
+                'value'     => old('plural') ?? $resource->plural,
+                'maxlength' => 50,
+                'message'   => $message ?? '',
+            ])
 
-                <div class="page-container relative h-full flex flex-auto flex-col">
-                    <div class="h-full">
-                        <h3 class="card-header ml-3">Edit Resource</h3>
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
-                            <div class="card min-w-[320px] md:min-w-[450px] card-shadow" role="presentation">
-                                <div class="card-body md:p-5">
-                                    <div class="text-center">
-                                        <div class="mb-4">
+            @include('admin.components.form-checkbox', [
+                'name'            => 'front',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('front') ?? $resource->front,
+                'message'         => $message ?? '',
+            ])
 
-                                            <div class="d-grid gap-2 d-md-flex justify-between">
+            @include('admin.components.form-checkbox', [
+                'name'            => 'user',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('user') ?? $resource->user,
+                'message'         => $message ?? '',
+            ])
 
-                                                @if (session('success'))
-                                                    @include('admin.components.message-success', ['message'=> session('success')])
-                                                @endif
+            @include('admin.components.form-checkbox', [
+                'name'            => 'admin',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('admin') ?? $resource->admin,
+                'message'         => $message ?? '',
+            ])
 
-                                                @if (session('error'))
-                                                    @include('admin.components.message-success', ['message'=> session('danger')])
-                                                @endif
+            @include('admin.components.form-input', [
+                'name'      => 'section',
+                'value'     => old('section') ?? $resource->section,
+                'maxlength' => 50,
+                'message'   => $message ?? '',
+            ])
 
-                                                @if ($errors->any())
-                                                    @include('admin.components.error-message', ['message'=>'Fix the indicated errors before saving.'])
-                                                @endif
+            @include('admin.components.form-select', [
+                'name'     => 'resource_database_id',
+                'label'    => 'database',
+                'value'    => old('resource_db_id') ?? $resource->resource_db_id,
+                'required' => true,
+                'list'     => \App\Models\Database::listOptions(true, false),
+                'message'  => $message ?? '',
+            ])
 
-                                                <div>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.resource.show', $resource) }}"><i
-                                                            class="fa fa-list"></i> Show</a>
-                                                    <a class="btn btn-sm btn-solid"
-                                                       href="{{ route('admin.resource.index') }}"><i
-                                                            class="fa fa-arrow-left"></i> Back</a>
-                                                </div>
+            @include('admin.components.form-input', [
+                'name'      => 'icon',
+                'value'     => old('icon') ?? $resource->icon,
+                'maxlength' => 50,
+                'message'   => $message ?? '',
+            ])
 
-                                            </div>
+            @include('admin.components.form-input', [
+                'type'        => 'number',
+                'name'        => 'sequence',
+                'value'       => old('sequence') ?? $resource->sequence,
+                'min'         => 0,
+                'message'     => $message ?? '',
+            ])
 
-                                        </div>
-                                        <div class="form-container">
+            @include('admin.components.form-checkbox', [
+                'name'            => 'public',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('public') ?? $resource->public,
+                'message'         => $message ?? '',
+            ])
 
-                                            <form action="{{ route('admin.resource.update', $resource) }}"
-                                                  method="POST">
-                                                @csrf
-                                                @method('PUT')
+            @include('admin.components.form-checkbox', [
+                'name'            => 'readonly',
+                'label'           => 'read-only',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('readonly') ?? $resource->readonly,
+                'message'         => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-hidden', [
-                                                    'name'  => old('admin_id') ?? Auth::guard('admin')->user()->id,
-                                                    'value' => '0',
-                                                ])
+            @include('admin.components.form-checkbox', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $resource->root,
+                'message'         => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'type',
-                                                    'value'     => old('type') ?? $resource->type,
-                                                    'required'  => true,
-                                                    'maxlength' => 50,
-                                                    'message'   => $message ?? '',
-                                                ])
+            @include('admin.components.form-checkbox', [
+                'name'            => 'disabled',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('disabled') ?? $resource->disabled,
+                'message'         => $message ?? '',
+            ])
 
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'name',
-                                                    'value'     => old('name') ?? $resource->name,
-                                                    'maxlength' => 50,
-                                                    'message'   => $message ?? '',
-                                                ])
+            @include('admin.components.form-button-submit', [
+                'label'      => 'Save',
+                'cancel_url' => route('admin.resource.index')
+            ])
 
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'plural',
-                                                    'value'     => old('plural') ?? $resource->plural,
-                                                    'maxlength' => 50,
-                                                    'message'   => $message ?? '',
-                                                ])
+        </form>
 
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'section',
-                                                    'value'     => old('section') ?? $resource->section,
-                                                    'maxlength' => 50,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'name'      => 'icon',
-                                                    'value'     => old('icon') ?? $resource->icon,
-                                                    'maxlength' => 50,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-select', [
-                                                    'name'     => 'resource_database_id',
-                                                    'label'    => 'database',
-                                                    'value'    => old('resource_db_id') ?? $resource->resource_db_id,
-                                                    'required' => true,
-                                                    'list'     => \App\Models\Database::listOptions(false),
-                                                    'message'  => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-input', [
-                                                    'type'        => 'number',
-                                                    'name'        => 'sequence',
-                                                    'value'       => old('sequence') ?? $resource->sequence,
-                                                    'min'         => 0,
-                                                    'message'     => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'public',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('public') ?? $resource->public,
-                                                    'message'         => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-checkbox', [
-                                                    'name'            => 'disabled',
-                                                    'value'           => 1,
-                                                    'unchecked_value' => 0,
-                                                    'checked'         => old('disabled') ?? $resource->disabled,
-                                                    'message'         => $message ?? '',
-                                                ])
-
-                                                @include('admin.components.form-button-submit', [
-                                                    'label'      => 'Save',
-                                                    'cancel_url' => route('admin.resource.index')
-                                                ])
-
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

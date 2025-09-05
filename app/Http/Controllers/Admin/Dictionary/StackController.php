@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Dictionary\StackStoreRequest;
 use App\Http\Requests\Dictionary\StackUpdateRequest;
 use App\Models\Dictionary\Stack;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class StackController extends Controller
+class StackController extends BaseController
 {
     /**
      * Display a listing of stacks.

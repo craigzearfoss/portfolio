@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\EventStoreRequest;
 use App\Http\Requests\Career\EventUpdateRequest;
 use App\Models\Career\Event;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class EventController extends Controller
+class EventController extends BaseController
 {
     /**
      * Display a listing of events.

@@ -72,7 +72,6 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::resource('job-board', CareerJobBoardController::class)->parameter('job-board', 'job_board');
     Route::resource('note', CareerNoteController::class);
     Route::resource('reference', CareerReferenceController::class);
-    Route::resource('resource', ResourceController::class);
     Route::resource('resume', CareerResumeController::class);
     Route::resource('skill', CareerSkillController::class);
 });
@@ -106,7 +105,7 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
     Route::resource('video', PortfolioVideoController::class);
 });
 
-Route::prefix('admin/profile')->middleware('admin')->name('admin.portfolio.')->group(function () {
+Route::prefix('admin/profile')->middleware('admin')->name('admin.profile.')->group(function () {
     Route::get('/', [ProfileController::class, 'show'])->name('show');
     Route::get('change-password', [ProfileController::class, 'change_password'])->name('change_password');
     Route::post('change-password', [ProfileController::class, 'change_password_submit'])->name('change_password_submit');
@@ -119,6 +118,7 @@ Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::resource('admin', AdminController::class);
     Route::resource('dictionary', DictionaryController::class);
     Route::resource('message', MessageController::class);
+    Route::resource('resource', ResourceController::class);
     Route::resource('user', UserController::class);
     Route::get('/user/{user}/change-password', [UserController::class, 'change_password'])->name('user.change_password');
     Route::post('/user/{user}/change-password', [UserController::class, 'change_password_submit'])->name('user.change_password_submit');

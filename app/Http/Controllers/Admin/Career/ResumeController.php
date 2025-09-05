@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\ResumeStoreRequest;
 use App\Http\Requests\Career\ResumeUpdateRequest;
 use App\Models\Career\Resume;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class ResumeController extends Controller
+class ResumeController extends BaseController
 {
     /**
      * Display a listing of resumes.

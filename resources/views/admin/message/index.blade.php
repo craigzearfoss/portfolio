@@ -1,82 +1,84 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' => 'Message',
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Message' ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Message', 'url' => route('admin.message.create') ],
+    ],
+    'errors' => $errors ?? [],
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+        <thead>
+        <tr>
+            <th>name</th>
+            <th>email</th>
+            <th>subject</th>
+            <th class="text-nowrap">created at</th>
+            <th class="text-nowrap">updated at</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <?php /*
+        <tfoot>
+        <tr>
+            <th>name</th>
+            <th>email</th>
+            <th>subject</th>
+            <th class="text-nowrap">created at</th>
+            <th class="text-nowrap">updated at</th>
+            <th>actions</th>
+        </tr>
+        </tfoot>
+        */ ?>
+        <tbody>
 
-            @include('admin.components.nav-left_ORIGINAL')
+        @forelse ($messages as $message)
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            <tr>
+                <td class="py-0">
+                    {{ $message->name }}
+                </td>
+                <td class="py-0">
+                    {{ $message->email }}
+                </td>
+                <td class="py-0">
+                    {{ $message->subject }}
+                </td>
+                <td class="py-0">
+                    {{ shortDateTime($message->created_at) }}
+                </td>
+                <td class="py-0">
+                    {{ shortDateTime($message->updated_at) }}
+                </td>
+                <td class="py-0 text-nowrap">
+                    <form action="{{ route('admin.message.destroy', $message->id) }}" method="POST">
+                        <a class="btn btn-sm" href="{{ route('admin.message.show', $message->id) }}"><i
+                                class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                            <?php /*<a class="btn btn-sm" href="{{ route('admin.message.edit', $message->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a> */ ?>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm"><i
+                                class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
+                    </form>
+                </td>
+            </tr>
 
-                @include('admin.components.header')
+        @empty
 
-                @include('admin.components.popup')
+            <tr>
+                <td colspan="6">There are no messages.</td>
+            </tr>
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
+        @endforelse
 
-                    <h3 class="card-header">Messages</h3>
+        </tbody>
+    </table>
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('admin.components.messages', [$errors])
-                        </div>
-                        <div>
-                            <?php /* <a class="btn btn-solid btn-sm" href="{{ route('admin.message.create') }}"><i class="fa fa-plus"></i> Add New Message</a> */ ?>
-                        </div>
-                    </div>
-
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>name</th>
-                            <th>email</th>
-                            <th>subject</th>
-                            <th class="text-nowrap">created at</th>
-                            <th class="text-nowrap">updated at</th>
-                            <th>actions</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-
-                        @forelse ($messages as $message)
-                            <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $message->name }}</td>
-                                <td>{{ $message->email }}</td>
-                                <td>{{ $message->subject }}</td>
-                                <td>{{ shortDateTime($message->created_at) }}</td>
-                                <td>{{ shortDateTime($message->updated_at) }}</td>
-                                <td class="text-nowrap">
-                                    <form action="{{ route('admin.message.destroy', $message->id) }}" method="POST">
-                                        <a class="btn btn-sm" href="{{ route('admin.message.show', $message->id) }}"><i
-                                                    class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                            <?php /*<a class="btn btn-sm" href="{{ route('admin.message.edit', $message->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a> */ ?>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm"><i
-                                                    class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7">There are no messages.</td>
-                            </tr>
-                        @endforelse
-
-                        </tbody>
-                    </table>
-
-                    {!! $messages->links() !!}
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
-    </div>
+    {!! $messages->links('vendor.pagination.bulma') !!}
 
 @endsection

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Portfolio\ArtStoreRequest;
 use App\Http\Requests\Portfolio\ArtUpdateRequest;
 use App\Models\Portfolio\Art;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class ArtController extends Controller
+class ArtController extends BaseController
 {
     /**
      * Display a listing of art.

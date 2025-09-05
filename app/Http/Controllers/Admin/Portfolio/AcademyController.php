@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Portfolio\AcademyStoreRequest;
 use App\Http\Requests\Portfolio\AcademyUpdateRequest;
 use App\Models\Portfolio\Academy;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class AcademyController extends Controller
+class AcademyController extends BaseController
 {
     /**
      * Display a listing of academies.

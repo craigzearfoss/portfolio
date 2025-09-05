@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\ResourceStoreRequest;
 use App\Http\Requests\ResourceUpdateRequest;
 use App\Models\Resource;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class ResourceController extends Controller
+class ResourceController extends BaseController
 {
     /**
      * Display a listing of resources.

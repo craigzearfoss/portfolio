@@ -64,11 +64,14 @@ class DictionarySection extends Model
      * @param int|null $perPage
      * @return array|LengthAwarePaginator
      */
-    public static function wordCollection(
+    public static function words(
         string|null $slug = null,
         int|null $perPage = null,
     ): array|LengthAwarePaginator
     {
+        //@TODO: We should be able to get this from the config.
+        $dictionaryDB = 'dictionary';
+
         if (!empty($slug)) {
 
             // Get the dictionary for a specific section.
@@ -85,8 +88,6 @@ class DictionarySection extends Model
             if (!$dictionarySections = DictionarySection::all()->toArray()) {
                 return [];
             }
-
-            $dictionaryDB = 'dictionary';
 
             $firstSection = array_shift($dictionarySections);
             $builder = DB::table("{$dictionaryDB}.{$firstSection['database']}")

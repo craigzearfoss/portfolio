@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Portfolio\RecipeStoreRequest;
 use App\Http\Requests\Portfolio\RecipeUpdateRequest;
 use App\Models\Portfolio\Recipe;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class RecipeController extends Controller
+class RecipeController extends BaseController
 {
     /**
      * Display a listing of recipes.

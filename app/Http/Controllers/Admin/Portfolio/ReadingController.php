@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Portfolio\ReadingStoreRequest;
 use App\Http\Requests\Portfolio\ReadingUpdateRequest;
 use App\Models\Portfolio\Reading;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class ReadingController extends Controller
+class ReadingController extends BaseController
 {
     /**
      * Display a listing of readings.

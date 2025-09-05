@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Portfolio\CourseStoreRequest;
 use App\Http\Requests\Portfolio\CourseUpdateRequest;
 use App\Models\Portfolio\Course;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class CourseController extends Controller
+class CourseController extends BaseController
 {
     /**
      * Display a listing of courses.

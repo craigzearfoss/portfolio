@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Portfolio\CertificationStoreRequest;
 use App\Http\Requests\Portfolio\CertificationUpdateRequest;
 use App\Models\Portfolio\Certification;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class CertificationController extends Controller
+class CertificationController extends BaseController
 {
     /**
      * Display a listing of certifications.

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Portfolio\IngredientStoreRequest;
 use App\Http\Requests\Portfolio\IngredientUpdateRequest;
 use App\Models\Portfolio\Ingredient;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class IngredientController extends Controller
+class IngredientController extends BaseController
 {
     /**
      * Display a listing of ingredients.

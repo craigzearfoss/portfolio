@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\Dictionary\DictionarySection;
 use App\Models\Resource;
 use Illuminate\Http\Request;
 
-class IndexController extends Controller
+class IndexController extends BaseController
 {
     protected $perPage = 30;
     public function index(Request $request)
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $words = DictionarySection::wordCollection(null, $perPage);
+        $words = DictionarySection::words(null, $perPage);
 
         $dictionaryTypes = Resource::where('section', 'Dictionary')->orderBy('sequence', 'asc')->get();
 

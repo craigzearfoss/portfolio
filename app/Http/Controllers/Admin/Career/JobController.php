@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\JobStoreRequest;
 use App\Http\Requests\Career\obUpdateRequest;
 use App\Models\Career\Job;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class JobController extends Controller
+class JobController extends BaseController
 {
     /**
      * Display a listing of jobs.

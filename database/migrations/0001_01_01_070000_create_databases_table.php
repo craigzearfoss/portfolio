@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('property', 50);
             $table->string('title', 100);
             $table->string('icon', 50)->nullable();
+            $table->tinyInteger('front')->default(0);
+            $table->tinyInteger('user')->default(0);
+            $table->tinyInteger('admin')->default(0);
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('readonly')->default(0);
@@ -36,6 +39,9 @@ return new class extends Migration
                 'property' => 'db',
                 'title'    => '',
                 'icon'     => 'fa-cog',
+                'front'    => 0,
+                'user'     => 0,
+                'admin'    => 1,
                 'sequence' => 4000,
                 'public'   => 1,
                 'disabled' => 0,
@@ -47,6 +53,9 @@ return new class extends Migration
                 'property' => 'dictionary_db',
                 'title'    => 'Dictionary',
                 'icon'     => 'fa-book',
+                'front'    => 1,
+                'user'     => 1,
+                'admin'    => 1,
                 'sequence' => 1000,
                 'public'   => 1,
                 'disabled' => 0,
@@ -58,6 +67,9 @@ return new class extends Migration
                 'property' => 'career_db',
                 'title'    => 'Career',
                 'icon'     => 'fa-briefcase',
+                'front'    => 0,
+                'user'     => 0,
+                'admin'    => 1,
                 'sequence' => 2000,
                 'public'   => 1,
                 'disabled' => 0,
@@ -69,6 +81,9 @@ return new class extends Migration
                 'property' => 'portfolio_db',
                 'title'    => 'Portfolio',
                 'icon'     => 'fa-folder',
+                'front'    => 1,
+                'user'     => 1,
+                'admin'    => 1,
                 'sequence' => 3000,
                 'public'   => 1,
                 'disabled' => 0,

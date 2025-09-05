@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\CompanyStoreRequest;
 use App\Http\Requests\Career\CompanyUpdateRequest;
 use App\Models\Career\Company;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class CompanyController extends Controller
+class CompanyController extends BaseController
 {
     /**
      * Display a listing of companies.

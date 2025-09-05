@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\SkillStoreRequest;
 use App\Http\Requests\Career\SkillUpdateRequest;
 use App\Models\Career\Skill;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class SkillController extends Controller
+class SkillController extends BaseController
 {
     /**
      * Display a listing of skills.

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Portfolio\UnitStoreRequest;
 use App\Http\Requests\Portfolio\UnitUpdateRequest;
 use App\Models\Portfolio\Unit;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class UnitController extends Controller
+class UnitController extends BaseController
 {
     /**
      * Display a listing of units.

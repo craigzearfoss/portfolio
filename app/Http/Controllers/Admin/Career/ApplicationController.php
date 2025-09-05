@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\ApplicationStoreRequest;
 use App\Http\Requests\Career\ApplicationUpdateRequest;
 use App\Models\Career\Application;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class ApplicationController extends Controller
+class ApplicationController extends BaseController
 {
     /**
      * Display a listing of applications.

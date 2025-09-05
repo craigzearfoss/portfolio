@@ -1,39 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" class="light">
+<html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
 
 @include('front.components.head')
 
 <body>
 
-<div id="root">
+<div id="app">
 
-    @yield('content')
+    @include('admin.components.nav-top')
+
+    @include('admin.components.nav-left')
+
+    @include('admin.components.title-bar', [
+        'title'       => $title ?? '#title#',
+        'breadcrumbs' => $breadcrumbs ?? []
+    ])
+
+    @include('admin.components.subtitle-bar', [
+        'title' => $title ?? '#title#'
+    ])
+
+    <section class="is-main-section px-4 py-3">
+
+        @include('admin.components.messages', [
+            'success'=> $success ?? null,
+            'error'  => $error ?? null,
+            'errors' => $errors ?? [],
+        ])
+
+        @yield('content')
+
+    </section>
+
+    @include('admin.components.footer')
 
 </div>
 
-<!-- Core Vendors JS -->
-<script src="{{ asset('backend/assets/js/vendors.min.js') }}"></script>
-
-<!-- Other Vendors JS -->
-
-<!-- Page js -->
-<script src="{{ asset('backend/assets/js/pages/welcome.js') }}"></script>
-
-<!-- Core JS -->
-<script src="{{ asset('backend/assets/js/app.min.js') }}"></script>
-
 </body>
-
-<script type="text/javascript">
-    $('#reload').click(function() {
-        $.ajax({
-            type: 'GET',
-            url: 'reload-captcha',
-            success: function(data) {
-                $(".captcha span").html(data.captcha);
-            }
-        });
-    });
-</script>
 
 </html>

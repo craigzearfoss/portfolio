@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\CoverLetterStoreRequest;
 use App\Http\Requests\Career\CoverLetterUpdateRequest;
 use App\Models\Career\CoverLetter;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class CoverLetterController extends Controller
+class CoverLetterController extends BaseController
 {
     /**
      * Display a listing of cover letters.

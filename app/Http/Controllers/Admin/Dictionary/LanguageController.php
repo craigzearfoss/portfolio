@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Dictionary\LanguageStoreRequest;
 use App\Http\Requests\Dictionary\LanguageUpdateRequest;
 use App\Models\Dictionary\Language;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class LanguageController extends Controller
+class LanguageController extends BaseController
 {
     /**
      * Display a listing of languages.

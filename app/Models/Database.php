@@ -21,6 +21,9 @@ class Database extends Model
         'name',
         'property',
         'title',
+        'front',
+        'user',
+        'admin',
         'icon',
         'sequence',
         'public',
@@ -41,12 +44,16 @@ class Database extends Model
     /**
      * Returns an array of options for a select list.
      *
+     * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function listOptions(bool $nameAsKey = false): array
+    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
     {
         $options = [];
+        if ($includeBlank) {
+            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
+        }
 
         foreach (Database::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
             $options[$nameAsKey ? $row->name : $row->id ] = $row->name;

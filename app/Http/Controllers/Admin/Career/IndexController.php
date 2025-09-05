@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\Resource;
 
-class IndexController extends Controller
+class IndexController extends BaseController
 {
     public function index()
     {

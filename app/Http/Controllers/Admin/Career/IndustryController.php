@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\IndustryStoreRequest;
 use App\Http\Requests\Career\IndustryUpdateRequest;
 use App\Models\Career\Industry;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class IndustryController extends Controller
+class IndustryController extends BaseController
 {
     /**
      * Display a listing of industries.

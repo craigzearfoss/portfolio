@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\CommunicationStoreRequest;
 use App\Http\Requests\Career\CommunicationUpdateRequest;
 use App\Models\Career\Communication;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class CommunicationController extends Controller
+class CommunicationController extends BaseController
 {
     /**
      * Display a listing of communications.
@@ -23,7 +23,7 @@ class CommunicationController extends Controller
         $perPage= $request->query('per_page', $this->perPage);
 
         $communications = Communication::latest()->paginate($perPage);
-dd($communications);
+
         return view('admin.career.communication.index', compact('communications'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }

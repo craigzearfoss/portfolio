@@ -1,100 +1,137 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.default', [
+    'title' => 'Resources',
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Resources' ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'url' => route('admin.resource.create') ],
+    ],
+    'errors' => $errors ?? [],
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div>
 
-            @include('admin.components.nav-left_ORIGINAL')
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <thead>
+            <tr>
+                <th>type</th>
+                <th>name</th>
+                <th>icon</th>
+                <th>section</th>
+                <th>database</th>
+                <th class="text-center">front</th>
+                <th class="text-center">user</th>
+                <th class="text-center">admin</th>
+                <th class="text-center">sequence</th>
+                <th class="text-center">public</th>
+                <th class="text-center">read-only</th>
+                <th class="text-center">root</th>
+                <th class="text-center">disabled</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <?php /*
+            <tfoot>
+            <tr>
+                <th>type</th>
+                <th>name</th>
+                <th>database</th>
+                <th>icon</th>
+                <th>sequence</th>
+                <th class="text-center">front</th>
+                <th class="text-center">user</th>
+                <th class="text-center">admin</th>
+                <th class="text-center">public</th>
+                <th class="text-center">disabled</th>
+                <th>actions</th>
+            </tr>
+            </tfoot>
+            */ ?>
+            <tbody>
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            @forelse ($resources as $resource)
 
-                @include('admin.components.header')
+                <tr>
+                    <td class="py-0">
+                        {{ $resource->type }}
+                    </td>
+                    <td class="py-0">
+                        {{ $resource->name }}
+                    </td>
+                    <td class="py-0">
+                        @if (!empty($resource->icon))
+                            <span class="text-xl">
+                                <i class="fa-solid {{ $resource->icon }}"></i>
+                            </span>
+                        @else
+                        @endif
+                    </td>
+                    <td class="py-0">
+                        {{ $resource->section }}
+                    </td>
+                    <td class="py-0">
+                        {{ $resource->database['name'] }}
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $resource->front ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $resource->user ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $resource->admin ])
+                    </td>
+                    <td class="py-0 text-center">
+                        {{ $resource->sequence }}
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $resource->public ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $resource->readonly ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $resource->root ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $resource->disabled ])
+                    </td>
+                    <td class="py-0 text-nowrap">
+                        <form action="{{ route('admin.resource.destroy', $resource->id) }}" method="POST">
 
-                @include('admin.components.popup')
+                            <a class="button is-small px-1 py-0" href="{{ route('admin.resource.show', $resource->id) }}">
+                                <i class="fa-solid fa-list"></i>{{-- Show--}}
+                            </a>
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
+                            <a class="button is-small px-1 py-0" href="{{ route('admin.resource.edit', $resource->id) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                            </a>
 
-                    <h3 class="card-header">Resources</h3>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="button is-small px-1 py-0">
+                                <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('admin.components.messages', [$errors])
-                        </div>
-                        <div>
-                            <a class="btn btn-solid btn-sm" href="{{ route('admin.resource.create') }}"><i class="fa fa-plus"></i> Add New Resource</a>
-                        </div>
-                    </div>
+            @empty
 
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>type</th>
-                            <th>name</th>
-                            <th>database</th>
-                            <th>icon</th>
-                            <th>sequence</th>
-                            <th class="text-center">public</th>
-                            <th class="text-center">disabled</th>
-                            <th>actions</th>
-                        </tr>
-                        </thead>
+                <tr>
+                    <td colspan="14">There are no messages.</td>
+                </tr>
 
-                        <tbody>
+            @endforelse
 
-                        @forelse ($resources as $resource)
-                            <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $resource->type }}</td>
-                                <td>{{ $resource->name }}</td>
-                                <td>{{ $resource->database['name'] }}</td>
-                                <td>
-                                    @if (!empty($resource->icon))
-                                        <span class="text-xl">
-                                            <i class="fa-solid {{ $resource->icon }}"></i>
-                                        </span>
-                                    @else
-                                    @endif
-                                </td>
-                                <td>{{ $resource->sequence }}</td>
-                                <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $resource->public ])
-                                </td>
-                                <td class="text-center">
-                                    @include('admin.components.checkmark', [ 'checked' => $resource->disabled ])
-                                </td>
-                                <td class="text-nowrap">
-                                    <form action="{{ route('admin.resource.destroy', $resource->id) }}" method="POST">
-                                        <a class="btn btn-sm"
-                                           href="{{ route('admin.resource.show', $resource->id) }}"><i
-                                                    class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                        <a class="btn btn-sm"
-                                           href="{{ route('admin.resource.edit', $resource->id) }}"><i
-                                                    class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a>
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm"><i
-                                                    class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="8">There are no resources.</td>
-                            </tr>
-                        @endforelse
+            </tbody>
+        </table>
 
-                        </tbody>
-                    </table>
+        {!! $resources->links('vendor.pagination.bulma') !!}
 
-                    {!! $resources->links() !!}
-
-                    @include('admin.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection
