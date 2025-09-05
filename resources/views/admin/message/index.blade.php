@@ -12,73 +12,77 @@
 
 @section('content')
 
-    <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-        <thead>
-        <tr>
-            <th>name</th>
-            <th>email</th>
-            <th>subject</th>
-            <th class="text-nowrap">created at</th>
-            <th class="text-nowrap">updated at</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <?php /*
-        <tfoot>
-        <tr>
-            <th>name</th>
-            <th>email</th>
-            <th>subject</th>
-            <th class="text-nowrap">created at</th>
-            <th class="text-nowrap">updated at</th>
-            <th>actions</th>
-        </tr>
-        </tfoot>
-        */ ?>
-        <tbody>
+    <div class="card">
 
-        @forelse ($messages as $message)
-
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <thead>
             <tr>
-                <td class="py-0">
-                    {{ $message->name }}
-                </td>
-                <td class="py-0">
-                    {{ $message->email }}
-                </td>
-                <td class="py-0">
-                    {{ $message->subject }}
-                </td>
-                <td class="py-0">
-                    {{ shortDateTime($message->created_at) }}
-                </td>
-                <td class="py-0">
-                    {{ shortDateTime($message->updated_at) }}
-                </td>
-                <td class="py-0 text-nowrap">
-                    <form action="{{ route('admin.message.destroy', $message->id) }}" method="POST">
-                        <a class="btn btn-sm" href="{{ route('admin.message.show', $message->id) }}"><i
-                                class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                            <?php /*<a class="btn btn-sm" href="{{ route('admin.message.edit', $message->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a> */ ?>
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm"><i
-                                class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
-                    </form>
-                </td>
+                <th>name</th>
+                <th>email</th>
+                <th>subject</th>
+                <th class="text-nowrap">created at</th>
+                <th class="text-nowrap">updated at</th>
+                <th>actions</th>
             </tr>
-
-        @empty
-
+            </thead>
+            <?php /*
+            <tfoot>
             <tr>
-                <td colspan="6">There are no messages.</td>
+                <th>name</th>
+                <th>email</th>
+                <th>subject</th>
+                <th class="text-nowrap">created at</th>
+                <th class="text-nowrap">updated at</th>
+                <th>actions</th>
             </tr>
+            </tfoot>
+            */ ?>
+            <tbody>
 
-        @endforelse
+            @forelse ($messages as $message)
 
-        </tbody>
-    </table>
+                <tr>
+                    <td class="py-0">
+                        {{ $message->name }}
+                    </td>
+                    <td class="py-0">
+                        {{ $message->email }}
+                    </td>
+                    <td class="py-0">
+                        {{ $message->subject }}
+                    </td>
+                    <td class="py-0">
+                        {{ shortDateTime($message->created_at) }}
+                    </td>
+                    <td class="py-0">
+                        {{ shortDateTime($message->updated_at) }}
+                    </td>
+                    <td class="py-0 text-nowrap">
+                        <form action="{{ route('admin.message.destroy', $message->id) }}" method="POST">
+                            <a class="btn btn-sm" href="{{ route('admin.message.show', $message->id) }}"><i
+                                    class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                <?php /*<a class="btn btn-sm" href="{{ route('admin.message.edit', $message->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a> */ ?>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm"><i
+                                    class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
+                        </form>
+                    </td>
+                </tr>
 
-    {!! $messages->links('vendor.pagination.bulma') !!}
+            @empty
+
+                <tr>
+                    <td colspan="6">There are no messages.</td>
+                </tr>
+
+            @endforelse
+
+            </tbody>
+        </table>
+
+        {!! $messages->links('vendor.pagination.bulma') !!}
+
+    </div>
 
 @endsection

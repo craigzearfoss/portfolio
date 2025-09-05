@@ -12,7 +12,7 @@
 
 @section('content')
 
-    <div>
+    <div class="card">
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>

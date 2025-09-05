@@ -14,7 +14,7 @@
 
 @section('content')
 
-    <div class="form">
+    <div class="card form-container">
 
         <form action="{{ route('admin.portfolio.link.update', $link->id) }}" method="POST">
             @csrf

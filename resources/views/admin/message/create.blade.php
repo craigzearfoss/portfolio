@@ -15,7 +15,7 @@
 
 @section('content')
 
-    <div class="container form">
+    <div class="card form-container">
 
         <form action="{{ route('admin.message.store') }}" method="POST">
             @csrf

@@ -16,7 +16,7 @@
 
 @section('content')
 
-    <div class="form-container">
+    <div class="card form-container">
 
         <form action="{{ route('admin.user.update', $user->id) }}" method="POST">
             @csrf

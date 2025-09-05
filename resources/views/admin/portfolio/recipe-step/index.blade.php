@@ -15,96 +15,100 @@
 
 @section('content')
 
-    <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-        <thead>
-        <tr>
-            <th>recipe</th>
-            <th>step</th>
-            <th>description</th>
-            <!-- <th class="text-center">sequence</th> -->
-            <th class="text-center">public</th>
-            <th class="text-center">read-only</th>
-            <th class="text-center">root</th>
-            <th class="text-center">disabled</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <?php /*
-        <tfoot>
-        <tr>
-            <th>recipe</th>
-            <th>step</th>
-            <th>description</th>
-            <!-- <th class="text-center">sequence</th> -->
-            <th class="text-center">public</th>
-            <th class="text-center">read-only</th>
-            <th class="text-center">root</th>
-            <th class="text-center">disabled</th>
-            <th>actions</th>
-        </tr>
-        </tfoot>
-        */ ?>
-        <tbody>
+    <div class="card">
 
-        @forelse ($recipeSteps as $recipeStep)
-
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <thead>
             <tr>
-                <td>
-                    {{ $recipeStep->name }}
-                </td>
-                <td>
-                    {{ $recipeStep->description }}
-                </td>
-                <!--
-                <td class="py-0 text-center">
-                    {{ $recipeStep->sequence }}
-                </td>
-                -->
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $recipeStep->public ])
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $recipeStep->readonly ])
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $recipeStep->root ])
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $recipeStep->disabled ])
-                </td>
-                <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.portfolio.recipe-step.destroy', $recipeStep->id) }}" method="POST">
-
-                        <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.portfolio.recipe-step.show', $recipeStep->id) }}">
-                            <i class="fa-solid fa-list"></i> {{-- Show --}}
-                        </a>
-
-                        <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.portfolio.recipe-step.edit', $recipeStep->id) }}">
-                            <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
-                        </a>
-
-                        @csrf
-                        @method('DELETE')
-                        <button title="delete" type="submit" class="button is-small px-1 py-0">
-                            <i class="fa-solid fa-trash"></i>{{--  Delete--}}
-                        </button>
-                    </form>
-                </td>
+                <th>recipe</th>
+                <th>step</th>
+                <th>description</th>
+                <!-- <th class="text-center">sequence</th> -->
+                <th class="text-center">public</th>
+                <th class="text-center">read-only</th>
+                <th class="text-center">root</th>
+                <th class="text-center">disabled</th>
+                <th>actions</th>
             </tr>
-
-        @empty
-
+            </thead>
+            <?php /*
+            <tfoot>
             <tr>
-                <td colspan="8">There are no recipe steps.</td>
+                <th>recipe</th>
+                <th>step</th>
+                <th>description</th>
+                <!-- <th class="text-center">sequence</th> -->
+                <th class="text-center">public</th>
+                <th class="text-center">read-only</th>
+                <th class="text-center">root</th>
+                <th class="text-center">disabled</th>
+                <th>actions</th>
             </tr>
+            </tfoot>
+            */ ?>
+            <tbody>
 
-        @endforelse
+            @forelse ($recipeSteps as $recipeStep)
 
-        </tbody>
-    </table>
+                <tr>
+                    <td>
+                        {{ $recipeStep->name }}
+                    </td>
+                    <td>
+                        {{ $recipeStep->description }}
+                    </td>
+                    <!--
+                    <td class="py-0 text-center">
+                        {{ $recipeStep->sequence }}
+                    </td>
+                    -->
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $recipeStep->public ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $recipeStep->readonly ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $recipeStep->root ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $recipeStep->disabled ])
+                    </td>
+                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                        <form action="{{ route('admin.portfolio.recipe-step.destroy', $recipeStep->id) }}" method="POST">
 
-    {!! $recipeSteps->links('vendor.pagination.bulma') !!}
+                            <a title="show" class="button is-small px-1 py-0"
+                               href="{{ route('admin.portfolio.recipe-step.show', $recipeStep->id) }}">
+                                <i class="fa-solid fa-list"></i> {{-- Show --}}
+                            </a>
+
+                            <a title="edit" class="button is-small px-1 py-0"
+                               href="{{ route('admin.portfolio.recipe-step.edit', $recipeStep->id) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                            </a>
+
+                            @csrf
+                            @method('DELETE')
+                            <button title="delete" type="submit" class="button is-small px-1 py-0">
+                                <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+            @empty
+
+                <tr>
+                    <td colspan="8">There are no recipe steps.</td>
+                </tr>
+
+            @endforelse
+
+            </tbody>
+        </table>
+
+        {!! $recipeSteps->links('vendor.pagination.bulma') !!}
+
+    </div>
 
 @endsection

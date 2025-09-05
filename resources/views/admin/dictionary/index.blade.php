@@ -10,37 +10,40 @@
 
 @section('content')
 
+    <div class="card">
 
-    @include('admin.components.form-select', [
-        'name'     => '',
-        'value'    => old('state') ?? '',
-        'list'     => \App\Models\Dictionary\DictionarySection::listOptions(true),
-        'onchange' => "alert('need to implement route.');",
-        'message'  => $message ?? '',
-    ])
+        @include('admin.components.form-select', [
+            'name'     => '',
+            'value'    => old('state') ?? '',
+            'list'     => \App\Models\Dictionary\DictionarySection::listOptions(true),
+            'onchange' => "alert('need to implement route.');",
+            'message'  => $message ?? '',
+        ])
 
-    {!! $words->links('vendor.pagination.bulma') !!}
+        {!! $words->links('vendor.pagination.bulma') !!}
 
-    <ul>
+        <ul>
 
-        @forelse ($words as $word)
+            @forelse ($words as $word)
 
-                <li>
-                    <a href="{{ route('admin.dictionary.'.str_replace(' ', '-', $word->category).'.show', $word->id) }}">
-                    <strong>{{ $word->name }}</strong> (<i>{{ $word->category }})</i>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('admin.dictionary.'.str_replace(' ', '-', $word->category).'.show', $word->id) }}">
+                        <strong>{{ $word->name }}</strong> (<i>{{ $word->category }})</i>
+                        </a>
+                    </li>
 
-        @empty
+            @empty
 
-            <tr>
-                <li>There are no words in the dictionary.</li>
-            </tr>
+                <tr>
+                    <li>There are no words in the dictionary.</li>
+                </tr>
 
-        @endforelse
+            @endforelse
 
-    </ul>
+        </ul>
 
-    {!! $words->links('vendor.pagination.bulma') !!}
+        {!! $words->links('vendor.pagination.bulma') !!}
+
+    </div>
 
 @endsection

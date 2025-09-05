@@ -17,7 +17,7 @@
 
 @section('content')
 
-    <div class="form">
+    <div class="card form-container">
 
         <form action="{{ route('admin.dictionary.language.update', $dictionaryLanguage) }}" method="POST">
             @csrf

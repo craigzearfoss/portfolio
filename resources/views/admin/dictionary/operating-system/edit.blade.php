@@ -17,7 +17,7 @@
 
 @section('content')
 
-    <div class="form">
+    <div class="card form-container">
 
         <form action="{{ route('admin.dictionary.operating-system.update', $operatingSystem) }}" method="POST">
             @csrf

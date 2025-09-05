@@ -13,114 +13,118 @@
 
 @section('content')
 
-    <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-        <thead>
-        <tr>
-            <th>name</th>
-            <th>abbrev</th>
-            <th class="text-center">sequence</th>
-            <th class="text-center">public</th>
-            <th class="text-center">read-only</th>
-            <th class="text-center">root</th>
-            <th class="text-center">disabled</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <?php /*
-        <tfoot>
-        <tr>
-            <th>name</th>
-            <th>abbrev</th>
-            <th class="text-center">sequence</th>
-            <th class="text-center">public</th>
-            <th class="text-center">read-only</th>
-            <th class="text-center">root</th>
-            <th class="text-center">disabled</th>
-            <th>actions</th>
-        </tr>
-        </tfoot>
-        */ ?>
-        <tbody>
+    <div class="card">
 
-        @forelse ($stacks as $stack)
-
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <thead>
             <tr>
-                <td class="py-0">
-                    {{ $stack->name }}
-                </td>
-                <td class="py-0">
-                    {{ $stack->abbreviation }}
-                </td>
-                <td class="py-0 text-center">
-                    {{ $stack->sequence }}
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $stack->professional ])
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $stack->personal ])
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $stack->public ])
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $stack->readonly ])
-                </td>
-                <td class="white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.dictionary.stack.destroy', $stack->id) }}" method="POST">
-
-                        <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.stack.show', $stack->id) }}">
-                            <i class="fa-solid fa-list"></i>{{-- Show--}}
-                        </a>
-
-                        <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.stack.edit', $stack->id) }}">
-                            <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
-                        </a>
-
-                        @if (!empty($stack->link))
-                            <a title="link" class="button is-small px-1 py-0" href="{{ $stack->link }}"
-                               target="_blank">
-                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
-                            </a>
-                        @else
-                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>{{-- link--}}
-                            </a>
-                        @endif
-
-                        @if (!empty($stack->wikipedia))
-                            <a title="Wikipedia page" class="button is-small px-1 py-0" href="{{ $stack->wikipedia }}"
-                               target="_blank">
-                                <i class="fa-solid wikipedia_w"></i>{{-- wikipedia--}}
-                            </a>
-                        @else
-                            <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid wikipedia_w"></i>{{-- wikipedia--}}
-                            </a>
-                        @endif
-
-                        @csrf
-                        @method('DELETE')
-                        <button title="delete" type="submit" class="button is-small px-1 py-0">
-                            <i class="fa-solid fa-trash"></i>{{--  Delete--}}
-                        </button>
-                    </form>
-                </td>
+                <th>name</th>
+                <th>abbrev</th>
+                <th class="text-center">sequence</th>
+                <th class="text-center">public</th>
+                <th class="text-center">read-only</th>
+                <th class="text-center">root</th>
+                <th class="text-center">disabled</th>
+                <th>actions</th>
             </tr>
-
-        @empty
-
+            </thead>
+            <?php /*
+            <tfoot>
             <tr>
-                <td colspan="8">There are no databases.</td>
+                <th>name</th>
+                <th>abbrev</th>
+                <th class="text-center">sequence</th>
+                <th class="text-center">public</th>
+                <th class="text-center">read-only</th>
+                <th class="text-center">root</th>
+                <th class="text-center">disabled</th>
+                <th>actions</th>
             </tr>
+            </tfoot>
+            */ ?>
+            <tbody>
 
-        @endforelse
+            @forelse ($stacks as $stack)
 
-        </tbody>
-    </table>
+                <tr>
+                    <td class="py-0">
+                        {{ $stack->name }}
+                    </td>
+                    <td class="py-0">
+                        {{ $stack->abbreviation }}
+                    </td>
+                    <td class="py-0 text-center">
+                        {{ $stack->sequence }}
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $stack->professional ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $stack->personal ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $stack->public ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $stack->readonly ])
+                    </td>
+                    <td class="white-space-nowrap py-0" style="white-space: nowrap;">
+                        <form action="{{ route('admin.dictionary.stack.destroy', $stack->id) }}" method="POST">
 
-    {!! $stacks->links('vendor.pagination.bulma') !!}
+                            <a title="show" class="button is-small px-1 py-0"
+                               href="{{ route('admin.dictionary.stack.show', $stack->id) }}">
+                                <i class="fa-solid fa-list"></i>{{-- Show--}}
+                            </a>
+
+                            <a title="edit" class="button is-small px-1 py-0"
+                               href="{{ route('admin.dictionary.stack.edit', $stack->id) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                            </a>
+
+                            @if (!empty($stack->link))
+                                <a title="link" class="button is-small px-1 py-0" href="{{ $stack->link }}"
+                                   target="_blank">
+                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                                </a>
+                            @else
+                                <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                                </a>
+                            @endif
+
+                            @if (!empty($stack->wikipedia))
+                                <a title="Wikipedia page" class="button is-small px-1 py-0" href="{{ $stack->wikipedia }}"
+                                   target="_blank">
+                                    <i class="fa-solid wikipedia_w"></i>{{-- wikipedia--}}
+                                </a>
+                            @else
+                                <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                    <i class="fa-solid wikipedia_w"></i>{{-- wikipedia--}}
+                                </a>
+                            @endif
+
+                            @csrf
+                            @method('DELETE')
+                            <button title="delete" type="submit" class="button is-small px-1 py-0">
+                                <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+            @empty
+
+                <tr>
+                    <td colspan="8">There are no databases.</td>
+                </tr>
+
+            @endforelse
+
+            </tbody>
+        </table>
+
+        {!! $stacks->links('vendor.pagination.bulma') !!}
+
+    </div>
 
 @endsection

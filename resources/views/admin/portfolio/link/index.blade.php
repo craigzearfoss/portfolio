@@ -13,111 +13,115 @@
 
 @section('content')
 
-    <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
-        <thead>
-        <tr>
-            <th>name</th>
-            <th class="text-center">professional</th>
-            <th class="text-center">personal</th>
-            <th class="text-center">public</th>
-            <th class="text-center">sequence</th>
-            <th class="text-center">read-only</th>
-            <th class="text-center">root</th>
-            <th class="text-center">disabled</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <?php /*
-        <tfoot>
-        <tr>
-            <th>name</th>
-            <th class="text-center">professional</th>
-            <th class="text-center">personal</th>
-            <th class="text-center">sequence</th>
-            <th class="text-center">public</th>
-            <th class="text-center">read-only</th>
-            <th class="text-center">root</th>
-            <th class="text-center">disabled</th>
-            <th>actions</th>
-        </tr>
-        </tfoot>
-        */ ?>
-        <tbody>
+    <div class="card">
 
-        @forelse ($links as $link)
-
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <thead>
             <tr>
-                <td class="py-0">
-                    {{ $link->name }}
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $link->professional ])
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $link->personal ])
-                </td>
-                <td class="py-0">
-                    {{ $link->website }}
-                </td>
-                <td class="py-0">
-                    {{ $link->sequence }}
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $link->public ])
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $link->readonly ])
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $link->root ])
-                </td>
-                <td class="py-0 text-center">
-                    @include('admin.components.checkmark', [ 'checked' => $link->disabled ])
-                </td>
-                <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
-                    <form action="{{ route('admin.portfolio.link.destroy', $link->id) }}" method="POST">
-
-                        <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.portfolio.link.show', $link->id) }}">
-                            <i class="fa-solid fa-list"></i>{{-- Show--}}
-                        </a>
-
-                        <a title="edit" class="button is-small px-1 py-0"
-                           href="{{ route('admin.portfolio.link.edit', $link->id) }}">
-                            <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
-                        </a>
-
-                        @if (!empty($link->url))
-                            <a title="url" class="button is-small px-1 py-0" href="{{ $link->url }}"
-                               target="_blank">
-                                <i class="fa-solid fa-external-link"></i>{{-- url--}}
-                            </a>
-                        @else
-                            <a title="url" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>{{-- url--}}
-                            </a>
-                        @endif
-
-                        @csrf
-                        @method('DELETE')
-                        <button title="delete" type="submit" class="button is-small px-1 py-0">
-                            <i class="fa-solid fa-trash"></i>{{--  Delete--}}
-                        </button>
-                    </form>
-                </td>
+                <th>name</th>
+                <th class="text-center">professional</th>
+                <th class="text-center">personal</th>
+                <th class="text-center">public</th>
+                <th class="text-center">sequence</th>
+                <th class="text-center">read-only</th>
+                <th class="text-center">root</th>
+                <th class="text-center">disabled</th>
+                <th>actions</th>
             </tr>
-
-        @empty
-
+            </thead>
+            <?php /*
+            <tfoot>
             <tr>
-                <td colspan="9">There are no links.</td>
+                <th>name</th>
+                <th class="text-center">professional</th>
+                <th class="text-center">personal</th>
+                <th class="text-center">sequence</th>
+                <th class="text-center">public</th>
+                <th class="text-center">read-only</th>
+                <th class="text-center">root</th>
+                <th class="text-center">disabled</th>
+                <th>actions</th>
             </tr>
+            </tfoot>
+            */ ?>
+            <tbody>
 
-        @endforelse
+            @forelse ($links as $link)
 
-        </tbody>
-    </table>
+                <tr>
+                    <td class="py-0">
+                        {{ $link->name }}
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $link->professional ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $link->personal ])
+                    </td>
+                    <td class="py-0">
+                        {{ $link->website }}
+                    </td>
+                    <td class="py-0">
+                        {{ $link->sequence }}
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $link->public ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $link->readonly ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $link->root ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $link->disabled ])
+                    </td>
+                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                        <form action="{{ route('admin.portfolio.link.destroy', $link->id) }}" method="POST">
 
-    {!! $links->links('vendor.pagination.bulma') !!}
+                            <a title="show" class="button is-small px-1 py-0"
+                               href="{{ route('admin.portfolio.link.show', $link->id) }}">
+                                <i class="fa-solid fa-list"></i>{{-- Show--}}
+                            </a>
+
+                            <a title="edit" class="button is-small px-1 py-0"
+                               href="{{ route('admin.portfolio.link.edit', $link->id) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                            </a>
+
+                            @if (!empty($link->url))
+                                <a title="url" class="button is-small px-1 py-0" href="{{ $link->url }}"
+                                   target="_blank">
+                                    <i class="fa-solid fa-external-link"></i>{{-- url--}}
+                                </a>
+                            @else
+                                <a title="url" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                    <i class="fa-solid fa-external-link"></i>{{-- url--}}
+                                </a>
+                            @endif
+
+                            @csrf
+                            @method('DELETE')
+                            <button title="delete" type="submit" class="button is-small px-1 py-0">
+                                <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+            @empty
+
+                <tr>
+                    <td colspan="9">There are no links.</td>
+                </tr>
+
+            @endforelse
+
+            </tbody>
+        </table>
+
+        {!! $links->links('vendor.pagination.bulma') !!}
+
+    </div>
 
 @endsection
