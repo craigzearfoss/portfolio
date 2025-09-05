@@ -14,7 +14,7 @@
 
 @section('content')
 
-    <div class="card">
+    <div class="card p-4">
 
         @include('admin.components.show-row', [
             'name'  => 'name',

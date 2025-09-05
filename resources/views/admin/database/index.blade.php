@@ -1,11 +1,11 @@
 @extends('admin.layouts.default', [
-    'title' => 'Resources',
+    'title' => 'Databases',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Resources' ],
+        [ 'name' => 'Databases' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'url' => route('admin.resource.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'url' => route('admin.database.create') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -17,11 +17,10 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th>type</th>
                 <th>name</th>
+                <th>property</th>
+                <th>title</th>
                 <th>icon</th>
-                <th>section</th>
-                <th>database</th>
                 <th class="text-center">front</th>
                 <th class="text-center">user</th>
                 <th class="text-center">admin</th>
@@ -36,15 +35,17 @@
             <?php /*
             <tfoot>
             <tr>
-                <th>type</th>
                 <th>name</th>
-                <th>database</th>
+                <th>property</th>
+                <th>title</th>
                 <th>icon</th>
-                <th>sequence</th>
                 <th class="text-center">front</th>
                 <th class="text-center">user</th>
                 <th class="text-center">admin</th>
+                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
+                <th class="text-center">read-only</th>
+                <th class="text-center">root</th>
                 <th class="text-center">disabled</th>
                 <th>actions</th>
             </tr>
@@ -52,61 +53,58 @@
             */ ?>
             <tbody>
 
-            @forelse ($resources as $resource)
+            @forelse ($databases as $database)
 
                 <tr>
                     <td class="py-0">
-                        {{ $resource->type }}
+                        {{ $database->name }}
                     </td>
                     <td class="py-0">
-                        {{ $resource->name }}
+                        {{ $database->property }}
                     </td>
                     <td class="py-0">
-                        @if (!empty($resource->icon))
+                        {{ $database->title }}
+                    </td>
+                    <td class="py-0">
+                        @if (!empty($database->icon))
                             <span class="text-xl">
-                                <i class="fa-solid {{ $resource->icon }}"></i>
+                                <i class="fa-solid {{ $database->icon }}"></i>
                             </span>
                         @else
                         @endif
                     </td>
-                    <td class="py-0">
-                        {{ $resource->section }}
-                    </td>
-                    <td class="py-0">
-                        {{ $resource->database['name'] }}
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $database->front ])
                     </td>
                     <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $resource->front ])
+                        @include('admin.components.checkmark', [ 'checked' => $database->user ])
                     </td>
                     <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $resource->user ])
+                        @include('admin.components.checkmark', [ 'checked' => $database->admin ])
                     </td>
                     <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $resource->admin ])
+                        {{ $database->sequence }}
                     </td>
                     <td class="py-0 text-center">
-                        {{ $resource->sequence }}
+                        @include('admin.components.checkmark', [ 'checked' => $database->public ])
                     </td>
                     <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $resource->public ])
+                        @include('admin.components.checkmark', [ 'checked' => $database->readonly ])
                     </td>
                     <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $resource->readonly ])
+                        @include('admin.components.checkmark', [ 'checked' => $database->root ])
                     </td>
                     <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $resource->root ])
-                    </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $resource->disabled ])
+                        @include('admin.components.checkmark', [ 'checked' => $database->disabled ])
                     </td>
                     <td class="py-0 text-nowrap">
-                        <form action="{{ route('admin.resource.destroy', $resource->id) }}" method="POST">
+                        <form action="{{ route('admin.database.destroy', $database->id) }}" method="POST">
 
-                            <a class="button is-small px-1 py-0" href="{{ route('admin.resource.show', $resource->id) }}">
+                            <a class="button is-small px-1 py-0" href="{{ route('admin.database.show', $database->id) }}">
                                 <i class="fa-solid fa-list"></i>{{-- Show--}}
                             </a>
 
-                            <a class="button is-small px-1 py-0" href="{{ route('admin.resource.edit', $resource->id) }}">
+                            <a class="button is-small px-1 py-0" href="{{ route('admin.database.edit', $database->id) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                             </a>
 
@@ -122,7 +120,7 @@
             @empty
 
                 <tr>
-                    <td colspan="14">There are no messages.</td>
+                    <td colspan="13">There are no messages.</td>
                 </tr>
 
             @endforelse
@@ -130,7 +128,7 @@
             </tbody>
         </table>
 
-        {!! $resources->links('vendor.pagination.bulma') !!}
+        {!! $databases->links('vendor.pagination.bulma') !!}
 
     </div>
 

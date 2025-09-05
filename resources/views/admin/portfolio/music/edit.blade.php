@@ -14,7 +14,7 @@
 
 @section('content')
 
-    <div class="card form-container">
+    <div class="card form-container p-4">
 
         <form action="{{ route('admin.portfolio.music.update', $music) }}" method="POST">
             @csrf

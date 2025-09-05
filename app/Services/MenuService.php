@@ -64,6 +64,13 @@ class MenuService
 
                 for ($i=0; $i<count($menu); $i++) {
                     if ($menu[$i]->database_property === 'db') {
+
+                        $menuItem = $this->createMenuItem();
+                        $menuItem->title  = 'Databases';
+                        $menuItem->link   = route('admin.database.index');
+                        $menuItem->active = 'admin.database.index' == Route::currentRouteName() ? true : false;
+                        $menu[$i]->children[] = $menuItem;
+
                         $menuItem = $this->createMenuItem();
                         $menuItem->title  = 'Resources';
                         $menuItem->link   = route('admin.resource.index');

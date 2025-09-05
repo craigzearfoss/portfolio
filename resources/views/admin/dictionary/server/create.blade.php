@@ -16,7 +16,7 @@
 
 @section('content')
 
-    <div class="card form-container">
+    <div class="card form-container p-4">
 
         <form action="{{ route('admin.dictionary.server.store') }}" method="POST">
             @csrf

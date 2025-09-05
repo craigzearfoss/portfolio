@@ -15,12 +15,12 @@
 
 @section('content')
 
-    <div class="card form-container">
+    <div class="card form-container p-4">
 
         <form action="{{ route('admin.user.store') }}" method="POST">
             @csrf
 
-            <div class="card">
+            <div class="card p-4">
                 <div class="card-body p-4">
 
                     @include('admin.components.form-hidden', [

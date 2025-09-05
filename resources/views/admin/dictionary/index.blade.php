@@ -10,7 +10,7 @@
 
 @section('content')
 
-    <div class="card">
+    <div class="card p-4">
 
         @include('admin.components.form-select', [
             'name'     => '',

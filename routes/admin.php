@@ -1,6 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DatabaseController;
+use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ResourceController;
+use App\Http\Controllers\Admin\UserController;
 
 use App\Http\Controllers\Admin\Career\IndexController as CareerController;
 use App\Http\Controllers\Admin\Career\ApplicationController as CareerApplicationController;
@@ -15,9 +21,6 @@ use App\Http\Controllers\Admin\Career\NoteController as CareerNoteController;
 use App\Http\Controllers\Admin\Career\ReferenceController as CareerReferenceController;
 use App\Http\Controllers\Admin\Career\ResumeController as CareerResumeController;
 use App\Http\Controllers\Admin\Career\SkillController as CareerSkillController;
-
-use App\Http\Controllers\Admin\IndexController;
-use App\Http\Controllers\Admin\MessageController;
 
 use App\Http\Controllers\Admin\Dictionary\IndexController as DictionaryController;
 use App\Http\Controllers\Admin\Dictionary\CategoryController as DictionaryCategoryController;
@@ -44,9 +47,6 @@ use App\Http\Controllers\Admin\Portfolio\RecipeIngredientController as Portfolio
 use App\Http\Controllers\Admin\Portfolio\RecipeStepController as PortfolioRecipeStepController;
 use App\Http\Controllers\Admin\Portfolio\VideoController as PortfolioVideoController;
 
-use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\ResourceController;
-use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -116,6 +116,7 @@ Route::prefix('admin/profile')->middleware('admin')->name('admin.profile.')->gro
 Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [IndexController::class, 'dashboard'])->name('dashboard');
     Route::resource('admin', AdminController::class);
+    Route::resource('database', DatabaseController::class);
     Route::resource('dictionary', DictionaryController::class);
     Route::resource('message', MessageController::class);
     Route::resource('resource', ResourceController::class);

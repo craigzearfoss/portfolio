@@ -16,13 +16,13 @@
 
 @section('content')
 
-    <div class="card form-container">
+    <div class="card form-container p-4">
 
         <form action="{{ route('admin.message.update', $message) }}" method="POST">
             @csrf
             @method('PUT')
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? $message->name,
                 'required'  => true,
@@ -30,7 +30,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'type'      => 'email',
                 'name'      => 'email',
                 'value'     => old('email') ??  $message->email,
@@ -39,7 +39,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'subject',
                 'value'     => old('subject') ??  $message->subject,
                 'required'  => true,
@@ -47,13 +47,13 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-textarea', [
+            @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'body',
                 'value'   => old('body') ??  $message->body,
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-button-submit', [
+            @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
                 'cancel_url' => route('admin.message.index')
             ])

@@ -1,18 +1,34 @@
 @php
-    $id = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
-    $type = $type ?? 'text';
-    $name = $name ?? 'name';
+    $name    = !empty($name)  ? $name : '#name#';
+    $id      = !empty($id) ? $id : ('input' . (!empty($name)  ? ucfirst(trim($name, '#')) : 'Name'));
+    $type    = !empty($type) ? $type : 'text';
+    $label   = !empty($label) ? $label : (!empty($name) ? $name : '#label#');
+    $value   = !empty($value) ? $value : '';
+    $class   = !empty($class) ? $class : '';
+    if (!empty($style)) {
+        $style = is_array($style) ? implode('; ', $style) . ';' : $style;
+    } else {
+        $style = '';
+    }
     $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'website', 'wikipedia']);
 @endphp
+
+@php
+    $id = !empty($id) ? $id : ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
+    $type = !empty($type) ? $type : 'text';
+    $name = !empty($name)  ? $name : 'name';
+    $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'website', 'wikipedia']);
+    $class = !empty($class) ? $class : '';
+@endphp
 <div class="field">
-    <label class="label">{{ $label ?? $name ?? '#label#' }}</label>
-    <div class="control {{ !empty($hasIcon) ? 'has-icons-left' : '' }}">
-        <input class="input {{ $class ?? '' }} @error('role') is-invalid @enderror"
+    <label class="label">{{ $label }}</label>
+    <div class="control {{ $hasIcon ? 'has-icons-left' : '' }}">
+        <input class="input {{ $class }} is-invalid @error('role') is-invalid @enderror"
                type="{{ $type }}"
                id="{{ $id }}"
                name="{{ $name }}"
-               value="{{ $value ?? '' }}"
-               @if (!empty($style))style="{{ is_array($style) ? implode('; ', $style) . ';' : $style }}" @endif
+               value="{{ $value }}"
+               style="{{ $style }}"
                @if (!empty($autocomplete))autocomplete="{{ $autocomplete }}" @endif
                @if (!empty($autofocus))autofocus="{{ $autofocus }}" @endif
                @if (!empty($disabled))disabled @endif

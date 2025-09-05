@@ -14,7 +14,7 @@
 
 @section('content')
 
-    <div class="card form-container">
+    <div class="card form-container p-4">
 
         <form action="{{ route('admin.portfolio.recipe.update', $recipe) }}" method="POST">
             @csrf

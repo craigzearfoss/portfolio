@@ -1,13 +1,13 @@
 @extends('admin.layouts.default', [
-    'title' => 'Edit Resource',
+    'title' => 'Edit Database',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Resources',       'url' => route('admin.resource.index') ],
+        [ 'name' => 'Databases',       'url' => route('admin.database.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.resource.show', $resource) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.resource.index') ],
+        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.database.show', $database) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.database.index') ],
     ],
     'errors' => $errors ?? [],
     'success' => session('success') ?? null,
@@ -18,29 +18,30 @@
 
     <div class="card form-container p-4">
 
-        <form action="{{ route('admin.resource.update', $resource) }}" method="POST">
+        <form action="{{ route('admin.database.update', $database) }}" method="POST">
             @csrf
             @method('PUT')
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'type',
-                'value'     => old('type') ?? $resource->type,
-                'required'  => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
-                'value'     => old('name') ?? $resource->name,
+                'value'     => old('name') ?? $database->name,
                 'unique'    => true,
                 'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'plural',
-                'value'     => old('plural') ?? $resource->plural,
+                'name'      => 'property',
+                'value'     => old('property') ?? $database->property,
+                'required'  => true,
+                'maxlength' => 50,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'title',
+                'value'     => old('title') ?? $database->title,
+                'required'  => true,
                 'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
@@ -49,7 +50,7 @@
                 'name'            => 'front',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('front') ?? $resource->front,
+                'checked'         => old('front') ?? $database->front,
                 'message'         => $message ?? '',
             ])
 
@@ -57,7 +58,7 @@
                 'name'            => 'user',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('user') ?? $resource->user,
+                'checked'         => old('user') ?? $database->user,
                 'message'         => $message ?? '',
             ])
 
@@ -65,30 +66,13 @@
                 'name'            => 'admin',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('admin') ?? $resource->admin,
+                'checked'         => old('admin') ?? $database->admin,
                 'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'section',
-                'value'     => old('section') ?? $resource->section,
-                'unique'    => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'     => 'resource_database_id',
-                'label'    => 'database',
-                'value'    => old('resource_db_id') ?? $resource->resource_db_id,
-                'required' => true,
-                'list'     => \App\Models\Database::listOptions(true, false),
-                'message'  => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
                 'name'      => 'icon',
-                'value'     => old('icon') ?? $resource->icon,
+                'value'     => old('icon') ?? $database->icon,
                 'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
@@ -96,7 +80,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'sequence',
-                'value'       => old('sequence') ?? $resource->sequence,
+                'value'       => old('sequence') ?? $database->sequence,
                 'min'         => 0,
                 'message'     => $message ?? '',
             ])
@@ -105,7 +89,7 @@
                 'name'            => 'public',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('public') ?? $resource->public,
+                'checked'         => old('public') ?? $database->public,
                 'message'         => $message ?? '',
             ])
 
@@ -114,7 +98,7 @@
                 'label'           => 'read-only',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('readonly') ?? $resource->readonly,
+                'checked'         => old('readonly') ?? $database->readonly,
                 'message'         => $message ?? '',
             ])
 
@@ -122,7 +106,7 @@
                 'name'            => 'root',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('root') ?? $resource->root,
+                'checked'         => old('root') ?? $database->root,
                 'message'         => $message ?? '',
             ])
 
@@ -130,13 +114,13 @@
                 'name'            => 'disabled',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? $resource->disabled,
+                'checked'         => old('disabled') ?? $database->disabled,
                 'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => route('admin.resource.index')
+                'cancel_url' => route('admin.database.index')
             ])
 
         </form>

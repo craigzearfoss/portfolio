@@ -16,7 +16,7 @@
 
     <div class="form">
 
-        <div class="card form-container">
+        <div class="card form-container p-4">
 
             <form action="{{ route('admin.career.resume.update', $resume) }}" method="POST">
                 @csrf
