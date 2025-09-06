@@ -14,9 +14,9 @@
                 <div class="level-item">
                     <a href="{{ route('front.about') }}">About</a>
                     <span class="mx-2"> | </span>
-                    <a href="{{ route('front.terms_and_conditions') }}">Terms & Conditions</a>
+                    <a href="{{ route('front.terms-and-conditions') }}">Terms & Conditions</a>
                     <span class="mx-2"> | </span>
-                    <a ref="{{ route('front.privacy_policy') }}">Privacy policy</a>
+                    <a href="{{ route('front.privacy-policy') }}">Privacy policy</a>
                     <span class="mx-2"> | </span>
                     <a href="{{ route('front.contact') }}">Contact</a>
                 </div>

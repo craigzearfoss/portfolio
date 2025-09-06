@@ -6,11 +6,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu();
     <div class="aside-tools">
         <div class="aside-tools-label">
 
-            @if (Auth::guard('admin'))
-                <a href="{{ route('admin.dashboard') }}">{{ config('app.name') }} Admin</a>
-            @else
-                <a href="{{ route('admin.index') }}">{{ config('app.name') }} Admin</a>
-            @endif
+            <a class="has-text-primary" href="{{ route('front.homepage') }}"><strong>{{ config('app.name') }}</strong></a>
 
         </div>
     </div>
@@ -20,43 +16,28 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu();
         <ul class="menu is-menu-main">
 
             <p class="menu-label pb-0 mb-0">
-                @if (!empty($menuItem->link))
-                    <a href="{{ $menuItem->link }}" class="has-text-white {{ $menuItem->active ? 'id-active' : '' }}">
-                        {{ $menuItem->title }}
-                    </a>
-                @else
-                    <a class="has-text-white {{ $menuItem->active ? 'id-active' : '' }}">
-                        {{ $menuItem->title }}
-                    </a>
-                @endif
+                <a @if (!empty($menuItem->link))href="{{ $menuItem->link }}" @endif
+                   class="has-text-white {{ $menuItem->active ? 'is-active' : '' }}"
+                >
+                    {{ $menuItem->title }}
+                </a>
             </p>
 
             <ul class="menu-list pl-2">
                 @foreach ($menuItem->children as $menuSubItem)
                     <li>
-                        @if (!empty($menuSubItem->link))
-                            <a href="{{ $menuSubItem->link }}" class="{{ $menuSubItem->active ? 'is-active' : '' }}">
-                                <div class="menu-item">
-                                    <span class="text-xl">
-                                        <i class="fa-solid {{ !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle' }}"></i>
-                                    </span>
-                                    <span class="menu-item-label">
-                                        {{ $menuSubItem->title }}
-                                    </span>
-                                </div>
-                            </a>
-                        @else
-                            <a class="{{ $menuSubItem->active ? 'is-active' : '' }}">
-                                <div class="menu-item">
-                                    <span class="text-xl">
-                                        <i class="fa-solid {{ !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle' }}"></i>
-                                    </span>
-                                    <span class="menu-item-label">
-                                        {{ $menuSubItem->title }}
-                                    </span>
-                                </div>
-                            </a>
-                        @endif
+                        <a @if (!empty($menuSubItem->link))href="{{ $menuSubItem->link }}"  @endif
+                            class="{{ $menuSubItem->active ? 'is-active' : '' }}"
+                        >
+                            <div class="menu-item">
+                                <span class="text-xl">
+                                    <i class="fa-solid {{ !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle' }}"></i>
+                                </span>
+                                <span class="menu-item-label">
+                                    {{ $menuSubItem->title }}
+                                </span>
+                            </div>
+                        </a>
                     </li>
                 @endforeach
             </ul>

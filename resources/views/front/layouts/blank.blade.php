@@ -19,8 +19,6 @@
 
     </section>
 
-    @include('front.components.footer')
-
 </div>
 
 </body>

@@ -12,18 +12,10 @@
     }
     $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'website', 'wikipedia']);
 @endphp
-
-@php
-    $id = !empty($id) ? $id : ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
-    $type = !empty($type) ? $type : 'text';
-    $name = !empty($name)  ? $name : 'name';
-    $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'website', 'wikipedia']);
-    $class = !empty($class) ? $class : '';
-@endphp
 <div class="field">
     <label class="label">{{ $label }}</label>
     <div class="control {{ $hasIcon ? 'has-icons-left' : '' }}">
-        <input class="input {{ $class }} is-invalid @error('role') is-invalid @enderror"
+        <input class="input {{ $class }} @error('role') is-invalid @enderror"
                type="{{ $type }}"
                id="{{ $id }}"
                name="{{ $name }}"

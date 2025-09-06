@@ -15,6 +15,8 @@
             'errors' => $errors ?? [],
         ])
 
+        @yield('content')
+
     </section>
 
 </div>

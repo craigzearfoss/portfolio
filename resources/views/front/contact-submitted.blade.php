@@ -1,3 +1,35 @@
+@extends('front.layouts.default', [
+    'title'    => 'Contact',
+    'subtitle' => null,
+    'breadcrumbs' => [
+        [ 'name' => 'Home', 'url' => route('front.homepage')],
+        [ 'name' => 'Contact']
+    ],
+    'buttons'  => [],
+    'errors'   => $errors ?? [],
+])
+
+@section('content')
+
+    <div class="card p-4">
+
+        <h2 class="title">Contact Us</h2>
+
+        <div class="column is-8">
+
+            <div class="is-centered">
+                <a class="is-size-6" href="{{ route("front.homepage") }}">
+                    Home
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+@endsection
+
+
 @extends('front.layouts.default')
 
 @section('content')

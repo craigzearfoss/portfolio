@@ -28,14 +28,14 @@ Route::name('front.')->group(function () {
     Route::get('/link/{slug}', [LinkController::class, 'show'])->name('link.show');
     Route::get('/music', [MusicController::class, 'index'])->name('music.index');
     Route::get('/music/{slug}', [MusicController::class, 'show'])->name('music.show');
-    Route::get('/privacy-policy', [IndexController::class, 'privacy_policy'])->name('privacy_policy');
+    Route::get('/privacy-policy', [IndexController::class, 'privacy_policy'])->name('privacy-policy');
     Route::get('/projects', [ProjectController::class, 'index'])->name('project.index');
     Route::get('/project/{slug}', [ProjectController::class, 'show'])->name('project.show');
     Route::get('/readings', [ReadingController::class, 'index'])->name('reading.index');
     Route::get('/reading/{slug}', [ReadingController::class, 'show'])->name('reading.show');
     Route::get('/recipes', [RecipeController::class, 'index'])->name('recipe.index');
     Route::get('/recipe/{slug}', [RecipeController::class, 'show'])->name('recipe.show');
-    Route::get('/terms-and-conditions', [IndexController::class, 'terms_and_conditions'])->name('terms_and_conditions');
+    Route::get('/terms-and-conditions', [IndexController::class, 'terms_and_conditions'])->name('terms-and-conditions');
     Route::get('/videos', [VideoController::class, 'index'])->name('video.index');
     Route::get('/video/{slug}', [VideoController::class, 'show'])->name('video.show');
 });

@@ -7,32 +7,37 @@
 
 <div id="app">
 
-    @include('admin.components.nav-top')
+    @include('front.components.nav-top')
 
-    @include('admin.components.nav-left')
+    @include('front.components.nav-left')
 
-    @include('admin.components.title-bar', [
+    @include('front.components.title-bar', [
         'title'       => $title ?? '#title#',
         'breadcrumbs' => $breadcrumbs ?? []
     ])
 
-    @include('admin.components.subtitle-bar', [
-        'title' => $title ?? '#title#'
-    ])
+    @if (!empty($subtitle) || !empty($buttons))
+        @include('front.components.subtitle-bar', [
+            'subtitle' => $subtitle,
+            'buttons'  => $buttons ?? []
+        ])
+    @endif
 
     <section class="is-main-section px-4 py-3">
 
-        @include('admin.components.messages', [
+        @include('front.components.messages', [
             'success'=> $success ?? null,
             'error'  => $error ?? null,
             'errors' => $errors ?? [],
         ])
 
-        @yield('content')
+        <div class="container">
+            @yield('content')
+        </div>
 
     </section>
 
-    @include('admin.components.footer')
+    @include('front.components.footer')
 
 </div>
 

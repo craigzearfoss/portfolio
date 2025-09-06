@@ -15,11 +15,7 @@
             'errors' => $errors ?? [],
         ])
 
-        @yield('content')
-
     </section>
-
-    @include('user.components.footer')
 
 </div>
 
