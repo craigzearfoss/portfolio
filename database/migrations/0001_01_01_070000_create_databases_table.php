@@ -16,12 +16,14 @@ return new class extends Migration
         Schema::create('databases', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
-            $table->string('property', 50);
-            $table->string('title', 100);
-            $table->string('icon', 50)->nullable();
-            $table->tinyInteger('front')->default(0);
+            $table->string('database', 50);
+            $table->string('tag', 50);
+            $table->string('title', 50);
+            $table->string('plural', 50);
+            $table->tinyInteger('guest')->default(0);
             $table->tinyInteger('user')->default(0);
             $table->tinyInteger('admin')->default(0);
+            $table->string('icon', 50)->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('readonly')->default(0);
@@ -35,11 +37,13 @@ return new class extends Migration
         $data = [
             [
                 'id'       => 1,
-                'name'     => config('app.database'),
-                'property' => 'db',
-                'title'    => '',
+                'name'     => 'system',
+                'database' => config('app.database'),
+                'tag'      => 'db',
+                'title'    => 'System',
+                'plural'   => 'Systems',
                 'icon'     => 'fa-cog',
-                'front'    => 0,
+                'guest'    => 0,
                 'user'     => 0,
                 'admin'    => 1,
                 'sequence' => 4000,
@@ -50,12 +54,14 @@ return new class extends Migration
             [
                 'id'       => 2,
                 'name'     => 'dictionary',     //config('app.database_career'),    //TODO: using config method brings back null?
-                'property' => 'dictionary_db',
+                'database' => 'dictionary',     //config('app.database_career'),    //TODO: using config method brings back null?
+                'tag'      => 'dictionary_db',
                 'title'    => 'Dictionary',
-                'icon'     => 'fa-book',
-                'front'    => 1,
+                'plural'   => 'Dictionaries',
+                'guest'    => 1,
                 'user'     => 1,
                 'admin'    => 1,
+                'icon'     => 'fa-book',
                 'sequence' => 1000,
                 'public'   => 1,
                 'disabled' => 0,
@@ -64,12 +70,14 @@ return new class extends Migration
             [
                 'id'       => 3,
                 'name'     => 'career',     //config('app.database_career'),    //TODO: using config method brings back null?
-                'property' => 'career_db',
+                'database' => 'career',     //config('app.database_career'),    //TODO: using config method brings back null?
+                'tag'      => 'career_db',
                 'title'    => 'Career',
-                'icon'     => 'fa-briefcase',
-                'front'    => 0,
+                'plural'   => 'Careers',
+                'guest'    => 0,
                 'user'     => 0,
                 'admin'    => 1,
+                'icon'     => 'fa-briefcase',
                 'sequence' => 2000,
                 'public'   => 1,
                 'disabled' => 0,
@@ -78,10 +86,12 @@ return new class extends Migration
             [
                 'id'       => 4,
                 'name'     => 'portfolio',  //config('app.database_portfolio'), //TODO: using config method brings back null?
-                'property' => 'portfolio_db',
+                'database' => 'portfolio',  //config('app.database_portfolio'), //TODO: using config method brings back null?
+                'tag'      => 'portfolio_db',
                 'title'    => 'Portfolio',
+                'plural'   => 'Portfolios',
                 'icon'     => 'fa-folder',
-                'front'    => 1,
+                'guest'    => 1,
                 'user'     => 1,
                 'admin'    => 1,
                 'sequence' => 3000,

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\DatabaseUpdateRequest;
 use App\Http\Requests\DatabaseStoreRequest;
 use App\Models\Database;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class DatabaseController extends Controller
+class DatabaseController extends BaseController
 {
     /**
      * Display a listing of databases.
@@ -20,7 +20,7 @@ class DatabaseController extends Controller
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $databases = Database::latest()->paginate($perPage);
 

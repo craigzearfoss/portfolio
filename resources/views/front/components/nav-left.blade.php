@@ -1,5 +1,5 @@
 @php
-$menuItems = (new \App\Services\MenuService())->getLeftMenu();
+$menuItems = (new \App\Services\MenuService())->getLeftMenu(\App\Services\PermissionService::USER_TYPE_GUEST);
 @endphp
 
 <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
@@ -34,7 +34,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu();
                                     <i class="fa-solid {{ !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle' }}"></i>
                                 </span>
                                 <span class="menu-item-label">
-                                    {{ $menuSubItem->title }}
+                                    {{ !empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title }}
                                 </span>
                             </div>
                         </a>

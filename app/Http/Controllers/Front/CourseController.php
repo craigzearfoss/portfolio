@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Course;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class CourseController extends Controller
+class CourseController extends BaseController
 {
     /**
      * Display a listing of courses.

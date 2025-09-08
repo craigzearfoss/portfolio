@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Services\MenuService;
-use Illuminate\Http\Request;
+use App\Services\PermissionService;
 
 class BaseController extends Controller
 {
-    protected $menuService;
+    protected $permissionService;
 
-    public function __construct(MenuService $menuService)
+    public function __construct(PermissionService $permissionService)
     {
-        $this->menuService = $menuService;
+        $this->permissionService = $permissionService;
     }
 }

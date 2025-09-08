@@ -25,10 +25,11 @@ class ResourceStoreRequest extends FormRequest
     {
         return [
             'database_id' => ['required', 'integer', 'in:' . Database::all()->pluck('id')->toArray()],
-            'type'        => ['required', 'string', 'max:50'],
-            'name'        => ['required', 'string', 'max:50'],
+            'name'        => ['required', 'string', 'max:50', 'unique:resources,name'],
+            'table'       => ['required', 'string', 'max:50', 'unique:resources,name'],
+            'title'       => ['required', 'string', 'max:50'],
             'plural'      => ['required', 'string', 'max:50'],
-            'front'       => ['integer', 'between:0,1'],
+            'guest'       => ['integer', 'between:0,1'],
             'user'        => ['integer', 'between:0,1'],
             'admin'       => ['integer', 'between:0,1'],
             'section'     => ['required', 'string', 'max:50'],

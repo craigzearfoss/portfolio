@@ -25,10 +25,11 @@ class ResourceUpdateRequest extends FormRequest
     {
         return [
             'database_id' => ['integer', 'in:' . Database::all()->pluck('id')->toArray()],
-            'type'        => ['string', 'max:50', 'filled'],
-            'name'        => ['string', 'max:50', 'filled'],
+            'name'        => ['string', 'max:50', 'unique:resources,name,'.$this->resources->id, 'filled'],
+            'table'       => ['string', 'max:50', 'unique:resources,table,'.$this->resources->id, 'filled'],
+            'title'       => ['string', 'max:50', 'filled'],
             'plural'      => ['string', 'max:50', 'filled'],
-            'front'       => ['integer', 'between:0,1'],
+            'guest'       => ['integer', 'between:0,1'],
             'user'        => ['integer', 'between:0,1'],
             'admin'       => ['integer', 'between:0,1'],
             'section'     => ['string', 'max:50'], 'filled',

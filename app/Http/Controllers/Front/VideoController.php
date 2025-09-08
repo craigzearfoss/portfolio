@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Video;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class VideoController extends Controller
+class VideoController extends BaseController
 {
     /**
      * Display a listing of videos.

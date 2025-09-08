@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Project;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class ProjectController extends Controller
+class ProjectController extends BaseController
 {
     /**
      * Display a listing of projects.

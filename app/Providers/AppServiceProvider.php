@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\MenuService;
+use App\Services\PermissionService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,8 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(MenuService::class, function ($app) {
-            return new MenuService();
+        $this->app->singleton(PermissionService::class, function ($app) {
+            return new PermissionService();
         });
     }
 

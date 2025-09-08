@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Reading;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class ReadingController extends Controller
+class ReadingController extends BaseController
 {
     /**
      * Display a listing of readings.

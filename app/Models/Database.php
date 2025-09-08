@@ -19,9 +19,11 @@ class Database extends Model
      */
     protected $fillable = [
         'name',
-        'property',
+        'database',
+        'tag',
         'title',
-        'front',
+        'plural',
+        'guest',
         'user',
         'admin',
         'icon',

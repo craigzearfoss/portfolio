@@ -2,21 +2,10 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\MessageStoreRequest;
-use App\Http\Requests\UserStoreRequest;
-use App\Mail\ResetPassword;
-use App\Mail\VerifyEmail;
-use App\Models\Message;
-use App\Models\User;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\BaseController;
 use Illuminate\View\View;
 
-class IndexController extends Controller
+class IndexController extends BaseController
 {
     public function about(): View
     {

@@ -2,136 +2,355 @@
 
 namespace App\Services;
 
-use App\Models\Database;
 use App\Models\Resource;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use stdClass;
 
 class MenuService
 {
-    public function getLeftMenu()
+    /**
+     * Returns the array of items for the left nav menu.
+     *
+     * @param string|null $userType
+     * @return array
+     * @throws \Exception
+     */
+    public function getLeftMenu(string|null $userType = null): array
     {
+        // Verify the user type.
+        if (empty($userType)) {
+            $userType = PermissionService::currentUserType();
+        }
+        if (!in_array($userType, PermissionService::USER_TYPES)) {
+            throw new \Exception('Invalid current user type');
+        }
+
+        // Get the name of the current route.
+        $currentRouteName = Route::currentRouteName();
+
+        // Create the array of menu items.
         $menu = [];
-        foreach (Database::orderBy('sequence', 'asc')->get()->all() as $database) {
-            if (!empty($database->resources)) {
-
-                // Create menu item.
-                $routeName = 'admin.'.$database->name.'.index';
-
-                $menuItem = $this->createMenuItem($database);
-                if ($database->property === 'db') {
-                    $menuItem->title = 'System';
-
-                } else {
-                    $menuItem->link  = route($routeName);
-                }
-                $menuItem->active = $routeName == Route::currentRouteName() ? true : false;
-
-                // Add children to menu item.
-                foreach ($database->resources as $resource) {
-
-                    $routeName = $database->property !== 'db'
-                        ? 'admin.'.$database->name.'.'.$resource->type.'.index'
-                        : 'admin.'.$resource->type.'.index';
-
-                    $menuSubItem = $this->createMenuItem($database, $resource);
-                    $menuSubItem->link    = route($routeName);
-                    $menuSubItem->active = $routeName == Route::currentRouteName() ? true : false;
-                    $menuItem->children[] = $menuSubItem;
-                }
-
-                // Add menu item to menu array.
-                $menu[] = $menuItem;
+        $currentDatabaseName = null;
+        $i = -1;
+        foreach ((new Resource())->bySequence($userType) as $resource) {
+            if ($resource->database['name'] !== $currentDatabaseName) {
+                $currentDatabaseName = $resource->database['name'];
+                $i++;
+                $menu[$i] = $this->databaseItem($resource->database, $userType, $currentRouteName);
+            } else {
+                $menu[$i]->children[] = $this->resourceItem($resource, $userType, $currentRouteName);
             }
         }
 
         if (Auth::guard('admin')->check()) {
 
-            $menuItem = $this->createMenuItem();
-            $menuItem->title  = 'Profile';
-            $menuItem->link   = route('admin.profile.show');
-            $menuItem->active = 'admin.profile.show' == Route::currentRouteName() ? true : false;
-            $menu[] = $menuItem;
+            /*
+            $menu[] = $this->menuItem(
+                [ 'title' => 'My Profile', 'route'    => 'admin.profile.show' ],
+                $currentRouteName
+            );
+            */
 
-            $menuItem = $this->createMenuItem();
-            $menuItem->title  = 'Change Password';
-            $menuItem->link   = route('admin.profile.change-password');
-            $menuItem->active = 'admin.profile.change-password' == Route::currentRouteName() ? true : false;
-            $menu[] = $menuItem;
+            $menu[] = $this->menuItem(
+                [ 'title'=> 'Change Password', 'route' => 'admin.profile.change-password' ],
+                $currentRouteName
+            );
 
-            $menuItem = $this->createMenuItem();
-            $menuItem->title = 'Logout';
-            $menuItem->link  = route('admin.logout');
-            $menu[] = $menuItem;
+            $menu[] = $this->menuItem(
+                [ 'title'=> 'Logout', 'route' => 'admin.logout' ],
+                $currentRouteName
+            );
 
             if (Auth::guard('admin')->user()->root) {
 
                 for ($i=0; $i<count($menu); $i++) {
-                    if ($menu[$i]->database_property === 'db') {
+                    if (property_exists($menu[$i],'tag') && ($menu[$i]->tag === 'db')) {
 
-                        $menuItem = $this->createMenuItem();
-                        $menuItem->title  = 'Databases';
-                        $menuItem->link   = route('admin.database.index');
-                        $menuItem->active = 'admin.database.index' == Route::currentRouteName() ? true : false;
-                        $menu[$i]->children[] = $menuItem;
+                        $menu[$i]->children[] = $this->menuItem(
+                            [ 'title' => 'Databases', 'route'    => 'admin.database.index' ],
+                            $currentRouteName
+                        );
 
-                        $menuItem = $this->createMenuItem();
-                        $menuItem->title  = 'Resources';
-                        $menuItem->link   = route('admin.resource.index');
-                        $menuItem->active = 'admin.resource.index' == Route::currentRouteName() ? true : false;
-                        $menu[$i]->children[] = $menuItem;
+                        $menu[$i]->children[] = $this->menuItem(
+                            [ 'title' => 'Resources', 'route'    => 'admin.resource.index' ],
+                            $currentRouteName
+                        );
                     }
                 }
             }
 
         } elseif (Auth::guard('web')->check()) {
 
-            $menuItem = $this->createMenuItem();
-            $menuItem->title  = 'Profile';
-            $menuItem->link   = route('profile.show');
-            $menuItem->active = $routeName == Route::currentRouteName() ? true : false;
-            $menu[] = $menuItem;
+            $menu[] = $this->menuItem(
+                [ 'title'=> 'My Profile', 'route' => 'user.profile.show' ],
+                $currentRouteName
+            );
+
+            $menu[] = $this->menuItem(
+                [ 'title'=> 'Logout', 'route' => 'user.logout' ],
+                $currentRouteName
+            );
 
         } else {
 
+            $menu[] = $this->menuItem(
+                [ 'title'=> 'User Login', 'route' => 'user.login' ],
+                $currentRouteName
+            );
+
+            $menu[] = $this->menuItem(
+                [ 'title'=> 'Admin Login', 'route' => 'admin.login' ],
+                $currentRouteName
+            );
+
         }
-//dd($menu);
+
         return $menu;
     }
 
-    public function getTopMenu()
+    /**
+     * Returns the array of items for the left nav menu.
+     *
+     * @param string|null $userType
+     * @return array
+     * @throws \Exception
+     */
+    public function getTopMenu(string|null $userType = null): array
     {
+        // Verify the user type.
+        if (empty($userType)) {
+            $userType = PermissionService::currentUserType();
+        }
+        if (!in_array($userType, PermissionService::USER_TYPES)) {
+            throw new \Exception('Invalid current user type');
+        }
 
+        // Get the name of the current route.
+        $currentRouteName = Route::currentRouteName();
+
+        // Create the array of menu items.
+        $menu = [];
+        $currentDatabaseName = null;
+        $i = -1;
+        foreach ((new Resource())->bySequence($userType) as $resource) {
+            if ($resource->database['name'] !== $currentDatabaseName) {
+                $currentDatabaseName = $resource->database['name'];
+                $i++;
+                $menu[$i] = $this->databaseItem($resource->database, $userType, $currentRouteName);
+            } else {
+                $menu[$i]->children[] = $this->resourceItem($resource, $userType, $currentRouteName);
+            }
+        }
+
+        if (Auth::guard('admin')->check()) {
+
+            $admin = Auth::guard('admin')->user();
+
+            // Create user dropdown menu.
+            $i = count($menu);
+            $menu[$i] = $this->menuItem(
+                [ 'name' => 'user-dropdown', 'title' => $admin->username ],
+                $currentRouteName
+            );
+            $menu[$i]->thumbnail = Auth::guard('admin')->user()->thumbnail ?? null;
+
+            $menu[$i]->children[] = $this->menuItem(
+                [
+                    'title' => 'Profile',
+                    'route' => 'admin.profile.show',
+                    'icon'  => 'fa-user'
+                ],
+                $currentRouteName
+            );
+
+            /*
+            $menu[$i]->children[] = $this->menuItem(
+                [
+                    'title' => 'Change Password',
+                    'route' => 'admin.profile.change-password',
+                    'icon'  => 'fa-lock'
+                ],
+                $currentRouteName
+            );
+            */
+
+            $menu[$i]->children[] = $this->menuItem(
+                [
+                    'title' => 'Logout',
+                    'route' => 'admin.logout',
+                    'icon'  => 'fa-sign-out'
+                ],
+                $currentRouteName
+            );
+
+            if (Auth::guard('admin')->user()->root) {
+
+                for ($i=0; $i<count($menu); $i++) {
+                    if (property_exists($menu[$i],'tag') && ($menu[$i]->tag === 'db')) {
+
+                        $menu[$i]->children[] = $this->menuItem(
+                            [ 'title' => 'Databases', 'route'    => 'admin.database.index' ],
+                            $currentRouteName
+                        );
+
+                        $menu[$i]->children[] = $this->menuItem(
+                            [ 'title' => 'Resources', 'route'    => 'admin.resource.index' ],
+                            $currentRouteName
+                        );
+                    }
+                }
+            }
+
+        } elseif (Auth::guard('web')->check()) {
+
+            $menu[] = $this->menuItem(
+                [ 'title'=> 'Profile', 'route' => 'user.profile.show' ],
+                $currentRouteName
+            );
+
+            $menu[] = $this->menuItem(
+                [ 'title'=> 'Logout', 'route' => 'user.logout' ],
+                $currentRouteName
+            );
+
+        } else {
+
+            $menu[] = $this->menuItem(
+                [ 'title'=> 'User Login', 'route' => 'user.login' ],
+                $currentRouteName
+            );
+
+            $menu[] = $this->menuItem(
+                [ 'title'=> 'Admin Login', 'route' => 'admin.login' ],
+                $currentRouteName
+            );
+
+        }
+
+        return $menu;
     }
 
-    protected function createMenuItem($database = null, $resource = null)
+    /**
+     * Returns the menu item for a database.
+     *
+     * @param array $database
+     * @param string $userType
+     * @param string $currentRouteName
+     * @return stdClass
+     */
+    public function databaseItem(array $database, string $userType, string $currentRouteName): stdClass
     {
+        $routePrefix = in_array($userType, [PermissionService::USER_TYPE_GUEST]) ? '' : $userType . '.';
+
         $menuItem = new stdClass();
-        $menuItem->database_id       = $database->id ?? null;
-        $menuItem->database_name     = $database->name ?? null;
-        $menuItem->database_property = $database->property ?? null;
-        $menuItem->title             = $database->title ?? '';
-        $menuItem->icon              = $database->icon ?? null;
-        $menuItem->sequence          = $database->sequence ?? 0;
-        $menuItem->public            = $database->public ?? 1;
-        $menuItem->readonly          = $database->readonly ?? 0;
-        $menuItem->root              = $database->root ?? 0;
-        $menuItem->disabled          = $database->disabled ?? 0;
-        $menuItem->link              = null;
-        $menuItem->active            = false;
+        $menuItem->id                = $database['id'] ?? null;
+        $menuItem->name              = $database['name'] ?? null;
+        $menuItem->database          = $database['database'] ?? null;
+        $menuItem->table             = null;
+        $menuItem->tag               = $database['tag'] ?? null;
+        $menuItem->title             = $database['title'] ?? '';
+        $menuItem->plural            = $database['plural'] ?? '';
+        $menuItem->route             = $routePrefix . $database['name'] . '.index';
+        $menuItem->link              = Route::has($menuItem->route) ? Route($menuItem->route) : null;
+        $menuItem->active            = $menuItem->route == $currentRouteName;
+        $menuItem->guest             = $database['guest'] ?? 0;
+        $menuItem->user              = $database['user'] ?? 0;
+        $menuItem->admin             = $database['admin'] ?? 0;
+        $menuItem->icon              = $database['icon'] ?? null;
+        $menuItem->sequence          = $database['sequence'] ?? 0;
+        $menuItem->public            = $database['public'] ?? 0;
+        $menuItem->readonly          = $database['readonly'] ?? 0;
+        $menuItem->root              = $database['root'] ?? 0;
+        $menuItem->disabled          = $database['disabled'] ?? 0;
+        $menuItem->admin_id          = $database['admin_id'] ?? null;
         $menuItem->children          = [];
 
-        if (!empty($resource)) {
-            $menuItem->title    = $resource->name ?? $menuItem->title;
-            $menuItem->icon     = $resource->icon ?? $menuItem->icon;
-            $menuItem->sequence = $resource->sequence ?? $menuItem->sequence;
-            $menuItem->public   = $resource->public ?? $menuItem->public;
-            $menuItem->readonly = $resource->readonly ?? $menuItem->readonly;
-            $menuItem->root     = $resource->root ?? $menuItem->root;
-            $menuItem->disabled = $resource->disabled ?? $menuItem->disabled;
-        }
+        return $menuItem;
+    }
+
+    /**
+     * Returns the menu item for a resource.
+     * *
+     * @param Resource $resource
+     * @param string $userType
+     * @param string $currentRouteName
+     * @return stdClass
+     */
+    public function resourceItem(Resource $resource, string $userType, string $currentRouteName): stdClass
+    {
+        $routePrefix = in_array($userType, [PermissionService::USER_TYPE_GUEST]) ? '' : $userType . '.';
+
+        $menuItem = new stdClass();
+        $menuItem->id                = $resource->id ?? null;
+        $menuItem->name              = $resource->name ?? null;
+        $menuItem->database          = $resource->database ?? null;
+        $menuItem->table             = $resource->table ?? null;
+        $menuItem->tag               = null;
+        $menuItem->title             = $resource->title ?? '';
+        $menuItem->plural            = $resource->plural ?? '';
+        $menuItem->route             = $routePrefix . $resource['name'] . '.index';
+        $menuItem->link              = Route::has($menuItem->route) ? Route($menuItem->route) : null;
+        $menuItem->active            = $menuItem->route == $currentRouteName;
+        $menuItem->guest             = $resource->guest ?? 0;
+        $menuItem->user              = $resource->user ?? 0;
+        $menuItem->admin             = $resource->admin ?? 0;
+        $menuItem->icon              = $resource->icon ?? null;
+        $menuItem->sequence          = $resource->sequence ?? 0;
+        $menuItem->public            = $resource->public ?? 0;
+        $menuItem->readonly          = $resource->readonly ?? 0;
+        $menuItem->root              = $resource->root ?? 0;
+        $menuItem->disabled          = $resource->disabled ?? 0;
+        $menuItem->admin_id          = $resource->admin ?? null;
+        $menuItem->db_id             = $resource->database['id'] ?? null;
+        $menuItem->db_name           = $resource->database['name'] ?? null;
+        $menuItem->db_database       = $resource->database['database'] ?? null;
+        $menuItem->db_tag            = $resource->database['tag'] ?? null;
+        $menuItem->db_title          = $resource->database['title'] ?? null;
+        $menuItem->db_plural         = $resource->database['plural'] ?? null;
+        $menuItem->children          = [];
+
+        return $menuItem;
+    }
+
+
+    /**
+     * Returns a menu item.
+     * *
+     * @param array $data
+     * @param string $currentRouteName
+     * @return stdClass
+     */
+    public function menuItem(array $data, string $currentRouteName): stdClass
+    {
+        $menuItem = new stdClass();
+        $menuItem->id                = $data['id'] ?? null;
+        $menuItem->name              = $data['name'] ?? null;
+        $menuItem->database          = $data['database'] ?? null;
+        $menuItem->table             = $data['table'] ?? null;
+        $menuItem->tag               = $data['tag'] ?? null;
+        $menuItem->title             = $data['title'] ?? '';
+        $menuItem->plural            = $data['plural'] ?? '';
+        $menuItem->route             = $data['route'] ?? null;
+        $menuItem->link              = Route::has($menuItem->route) ? Route($menuItem->route) : null;
+        $menuItem->active            = !empty($menuItem->route) && ($menuItem->route == $currentRouteName);
+        $menuItem->guest             = $data['guest'] ?? 0;
+        $menuItem->user              = $data['user'] ?? 0;
+        $menuItem->admin             = $data['admin'] ?? 0;
+        $menuItem->icon              = $data['icon'] ?? null;
+        $menuItem->sequence          = $data['sequence'] ?? 0;
+        $menuItem->public            = $data['public'] ?? 0;
+        $menuItem->readonly          = $data['readonly'] ?? 0;
+        $menuItem->root              = $data['root'] ?? 0;
+        $menuItem->disabled          = $data['disabled'] ?? 0;
+        $menuItem->admin_id          = $data['admin'] ?? null;
+        $menuItem->db_id             = $data['db_id'] ?? null;
+        $menuItem->db_name           = $data['db_name'] ?? null;
+        $menuItem->db_database       = $data['db_database'] ?? null;
+        $menuItem->db_tag            = $data['db_tag'] ?? null;
+        $menuItem->db_title          = $data['db_title'] ?? null;
+        $menuItem->db_plural         = $data['db_plural'] ?? null;
+        $menuItem->children          = $data['children'] ?? [];
 
         return $menuItem;
     }

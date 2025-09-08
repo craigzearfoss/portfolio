@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class RecipeController extends Controller
+class RecipeController extends BaseController
 {
     /**
      * Display a listing of recipes.

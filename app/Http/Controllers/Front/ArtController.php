@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Art;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class ArtController extends Controller
+class ArtController extends BaseController
 {
     /**
      * Display a listing of art.

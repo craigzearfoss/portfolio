@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Certification;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class CertificationController extends Controller
+class CertificationController extends BaseController
 {
     /**
      * Display a listing of certifications.

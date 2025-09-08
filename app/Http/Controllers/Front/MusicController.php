@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
-use App\Models\Portfolio\Art;
+use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Music;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class MusicController extends Controller
+class MusicController extends BaseController
 {
     /**
      * Display a listing of music.

@@ -23,9 +23,11 @@ class DatabaseUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['string', 'max:50', 'filled'],
-            'property'    => ['string', 'max:50', 'filled'],
-            'title'       => ['string', 'max:100'], 'filled',
+            'name'        => ['string', 'max:50', 'unique:databases,name,'.$this->databases->id, 'filled'],
+            'database'    => ['string', 'max:50', 'unique:databases,database,'.$this->databases->id, 'filled'],
+            'tag'         => ['string', 'max:50', 'filled'],
+            'title'       => ['string', 'max:50', 'filled'],
+            'plural'      => ['string', 'max:50', 'filled'],
             'front'       => ['integer', 'between:0,1'],
             'user'        => ['integer', 'between:0,1'],
             'admin'       => ['integer', 'between:0,1'],

@@ -1,5 +1,16 @@
 <?php
 
+
+use App\Http\Controllers\Admin\Dictionary\IndexController as DictionaryController;
+use App\Http\Controllers\Admin\Dictionary\CategoryController as DictionaryCategoryController;
+use App\Http\Controllers\Admin\Dictionary\DatabaseController as DictionaryDatabaseController;
+use App\Http\Controllers\Admin\Dictionary\FrameworkController as DictionaryFrameworkController;
+use App\Http\Controllers\Admin\Dictionary\LanguageController as DictionaryLanguageController;
+use App\Http\Controllers\Admin\Dictionary\LibraryController as DictionaryLibraryController;
+use App\Http\Controllers\Admin\Dictionary\OperatingSystemController as DictionaryOperatingSystemController;
+use App\Http\Controllers\Admin\Dictionary\ServerController as DictionaryServerController;
+use App\Http\Controllers\Admin\Dictionary\StackController as DictionaryStackController;
+
 use App\Http\Controllers\Front\ArtController;
 use App\Http\Controllers\Front\CertificationController;
 use App\Http\Controllers\Front\CourseController;
@@ -39,3 +50,16 @@ Route::name('front.')->group(function () {
     Route::get('/videos', [VideoController::class, 'index'])->name('video.index');
     Route::get('/video/{slug}', [VideoController::class, 'show'])->name('video.show');
 });
+
+Route::prefix('dictionary')->name('dictionary.')->group(function () {
+    Route::get('/', [DictionaryController::class, 'index'])->name('index');
+    Route::resource('category', DictionaryCategoryController::class)->parameter('category', 'category');
+    Route::resource('database', DictionaryDatabaseController::class)->parameter('database', 'database');
+    Route::resource('framework', DictionaryFrameworkController::class)->parameter('framework', 'framework');
+    Route::resource('language', DictionaryLanguageController::class)->parameter('language', 'language');
+    Route::resource('library', DictionaryLibraryController::class)->parameter('library', 'library');
+    Route::resource('operating-system', DictionaryOperatingSystemController::class)->parameter('operating-system', 'operating_system');
+    Route::resource('server', DictionaryServerController::class)->parameter('server', 'server');
+    Route::resource('stack', DictionaryStackController::class)->parameter('stack', 'stack');
+});
+
