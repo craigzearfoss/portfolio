@@ -57,7 +57,7 @@ class Database extends Model
             $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
         }
 
-        foreach (Database::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
+        foreach (Database::select('id', 'database')->orderBy('database', 'asc')->get() as $row) {
             $options[$nameAsKey ? $row->name : $row->id ] = $row->name;
         }
 

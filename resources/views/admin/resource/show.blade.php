@@ -32,7 +32,6 @@
             'value' => $resource->table
         ])
 
-
         @include('admin.components.show-row', [
             'name'  => 'title',
             'value' => $resource->title
