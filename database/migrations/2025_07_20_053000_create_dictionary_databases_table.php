@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Dictionary\Database;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -77,7 +78,7 @@ return new class extends Migration
             [ 'id' => 37, 'full_name' => 'other',                    'name' => 'other',              'slug' => 'other',                    'abbreviation' => null,        'open_source' => 0, 'proprietary' => 0, 'owner' => null,               'link' => null,                                                            'wikipedia' => null                                                               ],
         ];
 
-        \App\Models\Dictionary\Database::insert($data);
+        Database::insert($data);
     }
 
     /**

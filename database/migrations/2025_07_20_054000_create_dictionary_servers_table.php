@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Dictionary\Server;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -56,7 +57,8 @@ return new class extends Migration
             [ 'id' => 16,  'full_name' => 'Windows Server',                'name' => 'Windows Server', 'slug' => 'windows-server',            'abbreviation' => null,   'open_source' => 0, 'proprietary' => 1, 'owner' => 'Microsoft', 'link' => 'https://www.microsoft.com/en-us/windows-server',              'wikipedia' => 'https://en.wikipedia.org/wiki/Windows_Server'                ],
             [ 'id' => 17,  'full_name' => 'other',                         'name' => 'other',          'slug' => 'other',                     'abbreviation' => null,   'open_source' => 0, 'proprietary' => 0, 'owner' => null,        'link' => null,                                                          'wikipedia' => null                                                          ],
         ];
-        \App\Models\Dictionary\Server::insert($data);
+
+        Server::insert($data);
     }
 
     /**

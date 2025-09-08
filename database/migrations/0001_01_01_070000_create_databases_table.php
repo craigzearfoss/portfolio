@@ -100,6 +100,7 @@ return new class extends Migration
                 'admin_id' => 1,
             ],
         ];
+
         Database::insert($data);
     }
 

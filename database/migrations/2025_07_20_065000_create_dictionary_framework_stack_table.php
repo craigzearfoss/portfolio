@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Dictionary\FrameworkStack;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -29,7 +30,8 @@ return new class extends Migration
             ['framework_id' => 50, 'stack_id' => 8],
             ['framework_id' => 54, 'stack_id' => 8],
         ];
-        \App\Models\Dictionary\FrameworkStack::insert($data);
+
+        FrameworkStack::insert($data);
     }
 
     /**

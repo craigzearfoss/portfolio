@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Dictionary\Language;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -119,7 +120,8 @@ return new class extends Migration
             [ 'id' => 78, 'full_name' => 'Perl',                                          'name' => 'Perl',         'slug' => 'perl',                     'abbreviation' => null,      'open_source' => 0, 'proprietary' => 0, 'compiled' => 0, 'owner' => null,         'link' => 'https://www.perl.org/',                                                                                                              'wikipedia' => 'https://en.wikipedia.org/wiki/Perl'                              ],
             [ 'id' => 79, 'full_name' => 'other',                                         'name' => 'other',        'slug' => 'other',                    'abbreviation' => null,      'open_source' => 0, 'proprietary' => 0, 'compiled' => 0, 'owner' => null,         'link' => null,                                                                                                                                 'wikipedia' => null                                                              ],
         ];
-        \App\Models\Dictionary\Language::insert($data);
+
+        Language::insert($data);
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Dictionary\Library;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -73,7 +74,8 @@ return new class extends Migration
             [ 'id' => 33,  'name' => 'Xstate',                       'full_name' => 'Xstate',                       'slug' => 'xstate',                       'abbreviation' => null, 'open_source' => 0, 'proprietary' => 0, 'owner' => null,        'link' => 'https://xstate.js.org/',                                             'wikipedia' => null                                                             ],
             [ 'id' => 34,  'name' => 'other',                        'full_name' => 'other',                        'slug' => 'other',                        'abbreviation' => null, 'open_source' => 0, 'proprietary' => 0, 'owner' => null,        'link' => null,                                                                 'wikipedia' => null                                                             ],
         ];
-        \App\Models\Dictionary\Library::insert($data);
+
+        Library::insert($data);
     }
 
     /**

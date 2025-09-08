@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Dictionary\Stack;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -79,7 +80,8 @@ return new class extends Migration
             [ 'id' => 39, 'full_name' => 'XRX',           'name' => 'XRX',           'slug' => 'xrx',           'abbreviation' => 'XRX',   'link' => '',                                        'wikipedia' => null                                                                           ],
             [ 'id' => 40, 'full_name' => 'other',         'name' => 'other',         'slug' => 'other',         'abbreviation' => null,    'link' => '',                                        'wikipedia' => null                                                                           ],
         ];
-        \App\Models\Dictionary\Stack::insert($data);
+
+        Stack::insert($data);
     }
 
     /**

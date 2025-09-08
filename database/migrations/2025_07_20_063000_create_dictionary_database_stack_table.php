@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Dictionary\DatabaseStack;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,7 +24,8 @@ return new class extends Migration
             ['database_id' => 18, 'stack_id' => 8],
             ['database_id' => 22, 'stack_id' => 8],
         ];
-        \App\Models\Dictionary\DatabaseStack::insert($data);
+
+        DatabaseStack::insert($data);
     }
 
     /**

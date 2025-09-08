@@ -103,6 +103,7 @@ return new class extends Migration
                 'sequence'    => 700,
             ],
         ];
+
         DictionarySection::insert($data);
     }
 

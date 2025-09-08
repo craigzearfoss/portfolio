@@ -89,6 +89,7 @@ return new class extends Migration
                 'public'   => 1,
             ],
         ];
+
         App\Models\Portfolio\Academy::insert($data);
     }
 

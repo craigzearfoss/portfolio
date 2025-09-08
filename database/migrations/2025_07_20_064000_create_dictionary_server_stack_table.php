@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Dictionary\ServerStack;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,7 +23,8 @@ return new class extends Migration
         $data = [
             ['server_id' => 1, 'stack_id' => 8],
         ];
-        \App\Models\Dictionary\ServerStack::insert($data);
+
+        ServerStack::insert($data);
     }
 
     /**

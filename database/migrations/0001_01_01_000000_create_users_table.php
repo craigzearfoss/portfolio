@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('username', 200)->unique();
             $table->string('name');
             $table->string('title', 100)->nullable();
             $table->string('street')->nullable();
@@ -58,12 +59,26 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
 
-        User::insert([
-            'name' => 'Sample User',
-            'email' => 'user@gmail.com',
-            'password' => Hash::make('changeme'),
-            'token' => ''
-        ]);
+        $data = [
+            [
+                'id'       => 1,
+                'username' => 'sample-user',
+                'name'     => 'Sample User',
+                'email'    => 'user@gmail.com',
+                'password' => Hash::make('changeme'),
+                'token'    => ''
+            ],
+            [
+                'id'       => 2,
+                'username' => 'demo-user',
+                'name'     => 'Demo User',
+                'email'    => 'demo-user@gmail.com',
+                'password' => Hash::make('changeme'),
+                'token'    => '',
+            ],
+        ];
+
+        User::insert($data);
     }
 
     /**

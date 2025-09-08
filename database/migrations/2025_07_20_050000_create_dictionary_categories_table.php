@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Dictionary\Category;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -75,7 +76,8 @@ return new class extends Migration
             [ 'id' => 35, 'full_name' => 'vulnerability',     'name' => 'vulnerability',    'slug' => 'vulnerability',    'abbreviation' => null ],
             [ 'id' => 36, 'full_name' => 'other',             'name' => 'other',            'slug' => 'other',            'abbreviation' => null ],
         ];
-        \App\Models\Dictionary\Category::insert($data);
+
+        Category::insert($data);
     }
 
     /**

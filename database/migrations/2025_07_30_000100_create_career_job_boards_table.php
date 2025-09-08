@@ -45,6 +45,7 @@ return new class extends Migration
             [ 'id' => 11, 'name' => 'VirtualVocations', 'slug' => 'virtualvocations', 'link' => 'https://www.virtualvocations.com/' ],
             [ 'id' => 12, 'name' => 'ZipRecruiter',     'slug' => 'ziprecruiter',     'link' => 'https://ziprecruiter.com/' ],
         ];
+
         App\Models\Career\JobBoard::insert($data);
     }
 

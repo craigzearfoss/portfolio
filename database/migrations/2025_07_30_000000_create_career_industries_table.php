@@ -54,6 +54,7 @@ return new class extends Migration
             [ 'id' => 19, 'name' => 'Utilities',                          'slug' => 'utilities',                            'abbreviation' => 'UT',   'sequence' => 18 ],
             [ 'id' => 20, 'name' => 'Wholesale & Distribution',           'slug' => 'wholesale-and-distribution',           'abbreviation' => 'WD',   'sequence' => 19 ],
         ];
+
         App\Models\Career\Industry::insert($data);
     }
 

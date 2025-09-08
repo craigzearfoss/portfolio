@@ -135,6 +135,7 @@ return new class extends Migration
             ['id'=> 99,  'full_name' => 'bread (potato)',                      'name' => 'potato bread',                     'slug' => 'potato-bread'],
             ['id'=> 100, 'full_name' => 'bread (white)',                       'name' => 'white bread',                      'slug' => 'white-bread'],
         ];
+
         Ingredient::insert($data);
 
         $data = [
@@ -239,6 +240,7 @@ return new class extends Migration
             ['id'=> 199, 'full_name' => 'corn husks',                          'name' => 'corn husks',                        'slug' => 'corn husks'],
             ['id'=> 200, 'full_name' => 'corn syrup',                          'name' => 'corn syrup',                       'slug' => 'corn-syrup'],
         ];
+
         Ingredient::insert($data);
 
         $data = [
@@ -343,6 +345,7 @@ return new class extends Migration
             ['id'=> 299, 'full_name' => 'haddock',                             'name' => 'haddock',                          'slug' => 'haddock'],
             ['id'=> 300, 'full_name' => 'halibut',                             'name' => 'halibut',                          'slug' => 'halibut'],
         ];
+
         Ingredient::insert($data);
 
         $data = [
@@ -447,6 +450,7 @@ return new class extends Migration
             ['id'=> 399, 'full_name' => 'oil (mustard)',                       'name' => 'mustard oil',                      'slug' => 'mustard-oil'],
             ['id'=> 400, 'full_name' => 'oil (palm)',                          'name' => 'palm oil',                         'slug' => 'palm-oil'],
         ];
+
         Ingredient::insert($data);
 
         $data = [
@@ -551,6 +555,7 @@ return new class extends Migration
             ['id'=> 499, 'full_name' => 'peppercorns',                         'name' => 'peppercorns',                      'slug' => 'peppercorns'],
             ['id'=> 500, 'full_name' => 'peppermint extract',                  'name' => 'peppermint extract',               'slug' => 'peppermint-extract'],
         ];
+
         Ingredient::insert($data);
 
         $data = [
@@ -655,6 +660,7 @@ return new class extends Migration
             ['id'=> 599, 'full_name' => 'sugar (granulated)',                  'name' => 'granulated sugar',                 'slug' => 'granulated-sugar'],
             ['id'=> 600, 'full_name' => 'sugar (light brown)',                 'name' => 'light brown sugar',                'slug' => 'light-brown-sugar'],
         ];
+
         Ingredient::insert($data);
 
         $data = [
@@ -759,6 +765,7 @@ return new class extends Migration
             ['id'=> 699, 'full_name' => 'cherries',                            'name' => 'cherries',                         'slug' => 'cherries'],
             ['id'=> 700, 'full_name' => 'grapes',                              'name' => 'grapes',                           'slug' => 'grapes'],
         ];
+
         Ingredient::insert($data);
 
         $data = [
@@ -801,6 +808,7 @@ return new class extends Migration
             ['id'=> 737, 'full_name' => 'taco shell (flour)',                  'name' => 'taco shell (flour)',               'slug' => 'flour-taco-shell'],
             ['id'=> 738, 'full_name' => 'chocolate (unsweetened baking)',      'name' => 'unsweetened baking chocolate',     'slug' => 'unsweetened-baking-chocolate'],
         ];
+
         Ingredient::insert($data);
     }
 

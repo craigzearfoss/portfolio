@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Dictionary\Framework;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -97,7 +98,8 @@ return new class extends Migration
             [ 'id' => 57,  'full_name' => 'AWS Cloud Development Kit',          'name' => 'AWS CDK',                  'slug' => 'aws-cloud-development-kit', 'abbreviation' => 'AWS CDK', 'open_source' => 0, 'proprietary' => 0, 'owner' => null,         'link' => 'https://aws.amazon.com/cdk/',                                                 'wikipedia' => 'https://en.wikipedia.org/wiki/AWS_Cloud_Development_Kit'       ],
             [ 'id' => 58,  'full_name' => 'other',                              'name' => 'other',                    'slug' => 'other',                     'abbreviation' => null,      'open_source' => 0, 'proprietary' => 0, 'owner' => null,         'link' => null,                                                                          'wikipedia' => null                                                            ],
         ];
-        \App\Models\Dictionary\Framework::insert($data);
+
+        Framework::insert($data);
     }
 
     /**

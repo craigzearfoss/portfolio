@@ -645,6 +645,7 @@ return new class extends Migration
                 'admin_id'    => 1,
             ],
         ];
+
         for ($i=0; $i<count($data); $i++) {
             Resource::insert($data[$i]);
         }

@@ -50,6 +50,7 @@ return new class extends Migration
             [ 'id' => 14, 'name' => 'millilitre',  'abbreviation' => 'mL',    'system' => 'metric',   'sequence' => 13  ],
             [ 'id' => 15, 'name' => 'litre',       'abbreviation' => 'L',     'system' => 'metric',   'sequence' => 14  ],
         ];
+
         Unit::insert($data);
     }
 

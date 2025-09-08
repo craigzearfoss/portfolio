@@ -17,14 +17,25 @@ return new class extends Migration
             $table->id();
             $table->string('username', 200)->unique();
             $table->string('name')->nullable(); // note that name is not required for admins
+            $table->string('title', 100)->nullable();
+            $table->string('street')->nullable();
+            $table->string('street2')->nullable();
+            $table->string('city', 100)->nullable();
+            $table->string('state', 100)->nullable();
+            $table->string('zip', 20)->nullable();
+            $table->string('country', 100)->nullable();
             $table->string('phone', 20)->nullable();
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('website')->nullable();
             $table->string('image')->nullable();
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('password');
+            $table->rememberToken();
             $table->string('token')->nullable();
+            $table->tinyInteger('status')->default(0)->comment('0-pending, 1-active');
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('readonly')->default(0);
@@ -36,6 +47,7 @@ return new class extends Migration
 
         $data = [
             [
+                'id'       => 1,
                 'username' => 'root',
                 'email'    => 'root@gmail.com',
                 'password' => Hash::make('changeme'),
@@ -43,6 +55,7 @@ return new class extends Migration
                 'root'     => 1,
             ],
             [
+                'id'       => 2,
                 'username' => 'admin',
                 'email'    => 'admin@gmail.com',
                 'password' => Hash::make('changeme'),
