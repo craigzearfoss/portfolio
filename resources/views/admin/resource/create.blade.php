@@ -21,17 +21,34 @@
             @csrf
 
             @include('admin.components.form-input', [
-                'name'      => 'type',
-                'value'     => old('type') ?? '',
+                'name'      => 'name',
+                'value'     => old('name') ?? '',
+                'unique'    => true,
+                'maxlength' => 50,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select', [
+                'name'     => 'resource_database_id',
+                'label'    => 'database',
+                'value'    => old('resource_database_id') ?? '',
+                'required' => true,
+                'list'     => \App\Models\Database::listOptions(true, false),
+                'message'  => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
+                'name'      => 'table',
+                'value'     => old('table') ?? '',
                 'required'  => true,
                 'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input', [
-                'name'      => 'name',
-                'value'     => old('name') ?? '',
-                'unique'    => true,
+                'name'      => 'title',
+                'value'     => old('title') ?? '',
+                'required'  => true,
                 'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
@@ -44,10 +61,10 @@
             ])
 
             @include('admin.components.form-checkbox', [
-                'name'            => 'front',
+                'name'            => 'guest',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('front') ?? 0,
+                'checked'         => old('guest') ?? 0,
                 'message'         => $message ?? '',
             ])
 
@@ -68,27 +85,10 @@
             ])
 
             @include('admin.components.form-input', [
-                'name'      => 'section',
-                'value'     => old('section') ?? '',
-                'unique'    => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input', [
                 'name'      => 'icon',
                 'value'     => old('icon') ?? '',
                 'maxlength' => 50,
                 'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select', [
-                'name'     => 'resource_database_id',
-                'label'    => 'database',
-                'value'    => old('resource_database_id') ?? '',
-                'required' => true,
-                'list'     => \App\Models\Database::listOptions(true, false),
-                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-input', [

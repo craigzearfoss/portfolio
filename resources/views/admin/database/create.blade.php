@@ -29,8 +29,24 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'property',
-                'value'     => old('property') ?? '',
+                'name'      => 'database',
+                'value'     => old('database') ?? '',
+                'unique'    => true,
+                'maxlength' => 50,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'tag',
+                'value'     => old('tag') ?? '',
+                'required'  => true,
+                'maxlength' => 50,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'title',
+                'value'     => old('title') ?? '',
                 'required'  => true,
                 'maxlength' => 50,
                 'message'   => $message ?? '',
@@ -44,10 +60,10 @@
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'front',
+                'name'            => 'guest',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('front') ?? 0,
+                'checked'         => old('guest') ?? 0,
                 'message'         => $message ?? '',
             ])
 

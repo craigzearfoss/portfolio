@@ -45,17 +45,17 @@ class MenuService
 
         if (Auth::guard('admin')->check()) {
 
-            /*
             $menu[] = $this->menuItem(
                 [ 'title' => 'My Profile', 'route'    => 'admin.profile.show' ],
                 $currentRouteName
             );
-            */
 
+            /*
             $menu[] = $this->menuItem(
                 [ 'title'=> 'Change Password', 'route' => 'admin.profile.change-password' ],
                 $currentRouteName
             );
+            */
 
             $menu[] = $this->menuItem(
                 [ 'title'=> 'Logout', 'route' => 'admin.logout' ],
@@ -68,12 +68,12 @@ class MenuService
                     if (property_exists($menu[$i],'tag') && ($menu[$i]->tag === 'db')) {
 
                         $menu[$i]->children[] = $this->menuItem(
-                            [ 'title' => 'Databases', 'route'    => 'admin.database.index' ],
+                            [ 'title' => 'Databases', 'route' => 'admin.database.index', 'icon' => 'fa-database' ],
                             $currentRouteName
                         );
 
                         $menu[$i]->children[] = $this->menuItem(
-                            [ 'title' => 'Resources', 'route'    => 'admin.resource.index' ],
+                            [ 'title' => 'Resources', 'route'    => 'admin.resource.index', 'icon' => 'fa-table' ],
                             $currentRouteName
                         );
                     }
@@ -95,12 +95,12 @@ class MenuService
         } else {
 
             $menu[] = $this->menuItem(
-                [ 'title'=> 'User Login', 'route' => 'user.login' ],
+                [ 'name' => 'user-login', 'title'=> 'User Login', 'route' => 'user.login' ],
                 $currentRouteName
             );
 
             $menu[] = $this->menuItem(
-                [ 'title'=> 'Admin Login', 'route' => 'admin.login' ],
+                [ 'name' => 'admin-login', 'title'=> 'Admin Login', 'route' => 'admin.login' ],
                 $currentRouteName
             );
 
@@ -157,7 +157,7 @@ class MenuService
 
             $menu[$i]->children[] = $this->menuItem(
                 [
-                    'title' => 'Profile',
+                    'title' => 'My Profile',
                     'route' => 'admin.profile.show',
                     'icon'  => 'fa-user'
                 ],
@@ -190,12 +190,12 @@ class MenuService
                     if (property_exists($menu[$i],'tag') && ($menu[$i]->tag === 'db')) {
 
                         $menu[$i]->children[] = $this->menuItem(
-                            [ 'title' => 'Databases', 'route'    => 'admin.database.index' ],
+                            [ 'title' => 'Databases', 'route'    => 'admin.database.index', 'icon' => 'fa-database' ],
                             $currentRouteName
                         );
 
                         $menu[$i]->children[] = $this->menuItem(
-                            [ 'title' => 'Resources', 'route'    => 'admin.resource.index' ],
+                            [ 'title' => 'Resources', 'route'    => 'admin.resource.index', 'icon' => 'fa-table' ],
                             $currentRouteName
                         );
                     }
@@ -205,7 +205,7 @@ class MenuService
         } elseif (Auth::guard('web')->check()) {
 
             $menu[] = $this->menuItem(
-                [ 'title'=> 'Profile', 'route' => 'user.profile.show' ],
+                [ 'title'=> 'My Profile', 'route' => 'user.profile.show' ],
                 $currentRouteName
             );
 
@@ -280,6 +280,9 @@ class MenuService
     public function resourceItem(Resource $resource, string $userType, string $currentRouteName): stdClass
     {
         $routePrefix = in_array($userType, [PermissionService::USER_TYPE_GUEST]) ? '' : $userType . '.';
+        if ($resource->database['tag'] !== 'db') {
+            $routePrefix .= $resource->database['name'] . '.';
+        }
 
         $menuItem = new stdClass();
         $menuItem->id                = $resource->id ?? null;

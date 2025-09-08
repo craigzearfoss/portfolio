@@ -23,17 +23,34 @@
             @method('PUT')
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'type',
-                'value'     => old('type') ?? $resource->type,
+                'name'      => 'name',
+                'value'     => old('name') ?? $resource->name,
+                'unique'    => true,
+                'maxlength' => 50,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'resource_database_id',
+                'label'    => 'database',
+                'value'    => old('resource_db_id') ?? $resource->resource_db_id,
+                'required' => true,
+                'list'     => \App\Models\Database::listOptions(true, false),
+                'message'  => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'table',
+                'value'     => old('table') ?? $resource->table,
                 'required'  => true,
                 'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $resource->name,
-                'unique'    => true,
+                'name'      => 'title',
+                'value'     => old('title') ?? $resource->title,
+                'required'  => true,
                 'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
@@ -46,10 +63,10 @@
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'front',
+                'name'            => 'guest',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('front') ?? $resource->front,
+                'checked'         => old('guest') ?? $resource->guest,
                 'message'         => $message ?? '',
             ])
 
@@ -67,23 +84,6 @@
                 'unchecked_value' => 0,
                 'checked'         => old('admin') ?? $resource->admin,
                 'message'         => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'section',
-                'value'     => old('section') ?? $resource->section,
-                'unique'    => true,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'     => 'resource_database_id',
-                'label'    => 'database',
-                'value'    => old('resource_db_id') ?? $resource->resource_db_id,
-                'required' => true,
-                'list'     => \App\Models\Database::listOptions(true, false),
-                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

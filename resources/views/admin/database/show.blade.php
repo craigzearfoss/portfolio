@@ -23,8 +23,13 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'property',
-            'value' => $database->property
+            'name'  => 'database',
+            'value' => $database->database
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'tag',
+            'value' => $database->tag
         ])
 
         @include('admin.components.show-row', [
@@ -32,9 +37,14 @@
             'value' => $database->title
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'plural',
+            'value' => $database->plural
+        ])
+
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'front',
-            'checked' => $database->front
+            'name'    => 'guest',
+            'checked' => $database->guest
         ])
 
         @include('admin.components.show-row-checkbox', [

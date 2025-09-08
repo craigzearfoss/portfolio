@@ -17,12 +17,12 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th>type</th>
                 <th>name</th>
-                <th>icon</th>
-                <th>section</th>
                 <th>database</th>
-                <th class="text-center">front</th>
+                <th>table</th>
+                <th>title</th>
+                <th>icon</th>
+                <th class="text-center">guest</th>
                 <th class="text-center">user</th>
                 <th class="text-center">admin</th>
                 <th class="text-center">sequence</th>
@@ -36,12 +36,13 @@
             <?php /*
             <tfoot>
             <tr>
-                <th>type</th>
                 <th>name</th>
                 <th>database</th>
+                <th>table</th>
+                <th>title</th>
                 <th>icon</th>
                 <th>sequence</th>
-                <th class="text-center">front</th>
+                <th class="text-center">guest</th>
                 <th class="text-center">user</th>
                 <th class="text-center">admin</th>
                 <th class="text-center">public</th>
@@ -56,10 +57,13 @@
 
                 <tr>
                     <td class="py-0">
-                        {{ $resource->type }}
+                        {{ $resource->name }}
                     </td>
                     <td class="py-0">
-                        {{ $resource->name }}
+                        {{ $resource->database['name'] }}
+                    </td>
+                    <td class="py-0">
+                        {{ $resource->table }}
                     </td>
                     <td class="py-0">
                         @if (!empty($resource->icon))
@@ -69,14 +73,8 @@
                         @else
                         @endif
                     </td>
-                    <td class="py-0">
-                        {{ $resource->section }}
-                    </td>
-                    <td class="py-0">
-                        {{ $resource->database['name'] }}
-                    </td>
                     <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $resource->front ])
+                        @include('admin.components.checkmark', [ 'checked' => $resource->guest ])
                     </td>
                     <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $resource->user ])
@@ -122,7 +120,7 @@
             @empty
 
                 <tr>
-                    <td colspan="14">There are no messages.</td>
+                    <td colspan="12">There are no messages.</td>
                 </tr>
 
             @endforelse

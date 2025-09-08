@@ -65,10 +65,9 @@
                 @else
 
                     <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable">
-                        <a class="navbar-link is-arrowless">
-                            <span class="icon"><i class="mdi mdi-menu"></i></span>
+                        <a @if(empty($menuItem->children) && !empty($menuItem->link))href="{{ $menuItem->link }}" @endif
+                               class="navbar-link is-arrowless">
                             <span>{{ $menuItem->title }}</span>
-                            <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
                         </a>
 
                         @if(!empty($menuItem->children))

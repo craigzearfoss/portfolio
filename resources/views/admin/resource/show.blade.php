@@ -18,13 +18,24 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
-            'name'  => 'type',
-            'value' => $resource->type
+            'name'  => 'name',
+            'value' => $resource->name
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $resource->name
+            'name'  => 'database',
+            'value' => $resource->database->name
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'table',
+            'value' => $resource->table
+        ])
+
+
+        @include('admin.components.show-row', [
+            'name'  => 'title',
+            'value' => $resource->title
         ])
 
         @include('admin.components.show-row', [
@@ -33,8 +44,8 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'front',
-            'checked' => $resource->front
+            'name'    => 'guest',
+            'checked' => $resource->guest
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -45,16 +56,6 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'admin',
             'checked' => $resource->admin
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'section',
-            'value' => $resource->section
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'database',
-            'value' => $resource->database->name
         ])
 
         @include('admin.components.show-row-icon', [

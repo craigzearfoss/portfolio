@@ -18,10 +18,11 @@
             <thead>
             <tr>
                 <th>name</th>
-                <th>property</th>
+                <th>database</th>
+                <th>tag</th>
                 <th>title</th>
                 <th>icon</th>
-                <th class="text-center">front</th>
+                <th class="text-center">guest</th>
                 <th class="text-center">user</th>
                 <th class="text-center">admin</th>
                 <th class="text-center">sequence</th>
@@ -36,10 +37,11 @@
             <tfoot>
             <tr>
                 <th>name</th>
-                <th>property</th>
+                <th>database</th>
+                <th>tag</th>
                 <th>title</th>
                 <th>icon</th>
-                <th class="text-center">front</th>
+                <th class="text-center">guest</th>
                 <th class="text-center">user</th>
                 <th class="text-center">admin</th>
                 <th class="text-center">sequence</th>
@@ -60,7 +62,10 @@
                         {{ $database->name }}
                     </td>
                     <td class="py-0">
-                        {{ $database->property }}
+                        {{ $database->database }}
+                    </td>
+                    <td class="py-0">
+                        {{ $database->tag }}
                     </td>
                     <td class="py-0">
                         {{ $database->title }}
@@ -74,7 +79,7 @@
                         @endif
                     </td>
                     <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $database->front ])
+                        @include('admin.components.checkmark', [ 'checked' => $database->guest ])
                     </td>
                     <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $database->user ])
@@ -120,7 +125,7 @@
             @empty
 
                 <tr>
-                    <td colspan="13">There are no messages.</td>
+                    <td colspan="14">There are no messages.</td>
                 </tr>
 
             @endforelse

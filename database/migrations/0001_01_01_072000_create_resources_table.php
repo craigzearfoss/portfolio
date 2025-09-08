@@ -80,7 +80,7 @@ return new class extends Migration
                 'guest'       => 0,
                 'user'        => 0,
                 'admin'       => 1,
-                'icon'        => 'fa-user',
+                'icon'        => 'fa-envelope',
                 'sequence'    => 1030,
                 'public'      => 1,
                 'readonly'    => 0,
