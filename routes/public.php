@@ -1,5 +1,15 @@
 <?php
 
+use App\Http\Controllers\Front\ArtController;
+use App\Http\Controllers\Front\CertificationController;
+use App\Http\Controllers\Front\CourseController;
+use App\Http\Controllers\Front\IndexController;
+use App\Http\Controllers\Front\LinkController;
+use App\Http\Controllers\Front\MusicController;
+use App\Http\Controllers\Front\ProjectController;
+use App\Http\Controllers\Front\ReadingController;
+use App\Http\Controllers\Front\RecipeController;
+use App\Http\Controllers\Front\VideoController;
 
 use App\Http\Controllers\Admin\Dictionary\IndexController as DictionaryController;
 use App\Http\Controllers\Admin\Dictionary\CategoryController as DictionaryCategoryController;
@@ -11,32 +21,22 @@ use App\Http\Controllers\Admin\Dictionary\OperatingSystemController as Dictionar
 use App\Http\Controllers\Admin\Dictionary\ServerController as DictionaryServerController;
 use App\Http\Controllers\Admin\Dictionary\StackController as DictionaryStackController;
 
-use App\Http\Controllers\Front\ArtController;
-use App\Http\Controllers\Front\CertificationController;
-use App\Http\Controllers\Front\CourseController;
-use App\Http\Controllers\Front\IndexController;
-use App\Http\Controllers\Front\LinkController;
-use App\Http\Controllers\Front\MusicController;
-use App\Http\Controllers\Front\ProjectController;
-use App\Http\Controllers\Front\ReadingController;
-use App\Http\Controllers\Front\RecipeController;
-use App\Http\Controllers\Front\VideoController;
-use App\Http\Controllers\User\IndexController as UserIndexController;
-
 use Illuminate\Support\Facades\Route;
 
 Route::name('front.')->group(function () {
 
-    Route::get('/', [UserIndexController::class, 'index'])->name('homepage');
+    Route::get('/', [IndexController::class, 'index'])->name('homepage');
     Route::get('/about', [IndexController::class, 'about'])->name('about');
     Route::get('/contact', [IndexController::class, 'contact'])->name('contact');
     Route::get('/forgot-password', [IndexController::class, 'forgot_password'])->name('forgot-password');
     Route::post('/forgot-password', [IndexController::class, 'forgot_password'])->name('forgot-password-submit');
+    Route::get('/forgot-username', [IndexController::class, 'forgot_username'])->name('forgot-username');
+    Route::post('/forgot-username', [IndexController::class, 'forgot_username'])->name('forgot-username-submit');
     Route::get('/login', [IndexController::class, 'login'])->name('login');
     Route::post('/login', [IndexController::class, 'login'])->name('login-submit');
     Route::get('/privacy-policy', [IndexController::class, 'privacy_policy'])->name('privacy-policy');
     Route::get('/register', [IndexController::class, 'register'])->name('register');
-    Route::post('/register', [IndexController::class, 'register'])->name('register_submit');
+    Route::post('/register', [IndexController::class, 'register'])->name('register-submit');
     Route::get('/reset-password/{token}/{email}', [IndexController::class, 'reset_password'])->name('reset-password');
     Route::post('/reset-password/{token}/{email}', [IndexController::class, 'reset_password_submit'])->name('reset-password-submit');
     Route::get('/terms-and-conditions', [IndexController::class, 'terms_and_conditions'])->name('terms-and-conditions');

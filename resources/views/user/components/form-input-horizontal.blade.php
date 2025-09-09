@@ -2,7 +2,9 @@
     $name    = !empty($name)  ? $name : '#name#';
     $id      = !empty($id) ? $id : ('input' . (!empty($name)  ? ucfirst(trim($name, '#')) : 'Name'));
     $type    = !empty($type) ? $type : 'text';
-    $label   = !empty($label) ? $label : (!empty($name) ? $name : '#label#');
+        if (!is_null($label)) {
+        $label   = !empty($label) ? $label : (!empty($name) ? $name : '#label#');
+    }
     $value   = !empty($value) ? $value : '';
     $class   = !empty($class) ? $class : '';
     if (!empty($style)) {
@@ -14,7 +16,7 @@
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        <label class="label">{{ $label }}</label>
+        @if(!is_null($label))<label class="label">{{ $label }}</label> @endif
     </div>
     <div class="field-body">
         <div class="field">

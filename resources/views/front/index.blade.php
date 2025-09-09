@@ -14,7 +14,7 @@
             <h1 class="title">{{ config('app.name') }}</h1>
 
             <div class="is-centered">
-                <a class="is-size-6" href="{{ route('user.login') }}">
+                <a class="is-size-6" href="{{ route('front.login') }}">
                     User Login
                 </a>
                 |

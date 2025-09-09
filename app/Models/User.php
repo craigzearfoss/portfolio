@@ -23,6 +23,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'username',
         'name',
         'title',
         'street',
@@ -31,9 +32,10 @@ class User extends Authenticatable
         'state',
         'zip',
         'country',
+        'coordinate',
         'phone',
         'email',
-        'website',
+        'link',
         'image',
         'image_credit',
         'image_source',

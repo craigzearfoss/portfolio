@@ -24,10 +24,11 @@ return new class extends Migration
             $table->string('state', 100)->nullable();
             $table->string('zip', 20)->nullable();
             $table->string('country', 100)->nullable();
+            $table->point('location', 4326)->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('website')->nullable();
+            $table->string('link')->nullable();
             $table->string('image')->nullable();
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();
@@ -47,20 +48,24 @@ return new class extends Migration
 
         $data = [
             [
-                'id'       => 1,
-                'username' => 'root',
-                'email'    => 'root@gmail.com',
-                'password' => Hash::make('changeme'),
-                'token'    => '',
-                'root'     => 1,
+                'id'                => 1,
+                'username'          => 'root',
+                'email'             => 'root@gmail.com',
+                'email_verified_at' => now(),
+                'password'          => Hash::make('changeme'),
+                'status'            => 1,
+                'token'             => '',
+                'root'              => 1,
             ],
             [
-                'id'       => 2,
-                'username' => 'admin',
-                'email'    => 'admin@gmail.com',
-                'password' => Hash::make('changeme'),
-                'token'    => '',
-                'root'     => 0,
+                'id'                => 2,
+                'username'          => 'admin',
+                'email'             => 'admin@gmail.com',
+                'email_verified_at' => now(),
+                'password'          => Hash::make('changeme'),
+                'status'            => 1,
+                'token'             => '',
+                'root'              => 0,
             ]
         ];
 

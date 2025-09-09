@@ -37,6 +37,7 @@ class UserUpdateRequest extends FormRequest
         $userId = $this->user->id ?? Auth::guard('web')->user()->id;
 
         return [
+            //'username'        => ['string', 'min:6', 'max:200', 'unique:users,username,'.$adminId],  // cannot change the username
             'name'              => ['string', 'min:6', 'max:255', 'filled'],
             'title'             => ['string', 'max:100', 'nullable'],
             'street'            => ['string', 'max:255', 'nullable'],
@@ -45,6 +46,7 @@ class UserUpdateRequest extends FormRequest
             'state'             => ['string', 'max:100', 'nullable'],
             'country'           => ['string', 'max:100', 'nullable'],
             'zip'               => ['string', 'max:20', 'nullable'],
+            'coordinate'        => ['nullable'],
             'phone'             => ['string', 'max:20', 'nullable'],
             //'email'             => ['email', 'max:255', 'unique:users,email,'.$userId, 'filled'], // you can't update the email
             'email_verified_at' => ['nullable'],

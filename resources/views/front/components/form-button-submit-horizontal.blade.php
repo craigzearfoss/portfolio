@@ -5,7 +5,7 @@
         <div class="field">
 
             <a
-                href="{{ $cancel_url ?? route('front.dashboard') }}"
+                href="{{ $cancel_url ?? route('front.homepage') }}"
                 class="button is-small is-dark"
             ><i class="fa-solid fa-close"></i> Cancel</a>
 

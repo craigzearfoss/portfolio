@@ -1,8 +1,8 @@
 @extends('front.layouts.empty', [
-    'title' => 'Set New Password',
+    'title' => 'Register',
     'breadcrumbs' => [
         [ 'name' => 'Home', 'url' => route('front.homepage') ],
-        [ 'name' => 'Set New Password' ],
+        [ 'name' => 'Register' ],
     ],
     'buttons' => [],
     'errors'  => $errors ?? [],
@@ -13,8 +13,7 @@
 @section('content')
 
     <div class="is-fullwidth has-text-centered m4-4 pt-4">
-        <h2 class="title">Set New Password</h2>
-        <p>Your new password must be different from previous password.</p>
+        <h2 class="title">Register New User</h2>
     </div>
 
     <div class="columns is-centered mt-4">
@@ -31,13 +30,47 @@
 
             @else
 
-                <form action="{{ route('front.reset-password-submit', [$token, $email]) }}" method="POST">
+                <form action="{{ route('front.register-submit') }}" method="POST">
                     @csrf
+
+                    @include('front.components.form-input-horizontal', [
+                        'name'      => 'username',
+                        'label'     => 'User Name',
+                        'value'     => old('username'),
+                        'required'  => true,
+                        'minlength' => 6,
+                        'maxlength' => 255,
+                        'message'   => $message ?? '',
+                    ])
+
+                    <p class="is-xs mt-0 mb-2 has-text-right">
+                        <i>User name can contain letters, numbers, underscores, and dashes.</i>
+                    </p>
+
+                    @include('front.components.form-input-horizontal', [
+                        'name'      => 'name',
+                        'label'     => 'Name',
+                        'value'     => old('name'),
+                        'required'  => true,
+                        'minlength' => 6,
+                        'maxlength' => 255,
+                        'message'   => $message ?? '',
+                    ])
+
+                    @include('front.components.form-input-horizontal', [
+                        'type'      => 'email',
+                        'name'      => 'email',
+                        'label'     => 'Email',
+                        'value'     => old('email'),
+                        'required'  => true,
+                        'maxlength' => 255,
+                        'message'   => $message ?? '',
+                    ])
 
                     @include('front.components.form-input-horizontal', [
                         'type'      => 'password',
                         'name'      => 'password',
-                        'label'     => 'New Password',
+                        'label'     => 'Password',
                         'value'     => '',
                         'required'  => true,
                         'maxlength' => 255,
@@ -47,7 +80,7 @@
                     @include('front.components.form-input-horizontal', [
                         'type'      => 'password',
                         'name'      => 'confirm_password',
-                        'label'     => 'Confirm New Password',
+                        'label'     => 'Confirm Password',
                         'value'     => '',
                         'required'  => true,
                         'maxlength' => 255,

@@ -24,6 +24,7 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'username'          => ['required', 'string', 'min:6', 'max:200', 'unique:users,username'],
             'name'              => ['required', 'string', 'min:6', 'max:255'],
             'title'             => ['string', 'max:100', 'nullable'],
             'street'            => ['string', 'max:255', 'nullable'],
@@ -32,6 +33,7 @@ class UserStoreRequest extends FormRequest
             'state'             => ['string', 'max:100', 'nullable'],
             'country'           => ['string', 'max:100', 'nullable'],
             'zip'               => ['string', 'max:20', 'nullable'],
+            'coordinate'        => ['nullable'],
             'phone'             => ['string', 'max:20', 'nullable'],
             'email'             => ['required', 'email', 'max:255', 'unique:users,email'],
             'email_verified_at' => ['nullable'],

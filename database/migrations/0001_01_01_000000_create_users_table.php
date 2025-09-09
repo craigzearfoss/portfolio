@@ -23,10 +23,11 @@ return new class extends Migration
             $table->string('state', 100)->nullable();
             $table->string('zip', 20)->nullable();
             $table->string('country', 100)->nullable();
+            $table->point('location', 4326)->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('website')->nullable();
+            $table->string('link')->nullable();
             $table->string('image')->nullable();
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();
@@ -61,20 +62,23 @@ return new class extends Migration
 
         $data = [
             [
-                'id'       => 1,
-                'username' => 'sample-user',
-                'name'     => 'Sample User',
-                'email'    => 'user@gmail.com',
-                'password' => Hash::make('changeme'),
-                'token'    => ''
+                'id'                => 1,
+                'username'          => 'sample-user',
+                'name'              => 'Sample User',
+                'email'             => 'user@gmail.com',
+                'email_verified_at' => now(),
+                'password'          => Hash::make('changeme'),
+                'status'            => 1,
+                'token'             => ''
             ],
             [
-                'id'       => 2,
-                'username' => 'demo-user',
-                'name'     => 'Demo User',
-                'email'    => 'demo-user@gmail.com',
-                'password' => Hash::make('changeme'),
-                'token'    => '',
+                'id'                => 2,
+                'username'          => 'demo-user',
+                'name'              => 'Demo User',
+                'email'             => 'demo-user@gmail.com',
+                'email_verified_at' => now(),
+                'password'          => Hash::make('changeme'),
+                'token'             => '',
             ],
         ];
 
