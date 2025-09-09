@@ -65,13 +65,13 @@ Route::name('front.')->group(function () {
 
 Route::prefix('dictionary')->name('dictionary.')->group(function () {
     Route::get('/', [DictionaryController::class, 'index'])->name('index');
-    Route::resource('category', DictionaryCategoryController::class)->parameter('category', 'category');
-    Route::resource('database', DictionaryDatabaseController::class)->parameter('database', 'database');
-    Route::resource('framework', DictionaryFrameworkController::class)->parameter('framework', 'framework');
-    Route::resource('language', DictionaryLanguageController::class)->parameter('language', 'language');
-    Route::resource('library', DictionaryLibraryController::class)->parameter('library', 'library');
+    Route::resource('category', DictionaryCategoryController::class);
+    Route::resource('database', DictionaryDatabaseController::class);
+    Route::resource('framework', DictionaryFrameworkController::class);
+    Route::resource('language', DictionaryLanguageController::class);
+    Route::resource('library', DictionaryLibraryController::class);
     Route::resource('operating-system', DictionaryOperatingSystemController::class)->parameter('operating-system', 'operating_system');
-    Route::resource('server', DictionaryServerController::class)->parameter('server', 'server');
-    Route::resource('stack', DictionaryStackController::class)->parameter('stack', 'stack');
+    Route::resource('server', DictionaryServerController::class);
+    Route::resource('stack', DictionaryStackController::class);
 });
 

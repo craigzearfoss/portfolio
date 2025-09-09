@@ -95,7 +95,7 @@ class MenuService
         } else {
 
             $menu[] = $this->menuItem(
-                [ 'name' => 'user-login', 'title'=> 'User Login', 'route' => 'user.login' ],
+                [ 'name' => 'user-login', 'title'=> 'User Login', 'route' => 'front.login' ],
                 $currentRouteName
             );
 
@@ -217,7 +217,7 @@ class MenuService
         } else {
 
             $menu[] = $this->menuItem(
-                [ 'title'=> 'User Login', 'route' => 'user.login' ],
+                [ 'title'=> 'User Login', 'route' => 'front.login' ],
                 $currentRouteName
             );
 

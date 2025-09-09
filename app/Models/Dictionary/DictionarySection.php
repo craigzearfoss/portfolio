@@ -90,19 +90,19 @@ class DictionarySection extends Model
             }
 
             $firstSection = array_shift($dictionarySections);
-            $builder = DB::table("{$dictionaryDB}.{$firstSection['database']}")
+            $builder = DB::table("{$dictionaryDB}.{$firstSection['table']}")
                 ->select(['id', 'full_name', 'name', 'slug', 'abbreviation',
-                    DB::raw("'{$firstSection['name']}' AS `category`"),
-                    DB::raw("'{$firstSection['database']}' AS `table`")
+                    DB::raw("'{$firstSection['name']}' AS `table_name`"),
+                    DB::raw("'{$firstSection['slug']}' AS `table_slug`"),
                 ])
                 ->whereNot('name', 'other');
 
             foreach ($dictionarySections as $dictionarySection) {
                 $builder->union(
-                    DB::table("{$dictionaryDB}.{$dictionarySection['database']}")
+                    DB::table("{$dictionaryDB}.{$dictionarySection['table']}")
                         ->select(['id', 'full_name', 'name', 'slug', 'abbreviation',
-                            DB::raw("'{$dictionarySection['name']}' AS `category`"),
-                            DB::raw("'{$dictionarySection['database']}' AS `table`")
+                            DB::raw("'{$dictionarySection['name']}' AS `table_name`"),
+                            DB::raw("'{$dictionarySection['slug']}' AS `table_slug`"),
                         ])
                         ->whereNot('name', 'other')
                     );

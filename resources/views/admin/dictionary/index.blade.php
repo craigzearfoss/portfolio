@@ -27,8 +27,8 @@
             @forelse ($words as $word)
 
                     <li>
-                        <a href="{{ route('admin.dictionary.'.str_replace(' ', '-', $word->category).'.show', $word->id) }}">
-                        <strong>{{ $word->name }}</strong> (<i>{{ $word->category }})</i>
+                        <a href="{{ route('admin.dictionary.'.str_replace(' ', '-', $word->table_slug).'.show', $word->id) }}">
+                        <strong>{{ $word->name }}</strong> (<i>{{ $word->table_name }})</i>
                         </a>
                     </li>
 

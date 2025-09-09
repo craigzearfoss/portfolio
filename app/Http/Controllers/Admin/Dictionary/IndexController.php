@@ -16,7 +16,11 @@ class IndexController extends BaseController
 
         $words = DictionarySection::words(null, $perPage);
 
-        $dictionaryTypes = Resource::where('section', 'Dictionary')->orderBy('sequence', 'asc')->get();
+        $dictionaryTypes = Resource::select('resources.*')
+            ->where('databases.name', 'dictionary')
+            ->join('databases', 'databases.id', '=', 'resources.database_id')
+            ->orderBy('resources.plural', 'asc')
+            ->get();
 
         return view('admin.dictionary.index', compact('words'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

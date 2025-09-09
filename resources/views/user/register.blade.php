@@ -86,7 +86,7 @@
 
                                             <div class="mt-3 text-center">
                                                 <span>Already have an account?</span>
-                                                <a class="text-primary-600 hover:underline" href="{{ route('user.login') }}">Login</a>
+                                                <a class="text-primary-600 hover:underline" href="{{ route('front.login') }}">Login</a>
                                             </div>
 
                                         </form>
