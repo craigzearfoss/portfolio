@@ -23,8 +23,8 @@ class RecipeUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['string', 'max:255', 'unique:portfolio_db.recipes,name,'.$this->recipes->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.recipes,slug,'.$this->recipes->id, 'filled'],
+            'name'         => ['string', 'max:255', 'unique:portfolio_db.recipes,name,'.$this->recipe->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.recipes,slug,'.$this->recipe->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'source'       => ['string', 'max:255', 'nullable'],
@@ -33,6 +33,8 @@ class RecipeUpdateRequest extends FormRequest
             'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],
+            'image_credit' => ['string', 'max:255', 'nullable'],
+            'image_source' => ['string', 'max:255', 'nullable'],
             'thumbnail'    => ['string', 'max:255', 'nullable'],
             'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],

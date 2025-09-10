@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $jobBoardBoard->name,
+    'title' => $jobBoard->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'url' => route('admin.career.index') ],
@@ -7,7 +7,7 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'url' => route('admin.career.job-board.edit', $jobBoardBoard) ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'url' => route('admin.career.job-board.edit', $jobBoard) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Job Board', 'url' => route('admin.career.job-board.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',        'url' => route('admin.career.job-board.index') ],
     ],
@@ -20,28 +20,28 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $jobBoardBoard->name
+            'value' => $jobBoard->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'slug',
-            'value' => $jobBoardBoard->slug
+            'value' => $jobBoard->slug
         ])
 
         @include('admin.components.show-row-link', [
             'name'  => 'link',
-            'url'    => $jobBoardBoard->link,
+            'url'    => $jobBoard->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'link name',
-            'value' => $jobBoardBoard->link_name
+            'value' => $jobBoard->link_name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $jobBoardBoard->description
+            'value' => $jobBoard->description
         ])
 
         @include('admin.components.show-row-image', [
@@ -66,43 +66,43 @@
 
         @include('admin.components.show-row', [
             'name'  => 'sequence',
-            'value' => $jobBoardBoard->sequence
+            'value' => $jobBoard->sequence
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'public',
-            'checked' => $jobBoardBoard->public
+            'checked' => $jobBoard->public
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'readonly',
             'label'   => 'read-only',
-            'checked' => $jobBoardBoard->readonly
+            'checked' => $jobBoard->readonly
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'root',
-            'checked' => $jobBoardBoard->root
+            'checked' => $jobBoard->root
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
-            'checked' => $jobBoardBoard->disabled
+            'checked' => $jobBoard->disabled
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'created at',
-            'value' => longDateTime($jobBoardBoard->created_at)
+            'value' => longDateTime($jobBoard->created_at)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'updated at',
-            'value' => longDateTime($jobBoardBoard->updated_at)
+            'value' => longDateTime($jobBoard->updated_at)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'deleted at',
-            'value' => longDateTime($jobBoardBoard->deleted_at)
+            'value' => longDateTime($jobBoard->deleted_at)
         ])
 
     </div>

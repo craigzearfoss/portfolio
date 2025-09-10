@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Http\Controllers\Front\Dictionary;
+
+use App\Http\Controllers\BaseController;
+use App\Http\Requests\Dictionary\OperatingSystemStoreRequest;
+use App\Http\Requests\Dictionary\OperatingSystemUpdateRequest;
+use App\Models\Dictionary\OperatingSystem;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
+
+class OperatingSystemController extends BaseController
+{
+    /**
+     * Display a listing of operations systems.
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function index(Request $request): View
+    {
+        $perPage= $request->query('per_page', $this->perPage);
+
+        $operatingSystems = OperatingSystem::orderBy('name', 'asc')->paginate($perPage);
+
+        return view('front.dictionary.operating-system.index', compact('operatingSystems'))
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
+    }
+
+    /**
+     * Display the specified operating system.
+     */
+    public function show(OperatingSystem $operatingSystem): View
+    {
+        return view('front.dictionary.operating-system.show', compact('operatingSystem'));
+    }
+}

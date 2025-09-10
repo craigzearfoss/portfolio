@@ -23,8 +23,8 @@ class ReferenceUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'            => ['string', 'max:255', 'unique:portfolio_db.skills,name,'.$this->skill->id, 'filled'],
-            'slug'            => ['string', 'max:255', 'unique:portfolio_db.skills,slug,'.$this->skill->id, 'filled'],
+            'name'            => ['string', 'max:255', 'unique:career_db.references,name,'.$this->reference->id, 'filled'],
+            'slug'            => ['string', 'max:255', 'unique:career_db.references,slug,'.$this->reference->id, 'filled'],
             'phone'           => ['string', 'max:20', 'nullable'],
             'phone_label'     => ['string', 'max:255', 'nullable'],
             'alt_phone'       => ['string', 'max:20', 'nullable'],

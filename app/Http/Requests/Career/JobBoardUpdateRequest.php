@@ -24,14 +24,14 @@ class JobBoardUpdateRequest extends FormRequest
     {
         return [
             'name'         => ['string', 'max:100', 'unique:career_db.job_boards,name,'.$this->job_board->id, 'filled'],
-            'slug'         => ['string', 'max:100', 'unique:career_db.job_boards,slug,'.$this->job_boards->id, 'filled'],
+            'slug'         => ['string', 'max:100', 'unique:career_db.job_boards,slug,'.$this->job_board->id, 'filled'],
             'link'         => ['string', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],
             'image_credit' => ['string', 'max:255', 'nullable'],
             'image_source' => ['string', 'max:255', 'nullable'],
-            'thumbnail'     => ['string', 'max:255', 'nullable'],
+            'thumbnail'    => ['string', 'max:255', 'nullable'],
             'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],
             'readonly'     => ['integer', 'between:0,1'],

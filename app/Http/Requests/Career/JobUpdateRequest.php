@@ -23,8 +23,8 @@ class obUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['string', 'max:255', 'unique:portfolio_db.jobs,name,'.$this->job->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.jobs,slug,'.$this->job->id, 'filled'],
+            'name'         => ['string', 'max:255', 'unique:career_db.jobs,name,'.$this->job->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:career_db.jobs,slug,'.$this->job->id, 'filled'],
             'role'         => ['string', 'max:255',],
             'start_date'   => ['date', 'nullable'],
             'end_date'     => ['date', 'after_or_equal:start_date', 'nullable'],

@@ -23,13 +23,15 @@ class AcademyUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['string', 'max:255', 'unique:portfolio_db.academies,name,'.$this->academies->id, 'filled'],
-            'slug'        => ['string', 'max:255', 'unique:portfolio_db.academies,slug,'.$this->academies->id, 'filled'],
+            'name'        => ['string', 'max:255', 'unique:portfolio_db.academies,name,'.$this->academy->id, 'filled'],
+            'slug'        => ['string', 'max:255', 'unique:portfolio_db.academies,slug,'.$this->academy->id, 'filled'],
             'link'        => ['string', 'nullable'],
             'link_name'   => ['string', 'nullable'],
             'description' => ['nullable'],
-            'image'       => ['string', 'max:255', 'nullable'],
-            'thumbnail'   => ['string', 'max:255', 'nullable'],
+            'image'        => ['string', 'max:255', 'nullable'],
+            'image_credit' => ['string', 'max:255', 'nullable'],
+            'image_source' => ['string', 'max:255', 'nullable'],
+            'thumbnail'    => ['string', 'max:255', 'nullable'],
             'sequence'    => ['integer', 'min:0'],
             'public'      => ['integer', 'between:0,1'],
             'readonly'    => ['integer', 'between:0,1'],

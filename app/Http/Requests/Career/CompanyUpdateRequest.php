@@ -25,7 +25,7 @@ class CompanyUpdateRequest extends FormRequest
     {
         return [
             'name'            => ['string', 'max:255', 'unique:career_db.companies,name,'.$this->company->id, 'filled'],
-            'slug'            => ['string', 'max:255', 'unique:portfolio_db.companies,slug,'.$this->company->id, 'filled'],
+            'slug'            => ['string', 'max:255', 'unique:career_db.companies,slug,'.$this->company->id, 'filled'],
             'industry_id'     => ['integer', 'in:' . Industry::all()->pluck('id')->toArray()],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],

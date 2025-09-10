@@ -1,4 +1,4 @@
-@extends('front.layouts.empty', [
+@extends('front.layouts.default', [
     'title' => 'Forgot Password',
     'breadcrumbs' => [
         [ 'name' => 'Home', 'url' => route('front.homepage') ],
@@ -12,13 +12,10 @@
 
 @section('content')
 
-    <div class="is-fullwidth has-text-centered m4-4 pt-4">
-        <h2 class="title">Forgot Password</h2>
-    </div>
 
-    <div class="columns is-centered mt-4">
+    <div class="columns is-centered mt-4 pt-4">
 
-        <div class="card column is-7">
+        <div class="card column is-7 mt-4">
 
             <p>Enter your email address to receive a password reset link.</p>
 
@@ -42,7 +39,7 @@
                     <div class="has-text-centered pt-4">
 
                         @include('front.components.form-button-submit', [
-                            'label'      => 'Save',
+                            'label'      => 'Submit',
                             'cancel_url' => route('front.homepage')
                         ])
 

@@ -81,7 +81,7 @@ class JobBoardController extends BaseController
     {
         $jobBoard->delete();
 
-        return redirect()->route('admin.portfolio.link.index')
+        return redirect()->route('admin.job-board.link.index')
             ->with('success', 'Cover letter deleted successfully');
     }
 }

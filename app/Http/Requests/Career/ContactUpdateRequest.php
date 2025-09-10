@@ -24,7 +24,7 @@ class rContactUpdateRequest extends FormRequest
     {
         return [
             'name'            => ['string', 'max:255', 'unique:career_db.contacts,name,'.$this->contact->id, 'filled'],
-            'slug'            => ['string', 'max:255', 'unique:portfolio_db.contacts,slug,'.$this->contact->id, 'filled'],
+            'slug'            => ['string', 'max:255', 'unique:career_db.contacts,slug,'.$this->contact->id, 'filled'],
             'title'           => ['string', 'max:20', 'nullable'],
             'job_title'       => ['string', 'max:100', 'nullable'],
             'street'          => ['string', 'max:255', 'nullable'],

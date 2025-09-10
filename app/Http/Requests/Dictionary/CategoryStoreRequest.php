@@ -23,14 +23,28 @@ class CategoryStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['required', 'string', 'max:100', 'unique:career_db.dictionary_categories,name'],
-            'wikipedia'   => ['string', 'max:255', 'nullable'],
-            'description' => ['nullable'],
-            'sequence'    => ['integer', 'min:0'],
-            'public'      => ['integer', 'between:0,1'],
-            'readonly'    => ['integer', 'between:0,1'],
-            'root'        => ['integer', 'between:0,1'],
-            'disabled'    => ['integer', 'between:0,1'],
+            'full_name'    => ['required', 'string', 'max:255', 'unique:dictionary_db.categories,full_name'],
+            'name'         => ['required', 'string', 'max:100', 'unique:dictionary_db.categories,name'],
+            'slug'         => ['required', 'string', 'max:100', 'unique:dictionary_db.categories,slug'],
+            'abbreviation' => ['string', 'max:20', 'nullable'],
+            'definition'   => ['string', 'max:255', 'nullable'],
+            'open_source'  => ['integer', 'between:0,1'],
+            'proprietary'  => ['integer', 'between:0,1'],
+            'compiled'     => ['integer', 'between:0,1'],
+            'owner'        => ['string', 'max:255', 'nullable'],
+            'wikipedia'    => ['string', 'max:255', 'nullable'],
+            'link'         => ['string', 'max:255', 'nullable'],
+            'link_name'    => ['string', 'max:255', 'nullable'],
+            'description'  => ['nullable'],
+            'image'        => ['string', 'max:255', 'nullable'],
+            'image_credit' => ['string', 'max:255', 'nullable'],
+            'image_source' => ['string', 'max:255', 'nullable'],
+            'thumbnail'    => ['string', 'max:255', 'nullable'],
+            'sequence'     => ['integer', 'min:0'],
+            'public'       => ['integer', 'between:0,1'],
+            'readonly'     => ['integer', 'between:0,1'],
+            'root'         => ['integer', 'between:0,1'],
+            'disabled'     => ['integer', 'between:0,1'],
         ];
     }
 }

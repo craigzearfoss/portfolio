@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Controllers\Front\Dictionary;
+
+use App\Http\Controllers\BaseController;
+use App\Models\Dictionary\DictionarySection;
+use App\Models\Resource;
+use Illuminate\Http\Request;
+
+class IndexController extends BaseController
+{
+    protected $perPage = 30;
+    public function index(Request $request)
+    {
+        $perPage= $request->query('per_page', $this->perPage);
+
+        $words = DictionarySection::words(null, $perPage);
+
+        $dictionaryTypes = Resource::select('resources.*')
+            ->where('databases.name', 'dictionary')
+            ->join('databases', 'databases.id', '=', 'resources.database_id')
+            ->orderBy('resources.plural', 'asc')
+            ->get();
+
+        return view('admin.dictionary.index', compact('words'))
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
+
+        return view('front.dictionary.index', compact('words', 'dictionaryTypes'));
+
+    }
+}

@@ -23,8 +23,8 @@ class JobStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.jobs,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.jobs,slug'],
+            'name'         => ['required', 'string', 'max:255', 'unique:career_db.jobs,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:career_db.jobs,slug'],
             'role'         => ['string', 'max:255',],
             'start_date'   => ['date', 'nullable'],
             'end_date'     => ['date', 'after_or_equal:start_date', 'nullable'],

@@ -23,14 +23,16 @@ class IngredientUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name'   => ['string', 'max:255', 'unique:portfolio_db.ingredients,full_name,'.$this->ingredients->id, 'filled'],
-            'name'        => ['string', 'max:100', 'unique:portfolio_db.ingredients,name,'.$this->ingredients->id, 'filled'],
-            'slug'        => ['string', 'max:100', 'unique:portfolio_db.ingredients,slug,'.$this->ingredients->id, 'filled'],
+            'full_name'   => ['string', 'max:255', 'unique:portfolio_db.ingredients,full_name,'.$this->ingredient->id, 'filled'],
+            'name'        => ['string', 'max:100', 'unique:portfolio_db.ingredients,name,'.$this->ingredient->id, 'filled'],
+            'slug'        => ['string', 'max:100', 'unique:portfolio_db.ingredients,slug,'.$this->ingredient->id, 'filled'],
             'link'        => ['string', 'nullable'],
             'link_name'   => ['string', 'nullable'],
             'description' => ['nullable'],
-            'image'       => ['string', 'max:255', 'nullable'],
-            'thumbnail'   => ['string', 'max:255', 'nullable'],
+            'image'        => ['string', 'max:255', 'nullable'],
+            'image_credit' => ['string', 'max:255', 'nullable'],
+            'image_source' => ['string', 'max:255', 'nullable'],
+            'thumbnail'    => ['string', 'max:255', 'nullable'],
             'sequence'    => ['integer', 'min:0'],
             'public'      => ['integer', 'between:0,1'],
             'readonly'    => ['integer', 'between:0,1'],

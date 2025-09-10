@@ -66,13 +66,15 @@
                 'message'   => $message ?? '',
             ])
 
+            <?php /*
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_credit',
                 'label'     => 'image credit',
                 'value'     => old('image_credit') ?? $jobBoard->image_credit,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
-``          ])
+            ])
+            */ ?>
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_source',

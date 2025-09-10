@@ -24,7 +24,7 @@ class ResumeStoreRequest extends FormRequest
     {
         return [
             'name'         => ['required', 'string', 'max:255', 'unique:career_db.resumes,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.resumes,slug'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:career_db.resumes,slug'],
             'date'         => ['date', 'nullable'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'content'      => ['nullable'],

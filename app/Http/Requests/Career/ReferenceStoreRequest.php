@@ -23,8 +23,8 @@ class ReferenceStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'            => ['required', 'string', 'max:255', 'unique:portfolio_db.skills,name'],
-            'slug'            => ['required', 'string', 'max:255', 'unique:portfolio_db.skills,slug'],
+            'name'            => ['required', 'string', 'max:255', 'unique:career_db.references,name'],
+            'slug'            => ['required', 'string', 'max:255', 'unique:career_db.references,slug'],
             'phone'           => ['string', 'max:20', 'nullable'],
             'phone_label'     => ['string', 'max:255', 'nullable'],
             'alt_phone'       => ['string', 'max:20', 'nullable'],
