@@ -75,6 +75,7 @@
                 'message' => $message ?? '',
             ])
 
+            <?php /* @TODO: Why does image_credit cause "shell_exec(): Argument #1 ($command) cannot be empty" error?
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_credit',
                 'label'     => 'image credit',
@@ -82,6 +83,7 @@
                 'maxlength' => 255,
                 'message'   => $message ?? '',
 ``          ])
+            */ ?>
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_source',

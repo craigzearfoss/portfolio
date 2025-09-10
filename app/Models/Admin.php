@@ -211,4 +211,27 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(\App\Models\Portfolio\Video::class);
     }
+
+    /**
+     * Returns an array of options for a select list.
+     *
+     * @param bool $includeBlank
+     * @param bool $includeNames
+     * @return array|string[]
+     */
+    public static function listOptions(bool $includeBlank = false, bool $includeNames = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options = [ '' => '' ];
+        }
+
+        foreach (self::orderBy('name', 'asc')->get() as $row) {
+            $options[$row->id] = $includeNames
+                ? $row->username . (!empty($row->name) ? ' (' . $row->name . ')' : '')
+                : $row->username;
+        }
+
+        return $options;
+    }
 }

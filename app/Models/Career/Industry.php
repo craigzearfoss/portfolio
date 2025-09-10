@@ -38,12 +38,16 @@ class Industry extends Model
     /**
      * Returns an array of options for a select list.
      *
+     * @param bool $includeBlank
      * @param bool $useAbbreviation
      * @return array|string[]
      */
-    public static function listOptions(bool $useAbbreviation = false): array
+    public static function listOptions(bool $includeBlank = false,bool $useAbbreviation = false): array
     {
         $options = [];
+        if ($includeBlank) {
+            $options = [ '' => '' ];
+        }
 
         $labelField = $useAbbreviation ? 'abbreviation' : 'name';
 

@@ -22,6 +22,7 @@ class RecipeUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Generate the slug.
         if (!empty($this['name'])) {
             $this->merge([ 'slug' => Str::slug($this['name']) ]);
         }

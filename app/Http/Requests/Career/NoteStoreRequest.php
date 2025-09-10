@@ -23,6 +23,9 @@ class NoteStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Attach the admin_id.
+        $this->merge([ 'admin_id' => Auth::guard('admin')->user()->id ]);
+
         return [
             'application_id' => ['required', 'integer', 'in:'. implode(',', Application::all('id')->pluck('id')->toArray())],
             'subject'        => ['required', 'string', 'max:255'],

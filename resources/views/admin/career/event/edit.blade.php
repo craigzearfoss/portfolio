@@ -20,10 +20,15 @@
             @csrf
             @method('PUT')
 
-            @include('admin.components.form-hidden', [
-                'name'  => old('admin_id') ?? Auth::guard('admin')->user()->id,
-                'value' => '0',
-            ])
+            @if(Auth::guard('admin')->user()->root)
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'admin_id',
+                    'label'   => 'admin',
+                    'value'   => old('admin_id') ?? $event->admin_id,
+                    'list'    => \App\Models\Admin::listOptions(),
+                    'message' => $message ?? '',
+                ])
+            @endif
 
             @include('admin.components.form-input-horizontal', [
                 'name'        => 'name',

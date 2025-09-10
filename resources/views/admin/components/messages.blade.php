@@ -7,7 +7,7 @@
 @endif
 
 @if (!empty($errors))
-    @foreach ($errors as $error)
-        @include('admin.components.message-danger', ['message'=> $error])
+    @foreach ($errors->all() as $message)
+        @include('admin.components.message-danger', ['message'=> $message])
     @endforeach
 @endif

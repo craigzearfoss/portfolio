@@ -23,9 +23,13 @@ class JobStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Generate the slug.
         if (!empty($this['name'])) {
             $this->merge([ 'slug' => Str::slug($this['name']) ]);
         }
+
+        // Attach the admin_id.
+        $this->merge([ 'admin_id' => Auth::guard('admin')->user()->id ]);
 
         return [
             'name'         => ['required', 'string', 'max:255', 'unique:career_db.jobs,name'],

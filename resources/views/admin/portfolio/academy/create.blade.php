@@ -19,11 +19,6 @@
         <form action="{{ route('admin.portfolio.academy.store') }}" method="POST">
             @csrf
 
-            @include('admin.components.form-hidden', [
-                'name'  => Auth::guard('admin')->user()->id,
-                'value' => '0',
-            ])
-
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? '',

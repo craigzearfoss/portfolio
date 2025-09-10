@@ -25,6 +25,9 @@ class ApplicationStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Attach the admin_id.
+        $this->merge([ 'admin_id' => Auth::guard('admin')->user()->id ]);
+
         return [
             'company_id'        => ['integer', 'in:' . implode(',', Company::all('id')->pluck('id')->toArray())],
             'cover_letter_id'   => ['integer', 'in:' . implode(',', CoverLetter::all('id')->pluck('id')->toArray())],

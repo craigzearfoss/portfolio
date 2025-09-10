@@ -23,6 +23,9 @@ class RecipeStepStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Attach the admin_id.
+        $this->merge([ 'admin_id' => Auth::guard('admin')->user()->id ]);
+
         return [
             'recipe_id'   => [
                 'required',

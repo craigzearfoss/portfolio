@@ -19,10 +19,15 @@
         <form action="{{ route('admin.career.company.store') }}" method="POST">
             @csrf
 
-            @include('admin.components.form-hidden', [
-                'name'  => Auth::guard('admin')->user()->id,
-                'value' => '0',
-            ])
+            @if(Auth::guard('admin')->user()->root)
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'admin_id',
+                    'label'   => 'admin',
+                    'value'   => old('admin_id') ?? Auth::guard('admin')->user()->id,
+                    'list'    => \App\Models\Admin::listOptions(),
+                    'message' => $message ?? '',
+                ])
+            @endif
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
@@ -36,7 +41,7 @@
                 'name'    => 'industry_id',
                 'label'   => 'industry',
                 'value'   => old('industry_id') ?? 0,
-                'list'    => \App\Models\Career\Industry::listOptions(false),
+                'list'    => \App\Models\Career\Industry::listOptions(true, false),
                 'message' => $message ?? '',
             ])
 

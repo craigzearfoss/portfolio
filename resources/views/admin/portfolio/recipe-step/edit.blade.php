@@ -20,10 +20,15 @@
         <form action="{{ route('admin.portfolio.recipe-step.store') }}" method="POST">
             @csrf
 
-            @include('admin.components.form-hidden', [
-                'name'  => Auth::guard('admin')->user()->id,
-                'value' => '0',
-            ])
+            @if(Auth::guard('admin')->user()->root)
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'admin_id',
+                    'label'   => 'admin',
+                    'value'   => old('admin_id') ?? $art->admin_id,
+                    'list'    => \App\Models\Admin::listOptions(),
+                    'message' => $message ?? '',
+                ])
+            @endif
 
             @include('admin.components.form-select-horizontal', [
                 'name'     => 'recipe_id',
