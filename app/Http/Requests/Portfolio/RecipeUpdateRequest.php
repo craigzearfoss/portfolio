@@ -27,6 +27,13 @@ class RecipeUpdateRequest extends FormRequest
             $this->merge([ 'slug' => Str::slug($this['name']) ]);
         }
 
+        // Validate the admin_id. (Only root admins can change the admin for a recipe.)
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+            && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
+        ) {
+            throw new \Exception('You are not authorized to change the admin for a recipe.');
+        }
+
         return [
             'name'         => ['string', 'max:255', 'unique:portfolio_db.recipes,name,'.$this->recipe->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.recipes,slug,'.$this->recipe->id, 'filled'],

@@ -29,6 +29,13 @@ class CompanyUpdateRequest extends FormRequest
             $this->merge([ 'slug' => Str::slug($this['name']) ]);
         }
 
+        // Validate the admin_id. (Only root admins can change the admin for a company.)
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+            && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
+        ) {
+            throw new \Exception('You are not authorized to change the admin for a company.');
+        }
+
         return [
             'name'            => ['string', 'max:255', 'unique:career_db.companies,name,'.$this->company->id, 'filled'],
             'slug'            => ['string', 'max:255', 'unique:career_db.companies,slug,'.$this->company->id, 'filled'],

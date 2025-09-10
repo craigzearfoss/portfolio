@@ -29,6 +29,13 @@ class CourseUpdateRequest extends FormRequest
             $this->merge([ 'slug' => Str::slug($this['name']) ]);
         }
 
+        // Validate the admin_id. (Only root admins can change the admin for a course.)
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+            && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
+        ) {
+            throw new \Exception('You are not authorized to change the admin for a course.');
+        }
+
         return [
             'name'         => ['string', 'max:255', 'unique:portfolio_db.courses,name,'.$this->course->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.courses,slug,'.$this->course->id, 'filled'],

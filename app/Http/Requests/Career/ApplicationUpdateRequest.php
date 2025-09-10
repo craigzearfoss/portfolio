@@ -25,6 +25,13 @@ class ApplicationUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Validate the admin_id. (Only root admins can change the admin for an application.)
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+            && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
+        ) {
+            throw new \Exception('You are not authorized to change the admin for an application.');
+        }
+
         return [
             'company_id'        => ['integer', 'in:' . implode(',', Company::all('id')->pluck('id')->toArray())],
             'cover_letter_id'   => ['integer', 'in:' . implode(',', CoverLetter::all('id')->pluck('id')->toArray())],

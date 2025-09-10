@@ -25,8 +25,13 @@ class ApplicationStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Attach the admin_id.
-        $this->merge([ 'admin_id' => Auth::guard('admin')->user()->id ]);
+        // Validate the admin_id. (Only root admins can change the admin for an application.)
+        if (empty($this['admin_id'])) {
+            $this->merge(['admin_id' => Auth::guard('admin')->user()->id]);
+        }
+        if (!Auth::guard('admin')->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
+            throw new \Exception('You are not authorized to change the admin for an application.');
+        }
 
         return [
             'company_id'        => ['integer', 'in:' . implode(',', Company::all('id')->pluck('id')->toArray())],

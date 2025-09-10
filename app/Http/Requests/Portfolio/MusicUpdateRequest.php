@@ -28,6 +28,13 @@ class MusicUpdateRequest extends FormRequest
             $this->merge([ 'slug' => Str::slug($this['name']) ]);
         }
 
+        // Validate the admin_id. (Only root admins can change the admin for music.)
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+            && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
+        ) {
+            throw new \Exception('You are not authorized to change the admin for music.');
+        }
+
         return [
             'name'           => ['string', 'max:255', 'unique:portfolio_db.music,name,'.$this->music->id, 'filled'],
             'slug'           => ['string', 'max:255', 'unique:portfolio_db.music,slug,'.$this->music->id, 'filled'],

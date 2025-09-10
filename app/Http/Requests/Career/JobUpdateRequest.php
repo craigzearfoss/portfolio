@@ -28,6 +28,13 @@ class obUpdateRequest extends FormRequest
             $this->merge([ 'slug' => Str::slug($this['name']) ]);
         }
 
+        // Validate the admin_id. (Only root admins can change the admin for a job.)
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+            && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
+        ) {
+            throw new \Exception('You are not authorized to change the admin for a job.');
+        }
+
         return [
             'name'         => ['string', 'max:255', 'unique:career_db.jobs,name,'.$this->job->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:career_db.jobs,slug,'.$this->job->id, 'filled'],

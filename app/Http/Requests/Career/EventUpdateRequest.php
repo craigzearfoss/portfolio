@@ -23,6 +23,13 @@ class EventUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Validate the admin_id. (Only root admins can change the admin for an event.)
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+            && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
+        ) {
+            throw new \Exception('You are not authorized to change the admin for an event.');
+        }
+
         return [
             'application_id' => ['integer', 'in:' . implode(',', Application::all('id')->pluck('id')->toArray())],
             'name'           => ['string', 'max:255', 'filled'],

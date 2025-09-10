@@ -23,6 +23,13 @@ class RecipeStepUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Validate the admin_id. (Only root admins can change the admin for a recipe step.)
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+            && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
+        ) {
+            throw new \Exception('You are not authorized to change the admin for a recipe step.');
+        }
+
         return [
             'recipe_id'   => [
                 'required',

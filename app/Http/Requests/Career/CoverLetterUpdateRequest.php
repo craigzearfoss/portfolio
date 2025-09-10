@@ -28,6 +28,13 @@ class CoverLetterUpdateRequest extends FormRequest
             $this->merge([ 'slug' => Str::slug($this['name']) ]);
         }
 
+        // Validate the admin_id. (Only root admins can change the admin for a cover letter.)
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+            && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
+        ) {
+            throw new \Exception('You are not authorized to change the admin for a cover letter.');
+        }
+
         return [
             'name'          => ['string', 'max:255', 'unique:career_db.cover_letters,name,'.$this->cover_letter->id, 'filled'],
             'slug'          => ['string', 'max:255', 'unique:career_db.cover_letters,slug,'.$this->cover_letter->id, 'filled'],
