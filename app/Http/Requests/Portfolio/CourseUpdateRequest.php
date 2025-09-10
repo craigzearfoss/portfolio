@@ -5,6 +5,7 @@ namespace App\Http\Requests\Portfolio;
 use App\Models\Portfolio\Academy;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CourseUpdateRequest extends FormRequest
 {
@@ -23,9 +24,13 @@ class CourseUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'name'         => ['string', 'max:255', 'unique:portfolio_db.courses,name,'.$this->course->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.courses,slug,'.$this->course->id],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.courses,slug,'.$this->course->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],

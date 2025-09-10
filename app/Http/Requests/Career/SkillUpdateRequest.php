@@ -4,6 +4,7 @@ namespace App\Http\Requests\Career;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class SkillUpdateRequest extends FormRequest
 {
@@ -22,9 +23,13 @@ class SkillUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'name'        => ['string', 'max:255', 'unique:career_db.jobs,name,'.$this->skill->id, 'filled'],
-            'slug'        => ['string', 'max:255', 'unique:career_db.jobs,slug,'.$this->skill->id],
+            'slug'        => ['string', 'max:255', 'unique:career_db.jobs,slug,'.$this->skill->id, 'filled'],
             'rating'      => ['integer', 'between:1,10'],
             'years'       => ['integer', 'min:0'],
             'description' => ['nullable'],

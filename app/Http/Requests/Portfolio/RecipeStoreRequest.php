@@ -4,6 +4,7 @@ namespace App\Http\Requests\Portfolio;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class RecipeStoreRequest extends FormRequest
 {
@@ -22,9 +23,13 @@ class RecipeStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.recipes,name'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.recipes,slug'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.recipes,slug'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'source'       => ['string', 'max:255', 'nullable'],

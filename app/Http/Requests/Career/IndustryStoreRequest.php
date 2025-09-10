@@ -4,6 +4,7 @@ namespace App\Http\Requests\Career;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class IndustryStoreRequest extends FormRequest
 {
@@ -22,9 +23,13 @@ class IndustryStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'name'         => ['required', 'string', 'max:50', 'unique:career_db.industries,name'],
-            'slug'         => ['string', 'max:50', 'unique:career_db.industries,slug'],
+            'slug'         => ['required', 'string', 'max:50', 'unique:career_db.industries,slug'],
             'abbreviation' => ['required', 'string', 'max:20', 'unique:career_db.industries,abbreviation'],
             'link'         => ['string', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],

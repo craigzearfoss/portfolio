@@ -4,6 +4,7 @@ namespace App\Http\Requests\Portfolio;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ReadingUpdateRequest extends FormRequest
 {
@@ -22,9 +23,13 @@ class ReadingUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'title'            => ['string', 'max:255', 'unique:portfolio_db.readings,name,'.$this->reading->id, 'filled'],
-            'slug'             => ['string', 'max:255', 'unique:portfolio_db.readings,slug,'.$this->reading->id],
+            'slug'             => ['string', 'max:255', 'unique:portfolio_db.readings,slug,'.$this->reading->id, 'filled'],
             'professional'     => ['integer', 'between:0,1'],
             'personal'         => ['integer', 'between:0,1'],
             'author'           => ['string', 'max:255', 'nullable'],

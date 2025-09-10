@@ -4,6 +4,7 @@ namespace App\Http\Requests\Dictionary;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class DatabaseUpdateRequest extends FormRequest
 {
@@ -22,10 +23,14 @@ class DatabaseUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'full_name'    => ['string', 'max:255', 'unique:dictionary_db.databases,'.$this->database->id, 'filled'],
             'name'         => ['string', 'max:255', 'unique:dictionary_db.databases,name,'.$this->database->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:dictionary_db.databases,slug,'.$this->database->id],
+            'slug'         => ['string', 'max:255', 'unique:dictionary_db.databases,slug,'.$this->database->id, 'filled'],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

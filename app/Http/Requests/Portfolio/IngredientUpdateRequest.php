@@ -4,6 +4,7 @@ namespace App\Http\Requests\Portfolio;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class IngredientUpdateRequest extends FormRequest
 {
@@ -22,10 +23,14 @@ class IngredientUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'full_name'   => ['string', 'max:255', 'unique:portfolio_db.ingredients,full_name,'.$this->ingredient->id, 'filled'],
             'name'        => ['string', 'max:100', 'unique:portfolio_db.ingredients,name,'.$this->ingredient->id, 'filled'],
-            'slug'        => ['string', 'max:100', 'unique:portfolio_db.ingredients,slug,'.$this->ingredient->id],
+            'slug'        => ['string', 'max:100', 'unique:portfolio_db.ingredients,slug,'.$this->ingredient->id, 'filled'],
             'link'        => ['string', 'nullable'],
             'link_name'   => ['string', 'nullable'],
             'description' => ['nullable'],

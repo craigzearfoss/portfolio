@@ -4,6 +4,7 @@ namespace App\Http\Requests\Portfolio;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProjectUpdateRequest extends FormRequest
 {
@@ -22,9 +23,13 @@ class ProjectUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'name'         => ['string', 'max:255', 'unique:portfolio_db.projects,name,'.$this->project->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.projects,slug,'.$this->project->id],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.projects,slug,'.$this->project->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],

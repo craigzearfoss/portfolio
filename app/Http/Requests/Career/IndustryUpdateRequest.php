@@ -4,6 +4,7 @@ namespace App\Http\Requests\Career;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class IndustryUpdateRequest extends FormRequest
 {
@@ -22,9 +23,13 @@ class IndustryUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
-            'name'         => ['string', 'max:100', 'unique:career_db.industries,name,'.$this->industry->id, 'filled'],
-            'slug'         => ['string', 'max:100', 'unique:career_db.industries,slug,'.$this->industry->id],
+            'name'         => ['string', 'max:50', 'unique:career_db.industries,name,'.$this->industry->id, 'filled'],
+            'slug'         => ['string', 'max:50', 'unique:career_db.industries,slug,'.$this->industry->id, 'filled'],
             'abbreviation' => ['string', 'max:20', 'unique:career_db.industries,abbreviation,'.$this->industry->id, 'filled'],
             'link'         => ['string', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Career;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class JobBoardStoreRequest extends FormRequest
 {
@@ -22,9 +23,13 @@ class JobBoardStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'name'         => ['required', 'string', 'max:100', 'unique:career_db.job_boards,name'],
-            'slug'         => ['string', 'max:100', 'unique:career_db.job_boards,slug'],
+            'slug'         => ['required', 'string', 'max:100', 'unique:career_db.job_boards,slug'],
             'link'         => ['string', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

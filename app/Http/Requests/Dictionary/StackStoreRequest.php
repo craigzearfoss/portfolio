@@ -4,6 +4,7 @@ namespace App\Http\Requests\Dictionary;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class StackStoreRequest extends FormRequest
 {
@@ -22,10 +23,14 @@ class StackStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'full_name'    => ['required', 'string', 'max:255', 'unique:dictionary_db.stacks,full_name'],
-            'name'         => ['required', 'string', 'max:100', 'unique:dictionary_db.stacks,name'],
-            'slug'         => ['string', 'max:100', 'unique:dictionary_db.stacks,slug'],
+            'name'         => ['required', 'string', 'max:255', 'unique:dictionary_db.stacks,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:dictionary_db.stacks,slug'],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

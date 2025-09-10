@@ -4,6 +4,7 @@ namespace App\Http\Requests\Dictionary;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class OperatingSystemUpdateRequest extends FormRequest
 {
@@ -22,10 +23,14 @@ class OperatingSystemUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'full_name'    => ['string', 'max:255', 'unique:dictionary_db.operating_systems,full_name,'.$this->operating_system->id, 'filled'],
-            'name'         => ['string', 'max:100', 'unique:dictionary_db.operating_systems,name,'.$this->operating_system->id, 'filled'],
-            'slug'         => ['string', 'max:100', 'unique:dictionary_db.operating_systems,slug,'.$this->operating_system->id],
+            'name'         => ['string', 'max:255', 'unique:dictionary_db.operating_systems,name,'.$this->operating_system->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:dictionary_db.operating_systems,slug,'.$this->operating_system->id, 'filled'],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

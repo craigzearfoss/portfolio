@@ -4,6 +4,7 @@ namespace App\Http\Requests\Career;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class JobStoreRequest extends FormRequest
 {
@@ -22,9 +23,13 @@ class JobStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'name'         => ['required', 'string', 'max:255', 'unique:career_db.jobs,name'],
-            'slug'         => ['string', 'max:255', 'unique:career_db.jobs,slug'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:career_db.jobs,slug'],
             'role'         => ['string', 'max:255',],
             'start_date'   => ['date', 'nullable'],
             'end_date'     => ['date', 'after_or_equal:start_date', 'nullable'],

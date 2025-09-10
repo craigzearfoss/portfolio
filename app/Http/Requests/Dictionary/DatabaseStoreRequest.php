@@ -4,6 +4,7 @@ namespace App\Http\Requests\Dictionary;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class DatabaseStoreRequest extends FormRequest
 {
@@ -22,10 +23,14 @@ class DatabaseStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'full_name'    => ['required', 'string', 'max:255', 'unique:dictionary_db.databases,full_name'],
             'name'         => ['required', 'string', 'max:255', 'unique:dictionary_db.databases,name'],
-            'slug'         => ['string', 'max:255', 'unique:dictionary_db.databases,slug'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:dictionary_db.databases,slug'],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

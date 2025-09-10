@@ -48,22 +48,11 @@ class DatabaseController extends BaseController
      */
     public function store(DatabaseStoreRequest $request): RedirectResponse
     {
-        //dd($request->validated());
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add database entries.');
         }
 
-        // Validate the data.
-        $validatedData = $request->validated();
-
-        // Generate and validate the slug.
-        $slug = Str::slug($validatedData['name']);
-        $request->merge([ 'slug' => $slug ]); // Add the generated slug to the request for validation
-        $request->validate([ 'slug' => [ Rule::unique('dictionary_db.databases', 'slug') ] ]);
-        $validatedData['slug'] = $slug;
-
-        // Validated the posted data and generated slug.
-        Database::create($validatedData);
+        Database::create($request->validated());
 
         return redirect()->route('admin.dictionary.database.index')
             ->with('success', 'Database created successfully.');

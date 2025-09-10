@@ -4,6 +4,7 @@ namespace App\Http\Requests\Career;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CoverLetterUpdateRequest extends FormRequest
 {
@@ -22,9 +23,13 @@ class CoverLetterUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'name'          => ['string', 'max:255', 'unique:career_db.cover_letters,name,'.$this->cover_letter->id, 'filled'],
-            'slug'          => ['string', 'max:255', 'unique:career_db.cover_letters,slug,'.$this->cover_letter->id],
+            'slug'          => ['string', 'max:255', 'unique:career_db.cover_letters,slug,'.$this->cover_letter->id, 'filled'],
             'date'          => ['date', 'nullable'],
             'content'       => ['nullable'],
             'link'          => ['string', 'max:255', 'nullable'],

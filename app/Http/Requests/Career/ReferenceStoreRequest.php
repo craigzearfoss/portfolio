@@ -4,6 +4,7 @@ namespace App\Http\Requests\Career;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ReferenceStoreRequest extends FormRequest
 {
@@ -22,9 +23,13 @@ class ReferenceStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'name'            => ['required', 'string', 'max:255', 'unique:career_db.references,name'],
-            'slug'            => ['string', 'max:255', 'unique:career_db.references,slug'],
+            'slug'            => ['required', 'string', 'max:255', 'unique:career_db.references,slug'],
             'phone'           => ['string', 'max:20', 'nullable'],
             'phone_label'     => ['string', 'max:255', 'nullable'],
             'alt_phone'       => ['string', 'max:20', 'nullable'],

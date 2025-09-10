@@ -5,6 +5,7 @@ namespace App\Http\Requests\Career;
 use App\Models\Career\Industry;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CompanyStoreRequest extends FormRequest
 {
@@ -23,9 +24,13 @@ class CompanyStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'name'            => ['required', 'string', 'max:255', 'unique:career_db.companies,name'],
-            'slug'            => ['string', 'max:255', 'unique:career_db.companies,slug'],
+            'slug'            => ['required', 'string', 'max:255', 'unique:career_db.companies,slug'],
             'industry_id'     => ['integer', 'in:' . Industry::all()->pluck('id')->toArray()],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],

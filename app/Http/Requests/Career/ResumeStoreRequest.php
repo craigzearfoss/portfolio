@@ -4,6 +4,7 @@ namespace App\Http\Requests\Career;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ResumeStoreRequest extends FormRequest
 {
@@ -22,9 +23,13 @@ class ResumeStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'name'         => ['required', 'string', 'max:255', 'unique:career_db.resumes,name'],
-            'slug'         => ['string', 'max:255', 'unique:career_db.resumes,slug'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:career_db.resumes,slug'],
             'date'         => ['date', 'nullable'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'content'      => ['nullable'],

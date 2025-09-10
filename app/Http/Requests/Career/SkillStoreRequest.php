@@ -4,6 +4,7 @@ namespace App\Http\Requests\Career;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class SkillStoreRequest extends FormRequest
 {
@@ -22,9 +23,13 @@ class SkillStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'name'        => ['required', 'string', 'max:255', 'unique:career_db.skills,name'],
-            'slug'        => ['string', 'max:255', 'unique:career_db.skills,slug'],
+            'slug'        => ['required', 'string', 'max:255', 'unique:career_db.skills,slug'],
             'rating'      => ['integer', 'between:1,10'],
             'years'       => ['integer', 'min:0'],
             'link'         => ['string', 'max:255', 'nullable'],

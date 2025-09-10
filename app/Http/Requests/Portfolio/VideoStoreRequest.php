@@ -4,6 +4,7 @@ namespace App\Http\Requests\Portfolio;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class VideoStoreRequest extends FormRequest
 {
@@ -22,9 +23,13 @@ class VideoStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return [
             'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.videos,name'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.videos.slug'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.videos.slug'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'date'         => ['date', 'nullable'],

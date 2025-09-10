@@ -5,6 +5,7 @@ namespace App\Http\Requests\Portfolio;
 use App\Models\Portfolio\Academy;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CertificationStoreRequest extends FormRequest
 {
@@ -23,9 +24,13 @@ class CertificationStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         return[
             'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.certifications,name'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.certifications,slug'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.certifications,slug'],
             'organization' => ['string', 'max:255', 'nullable'],
             'academy_id'   => ['integer', 'in:' . Academy::all()->pluck('id')],
             'professional' => ['integer', 'between:0,1'],
