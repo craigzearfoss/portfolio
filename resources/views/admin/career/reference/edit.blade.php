@@ -35,14 +35,6 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'slug',
-                'value'     => old('slug') ?? $reference->slug,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
                 'name'      => 'phone',
                 'value'     => old('phone') ?? $reference->phone,
                 'maxlength' => 20,

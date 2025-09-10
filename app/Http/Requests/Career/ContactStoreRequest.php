@@ -24,7 +24,7 @@ class ContactStoreRequest extends FormRequest
     {
         return [
             'name'            => ['required', 'string', 'max:255', 'unique:career_db.contacts,name'],
-            'slug'            => ['required', 'string', 'max:255', 'unique:career_db.contacts,slug'],
+            'slug'            => ['string', 'max:255', 'unique:career_db.contacts,slug'],
             'title'           => ['string', 'max:20', 'nullable'],
             'job_title'       => ['string', 'max:100', 'nullable'],
             'street'          => ['string', 'max:255', 'nullable'],

@@ -1,7 +1,7 @@
 @extends('front.layouts.default', [
     'title' => 'Dictionary',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('front.dashboard')],
+        [ 'name' => 'Home', 'url' => route('front.homepage')],
         [ 'name' => 'Dictionary']
     ],
     'buttons' => [],
@@ -26,11 +26,12 @@
 
             @forelse ($words as $word)
 
-                    <li>
-                        <a href="{{ route('front.dictionary.'.str_replace(' ', '-', $word->table_slug).'.show', $word->id) }}">
-                        <strong>{{ $word->name }}</strong> (<i>{{ $word->table_name }})</i>
-                        </a>
-                    </li>
+                <li>
+                    @include('front.components.dictionary-definition', [
+                        'word'  => $word,
+                        'route' => route('front.dictionary.'.$word->table_slug.'.show', $word->id)
+                    ])
+                </li>
 
             @empty
 

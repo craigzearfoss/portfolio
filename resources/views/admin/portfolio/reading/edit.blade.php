@@ -34,14 +34,6 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'slug',
-                'value'     => old('slug') ?? $reading->slug,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
                 'name'        => 'author',
                 'value'       => old('author') ?? $reading->author,
                 'required'    => true,

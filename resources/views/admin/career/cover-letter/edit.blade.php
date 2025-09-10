@@ -35,14 +35,6 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'slug',
-                'value'     => old('slug') ?? $coverLetter->slug,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
                 'type'      => 'date',
                 'name'      => 'date',
                 'value'     => old('date') ?? $coverLetter->date,

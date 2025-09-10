@@ -25,7 +25,7 @@ class CategoryStoreRequest extends FormRequest
         return [
             'full_name'    => ['required', 'string', 'max:255', 'unique:dictionary_db.categories,full_name'],
             'name'         => ['required', 'string', 'max:100', 'unique:dictionary_db.categories,name'],
-            'slug'         => ['required', 'string', 'max:100', 'unique:dictionary_db.categories,slug'],
+            'slug'         => ['string', 'max:100', 'unique:dictionary_db.categories,slug'],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

@@ -25,7 +25,7 @@ class CertificationStoreRequest extends FormRequest
     {
         return[
             'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.certifications,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.certifications,slug'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.certifications,slug'],
             'organization' => ['string', 'max:255', 'nullable'],
             'academy_id'   => ['integer', 'in:' . Academy::all()->pluck('id')],
             'professional' => ['integer', 'between:0,1'],

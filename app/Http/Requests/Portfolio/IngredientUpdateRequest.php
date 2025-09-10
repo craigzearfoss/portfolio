@@ -25,7 +25,7 @@ class IngredientUpdateRequest extends FormRequest
         return [
             'full_name'   => ['string', 'max:255', 'unique:portfolio_db.ingredients,full_name,'.$this->ingredient->id, 'filled'],
             'name'        => ['string', 'max:100', 'unique:portfolio_db.ingredients,name,'.$this->ingredient->id, 'filled'],
-            'slug'        => ['string', 'max:100', 'unique:portfolio_db.ingredients,slug,'.$this->ingredient->id, 'filled'],
+            'slug'        => ['string', 'max:100', 'unique:portfolio_db.ingredients,slug,'.$this->ingredient->id],
             'link'        => ['string', 'nullable'],
             'link_name'   => ['string', 'nullable'],
             'description' => ['nullable'],

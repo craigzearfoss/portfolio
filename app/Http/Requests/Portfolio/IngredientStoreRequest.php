@@ -25,7 +25,7 @@ class IngredientStoreRequest extends FormRequest
         return [
             'full_name'   => ['required', 'string', 'max:255', 'unique:portfolio_db.ingredients,full_name'],
             'name'        => ['required', 'string', 'max:100', 'unique:portfolio_db.ingredients,name'],
-            'slug'        => ['required', 'string', 'max:100', 'unique:portfolio_db.ingredients,slug'],
+            'slug'        => ['string', 'max:100', 'unique:portfolio_db.ingredients,slug'],
             'link'        => ['string', 'nullable'],
             'link_name'   => ['string', 'nullable'],
             'description' => ['nullable'],

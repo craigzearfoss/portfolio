@@ -36,7 +36,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'unit',
-            'value' => $recipeIngredient->unit['name']
+            'value' => $recipeIngredient->unit['name'] ?? ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'qualifier',
+            'value'  => $recipeIngredient->qualifier,
         ])
 
         @include('admin.components.show-row', [

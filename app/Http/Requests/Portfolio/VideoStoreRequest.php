@@ -24,7 +24,7 @@ class VideoStoreRequest extends FormRequest
     {
         return [
             'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.videos,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.videos.slug'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.videos.slug'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'date'         => ['date', 'nullable'],

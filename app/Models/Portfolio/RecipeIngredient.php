@@ -29,6 +29,7 @@ class RecipeIngredient extends Model
         'ingredient_id',
         'amount',
         'unit_id',
+        'qualifier',
         'description',
         'image',
         'image_credit',

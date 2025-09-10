@@ -24,7 +24,7 @@ class ReferenceStoreRequest extends FormRequest
     {
         return [
             'name'            => ['required', 'string', 'max:255', 'unique:career_db.references,name'],
-            'slug'            => ['required', 'string', 'max:255', 'unique:career_db.references,slug'],
+            'slug'            => ['string', 'max:255', 'unique:career_db.references,slug'],
             'phone'           => ['string', 'max:20', 'nullable'],
             'phone_label'     => ['string', 'max:255', 'nullable'],
             'alt_phone'       => ['string', 'max:20', 'nullable'],

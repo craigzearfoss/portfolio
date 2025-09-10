@@ -245,7 +245,7 @@ return new class extends Migration
             [ 'id' => 223, 'name' => 'Tokelau',                            'm49' => '772', 'iso_alpha3' => 'TKL' ],
             [ 'id' => 224, 'name' => 'Tonga',                              'm49' => '776', 'iso_alpha3' => 'TON' ],
             [ 'id' => 225, 'name' => 'Trinidad and Tobago',                'm49' => '780', 'iso_alpha3' => 'TTO' ],
-            [ 'id' => 126, 'name' => 'Tunisia',                            'm49' => '788', 'iso_alpha3' => 'TUN' ],
+            [ 'id' => 226, 'name' => 'Tunisia',                            'm49' => '788', 'iso_alpha3' => 'TUN' ],
             [ 'id' => 227, 'name' => 'Türkiye',                            'm49' => '792', 'iso_alpha3' => 'TUR' ],
             [ 'id' => 228, 'name' => 'Turkmenistan',                       'm49' => '795', 'iso_alpha3' => 'TKM' ],
             [ 'id' => 229, 'name' => 'Turks and Caicos Islands',           'm49' => '796', 'iso_alpha3' => 'TCA' ],
@@ -278,6 +278,6 @@ return new class extends Migration
      */
     public function down(): voids
     {
-        Schema::dropIfExists('countries');
+        Schema::connection('default_db')->dropIfExists('countries');
     }
 };

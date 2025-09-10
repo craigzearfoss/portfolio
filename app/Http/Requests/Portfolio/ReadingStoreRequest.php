@@ -24,7 +24,7 @@ class ReadingStoreRequest extends FormRequest
     {
         return [
             'title'            => ['required', 'string', 'max:255', 'unique:portfolio_db.readings,name'],
-            'slug'             => ['required', 'string', 'max:255', 'unique:portfolio_db.readings,slug'],
+            'slug'             => ['string', 'max:255', 'unique:portfolio_db.readings,slug'],
             'professional'     => ['integer', 'between:0,1'],
             'personal'         => ['integer', 'between:0,1'],
             'author'           => ['string', 'max:255', 'nullable'],

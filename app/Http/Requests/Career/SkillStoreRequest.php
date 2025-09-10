@@ -24,7 +24,7 @@ class SkillStoreRequest extends FormRequest
     {
         return [
             'name'        => ['required', 'string', 'max:255', 'unique:career_db.skills,name'],
-            'slug'        => ['required', 'string', 'max:255', 'unique:career_db.skills,slug'],
+            'slug'        => ['string', 'max:255', 'unique:career_db.skills,slug'],
             'rating'      => ['integer', 'between:1,10'],
             'years'       => ['integer', 'min:0'],
             'link'         => ['string', 'max:255', 'nullable'],

@@ -24,7 +24,7 @@ class ArtStoreRequest extends FormRequest
     {
         return [
             'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.art,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.art,slug'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.art,slug'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'artist'       => ['string', 'max:255', 'nullable'],

@@ -34,14 +34,6 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'slug',
-                'value'     => old('slug') ?? $industry->slug,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
                 'name'      => 'abbreviation',
                 'value'     => old('abbreviation') ?? $industry->abbreviation,
                 'required'  => true,

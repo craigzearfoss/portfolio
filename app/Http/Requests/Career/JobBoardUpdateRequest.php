@@ -24,7 +24,7 @@ class JobBoardUpdateRequest extends FormRequest
     {
         return [
             'name'         => ['string', 'max:100', 'unique:career_db.job_boards,name,'.$this->job_board->id, 'filled'],
-            'slug'         => ['string', 'max:100', 'unique:career_db.job_boards,slug,'.$this->job_board->id, 'filled'],
+            'slug'         => ['string', 'max:100', 'unique:career_db.job_boards,slug,'.$this->job_board->id],
             'link'         => ['string', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

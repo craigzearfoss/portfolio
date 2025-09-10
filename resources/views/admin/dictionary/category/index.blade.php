@@ -95,11 +95,11 @@
                             @if (!empty($category->wikipedia))
                                 <a title="Wikipedia page" class="button is-small px-1 py-0" href="{{ $category->wikipedia }}"
                                    target="_blank">
-                                    <i class="fa-solid wikipedia_w"></i>{{-- wikipedia--}}
+                                    <i class="fa-solid fa-wikipedia-w"></i>{{-- wikipedia--}}
                                 </a>
                             @else
                                 <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid wikipedia_w"></i>{{-- wikipedia--}}
+                                    <i class="fa-solid fa-wikipedia-w"></i>{{-- wikipedia--}}
                                 </a>
                             @endif
 

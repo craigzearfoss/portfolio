@@ -24,7 +24,7 @@ class IndustryUpdateRequest extends FormRequest
     {
         return [
             'name'         => ['string', 'max:100', 'unique:career_db.industries,name,'.$this->industry->id, 'filled'],
-            'slug'         => ['string', 'max:100', 'unique:career_db.industries,slug,'.$this->industry->id, 'filled'],
+            'slug'         => ['string', 'max:100', 'unique:career_db.industries,slug,'.$this->industry->id],
             'abbreviation' => ['string', 'max:20', 'unique:career_db.industries,abbreviation,'.$this->industry->id, 'filled'],
             'link'         => ['string', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],

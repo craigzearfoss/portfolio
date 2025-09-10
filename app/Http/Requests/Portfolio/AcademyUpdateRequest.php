@@ -24,7 +24,7 @@ class AcademyUpdateRequest extends FormRequest
     {
         return [
             'name'        => ['string', 'max:255', 'unique:portfolio_db.academies,name,'.$this->academy->id, 'filled'],
-            'slug'        => ['string', 'max:255', 'unique:portfolio_db.academies,slug,'.$this->academy->id, 'filled'],
+            'slug'        => ['string', 'max:255', 'unique:portfolio_db.academies,slug,'.$this->academy->id],
             'link'        => ['string', 'nullable'],
             'link_name'   => ['string', 'nullable'],
             'description' => ['nullable'],

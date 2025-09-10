@@ -32,14 +32,6 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'slug',
-                'value'     => old('slug') ?? '',
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'professional',
                 'value'           => 1,

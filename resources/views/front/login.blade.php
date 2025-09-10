@@ -16,7 +16,7 @@
 
         <div class="card column is-5 mt-4">
 
-            <form action="{{ route('admin.login-submit') }}" method="POST">
+            <form action="{{ route('front.login-submit') }}" method="POST">
                 @csrf
 
                 <div class="column is-12">
@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="has-text-centered">
-                        @include('admin.components.form-button-submit', [
+                        @include('front.components.form-button-submit', [
                             'label'      => 'Login',
                             'cancel_url' => route('front.homepage')
                         ])

@@ -24,7 +24,7 @@ class obUpdateRequest extends FormRequest
     {
         return [
             'name'         => ['string', 'max:255', 'unique:career_db.jobs,name,'.$this->job->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:career_db.jobs,slug,'.$this->job->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:career_db.jobs,slug,'.$this->job->id],
             'role'         => ['string', 'max:255',],
             'start_date'   => ['date', 'nullable'],
             'end_date'     => ['date', 'after_or_equal:start_date', 'nullable'],

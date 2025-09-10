@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('code', 10)->unique();
             $table->string('name', 50);
+            $table->foreignIdFor( \App\Models\Country::class);
         });
 
         $data = [
@@ -52,8 +53,8 @@ return new class extends Migration
             [ 'id' => 31, 'code' => 'NJ', 'name' => 'New Jersey',           'country_id' => 237 ],
             [ 'id' => 32, 'code' => 'NM', 'name' => 'New Mexico',           'country_id' => 237 ],
             [ 'id' => 33, 'code' => 'NY', 'name' => 'New York',             'country_id' => 237 ],
-            [ 'id' => 24, 'code' => 'NC', 'name' => 'North Carolina',       'country_id' => 237 ],
-            [ 'id' => 25, 'code' => 'ND', 'name' => 'North Dakota',         'country_id' => 237 ],
+            [ 'id' => 34, 'code' => 'NC', 'name' => 'North Carolina',       'country_id' => 237 ],
+            [ 'id' => 35, 'code' => 'ND', 'name' => 'North Dakota',         'country_id' => 237 ],
             [ 'id' => 36, 'code' => 'OH', 'name' => 'Ohio',                 'country_id' => 237 ],
             [ 'id' => 37, 'code' => 'OK', 'name' => 'Oklahoma',             'country_id' => 237 ],
             [ 'id' => 38, 'code' => 'OR', 'name' => 'Oregon',               'country_id' => 237 ],
@@ -70,19 +71,18 @@ return new class extends Migration
             [ 'id' => 49, 'code' => 'WV', 'name' => 'West Virginia',        'country_id' => 237 ],
             [ 'id' => 50, 'code' => 'WI', 'name' => 'Wisconsin',            'country_id' => 237 ],
             [ 'id' => 51, 'code' => 'WY', 'name' => 'Wyoming',              'country_id' => 237 ],
-            [ 'id' => 51, 'code' => 'AB', 'name' => 'Alberta',                   'country_id' => 42 ],
-            [ 'id' => 52, 'code' => 'BC', 'name' => 'British Columbia',          'country_id' => 42 ],
-            [ 'id' => 53, 'code' => 'MB', 'name' => 'Manitoba',                  'country_id' => 42 ],
-            [ 'id' => 54, 'code' => 'NB', 'name' => 'New Brunswick',             'country_id' => 42 ],
-            [ 'id' => 55, 'code' => 'NL', 'name' => 'Newfoundland and Labrador', 'country_id' => 42 ],
-            [ 'id' => 56, 'code' => 'NT', 'name' => 'Northwest Territories',     'country_id' => 42 ],
-            [ 'id' => 57, 'code' => 'NS', 'name' => 'Nova Scotia',               'country_id' => 42 ],
-            [ 'id' => 68, 'code' => 'NU', 'name' => 'Nunavut',                   'country_id' => 42 ],
-            [ 'id' => 59, 'code' => 'ON', 'name' => 'Ontario',                   'country_id' => 42 ],
-            [ 'id' => 60, 'code' => 'PE', 'name' => 'Prince Edward Island',      'country_id' => 42 ],
-            [ 'id' => 61, 'code' => 'QC', 'name' => 'Quebec',                    'country_id' => 42 ],
-            [ 'id' => 62, 'code' => 'SK', 'name' => 'Saskatchewan',              'country_id' => 42 ],
-            [ 'id' => 63, 'code' => 'WY', 'name' => 'Wyoming',                   'country_id' => 42 ],
+            [ 'id' => 52, 'code' => 'AB', 'name' => 'Alberta',                   'country_id' => 42 ],
+            [ 'id' => 53, 'code' => 'BC', 'name' => 'British Columbia',          'country_id' => 42 ],
+            [ 'id' => 54, 'code' => 'MB', 'name' => 'Manitoba',                  'country_id' => 42 ],
+            [ 'id' => 55, 'code' => 'NB', 'name' => 'New Brunswick',             'country_id' => 42 ],
+            [ 'id' => 56, 'code' => 'NL', 'name' => 'Newfoundland and Labrador', 'country_id' => 42 ],
+            [ 'id' => 57, 'code' => 'NT', 'name' => 'Northwest Territories',     'country_id' => 42 ],
+            [ 'id' => 58, 'code' => 'NS', 'name' => 'Nova Scotia',               'country_id' => 42 ],
+            [ 'id' => 59, 'code' => 'NU', 'name' => 'Nunavut',                   'country_id' => 42 ],
+            [ 'id' => 60, 'code' => 'ON', 'name' => 'Ontario',                   'country_id' => 42 ],
+            [ 'id' => 61, 'code' => 'PE', 'name' => 'Prince Edward Island',      'country_id' => 42 ],
+            [ 'id' => 62, 'code' => 'QC', 'name' => 'Quebec',                    'country_id' => 42 ],
+            [ 'id' => 63, 'code' => 'SK', 'name' => 'Saskatchewan',              'country_id' => 42 ],
             [ 'id' => 64, 'code' => 'YT', 'name' => 'Yukon',                     'country_id' => 42 ],
         ];
 

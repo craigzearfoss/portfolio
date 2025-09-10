@@ -33,14 +33,6 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'slug',
-                'value'     => old('slug') ?? $company->slug,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'industry_id',
                 'label'   => 'industry',

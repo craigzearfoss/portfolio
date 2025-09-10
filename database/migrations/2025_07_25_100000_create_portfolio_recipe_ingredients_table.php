@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor( \App\Models\Portfolio\Recipe::class);
             $table->foreignIdFor( \App\Models\Portfolio\Ingredient::class);
-            $table->float('amount')->default(0);
+            $table->string('amount', 50)->nullable();
             $table->foreignIdFor( \App\Models\Portfolio\Unit::class);
+            $table->string('qualifier')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('image_credit')->nullable();

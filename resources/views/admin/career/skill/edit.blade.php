@@ -34,14 +34,6 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'slug',
-                'value'     => old('slug') ?? $skill->slug,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'rating',
                 'value'       => old('rating') ?? $skill->rating,

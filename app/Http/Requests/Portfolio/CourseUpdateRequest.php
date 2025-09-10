@@ -25,7 +25,7 @@ class CourseUpdateRequest extends FormRequest
     {
         return [
             'name'         => ['string', 'max:255', 'unique:portfolio_db.courses,name,'.$this->course->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.courses,slug,'.$this->course->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.courses,slug,'.$this->course->id],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],

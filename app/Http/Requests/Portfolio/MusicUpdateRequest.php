@@ -24,7 +24,7 @@ class MusicUpdateRequest extends FormRequest
     {
         return [
             'name'           => ['string', 'max:255', 'unique:portfolio_db.music,name,'.$this->music->id, 'filled'],
-            'slug'           => ['string', 'max:255', 'unique:portfolio_db.music,slug,'.$this->music->id, 'filled'],
+            'slug'           => ['string', 'max:255', 'unique:portfolio_db.music,slug,'.$this->music->id],
             'professional'   => ['integer', 'between:0,1'],
             'personal'       => ['integer', 'between:0,1'],
             'artist'         => ['string', 'max:255', 'nullable'],

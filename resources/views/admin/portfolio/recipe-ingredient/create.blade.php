@@ -26,33 +26,39 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? '',
-                'required'  => 100,
-                'maxlength' => 255,
+                'type'      => 'number',
+                'name'      => 'recipe_id',
+                'value'     => old('recipe_id') ?? '',
+                'required'  => true,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'slug',
-                'value'     => old('slug') ?? '',
+                'type'      => 'number',
+                'name'      => 'ingredient_id',
+                'value'     => old('ingredient_id') ?? '',
                 'required'  => true,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'amount',
+                'value'     => old('amount') ?? '',
                 'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? '',
-                'maxlength' => 255,
+                'type'      => 'number',
+                'name'      => 'unit_id',
+                'value'     => old('unit_id') ?? '',
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'link_name',
-                'label'     => 'link name',
-                'value'     => old('link_name') ?? '',
-                'maxlength' => 255,
+                'name'      => 'qualifier',
+                'value'     => old('qualifier') ?? '',
+                'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 

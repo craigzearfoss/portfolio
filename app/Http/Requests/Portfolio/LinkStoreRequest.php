@@ -24,7 +24,7 @@ class LinkStoreRequest extends FormRequest
     {
         return [
             'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.links,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.links,slug'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.links,slug'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'url'          => ['string', 'max:255', 'required'],

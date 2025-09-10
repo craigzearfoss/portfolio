@@ -35,14 +35,6 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'slug',
-                'value'     => old('slug') ?? $recipeIngredient->slug,
-                'required'  => true,
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
-
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',

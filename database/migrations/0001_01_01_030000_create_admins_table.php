@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('state', 100)->nullable();
             $table->string('zip', 20)->nullable();
             $table->string('country', 100)->nullable();
-            $table->point('location', 4326)->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

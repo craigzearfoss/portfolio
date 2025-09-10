@@ -43,7 +43,6 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'abbreviation',
                 'value'     => old('abbreviation') ?? $database->abbreviation,
-                'required'  => true,
                 'maxlength' => 20,
                 'message'   => $message ?? '',
             ])

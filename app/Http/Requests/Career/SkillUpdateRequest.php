@@ -24,7 +24,7 @@ class SkillUpdateRequest extends FormRequest
     {
         return [
             'name'        => ['string', 'max:255', 'unique:career_db.jobs,name,'.$this->skill->id, 'filled'],
-            'slug'        => ['string', 'max:255', 'unique:career_db.jobs,slug,'.$this->skill->id, 'filled'],
+            'slug'        => ['string', 'max:255', 'unique:career_db.jobs,slug,'.$this->skill->id],
             'rating'      => ['integer', 'between:1,10'],
             'years'       => ['integer', 'min:0'],
             'description' => ['nullable'],

@@ -24,7 +24,7 @@ class ResumeUpdateRequest extends FormRequest
     {
         return [
             'name'         => ['string', 'max:255', 'unique:career_db.resumes,name,'.$this->resume->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:career_db.resumes,slug,'.$this->resume->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:career_db.resumes,slug,'.$this->resume->id],
             'date'         => ['date', 'nullable'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'content'      => ['nullable'],

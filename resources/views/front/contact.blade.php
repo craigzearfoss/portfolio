@@ -15,7 +15,7 @@
 
         <h2 class="title">Contact Us</h2>
 
-            <form action="{{ route('admin.database.store') }}" method="POST">
+            <form action="{{ route('front.database.store') }}" method="POST">
                 @csrf
 
                 <div class="column is-6">

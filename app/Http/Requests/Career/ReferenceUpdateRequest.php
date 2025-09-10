@@ -24,7 +24,7 @@ class ReferenceUpdateRequest extends FormRequest
     {
         return [
             'name'            => ['string', 'max:255', 'unique:career_db.references,name,'.$this->reference->id, 'filled'],
-            'slug'            => ['string', 'max:255', 'unique:career_db.references,slug,'.$this->reference->id, 'filled'],
+            'slug'            => ['string', 'max:255', 'unique:career_db.references,slug,'.$this->reference->id],
             'phone'           => ['string', 'max:20', 'nullable'],
             'phone_label'     => ['string', 'max:255', 'nullable'],
             'alt_phone'       => ['string', 'max:20', 'nullable'],

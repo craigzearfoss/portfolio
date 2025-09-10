@@ -25,7 +25,7 @@ class LanguageStoreRequest extends FormRequest
         return [
             'full_name'    => ['required', 'string', 'max:255', 'unique:dictionary_db.languages,full_name'],
             'name'         => ['required', 'string', 'max:100', 'unique:dictionary_db.languages,name'],
-            'slug'         => ['required', 'string', 'max:100', 'unique:dictionary_db.languages,slug'],
+            'slug'         => ['string', 'max:100', 'unique:dictionary_db.languages,slug'],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

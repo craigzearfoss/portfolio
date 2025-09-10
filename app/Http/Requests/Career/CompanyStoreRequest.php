@@ -25,7 +25,7 @@ class CompanyStoreRequest extends FormRequest
     {
         return [
             'name'            => ['required', 'string', 'max:255', 'unique:career_db.companies,name'],
-            'slug'            => ['required', 'string', 'max:255', 'unique:career_db.companies,slug'],
+            'slug'            => ['string', 'max:255', 'unique:career_db.companies,slug'],
             'industry_id'     => ['integer', 'in:' . Industry::all()->pluck('id')->toArray()],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],

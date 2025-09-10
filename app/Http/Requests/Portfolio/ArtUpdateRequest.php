@@ -24,7 +24,7 @@ class ArtUpdateRequest extends FormRequest
     {
         return [
             'name'         => ['string', 'max:255', 'unique:portfolio_db.art,name,'.$this->art->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:portfolio_db.art,slug,'.$this->art->id, 'filled'],
+            'slug'         => ['string', 'max:255', 'unique:portfolio_db.art,slug,'.$this->art->id],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'artist'       => ['string', 'max:255', 'nullable'],

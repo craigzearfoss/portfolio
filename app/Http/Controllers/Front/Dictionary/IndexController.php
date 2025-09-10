@@ -22,10 +22,7 @@ class IndexController extends BaseController
             ->orderBy('resources.plural', 'asc')
             ->get();
 
-        return view('admin.dictionary.index', compact('words'))
+        return view('front.dictionary.index', compact('words'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
-
-        return view('front.dictionary.index', compact('words', 'dictionaryTypes'));
-
     }
 }
