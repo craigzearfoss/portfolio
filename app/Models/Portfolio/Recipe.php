@@ -3,8 +3,11 @@
 namespace App\Models\Portfolio;
 
 use App\Models\Admin;
+use App\Models\Portfolio\RecipeIngredient;
+use App\Models\Portfolio\RecipeStep;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Recipe extends Model
 {
@@ -45,6 +48,22 @@ class Recipe extends Model
     public function admin(): BelongsTo
     {
         return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+    }
+
+    /**
+     * Get the ingredients for the recipe.
+     */
+    public function ingredients(): HasMany
+    {
+        return $this->hasMany(RecipeIngredient::class);
+    }
+
+    /**
+     * Get the steps for the recipe.
+     */
+    public function steps(): HasMany
+    {
+        return $this->hasMany(RecipeStep::class);
     }
 
     /**

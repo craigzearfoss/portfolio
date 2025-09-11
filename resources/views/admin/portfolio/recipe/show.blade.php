@@ -129,70 +129,49 @@
             'value' => longDateTime($recipe->deleted_at)
         ])
 
+    </div>
 
+    <div class="card p-4">
 
+        <ul>
 
+            @foreach($recipe->ingredients as $ingredient)
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'url'    => $recipe->link,
-            'target' => '_blank'
-        ])
+                <li>
+                    {{ $ingredient['amount'] }}
+                    {{ \App\Models\Portfolio\Unit::find($ingredient['unit_id'])->abbreviation }}
+                    {{ \App\Models\Portfolio\Ingredient::find($ingredient['ingredient_id'])->name }}
+                    @if(!empty($ingredient['qualifier']))
+                        - {{ $ingredient['qualifier'] }}
+                    @endif
+                </li>
 
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $recipe->description
-        ])
+            @endforeach
 
-        @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'value' => $recipe->image
-        ])
+        </ul>
 
-        @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'value' => $recipe->thumbnail
-        ])
+    </div>
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $recipe->sequence
-        ])
+    <div class="card p-4">
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $recipe->public
-        ])
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <tbody>
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $recipe->readonly
-        ])
+            @foreach($recipe->steps as $step)
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $recipe->root
-        ])
+                <tr>
+                    <td>
+                        {{ $step['step'] }}
+                    </td>
+                    <td>
+                        {{ $step['description'] }}
+                    </td>
+                </tr>
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $recipe->disabled
-        ])
+            @endforeach
 
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($recipe->created_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($recipe->updated_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($recipe->deleted_at)
-        ])
+            </tbody>
+        </table>
 
     </div>
 
