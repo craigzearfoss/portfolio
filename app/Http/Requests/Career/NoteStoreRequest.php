@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Admin;
 use App\Models\Career\Application;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,7 @@ class NoteStoreRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @throws \Exception
      */
     public function rules(): array
     {
@@ -32,6 +34,10 @@ class NoteStoreRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a note.');
         }
 
+        $adminIds = Auth::guard('admin')->user()->root
+            ? Admin::all('id')->pluck('id')->toArray()
+            : [Auth::guard('admin')->user()->id];
+
         return [
             'application_id' => ['required', 'integer', Rule::in(Application::all('id')->pluck('id')->toArray())],
             'subject'        => ['required', 'string', 'max:255'],
@@ -41,7 +47,7 @@ class NoteStoreRequest extends FormRequest
             'readonly'       => ['integer', 'between:0,1'],
             'root'           => ['integer', 'between:0,1'],
             'disabled'       => ['integer', 'between:0,1'],
-            'admin_id'       => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'admin_id'       => ['required', 'integer', Rule::in($adminIds)],
         ];
     }
 }

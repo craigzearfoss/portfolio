@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Admin;
 use App\Models\Portfolio\Academy;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,7 @@ class CertificationUpdateRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @throws \Exception
      */
     public function rules(): array
     {
@@ -36,6 +38,10 @@ class CertificationUpdateRequest extends FormRequest
         ) {
             throw new \Exception('You are not authorized to change the admin for a certification.');
         }
+
+        $adminIds = Auth::guard('admin')->user()->root
+            ? Admin::all('id')->pluck('id')->toArray()
+            : [Auth::guard('admin')->user()->id];
 
         return [
             'name'         => ['string', 'max:255', 'unique:portfolio_db.certifications,name,'.$this->certification->id, 'filled'],
@@ -59,7 +65,7 @@ class CertificationUpdateRequest extends FormRequest
             'readonly'     => ['integer', 'between:0,1'],
             'root'         => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],
-            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
+            'admin_id'     => ['integer', Rule::in($adminIds)],
         ];
     }
 }

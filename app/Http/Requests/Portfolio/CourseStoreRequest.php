@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Admin;
 use App\Models\Portfolio\Academy;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,7 @@ class CourseStoreRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @throws \Exception
      */
     public function rules(): array
     {
@@ -37,6 +39,10 @@ class CourseStoreRequest extends FormRequest
         if (!Auth::guard('admin')->user()->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
             throw new \Exception('You are not authorized to change the admin for a course.');
         }
+
+        $adminIds = Auth::guard('admin')->user()->root
+            ? Admin::all('id')->pluck('id')->toArray()
+            : [Auth::guard('admin')->user()->id];
 
         return [
             'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.courses,name'],
@@ -61,7 +67,7 @@ class CourseStoreRequest extends FormRequest
             'readonly'     => ['integer', 'between:0,1'],
             'root'         => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],
-            'admin_id'     => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'admin_id'     => ['required', 'integer', Rule::in($adminIds)],
         ];
     }
 }

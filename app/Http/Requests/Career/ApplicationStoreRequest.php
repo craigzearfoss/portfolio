@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Admin;
 use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
 use App\Models\Career\Resume;
@@ -23,6 +24,7 @@ class ApplicationStoreRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @throws \Exception
      */
     public function rules(): array
     {
@@ -33,6 +35,10 @@ class ApplicationStoreRequest extends FormRequest
         if (!Auth::guard('admin')->user()->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
             throw new \Exception('You are not authorized to change the admin for an application.');
         }
+
+        $adminIds = Auth::guard('admin')->user()->root
+            ? Admin::all('id')->pluck('id')->toArray()
+            : [Auth::guard('admin')->user()->id];
 
         return [
             'company_id'        => ['integer', Rule::in(Company::all('id')->pluck('id')->toArray())],
@@ -78,7 +84,7 @@ class ApplicationStoreRequest extends FormRequest
             'readonly'          => ['integer', 'between:0,1'],
             'root'              => ['integer', 'between:0,1'],
             'disabled'          => ['integer', 'between:0,1'],
-            'admin_id'          => ['required', 'integer', 'in:' . Auth::guard('admin')->user()->id],
+            'admin_id'          => ['required', 'integer', Rule::in($adminIds)],
         ];
     }
 }

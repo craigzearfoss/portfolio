@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class RecipeUpdateRequest extends FormRequest
 {
@@ -19,6 +21,7 @@ class RecipeUpdateRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @throws \Exception
      */
     public function rules(): array
     {
@@ -33,6 +36,10 @@ class RecipeUpdateRequest extends FormRequest
         ) {
             throw new \Exception('You are not authorized to change the admin for a recipe.');
         }
+
+        $adminIds = Auth::guard('admin')->user()->root
+            ? Admin::all('id')->pluck('id')->toArray()
+            : [Auth::guard('admin')->user()->id];
 
         return [
             'name'         => ['string', 'max:255', 'unique:portfolio_db.recipes,name,'.$this->recipe->id, 'filled'],
@@ -53,7 +60,7 @@ class RecipeUpdateRequest extends FormRequest
             'readonly'     => ['integer', 'between:0,1'],
             'root'         => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],
-            'admin_id'     => ['integer', 'in:' . Auth::guard('admin')->user()->id],
+            'admin_id'     => ['integer', Rule::in($adminIds)],
         ];
     }
 }
