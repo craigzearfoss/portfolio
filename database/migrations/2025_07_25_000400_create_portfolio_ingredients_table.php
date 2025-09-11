@@ -807,6 +807,7 @@ return new class extends Migration
             ['id'=> 736, 'full_name' => 'taco shell (corn)',                   'name' => 'taco shell (corn)',                'slug' => 'corn-taco-shell'],
             ['id'=> 737, 'full_name' => 'taco shell (flour)',                  'name' => 'taco shell (flour)',               'slug' => 'flour-taco-shell'],
             ['id'=> 738, 'full_name' => 'chocolate (unsweetened baking)',      'name' => 'unsweetened baking chocolate',     'slug' => 'unsweetened-baking-chocolate'],
+            ['id'=> 739, 'full_name' => 'green chard',                         'name' => 'chard',                            'slug' => 'chard'],
         ];
 
         Ingredient::insert($data);

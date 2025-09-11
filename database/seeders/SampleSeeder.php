@@ -73,27 +73,6 @@ class SampleSeeder extends Seeder
             ])
             ->create();
 
-        echo 'Portfolio/Recipe' . PHP_EOL;
-        \App\Models\Portfolio\Recipe::factory()
-            ->count(21)
-            ->sequence(fn ($sequence) => [
-                'sequence' => $sequence->index + 1
-            ])
-            ->create();
-
-        echo 'Portfolio/RecipeIngredient' . PHP_EOL;
-        \App\Models\Portfolio\RecipeIngredient::factory()
-            ->count(132)
-            ->create();
-
-        echo 'Portfolio/RecipeStep' . PHP_EOL;
-        \App\Models\Portfolio\RecipeStep::factory()
-            ->count(98)
-            ->sequence(fn ($sequence) => [
-                'sequence' => $sequence->index + 1
-            ])
-            ->create();
-
         echo 'Portfolio/Video' . PHP_EOL;
         \App\Models\Portfolio\Video::factory()
             ->count(41)

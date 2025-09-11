@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Portfolio\Recipe;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -38,6 +39,66 @@ return new class extends Migration
             $table->unique(['admin_id', 'name'], 'admin_id_name_unique');
             $table->unique(['admin_id', 'slug'], 'admin_id_slug_unique');
         });
+
+        $data = [
+            [
+                'id'            => 1,
+                'name'          => 'Nestlé Toll House Chocolate Chip Cookies',
+                'slug'          => 'nestle-toll-house-cookies',
+                'professional'  => false,
+                'personal'      => true,
+                'source'        => 'www.nestle.com',
+                'author'        => 'Ruth Wakefield',
+                'link'          => 'https://www.nestle.com/stories/timeless-discovery-toll-house-chocolate-chip-cookie-recipe',
+                'admin_id'      => 1,
+            ],
+            [
+                'id'            => 2,
+                'name'          => 'Seed Crackers',
+                'slug'          => 'seed-crackers',
+                'professional'  => false,
+                'personal'      => true,
+                'source'        => 'Facebook',
+                'author'        => '',
+                'link'          => '',
+                'admin_id'      => 1,
+            ],
+            [
+                'id'            => 3,
+                'name'          => 'Vegan Sloppy Joes',
+                'slug'          => 'vegan-sloppy-joes',
+                'professional'  => false,
+                'personal'      => true,
+                'source'        => 'Facebook',
+                'author'        => '',
+                'link'          => '',
+                'admin_id'      => 1,
+            ],
+            [
+                'id'            => 4,
+                'name'          => 'Miso Soup',
+                'slug'          => 'miso-soup',
+                'professional'  => false,
+                'personal'      => true,
+                'source'        => 'Facebook',
+                'author'        => '',
+                'link'          => '',
+                'admin_id'      => 1,
+            ],
+            [
+                'id'            => 5,
+                'name'          => 'John Cope\'s Baked Corn Supreme',
+                'slug'          => 'john-copes-baked-corn-supreme',
+                'professional'  => false,
+                'personal'      => true,
+                'source'        => 'Facebook',
+                'author'        => '',
+                'link'          => '',
+                'admin_id'      => 1,
+            ],
+        ];
+
+        Recipe::insert($data);
     }
 
     /**
