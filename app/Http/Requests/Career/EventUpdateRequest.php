@@ -5,6 +5,7 @@ namespace App\Http\Requests\Career;
 use App\Models\Career\Application;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class EventUpdateRequest extends FormRequest
 {
@@ -24,14 +25,14 @@ class EventUpdateRequest extends FormRequest
     public function rules(): array
     {
         // Validate the admin_id. (Only root admins can change the admin for an event.)
-        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->user()->root
             && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
         ) {
             throw new \Exception('You are not authorized to change the admin for an event.');
         }
 
         return [
-            'application_id' => ['integer', 'in:' . implode(',', Application::all('id')->pluck('id')->toArray())],
+            'application_id' => ['integer', Rule::in(Application::all('id')->pluck('id')->toArray())],
             'name'           => ['string', 'max:255', 'filled'],
             'date'           => ['required', 'date_format:Y-m-d'],
             'time'           => ['required', 'date_format:H:i:s'],

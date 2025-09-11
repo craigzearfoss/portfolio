@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Database;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class ResourceUpdateRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class ResourceUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'database_id' => ['integer', 'in:' . Database::all()->pluck('id')->toArray()],
+            'database_id' => ['integer', Rule::in(Database::all()->pluck('id')->toArray())],
             'name'        => ['string', 'max:50', 'unique:resources,name,'.$this->resources->id, 'filled'],
             'table'       => ['string', 'max:50', 'unique:resources,table,'.$this->resources->id, 'filled'],
             'title'       => ['string', 'max:50', 'filled'],

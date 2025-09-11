@@ -5,6 +5,7 @@ namespace App\Http\Requests\Career;
 use App\Models\Career\Application;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class NoteStoreRequest extends FormRequest
 {
@@ -27,12 +28,12 @@ class NoteStoreRequest extends FormRequest
         if (empty($this['admin_id'])) {
             $this->merge(['admin_id' => Auth::guard('admin')->user()->id]);
         }
-        if (!Auth::guard('admin')->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
+        if (!Auth::guard('admin')->user()->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
             throw new \Exception('You are not authorized to change the admin for a note.');
         }
 
         return [
-            'application_id' => ['required', 'integer', 'in:'. implode(',', Application::all('id')->pluck('id')->toArray())],
+            'application_id' => ['required', 'integer', Rule::in(Application::all('id')->pluck('id')->toArray())],
             'subject'        => ['required', 'string', 'max:255'],
             'body'           => ['required'],
             'sequence'       => ['integer', 'min:0'],

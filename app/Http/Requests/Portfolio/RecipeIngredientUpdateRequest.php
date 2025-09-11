@@ -7,6 +7,7 @@ use App\Models\Portfolio\Recipe;
 use App\Models\Portfolio\Unit;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class RecipeIngredientUpdateRequest extends FormRequest
 {
@@ -26,7 +27,7 @@ class RecipeIngredientUpdateRequest extends FormRequest
     public function rules(): array
     {
         // Validate the admin_id. (Only root admins can change the admin for a recipe ingredient.)
-        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->user()->root
             && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
         ) {
             throw new \Exception('You are not authorized to change the admin for a recipe ingredient.');
@@ -36,11 +37,11 @@ class RecipeIngredientUpdateRequest extends FormRequest
             'recipe_id'     => [
                 'required',
                 'integer',
-                'in:' . Recipe::where('admin_id', Auth::guard('admin')->user()->id)->get()->pluck('id')->toArray()
+                Rule::in(Recipe::where('admin_id', Auth::guard('admin')->user()->id)->get()->pluck('id')->toArray()),
             ],
-            'ingredient_id' => ['required', 'integer', 'in:' . Ingredient::all()->pluck('id')->toArray()],
+            'ingredient_id' => ['required', 'integer', Rule::in(Ingredient::all()->pluck('id')->toArray())],
             'amount'        => ['string', 'max:50:', 'nullable'],
-            'unit_id'       => ['required', 'integer', 'in:' . Unit::all()->pluck('id')->toArray(), 'nullable'],
+            'unit_id'       => ['required', 'integer', Rule::in(Unit::all()->pluck('id')->toArray()), 'nullable'],
             'nullable'      => ['string', 'max:255:', 'nullable'],
             'description'   => ['nullable'],
             'image'         => ['string', 'max:255', 'nullable'],

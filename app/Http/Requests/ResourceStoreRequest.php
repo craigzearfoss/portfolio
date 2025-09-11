@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Database;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class ResourceStoreRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class ResourceStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'database_id' => ['required', 'integer', 'in:' . Database::all()->pluck('id')->toArray()],
+            'database_id' => ['required', 'integer', Rule::in(Database::all()->pluck('id')->toArray())],
             'name'        => ['required', 'string', 'max:50', 'unique:resources,name'],
             'table'       => ['required', 'string', 'max:50', 'unique:resources,name'],
             'title'       => ['required', 'string', 'max:50'],

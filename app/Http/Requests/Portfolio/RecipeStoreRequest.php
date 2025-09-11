@@ -32,7 +32,7 @@ class RecipeStoreRequest extends FormRequest
         if (empty($this['admin_id'])) {
             $this->merge(['admin_id' => Auth::guard('admin')->user()->id]);
         }
-        if (!Auth::guard('admin')->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
+        if (!Auth::guard('admin')->user()->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
             throw new \Exception('You are not authorized to change the admin for a recipe.');
         }
 

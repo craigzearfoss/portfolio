@@ -5,6 +5,7 @@ namespace App\Http\Requests\Portfolio;
 use App\Models\Portfolio\Recipe;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class RecipeStepUpdateRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class RecipeStepUpdateRequest extends FormRequest
     public function rules(): array
     {
         // Validate the admin_id. (Only root admins can change the admin for a recipe step.)
-        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->user()->root
             && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
         ) {
             throw new \Exception('You are not authorized to change the admin for a recipe step.');
@@ -34,7 +35,7 @@ class RecipeStepUpdateRequest extends FormRequest
             'recipe_id'   => [
                 'required',
                 'integer',
-                'in:' . Recipe::where('admin_id', Auth::guard('admin')->user()->id)->get()->pluck('id')->toArray()
+                Rule::in(Recipe::where('admin_id', Auth::guard('admin')->user()->id)->get()->pluck('id')->toArray()),
             ],
             'step'        => ['integer', 'min:1'],
             'description' => ['nullable'],

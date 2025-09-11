@@ -7,6 +7,7 @@ use App\Models\Career\CoverLetter;
 use App\Models\Career\Resume;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class ApplicationStoreRequest extends FormRequest
 {
@@ -29,14 +30,14 @@ class ApplicationStoreRequest extends FormRequest
         if (empty($this['admin_id'])) {
             $this->merge(['admin_id' => Auth::guard('admin')->user()->id]);
         }
-        if (!Auth::guard('admin')->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
+        if (!Auth::guard('admin')->user()->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
             throw new \Exception('You are not authorized to change the admin for an application.');
         }
 
         return [
-            'company_id'        => ['integer', 'in:' . implode(',', Company::all('id')->pluck('id')->toArray())],
-            'cover_letter_id'   => ['integer', 'in:' . implode(',', CoverLetter::all('id')->pluck('id')->toArray())],
-            'resume_id'         => ['integer', 'in:' . implode(',', Resume::all('id')->pluck('id')->toArray())],
+            'company_id'        => ['integer', Rule::in(Company::all('id')->pluck('id')->toArray())],
+            'cover_letter_id'   => ['integer', Rule::in(CoverLetter::all('id')->pluck('id')->toArray())],
+            'resume_id'         => ['integer', Rule::in(Resume::all('id')->pluck('id')->toArray())],
             'role'              => ['required', 'string', 'max:255'],
             'rating'            => ['integer', 'between:1,5'],
             'active'            => ['integer', 'between:0,1'],

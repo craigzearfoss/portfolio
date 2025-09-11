@@ -29,7 +29,7 @@ class CoverLetterUpdateRequest extends FormRequest
         }
 
         // Validate the admin_id. (Only root admins can change the admin for a cover letter.)
-        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->user()->root
             && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
         ) {
             throw new \Exception('You are not authorized to change the admin for a cover letter.');

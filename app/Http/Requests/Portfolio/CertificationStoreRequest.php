@@ -6,6 +6,7 @@ use App\Models\Portfolio\Academy;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class CertificationStoreRequest extends FormRequest
 {
@@ -33,7 +34,7 @@ class CertificationStoreRequest extends FormRequest
         if (empty($this['admin_id'])) {
             $this->merge(['admin_id' => Auth::guard('admin')->user()->id]);
         }
-        if (!Auth::guard('admin')->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
+        if (!Auth::guard('admin')->user()->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
             throw new \Exception('You are not authorized to change the admin for a certification.');
         }
 
@@ -41,7 +42,7 @@ class CertificationStoreRequest extends FormRequest
             'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.certifications,name'],
             'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.certifications,slug'],
             'organization' => ['string', 'max:255', 'nullable'],
-            'academy_id'   => ['integer', 'in:' . Academy::all()->pluck('id')],
+            'academy_id'   => ['integer', Rule::in(Academy::all()->pluck('id'))],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],

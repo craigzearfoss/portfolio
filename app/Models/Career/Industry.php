@@ -46,7 +46,7 @@ class Industry extends Model
     {
         $options = [];
         if ($includeBlank) {
-            $options = [ '' => '' ];
+            $options = [ 0 => '' ];
         }
 
         $labelField = $useAbbreviation ? 'abbreviation' : 'name';

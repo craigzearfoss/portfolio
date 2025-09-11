@@ -6,6 +6,7 @@ use App\Models\Portfolio\Academy;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class CertificationUpdateRequest extends FormRequest
 {
@@ -30,7 +31,7 @@ class CertificationUpdateRequest extends FormRequest
         }
 
         // Validate the admin_id. (Only root admins can change the admin for a certification.)
-        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->user()->root
             && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
         ) {
             throw new \Exception('You are not authorized to change the admin for a certification.');
@@ -40,7 +41,7 @@ class CertificationUpdateRequest extends FormRequest
             'name'         => ['string', 'max:255', 'unique:portfolio_db.certifications,name,'.$this->certification->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.certifications,slug,'.$this->certification->id, 'filled'],
             'organization' => ['string', 'max:255', 'nullable'],
-            'academy_id'   => ['integer', 'in:' . Academy::all()->pluck('id')],
+            'academy_id'   => ['integer', Rule::in(Academy::all()->pluck('id'))],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],

@@ -6,6 +6,7 @@ use App\Models\Portfolio\Academy;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class CourseUpdateRequest extends FormRequest
 {
@@ -30,7 +31,7 @@ class CourseUpdateRequest extends FormRequest
         }
 
         // Validate the admin_id. (Only root admins can change the admin for a course.)
-        if (!empty($this['admin_id']) && !Auth::guard('admin')->root
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->user()->root
             && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
         ) {
             throw new \Exception('You are not authorized to change the admin for a course.');
@@ -43,7 +44,7 @@ class CourseUpdateRequest extends FormRequest
             'personal'     => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'completed'    => ['date', 'nullable'],
-            'academy_id'   => ['integer', 'in:' . Academy::all()->pluck('id')],
+            'academy_id'   => ['integer', Rule::in(Academy::all()->pluck('id'))],
             'school'       => ['string', 'max:255', 'nullable'],
             'instructor'   => ['string', 'max:255', 'nullable'],
             'sponsor'      => ['string', 'max:255', 'nullable'],

@@ -6,6 +6,7 @@ use App\Models\Career\Industry;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class CompanyStoreRequest extends FormRequest
 {
@@ -33,14 +34,14 @@ class CompanyStoreRequest extends FormRequest
         if (empty($this['admin_id'])) {
             $this->merge(['admin_id' => Auth::guard('admin')->user()->id]);
         }
-        if (!Auth::guard('admin')->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
+        if (!Auth::guard('admin')->user()->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
             throw new \Exception('You are not authorized to change the admin for a company.');
         }
 
         return [
             'name'            => ['required', 'string', 'max:255', 'unique:career_db.companies,name'],
             'slug'            => ['required', 'string', 'max:255', 'unique:career_db.companies,slug'],
-            'industry_id'     => ['integer', 'in:' . Industry::all()->pluck('id')->toArray()],
+            'industry_id'     => ['integer', Rule::in(Industry::all()->pluck('id')->toArray())],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],
