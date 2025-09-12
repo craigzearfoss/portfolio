@@ -25,9 +25,11 @@ class Reading extends Model
     protected $fillable = [
         'name',
         'slug',
+        'author',
         'professional',
         'personal',
-        'author',
+        'fiction',
+        'nonfiction',
         'paper',
         'audio',
         'wishlist',

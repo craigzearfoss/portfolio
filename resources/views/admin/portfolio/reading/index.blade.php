@@ -18,14 +18,17 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th>name</th>
-                <th class="text-center">professional</th>
-                <th class="text-center">personal</th>
+                <th>title</th>
                 <th>author</th>
+                <th class="text-center">fiction</th>
+                <th class="text-center">nonfiction</th>
                 <th class="text-center">paper</th>
                 <th class="text-center">audio</th>
                 <th class="text-center text-nowrap">wish list</th>
+                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
+                <th class="text-center">readonly</th>
+                <th class="text-center">root</th>
                 <th class="text-center">disabled</th>
                 <th>actions</th>
             </tr>
@@ -52,16 +55,16 @@
 
                 <tr>
                     <td>
-                        {{ $reading->name }}
-                    </td>
-                    <td class="text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $reading->professional ])
-                    </td>
-                    <td class="text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $reading->personal ])
+                        {{ $reading->title }}
                     </td>
                     <td>
                         {{ $reading->author }}
+                    </td>
+                    <td class="text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $reading->fiction ])
+                    </td>
+                    <td class="text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $reading->nonfiction ])
                     </td>
                     <td class="text-center">
                         @include('admin.components.checkmark', [ 'checked' => $reading->paper ])

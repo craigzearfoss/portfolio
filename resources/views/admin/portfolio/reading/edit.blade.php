@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $reading->name,
+    'title' => $reading->title,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
@@ -59,6 +59,22 @@
                 'value'           => 1,
                 'unchecked_value' => 0,
                 'checked'         => old('personal') ?? $reading->personal,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'fiction',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('fiction') ?? $reading->fiction,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'nonfiction',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('nonfiction') ?? $reading->nonfiction,
                 'message'         => $message ?? '',
             ])
 

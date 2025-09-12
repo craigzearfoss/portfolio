@@ -62,6 +62,22 @@
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'fictional',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('fictional') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'nonfictional',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('nonfictional') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'paper',
                 'value'           => 1,
                 'unchecked_value' => 0,

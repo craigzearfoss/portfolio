@@ -19,13 +19,18 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $reading->name
+            'name'  => 'title',
+            'value' => $reading->title
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'slug',
             'value' => $reading->slug
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'author',
+            'value' => $reading->author
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -38,9 +43,14 @@
             'checked' => $reading->personal
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'author',
-            'value' => $reading->author
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'fiction',
+            'checked' => $reading->fiction
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'nonfiction',
+            'checked' => $reading->nonfiction
         ])
 
         @include('admin.components.show-row-checkbox', [
