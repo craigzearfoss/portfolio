@@ -20,23 +20,30 @@
             @csrf
             @method('PUT')
 
-        @if(Auth::guard('admin')->user()->root)
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'admin_id',
-                'label'   => 'admin',
-                'value'   => old('admin_id') ?? $music->admin_id,
-                'list'    => \App\Models\Admin::listOptions(),
-                'message' => $message ?? '',
-            ])
-        @endif
+            @if(Auth::guard('admin')->user()->root)
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'admin_id',
+                    'label'   => 'admin',
+                    'value'   => old('admin_id') ?? $music->admin_id,
+                    'list'    => \App\Models\Admin::listOptions(),
+                    'message' => $message ?? '',
+                ])
+            @endif
 
-        @include('admin.components.form-input-horizontal', [
-            'name'      => 'name',
-            'value'     => old('name') ?? $music->name,
-            'required'  => true,
-            'maxlength' => 255,
-            'message'   => $message ?? '',
-        ])
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'name',
+                'value'     => old('name') ?? $music->name,
+                'required'  => true,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'artist',
+                'value'     => old('artist') ?? $music->artist,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'professional',
@@ -54,17 +61,19 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'artist',
-                'value'     => old('artist') ?? $music->artist,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'label',
                 'value'     => old('label') ?? $music->label,
                 'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'catalog_number',
+                'label'     => 'catalog number',
+                'value'     => old('catalog_number') ?? $music->catalog_number,
+                'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
 
@@ -83,14 +92,6 @@
                 'label'     => 'release date',
                 'value'     => old('release_date') ?? $music->release_date,
                 'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'catalog_number',
-                'label'     => 'catalog number',
-                'value'     => old('catalog_number') ?? $music->catalog_number,
-                'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
 
@@ -122,7 +123,7 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_credit',
                 'label'     => 'image credit',
                 'value'     => old('image_credit') ?? $music->image_credit,
@@ -130,7 +131,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_source',
                 'label'     => 'image source',
                 'value'     => old('image_source') ?? $music->image_source,

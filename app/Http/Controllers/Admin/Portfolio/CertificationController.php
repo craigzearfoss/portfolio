@@ -68,8 +68,6 @@ class CertificationController extends BaseController
      */
     public function update(CertificationUpdateRequest $request, Certification $certification): RedirectResponse
     {
-        dd($request);
-
         $certification->update($request->validated());
 
         return redirect()->route('admin.portfolio.certification.index')

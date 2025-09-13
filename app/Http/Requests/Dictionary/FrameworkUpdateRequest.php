@@ -29,7 +29,7 @@ class FrameworkUpdateRequest extends FormRequest
         }
 
         return [
-            'full_name'    => ['string', 'max:255', 'unique:dictionary_db.frameworks.full_name,'.$this->framework->id, 'filled'],
+            'full_name'    => ['string', 'max:255', 'unique:dictionary_db.frameworks,full_name,'.$this->framework->id, 'filled'],
             'name'         => ['string', 'max:255', 'unique:dictionary_db.frameworks,name,'.$this->framework->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:dictionary_db.frameworks,slug,'.$this->framework->id, 'filled'],
             'abbreviation' => ['string', 'max:20', 'nullable'],

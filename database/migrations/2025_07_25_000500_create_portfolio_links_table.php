@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Portfolio\Link;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -37,6 +38,15 @@ return new class extends Migration
             $table->unique(['admin_id', 'name'], 'admin_id_name_unique');
             $table->unique(['admin_id', 'slug'], 'admin_id_slug_unique');
         });
+
+        $data = [
+            [ 'id' => 1, 'name' => 'LinkedIn',                             'slug' => 'linkedin',                            'url' => 'https://www.linkedin.com/in/craig-zearfoss/',    'professional' => 1, 'personal' => 0, 'public' => 1, 'sequence' => 0, 'admin_id' => 1, 'description' => '' ],
+            [ 'id' => 2, 'name' => 'GitHub',                               'slug' => 'github',                              'url' => 'https://github.com/craigzearfoss',               'professional' => 1, 'personal' => 0, 'public' => 1, 'sequence' => 1, 'admin_id' => 1, 'description' => '' ],
+            [ 'id' => 3, 'name' => 'Facebook',                             'slug' => 'facebook',                            'url' => 'https://www.facebook.com/craig.zearfoss',        'professional' => 0, 'personal' => 1, 'public' => 1, 'sequence' => 2, 'admin_id' => 1, 'description' => '' ],
+            [ 'id' => 4, 'name' => 'Craig Zearfoss Collection, 1988-2008', 'slug' => 'craig-zearfoss-collection-1988-2008', 'url' => 'https://finding-aids.lib.unc.edu/catalog/20509', 'professional' => 0, 'personal' => 1, 'public' => 1, 'sequence' => 3, 'admin_id' => 1, 'description' => 'A publicly available collection  of live video recordings, audio recordings, posters, photographs, and papers affiliated with the Triangle\'s indie rock music scene from 1988 to 2008.' ],
+        ];
+
+        Link::insert($data);
     }
 
     /**

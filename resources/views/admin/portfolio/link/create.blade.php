@@ -56,6 +56,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'url',
                 'value'     => old('url') ?? '',
+                'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -94,7 +95,7 @@
                 'value'     => old('image_credit') ?? '',
                 'maxlength' => 255,
                 'message'   => $message ?? '',
-``          ])
+            ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_source',

@@ -68,8 +68,6 @@ class CourseController extends BaseController
      */
     public function update(CourseUpdateRequest $request, Course $course): RedirectResponse
     {
-        dd($request);
-
         $course->update($request->validated());
 
         return redirect()->route('admin.portfolio.course.index')

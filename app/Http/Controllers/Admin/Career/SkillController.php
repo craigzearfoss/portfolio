@@ -68,8 +68,6 @@ class SkillController extends BaseController
      */
     public function update(SkillUpdateRequest $request, Skill $skill): RedirectResponse
     {
-        dd($request);
-
         $skill->update($request->validated());
 
         return redirect()->route('admin.career.skill.index')

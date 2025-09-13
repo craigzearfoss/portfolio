@@ -85,7 +85,7 @@
                     'value'     => old('image_credit') ?? $resume->image_credit,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
-    ``          ])
+                ])
 
                 @include('admin.components.form-input-horizontal', [
                     'name'      => 'image_source',

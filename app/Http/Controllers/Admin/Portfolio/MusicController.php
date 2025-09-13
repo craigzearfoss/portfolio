@@ -68,8 +68,6 @@ class MusicController extends BaseController
      */
     public function update(MusicUpdateRequest $request, Music $music): RedirectResponse
     {
-        dd($request);
-
         $music->update($request->validated());
 
         return redirect()->route('admin.portfolio.music.index')

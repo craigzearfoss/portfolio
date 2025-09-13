@@ -19,8 +19,18 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $music->id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $music->name
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'artist',
+            'value' => $music->artist
         ])
 
         @include('admin.components.show-row', [
@@ -39,13 +49,13 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'artist',
-            'value' => $music->artist
+            'name'  => 'label',
+            'value' => $music->label
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'label',
-            'value' => $music->label
+            'name'  => 'catalog number',
+            'value' => $music->catalog_number
         ])
 
         @include('admin.components.show-row', [
@@ -56,11 +66,6 @@
         @include('admin.components.show-row', [
             'name'  => 'release_date',
             'value' => longDate($music->release_date)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'catalog number',
-            'value' => $music->catalog_number
         ])
 
         @include('admin.components.show-row-link', [

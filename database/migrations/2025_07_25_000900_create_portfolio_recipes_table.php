@@ -91,7 +91,7 @@ return new class extends Migration
                 'slug'          => 'john-copes-baked-corn-supreme',
                 'professional'  => false,
                 'personal'      => true,
-                'source'        => 'Facebook',
+                'source'        => 'John Cope\'s Dried Sweet Corn',
                 'author'        => '',
                 'link'          => '',
                 'admin_id'      => 1,

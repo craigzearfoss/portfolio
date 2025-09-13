@@ -3,7 +3,7 @@
     $id      = !empty($id) ? $id : ('input' . (!empty($name)  ? ucfirst(trim($name, '#')) : 'Name'));
     $type    = !empty($type) ? $type : 'text';
     $label   = !empty($label) ? $label : (!empty($name) ? $name : '#label#');
-    $value   = !empty($value) ? $value : '';
+    $value   = $value ?? '';
     $class   = !empty($class) ? $class : '';
     if (!empty($style)) {
         $style = is_array($style) ? implode('; ', $style) . ';' : $style;

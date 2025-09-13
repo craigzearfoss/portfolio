@@ -37,6 +37,13 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'artist',
+                'value'     => old('artist') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'professional',
                 'value'           => 1,
@@ -54,16 +61,17 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'artist',
-                'value'     => old('artist') ?? '',
+                'name'      => 'label',
+                'value'     => old('label') ?? '',
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'label',
-                'value'     => old('label') ?? '',
-                'maxlength' => 255,
+                'name'      => 'catalog_number',
+                'label'     => 'catalog number',
+                'value'     => old('catalog_number') ?? '',
+                'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
 
@@ -82,14 +90,6 @@
                 'label'     => 'release date',
                 'value'     => old('release_date') ?? '',
                 'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'catalog_number',
-                'label'     => 'catalog number',
-                'value'     => old('catalog_number') ?? '',
-                'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
 
@@ -127,7 +127,7 @@
                 'value'     => old('image_credit') ?? '',
                 'maxlength' => 255,
                 'message'   => $message ?? '',
-``          ])
+            ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_source',

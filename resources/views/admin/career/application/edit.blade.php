@@ -290,7 +290,7 @@
                 'value'     => old('image_credit') ?? $application->image_credit,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
-``          ])
+            ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_source',

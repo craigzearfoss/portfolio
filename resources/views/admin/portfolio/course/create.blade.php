@@ -139,7 +139,7 @@
               'label'   => 'image credit',
               'value'   => old('image_credit') ?? '',
               'message' => $message ?? '',
-``          ])
+            ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'image_source',

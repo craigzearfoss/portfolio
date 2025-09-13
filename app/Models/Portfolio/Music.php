@@ -23,14 +23,14 @@ class Music extends Model
      */
     protected $fillable = [
         'name',
+        'artist',
         'slug',
         'professional',
         'personal',
-        'artist',
         'label',
+        'catalog_number',
         'year',
         'release_date',
-        'catalog_number',
         'link',
         'link_name',
         'description',

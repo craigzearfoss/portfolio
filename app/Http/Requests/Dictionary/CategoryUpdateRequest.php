@@ -29,7 +29,7 @@ class CategoryUpdateRequest extends FormRequest
         }
 
         return [
-            'full_name'    => ['string', 'max:255', 'unique:dictionary_db.categories,'.$this->category->id, 'filled'],
+            'full_name'    => ['string', 'max:255', 'unique:dictionary_db.categories,full_name,'.$this->category->id, 'filled'],
             'name'         => ['string', 'max:255', 'unique:dictionary_db.categories,name,'.$this->category->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:dictionary_db.categories,slug,'.$this->category->id, 'filled'],
             'abbreviation' => ['string', 'max:20', 'nullable'],

@@ -19,6 +19,11 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $link->id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $link->name
         ])

@@ -68,8 +68,6 @@ class ReferenceController extends BaseController
      */
     public function update(ReferenceUpdateRequest $request, Reference $reference): RedirectResponse
     {
-        dd($request);
-
         $reference->update($request->validated());
 
         return redirect()->route('admin.career.reference.index')

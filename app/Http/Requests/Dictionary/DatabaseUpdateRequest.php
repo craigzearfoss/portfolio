@@ -29,7 +29,7 @@ class DatabaseUpdateRequest extends FormRequest
         }
 
         return [
-            'full_name'    => ['string', 'max:255', 'unique:dictionary_db.databases,'.$this->database->id, 'filled'],
+            'full_name'    => ['string', 'max:255', 'unique:dictionary_db.databases,full_name,'.$this->database->id, 'filled'],
             'name'         => ['string', 'max:255', 'unique:dictionary_db.databases,name,'.$this->database->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:dictionary_db.databases,slug,'.$this->database->id, 'filled'],
             'abbreviation' => ['string', 'max:20', 'nullable'],

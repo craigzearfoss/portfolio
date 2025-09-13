@@ -19,13 +19,10 @@
             <thead>
             <tr>
                 <th>name</th>
-                <th class="text-center">professional</th>
-                <th class="text-center">personal</th>
                 <th>artist</th>
-                <th>label</th>
                 <th>year</th>
+                <th>label</th>
                 <th>cat#</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -37,13 +34,10 @@
             <tfoot>
             <tr>
                 <th>name</th>
-                <th class="text-center">professional</th>
-                <th class="text-center">personal</th>
                 <th>artist</th>
-                <th>label</th>
                 <th>year</th>
+                <th>label</th>
                 <th>cat#</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -60,26 +54,17 @@
                     <td class="py0">
                         {{ $music->name }}
                     </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $music->professional ])
-                    </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $music->personal ])
-                    </td>
                     <td class="py0">
                         {{ $music->artist }}
-                    </td>
-                    <td class="py0">
-                        {{ $music->label }}
                     </td>
                     <td class="py0">
                         {{ $music->year }}
                     </td>
                     <td class="py0">
-                        {{ $music->catalog_number }}
+                        {{ $music->label }}
                     </td>
-                    <td class="py-0 text-center">
-                        {{ $music->sequence }}
+                    <td class="py0">
+                        {{ $music->catalog_number }}
                     </td>
                     <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $music->public ])
@@ -129,7 +114,7 @@
             @empty
 
                 <tr>
-                    <td colspan="13">There is no music.</td>
+                    <td colspan="10">There is no music.</td>
                 </tr>
 
             @endforelse
