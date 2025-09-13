@@ -7,7 +7,7 @@
             <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
         </a>
         <div class="navbar-item has-control">
-            <div class="control"><input placeholder="Search everywhere..." class="input" fdprocessedid="c36wk"></div>
+            <div class="control"><input placeholder="Search everywhere..." class="input"></div>
         </div>
     </div>
     <div class="navbar-brand is-right">
@@ -33,9 +33,9 @@
                             @endif
 
                             <div class="is-user-name"><span>{{ $menuItem->title }}</span></div>
-                            @if(!empty($menuSubItem->icon))
+                            @if(!empty($menuItem->icon))
                                 <span class="text-xl">
-                                    <i class="fa-solid {{ $menuSubItem->icon }}"></i>
+                                    <i class="fa-solid {{ $menuItem->icon }}"></i>
                                 </span>
                             @endif
                         </a>

@@ -16,10 +16,10 @@
         'breadcrumbs' => $breadcrumbs ?? []
     ])
 
-    @include('admin.components.subtitle-bar', [
+    @include('front.components.subtitle-bar', [
         'title'      => $title ?? '',
         'selectList' => $selectList ?? '',
-        'buttonst'   => $buttons ?? [],
+        'buttons'    => $buttons ?? [],
     ])
 
     <section class="is-main-section px-4 py-3">

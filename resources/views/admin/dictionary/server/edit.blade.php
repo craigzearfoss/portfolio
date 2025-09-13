@@ -10,9 +10,9 @@
         [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.server.show', $server) ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.server.index') ],
     ],
-    'errors' => $errors ?? [],
+    'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
-    'error' => session('error') ?? null,
+    'error'   => session('error') ?? null,
 ])
 
 @section('content')
@@ -43,8 +43,14 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'abbreviation',
                 'value'     => old('abbreviation') ?? $server->abbreviation,
-                'required'  => true,
                 'maxlength' => 20,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'definition',
+                'value'     => old('definition') ?? $server->definition,
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
@@ -65,16 +71,24 @@
                 'message'         => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'compiled',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('compiled') ?? $server->compiled,
+                'message'         => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'owner',
                 'value'     => old('owner') ?? $server->owner,
-                'maxlength' => 255,
+                'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'wikipedia',
-                'label'     => 'wiki page',
+                'label'     => 'wikipedia',
                 'value'     => old('wikipedia') ?? $server->wikipedia,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
@@ -155,14 +169,15 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'root',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('root') ?? $server->root,
-                'disabled'        => !Auth::guard('admin')->user()->root,
-                'message'         => $message ?? '',
-            ])
+            @if (Auth::guard('admin')->user()->root)
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'root',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('root') ?? $server->root,
+                    'message'         => $message ?? '',
+                ])
+            @endif
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'disabled',

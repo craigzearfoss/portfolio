@@ -24,8 +24,5 @@ class IndexController extends BaseController
 
         return view('admin.dictionary.index', compact('words'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
-
-        return view('admin.dictionary.index', compact('words', 'dictionaryTypes'));
-
     }
 }

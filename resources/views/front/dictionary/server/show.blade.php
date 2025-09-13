@@ -65,11 +65,6 @@
         ])
 
         @include('front.components.show-row', [
-            'name'  => 'link name',
-            'value' => $server->link_name
-        ])
-
-        @include('front.components.show-row', [
             'name'  => 'description',
             'value' => $server->description
         ])

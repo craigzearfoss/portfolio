@@ -45,6 +45,13 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'definition',
+                'value'     => old('definition') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'open_source',
                 'label'           => 'open source',
@@ -62,6 +69,14 @@
                 'message'         => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'compiled',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('compiled') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'owner',
                 'value'     => old('owner') ?? '',
@@ -71,7 +86,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'wikipedia',
-                'label'     => 'wiki page',
+                'label'     => 'wikipedia',
                 'value'     => old('wikipedia') ?? '',
                 'maxlength' => 255,
                 'message'   => $message ?? '',
@@ -86,8 +101,8 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link_name',
-                'name'      => 'link name',
-                'value'     => old('link name') ?? '',
+                'label'     => 'link name',
+                'value'     => old('link_name') ?? '',
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -152,14 +167,15 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'root',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('root') ?? 0,
-                'disabled'        => !Auth::guard('admin')->user()->root,
-                'message'         => $message ?? '',
-            ])
+            @if (Auth::guard('admin')->user()->root)
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'root',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('root') ?? 0,
+                    'message'         => $message ?? '',
+                ])
+            @endif
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'disabled',

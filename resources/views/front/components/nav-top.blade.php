@@ -27,7 +27,7 @@
                         <a class="navbar-link is-arrowless">
 
                             @if (!empty($menuItem->thumbnail))
-                                <div class="is-user-avatar">g
+                                <div class="is-user-avatar">
                                     <img src="{{ $menuItem->thumbnail }}" alt="{{ $menuItem->title }}">
                                 </div>
                             @endif

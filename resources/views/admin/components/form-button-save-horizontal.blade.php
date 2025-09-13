@@ -5,7 +5,7 @@
         <div class="field">
 
             <a
-                href="{{ $cancel_url ?? route('user.dashboard') }}"
+                href="{{ $cancel_url ?? route('admin.dashboard') }}"
                 class="button"
             ><i class="fa-solid fa-close"></i> Cancel</a>
 

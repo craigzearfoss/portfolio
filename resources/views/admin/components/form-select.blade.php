@@ -5,7 +5,10 @@
     }
 @endphp
 <div class="field">
-    <label class="label">{{ $label ?? $name ?? '#label#' }}</label>
+    @if(isset($label) && ($label === '') )
+    @else
+        <label class="label">{{ $label ?? $name }}</label>
+    @endif
     <div class="select">
         <select
             id="{{ $id }}"

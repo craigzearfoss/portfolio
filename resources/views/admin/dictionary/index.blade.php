@@ -4,6 +4,14 @@
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
         [ 'name' => 'Dictionary']
     ],
+    'selectList' => View::make('front.components.form-select', [
+            'name'     => '',
+            'label'    => '',
+            'value'    => route('admin.dictionary.index'),
+            'list'     => \App\Models\Dictionary\DictionarySection::listOptions(true, 'route', 'admin.'),
+            'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
+            'message'  => $message ?? '',
+        ]),
     'buttons' => [],
     'errors' => $errors ?? [],
 ])
@@ -11,14 +19,6 @@
 @section('content')
 
     <div class="card p-4">
-
-        @include('admin.components.form-select', [
-            'name'     => '',
-            'value'    => old('state') ?? '',
-            'list'     => \App\Models\Dictionary\DictionarySection::listOptions(true),
-            'onchange' => "alert('need to implement route.');",
-            'message'  => $message ?? '',
-        ])
 
         {!! $words->links('vendor.pagination.bulma') !!}
 

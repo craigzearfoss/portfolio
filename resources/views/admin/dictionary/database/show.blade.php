@@ -19,6 +19,11 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $database->id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'full name',
             'value' => $database->full_name
         ])
@@ -38,6 +43,11 @@
             'value' => $database->abbreviation
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'definition',
+            'value' => $database->definition
+        ])
+
         @include('admin.components.show-row-checkbox', [
             'name'    => 'open source',
             'checked' => $database->open_source
@@ -48,26 +58,27 @@
             'checked' => $database->proprietary
         ])
 
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'compiled',
+            'checked' => $database->compiled
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'owner',
             'value' => $database->owner
         ])
 
         @include('admin.components.show-row-link', [
-            'name'  => 'wiki page',
+            'name'   => 'wikipedia',
             'url'    => $database->wikipedia,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row-link', [
-            'name'  => 'link',
+            'name'   => 'link',
             'url'    => $database->link,
+            'label'  => $database->link_name,
             'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $database->link_name
         ])
 
         @include('admin.components.show-row', [

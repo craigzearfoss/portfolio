@@ -1,10 +1,18 @@
 @extends('admin.layouts.default', [
-    'title' => 'Dictionary Libraries',
+    'title' => 'Dictionary',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
         [ 'name' => 'Libraries' ]
     ],
+    'selectList' => View::make('front.components.form-select', [
+            'name'     => '',
+            'label'    => '',
+            'value'    => route('admin.dictionary.library.index'),
+            'list'     => \App\Models\Dictionary\DictionarySection::listOptions(true, 'route', 'admin.'),
+            'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
+            'message'  => $message ?? '',
+        ]),
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Library', 'url' => route('admin.dictionary.library.create') ],
     ],
@@ -20,7 +28,6 @@
             <tr>
                 <th>name</th>
                 <th>abbrev</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -54,19 +61,16 @@
                         {{ $library->abbreviation }}
                     </td>
                     <td class="py-0 text-center">
-                        {{ $library->sequence }}
-                    </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $library->professional ])
-                    </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $library->personal ])
-                    </td>
-                    <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $library->public ])
                     </td>
                     <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $library->readonly ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $library->root ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $library->disabled ])
                     </td>
                     <td class="white-space-nowrap py-0" style="white-space: nowrap;">
                         <form action="{{ route('admin.dictionary.library.destroy', $library->id) }}" method="POST">
@@ -115,7 +119,7 @@
             @empty
 
                 <tr>
-                    <td colspan="8">There are no libraries.</td>
+                    <td colspan="7">There are no libraries.</td>
                 </tr>
 
             @endforelse

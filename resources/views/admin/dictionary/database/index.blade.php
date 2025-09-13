@@ -1,10 +1,18 @@
 @extends('admin.layouts.default', [
-    'title' => 'Dictionary Databases',
+    'title' => 'Dictionary',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
         [ 'name' => 'Databases' ]
     ],
+    'selectList' => View::make('admin.components.form-select', [
+            'name'     => '',
+            'label'    => '',
+            'value'    => route('admin.dictionary.database.index'),
+            'list'     => \App\Models\Dictionary\DictionarySection::listOptions(true, 'route', 'admin.'),
+            'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
+            'message'  => $message ?? '',
+        ]),
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'url' => route('admin.dictionary.database.create') ],
     ],
@@ -20,7 +28,6 @@
             <tr>
                 <th>name</th>
                 <th>abbrev</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -54,19 +61,16 @@
                         {{ $database->abbreviation }}
                     </td>
                     <td class="py-0 text-center">
-                        {{ $database->sequence }}
-                    </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $database->professional ])
-                    </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $database->personal ])
-                    </td>
-                    <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $database->public ])
                     </td>
                     <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $database->readonly ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $database->root ])
+                    </td>
+                    <td class="py-0 text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $database->disabled ])
                     </td>
                     <td class="white-space-nowrap py-0" style="white-space: nowrap;">
                         <form action="{{ route('admin.dictionary.database.destroy', $database->id) }}" method="POST">
@@ -115,7 +119,7 @@
             @empty
 
                 <tr>
-                    <td colspan="8">There are no databases.</td>
+                    <td colspan="7">There are no databases.</td>
                 </tr>
 
             @endforelse

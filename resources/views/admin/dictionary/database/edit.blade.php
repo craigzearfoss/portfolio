@@ -10,9 +10,9 @@
         [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.dictionary.database.show', $database) ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.dictionary.database.index') ],
     ],
-    'errors' => $errors ?? [],
+    'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
-    'error' => session('error') ?? null,
+    'error'   => session('error') ?? null,
 ])
 
 @section('content')
@@ -47,6 +47,13 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'definition',
+                'value'     => old('definition') ?? $database->definition,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'open_source',
                 'label'           => 'open source',
@@ -64,16 +71,24 @@
                 'message'         => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'compiled',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('compiled') ?? $database->compiled,
+                'message'         => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'owner',
                 'value'     => old('owner') ?? $database->owner,
-                'maxlength' => 255,
+                'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'wikipedia',
-                'label'     => 'wiki page',
+                'label'     => 'wikipedia',
                 'value'     => old('wikipedia') ?? $database->wikipedia,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
@@ -154,14 +169,15 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'root',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('root') ?? $database->root,
-                'disabled'        => !Auth::guard('admin')->user()->root,
-                'message'         => $message ?? '',
-            ])
+            @if (Auth::guard('admin')->user()->root)
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'root',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('root') ?? $database->root,
+                    'message'         => $message ?? '',
+                ])
+            @endif
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'disabled',

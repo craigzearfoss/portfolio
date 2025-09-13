@@ -19,6 +19,11 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $operatingSystem->id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'full name',
             'value' => $operatingSystem->full_name
         ])
@@ -38,6 +43,11 @@
             'value' => $operatingSystem->abbreviation
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'definition',
+            'value' => $operatingSystem->definition
+        ])
+
         @include('admin.components.show-row-checkbox', [
             'name'    => 'open source',
             'checked' => $operatingSystem->open_source
@@ -48,26 +58,27 @@
             'checked' => $operatingSystem->proprietary
         ])
 
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'compiled',
+            'checked' => $operatingSystem->compiled
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'owner',
             'value' => $operatingSystem->owner
         ])
 
         @include('admin.components.show-row-link', [
-            'name'  => 'wiki page',
+            'name'   => 'wikipedia',
             'url'    => $operatingSystem->wikipedia,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row-link', [
-            'name'  => 'link',
+            'name'   => 'link',
             'url'    => $operatingSystem->link,
+            'label'  => $operatingSystem->link_name,
             'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $operatingSystem->link_name
         ])
 
         @include('admin.components.show-row', [

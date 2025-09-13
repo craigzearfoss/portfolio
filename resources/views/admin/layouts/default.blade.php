@@ -17,7 +17,9 @@
     ])
 
     @include('admin.components.subtitle-bar', [
-        'title' => $title ?? ''
+        'title'      => $title ?? '',
+        'selectList' => $selectList ?? '',
+        'buttons'    => $buttons ?? [],
     ])
 
     <section class="is-main-section px-4 py-3">
