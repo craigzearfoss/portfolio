@@ -23,7 +23,8 @@ class LibraryController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $libraries = Library::orderBy('name', 'asc')->paginate($perPage);
+        $libraries = LibraryorderBy('name', 'asc')
+            ->paginate($perPage);
 
         return view('admin.dictionary.library.index', compact('libraries'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -27,13 +27,13 @@
         ])
 
         @include('front.components.show-row', [
-            'name'  => 'slug',
-            'value' => $operatingSystem->slug
+            'name'  => 'abbreviation',
+            'value' => $operatingSystem->abbreviation
         ])
 
         @include('front.components.show-row', [
-            'name'  => 'abbreviation',
-            'value' => $operatingSystem->abbreviation
+            'name'  => 'definition',
+            'value' => $operatingSystem->definition
         ])
 
         @include('front.components.show-row-checkbox', [
@@ -52,20 +52,16 @@
         ])
 
         @include('front.components.show-row-link', [
-            'name'  => 'wiki page',
+            'name'   => 'wiki page',
             'url'    => $operatingSystem->wikipedia,
             'target' => '_blank'
         ])
 
         @include('front.components.show-row-link', [
-            'name'  => 'link',
+            'name'   => 'link',
             'url'    => $operatingSystem->link,
+            'label'  => $operatingSystem->link_name,
             'target' => '_blank'
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'link name',
-            'value' => $operatingSystem->link_name
         ])
 
         @include('front.components.show-row', [
@@ -73,65 +69,24 @@
             'value' => $operatingSystem->description
         ])
 
-        @include('front.components.show-row-image', [
-            'name'  => 'image',
-            'value' => $operatingSystem->image
-        ])
+        @if(!empty($operatingSystem->image))
 
-        @include('front.components.show-row', [
-            'name'  => 'image credit',
-            'value' => $operatingSystem->image_credit
-        ])
+            @include('front.components.show-row-image', [
+                'name'  => 'image',
+                'value' => $operatingSystem->image
+            ])
 
-        @include('front.components.show-row', [
-            'name'  => 'image source',
-            'value' => $operatingSystem->image_source
-        ])
+            @include('front.components.show-row', [
+                'name'  => 'image credit',
+                'value' => $operatingSystem->image_credit
+            ])
 
-        @include('front.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'value' => $operatingSystem->thumbnail
-        ])
+            @include('front.components.show-row', [
+                'name'  => 'image source',
+                'value' => $operatingSystem->image_source
+            ])
 
-        @include('front.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $operatingSystem->sequence
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $operatingSystem->public
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $operatingSystem->readonly
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $operatingSystem->root
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $operatingSystem->disabled
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($operatingSystem->created_at)
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($operatingSystem->updated_at)
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($operatingSystem->deleted_at)
-        ])
+        @endif
 
     </div>
 

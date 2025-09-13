@@ -23,7 +23,8 @@ class LanguageController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $languages = Language::orderBy('name', 'asc')->paginate($perPage);
+        $languages = Language::orderBy('name', 'asc')
+            ->paginate($perPage);
 
         return view('admin.dictionary.language.index', compact('languages'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -1,3 +1,4 @@
+@php dd($selectList); @endphp
 <section class="hero is-hero-bar">
     <div class="hero-body p-3">
         <div class="level">
@@ -7,6 +8,9 @@
                     <h1 class="title is-size-4">
                         {{ $subtitle ?? '#subtitle#' }}
                     </h1>
+                    @if(!empty($selectList))
+                        {!! $selectList !!}
+                    @endif
                 </div>
             </div>
 

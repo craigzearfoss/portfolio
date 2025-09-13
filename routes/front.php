@@ -65,21 +65,21 @@ Route::name('front.')->group(function () {
 
 Route::prefix('dictionary')->name('front.dictionary.')->group(function () {
     Route::get('/', [DictionaryController::class, 'index'])->name('index');
-    Route::get('/category', [DictionaryCategoryController::class, 'index'])->name('category.show');
-    Route::get('/category/{category}', [DictionaryCategoryController::class, 'show'])->name('category.index');
-    Route::get('/database', [DictionaryDatabaseController::class, 'index'])->name('database.show');
-    Route::get('/database/{database}', [DictionaryDatabaseController::class, 'show'])->name('database.index');
-    Route::get('/framework', [DictionaryFrameworkController::class, 'index'])->name('framework.show');
-    Route::get('/framework/{framework}', [DictionaryFrameworkController::class, 'show'])->name('framework.index');
-    Route::get('/language', [DictionaryLanguageController::class, 'index'])->name('language.show');
-    Route::get('/language/{language}', [DictionaryLanguageController::class, 'show'])->name('language.index');
-    Route::get('/library', [DictionaryLibraryController::class, 'index'])->name('library.show');
-    Route::get('/library/{library}', [DictionaryLibraryController::class, 'show'])->name('library.index');
-    Route::get('/operating-system', [DictionaryOperatingSystemController::class, 'index'])->name('operating-system.show');
-    Route::get('/operating-system/{operatingSystem}', [DictionaryOperatingSystemController::class, 'show'])->name('operating-system.index');
-    Route::get('/server', [DictionaryServerController::class, 'index'])->name('server.show');
-    Route::get('/server/{server}', [DictionaryServerController::class, 'show'])->name('server.index');
-    Route::get('/stack', [DictionaryStackController::class, 'index'])->name('stack.show');
-    Route::get('/stack/{stack}', [DictionaryStackController::class, 'show'])->name('stack.index');
+    Route::get('/category', [DictionaryCategoryController::class, 'index'])->name('category.index');
+    Route::get('/category/{slug}', [DictionaryCategoryController::class, 'show'])->name('category.show');
+    Route::get('/database', [DictionaryDatabaseController::class, 'index'])->name('database.index');
+    Route::get('/database/{slug}', [DictionaryDatabaseController::class, 'show'])->name('database.show');
+    Route::get('/framework', [DictionaryFrameworkController::class, 'index'])->name('framework.index');
+    Route::get('/framework/{slug}', [DictionaryFrameworkController::class, 'show'])->name('framework.show');
+    Route::get('/language', [DictionaryLanguageController::class, 'index'])->name('language.index');
+    Route::get('/language/{slug}', [DictionaryLanguageController::class, 'show'])->name('language.show');
+    Route::get('/library', [DictionaryLibraryController::class, 'index'])->name('library.index');
+    Route::get('/library/{slug}', [DictionaryLibraryController::class, 'show'])->name('library.show');
+    Route::get('/operating-system', [DictionaryOperatingSystemController::class, 'index'])->name('operating-system.index');
+    Route::get('/operating-system/{slug}', [DictionaryOperatingSystemController::class, 'show'])->name('operating-system.show');
+    Route::get('/server', [DictionaryServerController::class, 'index'])->name('server.index');
+    Route::get('/server/{slug}', [DictionaryServerController::class, 'show'])->name('server.show');
+    Route::get('/stack', [DictionaryStackController::class, 'index'])->name('stack.index');
+    Route::get('/stack/{slug}', [DictionaryStackController::class, 'show'])->name('stack.show');
 });
 

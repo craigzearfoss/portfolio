@@ -23,7 +23,8 @@ class ServerController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $servers = Server::orderBy('name', 'asc')->paginate($perPage);
+        $servers = Server::orderBy('name', 'asc')
+            ->paginate($perPage);
 
         return view('admin.dictionary.server.index', compact('servers'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

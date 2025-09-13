@@ -57,14 +57,12 @@ class Reading extends Model
     }
 
     /**
-     * Returns an array of options for a select list.
-     * Note that there probably will be duplicate authors.
+     * Returns an array of author options for a select list.
      *
      * @param bool $includeBlank
-     * @param bool $authorAsKey
      * @return array|string[]
      */
-    public static function authorListOptions(bool $includeBlank = false, bool $authorAsKey = false): array
+    public static function authorListOptions(bool $includeBlank = false): array
     {
         $options = [];
         if ($includeBlank) {
@@ -72,14 +70,14 @@ class Reading extends Model
         }
 
         foreach (self::select('id', 'author')->distinct('author')->orderBy('author', 'asc')->get() as $row) {
-            $options[$authorAsKey ? $row->author : $row->id] = $row->author;
+            $options[$row->author] = $row->author;
         }
 
         return $options;
     }
 
     /**
-     * Returns an array of options for a select list.
+     * Returns an array of title options for a select list.
      * Note that there might will be duplicate titles.
      *
      * @param bool $includeBlank

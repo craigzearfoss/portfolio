@@ -27,13 +27,13 @@
         ])
 
         @include('front.components.show-row', [
-            'name'  => 'slug',
-            'value' => $category->slug
+            'name'  => 'abbreviation',
+            'value' => $category->abbreviation
         ])
 
         @include('front.components.show-row', [
-            'name'  => 'abbreviation',
-            'value' => $category->abbreviation
+            'name'  => 'definition',
+            'value' => $category->definition
         ])
 
         @include('front.components.show-row-checkbox', [
@@ -52,20 +52,16 @@
         ])
 
         @include('front.components.show-row-link', [
-            'name'  => 'wiki page',
+            'name'   => 'wiki page',
             'url'    => $category->wikipedia,
             'target' => '_blank'
         ])
 
         @include('front.components.show-row-link', [
-            'name'  => 'link',
+            'name'   => 'link',
             'url'    => $category->link,
+            'label'  => $category->link_name,
             'target' => '_blank'
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'link name',
-            'value' => $category->link_name
         ])
 
         @include('front.components.show-row', [
@@ -73,65 +69,24 @@
             'value' => $category->description
         ])
 
-        @include('front.components.show-row-image', [
-            'name'  => 'image',
-            'value' => $category->image
-        ])
+        @if(!empty($category->image))
 
-        @include('front.components.show-row', [
-            'name'  => 'image credit',
-            'value' => $category->image_credit
-        ])
+            @include('front.components.show-row-image', [
+                'name'  => 'image',
+                'value' => $category->image
+            ])
 
-        @include('front.components.show-row', [
-            'name'  => 'image source',
-            'value' => $category->image_source
-        ])
+            @include('front.components.show-row', [
+                'name'  => 'image credit',
+                'value' => $category->image_credit
+            ])
 
-        @include('front.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'value' => $category->thumbnail
-        ])
+            @include('front.components.show-row', [
+                'name'  => 'image source',
+                'value' => $category->image_source
+            ])
 
-        @include('front.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $category->sequence
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $category->public
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $category->readonly
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $category->root
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $category->disabled
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($category->created_at)
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($category->updated_at)
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($category->deleted_at)
-        ])
+        @endif
 
     </div>
 

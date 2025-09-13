@@ -12,12 +12,12 @@
     @include('admin.components.nav-left')
 
     @include('admin.components.title-bar', [
-        'title'       => $title ?? '#title#',
+        'title'       => $title ?? '',
         'breadcrumbs' => $breadcrumbs ?? []
     ])
 
     @include('admin.components.subtitle-bar', [
-        'title' => $title ?? '#title#'
+        'title' => $title ?? ''
     ])
 
     <section class="is-main-section px-4 py-3">

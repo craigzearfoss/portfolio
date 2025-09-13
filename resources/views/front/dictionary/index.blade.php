@@ -4,6 +4,14 @@
         [ 'name' => 'Home', 'url' => route('front.homepage')],
         [ 'name' => 'Dictionary']
     ],
+    'selectList' => View::make('front.components.form-select', [
+            'name'     => '',
+            'label'    => '',
+            'value'    => '',
+            'list'     => \App\Models\Dictionary\DictionarySection::listOptions(true, 'route', 'front.'),
+            'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
+            'message'  => $message ?? '',
+        ]),
     'buttons' => [],
     'errors' => $errors ?? [],
 ])
@@ -12,16 +20,6 @@
 
     <div class="card p-4">
 
-        @include('front.components.form-select', [
-            'name'     => '',
-            'value'    => old('state') ?? '',
-            'list'     => \App\Models\Dictionary\DictionarySection::listOptions(true),
-            'onchange' => "alert('need to implement route.');",
-            'message'  => $message ?? '',
-        ])
-
-        {!! $words->links('vendor.pagination.bulma') !!}
-
         <ul>
 
             @forelse ($words as $word)
@@ -29,7 +27,7 @@
                 <li>
                     @include('front.components.dictionary-definition', [
                         'word'  => $word,
-                        'route' => route('front.dictionary.'.$word->table_slug.'.show', $word->id)
+                        'route' => route('front.dictionary.'.$word->table_slug.'.show', $word->slug)
                     ])
                 </li>
 

@@ -12,16 +12,15 @@
     @include('front.components.nav-left')
 
     @include('front.components.title-bar', [
-        'title'       => $title ?? '#title#',
+        'title'       => $title ?? '',
         'breadcrumbs' => $breadcrumbs ?? []
     ])
 
-    @if (!empty($subtitle) || !empty($buttons))
-        @include('front.components.subtitle-bar', [
-            'subtitle' => $subtitle,
-            'buttons'  => $buttons ?? []
-        ])
-    @endif
+    @include('admin.components.subtitle-bar', [
+        'title'      => $title ?? '',
+        'selectList' => $selectList ?? '',
+        'buttonst'   => $buttons ?? [],
+    ])
 
     <section class="is-main-section px-4 py-3">
 

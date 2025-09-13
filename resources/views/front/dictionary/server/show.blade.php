@@ -27,13 +27,13 @@
         ])
 
         @include('front.components.show-row', [
-            'name'  => 'slug',
-            'value' => $server->slug
+            'name'  => 'abbreviation',
+            'value' => $server->abbreviation
         ])
 
         @include('front.components.show-row', [
-            'name'  => 'abbreviation',
-            'value' => $server->abbreviation
+            'name'  => 'definition',
+            'value' => $server->definition
         ])
 
         @include('front.components.show-row-checkbox', [
@@ -52,14 +52,15 @@
         ])
 
         @include('front.components.show-row-link', [
-            'name'  => 'wiki page',
+            'name'   => 'wiki page',
             'url'    => $server->wikipedia,
             'target' => '_blank'
         ])
 
         @include('front.components.show-row-link', [
-            'name'  => 'link',
+            'name'   => 'link',
             'url'    => $server->link,
+            'label'  => $server->link_name,
             'target' => '_blank'
         ])
 
@@ -73,65 +74,24 @@
             'value' => $server->description
         ])
 
-        @include('front.components.show-row-image', [
-            'name'  => 'image',
-            'value' => $server->image
-        ])
+        @if(!empty($server->image))
 
-        @include('front.components.show-row', [
-            'name'  => 'image credit',
-            'value' => $server->image_credit
-        ])
+            @include('front.components.show-row-image', [
+                'name'  => 'image',
+                'value' => $server->image
+            ])
 
-        @include('front.components.show-row', [
-            'name'  => 'image source',
-            'value' => $server->image_source
-        ])
+            @include('front.components.show-row', [
+                'name'  => 'image credit',
+                'value' => $server->image_credit
+            ])
 
-        @include('front.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'value' => $server->thumbnail
-        ])
+            @include('front.components.show-row', [
+                'name'  => 'image source',
+                'value' => $server->image_source
+            ])
 
-        @include('front.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $server->sequence
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $server->public
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $server->readonly
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $server->root
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $server->disabled
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($server->created_at)
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($server->updated_at)
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($server->deleted_at)
-        ])
+        @endif
 
     </div>
 

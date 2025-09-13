@@ -46,6 +46,16 @@ class MenuService
         if (Auth::guard('admin')->check()) {
 
             $menu[] = $this->menuItem(
+                [ 'title' => 'Admin Dashboard', 'route'    => 'admin.dashboard' ],
+                $currentRouteName
+            );
+
+            $menu[] = $this->menuItem(
+                [ 'title' => 'User Dashboard', 'route'    => 'user.dashboard' ],
+                $currentRouteName
+            );
+
+            $menu[] = $this->menuItem(
                 [ 'title' => 'My Profile', 'route'    => 'admin.profile.show' ],
                 $currentRouteName
             );
@@ -154,6 +164,24 @@ class MenuService
                 $currentRouteName
             );
             $menu[$i]->thumbnail = Auth::guard('admin')->user()->thumbnail ?? null;
+
+            $menu[$i]->children[] = $this->menuItem(
+                [
+                    'title' => 'Admin Dashboard',
+                    'route' => 'admin.dashboard',
+                    'icon'  => 'fa-dashboard'
+                ],
+                $currentRouteName
+            );
+
+            $menu[$i]->children[] = $this->menuItem(
+                [
+                    'title' => 'User Dashboard',
+                    'route' => 'user.dashboard',
+                    'icon'  => 'fa-dashboard'
+                ],
+                $currentRouteName
+            );
 
             $menu[$i]->children[] = $this->menuItem(
                 [

@@ -1,8 +1,16 @@
 <a @if(!empty($route))href="{{ $route }}" @endif>
     <strong>{{ $word->name }}</strong>
     @if(!empty($word->abbreviation) && ($word->abbreviation != $word->name))[{{ $word->abbreviation }}] @endif
-    (<i>{{ $word->table_name }}</i>)
 </a>
+
+@if(isset($word->table_name))
+    @if(!empty($word->table_slug))
+        (<a href="{{ route('front.dictionary.'.$word->table_slug.'.index') }}"><i>{{ $word->table_name }}</i></a><i>)
+    @else
+        (<i>{{ $word->table_name }}</i>)
+    @endif
+@endif
+
 
 @if(!empty($word->definition))
     - {{ $word->definition }}

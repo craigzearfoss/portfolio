@@ -9,7 +9,9 @@ use App\Models\Dictionary\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class CategoryController extends BaseController
 {
@@ -23,7 +25,8 @@ class CategoryController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $categories = Category::orderBy('name', 'asc')->paginate($perPage);
+        $categories = Category::orderBy('name', 'asc')
+            ->paginate($perPage);
 
         return view('admin.dictionary.category.index', compact('categories'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -86,6 +89,10 @@ class CategoryController extends BaseController
             abort(403, 'Only admins with root access can update category entries.');
         }
 
+        // Validated the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('posts', 'slug') ] ]);
         $category->update($request->validated());
 
         return redirect()->route('admin.dictionary.category.index')

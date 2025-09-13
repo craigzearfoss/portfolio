@@ -4,9 +4,12 @@
 
             <div class="level-left">
                 <div class="level-item">
-                    <h1 class="title is-size-4">
+                    <h1 class="title is-inline-block">
                         {{ $title ?? '#title#' }}
                     </h1>
+                    <div class="level-item ml-4 pt-0">
+                    {!! $selectList !!}
+                    </div>
                 </div>
             </div>
 

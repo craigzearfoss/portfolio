@@ -1,73 +1,91 @@
-@extends('front.layouts.default')
+@php use Illuminate\Http\Request; @endphp
+@extends('front.layouts.default', [
+    'title' => 'Readings',
+    'breadcrumbs' => [
+        [ 'name' => 'Home', 'url' => route('front.homepage')],
+        [ 'name' => 'Readings']
+    ],
+    'buttons' => [],
+    'errors' => $errors ?? [],
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="card p-4">
 
-            @include('front.components.nav-left')
+        @include('front.components.form-select', [
+            'name'     => '',
+            'value'    => old('state') ?? '',
+            'list'     => \App\Models\Portfolio\Reading::authorlistOptions(true),
+            'onchange' => "alert('need to implement route.');",
+            'message'  => $message ?? '',
+        ])
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+        {!! $readings->links('vendor.pagination.bulma') !!}
 
-                @include('front.components.header')
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <thead>
+            <tr>
+                <th>title</th>
+                <th>author</th>
+                <th class="text-center">type</th>
+                <th class="text-center">paper</th>
+                <th class="text-center">audio</th>
+                <th class="text-center text-nowrap">wish list</th>
+            </tr>
+            </thead>
+            <?php /*
+            <tfoot>
+            <tr>
+                <th>title</th>
+                <th>author</th>
+                <th class="text-center">type</th>
+                <th class="text-center">paper</th>
+                <th class="text-center">audio</th>
+                <th class="text-center text-nowrap">wish list</th>
+            </tr>
+            </tfoot>
+            */ ?>
+            <tbody>
 
-                @include('front.components.popup')
+            @forelse ($readings as $reading)
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
+                <tr>
+                    <td>
+                        <a href="{{ route('front.reading.show', $reading->slug) }}">
+                            {{ $reading->title }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ $reading->author }}
+                    </td>
+                    <td class="text-center">
+                        {{ $reading->fiction ? 'fiction' : ($reading->nonfiction ? 'nonfiction' : '') }}
+                    </td>
+                    <td class="text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $reading->paper ])
+                    </td>
+                    <td class="text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $reading->audio ])
+                    </td>
+                    <td class="text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $reading->wishlist ])
+                    </td>
+                </tr>
 
-                    <h3 class="card-header">Readings</h3>
+            @empty
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('front.components.messages', [$errors])
-                        </div>
-                    </div>
+                <tr>
+                    <td colspan="6">There are no readings.</td>
+                </tr>
 
-                    <table id=myGrid" class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>title</th>
-                            <th>author</th>
-                            <th class="text-center">paper</th>
-                            <th class="text-center">audio</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
+            @endforelse
 
-                        <tbody>
+            </tbody>
+        </table>
 
-                        @forelse ($readings as $reading)
-                            <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $reading->title }}</td>
-                                <td>{{ $reading->author }}</td>
-                                <td class="text-center">
-                                    @include('front.components.checkmark', [ 'checked' => $reading->paper ])
-                                </td>
-                                <td class="text-center">
-                                    @include('front.components.checkmark', [ 'checked' => $reading->audio ])
-                                </td>
-                                <td>
-                                    <a class="btn btn-sm" href="{{ route('front.reading.show', $reading->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="6">There are no readings.</td>
-                            </tr>
-                        @endforelse
+        {!! $readings->links('vendor.pagination.bulma') !!}
 
-                        </tbody>
-                    </table>
-
-                    {!! $readings->links() !!}
-
-                    @include('front.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

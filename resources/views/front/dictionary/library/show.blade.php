@@ -27,13 +27,13 @@
         ])
 
         @include('front.components.show-row', [
-            'name'  => 'slug',
-            'value' => $library->slug
+            'name'  => 'abbreviation',
+            'value' => $library->abbreviation
         ])
 
         @include('front.components.show-row', [
-            'name'  => 'abbreviation',
-            'value' => $library->abbreviation
+            'name'  => 'definition',
+            'value' => $library->definition
         ])
 
         @include('front.components.show-row-checkbox', [
@@ -52,20 +52,16 @@
         ])
 
         @include('front.components.show-row-link', [
-            'name'  => 'wiki page',
+            'name'   => 'wiki page',
             'url'    => $library->wikipedia,
             'target' => '_blank'
         ])
 
         @include('front.components.show-row-link', [
-            'name'  => 'link',
+            'name'   => 'link',
             'url'    => $library->link,
+            'label'  => $library->link_name,
             'target' => '_blank'
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'link name',
-            'value' => $library->link_name
         ])
 
         @include('front.components.show-row', [
@@ -73,65 +69,24 @@
             'value' => $library->description
         ])
 
-        @include('front.components.show-row-image', [
-            'name'  => 'image',
-            'value' => $library->image
-        ])
+        @if(!empty($library->image))
 
-        @include('front.components.show-row', [
-            'name'  => 'image credit',
-            'value' => $library->image_credit
-        ])
+            @include('front.components.show-row-image', [
+                'name'  => 'image',
+                'value' => $library->image
+            ])
 
-        @include('front.components.show-row', [
-            'name'  => 'image source',
-            'value' => $library->image_source
-        ])
+            @include('front.components.show-row', [
+                'name'  => 'image credit',
+                'value' => $library->image_credit
+            ])
 
-        @include('front.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'value' => $library->thumbnail
-        ])
+            @include('front.components.show-row', [
+                'name'  => 'image source',
+                'value' => $library->image_source
+            ])
 
-        @include('front.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $library->sequence
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $library->public
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $library->readonly
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $library->root
-        ])
-
-        @include('front.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $library->disabled
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($library->created_at)
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($library->updated_at)
-        ])
-
-        @include('front.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($library->deleted_at)
-        ])
+        @endif
 
     </div>
 

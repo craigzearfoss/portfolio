@@ -35,23 +35,45 @@ class DictionarySection extends Model
      * Returns an array of options for a select list.
      *
      * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @param string|null $slug
+     * @param string $keyField - id, name, slug, table, or route
+     * @param string $routePrefix
      * @return array|string[]
      */
     public static function listOptions(
         bool $includeBlank = false,
-        bool $nameAsKey = true,
-        string|null $slug = null
+        string $keyField = 'id',
+        string $routePrefix = ''
     ): array
     {
-        $options = [];
-        if ($includeBlank) {
-            $options = [ '' => '' ];
+        if (!in_array($keyField, ['id', 'name', 'slug', 'table', 'route'])) {
+            return [];
         }
 
-        foreach (DictionarySection::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
-            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
+        $options = [];
+        if ($includeBlank) {
+            $key = $keyField == 'route'
+                ? route($routePrefix.'dictionary.index')
+                : '';
+            $options = [
+                $key => ''
+            ];
+        }
+
+        foreach (DictionarySection::select('id', 'name', 'slug', 'table')->orderBy('name', 'asc')->get() as $row) {
+
+            switch ($keyField) {
+                case 'id':
+                case 'name':
+                case 'slug':
+                case 'table':
+                    $key = $row->{$keyField};
+                    break;
+                case 'route':
+                    $key =route($routePrefix.'dictionary.'.$row->slug.'.index');
+                    break;
+            }
+
+            $options[$key] = $row->name;
         }
 
         return $options;

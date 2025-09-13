@@ -23,7 +23,8 @@ class FrameworkController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $frameworks = Framework::orderBy('name', 'asc')->paginate($perPage);
+        $frameworks = Framework::orderBy('name', 'asc')
+            ->paginate($perPage);
 
         return view('admin.dictionary.framework.index', compact('frameworks'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

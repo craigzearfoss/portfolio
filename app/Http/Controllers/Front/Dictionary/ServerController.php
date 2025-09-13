@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\Dictionary\ServerStoreRequest;
 use App\Http\Requests\Dictionary\ServerUpdateRequest;
 use App\Models\Dictionary\Server;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,17 +24,28 @@ class ServerController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $servers = Server::orderBy('name', 'asc')->paginate($perPage);
+        $servers = Server::where('disabled', 0)
+            ->where('public', 1)
+            ->where('name', '!=', 'other')
+            ->orderBy('name', 'asc')
+            ->paginate($perPage);
 
         return view('front.dictionary.server.index', compact('servers'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
-     * Display the specified server.
+     * Display the specified serverr.
+     *
+     * @param string $slug
+     * @return View
      */
-    public function show(Server $server): View
+    public function show(string $slug): View
     {
+        if (!$server = Server::where('slug', $slug)->first()) {
+            throw new ModelNotFoundException();
+        }
+
         return view('front.dictionary.server.show', compact('server'));
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Reading;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -21,7 +22,7 @@ class ReadingController extends BaseController
 
         $readings = Reading::where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('sequence', 'asc')
+            ->orderBy('title', 'asc')
             ->paginate($perPage);
 
         $title = 'Readings';
@@ -31,9 +32,16 @@ class ReadingController extends BaseController
 
     /**
      * Display the specified reading.
+     *
+     * @param string $slug
+     * @return View
      */
-    public function show(Reading $reading): View
+    public function show(string $slug): View
     {
+        if (!$reading = Reading::where('slug', $slug)->first()) {
+            throw new ModelNotFoundException();
+        }
+
         return view('front.reading.show', compact('reading'));
     }
 }
