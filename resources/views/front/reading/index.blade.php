@@ -63,13 +63,13 @@
                         {{ $reading->fiction ? 'fiction' : ($reading->nonfiction ? 'nonfiction' : '') }}
                     </td>
                     <td class="text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $reading->paper ])
+                        @include('front.components.checkmark', [ 'checked' => $reading->paper ])
                     </td>
                     <td class="text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $reading->audio ])
+                        @include('front.components.checkmark', [ 'checked' => $reading->audio ])
                     </td>
                     <td class="text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $reading->wishlist ])
+                        @include('front.components.checkmark', [ 'checked' => $reading->wishlist ])
                     </td>
                 </tr>
 

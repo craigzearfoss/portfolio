@@ -101,7 +101,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $company->image
+            'src'   => $company->image,
+            'alt'   => $company->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row-image', [
@@ -114,9 +116,11 @@
             'value' => $company->image_source
         ])
 
-        @include('admin.components.show-row', [
+        @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $company->thumbnail
+            'src'   => $company->thumbnail,
+            'alt'   => $company->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

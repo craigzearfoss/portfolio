@@ -43,7 +43,7 @@
             'value' => $server->abbreviation
         ])
 
-        @include('front.components.show-row', [
+        @include('  admin.components.show-row', [
             'name'  => 'definition',
             'value' => $server->definition
         ])
@@ -74,7 +74,7 @@
             'target' => '_blank'
         ])
 
-        @include('front.components.show-row-link', [
+        @include('  admin.components.show-row-link', [
             'name'   => 'link',
             'url'    => $server->link,
             'label'  => $server->link_name,
@@ -88,7 +88,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $server->image
+            'src'   => $server->image,
+            'alt'   => $server->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row', [
@@ -103,7 +105,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $server->thumbnail
+            'src'   => $server->thumbnail,
+            'alt'   => $server->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

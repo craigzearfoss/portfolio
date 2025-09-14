@@ -183,9 +183,11 @@
             'value' => $application->description
         ])
 
-        @include('admin.components.show-row', [
+        @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $application->image
+            'src'   => $application->image,
+            'alt'   => $application->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row', [
@@ -198,9 +200,11 @@
             'value' => $application->image_source
         ])
 
-        @include('admin.components.show-row', [
+        @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $application->thumbnail
+            'src'   => $application->thumbnail,
+            'alt'   => $application->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

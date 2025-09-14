@@ -73,7 +73,9 @@
 
             @include('front.components.show-row-image', [
                 'name'  => 'image',
-                'value' => $category->image
+                'src'   => $category->image,
+                'alt'   => $category->name,
+                'width' => '300px',
             ])
 
             @include('front.components.show-row', [

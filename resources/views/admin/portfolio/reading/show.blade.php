@@ -87,7 +87,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $reading->image
+            'src'   => $reading->image,
+            'alt'   => $reading->name . ' - ' . $reading->author,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row-image', [
@@ -102,7 +104,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $reading->thumbnail
+            'src'   => $reading->thumbnail,
+            'alt'   => $reading->name . ' - ' . $reading->author,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

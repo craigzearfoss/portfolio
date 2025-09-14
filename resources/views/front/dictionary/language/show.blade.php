@@ -73,7 +73,9 @@
 
             @include('front.components.show-row-image', [
                 'name'  => 'image',
-                'value' => $language->image
+                'src'   => $recipe->$language,
+                'alt'   => $recipe->$language,
+                'width' => '300px',
             ])
 
             @include('front.components.show-row', [

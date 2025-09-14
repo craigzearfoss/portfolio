@@ -73,7 +73,9 @@
 
             @include('front.components.show-row-image', [
                 'name'  => 'image',
-                'value' => $operatingSystem->image
+                'src'   => $operatingSystem->image,
+                'alt'   => $operatingSystem->name,
+                'width' => '300px',
             ])
 
             @include('front.components.show-row', [

@@ -48,7 +48,7 @@
                     <div class="has-text-centered">
                         @include('admin.components.form-button-submit', [
                             'label'      => 'Login',
-                            'cancel_url' => route('front.homepage')
+                            'cancel_url' => route('admin.index')
                         ])
                     </div>
 

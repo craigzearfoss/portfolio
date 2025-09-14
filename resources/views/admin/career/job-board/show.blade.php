@@ -46,7 +46,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $jobBoard->image
+            'src'   => $jobBoard->image,
+            'alt'   => $jobBoard->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row-image', [
@@ -59,9 +61,11 @@
             'value' => $jobBoard->image_source
         ])
 
-        @include('admin.components.show-row', [
+        @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $jobBoard->thumbnail
+            'src'   => $jobBoard->thumbnail,
+            'alt'   => $jobBoard->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

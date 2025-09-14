@@ -46,7 +46,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $unit->image
+            'src'   => $unit->image,
+            'alt'   => $unit->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row', [
@@ -61,7 +63,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $unit->thumbnail
+            'src'   => $unit->thumbnail,
+            'alt'   => $unit->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

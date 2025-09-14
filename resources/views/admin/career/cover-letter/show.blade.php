@@ -67,7 +67,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $coverLetter->image
+            'src'   => $coverLetter->image,
+            'alt'   => $coverLetter->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row-image', [
@@ -80,9 +82,11 @@
             'value' => $coverLetter->image_source
         ])
 
-        @include('admin.components.show-row', [
+        @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $coverLetter->thumbnail
+            'src'   => $coverLetter->thumbnail,
+            'alt'   => $coverLetter->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row-checkbox', [

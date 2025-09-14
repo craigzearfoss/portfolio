@@ -88,7 +88,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $operatingSystem->image
+            'src'   => $operatingSystem->image,
+            'alt'   => $operatingSystem->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row', [
@@ -103,7 +105,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $operatingSystem->thumbnail
+            'src'   => $operatingSystem->thumbnail,
+            'alt'   => $operatingSystem->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

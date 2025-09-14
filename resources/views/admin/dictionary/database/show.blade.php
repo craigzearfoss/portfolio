@@ -88,7 +88,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $database->image
+            'src'   => $database->image,
+            'alt'   => $database->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row', [
@@ -103,7 +105,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $database->thumbnail
+            'src'   => $database->thumbnail,
+            'alt'   => $database->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

@@ -86,7 +86,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $music->image
+            'src'   => $music->image,
+            'alt'   => $music->name . ', ' . $music->artist,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row', [
@@ -101,7 +103,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $music->thumbnail
+            'src'   => $music->thumbnail,
+            'alt'   => $music->name . ', ' . $music->artist,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

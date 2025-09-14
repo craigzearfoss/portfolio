@@ -47,7 +47,9 @@
 
         @include('front.components.show-row-image', [
             'name'  => 'image',
-            'value' => $reading->image
+            'src'   => $reading->image,
+            'alt'   => $reading->name,
+            'width' => '300px',
         ])
 
         @include('front.components.show-row', [
@@ -62,7 +64,9 @@
 
         @include('front.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $reading->thumbnail
+            'src'   => $reading->image,
+            'alt'   => $reading->name,
+            'width' => '40px',
         ])
 
     </div>

@@ -107,7 +107,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $contact->image
+            'src'   => $contact->image,
+            'alt'   => $contact->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row-image', [
@@ -120,9 +122,11 @@
             'value' => $contact->image_source
         ])
 
-        @include('admin.components.show-row', [
+        @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $contact->thumbnail
+            'src'   => $contact->thumbnail,
+            'alt'   => $contact->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

@@ -51,7 +51,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $industry->image
+            'src'   => $industry->image,
+            'alt'   => $industry->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row-image', [
@@ -64,9 +66,11 @@
             'value' => $industry->image_source
         ])
 
-        @include('admin.components.show-row', [
+        @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $industry->thumbnail
+            'src'   => $industry->thumbnail,
+            'alt'   => $industry->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

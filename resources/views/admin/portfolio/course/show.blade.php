@@ -91,7 +91,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $course->image
+            'src'   => $course->image,
+            'alt'   => $course->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row', [
@@ -106,7 +108,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $course->thumbnail
+            'src'   => $course->thumbnail,
+            'alt'   => $course->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [
@@ -137,71 +141,6 @@
         @include('admin.components.show-row', [
             'name'  => 'admin',
             'value' => $course->admin['username'] ?? ''
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($course->created_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($course->updated_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($course->deleted_at)
-        ])
-
-
-
-
-
-
-        @include('admin.components.show-row-link', [
-            'name'  => 'link',
-            'value' => $course->link
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $course->description
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'value' => $course->image
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'value' => $course->thumbnail
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $course->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $course->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $course->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $course->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $course->disabled
         ])
 
         @include('admin.components.show-row', [

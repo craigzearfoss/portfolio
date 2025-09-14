@@ -37,10 +37,12 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $admin->image
+            'src'   => $admin->image,
+            'alt'   => $admin->name,
+            'width' => '300px',
         ])
 
-        @include('admin.components.show-row', [
+        @include('admin.components.show-row-image', [
             'name'  => 'image credit',
             'value' => $admin->image_credit
         ])
@@ -52,7 +54,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $admin->thumbnail
+            'src'   => $admin->thumbnail,
+            'alt'   => $admin->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

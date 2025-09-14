@@ -88,7 +88,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $category->image
+            'src'   => $category->image,
+            'alt'   => $category->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row', [
@@ -106,9 +108,11 @@
             'value' => $category->thumbnail
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $category->sequence
+        @include('admin.components.show-row-image', [
+            'name'  => 'thumbnail',
+            'src'   => $category->thumbnail,
+            'alt'   => $category->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row-checkbox', [

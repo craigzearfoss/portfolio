@@ -76,7 +76,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $user->image
+            'src'   => $user->image,
+            'alt'   => $user->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row-image', [
@@ -91,7 +93,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $user->thumbnail
+            'src'   => $user->thumbnail,
+            'alt'   => $user->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

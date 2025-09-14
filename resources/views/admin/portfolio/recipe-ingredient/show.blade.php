@@ -51,7 +51,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $recipeIngredient->image
+            'src'   => $recipeIngredient->image,
+            'alt'   => $recipeIngredient->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row', [
@@ -66,7 +68,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $recipeIngredient->thumbnail
+            'src'   => $recipeIngredient->thumbnail,
+            'alt'   => $recipeIngredient->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

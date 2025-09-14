@@ -46,22 +46,26 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $resume->image
+            'src'   => $skill->image,
+            'alt'   => $skill->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row-image', [
             'name'  => 'image credit',
-            'value' => $resume->image_credit
+            'value' => $skill->image_credit
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $resume->image_source
+            'value' => $skill->image_source
         ])
 
-        @include('admin.components.show-row', [
+        @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $resume->thumbnail
+            'src'   => $skill->thumbnail,
+            'alt'   => $skill->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

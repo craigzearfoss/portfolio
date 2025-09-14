@@ -46,7 +46,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $academy->image
+            'src'   => $academy->image,
+            'alt'   => $academy->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row', [
@@ -61,7 +63,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $academy->thumbnail
+            'src'   => $academy->thumbnail,
+            'alt'   => $academy->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

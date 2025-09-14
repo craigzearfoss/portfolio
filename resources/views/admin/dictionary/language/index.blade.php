@@ -5,7 +5,7 @@
         [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
         [ 'name' => 'Languages' ]
     ],
-    'selectList' => View::make('front.components.form-select', [
+    'selectList' => View::make('  admin.components.form-select', [
             'name'     => '',
             'label'    => '',
             'value'    => route('admin.dictionary.language.index'),

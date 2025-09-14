@@ -81,7 +81,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $certification->image
+            'src'   => $certification->image,
+            'alt'   => $certification->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row', [
@@ -96,7 +98,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $certification->thumbnail
+            'src'   => $certification->thumbnail,
+            'alt'   => $certification->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

@@ -66,7 +66,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $reference->image
+            'src'   => $reference->image,
+            'alt'   => $reference->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row-image', [
@@ -79,9 +81,11 @@
             'value' => $reference->image_source
         ])
 
-        @include('admin.components.show-row', [
+        @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $reference->thumbnail
+            'src'   => $reference->thumbnail,
+            'alt'   => $reference->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [

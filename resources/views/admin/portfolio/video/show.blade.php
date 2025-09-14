@@ -81,7 +81,9 @@
 
         @include('admin.components.show-row-image', [
             'name'  => 'image',
-            'value' => $video->image
+            'src'   => $video->image,
+            'alt'   => $video->name,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row-image', [
@@ -94,9 +96,11 @@
             'value' => $video->image_source
         ])
 
-        @include('admin.components.show-row', [
+        @include('admin.components.show-row-image', [
             'name'  => 'thumbnail',
-            'value' => $video->thumbnail
+            'src'   => $video->thumbnail,
+            'alt'   => $video->name,
+            'width' => '40px',
         ])
 
         @include('admin.components.show-row', [
