@@ -17,6 +17,8 @@ use App\Http\Controllers\Admin\Career\CoverLetterController as CareerCoverLetter
 use App\Http\Controllers\Admin\Career\IndustryController as CareerIndustryController;
 use App\Http\Controllers\Admin\Career\JobBoardController as CareerJobBoardController;
 use App\Http\Controllers\Admin\Career\JobController as CareerJobController;
+use App\Http\Controllers\Admin\Career\JobCoworkerController as CareerJobCoworkerController;
+use App\Http\Controllers\Admin\Career\JobTaskController as CareerJobTaskController;
 use App\Http\Controllers\Admin\Career\NoteController as CareerNoteController;
 use App\Http\Controllers\Admin\Career\ReferenceController as CareerReferenceController;
 use App\Http\Controllers\Admin\Career\ResumeController as CareerResumeController;
@@ -72,7 +74,9 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::resource('cover-letter', CareerCoverLetterController::class);
     Route::resource('industry', CareerIndustryController::class);
     Route::resource('job', CareerJobController::class);
+    Route::resource('job-coworker', CareerJobCoworkerController::class)->parameter('job-coworker', 'job_coworker');
     Route::resource('job-board', CareerJobBoardController::class)->parameter('job-board', 'job_board');
+    Route::resource('job-task', CareerJobTaskController::class)->parameter('job-task', 'job-task');
     Route::resource('note', CareerNoteController::class);
     Route::resource('reference', CareerReferenceController::class);
     Route::resource('resume', CareerResumeController::class);

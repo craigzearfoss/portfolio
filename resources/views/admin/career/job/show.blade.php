@@ -19,13 +19,28 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $job->name
+            'name'  => 'id',
+            'value' => $job->id
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'company',
+            'value' => $job->company
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'slug',
             'value' => $job->slug
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'city',
+            'value' => $job->city
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'state',
+            'value' => $job->state
         ])
 
         @include('admin.components.show-row', [
@@ -35,14 +50,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'start_date',
-            'name'  => 'start date',
-            'value' => longDate($job->start_date)
+            'value' => (!empty($job->start_month) ? date('F', mktime(0, 0, 0, $job->start_month, 10)) : '') . ' ' . $job->start_year
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'end_date',
-            'name'  => 'end date',
-            'value' => longDate($job->end_date)
+            'value' => (!empty($job->end_month) ? date('F', mktime(0, 0, 0, $job->end_month, 10)) : '') . ' ' . $job->end_year
         ])
 
         @include('admin.components.show-row-link', [

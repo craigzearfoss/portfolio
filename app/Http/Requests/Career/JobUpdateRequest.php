@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class obUpdateRequest extends FormRequest
+class JobUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -45,9 +45,15 @@ class obUpdateRequest extends FormRequest
         return [
             'name'         => ['string', 'max:255', 'unique:career_db.jobs,name,'.$this->job->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:career_db.jobs,slug,'.$this->job->id, 'filled'],
+            'city'         => ['string', 'max:100', 'nullable'],
+            'state'        => ['string', 'max:20', 'nullable'],
             'role'         => ['string', 'max:255',],
-            'start_date'   => ['date', 'nullable'],
-            'end_date'     => ['date', 'after_or_equal:start_date', 'nullable'],
+            'start_month'  => ['integer', 'between:1,12', 'nullable' ],
+            'start_year'   => ['integer', 'min:1980', 'max:2050', 'nullable'],
+            'end_month'    => ['integer', 'between:1,12', 'nullable' ],
+            'end_year'     => ['integer', 'min:1980', 'max:2050', 'nullable'],
+            'summary'      => ['string', 'max:255', 'nullable'],
+            'notes'        => ['nullable'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

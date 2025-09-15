@@ -3,9 +3,12 @@
 namespace App\Models\Career;
 
 use App\Models\Admin;
+use App\Models\Career\JobCoworker;
+use App\Models\Career\JobTask;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Job extends Model
@@ -23,11 +26,17 @@ class Job extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'company',
         'slug',
+        'city',
+        'state',
         'role',
-        'start_date',
-        'end_date',
+        'start_month',
+        'start_year',
+        'end_month',
+        'end_year',
+        'summary',
+        'notes',
         'link',
         'link_name',
         'description',
@@ -49,5 +58,21 @@ class Job extends Model
     public function admin(): BelongsTo
     {
         return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+    }
+
+    /**
+     * Get the coworkers for the job.
+     */
+    public function coworkers(): HasMany
+    {
+        return $this->hasMany(JobCoworker::class);
+    }
+
+    /**
+     * Get the tasks for the job.
+     */
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(JobTask::class);
     }
 }

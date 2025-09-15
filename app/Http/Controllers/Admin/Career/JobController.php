@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\JobStoreRequest;
-use App\Http\Requests\Career\obUpdateRequest;
+use App\Http\Requests\Career\JobUpdateRequest;
 use App\Models\Career\Job;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -35,7 +35,7 @@ class JobController extends BaseController
     public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add job board entries.');
+            abort(403, 'Only admins with root access can add job entries.');
         }
 
         return view('admin.career.job.create');
@@ -47,7 +47,7 @@ class JobController extends BaseController
     public function store(JobStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add job board entries.');
+            abort(403, 'Only admins with root access can add job entries.');
         }
 
         Job::create($request->validated());
@@ -70,7 +70,7 @@ class JobController extends BaseController
     public function edit(Job $job): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit job board entries.');
+            abort(403, 'Only admins with root access can edit job entries.');
         }
 
         return view('admin.career.job.edit', compact('job'));
@@ -79,10 +79,10 @@ class JobController extends BaseController
     /**
      * Update the specified job in storage.
      */
-    public function update(obUpdateRequest $request, Job $job): RedirectResponse
+    public function update(JobUpdateRequest $request, Job $job): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update job board entries.');
+            abort(403, 'Only admins with root access can update job entries.');
         }
 
         $job->update($request->validated());
@@ -97,7 +97,7 @@ class JobController extends BaseController
     public function destroy(Job $job): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete job board entries.');
+            abort(403, 'Only admins with root access can delete job entries.');
         }
 
         $job->delete();

@@ -31,11 +31,25 @@
             @endif
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? $job->name,
+                'name'      => 'company',
+                'value'     => old('company') ?? $job->company,
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'city',
+                'value'     => old('company') ?? $job->company,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'state',
+                'value'   => old('state') ?? $job->state,
+                'list'    => \App\Models\State::listOptions(true, true),
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -47,16 +61,32 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'      => 'date',
-                'name'      => 'start_date',
-                'value'     => old('start_date') ?? $resume->start_date,
+                'name'      => 'start_month',
+                'value'     => old('start_month') ?? $job->start_month,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'      => 'date',
-                'name'      => 'end_date',
-                'value'     => old('end_date') ?? $resume->end_date,
+                'type'      => 'number',
+                'name'      => 'start_year',
+                'value'     => old('start_year') ?? $job->start_year,
+                'min'       => 1980,
+                'max'       => 2050,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'end_month',
+                'value'     => old('end_month') ?? $job->end_month,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'end_year',
+                'value'     => old('end_year') ?? $job->end_year,
+                'min'       => 1980,
+                'max'       => 2050,
                 'message'   => $message ?? '',
             ])
 

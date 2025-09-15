@@ -38,9 +38,8 @@ class MenuService
                 $currentDatabaseName = $resource->database['name'];
                 $i++;
                 $menu[$i] = $this->databaseItem($resource->database, $userType, $currentRouteName);
-            } else {
-                $menu[$i]->children[] = $this->resourceItem($resource, $userType, $currentRouteName);
             }
+            $menu[$i]->children[] = $this->resourceItem($resource, $userType, $currentRouteName);
         }
 
         if (Auth::guard('admin')->check()) {
@@ -148,9 +147,8 @@ class MenuService
                 $currentDatabaseName = $resource->database['name'];
                 $i++;
                 $menu[$i] = $this->databaseItem($resource->database, $userType, $currentRouteName);
-            } else {
-                $menu[$i]->children[] = $this->resourceItem($resource, $userType, $currentRouteName);
             }
+            $menu[$i]->children[] = $this->resourceItem($resource, $userType, $currentRouteName);
         }
 
         if (Auth::guard('admin')->check()) {

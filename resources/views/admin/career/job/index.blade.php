@@ -18,9 +18,13 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th>name</th>
-                <th class="text-center">sequence</th>
+                <th>company</th>
+                <th>role</th>
+                <th>start date</th>
+                <th>end date</th>
                 <th class="text-center">public</th>
+                <th class="text-center">read-only</th>
+                <th class="text-center">root</th>
                 <th class="text-center">disabled</th>
                 <th>actions</th>
             </tr>
@@ -28,9 +32,13 @@
             <?php /*
             <tfoot>
             <tr>
-                <th>name</th>
-                <th class="text-center">sequence</th>
+                <th>company</th>
+                <th>role</th>
+                <th>start date</th>
+                <th>end date</th>
                 <th class="text-center">public</th>
+                <th class="text-center">read-only</th>
+                <th class="text-center">root</th>
                 <th class="text-center">disabled</th>
                 <th>actions</th>
             </tr>
@@ -42,13 +50,27 @@
 
                 <tr>
                     <td>
-                        {{ $job->name }}
+                        {{ $job->company }}
+                    </td>
+                    <td>
+                        {{ $job->role }}
                     </td>
                     <td class="text-center">
-                        {{ $job->sequence }}
+                        @if(!empty($job->start_month)){{ date('F', mktime(0, 0, 0, $job->start_month, 10)) }} @endif
+                        {{ $job->start_year }}
+                    </td>
+                    <td class="text-center">
+                        @if(!empty($job->end_month)){{ date('F', mktime(0, 0, 0, $job->end_month, 10)) }} @endif
+                        {{ $job->end_year }}
                     </td>
                     <td class="text-center">
                         @include('admin.components.checkmark', [ 'checked' => $job->public ])
+                    </td>
+                    <td class="text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $job->readonly ])
+                    </td>
+                    <td class="text-center">
+                        @include('admin.components.checkmark', [ 'checked' => $job->root ])
                     </td>
                     <td class="text-center">
                         @include('admin.components.checkmark', [ 'checked' => $job->disabled ])
@@ -90,7 +112,7 @@
             @empty
 
                 <tr>
-                    <td colspan="5">There are no jobs.</td>
+                    <td colspan="8">There are no jobs.</td>
                 </tr>
 
             @endforelse

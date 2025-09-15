@@ -29,7 +29,7 @@ class AdminStoreRequest extends FormRequest
             'street'           => ['string', 'max:255', 'nullable'],
             'street2'          => ['string', 'max:255', 'nullable'],
             'city'             => ['string', 'max:100', 'nullable'],
-            'state'            => ['string', 'max:100', 'nullable'],
+            'state'            => ['string', 'max:20', 'nullable'],
             'country'          => ['string', 'max:100', 'nullable'],
             'zip'              => ['string', 'max:20', 'nullable'],
             'coordinate'       => ['nullable'],

@@ -51,7 +51,7 @@ class CompanyStoreRequest extends FormRequest
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],
-            'state'           => ['string', 'max:100', 'nullable'],
+            'state'           => ['string', 'max:20', 'nullable'],
             'zip'             => ['string', 'max:20', 'nullable'],
             'country'         => ['string', 'max:100', 'nullable'],
             'phone'           => ['string', 'max:20', 'nullable'],

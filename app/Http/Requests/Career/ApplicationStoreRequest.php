@@ -56,7 +56,7 @@ class ApplicationStoreRequest extends FormRequest
             'type'              => ['integer', 'between:0,3'],  // 0-permanent,1-contract,2-contract-to-hire,3-project
             'office'            => ['integer', 'between:0,1'],  // 0-onsite,1-remote,2-hybrid
             'city'              => ['string', 'max:100', 'nullable'],
-            'state'             => ['string', 'max:100', 'nullable'],
+            'state'             => ['string', 'max:20', 'nullable'],
             'bonus'             => ['string', 'max:255', 'nullable'],
             'w2'                => ['integer', 'between:0,1'],
             'relocation'        => ['integer', 'between:0,1'],
