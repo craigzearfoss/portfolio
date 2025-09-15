@@ -63,10 +63,25 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'completed',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('completed') ?? $course->completed,
+                'message'         => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'date',
-                'name'      => 'completed',
-                'value'     => old('completed') ?? $course->completed,
+                'name'      => 'completion_date',
+                'label'     => 'completion date',
+                'value'     => old('completion_date') ?? $course->completion_date,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'duration_hours',
+                'value'     => old('duration_hours') ?? $course->duration_hours,
                 'message'   => $message ?? '',
             ])
 
@@ -79,8 +94,8 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'website',
-                'value'     => old('website') ?? $course->website,
+                'name'      => 'school',
+                'value'     => old('school') ?? $course->school,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -95,6 +110,14 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'sponsor',
                 'value'     => old('sponsor') ?? $course->sponsor,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'certificate_url',
+                'label'     => 'certificate url',
+                'value'     => old('certificate_url') ?? $course->certificate_url,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -174,14 +197,16 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'root',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('root') ?? $course->root,
-                'disabled'        => !Auth('admin')->user()->root,
-                'message'         => $message ?? '',
-            ])
+            @if (Auth::guard('admin')->user()->root)
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'root',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('root') ?? $course->root,
+                    'disabled'        => !Auth('admin')->user()->root,
+                    'message'         => $message ?? '',
+                ])
+            @endif
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'disabled',

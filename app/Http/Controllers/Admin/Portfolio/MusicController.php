@@ -22,7 +22,7 @@ class MusicController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $musics = Music::latest()->paginate($perPage);
+        $musics = Music::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.portfolio.music.index', compact('musics'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

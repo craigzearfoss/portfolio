@@ -32,6 +32,7 @@ class Video extends Model
         'company',
         'credit',
         'location',
+        'embed',
         'link',
         'link_name',
         'description',

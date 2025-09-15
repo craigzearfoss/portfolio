@@ -50,7 +50,7 @@ class ProjectStoreRequest extends FormRequest
             'personal'     => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'repository'   => ['string', 'max:255', 'nullable'],
-            'link'         => ['string', 'max:255', 'nullable'],
+            'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

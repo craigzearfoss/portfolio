@@ -53,7 +53,7 @@ class ReadingUpdateRequest extends FormRequest
             'paper'            => ['integer', 'between:0,1'],
             'audio'            => ['integer', 'between:0,1'],
             'wishlist'         => ['wishlist', 'between:0,1'],
-            'link'             => ['string', 'nullable'],
+            'link'             => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'        => ['string', 'nullable'],
             'description'      => ['nullable'],
             'image'            => ['string', 'max:255', 'nullable'],

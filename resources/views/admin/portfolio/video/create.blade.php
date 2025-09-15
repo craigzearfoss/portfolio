@@ -89,6 +89,12 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'embed',
+                'value'   => old('embed') ?? '',
+                'message' => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? '',

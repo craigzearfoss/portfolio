@@ -22,7 +22,7 @@ class VideoController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $videos = Video::latest()->paginate($perPage);
+        $videos = Video::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.portfolio.video.index', compact('videos'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

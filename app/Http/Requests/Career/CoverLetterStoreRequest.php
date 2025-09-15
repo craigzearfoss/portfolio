@@ -48,7 +48,7 @@ class CoverLetterStoreRequest extends FormRequest
             'slug'          => ['required', 'string', 'max:255', 'unique:career_db.cover_letters,slug'],
             'date'          => ['date', 'nullable'],
             'content'       => ['nullable'],
-            'link'          => ['string', 'max:255', 'nullable'],
+            'link'          => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'     => ['string', 'max:255', 'nullable'],
             'alt_link'      => ['string', 'max:255', 'nullable'],
             'alt_link_name' => ['string', 'max:255', 'nullable'],

@@ -22,7 +22,7 @@ class CertificationController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $certifications = Certification::latest()->paginate($perPage);
+        $certifications = Certification::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.portfolio.certification.index', compact('certifications'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

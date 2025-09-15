@@ -22,7 +22,7 @@ class ProjectController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $projects = Project::latest()->paginate($perPage);
+        $projects = Project::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.portfolio.project.index', compact('projects'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

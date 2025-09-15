@@ -19,9 +19,6 @@
             <thead>
             <tr>
                 <th>name</th>
-                <th class="text-center">professional</th>
-                <th class="text-center">personal</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -33,9 +30,6 @@
             <tfoot>
             <tr>
                 <th>name</th>
-                <th class="text-center">professional</th>
-                <th class="text-center">personal</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -51,15 +45,6 @@
                 <tr>
                     <td class="py-0">
                         {{ $recipe->name }}
-                    </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $recipe->professional ])
-                    </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $recipe->personal ])
-                    </td>
-                    <td class="py-0 text-center">
-                        {{ $recipe->sequence }}
                     </td>
                     <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->public ])
@@ -109,7 +94,7 @@
             @empty
 
                 <tr>
-                    <td colspan="9">There are no recipes.</td>
+                    <td colspan="6">There are no recipes.</td>
                 </tr>
 
             @endforelse

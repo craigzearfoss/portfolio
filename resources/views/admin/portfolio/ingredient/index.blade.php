@@ -19,7 +19,6 @@
             <thead>
             <tr>
                 <th>name</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -30,7 +29,6 @@
             <?php /*
             <tfoot>
             <tr>
-                <th class="text-center">sequence</th>
                 <th>name</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
@@ -47,9 +45,6 @@
                 <tr>
                     <td class="py-0">
                         {{ $ingredient->name }}
-                    </td>
-                    <td class="py-0 text-center">
-                        {{ $ingredient->sequence }}
                     </td>
                     <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $ingredient->public ])
@@ -99,7 +94,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no ingredients.</td>
+                    <td colspan="6">There are no ingredients.</td>
                 </tr>
 
             @endforelse

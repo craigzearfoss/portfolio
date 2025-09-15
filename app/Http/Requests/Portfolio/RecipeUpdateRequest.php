@@ -48,7 +48,7 @@ class RecipeUpdateRequest extends FormRequest
             'personal'     => ['integer', 'between:0,1'],
             'source'       => ['string', 'max:255', 'nullable'],
             'author'       => ['string', 'max:255', 'nullable'],
-            'link'         => ['string', 'max:255', 'nullable'],
+            'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

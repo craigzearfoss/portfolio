@@ -52,7 +52,7 @@
         ])
 
         @include('front.components.show-row-link', [
-            'name'   => 'wiki page',
+            'name'   => 'wikipedia',
             'url'    => $category->wikipedia,
             'target' => '_blank'
         ])

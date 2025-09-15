@@ -49,7 +49,7 @@ class ResumeStoreRequest extends FormRequest
             'date'         => ['date', 'nullable'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'content'      => ['nullable'],
-            'link'         => ['string', 'max:255', 'nullable'],
+            'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

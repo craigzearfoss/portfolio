@@ -48,7 +48,7 @@ class obUpdateRequest extends FormRequest
             'role'         => ['string', 'max:255',],
             'start_date'   => ['date', 'nullable'],
             'end_date'     => ['date', 'after_or_equal:start_date', 'nullable'],
-            'link'         => ['string', 'max:255', 'nullable'],
+            'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

@@ -48,7 +48,7 @@ class LinkUpdateRequest extends FormRequest
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'url'          => ['string', 'url:http,https', 'max:255', 'required'],
-            'link'         => ['string', 'max:255', 'nullable'],
+            'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

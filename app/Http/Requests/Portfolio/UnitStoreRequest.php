@@ -27,7 +27,7 @@ class UnitStoreRequest extends FormRequest
             'abbreviation' => ['required', 'string', 'max:20', 'unique:portfolio_db.units,abbreviation'],
             'system'       => ['required', 'string', 'max:10'],
             'link'         => ['string', 'max:255', 'nullable'],
-            'link_name'    => ['string', 'nullable'],
+            'link_name'    => ['string', 'url:http,https', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],
             'image_credit' => ['string', 'max:255', 'nullable'],

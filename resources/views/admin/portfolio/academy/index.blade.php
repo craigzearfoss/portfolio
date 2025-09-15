@@ -19,7 +19,6 @@
             <thead>
             <tr>
                 <th>name</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -31,7 +30,6 @@
             <tfoot>
             <tr>
                 <th>name</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -47,9 +45,6 @@
                 <tr>
                     <td class="py-0">
                         {{ $academy->name }}
-                    </td>
-                    <td class="py-0 text-center">
-                        {{ $academy->sequence }}
                     </td>
                     <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $academy->public ])
@@ -99,7 +94,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no academies.</td>
+                    <td colspan="6">There are no academies.</td>
                 </tr>
 
             @endforelse

@@ -19,12 +19,7 @@
             <thead>
             <tr>
                 <th>name</th>
-                <th class="text-center">professional</th>
-                <th class="text-center">personal</th>
                 <th>year</th>
-                <th>credit</th>
-                <th>location</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -36,12 +31,7 @@
             <tfoot>
             <tr>
                 <th>name</th>
-                <th class="text-center">professional</th>
-                <th class="text-center">personal</th>
                 <th>year</th>
-                <th>credit</th>
-                <th>location</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -58,23 +48,8 @@
                     <td class="py-0">
                         {{ $video->name }}
                     </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $video->professional ])
-                    </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $video->personal ])
-                    </td>
                     <td class="py-0">
                         {{ $video->year }}
-                    </td>
-                    <td class="py-0">
-                        {{ $video->credit }}
-                    </td>
-                    <td class="py-0">
-                        {{ $video->location }}
-                    </td>
-                    <td class="py-0 text-center">
-                        {{ $video->sequence }}
                     </td>
                     <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $video->readonly ])
@@ -124,7 +99,7 @@
             @empty
 
                 <tr>
-                    <td colspan="12">There are no videos.</td>
+                    <td colspan="7">There are no videos.</td>
                 </tr>
 
             @endforelse

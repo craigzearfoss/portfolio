@@ -88,6 +88,14 @@ return new class extends Migration
                 'sequence' => 6,
                 'public'   => 1,
             ],
+            [
+                'id'       => 8,
+                'name'     => 'AWS Training and Certification',
+                'slug'     => 'aws-training-and-certification',
+                'link'  => null,
+                'sequence' => 7,
+                'public'   => 1,
+            ],
         ];
 
         App\Models\Portfolio\Academy::insert($data);

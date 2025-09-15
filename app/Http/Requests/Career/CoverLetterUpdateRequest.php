@@ -47,7 +47,7 @@ class CoverLetterUpdateRequest extends FormRequest
             'slug'          => ['string', 'max:255', 'unique:career_db.cover_letters,slug,'.$this->cover_letter->id, 'filled'],
             'date'          => ['date', 'nullable'],
             'content'       => ['nullable'],
-            'link'          => ['string', 'max:255', 'nullable'],
+            'link'          => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'     => ['string', 'max:255', 'nullable'],
             'alt_link'      => ['string', 'max:255', 'nullable'],
             'alt_link_name' => ['string', 'max:255', 'nullable'],

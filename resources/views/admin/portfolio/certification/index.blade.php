@@ -19,12 +19,9 @@
             <thead>
             <tr>
                 <th>name</th>
-                <th class="text-center">professional</th>
-                <th class="text-center">personal</th>
                 <th>academy</th>
                 <th>received</th>
                 <th>expiration</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -36,12 +33,9 @@
             <tfoot>
             <tr>
                 <th>name</th>
-                <th class="text-center">professional</th>
-                <th class="text-center">personal</th>
                 <th>academy</th>
                 <th>received</th>
                 <th>expiration</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -58,12 +52,6 @@
                     <td class="py-0">
                         {{ $certification->name }}
                     </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $certification->professional ])
-                    </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $certification->personal ])
-                    </td>
                     <td>
                         @if (!empty($certification->academy))
                             <a href="{{ $certification->academy['id'] }}" target="_blank">{{ $certification->academy['name'] }}</a>
@@ -74,9 +62,6 @@
                     </td>
                     <td class="py-0 text-nowrap">
                         {{ shortDate($certification->expiration) }}
-                    </td>
-                    <td class="py-0 text-center">
-                        {{ $certification->sequence }}
                     </td>
                     <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $certification->public ])
@@ -126,7 +111,7 @@
             @empty
 
                 <tr>
-                    <td colspan="12">There are no certifications.</td>
+                    <td colspan="9">There are no certifications.</td>
                 </tr>
 
             @endforelse

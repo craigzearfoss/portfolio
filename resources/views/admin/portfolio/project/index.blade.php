@@ -23,7 +23,6 @@
                 <th class="text-center">personal</th>
                 <th>year</th>
                 <th>repository</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">root</th>
                 <th class="text-center">read-only</th>
@@ -39,7 +38,6 @@
                 <th class="text-center">personal</th>
                 <th>year</th>
                 <th>repository</th>
-                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">root</th>
                 <th class="text-center">read-only</th>
@@ -67,9 +65,6 @@
                     </td>
                     <td>
                         @include('admin.components.link', [ 'url' => $project->repository, 'target' => '_blank' ])
-                    </td>
-                    <td class="py-0 text-center">
-                        {{ $project->sequence }}
                     </td>
                     <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $project->public ])
@@ -119,7 +114,7 @@
             @empty
 
                 <tr>
-                    <td colspan="11">There are no projects.</td>
+                    <td colspan="10">There are no projects.</td>
                 </tr>
 
             @endforelse

@@ -72,7 +72,7 @@ class ApplicationStoreRequest extends FormRequest
             'email_label'       => ['string', 'max:255', 'nullable'],
             'alt_email'         => ['string', 'max:255', 'nullable'],
             'alt_email_label'   => ['string', 'max:255', 'nullable'],
-            'link'              => ['string', 'max:255', 'nullable'],
+            'link'              => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'         => ['string', 'max:255', 'nullable'],
             'description'       => ['nullable'],
             'image'             => ['string', 'max:255', 'nullable'],

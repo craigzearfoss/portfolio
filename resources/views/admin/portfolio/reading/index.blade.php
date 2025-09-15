@@ -24,8 +24,7 @@
                 <th class="text-center">nonfiction</th>
                 <th class="text-center">paper</th>
                 <th class="text-center">audio</th>
-                <th class="text-center text-nowrap">wish list</th>
-                <th class="text-center">sequence</th>
+                <th class="text-center">wishlist</th>
                 <th class="text-center">public</th>
                 <th class="text-center">readonly</th>
                 <th class="text-center">root</th>
@@ -37,13 +36,15 @@
             <tfoot>
             <tr>
                 <th>name</th>
-                <th class="text-center">professional</th>
-                <th class="text-center">personal</th>
                 <th>author</th>
+                <th class="text-center">fiction</th>
+                <th class="text-center">nonfiction</th>
                 <th class="text-center">paper</th>
                 <th class="text-center">audio</th>
-                <th class="text-center text-nowrap">wish list</th>
+                <th class="text-center">wishlist</th>
                 <th class="text-center">public</th>
+                <th class="text-center">readonly</th>
+                <th class="text-center">root</th>
                 <th class="text-center">disabled</th>
                 <th>actions</th>
             </tr>
@@ -74,9 +75,6 @@
                     </td>
                     <td class="text-center">
                         @include('admin.components.checkmark', [ 'checked' => $reading->wishlist ])
-                    </td>
-                    <td>
-                        {{ $reading->sequence }}
                     </td>
                     <td class="text-center">
                         @include('admin.components.checkmark', [ 'checked' => $reading->public ])
@@ -126,7 +124,7 @@
             @empty
 
                 <tr>
-                    <td colspan="10">There are no readings.</td>
+                    <td colspan="12">There are no readings.</td>
                 </tr>
 
             @endforelse

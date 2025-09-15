@@ -22,7 +22,7 @@ class ArtController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $arts = Art::latest()->paginate($perPage);
+        $arts = Art::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.portfolio.art.index', compact('arts'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

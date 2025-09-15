@@ -44,23 +44,23 @@ class SkillStoreRequest extends FormRequest
             : [Auth::guard('admin')->user()->id];
 
         return [
-            'name'        => ['required', 'string', 'max:255', 'unique:career_db.skills,name'],
-            'slug'        => ['required', 'string', 'max:255', 'unique:career_db.skills,slug'],
-            'rating'      => ['integer', 'between:1,10'],
-            'years'       => ['integer', 'min:0'],
-            'link'         => ['string', 'max:255', 'nullable'],
+            'name'         => ['required', 'string', 'max:255', 'unique:career_db.skills,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:career_db.skills,slug'],
+            'rating'       => ['integer', 'between:1,10'],
+            'years'        => ['integer', 'min:0'],
+            'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],
             'image_credit' => ['string', 'max:255', 'nullable'],
             'image_source' => ['string', 'max:255', 'nullable'],
             'thumbnail'    => ['string', 'max:255', 'nullable'],
-            'sequence'    => ['integer', 'min:0'],
-            'public'      => ['integer', 'between:0,1'],
-            'readonly'    => ['integer', 'between:0,1'],
-            'root'        => ['integer', 'between:0,1'],
-            'disabled'    => ['integer', 'between:0,1'],
-            'admin_id'    => ['required', 'integer', Rule::in($adminIds)],
+            'sequence'     => ['integer', 'min:0'],
+            'public'       => ['integer', 'between:0,1'],
+            'readonly'     => ['integer', 'between:0,1'],
+            'root'         => ['integer', 'between:0,1'],
+            'disabled'     => ['integer', 'between:0,1'],
+            'admin_id'     => ['required', 'integer', Rule::in($adminIds)],
         ];
     }
 }

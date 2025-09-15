@@ -19,6 +19,11 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $video->id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $video->name
         ])
@@ -61,6 +66,11 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => $video->location
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'embed',
+            'value'  => $video->embed,
         ])
 
         @include('admin.components.show-row-link', [

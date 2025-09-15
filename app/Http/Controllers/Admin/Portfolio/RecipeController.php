@@ -22,7 +22,7 @@ class RecipeController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $recipes = Recipe::latest()->paginate($perPage);
+        $recipes = Recipe::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.portfolio.recipe.index', compact('recipes'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

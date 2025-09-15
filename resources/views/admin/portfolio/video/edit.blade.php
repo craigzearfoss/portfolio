@@ -24,7 +24,7 @@
                 @include('admin.components.form-select-horizontal', [
                     'name'    => 'admin_id',
                     'label'   => 'admin',
-                    'value'   => old('admin_id') ?? $art->admin_id,
+                    'value'   => old('admin_id') ?? $video->admin_id,
                     'list'    => \App\Models\Admin::listOptions(),
                     'message' => $message ?? '',
                 ])
@@ -88,6 +88,12 @@
                 'value'     => old('location') ?? $video->location,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'embed',
+                'value'   => old('embed') ?? $video->embed,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

@@ -22,7 +22,7 @@ class CourseController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $courses = Course::latest()->paginate($perPage);
+        $courses = Course::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.portfolio.course.index', compact('courses'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

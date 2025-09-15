@@ -65,7 +65,6 @@
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'wishlist',
-            'label'   => 'wish list',
             'checked' => $reading->wishlist
         ])
 

@@ -32,7 +32,7 @@ class JobBoardStoreRequest extends FormRequest
             'name'         => ['required', 'string', 'max:100', 'unique:career_db.job_boards,name'],
             'slug'         => ['required', 'string', 'max:100', 'unique:career_db.job_boards,slug'],
             'link'         => ['string', 'max:255', 'nullable'],
-            'link_name'    => ['string', 'max:255', 'nullable'],
+            'link_name'    => ['string', 'url:http,https', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],
             'image_credit' => ['string', 'max:255', 'nullable'],

@@ -33,6 +33,7 @@ class Certification extends Model
         'year',
         'received',
         'expiration',
+        'certificate_url',
         'link',
         'link_name',
         'description',

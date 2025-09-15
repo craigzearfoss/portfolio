@@ -53,7 +53,7 @@ class MusicStoreRequest extends FormRequest
             'catalog_number' => ['string', 'max:50', 'nullable'],
             'year'           => ['integer', 'between:0,3000', 'nullable'],
             'release_date'   => ['date', 'nullable'],
-            'link'           => ['string', 'max:255', 'nullable'],
+            'link'           => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'      => ['string', 'nullable'],
             'description'    => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

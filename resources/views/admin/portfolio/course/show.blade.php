@@ -19,6 +19,11 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $course->id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $course->name
         ])
@@ -43,9 +48,19 @@
             'value' => $course->year
         ])
 
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'completed',
+            'checked' => $course->completed
+        ])
+
         @include('admin.components.show-row', [
-            'name'  => 'completed',
-            'value' => longDate($course->completed)
+            'name'  => 'completion date',
+            'value' => longDate($course->completion_date)
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'duration_hours',
+            'checked' => $course->duration_hours
         ])
 
         @include('admin.components.show-row', [
@@ -68,20 +83,17 @@
             'value' => $course->sponsor
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'website',
-            'value' => $course->website
+        @include('admin.components.show-row-image', [
+            'name'  => 'certificate url',
+            'src'   => $course->certificate_url,
+            'width' => '300px',
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'url'    => $course->link,
+            'label'  => $course->link_name,
             'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $course->link_name,
         ])
 
         @include('admin.components.show-row', [

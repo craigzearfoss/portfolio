@@ -22,7 +22,7 @@ class AcademyController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $academies = Academy::latest()->paginate($perPage);
+        $academies = Academy::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.portfolio.academy.index', compact('academies'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -22,7 +22,7 @@ class LinkController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $links = Link::latest()->paginate($perPage);
+        $links = Link::orderBy('sequence', 'asc')->paginate($perPage);
 
         return view('admin.portfolio.link.index', compact('links'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
