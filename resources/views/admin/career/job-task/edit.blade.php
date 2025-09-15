@@ -1,13 +1,13 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add New Job Board',
+    'title' => 'Job Task Edit',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Job Boards',      'url' => route('admin.career.job-board.index') ],
-        [ 'name' => 'Create' ],
+        [ 'name' => 'Job Tasks',       'url' => route('admin.career.job-task.index') ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.job-board.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.job-task.index') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -16,20 +16,40 @@
 
     <div class="card form-container p-4">
 
-        <form action="{{ route('admin.career.job-board.store') }}" method="POST">
+        <form action="{{ route('admin.career.job-task.update', $jobTask) }}" method="POST">
             @csrf
+            @method('PUT')
+
+            @if(Auth::guard('admin')->user()->root)
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'admin_id',
+                    'label'   => 'admin',
+                    'value'   => old('admin_id') ?? $jobTask->admin_id,
+                    'list'    => \App\Models\Admin::listOptions(),
+                    'message' => $message ?? '',
+                ])
+            @endif
+
+            @include('admin.components.form-select-horizontal', [
+                'name'      => 'job_id',
+                'label'     => 'company',
+                'value'     => old('job_id') ?? $jobTask->job_id,
+                'required'  => true,
+                'list'      => \App\Models\Career\Job::companyListOptions(true, false),
+                'message'   => $message ?? '',
+            ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? '',
+                'name'      => 'summary',
+                'value'     => old('summary') ?? $jobTask->summary,
                 'required'  => true,
-                'maxlength' => 100,
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
-                'value'     => old('link') ?? '',
+                'value'     => old('link') ?? $jobTask->link,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -37,7 +57,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link_name',
                 'label'     => 'link name',
-                'value'     => old('link_name') ?? '',
+                'value'     => old('link_name') ?? $jobTask->link_name,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -45,46 +65,48 @@
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
-                'value'   => old('description') ?? '',
+                'value'   => old('description') ?? $jobTask->description,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? $jobTask->notes,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'      => 'image',
-                'value'     => old('image') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+                'name'    => 'image',
+                'value'   => old('image') ?? $jobTask->image,
+                'message' => $message ?? '',
             ])
 
-            <?php /*
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_credit',
                 'label'     => 'image credit',
-                'value'     => old('image_credit') ?? '',
+                'value'     => old('image_credit') ?? $jobTask->image_credit,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
-            */ ?>
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_source',
                 'label'     => 'image source',
-                'value'     => old('image_source') ?? '',
+                'value'     => old('image_source') ?? $jobTask->image_source,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'      => 'thumbnail',
-                'value'     => old('thumbnail') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+                'name'    => 'thumbnail',
+                'value'   => old('thumbnail') ?? $jobTask->thumbnail,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'sequence',
-                'value'       => old('sequence') ?? 0,
+                'value'       => old('sequence') ?? $jobTask->sequence,
                 'min'         => 0,
                 'message'     => $message ?? '',
             ])
@@ -93,7 +115,7 @@
                 'name'            => 'public',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('public') ?? 0,
+                'checked'         => old('public') ?? $jobTask->public,
                 'message'         => $message ?? '',
             ])
 
@@ -102,31 +124,30 @@
                 'label'           => 'read-only',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('readonly') ?? 0,
+                'checked'         => old('readonly') ?? $jobTask->readonly,
                 'message'         => $message ?? '',
             ])
 
-            @if (Auth::guard('admin')->user()->root)
-                @include('admin.components.form-checkbox-horizontal', [
-                    'name'            => 'root',
-                    'value'           => 1,
-                    'unchecked_value' => 0,
-                    'checked'         => old('root') ?? 0,
-                    'message'         => $message ?? '',
-                ])
-            @endif
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $jobTask->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
+                'message'         => $message ?? '',
+            ])
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'disabled',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? 0,
+                'checked'         => old('disabled') ?? $jobTask->disabled,
                 'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add Job Board',
-                'cancel_url' => route('admin.career.job-board.index')
+                'label'      => 'Save',
+                'cancel_url' => route('admin.career.job-task.index')
             ])
 
         </form>

@@ -2,13 +2,13 @@
 
 use Carbon\Carbon;
 
-/**
- * Convert a Y-m-d MySQL formatted date to an m-d-Y formatted date.
- *
- * @param string | null $YmdDate - day in the format Y-m-d
- * @return string | null
- */
 if (! function_exists('convertYmdToMdy')) {
+    /**
+     * Convert a Y-m-d MySQL formatted date to an m-d-Y formatted date.
+     *
+     * @param string | null $YmdDate - day in the format Y-m-d
+     * @return string | null
+     */
     function convertYmdToMdy(string | null $YmdDate): string | null
     {
         if (empty($YmdDate)) {
@@ -23,13 +23,13 @@ if (! function_exists('convertYmdToMdy')) {
     }
 }
 
-/**
- * Convert an m-d-Y formatted date to a Y-m-d MySQL formatted date.
- *
- * @param string | null $mdYDate - day in the format m-d-Y
- * @return string | null
- */
 if (! function_exists('convertMdyToYmd')) {
+    /**
+     * Convert an m-d-Y formatted date to a Y-m-d MySQL formatted date.
+     *
+     * @param string | null $mdYDate - day in the format m-d-Y
+     * @return string | null
+     */
     function convertMdyToYmd(string | null $mdYDate): string | null
     {
         if (empty($mdYDate)) {
@@ -44,13 +44,13 @@ if (! function_exists('convertMdyToYmd')) {
     }
 }
 
-/**
- * Convert a MySQL date to the short form specified by the APP_DATE_FORMAT_SHORT .env variable.
- *
- * @param string | null $YmdDate - day in the format Y-m-d
- * @return string | null
- */
 if (! function_exists('shortDate')) {
+    /**
+     * Convert a MySQL date to the short form specified by the APP_DATE_FORMAT_SHORT .env variable.
+     *
+     * @param string | null $YmdDate - day in the format Y-m-d
+     * @return string | null
+     */
     function shortDate(string|null $YmdDate): string | null
     {
         if (empty($YmdDate)) {
@@ -70,13 +70,13 @@ if (! function_exists('shortDate')) {
     }
 }
 
-/**
- * Convert a MySQL date-time to the short form specified by the APP_DATE_FORMAT_LONG .env variable.
- *
- * @param string $YmdDate - day in the format Y-m-d H:i:s
- * @return string | null
- */
 if (! function_exists('longDate')) {
+    /**
+     * Convert a MySQL date-time to the short form specified by the APP_DATE_FORMAT_LONG .env variable.
+     *
+     * @param string $YmdDate - day in the format Y-m-d H:i:s
+     * @return string | null
+     */
     function longDate(string|null $YmdDate): string | null
     {
         if (empty($YmdDate)) {
@@ -96,14 +96,14 @@ if (! function_exists('longDate')) {
     }
 }
 
-/**
- * Convert a MySQL date-time to the short form specified by the APP_DATETIME_FORMAT_SHORT .env variable.
- *
- * @param string|null $YmdHisDateTime - day in the format Y-m-d H:i:s
- * @param bool $includeSeconds
- * @return string | null
- */
 if (! function_exists('shortDateTime')) {
+    /**
+     * Convert a MySQL date-time to the short form specified by the APP_DATETIME_FORMAT_SHORT .env variable.
+     *
+     * @param string|null $YmdHisDateTime - day in the format Y-m-d H:i:s
+     * @param bool $includeSeconds
+     * @return string | null
+     */
     function shortDateTime(string|null $YmdHisDateTime, bool $includeSeconds = false): string | null
     {
         if (empty($YmdHisDateTime)) {
@@ -126,14 +126,14 @@ if (! function_exists('shortDateTime')) {
     }
 }
 
-/**
- * Convert a MySQL date-time to the long form specified by the APP_DATETIME_FORMAT_LONG .env variable.
- *
- * @param string|null $YmdHisDateTime - day in the format Y-m-d H:i:s
- * @param bool $includeSeconds
- * @return string | null
- */
 if (! function_exists('longDateTime')) {
+    /**
+     * Convert a MySQL date-time to the long form specified by the APP_DATETIME_FORMAT_LONG .env variable.
+     *
+     * @param string|null $YmdHisDateTime - day in the format Y-m-d H:i:s
+     * @param bool $includeSeconds
+     * @return string | null
+     */
     function longDateTime(string|null $YmdHisDateTime, bool $includeSeconds = false): string | null
     {
         if (empty($YmdHisDateTime)) {
@@ -153,5 +153,36 @@ if (! function_exists('longDateTime')) {
         } catch (\Exception $e) {
             return $YmdHisDateTime;
         }
+    }
+}
+
+if (! function_exists('months')) {
+    /**
+     * Returns an array for months.
+     *
+     * @param bool $includeBlank
+     * @return array
+     */
+    function months($includeBlank = false): array
+    {
+        $m = [];
+        if ($includeBlank) {
+            $m[0] = '';
+        }
+
+        $m[1] = 'January';
+        $m[2] = 'February';
+        $m[3] = 'March';
+        $m[4] = 'April';
+        $m[5] = 'May';
+        $m[6] = 'June';
+        $m[7] = 'July';
+        $m[8] = 'August';
+        $m[9] = 'September';
+        $m[10] = 'October';
+        $m[11] ='November';
+        $m[12] = 'December';
+
+        return $m;
     }
 }

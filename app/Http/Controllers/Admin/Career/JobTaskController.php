@@ -23,7 +23,7 @@ class JobTaskController extends Controller
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $jobTasks = JobTask::latest()->paginate($perPage);
+        $jobTasks = JobTask::orderBy('job_id', 'asc')->orderBy('sequence', 'asc')->paginate($perPage);
 
         return view('admin.career.job-task.index', compact('jobTasks'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

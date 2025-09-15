@@ -30,11 +30,55 @@
             @endif
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? '',
+                'name'      => 'company',
+                'value'     => old('company') ?? '',
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'street',
+                'value'     => old('street') ?? '',
+                'required'  => true,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'street2',
+                'value'     => old('street2') ?? '',
+                'required'  => true,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'city',
+                'value'     => old('city') ?? '',
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'state',
+                'value'   => old('state') ?? '',
+                'list'    => \App\Models\State::listOptions(true, true),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'zip',
+                'value'     => old('city') ?? $job->zip,
+                'maxlength' => 20,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'country',
+                'value'   => old('country') ?? '',
+                'list'    => \App\Models\Country::listOptions(true, true),
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -45,17 +89,46 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'date',
-                'name'      => 'start_date',
-                'value'     => old('start_date') ?? '',
+            @include('admin.components.form-select-horizontal', [
+                'name'      => 'start_month',
+                'label'     => 'start year',
+                'value'     => old('start_month') ?? '',
+                'list'      => months(true),
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'      => 'date',
-                'name'      => 'end_date',
-                'value'     => old('end_date') ?? '',
+                'type'      => 'number',
+                'name'      => 'start_year',
+                'label'     => 'start year',
+                'value'     => old('start_year') ?? '',
+                'min'       => 1980,
+                'max'       => 2050,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'      => 'end_month',
+                'value'     => old('end_month') ?? '',
+                'label'     => 'end month',
+                'list'      => months(true),
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'end_year',
+                'label'     => 'end year',
+                'value'     => old('end_year') ?? '',
+                'min'       => 1980,
+                'max'       => 2050,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'summary',
+                'value'     => old('summary') ?? '',
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
@@ -76,6 +149,12 @@
                 'name'    => 'description',
                 'id'      => 'inputEditor',
                 'value'   => old('description') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? '',
                 'message' => $message ?? '',
             ])
 

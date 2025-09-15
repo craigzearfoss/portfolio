@@ -53,6 +53,8 @@ class CompanyUpdateRequest extends FormRequest
             'state'           => ['string', 'max:20', 'nullable'],
             'zip'             => ['string', 'max:20', 'nullable'],
             'country'         => ['string', 'max:100', 'nullable'],
+            'latitude'        => ['numeric:strict', 'nullable'],
+            'longitude'       => ['numeric:strict', 'nullable'],
             'phone'           => ['string', 'max:20', 'nullable'],
             'phone_label'     => ['string', 'max:255', 'nullable'],
             'alt_phone'       => ['string', 'max:20', 'nullable'],

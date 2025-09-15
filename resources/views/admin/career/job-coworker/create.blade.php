@@ -7,7 +7,7 @@
         [ 'name' => 'Create' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.contact.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.job-coworkers.index') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -194,7 +194,7 @@
             ])
 
             @include('admin.components.form-button-submit', [
-                'label'      => 'Save Job Contact',
+                'label'      => 'Save Job Coworker',
                 'cancel_url' => route('admin.career.job-coworker.index')
             ])
 

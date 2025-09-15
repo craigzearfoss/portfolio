@@ -265,7 +265,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link_name',
                 'label'     => 'link name',
-                'value'     => old('link') ?? '',
+                'value'     => old('link_name') ?? '',
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])

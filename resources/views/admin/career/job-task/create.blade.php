@@ -1,13 +1,13 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add New Job Board',
+    'title' =>'Job Task Create',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Job Boards',      'url' => route('admin.career.job-board.index') ],
+        [ 'name' => 'Job Tasks',   'url' => route('admin.career.job-task.index') ],
         [ 'name' => 'Create' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.job-board.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.job-task.index') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -16,14 +16,33 @@
 
     <div class="card form-container p-4">
 
-        <form action="{{ route('admin.career.job-board.store') }}" method="POST">
+        <form action="{{ route('admin.career.job-task.store') }}" method="POST">
             @csrf
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? '',
+            @if(Auth::guard('admin')->user()->root)
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'admin_id',
+                    'label'   => 'admin',
+                    'value'   => old('admin_id') ?? Auth::guard('admin')->user()->id,
+                    'list'    => \App\Models\Admin::listOptions(),
+                    'message' => $message ?? '',
+                ])
+            @endif
+
+            @include('admin.components.form-select-horizontal', [
+                'name'      => 'job_id',
+                'label'     => 'company',
+                'value'     => old('job_id') ?? '',
                 'required'  => true,
-                'maxlength' => 100,
+                'list'      => \App\Models\Career\Job::companyListOptions(true, false),
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'summary',
+                'value'     => old('summary') ?? '',
+                'required'  => true,
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
@@ -49,14 +68,18 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'      => 'image',
-                'value'     => old('image') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? '',
+                'message' => $message ?? '',
             ])
 
-            <?php /*
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'    => 'image',
+                'value'   => old('image') ?? '',
+                'message' => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_credit',
                 'label'     => 'image credit',
@@ -64,7 +87,6 @@
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
-            */ ?>
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_source',
@@ -75,10 +97,9 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'      => 'thumbnail',
-                'value'     => old('thumbnail') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+                'name'    => 'thumbnail',
+                'value'   => old('thumbnail') ?? '',
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -124,9 +145,9 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add Job Board',
-                'cancel_url' => route('admin.career.job-board.index')
+            @include('admin.components.form-button-submit', [
+                'label'      => 'Save Job Task',
+                'cancel_url' => route('admin.career.job-task.index')
             ])
 
         </form>

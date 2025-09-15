@@ -58,6 +58,22 @@
             'value' => (!empty($job->end_month) ? date('F', mktime(0, 0, 0, $job->end_month, 10)) : '') . ' ' . $job->end_year
         ])
 
+
+        @include('admin.components.show-row', [
+            'name'  => 'summary',
+            'value' => $job->summary
+        ])
+
+        @include('admin.components.show-row-list', [
+            'name'  => 'tasks',
+            'values' => $job->tasks->pluck('summary')
+        ])
+
+        @include('admin.components.show-row-list', [
+            'name'  => 'coworkers',
+            'values' => $job->coworkers->pluck('name')
+        ])
+
         @include('admin.components.show-row-link', [
             'name'  => 'link',
             'url'    => $job->link,
