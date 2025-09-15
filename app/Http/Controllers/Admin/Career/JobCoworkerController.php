@@ -23,7 +23,7 @@ class JobCoworkerController extends Controller
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $jobCoworkers = JobCoworker::latest()->paginate($perPage);
+        $jobCoworkers = JobCoworker::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.career.job-coworker.index', compact('jobCoworkers'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -59,9 +59,9 @@ class JobCoworkerController extends Controller
     /**
      * Display the specified job coworker.
      */
-    public function show(JobCoworker $job): View
+    public function show(JobCoworker $jobCoworker): View
     {
-        return view('admin.career.job-coworker.show', compact('job'));
+        return view('admin.career.job-coworker.show', compact('jobCoworker'));
     }
 
     /**

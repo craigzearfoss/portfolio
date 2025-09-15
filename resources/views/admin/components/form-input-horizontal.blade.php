@@ -10,7 +10,9 @@
     } else {
         $style = '';
     }
-    $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'website', 'wikipedia']);
+    $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'website',
+        'wikipedia', 'phone', 'alt_phone', 'home_phone', 'personal_phone', 'work_phone', 'mobile_phone', 'cell_phone',
+        'email', 'alt_email', 'work_email', 'personal_email']);
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
@@ -51,6 +53,12 @@
                 @endif
                 @if (in_array($name, ['link', 'website', 'wikipedia']))
                     <span class="icon is-small is-left"><i class="fas fa-link"></i></span>
+                @endif
+                @if (in_array($name, ['phone', 'alt_phone', 'home_phone', 'personal_phone', 'work_phone', 'mobile_phone', 'cell_phone']))
+                    <span class="icon is-small is-left"><i class="fas fa-phone"></i></span>
+                @endif
+                @if (in_array($name, ['email', 'alt_email', 'work_email', 'personal_email']))
+                    <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
                 @endif
 
             </div>

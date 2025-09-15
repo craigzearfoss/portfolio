@@ -24,8 +24,8 @@ class JobCoworker extends Model
     protected $fillable = [
         'job_id',
         'name',
-        'level',
         'job_title',
+        'level',
         'work_phone',
         'personal_phone',
         'work_email',
@@ -61,7 +61,7 @@ class JobCoworker extends Model
     }
 
     /**
-     * Returns an array of options for a select list for title.
+     * Returns an array of options for a select list for levels.
      *
      * @param bool $includeBlank
      * @param bool $nameAsKey
@@ -79,5 +79,18 @@ class JobCoworker extends Model
         }
 
         return $options;
+    }
+
+    /**
+     * Returns the name of the level - coworker / superior / subordinate
+     *
+     * @param int $levelId
+     * @return string
+     */
+    public static function getLevel(int $levelId): string
+    {
+        return array_key_exists($levelId, self::LEVELS)
+            ? self::LEVELS[$levelId]
+            : '';
     }
 }

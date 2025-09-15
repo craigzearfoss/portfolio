@@ -75,4 +75,25 @@ class Job extends Model
     {
         return $this->hasMany(JobTask::class);
     }
+
+    /**
+     * Returns an array of options for a select list for companies.
+     *
+     * @param bool $includeBlank
+     * @param bool $nameAsKey
+     * @return array|string[]
+     */
+    public static function companyListOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
+        }
+
+        foreach (Job::select('id', 'company')->orderBy('company', 'asc')->get() as $job) {
+            $options[$nameAsKey ? $job->company : $job->id] = $job->company;
+        }
+
+        return $options;
+    }
 }

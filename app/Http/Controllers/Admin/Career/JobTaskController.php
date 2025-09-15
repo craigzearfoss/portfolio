@@ -59,9 +59,9 @@ class JobTaskController extends Controller
     /**
      * Display the specified job task.
      */
-    public function show(JobTask $job): View
+    public function show(JobTask $jobTask): View
     {
-        return view('admin.career.job-task.show', compact('job'));
+        return view('admin.career.job-task.show', compact('jobTask'));
     }
 
     /**

@@ -41,8 +41,8 @@ class JobCoworkerStoreRequest extends FormRequest
         return [
             'job_id'          => ['required', 'integer', Rule::in(Job::all('id')->pluck('id')->toArray())],
             'name'            => ['required', 'string', 'max:255'],
-            'level'           => ['integer', 'between:1,3'],
             'job_title'       => ['string', 'max:100', 'nullable'],
+            'level'           => ['integer', 'between:1,3'],
             'work_phone'      => ['string', 'max:20', 'nullable'],
             'personal_phone'  => ['string', 'max:20', 'nullable'],
             'work_email'      => ['string', 'max:255', 'nullable'],
