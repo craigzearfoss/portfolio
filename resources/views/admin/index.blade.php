@@ -17,7 +17,7 @@
                 Admin Login
             </a>
             |
-            <a class="is-size-6" href="{{ route('  admin.login') }}">
+            <a class="is-size-6" href="{{ route('admin.login') }}">
                 User Login
             </a>
 
