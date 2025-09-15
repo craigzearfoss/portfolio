@@ -69,7 +69,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'zip',
-                'value'     => old('city') ?? $job->zip,
+                'value'     => old('city') ?? '',
                 'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
