@@ -14,7 +14,9 @@
             'message'  => $message ?? '',
         ]),
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Library', 'url' => route('admin.dictionary.library.create') ],
+    'errors'  => $errors->any() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
     ],
     'errors' => $errors ?? [],
 ])

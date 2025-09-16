@@ -16,7 +16,9 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Category', 'url' => route('admin.dictionary.category.create') ],
     ],
-    'errors' => $errors ?? [],
+    'errors'  => $errors->any() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
 ])
 
 @section('content')

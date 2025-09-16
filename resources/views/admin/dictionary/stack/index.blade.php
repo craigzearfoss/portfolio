@@ -16,7 +16,9 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'url' => route('admin.dictionary.stack.create') ],
     ],
-    'errors' => $errors ?? [],
+    'errors'  => $errors->any() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
 ])
 
 @section('content')
