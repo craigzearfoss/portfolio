@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',         'url' => route('admin.career.communication.edit', $communication) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'url' => route('admin.career.communication.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',            'url' => route('admin.career.communication.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',            'url' => Request::header('referer') ?? route('admin.career.communication.index') ],
     ],
     'errors' => $errors ?? [],
 ])

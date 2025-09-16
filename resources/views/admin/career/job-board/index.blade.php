@@ -6,7 +6,7 @@
         [ 'name' => 'Job Boards' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Job', 'url' => route('admin.career.job-board.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Board', 'url' => route('admin.career.job-board.create') ],
     ],
     'errors' => $errors ?? [],
 ])

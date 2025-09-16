@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',        'url' => route('admin.career.cover-letter.edit', $coverLetter) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Cover Letter', 'url' => route('admin.career.cover-letter.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',           'url' => Request::header('referer') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',           'url' => Request::header('referer') ?? route('admin.career.cover-letter.index') ],
     ],
     'errors' => $errors ?? [],
 ])

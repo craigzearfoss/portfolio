@@ -8,7 +8,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'url' => route('admin.database.edit', $database) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'url' => route('admin.database.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => route('admin.database.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => Request::header('referer') ?? route('admin.database.index') ],
     ],
     'errors' => $errors ?? [],
 ])

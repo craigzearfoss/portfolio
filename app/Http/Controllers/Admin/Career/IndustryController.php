@@ -24,7 +24,7 @@ class IndustryController extends BaseController
 
         $industries = Industry::latest()->paginate($perPage);
 
-        return view('admin.portfolio.industry.index', compact('industries'))
+        return view('admin.career.industry.index', compact('industries'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -33,7 +33,7 @@ class IndustryController extends BaseController
      */
     public function create(): View
     {
-        return view('admin.portfolio.industry.create');
+        return view('admin.career.industry.create');
     }
 
     /**
@@ -43,7 +43,7 @@ class IndustryController extends BaseController
     {
         Industry::create($request->validated());
 
-        return redirect()->route('admin.portfolio.industry.index')
+        return redirect()->route('admin.career.industry.index')
             ->with('success', 'Industry created successfully.');
     }
 
@@ -52,7 +52,7 @@ class IndustryController extends BaseController
      */
     public function show(Industry $industry): View
     {
-        return view('admin.portfolio.industry.show', compact('industry'));
+        return view('admin.career.industry.show', compact('industry'));
     }
 
     /**
@@ -60,7 +60,7 @@ class IndustryController extends BaseController
      */
     public function edit(Industry $industry): View
     {
-        return view('admin.portfolio.industry.edit', compact('industry'));
+        return view('admin.career.industry.edit', compact('industry'));
     }
 
     /**
@@ -70,7 +70,7 @@ class IndustryController extends BaseController
     {
         $industry->update($request->validated());
 
-        return redirect()->route('admin.portfolio.industry.index')
+        return redirect()->route('admin.career.industry.index')
             ->with('success', 'Industry updated successfully');
     }
 
@@ -81,7 +81,7 @@ class IndustryController extends BaseController
     {
         $industry->delete();
 
-        return redirect()->route('admin.portfolio.industry.index')
+        return redirect()->route('admin.career.industry.index')
             ->with('success', 'Industry deleted successfully');
     }
 }
