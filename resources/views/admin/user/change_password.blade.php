@@ -6,8 +6,7 @@
         [ 'name' => 'Change Password' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.user.show', $user) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.user.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.user.show', $user) ],
     ],
     'errors' => $errors ?? [],
     'success' => session('success') ?? null,
@@ -52,7 +51,7 @@
             </div>
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => route('admin.user.change-password-submit', $user)
+                'cancel_url' => Request::header('referer') ?? route('admin.user.show', $user)
             ])
 
         </form>

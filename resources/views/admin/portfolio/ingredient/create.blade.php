@@ -123,7 +123,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Ingredient',
-                'cancel_url' => route('admin.portfolio.ingredient.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.portfolio.ingredient.index')
             ])
 
         </form>

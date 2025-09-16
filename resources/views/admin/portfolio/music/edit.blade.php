@@ -189,7 +189,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => route('admin.portfolio.music.index')
+                'cancel_url' => equest::header('referer') ?? route('admin.portfolio.music.index')
             ])
 
     </div>

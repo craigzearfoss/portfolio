@@ -190,7 +190,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => route('admin.portfolio.video.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.portfolio.video.index')
             ])
 
         </form>

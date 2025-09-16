@@ -138,7 +138,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Unit',
-                'cancel_url' => route('admin.portfolio.unit.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.portfolio.unit.index')
             ])
 
         </form>

@@ -149,7 +149,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => route('admin.portfolio.recipe.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.portfolio.recipe.index')
             ])
 
         </form>
