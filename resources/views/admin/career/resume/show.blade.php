@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.career.resume.edit', $resume) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'url' => route('admin.career.resume.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => route('admin.career.resume.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ],
     ],
     'errors' => $errors ?? [],
 ])

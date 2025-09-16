@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',        'url' => route('admin.career.job-task.edit', $jobTask) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'url' => route('admin.career.job-task.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',           'url' => route('admin.career.job-task.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',           'url' => Request::header('referer') ],
     ],
     'errors' => $errors ?? [],
 ])
