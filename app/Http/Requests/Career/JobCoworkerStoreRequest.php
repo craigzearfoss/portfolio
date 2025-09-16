@@ -63,4 +63,12 @@ class JobCoworkerStoreRequest extends FormRequest
             'admin_id'        => ['required', 'integer', Rule::in($adminIds)],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'job_id'  => 'Please select a company.',
+            'between' => 'Please select a level.'
+        ];
+    }
 }

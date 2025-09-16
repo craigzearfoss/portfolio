@@ -11,7 +11,9 @@
         [ 'name' => '<i class="fa fa-plus"></i> Add New Job',   'url' => route('admin.career.job.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.career.job.index') ],
     ],
-    'errors' => $errors ?? [],
+    'errors'  => $errors->any() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
 ])
 
 @section('content')

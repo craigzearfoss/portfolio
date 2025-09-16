@@ -63,8 +63,12 @@ class JobCoworkerController extends Controller
 
         JobCoworker::create($request->validated());
 
-        return redirect()->route('admin.career.job-coworker.index')
-            ->with('success', 'Job coworker created successfully.');
+        if ($referer = $request->input('referer')) {
+            return redirect(str_replace(config('app.url'), '', $referer))->with('success', 'Job coworker created successfully.');
+        } else {
+            return redirect()->route('admin.career.job-coworker.index')
+                ->with('success', 'Job coworker created successfully.');
+        }
     }
 
     /**
@@ -99,17 +103,17 @@ class JobCoworkerController extends Controller
         $jobCoworker->update($request->validated());
 
         if ($referer = $request->input('referer')) {
-            return redirect(str_replace(config('app.url'), '', $referer))->with('success', 'Job coworker updated successfully');
+            return redirect(str_replace(config('app.url'), '', $referer))->with('success', 'Job coworker updated successfully.');
         } else {
             return redirect()->route('admin.career.job-coworker.index')
-                ->with('success', 'Job coworker updated successfully');
+                ->with('success', 'Job coworker updated successfully.');
         }
     }
 
     /**
      * Remove the specified job coworker from storage.
      */
-    public function destroy(JobCoworker $jobCoworker): RedirectResponse
+    public function destroy(JobCoworker $jobCoworker, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete job worker entries.');
@@ -117,7 +121,11 @@ class JobCoworkerController extends Controller
 
         $jobCoworker->delete();
 
-        return redirect()->route('admin.career.job-coworker.index')
-            ->with('success', 'Job coworker deleted successfully');
+        if ($referer = $request->input('referer')) {
+            return redirect(str_replace(config('app.url'), '', $referer))->with('success', 'Job coworker deleted successfully.');
+        } else {
+            return redirect()->route('admin.career.job-coworker.index')
+                ->with('success', 'Job coworker deleted successfully.');
+        }
     }
 }
