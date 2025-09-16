@@ -21,6 +21,11 @@
         <form action="{{ route('admin.dictionary.server.store') }}" method="POST">
             @csrf
 
+            @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => Request::header('referer')
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'full_name',
                 'label'     => 'full name',

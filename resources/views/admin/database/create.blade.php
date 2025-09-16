@@ -20,6 +20,11 @@
         <form action="{{ route('admin.database.store') }}" method="POST">
             @csrf
 
+            @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => Request::header('referer')
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? '',
