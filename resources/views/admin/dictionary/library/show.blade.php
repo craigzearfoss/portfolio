@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'url' => route('admin.dictionary.library.edit', $library) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Library', 'url' => route('admin.dictionary.library.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => route('admin.dictionary.library.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => Request::header('referer') ?? route('admin.dictionary.library.index') ],
     ],
     'errors' => $errors ?? [],
 ])

@@ -6,8 +6,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.message.show', $message) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.message.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.message.index') ],
     ],
     'errors' => $errors ?? [],
     'success' => session('success') ?? null,
