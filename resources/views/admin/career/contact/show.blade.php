@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'url' => route('admin.career.contact.edit', $contact) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Contact', 'url' => route('admin.career.contact.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => route('admin.career.contact.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => Request::header('referer') ],
     ],
     'errors' => $errors ?? [],
 ])
