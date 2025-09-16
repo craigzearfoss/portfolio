@@ -20,6 +20,11 @@
         <form action="{{ route('admin.resource.store') }}" method="POST">
             @csrf
 
+            @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => Request::header('referer')
+            ])
+
             @include('admin.components.form-input', [
                 'name'      => 'name',
                 'value'     => old('name') ?? '',

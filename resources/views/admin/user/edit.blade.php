@@ -22,6 +22,11 @@
             @method('PUT')
 
             @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => Request::header('referer')
+            ])
+
+            @include('admin.components.form-hidden', [
                 'name'  => old('admin_id') ?? Auth::guard('admin')->user()->id,
                 'value' => '0',
             ])

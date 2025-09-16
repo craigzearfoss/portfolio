@@ -20,6 +20,11 @@
             @csrf
             @method('PUT')
 
+            @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => Request::header('referer')
+            ])
+
             <div class="column">
 
                 @include('admin.components.form-input', [
@@ -36,7 +41,7 @@
 
                     @include('admin.components.form-button-submit', [
                         'label'      => 'Save',
-                        'cancel_url' => route('admin.index')
+                        'cancel_url' => Request::header('referer') ?? route('admin.index')
                     ])
 
                 </div>
