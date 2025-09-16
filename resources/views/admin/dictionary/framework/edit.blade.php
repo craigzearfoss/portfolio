@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.dictionary.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.dictionary.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -18,13 +18,13 @@
 
     <div class="card form-container p-4">
 
-        <form action="{{ route('admin.dictionary.framework.update', $dictionaryFramework) }}" method="POST">
+        <form action="{{ route('admin.dictionary.framework.update', $framework) }}" method="POST">
             @csrf
             @method('PUT')
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => $referer ?? route('admin.dictionary.index')
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -121,9 +121,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image',
-                'value'   => old('image') ?? $framework->image,
-                'message' => $message ?? '',
+                'name'      => 'image',
+                'value'     => old('image') ?? $framework->image,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -143,9 +144,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? $framework->thumbnail,
-                'message' => $message ?? '',
+                'name'      => 'thumbnail',
+                'value'     => old('thumbnail') ?? $framework->thumbnail,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -178,6 +180,7 @@
                     'name'            => 'root',
                     'value'           => 1,
                     'unchecked_value' => 0,
+                    'disabled'        => !Auth::guard('admin')->user()->root,
                     'checked'         => old('root') ?? $framework->root,
                     'message'         => $message ?? '',
                 ])
@@ -193,7 +196,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => Request::header('referer') ?? route('admin.dictionary.index')
+                'cancel_url' => $referer ?? route('admin.dictionary.index')
             ])
 
         </form>

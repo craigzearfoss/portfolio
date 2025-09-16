@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\JobCoworkerStoreRequest;
 use App\Http\Requests\Career\JobCoworkerUpdateRequest;
-use App\Models\Career\Job;
 use App\Models\Career\JobCoworker;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class JobCoworkerController extends Controller
+/**
+ *
+ */
+class JobCoworkerController extends BaseController
 {
     /**
      * Display a listing of job coworkers.
@@ -30,30 +32,33 @@ class JobCoworkerController extends Controller
             $jobCoworkers = JobCoworker::orderBy('name', 'asc')->paginate($perPage);
         }
 
-        if ($jobId = $request->get('job_id')) {
-            $job = Job::find($jobId);
-        } else {
-            $job = null;
-        }
-
-        return view('admin.career.job-coworker.index', compact('jobCoworkers', 'job'))
+        return view('admin.career.job-coworker.index', compact('jobCoworkers', 'jobId'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Show the form for creating a new job coworker.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add job worker entries.');
         }
 
-        return view('admin.career.job-coworker.create');
+        $jobId = $request->query('job_id');
+        $referer = Request()->headers->get('referer');
+
+        return view('admin.career.job-coworker.create', compact('jobId', 'referer'));
     }
 
     /**
-     * Store a newly created job coworker in storage.
+     * Store a newly created job task in storage.
+     *
+     * @param JobTaskStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(JobCoworkerStoreRequest $request): RedirectResponse
     {
@@ -61,18 +66,24 @@ class JobCoworkerController extends Controller
             abort(403, 'Only admins with root access can add job worker entries.');
         }
 
-        JobCoworker::create($request->validated());
+        $jobCoworker = JobCoworker::create($request->validated());
 
-        if ($referer = $request->input('referer')) {
-            return redirect(str_replace(config('app.url'), '', $referer))->with('success', 'Job coworker created successfully.');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $jobCoworker->name . ' created successfully.');
         } else {
             return redirect()->route('admin.career.job-coworker.index')
-                ->with('success', 'Job coworker created successfully.');
+                ->with('success', $jobCoworker->name . ' created successfully.');
         }
     }
 
     /**
      * Display the specified job coworker.
+     *
+     * @param JobCoworker $jobCoworker
+     * @return View
      */
     public function show(JobCoworker $jobCoworker): View
     {
@@ -81,6 +92,10 @@ class JobCoworkerController extends Controller
 
     /**
      * Show the form for editing the specified job coworker.
+     *
+     * @param JobCoworker $jobCoworker
+     * @param Request $request
+     * @return View
      */
     public function edit(JobCoworker $jobCoworker, Request $request): View
     {
@@ -88,11 +103,17 @@ class JobCoworkerController extends Controller
             abort(403, 'Only admins with root access can edit job worker entries.');
         }
 
-        return view('admin.career.job-coworker.edit', compact('jobCoworker'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.job-coworker.edit', compact('jobCoworker', 'referer'));
     }
 
     /**
      * Update the specified job coworker in storage.
+     *
+     * @param JobCoworkerUpdateRequest $request
+     * @param JobCoworker $jobCoworker
+     * @return RedirectResponse
      */
     public function update(JobCoworkerUpdateRequest $request, JobCoworker $jobCoworker): RedirectResponse
     {
@@ -102,16 +123,23 @@ class JobCoworkerController extends Controller
 
         $jobCoworker->update($request->validated());
 
-        if ($referer = $request->input('referer')) {
-            return redirect(str_replace(config('app.url'), '', $referer))->with('success', 'Job coworker updated successfully.');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $jobCoworker->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.career.job-coworker.index')
-                ->with('success', 'Job coworker updated successfully.');
+                ->with('success', $jobCoworker->name . ' updated successfully.');
         }
     }
 
     /**
      * Remove the specified job coworker from storage.
+     *
+     * @param JobCoworker $jobCoworker
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function destroy(JobCoworker $jobCoworker, Request $request): RedirectResponse
     {
@@ -121,11 +149,14 @@ class JobCoworkerController extends Controller
 
         $jobCoworker->delete();
 
-        if ($referer = $request->input('referer')) {
-            return redirect(str_replace(config('app.url'), '', $referer))->with('success', 'Job coworker deleted successfully.');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $jobCoworker->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.career.job-coworker.index')
-                ->with('success', 'Job coworker deleted successfully.');
+                ->with('success', $jobCoworker->name . ' deleted successfully.');
         }
     }
 }

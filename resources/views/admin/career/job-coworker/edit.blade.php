@@ -3,11 +3,12 @@
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Job Coworkers',   'url' => route('admin.career.job-coworker.index') ],
+        [ 'name' => 'Jobs',            'url' => route('admin.career.job.index') ],
+        [ 'name' => 'Coworkers',       'url' => route('admin.career.job-coworker.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.career.job-coworker.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.career.job-coworker.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -24,7 +25,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => $referer ?? route('admin.career.job-coworker.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -202,7 +203,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => Request::header('referer') ?? route('admin.career.job-coworker.index')
+                'cancel_url' => $referer ?? route('admin.career.job-coworker.index')
             ])
 
         </form>

@@ -3,11 +3,12 @@
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Job Tasks',   'url' => route('admin.career.job-task.index') ],
+        [ 'name' => 'Jobs',            'url' => route('admin.career.job.index') ],
+        [ 'name' => 'Tasks',           'url' => route('admin.career.job-task.index') ],
         [ 'name' => 'Create' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.career.job-task.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.career.job-task.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +24,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => $referer ?? route('admin.career.job-task.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -39,7 +40,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'      => 'job_id',
                 'label'     => 'company',
-                'value'     => old('job_id') ?? '',
+                'value'     => old('job_id') ?? $jobId,
                 'required'  => true,
                 'list'      => \App\Models\Career\Job::companyListOptions(true, false),
                 'message'   => $message ?? '',
@@ -154,7 +155,7 @@
 
             @include('admin.components.form-button-submit', [
                 'label'      => 'Save Job Task',
-                'cancel_url' => Request::header('referer') ?? route('admin.career.job-task.index')
+                'cancel_url' => $referer ?? route('admin.career.job-task.index')
             ])
 
         </form>

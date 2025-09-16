@@ -7,7 +7,7 @@
         [ 'name' => 'Create' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.career.job.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.career.job.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => $referer ?? route('admin.career.job.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -240,7 +240,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Job',
-                'cancel_url' => Request::header('referer') ?? route('admin.career.job.index')
+                'cancel_url' => $referer ?? route('admin.career.job.index')
             ])
 
         </form>

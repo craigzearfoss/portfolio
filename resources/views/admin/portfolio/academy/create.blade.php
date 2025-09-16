@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => $referer ?? Request::header('referer')
             ])
 
             @include('admin.components.form-input-horizontal', [

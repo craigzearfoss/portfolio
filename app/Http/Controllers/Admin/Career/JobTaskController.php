@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class JobTaskController extends Controller
 {
     /**
@@ -23,41 +26,64 @@ class JobTaskController extends Controller
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $jobTasks = JobTask::orderBy('job_id', 'asc')->orderBy('sequence', 'asc')->paginate($perPage);
+        if ($jobId = $request->query('job_id')) {
+	        $jobTasks = JobTask::where('job_id', $jobId)->orderBy('job_id', 'asc')->orderBy('sequence', 'asc')->paginate($perPage);
+        } else {
+            $jobTasks = JobTask::orderBy('job_id', 'asc')->orderBy('sequence', 'asc')->paginate($perPage);
+        }
 
-        return view('admin.career.job-task.index', compact('jobTasks'))
+        return view('admin.career.job-task.index', compact('jobTasks', 'jobId'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Show the form for creating a new job task.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add job worker entries.');
+            abort(403, 'Only admins with root access can add job task entries.');
         }
 
-        return view('admin.career.job-task.create');
+        $jobId = $request->query('job_id');
+        $referer = Request()->headers->get('referer');
+
+        return view('admin.career.job-task.create', compact('jobId', 'referer'));
     }
 
     /**
      * Store a newly created job task in storage.
+     *
+     * @param JobTaskStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(JobTaskStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add job worker entries.');
+            abort(403, 'Only admins with root access can add job task entries.');
         }
 
-        JobTask::create($request->validated());
+        $jobTask = JobTask::create($request->validated());
 
-        return redirect()->route('admin.career.job-task.index')
-            ->with('success', 'Job task created successfully.');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Job task created successfully.');
+        } else {
+            return redirect()->route('admin.career.job-task.index')
+                ->with('success', 'Job task created successfully.');
+        }
     }
 
     /**
      * Display the specified job task.
+     *
+     * @param JobTask $jobTask
+     * @return View
      */
     public function show(JobTask $jobTask): View
     {
@@ -66,43 +92,71 @@ class JobTaskController extends Controller
 
     /**
      * Show the form for editing the specified job task.
+     *
+     * @param JobTask $jobTask
+     * @param Request $request
+     * @return View
      */
-    public function edit(JobTask $jobTask): View
+    public function edit(JobTask $jobTask, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit job worker entries.');
+            abort(403, 'Only admins with root access can edit job task entries.');
         }
 
-        return view('admin.career.job-task.edit', compact('jobTask'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.job-task.edit', compact('jobTask', 'referer'));
     }
 
     /**
      * Update the specified job task in storage.
+     *
+     * @param JobTaskUpdateRequest $request
+     * @param JobTask $jobTask
+     * @return RedirectResponse
      */
     public function update(JobTaskUpdateRequest $request, JobTask $jobTask): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update job worker entries.');
+            abort(403, 'Only admins with root access can update job task entries.');
         }
 
         $jobTask->update($request->validated());
 
-        return redirect()->route('admin.career.job-task.index')
-            ->with('success', 'Job task updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Job task updated successfully.');
+        } else {
+            return redirect()->route('admin.career.job-task.index')
+                ->with('success', 'Job task updated successfully');
+        }
     }
 
     /**
      * Remove the specified job task from storage.
+     *
+     * @param JobTask $jobTask
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(JobTask $jobTask): RedirectResponse
+    public function destroy(JobTask $jobTask, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete job worker entries.');
+            abort(403, 'Only admins with root access can delete job task entries.');
         }
 
         $jobTask->delete();
 
-        return redirect()->route('admin.career.job-task.index')
-            ->with('success', 'Job task deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Job task deleted successfully.');
+        } else {
+            return redirect()->route('admin.career.job-task.index')
+                ->with('success', 'Job task deleted successfully');
+        }
     }
 }

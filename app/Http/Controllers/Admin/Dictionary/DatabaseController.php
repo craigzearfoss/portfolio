@@ -13,6 +13,9 @@ use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 
+/**
+ *
+ */
 class DatabaseController extends BaseController
 {
     /**
@@ -25,8 +28,7 @@ class DatabaseController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $databases = Database::orderBy('name', 'asc')
-            ->paginate($perPage);
+        $databases = Database::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.dictionary.database.index', compact('databases'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -34,6 +36,9 @@ class DatabaseController extends BaseController
 
     /**
      * Show the form for creating a new database.
+     *
+     * @param Request $request
+     * @return View
      */
     public function create(): View
     {
@@ -41,11 +46,16 @@ class DatabaseController extends BaseController
             abort(403, 'Only admins with root access can add database entries.');
         }
 
-        return view('admin.dictionary.database.create');
+        $referer = Request()->headers->get('referer');
+
+        return view('admin.dictionary.database.create', compact('referer'));
     }
 
     /**
      * Store a newly created database in storage.
+     *
+     * @param JobTaskStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(DatabaseStoreRequest $request): RedirectResponse
     {
@@ -53,14 +63,22 @@ class DatabaseController extends BaseController
             abort(403, 'Only admins with root access can add database entries.');
         }
 
-        Database::create($request->validated());
+        $database = Database::create($request->validated());
 
-        return redirect()->route('admin.dictionary.database.index')
-            ->with('success', 'Database created successfully.');
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $database->name . ' created successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.database.index')
+                ->with('success', $database->name . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified database.
+     *
+     * @param JobCoworker $jobCoworker
+     * @return View
      */
     public function show(Database $database): View
     {
@@ -69,6 +87,10 @@ class DatabaseController extends BaseController
 
     /**
      * Show the form for editing the specified database.
+     *
+     * @param JobCoworker $jobCoworker
+     * @param Request $request
+     * @return View
      */
     public function edit(Database $database): View
     {
@@ -76,31 +98,47 @@ class DatabaseController extends BaseController
             abort(403, 'Only admins with root access can edit database entries.');
         }
 
-        return view('admin.dictionary.database.edit', compact('database'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.dictionary.database.edit', compact('database', 'referer'));
     }
 
     /**
      * Update the specified database in storage.
+     *
+     * @param JobCoworkerUpdateRequest $request
+     * @param JobCoworker $jobCoworker
+     * @return RedirectResponse
      */
-    public function update(DatabaseUpdateRequest $request,
-                           Database              $database): RedirectResponse
+    public function update(DatabaseUpdateRequest $request, Database $database): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update database entries.');
         }
 
-        // Validated the posted data and generated slug.
+        // Validate the posted data and generated slug.
         $validatedData = $request->validated();
         $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
         $request->validate(['slug' => [ Rule::unique('posts', 'slug') ] ]);
         $database->update($request->validated());
 
-        return redirect()->route('admin.dictionary.database.index')
-            ->with('success', 'Database updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $database->name . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.database.index')
+                ->with('success', $database->name . ' updated successfully');
+        }
     }
 
     /**
      * Remove the specified database from storage.
+     *
+     * @param JobCoworker $jobCoworker
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function destroy(Database $database): RedirectResponse
     {
@@ -110,7 +148,14 @@ class DatabaseController extends BaseController
 
         $database->delete();
 
-        return redirect()->route('admin.dictionary.database.index')
-            ->with('success', 'Database deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $database->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.database.index')
+                ->with('success', $database->name . ' deleted successfully');
+        }
     }
 }

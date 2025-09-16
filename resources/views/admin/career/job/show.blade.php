@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.career.job.edit', $job) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Job',   'url' => route('admin.career.job.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.career.job.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => Request::header('referer') ?? route('admin.career.job.index') ],
     ],
     'errors'  => $errors->any() ?? [],
     'success' => session('success') ?? null,
@@ -97,14 +97,10 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'  => 'link',
+            'name'   => 'link',
             'url'    => $job->link,
+            'label'  => $job->link_name,
             'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $job->link_name
         ])
 
         @include('admin.components.show-row', [

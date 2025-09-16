@@ -3,7 +3,8 @@
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Job Tasks',       'url' => route('admin.career.job-task.index') ],
+        [ 'name' => 'Jobs',            'url' => route('admin.career.job.index') ],
+        [ 'name' => 'Tasks',           'url' => route('admin.career.job-task.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [

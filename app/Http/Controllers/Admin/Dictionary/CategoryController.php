@@ -13,6 +13,9 @@ use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 
+/**
+ *
+ */
 class CategoryController extends BaseController
 {
     /**
@@ -25,8 +28,7 @@ class CategoryController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $categories = Category::orderBy('name', 'asc')
-            ->paginate($perPage);
+        $categories = Category::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.dictionary.category.index', compact('categories'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -34,18 +36,26 @@ class CategoryController extends BaseController
 
     /**
      * Show the form for creating a new category.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add category entries.');
         }
 
-        return view('admin.dictionary.category.create');
+        $referer = Request()->headers->get('referer');
+
+        return view('admin.dictionary.category.create', compact('referer'));
     }
 
     /**
      * Store a newly created category in storage.
+     *
+     * @param JobTaskStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(CategoryStoreRequest $request): RedirectResponse
     {
@@ -53,14 +63,24 @@ class CategoryController extends BaseController
             abort(403, 'Only admins with root access can add category entries.');
         }
 
-        Category::create($request->validated());
+        $category = Category::create($request->validated());
 
-        return redirect()->route('admin.dictionary.category.index')
-            ->with('success', 'category created successfully.');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $category->name . ' created successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.category.index')
+                ->with('success', $category-> name . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified category.
+     *
+     * @param JobCoworker $jobCoworker
+     * @return View
      */
     public function show(Category $category): View
     {
@@ -69,40 +89,60 @@ class CategoryController extends BaseController
 
     /**
      * Show the form for editing the specified category.
+     *
+     * @param JobCoworker $jobCoworker
+     * @param Request $request
+     * @return View
      */
-    public function edit(Category $category): View
+    public function edit(Category $category, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit category entries.');
         }
 
-        return view('admin.dictionary.category.edit', compact('category'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.dictionary.category.edit', compact('category', 'referer'));
     }
 
     /**
      * Update the specified category in storage.
+     *
+     * @param JobCoworkerUpdateRequest $request
+     * @param JobCoworker $jobCoworker
+     * @return RedirectResponse
      */
-    public function update(CategoryUpdateRequest $request,
-                           Category              $category): RedirectResponse
+    public function update(CategoryUpdateRequest $request, Category $category): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update category entries.');
         }
 
-        // Validated the posted data and generated slug.
+        // Validate the posted data and generated slug.
         $validatedData = $request->validated();
         $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
         $request->validate(['slug' => [ Rule::unique('posts', 'slug') ] ]);
         $category->update($request->validated());
 
-        return redirect()->route('admin.dictionary.category.index')
-            ->with('success', 'category updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $category->name . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.category.index')
+                ->with('success', $category->name . ' updated successfully');
+        }
     }
 
     /**
      * Remove the specified category from storage.
+     *
+     * @param JobCoworker $jobCoworker
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Category $category): RedirectResponse
+    public function destroy(Category $category, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete category entries.');
@@ -110,7 +150,14 @@ class CategoryController extends BaseController
 
         $category->delete();
 
-        return redirect()->route('admin.dictionary.category.index')
-            ->with('success', 'category deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $category->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.category.index')
+                ->with('success', $category->name . ' deleted successfully');
+        }
     }
 }

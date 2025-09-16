@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class JobController extends BaseController
 {
     /**
@@ -31,18 +34,26 @@ class JobController extends BaseController
 
     /**
      * Show the form for creating a new job.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add job entries.');
         }
 
-        return view('admin.career.job.create');
+        $referer = Request()->headers->get('referer');
+
+        return view('admin.career.job.create', compact('referer'));
     }
 
     /**
      * Store a newly created job in storage.
+     *
+     * @param JobTaskStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(JobStoreRequest $request): RedirectResponse
     {
@@ -50,14 +61,24 @@ class JobController extends BaseController
             abort(403, 'Only admins with root access can add job entries.');
         }
 
-        Job::create($request->validated());
+        $job = Job::create($request->validated());
 
-        return redirect()->route('admin.career.job.index')
-            ->with('success', 'Job created successfully.');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $job->company . ' job created successfully.');
+        } else {
+            return redirect()->route('admin.career.job.index')
+                ->with('success', $job->company . ' job created successfully.');
+        }
     }
 
     /**
      * Display the specified job.
+     *
+     * @param JobCoworker $jobCoworker
+     * @return View
      */
     public function show(Job $job): View
     {
@@ -66,18 +87,28 @@ class JobController extends BaseController
 
     /**
      * Show the form for editing the specified job.
+     *
+     * @param JobCoworker $jobCoworker
+     * @param Request $request
+     * @return View
      */
-    public function edit(Job $job): View
+    public function edit(Job $job, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit job entries.');
         }
 
-        return view('admin.career.job.edit', compact('job'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.job.edit', compact('job', 'referer'));
     }
 
     /**
      * Update the specified job in storage.
+     *
+     * @param JobCoworkerUpdateRequest $request
+     * @param JobCoworker $jobCoworker
+     * @return RedirectResponse
      */
     public function update(JobUpdateRequest $request, Job $job): RedirectResponse
     {
@@ -87,14 +118,25 @@ class JobController extends BaseController
 
         $job->update($request->validated());
 
-        return redirect()->route('admin.career.job.index')
-            ->with('success', 'Job updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $job->company . ' job updated successfully.');
+        } else {
+            return redirect()->route('admin.career.job.index')
+                ->with('success', $job->company . ' job successfully');
+        }
     }
 
     /**
      * Remove the specified job from storage.
+     *
+     * @param JobCoworker $jobCoworker
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Job $job): RedirectResponse
+    public function destroy(Job $job, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete job entries.');
@@ -102,7 +144,14 @@ class JobController extends BaseController
 
         $job->delete();
 
-        return redirect()->route('admin.career.job.index')
-            ->with('success', 'Job deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $job->company . ' job deleted successfully.');
+        } else {
+            return redirect()->route('admin.career.job.index')
+                ->with('success', $job->company . ' job deleted successfully');
+        }
     }
 }

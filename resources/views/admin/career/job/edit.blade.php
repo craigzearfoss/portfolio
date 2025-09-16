@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $job->name,
+    'title' => $job->company . (!empty($job->role) ? ' (' . $job->role . ')' :''),
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'url' => route('admin.career.index') ],
@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.career.job.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.career.job.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -24,7 +24,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => $referer ?? route('admin.career.job.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -240,14 +240,16 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'root',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'disabled'        => !Auth::guard('admin')->user()->root,
-                'checked'         => old('root') ?? $job->root,
-                'message'         => $message ?? '',
-            ])
+            @if (Auth::guard('admin')->user()->root)
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'root',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'disabled'        => !Auth::guard('admin')->user()->root,
+                    'checked'         => old('root') ?? $job->root,
+                    'message'         => $message ?? '',
+                ])
+            @endif
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'disabled',
@@ -259,7 +261,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => Request::header('referer') ?? route('admin.career.job.index')
+                'cancel_url' => $referer ?? route('admin.career.job.index')
             ])
 
         </form>

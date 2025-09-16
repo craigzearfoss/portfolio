@@ -3,10 +3,11 @@
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Job Coworkers' ]
+        [ 'name' => 'Jobs',            'url' => route('admin.career.job.index', ['job_id' => $jobId]) ],
+        [ 'name' => 'Coworkers' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'url' => route('admin.career.job-coworker.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'url' => route('admin.career.job-coworker.create', ['job_id' => $jobId]) ],
     ],
     'errors'  => $errors->any() ?? [],
     'success' => session('success') ?? null,

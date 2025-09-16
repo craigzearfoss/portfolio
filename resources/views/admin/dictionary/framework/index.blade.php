@@ -5,7 +5,7 @@
         [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
         [ 'name' => 'Frameworks' ]
     ],
-    'selectList' => View::make('  admin.components.form-select', [
+    'selectList' => View::make('admin.components.form-select', [
             'name'     => '',
             'label'    => '',
             'value'    => route('admin.dictionary.framework.index'),

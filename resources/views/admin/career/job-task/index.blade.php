@@ -1,9 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => 'Job Tasks',
+    'title' => !empty($job) ? $job->company . ' Tasks' : 'Job Tasks',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Job Tasks' ]
+        [ 'name' => 'Jobs',            'url' => route('admin.career.job.index') ],
+        [ 'name' => 'Tasks' ]
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Job Task', 'url' => route('admin.career.job-task.create') ],
