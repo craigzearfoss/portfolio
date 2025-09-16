@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'url' => route('admin.dictionary.category.edit', $category) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Category', 'url' => route('admin.dictionary.category.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => Request::header('referer') ?? route('admin.dictionary.category.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => Request::header('referer') ?? route('admin.dictionary.index') ],
     ],
     'errors' => $errors ?? [],
 ])

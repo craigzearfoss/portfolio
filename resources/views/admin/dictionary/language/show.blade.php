@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'url' => route('admin.dictionary.language.edit', $language) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Language', 'url' => route('admin.dictionary.language.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => Request::header('referer') ?? route('admin.dictionary.language.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => Request::header('referer') ?? route('admin.dictionary.index') ],
     ],
     'errors' => $errors ?? [],
 ])

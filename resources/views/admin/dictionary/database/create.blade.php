@@ -7,7 +7,7 @@
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.dictionary.database.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.dictionary.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
