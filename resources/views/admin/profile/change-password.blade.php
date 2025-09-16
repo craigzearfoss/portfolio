@@ -5,9 +5,9 @@
         [ 'name' => 'Change Password' ],
     ],
     'buttons' => [],
-    'errors' => $errors ?? [],
+    'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
-    'error' => session('error') ?? null,
+    'error'   => session('error') ?? null,
 ])
 
 @section('content')

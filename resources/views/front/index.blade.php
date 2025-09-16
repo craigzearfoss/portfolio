@@ -1,6 +1,8 @@
 @extends('front.layouts.default', [
     'title'   => config('app.name'),
-    'errors'  => $errors ?? [],
+    'breadcrumbs' => [],
+    'buttons' => [],
+    'errors'  => $errors->any() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

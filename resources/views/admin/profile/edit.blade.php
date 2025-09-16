@@ -9,9 +9,9 @@
         [ 'name' => '<i class="fa fa-key"></i> Change Password', 'url' => '<a class="btn btn-sm btn-solid" href="' . route('admin.profile.change-password', $admin->id) . '">' ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => Request::header('referer') ?? route('admin.profile.show') ],
     ],
-    'errors' => $errors ?? [],
+    'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
-    'error' => session('error') ?? null,
+    'error'   => session('error') ?? null,
 ])
 
 @section('content')

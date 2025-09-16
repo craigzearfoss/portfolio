@@ -1,8 +1,10 @@
 @extends('admin.layouts.empty', [
-    'title' => 'Login',
-    'errors' => $errors ?? [],
+    'title'       => 'Login',
+    'breadcrumbs' => [],
+    'buttons'     => [],
+    'errors'  => $errors->any() ?? [],
     'success' => session('success') ?? null,
-    'error' => session('error') ?? null,
+    'error'   => session('error') ?? null,
 ])
 
 @section('content')

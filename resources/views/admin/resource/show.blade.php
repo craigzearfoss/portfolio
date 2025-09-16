@@ -10,7 +10,9 @@
         [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'url' => route('admin.resource.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => Request::header('referer') ?? route('admin.resource.index') ],
     ],
-    'errors' => $errors ?? [],
+    'errors'  => $errors->any() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
 ])
 
 @section('content')

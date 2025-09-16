@@ -11,7 +11,9 @@
         [ 'name' => '<i class="fa fa-plus"></i> Add New Certification', 'url' => route('admin.portfolio.certification.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',            'url' => Request::header('referer') ?? route('admin.portfolio.certification.index') ],
     ],
-    'errors' => $errors ?? [],
+    'errors'  => $errors->any() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
 ])
 
 @section('content')

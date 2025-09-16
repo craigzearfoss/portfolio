@@ -5,8 +5,10 @@
         [ 'name' => 'Home', 'url' => route('front.homepage')],
         [ 'name' => 'Contact']
     ],
-    'buttons'  => [],
-    'errors'   => $errors ?? [],
+    'buttons' => [],
+    'errors'  => $errors->any() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
 ])
 
 @section('content')

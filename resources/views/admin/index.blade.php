@@ -1,6 +1,8 @@
 @extends('admin.layouts.empty', [
-    'title'   => 'Admin',
-    'errors'  => $errors ?? [],
+    'title'       => 'Admin',
+    'breadcrumbs' => [],
+    'buttons'     => [],
+    'errors'  => $errors->any() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])
