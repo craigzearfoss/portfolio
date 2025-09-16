@@ -7,7 +7,7 @@
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-list"></i> Show',       'url' => route('admin.user.show', $user) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.user.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ],
     ],
     'errors' => $errors ?? [],
     'success' => session('success') ?? null,

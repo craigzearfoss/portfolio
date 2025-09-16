@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Career;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Career\JobCoworkerStoreRequest;
 use App\Http\Requests\Career\JobCoworkerUpdateRequest;
+use App\Models\Career\Job;
 use App\Models\Career\JobCoworker;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,9 +24,19 @@ class JobCoworkerController extends Controller
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $jobCoworkers = JobCoworker::orderBy('name', 'asc')->paginate($perPage);
+        if ($jobId = $request->query('job_id')) {
+            $jobCoworkers = JobCoworker::where('job_id', $jobId)->orderBy('name', 'asc')->paginate($perPage);
+        } else {
+            $jobCoworkers = JobCoworker::orderBy('name', 'asc')->paginate($perPage);
+        }
 
-        return view('admin.career.job-coworker.index', compact('jobCoworkers'))
+        if ($jobId = $request->get('job_id')) {
+            $job = Job::find($jobId);
+        } else {
+            $job = null;
+        }
+
+        return view('admin.career.job-coworker.index', compact('jobCoworkers', 'job'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -67,7 +78,7 @@ class JobCoworkerController extends Controller
     /**
      * Show the form for editing the specified job coworker.
      */
-    public function edit(JobCoworker $jobCoworker): View
+    public function edit(JobCoworker $jobCoworker, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit job worker entries.');
@@ -87,8 +98,12 @@ class JobCoworkerController extends Controller
 
         $jobCoworker->update($request->validated());
 
-        return redirect()->route('admin.career.job-coworker.index')
-            ->with('success', 'Job coworker updated successfully');
+        if ($referer = $request->input('referer')) {
+            return redirect(str_replace(config('app.url'), '', $referer))->with('success', 'Job coworker updated successfully');
+        } else {
+            return redirect()->route('admin.career.job-coworker.index')
+                ->with('success', 'Job coworker updated successfully');
+        }
     }
 
     /**

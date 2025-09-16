@@ -9,7 +9,7 @@
         [ 'name' => '<i class="fa fa-key"></i>Change Password', 'url' => route('admin.user.change-password', $user->id) ],
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.user.edit', $user) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New User',  'url' => route('admin.user.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => route('admin.user.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => Request::header('referer') ],
     ],
     'errors' => $errors ?? [],
 ])

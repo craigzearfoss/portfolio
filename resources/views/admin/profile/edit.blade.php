@@ -7,7 +7,7 @@
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-key"></i> Change Password', 'url' => '<a class="btn btn-sm btn-solid" href="' . route('admin.profile.change-password', $admin->id) . '">' ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => route('admin.profile.show') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => Request::header('referer') ],
     ],
     'errors' => $errors ?? [],
     'success' => session('success') ?? null,

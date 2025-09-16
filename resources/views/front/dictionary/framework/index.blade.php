@@ -14,7 +14,7 @@
             'message'  => $message ?? '',
         ]),
     'buttons' => [
-        [ 'name' => 'Back', 'url' => route('front.dictionary.index') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Framework', 'url' => route('admin.dictionary.framework.create') ],
     ],
     'errors' => $errors ?? [],
 ])

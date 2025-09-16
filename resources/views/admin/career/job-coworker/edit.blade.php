@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.job-coworker.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -19,6 +19,11 @@
         <form action="{{ route('admin.career.job-coworker.update', $jobCoworker) }}" method="POST">
             @csrf
             @method('PUT')
+
+            @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => Request::header('referer')
+            ])
 
             @if(Auth::guard('admin')->user()->root)
                 @include('admin.components.form-select-horizontal', [

@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.job.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ],
     ],
     'errors' => $errors ?? [],
 ])
@@ -131,6 +131,23 @@
                 'value'     => old('summary') ?? $job->summary,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.show-row-list', [
+                'name'  => 'tasks',
+                'values' => $job->tasks->pluck('summary')
+            ])
+
+            @include('admin.components.link', [
+                'name' => 'Edit Job Coworkers',
+                'url'  => route('admin.career.job-coworker.index', [
+                    'job_id' => $job->id
+                ])
+            ])
+
+            @include('admin.components.show-row-list', [
+                'name'  => 'coworkers',
+                'values' => $job->coworkers->pluck('name')
             ])
 
             @include('admin.components.form-input-horizontal', [
