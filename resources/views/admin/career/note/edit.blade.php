@@ -19,6 +19,12 @@
         <form action="{{ route('admin.career.note.update', $note->id) }}" method="POST">
             @csrf
             @method('PUT')
+
+            @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => Request::header('referer')
+            ])
+
             @if(Auth::guard('admin')->user()->root)
                 @include('admin.components.form-select-horizontal', [
                     'name'    => 'admin_id',

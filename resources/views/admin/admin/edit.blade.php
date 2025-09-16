@@ -18,6 +18,11 @@
             @csrf
             @method('PUT')
 
+            @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => Request::header('referer')
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'username',
                 'value'     => old('username') ?? $admin->username,

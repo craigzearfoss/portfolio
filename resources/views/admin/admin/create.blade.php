@@ -17,6 +17,11 @@
         <form action="{{ route('admin.admin.store') }}" method="POST">
             @csrf
 
+            @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => Request::header('referer')
+            ])
+
             <div class="card p-4 mb-3">
 
                 @include('admin.components.form-input-horizontal', [
