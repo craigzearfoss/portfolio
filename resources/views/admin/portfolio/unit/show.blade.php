@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'url' => route('admin.portfolio.unit.edit', $unit) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Unit', 'url' => route('admin.portfolio.unit.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => route('admin.portfolio.unit.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.portfolio.unit.edit', $unit) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Unit',  'url' => route('admin.portfolio.unit.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => Request::header('referer') ?? route('admin.portfolio.unit.index') ],
     ],
     'errors' => $errors ?? [],
 ])

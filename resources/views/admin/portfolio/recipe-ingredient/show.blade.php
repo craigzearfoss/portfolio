@@ -10,7 +10,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',             'url' => route('admin.portfolio.recipe-ingredient.edit', $recipeIngredient) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Ingredient', 'url' => route('admin.portfolio.recipe-ingredient.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',                'url' => Request::header('referer') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',                'url' => Request::header('referer') ?? route('admin.portfolio.recipe-ingredient.index') ],
     ],
     'errors' => $errors ?? [],
 ])

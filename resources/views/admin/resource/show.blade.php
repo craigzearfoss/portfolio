@@ -8,7 +8,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'url' => route('admin.resource.edit', $resource) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'url' => route('admin.resource.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => Request::header('referer') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => Request::header('referer') ?? route('admin.resource.index') ],
     ],
     'errors' => $errors ?? [],
 ])

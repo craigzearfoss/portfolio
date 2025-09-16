@@ -8,7 +8,7 @@
         [ 'name' => 'Create Step' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.portfolio.recipe-step.index') ],
     ],
     'errors' => $errors ?? [],
 ])

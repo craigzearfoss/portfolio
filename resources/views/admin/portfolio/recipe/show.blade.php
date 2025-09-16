@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.portfolio.recipe.edit', $recipe) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe', 'url' => route('admin.portfolio.recipe.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     Request::header('referer') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => Request::header('referer') ?? route('admin.portfolio.recipe.index') ],
     ],
     'errors' => $errors ?? [],
 ])
