@@ -195,7 +195,7 @@
 
             @include('admin.components.form-button-submit', [
                 'label'      => 'Save Job Coworker',
-                'cancel_url' => route('admin.career.job-coworker.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.career.job-coworker.index')
             ])
 
         </form>

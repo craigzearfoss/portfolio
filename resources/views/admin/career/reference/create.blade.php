@@ -194,7 +194,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Reference',
-                'cancel_url' => route('admin.career.reference.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.career.reference.index')
             ])
 
         </form>

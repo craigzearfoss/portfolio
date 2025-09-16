@@ -132,7 +132,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Industry',
-                'cancel_url' => route('admin.career.industry.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.career.industry.index')
             ])
 
         </form>

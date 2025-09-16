@@ -187,7 +187,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save Database',
-                'cancel_url' => route('admin.dictionary.database.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.dictionary.index')
             ])
 
         </form>

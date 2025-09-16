@@ -187,7 +187,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Operating System',
-                'cancel_url' => route('admin.dictionary.operating-system.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.dictionary.index')
             ])
 
         </form>

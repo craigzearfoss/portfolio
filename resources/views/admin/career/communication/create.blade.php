@@ -103,7 +103,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Communication',
-                'cancel_url' => route('admin.career.communication.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.career.communication.index')
             ])
 
         </form>

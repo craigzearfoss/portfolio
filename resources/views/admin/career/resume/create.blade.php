@@ -151,7 +151,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Resume',
-                'cancel_url' => route('admin.career.resume.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.career.resume.index')
             ])
 
         </form>

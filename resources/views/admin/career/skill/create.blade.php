@@ -149,7 +149,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Skill',
-                'cancel_url' => route('admin.career.skill.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.career.skill.index')
             ])
 
         </form>

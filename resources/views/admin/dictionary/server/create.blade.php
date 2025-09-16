@@ -187,7 +187,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Server',
-                'cancel_url' => route('admin.dictionary.server.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.dictionary.index')
             ])
 
         </form>

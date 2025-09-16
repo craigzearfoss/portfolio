@@ -89,7 +89,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Note',
-                'cancel_url' => route('admin.career.note.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.career.note.index')
             ])
 
         </form>

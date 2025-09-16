@@ -250,7 +250,7 @@
 
             @include('admin.components.form-button-submit', [
                 'label'      => 'Save Contact',
-                'cancel_url' => route('admin.career.company.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.career.contact.index')
             ])
 
         </form>

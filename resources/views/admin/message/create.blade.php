@@ -53,7 +53,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Message',
-                'cancel_url' => route('admin.message.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.message.index')
             ])
 
         </form>

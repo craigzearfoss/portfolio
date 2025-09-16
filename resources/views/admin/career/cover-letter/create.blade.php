@@ -146,7 +146,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Cover Letter',
-                'cancel_url' => route('admin.career.cover-letter.index')
+                'cancel_url' => Request::header('referer') ?? route('admin.career.cover-letter.index')
             ])
 
         </form>
