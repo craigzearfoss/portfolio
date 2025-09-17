@@ -75,15 +75,15 @@
                         @include('admin.components.checkmark', [ 'checked' => $framework->disabled ])
                     </td>
                     <td class="white-space-nowrap py-0" style="white-space: nowrap;">
-                        <form action="{{ route('admin.dictionary.category.destroy', $framework->id) }}" method="POST">
+                        <form action="{{ route('admin.dictionary.framework.destroy', $framework->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.dictionary.category.show', $framework->id) }}">
+                               href="{{ route('admin.dictionary.framework.show', $framework->id) }}">
                                 <i class="fa-solid fa-list"></i>{{-- Show--}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.dictionary.category.edit', $framework->id) }}">
+                               href="{{ route('admin.dictionary.framework.edit', $framework->id) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                             </a>
 

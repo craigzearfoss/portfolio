@@ -10,6 +10,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class RecipeStepController extends BaseController
 {
     /**
@@ -30,25 +33,41 @@ class RecipeStepController extends BaseController
 
     /**
      * Show the form for creating a new recipe step.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.portfolio.recipe-step.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.portfolio.recipe-step.create', compact('referer'));
     }
 
     /**
      * Store a newly created recipe step in storage.
+     *
+     * @param RecipeStepStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(RecipeStepStoreRequest $request): RedirectResponse
     {
-        RecipeStep::create($request->validated());
+        $recipeStep = RecipeStep::create($request->validated());
 
-        return redirect()->route('admin.portfolio.recipe-step.index')
-            ->with('success', 'Recipe step created successfully.');
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Recipe step created successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.recipe-step.index')
+                ->with('success', 'Recipe step created successfully.');
+        }
     }
 
     /**
      * Display the specified recipe step.
+     *
+     * @param RecipeStep $recipeStep
+     * @return View
      */
     public function show(RecipeStep $recipeStep): View
     {
@@ -57,31 +76,59 @@ class RecipeStepController extends BaseController
 
     /**
      * Show the form for editing the specified recipe step.
+     *
+     * @param RecipeStep $recipeStep
+     * @param Request $request
+     * @return View
      */
     public function edit(RecipeStep $recipeStep): View
     {
-        return view('admin.portfolio.recipe-step.edit', compact('recipeStep'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.portfolio.recipe-step.edit', compact('recipeStep', 'referer'));
     }
 
     /**
      * Update the specified recipe step in storage.
+     *
+     * @param RecipeStepUpdateRequest $request
+     * @param RecipeStep $recipeStep
+     * @return RedirectResponse
      */
     public function update(RecipeStepUpdateRequest $request, RecipeStep $recipeStep): RedirectResponse
     {
         $recipeStep->update($request->validated());
 
-        return redirect()->route('admin.portfolio.recipe-step.index')
-            ->with('success', 'Recipe step updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Recipe step updated successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.recipe-step.index')
+                ->with('success', 'Recipe step updated successfully');
+        }
     }
 
     /**
      * Remove the specified recipe step from storage.
+     *
+     * @param RecipeStep $recipeStep
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(RecipeStep $recipeStep): RedirectResponse
+    public function destroy(RecipeStep $recipeStep, Request $request): RedirectResponse
     {
         $recipeStep->delete();
 
-        return redirect()->route('admin.portfolio.recipe-step.index')
-            ->with('success', 'Recipe step deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Recipe step deleted successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.recipe-step.index')
+                ->with('success', 'Recipe step deleted successfully');
+        }
     }
 }

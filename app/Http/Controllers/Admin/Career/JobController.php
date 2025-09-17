@@ -9,6 +9,8 @@ use App\Models\Career\Job;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -100,6 +102,10 @@ class JobController extends BaseController
      */
     public function update(JobUpdateRequest $request, Job $job): RedirectResponse
     {
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('career_db.jobs', 'slug') ] ]);
         $job->update($request->validated());
 
         $referer = $request->input('referer');

@@ -8,8 +8,13 @@ use App\Http\Requests\Portfolio\RecipeUpdateRequest;
 use App\Models\Portfolio\Recipe;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class RecipeController extends BaseController
 {
     /**
@@ -30,25 +35,41 @@ class RecipeController extends BaseController
 
     /**
      * Show the form for creating a new recipe.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.portfolio.recipe.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.portfolio.recipe.create', compact('referer'));
     }
 
     /**
      * Store a newly created recipe in storage.
+     *
+     * @param RecipeStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(RecipeStoreRequest $request): RedirectResponse
     {
-        Recipe::create($request->validated());
+        $recipe = Recipe::create($request->validated());
 
-        return redirect()->route('admin.portfolio.recipe.index')
-            ->with('success', 'Recipe created successfully.');
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $recipe->name . ' created successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.recipe.index')
+                ->with('success', $recipe->name . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified recipe.
+     *
+     * @param Recipe $recipe
+     * @return View
      */
     public function show(Recipe $recipe): View
     {
@@ -57,31 +78,63 @@ class RecipeController extends BaseController
 
     /**
      * Show the form for editing the specified recipe.
+     *
+     * @param Recipe $recipe
+     * @param Request $request
+     * @return View
      */
     public function edit(Recipe $recipe): View
     {
-        return view('admin.portfolio.recipe.edit', compact('recipe'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.portfolio.recipe.edit', compact('recipe', 'referer'));
     }
 
     /**
      * Update the specified recipe in storage.
+     *
+     * @param RecipeUpdateRequest $request
+     * @param Recipe $recipe
+     * @return RedirectResponse
      */
     public function update(RecipeUpdateRequest $request, Recipe $recipe): RedirectResponse
     {
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('portfolio_db.recipes', 'slug') ] ]);
         $recipe->update($request->validated());
 
-        return redirect()->route('admin.portfolio.recipe.index')
-            ->with('success', 'Recipe updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $recipe->name . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.recipe.index')
+                ->with('success', $recipe->name . ' updated successfully');
+        }
     }
 
     /**
      * Remove the specified recipe from storage.
+     *
+     * @param Recipe $recipe
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Recipe $recipe): RedirectResponse
+    public function destroy(Recipe $recipe, Request $request): RedirectResponse
     {
         $recipe->delete();
 
-        return redirect()->route('admin.portfolio.recipe.index')
-            ->with('success', 'Recipe deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $recipe->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.recipe.index')
+                ->with('success', $recipe->name . ' deleted successfully');
+        }
     }
 }

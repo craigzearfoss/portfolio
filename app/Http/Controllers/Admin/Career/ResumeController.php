@@ -8,6 +8,8 @@ use App\Http\Requests\Career\ResumeUpdateRequest;
 use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -81,11 +83,11 @@ class ResumeController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function edit(Resume $resume): View
+    public function edit(Resume $resume, Request $request): View
     {
         $referer = $request->headers->get('referer');
 
-        return view('admin.career.resume.edit', compact('resume', 'referer')));
+        return view('admin.career.resume.edit', compact('resume', 'referer'));
     }
 
     /**
@@ -97,6 +99,10 @@ class ResumeController extends BaseController
      */
     public function update(ResumeUpdateRequest $request, Resume $resume): RedirectResponse
     {
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('career_db.resumes', 'slug') ] ]);
         $resume->update($request->validated());
 
         $referer = $request->input('referer');

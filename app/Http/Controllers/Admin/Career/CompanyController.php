@@ -8,6 +8,8 @@ use App\Http\Requests\Career\CompanyUpdateRequest;
 use App\Models\Career\Company;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -97,6 +99,10 @@ class CompanyController extends BaseController
      */
     public function update(CompanyUpdateRequest $request, Company $company): RedirectResponse
     {
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('career_db.companies', 'slug') ] ]);
         $company->update($request->validated());
 
         $referer = $request->input('referer');

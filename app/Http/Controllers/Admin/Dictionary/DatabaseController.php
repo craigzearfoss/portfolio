@@ -119,7 +119,7 @@ class DatabaseController extends BaseController
         // Validate the posted data and generated slug.
         $validatedData = $request->validated();
         $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('posts', 'slug') ] ]);
+        $request->validate(['slug' => [ Rule::unique('dictionary_db.databases', 'slug') ] ]);
         $database->update($request->validated());
 
         $referer = $request->input('referer');

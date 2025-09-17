@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $dictionaryLanguage->name . ' language',
+    'title' => $language->name . ' language',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
@@ -18,7 +18,7 @@
 
     <div class="card form-container p-4">
 
-        <form action="{{ route('admin.dictionary.language.update', $dictionaryLanguage) }}" method="POST">
+        <form action="{{ route('admin.dictionary.language.update', $language) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -85,7 +85,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'owner',
-                'value'     => old('owner') ?? $languauge->owner,
+                'value'     => old('owner') ?? $language->owner,
                 'maxlength' => 100,
                 'message'   => $message ?? '',
             ])

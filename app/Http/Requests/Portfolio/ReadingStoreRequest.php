@@ -27,8 +27,8 @@ class ReadingStoreRequest extends FormRequest
     public function rules(): array
     {
         // Generate the slug.
-        if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        if (!empty($this['title'])) {
+            $this->merge([ 'slug' => Str::slug($this['title']) ]);
         }
 
         // Validate the admin_id. (Only root admins can change the admin for a reading.)

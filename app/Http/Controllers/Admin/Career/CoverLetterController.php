@@ -8,6 +8,8 @@ use App\Http\Requests\Career\CoverLetterUpdateRequest;
 use App\Models\Career\CoverLetter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -97,6 +99,10 @@ class CoverLetterController extends BaseController
      */
     public function update(CoverLetterUpdateRequest $request, CoverLetter $coverLetter): RedirectResponse
     {
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('career_db.cover_letters', 'slug') ] ]);
         $coverLetter->update($request->validated());
 
         $referer = $request->input('referer');

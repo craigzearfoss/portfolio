@@ -8,6 +8,8 @@ use App\Http\Requests\Portfolio\CertificationUpdateRequest;
 use App\Models\Portfolio\Certification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -97,6 +99,10 @@ class CertificationController extends BaseController
      */
     public function update(CertificationUpdateRequest $request, Certification $certification): RedirectResponse
     {
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('portfolio_db.certifications', 'slug') ] ]);
         $certification->update($request->validated());
 
         $referer = $request->input('referer');

@@ -8,8 +8,13 @@ use App\Http\Requests\Portfolio\VideoUpdateRequest;
 use App\Models\Portfolio\Video;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class VideoController extends BaseController
 {
     /**
@@ -30,25 +35,41 @@ class VideoController extends BaseController
 
     /**
      * Show the form for creating a new video.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.portfolio.video.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.portfolio.video.create', compact('referer'));
     }
 
     /**
      * Store a newly created video in storage.
+     *
+     * @param VideoStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(VideoStoreRequest $request): RedirectResponse
     {
         Video::create($request->validated());
 
-        return redirect()->route('admin.portfolio.video.index')
-            ->with('success', 'Video created successfully.');
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $video->name . ' created successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.video.index')
+                ->with('success', $video->name . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified video.
+     *
+     * @param Video $video
+     * @return View
      */
     public function show(Video $video): View
     {
@@ -57,31 +78,63 @@ class VideoController extends BaseController
 
     /**
      * Show the form for editing the specified video.
+     *
+     * @param Video $video
+     * @param Request $request
+     * @return View
      */
     public function edit(Video $video): View
     {
-        return view('admin.portfolio.video.edit', compact('video'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.portfolio.video.edit', compact('video', 'referer'));
     }
 
     /**
      * Update the specified video in storage.
+     *
+     * @param VideoUpdateRequest $request
+     * @param Video $video
+     * @return RedirectResponse
      */
     public function update(VideoUpdateRequest $request, Video $video): RedirectResponse
     {
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('portfolio_db.videos', 'slug') ] ]);
         $video->update($request->validated());
 
-        return redirect()->route('admin.portfolio.video.index')
-            ->with('success', 'Video updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $video->name . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.video.index')
+                ->with('success', $video->name . ' updated successfully');
+        }
     }
 
     /**
      * Remove the specified video from storage.
+     *
+     * @param Video $video
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Video $video): RedirectResponse
+    public function destroy(Video $video, Request $request): RedirectResponse
     {
         $video->delete();
 
-        return redirect()->route('admin.portfolio.video.index')
-            ->with('success', 'Video deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $video->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.video.index')
+                ->with('success', $video->name . ' deleted successfully');
+        }
     }
 }

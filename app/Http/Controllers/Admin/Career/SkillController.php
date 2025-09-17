@@ -8,6 +8,8 @@ use App\Http\Requests\Career\SkillUpdateRequest;
 use App\Models\Career\Skill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -97,6 +99,10 @@ class SkillController extends BaseController
      */
     public function update(SkillUpdateRequest $request, Skill $skill): RedirectResponse
     {
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('career_db.skills', 'slug') ] ]);
         $skill->update($request->validated());
 
         $referer = $request->input('referer');

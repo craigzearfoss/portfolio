@@ -8,6 +8,8 @@ use App\Http\Requests\Portfolio\ArtUpdateRequest;
 use App\Models\Portfolio\Art;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -47,18 +49,19 @@ class ArtController extends BaseController
     /**
      * Store a newly created art in storage.
      *
+     *
      * @param ArtStoreRequest $request
      * @return RedirectResponse
      */
     public function store(ArtStoreRequest $request): RedirectResponse
     {
-        Art::create($request->validated());
+        $art = Art::create($request->validated());
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
                 ->with('success', $art->name . ' created successfully.');
         } else {
-            return redirect()->route('admin.career.application.index')
+            return redirect()->route('admin.portfolio.art.index')
                 ->with('success', $art->name . ' created successfully.');
         }
     }
@@ -81,7 +84,7 @@ class ArtController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function edit(Art $art): View
+    public function edit(Art $art, Request $request): View
     {
         $referer = $request->headers->get('referer');
 
@@ -97,6 +100,10 @@ class ArtController extends BaseController
      */
     public function update(ArtUpdateRequest $request, Art $art): RedirectResponse
     {
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('portfolio_db.art', 'slug') ] ]);
         $art->update($request->validated());
 
         $referer = $request->input('referer');
@@ -105,7 +112,7 @@ class ArtController extends BaseController
             return redirect(str_replace(config('app.url'), '', $referer))
                 ->with('success', $art->name . ' updated successfully.');
         } else {
-            return redirect()->route('admin.career.application.index')
+            return redirect()->route('admin.portfolio.art.index')
                 ->with('success', $art->name . ' updated successfully');
         }
     }

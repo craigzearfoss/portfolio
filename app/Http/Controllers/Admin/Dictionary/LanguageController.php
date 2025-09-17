@@ -102,7 +102,7 @@ class LanguageController extends BaseController
 
         $referer = $request->headers->get('referer');
 
-        return view('admin.dictionary.language.edit', compact('language'));
+        return view('admin.dictionary.language.edit', compact('language', 'referer'));
     }
 
     /**
@@ -121,7 +121,7 @@ class LanguageController extends BaseController
         // Validate the posted data and generated slug.
         $validatedData = $request->validated();
         $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('posts', 'slug') ] ]);
+        $request->validate(['slug' => [ Rule::unique('dictionary_db.languages', 'slug') ] ]);
         $language->update($request->validated());
 
         $referer = $request->input('referer');

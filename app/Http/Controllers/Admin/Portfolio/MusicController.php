@@ -8,8 +8,13 @@ use App\Http\Requests\Portfolio\MusicUpdateRequest;
 use App\Models\Portfolio\Music;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class MusicController extends BaseController
 {
     /**
@@ -30,25 +35,41 @@ class MusicController extends BaseController
 
     /**
      * Show the form for creating a new music.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.portfolio.music.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.portfolio.music.create', compact('referer'));
     }
 
     /**
      * Store a newly created music in storage.
+     *
+     * @param MusicStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(MusicStoreRequest $request): RedirectResponse
     {
-        Music::create($request->validated());
+        $music = Music::create($request->validated());
 
-        return redirect()->route('admin.portfolio.music.index')
-            ->with('success', 'Music created successfully.');
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $music->name . ' created successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.link.index')
+                ->with('success', $music->name . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified music.
+     *
+     * @param Music $music
+     * @return View
      */
     public function show(Music $music): View
     {
@@ -57,31 +78,63 @@ class MusicController extends BaseController
 
     /**
      * Show the form for editing the specified music.
+     *
+     * @param Music $music
+     * @param Request $request
+     * @return View
      */
     public function edit(Music $music): View
     {
-        return view('admin.portfolio.music.edit', compact('music'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.portfolio.music.edit', compact('music', 'referer'));
     }
 
     /**
      * Update the specified music in storage.
+     *
+     * @param MusicUpdateRequest $request
+     * @param Music $music
+     * @return RedirectResponse
      */
     public function update(MusicUpdateRequest $request, Music $music): RedirectResponse
     {
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('portfolio_db.music', 'slug') ] ]);
         $music->update($request->validated());
 
-        return redirect()->route('admin.portfolio.music.index')
-            ->with('success', 'Music updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $music->name . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.music.index')
+                ->with('success', $music->name . ' updated successfully');
+        }
     }
 
     /**
      * Remove the specified music from storage.
+     *
+     * @param Music $music
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Music $music): RedirectResponse
+    public function destroy(Music $music, Request $request): RedirectResponse
     {
         $music->delete();
 
-        return redirect()->route('admin.portfolio.music.index')
-            ->with('success', 'Music deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $music->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.link.index')
+                ->with('success', $music->name . ' deleted successfully');
+        }
     }
 }
