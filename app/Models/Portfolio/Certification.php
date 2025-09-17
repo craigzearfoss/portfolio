@@ -50,7 +50,7 @@ class Certification extends Model
     ];
 
     /**
-     * Get the admin who owns the certification.
+     * Get the admin who owns the portfolio certification.
      */
     public function admin(): BelongsTo
     {
@@ -58,10 +58,10 @@ class Certification extends Model
     }
 
     /**
-     * Get the academy that owns the certification.
+     * Get the portfolio academy that owns the portfolio certification.
      */
     public function academy(): BelongsTo
     {
-        return $this->setConnection('default_db')->belongsTo(Academy::class, 'academy_id');
+        return $this->setConnection('portfolio_db')->belongsTo(Academy::class, 'academy_id');
     }
 }

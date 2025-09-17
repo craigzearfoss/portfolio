@@ -62,8 +62,8 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $jobCoworker->link,
             'label'  => $jobCoworker->link_name,
+            'url'    => $jobCoworker->link,
             'target' => '_blank'
         ])
 

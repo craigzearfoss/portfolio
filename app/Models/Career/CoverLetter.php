@@ -3,9 +3,11 @@
 namespace App\Models\Career;
 
 use App\Models\Admin;
+use App\Models\Career\Application;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CoverLetter extends Model
@@ -23,6 +25,7 @@ class CoverLetter extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'application_id',
         'name',
         'slug',
         'date',
@@ -45,10 +48,18 @@ class CoverLetter extends Model
     ];
 
     /**
-     * Get the admin who owns the cover letter.
+     * Get the admin who owns the career cover letter.
      */
     public function admin(): BelongsTo
     {
         return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+    }
+
+    /**
+     * Get the career applications for the career cover letter.
+     */
+    public function application(): HasOne
+    {
+        return $this->hasOne(Application::class);
     }
 }

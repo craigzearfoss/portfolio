@@ -22,34 +22,27 @@
 
         @include('admin.components.show-row', [
             'name'  => 'id',
-            'value' => $application->company_id
+            'value' => $application->id
         ])
+
         @include('admin.components.show-row', [
             'name'  => 'company',
             'value' => !empty($application->company)
-                ? '<a href="' . route('admin.career.company.show', $application->company) . '">' . $application->company['name'] . '</a>'
+                ? $application->company_id . ' - <a href="' . route('admin.career.company.show', $application->company) . '">' . $application->company['name'] . '</a>'
                 : ''
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $application->cover_letter_id
-        ])
         @include('admin.components.show-row', [
             'name'  => 'cover letter',
             'value' => !empty($application->cover_letter)
-                ? '<a href="' . route('admin.career.cover-letter.show', $application->cover_letter) . '">' . $application->cover_letter['name'] . '</a>'
+                ? $application->cover_letter_id . ' - <a href="' . route('admin.career.cover-letter.show', $application->cover_letter) . '">' . $application->cover_letter['name'] . '</a>'
                 : ''
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $application->resume_id
-        ])
-        @include('admin.components.show-row', [
             'name'  => 'resume',
             'value' => !empty($application->resume)
-                ? '<a href="' . route('admin.career.resume.show', $application->resume) . '">' . $application->resume['name'] . '</a>'
+                ? $application->resume_id . ' - <a href="' . route('admin.career.resume.show', $application->resume) . '">' . $application->resume['name'] . '</a>'
                 : ''
         ])
 
@@ -105,13 +98,43 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'street',
+            'value' => $application->street
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'street2',
+            'value' => $application->street2
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'city',
             'value' => $application->city
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'state',
-            'value' => \App\Models\State::getName($application->state)
+            'value' => $application->state
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'zip',
+            'value' => $application->zip
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'country',
+            'value' => $application->country
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'longitude',
+            'value' => $application->longitude
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'latitude',
+            'value' => $application->latitude
         ])
 
         @include('admin.components.show-row', [
@@ -150,34 +173,30 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($contact->phone_label) ? $contact->phone_label : 'phone',
-            'value' => $contact->phone
+            'name'  => !empty($application->phone_label) ? $application->phone_label : 'phone',
+            'value' => $application->phone
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($contact->alt_phone_label) ? $contact->alt_phone_label : 'alt phone',
-            'value' => $contact->alt_phone
+            'name'  => !empty($application->alt_phone_label) ? $application->alt_phone_label : 'alt phone',
+            'value' => $application->alt_phone
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($contact->email_label) ? $contact->email_label : 'email',
-            'value' => $contact->email
+            'name'  => !empty($application->email_label) ? $application->email_label : 'email',
+            'value' => $application->email
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($contact->alt_email_label) ? $contact->alt_email_label : 'alt email',
-            'value' => $contact->alt_email
+            'name'  => !empty($application->alt_email_label) ? $application->alt_email_label : 'alt email',
+            'value' => $application->alt_email
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
+            'label'  => $application->link_name,
             'url'    => $application->link,
             'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $application->link_name
         ])
 
         @include('admin.components.show-row', [

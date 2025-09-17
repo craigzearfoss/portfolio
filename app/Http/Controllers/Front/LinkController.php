@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Link;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class LinkController extends BaseController
 {
     /**
@@ -31,9 +35,16 @@ class LinkController extends BaseController
 
     /**
      * Display the specified link.
+     *
+     * @param string $slug
+     * @return View
      */
-    public function show(Link $link): View
+    public function show(string $slug): View
     {
+        if (!$link = Link::where('slug', $slug)->first()) {
+            throw new ModelNotFoundException();
+        }
+
         return view('link.show', compact('link'));
     }
 }

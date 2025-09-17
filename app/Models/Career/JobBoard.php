@@ -3,6 +3,7 @@
 namespace App\Models\Career;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class JobBoard extends Model
 {
@@ -33,6 +34,14 @@ class JobBoard extends Model
         'root',
         'disabled',
     ];
+
+    /**
+     * Get the career applications for the career job board.
+     */
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class, 'application_id')->orderBy('created_at', 'desc');
+    }
 
     /**
      * Returns an array of options for a select list.

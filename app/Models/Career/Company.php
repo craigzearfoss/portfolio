@@ -3,9 +3,12 @@
 namespace App\Models\Career;
 
 use App\Models\Admin;
+use App\Models\Career\Application;
+use App\Models\Career\Industry;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
@@ -33,8 +36,8 @@ class Company extends Model
         'state',
         'zip',
         'country',
-        'latitude',
         'longitude',
+        'latitude',
         'phone',
         'phone_label',
         'alt_phone',
@@ -59,14 +62,30 @@ class Company extends Model
     ];
 
     /**
-     * Get the admin who owns the company.
+     * Get the admin who owns the career company.
      */
     public function admin(): BelongsTo
     {
         return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
     }
 
-    /**0
+    /**
+     * Get the career applications for the career company.
+     */
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class, 'application_id')->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Get the career industry that owns the career company.
+     */
+    public function industry(): BelongsTo
+    {
+        return $this->setConnection('career_db')->belongsTo(Industry::class, 'industry_id');
+    }
+
+    /**
      * Returns an array of options for a select list.
      *
      * @param bool $includeBlank

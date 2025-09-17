@@ -42,7 +42,7 @@ class JobTask extends Model
     ];
 
     /**
-     * Get the job that owns the coworker.
+     * Get the career job that owns the career coworker.
      */
     public function job(): BelongsTo
     {

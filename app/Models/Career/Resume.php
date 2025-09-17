@@ -3,9 +3,11 @@
 namespace App\Models\Career;
 
 use App\Models\Admin;
+use App\Models\Career\Application;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Resume extends Model
@@ -23,6 +25,7 @@ class Resume extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'application_id',
         'name',
         'slug',
         'date',
@@ -50,5 +53,13 @@ class Resume extends Model
     public function admin(): BelongsTo
     {
         return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+    }
+
+    /**
+     * Get the career applications for the career resume.
+     */
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
     }
 }

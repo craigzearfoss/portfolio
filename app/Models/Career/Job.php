@@ -34,8 +34,8 @@ class Job extends Model
         'state',
         'zip',
         'country',
-        'latitude',
         'longitude',
+        'latitude',
         'role',
         'start_month',
         'start_year',
@@ -59,7 +59,7 @@ class Job extends Model
     ];
 
     /**
-     * Get the admin who owns the communication.
+     * Get the admin who owns the career job.
      */
     public function admin(): BelongsTo
     {
@@ -67,7 +67,7 @@ class Job extends Model
     }
 
     /**
-     * Get the coworkers for the job.
+     * Get the career job coworkers for the career job.
      */
     public function coworkers(): HasMany
     {
@@ -75,7 +75,7 @@ class Job extends Model
     }
 
     /**
-     * Get the tasks for the job.
+     * Get the career job tasks for the career job.
      */
     public function tasks(): HasMany
     {

@@ -21,6 +21,11 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $communication->id ?? ''
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'application_id',
             'value' => $communication->application_id ?? ''
         ])
@@ -36,7 +41,7 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'timestamp',
+            'name'  => 'time',
             'value' => longDateTime($communication->timestamp)
         ])
 

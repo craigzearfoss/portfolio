@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Certification;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class CertificationController extends BaseController
 {
     /**
@@ -31,9 +35,16 @@ class CertificationController extends BaseController
 
     /**
      * Display the specified certification.
+     *
+     * @param string $slug
+     * @return View
      */
-    public function show(Certification $certification): View
+    public function show(string $slug): View
     {
+        if (!$certification = Certification::where('slug', $slug)->first()) {
+            throw new ModelNotFoundException();
+        }
+
         return view('front.certification.show', compact('certification'));
     }
 }

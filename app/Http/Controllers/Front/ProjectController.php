@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Project;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class ProjectController extends BaseController
 {
     /**
@@ -31,9 +35,16 @@ class ProjectController extends BaseController
 
     /**
      * Display the specified project.
+     *
+     * @param string $slug
+     * @return View
      */
-    public function show(Project $project): View
+    public function show(string $slug): View
     {
+        if (!$project = Project::where('slug', $slug)->first()) {
+            throw new ModelNotFoundException();
+        }
+
         return view('front.project.show', compact('project'));
     }
 }

@@ -44,7 +44,7 @@ class Art extends Model
     ];
 
     /**
-     * Get the admin who owns the art.
+     * Get the admin who owns the portfolio art.
      */
     public function admin(): BelongsTo
     {

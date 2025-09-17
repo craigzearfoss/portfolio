@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('state', 20)->nullable();
             $table->string('zip', 20)->nullable();
             $table->string('country', 100)->nullable();
-            $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
+            $table->float('latitude')->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('phone_label', 255)->nullable();
             $table->string('alt_phone', 20)->nullable();

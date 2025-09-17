@@ -47,7 +47,7 @@ class Music extends Model
     ];
 
     /**
-     * Get the admin who owns the music.
+     * Get the admin who owns the portfolio music.
      */
     public function admin(): BelongsTo
     {

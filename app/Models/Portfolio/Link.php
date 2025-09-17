@@ -44,7 +44,7 @@ class Link extends Model
     ];
 
     /**
-     * Get the admin who owns the link.
+     * Get the admin who owns the portfolio link.
      */
     public function admin(): BelongsTo
     {

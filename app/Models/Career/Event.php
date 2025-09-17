@@ -3,6 +3,7 @@
 namespace App\Models\Career;
 
 use App\Models\Admin;
+use App\Models\Career\Application;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -38,11 +39,18 @@ class Event extends Model
     ];
 
     /**
-     * Get the admin who owns the note.
+     * Get the admin who owns the career event.
      */
     public function admin(): BelongsTo
     {
         return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
     }
 
+    /**
+     * Get the career application that owns career event.
+     */
+    public function application(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Application::class, 'application_id');
+    }
 }

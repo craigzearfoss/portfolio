@@ -28,8 +28,14 @@ return new class extends Migration
             $table->string('duration',100)->nullable();
             $table->tinyInteger('type')->default(0)->comment('0-permanent,1-contract,2-contract-to-hire,3-project,4-temporary');
             $table->tinyInteger('office')->default(0)->comment('0-onsite,1-remote,2-hybrid');
+            $table->string('street')->nullable();
+            $table->string('street2')->nullable();
             $table->string('city')->nullable();
             $table->string('state', 20)->nullable();
+            $table->string('zip', 20)->nullable();
+            $table->string('country', 100)->nullable();
+            $table->float('longitude')->nullable();
+            $table->float('latitude')->nullable();
             $table->integer('bonus')->default(0);
             $table->tinyInteger('w2')->default(0);
             $table->tinyInteger('relocation')->default(0);

@@ -49,7 +49,7 @@ class Reading extends Model
     ];
 
     /**
-     * Get the admin who owns the reading.
+     * Get the admin who owns the portfolio reading.
      */
     public function admin(): BelongsTo
     {

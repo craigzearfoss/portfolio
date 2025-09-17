@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('state', 20);
             $table->string('zip', 20)->nullable();
             $table->string('country', 100);
-            $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
+            $table->float('latitude')->nullable();
             $table->string('role');
             $table->integer('start_month')->nullable();
             $table->integer('start_year')->nullable();

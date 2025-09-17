@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Video;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class VideoController extends BaseController
 {
     /**
@@ -31,9 +35,16 @@ class VideoController extends BaseController
 
     /**
      * Display the specified video.
+     *
+     * @param string $slug
+     * @return View
      */
-    public function show(Video $video): View
+    public function show(string $slug): View
     {
+        if (!$video = Video::where('slug', $slug)->first()) {
+            throw new ModelNotFoundException();
+        }
+
         return view('front.video.show', compact('video'));
     }
 }

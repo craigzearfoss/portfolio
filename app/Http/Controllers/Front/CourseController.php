@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Course;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class CourseController extends BaseController
 {
     /**
@@ -31,9 +35,16 @@ class CourseController extends BaseController
 
     /**
      * Display the specified course.
+     *
+     * @param string $slug
+     * @return View
      */
-    public function show(Course $course): View
+    public function show(string $slug): View
     {
+        if (!$course = Course::where('slug', $slug)->first()) {
+            throw new ModelNotFoundException();
+        }
+
         return view('front.course.show', compact('course'));
     }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Models\Portfolio;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Portfolio\RecipeIngredient;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Unit extends Model
 {
@@ -37,6 +38,13 @@ class Unit extends Model
         'disabled',
     ];
 
+    /**
+     * Get the portfolio recipeIngredients for the portfolio unit.
+     */
+    public function recipeIngredients(): HasMany
+    {
+        return $this->hasMany(RecipeIngredient::class);
+    }
 
     /**
      * Returns an array of options for a select list.

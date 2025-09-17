@@ -35,7 +35,7 @@ class RecipeStep extends Model
     ];
 
     /**
-     * Get the admin who owns the recipe ingredient.
+     * Get the admin who owns the portfolio recipe ingredient.
      */
     public function admin(): BelongsTo
     {
@@ -43,7 +43,7 @@ class RecipeStep extends Model
     }
 
     /**
-     * Get the recipe that owns the recipe step.
+     * Get the portfolio recipe that owns the portfolio recipe step.
      */
     public function recipe(): BelongsTo
     {

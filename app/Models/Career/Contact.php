@@ -3,7 +3,6 @@
 namespace App\Models\Career;
 
 use App\Models\Admin;
-use App\Models\Career\Communication;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,8 +34,8 @@ class Contact extends Model
         'state',
         'zip',
         'country',
-        'latitude',
         'longitude',
+        'latitude',
         'phone',
         'phone_label',
         'alt_phone',
@@ -68,19 +67,11 @@ class Contact extends Model
     ];
 
     /**
-     * Get the admin who owns the contact.
+     * Get the admin who owns the career contact.
      */
     public function admin(): BelongsTo
     {
         return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
-    }
-
-    /**
-     * Get the notes for the application.
-     */
-    public function communications(): HasMany
-    {
-        return $this->hasMany(Communication::class, 'communication_id')->orderBy('name', 'asc');
     }
 
     /**

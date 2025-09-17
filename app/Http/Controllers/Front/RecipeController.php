@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Recipe;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class RecipeController extends BaseController
 {
     /**
@@ -31,9 +35,16 @@ class RecipeController extends BaseController
 
     /**
      * Display the specified recipe.
+     *
+     * @param string $slug
+     * @return View
      */
-    public function show(Recipe $recipe): View
+    public function show(string $slug): View
     {
+        if (!$recipe = Recipe::where('slug', $slug)->first()) {
+            throw new ModelNotFoundException();
+        }
+
         return view('front.recipe.show', compact('recipe'));
     }
 }

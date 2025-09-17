@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Art;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class ArtController extends BaseController
 {
     /**
@@ -31,9 +35,16 @@ class ArtController extends BaseController
 
     /**
      * Display the specified art.
+     *
+     * @param string $slug
+     * @return View
      */
-    public function show(Art $art): View
+    public function show(string $slug): View
     {
+        if (!$art = Art::where('slug', $slug)->first()) {
+            throw new ModelNotFoundException();
+        }
+
         return view('front.art.show', compact('art'));
     }
 }

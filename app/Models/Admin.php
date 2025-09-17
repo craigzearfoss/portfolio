@@ -2,8 +2,32 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Database;
+use App\Models\Resource;
+use App\Models\Career\Application;
+use App\Models\Career\Communication;
+use App\Models\Career\Company;
+use App\Models\Career\Contact;
+use App\Models\Career\CoverLetter;
+use App\Models\Career\Event;
+use App\Models\Career\Job;
+use App\Models\Career\JobCoworker;
+use App\Models\Career\JobTask;
+use App\Models\Career\Note;
+use App\Models\Career\Reference;
+use App\Models\Career\Resume;
+use App\Models\Career\Skill;
+use App\Models\Portfolio\Art;
+use App\Models\Portfolio\Certification;
+use App\Models\Portfolio\Course;
+use App\Models\Portfolio\Link;
+use App\Models\Portfolio\Music;
+use App\Models\Portfolio\Project;
+use App\Models\Portfolio\Reading;
+use App\Models\Portfolio\Recipe;
+use App\Models\Portfolio\RecipeIngredient;
+use App\Models\Portfolio\RecipeStep;
+use App\Models\Portfolio\Video;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +35,6 @@ use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, SoftDeletes;
 
     protected $connection = 'default_db';
@@ -53,11 +76,27 @@ class Admin extends Authenticatable
     ];
 
     /**
+     * Get the databases for the admin.
+     */
+    public function databases(): HasMany
+    {
+        return $this->hasMany(Database::class);
+    }
+
+    /**
+     * Get the resource for the admin.
+     */
+    public function resources(): HasMany
+    {
+        return $this->hasMany(Resource::class);
+    }
+
+    /**
      * Get the career applications for the admin.
      */
     public function applications(): HasMany
     {
-        return $this->hasMany(\App\Models\Career\Application::class);
+        return $this->hasMany(Application::class);
     }
 
     /**
@@ -65,7 +104,7 @@ class Admin extends Authenticatable
      */
     public function communications(): HasMany
     {
-        return $this->hasMany(\App\Models\Career\Communication::class);
+        return $this->hasMany(Communication::class);
     }
 
     /**
@@ -73,7 +112,7 @@ class Admin extends Authenticatable
      */
     public function companies(): HasMany
     {
-        return $this->hasMany(\App\Models\Career\Company::class);
+        return $this->hasMany(Company::class);
     }
 
     /**
@@ -81,7 +120,7 @@ class Admin extends Authenticatable
      */
     public function contacts(): HasMany
     {
-        return $this->hasMany(\App\Models\Career\Contact::class);
+        return $this->hasMany(Contact::class);
     }
 
     /**
@@ -89,7 +128,7 @@ class Admin extends Authenticatable
      */
     public function coverLetters(): HasMany
     {
-        return $this->hasMany(\App\Models\Career\CoverLetter::class);
+        return $this->hasMany(CoverLetter::class);
     }
 
     /**
@@ -97,7 +136,7 @@ class Admin extends Authenticatable
      */
     public function events(): HasMany
     {
-        return $this->hasMany(\App\Models\Career\Event::class);
+        return $this->hasMany(Event::class);
     }
 
     /**
@@ -105,7 +144,23 @@ class Admin extends Authenticatable
      */
     public function jobs(): HasMany
     {
-        return $this->hasMany(\App\Models\Career\Job::class);
+        return $this->hasMany(Job::class);
+    }
+
+    /**
+     * Get the career job coworkers for the admin.
+     */
+    public function jobCoworkers(): HasMany
+    {
+        return $this->hasMany(JobCoworker::class);
+    }
+
+    /**
+     * Get the career job tasks for the admin.
+     */
+    public function jobTasks(): HasMany
+    {
+        return $this->hasMany(JobTask::class);
     }
 
     /**
@@ -113,7 +168,7 @@ class Admin extends Authenticatable
      */
     public function notes(): HasMany
     {
-        return $this->hasMany(\App\Models\Career\Note::class);
+        return $this->hasMany(Note::class);
     }
 
     /**
@@ -121,7 +176,7 @@ class Admin extends Authenticatable
      */
     public function references(): HasMany
     {
-        return $this->hasMany(\App\Models\Career\Reference::class);
+        return $this->hasMany(Reference::class);
     }
 
     /**
@@ -129,7 +184,7 @@ class Admin extends Authenticatable
      */
     public function resumes(): HasMany
     {
-        return $this->hasMany(\App\Models\Career\Resume::class);
+        return $this->hasMany(Resume::class);
     }
 
     /**
@@ -137,7 +192,7 @@ class Admin extends Authenticatable
      */
     public function skills(): HasMany
     {
-        return $this->hasMany(\App\Models\Career\Skill::class);
+        return $this->hasMany(Skill::class);
     }
 
     /**
@@ -145,7 +200,7 @@ class Admin extends Authenticatable
      */
     public function art(): HasMany
     {
-        return $this->hasMany(\App\Models\Portfolio\Art::class);
+        return $this->hasMany(Art::class);
     }
 
     /**
@@ -153,7 +208,7 @@ class Admin extends Authenticatable
      */
     public function certifications(): HasMany
     {
-        return $this->hasMany(\App\Models\Portfolio\Certification::class);
+        return $this->hasMany(Certification::class);
     }
 
     /**
@@ -161,7 +216,7 @@ class Admin extends Authenticatable
      */
     public function courses(): HasMany
     {
-        return $this->hasMany(\App\Models\Portfolio\Course::class);
+        return $this->hasMany(Course::class);
     }
 
     /**
@@ -169,7 +224,7 @@ class Admin extends Authenticatable
      */
     public function links(): HasMany
     {
-        return $this->hasMany(\App\Models\Portfolio\Link::class);
+        return $this->hasMany(Link::class);
     }
 
     /**
@@ -177,7 +232,7 @@ class Admin extends Authenticatable
      */
     public function music(): HasMany
     {
-        return $this->hasMany(\App\Models\Portfolio\Music::class);
+        return $this->hasMany(Music::class);
     }
 
     /**
@@ -185,7 +240,7 @@ class Admin extends Authenticatable
      */
     public function projects(): HasMany
     {
-        return $this->hasMany(\App\Models\Portfolio\Project::class);
+        return $this->hasMany(Project::class);
     }
 
     /**
@@ -193,7 +248,7 @@ class Admin extends Authenticatable
      */
     public function readings(): HasMany
     {
-        return $this->hasMany(\App\Models\Portfolio\Reading::class);
+        return $this->hasMany(Reading::class);
     }
 
     /**
@@ -201,7 +256,23 @@ class Admin extends Authenticatable
      */
     public function recipes(): HasMany
     {
-        return $this->hasMany(\App\Models\Portfolio\Recipe::class);
+        return $this->hasMany(Recipe::class);
+    }
+
+    /**
+     * Get the portfolio recipe ingredients for the admin.
+     */
+    public function recipeIngredients(): HasMany
+    {
+        return $this->hasMany(RecipeIngredient::class);
+    }
+
+    /**
+     * Get the portfolio recipe steps for the admin.
+     */
+    public function recipeSteps(): HasMany
+    {
+        return $this->hasMany(RecipeStep::class);
     }
 
     /**
@@ -209,7 +280,7 @@ class Admin extends Authenticatable
      */
     public function videos(): HasMany
     {
-        return $this->hasMany(\App\Models\Portfolio\Video::class);
+        return $this->hasMany(Video::class);
     }
 
     /**

@@ -6,6 +6,8 @@ use App\Models\Admin;
 use App\Models\Career\Communication;
 use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
+use App\Models\Career\Event;
+use App\Models\Career\JobBoard;
 use App\Models\Career\Note;
 use App\Models\Career\Resume;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -38,12 +40,12 @@ class Application extends Model
     ];
 
     const COMPENSATION_UNITS = [
-            'hour',
-            'year',
-            'month',
-            'week',
-            'day',
-            'project',
+        'hour',
+        'year',
+        'month',
+        'week',
+        'day',
+        'project',
     ];
 
     /**
@@ -67,8 +69,14 @@ class Application extends Model
         'duration',
         'type',
         'office',
+        'street',
+        'street2',
         'city',
         'state',
+        'zip',
+        'country',
+        'longitude',
+        'latitude',
         'bonus',
         'w2',
         'relocation',
@@ -99,7 +107,7 @@ class Application extends Model
     ];
 
     /**
-     * Get the admin who owns the application.
+     * Get the admin who owns the career application.
      */
     public function admin(): BelongsTo
     {
@@ -107,43 +115,51 @@ class Application extends Model
     }
 
     /**
-     * Get the company that owns the application.
-     */
-    public function company(): BelongsTo
-    {
-        return $this->setConnection('default_db')->belongsTo(Company::class, 'company_id');
-    }
-
-    /**
-     * Get the cover_letter that owns the application.
-     */
-    public function coverLetter(): BelongsTo
-    {
-        return $this->setConnection('default_db')->belongsTo(CoverLetter::class, 'cover_letter_id');
-    }
-
-    /**
-     * Get the cover_letter that owns the application.
-     */
-    public function resume(): BelongsTo
-    {
-        return $this->belongsTo(Resume::class, 'resume_id');
-    }
-
-    /**
-     * Get the communications for the application.
+     * Get the career communications for the career application.
      */
     public function communications(): HasMany
     {
-        return $this->hasMany(Communication::class, 'application_id')->orderBy('created_at', 'desc');
+        return $this->hasMany(Communication::class, 'communication_id')->orderBy('created_at', 'desc');
     }
 
     /**
-     * Get the notes for the application.
+     * Get the career company that owns the career application.
+     */
+    public function company(): BelongsTo
+    {
+        return $this->setConnection('career_db')->belongsTo(Company::class, 'company_id');
+    }
+
+    /**
+     * Get the career cover letter that owns the career application.
+     */
+    public function coverLetter(): BelongsTo
+    {
+        return $this->setConnection('career_db')->belongsTo(CoverLetter::class, 'cover_letter_id');
+    }
+
+    /**
+     * Get the career job boards for the career application.
+     */
+    public function jobBoards(): HasMany
+    {
+        return $this->hasMany(JobBoard::class);
+    }
+
+    /**
+     * Get the career notes for the career application.
      */
     public function notes(): HasMany
     {
-        return $this->hasMany(Note::class, 'application_id')->orderBy('created_at', 'desc');
+        return $this->hasMany(Note::class);
+    }
+
+    /**
+     * Get the career resume that owns the career application.
+     */
+    public function resume(): BelongsTo
+    {
+        return $this->setConnection('career_db')->belongsTo(Resume::class, 'resume_id');
     }
 
     /**

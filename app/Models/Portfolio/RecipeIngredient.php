@@ -40,7 +40,7 @@ class RecipeIngredient extends Model
     ];
 
     /**
-     * Get the admin who owns the recipe ingredient.
+     * Get the admin who owns the portfolio recipe ingredient.
      */
     public function admin(): BelongsTo
     {
@@ -48,7 +48,7 @@ class RecipeIngredient extends Model
     }
 
     /**
-     * Get the recipe that owns the recipe ingredient.
+     * Get the portfolio recipe that owns the portfolio recipe ingredient.
      */
     public function recipe(): BelongsTo
     {
@@ -56,16 +56,15 @@ class RecipeIngredient extends Model
     }
 
     /**
-     * Get the ingredient that owns the recipe ingredient.
+     * Get the portfolio ingredient that owns the portfolio recipe ingredient.
      */
     public function ingredient(): BelongsTo
     {
         return $this->setConnection('portfolio_db')->belongsTo(Ingredient::class, 'ingredient_id');
     }
 
-
     /**
-     * Get the unit that owns the recipe ingredient.
+     * Get the portfolio unit that owns the portfolio recipe ingredient.
      */
     public function unit(): BelongsTo
     {

@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Portfolio\Music;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class MusicController extends BaseController
 {
     /**
@@ -31,9 +35,16 @@ class MusicController extends BaseController
 
     /**
      * Display the specified music.
+     *
+     * @param string $slug
+     * @return View
      */
-    public function show(Music $music): View
+    public function show(string $slug): View
     {
+        if (!$music = Music::where('slug', $slug)->first()) {
+            throw new ModelNotFoundException();
+        }
+
         return view('music.show', compact('music'));
     }
 }

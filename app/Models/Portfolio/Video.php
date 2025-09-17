@@ -49,7 +49,7 @@ class Video extends Model
     ];
 
     /**
-     * Get the admin who owns the video.
+     * Get the admin who owns the portfolio video.
      */
     public function admin(): BelongsTo
     {

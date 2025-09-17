@@ -45,7 +45,7 @@ class Project extends Model
     ];
 
     /**
-     * Get the admin who owns the profect.
+     * Get the admin who owns the portfolio project.
      */
     public function admin(): BelongsTo
     {

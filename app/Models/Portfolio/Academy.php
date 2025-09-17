@@ -2,7 +2,10 @@
 
 namespace App\Models\Portfolio;
 
+use App\Models\Portfolio\Certification;
+use App\Models\Portfolio\Course;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Academy extends Model
 {
@@ -31,6 +34,22 @@ class Academy extends Model
         'root',
         'disabled',
     ];
+
+    /**
+     * Get the portfolio certifications for the portfolio academy.
+     */
+    public function certifications(): HasMany
+    {
+        return $this->hasMany(Certification::class);
+    }
+
+    /**
+     * Get the portfolio courses for the portfolio academy.
+     */
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class);
+    }
 
     /**
      * Returns an array of options for a select list.

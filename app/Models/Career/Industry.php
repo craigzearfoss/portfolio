@@ -2,7 +2,9 @@
 
 namespace App\Models\Career;
 
+use App\Models\Career\Company;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Industry extends Model
 {
@@ -34,6 +36,14 @@ class Industry extends Model
         'root',
         'disabled',
     ];
+
+    /**
+     * Get the career companies for the career industry.
+     */
+    public function companies(): HasMany
+    {
+        return $this->hasMany(Company::class);
+    }
 
     /**
      * Returns an array of options for a select list.

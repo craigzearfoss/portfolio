@@ -2,7 +2,9 @@
 
 namespace App\Models\Portfolio;
 
+use App\Models\Portfolio\RecipeIngredient;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Ingredient extends Model
 {
@@ -32,6 +34,14 @@ class Ingredient extends Model
         'root',
         'disabled',
     ];
+
+    /**
+     * Get the portfolio recipe ingredients for the portfolio ingredient.
+     */
+    public function recipeIngredients(): HasMany
+    {
+        return $this->hasMany(RecipeIngredient::class);
+    }
 
     /**
      * Returns an array of options for a select list.

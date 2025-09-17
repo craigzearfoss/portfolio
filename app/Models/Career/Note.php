@@ -44,10 +44,10 @@ class Note extends Model
     }
 
     /**
-     * Get the application that owns the note.
+     * Get the career application that owns the career note.
      */
     public function application(): BelongsTo
     {
-        return $this->setConnection('default_db')->belongsTo(Application::class, 'application_id');
+        return $this->setConnection('career_db')->belongsTo(Application::class, 'application_id');
     }
 }
