@@ -38,6 +38,8 @@ return new class extends Migration
             $table->foreignIdFor( \App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['admin_id', 'name'], 'admin_id_name_unique');
         });
 
         $data = [
@@ -380,7 +382,6 @@ return new class extends Migration
         ];
 
         JobCoworker::insert($data);
-
     }
 
     /**

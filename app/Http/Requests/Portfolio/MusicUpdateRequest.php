@@ -28,7 +28,9 @@ class MusicUpdateRequest extends FormRequest
     {
         // Generate the slug.
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([ 'slug' => Str::slug($this['name']
+                . (!empty($this['artist']) ? '-by-' . $this['artist'] : ''))
+            ]);
         }
 
         // Validate the admin_id. (Only root admins can change the admin for music.)

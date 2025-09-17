@@ -103,7 +103,9 @@ class MusicController extends BaseController
     {
         // Validate the posted data and generated slug.
         $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->merge([ 'slug' => Str::slug($validatedData['name']
+            . (!empty($validatedData['artist']) ? '-by-' . $validatedData['artist'] : ''))
+        ]);
         $request->validate(['slug' => [ Rule::unique('portfolio_db.music', 'slug') ] ]);
         $music->update($request->validated());
 

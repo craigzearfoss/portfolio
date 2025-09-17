@@ -28,7 +28,9 @@ class ReadingUpdateRequest extends FormRequest
     {
         // Generate the slug.
         if (!empty($this['title'])) {
-            $this->merge([ 'slug' => Str::slug($this['title']) ]);
+            $this->merge([ 'slug' => Str::slug($this['title']
+                . (!empty($this['author']) ? '-by-' . $this['author'] : ''))
+            ]);
         }
 
         // Validate the admin_id. (Only root admins can change the admin for a reading.)

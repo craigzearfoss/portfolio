@@ -32,6 +32,8 @@ return new class extends Migration
             $table->foreignIdFor( \App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['admin_id', 'slug'], 'admin_id_slug_unique');
         });
     }
 

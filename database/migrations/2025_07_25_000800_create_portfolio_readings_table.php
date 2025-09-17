@@ -40,7 +40,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['admin_id', 'title'], 'admin_id_title_unique');
+            $table->unique(['admin_id', 'title', 'author'], 'admin_id_title_author_unique');
             $table->unique(['admin_id', 'slug'], 'admin_id_slug_unique');
         });
 

@@ -85,7 +85,7 @@ class ReadingController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function edit(Reading $reading): View
+    public function edit(Reading $reading, Request $request): View
     {
         $referer = $request->headers->get('referer');
 
@@ -103,7 +103,9 @@ class ReadingController extends BaseController
     {
         // Validate the posted data and generated slug.
         $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->merge([ 'slug' => Str::slug($validatedData['name']
+            . (!empty($validatedData['author']) ? '-by-' . $validatedData['author'] : ''))
+        ]);
         $request->validate(['slug' => [ Rule::unique('portfolio_db.readings', 'slug') ] ]);
         $reading->update($request->validated());
 
@@ -125,7 +127,7 @@ class ReadingController extends BaseController
      * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Reading $reading): RedirectResponse
+    public function destroy(Reading $reading, Request $request): RedirectResponse
     {
         $reading->delete();
 
