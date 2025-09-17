@@ -26,7 +26,7 @@ class JobController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $jobs = Job::latest()->paginate($perPage);
 
@@ -115,7 +115,7 @@ class JobController extends BaseController
                 ->with('success', $job->company . ' job updated successfully.');
         } else {
             return redirect()->route('admin.career.job.index')
-                ->with('success', $job->company . ' job successfully');
+                ->with('success', $job->company . ' job successfully.');
         }
     }
 
@@ -137,7 +137,7 @@ class JobController extends BaseController
                 ->with('success', $job->company . ' job deleted successfully.');
         } else {
             return redirect()->route('admin.career.job.index')
-                ->with('success', $job->company . ' job deleted successfully');
+                ->with('success', $job->company . ' job deleted successfully.');
         }
     }
 }

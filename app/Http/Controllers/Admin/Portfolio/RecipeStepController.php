@@ -23,7 +23,7 @@ class RecipeStepController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $recipeSteps = RecipeStep::latest()->paginate($perPage);
 
@@ -53,6 +53,8 @@ class RecipeStepController extends BaseController
     public function store(RecipeStepStoreRequest $request): RedirectResponse
     {
         $recipeStep = RecipeStep::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -106,7 +108,7 @@ class RecipeStepController extends BaseController
                 ->with('success', 'Recipe step updated successfully.');
         } else {
             return redirect()->route('admin.portfolio.recipe-step.index')
-                ->with('success', 'Recipe step updated successfully');
+                ->with('success', 'Recipe step updated successfully.');
         }
     }
 
@@ -128,7 +130,7 @@ class RecipeStepController extends BaseController
                 ->with('success', 'Recipe step deleted successfully.');
         } else {
             return redirect()->route('admin.portfolio.recipe-step.index')
-                ->with('success', 'Recipe step deleted successfully');
+                ->with('success', 'Recipe step deleted successfully.');
         }
     }
 }

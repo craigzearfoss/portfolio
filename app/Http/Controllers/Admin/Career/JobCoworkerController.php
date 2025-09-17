@@ -23,7 +23,7 @@ class JobCoworkerController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         if ($jobId = $request->query('job_id')) {
             $jobCoworkers = JobCoworker::where('job_id', $jobId)->orderBy('name', 'asc')->paginate($perPage);

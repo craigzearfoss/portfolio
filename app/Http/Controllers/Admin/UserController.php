@@ -24,7 +24,7 @@ class UserController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $users = User::latest()->paginate($perPage);
 
@@ -34,25 +34,43 @@ class UserController extends BaseController
 
     /**
      * Show the form for creating a new user.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.user.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.user.create', compact('referer'));
     }
 
     /**
      * Store a newly created user in storage.
+     *
+     * @param UserStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(UserStoreRequest $request): RedirectResponse
     {
-        User::create($request->validated());
+        $user = User::create($request->validated());
 
-        return redirect()->route('admin.user.index')
-            ->with('success', 'User created successfully. User will need to verify email.');
+        $referer = $request->headers->get('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $user->username . ' created successfully. User will need to verify email.');
+        } else {
+            return redirect()->route('admin.user.index')
+                ->with('success', $user->username . ' created successfully. User will need to verify email.');
+        }
     }
 
     /**
      * Display the specified user.
+     *
+     * @param User $user
+     * @return View
      */
     public function show(User $user): View
     {
@@ -61,6 +79,10 @@ class UserController extends BaseController
 
     /**
      * Show the form for editing the specified user.
+     *
+     * @param User $user
+     * @param Request $request
+     * @return View
      */
     public function edit(User $user): View
     {
@@ -72,47 +94,88 @@ class UserController extends BaseController
             }
         }
 
-        return view('admin.user.edit', compact('user'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.user.edit', compact('user', 'referer'));
     }
 
     /**
      * Update the specified user in storage.
+     *
+     * @param UserUpdateRequest $request
+     * @param User $user
+     * @return RedirectResponse
      */
     public function update(UserUpdateRequest $request, User $user): RedirectResponse
     {
         $user->update($request->validated());
 
-        return redirect()->route('admin.user.index')
-            ->with('success', 'User updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $user->username . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.user.index')
+                ->with('success', $user->username . ' updated successfully.');
+        }
     }
 
     /**
      * Remove the specified user from storage.
+     *
+     * @param User $user
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(User $user): RedirectResponse
+    public function destroy(User $user, Request $request): RedirectResponse
     {
         $user->delete();
 
-        return redirect()->route('admin.user.index')
-            ->with('success', 'User deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $user->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.user.index')
+                ->with('success', $user->name . ' deleted successfully.');
+        }
     }
 
     /**
      * Display the change password page.
+     *
+     * @param User $user
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function change_password(User $user): View
+    public function change_password(User $user, Request $request): View
     {
-        return view('admin.user.change-password', compact('user'));
+        $referer = $request->input('referer');
+
+        return view('admin.user.change-password', compact('user', 'referer'));
     }
 
     /**
      * Update the new password.
+     *
+     * @param UserUpdateRequest $request
+     * @param User $user
+     * @return RedirectResponse
      */
-    public function change_password_submit(UserUpdateRequest $request, User $user): RedirectResponse|View
+    public function change_password_submit(UserUpdateRequest $request, User $user): RedirectResponse
     {
         $user->update($request->validated());
 
-        return redirect()->route('admin.user.show', $user)
-            ->with('success', 'User password updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Password for ' . $user->username . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.user.show', $user)
+                ->with('success', 'Password for ' . $user->username . ' updated successfully.');
+        }
     }
 }

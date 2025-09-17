@@ -26,7 +26,7 @@ class LibraryController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $libraries = Library::orderBy('name', 'asc')->paginate($perPage);
 
@@ -131,7 +131,7 @@ class LibraryController extends BaseController
                 ->with('success', $library->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.dictionary.library.index')
-                ->with('success', $library->name . ' updated successfully');
+                ->with('success', $library->name . ' updated successfully.');
         }
     }
 
@@ -157,7 +157,7 @@ class LibraryController extends BaseController
                 ->with('success', $library->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.dictionary.library.index')
-                ->with('success', $library->name . ' deleted successfully');
+                ->with('success', $library->name . ' deleted successfully.');
         }
     }
 }

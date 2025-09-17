@@ -25,7 +25,7 @@ class ProjectController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $projects = Project::orderBy('name', 'asc')->paginate($perPage);
 
@@ -55,6 +55,8 @@ class ProjectController extends BaseController
     public function store(ProjectStoreRequest $request): RedirectResponse
     {
         $project = Project::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -112,7 +114,7 @@ class ProjectController extends BaseController
                 ->with('success', $project->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $project->name . ' updated successfully');
+                ->with('success', $project->name . ' updated successfully.');
         }
     }
 
@@ -134,7 +136,7 @@ class ProjectController extends BaseController
                 ->with('success', $project->name . ' link deleted successfully.');
         } else {
             return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $project->name . ' link deleted successfully');
+                ->with('success', $project->name . ' link deleted successfully.');
         }
     }
 }

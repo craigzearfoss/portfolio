@@ -26,7 +26,7 @@ class UnitController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $units = Unit::orderBy('sequence', 'asc')->paginate($perPage);
 
@@ -64,6 +64,8 @@ class UnitController extends BaseController
         }
 
         $unit = Unit::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -129,7 +131,7 @@ class UnitController extends BaseController
                 ->with('success', $unit->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.portfolio.unit.index')
-                 ->with('success', $unit->name . ' updated successfully');
+                 ->with('success', $unit->name . ' updated successfully.');
         }
     }
 
@@ -155,7 +157,7 @@ class UnitController extends BaseController
                 ->with('success', $unit->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.portfolio.unit.index')
-                ->with('success', $unit->name . ' deleted successfully');
+                ->with('success', $unit->name . ' deleted successfully.');
         }
     }
 }

@@ -17,7 +17,7 @@ class CourseController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $courses = Course::where('public', 1)
             ->where('disabled', 0)

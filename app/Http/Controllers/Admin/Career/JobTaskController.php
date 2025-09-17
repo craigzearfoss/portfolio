@@ -13,7 +13,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class JobTaskController extends Controller
+class JobTaskController extends BaseController
 {
     /**
      * Display a listing of job tasks.
@@ -23,7 +23,7 @@ class JobTaskController extends Controller
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         if ($jobId = $request->query('job_id')) {
 	        $jobTasks = JobTask::where('job_id', $jobId)->orderBy('job_id', 'asc')->orderBy('sequence', 'asc')->paginate($perPage);
@@ -113,7 +113,7 @@ class JobTaskController extends Controller
                 ->with('success', 'Job task updated successfully.');
         } else {
             return redirect()->route('admin.career.job-task.index')
-                ->with('success', 'Job task updated successfully');
+                ->with('success', 'Job task updated successfully.');
         }
     }
 
@@ -135,7 +135,7 @@ class JobTaskController extends Controller
                 ->with('success', 'Job task deleted successfully.');
         } else {
             return redirect()->route('admin.career.job-task.index')
-                ->with('success', 'Job task deleted successfully');
+                ->with('success', 'Job task deleted successfully.');
         }
     }
 }

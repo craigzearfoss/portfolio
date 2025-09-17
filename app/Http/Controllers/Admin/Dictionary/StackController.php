@@ -26,7 +26,7 @@ class StackController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $stacks = Stack::orderBy('name', 'asc')->paginate($perPage);
 
@@ -131,7 +131,7 @@ class StackController extends BaseController
                 ->with('success', $stack->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.dictionary.stack.show', $stack)
-                ->with('success', $stack->name . ' updated successfully');
+                ->with('success', $stack->name . ' updated successfully.');
         }
     }
 
@@ -157,7 +157,7 @@ class StackController extends BaseController
                 ->with('success', $stack->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.dictionary.stack.index')
-                ->with('success', $stack->name . ' deleted successfully');
+                ->with('success', $stack->name . ' deleted successfully.');
         }
     }
 }

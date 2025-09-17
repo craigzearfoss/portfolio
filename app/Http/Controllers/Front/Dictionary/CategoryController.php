@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class CategoryController extends BaseController
 {
     /**
@@ -22,7 +25,7 @@ class CategoryController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $categories = Category::where('disabled', 0)
             ->where('public', 1)

@@ -26,7 +26,7 @@ class LanguageController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $languages = Language::orderBy('name', 'asc')->paginate($perPage);
 
@@ -131,7 +131,7 @@ class LanguageController extends BaseController
                 ->with('success', $language->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.dictionary.language.index')
-                ->with('success', $language->name . ' updated successfully');
+                ->with('success', $language->name . ' updated successfully.');
         }
     }
 
@@ -157,7 +157,7 @@ class LanguageController extends BaseController
                 ->with('success', $language->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.dictionary.language.index')
-                ->with('success', $language->name . ' deleted successfully');
+                ->with('success', $language->name . ' deleted successfully.');
         }
     }
 }

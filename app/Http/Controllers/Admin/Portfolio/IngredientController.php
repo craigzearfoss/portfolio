@@ -26,7 +26,7 @@ class IngredientController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $ingredients = Ingredient::orderBy('name', 'asc')->paginate($perPage);
 
@@ -64,6 +64,8 @@ class IngredientController extends BaseController
         }
 
         $ingredient = Ingredient::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -129,7 +131,7 @@ class IngredientController extends BaseController
                 ->with('success', $ingredient->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.portfolio.ingredient.index')
-                ->with('success', $ingredient->name . ' updated successfully');
+                ->with('success', $ingredient->name . ' updated successfully.');
         }
     }
 
@@ -155,7 +157,7 @@ class IngredientController extends BaseController
                 ->with('success', $ingredient->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.portfolio.ingredient.index')
-                ->with('success', $ingredient->name . ' deleted successfully');
+                ->with('success', $ingredient->name . ' deleted successfully.');
         }
     }
 }

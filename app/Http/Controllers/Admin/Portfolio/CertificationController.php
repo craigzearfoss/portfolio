@@ -25,7 +25,7 @@ class CertificationController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $certifications = Certification::orderBy('name', 'asc')->paginate($perPage);
 
@@ -55,6 +55,8 @@ class CertificationController extends BaseController
     public function store(CertificationStoreRequest $request): RedirectResponse
     {
         $certification = Certification::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -112,7 +114,7 @@ class CertificationController extends BaseController
                 ->with('success', $certification->name . ' certification updated successfully.');
         } else {
             return redirect()->route('admin.portfolio.certification.index')
-                ->with('success', $certification->name . ' certification updated successfully');
+                ->with('success', $certification->name . ' certification updated successfully.');
         }
     }
 
@@ -134,7 +136,7 @@ class CertificationController extends BaseController
                 ->with('success', $certification->name . ' certification deleted successfully.');
         } else {
             return redirect()->route('admin.portfolio.certification.index')
-                ->with('success', $certification->name . ' certification deleted successfully');
+                ->with('success', $certification->name . ' certification deleted successfully.');
         }
     }
 }

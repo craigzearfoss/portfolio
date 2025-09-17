@@ -26,7 +26,7 @@ class OperatingSystemController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $operatingSystems = OperatingSystem::orderBy('name', 'asc')->paginate($perPage);
 
@@ -131,7 +131,7 @@ class OperatingSystemController extends BaseController
                 ->with('success', $operatingSystem->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.dictionary.operating-system.index')
-                ->with('success', $operatingSystem->name . ' updated successfully');
+                ->with('success', $operatingSystem->name . ' updated successfully.');
         }
     }
 
@@ -157,7 +157,7 @@ class OperatingSystemController extends BaseController
                 ->with('success', $operatingSystem->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.dictionary.operating-system.index')
-                ->with('success', $operatingSystem->name . ' deleted successfully');
+                ->with('success', $operatingSystem->name . ' deleted successfully.');
         }
     }
 }

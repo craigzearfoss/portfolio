@@ -25,7 +25,7 @@ class VideoController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $videos = Video::orderBy('name', 'asc')->paginate($perPage);
 
@@ -54,7 +54,9 @@ class VideoController extends BaseController
      */
     public function store(VideoStoreRequest $request): RedirectResponse
     {
-        Video::create($request->validated());
+        $video = Video::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -112,7 +114,7 @@ class VideoController extends BaseController
                 ->with('success', $video->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.portfolio.video.index')
-                ->with('success', $video->name . ' updated successfully');
+                ->with('success', $video->name . ' updated successfully.');
         }
     }
 
@@ -134,7 +136,7 @@ class VideoController extends BaseController
                 ->with('success', $video->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.portfolio.video.index')
-                ->with('success', $video->name . ' deleted successfully');
+                ->with('success', $video->name . ' deleted successfully.');
         }
     }
 }

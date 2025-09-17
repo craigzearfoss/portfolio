@@ -26,7 +26,7 @@ class CategoryController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $categories = Category::orderBy('name', 'asc')->paginate($perPage);
 
@@ -131,7 +131,7 @@ class CategoryController extends BaseController
                 ->with('success', $category->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.dictionary.category.index')
-                ->with('success', $category->name . ' updated successfully');
+                ->with('success', $category->name . ' updated successfully.');
         }
     }
 
@@ -157,7 +157,7 @@ class CategoryController extends BaseController
                 ->with('success', $category->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.dictionary.category.index')
-                ->with('success', $category->name . ' deleted successfully');
+                ->with('success', $category->name . ' deleted successfully.');
         }
     }
 }

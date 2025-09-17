@@ -26,7 +26,7 @@ class DatabaseController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $databases = Database::orderBy('name', 'asc')->paginate($perPage);
 
@@ -64,6 +64,8 @@ class DatabaseController extends BaseController
         }
 
         $database = Database::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -129,7 +131,7 @@ class DatabaseController extends BaseController
                 ->with('success', $database->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.dictionary.database.index')
-                ->with('success', $database->name . ' updated successfully');
+                ->with('success', $database->name . ' updated successfully.');
         }
     }
 
@@ -155,7 +157,7 @@ class DatabaseController extends BaseController
                 ->with('success', $database->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.dictionary.database.index')
-                ->with('success', $database->name . ' deleted successfully');
+                ->with('success', $database->name . ' deleted successfully.');
         }
     }
 }

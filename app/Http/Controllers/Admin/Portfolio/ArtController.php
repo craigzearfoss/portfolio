@@ -25,7 +25,7 @@ class ArtController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $arts = Art::orderBy('name', 'asc')->paginate($perPage);
 
@@ -56,6 +56,8 @@ class ArtController extends BaseController
     public function store(ArtStoreRequest $request): RedirectResponse
     {
         $art = Art::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -113,7 +115,7 @@ class ArtController extends BaseController
                 ->with('success', $art->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.portfolio.art.index')
-                ->with('success', $art->name . ' updated successfully');
+                ->with('success', $art->name . ' updated successfully.');
         }
     }
 
@@ -135,7 +137,7 @@ class ArtController extends BaseController
                 ->with('success', $art->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.dictionary.database.index')
-                ->with('success', $art->name . ' deleted successfully');
+                ->with('success', $art->name . ' deleted successfully.');
         }
     }
 }

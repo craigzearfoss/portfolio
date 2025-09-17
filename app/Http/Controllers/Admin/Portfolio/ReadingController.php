@@ -25,7 +25,7 @@ class ReadingController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $readings = Reading::orderBy('title', 'asc')->paginate($perPage);
 
@@ -55,6 +55,8 @@ class ReadingController extends BaseController
     public function store(ReadingStoreRequest $request): RedirectResponse
     {
         $reading = Reading::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -112,7 +114,7 @@ class ReadingController extends BaseController
                 ->with('success', $reading->title . ' updated successfully.');
         } else {
             return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $reading->title . ' updated successfully');
+                ->with('success', $reading->title . ' updated successfully.');
         }
     }
 
@@ -134,7 +136,7 @@ class ReadingController extends BaseController
                 ->with('success', $reading->title . ' deleted successfully.');
         } else {
             return redirect()->route('admin.portfolio.reading.index')
-                ->with('success', $reading->title . ' deleted successfully');
+                ->with('success', $reading->title . ' deleted successfully.');
         }
     }
 }

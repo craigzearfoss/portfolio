@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class ResourceController extends BaseController
 {
     /**
@@ -21,7 +24,7 @@ class ResourceController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $resources = Resource::latest()->paginate($perPage);
 
@@ -31,25 +34,43 @@ class ResourceController extends BaseController
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.resource.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.resource.create', compact('referer'));
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param ResourceStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(ResourceStoreRequest $request): RedirectResponse
     {
-        Resource::create($request->validated());
+        $resource = Resource::create($request->validated());
 
-        return redirect()->route('admin.resource.index')
-            ->with('success', 'Resource created successfully.');
+        $referer = $request->headers->get('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $resource->name . ' resource created successfully.');
+        } else {
+            return redirect()->route('admin.resource.index')
+                ->with('success', $resource->name . ' resource created successfully.');
+        }
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param Resource $resource
+     * @return View
      */
     public function show(Resource $resource): View
     {
@@ -58,31 +79,59 @@ class ResourceController extends BaseController
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param Resource $resource
+     * @param Request $request
+     * @return View
      */
     public function edit(Resource $resource): View
     {
-        return view('admin.resource.edit', compact('resource'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.resource.edit', compact('resource', 'referer'));
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param ResourceUpdateRequest $request
+     * @param Resource $resource
+     * @return RedirectResponse
      */
     public function update(ResourceUpdateRequest $request, Resource $resource): RedirectResponse
     {
         $resource->update($request->validated());
 
-        return redirect()->route('admin.resource.index')
-            ->with('success', 'Resource updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $resource->name . ' resource updated successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.link.index')
+                ->with('success', $resource->name . ' resource updated successfully.');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param Resource $resource
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Resource $resource): RedirectResponse
+    public function destroy(Resource $resource, Request $request): RedirectResponse
     {
         $resource->delete();
 
-        return redirect()->route('admin.resource.index')
-            ->with('success', 'Resource deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $resource->name . ' resource deleted successfully.');
+        } else {
+            return redirect()->route('admin.resource.index')
+                ->with('success', $resource->name . ' resource deleted successfully.');
+        }
     }
 }

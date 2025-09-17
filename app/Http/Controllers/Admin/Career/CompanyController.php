@@ -25,7 +25,7 @@ class CompanyController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $companies = Company::latest()->paginate($perPage);
 
@@ -55,6 +55,8 @@ class CompanyController extends BaseController
     public function store(CompanyStoreRequest $request): RedirectResponse
     {
         $company = Company::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -112,7 +114,7 @@ class CompanyController extends BaseController
                 ->with('success', $company->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.career.company.index')
-                ->with('success', $company->name . ' updated successfully');
+                ->with('success', $company->name . ' updated successfully.');
         }
     }
 
@@ -134,7 +136,7 @@ class CompanyController extends BaseController
                 ->with('success', $company->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.career.company.index')
-                ->with('success', $company->name . ' deleted successfully');
+                ->with('success', $company->name . ' deleted successfully.');
         }
     }
 }

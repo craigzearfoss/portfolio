@@ -23,7 +23,7 @@ class ApplicationController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $applications = Application::latest()->paginate($perPage);
 
@@ -53,6 +53,8 @@ class ApplicationController extends BaseController
     public function store(ApplicationStoreRequest $request): RedirectResponse
     {
         $application = Application::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -106,7 +108,7 @@ class ApplicationController extends BaseController
                 ->with('success', 'Application updated successfully.');
         } else {
             return redirect()->route('admin.career.application.index')
-                ->with('success', 'Application updated successfully');
+                ->with('success', 'Application updated successfully.');
         }
     }
 
@@ -128,7 +130,7 @@ class ApplicationController extends BaseController
                 ->with('success', 'Application deleted successfully.');
         } else {
             return redirect()->route('admin.dictionary.database.index')
-                ->with('success', 'Application deleted successfully');
+                ->with('success', 'Application deleted successfully.');
         }
     }
 }

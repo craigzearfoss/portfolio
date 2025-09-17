@@ -25,7 +25,7 @@ class MusicController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $musics = Music::orderBy('name', 'asc')->paginate($perPage);
 
@@ -55,6 +55,8 @@ class MusicController extends BaseController
     public function store(MusicStoreRequest $request): RedirectResponse
     {
         $music = Music::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -112,7 +114,7 @@ class MusicController extends BaseController
                 ->with('success', $music->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.portfolio.music.index')
-                ->with('success', $music->name . ' updated successfully');
+                ->with('success', $music->name . ' updated successfully.');
         }
     }
 
@@ -134,7 +136,7 @@ class MusicController extends BaseController
                 ->with('success', $music->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $music->name . ' deleted successfully');
+                ->with('success', $music->name . ' deleted successfully.');
         }
     }
 }

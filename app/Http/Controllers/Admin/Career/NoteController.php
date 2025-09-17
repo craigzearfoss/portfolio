@@ -23,7 +23,7 @@ class NoteController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $notes = Note::latest()->paginate($perPage);
 
@@ -53,6 +53,8 @@ class NoteController extends BaseController
     public function store(NoteStoreRequest $request): RedirectResponse
     {
         $note = Note::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -106,7 +108,7 @@ class NoteController extends BaseController
                 ->with('success', 'Note updated successfully.');
         } else {
             return redirect()->route('admin.career.application.index')
-                ->with('success', 'Note updated successfully');
+                ->with('success', 'Note updated successfully.');
         }
     }
 
@@ -128,7 +130,7 @@ class NoteController extends BaseController
                 ->with('success', 'Note deleted successfully.');
         } else {
             return redirect()->route('admin.dictionary.database.index')
-                ->with('success', 'Note deleted successfully');
+                ->with('success', 'Note deleted successfully.');
         }
     }
 }

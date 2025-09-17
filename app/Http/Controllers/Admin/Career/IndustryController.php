@@ -26,7 +26,7 @@ class IndustryController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $industries = Industry::latest()->paginate($perPage);
 
@@ -64,6 +64,8 @@ class IndustryController extends BaseController
         }
 
         $industry = Industry::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -129,7 +131,7 @@ class IndustryController extends BaseController
                 ->with('success', $industry->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.dictionary.database.index')
-                ->with('success', $industry->name . ' updated successfully');
+                ->with('success', $industry->name . ' updated successfully.');
         }
     }
 
@@ -155,7 +157,7 @@ class IndustryController extends BaseController
                 ->with('success', $industry->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.career.industry.index')
-                ->with('success', $industry->name . ' deleted successfully');
+                ->with('success', $industry->name . ' deleted successfully.');
         }
     }
 }

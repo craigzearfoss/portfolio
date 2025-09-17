@@ -23,7 +23,7 @@ class CommunicationController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $communications = Communication::latest()->paginate($perPage);
 
@@ -53,6 +53,8 @@ class CommunicationController extends BaseController
     public function store(CommunicationStoreRequest $request): RedirectResponse
     {
         $communication = Communication::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -106,7 +108,7 @@ class CommunicationController extends BaseController
                 ->with('success', 'Communication updated successfully.');
         } else {
             return redirect()->route('admin.career.communication.index')
-                ->with('success', 'Communication updated successfully');
+                ->with('success', 'Communication updated successfully.');
         }
     }
 
@@ -128,7 +130,7 @@ class CommunicationController extends BaseController
                 ->with('success', 'Communication deleted successfully.');
         } else {
             return redirect()->route('admin.career.communication.index')
-                ->with('success', 'Communication deleted successfully');
+                ->with('success', 'Communication deleted successfully.');
         }
     }
 }

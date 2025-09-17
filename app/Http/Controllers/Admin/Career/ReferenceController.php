@@ -25,7 +25,7 @@ class ReferenceController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $references = Reference::latest()->paginate($perPage);
 
@@ -55,6 +55,8 @@ class ReferenceController extends BaseController
     public function store(ReferenceStoreRequest $request): RedirectResponse
     {
         $reference = Reference::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -112,7 +114,7 @@ class ReferenceController extends BaseController
                 ->with('success', $reference->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.career.reference.index')
-                ->with('success', $reference->name . ' updated successfully');
+                ->with('success', $reference->name . ' updated successfully.');
         }
     }
 
@@ -134,7 +136,7 @@ class ReferenceController extends BaseController
                 ->with('success', $reference->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.career.reference.index')
-                ->with('success', $reference->name . ' deleted successfully');
+                ->with('success', $reference->name . ' deleted successfully.');
         }
     }
 }

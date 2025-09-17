@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class AdminController extends BaseController
 {
     /**
@@ -22,7 +25,7 @@ class AdminController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $admins = Admin::latest()->paginate($perPage);
 
@@ -32,14 +35,22 @@ class AdminController extends BaseController
 
     /**
      * Show the form for creating a new admin.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.admin.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.admin.create', compact('referer'));
     }
 
     /**
      * Store a newly created admin in storage.
+     *
+     * @param AdminStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(AdminStoreRequest $request): RedirectResponse
     {
@@ -54,12 +65,22 @@ class AdminController extends BaseController
 
         $admin->save();
 
-        return redirect()->route('admin.admin.index')
-            ->with('success', 'Admin created successfully.');
+        $referer = $request->headers->get('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Admin ' . $admin->username . ' created successfully.');
+        } else {
+            return redirect()->route('admin.admin.index')
+               ->with('success', 'Admin ' . $admin->username . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified admin.
+     *
+     * @param Admin $admin
+     * @return View
      */
     public function show(Admin $admin): View
     {
@@ -68,6 +89,10 @@ class AdminController extends BaseController
 
     /**
      * Show the form for editing the specified admin.
+     *
+     * @param Admin $admin
+     * @param Request $request
+     * @return View
      */
     public function edit(Admin $admin): View
     {
@@ -76,25 +101,39 @@ class AdminController extends BaseController
             abort(403);
         }
 
-        return view('admin.admin.edit', compact('admin'));
-
+        return view('admin.admin.edit', compact('admin', 'referer'));
     }
 
     /**
      * Update the specified admin in storage.
+     *
+     * @param AdminUpdateRequest $request
+     * @param Admin $admin
+     * @return RedirectResponse
      */
     public function update(AdminUpdateRequest $request, Admin $admin): RedirectResponse
     {
         $admin->update($request->validated());
 
-        return redirect()->route('admin.admin.index')
-            ->with('success', 'Admin updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $admin->username . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.link.index')
+                ->with('success', $admin->username . ' updated successfully.');
+        }
     }
 
     /**
      * Remove the specified admin from storage.
+     *
+     * @param Admin $admin
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Admin $admin): RedirectResponse
+    public function destroy(Admin $admin, Request $request): RedirectResponse
     {
         // Note that only root admins can delete other admins, but they cannot delete themselves.
         if (Auth::guard('admin')->user()->root && ($admin->id !== Auth::guard('admin')->user()->id)) {
@@ -103,7 +142,14 @@ class AdminController extends BaseController
             abort(403);
         }
 
-        return redirect()->route('admin.index')
-            ->with('success', 'Admin deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $admin->username . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.index')
+                ->with('success', $admin->username . ' deleted successfully.');
+        }
     }
 }

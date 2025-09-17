@@ -43,7 +43,7 @@ class ProfileController extends BaseController
         $user->update($request->validated());
 
         return redirect()->route('user.show')
-            ->with('success', 'Profile updated successfully');
+            ->with('success', 'Profile updated successfully.');
     }
 
     /**
@@ -64,6 +64,6 @@ class ProfileController extends BaseController
         $user->update($request->validated());
 
         return redirect()->route('user.show', $user)
-            ->with('success', 'User password updated successfully');
+            ->with('success', 'User password updated successfully.');
     }
 }

@@ -26,7 +26,7 @@ class AcademyController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $academies = Academy::orderBy('name', 'asc')->paginate($perPage);
 
@@ -64,6 +64,8 @@ class AcademyController extends BaseController
         }
 
         $academy = Academy::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -129,7 +131,7 @@ class AcademyController extends BaseController
                 ->with('success', $academy->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.portfolio.academy.index')
-                ->with('success', $academy->name . ' updated successfully');
+                ->with('success', $academy->name . ' updated successfully.');
         }
     }
 
@@ -155,7 +157,7 @@ class AcademyController extends BaseController
                 ->with('success', $academy->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.portfolio.academy.index')
-                ->with('success', $academy->name . ' deleted successfully');
+                ->with('success', $academy->name . ' deleted successfully.');
         }
     }
 }

@@ -26,7 +26,7 @@ class JobBoardController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $jobBoards = JobBoard::orderBy('name', 'asc')->paginate($perPage);
 
@@ -64,6 +64,8 @@ class JobBoardController extends BaseController
         }
 
         $jobBoard =JobBoard::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -129,7 +131,7 @@ class JobBoardController extends BaseController
                 ->with('success', $jobBoard->name . ' updated successfully.');
         } else {
         return redirect()->route('admin.career.job-board.index')
-            ->with('success', $jobBoard->name . ' updated successfully');
+            ->with('success', $jobBoard->name . ' updated successfully.');
         }
     }
 
@@ -155,7 +157,7 @@ class JobBoardController extends BaseController
                 ->with('success', $jobBoard->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.job-board.link.index')
-                ->with('success', $jobBoard->name . ' deleted successfully');
+                ->with('success', $jobBoard->name . ' deleted successfully.');
         }
     }
 }

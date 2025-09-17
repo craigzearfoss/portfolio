@@ -25,7 +25,7 @@ class SkillController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $skills = Skill::latest()->paginate($perPage);
 
@@ -55,6 +55,8 @@ class SkillController extends BaseController
     public function store(SkillStoreRequest $request): RedirectResponse
     {
         $skill = Skill::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -112,7 +114,7 @@ class SkillController extends BaseController
                 ->with('success', $skill->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.career.skill.index')
-                ->with('success', $skill->name . ' updated successfully');
+                ->with('success', $skill->name . ' updated successfully.');
         }
     }
 
@@ -134,7 +136,7 @@ class SkillController extends BaseController
                 ->with('success', $skill->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.career.skill.index')
-                ->with('success', $skill->name . ' deleted successfully');
+                ->with('success', $skill->name . ' deleted successfully.');
         }
     }
 }

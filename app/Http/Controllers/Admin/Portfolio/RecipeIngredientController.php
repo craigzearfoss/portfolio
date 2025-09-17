@@ -23,7 +23,7 @@ class RecipeIngredientController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $recipeIngredients = RecipeIngredient::latest()->paginate($perPage);
 
@@ -53,6 +53,8 @@ class RecipeIngredientController extends BaseController
     public function store(RecipeIngredientStoreRequest $request): RedirectResponse
     {
         $recipeIngredient = RecipeIngredient::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -107,7 +109,7 @@ class RecipeIngredientController extends BaseController
                 ->with('success', 'Recipe ingredient updated successfully.');
         } else {
             return redirect()->route('admin.portfolio.recipe-ingredient.index')
-                ->with('success', 'Recipe ingredient updated successfully');
+                ->with('success', 'Recipe ingredient updated successfully.');
         }
     }
 
@@ -129,7 +131,7 @@ class RecipeIngredientController extends BaseController
                 ->with('success', 'Recipe ingredient deleted successfully.');
         } else {
             return redirect()->route('admin.portfolio.recipe-ingredient.index')
-                ->with('success', 'Recipe ingredient deleted successfully');
+                ->with('success', 'Recipe ingredient deleted successfully.');
         }
     }
 }

@@ -17,7 +17,7 @@ class CertificationController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $certifications = Certification::where('public', 1)
             ->where('disabled', 0)

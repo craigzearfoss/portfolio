@@ -10,6 +10,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class DatabaseController extends BaseController
 {
     /**
@@ -30,25 +33,43 @@ class DatabaseController extends BaseController
 
     /**
      * Show the form for creating a new database.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.database.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.database.create', compact('referer'));
     }
 
     /**
      * Store a newly created database in storage.
+     *
+     * @param DatabaseStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(DatabaseStoreRequest $request): RedirectResponse
     {
-        Database::create($request->validated());
+        $database = Database::create($request->validated());
 
-        return redirect()->route('admin.database.index')
-            ->with('success', 'Database created successfully.');
+        $referer = $request->headers->get('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $database->name . ' database created successfully.');
+        } else {
+            return redirect()->route('admin.database.index')
+                ->with('success', $database->name . ' database created successfully.');
+        }
     }
 
     /**
      * Display the specified database.
+     *
+     * @param Database $database
+     * @return View
      */
     public function show(Database $database): View
     {
@@ -57,31 +78,59 @@ class DatabaseController extends BaseController
 
     /**
      * Show the form for editing the specified database.
+     *
+     * @param Database $database
+     * @param Request $request
+     * @return View
      */
     public function edit(Database $database): View
     {
-        return view('admin.database.edit', compact('database'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.database.edit', compact('database', 'referer'));
     }
 
     /**
      * Update the specified database in storage.
+     *
+     * @param DatabaseUpdateRequest $request
+     * @param Database $database
+     * @return RedirectResponse
      */
     public function update(DatabaseUpdateRequest $request, Database $database): RedirectResponse
     {
         $database->update($request->validated());
 
-        return redirect()->route('admin.database.index')
-            ->with('success', 'Database updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $database->name . ' database updated successfully.');
+        } else {
+            return redirect()->route('admin.database.index')
+                ->with('success', $database->name . ' database updated successfully.');
+        }
     }
 
     /**
      * Remove the specified database from storage.
+     *
+     * @param Database $database
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Database $database): RedirectResponse
+    public function destroy(Database $database, Request $request): RedirectResponse
     {
         $database->delete();
 
-        return redirect()->route('admin.database.index')
-            ->with('success', 'Database deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $database->name . ' database deleted successfully.');
+        } else {
+             return redirect()->route('admin.database.index')
+                 ->with('success', $database->name . ' database deleted successfully.');
+        }
     }
 }

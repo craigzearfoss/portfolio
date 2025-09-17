@@ -26,7 +26,7 @@ class FrameworkController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $frameworks = Framework::orderBy('name', 'asc')->paginate($perPage);
 
@@ -131,7 +131,7 @@ class FrameworkController extends BaseController
                 ->with('success', $framework->name . ' updated successfully.');
         } else {
              return redirect()->route('admin.dictionary.framework.index')
-                 ->with('success', $framework->name . ' updated successfully');
+                 ->with('success', $framework->name . ' updated successfully.');
         }
     }
 
@@ -157,7 +157,7 @@ class FrameworkController extends BaseController
                 ->with('success', $framework->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.dictionary.framework.index')
-                ->with('success', $framework->name . ' deleted successfully');
+                ->with('success', $framework->name . ' deleted successfully.');
         }
     }
 }

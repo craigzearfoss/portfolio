@@ -23,7 +23,7 @@ class EventController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $events = Event::latest()->paginate($perPage);
 
@@ -53,6 +53,8 @@ class EventController extends BaseController
     public function store(EventStoreRequest $request): RedirectResponse
     {
         $event = Event::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -106,7 +108,7 @@ class EventController extends BaseController
                 ->with('success', 'Event updated successfully.');
         } else {
             return redirect()->route('admin.career.event.index')
-                ->with('success', 'Event updated successfully');
+                ->with('success', 'Event updated successfully.');
         }
     }
 
@@ -128,7 +130,7 @@ class EventController extends BaseController
                 ->with('success', 'Event deleted successfully.');
         } else {
             return redirect()->route('admin.dictionary.database.index')
-                ->with('success', 'Event deleted successfully');
+                ->with('success', 'Event deleted successfully.');
         }
     }
 }

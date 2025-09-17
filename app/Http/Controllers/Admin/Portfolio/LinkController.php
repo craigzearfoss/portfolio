@@ -8,6 +8,8 @@ use App\Http\Requests\Portfolio\LinkUpdateRequest;
 use App\Models\Portfolio\Link;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -23,7 +25,7 @@ class LinkController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $links = Link::orderBy('sequence', 'asc')->paginate($perPage);
 
@@ -53,6 +55,8 @@ class LinkController extends BaseController
     public function store(LinkStoreRequest $request): RedirectResponse
     {
         $link = Link::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -97,6 +101,10 @@ class LinkController extends BaseController
      */
     public function update(LinkUpdateRequest $request, Link $link): RedirectResponse
     {
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('portfolio_db.links', 'slug') ] ]);
         $link->update($request->validated());
 
         $referer = $request->input('referer');
@@ -106,7 +114,7 @@ class LinkController extends BaseController
                 ->with('success', $link->name . ' link updated successfully.');
         } else {
             return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $link->name . ' link updated successfully');
+                ->with('success', $link->name . ' link updated successfully.');
         }
     }
 
@@ -128,7 +136,7 @@ class LinkController extends BaseController
                 ->with('success', $link->name . ' link deleted successfully.');
         } else {
             return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $link->name . ' link deleted successfully');
+                ->with('success', $link->name . ' link deleted successfully.');
         }
     }
 }

@@ -25,7 +25,7 @@ class CourseController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $courses = Course::orderBy('name', 'asc')->paginate($perPage);
 
@@ -55,6 +55,8 @@ class CourseController extends BaseController
     public function store(CourseStoreRequest $request): RedirectResponse
     {
         $course = Course::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -112,7 +114,7 @@ class CourseController extends BaseController
                 ->with('success', $course->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.portfolio.course.index')
-                ->with('success', $course->name . ' updated successfully');
+                ->with('success', $course->name . ' updated successfully.');
         }
     }
 
@@ -134,7 +136,7 @@ class CourseController extends BaseController
                 ->with('success', $course->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.portfolio.course.index')
-                ->with('success', $course->name . ' deleted successfully');
+                ->with('success', $course->name . ' deleted successfully.');
         }
     }
 }

@@ -25,7 +25,7 @@ class CoverLetterController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $coverLetters = CoverLetter::latest()->paginate($perPage);
 
@@ -55,6 +55,8 @@ class CoverLetterController extends BaseController
     public function store(CoverLetterStoreRequest $request): RedirectResponse
     {
         $coverLetter = CoverLetter::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -112,7 +114,7 @@ class CoverLetterController extends BaseController
                 ->with('success', 'Cover letter updated successfully.');
         } else {
             return redirect()->route('admin.career.cover-letter.index')
-                ->with('success', 'Cover letter updated successfully');
+                ->with('success', 'Cover letter updated successfully.');
         }
     }
 
@@ -134,7 +136,7 @@ class CoverLetterController extends BaseController
                 ->with('success', 'Cover letter deleted successfully.');
         } else {
             return redirect()->route('admin.colver_letter.index')
-                ->with('success', 'Cover letter deleted successfully');
+                ->with('success', 'Cover letter deleted successfully.');
         }
     }
 }

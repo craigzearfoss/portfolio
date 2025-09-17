@@ -26,7 +26,7 @@ class ServerController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $servers = Server::orderBy('name', 'asc')->paginate($perPage);
 
@@ -131,7 +131,7 @@ class ServerController extends BaseController
                 ->with('success', $server->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.dictionary.server.index')
-                ->with('success', $server->name . 'Server updated successfully');
+                ->with('success', $server->name . 'Server updated successfully.');
         }
     }
 
@@ -157,7 +157,7 @@ class ServerController extends BaseController
                 ->with('success', $server->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.dictionary.server.index')
-                ->with('success', $server->name . ' deleted successfully');
+                ->with('success', $server->name . ' deleted successfully.');
         }
     }
 }

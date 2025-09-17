@@ -25,7 +25,7 @@ class ContactController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $contacts = Contact::latest()->paginate($perPage);
 
@@ -39,7 +39,7 @@ class ContactController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         $referer = $request->headers->get('referer');
 
@@ -56,12 +56,14 @@ class ContactController extends BaseController
     {
         $contact = Contact::create($request->validated());
 
+        $referer = $request->headers->get('referer');
+
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $conatct->name . ' created successfully.');
+                ->with('success', $contact->name . ' created successfully.');
         } else {
             return redirect()->route('admin.career.contact.index')
-                ->with('success', $conatct->name . ' created successfully.');
+                ->with('success', $contact->name . ' created successfully.');
         }
     }
 
@@ -83,7 +85,7 @@ class ContactController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function edit(Contact $contact): View
+    public function edit(Contact $contact, Request $request): View
     {
         $referer = $request->headers->get('referer');
 
@@ -112,7 +114,7 @@ class ContactController extends BaseController
                 ->with('success', $contact->name . ' updated successfully.');
         } else {
             return redirect()->route('admin.career.application.index')
-                ->with('success', $contact->name . ' updated successfully');
+                ->with('success', $contact->name . ' updated successfully.');
         }
     }
 
@@ -134,7 +136,7 @@ class ContactController extends BaseController
                 ->with('success', $contact->name . ' deleted successfully.');
         } else {
             return redirect()->route('admin.career.contact.index')
-                ->with('success', $contact->name . ' deleted successfully');
+                ->with('success', $contact->name . ' deleted successfully.');
         }
     }
 }

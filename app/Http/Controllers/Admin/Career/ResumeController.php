@@ -25,7 +25,7 @@ class ResumeController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $resumes = Resume::latest()->paginate($perPage);
 
@@ -55,6 +55,8 @@ class ResumeController extends BaseController
     public function store(ResumeStoreRequest $request): RedirectResponse
     {
         $resume = Resume::create($request->validated());
+
+        $referer = $request->headers->get('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -112,7 +114,7 @@ class ResumeController extends BaseController
                 ->with('success', $resume->name . ' resume updated successfully.');
         } else {
             return redirect()->route('admin.career.resume.index')
-                ->with('success', $resume->name . ' resume updated successfully');
+                ->with('success', $resume->name . ' resume updated successfully.');
         }
     }
 
@@ -134,7 +136,7 @@ class ResumeController extends BaseController
                 ->with('success', $resume->name . ' resume deleted successfully.');
         } else {
             return redirect()->route('admin.career.resume.index')
-                ->with('success', $resume->name . ' resume deleted successfully');
+                ->with('success', $resume->name . ' resume deleted successfully.');
         }
     }
 }

@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class OperatingSystemController extends BaseController
 {
     /**
@@ -22,7 +25,7 @@ class OperatingSystemController extends BaseController
      */
     public function index(Request $request): View
     {
-        $perPage= $request->query('per_page', $this->perPage);
+        $perPage = $request->query('per_page', $this->perPage);
 
         $operatingSystems = OperatingSystem::where('disabled', 0)
             ->where('public', 1)
