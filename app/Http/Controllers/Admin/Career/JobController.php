@@ -40,7 +40,7 @@ class JobController extends BaseController
      */
     public function create(Request $request): View
     {
-        $referer = Request()->headers->get('referer');
+        $referer = $request->headers->get('referer');
 
         return view('admin.career.job.create', compact('referer'));
     }

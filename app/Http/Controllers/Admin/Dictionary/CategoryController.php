@@ -46,7 +46,7 @@ class CategoryController extends BaseController
             abort(403, 'Only admins with root access can add category entries.');
         }
 
-        $referer = Request()->headers->get('referer');
+        $referer = $request->headers->get('referer');
 
         return view('admin.dictionary.category.create', compact('referer'));
     }

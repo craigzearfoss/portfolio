@@ -46,7 +46,7 @@ class LibraryController extends BaseController
             abort(403, 'Only admins with root access can add library entries.');
         }
 
-        $referer = Request()->headers->get('referer');
+        $referer = $request->headers->get('referer');
 
         return view('admin.dictionary.library.create', compact('referer'));
     }

@@ -8,8 +8,14 @@ use App\Http\Requests\Career\IndustryUpdateRequest;
 use App\Models\Career\Industry;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
+/**
+ *
+ */
 class IndustryController extends BaseController
 {
     /**
@@ -30,25 +36,49 @@ class IndustryController extends BaseController
 
     /**
      * Show the form for creating a new industry.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.career.industry.create');
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add industry entries.');
+        }
+
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.industry.create', compact('referer'));
     }
 
     /**
      * Store a newly created industry in storage.
+     *
+     * @param IndustryStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(IndustryStoreRequest $request): RedirectResponse
     {
-        Industry::create($request->validated());
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add industry entries.');
+        }
 
-        return redirect()->route('admin.career.industry.index')
-            ->with('success', 'Industry created successfully.');
+        $industry = Industry::create($request->validated());
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $industry->name . ' created successfully.');
+        } else {
+            return redirect()->route('admin.career.industry.index')
+                ->with('success', $industry->name . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified industry.
+     *
+     * @param Industry $industry
+     * @return View
      */
     public function show(Industry $industry): View
     {
@@ -57,31 +87,75 @@ class IndustryController extends BaseController
 
     /**
      * Show the form for editing the specified industry.
+     *
+     * @param Industry $industry
+     * @param Request $request
+     * @return View
      */
-    public function edit(Industry $industry): View
+    public function edit(Industry $industry, Request $request): View
     {
-        return view('admin.career.industry.edit', compact('industry'));
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can edit industry entries.');
+        }
+
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.industry.edit', compact('industry', 'referer'));
     }
 
     /**
      * Update the specified industry in storage.
+     *
+     * @param IndustryUpdateRequest $request
+     * @param Industry $industry
+     * @return RedirectResponse
      */
     public function update(IndustryUpdateRequest $request, Industry $industry): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can update industry entries.');
+        }
+
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('posts', 'slug') ] ]);
         $industry->update($request->validated());
 
-        return redirect()->route('admin.career.industry.index')
-            ->with('success', 'Industry updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $industry->name . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.database.index')
+                ->with('success', $industry->name . ' updated successfully');
+        }
     }
 
     /**
      * Remove the specified industry from storage.
+     *
+     * @param Industry $industry
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Industry $industry): RedirectResponse
+    public function destroy(Industry $industry, Request $request): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can delete industry entries.');
+        }
+
         $industry->delete();
 
-        return redirect()->route('admin.career.industry.index')
-            ->with('success', 'Industry deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $industry->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.career.industry.index')
+                ->with('success', $industry->name . ' deleted successfully');
+        }
     }
 }

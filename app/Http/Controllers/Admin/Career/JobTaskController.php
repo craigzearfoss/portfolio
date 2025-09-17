@@ -44,7 +44,7 @@ class JobTaskController extends Controller
     public function create(Request $request): View
     {
         $jobId = $request->query('job_id');
-        $referer = Request()->headers->get('referer');
+        $referer = $request->headers->get('referer');
 
         return view('admin.career.job-task.create', compact('jobId', 'referer'));
     }

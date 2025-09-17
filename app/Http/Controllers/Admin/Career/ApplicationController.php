@@ -8,7 +8,6 @@ use App\Http\Requests\Career\ApplicationUpdateRequest;
 use App\Models\Career\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -38,26 +37,37 @@ class ApplicationController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        $referer = Request()->headers->get('referer');
+        $referer = $request->headers->get('referer');
 
         return view('admin.career.application.create', compact('referer'));
     }
 
     /**
      * Store a newly created application in storage.
+     *
+     * @param ApplicationStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(ApplicationStoreRequest $request): RedirectResponse
     {
-        Application::create($request->validated());
+        $application = Application::create($request->validated());
 
-        return redirect()->route('admin.career.application.index')
-            ->with('success', 'Application created successfully.');
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Application created successfully.');
+        } else {
+            return redirect()->route('admin.career.application.index')
+                ->with('success', 'Application created successfully.');
+        }
     }
 
     /**
      * Display the specified application.
+     *
+     * @param Application $application
+     * @return View
      */
     public function show(Application $application): View
     {
@@ -66,31 +76,59 @@ class ApplicationController extends BaseController
 
     /**
      * Show the form for editing the specified application.
+     *
+     * @param Application $application
+     * @param Request $request
+     * @return View
      */
     public function edit(Application $application): View
     {
-        return view('admin.career.application.edit', compact('application'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.application.edit', compact('application', 'referer'));
     }
 
     /**
      * Update the specified application in storage.
+     *
+     * @param ApplicationUpdateRequest $request
+     * @param Application $application
+     * @return RedirectResponse
      */
     public function update(ApplicationUpdateRequest $request, Application $application): RedirectResponse
     {
         $application->update($request->validated());
 
-        return redirect()->route('admin.career.application.index')
-            ->with('success', 'Application updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Application updated successfully.');
+        } else {
+            return redirect()->route('admin.career.application.index')
+                ->with('success', 'Application updated successfully');
+        }
     }
 
     /**
      * Remove the specified application from storage.
+     *
+     * @param Application $application
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Application $application): RedirectResponse
+    public function destroy(Application $application, Request $request): RedirectResponse
     {
         $application->delete();
 
-        return redirect()->route('admin.career.application.index')
-            ->with('success', 'Application deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Application deleted successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.database.index')
+                ->with('success', 'Application deleted successfully');
+        }
     }
 }

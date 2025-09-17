@@ -40,15 +40,15 @@ class StackController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add stack entries.');
         }
 
-        $referer = Request()->headers->get('referer');
+        $referer = $request->headers->get('referer');
 
-        return view('admin.dictionary.stack.create');
+        return view('admin.dictionary.stack.create', compact('referer'));
     }
 
     /**

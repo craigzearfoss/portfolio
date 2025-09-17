@@ -10,6 +10,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class CompanyController extends BaseController
 {
     /**
@@ -30,25 +33,41 @@ class CompanyController extends BaseController
 
     /**
      * Show the form for creating a new company.
+     *
+     * @param Request $request
+     * @return View
      */
     public function create(): View
     {
-        return view('admin.career.company.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.company.create', compact('referer'));
     }
 
     /**
      * Store a newly created company in storage.
+     *
+     * @param CompanyStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(CompanyStoreRequest $request): RedirectResponse
     {
-        Company::create($request->validated());
+        $company = Company::create($request->validated());
 
-        return redirect()->route('admin.career.company.index')
-            ->with('success', 'Company created successfully.');
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $company->name . ' created successfully.');
+        } else {
+            return redirect()->route('admin.career.company.index')
+                ->with('success', $company->name . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified company.
+     *
+     * @param Company $commpany
+     * @return View
      */
     public function show(Company $company): View
     {
@@ -57,31 +76,59 @@ class CompanyController extends BaseController
 
     /**
      * Show the form for editing the specified company.
+     *
+     * @param Company $company
+     * @param Request $request
+     * @return View
      */
     public function edit(Company $company): View
     {
-        return view('admin.career.company.edit', compact('company'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.company.edit', compact('company', 'referer'));
     }
 
     /**
      * Update the specified company in storage.
+     *
+     * @param CompanyUpdateRequest $request
+     * @param Company $company
+     * @return RedirectResponse
      */
     public function update(CompanyUpdateRequest $request, Company $company): RedirectResponse
     {
         $company->update($request->validated());
 
-        return redirect()->route('admin.career.company.index')
-            ->with('success', 'Company updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $company->name . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.career.company.index')
+                ->with('success', $company->name . ' updated successfully');
+        }
     }
 
     /**
      * Remove the specified company from storage.
+     *
+     * @param Company $company
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Company $company): RedirectResponse
+    public function destroy(Company $company, Request $request): RedirectResponse
     {
         $company->delete();
 
-        return redirect()->route('admin.career.company.index')
-            ->with('success', 'Company deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $company->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.career.company.index')
+                ->with('success', $company->name . ' deleted successfully');
+        }
     }
 }

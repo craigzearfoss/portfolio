@@ -8,7 +8,6 @@ use App\Http\Requests\Dictionary\DatabaseUpdateRequest;
 use App\Models\Dictionary\Database;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Queue\DatabaseQueue;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -41,13 +40,13 @@ class DatabaseController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add database entries.');
         }
 
-        $referer = Request()->headers->get('referer');
+        $referer = $request->headers->get('referer');
 
         return view('admin.dictionary.database.create', compact('referer'));
     }
@@ -144,7 +143,7 @@ class DatabaseController extends BaseController
     public function destroy(Database $database, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can de database entries.');
+            abort(403, 'Only admins with root access can delete database entries.');
         }
 
         $database->delete();

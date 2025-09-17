@@ -44,7 +44,7 @@ class JobCoworkerController extends BaseController
     public function create(Request $request): View
     {
         $jobId = $request->query('job_id');
-        $referer = Request()->headers->get('referer');
+        $referer = $request->headers->get('referer');
 
         return view('admin.career.job-coworker.create', compact('jobId', 'referer'));
     }

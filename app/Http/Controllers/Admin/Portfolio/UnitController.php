@@ -8,8 +8,14 @@ use App\Http\Requests\Portfolio\UnitUpdateRequest;
 use App\Models\Portfolio\Unit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
+/**
+ *
+ */
 class UnitController extends BaseController
 {
     /**
@@ -30,25 +36,49 @@ class UnitController extends BaseController
 
     /**
      * Show the form for creating a new unit.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.portfolio.unit.create');
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add unit entries.');
+        }
+
+        $referer = $request->headers->get('referer');
+
+        return view('admin.portfolio.unit.create', compact('referer'));
     }
 
     /**
      * Store a newly created unit in storage.
+     *
+     * @param UnittoreRequest $request
+     * @return RedirectResponse
      */
     public function store(UnitStoreRequest $request): RedirectResponse
     {
-        Unit::create($request->validated());
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can add unit entries.');
+        }
 
-        return redirect()->route('admin.portfolio.unit.index')
-            ->with('success', 'Unit created successfully.');
+        $unit = Unit::create($request->validated());
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $unit->name . $database->name . ' created successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.unit.index')
+                ->with('success', $unit->name . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified unit.
+     *
+     * @param Unit $unit
+     * @return View
      */
     public function show(Unit $unit): View
     {
@@ -57,31 +87,75 @@ class UnitController extends BaseController
 
     /**
      * Show the form for editing the specified unit.
+     *
+     * @param Uniit $unit
+     * @param Request $request
+     * @return View
      */
     public function edit(Unit $unit): View
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can edit unit entries.');
+        }
+
+        $referer = $request->headers->get('referer');
+
         return view('admin.portfolio.unit.edit', compact('unit'));
     }
 
     /**
      * Update the specified unit in storage.
+     *
+     * @param UnitUpdateRequest $request
+     * @param Unit $unit
+     * @return RedirectResponse
      */
     public function update(UnitUpdateRequest $request, Unit $unit): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can update unit entries.');
+        }
+
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('posts', 'slug') ] ]);
         $unit->update($request->validated());
 
-        return redirect()->route('admin.portfolio.unit.index')
-            ->with('success', 'Unit updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $unit->name . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.unit.index')
+                 ->with('success', $unit->name . ' updated successfully');
+        }
     }
 
     /**
      * Remove the specified unit from storage.
+     *
+     * @param Unit $unit
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Unit $unit): RedirectResponse
+    public function destroy(Unit $unit, Request $request): RedirectResponse
     {
+        if (!Auth::guard('admin')->user()->root) {
+            abort(403, 'Only admins with root access can delete unit entries.');
+        }
+
         $unit->delete();
 
-        return redirect()->route('admin.portfolio.unit.index')
-            ->with('success', 'Unit deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $unit->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.unit.index')
+                ->with('success', $unit->name . ' deleted successfully');
+        }
     }
 }

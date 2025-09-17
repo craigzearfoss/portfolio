@@ -10,6 +10,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class CommunicationController extends BaseController
 {
     /**
@@ -30,25 +33,41 @@ class CommunicationController extends BaseController
 
     /**
      * Show the form for creating a new communication.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.career.communication.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.communication.create', compact('referer'));
     }
 
     /**
      * Store a newly created communication in storage.
+     *
+     * @param CommunicationStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(CommunicationStoreRequest $request): RedirectResponse
     {
-        Communication::create($request->validated());
+        $communication = Communication::create($request->validated());
 
-        return redirect()->route('admin.career.communication.index')
-            ->with('success', 'Communication created successfully.');
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Communication created successfully.');
+        } else {
+            return redirect()->route('admin.career.communication.index')
+                ->with('success', 'Communication created successfully.');
+        }
     }
 
     /**
      * Display the specified communication.
+     *
+     * @param Communication $communication
+     * @return View
      */
     public function show(Communication $communication): View
     {
@@ -57,31 +76,59 @@ class CommunicationController extends BaseController
 
     /**
      * Show the form for editing the specified communication.
+     *
+     * @param Communication $communication
+     * @param Request $request
+     * @return View
      */
     public function edit(Communication $communication): View
     {
-        return view('admin.career.communication.edit', compact('communication'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.communication.edit', compact('communication', 'referer'));
     }
 
     /**
      * Update the specified communication in storage.
+     *
+     * @param CommunicationUpdateRequest $request
+     * @param Communication $communication
+     * @return RedirectResponse
      */
     public function update(CommunicationUpdateRequest $request, Communication $communication): RedirectResponse
     {
         $communication->update($request->validated());
 
-        return redirect()->route('admin.career.communication.index')
-            ->with('success', 'Communication updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Communication updated successfully.');
+        } else {
+            return redirect()->route('admin.career.communication.index')
+                ->with('success', 'Communication updated successfully');
+        }
     }
 
     /**
      * Remove the specified communication from storage.
+     *
+     * @param Communication $communication
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Communication $communication): RedirectResponse
+    public function destroy(Communication $communication, Request $request): RedirectResponse
     {
         $communication->delete();
 
-        return redirect()->route('admin.career.communication.index')
-            ->with('success', 'Communication deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Communication deleted successfully.');
+        } else {
+            return redirect()->route('admin.career.communication.index')
+                ->with('success', 'Communication deleted successfully');
+        }
     }
 }

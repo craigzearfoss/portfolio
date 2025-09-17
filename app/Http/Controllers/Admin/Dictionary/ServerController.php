@@ -46,7 +46,7 @@ class ServerController extends BaseController
             abort(403, 'Only admins with root access can add server entries.');
         }
 
-        $referer = Request()->headers->get('referer');
+        $referer = $request->headers->get('referer');
 
         return view('admin.dictionary.server.create', compact('referer'));
     }
