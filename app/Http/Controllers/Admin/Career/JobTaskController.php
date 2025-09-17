@@ -8,7 +8,6 @@ use App\Http\Requests\Career\JobTaskUpdateRequest;
 use App\Models\Career\JobTask;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -44,10 +43,6 @@ class JobTaskController extends Controller
      */
     public function create(Request $request): View
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add job task entries.');
-        }
-
         $jobId = $request->query('job_id');
         $referer = Request()->headers->get('referer');
 
@@ -62,10 +57,6 @@ class JobTaskController extends Controller
      */
     public function store(JobTaskStoreRequest $request): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add job task entries.');
-        }
-
         $jobTask = JobTask::create($request->validated());
 
         $referer = $request->input('referer');
@@ -99,10 +90,6 @@ class JobTaskController extends Controller
      */
     public function edit(JobTask $jobTask, Request $request): View
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit job task entries.');
-        }
-
         $referer = $request->headers->get('referer');
 
         return view('admin.career.job-task.edit', compact('jobTask', 'referer'));
@@ -117,10 +104,6 @@ class JobTaskController extends Controller
      */
     public function update(JobTaskUpdateRequest $request, JobTask $jobTask): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update job task entries.');
-        }
-
         $jobTask->update($request->validated());
 
         $referer = $request->input('referer');
@@ -143,10 +126,6 @@ class JobTaskController extends Controller
      */
     public function destroy(JobTask $jobTask, Request $request): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete job task entries.');
-        }
-
         $jobTask->delete();
 
         $referer = $request->input('referer');

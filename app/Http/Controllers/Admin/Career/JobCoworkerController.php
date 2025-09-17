@@ -8,7 +8,6 @@ use App\Http\Requests\Career\JobCoworkerUpdateRequest;
 use App\Models\Career\JobCoworker;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -44,10 +43,6 @@ class JobCoworkerController extends BaseController
      */
     public function create(Request $request): View
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add job worker entries.');
-        }
-
         $jobId = $request->query('job_id');
         $referer = Request()->headers->get('referer');
 
@@ -55,17 +50,13 @@ class JobCoworkerController extends BaseController
     }
 
     /**
-     * Store a newly created job task in storage.
+     * Store a newly created job coworker in storage.
      *
-     * @param JobTaskStoreRequest $request
+     * @param JobCoworkerStoreRequest $request
      * @return RedirectResponse
      */
     public function store(JobCoworkerStoreRequest $request): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add job worker entries.');
-        }
-
         $jobCoworker = JobCoworker::create($request->validated());
 
         $referer = $request->input('referer');
@@ -99,10 +90,6 @@ class JobCoworkerController extends BaseController
      */
     public function edit(JobCoworker $jobCoworker, Request $request): View
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit job worker entries.');
-        }
-
         $referer = $request->headers->get('referer');
 
         return view('admin.career.job-coworker.edit', compact('jobCoworker', 'referer'));
@@ -117,10 +104,6 @@ class JobCoworkerController extends BaseController
      */
     public function update(JobCoworkerUpdateRequest $request, JobCoworker $jobCoworker): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update job worker entries.');
-        }
-
         $jobCoworker->update($request->validated());
 
         $referer = $request->input('referer');
@@ -143,10 +126,6 @@ class JobCoworkerController extends BaseController
      */
     public function destroy(JobCoworker $jobCoworker, Request $request): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete job worker entries.');
-        }
-
         $jobCoworker->delete();
 
         $referer = $request->input('referer');

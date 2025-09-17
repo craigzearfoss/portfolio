@@ -8,8 +8,12 @@ use App\Http\Requests\Career\ApplicationUpdateRequest;
 use App\Models\Career\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class ApplicationController extends BaseController
 {
     /**
@@ -30,10 +34,15 @@ class ApplicationController extends BaseController
 
     /**
      * Show the form for creating a new application.
+     *
+     * @param Request $request
+     * @return View
      */
     public function create(): View
     {
-        return view('admin.career.application.create');
+        $referer = Request()->headers->get('referer');
+
+        return view('admin.career.application.create', compact('referer'));
     }
 
     /**

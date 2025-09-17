@@ -40,10 +40,6 @@ class JobController extends BaseController
      */
     public function create(Request $request): View
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add job entries.');
-        }
-
         $referer = Request()->headers->get('referer');
 
         return view('admin.career.job.create', compact('referer'));
@@ -52,15 +48,11 @@ class JobController extends BaseController
     /**
      * Store a newly created job in storage.
      *
-     * @param JobTaskStoreRequest $request
+     * @param JobStoreRequest $request
      * @return RedirectResponse
      */
     public function store(JobStoreRequest $request): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add job entries.');
-        }
-
         $job = Job::create($request->validated());
 
         $referer = $request->input('referer');
@@ -77,7 +69,7 @@ class JobController extends BaseController
     /**
      * Display the specified job.
      *
-     * @param JobCoworker $jobCoworker
+     * @param Job $job
      * @return View
      */
     public function show(Job $job): View
@@ -88,16 +80,12 @@ class JobController extends BaseController
     /**
      * Show the form for editing the specified job.
      *
-     * @param JobCoworker $jobCoworker
+     * @param Job $job
      * @param Request $request
      * @return View
      */
     public function edit(Job $job, Request $request): View
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit job entries.');
-        }
-
         $referer = $request->headers->get('referer');
 
         return view('admin.career.job.edit', compact('job', 'referer'));
@@ -106,16 +94,12 @@ class JobController extends BaseController
     /**
      * Update the specified job in storage.
      *
-     * @param JobCoworkerUpdateRequest $request
-     * @param JobCoworker $jobCoworker
+     * @param JobUpdateRequest $request
+     * @param Job $job
      * @return RedirectResponse
      */
     public function update(JobUpdateRequest $request, Job $job): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update job entries.');
-        }
-
         $job->update($request->validated());
 
         $referer = $request->input('referer');
@@ -132,16 +116,12 @@ class JobController extends BaseController
     /**
      * Remove the specified job from storage.
      *
-     * @param JobCoworker $jobCoworker
+     * @param Job $job
      * @param Request $request
      * @return RedirectResponse
      */
     public function destroy(Job $job, Request $request): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete job entries.');
-        }
-
         $job->delete();
 
         $referer = $request->input('referer');
