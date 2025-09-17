@@ -45,7 +45,7 @@
             'value' => $server->abbreviation
         ])
 
-        @include('  admin.components.show-row', [
+        @include('admin.components.show-row', [
             'name'  => 'definition',
             'value' => $server->definition
         ])
@@ -76,7 +76,7 @@
             'target' => '_blank'
         ])
 
-        @include('  admin.components.show-row-link', [
+        @include('admin.components.show-row-link', [
             'name'   => 'link',
             'url'    => $server->link,
             'label'  => $server->link_name,

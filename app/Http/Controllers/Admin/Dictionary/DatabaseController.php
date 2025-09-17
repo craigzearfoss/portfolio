@@ -8,6 +8,7 @@ use App\Http\Requests\Dictionary\DatabaseUpdateRequest;
 use App\Models\Dictionary\Database;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Queue\DatabaseQueue;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -54,7 +55,7 @@ class DatabaseController extends BaseController
     /**
      * Store a newly created database in storage.
      *
-     * @param JobTaskStoreRequest $request
+     * @param DatabaseStoreRequest $request
      * @return RedirectResponse
      */
     public function store(DatabaseStoreRequest $request): RedirectResponse
@@ -77,7 +78,7 @@ class DatabaseController extends BaseController
     /**
      * Display the specified database.
      *
-     * @param JobCoworker $jobCoworker
+     * @param Database $database
      * @return View
      */
     public function show(Database $database): View
@@ -88,11 +89,11 @@ class DatabaseController extends BaseController
     /**
      * Show the form for editing the specified database.
      *
-     * @param JobCoworker $jobCoworker
+     * @param Database $database
      * @param Request $request
      * @return View
      */
-    public function edit(Database $database): View
+    public function edit(Database $database, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit database entries.');
@@ -106,8 +107,8 @@ class DatabaseController extends BaseController
     /**
      * Update the specified database in storage.
      *
-     * @param JobCoworkerUpdateRequest $request
-     * @param JobCoworker $jobCoworker
+     * @param DatabaseUpdateRequest $request
+     * @param Database $database
      * @return RedirectResponse
      */
     public function update(DatabaseUpdateRequest $request, Database $database): RedirectResponse
@@ -136,11 +137,11 @@ class DatabaseController extends BaseController
     /**
      * Remove the specified database from storage.
      *
-     * @param JobCoworker $jobCoworker
+     * @param Database $database
      * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Database $database): RedirectResponse
+    public function destroy(Database $database, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can de database entries.');

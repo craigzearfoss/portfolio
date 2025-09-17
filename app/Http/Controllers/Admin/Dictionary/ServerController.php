@@ -9,8 +9,13 @@ use App\Models\Dictionary\Server;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
+/**
+ *
+ */
 class ServerController extends BaseController
 {
     /**
@@ -23,8 +28,7 @@ class ServerController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $servers = Server::orderBy('name', 'asc')
-            ->paginate($perPage);
+        $servers = Server::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.dictionary.server.index', compact('servers'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -32,18 +36,26 @@ class ServerController extends BaseController
 
     /**
      * Show the form for creating a new server.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add server entries.');
         }
 
-        return view('admin.dictionary.server.create');
+        $referer = Request()->headers->get('referer');
+
+        return view('admin.dictionary.server.create', compact('referer'));
     }
 
     /**
      * Store a newly created server in storage.
+     *
+     * @param ServerStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(ServerStoreRequest $request): RedirectResponse
     {
@@ -51,14 +63,24 @@ class ServerController extends BaseController
             abort(403, 'Only admins with root access can add server entries.');
         }
 
-        Server::create($request->validated());
+        $server = Server::create($request->validated());
 
-        return redirect()->route('admin.dictionary.server.index')
-            ->with('success', 'Server created successfully.');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $server->name . ' created successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.server.index')
+                ->with('success', $server->name . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified server.
+     *
+     * @param Server $server
+     * @return View
      */
     public function show(Server $server): View
     {
@@ -67,36 +89,60 @@ class ServerController extends BaseController
 
     /**
      * Show the form for editing the specified server.
+     *
+     * @param Server $server
+     * @param Request $request
+     * @return View
      */
-    public function edit(Server $server): View
+    public function edit(Server $server, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit server entries.');
         }
 
-        return view('admin.dictionary.server.edit', compact('server'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.dictionary.server.edit', compact('server', 'referer'));
     }
 
     /**
      * Update the specified server in storage.
+     *
+     * @param ServerUpdateRequest $request
+     * @param Server $server
+     * @return RedirectResponse
      */
-    public function update(ServerUpdateRequest $request,
-                           Server              $server): RedirectResponse
+    public function update(ServerUpdateRequest $request, Server $server): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update server entries.');
         }
 
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('posts', 'slug') ] ]);
         $server->update($request->validated());
 
-        return redirect()->route('admin.dictionary.server.index')
-            ->with('success', 'Server updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $server->name . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.server.index')
+                ->with('success', $server->name . 'Server updated successfully');
+        }
     }
 
     /**
      * Remove the specified server from storage.
+     *
+     * @param Server $server
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Server $server): RedirectResponse
+    public function destroy(Server $server, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete server entries.');
@@ -104,7 +150,14 @@ class ServerController extends BaseController
 
         $server->delete();
 
-        return redirect()->route('admin.dictionary.server.index')
-            ->with('success', 'Server deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $server->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.server.index')
+                ->with('success', $server->name . ' deleted successfully');
+        }
     }
 }

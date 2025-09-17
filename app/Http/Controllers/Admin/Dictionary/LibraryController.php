@@ -4,13 +4,18 @@ namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Dictionary\LibraryStoreRequest;
-use App\Http\Requests\Dictionary\UpdateRequest;
+use App\Http\Requests\Dictionary\LibraryUpdateRequest;
 use App\Models\Dictionary\Library;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
+/**
+ *
+ */
 class LibraryController extends BaseController
 {
     /**
@@ -23,8 +28,7 @@ class LibraryController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $libraries = Library::orderBy('name', 'asc')
-            ->paginate($perPage);
+        $libraries = Library::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.dictionary.library.index', compact('libraries'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -32,18 +36,26 @@ class LibraryController extends BaseController
 
     /**
      * Show the form for creating a new library.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add library entries.');
         }
 
-        return view('admin.dictionary.library.create');
+        $referer = Request()->headers->get('referer');
+
+        return view('admin.dictionary.library.create', compact('referer'));
     }
 
     /**
      * Store a newly created library in storage.
+     *
+     * @param LibraryStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(LibraryStoreRequest $request): RedirectResponse
     {
@@ -51,14 +63,24 @@ class LibraryController extends BaseController
             abort(403, 'Only admins with root access can add library entries.');
         }
 
-        Library::create($request->validated());
+        $library = Library::create($request->validated());
 
-        return redirect()->route('admin.dictionary.library.index')
-            ->with('success', 'Library created successfully.');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $library->name . ' created successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.library.index')
+                ->with('success', $library->name . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified library.
+     *
+     * @param Library $library
+     * @return View
      */
     public function show(Library $library): View
     {
@@ -67,36 +89,60 @@ class LibraryController extends BaseController
 
     /**
      * Show the form for editing the specified library.
+     *
+     * @param Library $library
+     * @param Request $request
+     * @return View
      */
-    public function edit(Library $library): View
+    public function edit(Library $library, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit library entries.');
         }
 
-        return view('admin.dictionary.library.edit', compact('library'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.dictionary.library.edit', compact('library', 'referer'));
     }
 
     /**
      * Update the specified library in storage.
+     *
+     * @param LibraryUpdateRequest $request
+     * @param Library $library
+     * @return RedirectResponse
      */
-    public function update(UpdateRequest $request,
-                           Library       $library): RedirectResponse
+    public function update(LibraryUpdateRequest $request, Library $library): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update library entries.');
         }
 
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('posts', 'slug') ] ]);
         $library->update($request->validated());
 
-        return redirect()->route('admin.dictionary.library.index')
-            ->with('success', 'Library updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $library->name . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.library.index')
+                ->with('success', $library->name . ' updated successfully');
+        }
     }
 
     /**
      * Remove the specified library from storage.
+     *
+     * @param Library $library
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Library $library): RedirectResponse
+    public function destroy(Library $library, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete library entries.');
@@ -104,7 +150,14 @@ class LibraryController extends BaseController
 
         $library->delete();
 
-        return redirect()->route('admin.dictionary.library.index')
-            ->with('success', 'Library deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $library->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.library.index')
+                ->with('success', $library->name . ' deleted successfully');
+        }
     }
 }

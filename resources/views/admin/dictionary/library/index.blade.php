@@ -5,7 +5,7 @@
         [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
         [ 'name' => 'Libraries' ]
     ],
-    'selectList' => View::make('  admin.components.form-select', [
+    'selectList' => View::make('admin.components.form-select', [
             'name'     => '',
             'label'    => '',
             'value'    => route('admin.dictionary.library.index'),
@@ -14,11 +14,11 @@
             'message'  => $message ?? '',
         ]),
     'buttons' => [
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Library', 'url' => route('admin.dictionary.library.create') ],
+    ],
     'errors'  => $errors->any() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
-    ],
-    'errors' => $errors ?? [],
 ])
 
 @section('content')

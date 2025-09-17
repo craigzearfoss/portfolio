@@ -54,7 +54,7 @@ class CategoryController extends BaseController
     /**
      * Store a newly created category in storage.
      *
-     * @param JobTaskStoreRequest $request
+     * @param CategoryStoreRequest $request
      * @return RedirectResponse
      */
     public function store(CategoryStoreRequest $request): RedirectResponse
@@ -79,7 +79,7 @@ class CategoryController extends BaseController
     /**
      * Display the specified category.
      *
-     * @param JobCoworker $jobCoworker
+     * @param Category $category
      * @return View
      */
     public function show(Category $category): View
@@ -90,7 +90,7 @@ class CategoryController extends BaseController
     /**
      * Show the form for editing the specified category.
      *
-     * @param JobCoworker $jobCoworker
+     * @param Category $category
      * @param Request $request
      * @return View
      */
@@ -108,8 +108,8 @@ class CategoryController extends BaseController
     /**
      * Update the specified category in storage.
      *
-     * @param JobCoworkerUpdateRequest $request
-     * @param JobCoworker $jobCoworker
+     * @param CategoryUpdateRequest $request
+     * @param Category $category
      * @return RedirectResponse
      */
     public function update(CategoryUpdateRequest $request, Category $category): RedirectResponse
@@ -138,7 +138,7 @@ class CategoryController extends BaseController
     /**
      * Remove the specified category from storage.
      *
-     * @param JobCoworker $jobCoworker
+     * @param Category $category
      * @param Request $request
      * @return RedirectResponse
      */

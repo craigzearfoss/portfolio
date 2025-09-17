@@ -9,7 +9,9 @@ use App\Models\Dictionary\Framework;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 /**
  *
@@ -52,7 +54,7 @@ class FrameworkController extends BaseController
     /**
      * Store a newly created framework in storage.
      *
-     * @param JobTaskStoreRequest $request
+     * @param FrameworkStoreRequest $request
      * @return RedirectResponse
      */
     public function store(FrameworkStoreRequest $request): RedirectResponse
@@ -77,7 +79,7 @@ class FrameworkController extends BaseController
     /**
      * Display the specified framework.
      *
-     * @param JobCoworker $jobCoworker
+     * @param Framework $framework
      * @return View
      */
     public function show(Framework $framework): View
@@ -88,11 +90,11 @@ class FrameworkController extends BaseController
     /**
      * Show the form for editing the specified framework.
      *
-     * @param JobCoworker $jobCoworker
+     * @param Framework $framework
      * @param Request $request
      * @return View
      */
-    public function edit(Framework $framework): View
+    public function edit(Framework $framework, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit framework entries.');
@@ -106,8 +108,8 @@ class FrameworkController extends BaseController
     /**
      * Update the specified framework in storage.
      *
-     * @param JobCoworkerUpdateRequest $request
-     * @param JobCoworker $jobCoworker
+     * @param FrameworkUpdateRequest $request
+     * @param Framework $framework
      * @return RedirectResponse
      */
     public function update(FrameworkUpdateRequest $request, Framework $framework): RedirectResponse
@@ -126,21 +128,21 @@ class FrameworkController extends BaseController
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $frmework->name . ' updated successfully.');
+                ->with('success', $framework->name . ' updated successfully.');
         } else {
              return redirect()->route('admin.dictionary.framework.index')
-                 ->with('success', $frmework->name . ' updated successfully');
+                 ->with('success', $framework->name . ' updated successfully');
         }
     }
 
     /**
      * Remove the specified framework from storage.
      *
-     * @param JobCoworker $jobCoworker
+     * @param Framework $framework
      * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Framework $framework): RedirectResponse
+    public function destroy(Framework $framework, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete framework entries.');

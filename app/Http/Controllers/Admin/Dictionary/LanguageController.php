@@ -9,8 +9,13 @@ use App\Models\Dictionary\Language;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
+/**
+ *
+ */
 class LanguageController extends BaseController
 {
     /**
@@ -23,8 +28,7 @@ class LanguageController extends BaseController
     {
         $perPage= $request->query('per_page', $this->perPage);
 
-        $languages = Language::orderBy('name', 'asc')
-            ->paginate($perPage);
+        $languages = Language::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.dictionary.language.index', compact('languages'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -32,18 +36,26 @@ class LanguageController extends BaseController
 
     /**
      * Show the form for creating a new language.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add language entries.');
         }
 
-        return view('admin.dictionary.language.create');
+        $referer = Request()->headers->get('referer');
+
+        return view('admin.dictionary.language.create', compact('referer'));
     }
 
     /**
      * Store a newly created language in storage.
+     *
+     * @param LanguageStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(LanguageStoreRequest $request): RedirectResponse
     {
@@ -51,14 +63,24 @@ class LanguageController extends BaseController
             abort(403, 'Only admins with root access can add language entries.');
         }
 
-        Language::create($request->validated());
+        $language = Language::create($request->validated());
 
-        return redirect()->route('admin.dictionary.language.index')
-            ->with('success', 'Language created successfully.');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $language->name . ' created successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.language.index')
+                ->with('success', $language->name . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified language.
+     *
+     * @param Language $language
+     * @return View
      */
     public function show(Language $language): View
     {
@@ -67,36 +89,60 @@ class LanguageController extends BaseController
 
     /**
      * Show the form for editing the specified language.
+     *
+     * @param Language $language
+     * @param Request $request
+     * @return View
      */
-    public function edit(Language $language): View
+    public function edit(Language $language, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit language entries.');
         }
+
+        $referer = $request->headers->get('referer');
 
         return view('admin.dictionary.language.edit', compact('language'));
     }
 
     /**
      * Update the specified language in storage.
+     *
+     * @param LanguageUpdateRequest $request
+     * @param Language $language
+     * @return RedirectResponse
      */
-    public function update(LanguageUpdateRequest $request,
-                           Language              $language): RedirectResponse
+    public function update(LanguageUpdateRequest $request, Language $language): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update language entries.');
         }
 
+        // Validate the posted data and generated slug.
+        $validatedData = $request->validated();
+        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
+        $request->validate(['slug' => [ Rule::unique('posts', 'slug') ] ]);
         $language->update($request->validated());
 
-        return redirect()->route('admin.dictionary.language.index')
-            ->with('success', 'Language updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $language->name . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.language.index')
+                ->with('success', $language->name . ' updated successfully');
+        }
     }
 
     /**
      * Remove the specified language from storage.
+     *
+     * @param Language $language
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Language $language): RedirectResponse
+    public function destroy(Language $language, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete language entries.');
@@ -104,7 +150,14 @@ class LanguageController extends BaseController
 
         $language->delete();
 
-        return redirect()->route('admin.dictionary.language.index')
-            ->with('success', 'Language deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $language->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.language.index')
+                ->with('success', $language->name . ' deleted successfully');
+        }
     }
 }

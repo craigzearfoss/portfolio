@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
         [ 'name' => 'Dictionary']
     ],
-    'selectList' => View::make('  admin.components.form-select', [
+    'selectList' => View::make('admin.components.form-select', [
             'name'     => '',
             'label'    => '',
             'value'    => route('admin.dictionary.index'),
