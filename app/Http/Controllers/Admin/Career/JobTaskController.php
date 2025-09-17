@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\BaseController
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\JobTaskStoreRequest;
 use App\Http\Requests\Career\JobTaskUpdateRequest;
 use App\Models\Career\JobTask;
