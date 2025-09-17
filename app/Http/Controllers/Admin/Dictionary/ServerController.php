@@ -43,7 +43,7 @@ class ServerController extends BaseController
     public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add server entries.');
+            abort(403, 'Only admins with root access can add servers.');
         }
 
         $referer = $request->headers->get('referer');
@@ -60,7 +60,7 @@ class ServerController extends BaseController
     public function store(ServerStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add server entries.');
+            abort(403, 'Only admins with root access can add servers.');
         }
 
         $server = Server::create($request->validated());
@@ -97,7 +97,7 @@ class ServerController extends BaseController
     public function edit(Server $server, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit server entries.');
+            abort(403, 'Only admins with root access can edit servers.');
         }
 
         $referer = $request->headers->get('referer');
@@ -115,7 +115,7 @@ class ServerController extends BaseController
     public function update(ServerUpdateRequest $request, Server $server): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update server entries.');
+            abort(403, 'Only admins with root access can update servers.');
         }
 
         // Validate the posted data and generated slug.
@@ -145,7 +145,7 @@ class ServerController extends BaseController
     public function destroy(Server $server, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete server entries.');
+            abort(403, 'Only admins with root access can delete servers.');
         }
 
         $server->delete();

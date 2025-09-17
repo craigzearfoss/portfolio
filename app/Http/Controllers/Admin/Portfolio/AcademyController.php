@@ -40,10 +40,10 @@ class AcademyController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add academy entries.');
+            abort(403, 'Only admins with root access can add academies.');
         }
 
         $referer = $request->headers->get('referer');
@@ -60,7 +60,7 @@ class AcademyController extends BaseController
     public function store(AcademyStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add academy entries.');
+            abort(403, 'Only admins with root access can add academies.');
         }
 
         $academy = Academy::create($request->validated());
@@ -95,7 +95,7 @@ class AcademyController extends BaseController
     public function edit(Academy $academy, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit academy entries.');
+            abort(403, 'Only admins with root access can edit academies.');
         }
 
         $referer = $request->headers->get('referer');
@@ -113,7 +113,7 @@ class AcademyController extends BaseController
     public function update(AcademyUpdateRequest $request, Academy $academy): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update academy entries.');
+            abort(403, 'Only admins with root access can update academies.');
         }
 
         // Validate the posted data and generated slug.
@@ -143,7 +143,7 @@ class AcademyController extends BaseController
     public function destroy(Academy $academy, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete academy entries.');
+            abort(403, 'Only admins with root access can delete academies.');
         }
 
         $academy->delete();

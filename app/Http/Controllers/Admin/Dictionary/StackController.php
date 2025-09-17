@@ -43,7 +43,7 @@ class StackController extends BaseController
     public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add stack entries.');
+            abort(403, 'Only admins with root access can add stacks.');
         }
 
         $referer = $request->headers->get('referer');
@@ -60,7 +60,7 @@ class StackController extends BaseController
     public function store(StackStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add stack entries.');
+            abort(403, 'Only admins with root access can add stacks.');
         }
 
         $stack = Stack::create($request->validated());
@@ -97,7 +97,7 @@ class StackController extends BaseController
     public function edit(Stack $stack, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit stack entries.');
+            abort(403, 'Only admins with root access can edit stacks.');
         }
 
         $referer = $request->headers->get('referer');
@@ -115,7 +115,7 @@ class StackController extends BaseController
     public function update(StackUpdateRequest $request, Stack $stack): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update stack entries.');
+            abort(403, 'Only admins with root access can update stacks.');
         }
 
         // Validate the posted data and generated slug.
@@ -145,7 +145,7 @@ class StackController extends BaseController
     public function destroy(Stack $stack, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete stack entries.');
+            abort(403, 'Only admins with root access can delete stacks.');
         }
 
         $stack->delete();

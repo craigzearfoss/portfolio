@@ -43,7 +43,7 @@ class UnitController extends BaseController
     public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add unit entries.');
+            abort(403, 'Only admins with root access can add units.');
         }
 
         $referer = $request->headers->get('referer');
@@ -54,20 +54,20 @@ class UnitController extends BaseController
     /**
      * Store a newly created unit in storage.
      *
-     * @param UnittoreRequest $request
+     * @param UnitStoreRequest $request
      * @return RedirectResponse
      */
     public function store(UnitStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add unit entries.');
+            abort(403, 'Only admins with root access can add units.');
         }
 
         $unit = Unit::create($request->validated());
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $unit->name . $database->name . ' created successfully.');
+                ->with('success', $unit->name . $unit->name . ' created successfully.');
         } else {
             return redirect()->route('admin.portfolio.unit.index')
                 ->with('success', $unit->name . ' created successfully.');
@@ -88,14 +88,14 @@ class UnitController extends BaseController
     /**
      * Show the form for editing the specified unit.
      *
-     * @param Uniit $unit
+     * @param Unit $unit
      * @param Request $request
      * @return View
      */
-    public function edit(Unit $unit): View
+    public function edit(Unit $unit, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit unit entries.');
+            abort(403, 'Only admins with root access can edit units.');
         }
 
         $referer = $request->headers->get('referer');
@@ -113,7 +113,7 @@ class UnitController extends BaseController
     public function update(UnitUpdateRequest $request, Unit $unit): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update unit entries.');
+            abort(403, 'Only admins with root access can update units.');
         }
 
         // Validate the posted data and generated slug.
@@ -143,7 +143,7 @@ class UnitController extends BaseController
     public function destroy(Unit $unit, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete unit entries.');
+            abort(403, 'Only admins with root access can delete units.');
         }
 
         $unit->delete();

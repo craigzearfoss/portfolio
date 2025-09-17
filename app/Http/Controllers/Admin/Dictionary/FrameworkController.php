@@ -43,7 +43,7 @@ class FrameworkController extends BaseController
     public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add framework entries.');
+            abort(403, 'Only admins with root access can add frameworks.');
         }
 
         $referer = $request->headers->get('referer');
@@ -60,7 +60,7 @@ class FrameworkController extends BaseController
     public function store(FrameworkStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add framework entries.');
+            abort(403, 'Only admins with root access can add frameworks.');
         }
 
         $framework = Framework::create($request->validated());
@@ -97,7 +97,7 @@ class FrameworkController extends BaseController
     public function edit(Framework $framework, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit framework entries.');
+            abort(403, 'Only admins with root access can edit frameworks.');
         }
 
         $referer = $request->headers->get('referer');
@@ -115,7 +115,7 @@ class FrameworkController extends BaseController
     public function update(FrameworkUpdateRequest $request, Framework $framework): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update framework entries.');
+            abort(403, 'Only admins with root access can update frameworks.');
         }
 
         // Validate the posted data and generated slug.
@@ -145,7 +145,7 @@ class FrameworkController extends BaseController
     public function destroy(Framework $framework, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete framework entries.');
+            abort(403, 'Only admins with root access can delete frameworks.');
         }
 
         $framework->delete();

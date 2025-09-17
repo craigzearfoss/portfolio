@@ -43,7 +43,7 @@ class JobBoardController extends BaseController
     public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add job board entries.');
+            abort(403, 'Only admins with root access can add job boards.');
         }
 
         $referer = $request->headers->get('referer');
@@ -60,7 +60,7 @@ class JobBoardController extends BaseController
     public function store(JobBoardStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add job board entries.');
+            abort(403, 'Only admins with root access can add job boards.');
         }
 
         $jobBoard =JobBoard::create($request->validated());
@@ -95,7 +95,7 @@ class JobBoardController extends BaseController
     public function edit(JobBoard $jobBoard, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit job board entries.');
+            abort(403, 'Only admins with root access can edit job boards.');
         }
 
         $referer = $request->headers->get('referer');
@@ -113,7 +113,7 @@ class JobBoardController extends BaseController
     public function update(JobBoardUpdateRequest $request, JobBoard $jobBoard): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update job board entries.');
+            abort(403, 'Only admins with root access can update job boards.');
         }
 
         // Validate the posted data and generated slug.
@@ -143,7 +143,7 @@ class JobBoardController extends BaseController
     public function destroy(JobBoard $jobBoard, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete job board entries.');
+            abort(403, 'Only admins with root access can delete job boards.');
         }
 
         $jobBoard->delete();

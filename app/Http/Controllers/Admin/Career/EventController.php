@@ -10,6 +10,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class EventController extends BaseController
 {
     /**
@@ -30,25 +33,41 @@ class EventController extends BaseController
 
     /**
      * Show the form for creating a new event.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.career.event.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.event.create', compact('referer'));
     }
 
     /**
      * Store a newly created event in storage.
+     *
+     * @param EventtoreRequest $request
+     * @return RedirectResponse
      */
     public function store(EventStoreRequest $request): RedirectResponse
     {
-        Event::create($request->validated());
+        $event = Event::create($request->validated());
 
-        return redirect()->route('admin.career.event.index')
-            ->with('success', 'Event created successfully.');
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Event created successfully.');
+        } else {
+            return redirect()->route('admin.career.event.index')
+                ->with('success', 'Event created successfully.');
+        }
     }
 
     /**
      * Display the specified event.
+     *
+     * @param Event $event
+     * @return View
      */
     public function show(Event $event): View
     {
@@ -57,31 +76,59 @@ class EventController extends BaseController
 
     /**
      * Show the form for editing the specified event.
+     *
+     * @param Event $event
+     * @param Request $request
+     * @return View
      */
     public function edit(Event $event): View
     {
-        return view('admin.career.event.edit', compact('event'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.event.edit', compact('event', 'referer'));
     }
 
     /**
      * Update the specified event in storage.
+     *
+     * @param EventUpdateRequest $request
+     * @param Event $event
+     * @return RedirectResponse
      */
     public function update(EventUpdateRequest $request, Event $event): RedirectResponse
     {
         $event->update($request->validated());
 
-        return redirect()->route('admin.career.event.index')
-            ->with('success', 'Event updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Event updated successfully.');
+        } else {
+            return redirect()->route('admin.career.event.index')
+                ->with('success', 'Event updated successfully');
+        }
     }
 
     /**
-     * Remove the specified event from storage.
+     * Remove the specified application from storage.
+     *
+     * @param Event $event
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Event $event): RedirectResponse
+    public function destroy(Event $event, Request $request): RedirectResponse
     {
         $event->delete();
 
-        return redirect()->route('admin.career.event.index')
-            ->with('success', 'Event deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', 'Event deleted successfully.');
+        } else {
+            return redirect()->route('admin.dictionary.database.index')
+                ->with('success', 'Event deleted successfully');
+        }
     }
 }

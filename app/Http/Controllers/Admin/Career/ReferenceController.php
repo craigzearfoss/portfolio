@@ -10,6 +10,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class ReferenceController extends BaseController
 {
     /**
@@ -30,25 +33,41 @@ class ReferenceController extends BaseController
 
     /**
      * Show the form for creating a new reference.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.career.reference.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.reference.create', compact('referer'));
     }
 
     /**
      * Store a newly created reference in storage.
+     *
+     * @param ReferenceStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(ReferenceStoreRequest $request): RedirectResponse
     {
-        Reference::create($request->validated());
+        $reference = Reference::create($request->validated());
 
-        return redirect()->route('admin.career.reference.index')
-            ->with('success', 'Reference created successfully.');
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $reference->name . ' created successfully.');
+        } else {
+            return redirect()->route('admin.career.reference.index')
+                ->with('success', $reference->name . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified reference.
+     *
+     * @param Reference $reference
+     * @return View
      */
     public function show(Reference $reference): View
     {
@@ -57,31 +76,59 @@ class ReferenceController extends BaseController
 
     /**
      * Show the form for editing the specified reference.
+     *
+     * @param Reference $reference
+     * @param Request $request
+     * @return View
      */
     public function edit(Reference $reference): View
     {
-        return view('admin.career.reference.edit', compact('reference'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.reference.edit', compact('reference', 'referer'));
     }
 
     /**
      * Update the specified reference in storage.
+     *
+     * @param ReferenceUpdateRequest $request
+     * @param Reference $reference
+     * @return RedirectResponse
      */
     public function update(ReferenceUpdateRequest $request, Reference $reference): RedirectResponse
     {
         $reference->update($request->validated());
 
-        return redirect()->route('admin.career.reference.index')
-            ->with('success', 'Reference updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $reference->name . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.career.reference.index')
+                ->with('success', $reference->name . ' updated successfully');
+        }
     }
 
     /**
      * Remove the specified reference from storage.
+     *
+     * @param Reference $reference
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Reference $reference): RedirectResponse
+    public function destroy(Reference $reference, Request $request): RedirectResponse
     {
         $reference->delete();
 
-        return redirect()->route('admin.career.reference.index')
-            ->with('success', 'Reference deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $reference->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.career.reference.index')
+                ->with('success', $reference->name . ' deleted successfully');
+        }
     }
 }

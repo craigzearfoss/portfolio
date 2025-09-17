@@ -43,7 +43,7 @@ class IndustryController extends BaseController
     public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add industry entries.');
+            abort(403, 'Only admins with root access can add industries.');
         }
 
         $referer = $request->headers->get('referer');
@@ -60,7 +60,7 @@ class IndustryController extends BaseController
     public function store(IndustryStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add industry entries.');
+            abort(403, 'Only admins with root access can add industries.');
         }
 
         $industry = Industry::create($request->validated());
@@ -95,7 +95,7 @@ class IndustryController extends BaseController
     public function edit(Industry $industry, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit industry entries.');
+            abort(403, 'Only admins with root access can edit industries.');
         }
 
         $referer = $request->headers->get('referer');
@@ -113,7 +113,7 @@ class IndustryController extends BaseController
     public function update(IndustryUpdateRequest $request, Industry $industry): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update industry entries.');
+            abort(403, 'Only admins with root access can update industries.');
         }
 
         // Validate the posted data and generated slug.
@@ -143,7 +143,7 @@ class IndustryController extends BaseController
     public function destroy(Industry $industry, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete industry entries.');
+            abort(403, 'Only admins with root access can delete industries.');
         }
 
         $industry->delete();

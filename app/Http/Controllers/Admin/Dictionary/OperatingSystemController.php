@@ -43,7 +43,7 @@ class OperatingSystemController extends BaseController
     public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add operating system entries.');
+            abort(403, 'Only admins with root access can add operating systems.');
         }
 
         $referer = $request->headers->get('referer');
@@ -60,7 +60,7 @@ class OperatingSystemController extends BaseController
     public function store(OperatingSystemStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add operating system entries.');
+            abort(403, 'Only admins with root access can add operating systems.');
         }
 
         $operatingSystem = OperatingSystem::create($request->validated());
@@ -97,7 +97,7 @@ class OperatingSystemController extends BaseController
     public function edit(OperatingSystem $operatingSystem, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit operating system entries.');
+            abort(403, 'Only admins with root access can edit operating systems.');
         }
 
         $referer = $request->headers->get('referer');
@@ -115,7 +115,7 @@ class OperatingSystemController extends BaseController
     public function update(OperatingSystemUpdateRequest $request, OperatingSystem $operatingSystem): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update operating system entries.');
+            abort(403, 'Only admins with root access can update operating systems.');
         }
 
         // Validate the posted data and generated slug.
@@ -145,7 +145,7 @@ class OperatingSystemController extends BaseController
     public function destroy(OperatingSystem $operatingSystem, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete operating system entries.');
+            abort(403, 'Only admins with root access can delete operating systems.');
         }
 
         $operatingSystem->delete();

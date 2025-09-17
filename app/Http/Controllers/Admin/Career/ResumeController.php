@@ -10,6 +10,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class ResumeController extends BaseController
 {
     /**
@@ -30,25 +33,41 @@ class ResumeController extends BaseController
 
     /**
      * Show the form for creating a new resume.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.career.resume.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.resume.create', compact('referer'));
     }
 
     /**
      * Store a newly created resume in storage.
+     *
+     * @param ResumeStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(ResumeStoreRequest $request): RedirectResponse
     {
-        Resume::create($request->validated());
+        $resume = Resume::create($request->validated());
 
-        return redirect()->route('admin.career.resume.index')
-            ->with('success', 'Resume created successfully.');
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $resume->name . ' resume created successfully.');
+        } else {
+            return redirect()->route('admin.career.resume.index')
+                ->with('success', $resume->name . ' resume created successfully.');
+        }
     }
 
     /**
      * Display the specified resume.
+     *
+     * @param Resume $resume
+     * @return View
      */
     public function show(Resume $resume): View
     {
@@ -57,31 +76,59 @@ class ResumeController extends BaseController
 
     /**
      * Show the form for editing the specified resume.
+     *
+     * @param Resume $resume
+     * @param Request $request
+     * @return View
      */
     public function edit(Resume $resume): View
     {
-        return view('admin.career.resume.edit', compact('resume'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.resume.edit', compact('resume', 'referer')));
     }
 
     /**
      * Update the specified resume in storage.
+     *
+     * @param ResumeUpdateRequest $request
+     * @param Resume $resume
+     * @return RedirectResponse
      */
     public function update(ResumeUpdateRequest $request, Resume $resume): RedirectResponse
     {
         $resume->update($request->validated());
 
-        return redirect()->route('admin.career.resume.index')
-            ->with('success', 'Resume updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $resume->name . ' resume updated successfully.');
+        } else {
+            return redirect()->route('admin.career.resume.index')
+                ->with('success', $resume->name . ' resume updated successfully');
+        }
     }
 
     /**
      * Remove the specified resume from storage.
+     *
+     * @param Resume $resume
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Resume $resume): RedirectResponse
+    public function destroy(Resume $resume, Request $request): RedirectResponse
     {
         $resume->delete();
 
-        return redirect()->route('admin.career.resume.index')
-            ->with('success', 'Resume deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $resume->name . ' resume deleted successfully.');
+        } else {
+            return redirect()->route('admin.career.resume.index')
+                ->with('success', $resume->name . ' resume deleted successfully');
+        }
     }
 }

@@ -43,7 +43,7 @@ class LanguageController extends BaseController
     public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add language entries.');
+            abort(403, 'Only admins with root access can add languages.');
         }
 
         $referer = $request->headers->get('referer');
@@ -60,7 +60,7 @@ class LanguageController extends BaseController
     public function store(LanguageStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add language entries.');
+            abort(403, 'Only admins with root access can add languages.');
         }
 
         $language = Language::create($request->validated());
@@ -97,7 +97,7 @@ class LanguageController extends BaseController
     public function edit(Language $language, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit language entries.');
+            abort(403, 'Only admins with root access can edit languages.');
         }
 
         $referer = $request->headers->get('referer');
@@ -115,7 +115,7 @@ class LanguageController extends BaseController
     public function update(LanguageUpdateRequest $request, Language $language): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update language entries.');
+            abort(403, 'Only admins with root access can update languages.');
         }
 
         // Validate the posted data and generated slug.
@@ -145,7 +145,7 @@ class LanguageController extends BaseController
     public function destroy(Language $language, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete language entries.');
+            abort(403, 'Only admins with root access can delete languages.');
         }
 
         $language->delete();

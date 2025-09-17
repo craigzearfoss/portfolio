@@ -43,7 +43,7 @@ class CategoryController extends BaseController
     public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add category entries.');
+            abort(403, 'Only admins with root access can add categories.');
         }
 
         $referer = $request->headers->get('referer');
@@ -60,7 +60,7 @@ class CategoryController extends BaseController
     public function store(CategoryStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add category entries.');
+            abort(403, 'Only admins with root access can add categories.');
         }
 
         $category = Category::create($request->validated());
@@ -97,7 +97,7 @@ class CategoryController extends BaseController
     public function edit(Category $category, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit category entries.');
+            abort(403, 'Only admins with root access can edit categories.');
         }
 
         $referer = $request->headers->get('referer');
@@ -115,7 +115,7 @@ class CategoryController extends BaseController
     public function update(CategoryUpdateRequest $request, Category $category): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update category entries.');
+            abort(403, 'Only admins with root access can update categories.');
         }
 
         // Validate the posted data and generated slug.
@@ -145,7 +145,7 @@ class CategoryController extends BaseController
     public function destroy(Category $category, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete category entries.');
+            abort(403, 'Only admins with root access can delete categories.');
         }
 
         $category->delete();

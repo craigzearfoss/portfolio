@@ -10,6 +10,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class CourseController extends BaseController
 {
     /**
@@ -30,25 +33,41 @@ class CourseController extends BaseController
 
     /**
      * Show the form for creating a new course.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.portfolio.course.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.portfolio.course.create', compact('referer'));
     }
 
     /**
      * Store a newly created course in storage.
+     *
+     * @param CourseStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(CourseStoreRequest $request): RedirectResponse
     {
-        Course::create($request->validated());
+        $course = Course::create($request->validated());
 
-        return redirect()->route('admin.portfolio.course.index')
-            ->with('success', 'Course created successfully.');
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $course-> name . ' created successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.course.index')
+                ->with('success', $course-> name . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified course.
+     *
+     * @param Course $course
+     * @return View
      */
     public function show(Course $course): View
     {
@@ -57,31 +76,59 @@ class CourseController extends BaseController
 
     /**
      * Show the form for editing the specified course.
+     *
+     * @param Application $application
+     * @param Request $request
+     * @return View
      */
     public function edit(Course $course): View
     {
-        return view('admin.portfolio.course.edit', compact('course'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.portfolio.course.edit', compact('course', 'referer'));
     }
 
     /**
      * Update the specified course in storage.
+     *
+     * @param CourseUpdateRequest $request
+     * @param Course $course
+     * @return RedirectResponse
      */
     public function update(CourseUpdateRequest $request, Course $course): RedirectResponse
     {
         $course->update($request->validated());
 
-        return redirect()->route('admin.portfolio.course.index')
-            ->with('success', 'Course updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $course->name . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.course.index')
+                ->with('success', $course->name . ' updated successfully');
+        }
     }
 
     /**
      * Remove the specified course from storage.
+     *
+     * @param Course $course
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Course $course): RedirectResponse
+    public function destroy(Course $course, Request $request): RedirectResponse
     {
         $course->delete();
 
-        return redirect()->route('admin.portfolio.course.index')
-            ->with('success', 'Course deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $course->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.portfolio.course.index')
+                ->with('success', $course->name . ' deleted successfully');
+        }
     }
 }

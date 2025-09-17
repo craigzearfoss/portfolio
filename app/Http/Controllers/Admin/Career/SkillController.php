@@ -10,6 +10,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class SkillController extends BaseController
 {
     /**
@@ -30,25 +33,41 @@ class SkillController extends BaseController
 
     /**
      * Show the form for creating a new skill.
+     *
+     * @param Request $request
+     * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.career.skill.create');
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.skill.create', compact('referer'));
     }
 
     /**
      * Store a newly created skill in storage.
+     *
+     * @param SkillStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(SkillStoreRequest $request): RedirectResponse
     {
-        Skill::create($request->validated());
+        $skill = Skill::create($request->validated());
 
-        return redirect()->route('admin.career.skill.index')
-            ->with('success', 'Skill created successfully.');
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $skill->name . ' created successfully.');
+        } else {
+            return redirect()->route('admin.career.skill.index')
+                ->with('success', $skill->name . ' created successfully.');
+        }
     }
 
     /**
      * Display the specified skill.
+     *
+     * @param Skill $skill
+     * @return View
      */
     public function show(Skill $skill): View
     {
@@ -57,31 +76,59 @@ class SkillController extends BaseController
 
     /**
      * Show the form for editing the specified skill.
+     *
+     * @param Skill $skill
+     * @param Request $request
+     * @return View
      */
     public function edit(Skill $skill): View
     {
-        return view('admin.career.skill.edit', compact('skill'));
+        $referer = $request->headers->get('referer');
+
+        return view('admin.career.skill.edit', compact('skill', 'referer'));
     }
 
     /**
      * Update the specified skill in storage.
+     *
+     * @param SkillUpdateRequest $request
+     * @param Skill $application
+     * @return RedirectResponse
      */
     public function update(SkillUpdateRequest $request, Skill $skill): RedirectResponse
     {
         $skill->update($request->validated());
 
-        return redirect()->route('admin.career.skill.index')
-            ->with('success', 'Skill updated successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $skill->name . ' updated successfully.');
+        } else {
+            return redirect()->route('admin.career.skill.index')
+                ->with('success', $skill->name . ' updated successfully');
+        }
     }
 
     /**
      * Remove the specified skill from storage.
+     *
+     * @param Skill $skill
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function destroy(Skill $skill): RedirectResponse
+    public function destroy(Skill $skill, Request $request): RedirectResponse
     {
         $skill->delete();
 
-        return redirect()->route('admin.career.skill.index')
-            ->with('success', 'Skill deleted successfully');
+        $referer = $request->input('referer');
+
+        if (!empty($referer)) {
+            return redirect(str_replace(config('app.url'), '', $referer))
+                ->with('success', $skill->name . ' deleted successfully.');
+        } else {
+            return redirect()->route('admin.career.skill.index')
+                ->with('success', $skill->name . ' deleted successfully');
+        }
     }
 }

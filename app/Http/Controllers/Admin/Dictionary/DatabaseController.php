@@ -43,7 +43,7 @@ class DatabaseController extends BaseController
     public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add database entries.');
+            abort(403, 'Only admins with root access can add databases.');
         }
 
         $referer = $request->headers->get('referer');
@@ -60,7 +60,7 @@ class DatabaseController extends BaseController
     public function store(DatabaseStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add database entries.');
+            abort(403, 'Only admins with root access can add databases.');
         }
 
         $database = Database::create($request->validated());
@@ -95,7 +95,7 @@ class DatabaseController extends BaseController
     public function edit(Database $database, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit database entries.');
+            abort(403, 'Only admins with root access can edit databases.');
         }
 
         $referer = $request->headers->get('referer');
@@ -113,7 +113,7 @@ class DatabaseController extends BaseController
     public function update(DatabaseUpdateRequest $request, Database $database): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update database entries.');
+            abort(403, 'Only admins with root access can update databases.');
         }
 
         // Validate the posted data and generated slug.
@@ -143,7 +143,7 @@ class DatabaseController extends BaseController
     public function destroy(Database $database, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete database entries.');
+            abort(403, 'Only admins with root access can delete databases.');
         }
 
         $database->delete();

@@ -43,7 +43,7 @@ class LibraryController extends BaseController
     public function create(Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add library entries.');
+            abort(403, 'Only admins with root access can add libraries.');
         }
 
         $referer = $request->headers->get('referer');
@@ -60,7 +60,7 @@ class LibraryController extends BaseController
     public function store(LibraryStoreRequest $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can add library entries.');
+            abort(403, 'Only admins with root access can add libraries.');
         }
 
         $library = Library::create($request->validated());
@@ -97,7 +97,7 @@ class LibraryController extends BaseController
     public function edit(Library $library, Request $request): View
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can edit library entries.');
+            abort(403, 'Only admins with root access can edit libraries.');
         }
 
         $referer = $request->headers->get('referer');
@@ -115,7 +115,7 @@ class LibraryController extends BaseController
     public function update(LibraryUpdateRequest $request, Library $library): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can update library entries.');
+            abort(403, 'Only admins with root access can update libraries.');
         }
 
         // Validate the posted data and generated slug.
@@ -145,7 +145,7 @@ class LibraryController extends BaseController
     public function destroy(Library $library, Request $request): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
-            abort(403, 'Only admins with root access can delete library entries.');
+            abort(403, 'Only admins with root access can delete libraries.');
         }
 
         $library->delete();
