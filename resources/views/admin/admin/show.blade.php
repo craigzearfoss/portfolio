@@ -2,7 +2,8 @@
     'title' => $admin->username,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Admins']
+        [ 'name' => 'Admins',          'url' => route('admin.admin.index') ],
+        [ 'name' => 'Show']
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.admin.edit', $admin) ],

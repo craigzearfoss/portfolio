@@ -2,7 +2,8 @@
     'title' => $admin->username,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Admins']
+        [ 'name' => 'Admins',          'url' => route('admin.admin.index') ],
+        [ 'name' => 'Add']
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.admin.index') ],

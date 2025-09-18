@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'url' => route('admin.career.index') ],
         [ 'name' => 'Events',          'url' => route('admin.career.event.index') ],
-        [ 'name' => 'Create' ],
+        [ 'name' => 'Add' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.career.event.index') ],

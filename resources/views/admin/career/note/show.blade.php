@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.career.note.edit', $note) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Note',  'url' => route('admin.career.note.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => Request::header('referer') ?? route('admin.career.note.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => referer('admin.career.note.index') ],
     ],
     'errors'  => $errors->any() ?? [],
     'success' => session('success') ?? null,

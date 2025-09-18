@@ -5,7 +5,7 @@
         [ 'name' => 'Career',          'url' => route('admin.career.index') ],
         [ 'name' => 'Jobs',            'url' => route('admin.career.job.index') ],
         [ 'name' => 'Tasks',           'url' => route('admin.career.job-task.index') ],
-        [ 'name' => 'Create' ],
+        [ 'name' => 'Add' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.career.job-task.index') ],

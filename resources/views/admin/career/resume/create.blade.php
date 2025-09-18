@@ -4,10 +4,10 @@
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'url' => route('admin.career.index') ],
         [ 'name' => 'Resumes',         'url' => route('admin.career.resume.index') ],
-        [ 'name' => 'Create' ],
+        [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.career.resume.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.career.resume.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => referer('admin.career.resume.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -158,7 +158,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Resume',
-                'cancel_url' => Request::header('referer') ?? route('admin.career.resume.index')
+                'cancel_url' => referer('admin.career.resume.index')
             ])
 
         </form>
