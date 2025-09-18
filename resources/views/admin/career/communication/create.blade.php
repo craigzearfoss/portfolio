@@ -7,7 +7,7 @@
         [ 'name' => 'Create' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.career.communication.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.career.communication.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => referer('admin.career.communication.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -110,7 +110,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Communication',
-                'cancel_url' => Request::header('referer') ?? route('admin.career.communication.index')
+                'cancel_url' => referer('admin.career.communication.index')
             ])
 
         </form>

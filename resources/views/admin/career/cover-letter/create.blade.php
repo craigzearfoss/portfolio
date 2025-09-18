@@ -7,7 +7,7 @@
         [ 'name' => 'Create' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.career.cover-letter.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.career.cover-letter.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => referer('admin.career.cover-letter.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -153,7 +153,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Cover Letter',
-                'cancel_url' => Request::header('referer') ?? route('admin.career.cover-letter.index')
+                'cancel_url' => referer('admin.career.cover-letter.index')
             ])
 
         </form>

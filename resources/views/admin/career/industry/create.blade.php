@@ -7,7 +7,7 @@
         [ 'name' => 'Create' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.career.industry.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.career.industry.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => referer('admin.career.industry.index')
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -139,7 +139,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Industry',
-                'cancel_url' => Request::header('referer') ?? route('admin.career.industry.index')
+                'cancel_url' => referer('admin.career.industry.index')
             ])
 
         </form>

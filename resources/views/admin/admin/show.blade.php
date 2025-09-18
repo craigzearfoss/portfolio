@@ -7,7 +7,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.admin.edit', $admin) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Admin', 'url' => route('admin.admin.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => Request::header('referer') ?? route('admin.admin.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => referer('admin.admin.index') ],
     ],
     'errors'  => $errors->any() ?? [],
     'success' => session('success') ?? null,

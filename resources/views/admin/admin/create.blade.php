@@ -5,7 +5,7 @@
         [ 'name' => 'Admins']
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.admin.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.admin.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -21,7 +21,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => referer('admin.admin.index')
             ])
 
             <div class="card p-4 mb-3">
@@ -150,7 +150,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Admin',
-                'cancel_url' => Request::header('referer') ?? route('admin.admin.index')
+                'cancel_url' => referer('admin.admin.index')
             ])
 
         </form>

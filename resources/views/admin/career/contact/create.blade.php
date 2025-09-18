@@ -7,7 +7,7 @@
         [ 'name' => 'Create' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.career.contact.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.career.contact.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => referer('admin.career.contact.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -257,7 +257,7 @@
 
             @include('admin.components.form-button-submit', [
                 'label'      => 'Save Contact',
-                'cancel_url' => Request::header('referer') ?? route('admin.career.contact.index')
+                'cancel_url' => referer('admin.career.contact.index')
             ])
 
         </form>
