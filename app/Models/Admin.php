@@ -28,6 +28,7 @@ use App\Models\Portfolio\Recipe;
 use App\Models\Portfolio\RecipeIngredient;
 use App\Models\Portfolio\RecipeStep;
 use App\Models\Portfolio\Video;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;

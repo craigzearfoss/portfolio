@@ -65,7 +65,7 @@ class AcademyController extends BaseController
 
         $academy = Academy::create($request->validated());
 
-        $referer = $request->headers->get('referer');
+        $referer = $request->input('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
@@ -118,10 +118,6 @@ class AcademyController extends BaseController
             abort(403, 'Only admins with root access can update academies.');
         }
 
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('portfolio_db.academies', 'slug') ] ]);
         $academy->update($request->validated());
 
         $referer = $request->input('referer');

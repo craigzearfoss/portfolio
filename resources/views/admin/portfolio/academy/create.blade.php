@@ -4,10 +4,10 @@
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
         [ 'name' => 'Academies',       'url' => route('admin.portfolio.academy.index') ],
-        [ 'name' => 'Create' ],
+        [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.portfolio.academy.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.portfolio.academy.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => $referer ?? Request::header('referer')
+                'value' => $referer ?? route('admin.portfolio.academy.index')
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -59,6 +59,7 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'image',
                 'value'   => old('image') ?? '',
+                'maxlength' => 255,
                 'message' => $message ?? '',
             ])
 
@@ -81,6 +82,7 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
                 'value'   => old('thumbnail') ?? '',
+                'maxlength' => 255,
                 'message' => $message ?? '',
             ])
 
@@ -129,7 +131,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Academy',
-                'cancel_url' => Request::header('referer') ?? route('admin.portfolio.academy.index')
+                'cancel_url' => $referer ?? route('admin.portfolio.academy.index')
             ])
 
         </form>

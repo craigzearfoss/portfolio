@@ -102,8 +102,8 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'    => 'sequence',
-            'checked' => $jobCoworker->sequence
+            'name'  => 'sequence',
+            'value' => $jobCoworker->sequence
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -112,9 +112,8 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'     => 'readonly',
-            'readonly' => 'read-only',
-            'checked'  => $jobCoworker->readonly
+            'name'    => 'read-only',
+            'checked' => $jobCoworker->readonly
         ])
 
         @include('admin.components.show-row-checkbox', [

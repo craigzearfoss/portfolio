@@ -21,6 +21,11 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $academy->id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $academy->name
         ])
@@ -32,13 +37,9 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
+            'label'  => $academy->link_name,
             'url'    => $academy->link,
             'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $academy->link_name,
         ])
 
         @include('admin.components.show-row', [

@@ -56,7 +56,7 @@ class VideoController extends BaseController
     {
         $video = Video::create($request->validated());
 
-        $referer = $request->headers->get('referer');
+        $referer = $request->input('referer');
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
