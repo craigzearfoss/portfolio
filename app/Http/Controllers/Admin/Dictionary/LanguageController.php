@@ -37,18 +37,15 @@ class LanguageController extends BaseController
     /**
      * Show the form for creating a new language.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add languages.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.language.create', compact('referer'));
+        return view('admin.dictionary.language.create');
     }
 
     /**
@@ -65,15 +62,8 @@ class LanguageController extends BaseController
 
         $language = Language::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $language->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.language.index')
-                ->with('success', $language->name . ' created successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $language->name . ' created successfully.');
     }
 
     /**
@@ -91,18 +81,15 @@ class LanguageController extends BaseController
      * Show the form for editing the specified language.
      *
      * @param Language $language
-     * @param Request $request
      * @return View
      */
-    public function edit(Language $language, Request $request): View
+    public function edit(Language $language): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit languages.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.language.edit', compact('language', 'referer'));
+        return view('admin.dictionary.language.edit', compact('language'));
     }
 
     /**
@@ -120,25 +107,17 @@ class LanguageController extends BaseController
 
         $language->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $language->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.language.index')
-                ->with('success', $language->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $language->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified language from storage.
      *
      * @param Language $language
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Language $language, Request $request): RedirectResponse
+    public function destroy(Language $language): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete languages.');
@@ -146,14 +125,7 @@ class LanguageController extends BaseController
 
         $language->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $language->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.language.index')
-                ->with('success', $language->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $language->name . ' deleted successfully.');
     }
 }

@@ -37,18 +37,15 @@ class FrameworkController extends BaseController
     /**
      * Show the form for creating a new framework.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add frameworks.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.framework.create', compact('referer'));
+        return view('admin.dictionary.framework.create');
     }
 
     /**

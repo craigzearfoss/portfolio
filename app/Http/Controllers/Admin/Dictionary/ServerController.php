@@ -37,18 +37,15 @@ class ServerController extends BaseController
     /**
      * Show the form for creating a new server.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add servers.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.server.create', compact('referer'));
+        return view('admin.dictionary.server.create');
     }
 
     /**
@@ -65,15 +62,8 @@ class ServerController extends BaseController
 
         $server = Server::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $server->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.server.index')
-                ->with('success', $server->name . ' created successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $server->name . ' created successfully.');
     }
 
     /**
@@ -91,18 +81,15 @@ class ServerController extends BaseController
      * Show the form for editing the specified server.
      *
      * @param Server $server
-     * @param Request $request
      * @return View
      */
-    public function edit(Server $server, Request $request): View
+    public function edit(Server $server): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit servers.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.server.edit', compact('server', 'referer'));
+        return view('admin.dictionary.server.edit', compact('server'));
     }
 
     /**
@@ -120,25 +107,17 @@ class ServerController extends BaseController
 
         $server->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $server->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.server.index')
-                ->with('success', $server->name . 'Server updated successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $server->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified server from storage.
      *
      * @param Server $server
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Server $server, Request $request): RedirectResponse
+    public function destroy(Server $server): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete servers.');
@@ -146,14 +125,7 @@ class ServerController extends BaseController
 
         $server->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $server->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.server.index')
-                ->with('success', $server->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $server->name . ' deleted successfully.');
     }
 }

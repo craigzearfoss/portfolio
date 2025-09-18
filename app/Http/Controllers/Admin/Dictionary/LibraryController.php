@@ -37,18 +37,15 @@ class LibraryController extends BaseController
     /**
      * Show the form for creating a new library.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add libraries.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.library.create', compact('referer'));
+        return view('admin.dictionary.library.create');
     }
 
     /**
@@ -65,15 +62,8 @@ class LibraryController extends BaseController
 
         $library = Library::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $library->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.library.index')
-                ->with('success', $library->name . ' created successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $library->name . ' created successfully.');
     }
 
     /**
@@ -91,18 +81,15 @@ class LibraryController extends BaseController
      * Show the form for editing the specified library.
      *
      * @param Library $library
-     * @param Request $request
      * @return View
      */
-    public function edit(Library $library, Request $request): View
+    public function edit(Library $library): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit libraries.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.library.edit', compact('library', 'referer'));
+        return view('admin.dictionary.library.edit', compact('library'));
     }
 
     /**
@@ -120,25 +107,17 @@ class LibraryController extends BaseController
 
         $library->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $library->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.library.index')
-                ->with('success', $library->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $library->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified library from storage.
      *
      * @param Library $library
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Library $library, Request $request): RedirectResponse
+    public function destroy(Library $library): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete libraries.');
@@ -146,14 +125,7 @@ class LibraryController extends BaseController
 
         $library->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $library->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.library.index')
-                ->with('success', $library->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $library->name . ' deleted successfully.');
     }
 }

@@ -37,18 +37,15 @@ class DatabaseController extends BaseController
     /**
      * Show the form for creating a new database.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add databases.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.database.create', compact('referer'));
+        return view('admin.dictionary.database.create');
     }
 
     /**
@@ -65,15 +62,8 @@ class DatabaseController extends BaseController
 
         $database = Database::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $database->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.database.index')
-                ->with('success', $database->name . ' created successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $database->name . ' created successfully.');
     }
 
     /**
@@ -91,18 +81,15 @@ class DatabaseController extends BaseController
      * Show the form for editing the specified database.
      *
      * @param Database $database
-     * @param Request $request
      * @return View
      */
-    public function edit(Database $database, Request $request): View
+    public function edit(Database $database): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit databases.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.database.edit', compact('database', 'referer'));
+        return view('admin.dictionary.database.edit', compact('database'));
     }
 
     /**
@@ -120,15 +107,8 @@ class DatabaseController extends BaseController
 
         $database->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $database->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.database.index')
-                ->with('success', $database->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $database->name . ' updated successfully.');
     }
 
     /**
@@ -146,14 +126,7 @@ class DatabaseController extends BaseController
 
         $database->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $database->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.database.index')
-                ->with('success', $database->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $database->name . ' deleted successfully.');
     }
 }

@@ -37,18 +37,15 @@ class CategoryController extends BaseController
     /**
      * Show the form for creating a new category.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add categories.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.category.create', compact('referer'));
+        return view('admin.dictionary.category.create');
     }
 
     /**
@@ -65,15 +62,8 @@ class CategoryController extends BaseController
 
         $category = Category::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $category->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.category.index')
-                ->with('success', $category-> name . ' created successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $category->name . ' created successfully.');
     }
 
     /**
@@ -91,18 +81,15 @@ class CategoryController extends BaseController
      * Show the form for editing the specified category.
      *
      * @param Category $category
-     * @param Request $request
      * @return View
      */
-    public function edit(Category $category, Request $request): View
+    public function edit(Category $category): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit categories.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.category.edit', compact('category', 'referer'));
+        return view('admin.dictionary.category.edit', compact('category'));
     }
 
     /**
@@ -120,25 +107,17 @@ class CategoryController extends BaseController
 
         $category->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $category->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.category.index')
-                ->with('success', $category->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $category->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified category from storage.
      *
      * @param Category $category
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Category $category, Request $request): RedirectResponse
+    public function destroy(Category $category): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete categories.');
@@ -146,14 +125,7 @@ class CategoryController extends BaseController
 
         $category->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $category->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.category.index')
-                ->with('success', $category->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $category->name . ' deleted successfully.');
     }
 }

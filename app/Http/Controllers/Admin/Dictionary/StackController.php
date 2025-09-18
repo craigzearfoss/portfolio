@@ -37,18 +37,15 @@ class StackController extends BaseController
     /**
      * Show the form for creating a new stack.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add stacks.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.stack.create', compact('referer'));
+        return view('admin.dictionary.stack.create');
     }
 
     /**
@@ -65,15 +62,8 @@ class StackController extends BaseController
 
         $stack = Stack::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $stack->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.stack.show', $stack)
-                ->with('success', $stack->name . ' created successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $stack->name . ' created successfully.');
     }
 
     /**
@@ -91,18 +81,15 @@ class StackController extends BaseController
      * Show the form for editing the specified stack.
      *
      * @param Stack $stack
-     * @param Request $request
      * @return View
      */
-    public function edit(Stack $stack, Request $request): View
+    public function edit(Stack $stack): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit stacks.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.stack.edit', compact('stack', 'referer'));
+        return view('admin.dictionary.stack.edit', compact('stack'));
     }
 
     /**
@@ -120,25 +107,17 @@ class StackController extends BaseController
 
         $stack->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $stack->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.stack.show', $stack)
-                ->with('success', $stack->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $stack->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified stack from storage.
      *
      * @param Stack $stack
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Stack $stack, Request $request): RedirectResponse
+    public function destroy(Stack $stack): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete stacks.');
@@ -146,14 +125,7 @@ class StackController extends BaseController
 
         $stack->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $stack->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.stack.index')
-                ->with('success', $stack->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $stack->name . ' deleted successfully.');
     }
 }

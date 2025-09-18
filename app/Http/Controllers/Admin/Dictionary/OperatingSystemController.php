@@ -37,18 +37,15 @@ class OperatingSystemController extends BaseController
     /**
      * Show the form for creating a new operating system.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add operating systems.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.operating-system.create', compact('referer'));
+        return view('admin.dictionary.operating-system.create');
     }
 
     /**
@@ -65,15 +62,8 @@ class OperatingSystemController extends BaseController
 
         $operatingSystem = OperatingSystem::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $operatingSystem->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.operating-system.index')
-                ->with('success', $operatingSystem->name . ' created successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $operatingSystem->name . ' created successfully.');
     }
 
     /**
@@ -91,18 +81,15 @@ class OperatingSystemController extends BaseController
      * Show the form for editing the specified operating system.
      *
      * @param OperatingSystem $operatingSystem
-     * @param Request $request
      * @return View
      */
-    public function edit(OperatingSystem $operatingSystem, Request $request): View
+    public function edit(OperatingSystem $operatingSystem): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit operating systems.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.dictionary.operating-system.edit', compact('operatingSystem', 'referer'));
+        return view('admin.dictionary.operating-system.edit', compact('operatingSystem'));
     }
 
     /**
@@ -120,25 +107,17 @@ class OperatingSystemController extends BaseController
 
         $operatingSystem->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $operatingSystem->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.operating-system.index')
-                ->with('success', $operatingSystem->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $operatingSystem->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified operating system from storage.
      *
      * @param OperatingSystem $operatingSystem
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(OperatingSystem $operatingSystem, Request $request): RedirectResponse
+    public function destroy(OperatingSystem $operatingSystem): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete operating systems.');
@@ -146,14 +125,7 @@ class OperatingSystemController extends BaseController
 
         $operatingSystem->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $operatingSystem->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.operating-system.index')
-                ->with('success', $operatingSystem->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $operatingSystem->name . ' deleted successfully.');
     }
 }
