@@ -41,9 +41,7 @@ class CourseController extends BaseController
      */
     public function create(Request $request): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.course.create', compact('referer'));
+        return view('admin.portfolio.course.create');
     }
 
     /**
@@ -56,15 +54,8 @@ class CourseController extends BaseController
     {
         $course = Course::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $course-> name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.course.index')
-                ->with('success', $course-> name . ' created successfully.');
-        }
+        return redirect(referer('admin.portfolio.course.index'))
+            ->with('success', $course-> name . ' created successfully.');
     }
 
     /**
@@ -87,9 +78,7 @@ class CourseController extends BaseController
      */
     public function edit(Course $course, Request $request): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.course.edit', compact('course', 'referer'));
+        return view('admin.portfolio.course.edit', compact('course'));
     }
 
     /**
@@ -103,15 +92,8 @@ class CourseController extends BaseController
     {
         $course->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $course->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.course.index')
-                ->with('success', $course->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.portfolio.course.index'))
+            ->with('success', $course->name . ' updated successfully.');
     }
 
     /**
@@ -125,14 +107,7 @@ class CourseController extends BaseController
     {
         $course->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $course->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.course.index')
-                ->with('success', $course->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.portfolio.course.index'))
+            ->with('success', $course->name . ' deleted successfully.');
     }
 }

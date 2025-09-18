@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\ContactStoreRequest;
+use App\Http\Requests\Career\ContactUpdateRequest;
 use App\Http\Requests\Career\rContactUpdateRequest;
 use App\Models\Career\Contact;
 use Illuminate\Http\RedirectResponse;
@@ -99,7 +100,7 @@ class ContactController extends BaseController
      * @param Contact $contact
      * @return RedirectResponse
      */
-    public function update(rContactUpdateRequest $request, Contact $contact): RedirectResponse
+    public function update(ContactUpdateRequest $request, Contact $contact): RedirectResponse
     {
         $contact->update($request->validated());
 
