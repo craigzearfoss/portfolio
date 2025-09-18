@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
         [ 'name' => 'Music',           'url' => route('admin.portfolio.music.index') ],
-        [ 'name' => 'Create' ],
+        [ 'name' => 'Add' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.portfolio.music.index') ],

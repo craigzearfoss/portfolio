@@ -61,13 +61,13 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'duration_hours',
+            'name'    => 'duration hours',
             'checked' => $course->duration_hours
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'academy',
-            'value' => $course->academy['name']
+            'value' => $course->academy['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [

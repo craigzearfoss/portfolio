@@ -72,14 +72,11 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
+            'label'  => $music->link_name,
             'url'    => $music->link,
             'target' => '_blank'
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $music->link_name,
-        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

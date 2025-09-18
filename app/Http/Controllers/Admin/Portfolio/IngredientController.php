@@ -118,10 +118,6 @@ class IngredientController extends BaseController
             abort(403, 'Only admins with root access can update ingredients.');
         }
 
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('portfolio_db.ingredients', 'slug') ] ]);
         $ingredient->update($request->validated());
 
         $referer = $request->input('referer');

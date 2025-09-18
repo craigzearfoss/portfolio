@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.portfolio.art.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.portfolio.art.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -24,7 +24,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => $referer ?? route('admin.portfolio.art.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -62,6 +62,22 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'artist',
+                'value'     => old('artist') ?? $art->artist,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'year',
+                'value'     => old('year') ?? $art->year,
+                'min'       => 1900,
+                'max'       => 2050,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $art->link,
                 'maxlength' => 255,
@@ -86,10 +102,11 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'image',
                 'value'   => old('image') ?? $art->image,
+                'maxlength' => 255,
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_credit',
                 'label'     => 'image credit',
                 'value'     => old('image_credit') ?? $art->image_credit,
@@ -97,7 +114,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_source',
                 'label'     => 'image source',
                 'value'     => old('image_source') ?? $art->image_source,
@@ -108,15 +125,16 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
                 'value'   => old('thumbnail') ?? $art->thumbnail,
+                'maxlength' => 255,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('sequence') ?? $art->sequence,
-                'min'         => 0,
-                'message'     => $message ?? '',
+                'type'    => 'number',
+                'name'    => 'sequence',
+                'value'   => old('sequence') ?? $art->sequence,
+                'min'     => 0,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
@@ -155,7 +173,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => Request::header('referer') ?? route('admin.portfolio.academy.index')
+                'cancel_url' => $referer ?? route('admin.portfolio.art.index')
             ])
 
         </form>

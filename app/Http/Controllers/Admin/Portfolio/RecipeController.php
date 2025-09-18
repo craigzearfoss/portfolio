@@ -85,7 +85,7 @@ class RecipeController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function edit(Recipe $recipe): View
+    public function edit(Recipe $recipe, Request $request): View
     {
         $referer = $request->headers->get('referer');
 
@@ -101,10 +101,6 @@ class RecipeController extends BaseController
      */
     public function update(RecipeUpdateRequest $request, Recipe $recipe): RedirectResponse
     {
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('portfolio_db.recipes', 'slug') ] ]);
         $recipe->update($request->validated());
 
         $referer = $request->input('referer');

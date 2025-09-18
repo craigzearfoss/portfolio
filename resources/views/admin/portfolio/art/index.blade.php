@@ -85,12 +85,12 @@
                             </a>
 
                             @if (!empty($art->link))
-                                <a title="link" class="button is-small px-1 py-0" href="{{ $art->link }}"
+                                <a title="{{ !empty($art->link_name) ? $art->link_name : 'link' }}" class="button is-small px-1 py-0" href="{{ $art->link }}"
                                    target="_blank">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @else
-                                <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @endif
@@ -107,7 +107,7 @@
             @empty
 
                 <tr>
-                    <td colspan="9">There is no art.</td>
+                    <td colspan="8">There is no art.</td>
                 </tr>
 
             @endforelse

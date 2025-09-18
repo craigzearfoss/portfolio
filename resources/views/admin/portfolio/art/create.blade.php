@@ -4,10 +4,10 @@
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
         [ 'name' => 'Art',             'url' => route('admin.portfolio.art.index') ],
-        [ 'name' => 'Create' ],
+        [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.portfolio.art.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.portfolio.art.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => $referer ?? route('admin.portfolio.academy.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -61,6 +61,22 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'artist',
+                'value'     => old('artist') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'year',
+                'value'     => old('year') ?? '',
+                'min'       => 1900,
+                'max'       => 2050,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? '',
                 'maxlength' => 255,
@@ -85,6 +101,7 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'image',
                 'value'   => old('image') ?? '',
+                'maxlength' => 255,
                 'message' => $message ?? '',
             ])
 
@@ -107,15 +124,16 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
                 'value'   => old('thumbnail') ?? '',
+                'maxlength' => 255,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('seq') ?? 0,
-                'min'         => 0,
-                'message'     => $message ?? '',
+                'type'    => 'number',
+                'name'    => 'sequence',
+                'value'   => old('seq') ?? 0,
+                'min'     => 0,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
@@ -155,7 +173,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Art',
-                'cancel_url' => Request::header('referer') ?? route('admin.portfolio.academy.index')
+                'cancel_url' => $referer ?? route('admin.portfolio.academy.index')
             ])
 
         </form>

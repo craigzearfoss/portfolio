@@ -83,7 +83,7 @@ class RecipeStepController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function edit(RecipeStep $recipeStep): View
+    public function edit(RecipeStep $recipeStep, Request $request): View
     {
         $referer = $request->headers->get('referer');
 

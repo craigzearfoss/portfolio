@@ -50,7 +50,7 @@ class CertificationUpdateRequest extends FormRequest
             'academy_id'      => ['integer', Rule::in(Academy::all()->pluck('id'))],
             'professional'    => ['integer', 'between:0,1'],
             'personal'        => ['integer', 'between:0,1'],
-            'year'            => ['integer', 'between:0,3000', 'nullable'],
+            'year'            => ['integer', 'between:1980,2050', 'nullable'],
             'received'        => ['date', 'nullable'],
             'expiration'      => ['date', 'nullable'],
             'certificate_url' => ['string', 'url:http,https', 'max:255', 'nullable'],

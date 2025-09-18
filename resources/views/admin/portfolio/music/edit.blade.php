@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.portfolio.music.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.portfolio.music.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -22,10 +22,10 @@
             @csrf
             @method('PUT')
 
-        @include('admin.components.form-hidden', [
-            'name'  => 'referer',
-            'value' => Request::header('referer')
-        ])
+            @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => $referer ?? route('admin.portfolio.music.index')
+            ])
 
             @if(Auth::guard('admin')->user()->root)
                 @include('admin.components.form-select-horizontal', [
@@ -87,9 +87,9 @@
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
                 'name'      => 'year',
-                'value'     => old('year') ?? $music->year,
-                'min'       => 1950,
-                'max'       => date('Y'),
+                'value'     => old('year') ?? '',
+                'min'       => 1900,
+                'max'       => 2050,
                 'message'   => $message ?? '',
             ])
 
@@ -98,7 +98,6 @@
                 'name'      => 'release_date',
                 'label'     => 'release date',
                 'value'     => old('release_date') ?? $music->release_date,
-                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
@@ -127,6 +126,7 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'image',
                 'value'   => old('image') ?? $music->image,
+                'maxlength' => 255,
                 'message' => $message ?? '',
             ])
 
@@ -149,15 +149,16 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
                 'value'   => old('thumbnail') ?? $music->thumbnail,
+                'maxlength' => 255,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('sequence') ?? $music->sequence,
-                'min'         => 0,
-                'message'     => $message ?? '',
+                'type'    => 'number',
+                'name'    => 'sequence',
+                'value'   => old('sequence') ?? $music->sequence,
+                'min'     => 0,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
@@ -170,7 +171,7 @@
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'readonly',
-                'label'            => 'read-only',
+                'label'           => 'read-only',
                 'value'           => 1,
                 'unchecked_value' => 0,
                 'checked'         => old('readonly') ?? $music->readonly,
@@ -196,8 +197,10 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => equest::header('referer') ?? route('admin.portfolio.music.index')
+                'cancel_url' => $referer ?? route('admin.portfolio.music.index')
             ])
+
+        </form>
 
     </div>
 

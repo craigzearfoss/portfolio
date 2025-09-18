@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.portfolio.art.edit', $art) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Art',   'url' => route('admin.portfolio.art.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.portfolio.art.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => Request::header('referer') ?? route('admin.portfolio.art.index') ],
     ],
     'errors'  => $errors->any() ?? [],
     'success' => session('success') ?? null,
@@ -19,6 +19,11 @@
 @section('content')
 
     <div class="card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $art->id
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
@@ -52,13 +57,9 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
+            'label'  => $art->link_name,
             'url'    => $art->link,
             'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $art->link_name,
         ])
 
         @include('admin.components.show-row', [

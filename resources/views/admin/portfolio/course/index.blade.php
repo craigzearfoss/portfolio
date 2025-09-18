@@ -56,7 +56,9 @@
                         {{ shortDate($course->completion_date) }}
                     </td>
                     <td class="py-0">
-                        {{ $course->academy->name }}
+                        @if (!empty($course->academy))
+                            <a href="{{ $course->academy['id'] }}" target="_blank">{{ $course->academy['name'] }}</a>
+                        @endif
                     </td>
                     <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $course->public ])
@@ -84,12 +86,12 @@
                             </a>
 
                             @if (!empty($course->link))
-                                <a title="link" class="button is-small px-1 py-0" href="{{ $course->link }}"
+                                <a title="{{ !empty($course->link_name) ? $course->link_name : 'link' }}" class="button is-small px-1 py-0" href="{{ $course->link }}"
                                    target="_blank">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @else
-                                <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @endif

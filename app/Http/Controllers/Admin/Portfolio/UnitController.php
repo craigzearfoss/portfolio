@@ -118,10 +118,6 @@ class UnitController extends BaseController
             abort(403, 'Only admins with root access can update units.');
         }
 
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('portfolio_db.units', 'slug') ] ]);
         $unit->update($request->validated());
 
         $referer = $request->input('referer');

@@ -118,10 +118,6 @@ class IndustryController extends BaseController
             abort(403, 'Only admins with root access can update industries.');
         }
 
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('career_db.industries', 'slug') ] ]);
         $industry->update($request->validated());
 
         $referer = $request->input('referer');

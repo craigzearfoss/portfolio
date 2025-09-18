@@ -81,11 +81,11 @@ class CourseController extends BaseController
     /**
      * Show the form for editing the specified course.
      *
-     * @param Application $application
+     * @param Course $course
      * @param Request $request
      * @return View
      */
-    public function edit(Course $course): View
+    public function edit(Course $course, Request $request): View
     {
         $referer = $request->headers->get('referer');
 
@@ -101,10 +101,6 @@ class CourseController extends BaseController
      */
     public function update(CourseUpdateRequest $request, Course $course): RedirectResponse
     {
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('portfolio_db.courses', 'slug') ] ]);
         $course->update($request->validated());
 
         $referer = $request->input('referer');

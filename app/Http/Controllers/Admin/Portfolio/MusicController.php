@@ -85,7 +85,7 @@ class MusicController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function edit(Music $music): View
+    public function edit(Music $music, Request $request): View
     {
         $referer = $request->headers->get('referer');
 
@@ -101,12 +101,6 @@ class MusicController extends BaseController
      */
     public function update(MusicUpdateRequest $request, Music $music): RedirectResponse
     {
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']
-            . (!empty($validatedData['artist']) ? '-by-' . $validatedData['artist'] : ''))
-        ]);
-        $request->validate(['slug' => [ Rule::unique('portfolio_db.music', 'slug') ] ]);
         $music->update($request->validated());
 
         $referer = $request->input('referer');

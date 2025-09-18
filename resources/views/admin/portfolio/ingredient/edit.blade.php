@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.portfolio.ingredient.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.portfolio.ingredient.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -24,7 +24,16 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => $referer ?? route('admin.portfolio.ingredient.index')
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'full_name',
+                'label'     => 'full name',
+                'value'     => old('full_name') ?? $ingredient->full_name,
+                'required'  => true,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -60,10 +69,11 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'image',
                 'value'   => old('image') ?? $ingredient->image,
+                'maxlength' => 255,
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_credit',
                 'label'     => 'image credit',
                 'value'     => old('image_credit') ?? $ingredient->image_credit,
@@ -71,7 +81,7 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_source',
                 'label'     => 'image source',
                 'value'     => old('image_source') ?? $ingredient->image_source,
@@ -82,15 +92,16 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
                 'value'   => old('thumbnail') ?? $ingredient->thumbnail,
+                'maxlength' => 255,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('sequence') ?? $ingredient->sequence,
-                'min'         => 0,
-                'message'     => $message ?? '',
+                'type'    => 'number',
+                'name'    => 'sequence',
+                'value'   => old('sequence') ?? $ingredient->sequence,
+                'min'     => 0,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
@@ -129,7 +140,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => Request::header('referer') ?? route('admin.portfolio.ingredient.index')
+                'cancel_url' => $referer ?? route('admin.portfolio.ingredient.index')
             ])
 
         </form>

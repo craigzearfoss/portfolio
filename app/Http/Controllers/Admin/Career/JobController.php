@@ -102,10 +102,6 @@ class JobController extends BaseController
      */
     public function update(JobUpdateRequest $request, Job $job): RedirectResponse
     {
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('career_db.jobs', 'slug') ] ]);
         $job->update($request->validated());
 
         $referer = $request->input('referer');

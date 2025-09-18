@@ -101,10 +101,6 @@ class ReferenceController extends BaseController
      */
     public function update(ReferenceUpdateRequest $request, Reference $reference): RedirectResponse
     {
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('career_db.references', 'slug') ] ]);
         $reference->update($request->validated());
 
         $referer = $request->input('referer');

@@ -87,11 +87,11 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('seq') ?? 0,
-                'min'         => 0,
-                'message'     => $message ?? '',
+                'type'    => 'number',
+                'name'    => 'sequence',
+                'value'   => old('seq') ?? 0,
+                'min'     => 0,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [

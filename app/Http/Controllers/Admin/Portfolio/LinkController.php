@@ -85,7 +85,7 @@ class LinkController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function edit(Link $link): View
+    public function edit(Link $link, Request $request): View
     {
         $referer = $request->headers->get('referer');
 
@@ -101,10 +101,6 @@ class LinkController extends BaseController
      */
     public function update(LinkUpdateRequest $request, Link $link): RedirectResponse
     {
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('portfolio_db.links', 'slug') ] ]);
         $link->update($request->validated());
 
         $referer = $request->input('referer');

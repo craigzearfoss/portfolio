@@ -21,10 +21,8 @@
             <thead>
             <tr>
                 <th>name</th>
-                <th class="text-center">professional</th>
-                <th class="text-center">personal</th>
-                <th class="text-center">public</th>
                 <th class="text-center">sequence</th>
+                <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
                 <th class="text-center">disabled</th>
@@ -35,9 +33,7 @@
             <tfoot>
             <tr>
                 <th>name</th>
-                <th class="text-center">professional</th>
-                <th class="text-center">personal</th>
-                <th class="text-center">sequence</th>
+                <th class="text-center">sequece</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -53,15 +49,6 @@
                 <tr>
                     <td class="py-0">
                         {{ $link->name }}
-                    </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $link->professional ])
-                    </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $link->personal ])
-                    </td>
-                    <td class="py-0">
-                        {{ $link->website }}
                     </td>
                     <td class="py-0">
                         {{ $link->sequence }}
@@ -97,7 +84,7 @@
                                     <i class="fa-solid fa-external-link"></i>{{-- url--}}
                                 </a>
                             @else
-                                <a title="url" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
                                     <i class="fa-solid fa-external-link"></i>{{-- url--}}
                                 </a>
                             @endif
@@ -114,7 +101,7 @@
             @empty
 
                 <tr>
-                    <td colspan="9">There are no links.</td>
+                    <td colspan="6">There are no links.</td>
                 </tr>
 
             @endforelse

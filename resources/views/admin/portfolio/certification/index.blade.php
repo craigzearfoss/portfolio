@@ -22,6 +22,7 @@
             <tr>
                 <th>name</th>
                 <th>academy</th>
+                <th>year</th>
                 <th>received</th>
                 <th>expiration</th>
                 <th class="text-center">public</th>
@@ -36,6 +37,7 @@
             <tr>
                 <th>name</th>
                 <th>academy</th>
+                <th>year</th>
                 <th>received</th>
                 <th>expiration</th>
                 <th class="text-center">public</th>
@@ -58,6 +60,9 @@
                         @if (!empty($certification->academy))
                             <a href="{{ $certification->academy['id'] }}" target="_blank">{{ $certification->academy['name'] }}</a>
                         @endif
+                    </td>
+                    <td class="py-0">
+                        {{ $certification->year }}
                     </td>
                     <td class="py-0 text-nowrap">
                         {{ shortDate($certification->received) }}
@@ -91,12 +96,12 @@
                             </a>
 
                             @if (!empty($certification->link))
-                                <a title="link" class="button is-small px-1 py-0" href="{{ $certification->link }}"
+                                <a title="{{ !empty($certification->link_name) ? $certification->link_name : 'link' }}" class="button is-small px-1 py-0" href="{{ $certification->link }}"
                                    target="_blank">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @else
-                                <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @endif
@@ -113,7 +118,7 @@
             @empty
 
                 <tr>
-                    <td colspan="9">There are no certifications.</td>
+                    <td colspan="10">There are no certifications.</td>
                 </tr>
 
             @endforelse

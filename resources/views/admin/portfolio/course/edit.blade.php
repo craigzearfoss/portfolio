@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.portfolio.course.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.portfolio.course.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -24,7 +24,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => $referer ?? route('admin.portfolio.course.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -65,8 +65,8 @@
                 'type'      => 'number',
                 'name'      => 'year',
                 'value'     => old('year') ?? $course->year,
-                'min'       => 2000,
-                'max'       => date('Y'),
+                'min'       => 1980,
+                'max'       => 2050,
                 'message'   => $message ?? '',
             ])
 
@@ -154,6 +154,7 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'image',
                 'value'   => old('image') ?? $course->image,
+                'maxlength' => 255,
                 'message' => $message ?? '',
             ])
 
@@ -176,15 +177,16 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
                 'value'   => old('thumbnail') ?? $course->thumbnail,
+                'maxlength' => 255,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('sequence') ?? $course->sequence,
-                'min'         => 0,
-                'message'     => $message ?? '',
+                'type'    => 'number',
+                'name'    => 'sequence',
+                'value'   => old('sequence') ?? $course->sequence,
+                'min'     => 0,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
@@ -204,16 +206,14 @@
                 'message'         => $message ?? '',
             ])
 
-            @if (Auth::guard('admin')->user()->root)
-                @include('admin.components.form-checkbox-horizontal', [
-                    'name'            => 'root',
-                    'value'           => 1,
-                    'unchecked_value' => 0,
-                    'checked'         => old('root') ?? $course->root,
-                    'disabled'        => !Auth('admin')->user()->root,
-                    'message'         => $message ?? '',
-                ])
-            @endif
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $course->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
+                'message'         => $message ?? '',
+            ])
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'disabled',
@@ -225,7 +225,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => Request::header('referer') ?? route('admin.portfolio.academy.index')
+                'cancel_url' => $referer ?? route('admin.portfolio.course.index')
             ])
 
         </form>

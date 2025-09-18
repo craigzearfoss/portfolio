@@ -94,12 +94,12 @@
                             </a>
 
                             @if (!empty($music->link))
-                                <a title="link" class="button is-small px-1 py-0" href="{{ $music->link }}"
+                                <a title="{{ !empty($music->link_name) ? $music->link_name : 'link' }}" class="button is-small px-1 py-0" href="{{ $music->link }}"
                                    target="_blank">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @else
-                                <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @endif

@@ -88,11 +88,11 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('sequence') ?? $academy->sequence,
-                'min'         => 0,
-                'message'     => $message ?? '',
+                'type'    => 'number',
+                'name'    => 'sequence',
+                'value'   => old('sequence') ?? $academy->sequence,
+                'min'     => 0,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
@@ -112,15 +112,14 @@
                 'message'         => $message ?? '',
             ])
 
-            @if (Auth::guard('admin')->user()->root)
-                @include('admin.components.form-checkbox-horizontal', [
-                    'name'            => 'root',
-                    'value'           => 1,
-                    'unchecked_value' => 0,
-                    'checked'         => old('root') ?? $academy->root,
-                    'message'         => $message ?? '',
-                ])
-            @endif
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $academy->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
+                'message'         => $message ?? '',
+            ])
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'disabled',

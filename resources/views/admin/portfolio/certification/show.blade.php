@@ -21,6 +21,11 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $certification->id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $certification->name
         ])
@@ -47,7 +52,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'academy',
-            'value' => $certification->academy['name']
+            'value' => $certification->academy['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [
@@ -65,15 +70,17 @@
             'value' => longDate($certification->expiration)
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'url'    => $certification->link,
-            'target' => '_blank'
+        @include('admin.components.show-row-image', [
+            'name'  => 'certificate url',
+            'src'   => $certification->certificate_url,
+            'width' => '300px',
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $certification->link_name,
+        @include('admin.components.show-row-link', [
+            'name'   => 'link',
+            'value'  => $certification->link_name,
+            'url'    => $certification->link,
+            'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [

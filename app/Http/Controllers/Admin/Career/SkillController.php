@@ -101,10 +101,6 @@ class SkillController extends BaseController
      */
     public function update(SkillUpdateRequest $request, Skill $skill): RedirectResponse
     {
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('career_db.skills', 'slug') ] ]);
         $skill->update($request->validated());
 
         $referer = $request->input('referer');

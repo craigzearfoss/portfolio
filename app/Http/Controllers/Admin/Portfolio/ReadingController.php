@@ -101,12 +101,6 @@ class ReadingController extends BaseController
      */
     public function update(ReadingUpdateRequest $request, Reading $reading): RedirectResponse
     {
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']
-            . (!empty($validatedData['author']) ? '-by-' . $validatedData['author'] : ''))
-        ]);
-        $request->validate(['slug' => [ Rule::unique('portfolio_db.readings', 'slug') ] ]);
         $reading->update($request->validated());
 
         $referer = $request->input('referer');

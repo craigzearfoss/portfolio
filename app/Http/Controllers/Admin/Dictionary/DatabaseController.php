@@ -118,10 +118,6 @@ class DatabaseController extends BaseController
             abort(403, 'Only admins with root access can update databases.');
         }
 
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('dictionary_db.databases', 'slug') ] ]);
         $database->update($request->validated());
 
         $referer = $request->input('referer');

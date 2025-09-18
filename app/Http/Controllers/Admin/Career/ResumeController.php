@@ -101,10 +101,6 @@ class ResumeController extends BaseController
      */
     public function update(ResumeUpdateRequest $request, Resume $resume): RedirectResponse
     {
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('career_db.resumes', 'slug') ] ]);
         $resume->update($request->validated());
 
         $referer = $request->input('referer');

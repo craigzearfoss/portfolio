@@ -53,13 +53,9 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
+            'label'  => $link->link_name,
             'url'    => $link->link,
             'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $link->link_name,
         ])
 
         @include('admin.components.show-row', [
@@ -75,12 +71,12 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_credit',
+            'name'  => 'image credit',
             'value' => $link->image_credit
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_source',
+            'name'  => 'image source',
             'value' => $link->image_source
         ])
 

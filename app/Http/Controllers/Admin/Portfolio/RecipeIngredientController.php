@@ -83,7 +83,7 @@ class RecipeIngredientController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function edit(RecipeIngredient $recipeIngredient): View
+    public function edit(RecipeIngredient $recipeIngredient, Request $request): View
     {
         $referer = $request->headers->get('referer');
 

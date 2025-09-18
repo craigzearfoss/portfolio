@@ -15,7 +15,7 @@ class ArtStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return !Auth::guard('admin')->check();
+        return Auth::guard('admin')->check();
     }
 
     /**
@@ -49,7 +49,7 @@ class ArtStoreRequest extends FormRequest
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'artist'       => ['string', 'max:255', 'nullable'],
-            'year'         => ['integer', 'between:0,3000', 'nullable'],
+            'year'         => ['integer', 'between:1900,2050', 'nullable'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],

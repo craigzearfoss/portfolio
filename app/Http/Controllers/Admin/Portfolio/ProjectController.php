@@ -101,10 +101,6 @@ class ProjectController extends BaseController
      */
     public function update(ProjectUpdateRequest $request, Project $project): RedirectResponse
     {
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('portfolio_db.projects', 'slug') ] ]);
         $project->update($request->validated());
 
         $referer = $request->input('referer');

@@ -85,7 +85,7 @@ class VideoController extends BaseController
      * @param Request $request
      * @return View
      */
-    public function edit(Video $video): View
+    public function edit(Video $video, Request $request): View
     {
         $referer = $request->headers->get('referer');
 
@@ -101,10 +101,6 @@ class VideoController extends BaseController
      */
     public function update(VideoUpdateRequest $request, Video $video): RedirectResponse
     {
-        // Validate the posted data and generated slug.
-        $validatedData = $request->validated();
-        $request->merge([ 'slug' => Str::slug($validatedData['name']) ]);
-        $request->validate(['slug' => [ Rule::unique('portfolio_db.videos', 'slug') ] ]);
         $video->update($request->validated());
 
         $referer = $request->input('referer');
