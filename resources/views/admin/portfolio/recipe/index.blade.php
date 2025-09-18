@@ -74,12 +74,12 @@
                             </a>
 
                             @if (!empty($recipe->link))
-                                <a title="link" class="button is-small px-1 py-0" href="{{ $recipe->link }}"
+                                <a title="{{ !empty($recipe->link_name) ? $recipe->link_name : 'link' }}" class="button is-small px-1 py-0" href="{{ $recipe->link }}"
                                    target="_blank">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @else
-                                <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @endif

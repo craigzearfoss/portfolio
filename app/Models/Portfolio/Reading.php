@@ -24,10 +24,11 @@ class Reading extends Model
      */
     protected $fillable = [
         'name',
-        'slug',
         'author',
+        'slug',
         'professional',
         'personal',
+        'year',
         'fiction',
         'nonfiction',
         'paper',
@@ -36,6 +37,7 @@ class Reading extends Model
         'link',
         'link_name',
         'description',
+        'notes',
         'image',
         'image_credit',
         'image_source',

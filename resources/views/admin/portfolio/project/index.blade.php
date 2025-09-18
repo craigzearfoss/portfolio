@@ -21,8 +21,6 @@
             <thead>
             <tr>
                 <th>name</th>
-                <th class="text-center">professional</th>
-                <th class="text-center">personal</th>
                 <th>year</th>
                 <th>repository</th>
                 <th class="text-center">public</th>
@@ -36,8 +34,6 @@
             <tfoot>
             <tr>
                 <th>name</th>
-                <th class="text-center">professional</th>
-                <th class="text-center">personal</th>
                 <th>year</th>
                 <th>repository</th>
                 <th class="text-center">public</th>
@@ -55,12 +51,6 @@
                 <tr>
                     <td>
                         {{ $project->name }}
-                    </td>
-                    <td class="text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $project->professional ])
-                    </td>
-                    <td class="text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $project->personal ])
                     </td>
                     <td>
                         {{ $project->year }}
@@ -94,12 +84,12 @@
                             </a>
 
                             @if (!empty($project->link))
-                                <a title="link" class="button is-small px-1 py-0" href="{{ $project->link }}"
+                                <a title="{{ !empty($project->link_name) ? $project->link_name : 'link' }}" class="button is-small px-1 py-0" href="{{ $project->link }}"
                                    target="_blank">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @else
-                                <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @endif
@@ -116,7 +106,7 @@
             @empty
 
                 <tr>
-                    <td colspan="10">There are no projects.</td>
+                    <td colspan="8">There are no projects.</td>
                 </tr>
 
             @endforelse

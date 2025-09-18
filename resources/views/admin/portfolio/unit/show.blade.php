@@ -21,24 +21,30 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $unit->id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $unit->name
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $unit->slug
+            'name'  => 'abbreviation',
+            'value' => $unit->abbreviation
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'system',
+            'value' => $unit->system
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
+            'label'  => $unit->link_name,
             'url'    => $unit->link,
             'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $unit->link_name,
         ])
 
         @include('admin.components.show-row', [

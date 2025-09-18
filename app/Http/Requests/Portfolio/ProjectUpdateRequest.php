@@ -47,7 +47,7 @@ class ProjectUpdateRequest extends FormRequest
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.projects,slug,'.$this->project->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
-            'year'         => ['integer', 'between:0,3000', 'nullable'],
+            'year'         => ['integer', 'between:1980,2050', 'nullable'],
             'repository'   => ['string', 'max:255', 'nullable'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],

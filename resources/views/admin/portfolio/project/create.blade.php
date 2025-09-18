@@ -4,10 +4,10 @@
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
         [ 'name' => 'Projects' ,       'url' => route('admin.portfolio.project.index') ],
-        [ 'name' => 'Create' ],
+        [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.portfolio.project.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.portfolio.project.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => $referer ?? route('admin.portfolio.project.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -64,8 +64,8 @@
                 'type'      => 'number',
                 'name'      => 'year',
                 'value'     => old('year') ?? null,
-                'min'       => 2000,
-                'max'       => date('Y'),
+                'min'       => 1980,
+                'max'       => 2050,
                 'message'   => $message ?? '',
             ])
 
@@ -99,9 +99,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image',
-                'value'   => old('image') ?? '',
-                'message' => $message ?? '',
+                'name'      => 'image',
+                'value'     => old('image') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -121,17 +122,18 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? '',
-                'message' => $message ?? '',
+                'name'      => 'thumbnail',
+                'value'     => old('thumbnail') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('sequence') ?? 0,
-                'min'         => 0,
-                'message'     => $message ?? '',
+                'type'    => 'number',
+                'name'    => 'sequence',
+                'value'   => old('sequence') ?? 0,
+                'min'     => 0,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
@@ -171,7 +173,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Project',
-                'cancel_url' => Request::header('referer') ?? route('admin.portfolio.project.index')
+                'cancel_url' => $referer ?? route('admin.portfolio.project.index')
             ])
 
         </form>

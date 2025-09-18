@@ -4,10 +4,10 @@
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
         [ 'name' => 'Recipes',         'url' => route('admin.portfolio.recipe.index') ],
-        [ 'name' => 'Create' ],
+        [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.portfolio.recipe.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.portfolio.recipe.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,13 +23,18 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => $referer ?? route('admin.portfolio.recipe.index')
             ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => Auth::guard('admin')->user()->id,
-                'value' => '0',
-            ])
+            @if(Auth::guard('admin')->user()->root)
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'admin_id',
+                    'label'   => 'admin',
+                    'value'   => old('admin_id') ?? ''
+                    'list'    => \App\Models\Admin::listOptions(),
+                    'message' => $message ?? '',
+                ])
+            @endif
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
@@ -56,6 +61,20 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'source',
+                'value'     => old('source') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'author',
+                'value'     => old('author') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? '',
                 'maxlength' => 255,
@@ -69,6 +88,7 @@
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
+
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
@@ -77,12 +97,12 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image',
-                'value'   => old('image') ?? '',
-                'message' => $message ?? '',
+                'name'      => 'image',
+                'value'     => old('image') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
-            <?php /* @TODO: Why does image_credit cause "shell_exec(): Argument #1 ($command) cannot be empty" error?
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_credit',
                 'label'     => 'image credit',
@@ -90,7 +110,6 @@
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
-            */ ?>
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_source',
@@ -101,17 +120,18 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? '',
-                'message' => $message ?? '',
+                'name'      => 'thumbnail',
+                'value'     => old('thumbnail') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('seq') ?? 0,
-                'min'         => 0,
-                'message'     => $message ?? '',
+                'type'    => 'number',
+                'name'    => 'sequence',
+                'value'   => old('seq') ?? 0,
+                'min'     => 0,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
@@ -151,7 +171,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Recipe',
-                'cancel_url' => Request::header('referer') ?? route('admin.portfolio.recipe.index')
+                'cancel_url' => $referer ?? route('admin.portfolio.recipe.index')
             ])
 
         </form>

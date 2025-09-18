@@ -100,10 +100,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image',
-                'value'   => old('image') ?? $art->image,
+                'name'      => 'image',
+                'value'     => old('image') ?? $art->image,
                 'maxlength' => 255,
-                'message' => $message ?? '',
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -123,10 +123,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? $art->thumbnail,
+                'name'      => 'thumbnail',
+                'value'     => old('thumbnail') ?? $art->thumbnail,
                 'maxlength' => 255,
-                'message' => $message ?? '',
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

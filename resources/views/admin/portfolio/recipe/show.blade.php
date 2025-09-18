@@ -21,6 +21,11 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $recipe->id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $recipe->name
         ])
@@ -52,13 +57,9 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
+            'label'  => $recipe->link_name,
             'url'    => $recipe->link,
             'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $recipe->link_name,
         ])
 
         @include('admin.components.show-row', [

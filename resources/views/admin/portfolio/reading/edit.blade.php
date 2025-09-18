@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.portfolio.reading.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.portfolio.reading.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -24,7 +24,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => $referer ?? route('admin.portfolio.reading.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -38,19 +38,19 @@
             @endif
 
             @include('admin.components.form-input-horizontal', [
-                'name'        => 'title',
-                'value'       => old('title') ?? $reading->title,
-                'required'    => true,
-                'maxlength'   => 255,
-                'message'     => $message ?? '',
+                'name'      => 'title',
+                'value'     => old('title') ?? $reading->title,
+                'required'  => true,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'        => 'author',
-                'value'       => old('author') ?? $reading->author,
-                'required'    => true,
-                'maxlength'   => 255,
-                'message'     => $message ?? '',
+                'name'      => 'author',
+                'value'     => old('author') ?? $reading->author,
+                'required'  => true,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
@@ -85,6 +85,16 @@
                 'message'         => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'type'    => 'number',
+                'name'    => 'publish_date',
+                'label'   => 'publish date',
+                'value'   => old('start_year') ?? $reading->publish_date,,
+                'min'     => -2500,
+                'max'     => 2050,
+                'message' => $message ?? '',
+            ])
+
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'paper',
                 'value'           => 1,
@@ -110,31 +120,38 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'        => 'link',
-                'value'       => old('link') ?? $reading->link,
-                'maxlength'   => 255,
-                'message'     => $message ?? '',
+                'name'      => 'link',
+                'value'     => old('link') ?? $reading->link,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'        => 'link_name',
-                'label'       => 'link name',
-                'value'       => old('link_name') ?? $reading->link_name,
-                'maxlength'   => 255,
-                'message'     => $message ?? '',
+                'name'      => 'link_name',
+                'label'     => 'link name',
+                'value'     => old('link_name') ?? $reading->link_name,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'decription',
+                'id'      => 'inputEditor',
+                'value'   => old('description') ?? $reading->description,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'notes',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? $reading->notes,
+                'value'   => old('notes') ?? $reading->notes,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image',
-                'value'   => old('image') ?? $reading->image,
-                'message' => $message ?? '',
+                'name'      => 'image',
+                'value'     => old('image') ?? $reading->image,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -154,17 +171,18 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? $reading->thumbnail,
-                'message' => $message ?? '',
+                'name'      => 'thumbnail',
+                'value'     => old('thumbnail') ?? $reading->thumbnail,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('sequence') ?? $reading->sequence,
-                'min'         => 0,
-                'message'     => $message ?? '',
+                'type'    => 'number',
+                'name'    => 'sequence',
+                'value'   => old('sequence') ?? $reading->sequence,
+                'min'     => 0,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
@@ -203,7 +221,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => Request::header('referer') ?? route('admin.portfolio.reading.index')
+                'cancel_url' => $referer ?? route('admin.portfolio.reading.index')
             ])
 
         </form>

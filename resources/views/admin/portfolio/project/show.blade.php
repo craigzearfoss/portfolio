@@ -21,8 +21,13 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $project->admin['username'] ?? ''
+            'name'  => 'id',
+            'value' => $project->id
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'name',
+            'value' => $project->name
         ])
 
         @include('admin.components.show-row', [
@@ -54,12 +59,8 @@
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'url'    => $project->link,
+            'label'  => $project->link_name,
             'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $project->link_name,
         ])
 
         @include('admin.components.show-row', [

@@ -79,11 +79,11 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'      => 'date',
-                'name'      => 'completion_date',
-                'label'     => 'completion date',
-                'value'     => old('completion_date') ?? $course->completion_date,
-                'message'   => $message ?? '',
+                'type'    => 'date',
+                'name'    => 'completion_date',
+                'label'   => 'completion date',
+                'value'   => old('completion_date') ?? $course->completion_date,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -152,10 +152,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image',
-                'value'   => old('image') ?? $course->image,
+                'name'      => 'image',
+                'value'     => old('image') ?? $course->image,
                 'maxlength' => 255,
-                'message' => $message ?? '',
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -175,10 +175,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? $course->thumbnail,
+                'name'      => 'thumbnail',
+                'value'     => old('thumbnail') ?? $course->thumbnail,
                 'maxlength' => 255,
-                'message' => $message ?? '',
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

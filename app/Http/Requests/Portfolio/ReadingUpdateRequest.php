@@ -46,10 +46,11 @@ class ReadingUpdateRequest extends FormRequest
 
         return [
             'title'            => ['string', 'max:255', 'unique:portfolio_db.readings,name,'.$this->reading->id, 'filled'],
-            'slug'             => ['string', 'max:255', 'unique:portfolio_db.readings,slug,'.$this->reading->id, 'filled'],
             'author'           => ['string', 'max:255', 'nullable'],
+            'slug'             => ['string', 'max:255', 'unique:portfolio_db.readings,slug,'.$this->reading->id, 'filled'],
             'professional'     => ['integer', 'between:0,1'],
             'personal'         => ['integer', 'between:0,1'],
+            'year'             => ['integer', 'between:-2500,2050', 'nullable'],
             'fiction'          => ['integer', 'between:0,1'],
             'nonfiction'       => ['integer', 'between:0,1'],
             'paper'            => ['integer', 'between:0,1'],
@@ -58,6 +59,7 @@ class ReadingUpdateRequest extends FormRequest
             'link'             => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'        => ['string', 'nullable'],
             'description'      => ['nullable'],
+            'notes'            => ['nullable'],
             'image'            => ['string', 'max:255', 'nullable'],
             'image_credit'     => ['string', 'max:255', 'nullable'],
             'image_source'     => ['string', 'max:255', 'nullable'],

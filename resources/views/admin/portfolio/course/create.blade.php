@@ -151,10 +151,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image',
-                'value'   => old('image') ?? '',
+                'name'      => 'image',
+                'value'     => old('image') ?? '',
                 'maxlength' => 255,
-                'message' => $message ?? '',
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -174,10 +174,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? '',
+                'name'      => 'thumbnail',
+                'value'     => old('thumbnail') ?? '',
                 'maxlength' => 255,
-                'message' => $message ?? '',
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -211,7 +211,6 @@
                     'value'           => 1,
                     'unchecked_value' => 0,
                     'checked'         => old('root') ?? 0,
-                    'disabled'        => !Auth::guard('admin')->user()->root,
                     'message'         => $message ?? '',
                 ])
             @endif

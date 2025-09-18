@@ -24,6 +24,7 @@
                 <th>author</th>
                 <th class="text-center">fiction</th>
                 <th class="text-center">nonfiction</th>
+                <th class="text-center">publish dater</th>
                 <th class="text-center">paper</th>
                 <th class="text-center">audio</th>
                 <th class="text-center">wishlist</th>
@@ -41,6 +42,7 @@
                 <th>author</th>
                 <th class="text-center">fiction</th>
                 <th class="text-center">nonfiction</th>
+                <th class="text-center">publish date</th>
                 <th class="text-center">paper</th>
                 <th class="text-center">audio</th>
                 <th class="text-center">wishlist</th>
@@ -68,6 +70,9 @@
                     </td>
                     <td class="text-center">
                         @include('admin.components.checkmark', [ 'checked' => $reading->nonfiction ])
+                    </td>
+                    <td>
+                        {{ $reading->publish_date }}
                     </td>
                     <td class="text-center">
                         @include('admin.components.checkmark', [ 'checked' => $reading->paper ])
@@ -104,12 +109,12 @@
                             </a>
 
                             @if (!empty($reading->link))
-                                <a title="link" class="button is-small px-1 py-0" href="{{ $reading->link }}"
+                                <a title="{{ !empty($reading->link_name) ? $reading->link_name : 'link' }}" class="button is-small px-1 py-0" href="{{ $reading->link }}"
                                    target="_blank">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @else
-                                <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @endif
@@ -126,7 +131,7 @@
             @empty
 
                 <tr>
-                    <td colspan="12">There are no readings.</td>
+                    <td colspan="13">There are no readings.</td>
                 </tr>
 
             @endforelse

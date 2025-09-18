@@ -15,10 +15,11 @@ return new class extends Migration
         Schema::connection('portfolio_db')->create('readings', function (Blueprint $table) {
             $table->id();
             $table->string('title')->unique();
-            $table->string('slug')->unique();
             $table->string('author')->nullable();
+            $table->string('slug')->unique();
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
+            $table->integer('year')->nullable();
             $table->tinyInteger('fiction')->default(0);
             $table->tinyInteger('nonfiction')->default(0);
             $table->tinyInteger('paper')->default(1);
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();
+            $table->text('notes')->nullable();
             $table->string('image')->nullable();
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();

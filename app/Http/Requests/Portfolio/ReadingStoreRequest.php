@@ -47,10 +47,11 @@ class ReadingStoreRequest extends FormRequest
 
         return [
             'title'            => ['required', 'string', 'max:255', 'unique:portfolio_db.readings,name'],
-            'slug'             => ['required', 'string', 'max:255', 'unique:portfolio_db.readings,slug'],
             'author'           => ['string', 'max:255', 'nullable'],
+            'slug'             => ['required', 'string', 'max:255', 'unique:portfolio_db.readings,slug'],
             'professional'     => ['integer', 'between:0,1'],
             'personal'         => ['integer', 'between:0,1'],
+            'year'             => ['integer', 'between:-2500,2050', 'nullable'],
             'fiction'          => ['integer', 'between:0,1'],
             'nonfiction'       => ['integer', 'between:0,1'],
             'paper'            => ['integer', 'between:0,1'],
@@ -59,6 +60,7 @@ class ReadingStoreRequest extends FormRequest
             'link'             => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'        => ['string', 'nullable'],
             'description'      => ['nullable'],
+            'notes'            => ['nullable'],
             'image'            => ['string', 'max:255', 'nullable'],
             'image_credit'     => ['string', 'max:255', 'nullable'],
             'image_source'     => ['string', 'max:255', 'nullable'],

@@ -26,13 +26,13 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $reading->slug
+            'name'  => 'author',
+            'value' => $reading->author
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'author',
-            'value' => $reading->author
+            'name'  => 'slug',
+            'value' => $reading->slug
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -43,6 +43,12 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'personal',
             'checked' => $reading->personal
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'publish_date',
+            'label' => 'publish date',
+            'value' => $reading->publish_date
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -72,13 +78,9 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
+            'label'  => $reading->link_name,
             'url'    => $reading->link,
             'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $reading->link_name,
         ])
 
         @include('admin.components.show-row', [
@@ -93,12 +95,12 @@
             'width' => '300px',
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image credit',
             'value' => $reading->image_credit
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image source',
             'value' => $reading->image_source
         ])

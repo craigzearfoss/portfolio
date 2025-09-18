@@ -33,7 +33,7 @@
             <tfoot>
             <tr>
                 <th>name</th>
-                <th class="text-center">sequece</th>
+                <th class="text-center">sequence</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
