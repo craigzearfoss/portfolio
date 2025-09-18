@@ -8,7 +8,7 @@
         [ 'name' => 'Create' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.career.job-coworker.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.career.job-coworker.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -24,7 +24,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => $referer ?? route('admin.career.job-coworker.index')
+                'value' => referer('admin.career.job-coworker.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -203,7 +203,7 @@
 
             @include('admin.components.form-button-submit', [
                 'label'      => 'Save Job Coworker',
-                'cancel_url' => $referer ?? route('admin.career.job-coworker.index')
+                'cancel_url' => referer('admin.career.job-coworker.index')
             ])
 
         </form>

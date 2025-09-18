@@ -46,9 +46,7 @@ class JobBoardController extends BaseController
             abort(403, 'Only admins with root access can add job boards.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.job-board.create', compact('referer'));
+        return view('admin.career.job-board.create');
     }
 
     /**
@@ -65,15 +63,8 @@ class JobBoardController extends BaseController
 
         $jobBoard =JobBoard::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $jobBoard->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.career.job-board.index')
-                ->with('success', $jobBoard->name . '  created successfully.');
-        }
+        return redirect(referer('admin.career.job-board.index'))
+            ->with('success', $jobBoard->name . ' created successfully.');
     }
 
     /**
@@ -100,9 +91,7 @@ class JobBoardController extends BaseController
             abort(403, 'Only admins with root access can edit job boards.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.job-board.edit', compact('jobBoard', 'referer'));
+        return view('admin.career.job-board.edit', compact('jobBoard'));
     }
 
     /**
@@ -120,15 +109,8 @@ class JobBoardController extends BaseController
 
         $jobBoard->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $jobBoard->name . ' updated successfully.');
-        } else {
-        return redirect()->route('admin.career.job-board.index')
+        return redirect(referer('admin.career.job-board.index'))
             ->with('success', $jobBoard->name . ' updated successfully.');
-        }
     }
 
     /**
@@ -146,14 +128,7 @@ class JobBoardController extends BaseController
 
         $jobBoard->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $jobBoard->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.job-board.link.index')
-                ->with('success', $jobBoard->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.job-board.link.index'))
+            ->with('success', $jobBoard->name . ' deleted successfully.');
     }
 }

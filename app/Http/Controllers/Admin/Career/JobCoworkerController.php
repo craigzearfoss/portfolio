@@ -44,9 +44,8 @@ class JobCoworkerController extends BaseController
     public function create(Request $request): View
     {
         $jobId = $request->query('job_id');
-        $referer = $request->headers->get('referer');
 
-        return view('admin.career.job-coworker.create', compact('jobId', 'referer'));
+        return view('admin.career.job-coworker.create', compact('jobId'));
     }
 
     /**
@@ -59,15 +58,8 @@ class JobCoworkerController extends BaseController
     {
         $jobCoworker = JobCoworker::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $jobCoworker->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.career.job-coworker.index')
-                ->with('success', $jobCoworker->name . ' created successfully.');
-        }
+        return redirect(referer('admin.career.job-coworker.index'))
+            ->with('success', $jobCoworker->name . ' created successfully.');
     }
 
     /**
@@ -90,9 +82,7 @@ class JobCoworkerController extends BaseController
      */
     public function edit(JobCoworker $jobCoworker, Request $request): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.job-coworker.edit', compact('jobCoworker', 'referer'));
+        return view('admin.career.job-coworker.edit', compact('jobCoworker'));
     }
 
     /**
@@ -106,15 +96,8 @@ class JobCoworkerController extends BaseController
     {
         $jobCoworker->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $jobCoworker->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.career.job-coworker.index')
-                ->with('success', $jobCoworker->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.career.job-coworker.index'))
+            ->with('success', $jobCoworker->name . ' updated successfully.');
     }
 
     /**
@@ -128,14 +111,7 @@ class JobCoworkerController extends BaseController
     {
         $jobCoworker->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $jobCoworker->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.career.job-coworker.index')
-                ->with('success', $jobCoworker->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.career.job-coworker.index'))
+            ->with('success', $jobCoworker->name . ' deleted successfully.');
     }
 }

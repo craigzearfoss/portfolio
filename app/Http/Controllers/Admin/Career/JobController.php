@@ -42,9 +42,7 @@ class JobController extends BaseController
      */
     public function create(Request $request): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.job.create', compact('referer'));
+        return view('admin.career.job.create');
     }
 
     /**
@@ -57,15 +55,8 @@ class JobController extends BaseController
     {
         $job = Job::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $job->company . ' job created successfully.');
-        } else {
-            return redirect()->route('admin.career.job.index')
-                ->with('success', $job->company . ' job created successfully.');
-        }
+        return redirect(referer('admin.career.job.index'))
+            ->with('success', $job->company . ' job created successfully.');
     }
 
     /**
@@ -88,9 +79,7 @@ class JobController extends BaseController
      */
     public function edit(Job $job, Request $request): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.job.edit', compact('job', 'referer'));
+        return view('admin.career.job.edit', compact('job'));
     }
 
     /**
@@ -104,15 +93,8 @@ class JobController extends BaseController
     {
         $job->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $job->company . ' job updated successfully.');
-        } else {
-            return redirect()->route('admin.career.job.index')
-                ->with('success', $job->company . ' job successfully.');
-        }
+        return redirect(referer('admin.career.job.index'))
+            ->with('success', $job->company . ' job updated successfully.');
     }
 
     /**
@@ -126,14 +108,7 @@ class JobController extends BaseController
     {
         $job->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $job->company . ' job deleted successfully.');
-        } else {
-            return redirect()->route('admin.career.job.index')
-                ->with('success', $job->company . ' job deleted successfully.');
-        }
+        return redirect(referer('admin.career.job.index'))
+            ->with('success', $job->company . ' job deleted successfully.');
     }
 }
