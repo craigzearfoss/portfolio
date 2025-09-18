@@ -73,14 +73,14 @@
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                             </a>
 
-                            @if (!empty($jobBoard->website))
-                                <a title="website" class="button is-small px-1 py-0" href="{{ $jobBoard->website }}"
+                            @if (!empty($jobBoard->link))
+                                <a title="{{ !empty($jobBoard->link_name) ? $jobBoard->link : 'link' }}" class="button is-small px-1 py-0" href="{{ $jobBoard->link }}"
                                    target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @else
-                                <a title="website" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- website--}}
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @endif
 
