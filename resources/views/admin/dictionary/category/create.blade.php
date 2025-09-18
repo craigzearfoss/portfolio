@@ -7,7 +7,7 @@
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.dictionary.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.dictionary.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => $referer ?? route('admin.dictionary.index')
+                'value' => referer('admin.dictionary.index')
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -194,7 +194,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Category',
-                'cancel_url' => $referer ?? route('admin.dictionary.index')
+                'cancel_url' => referer('admin.dictionary.index')
             ])
 
         </form>
