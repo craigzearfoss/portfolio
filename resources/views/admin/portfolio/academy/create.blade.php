@@ -7,7 +7,7 @@
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.portfolio.academy.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.portfolio.academy.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => $referer ?? route('admin.portfolio.academy.index')
+                'value' => referer('admin.portfolio.academy.index')
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -131,7 +131,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Academy',
-                'cancel_url' => $referer ?? route('admin.portfolio.academy.index')
+                'cancel_url' => referer('admin.portfolio.academy.index')
             ])
 
         </form>

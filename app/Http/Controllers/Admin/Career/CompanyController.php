@@ -36,14 +36,11 @@ class CompanyController extends BaseController
     /**
      * Show the form for creating a new company.
      *
-     * @param Request $request
      * @return View
      */
     public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.company.create', compact('referer'));
+        return view('admin.career.company.create');
     }
 
     /**
@@ -56,21 +53,14 @@ class CompanyController extends BaseController
     {
         $company = Company::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $company->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.career.company.index')
-                ->with('success', $company->name . ' created successfully.');
-        }
+        return redirect(referer('admin.career.company.index'))
+            ->with('success', $company->name . ' created successfully.');
     }
 
     /**
      * Display the specified company.
      *
-     * @param Company $commpany
+     * @param Company $company
      * @return View
      */
     public function show(Company $company): View
@@ -82,14 +72,11 @@ class CompanyController extends BaseController
      * Show the form for editing the specified company.
      *
      * @param Company $company
-     * @param Request $request
      * @return View
      */
     public function edit(Company $company): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.company.edit', compact('company', 'referer'));
+        return view('admin.career.company.edit', compact('company'));
     }
 
     /**
@@ -103,36 +90,21 @@ class CompanyController extends BaseController
     {
         $company->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $company->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.career.company.index')
-                ->with('success', $company->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.career.company.index'))
+            ->with('success', $company->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified company from storage.
      *
      * @param Company $company
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Company $company, Request $request): RedirectResponse
+    public function destroy(Company $company): RedirectResponse
     {
         $company->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $company->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.career.company.index')
-                ->with('success', $company->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.career.company.index'))
+            ->with('success', $company->name . ' deleted successfully.');
     }
 }

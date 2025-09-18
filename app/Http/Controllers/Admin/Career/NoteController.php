@@ -34,14 +34,11 @@ class NoteController extends BaseController
     /**
      * Show the form for creating a new note.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.note.create', compact('referer'));
+        return view('admin.career.note.create');
     }
 
     /**
@@ -54,15 +51,8 @@ class NoteController extends BaseController
     {
         $note = Note::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Note created successfully.');
-        } else {
-            return redirect()->route('admin.career.application.index')
-                ->with('success', 'Note created successfully.');
-        }
+        return redirect(referer('admin.career.note.index'))
+            ->with('success', 'Note created successfully.');
     }
 
     /**
@@ -80,14 +70,11 @@ class NoteController extends BaseController
      * Show the form for editing the specified note.
      *
      * @param Note $note
-     * @param Request $request
      * @return View
      */
     public function edit(Note $note): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.note.edit', compact('note', 'referer'));
+        return view('admin.career.note.edit', compact('note'));
     }
 
     /**
@@ -101,36 +88,21 @@ class NoteController extends BaseController
     {
         $note->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Note updated successfully.');
-        } else {
-            return redirect()->route('admin.career.application.index')
-                ->with('success', 'Note updated successfully.');
-        }
+        return redirect(referer('admin.career.note.index'))
+            ->with('success', 'Note updated successfully.');
     }
 
     /**
      * Remove the specified note from storage.
      *
      * @param Note $note
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Note $note, Request $request): RedirectResponse
+    public function destroy(Note $note): RedirectResponse
     {
         $note->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Note deleted successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.database.index')
-                ->with('success', 'Note deleted successfully.');
-        }
+        return redirect(referer('admin.career.note.index'))
+            ->with('success', 'Note deleted successfully.');
     }
 }

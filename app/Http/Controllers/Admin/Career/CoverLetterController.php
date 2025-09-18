@@ -36,14 +36,11 @@ class CoverLetterController extends BaseController
     /**
      * Show the form for creating a new cover letter.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.cover-letter.create', compact('referer'));
+        return view('admin.career.cover-letter.create');
     }
 
     /**
@@ -56,15 +53,8 @@ class CoverLetterController extends BaseController
     {
         $coverLetter = CoverLetter::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Cover Letter created successfully.');
-        } else {
-            return redirect()->route('admin.career.cover-letter.index')
-                ->with('success', 'Cover letter created successfully.');
-        }
+        return redirect(referer('admin.career.cover-letter.index'))
+            ->with('success', 'Cover Letter created successfully.');
     }
 
     /**
@@ -82,14 +72,11 @@ class CoverLetterController extends BaseController
      * Show the form for editing the specified cover letter.
      *
      * @param CoverLetter $coverLetter
-     * @param Request $request
      * @return View
      */
     public function edit(CoverLetter $coverLetter): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.cover-letter.edit', compact('coverLetter', 'referer'));
+        return view('admin.career.cover-letter.edit', compact('coverLetter'));
     }
 
     /**
@@ -103,36 +90,21 @@ class CoverLetterController extends BaseController
     {
         $coverLetter->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Cover letter updated successfully.');
-        } else {
-            return redirect()->route('admin.career.cover-letter.index')
-                ->with('success', 'Cover letter updated successfully.');
-        }
+        return redirect(referer('admin.career.cover-letter.index'))
+            ->with('success', 'Cover letter updated successfully.');
     }
 
     /**
      * Remove the specified cover letter from storage.
      *
      * @param CoverLetter $coverLetter
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(CoverLetter $coverLetter, Request $request): RedirectResponse
+    public function destroy(CoverLetter $coverLetter): RedirectResponse
     {
         $coverLetter->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Cover letter deleted successfully.');
-        } else {
-            return redirect()->route('admin.colver_letter.index')
-                ->with('success', 'Cover letter deleted successfully.');
-        }
+        return redirect(referer('admin.career.cover-letter.index'))
+            ->with('success', 'Cover letter deleted successfully.');
     }
 }

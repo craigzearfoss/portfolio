@@ -6,7 +6,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.resource.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.resource.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => referer('admin.resource.index')
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -140,7 +140,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => Request::header('referer') ?? route('admin.resource.index')
+                'cancel_url' => referer('admin.resource.index')
             ])
 
         </form>

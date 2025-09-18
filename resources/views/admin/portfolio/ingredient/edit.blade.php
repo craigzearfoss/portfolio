@@ -7,7 +7,7 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.portfolio.ingredient.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.portfolio.ingredient.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -24,7 +24,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => $referer ?? route('admin.portfolio.ingredient.index')
+                'value' => referer('admin.portfolio.ingredient.index')
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -140,7 +140,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => $referer ?? route('admin.portfolio.ingredient.index')
+                'cancel_url' => referer('admin.portfolio.ingredient.index')
             ])
 
         </form>

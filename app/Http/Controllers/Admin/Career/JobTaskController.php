@@ -104,10 +104,9 @@ class JobTaskController extends BaseController
      * Remove the specified job task from storage.
      *
      * @param JobTask $jobTask
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(JobTask $jobTask, Request $request): RedirectResponse
+    public function destroy(JobTask $jobTask): RedirectResponse
     {
         $jobTask->delete();
 

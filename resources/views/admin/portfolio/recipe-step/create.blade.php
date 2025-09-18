@@ -5,10 +5,10 @@
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
         [ 'name' => 'Recipes',         'url' => route('admin.portfolio.recipe.index') ],
         [ 'name' => 'Recipe' ],
-        [ 'name' => 'Create Step' ],
+        [ 'name' => 'Add Step' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.portfolio.recipe-step.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.portfolio.recipe-step.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -24,7 +24,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => referer('admin.portfolio.recipe-step.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -135,7 +135,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => Request::header('referer') ?? route('admin.portfolio.recipe-step.index')
+                'cancel_url' => referer('admin.portfolio.recipe-step.index')
             ])
 
         </form>

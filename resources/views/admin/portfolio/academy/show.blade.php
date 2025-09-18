@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'url' => route('admin.portfolio.academy.edit', $academy) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Academy', 'url' => route('admin.portfolio.academy.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => Request::header('referer') ?? route('admin.portfolio.academy.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => referer('admin.portfolio.academy.index') ],
     ],
     'errors'  => $errors->any() ?? [],
     'success' => session('success') ?? null,

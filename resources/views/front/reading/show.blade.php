@@ -6,7 +6,7 @@
         [ 'name' => $reading->title ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('front.reading.index') ],
     ],
     'errors' => $errors ?? [],
 ])

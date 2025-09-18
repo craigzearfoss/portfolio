@@ -7,7 +7,7 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('front.dictionary.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('front.dictionary.index') ],
     ],
     'errors' => $errors ?? [],
 ])

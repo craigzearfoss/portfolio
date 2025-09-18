@@ -37,10 +37,9 @@ class JobController extends BaseController
     /**
      * Show the form for creating a new job.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         return view('admin.career.job.create');
     }
@@ -101,10 +100,9 @@ class JobController extends BaseController
      * Remove the specified job from storage.
      *
      * @param Job $job
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Job $job, Request $request): RedirectResponse
+    public function destroy(Job $job): RedirectResponse
     {
         $job->delete();
 

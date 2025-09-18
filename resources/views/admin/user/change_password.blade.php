@@ -6,7 +6,7 @@
         [ 'name' => 'Change Password' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => Request::header('referer') ?? route('admin.user.show', $user) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.user.index') ],
     ],
     'errors' => $errors ?? [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => referer('admin.user.index')
             ])
 
             <div class="card p-4 mb-3">
@@ -56,7 +56,7 @@
             </div>
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => Request::header('referer') ?? route('admin.user.show', $user)
+                'cancel_url' => referer('admin.user.index')
             ])
 
         </form>

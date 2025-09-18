@@ -37,18 +37,15 @@ class IndustryController extends BaseController
     /**
      * Show the form for creating a new industry.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add industries.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.industry.create', compact('referer'));
+        return view('admin.career.industry.create');
     }
 
     /**
@@ -65,15 +62,8 @@ class IndustryController extends BaseController
 
         $industry = Industry::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $industry->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.career.industry.index')
-                ->with('success', $industry->name . ' created successfully.');
-        }
+        return redirect(referer('admin.career.industry.index'))
+            ->with('success', $industry->name . ' created successfully.');
     }
 
     /**
@@ -91,18 +81,15 @@ class IndustryController extends BaseController
      * Show the form for editing the specified industry.
      *
      * @param Industry $industry
-     * @param Request $request
      * @return View
      */
-    public function edit(Industry $industry, Request $request): View
+    public function edit(Industry $industry): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit industries.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.industry.edit', compact('industry', 'referer'));
+        return view('admin.career.industry.edit', compact('industry'));
     }
 
     /**
@@ -120,25 +107,17 @@ class IndustryController extends BaseController
 
         $industry->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $industry->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.database.index')
-                ->with('success', $industry->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.career.industry.index'))
+            ->with('success', $industry->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified industry from storage.
      *
      * @param Industry $industry
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Industry $industry, Request $request): RedirectResponse
+    public function destroy(Industry $industry): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete industries.');
@@ -146,14 +125,7 @@ class IndustryController extends BaseController
 
         $industry->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $industry->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.career.industry.index')
-                ->with('success', $industry->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.career.industry.index'))
+            ->with('success', $industry->name . ' deleted successfully.');
     }
 }

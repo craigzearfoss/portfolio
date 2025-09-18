@@ -4,10 +4,10 @@
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
         [ 'name' => 'Readings',        'url' => route('admin.portfolio.reading.index') ],
-        [ 'name' => 'Create' ],
+        [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.portfolio.reading.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.portfolio.reading.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => $referer ?? route('admin.portfolio.reading.index')
+                'value' => referer('admin.portfolio.reading.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -214,7 +214,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Reading',
-                'cancel_url' => $referer ?? route('admin.portfolio.reading.index')
+                'cancel_url' => referer('admin.portfolio.reading.index')
             ])
 
         </form>

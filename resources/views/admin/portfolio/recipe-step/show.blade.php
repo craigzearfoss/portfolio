@@ -10,7 +10,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.portfolio.recipe-step.edit', $recipeStep) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Step',  'url' => route('admin.portfolio.recipe-step.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => Request::header('referer') ?? route('admin.portfolio.recipe-step.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => referer('admin.portfolio.recipe-step.index') ],
     ],
     'errors'  => $errors->any() ?? [],
     'success' => session('success') ?? null,

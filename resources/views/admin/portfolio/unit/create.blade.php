@@ -4,10 +4,10 @@
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
         [ 'name' => 'Units',           'url' => route('admin.portfolio.unit.index') ],
-        [ 'name' => 'Create' ],
+        [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.portfolio.unit.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.portfolio.unit.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => $referer ?? route('admin.portfolio.unit.index')
+                'value' => referer('admin.portfolio.unit.index')
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -146,7 +146,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Unit',
-                'cancel_url' => $referer ?? route('admin.portfolio.unit.index')
+                'cancel_url' => referer('admin.portfolio.unit.index')
             ])
 
         </form>

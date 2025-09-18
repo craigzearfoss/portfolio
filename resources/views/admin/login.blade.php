@@ -20,6 +20,11 @@
             <form action="{{ route('admin.login-submit') }}" method="POST">
                 @csrf
 
+                @include('admin.components.form-hidden', [
+                    'name'  => 'referer',
+                    'value' => referer('admin.index')
+                ])
+
                 <div class="column is-12">
 
                     @include('admin.components.form-input', [
@@ -50,7 +55,7 @@
                     <div class="has-text-centered">
                         @include('admin.components.form-button-submit', [
                             'label'      => 'Login',
-                            'cancel_url' => route('admin.index')
+                            'cancel_url' => referer('admin.index')
                         ])
                     </div>
 

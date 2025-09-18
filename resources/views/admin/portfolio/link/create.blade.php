@@ -7,7 +7,7 @@
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => $referer ?? route('admin.portfolio.link.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.portfolio.link.index') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -23,7 +23,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => $referer ?? route('admin.portfolio.link.index')
+                'value' => referer('admin.portfolio.link.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
@@ -165,7 +165,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Link',
-                'cancel_url' => $referer ?? route('admin.portfolio.link.index')
+                'cancel_url' => referer('admin.portfolio.link.index')
             ])
 
         </form>

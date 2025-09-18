@@ -104,10 +104,9 @@ class JobCoworkerController extends BaseController
      * Remove the specified job coworker from storage.
      *
      * @param JobCoworker $jobCoworker
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(JobCoworker $jobCoworker, Request $request): RedirectResponse
+    public function destroy(JobCoworker $jobCoworker): RedirectResponse
     {
         $jobCoworker->delete();
 

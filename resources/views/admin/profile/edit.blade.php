@@ -7,7 +7,7 @@
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-key"></i> Change Password', 'url' => '<a class="btn btn-sm btn-solid" href="' . route('admin.profile.change-password', $admin->id) . '">' ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => Request::header('referer') ?? route('admin.profile.show') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => referer('admin.profile.show') ],
     ],
     'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -24,7 +24,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => referer('admin.profile.show')
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -89,7 +89,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => Request::header('referer') ?? route('admin.profile.show')
+                'cancel_url' => referer('admin.profile.show')
             ])
 
         </form>

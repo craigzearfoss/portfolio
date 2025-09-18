@@ -36,14 +36,11 @@ class ResumeController extends BaseController
     /**
      * Show the form for creating a new resume.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.resume.create', compact('referer'));
+        return view('admin.career.resume.create');
     }
 
     /**
@@ -56,15 +53,8 @@ class ResumeController extends BaseController
     {
         $resume = Resume::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $resume->name . ' resume created successfully.');
-        } else {
-            return redirect()->route('admin.career.resume.index')
-                ->with('success', $resume->name . ' resume created successfully.');
-        }
+        return redirect(referer('admin.career.resume.index'))
+            ->with('success', $resume->name . ' resume created successfully.');
     }
 
     /**
@@ -82,14 +72,11 @@ class ResumeController extends BaseController
      * Show the form for editing the specified resume.
      *
      * @param Resume $resume
-     * @param Request $request
      * @return View
      */
-    public function edit(Resume $resume, Request $request): View
+    public function edit(Resume $resume): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.resume.edit', compact('resume', 'referer'));
+        return view('admin.career.resume.edit', compact('resume'));
     }
 
     /**
@@ -103,36 +90,21 @@ class ResumeController extends BaseController
     {
         $resume->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $resume->name . ' resume updated successfully.');
-        } else {
-            return redirect()->route('admin.career.resume.index')
-                ->with('success', $resume->name . ' resume updated successfully.');
-        }
+        return redirect(referer('admin.career.resume.index'))
+            ->with('success', $resume->name . ' resume updated successfully.');
     }
 
     /**
      * Remove the specified resume from storage.
      *
      * @param Resume $resume
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Resume $resume, Request $request): RedirectResponse
+    public function destroy(Resume $resume): RedirectResponse
     {
         $resume->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $resume->name . ' resume deleted successfully.');
-        } else {
-            return redirect()->route('admin.career.resume.index')
-                ->with('success', $resume->name . ' resume deleted successfully.');
-        }
+        return redirect(referer('admin.career.resume.index'))
+            ->with('success', $resume->name . ' resume deleted successfully.');
     }
 }

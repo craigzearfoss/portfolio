@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',         'url' => route('admin.portfolio.certification.edit', $certification) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Certification', 'url' => route('admin.portfolio.certification.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',            'url' => Request::header('referer') ?? route('admin.portfolio.certification.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',            'url' => referer('admin.portfolio.certification.index') ],
     ],
     'errors'  => $errors->any() ?? [],
     'success' => session('success') ?? null,

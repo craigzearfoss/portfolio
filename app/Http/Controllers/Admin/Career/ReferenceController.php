@@ -36,14 +36,11 @@ class ReferenceController extends BaseController
     /**
      * Show the form for creating a new reference.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.reference.create', compact('referer'));
+        return view('admin.career.reference.create');
     }
 
     /**
@@ -56,15 +53,8 @@ class ReferenceController extends BaseController
     {
         $reference = Reference::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $reference->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.career.reference.index')
-                ->with('success', $reference->name . ' created successfully.');
-        }
+        return redirect(referer('admin.career.reference.index'))
+            ->with('success', $reference->name . ' created successfully.');
     }
 
     /**
@@ -82,14 +72,11 @@ class ReferenceController extends BaseController
      * Show the form for editing the specified reference.
      *
      * @param Reference $reference
-     * @param Request $request
      * @return View
      */
     public function edit(Reference $reference): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.reference.edit', compact('reference', 'referer'));
+        return view('admin.career.reference.edit', compact('reference'));
     }
 
     /**
@@ -103,36 +90,21 @@ class ReferenceController extends BaseController
     {
         $reference->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $reference->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.career.reference.index')
-                ->with('success', $reference->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.career.reference.index'))
+            ->with('success', $reference->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified reference from storage.
      *
      * @param Reference $reference
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Reference $reference, Request $request): RedirectResponse
+    public function destroy(Reference $reference): RedirectResponse
     {
         $reference->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $reference->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.career.reference.index')
-                ->with('success', $reference->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.career.reference.index'))
+            ->with('success', $reference->name . ' deleted successfully.');
     }
 }

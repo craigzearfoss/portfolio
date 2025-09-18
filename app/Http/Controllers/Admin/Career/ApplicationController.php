@@ -34,14 +34,11 @@ class ApplicationController extends BaseController
     /**
      * Show the form for creating a new application.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.application.create', compact('referer'));
+        return view('admin.career.application.create');
     }
 
     /**
@@ -54,15 +51,8 @@ class ApplicationController extends BaseController
     {
         $application = Application::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Application created successfully.');
-        } else {
-            return redirect()->route('admin.career.application.index')
-                ->with('success', 'Application created successfully.');
-        }
+        return redirect(referer('admin.career.application.index'))
+            ->with('success', 'Application created successfully.');
     }
 
     /**
@@ -80,14 +70,11 @@ class ApplicationController extends BaseController
      * Show the form for editing the specified application.
      *
      * @param Application $application
-     * @param Request $request
      * @return View
      */
     public function edit(Application $application): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.application.edit', compact('application', 'referer'));
+        return view('admin.career.application.edit', compact('application'));
     }
 
     /**
@@ -101,36 +88,21 @@ class ApplicationController extends BaseController
     {
         $application->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Application updated successfully.');
-        } else {
-            return redirect()->route('admin.career.application.index')
-                ->with('success', 'Application updated successfully.');
-        }
+        return redirect(referer('admin.career.application.index'))
+            ->with('success', 'Application updated successfully.');
     }
 
     /**
      * Remove the specified application from storage.
      *
      * @param Application $application
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Application $application, Request $request): RedirectResponse
+    public function destroy(Application $application): RedirectResponse
     {
         $application->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Application deleted successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.database.index')
-                ->with('success', 'Application deleted successfully.');
-        }
+        return redirect(referer('admin.dictionary.database.index'))
+            ->with('success', 'Application deleted successfully.');
     }
 }

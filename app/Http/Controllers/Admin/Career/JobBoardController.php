@@ -37,10 +37,9 @@ class JobBoardController extends BaseController
     /**
      * Show the form for creating a new job board.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add job boards.');
@@ -117,10 +116,9 @@ class JobBoardController extends BaseController
      * Remove the specified job board from storage.
      *
      * @param JobBoard $jobBoard
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(JobBoard $jobBoard, Request $request): RedirectResponse
+    public function destroy(JobBoard $jobBoard): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete job boards.');
@@ -128,7 +126,7 @@ class JobBoardController extends BaseController
 
         $jobBoard->delete();
 
-        return redirect(referer('admin.job-board.link.index'))
+        return redirect(referer('admin.career.job-board.index'))
             ->with('success', $jobBoard->name . ' deleted successfully.');
     }
 }

@@ -20,7 +20,7 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => referer('admin.index')
             ])
 
             <div class="column">
@@ -49,7 +49,7 @@
 
                 @include('admin.components.form-button-submit', [
                     'label'      => 'Save',
-                    'cancel_url' => Request::header('referer') ?? route('admin.index')
+                    'cancel_url' => referer('admin.index')
                 ])
 
             </div>

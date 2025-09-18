@@ -37,14 +37,11 @@ class ContactController extends BaseController
     /**
      * Show the form for creating a new contact.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.contact.create', compact('referer'));
+        return view('admin.career.contact.create');
     }
 
     /**
@@ -57,15 +54,8 @@ class ContactController extends BaseController
     {
         $contact = Contact::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $contact->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.career.contact.index')
-                ->with('success', $contact->name . ' created successfully.');
-        }
+        return redirect(referer('admin.career.contact.index'))
+            ->with('success', $contact->name . ' created successfully.');
     }
 
     /**
@@ -83,14 +73,11 @@ class ContactController extends BaseController
      * Show the form for editing the specified contact.
      *
      * @param Contact $contact
-     * @param Request $request
      * @return View
      */
-    public function edit(Contact $contact, Request $request): View
+    public function edit(Contact $contact): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.career.contact.edit', compact('contact', 'referer'));
+        return view('admin.career.contact.edit', compact('contact'));
     }
 
     /**
@@ -104,36 +91,21 @@ class ContactController extends BaseController
     {
         $contact->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $contact->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.career.application.index')
-                ->with('success', $contact->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.career.application.index'))
+            ->with('success', $contact->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified contact from storage.
      *
      * @param Contact $contact
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Contact $contact, Request $request): RedirectResponse
+    public function destroy(Contact $contact): RedirectResponse
     {
         $contact->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $contact->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.career.contact.index')
-                ->with('success', $contact->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.career.contact.index'))
+            ->with('success', $contact->name . ' deleted successfully.');
     }
 }
