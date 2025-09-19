@@ -28,7 +28,7 @@ class Reading extends Model
         'slug',
         'professional',
         'personal',
-        'year',
+        'publication_year',
         'fiction',
         'nonfiction',
         'paper',

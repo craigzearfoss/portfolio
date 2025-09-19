@@ -19,9 +19,9 @@
             <tr>
                 <th class="px-1">name</th>
                 <th class="px-1">email</th>
-                <th class="px-1 text-center">verified</th>
-                <th class="px-1 text-center">status</th>
-                <th class="px-1 text-center">disabled</th>
+                <th class="px-1 has-text-centered">verified</th>
+                <th class="px-1 has-text-centered">status</th>
+                <th class="px-1 has-text-centered">disabled</th>
                 <th class="px-1">actions</th>
             </tr>
             </thead>
@@ -30,9 +30,9 @@
             <tr>
                 <th class="px-2">name</th>
                 <th class="px-2">email</th>
-                <th class="px-2 text-center">verified</th>
-                <th class="px-2 text-center">status</th>
-                <th class="px-2 text-center">disabled</th>
+                <th class="px-2 has-text-centered">verified</th>
+                <th class="px-2 has-text-centered">status</th>
+                <th class="px-2 has-text-centered">disabled</th>
                 <th class="px-2">actions</th>
             </tr>
             </tfoot>

@@ -20,7 +20,7 @@
                         <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
                             <div class="card min-w-[320px] md:min-w-[450px] card-shadow" role="presentation">
                                 <div class="card-body md:p-5">
-                                    <div class="text-center">
+                                    <div class="has-text-centered">
                                         <div class="mb-4">
 
                                             <div class="d-grid gap-2 d-md-flex justify-between">

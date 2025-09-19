@@ -86,13 +86,14 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'    => 'number',
-                'name'    => 'publish_date',
-                'label'   => 'publish date',
-                'value'   => old('start_year') ?? $reading->publish_date,,
-                'min'     => -2500,
-                'max'     => 2050,
-                'message' => $message ?? '',
+                'type'      => 'number',
+                'name'      => 'publication_year',
+                'label'     => 'publication year',
+                'value'     => old('publication_year') ?? $reading->publication_year,
+                'required'  => true,
+                'min'       => -3000,
+                'max'       => 2050,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-checkbox-horizontal', [

@@ -51,6 +51,7 @@ class ReadingUpdateRequest extends FormRequest
             'professional'     => ['integer', 'between:0,1'],
             'personal'         => ['integer', 'between:0,1'],
             'year'             => ['integer', 'between:-2500,2050', 'nullable'],
+            'publication_year' => ['integer', 'between:-3000,2050', 'nullable'],
             'fiction'          => ['integer', 'between:0,1'],
             'nonfiction'       => ['integer', 'between:0,1'],
             'paper'            => ['integer', 'between:0,1'],

@@ -22,14 +22,14 @@
             <tr>
                 <th>title</th>
                 <th>author</th>
-                <th class="text-center">fiction</th>
-                <th class="text-center">nonfiction</th>
-                <th class="text-center">publish dater</th>
-                <th class="text-center">paper</th>
-                <th class="text-center">audio</th>
-                <th class="text-center">wishlist</th>
-                <th class="text-center">public</th>
-                <th class="text-center">readonly</th>
+                <th class="has-text-centered">fiction</th>
+                <th class="has-text-centered">nonfiction</th>
+                <th class="has-text-centered">publication year</th>
+                <th class="has-text-centered">paper</th>
+                <th class="has-text-centered">audio</th>
+                <th class="has-text-centered">wishlist</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">readonly</th>
                 <th class="text-center">root</th>
                 <th class="text-center">disabled</th>
                 <th>actions</th>
@@ -42,7 +42,7 @@
                 <th>author</th>
                 <th class="text-center">fiction</th>
                 <th class="text-center">nonfiction</th>
-                <th class="text-center">publish date</th>
+                <th class="text-center">publication year</th>
                 <th class="text-center">paper</th>
                 <th class="text-center">audio</th>
                 <th class="text-center">wishlist</th>
@@ -71,8 +71,8 @@
                     <td class="text-center">
                         @include('admin.components.checkmark', [ 'checked' => $reading->nonfiction ])
                     </td>
-                    <td>
-                        {{ $reading->publish_date }}
+                    <td class="has-text-centered">
+                        {{ $reading->publication_year }}
                     </td>
                     <td class="text-center">
                         @include('admin.components.checkmark', [ 'checked' => $reading->paper ])

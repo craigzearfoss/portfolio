@@ -7,12 +7,12 @@
             <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0 h-full">
                 <div class="card min-w-[320px] md:min-w-[450px] card-shadow" role="presentation">
                     <div class="card-body md:p-10">
-                        <div class="text-center">
+                        <div class="has-text-centered">
                             <div class="logo">
                                 <img class="mx-auto" src="{{ asset('images/site/logo-thumb-sm.png') }}" alt="site logo">
                             </div>
                         </div>
-                        <div class="text-center">
+                        <div class="has-text-centered">
                             <div class="mb-4">
                                 <h3 class="mb-1">Register New User</h3>
 
@@ -84,7 +84,7 @@
                                                 'label' => 'Submit',
                                             ])
 
-                                            <div class="mt-3 text-center">
+                                            <div class="mt-3 has-text-centered">
                                                 <span>Already have an account?</span>
                                                 <a class="text-primary-600 hover:underline" href="{{ route('front.login') }}">Login</a>
                                             </div>

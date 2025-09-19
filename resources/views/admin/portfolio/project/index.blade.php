@@ -23,10 +23,10 @@
                 <th>name</th>
                 <th>year</th>
                 <th>repository</th>
-                <th class="text-center">public</th>
-                <th class="text-center">root</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -36,10 +36,10 @@
                 <th>name</th>
                 <th>year</th>
                 <th>repository</th>
-                <th class="text-center">public</th>
-                <th class="text-center">root</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -58,13 +58,13 @@
                     <td>
                         @include('admin.components.link', [ 'url' => $project->repository, 'target' => '_blank' ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->public ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->readonly ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->root ])
                     </td>
                     <td class="py-0 text-center">

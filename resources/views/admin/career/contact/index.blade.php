@@ -24,8 +24,8 @@
                 <th>location</th>
                 <th>phone</th>
                 <th>email</th>
-                <th class="text-center">public</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -36,8 +36,8 @@
                 <th>location</th>
                 <th>phone</th>
                 <th>email</th>
-                <th class="text-center">public</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -65,10 +65,10 @@
                     <td>
                         {{ $contact->email }}
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $contact->publicd ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $contact->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">

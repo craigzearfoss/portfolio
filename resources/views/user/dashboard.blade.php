@@ -19,7 +19,7 @@
                         <div class="page-container relative h-full flex flex-auto flex-col px-4 sm:px-6 md:px-8 py-4 sm:py-6">
                             <div class="container mx-auto h-full">
                                 <div id="welcome-page-0" class="welcome-page-section h-full flex flex-col items-center justify-center">
-                                    <div class="text-center">
+                                    <div class="has-text-centered">
                                     <span class="avatar avatar-circle avatat-lg border-2 border-white dark:border-gray-800 shadow-lg" data-avatar-size="60" style="width: 150px; height: 150px; min-width: 60px; line-height: 60px;">
                                         <img class="avatar-img avatar-circle" src="{{ asset('images/users/avatars/0-thumb.png') }}" loading="lazy">
                                     </span>

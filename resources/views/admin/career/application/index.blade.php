@@ -68,10 +68,10 @@
                     <td>
                         {{ $application->role }}
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->active ])
                     </td>
-                    <td class="text-center text-nowrap">
+                    <td class="has-text-centered text-nowrap">
                         @include('admin.components.star-ratings', [ 'rating' => $application->rating ])
                     </td>
                     <td class="text-nowrap">
@@ -103,19 +103,19 @@
                             {{ $application->state }}
                         @endif
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->w2 ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->relocation ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->benefits ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->vacation ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->health ])
                     </td>
                     <td>{{ $application->source }}</td>

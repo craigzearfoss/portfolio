@@ -23,8 +23,8 @@
                 <th class="px-2">name</th>
                 <th class="px-2">email</th>
                 <th class="px-2">phone</th>
-                <th class="px-2 text-center">root</th>
-                <th class="px-2 text-center">disabled</th>
+                <th class="px-2 has-text-centered">root</th>
+                <th class="px-2 has-text-centered">disabled</th>
                 <th class="px-2">actions</th>
             </tr>
             </thead>
@@ -35,8 +35,8 @@
                 <th class="px-2">name</th>
                 <th class="px-2">email</th>
                 <th class="px-2">phone</th>
-                <th class="px-2 text-center">root</th>
-                <th class="px-2 text-center">disabled</th>
+                <th class="px-2 has-text-centered">root</th>
+                <th class="px-2 has-text-centered">disabled</th>
                 <th class="px-2">actions</th>
             </tr>
             </tfoot>
@@ -58,10 +58,10 @@
                     <td class="py-0">
                         {{ $admin->phone }}
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $admin->root ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $admin->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">

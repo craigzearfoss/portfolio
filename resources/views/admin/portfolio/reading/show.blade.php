@@ -46,9 +46,8 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'publish_date',
-            'label' => 'publish date',
-            'value' => $reading->publish_date
+            'name'  => 'publication year',
+            'value' => $reading->publication_year
         ])
 
         @include('admin.components.show-row-checkbox', [
