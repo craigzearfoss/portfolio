@@ -18,32 +18,28 @@ class ProfileController extends BaseController
     /**
      * Display the current admin.
      *
-     * @param Request $request
      * @return View
      */
-    public function show(Request $request): View
+    public function show(): View
     {
         $admin = Auth::guard('admin')->user();
         $title = $admin->name;
-        $referer = $request->headers->get('referer');
 
-        return view('admin.profile.show', compact('admin', 'title', 'referer'));
+        return view('admin.profile.show', compact('admin', 'title'));
     }
 
     /**
      * Show the form for editing the current admin.
      *
-     * @param Request $request
      * @return View
      */
-    public function edit(Request $request): View
+    public function edit(): View
     {
         $admin = Auth::guard('admin')->user();
 
         $title = 'Edit My Profile';
-        $referer = $request->headers->get('referer');
 
-        return view('admin.profile.edit', compact('admin', 'title', 'referer'));
+        return view('admin.profile.edit', compact('admin', 'title'));
     }
 
     /**
@@ -58,29 +54,19 @@ class ProfileController extends BaseController
 
         $admin->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Profile updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.link.index')
-                ->with('success', 'Profile updated successfully.');
-        }
+        return redirect(referer('admin.portfolio.show'))
+            ->with('success', 'Profile updated successfully.');
     }
 
     /**
      * Display the change password page.
      *
      * @param Admin $admin
-     * @param Request $request
      * @return View
      */
-    public function change_password(Admin $admin, Request $request): View
+    public function change_password(Admin $admin): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.profile.change-password', compact('admin', 'referer'));
+        return view('admin.profile.change-password', compact('admin'));
     }
 
     /**
@@ -88,7 +74,7 @@ class ProfileController extends BaseController
      *
      * @param AdminUpdateRequest $request
      * @param Admin $admin
-     * @return RedirectResponse
+     * @return RedirectResponse|View
      */
     public function change_password_submit(AdminUpdateRequest $request, Admin $admin): RedirectResponse|View
     {
@@ -96,14 +82,7 @@ class ProfileController extends BaseController
 
         $admin->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'User password updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.link.index')
-                ->with('success', 'User password updated successfully.');
-        }
+        return redirect(referer('admin.portfolio.show'))
+            ->with('success', 'User password updated successfully.');
     }
 }

@@ -36,14 +36,11 @@ class AdminController extends BaseController
     /**
      * Show the form for creating a new admin.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.admin.create', compact('referer'));
+        return view('admin.admin.create');
     }
 
     /**
@@ -65,15 +62,8 @@ class AdminController extends BaseController
 
         $admin->save();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Admin ' . $admin->username . ' created successfully.');
-        } else {
-            return redirect()->route('admin.admin.index')
-               ->with('success', 'Admin ' . $admin->username . ' created successfully.');
-        }
+        return redirect(referer('admin.admin.index'))
+            ->with('success', 'Admin ' . $admin->username . ' created successfully.');
     }
 
     /**
@@ -91,7 +81,6 @@ class AdminController extends BaseController
      * Show the form for editing the specified admin.
      *
      * @param Admin $admin
-     * @param Request $request
      * @return View
      */
     public function edit(Admin $admin): View
@@ -101,7 +90,7 @@ class AdminController extends BaseController
             abort(403);
         }
 
-        return view('admin.admin.edit', compact('admin', 'referer'));
+        return view('admin.admin.edit', compact('admin'));
     }
 
     /**
@@ -115,25 +104,17 @@ class AdminController extends BaseController
     {
         $admin->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $admin->username . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $admin->username . ' updated successfully.');
-        }
+        return redirect(referer('admin.admin.index'))
+            ->with('success', $admin->username . ' updated successfully.');
     }
 
     /**
      * Remove the specified admin from storage.
      *
      * @param Admin $admin
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Admin $admin, Request $request): RedirectResponse
+    public function destroy(Admin $admin): RedirectResponse
     {
         // Note that only root admins can delete other admins, but they cannot delete themselves.
         if (Auth::guard('admin')->user()->root && ($admin->id !== Auth::guard('admin')->user()->id)) {
@@ -142,14 +123,7 @@ class AdminController extends BaseController
             abort(403);
         }
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $admin->username . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.index')
-                ->with('success', $admin->username . ' deleted successfully.');
-        }
+        return redirect(referer('admin.admin.index'))
+            ->with('success', $admin->username . ' deleted successfully.');
     }
 }

@@ -34,14 +34,11 @@ class DatabaseController extends BaseController
     /**
      * Show the form for creating a new database.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.database.create', compact('referer'));
+        return view('admin.database.create');
     }
 
     /**
@@ -54,15 +51,8 @@ class DatabaseController extends BaseController
     {
         $database = Database::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $database->name . ' database created successfully.');
-        } else {
-            return redirect()->route('admin.database.index')
-                ->with('success', $database->name . ' database created successfully.');
-        }
+        return redirect(referer('admin.database.index'))
+            ->with('success', $database->name . ' database created successfully.');
     }
 
     /**
@@ -80,14 +70,11 @@ class DatabaseController extends BaseController
      * Show the form for editing the specified database.
      *
      * @param Database $database
-     * @param Request $request
      * @return View
      */
     public function edit(Database $database): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.database.edit', compact('database', 'referer'));
+        return view('admin.database.edit', compact('database'));
     }
 
     /**
@@ -101,36 +88,21 @@ class DatabaseController extends BaseController
     {
         $database->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $database->name . ' database updated successfully.');
-        } else {
-            return redirect()->route('admin.database.index')
-                ->with('success', $database->name . ' database updated successfully.');
-        }
+        return redirect(referer('admin.database.index'))
+            ->with('success', $database->name . ' database updated successfully.');
     }
 
     /**
      * Remove the specified database from storage.
      *
      * @param Database $database
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Database $database, Request $request): RedirectResponse
+    public function destroy(Database $database): RedirectResponse
     {
         $database->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $database->name . ' database deleted successfully.');
-        } else {
-             return redirect()->route('admin.database.index')
-                 ->with('success', $database->name . ' database deleted successfully.');
-        }
+        return redirect(referer('admin.database.index'))
+            ->with('success', $database->name . ' database deleted successfully.');
     }
 }

@@ -35,14 +35,11 @@ class UserController extends BaseController
     /**
      * Show the form for creating a new user.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.user.create', compact('referer'));
+        return view('admin.user.create');
     }
 
     /**
@@ -55,15 +52,8 @@ class UserController extends BaseController
     {
         $user = User::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $user->username . ' created successfully. User will need to verify email.');
-        } else {
-            return redirect()->route('admin.user.index')
-                ->with('success', $user->username . ' created successfully. User will need to verify email.');
-        }
+        return redirect(referer('admin.user.index'))
+            ->with('success', $user->username . ' created successfully. User will need to verify email.');
     }
 
     /**
@@ -81,7 +71,6 @@ class UserController extends BaseController
      * Show the form for editing the specified user.
      *
      * @param User $user
-     * @param Request $request
      * @return View
      */
     public function edit(User $user): View
@@ -94,9 +83,7 @@ class UserController extends BaseController
             }
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.user.edit', compact('user', 'referer'));
+        return view('admin.user.edit', compact('user'));
     }
 
     /**
@@ -110,51 +97,33 @@ class UserController extends BaseController
     {
         $user->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $user->username . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.user.index')
-                ->with('success', $user->username . ' updated successfully.');
-        }
+        return redirect(referer('admin.user.index'))
+            ->with('success', $user->username . ' updated successfully.');
     }
 
     /**
      * Remove the specified user from storage.
      *
      * @param User $user
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(User $user, Request $request): RedirectResponse
+    public function destroy(User $user): RedirectResponse
     {
         $user->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $user->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.user.index')
-                ->with('success', $user->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.user.index'))
+            ->with('success', $user->name . ' deleted successfully.');
     }
 
     /**
      * Display the change password page.
      *
      * @param User $user
-     * @param Request $request
-     * @return RedirectResponse
+     * @return View
      */
-    public function change_password(User $user, Request $request): View
+    public function change_password(User $user): View
     {
-        $referer = $request->input('referer');
-
-        return view('admin.user.change-password', compact('user', 'referer'));
+        return view('admin.user.change-password', compact('user'));
     }
 
     /**
@@ -168,14 +137,7 @@ class UserController extends BaseController
     {
         $user->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Password for ' . $user->username . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.user.show', $user)
-                ->with('success', 'Password for ' . $user->username . ' updated successfully.');
-        }
+        return redirect(referer('admin.user.show', $user))
+            ->with('success', 'Password for ' . $user->username . ' updated successfully.');
     }
 }

@@ -34,14 +34,11 @@ class MessageController extends BaseController
     /**
      * Show the form for creating a new message.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.message.create', compact('referer'));
+        return view('admin.message.create');
     }
 
     /**
@@ -54,21 +51,14 @@ class MessageController extends BaseController
     {
         $message = Message::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Message created successfully.');
-        } else {
-            return redirect()->route('admin.message.index')
-                ->with('success', 'Message created successfully.');
-        }
+        return redirect(referer('admin.message.index'))
+            ->with('success', 'Message created successfully.');
     }
 
     /**
      * Display the specified message.
      *
-     * @param Link $link
+     * @param Message $message
      * @return View
      */
     public function show(Message $message): View
@@ -80,14 +70,11 @@ class MessageController extends BaseController
      * Show the form for editing the specified message.
      *
      * @param Message $message
-     * @param Request $request
      * @return View
      */
     public function edit(Message $message): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.message.edit', compact('message', 'referer'));
+        return view('admin.message.edit', compact('message'));
     }
 
     /**
@@ -101,36 +88,21 @@ class MessageController extends BaseController
     {
         $message->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Message updated successfully.');
-        } else {
-            return redirect()->route('admin.message.index')
-                ->with('success', 'Message updated successfully.');
-        }
+        return redirect(referer('admin.message.index'))
+            ->with('success', 'Message updated successfully.');
     }
 
     /**
      * Remove the specified message from storage.
      *
      * @param Message $message
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Message $message, Request $request): RedirectResponse
+    public function destroy(Message $message): RedirectResponse
     {
         $message->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Message deleted successfully.');
-        } else {
-            return redirect()->route('admin.message.index')
-                ->with('success', 'Message deleted successfully.');
-        }
+        return redirect(referer('admin.message.index'))
+            ->with('success', 'Message deleted successfully.');
     }
 }

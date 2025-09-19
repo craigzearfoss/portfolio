@@ -24,9 +24,11 @@ if (! function_exists('referer')) {
      * Convert a Y-m-d MySQL formatted date to an m-d-Y formatted date.
      *
      * @param string | null $fallbackRoute
+     * @param mixed $parameters
+     * @param bool $absolute
      * @return string | null
      */
-    function referer(string | null $fallbackRoute = null): string | null
+    function referer(string | null $fallbackRoute = null, mixed $parameters = [], bool $absolute = true): string | null
     {
         $referer = Request::input('referer') ?? (Request::header('referer') ?? null);
         $refererRouteName = refererRouteName();
@@ -34,7 +36,7 @@ if (! function_exists('referer')) {
 
         if (empty($referer) && ! empty($fallbackRoute)) {
             try {
-                $referer = route($fallbackRoute);
+                $referer = route($fallbackRoute, $parameters, $absolute);
             } catch (\Throwable $th) {
             }
         }

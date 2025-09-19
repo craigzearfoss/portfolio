@@ -35,14 +35,11 @@ class ResourceController extends BaseController
     /**
      * Show the form for creating a new resource.
      *
-     * @param Request $request
      * @return View
      */
     public function create(Request $request): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.resource.create', compact('referer'));
+        return view('admin.resource.create');
     }
 
     /**
@@ -55,15 +52,8 @@ class ResourceController extends BaseController
     {
         $resource = Resource::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $resource->name . ' resource created successfully.');
-        } else {
-            return redirect()->route('admin.resource.index')
-                ->with('success', $resource->name . ' resource created successfully.');
-        }
+        return redirect(referer('admin.resource.index'))
+            ->with('success', $resource->name . ' resource created successfully.');
     }
 
     /**
@@ -81,14 +71,11 @@ class ResourceController extends BaseController
      * Show the form for editing the specified resource.
      *
      * @param Resource $resource
-     * @param Request $request
      * @return View
      */
     public function edit(Resource $resource): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.resource.edit', compact('resource', 'referer'));
+        return view('admin.resource.edit', compact('resource'));
     }
 
     /**
@@ -102,36 +89,21 @@ class ResourceController extends BaseController
     {
         $resource->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $resource->name . ' resource updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $resource->name . ' resource updated successfully.');
-        }
+        return redirect(referer('admin.resource.index'))
+            ->with('success', $resource->name . ' resource updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Resource $resource
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Resource $resource, Request $request): RedirectResponse
+    public function destroy(Resource $resource): RedirectResponse
     {
         $resource->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $resource->name . ' resource deleted successfully.');
-        } else {
-            return redirect()->route('admin.resource.index')
-                ->with('success', $resource->name . ' resource deleted successfully.');
-        }
+        return redirect(referer('admin.resource.index'))
+            ->with('success', $resource->name . ' resource deleted successfully.');
     }
 }
