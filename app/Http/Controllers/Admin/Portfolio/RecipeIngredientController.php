@@ -34,35 +34,25 @@ class RecipeIngredientController extends BaseController
     /**
      * Show the form for creating a new recipe ingredient.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.recipe-ingredient.create', compact('referer'));
+        return view('admin.portfolio.recipe-ingredient.create');
     }
 
     /**
      * Store a newly created recipe ingredient in storage.
      *
-     * @param RecipeStoreRequest $request
+     * @param RecipeIngredientStoreRequest $request
      * @return RedirectResponse
      */
     public function store(RecipeIngredientStoreRequest $request): RedirectResponse
     {
         $recipeIngredient = RecipeIngredient::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Recipe ingredient created successfully.');
-        } else {
-        return redirect()->route('admin.portfolio.recipe-ingredient.index')
+        return redirect(referer('admin.portfolio.recipe-ingredient.index'))
             ->with('success', 'Recipe ingredient created successfully.');
-        }
     }
 
     /**
@@ -80,14 +70,11 @@ class RecipeIngredientController extends BaseController
      * Show the form for editing the specified recipe ingredient.
      *
      * @param RecipeIngredient $recipeIngredient
-     * @param Request $request
      * @return View
      */
-    public function edit(RecipeIngredient $recipeIngredient, Request $request): View
+    public function edit(RecipeIngredient $recipeIngredient): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.recipe-ingredient.edit', compact('recipeIngredient', 'referer'));
+        return view('admin.portfolio.recipe-ingredient.edit', compact('recipeIngredient'));
     }
 
     /**
@@ -102,36 +89,21 @@ class RecipeIngredientController extends BaseController
     {
         $recipeIngredient->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Recipe ingredient updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.recipe-ingredient.index')
-                ->with('success', 'Recipe ingredient updated successfully.');
-        }
+        return redirect(referer('admin.portfolio.recipe-ingredient.index'))
+            ->with('success', 'Recipe ingredient updated successfully.');
     }
 
     /**
      * Remove the specified recipe ingredient from storage.
      *
      * @param RecipeIngredient $recipeIngredient
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(RecipeIngredient $recipeIngredient, Request $request): RedirectResponse
+    public function destroy(RecipeIngredient $recipeIngredient): RedirectResponse
     {
         $recipeIngredient->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', 'Recipe ingredient deleted successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.recipe-ingredient.index')
-                ->with('success', 'Recipe ingredient deleted successfully.');
-        }
+        return redirect(referer('admin.portfolio.recipe-ingredient.index'))
+            ->with('success', 'Recipe ingredient deleted successfully.');
     }
 }

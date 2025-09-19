@@ -36,14 +36,11 @@ class VideoController extends BaseController
     /**
      * Show the form for creating a new video.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.video.create', compact('referer'));
+        return view('admin.portfolio.video.create');
     }
 
     /**
@@ -56,15 +53,8 @@ class VideoController extends BaseController
     {
         $video = Video::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $video->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.video.index')
-                ->with('success', $video->name . ' created successfully.');
-        }
+        return redirect(referer('admin.portfolio.video.index'))
+            ->with('success', $video->name . ' created successfully.');
     }
 
     /**
@@ -82,14 +72,11 @@ class VideoController extends BaseController
      * Show the form for editing the specified video.
      *
      * @param Video $video
-     * @param Request $request
      * @return View
      */
-    public function edit(Video $video, Request $request): View
+    public function edit(Video $video): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.video.edit', compact('video', 'referer'));
+        return view('admin.portfolio.video.edit', compact('video'));
     }
 
     /**
@@ -103,36 +90,21 @@ class VideoController extends BaseController
     {
         $video->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $video->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.video.index')
-                ->with('success', $video->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.portfolio.video.index'))
+            ->with('success', $video->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified video from storage.
      *
      * @param Video $video
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Video $video, Request $request): RedirectResponse
+    public function destroy(Video $video): RedirectResponse
     {
         $video->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $video->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.video.index')
-                ->with('success', $video->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.portfolio.video.index'))
+            ->with('success', $video->name . ' deleted successfully.');
     }
 }

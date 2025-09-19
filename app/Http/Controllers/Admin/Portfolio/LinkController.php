@@ -36,14 +36,11 @@ class LinkController extends BaseController
     /**
      * Show the form for creating a new link.
      *
-     * @param Request $request
      * @return View
      */
     public function create(Request $request): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.link.create', compact('referer'));
+        return view('admin.portfolio.link.create');
     }
 
     /**
@@ -56,15 +53,8 @@ class LinkController extends BaseController
     {
         $link = Link::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $link->name . ' link created successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $link->name . ' link created successfully.');
-        }
+        return redirect(referer('admin.portfolio.link.index'))
+            ->with('success', $link->name . ' link created successfully.');
     }
 
     /**
@@ -82,14 +72,11 @@ class LinkController extends BaseController
      * Show the form for editing the specified link.
      *
      * @param Link $link
-     * @param Request $request
      * @return View
      */
-    public function edit(Link $link, Request $request): View
+    public function edit(Link $link): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.link.edit', compact('link', 'referer'));
+        return view('admin.portfolio.link.edit', compact('link'));
     }
 
     /**
@@ -103,36 +90,21 @@ class LinkController extends BaseController
     {
         $link->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $link->name . ' link updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $link->name . ' link updated successfully.');
-        }
+        return redirect(referer('admin.portfolio.link.index'))
+            ->with('success', $link->name . ' link updated successfully.');
     }
 
     /**
      * Remove the specified link from storage.
      *
      * @param Link $link
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Link $link, Request $request): RedirectResponse
+    public function destroy(Link $link): RedirectResponse
     {
         $link->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $link->name . ' link deleted successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $link->name . ' link deleted successfully.');
-        }
+        return redirect(referer('admin.portfolio.link.index'))
+            ->with('success', $link->name . ' link deleted successfully.');
     }
 }

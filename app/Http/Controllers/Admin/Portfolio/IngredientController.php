@@ -37,18 +37,15 @@ class IngredientController extends BaseController
     /**
      * Show the form for creating a new ingredient.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add ingredients.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.ingredient.create', compact('referer'));
+        return view('admin.portfolio.ingredient.create');
     }
 
     /**
@@ -65,15 +62,8 @@ class IngredientController extends BaseController
 
         $ingredient = Ingredient::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $ingredient->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.ingredient.index')
-                ->with('success', $ingredient->name . ' created successfully.');
-        }
+        return redirect(referer('admin.portfolio.ingredient.index'))
+            ->with('success', $ingredient->name . ' created successfully.');
     }
 
     /**
@@ -91,18 +81,15 @@ class IngredientController extends BaseController
      * Show the form for editing the specified ingredient.
      *
      * @param Ingredient $ingredient
-     * @param Request $request
      * @return View
      */
-    public function edit(Ingredient $ingredient, Request $request): View
+    public function edit(Ingredient $ingredient): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit ingredients.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.ingredient.edit', compact('ingredient', 'referer'));
+        return view('admin.portfolio.ingredient.edit', compact('ingredient'));
     }
 
     /**
@@ -120,25 +107,17 @@ class IngredientController extends BaseController
 
         $ingredient->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $ingredient->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.ingredient.index')
-                ->with('success', $ingredient->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.portfolio.ingredient.index'))
+            ->with('success', $ingredient->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified ingredient from storage.
      *
      * @param Ingredient $ingredient
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Ingredient $ingredient, Request $request): RedirectResponse
+    public function destroy(Ingredient $ingredient): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete ingredients.');
@@ -146,14 +125,7 @@ class IngredientController extends BaseController
 
         $ingredient->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $ingredient->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.ingredient.index')
-                ->with('success', $ingredient->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.portfolio.ingredient.index'))
+            ->with('success', $ingredient->name . ' deleted successfully.');
     }
 }

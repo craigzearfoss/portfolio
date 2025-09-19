@@ -36,14 +36,11 @@ class RecipeController extends BaseController
     /**
      * Show the form for creating a new recipe.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.recipe.create', compact('referer'));
+        return view('admin.portfolio.recipe.create');
     }
 
     /**
@@ -56,15 +53,8 @@ class RecipeController extends BaseController
     {
         $recipe = Recipe::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $recipe->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.recipe.index')
-                ->with('success', $recipe->name . ' created successfully.');
-        }
+        return redirect(referer('admin.portfolio.recipe.index'))
+            ->with('success', $recipe->name . ' created successfully.');
     }
 
     /**
@@ -82,14 +72,11 @@ class RecipeController extends BaseController
      * Show the form for editing the specified recipe.
      *
      * @param Recipe $recipe
-     * @param Request $request
      * @return View
      */
-    public function edit(Recipe $recipe, Request $request): View
+    public function edit(Recipe $recipe): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.recipe.edit', compact('recipe', 'referer'));
+        return view('admin.portfolio.recipe.edit', compact('recipe'));
     }
 
     /**
@@ -103,36 +90,21 @@ class RecipeController extends BaseController
     {
         $recipe->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $recipe->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.recipe.index')
-                ->with('success', $recipe->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.portfolio.recipe.index'))
+            ->with('success', $recipe->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified recipe from storage.
      *
      * @param Recipe $recipe
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Recipe $recipe, Request $request): RedirectResponse
+    public function destroy(Recipe $recipe): RedirectResponse
     {
         $recipe->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $recipe->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.recipe.index')
-                ->with('success', $recipe->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.portfolio.recipe.index'))
+            ->with('success', $recipe->name . ' deleted successfully.');
     }
 }

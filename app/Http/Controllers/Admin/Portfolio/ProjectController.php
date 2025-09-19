@@ -36,14 +36,11 @@ class ProjectController extends BaseController
     /**
      * Show the form for creating a new project.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.project.create', compact('referer'));
+        return view('admin.portfolio.project.create');
     }
 
     /**
@@ -56,15 +53,8 @@ class ProjectController extends BaseController
     {
         $project = Project::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $project->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $project->name . ' created successfully.');
-        }
+        return redirect(referer('admin.portfolio.project.index'))
+            ->with('success', $project->name . ' project created successfully.');
     }
 
     /**
@@ -82,14 +72,11 @@ class ProjectController extends BaseController
      * Show the form for editing the specified project.
      *
      * @param Project $project
-     * @param Request $request
      * @return View
      */
     public function edit(Project $project): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.project.edit', compact('project', 'referer'));
+        return view('admin.portfolio.project.edit', compact('project'));
     }
 
     /**
@@ -103,36 +90,21 @@ class ProjectController extends BaseController
     {
         $project->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $project->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $project->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.portfolio.project.index'))
+            ->with('success', $project->name . ' project updated successfully.');
     }
 
     /**
      * Remove the specified project from storage.
      *
      * @param Project $project
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Project $project, Request $request): RedirectResponse
+    public function destroy(Project $project): RedirectResponse
     {
         $project->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $project->name . ' link deleted successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $project->name . ' link deleted successfully.');
-        }
+        return redirect(referer('admin.portfolio.project.index'))
+            ->with('success', $project->name . ' project deleted successfully.');
     }
 }

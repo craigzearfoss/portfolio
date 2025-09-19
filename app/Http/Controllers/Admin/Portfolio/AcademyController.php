@@ -37,18 +37,15 @@ class AcademyController extends BaseController
     /**
      * Show the form for creating a new academy.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add academies.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.academy.create', compact('referer'));
+        return view('admin.portfolio.academy.create');
     }
 
     /**
@@ -65,15 +62,8 @@ class AcademyController extends BaseController
 
         $academy = Academy::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $academy->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.academy.index')
-                ->with('success', $academy->name . ' created successfully.');
-        }
+        return redirect(referer('admin.portfolio.academy.index'))
+            ->with('success', $academy->name . ' created successfully.');
     }
 
     /**
@@ -91,18 +81,15 @@ class AcademyController extends BaseController
      * Show the form for editing the specified academy.
      *
      * @param Academy $academy
-     * @param Request $request
      * @return View
      */
-    public function edit(Academy $academy, Request $request): View
+    public function edit(Academy $academy): View
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can edit academies.');
         }
 
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.academy.edit', compact('academy', 'referer'));
+        return view('admin.portfolio.academy.edit', compact('academy'));
     }
 
     /**
@@ -120,25 +107,17 @@ class AcademyController extends BaseController
 
         $academy->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $academy->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.academy.index')
-                ->with('success', $academy->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.portfolio.academy.index'))
+            ->with('success', $academy->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified academy from storage.
      *
      * @param Academy $academy
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Academy $academy, Request $request): RedirectResponse
+    public function destroy(Academy $academy): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can delete academies.');
@@ -146,14 +125,7 @@ class AcademyController extends BaseController
 
         $academy->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $academy->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.academy.index')
-                ->with('success', $academy->name . ' deleted successfully.');
-        }
+        return redirect(str_replace(config('app.url'), '', 'admin.portfolio.academy.index'))
+            ->with('success', $academy->name . ' deleted successfully.');
     }
 }

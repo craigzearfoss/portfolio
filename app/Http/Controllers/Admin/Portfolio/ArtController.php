@@ -36,14 +36,11 @@ class ArtController extends BaseController
     /**
      * Show the form for creating a new art.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.art.create', compact('referer'));
+        return view('admin.portfolio.art.create');
     }
 
     /**
@@ -57,15 +54,8 @@ class ArtController extends BaseController
     {
         $art = Art::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $art->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.art.index')
-                ->with('success', $art->name . ' created successfully.');
-        }
+        return redirect(referer('admin.portfolio.art.index'))
+            ->with('success', $art->name . ' created successfully.');
     }
 
     /**
@@ -83,14 +73,11 @@ class ArtController extends BaseController
      * Show the form for editing the specified art.
      *
      * @param Art $art
-     * @param Request $request
      * @return View
      */
-    public function edit(Art $art, Request $request): View
+    public function edit(Art $art): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.art.edit', compact('art', 'referer'));
+        return view('admin.portfolio.art.edit', compact('art'));
     }
 
     /**
@@ -104,36 +91,21 @@ class ArtController extends BaseController
     {
         $art->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $art->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.art.index')
-                ->with('success', $art->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.portfolio.art.index'))
+            ->with('success', $art->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified art from storage.
      *
      * @param Art $art
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Art $art, Request $request): RedirectResponse
+    public function destroy(Art $art): RedirectResponse
     {
         $art->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $art->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.database.index')
-                ->with('success', $art->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.dictionary.database.index'))
+            ->with('success', $art->name . ' deleted successfully.');
     }
 }

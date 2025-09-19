@@ -36,14 +36,11 @@ class CertificationController extends BaseController
     /**
      * Show the form for creating a new certification.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.certification.create', compact('referer'));
+        return view('admin.portfolio.certification.create');
     }
 
     /**
@@ -56,15 +53,8 @@ class CertificationController extends BaseController
     {
         $certification = Certification::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $certification->name . ' certification created successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.certification.index')
-                ->with('success', $certification->name . ' certification created successfully.');
-        }
+        return redirect(referer('admin.portfolio.certification.index'))
+            ->with('success', $certification->name . ' certification created successfully.');
     }
 
     /**
@@ -82,14 +72,11 @@ class CertificationController extends BaseController
      * Show the form for editing the specified certification.
      *
      * @param Certification $certification
-     * @param Request $request
      * @return View
      */
-    public function edit(Certification $certification, Request $request): View
+    public function edit(Certification $certification): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.certification.edit', compact('certification', 'referer'));
+        return view('admin.portfolio.certification.edit', compact('certification'));
     }
 
     /**
@@ -103,36 +90,21 @@ class CertificationController extends BaseController
     {
         $certification->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $certification->name . ' certification updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.certification.index')
-                ->with('success', $certification->name . ' certification updated successfully.');
-        }
+        return redirect(referer('admin.portfolio.certification.index'))
+            ->with('success', $certification->name . ' certification updated successfully.');
     }
 
     /**
      * Remove the specified certification from storage.
      *
      * @param Certification $certification
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Certification $certification, Request $request): RedirectResponse
+    public function destroy(Certification $certification): RedirectResponse
     {
         $certification->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $certification->name . ' certification deleted successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.certification.index')
-                ->with('success', $certification->name . ' certification deleted successfully.');
-        }
+        return redirect(referer('admin.portfolio.certification.index'))
+            ->with('success', $certification->name . ' certification deleted successfully.');
     }
 }

@@ -36,14 +36,11 @@ class ReadingController extends BaseController
     /**
      * Show the form for creating a new reading.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.reading.create', compact('referer'));
+        return view('admin.portfolio.reading.create');
     }
 
     /**
@@ -56,15 +53,8 @@ class ReadingController extends BaseController
     {
         $reading = Reading::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $reading->title . ' created successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $reading->title . ' created successfully.');
-        }
+        return redirect(referer('admin.portfolio.reading.index'))
+            ->with('success', $reading->title . ' created successfully.');
     }
 
     /**
@@ -82,14 +72,11 @@ class ReadingController extends BaseController
      * Show the form for editing the specified reading.
      *
      * @param Reading $reading
-     * @param Request $request
      * @return View
      */
-    public function edit(Reading $reading, Request $request): View
+    public function edit(Reading $reading): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.reading.edit', compact('reading', 'referer'));
+        return view('admin.portfolio.reading.edit', compact('reading'));
     }
 
     /**
@@ -103,36 +90,21 @@ class ReadingController extends BaseController
     {
         $reading->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $reading->title . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $reading->title . ' updated successfully.');
-        }
+        return redirect(referer('admin.portfolio.reading.index'))
+            ->with('success', $reading->title . ' updated successfully.');
     }
 
     /**
      * Remove the specified reading from storage.
      *
      * @param Reading $reading
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Reading $reading, Request $request): RedirectResponse
+    public function destroy(Reading $reading): RedirectResponse
     {
         $reading->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $reading->title . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.reading.index')
-                ->with('success', $reading->title . ' deleted successfully.');
-        }
+        return redirect(referer('admin.portfolio.reading.index'))
+            ->with('success', $reading->title . ' deleted successfully.');
     }
 }

@@ -36,14 +36,11 @@ class MusicController extends BaseController
     /**
      * Show the form for creating a new music.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.music.create', compact('referer'));
+        return view('admin.portfolio.music.create');
     }
 
     /**
@@ -56,15 +53,8 @@ class MusicController extends BaseController
     {
         $music = Music::create($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $music->name . ' created successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $music->name . ' created successfully.');
-        }
+        return redirect(referer('admin.portfolio.music.index'))
+            ->with('success', $music->name . ' created successfully.');
     }
 
     /**
@@ -82,14 +72,11 @@ class MusicController extends BaseController
      * Show the form for editing the specified music.
      *
      * @param Music $music
-     * @param Request $request
      * @return View
      */
-    public function edit(Music $music, Request $request): View
+    public function edit(Music $music): View
     {
-        $referer = $request->headers->get('referer');
-
-        return view('admin.portfolio.music.edit', compact('music', 'referer'));
+        return view('admin.portfolio.music.edit', compact('music'));
     }
 
     /**
@@ -103,36 +90,21 @@ class MusicController extends BaseController
     {
         $music->update($request->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $music->name . ' updated successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.music.index')
-                ->with('success', $music->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.portfolio.music.index'))
+            ->with('success', $music->name . ' updated successfully.');
     }
 
     /**
      * Remove the specified music from storage.
      *
      * @param Music $music
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Music $music, Request $request): RedirectResponse
+    public function destroy(Music $music): RedirectResponse
     {
         $music->delete();
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $music->name . ' deleted successfully.');
-        } else {
-            return redirect()->route('admin.portfolio.link.index')
-                ->with('success', $music->name . ' deleted successfully.');
-        }
+        return redirect(referer('admin.portfolio.music.index'))
+            ->with('success', $music->name . ' deleted successfully.');
     }
 }

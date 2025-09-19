@@ -36,10 +36,9 @@ class CourseController extends BaseController
     /**
      * Show the form for creating a new course.
      *
-     * @param Request $request
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
         return view('admin.portfolio.course.create');
     }
@@ -73,10 +72,9 @@ class CourseController extends BaseController
      * Show the form for editing the specified course.
      *
      * @param Course $course
-     * @param Request $request
      * @return View
      */
-    public function edit(Course $course, Request $request): View
+    public function edit(Course $course): View
     {
         return view('admin.portfolio.course.edit', compact('course'));
     }
@@ -100,10 +98,9 @@ class CourseController extends BaseController
      * Remove the specified course from storage.
      *
      * @param Course $course
-     * @param Request $request
      * @return RedirectResponse
      */
-    public function destroy(Course $course, Request $request): RedirectResponse
+    public function destroy(Course $course): RedirectResponse
     {
         $course->delete();
 
