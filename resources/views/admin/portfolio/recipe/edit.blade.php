@@ -75,6 +75,24 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'prep_time',
+                'label'     => 'prep time (minutes)',
+                'value'     => old('prep_time') ?? $recipe->prep_time,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'total_time',
+                'label'     => 'total time (minutes)',
+                'value'     => old('total_time') ?? $recipe->total_time,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'main',
                 'value'           => 1,

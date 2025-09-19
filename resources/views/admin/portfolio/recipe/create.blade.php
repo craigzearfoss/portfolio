@@ -30,7 +30,7 @@
                 @include('admin.components.form-select-horizontal', [
                     'name'    => 'admin_id',
                     'label'   => 'admin',
-                    'value'   => old('admin_id') ?? ''
+                    'value'   => old('admin_id') ?? '',
                     'list'    => \App\Models\Admin::listOptions(),
                     'message' => $message ?? '',
                 ])
@@ -70,6 +70,24 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'author',
                 'value'     => old('author') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'prep_time',
+                'label'     => 'prep time (minutes)',
+                'value'     => old('prep_time') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'total_time',
+                'label'     => 'total time (minutes)',
+                'value'     => old('total_time') ?? '',
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])

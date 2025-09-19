@@ -21,6 +21,8 @@
             <thead>
             <tr>
                 <th>name</th>
+                <th class="text-center">type</th>
+                <th class="text-center">meal</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -32,6 +34,8 @@
             <tfoot>
             <tr>
                 <th>name</th>
+                <th class="text-center">type</th>
+                <th class="text-center">meal</th>
                 <th class="text-center">public</th>
                 <th class="text-center">read-only</th>
                 <th class="text-center">root</th>
@@ -47,6 +51,12 @@
                 <tr>
                     <td class="py-0">
                         {{ $recipe->name }}
+                    </td>
+                    <td class="py-0">
+                        {{ implode(', ', $recipe->types()) }}
+                    </td>
+                    <td class="py-0">
+                        {{ implode(', ', $recipe->meals()) }}
                     </td>
                     <td class="py-0 text-center">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->public ])

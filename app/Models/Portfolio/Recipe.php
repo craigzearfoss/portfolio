@@ -27,6 +27,8 @@ class Recipe extends Model
         'personal',
         'source',
         'author',
+        'prep_time',
+        'total_time',
         'main',
         'side',
         'dessert',
@@ -51,6 +53,9 @@ class Recipe extends Model
         'admin_id',
     ];
 
+    /**
+     *
+     */
     const TYPES = [
         'main',
         'side',
@@ -59,6 +64,9 @@ class Recipe extends Model
         'beverage',
     ];
 
+    /**
+     *
+     */
     const MEALS = [
         'breakfast',
         'lunch',
@@ -115,15 +123,57 @@ class Recipe extends Model
         return $options;
     }
 
+    /**
+     * Returns an array of all types available for recipes.
+     *
+     * @return string[]
+     */
     public static function allTypes(): array
     {
         return self::TYPES;
     }
 
+    /**
+     * Returns an array of all meals available for recipes.
+     *
+     * @return string[]
+     */
     public static function allMeals(): array
     {
         return self::MEALS;
     }
 
+    /**
+     * Returns an array of types for the current recipe.
+     *
+     * @return array
+     */
+    public function types(): array
+    {
+        $recipeTypes = [];
+        foreach(self::TYPES as $type) {
+            if (!empty($this->{$type})) {
+                $recipeTypes[] = $type;
+            }
+        }
 
+        return $recipeTypes;
+    }
+
+    /**
+     * Returns an array of meals for the current recipe.
+     *
+     * @return array
+     */
+    public function meals(): array
+    {
+        $recipeMeals = [];
+        foreach(self::MEALS as $meal) {
+            if (!empty($this->{$meal})) {
+                $recipeMeals[] = $meal;
+            }
+        }
+
+        return $recipeMeals;
+    }
 }

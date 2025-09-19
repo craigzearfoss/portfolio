@@ -56,6 +56,16 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
+            'name'    => 'prep time',
+            'checked' => !empty($recipe->prep_time) ? ($recipe->prep_time . ' minutes') : ''
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'total time',
+            'checked' => !empty($recipe->total_time) ? ($recipe->total_time . ' minutes') : ''
+        ])
+
+        @include('admin.components.show-row-checkbox', [
             'name'    => 'main',
             'checked' => $recipe->main
         ])

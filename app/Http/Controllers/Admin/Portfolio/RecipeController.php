@@ -87,7 +87,7 @@ class RecipeController extends BaseController
      * @return RedirectResponse
      */
     public function update(RecipeUpdateRequest $request, Recipe $recipe): RedirectResponse
-    {
+    {dd($recipe);
         $recipe->update($request->validated());
 
         return redirect(referer('admin.portfolio.recipe.index'))

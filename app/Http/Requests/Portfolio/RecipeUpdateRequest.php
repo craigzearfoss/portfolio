@@ -48,6 +48,8 @@ class RecipeUpdateRequest extends FormRequest
             'personal'     => ['integer', 'between:0,1'],
             'source'       => ['string', 'max:255', 'nullable'],
             'author'       => ['string', 'max:255', 'nullable'],
+            'prep_time'    => ['integer', 'min:0'],
+            'total_time'   => ['integer', 'min:0'],
             'main'         => ['integer', 'between:0,1'],
             'side'         => ['integer', 'between:0,1'],
             'dessert'      => ['integer', 'between:0,1'],

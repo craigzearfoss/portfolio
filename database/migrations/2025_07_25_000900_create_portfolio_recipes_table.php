@@ -20,6 +20,8 @@ return new class extends Migration
             $table->tinyInteger('personal')->default(0);
             $table->string('source')->nullable();
             $table->string('author')->nullable();
+            $table->integer('prep_time')->nullable();
+            $table->integer('total_time')->nullable();
             $table->integer('main')->default(0);
             $table->integer('side')->default(0);
             $table->integer('dessert')->default(0);
