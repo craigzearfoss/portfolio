@@ -63,7 +63,7 @@ class OperatingSystemController extends BaseController
         $operatingSystem = OperatingSystem::create($request->validated());
 
         return redirect(referer('admin.dictionary.index'))
-            ->with('success', $operatingSystem->name . ' created successfully.');
+            ->with('success', $operatingSystem->name . ' added successfully.');
     }
 
     /**

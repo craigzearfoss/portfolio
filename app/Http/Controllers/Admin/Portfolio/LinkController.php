@@ -54,7 +54,7 @@ class LinkController extends BaseController
         $link = Link::create($request->validated());
 
         return redirect(referer('admin.portfolio.link.index'))
-            ->with('success', $link->name . ' link created successfully.');
+            ->with('success', $link->name . ' link added successfully.');
     }
 
     /**

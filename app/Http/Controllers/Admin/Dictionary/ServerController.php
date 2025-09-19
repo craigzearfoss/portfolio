@@ -63,7 +63,7 @@ class ServerController extends BaseController
         $server = Server::create($request->validated());
 
         return redirect(referer('admin.dictionary.index'))
-            ->with('success', $server->name . ' created successfully.');
+            ->with('success', $server->name . ' added successfully.');
     }
 
     /**

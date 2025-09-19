@@ -54,7 +54,7 @@ class VideoController extends BaseController
         $video = Video::create($request->validated());
 
         return redirect(referer('admin.portfolio.video.index'))
-            ->with('success', $video->name . ' created successfully.');
+            ->with('success', $video->name . ' added successfully.');
     }
 
     /**

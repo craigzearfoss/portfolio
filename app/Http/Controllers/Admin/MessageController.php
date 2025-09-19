@@ -52,7 +52,7 @@ class MessageController extends BaseController
         $message = Message::create($request->validated());
 
         return redirect(referer('admin.message.index'))
-            ->with('success', 'Message created successfully.');
+            ->with('success', 'Message added successfully.');
     }
 
     /**

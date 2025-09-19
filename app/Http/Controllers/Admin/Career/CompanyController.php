@@ -54,7 +54,7 @@ class CompanyController extends BaseController
         $company = Company::create($request->validated());
 
         return redirect(referer('admin.career.company.index'))
-            ->with('success', $company->name . ' created successfully.');
+            ->with('success', $company->name . ' added successfully.');
     }
 
     /**

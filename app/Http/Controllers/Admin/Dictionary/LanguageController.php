@@ -63,7 +63,7 @@ class LanguageController extends BaseController
         $language = Language::create($request->validated());
 
         return redirect(referer('admin.dictionary.index'))
-            ->with('success', $language->name . ' created successfully.');
+            ->with('success', $language->name . ' added successfully.');
     }
 
     /**

@@ -59,7 +59,7 @@ class JobTaskController extends BaseController
         $jobTask = JobTask::create($request->validated());
 
         return redirect(referer('admin.career.job-task.index'))
-            ->with('success', 'Job task created successfully.');
+            ->with('success', 'Job task added successfully.');
     }
 
     /**

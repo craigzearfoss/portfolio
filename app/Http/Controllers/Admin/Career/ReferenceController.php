@@ -54,7 +54,7 @@ class ReferenceController extends BaseController
         $reference = Reference::create($request->validated());
 
         return redirect(referer('admin.career.reference.index'))
-            ->with('success', $reference->name . ' created successfully.');
+            ->with('success', $reference->name . ' added successfully.');
     }
 
     /**

@@ -55,7 +55,7 @@ class ArtController extends BaseController
         $art = Art::create($request->validated());
 
         return redirect(referer('admin.portfolio.art.index'))
-            ->with('success', $art->name . ' created successfully.');
+            ->with('success', $art->name . ' added successfully.');
     }
 
     /**

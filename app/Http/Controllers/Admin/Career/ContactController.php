@@ -55,7 +55,7 @@ class ContactController extends BaseController
         $contact = Contact::create($request->validated());
 
         return redirect(referer('admin.career.contact.index'))
-            ->with('success', $contact->name . ' created successfully.');
+            ->with('success', $contact->name . ' added successfully.');
     }
 
     /**

@@ -55,7 +55,7 @@ class JobController extends BaseController
         $job = Job::create($request->validated());
 
         return redirect(referer('admin.career.job.index'))
-            ->with('success', $job->company . ' job created successfully.');
+            ->with('success', $job->company . ' job added successfully.');
     }
 
     /**

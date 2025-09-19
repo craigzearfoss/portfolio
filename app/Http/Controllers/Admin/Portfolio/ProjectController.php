@@ -54,7 +54,7 @@ class ProjectController extends BaseController
         $project = Project::create($request->validated());
 
         return redirect(referer('admin.portfolio.project.index'))
-            ->with('success', $project->name . ' project created successfully.');
+            ->with('success', $project->name . ' project added successfully.');
     }
 
     /**

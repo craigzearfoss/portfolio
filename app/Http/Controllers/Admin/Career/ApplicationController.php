@@ -52,7 +52,7 @@ class ApplicationController extends BaseController
         $application = Application::create($request->validated());
 
         return redirect(referer('admin.career.application.index'))
-            ->with('success', 'Application created successfully.');
+            ->with('success', 'Application added successfully.');
     }
 
     /**

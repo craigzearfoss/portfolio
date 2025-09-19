@@ -54,7 +54,7 @@ class ResumeController extends BaseController
         $resume = Resume::create($request->validated());
 
         return redirect(referer('admin.career.resume.index'))
-            ->with('success', $resume->name . ' resume created successfully.');
+            ->with('success', $resume->name . ' resume added successfully.');
     }
 
     /**

@@ -54,7 +54,7 @@ class CourseController extends BaseController
         $course = Course::create($request->validated());
 
         return redirect(referer('admin.portfolio.course.index'))
-            ->with('success', $course-> name . ' created successfully.');
+            ->with('success', $course-> name . ' added successfully.');
     }
 
     /**

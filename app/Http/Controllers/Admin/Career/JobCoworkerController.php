@@ -59,7 +59,7 @@ class JobCoworkerController extends BaseController
         $jobCoworker = JobCoworker::create($request->validated());
 
         return redirect(referer('admin.career.job-coworker.index'))
-            ->with('success', $jobCoworker->name . ' created successfully.');
+            ->with('success', $jobCoworker->name . ' added successfully.');
     }
 
     /**

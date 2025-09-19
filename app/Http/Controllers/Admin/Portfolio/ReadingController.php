@@ -54,7 +54,7 @@ class ReadingController extends BaseController
         $reading = Reading::create($request->validated());
 
         return redirect(referer('admin.portfolio.reading.index'))
-            ->with('success', $reading->title . ' created successfully.');
+            ->with('success', $reading->title . ' added successfully.');
     }
 
     /**

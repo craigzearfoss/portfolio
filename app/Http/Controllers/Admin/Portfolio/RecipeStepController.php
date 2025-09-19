@@ -52,7 +52,7 @@ class RecipeStepController extends BaseController
         $recipeStep = RecipeStep::create($request->validated());
 
         return redirect(referer('admin.portfolio.recipe-step.index')
-            ->with('success', 'Recipe step created successfully.'));
+            ->with('success', 'Recipe step added successfully.'));
     }
 
     /**

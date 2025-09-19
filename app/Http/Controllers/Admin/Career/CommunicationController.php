@@ -52,7 +52,7 @@ class CommunicationController extends BaseController
         $communication = Communication::create($request->validated());
 
         return redirect(referer('admin.career.communication.index'))
-            ->with('success', 'Communication created successfully.');
+            ->with('success', 'Communication added successfully.');
     }
 
     /**

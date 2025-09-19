@@ -63,7 +63,7 @@ class IndustryController extends BaseController
         $industry = Industry::create($request->validated());
 
         return redirect(referer('admin.career.industry.index'))
-            ->with('success', $industry->name . ' created successfully.');
+            ->with('success', $industry->name . ' added successfully.');
     }
 
     /**

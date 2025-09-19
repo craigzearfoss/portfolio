@@ -54,7 +54,7 @@ class SkillController extends BaseController
         $skill = Skill::create($request->validated());
 
         return redirect(referer('admin.career.skill.index'))
-            ->with('success', $skill->name . ' created successfully.');
+            ->with('success', $skill->name . ' added successfully.');
     }
 
     /**

@@ -63,7 +63,7 @@ class AcademyController extends BaseController
         $academy = Academy::create($request->validated());
 
         return redirect(referer('admin.portfolio.academy.index'))
-            ->with('success', $academy->name . ' created successfully.');
+            ->with('success', $academy->name . ' added successfully.');
     }
 
     /**

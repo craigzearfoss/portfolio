@@ -54,7 +54,7 @@ class CoverLetterController extends BaseController
         $coverLetter = CoverLetter::create($request->validated());
 
         return redirect(referer('admin.career.cover-letter.index'))
-            ->with('success', 'Cover Letter created successfully.');
+            ->with('success', 'Cover Letter added successfully.');
     }
 
     /**

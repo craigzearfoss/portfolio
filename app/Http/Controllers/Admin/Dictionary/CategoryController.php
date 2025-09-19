@@ -63,7 +63,7 @@ class CategoryController extends BaseController
         $category = Category::create($request->validated());
 
         return redirect(referer('admin.dictionary.index'))
-            ->with('success', $category->name . ' created successfully.');
+            ->with('success', $category->name . ' added successfully.');
     }
 
     /**

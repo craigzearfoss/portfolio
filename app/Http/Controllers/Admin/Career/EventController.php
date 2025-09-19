@@ -52,7 +52,7 @@ class EventController extends BaseController
         $event = Event::create($request->validated());
 
         return redirect(referer('admin.career.event.index'))
-            ->with('success', 'Event created successfully.');
+            ->with('success', 'Event added successfully.');
     }
 
     /**

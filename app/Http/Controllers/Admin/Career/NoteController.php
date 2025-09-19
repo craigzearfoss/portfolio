@@ -52,7 +52,7 @@ class NoteController extends BaseController
         $note = Note::create($request->validated());
 
         return redirect(referer('admin.career.note.index'))
-            ->with('success', 'Note created successfully.');
+            ->with('success', 'Note added successfully.');
     }
 
     /**

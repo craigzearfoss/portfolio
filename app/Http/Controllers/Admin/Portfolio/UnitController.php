@@ -62,7 +62,7 @@ class UnitController extends BaseController
         $unit = Unit::create($request->validated());
 
         return redirect(referer('admin.portfolio.unit.index'))
-            ->with('success', $unit->name . $unit->name . ' created successfully.');
+            ->with('success', $unit->name . $unit->name . ' added successfully.');
     }
 
     /**

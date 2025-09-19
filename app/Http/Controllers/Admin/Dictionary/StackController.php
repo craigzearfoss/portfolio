@@ -63,7 +63,7 @@ class StackController extends BaseController
         $stack = Stack::create($request->validated());
 
         return redirect(referer('admin.dictionary.index'))
-            ->with('success', $stack->name . ' created successfully.');
+            ->with('success', $stack->name . ' added successfully.');
     }
 
     /**

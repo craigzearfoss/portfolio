@@ -66,10 +66,10 @@ class FrameworkController extends BaseController
 
         if (!empty($referer)) {
             return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $framework->name . ' created successfully.');
+                ->with('success', $framework->name . ' added successfully.');
         } else {
             return redirect()->route('admin.dictionary.framework.index')
-                ->with('success', $framework->name . ' created successfully.');
+                ->with('success', $framework->name . ' added successfully.');
         }
     }
 

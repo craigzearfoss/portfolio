@@ -54,7 +54,7 @@ class CertificationController extends BaseController
         $certification = Certification::create($request->validated());
 
         return redirect(referer('admin.portfolio.certification.index'))
-            ->with('success', $certification->name . ' certification created successfully.');
+            ->with('success', $certification->name . ' certification added successfully.');
     }
 
     /**

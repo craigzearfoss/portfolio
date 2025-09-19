@@ -63,7 +63,7 @@ class IngredientController extends BaseController
         $ingredient = Ingredient::create($request->validated());
 
         return redirect(referer('admin.portfolio.ingredient.index'))
-            ->with('success', $ingredient->name . ' created successfully.');
+            ->with('success', $ingredient->name . ' added successfully.');
     }
 
     /**

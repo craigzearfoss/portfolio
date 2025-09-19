@@ -63,7 +63,7 @@ class LibraryController extends BaseController
         $library = Library::create($request->validated());
 
         return redirect(referer('admin.dictionary.index'))
-            ->with('success', $library->name . ' created successfully.');
+            ->with('success', $library->name . ' added successfully.');
     }
 
     /**

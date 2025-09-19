@@ -54,7 +54,7 @@ class MusicController extends BaseController
         $music = Music::create($request->validated());
 
         return redirect(referer('admin.portfolio.music.index'))
-            ->with('success', $music->name . ' created successfully.');
+            ->with('success', $music->name . ' added successfully.');
     }
 
     /**

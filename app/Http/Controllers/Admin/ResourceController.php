@@ -53,7 +53,7 @@ class ResourceController extends BaseController
         $resource = Resource::create($request->validated());
 
         return redirect(referer('admin.resource.index'))
-            ->with('success', $resource->name . ' resource created successfully.');
+            ->with('success', $resource->name . ' resource added successfully.');
     }
 
     /**

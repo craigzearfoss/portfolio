@@ -54,7 +54,7 @@ class RecipeController extends BaseController
         $recipe = Recipe::create($request->validated());
 
         return redirect(referer('admin.portfolio.recipe.index'))
-            ->with('success', $recipe->name . ' created successfully.');
+            ->with('success', $recipe->name . ' added successfully.');
     }
 
     /**

@@ -52,7 +52,7 @@ class DatabaseController extends BaseController
         $database = Database::create($request->validated());
 
         return redirect(referer('admin.database.index'))
-            ->with('success', $database->name . ' database created successfully.');
+            ->with('success', $database->name . ' database added successfully.');
     }
 
     /**

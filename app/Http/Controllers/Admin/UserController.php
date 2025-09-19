@@ -53,7 +53,7 @@ class UserController extends BaseController
         $user = User::create($request->validated());
 
         return redirect(referer('admin.user.index'))
-            ->with('success', $user->username . ' created successfully. User will need to verify email.');
+            ->with('success', $user->username . ' added successfully. User will need to verify email.');
     }
 
     /**
