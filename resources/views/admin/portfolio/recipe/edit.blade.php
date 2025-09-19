@@ -75,6 +75,78 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'main',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('main') ?? $recipe->main,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'side',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('side') ?? $recipe->side,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'dessert',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('dessert') ?? $recipe->dessert,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'appetizer',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('appetizer') ?? $recipe->appetizer,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'beverage',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('beverage') ?? $recipe->beverage,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'breakfast',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('breakfast') ?? $recipe->breakfast,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'lunch',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('lunch') ?? $recipe->lunch,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'dinner',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('dinner') ?? $recipe->dinner,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'snack',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('snack') ?? $recipe->snack,
+                'message'         => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $recipe->link,

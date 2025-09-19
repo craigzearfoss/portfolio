@@ -55,6 +55,51 @@
             'value' => $recipe->author
         ])
 
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'main',
+            'checked' => $recipe->main
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'side',
+            'checked' => $recipe->side
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'dessert',
+            'checked' => $recipe->dessert
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'appetizer',
+            'checked' => $recipe->appetizer
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'beverage',
+            'checked' => $recipe->beverage
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'breakfast',
+            'checked' => $recipe->breakfast
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'lunch',
+            'checked' => $recipe->lunch
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'dinner',
+            'checked' => $recipe->dinner
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'snack',
+            'checked' => $recipe->snack
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'label'  => $recipe->link_name,

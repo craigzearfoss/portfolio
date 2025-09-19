@@ -27,6 +27,15 @@ class Recipe extends Model
         'personal',
         'source',
         'author',
+        'main',
+        'side',
+        'dessert',
+        'appetizer',
+        'beverage',
+        'breakfast',
+        'lunch',
+        'dinner',
+        'snack',
         'link',
         'link_name',
         'description',
@@ -40,6 +49,21 @@ class Recipe extends Model
         'root',
         'disabled',
         'admin_id',
+    ];
+
+    const TYPES = [
+        'main',
+        'side',
+        'dessert',
+        'appetizer',
+        'beverage',
+    ];
+
+    const MEALS = [
+        'breakfast',
+        'lunch',
+        'dinner',
+        'snack',
     ];
 
     /**
@@ -90,4 +114,16 @@ class Recipe extends Model
 
         return $options;
     }
+
+    public static function allTypes(): array
+    {
+        return self::TYPES;
+    }
+
+    public static function allMeals(): array
+    {
+        return self::MEALS;
+    }
+
+
 }

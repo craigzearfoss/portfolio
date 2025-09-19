@@ -20,6 +20,15 @@ return new class extends Migration
             $table->tinyInteger('personal')->default(0);
             $table->string('source')->nullable();
             $table->string('author')->nullable();
+            $table->integer('main')->default(0);
+            $table->integer('side')->default(0);
+            $table->integer('dessert')->default(0);
+            $table->integer('appetizer')->default(0);
+            $table->integer('beverage')->default(0);
+            $table->integer('breakfast')->default(0);
+            $table->integer('lunch')->default(0);
+            $table->integer('dinner')->default(0);
+            $table->integer('snack')->default(0);
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();
@@ -49,6 +58,15 @@ return new class extends Migration
                 'personal'      => true,
                 'source'        => 'www.nestle.com',
                 'author'        => 'Ruth Wakefield',
+                'main'          => 0,
+                'side'          => 0,
+                'dessert'       => 1,
+                'appetizer'     => 0,
+                'beverage'      => 0,
+                'breakfast'     => 0,
+                'lunch'         => 0,
+                'dinner'        => 0,
+                'snack'         => 1,
                 'link'          => 'https://www.nestle.com/stories/timeless-discovery-toll-house-chocolate-chip-cookie-recipe',
                 'admin_id'      => 1,
             ],
@@ -60,6 +78,15 @@ return new class extends Migration
                 'personal'      => true,
                 'source'        => 'Facebook',
                 'author'        => '',
+                'main'          => 0,
+                'side'          => 0,
+                'dessert'       => 0,
+                'appetizer'     => 0,
+                'beverage'      => 0,
+                'breakfast'     => 0,
+                'lunch'         => 0,
+                'dinner'        => 0,
+                'snack'         => 1,
                 'link'          => '',
                 'admin_id'      => 1,
             ],
@@ -71,6 +98,15 @@ return new class extends Migration
                 'personal'      => true,
                 'source'        => 'Facebook',
                 'author'        => '',
+                'main'          => 1,
+                'side'          => 0,
+                'dessert'       => 0,
+                'appetizer'     => 0,
+                'beverage'      => 0,
+                'breakfast'     => 0,
+                'lunch'         => 1,
+                'dinner'        => 0,
+                'snack'         => 0,
                 'link'          => '',
                 'admin_id'      => 1,
             ],
@@ -82,6 +118,15 @@ return new class extends Migration
                 'personal'      => true,
                 'source'        => 'Facebook',
                 'author'        => '',
+                'main'          => 0,
+                'side'          => 1,
+                'dessert'       => 0,
+                'appetizer'     => 0,
+                'beverage'      => 0,
+                'breakfast'     => 0,
+                'lunch'         => 1,
+                'dinner'        => 0,
+                'snack'         => 0,
                 'link'          => '',
                 'admin_id'      => 1,
             ],
@@ -93,6 +138,15 @@ return new class extends Migration
                 'personal'      => true,
                 'source'        => 'John Cope\'s Dried Sweet Corn',
                 'author'        => '',
+                'main'          => 0,
+                'side'          => 1,
+                'dessert'       => 0,
+                'appetizer'     => 0,
+                'beverage'      => 0,
+                'breakfast'     => 0,
+                'lunch'         => 1,
+                'dinner'        => 1,
+                'snack'         => 0,
                 'link'          => '',
                 'admin_id'      => 1,
             ],

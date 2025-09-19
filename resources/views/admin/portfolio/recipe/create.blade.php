@@ -74,6 +74,78 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'main',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('main') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'side',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('side') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'dessert',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('dessert') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'appetizer',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('appetizer') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'beverage',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('beverage') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'breakfast',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('breakfast') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'lunch',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('lunch') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'dinner',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('dinner') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'snack',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('snack') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? '',
