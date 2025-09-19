@@ -49,15 +49,40 @@ class Unit extends Model
     /**
      * Returns an array of options for a select list.
      *
+     * @param bool $includeBlank
      * @param bool $abbreviationAsKey
      * @return array|string[]
      */
-    public static function listOptions(bool $abbreviationAsKey = false): array
+    public static function listOptions(bool $includeBlank, bool $abbreviationAsKey = false): array
     {
         $options = [];
+        if ($includeBlank) {
+            $options = [ '' => '' ];
+        }
 
         foreach (Unit::select('id', 'name', 'abbreviation')->orderBy('name', 'asc')->get() as $row) {
             $options[$abbreviationAsKey ? $row->abbreviation : $row->name] = $row->name;
+        }
+
+        return $options;
+    }
+
+    /**
+     * Returns an array of system (imperial / metric) for a select list.
+     *
+     * @param bool $includeBlank
+     * @return array|string[]
+     */
+    public static function systemListOptions(bool $includeBlank = false): array
+    {
+        $options = [];
+
+        $rows = $includeBlank
+            ? Unit::distinct()->orderBy('system', 'asc')->get(['system'])
+            : Unit::distinct()->whereNotNull('system')->where('system','<>','')->orderBy('system', 'asc')->get(['system']);
+
+        foreach ($rows as $row) {
+            $options[$row->system] = $row->system;
         }
 
         return $options;

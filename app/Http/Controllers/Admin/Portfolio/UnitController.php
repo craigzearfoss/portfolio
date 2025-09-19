@@ -28,7 +28,7 @@ class UnitController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $units = Unit::orderBy('sequence', 'asc')->paginate($perPage);
+        $units = Unit::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.portfolio.unit.index', compact('units'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

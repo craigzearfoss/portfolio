@@ -79,12 +79,12 @@
                             </a>
 
                             @if (!empty($video->link))
-                                <a title="link" class="button is-small px-1 py-0" href="{{ $video->link }}"
+                                <a title="{{ !empty($video->link_name) ? $video->link_name : 'link' }}" class="button is-small px-1 py-0" href="{{ $video->link }}"
                                    target="_blank">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @else
-                                <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @endif

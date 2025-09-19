@@ -42,11 +42,11 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'system',
-                'value'     => old('system') ?? $unit->system,
-                'maxlength' => 10,
-                'message'   => $message ?? '',
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'system',
+                'value'   => old('system') ?? $unit->system,
+                'list'    => \App\Models\Portfolio\Unit::systemListOptions(true),
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
