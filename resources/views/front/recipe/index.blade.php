@@ -41,10 +41,10 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $recipe->name }}</td>
-                                <td class="text-center">
+                                <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $recipe->professional ])
                                 </td>
-                                <td class="text-center">
+                                <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $recipe->personal ])
                                 </td>
                                 <td>{!! $recipe->description !!}</td>

@@ -24,14 +24,14 @@
                 <th>table</th>
                 <th>title</th>
                 <th>icon</th>
-                <th class="text-center">guest</th>
-                <th class="text-center">user</th>
-                <th class="text-center">admin</th>
-                <th class="text-center">sequence</th>
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">guest</th>
+                <th class="has-text-centered">user</th>
+                <th class="has-text-centered">admin</th>
+                <th class="has-text-centered">sequence</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -44,11 +44,11 @@
                 <th>title</th>
                 <th>icon</th>
                 <th>sequence</th>
-                <th class="text-center">guest</th>
-                <th class="text-center">user</th>
-                <th class="text-center">admin</th>
-                <th class="text-center">public</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">guest</th>
+                <th class="has-text-centered">user</th>
+                <th class="has-text-centered">admin</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -75,28 +75,28 @@
                         @else
                         @endif
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->guest ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->user ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->admin ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         {{ $resource->sequence }}
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->public ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->readonly ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->root ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->disabled ])
                     </td>
                     <td class="py-0 text-nowrap">

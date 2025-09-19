@@ -14,7 +14,7 @@
         <h2 class="title"> User Login</h2>
     </div>
 
-    <div class="columns is-centered mt-4">
+    <div class="columns has-text-centered mt-4">
 
         <div class="card column is-5 mt-4">
 

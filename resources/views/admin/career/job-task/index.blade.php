@@ -24,8 +24,8 @@
                 <th>company</th>
                 <th>summary</th>
                 <th>sequence</th>
-                <th class="text-center">public</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -35,8 +35,8 @@
                 <th>company</th>
                 <th>summary</th>
                 <th>sequence</th>
-                <th class="text-center">public</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -57,10 +57,10 @@
                     <td>
                         {{ $jobTask->sequence }}
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobTask->public ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobTask->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">

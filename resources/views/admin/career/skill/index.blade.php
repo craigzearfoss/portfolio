@@ -21,8 +21,8 @@
             <thead>
             <tr>
                 <th>name</th>
-                <th class="text-center">public</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -30,8 +30,8 @@
             <tfoot>
             <tr>
                 <th>name</th>
-                <th class="text-center">public</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -44,10 +44,10 @@
                     <td>
                         {{ $skill->name }}
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $skill->public ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $skill->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">

@@ -195,6 +195,15 @@
 
     <div class="card p-4">
 
+        <h2 class="subtitle">
+            Ingredients
+            <a href="{{ route('admin.portfolio.recipe-ingredient.index', ['recipe_id' => $recipe->id]) }}"
+               title="edit ingredients"
+               class="button is-primary is-small px-1 py-0"
+            >
+                Edit Ingredients
+            </a>
+        </h2>
         <ul>
 
             @foreach($recipe->ingredients as $ingredient)
@@ -216,6 +225,15 @@
 
     <div class="card p-4">
 
+        <h2 class="subtitle">
+            Instructions
+            <a href="{{ route('admin.portfolio.recipe-step.index', ['recipe_id' => $recipe->id]) }}"
+               title="edit ingredients"
+               class="button is-primary is-small px-1 py-0"
+            >
+                Edit Ingredients
+            </a>
+        </h2>
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <tbody>
 

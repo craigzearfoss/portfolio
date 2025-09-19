@@ -9,11 +9,11 @@
 
 @section('content')
 
-    <div class="columns is-centered mt-4 pt-4">
+    <div class="columns has-text-centered mt-4 pt-4">
 
         <div class="card column is-5 mt-4">
 
-            <div class="is-size-4 is-centered">
+            <div class="is-size-4 has-text-centered">
                 Admin Login
             </div>
 

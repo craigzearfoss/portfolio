@@ -44,10 +44,10 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $project->name }}</td>
-                                <td class="text-center">
+                                <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $project->professional ])
                                 </td>
-                                <td class="text-center">
+                                <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $project->personal ])
                                 </td>
                                 <td>{{ $project->year }}</td>

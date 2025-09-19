@@ -41,10 +41,10 @@
                         @forelse ($links as $link)
                             <tr>
                                 <td>{{ ++$i }}</td>
-                                <td class="text-center">
+                                <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $link->professional ])
                                 </td>
-                                <td class="text-center">
+                                <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $link->personal ])
                                 </td>
                                 <td>

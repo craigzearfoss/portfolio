@@ -50,9 +50,20 @@
             'value' => $project->year
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'language',
+            'value' => $project->language
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'language version',
+            'value' => $project->language_version
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'repository',
-            'url'    => $project->repository,
+            'url'    => $project->repository_url,
+            'label'  => $project->repository_name,
             'target' => '_blank'
         ])
 
@@ -119,7 +130,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'admin',
-            'value' => $project->name
+            'value' => $project->admin['username'] ?? ''
         ])
 
         @include('admin.components.show-row', [

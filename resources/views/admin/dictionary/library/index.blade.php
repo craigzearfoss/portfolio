@@ -30,10 +30,10 @@
             <tr>
                 <th>name</th>
                 <th>abbrev</th>
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -42,11 +42,11 @@
             <tr>
                 <th>name</th>
                 <th>abbrev</th>
-                <th class="text-center">sequence</th>
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">sequence</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -62,16 +62,16 @@
                     <td class="py-0">
                         {{ $library->abbreviation }}
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $library->public ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $library->readonly ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $library->root ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $library->disabled ])
                     </td>
                     <td class="white-space-nowrap py-0" style="white-space: nowrap;">

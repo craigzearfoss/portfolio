@@ -23,10 +23,10 @@
                 <th>name</th>
                 <th class=" has-text-centered">completion<br>date</th>
                 <th>academy</th>
-                <th class="has-text-center">public</th>
-                <th class="has-text-center">read-only</th>
-                <th class="has-text-center">root</th>
-                <th class="has-text-center">disabled</th>
+                <th class="has-has-text-centered">public</th>
+                <th class="has-has-text-centered">read-only</th>
+                <th class="has-has-text-centered">root</th>
+                <th class="has-has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -36,10 +36,10 @@
                 <th>name</th>
                 <th class=" has-text-centered">completion<br>date</th>
                 <th>academy</th>
-                <th class="has-text-center">public</th>
-                <th class="has-text-center">read-only</th>
-                <th class="has-text-center">root</th>
-                <th class="has-text-center">disabled</th>
+                <th class="has-has-text-centered">public</th>
+                <th class="has-has-text-centered">read-only</th>
+                <th class="has-has-text-centered">root</th>
+                <th class="has-has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -60,16 +60,16 @@
                             <a href="{{ $course->academy['id'] }}" target="_blank">{{ $course->academy['name'] }}</a>
                         @endif
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->public ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->readonly ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->root ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">

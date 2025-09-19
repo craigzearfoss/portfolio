@@ -16,7 +16,7 @@
         <h2 class="title">Register New User</h2>
     </div>
 
-    <div class="columns is-centered mt-4">
+    <div class="columns has-text-centered mt-4">
 
         <div class="card column is-7">
 

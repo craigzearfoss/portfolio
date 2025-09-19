@@ -25,10 +25,10 @@
                 <th>year</th>
                 <th>label</th>
                 <th>cat#</th>
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -40,10 +40,10 @@
                 <th>year</th>
                 <th>label</th>
                 <th>cat#</th>
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -68,16 +68,16 @@
                     <td class="py0">
                         {{ $music->catalog_number }}
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->public ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->readonly ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->root ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">

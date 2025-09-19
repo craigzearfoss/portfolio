@@ -37,7 +37,7 @@
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">read-only</th>
                 <th class="has-text-centered">root</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -53,16 +53,16 @@
                     <td class="py-0">
                         {{ $video->year }}
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->readonly ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->root ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->public ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">

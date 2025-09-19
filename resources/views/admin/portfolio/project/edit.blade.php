@@ -71,8 +71,29 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'repository',
-                'value'     => old('repository') ?? $project->repository,
+                'name'      => 'language',
+                'value'     => old('language') ?? $project->language,
+                'maxlength' => 50,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'language_version',
+                'value'     => old('language_version') ?? $project->language_version,
+                'maxlength' => 20,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'repository_url',
+                'value'     => old('repository_url') ?? $project->repository_url,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'repository_name',
+                'value'     => old('repository_name') ?? $project->repository_name,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])

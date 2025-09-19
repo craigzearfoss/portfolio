@@ -24,11 +24,12 @@
                 <th>name</th>
                 <th>amount</th>
                 <th>unit</th>
-                <th class="text-center">sequence</th>
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <th>description</th>
+                <th class="has-text-centered">sequence</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -38,11 +39,12 @@
                 <th>name</th>
                 <th>amount</th>
                 <th>unit</th>
-                <th class="text-center">sequence</th>
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <th>description</th>
+                <th class="has-text-centered">sequence</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -53,28 +55,31 @@
 
                 <tr>
                     <td class="py-0">
-                        {{ $recipeIngredient->name }}
+                        {{ $recipeIngredient->ingredient['name'] ?? '' }}
                     </td>
                     <td class="py-0">
                         {{ $recipeIngredient->amount }}
                     </td>
                     <td class="py-0">
-                        {{ $recipeIngredient->ingredient['name'] }}
+                        {{ $recipeIngredient->unit['name'] ?? ''}}
                     </td>
-                    <td class="py-0 text-center">
-                        {{ $recipe->sequence }}
+                    <td class="py-0">
+                        {{ $recipeIngredient->description }}
                     </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $recipe->public ])
+                    <td class="py-0 has-text-centered">
+                        {{ $recipeIngredient->sequence }}
                     </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $recipe->readonly ])
+                    <td class="py-0 has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $recipeIngredient->public ])
                     </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $recipe->root ])
+                    <td class="py-0 has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $recipeIngredient->readonly ])
                     </td>
-                    <td class="py-0 text-center">
-                        @include('admin.components.checkmark', [ 'checked' => $recipe->disabled ])
+                    <td class="py-0 has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $recipeIngredient->root ])
+                    </td>
+                    <td class="py-0 has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $recipeIngredient->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.recipe-ingredient.destroy', $recipeIngredient->id) }}" method="POST">
@@ -89,8 +94,8 @@
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                             </a>
 
-                            @if (!empty($academy->link))
-                                <a title="link" class="button is-small px-1 py-0" href="{{ $academy->link }}"
+                            @if (!empty($recipeIngredient->link))
+                                <a title="link" class="button is-small px-1 py-0" href="{{ $recipeIngredient->link }}"
                                    target="_blank">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
@@ -112,7 +117,7 @@
             @empty
 
                 <tr>
-                    <td colspan="9">There are no recipe ingredients.</td>
+                    <td colspan="10">There are no recipe ingredients.</td>
                 </tr>
 
             @endforelse

@@ -23,10 +23,10 @@
             <tr>
                 <th>name</th>
                 <th>abbreviation</th>
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -34,10 +34,10 @@
             <tfoot>
             <tr>
                 <th>name</th>
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -53,16 +53,16 @@
                     <td>
                         {{ $industry->abbreviation }}
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $industry->public ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $industry->readonly ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $industry->root ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $industry->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">

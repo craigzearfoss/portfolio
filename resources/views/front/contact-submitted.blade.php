@@ -19,7 +19,7 @@
 
         <div class="column is-8">
 
-            <div class="is-centered">
+            <div class="has-text-centered">
                 <a class="is-size-6" href="{{ route("front.homepage") }}">
                     Home
                 </a>

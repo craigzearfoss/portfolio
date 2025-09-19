@@ -17,7 +17,7 @@
         <p>Your new password must be different from previous password.</p>
     </div>
 
-    <div class="columns is-centered mt-4">
+    <div class="columns has-text-centered mt-4">
 
         <div class="card column is-7">
 

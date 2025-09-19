@@ -28,9 +28,9 @@
             <tr>
                 <th>title</th>
                 <th>author</th>
-                <th class="text-center">type</th>
-                <th class="text-center">paper</th>
-                <th class="text-center">audio</th>
+                <th class="has-text-centered">type</th>
+                <th class="has-text-centered">paper</th>
+                <th class="has-text-centered">audio</th>
                 <th class="text-center text-nowrap">wish list</th>
             </tr>
             </thead>
@@ -39,9 +39,9 @@
             <tr>
                 <th>title</th>
                 <th>author</th>
-                <th class="text-center">type</th>
-                <th class="text-center">paper</th>
-                <th class="text-center">audio</th>
+                <th class="has-text-centered">type</th>
+                <th class="has-text-centered">paper</th>
+                <th class="has-text-centered">audio</th>
                 <th class="text-center text-nowrap">wish list</th>
             </tr>
             </tfoot>
@@ -59,16 +59,16 @@
                     <td>
                         {{ $reading->author }}
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         {{ $reading->fiction ? 'fiction' : ($reading->nonfiction ? 'nonfiction' : '') }}
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('front.components.checkmark', [ 'checked' => $reading->paper ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('front.components.checkmark', [ 'checked' => $reading->audio ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('front.components.checkmark', [ 'checked' => $reading->wishlist ])
                     </td>
                 </tr>

@@ -51,10 +51,10 @@
                                 <td class="text-nowrap">
                                     {{ shortDate($certification->expiration) }}
                                 </td>
-                                <td class="text-center">
+                                <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $certification->professional ])
                                 </td>
-                                <td class="text-center">
+                                <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $certification->personal ])
                                 </td>
                                 <td>{!! $certification->description !!}</td>

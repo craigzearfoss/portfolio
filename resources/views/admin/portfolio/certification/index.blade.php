@@ -79,7 +79,7 @@
                     <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $certification->root ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $certification->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">

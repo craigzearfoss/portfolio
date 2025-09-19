@@ -25,9 +25,13 @@ class RecipeIngredientController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $recipeIngredients = RecipeIngredient::latest()->paginate($perPage);
+        if ($recipeId = $request->query('recipe_id')) {
+            $recipeIngredients = RecipeIngredient::where('recipe_id', $recipeId)->orderBy('sequence', 'asc')->paginate($perPage);
+        } else {
+            $recipeIngredients = RecipeIngredient::latest()->paginate($perPage);
+        }
 
-        return view('admin.portfolio.recipe-ingredient.index', compact('recipeIngredients'))
+        return view('admin.portfolio.recipe-ingredient.index', compact('recipeIngredients', 'recipeId'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

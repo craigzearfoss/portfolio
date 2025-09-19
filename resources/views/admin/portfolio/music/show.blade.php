@@ -67,6 +67,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'release_date',
+            'label' => 'release date',
             'value' => longDate($music->release_date)
         ])
 

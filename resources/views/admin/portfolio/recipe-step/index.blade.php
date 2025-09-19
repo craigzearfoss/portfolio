@@ -25,11 +25,11 @@
                 <th>recipe</th>
                 <th>step</th>
                 <th>description</th>
-                <!-- <th class="text-center">sequence</th> -->
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <!-- <th class="has-text-centered">sequence</th> -->
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -39,11 +39,11 @@
                 <th>recipe</th>
                 <th>step</th>
                 <th>description</th>
-                <!-- <th class="text-center">sequence</th> -->
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <!-- <th class="has-text-centered">sequence</th> -->
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -60,20 +60,20 @@
                         {{ $recipeStep->description }}
                     </td>
                     <!--
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         {{ $recipeStep->sequence }}
                     </td>
                     -->
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipeStep->public ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipeStep->readonly ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipeStep->root ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipeStep->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">

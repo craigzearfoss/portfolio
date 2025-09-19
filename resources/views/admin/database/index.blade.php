@@ -24,14 +24,14 @@
                 <th>tag</th>
                 <th>title</th>
                 <th>icon</th>
-                <th class="text-center">guest</th>
-                <th class="text-center">user</th>
-                <th class="text-center">admin</th>
-                <th class="text-center">sequence</th>
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">guest</th>
+                <th class="has-text-centered">user</th>
+                <th class="has-text-centered">admin</th>
+                <th class="has-text-centered">sequence</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -43,14 +43,14 @@
                 <th>tag</th>
                 <th>title</th>
                 <th>icon</th>
-                <th class="text-center">guest</th>
-                <th class="text-center">user</th>
-                <th class="text-center">admin</th>
-                <th class="text-center">sequence</th>
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">guest</th>
+                <th class="has-text-centered">user</th>
+                <th class="has-text-centered">admin</th>
+                <th class="has-text-centered">sequence</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -80,28 +80,28 @@
                         @else
                         @endif
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->guest ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->user ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->admin ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         {{ $database->sequence }}
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->public ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->readonly ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->root ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->disabled ])
                     </td>
                     <td class="py-0 text-nowrap">

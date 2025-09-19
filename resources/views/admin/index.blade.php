@@ -9,7 +9,7 @@
 
 @section('content')
 
-    <div class="columns is-centered mt-4 pt-4">
+    <div class="columns has-text-centered mt-4 pt-4">
 
         <div class="card column is-6 m-4 p-4  has-text-centered">
 

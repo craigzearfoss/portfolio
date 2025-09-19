@@ -29,8 +29,8 @@
                             <th></th>
                             <th>name</th>
                             <th>completed</th>
-                            <th class="text-center">professional</th>
-                            <th class="text-center">personal</th>
+                            <th class="has-text-centered">professional</th>
+                            <th class="has-text-centered">personal</th>
                             <th>academy</th>
                             <th>instructor</th>
                             <th>actions</th>
@@ -46,10 +46,10 @@
                                 <td>
                                     {{ shortDate($course->completed) }}
                                 </td>
-                                <td class="text-center">
+                                <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $course->professional ])
                                 </td>
-                                <td class="text-center">
+                                <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $course->personal ])
                                 </td>
                                 <td>{{ $course->academy }}</td>

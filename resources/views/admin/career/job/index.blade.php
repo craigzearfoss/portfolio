@@ -24,10 +24,10 @@
                 <th>role</th>
                 <th>start date</th>
                 <th>end date</th>
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -38,10 +38,10 @@
                 <th>role</th>
                 <th>start date</th>
                 <th>end date</th>
-                <th class="text-center">public</th>
-                <th class="text-center">read-only</th>
-                <th class="text-center">root</th>
-                <th class="text-center">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">read-only</th>
+                <th class="has-text-centered">root</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -57,24 +57,24 @@
                     <td>
                         {{ $job->role }}
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @if(!empty($job->start_month)){{ date('F', mktime(0, 0, 0, $job->start_month, 10)) }} @endif
                         {{ $job->start_year }}
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @if(!empty($job->end_month)){{ date('F', mktime(0, 0, 0, $job->end_month, 10)) }} @endif
                         {{ $job->end_year }}
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->public ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->readonly ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->root ])
                     </td>
-                    <td class="text-center">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">

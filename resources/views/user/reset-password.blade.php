@@ -12,7 +12,7 @@
                                 <img class="mx-auto" src="{{ asset('images/site/logo-thumb-sm.png') }}" alt="site logo">
                             </div>
                         </div>
-                        <div class="text-center">
+                        <div class="has-text-centered">
                             <div class="mb-4">
                                 <h3 class="mb-1">Forgot Password</h3>
                                 <p>Please enter your email address to receive a password reset link.</p>
@@ -55,7 +55,7 @@
                                             </div>
                                         </div>
                                         <button class="btn btn-solid w-full" type="submit">Submit</button>
-                                        <div class="mt-4 text-center">
+                                        <div class="mt-4 has-text-centered">
                                             <span>Back to</span>
                                             <a class="text-primary-600 hover:underline" href="{{ route('front.login') }}">Login</a>
                                         </div>

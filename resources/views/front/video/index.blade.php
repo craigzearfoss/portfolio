@@ -47,10 +47,10 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $video->name }}</td>
-                                <td class="text-center">
+                                <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $video->professional ])
                                 </td>
-                                <td class="text-center">
+                                <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $video->personal ])
                                 </td>
                                 <td class="text-nowrap">

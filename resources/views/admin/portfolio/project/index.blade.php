@@ -20,9 +20,10 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th>name</th>
+                <th class="text-nowrap">name</th>
+                <th class="text-nowrap">language</th>
                 <th>year</th>
-                <th>repository</th>
+                <th class="text-nowrap">repository</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">root</th>
                 <th class="has-text-centered">read-only</th>
@@ -33,9 +34,10 @@
             <?php /*
             <tfoot>
             <tr>
-                <th>name</th>
+                <th class="text-nowrap">name</th>
+                <th class="text-nowrap">language</th>
                 <th>year</th>
-                <th>repository</th>
+                <th class="text-nowrap">repository</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">root</th>
                 <th class="has-text-centered">read-only</th>
@@ -49,14 +51,24 @@
             @forelse ($projects as $project)
 
                 <tr>
-                    <td>
+                    <td class="py-0 text-nowrap">
                         {{ $project->name }}
                     </td>
-                    <td>
+                    <td class="py-0 text-nowrap">
+                        {{ !empty($project->language)
+                            ? ($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : ''))
+                            : ''
+                        }}
+                    </td>
+                    <td class="py-0 has-text-centered">
                         {{ $project->year }}
                     </td>
-                    <td>
-                        @include('admin.components.link', [ 'url' => $project->repository, 'target' => '_blank' ])
+                    <td class="py-0 text-nowrap">
+                        @include('admin.components.link', [
+                            'name'   => $project->repository_name,
+                            'url'    => $project->repository_url,
+                            'target' => '_blank'
+                        ])
                     </td>
                     <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->public ])
@@ -67,7 +79,7 @@
                     <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->root ])
                     </td>
-                    <td class="py-0 text-center">
+                    <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
