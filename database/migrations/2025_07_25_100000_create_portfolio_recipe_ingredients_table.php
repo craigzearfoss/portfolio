@@ -42,6 +42,7 @@ return new class extends Migration
                 'amount'        => '2 1/4',
                 'unit_id'       => 6,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -51,6 +52,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 4,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -60,6 +62,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 4,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -69,6 +72,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 6,
                 'qualifier'     => '2 sticks, softened',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -78,6 +82,7 @@ return new class extends Migration
                 'amount'        => '3/4',
                 'unit_id'       => 6,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -87,6 +92,7 @@ return new class extends Migration
                 'amount'        => '3/4',
                 'unit_id'       => 6,
                 'qualifier'     => 'packed',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -96,6 +102,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 4,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -105,6 +112,7 @@ return new class extends Migration
                 'amount'        => '2',
                 'unit_id'       => 1,
                 'qualifier'     => 'large',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -114,6 +122,7 @@ return new class extends Migration
                 'amount'        => '2',
                 'unit_id'       => 6,
                 'qualifier'     => '(12-oz. pkg.) Nestlé Toll House Semi-Sweet Chocolate Morsels',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -123,6 +132,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 6,
                 'qualifier'     => 'chopped (if omitting, add 1-2 tablespoons of all-purpose flour)',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -132,6 +142,7 @@ return new class extends Migration
                 'amount'        => '1/2',
                 'unit_id'       => 6,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -141,6 +152,7 @@ return new class extends Migration
                 'amount'        => '1/6',
                 'unit_id'       => 6,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -150,6 +162,7 @@ return new class extends Migration
                 'amount'        => '1/4',
                 'unit_id'       => 6,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -159,6 +172,7 @@ return new class extends Migration
                 'amount'        => '3/8',
                 'unit_id'       => 6,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -168,6 +182,7 @@ return new class extends Migration
                 'amount'        => '1/2',
                 'unit_id'       => 4,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -177,6 +192,7 @@ return new class extends Migration
                 'amount'        => '1/4',
                 'unit_id'       => 4,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -186,6 +202,7 @@ return new class extends Migration
                 'amount'        => '1/2',
                 'unit_id'       => 4,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -195,6 +212,7 @@ return new class extends Migration
                 'amount'        => '1/2',
                 'unit_id'       => 4,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -204,6 +222,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 3,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -213,6 +232,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 4,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -222,6 +242,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 5,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -231,6 +252,7 @@ return new class extends Migration
                 'amount'        => '1/4',
                 'unit_id'       => 1,
                 'qualifier'     => 'medium, minced',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -240,6 +262,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 1,
                 'qualifier'     => 'clove, minced (~1/2 Tbsp.)',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -249,6 +272,7 @@ return new class extends Migration
                 'amount'        => '1/4',
                 'unit_id'       => 1,
                 'qualifier'     => 'medium, diced',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -258,6 +282,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 3,
                 'qualifier'     => 'to taste',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -267,6 +292,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 3,
                 'qualifier'     => 'to taste',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -276,6 +302,7 @@ return new class extends Migration
                 'amount'        => '1/2',
                 'unit_id'       => 1,
                 'qualifier'     => '15 oz. can',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -285,6 +312,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 5,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -294,6 +322,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 5,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -303,6 +332,7 @@ return new class extends Migration
                 'amount'        => '1/4',
                 'unit_id'       => 4,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -312,6 +342,7 @@ return new class extends Migration
                 'amount'        => '1/2',
                 'unit_id'       => 4,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -321,6 +352,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 2,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -330,6 +362,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 6,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -339,6 +372,7 @@ return new class extends Migration
                 'amount'        => '1/2',
                 'unit_id'       => 6,
                 'qualifier'     => 'or red lentils',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -348,6 +382,7 @@ return new class extends Migration
                 'amount'        => '2',
                 'unit_id'       => 6,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -357,6 +392,7 @@ return new class extends Migration
                 'amount'        => '2',
                 'unit_id'       => 5,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -366,6 +402,7 @@ return new class extends Migration
                 'amount'        => '1/3',
                 'unit_id'       => 6,
                 'qualifier'     => 'cubed',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -375,6 +412,7 @@ return new class extends Migration
                 'amount'        => '1/4',
                 'unit_id'       => 6,
                 'qualifier'     => 'chopped',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -384,6 +422,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 1,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -393,6 +432,7 @@ return new class extends Migration
                 'amount'        => '1/4',
                 'unit_id'       => 6,
                 'qualifier'     => 'chopped (or other sturdy green)',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -402,6 +442,7 @@ return new class extends Migration
                 'amount'        => '3.75',
                 'unit_id'       => 11,
                 'qualifier'     => '1 package of John Cope\'s Sweet Corn',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -411,6 +452,7 @@ return new class extends Migration
                 'amount'        => '2 1/2',
                 'unit_id'       => 6,
                 'qualifier'     => 'cold',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -420,6 +462,7 @@ return new class extends Migration
                 'amount'        => '2',
                 'unit_id'       => 5,
                 'qualifier'     => 'melted',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -429,6 +472,7 @@ return new class extends Migration
                 'amount'        => '1',
                 'unit_id'       => 4,
                 'qualifier'     => 'optional',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -438,6 +482,7 @@ return new class extends Migration
                 'amount'        => '1 1/2',
                 'unit_id'       => 5,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
             [
@@ -447,6 +492,7 @@ return new class extends Migration
                 'amount'        => '2',
                 'unit_id'       => 1,
                 'qualifier'     => '',
+                'public'        => 1,
                 'admin_id'      => 1,
             ],
         ];

@@ -127,11 +127,6 @@
             'value' => longDateTime($link->updated_at)
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($link->deleted_at)
-        ])
-
     </div>
 
 @endsection

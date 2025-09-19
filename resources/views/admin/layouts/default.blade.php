@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
-die('here');
+
 @include('admin.components.head')
 
 <body>
 
 <div id="app">
-AA
+
     @include('admin.components.nav-top')
 
     @include('admin.components.nav-left')

@@ -269,11 +269,6 @@
             'value' => longDateTime($application->updated_at)
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($application->deleted_at)
-        ])
-
     </div>
 
 @endsection

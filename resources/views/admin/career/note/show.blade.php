@@ -71,11 +71,6 @@
             'value' => longDateTime($note->updated_at)
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($note->deleted_at)
-        ])
-
     </div>
 
 @endsection

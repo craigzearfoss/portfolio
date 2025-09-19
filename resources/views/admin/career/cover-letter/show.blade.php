@@ -137,11 +137,6 @@
             'value' => longDateTime($coverLetter->updated_at)
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($coverLetter->deleted_at)
-        ])
-
     </div>
 
 @endsection

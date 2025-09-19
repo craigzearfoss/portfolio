@@ -141,11 +141,6 @@
             'value' => longDateTime($jobCoworker->updated_at)
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($jobCoworker->deleted_at)
-        ])
-
     </div>
 
 @endsection

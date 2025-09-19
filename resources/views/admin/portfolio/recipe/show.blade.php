@@ -186,11 +186,6 @@
             'value' => longDateTime($recipe->updated_at)
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'deleted at',
-            'value' => longDateTime($recipe->deleted_at)
-        ])
-
     </div>
 
     <div class="card p-4">
