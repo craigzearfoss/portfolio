@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::connection('default_db')->create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username', 200)->unique();
             $table->string('name');
@@ -48,13 +48,13 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
+        Schema::connection('default_db')->create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
-        Schema::create('sessions', function (Blueprint $table) {
+        Schema::connection('default_db')->create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
             $table->string('ip_address', 45)->nullable();
@@ -94,8 +94,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
+        Schema::connection('default_db')->dropIfExists('users');
+        Schema::connection('default_db')->dropIfExists('password_reset_tokens');
+        Schema::connection('default_db')->dropIfExists('sessions');
     }
 };

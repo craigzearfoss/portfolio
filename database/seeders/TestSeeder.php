@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Career\Application;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -75,11 +76,34 @@ class TestSeeder extends Seeder
 
         echo 'Portfolio/Recipe' . PHP_EOL;
         \App\Models\Portfolio\Recipe::factory()
-            ->count(100)
+            ->count(40)
             ->sequence(fn ($sequence) => [
                 'sequence' => $sequence->index + 1
             ])
             ->create();
+
+        echo '.';
+        foreach (\App\Models\Portfolio\Recipe::all(['id', 'admin_id']) as $recipe) {
+
+            $numIngredients = mt_rand(4, 12);
+            for ($i=1; $i<=$numIngredients; $i++) {
+                \App\Models\Portfolio\RecipeIngredient::factory()
+                    ->set('sequence', $i - 1)
+                    ->set('admin_id', $recipe->admin_id)
+                    ->create();
+            }
+
+            $numSteps = mt_rand(3, 7);
+            for ($step=1; $step<=$numSteps; $step++) {
+                \App\Models\Portfolio\RecipeStep::factory()
+                    ->set('step', $step)
+                    ->set('sequence', $step - 1)
+                    ->set('admin_id', $recipe->admin_id)
+                    ->create();
+            }
+
+        }
+        echo PHP_EOL;
 
         echo 'Portfolio/Video' . PHP_EOL;
         \App\Models\Portfolio\Video::factory()
@@ -103,6 +127,11 @@ class TestSeeder extends Seeder
             ->sequence(fn ($sequence) => [
                 'sequence' => $sequence->index + 1
             ])
+            ->create();
+
+        echo 'Career/CompanyContact' . PHP_EOL;
+        \App\Models\Career\CompanyContact::factory()
+            ->count(200)
             ->create();
 
         echo 'Career/Reference' . PHP_EOL;
@@ -137,18 +166,59 @@ class TestSeeder extends Seeder
             ])
             ->create();
 
+        echo '.';
+        foreach (\App\Models\Career\Job::all()->where('disabled', 0)->get(['id', 'admin_id']) as $job) {
 
+            $numCoworkers = mt_rand(1, 5);
+            \App\Models\Career\JobCoworker::factory()
+                ->count($numCoworkers)
+                ->set('job_id', $job->id)
+                ->sequence(fn ($sequence) => [
+                    'sequence' => $sequence->index + 1
+                ])
+                ->set('admin_id', $job->admin_id)
+                ->create();
 
+            $numTasks = mt_rand(1, 5);
+            \App\Models\Career\JobTask::factory()
+                ->count($numTasks)
+                ->set('job_id', $job->id)
+                ->sequence(fn ($sequence) => [
+                    'sequence' => $sequence->index + 1
+                ])
+                ->set('admin_id', $job->admin_id)
+                ->create();
+        }
+        echo PHP_EOL;
 
-        echo 'Career/CoverLetter' . PHP_EOL;
-        \App\Models\Career\CoverLetter::factory()
-            ->count(70)
+        echo 'Career/Application' . PHP_EOL;
+        \App\Models\Career\Application::factory()
+            ->count(98)
             ->sequence(fn ($sequence) => [
                 'sequence' => $sequence->index + 1
             ])
             ->create();
 
+        /*
+        echo 'Career/CoverLetter' . PHP_EOL;
+        foreach (Application::all()->pluck('id') as $applicationId) {
+            \App\Models\Career\CoverLetter::factory()
+                ->count(70)
+                ->sequence(fn($sequence) => [
+                    'sequence' => $sequence->index + 1
+                ])
+                ->create();
+        }
+
         // the following tables have foreign key dependencies so need to be run after the above factories
+
+        echo 'Career/Application' . PHP_EOL;
+        \App\Models\Career\Application::factory()
+            ->count(98)
+            ->sequence(fn ($sequence) => [
+                'sequence' => $sequence->index + 1
+            ])
+            ->create();
 
         echo 'Career/JobCoworker' . PHP_EOL;
         \App\Models\Career\JobCoworker::factory()
@@ -166,13 +236,6 @@ class TestSeeder extends Seeder
             ])
             ->create();
 
-        echo 'Career/Application' . PHP_EOL;
-        \App\Models\Career\Application::factory()
-            ->count(98)
-            ->sequence(fn ($sequence) => [
-                'sequence' => $sequence->index + 1
-            ])
-            ->create();
 
         echo 'Career/Communication' . PHP_EOL;
         \App\Models\Career\Communication::factory()
@@ -197,5 +260,6 @@ class TestSeeder extends Seeder
                 'sequence' => $sequence->index + 1
             ])
             ->create();
+        */
     }
 }

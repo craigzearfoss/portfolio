@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('countries', function (Blueprint $table) {
+        Schema::connection('default_db')->create('countries', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
             $table->string('m49', 3)->unique();
@@ -276,7 +276,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): voids
+    public function down(): void
     {
         Schema::connection('default_db')->dropIfExists('countries');
     }

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::connection('default_db')->create('admins', function (Blueprint $table) {
             $table->id();
             $table->string('username', 200)->unique();
             $table->string('name')->nullable(); // note that name is not required for admins
@@ -31,6 +31,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();
@@ -80,8 +81,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (Schema::hasTable('resources')) {
-            Schema::table('resources', function (Blueprint $table) {
+        if (Schema::connection('default_db')->hasTable('resources')) {
+            Schema::connection('default_db')->table('resources', function (Blueprint $table) {
                 $table->dropForeign('resources_admin_id_foreign');
                 $table->dropColumn('admin_id');
             });

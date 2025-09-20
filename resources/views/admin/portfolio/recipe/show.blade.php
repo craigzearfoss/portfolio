@@ -205,7 +205,7 @@
 
                 <li>
                     {{ $ingredient['amount'] }}
-                    {{ \App\Models\Portfolio\Unit::find($ingredient['unit_id'])->abbreviation }}
+                    {{ \App\Models\Portfolio\Unit::find($ingredient['unit_id'])->name }}
                     {{ \App\Models\Portfolio\Ingredient::find($ingredient['ingredient_id'])->name }}
                     @if(!empty($ingredient['qualifier']))
                         - {{ $ingredient['qualifier'] }}

@@ -17,7 +17,7 @@ class MusicFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(5, true);
+        $name = fake()->unique()->text(20);
         $artist = fake()->name();
         $slug = Str::slug($name
             . (!empty($artist) ? '-by-' . $artist : ''));
@@ -31,9 +31,9 @@ class MusicFactory extends Factory
             'label'          => fake()->company(),
             'catalog_number' => fake()->regexify('[A-Z]{3}-[0-9]{6}'),
             'year'           => fake()->numberBetween(2000, 2025),
-            'release_date'   => fake()->dateTimeBetween('-20 years', 'now'),
+            'release_date'   => fake()->dateTimeBetween('-20 years')->format('Y-m-d'),
             'link'           => fake()->url(),
-            'link_name'      => fake()->words(6),
+            'link_name'      => fake()->text(20),
             'description'    => fake()->text(200),
             'image'          => fake()->imageUrl(),
             'image_credit'   => fake()->name(),

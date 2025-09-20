@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::connection('default_db')->create('messages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email');
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('messages');
+        Schema::connection('default_db')->dropIfExists('messages');
     }
 };

@@ -17,11 +17,11 @@ class JobFactory extends Factory
      */
     public function definition(): array
     {
-        $company = fake()->unique()->words(6, true);
+        $company = fake()->unique()->company();
         $slug = Str::slug($company);
 
         return [
-            'name'         => $company,
+            'company'      => $company,
             'slug'         => $slug,
             'role'         => fake()->jobTitle(),
             'start_month'  => fake()->numberBetween([1, 12]),
@@ -33,17 +33,17 @@ class JobFactory extends Factory
             'street'       => fake()->streetAddress(),
             'street2'      => null,
             'city'         => fake()->city(),
-            'state'        => fake()->randomElement(\App\Models\State::all()->pluck('code')->toArray()),
+            'state'        => fake()->randomElement(\App\Models\State::where('country_id', 237)->get()->pluck('code')->toArray()),
             'zip'          => fake()->postcode(),
-            'country'      => fake()->randomElement(\App\Models\Country::all()->pluck('iso_alpha3')->toArray()),
-            'longitude'    => null,
-            'latitude'     => null,
+            'country'      => 'USA',
+            'latitude'     => fake()->randomFloat(4, -90, 90),
+            'longitude'    => fake()->randomFloat(4, -180, 180),
             'link'         => fake()->url(),
-            'link_name'    => fake()->words(4, true),
+            'link_name'    => fake()->text(20),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),
-            'image_credit' => fake()->words(3, true),
-            'image_source' => fake()->words(3, true),
+            'image_credit' => fake()->name(),
+            'image_source' => fake()->company(),
             'thumbnail'    => fake()->imageUrl(),
             'sequence'     => 0,
             'public'       => 0,

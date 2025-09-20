@@ -32,7 +32,7 @@ class ReferenceFactory extends Factory
             'alt_email'       => fake()->safeEmail(),
             'alt_email_label' => fake()->randomElement(['personal', 'alternate']),
             'link'            => fake()->url(),
-            'link_name'       => fake()->words(4, true),
+            'link_name'       => fake()->text(20),
             'image'           => fake()->imageUrl(),
             'image_credit'    => fake()->name(),
             'image_source'    => fake()->company(),

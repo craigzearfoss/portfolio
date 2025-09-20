@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('States', function (Blueprint $table) {
+        Schema::connection('default_db')->create('states', function (Blueprint $table) {
             $table->id();
             $table->string('code', 10)->unique();
             $table->string('name', 50);
@@ -94,6 +94,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('states');
+        Schema::connection('default_db')->dropIfExists('states');
     }
 };

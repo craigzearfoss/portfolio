@@ -17,7 +17,7 @@ class ProjectFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(5, true);
+        $name = fake()->unique()->text(20);
         $slug = Str::slug($name);
 
         $languages = [
@@ -32,38 +32,37 @@ class ProjectFactory extends Factory
 
         if (mt_rand(0,1) < .4) {
             $language = null;
-            $version = null;
+            $languageVersion = null;
         } else {
-            $language = array_rand($languages,  1)[0];
-            $version = ($language == 'JavaScript')
-                ? 'ES' . random_int($languages[0], $languages[1])
-                : 'v' . random_int($languages[0], $languages[1]);
+            $language = array_rand($languages);
+            $languageVersion = ($language == 'JavaScript')
+                ? 'ES' . random_int($languages[$language][0], $languages[$language][1])
+                : 'v' . random_int($languages[$language][0], $languages[$language][1]);
         }
 
         return [
-            'name'            => $name,
-            'slug'            => $slug,
-            'professional'    => fake()->numberBetween(0, 1),
-            'personal'        => fake()->numberBetween(0, 1),
-            'year'            => fake()->numberBetween(2000, 2025),
-            'repository'      => fake()->url(),
-            'language'        => $language,
-            'version'         => $version,
-            'repository_url'  => fake()->url(),
-            'repository_name' => fake()->words(5, true),
-            'link'            => fake()->url(),
-            'link_name'       => fake()->words(5, true),
-            'description'     => fake()->text(200),
-            'image'           => fake()->imageUrl(),
-            'image_credit'    => fake()->name(),
-            'image_source'    => fake()->company(),
-            'thumbnail'       => fake()->imageUrl(),
-            'sequence'        => 0,
-            'public'          => 1,
-            'readonly'        => 0,
-            'root'            => 0,
-            'disabled'        => 0,
-            'admin_id'        => \App\Models\Admin::all()->random()->id,
+            'name'             => $name,
+            'slug'             => $slug,
+            'professional'     => fake()->numberBetween(0, 1),
+            'personal'         => fake()->numberBetween(0, 1),
+            'year'             => fake()->numberBetween(2000, 2025),
+            'language'         => $language,
+            'language_version' => $languageVersion,
+            'repository_url'   => fake()->url(),
+            'repository_name'  => fake()->text(20),
+            'link'             => fake()->url(),
+            'link_name'        => fake()->text(20),
+            'description'      => fake()->text(200),
+            'image'            => fake()->imageUrl(),
+            'image_credit'     => fake()->name(),
+            'image_source'     => fake()->company(),
+            'thumbnail'        => fake()->imageUrl(),
+            'sequence'         => 0,
+            'public'           => 1,
+            'readonly'         => 0,
+            'root'             => 0,
+            'disabled'         => 0,
+            'admin_id'         => \App\Models\Admin::all()->random()->id,
         ];
     }
 }

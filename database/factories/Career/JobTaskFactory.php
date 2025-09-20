@@ -21,7 +21,7 @@ class JobTaskFactory extends Factory
             'job_id'          => fake()->randomElement(Job::all()->pluck('id')->toArray()),
             'summary'         => fake()->sentence(8),
             'link'            => fake()->url(),
-            'link_name'       => fake()->words(3, true),
+            'link_name'       => fake()->text(20),
             'description'     => fake()->text(200),
             'notes'           => fake()->text(200),
             'image'           => fake()->imageUrl(),

@@ -17,10 +17,8 @@ class SkillFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->word(1);
-
         return [
-            'name'         => $name,
+            'name'         => fake()->unique()->text(12),
             'rating'       => fake()->numberBetween(0, 10),
             'years'        => fake()->numberBetween(0, 20),
             'description'  => fake()->text(200),

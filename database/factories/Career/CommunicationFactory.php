@@ -18,8 +18,8 @@ class CommunicationFactory extends Factory
     {
         return [
             'application_id' => \App\Models\Career\Application::all()->random()->id,
-            'subject'        => fake()->words(5, true),
-            'date'           => fake()->date(),
+            'subject'        => fake()->text(20),
+            'date'           => fake()->dateTimeBetween('-2 years')->format('Y-m-d'),
             'time'           => fake()->time(),
             'body'           => fake()->text(200),
             'sequence'       => 0,

@@ -17,7 +17,7 @@ class ReadingFactory extends Factory
      */
     public function definition(): array
     {
-        $title = fake()->unique()->words(5, true);
+        $title = fake()->unique()->text(20);
         $author = fake()->name();
         $slug = Str::slug($title
             . (!empty($author) ? '-by-' . $author : ''));
@@ -35,7 +35,7 @@ class ReadingFactory extends Factory
             'audio'            => fake()->numberBetween(0, 1),
             'wishlist'         => fake()->numberBetween(0, 1),
             'link'             => fake()->url(),
-            'link_name'        => fake()->words(5, true),
+            'link_name'        => fake()->text(20),
             'description'      => fake()->text(200),
             'image'            => fake()->imageUrl(),
             'image_credit'     => fake()->name(),

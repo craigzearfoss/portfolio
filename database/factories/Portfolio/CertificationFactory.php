@@ -18,7 +18,7 @@ class CertificationFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(5, true);
+        $name = fake()->unique()->text(20);
         $slug = Str::slug($name);
 
         return [
@@ -29,11 +29,11 @@ class CertificationFactory extends Factory
             'organization'    => fake()->company(),
             'academy_id'      => fake()->randomElement(Academy::all()->pluck('id')->toArray()),
             'year'            => fake()->numberBetween(2000, 2025),
-            'received'        => fake()->date('-20 years', 'now'),
-            'expiration'      => fake()->date('-20 years', 'now'),
+            'received'        => fake()->dateTimeBetween('-20 years', 'now'),
+            'expiration'      => fake()->dateTimeBetween('-20 years', 'now'),
             'certificate_url' => fake()->url(),
             'link'            => fake()->url(),
-            'link_name'       => fake()->words(6),
+            'link_name'       => fake()->text(20),
             'description'     => fake()->text(200),
             'image'           => fake()->imageUrl(),
             'image_credit'    => fake()->name(),

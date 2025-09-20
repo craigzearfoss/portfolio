@@ -92,7 +92,7 @@ class Recipe extends Model
      */
     public function ingredients(): HasMany
     {
-        return $this->hasMany(RecipeIngredient::class);
+        return $this->hasMany(RecipeIngredient::class)->orderBy('sequence', 'asc');
     }
 
     /**
@@ -100,7 +100,7 @@ class Recipe extends Model
      */
     public function steps(): HasMany
     {
-        return $this->hasMany(RecipeStep::class);
+        return $this->hasMany(RecipeStep::class)->orderBy('step', 'asc');
     }
 
     /**

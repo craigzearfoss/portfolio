@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('cover_letters', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('application_id', Application::class)->nullable()->index();
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->date('date')->nullable();

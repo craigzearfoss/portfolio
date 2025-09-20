@@ -17,21 +17,21 @@ class CoverLetterFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(6, true);
+        $name = fake()->unique()->text(20);
         $slug = Str::slug($name);
 
         return [
             'name'          => $name,
             'slug'          => $slug,
-            'date'          => fake()->date(),
+            'date'          => fake()->dateTimeBetween('-2 years')->format('Y-m-d'),
             'link'          => fake()->url(),
-            'link_name'     => fake()->words(3, true),
+            'link_name'     => fake()->text(20),
             'alt_link'      => fake()->url(),
-            'alt_link_name' => fake()->words(4, true),
+            'alt_link_name' => fake()->text(20),
             'description'   => fake()->text(200),
             'image'         => fake()->imageUrl(),
-            'image_credit'  => fake()->words(3, true),
-            'image_source'  => fake()->words(3, true),
+            'image_credit'  => fake()->name(),
+            'image_source'  => fake()->company(),
             'thumbnail'     => fake()->imageUrl(),
             'primary'       => fake()->numberBetween(0, 1),
             'sequence'      => 0,

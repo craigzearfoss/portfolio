@@ -17,7 +17,7 @@ class LinkFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(5, true);
+        $name = fake()->unique()->text(20);
         $slug = Str::slug($name);
 
         return [
@@ -27,7 +27,7 @@ class LinkFactory extends Factory
             'personal'     => fake()->numberBetween(0, 1),
             'url'          => fake()->url(),
             'link'         => fake()->url(),
-            'link_name'    => fake()->words(5, true),
+            'link_name'    => fake()->text(20),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),
             'image_credit' => fake()->name(),

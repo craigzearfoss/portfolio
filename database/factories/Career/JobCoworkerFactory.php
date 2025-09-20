@@ -24,7 +24,6 @@ class JobCoworkerFactory extends Factory
         return [
             'job_id'          => fake()->randomElement(Job::all()->pluck('id')->toArray()),
             'name'            => $name,
-            'slug'            => $slug,
             'job_title'       => fake()->jobTitle(),
             'level'           => fake()->numberBetween([1, 2, 3]), // 1-coworker, 2-superior, 3-subordinate
             'work_phone'      => fake()->phoneNumber(),
@@ -32,7 +31,7 @@ class JobCoworkerFactory extends Factory
             'work_email'      => fake()->safeEmail(),
             'personal_email'  => fake()->safeEmail(),
             'link'            => fake()->url(),
-            'link_name'       => fake()->words(3, true),
+            'link_name'       => fake()->text(20),
             'description'     => fake()->text(200),
             'notes'           => fake()->text(200),
             'image'           => fake()->imageUrl(),
