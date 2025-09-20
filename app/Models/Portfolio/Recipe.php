@@ -5,12 +5,17 @@ namespace App\Models\Portfolio;
 use App\Models\Admin;
 use App\Models\Portfolio\RecipeIngredient;
 use App\Models\Portfolio\RecipeStep;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Recipe extends Model
 {
+    /** @use HasFactory<\Database\Factories\Portfolio\RecipeFactory> */
+    use HasFactory, SoftDeletes;
+
     protected $connection = 'portfolio_db';
 
     protected $table = 'recipes';

@@ -3,6 +3,7 @@
 namespace Database\Factories\Career;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Career\Skills>
@@ -16,16 +17,19 @@ class SkillFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->unique()->word(1);
+
         return [
-            'rating'       => fake()->numberBetween(1, 10),
+            'name'         => $name,
+            'rating'       => fake()->numberBetween(0, 10),
             'years'        => fake()->numberBetween(0, 20),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),
-            'image_credit' => fake()->words(3, true),
-            'image_source' => fake()->words(3, true),
+            'image_credit' => fake()->name(),
+            'image_source' => fake()->company(),
             'thumbnail'    => fake()->imageUrl(),
             'sequence'     => 0,
-            'public'       => 0,
+            'public'       => 1,
             'readonly'     => 0,
             'root'         => 0,
             'disabled'     => fake()->numberBetween(0, 1),

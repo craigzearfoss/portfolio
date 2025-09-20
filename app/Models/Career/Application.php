@@ -27,25 +27,25 @@ class Application extends Model
     protected $table = 'applications';
 
     const TYPES = [
-        'permanent',
-        'contract',
-        'contract-to-hire',
-        'temporary',
+        1 => 'permanent',
+        2 => 'contract',
+        3 => 'contract-to-hire',
+        4 => 'temporary',
     ];
 
     const OFFICES = [
-        'onsite',
-        'remote',
-        'hybrid',
+        1 => 'onsite',
+        2 => 'remote',
+        3 => 'hybrid',
     ];
 
     const COMPENSATION_UNITS = [
-        'hour',
-        'year',
-        'month',
-        'week',
-        'day',
-        'project',
+        1 => 'hour',
+        2 => 'year',
+        3 => 'month',
+        4 => 'week',
+        5 => 'day',
+        6 => 'project',
     ];
 
     /**
@@ -75,8 +75,8 @@ class Application extends Model
         'state',
         'zip',
         'country',
-        'longitude',
         'latitude',
+        'longitude',
         'bonus',
         'w2',
         'relocation',

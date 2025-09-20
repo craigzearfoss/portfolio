@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::connection('career_db')->create('skills', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('slug')->unique();
             $table->tinyInteger('rating')->default(0);
             $table->integer('years')->default(0);
             $table->string('link')->nullable();
@@ -33,7 +32,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['admin_id', 'slug'], 'admin_id_slug_unique');
+            $table->unique(['admin_id', 'name'], 'admin_id_name_unique');
         });
     }
 

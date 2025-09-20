@@ -53,7 +53,7 @@ class MusicStoreRequest extends FormRequest
             'personal'       => ['integer', 'between:0,1'],
             'label'          => ['string', 'max:255', 'nullable'],
             'catalog_number' => ['string', 'max:50', 'nullable'],
-            'year'           => ['integer', 'between:1900,2050', 'nullable'],
+            'year'           => ['integer', 'between:1900,'.date("Y"), 'nullable'],
             'release_date'   => ['date', 'nullable'],
             'link'           => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'      => ['string', 'nullable'],

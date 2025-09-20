@@ -4,11 +4,15 @@ namespace App\Models\Portfolio;
 
 use App\Models\Admin;
 use App\Models\Portfolio\Recipe;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RecipeStep extends Model
 {
+    /** @use HasFactory<\Database\Factories\Portfolio\RecipeStepFactory> */
+    use HasFactory;
+
     protected $connection = 'portfolio_db';
 
     protected $table = 'recipe_steps';

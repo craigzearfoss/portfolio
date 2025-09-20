@@ -55,7 +55,7 @@ class ArtStoreRequest extends FormRequest
             'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.art,slug'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
-            'year'         => ['integer', 'between:1900,2050', 'nullable'],
+            'year'         => ['integer', 'between:1900,'.date("Y"), 'nullable'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],

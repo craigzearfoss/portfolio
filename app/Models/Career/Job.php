@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Job extends Model
 {
-    /** @use HasFactory<\Database\Factories\Portfolio\JobFactory> */
+    /** @use HasFactory<\Database\Factories\Career\JobFactory> */
     use HasFactory, SoftDeletes;
 
     protected $connection = 'career_db';
@@ -28,14 +28,6 @@ class Job extends Model
     protected $fillable = [
         'company',
         'slug',
-        'street',
-        'street2',
-        'city',
-        'state',
-        'zip',
-        'country',
-        'longitude',
-        'latitude',
         'role',
         'start_month',
         'start_year',
@@ -43,6 +35,14 @@ class Job extends Model
         'end_year',
         'summary',
         'notes',
+        'street',
+        'street2',
+        'city',
+        'state',
+        'zip',
+        'country',
+        'latitude',
+        'longitude',
         'link',
         'link_name',
         'description',

@@ -26,8 +26,8 @@ return new class extends Migration
             $table->integer('compensation')->default(0);
             $table->string('compensation_unit', 20)->nullable();
             $table->string('duration',100)->nullable();
-            $table->tinyInteger('type')->default(0)->comment('0-permanent,1-contract,2-contract-to-hire,3-project,4-temporary');
-            $table->tinyInteger('office')->default(0)->comment('0-onsite,1-remote,2-hybrid');
+            $table->tinyInteger('type')->default(0)->comment('1-permanent,2-contract,3-contract-to-hire,4-project,5-temporary');
+            $table->tinyInteger('office')->default(0)->comment('1-onsite,2-remote,3-hybrid');
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city')->nullable();

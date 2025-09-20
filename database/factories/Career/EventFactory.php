@@ -22,7 +22,6 @@ class EventFactory extends Factory
             'date'           => fake()->date(),
             'time'           => fake()->time(),
             'location'       => fake()->city(),
-            'attendees'      => fake()->name(),
             'description'    => fake()->text(200),
             'sequence'       => 0,
             'public'         => 0,

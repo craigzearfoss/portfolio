@@ -24,10 +24,13 @@ return new class extends Migration
             $table->string('state', 20)->nullable();
             $table->string('zip', 20)->nullable();
             $table->string('country', 100)->nullable();
+            $table->float('longitude')->nullable();
+            $table->float('latitude')->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('link')->nullable();
+            $table->string('link_name')->nullable();
             $table->string('image')->nullable();
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();

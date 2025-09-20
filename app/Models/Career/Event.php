@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Event extends Model
 {
-    /** @use HasFactory<\Database\Factories\Portfolio\NoteFactory> */
+    /** @use HasFactory<\Database\Factories\Career\NoteFactory> */
     use HasFactory, SoftDeletes;
 
     protected $connection = 'career_db';

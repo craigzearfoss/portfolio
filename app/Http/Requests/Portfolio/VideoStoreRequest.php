@@ -49,7 +49,7 @@ class VideoStoreRequest extends FormRequest
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
             'date'         => ['date', 'nullable'],
-            'year'         => ['integer', 'between:0,3000', 'nullable'],
+            'year'         => ['integer', 'between:1980,'.date("Y"), 'nullable'],
             'company'      => ['string', 'max:255', 'nullable'],
             'credit'       => ['nullable'],
             'location'     => ['string', 'max:255', 'nullable'],

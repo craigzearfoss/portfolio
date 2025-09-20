@@ -6,11 +6,15 @@ use App\Models\Admin;
 use App\Models\Portfolio\Ingredient;
 use App\Models\Portfolio\Recipe;
 use App\Models\Portfolio\Unit;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RecipeIngredient extends Model
 {
+    /** @use HasFactory<\Database\Factories\Portfolio\RecipeIngredientFactory> */
+    use HasFactory;
+
     protected $connection = 'portfolio_db';
 
     protected $table = 'recipe_ingredients';

@@ -6,16 +6,15 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Video>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Recipe>
  */
-class VideoFactory extends Factory
+class RecipeFactory extends Factory
 {
     /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
-
     public function definition(): array
     {
         $name = fake()->unique()->words(5, true);
@@ -26,14 +25,19 @@ class VideoFactory extends Factory
             'slug'         => $slug,
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
-            'date'         => fake()->date(),
-            'year'         => fake()->numberBetween(1980, date("Y")),
-            'company'      => fake()->company(),
-            'credit'       => fake()->name(),
-            'location'     => fake()->city(),
-            'embed'        => null,
+            'source'       => fake()->company(),
+            'author'       => fake()->name(),
+            'main'         => fake()->numberBetween(0, 1),
+            'side'         => fake()->numberBetween(0, 1),
+            'dessert'      => fake()->numberBetween(0, 1),
+            'appetizer'    => fake()->numberBetween(0, 1),
+            'beverage'     => fake()->numberBetween(0, 1),
+            'breakfast'    => fake()->numberBetween(0, 1),
+            'lunch'        => fake()->numberBetween(0, 1),
+            'dinner'       => fake()->numberBetween(0, 1),
+            'snack'        => fake()->numberBetween(0, 1),
             'link'         => fake()->url(),
-            'link_name'    => fake()->words(6, true),
+            'link_name'    => fake()->words(5, true),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),
             'image_credit' => fake()->name(),

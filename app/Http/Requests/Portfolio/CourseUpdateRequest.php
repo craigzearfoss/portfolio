@@ -48,7 +48,7 @@ class CourseUpdateRequest extends FormRequest
             'slug'            => ['string', 'max:255', 'unique:portfolio_db.courses,slug,'.$this->course->id, 'filled'],
             'professional'    => ['integer', 'between:0,1'],
             'personal'        => ['integer', 'between:0,1'],
-            'year'            => ['integer', 'between:1980,2050', 'nullable'],
+            'year'            => ['integer', 'between:1980,'.date("Y"), 'nullable'],
             'completed'       => ['integer', 'between:0,1'],
             'completion_date' => ['date', 'nullable'],
             'duration_hours'  => ['numeric', 'nullable'],

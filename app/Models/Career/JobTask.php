@@ -3,6 +3,7 @@
 namespace App\Models\Career;
 
 use App\Models\Career\Job;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +11,8 @@ use Illuminate\Notifications\Notifiable;
 
 class JobTask extends Model
 {
-    use Notifiable, SoftDeletes;
+    /** @use HasFactory<\Database\Factories\Career\JobTaskFactory> */
+    use HasFactory, Notifiable, SoftDeletes;
 
     protected $connection = 'career_db';
 

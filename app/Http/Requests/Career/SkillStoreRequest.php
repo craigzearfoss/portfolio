@@ -26,11 +26,6 @@ class SkillStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
-        if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
-        }
-
         // Validate the admin_id. (Only root admins can change the admin for a skill.)
         if (empty($this['admin_id'])) {
             $this->merge(['admin_id' => Auth::guard('admin')->user()->id]);
@@ -45,7 +40,6 @@ class SkillStoreRequest extends FormRequest
 
         return [
             'name'         => ['required', 'string', 'max:255', 'unique:career_db.skills,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:career_db.skills,slug'],
             'rating'       => ['integer', 'between:1,10'],
             'years'        => ['integer', 'min:0'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],

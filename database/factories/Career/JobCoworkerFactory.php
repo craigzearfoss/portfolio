@@ -2,13 +2,14 @@
 
 namespace Database\Factories\Career;
 
+use App\Models\Career\Job;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Career\Reference>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Career\JobCoworker>
  */
-class ReferenceFactory extends Factory
+class JobCoworkerFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,23 +22,23 @@ class ReferenceFactory extends Factory
         $slug = Str::slug($name);
 
         return [
+            'job_id'          => fake()->randomElement(Job::all()->pluck('id')->toArray()),
             'name'            => $name,
             'slug'            => $slug,
-            'phone'           => fake()->phoneNumber(),
-            'phone_label'     => 'work',
-            'alt_phone'       => fake()->phoneNumber(),
-            'alt_phone_label' => fake()->randomElement(['home', 'mobile', 'pager']),
-            'email'           => fake()->safeEmail(),
-            'email_label'     => 'work',
-            'alt_email'       => fake()->safeEmail(),
-            'alt_email_label' => fake()->randomElement(['personal', 'alternate']),
+            'job_title'       => fake()->jobTitle(),
+            'level'           => fake()->numberBetween([1, 2, 3]), // 1-coworker, 2-superior, 3-subordinate
+            'work_phone'      => fake()->phoneNumber(),
+            'personal_phone'  => fake()->phoneNumber(),
+            'work_email'      => fake()->safeEmail(),
+            'personal_email'  => fake()->safeEmail(),
             'link'            => fake()->url(),
-            'link_name'       => fake()->words(4, true),
+            'link_name'       => fake()->words(3, true),
+            'description'     => fake()->text(200),
+            'notes'           => fake()->text(200),
             'image'           => fake()->imageUrl(),
             'image_credit'    => fake()->name(),
             'image_source'    => fake()->company(),
             'thumbnail'       => fake()->imageUrl(),
-            'description'     => fake()->text(200),
             'sequence'        => 0,
             'public'          => 0,
             'readonly'        => 0,

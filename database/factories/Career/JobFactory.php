@@ -17,15 +17,27 @@ class JobFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(6, true);
-        $slug = Str::slug($name);
+        $company = fake()->unique()->words(6, true);
+        $slug = Str::slug($company);
 
         return [
-            'name'         => $name,
+            'name'         => $company,
             'slug'         => $slug,
             'role'         => fake()->jobTitle(),
-            'start_date'   => fake()->date(),
-            'end_date'     => fake()->date(),
+            'start_month'  => fake()->numberBetween([1, 12]),
+            'start_year'   => fake()->numberBetween(2000, 2025),
+            'end_month'    => fake()->numberBetween([1, 12]),
+            'end_year'     => fake()->numberBetween(2000, 2025),
+            'summary'      => fake()->sentence(),
+            'notes'        => fake()->text(200),
+            'street'       => fake()->streetAddress(),
+            'street2'      => null,
+            'city'         => fake()->city(),
+            'state'        => fake()->randomElement(\App\Models\State::all()->pluck('code')->toArray()),
+            'zip'          => fake()->postcode(),
+            'country'      => fake()->randomElement(\App\Models\Country::all()->pluck('iso_alpha3')->toArray()),
+            'longitude'    => null,
+            'latitude'     => null,
             'link'         => fake()->url(),
             'link_name'    => fake()->words(4, true),
             'description'  => fake()->text(200),

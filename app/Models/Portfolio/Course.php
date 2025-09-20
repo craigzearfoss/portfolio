@@ -7,11 +7,12 @@ use App\Models\Portfolio\Academy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Course extends Model
 {
     /** @use HasFactory<\Database\Factories\Portfolio\CourseFactory> */
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 

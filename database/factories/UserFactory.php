@@ -24,6 +24,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+            'username'          => fake()->unique()->userName(),
             'name'              => fake()->name(),
             'title'             => fake()->randomElement(\App\Models\User::titleListOptions()),
             'street'            => fake()->streetAddress(),
@@ -32,13 +33,25 @@ class UserFactory extends Factory
             'state'             => fake()->randomElement(\App\Models\State::all()->pluck('code')->toArray()),
             'zip'               => fake()->postcode(),
             'country'           => fake()->randomElement(\App\Models\Country::all()->pluck('iso_alpha3')->toArray()),
+            'latitude'          => null,
+            'longitude'         => null,
             'phone'             => fake()->phoneNumber(),
             'email'             => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'website'           => fake()->url(),
+            'link'              => fake()->url(),
+            'link_name'         => fake()->words(3, true),
+            'description'       => fake()->text(200),
+            'image'             => fake()->imageUrl(),
+            'image_credit'      => fake()->name(),
+            'image_source'      => fake()->company(),
+            'thumbnail'         => fake()->imageUrl(),
             'password'          => static::$password ??= Hash::make('password'),
             'remember_token'    => Str::random(10),
             'status'            => 1,
+            'sequence'          => 0,
+            'public'            => 0,
+            'readonly'          => 0,
+            'root'              => 0,
             'disabled'          => fake()->numberBetween(0, 1),
         ];
     }
