@@ -808,6 +808,10 @@ return new class extends Migration
             ['id'=> 737, 'full_name' => 'taco shell (flour)',                  'name' => 'taco shell (flour)',               'slug' => 'flour-taco-shell'],
             ['id'=> 738, 'full_name' => 'chocolate (unsweetened baking)',      'name' => 'unsweetened baking chocolate',     'slug' => 'unsweetened-baking-chocolate'],
             ['id'=> 739, 'full_name' => 'green chard',                         'name' => 'chard',                            'slug' => 'chard'],
+            ['id'=> 740, 'full_name' => 'hot dog',                             'name' => 'hot dog',                          'slug' => 'hot-dog'],
+            ['id'=> 741, 'full_name' => 'hot dog roll',                        'name' => 'hot dog roll',                     'slug' => 'hot-dog-roll'],
+            ['id'=> 742, 'full_name' => 'hamburger roll',                      'name' => 'hamburger roll',                   'slug' => 'hamburger-roll'],
+            ['id'=> 743, 'full_name' => 'filo',                                'name' => 'filo',                             'slug' => 'filo'],
         ];
 
         Ingredient::insert($data);

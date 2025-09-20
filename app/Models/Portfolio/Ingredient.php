@@ -57,7 +57,7 @@ class Ingredient extends Model
             $options = [ '' => '' ];
         }
 
-        foreach (Academy::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
+        foreach (Ingredient::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
             $options[$nameAsKey ? $row->name : $row->id] = $row->name;
         }
 

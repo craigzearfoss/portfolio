@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => 'Recipe Steps',
+    'title' => (!empty($recipe) ? $recipe->name : 'Recipe') . ' instructions',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard',           'url' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',                 'url' => route('admin.portfolio.index') ],
@@ -22,10 +22,11 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th>recipe</th>
+                @if(empty($recipe))
+                    <th>recipe</th>
+                @endif
                 <th>step</th>
                 <th>description</th>
-                <!-- <th class="has-text-centered">sequence</th> -->
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">read-only</th>
                 <th class="has-text-centered">root</th>
@@ -36,10 +37,11 @@
             <?php /*
             <tfoot>
             <tr>
-                <th>recipe</th>
+                @if(empty($recipe))
+                    <th>recipe</th>
+                @endif
                 <th>step</th>
                 <th>description</th>
-                <!-- <th class="has-text-centered">sequence</th> -->
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">read-only</th>
                 <th class="has-text-centered">root</th>
@@ -53,17 +55,20 @@
             @forelse ($recipeSteps as $recipeStep)
 
                 <tr>
+                    @if(empty($recipe))
+                        <td class="py-0 text-nowrap">
+                            @include('admin.components.link', [
+                                'url'  => route('admin.portfolio.recipe.show', $recipeStep->recipe),
+                                'name' => $recipeStep->recipe['name']
+                            ])
+                        </td>
+                    @endif
                     <td>
-                        {{ $recipeStep->name }}
+                        {{ $recipeStep->step }}
                     </td>
                     <td>
                         {{ $recipeStep->description }}
                     </td>
-                    <!--
-                    <td class="py-0 has-text-centered">
-                        {{ $recipeStep->sequence }}
-                    </td>
-                    -->
                     <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipeStep->public ])
                     </td>
@@ -101,7 +106,7 @@
             @empty
 
                 <tr>
-                    <td colspan="8">There are no recipe steps.</td>
+                    <td colspan="{{ empty($recipe) ? '8' : '9' }}">There are no recipe steps.</td>
                 </tr>
 
             @endforelse

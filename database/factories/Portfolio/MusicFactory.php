@@ -3,6 +3,7 @@
 namespace Database\Factories\Portfolio;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Music>
@@ -16,25 +17,27 @@ class MusicFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->sentence(6);
-        $slug = str_replace(' ', '-', $name);
+        $name = fake()->unique()->words(5, true);
+        $artist = fake()->name();
+        $slug = Str::slug($name
+            . (!empty($artist) ? '-by-' . $artist : ''));
 
         return [
             'name'           => $name,
+            'artist'         => $artist,
             'slug'           => $slug,
             'professional'   => fake()->numberBetween(0, 1),
             'personal'       => fake()->numberBetween(0, 1),
-            'artist'         => fake()->name(),
             'label'          => fake()->company(),
-            'year'           => fake()->year(),
-            'release_date'   => fake()->date(),
             'catalog_number' => fake()->regexify('[A-Z]{3}-[0-9]{6}'),
+            'year'           => fake()->numberBetween(2000, 2025),
+            'release_date'   => fake()->dateTimeBetween('-20 years', 'now'),
             'link'           => fake()->url(),
             'link_name'      => fake()->words(6),
             'description'    => fake()->text(200),
             'image'          => fake()->imageUrl(),
-            'image_credit'   => fake()->words(3),
-            'image_source'   => fake()->words(3),
+            'image_credit'   => fake()->name(),
+            'image_source'   => fake()->company(),
             'thumbnail'      => fake()->imageUrl(),
             'sequence'       => 0,
             'public'         => 1,

@@ -17,15 +17,17 @@ class ReadingFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->sentence(6, true);
-        $slug = str_replace(' ', '-', $name);
+        $title = fake()->unique()->words(5, true);
+        $author = fake()->name();
+        $slug = Str::slug($title
+            . (!empty($artist) ? '-by-' . $artist : ''));
 
         return [
-            'name'         => $name,
+            'title'        => $title,
+            'author'       => $author,
             'slug'         => $slug,
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
-            'author'       => fake()->name(),
             'paper'        => fake()->numberBetween(0, 1),
             'audio'        => fake()->numberBetween(0, 1),
             'wishlist'     => fake()->numberBetween(0, 1),

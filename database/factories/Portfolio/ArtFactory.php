@@ -3,6 +3,7 @@
 namespace Database\Factories\Portfolio;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Art>
@@ -17,21 +18,23 @@ class ArtFactory extends Factory
     public function definition(): array
     {
         $name = fake()->unique()->words(5, true);
-        $slug = str_replace(' ', '-', $name);
+        $artist = fake()->name();
+        $slug = Str::slug($name
+            . (!empty($artist) ? '-by-' . $artist : ''));
 
         return [
             'name'         => $name,
+            'artist'       => $artist,
             'slug'         => $slug,
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
-            'artist'       => fake()->name(),
-            'year'         => fake()->year(),
+            'year'         => fake()->numberBetween(1980, 2025),
             'link'         => fake()->url(),
             'link_name'    => fake()->words(5, true),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),
-            'image_credit' => fake()->words(3), true,
-            'image_source' => fake()->words(3, true),
+            'image_credit' => fake()->name(),
+            'image_source' => fake()->company(),
             'thumbnail'    => fake()->imageUrl(),
             'sequence'     => 0,
             'public'       => 1,

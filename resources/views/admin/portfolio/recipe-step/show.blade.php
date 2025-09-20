@@ -1,11 +1,11 @@
 @extends('admin.layouts.default', [
-    'title' => $recipeStep->recipe->name . ' step ' . $recipeStep->step,
+    'title' => $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
-        [ 'name' => 'Recipes',         'url' => route('admin.portfolio.recipe.index') ],
-        [ 'name' => '#Recipe Name#',   'url' => route('admin.portfolio.recipe.show') ],
-        [ 'name' => 'Step #' ],
+        [ 'name' => 'Admin Dashboard',           'url' => route('admin.dashboard')],
+        [ 'name' => 'Portfolio',                 'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Recipes',                   'url' => route('admin.portfolio.recipe.index') ],
+        [ 'name' => $recipeStep->recipe['name'], 'url' => route('admin.portfolio.recipe.show', $recipeStep->recipe) ],
+        [ 'name' => 'Step ' . $recipeStep->step ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.portfolio.recipe-step.edit', $recipeStep) ],
@@ -22,13 +22,21 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $recipeStep->id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'owner',
-            'value' => $video->admin['username'] ?? ''
+            'value' => $recipeStep->admin['username'] ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'recipe',
-            'value' => '<a href="' . route('admin.portfolio.recipe.show',$recipeStep->recipe ) . '">' . $recipeStep->recipe['name'] . '</a>'
+            'value' => view('admin.components.link', [
+                'url'  => route('admin.portfolio.recipe.show', $recipeStep->recipe['id']),
+                'name' => $recipeStep->recipe['name']
+            ])
         ])
 
         @include('admin.components.show-row', [

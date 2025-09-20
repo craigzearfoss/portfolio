@@ -48,7 +48,7 @@ class RecipeIngredientUpdateRequest extends FormRequest
             'ingredient_id' => ['required', 'integer', Rule::in(Ingredient::all()->pluck('id')->toArray())],
             'amount'        => ['string', 'max:50:', 'nullable'],
             'unit_id'       => ['required', 'integer', Rule::in(Unit::all()->pluck('id')->toArray()), 'nullable'],
-            'nullable'      => ['string', 'max:255:', 'nullable'],
+            'qualifier'     => ['string', 'max:255:', 'nullable'],
             'description'   => ['nullable'],
             'image'         => ['string', 'max:255', 'nullable'],
             'image_credit'  => ['string', 'max:255', 'nullable'],

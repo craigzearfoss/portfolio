@@ -3,6 +3,7 @@
 namespace Database\Factories\Career;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Career\CoverLetter>
@@ -17,7 +18,7 @@ class CoverLetterFactory extends Factory
     public function definition(): array
     {
         $name = fake()->unique()->words(6, true);
-        $slug = str_replace(' ', '-', $name);
+        $slug = Str::slug($name);
 
         return [
             'name'          => $name,

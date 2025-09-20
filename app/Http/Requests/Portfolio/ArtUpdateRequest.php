@@ -43,11 +43,11 @@ class ArtUpdateRequest extends FormRequest
             : [Auth::guard('admin')->user()->id];
 
         return [
-            'name'         => ['string', 'max:255', 'unique:portfolio_db.art,name,'.$this->art->id, 'filled'],
+            'name'         => ['string', 'max:255', 'filled'],
+            'artist'       => ['string', 'max:255', 'nullable'],
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.art,slug,'.$this->art->id, 'filled'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
-            'artist'       => ['string', 'max:255', 'nullable'],
             'year'         => ['integer', 'between:1900,2050', 'nullable'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],

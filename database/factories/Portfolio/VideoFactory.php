@@ -19,7 +19,7 @@ class VideoFactory extends Factory
     public function definition(): array
     {
         $name = fake()->unique()->words(5, true);
-        $slug = str_replace(' ', '-', $name);
+        $slug = Str::slug($name);
 
         return [
             'name'         => $name,

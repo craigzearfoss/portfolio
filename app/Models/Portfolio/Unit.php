@@ -61,7 +61,7 @@ class Unit extends Model
         }
 
         foreach (Unit::select('id', 'name', 'abbreviation')->orderBy('name', 'asc')->get() as $row) {
-            $options[$abbreviationAsKey ? $row->abbreviation : $row->name] = $row->name;
+            $options[$abbreviationAsKey ? $row->abbreviation : $row->id] = $row->name;
         }
 
         return $options;

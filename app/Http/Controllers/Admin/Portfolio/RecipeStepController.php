@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin\Portfolio;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Portfolio\RecipeStepStoreRequest;
 use App\Http\Requests\Portfolio\RecipeStepUpdateRequest;
+use App\Models\Portfolio\Recipe;
 use App\Models\Portfolio\RecipeStep;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  *
@@ -25,9 +27,18 @@ class RecipeStepController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $recipeSteps = RecipeStep::latest()->paginate($perPage);
+        if ($recipeId = $request->query('recipe_id')) {
+            if (!$recipe = Recipe::find($recipeId)) {
+                throw new NotFoundHttpException('Recipe not found.');
+            } else {
+                $recipeSteps = RecipeStep::where('recipe_id', $recipeId)->orderBy('step', 'asc')->paginate($perPage);
+            }
+        } else {
+            $recipe = null;
+            $recipeSteps = RecipeStep::latest()->paginate($perPage);
+        }
 
-        return view('admin.portfolio.recipe-step.index', compact('recipeSteps'))
+        return view('admin.portfolio.recipe-step.index', compact('recipeSteps', 'recipe'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

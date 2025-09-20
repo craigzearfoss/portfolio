@@ -1,11 +1,11 @@
 @extends('admin.layouts.default', [
-    'title' => $recipeStep->recipe['name'] . ' (step ' . $recipeStep->step . ')',
+    'title' => $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
-        [ 'name' => 'Recipes',         'url' => route('admin.portfolio.recipe.index') ],
-        [ 'name' => 'Ingredients',     'url' => route('admin.portfolio.recipe-step.index') ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => 'Admin Dashboard',           'url' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',                 'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Recipes',                   'url' => route('admin.portfolio.recipe.index') ],
+        [ 'name' => $recipeStep->recipe['name'], 'url' => route('admin.portfolio.recipe.show', $recipeStep->recipe) ],
+        [ 'name' => 'Edit Step ' . $recipeStep->step ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.portfolio.recipe-step.index') ],
@@ -19,7 +19,7 @@
 
     <div class="card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.recipe-step.store') }}" method="POST">
+        <form action="{{ route('admin.portfolio.recipe-step.update', $recipeStep) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
@@ -29,11 +29,12 @@
 
             @if(Auth::guard('admin')->user()->root)
                 @include('admin.components.form-select-horizontal', [
-                    'name'    => 'admin_id',
-                    'label'   => 'admin',
-                    'value'   => old('admin_id') ?? $art->admin_id,
-                    'list'    => \App\Models\Admin::listOptions(),
-                    'message' => $message ?? '',
+                    'name'     => 'admin_id',
+                    'label'    => 'admin',
+                    'value'    => old('admin_id') ?? $recipeStep->admin_id,
+                    'required' => true,
+                    'list'     => \App\Models\Admin::listOptions(),
+                    'message'  => $message ?? '',
                 ])
             @endif
 
@@ -41,8 +42,8 @@
                 'name'     => 'recipe_id',
                 'label'    => 'recipe',
                 'value'    => old('recipe_id') ?? $recipeStep->recipe_id,
-                'list'     => \App\Models\Portfolio\Recipe::listOptions(false),
                 'required' => true,
+                'list'     => \App\Models\Portfolio\Recipe::listOptions(false),
                 'message'  => $message ?? '',
             ])
 

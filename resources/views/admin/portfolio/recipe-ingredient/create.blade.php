@@ -1,3 +1,4 @@
+CREATE
 @extends('admin.layouts.default', [
     'title' =>'Add New Recipe Ingredient',
     'breadcrumbs' => [
@@ -37,20 +38,22 @@
                 ])
             @endif
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'recipe_id',
-                'value'     => old('recipe_id') ?? '',
-                'required'  => true,
-                'message'   => $message ?? '',
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'recipe_id',
+                'label'    => 'recipe',
+                'value'    => old('recipe_id') ?? '',
+                'required' => true,
+                'list'     => \App\Models\Portfolio\Recipe::listOptions(true, false),
+                'message'  => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'ingredient_id',
-                'value'     => old('ingredient_id') ?? '',
-                'required'  => true,
-                'message'   => $message ?? '',
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'ingredient_id',
+                'label'    => 'ingredient',
+                'value'    => old('ingredient_id') ?? '',
+                'required' => true,
+                'list'     => \App\Models\Portfolio\Ingredient::listOptions(true, false),
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -60,17 +63,18 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'unit_id',
-                'value'     => old('unit_id') ?? '',
-                'message'   => $message ?? '',
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'unit_id',
+                'label'   => 'unit',
+                'value'   => old('unit_id') ?? '',
+                'list'    => \App\Models\Portfolio\Unit::listOptions(true, false),
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'qualifier',
                 'value'     => old('qualifier') ?? '',
-                'maxlength' => 100,
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
@@ -82,9 +86,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image',
-                'value'   => old('image') ?? '',
-                'message' => $message ?? '',
+                'name'      => 'image',
+                'value'     => old('image') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -104,10 +109,11 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                  'name'    => 'thumbnail',
-                  'value'   => old('thumbnail') ?? '',
-                  'message' => $message ?? '',
-              ])
+                'name'      => 'thumbnail',
+                'value'     => old('thumbnail') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
 
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',

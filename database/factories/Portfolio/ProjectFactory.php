@@ -3,6 +3,7 @@
 namespace Database\Factories\Portfolio;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Project>
@@ -16,8 +17,8 @@ class ProjectFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->words(6, true);
-        $slug = str_replace(' ', '-', $name);
+        $name = fake()->unique()->words(5, true);
+        $slug = Str::slug($name);
 
         return [
             'name'         => $name,

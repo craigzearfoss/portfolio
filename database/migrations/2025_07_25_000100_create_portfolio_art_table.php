@@ -15,10 +15,10 @@ return new class extends Migration
         Schema::connection('portfolio_db')->create('art', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('artist')->nullable();
             $table->string('slug')->unique();
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
-            $table->string('artist')->nullable();
             $table->year('year')->nullable();
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
@@ -36,8 +36,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['admin_id', 'name'], 'admin_id_name_unique');
             $table->unique(['admin_id', 'slug'], 'admin_id_slug_unique');
+
+            $table->index('name');
+            $table->index('artist');
         });
     }
 

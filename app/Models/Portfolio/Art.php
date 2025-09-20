@@ -23,10 +23,10 @@ class Art extends Model
      */
     protected $fillable = [
         'name',
+        'artist',
         'slug',
         'professional',
         'personal',
-        'artist',
         'year',
         'link',
         'link_name',

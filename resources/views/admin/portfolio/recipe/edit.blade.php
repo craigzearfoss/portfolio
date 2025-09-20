@@ -259,6 +259,68 @@
                 'message'         => $message ?? '',
             ])
 
+            <div class="card p-4">
+
+                <h2 class="subtitle">
+                    Ingredients
+                    <a href="{{ route('admin.portfolio.recipe-ingredient.index', ['recipe_id' => $recipe->id]) }}"
+                       title="edit ingredients"
+                       class="button is-primary is-small px-1 py-0"
+                    >
+                        Edit Ingredients
+                    </a>
+                </h2>
+                <ul>
+
+                    @foreach($recipe->ingredients as $ingredient)
+
+                        <li>
+                            {{ $ingredient['amount'] }}
+                            {{ \App\Models\Portfolio\Unit::find($ingredient['unit_id'])->abbreviation }}
+                            {{ \App\Models\Portfolio\Ingredient::find($ingredient['ingredient_id'])->name }}
+                            @if(!empty($ingredient['qualifier']))
+                                - {{ $ingredient['qualifier'] }}
+                            @endif
+                        </li>
+
+                    @endforeach
+
+                </ul>
+
+            </div>
+
+            <div class="card p-4">
+
+                <h2 class="subtitle">
+                    Instructions
+                    <a href="{{ route('admin.portfolio.recipe-step.index', ['recipe_id' => $recipe->id]) }}"
+                       title="edit instructions"
+                       class="button is-primary is-small px-1 py-0"
+                    >
+                        Edit Instructions
+                    </a>
+                </h2>
+                <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+                    <tbody>
+
+                    @foreach($recipe->steps as $step)
+
+                        <tr>
+                            <td>
+                                {{ $step['step'] }}
+                            </td>
+                            <td>
+                                {{ $step['description'] }}
+                            </td>
+                        </tr>
+
+                    @endforeach
+
+                    </tbody>
+                </table>
+
+            </div>
+
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
                 'cancel_url' => referer('admin.portfolio.recipe.index')

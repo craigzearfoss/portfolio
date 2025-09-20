@@ -28,6 +28,12 @@ class ArtStoreRequest extends FormRequest
     {
         // Generate the slug.
         if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']
+                . (!empty($this['artist']) ? '-by-' . $this['artist'] : ''))
+            ]);
+        }
+
+        if (!empty($this['name'])) {
             $this->merge([ 'slug' => Str::slug($this['name']) ]);
         }
 
@@ -44,11 +50,11 @@ class ArtStoreRequest extends FormRequest
             : [Auth::guard('admin')->user()->id];
 
         return [
-            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.art,name'],
+            'name'         => ['required', 'string', 'max:255'],
+            'artist'       => ['string', 'max:255', 'nullable'],
             'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.art,slug'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
-            'artist'       => ['string', 'max:255', 'nullable'],
             'year'         => ['integer', 'between:1900,2050', 'nullable'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],
