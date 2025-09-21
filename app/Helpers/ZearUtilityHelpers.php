@@ -2,7 +2,7 @@
 
 if (! function_exists('refererRouteName')) {
     /**
-     * Convert a Y-m-d MySQL formatted date to an m-d-Y formatted date.
+     * Returns the route name of the refering page or null if there was no refering page.
      *
      * @return string | null
      */
@@ -21,7 +21,7 @@ if (! function_exists('refererRouteName')) {
 
 if (! function_exists('referer')) {
     /**
-     * Convert a Y-m-d MySQL formatted date to an m-d-Y formatted date.
+     * Returns the url of the refering page or the specified fallback route if there was no referer.
      *
      * @param string | null $fallbackRoute
      * @param mixed $parameters
@@ -45,3 +45,14 @@ if (! function_exists('referer')) {
     }
 }
 
+if (! function_exists('isRoot')) {
+    /**
+     * Returns true if an admin with root privileges.
+     *
+     * @return bool
+     */
+    function isRoot(): bool
+    {
+        return (bool) Auth::guard('admin')->user()->root;
+    }
+}

@@ -10,6 +10,8 @@ use App\Models\Career\Event;
 use App\Models\Career\JobBoard;
 use App\Models\Career\Note;
 use App\Models\Career\Resume;
+use App\Models\Scopes\AdminGlobalScope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Application extends Model
 {
@@ -107,6 +110,13 @@ class Application extends Model
         'disabled',
         'admin_id',
     ];
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::addGlobalScope(new AdminGlobalScope());
+    }
 
     /**
      * Get the admin who owns the career application.

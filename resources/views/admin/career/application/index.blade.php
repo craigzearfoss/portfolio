@@ -20,6 +20,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRoot())
+                    <th>admin</th>
+                @endif
                 <th>role</th>
                 <th>active</th>
                 <th>rating</th>
@@ -41,6 +44,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRoot())
+                    <th>admin</th>
+                @endif
                 <th>role</th>
                 <th>active</th>
                 <th>rating</th>
@@ -63,8 +69,13 @@
             <tbody>
 
             @forelse ($applications as $application)
-@php /* dd( get_class_methods($application)); */ @endphp
+
                 <tr>
+                    @if(isRoot())
+                        <td>
+                            {{ $application->admin['username'] ?? '' }}
+                        </td>
+                    @endif
                     <td>
                         {{ $application->role }}
                     </td>
