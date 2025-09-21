@@ -74,7 +74,7 @@ if (! function_exists('longDate')) {
     /**
      * Convert a MySQL date-time to the short form specified by the APP_DATE_FORMAT_LONG .env variable.
      *
-     * @param string $YmdDate - day in the format Y-m-d H:i:s
+     * @param string|null $YmdDate - day in the format Y-m-d H:i:s
      * @return string | null
      */
     function longDate(string|null $YmdDate): string | null

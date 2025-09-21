@@ -4,6 +4,7 @@ namespace App\Models\Portfolio;
 
 use App\Models\Admin;
 use App\Models\Portfolio\Recipe;
+use App\Models\Scopes\AdminGlobalScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -37,6 +38,13 @@ class RecipeStep extends Model
         'disabled',
         'admin_id',
     ];
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::addGlobalScope(new AdminGlobalScope());
+    }
 
     /**
      * Get the admin who owns the portfolio recipe ingredient.

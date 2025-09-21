@@ -3,6 +3,7 @@
 namespace App\Models\Portfolio;
 
 use App\Models\Admin;
+use App\Models\Scopes\AdminGlobalScope;
 use App\Models\Portfolio\Ingredient;
 use App\Models\Portfolio\Recipe;
 use App\Models\Portfolio\Unit;
@@ -42,6 +43,13 @@ class RecipeIngredient extends Model
         'disabled',
         'admin_id',
     ];
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::addGlobalScope(new AdminGlobalScope());
+    }
 
     /**
      * Get the admin who owns the portfolio recipe ingredient.

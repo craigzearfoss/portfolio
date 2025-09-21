@@ -8,6 +8,7 @@
             onclick="{{ $onclick }}"
         @endif
     >
+        @if(!empty($icon))<i class="fa-solid {{ $icon }}"></i> @endif
         {{ $name ?? $url ?? '#name#' }}
     </a>
 @endif

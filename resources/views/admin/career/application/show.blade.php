@@ -27,24 +27,35 @@
 
         @include('admin.components.show-row', [
             'name'  => 'company',
-            'value' => !empty($application->company)
-                ? $application->company_id . ' - <a href="' . route('admin.career.company.show', $application->company) . '">' . $application->company['name'] . '</a>'
-                : ''
+            'value' =>  view('admin.components.link', [
+                'url'  => !empty($application->company)
+                    ?route('admin.career.company.show', $application->company['id'])
+                    : '',
+                'name' => $application->company['name'] ?? ''
+            ])
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'cover letter',
-            'value' => !empty($application->cover_letter)
-                ? $application->cover_letter_id . ' - <a href="' . route('admin.career.cover-letter.show', $application->cover_letter) . '">' . $application->cover_letter['name'] . '</a>'
-                : ''
-        ])
+        @if(!empty($application->cover_letter))
+            @include('admin.components.show-row', [
+                'name'  => 'cover letter',
+                'value' => view('admin.components.link', [
+                    'url'  => route('admin.career.cover-letter.show', $application->cover_letter['id']),
+                    'name' => $application->cover_letter['name'] ?? ''
+                ])
+            ])
+        @else
+            @include('admin.components.show-row', [
+                'name'  => 'cover letter',
+                'value' => view('admin.components.link', [
+                    'name'  => 'Attach a cover letter',
+                    'url'   => route('admin.career.cover-letter.create', ['application_id' => $application->id]),
+                    'class' => 'button is-primary is-small px-1 py-0',
+                    'icon'  => 'fa-plus'
+                ])
+            ])
+        @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'resume',
-            'value' => !empty($application->resume)
-                ? $application->resume_id . ' - <a href="' . route('admin.career.resume.show', $application->resume) . '">' . $application->resume['name'] . '</a>'
-                : ''
-        ])
+        <h1 class="subtitle">@TODO: resume</h1>
 
         @include('admin.components.show-row', [
             'name'  => 'name',
@@ -89,12 +100,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'type',
-            'value' => \App\Models\Career\Application::typeName($application->type)
+            'value' => $application->type
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'office',
-            'value' => \App\Models\Career\Application::officeName($application->office)
+            'value' => $application->office
         ])
 
         @include('admin.components.show-row', [
@@ -169,7 +180,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'job board',
-            'value' => $application->job_board_id
+            'value' => view('admin.components.link', [
+                'url' => !empty($application->job_board)
+                    ? route('admin.career.job-board.show', $application->job_board['id'])
+                    : '',
+                'name' => $application->job_board['name'] ?? '',
+            ])
         ])
 
         @include('admin.components.show-row', [
@@ -270,5 +286,26 @@
         ])
 
     </div>
+
+    @include('admin.components.application.communications-panel', [
+        'communications' => $application->communications,
+        'links' => [
+            'add' => route('admin.career.communication.create', ['application_id' => $application->id])
+        ]
+    ])
+
+    @include('admin.components.application.events-panel', [
+        'events' => $application->events,
+        'links'  => [
+            'add' => route('admin.career.event.create', ['application_id' => $application->id])
+        ]
+    ])
+
+    @include('admin.components.application.notes-panel', [
+        'notes' => $application->notes,
+        'links' => [
+            'add' => route('admin.career.note.create', ['application_id' => $application->id])
+        ]
+    ])
 
 @endsection

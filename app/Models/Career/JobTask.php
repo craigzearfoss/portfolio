@@ -3,6 +3,7 @@
 namespace App\Models\Career;
 
 use App\Models\Career\Job;
+use App\Models\Scopes\AdminGlobalScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -42,6 +43,13 @@ class JobTask extends Model
         'disabled',
         'admin_id',
     ];
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::addGlobalScope(new AdminGlobalScope());
+    }
 
     /**
      * Get the career job that owns the career coworker.

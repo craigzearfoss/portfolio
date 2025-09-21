@@ -13,7 +13,7 @@ class CategoryUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check() && Auth::guard('admin')->user()->root;
+        return isRootAdmin();
     }
 
     /**

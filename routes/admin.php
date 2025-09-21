@@ -72,7 +72,7 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::resource('communication', CareerCommunicationController::class);
     Route::resource('company', CareerCompanyController::class);
     Route::resource('contact', CareerContactController::class);
-    Route::resource('cover-letter', CareerCoverLetterController::class);
+    Route::resource('cover-letter', CareerCoverLetterController::class)->parameter('cover-letter', 'cover_letter');
     Route::resource('industry', CareerIndustryController::class);
     Route::resource('event', CareerEventController::class);
     Route::resource('job', CareerJobController::class);

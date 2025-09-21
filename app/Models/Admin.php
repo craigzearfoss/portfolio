@@ -28,6 +28,7 @@ use App\Models\Portfolio\Recipe;
 use App\Models\Portfolio\RecipeIngredient;
 use App\Models\Portfolio\RecipeStep;
 use App\Models\Portfolio\Video;
+use App\Models\Scopes\AdminGlobalScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -41,6 +42,13 @@ class Admin extends Authenticatable
     protected $connection = 'default_db';
 
     protected $table = 'admins';
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::addGlobalScope(new AdminGlobalScope());
+    }
 
     /**
      * The attributes that are mass assignable.

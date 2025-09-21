@@ -11,7 +11,6 @@ use App\Models\Career\JobBoard;
 use App\Models\Career\Note;
 use App\Models\Career\Resume;
 use App\Models\Scopes\AdminGlobalScope;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +18,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 
 class Application extends Model
 {
@@ -119,62 +117,6 @@ class Application extends Model
     }
 
     /**
-     * Get the admin who owns the career application.
-     */
-    public function admin(): BelongsTo
-    {
-        return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
-    }
-
-    /**
-     * Get the career communications for the career application.
-     */
-    public function communications(): HasMany
-    {
-        return $this->hasMany(Communication::class, 'communication_id')->orderBy('created_at', 'desc');
-    }
-
-    /**
-     * Get the career company that owns the career application.
-     */
-    public function company(): BelongsTo
-    {
-        return $this->setConnection('career_db')->belongsTo(Company::class, 'company_id');
-    }
-
-    /**
-     * Get the career cover letter for the career application.
-     */
-    public function coverLetter(): HasOne
-    {
-        return $this->setConnection('career_db')->hasOne(CoverLetter::class, 'cover_letter_id');
-    }
-
-    /**
-     * Get the career job boards for the career application.
-     */
-    public function jobBoards(): HasMany
-    {
-        return $this->hasMany(JobBoard::class);
-    }
-
-    /**
-     * Get the career notes for the career application.
-     */
-    public function notes(): HasMany
-    {
-        return $this->hasMany(Note::class);
-    }
-
-    /**
-     * Get the career resume that owns the career application.
-     */
-    public function resume(): BelongsTo
-    {
-        return $this->setConnection('career_db')->belongsTo(Resume::class, 'resume_id');
-    }
-
-    /**
      * Returns the job office of the current application.
      *
      * @return Attribute
@@ -196,6 +138,74 @@ class Application extends Model
         return Attribute::make(
             get: fn () => !empty($this->type_id) ? self::typeName($this->type_id) : null,
         );
+    }
+
+    /**
+     * Get the admin who owns the career application.
+     */
+    public function admin(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+    }
+
+    /**
+     * Get the job_board who owns the career application.
+     */
+    public function job_board(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(JobBoard::class, 'job_board_id');
+    }
+
+    /**
+     * Get the career communications for the career application.
+     */
+    public function communications(): HasMany
+    {
+        return $this->hasMany(Communication::class, 'application_id')
+            ->orderBy('date', 'desc')
+            ->orderBy('time', 'desc');
+    }
+
+    /**
+     * Get the career company that owns the career application.
+     */
+    public function company(): BelongsTo
+    {
+        return $this->setConnection('career_db')->belongsTo(Company::class, 'company_id');
+    }
+
+    /**
+     * Get the career events for the career application.
+     */
+    public function events(): HasMany
+    {
+        return $this->hasMany(Event::class, 'application_id')
+            ->orderBy('date', 'desc');
+    }
+
+    /**
+     * Get the career cover letter for the career application.
+     */
+    public function coverLetter(): HasOne
+    {
+        return $this->setConnection('career_db')->hasOne(CoverLetter::class, 'cover_letter_id');
+    }
+
+    /**
+     * Get the career notes for the career application.
+     */
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class, 'application_id')
+            ->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Get the career resume that owns the career application.
+     */
+    public function resume(): BelongsTo
+    {
+        return $this->setConnection('career_db')->belongsTo(Resume::class, 'resume_id');
     }
 
     /**
@@ -222,10 +232,10 @@ class Application extends Model
     /**
      * Returns the office name for the given id or null if not found.
      *
-     * @param int $id
+     * @param int|string $id
      * @return string|null
      */
-    public static function officeName(int $id): string | null
+    public static function officeName(int|string $id): string | null
     {
         return self::OFFICES[$id] ?? null;
     }
@@ -286,10 +296,10 @@ class Application extends Model
     /**
      * Returns the type name for the given id or null if not found.
      *
-     * @param int $id
+     * @param int|string $id
      * @return string|null
      */
-    public static function typeName(int $id): string | null
+    public static function typeName(int|string $id): string | null
     {
         return self::TYPES[$id] ?? null;
     }

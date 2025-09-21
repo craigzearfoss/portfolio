@@ -20,7 +20,7 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                @if(isRoot())
+                @if(isRootAdmin())
                     <th>admin</th>
                 @endif
                 <th>role</th>
@@ -44,7 +44,7 @@
             <?php /*
             <tfoot>
             <tr>
-                @if(isRoot())
+                @if(isRootAdmin())
                     <th>admin</th>
                 @endif
                 <th>role</th>
@@ -71,7 +71,7 @@
             @forelse ($applications as $application)
 
                 <tr>
-                    @if(isRoot())
+                    @if(isRootAdmin())
                         <td>
                             {{ $application->admin['username'] ?? '' }}
                         </td>
@@ -166,7 +166,7 @@
             @empty
 
                 <tr>
-                    <td colspan="16">There are no applications.</td>
+                    <td colspan="{{ isRootAdmin() ? '17' : '16' }}">There are no applications.</td>
                 </tr>
 
             @endforelse

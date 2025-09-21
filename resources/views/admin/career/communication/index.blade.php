@@ -20,6 +20,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>subject</th>
                 <th>created at</th>
                 <th>actions</th>
@@ -28,6 +31,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>subject</th>
                 <th>created at</th>
                 <th>actions</th>
@@ -39,6 +45,11 @@
             @forelse ($communications as $communication)
 
                 <tr>
+                    @if(isRootAdmin())
+                        <td>
+                            {{ $communication->admin['username'] ?? '' }}
+                        </td>
+                    @endif
                     <td>
                         {{ $communication->subject }}
                     </td>
@@ -70,7 +81,7 @@
             @empty
 
                 <tr>
-                    <td colspan="3">There are no communications.</td>
+                    <td colspan="{{ isRootAdmin() ? '4' : '3' }}">There are no communications.</td>
                 </tr>
 
             @endforelse

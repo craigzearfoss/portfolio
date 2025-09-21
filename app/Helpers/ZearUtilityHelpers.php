@@ -45,13 +45,13 @@ if (! function_exists('referer')) {
     }
 }
 
-if (! function_exists('isRoot')) {
+if (! function_exists('isRootAdmin')) {
     /**
      * Returns true if an admin with root privileges.
      *
      * @return bool
      */
-    function isRoot(): bool
+    function isRootAdmin(): bool
     {
         return (bool) Auth::guard('admin')->user()->root;
     }
