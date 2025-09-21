@@ -14,8 +14,7 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('cover_letters', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
+            $table->foreignIdFor(\App\Models\Career\Application::class);
             $table->date('date')->nullable();
             $table->text('content')->nullable();
             $table->string('link')->nullable();
@@ -33,12 +32,9 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
-            $table->foreignIdFor( \App\Models\Admin::class);
+            $table->foreignIdFor(\App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->unique(['admin_id', 'name'], 'admin_id_name_unique');
-            $table->unique(['admin_id', 'slug'], 'admin_id_slug_unique');
         });
     }
 

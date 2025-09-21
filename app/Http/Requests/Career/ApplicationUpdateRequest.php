@@ -52,8 +52,8 @@ class ApplicationUpdateRequest extends FormRequest
             'compensation'      => ['integer', 'nullable'],
             'compensation_unit' => ['string', 'max:20', 'nullable'],
             'duration'          => ['string', 'max:100', 'nullable'],
-            'type'              => ['integer', 'between:0,3'],  // 0-permanent,1-contract,2-contract-to-hire,3-project
-            'office'            => ['integer', 'between:0,1'],  // 0-onsite,1-remote,2-hybrid
+            'type_id'           => ['integer', 'between:1,5'],  // 1-permanent,2-contract,3-contract-to-hire,4-temporary,5-project
+            'office_id'         => ['integer', 'between:1,3'],  // 1-onsite,2-remote,3-hybrid
             'street'            => ['string', 'max:255', 'nullable'],
             'street2'           => ['string', 'max:255', 'nullable'],
             'city'              => ['string', 'max:100', 'nullable'],

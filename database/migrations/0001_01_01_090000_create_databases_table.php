@@ -29,7 +29,7 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(1);
             $table->tinyInteger('disabled')->default(0);
-            $table->foreignIdFor( Admin::class);
+            $table->foreignIdFor(Admin::class);
             $table->timestamps();
         });
 

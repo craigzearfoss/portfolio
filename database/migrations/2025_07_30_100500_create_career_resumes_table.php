@@ -30,7 +30,7 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
-            $table->foreignIdFor( \App\Models\Admin::class);
+            $table->foreignIdFor(\App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
 
@@ -44,18 +44,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        try {
-            if (Schema::connection('career_db')->hasTable('resumes')) {
-                Schema::connection('career_db')->table('resumes', function (Blueprint $table) {
-                    try {
-                        $table->dropForeign('resumes_company_id_foreign');
-                        $table->dropColumn('company_id');
-                    } catch (\Exception $e) {
-                    }
-                });
-            }
-        } catch (\Exception $e) {}
-
         Schema::connection('career_db')->dropIfExists('resumes');
     }
 };

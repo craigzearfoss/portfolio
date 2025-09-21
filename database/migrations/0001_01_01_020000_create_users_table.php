@@ -70,7 +70,7 @@ return new class extends Migration
                 'name'              => 'Sample User',
                 'email'             => 'user@gmail.com',
                 'email_verified_at' => now(),
-                'password'          => Hash::make('changeme'),
+                'password'          => Hash::make(uniqid()),
                 'status'            => 1,
                 'token'             => null
             ],
@@ -80,7 +80,7 @@ return new class extends Migration
                 'name'              => 'Demo User',
                 'email'             => 'demo-user@gmail.com',
                 'email_verified_at' => now(),
-                'password'          => Hash::make('changeme'),
+                'password'          => Hash::make(uniqid()),
                 'status'            => 1,
                 'token'             => null,
             ],

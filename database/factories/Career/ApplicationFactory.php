@@ -30,8 +30,6 @@ class ApplicationFactory extends Factory
 
         return [
             'company_id'        => \App\Models\Career\Company::all()->random()->id,
-            'cover_letter_id'   => \App\Models\Career\CoverLetter::all()->random()->id,
-            'resume_id'         => \App\Models\Career\Resume::all()->random()->id,
             'role'              => fake()->jobTitle(),
             'rating'            => fake()->numberBetween(0, 4),
             'active'            => 1,
@@ -40,8 +38,8 @@ class ApplicationFactory extends Factory
             'compensation'      => $amount,
             'compensation_unit' => $unit,
             'duration'          => fake()->randomElement(['permanent', '3 months', '6 months', '1 year']),
-            'type'              => fake()->numberBetween(1, 5), // 1-permanent,2-contract,3-contract-to-hire,4-project,5-temporary
-            'office'            => fake()->numberBetween(1, 3), // 1-onsite,2-remote,3-hybrid
+            'type_id'           => fake()->numberBetween(1, 5), // 1-permanent,2-contract,3-contract-to-hire,4-temporary,5-project
+            'office_id'         => fake()->numberBetween(1, 3), // 1-onsite,2-remote,3-hybrid
             'street'            => fake()->streetAddress(),
             'street2'           => null,
             'city'              => fake()->city(),

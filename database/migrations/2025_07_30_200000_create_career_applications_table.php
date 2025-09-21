@@ -15,8 +15,6 @@ return new class extends Migration
         Schema::connection('career_db')->create('applications', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\Career\Company::class);
-            $table->foreignIdFor( \App\Models\Career\CoverLetter::class);
-            $table->foreignIdFor( \App\Models\Career\Resume::class);
             $table->string('role');
             $table->tinyInteger('rating')->default(0);
             $table->tinyInteger('active')->default(1);
@@ -26,8 +24,8 @@ return new class extends Migration
             $table->integer('compensation')->default(0);
             $table->string('compensation_unit', 20)->nullable();
             $table->string('duration',100)->nullable();
-            $table->tinyInteger('type')->default(0)->comment('1-permanent,2-contract,3-contract-to-hire,4-project,5-temporary');
-            $table->tinyInteger('office')->default(0)->comment('1-onsite,2-remote,3-hybrid');
+            $table->tinyInteger('type_id')->default(0)->comment('1-permanent,2-contract,3-contract-to-hire,4-project,5-temporary');
+            $table->tinyInteger('office_id')->default(0)->comment('1-onsite,2-remote,3-hybrid');
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city')->nullable();
@@ -63,7 +61,7 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
-            $table->foreignIdFor( \App\Models\Admin::class);
+            $table->foreignIdFor(\App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
         });

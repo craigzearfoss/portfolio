@@ -26,8 +26,6 @@ class CoverLetter extends Model
      */
     protected $fillable = [
         'application_id',
-        'name',
-        'slug',
         'date',
         'content',
         'link',
@@ -56,10 +54,10 @@ class CoverLetter extends Model
     }
 
     /**
-     * Get the career applications for the career cover letter.
+     * Get the career application that owns the career over letter.
      */
-    public function application(): HasOne
+    public function application(): BelongsTo
     {
-        return $this->hasOne(Application::class);
+        return $this->belongsTo(Application::class);
     }
 }

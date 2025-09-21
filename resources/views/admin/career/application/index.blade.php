@@ -63,7 +63,7 @@
             <tbody>
 
             @forelse ($applications as $application)
-
+@php /* dd( get_class_methods($application)); */ @endphp
                 <tr>
                     <td>
                         {{ $application->role }}
@@ -89,10 +89,10 @@
                         @endif
                     </td>
                     <td class="text-nowrap">
-                        {{ $application->type == 0 ? 'perm' : ($application->type == 1 ? 'cont' : ($application->type == 2 ? 'c-t-h' : ($application->type == 3 ? 'proj' : '?'))) }}
+                        {{ $application->type }}
                     </td>
                     <td class="text-nowrap">
-                        {{ $application->office == 0 ? 'onsite' : ($application->office == 1 ? 'remote' : ($application->office == 2 ? 'hybrid' : '?')) }}
+                        {{ $application->office }}
                     </td>
                     <td>
                         @if ($application->city)

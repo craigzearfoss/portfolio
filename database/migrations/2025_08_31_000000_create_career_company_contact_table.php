@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        /*
         Schema::connection('career_db')->create('company_contact', function (Blueprint $table) {
             $table->foreignIdFor(Company::class);
             $table->foreignIdFor(Contact::class);
             $table->primary(['company_id', 'contact_id']);
         });
-        */
     }
 
     /**

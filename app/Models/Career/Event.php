@@ -16,7 +16,7 @@ class Event extends Model
 
     protected $connection = 'career_db';
 
-    protected $table = 'notes';
+    protected $table = 'events';
 
     /**
      * The attributes that are mass assignable.

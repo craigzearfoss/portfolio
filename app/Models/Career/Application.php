@@ -10,6 +10,7 @@ use App\Models\Career\Event;
 use App\Models\Career\JobBoard;
 use App\Models\Career\Note;
 use App\Models\Career\Resume;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,6 +32,7 @@ class Application extends Model
         2 => 'contract',
         3 => 'contract-to-hire',
         4 => 'temporary',
+        5 => 'project',
     ];
 
     const OFFICES = [
@@ -67,8 +69,8 @@ class Application extends Model
         'compensation',
         'compensation_unit',
         'duration',
-        'type',
-        'office',
+        'type_id',
+        'office_id',
         'street',
         'street2',
         'city',
@@ -131,11 +133,11 @@ class Application extends Model
     }
 
     /**
-     * Get the career cover letter that owns the career application.
+     * Get the career cover letter for the career application.
      */
-    public function coverLetter(): BelongsTo
+    public function coverLetter(): HasOne
     {
-        return $this->setConnection('career_db')->belongsTo(CoverLetter::class, 'cover_letter_id');
+        return $this->setConnection('career_db')->hasOne(CoverLetter::class, 'cover_letter_id');
     }
 
     /**
@@ -160,6 +162,30 @@ class Application extends Model
     public function resume(): BelongsTo
     {
         return $this->setConnection('career_db')->belongsTo(Resume::class, 'resume_id');
+    }
+
+    /**
+     * Returns the job office of the current application.
+     *
+     * @return Attribute
+     */
+    public function office(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => !empty($this->office_id) ? self::officeName($this->office_id) : null,
+        );
+    }
+
+    /**
+     * Returns the job type of the current application.
+     *
+     * @return Attribute
+     */
+    public function type(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => !empty($this->type_id) ? self::typeName($this->type_id) : null,
+        );
     }
 
     /**

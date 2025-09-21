@@ -25,7 +25,6 @@ class Resume extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'application_id',
         'name',
         'slug',
         'date',

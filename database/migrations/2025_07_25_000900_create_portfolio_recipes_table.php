@@ -43,7 +43,7 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
-            $table->foreignIdFor( \App\Models\Admin::class);
+            $table->foreignIdFor(\App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
 
@@ -70,7 +70,7 @@ return new class extends Migration
                 'dinner'        => 0,
                 'snack'         => 1,
                 'link'          => 'https://www.nestle.com/stories/timeless-discovery-toll-house-chocolate-chip-cookie-recipe',
-                'admin_id'      => 1,
+                'admin_id'      => 2,
             ],
             [
                 'id'            => 2,
@@ -90,7 +90,7 @@ return new class extends Migration
                 'dinner'        => 0,
                 'snack'         => 1,
                 'link'          => '',
-                'admin_id'      => 1,
+                'admin_id'      => 2,
             ],
             [
                 'id'            => 3,
@@ -110,7 +110,7 @@ return new class extends Migration
                 'dinner'        => 0,
                 'snack'         => 0,
                 'link'          => '',
-                'admin_id'      => 1,
+                'admin_id'      => 2,
             ],
             [
                 'id'            => 4,
@@ -130,7 +130,7 @@ return new class extends Migration
                 'dinner'        => 0,
                 'snack'         => 0,
                 'link'          => '',
-                'admin_id'      => 1,
+                'admin_id'      => 2,
             ],
             [
                 'id'            => 5,
@@ -150,7 +150,7 @@ return new class extends Migration
                 'dinner'        => 1,
                 'snack'         => 0,
                 'link'          => '',
-                'admin_id'      => 1,
+                'admin_id'      => 2,
             ],
         ];
 

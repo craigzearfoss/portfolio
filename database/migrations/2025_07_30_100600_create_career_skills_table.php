@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::connection('career_db')->create('skills', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->tinyInteger('rating')->default(0);
             $table->integer('years')->default(0);
             $table->string('link')->nullable();
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
-            $table->foreignIdFor( \App\Models\Admin::class);
+            $table->foreignIdFor(\App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
 

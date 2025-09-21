@@ -81,6 +81,13 @@ return new class extends Migration
      */
     public function down(): void
     {
+        if (Schema::connection('default_db')->hasTable('databases')) {
+            Schema::connection('default_db')->table('databases', function (Blueprint $table) {
+                $table->dropForeign('databases_admin_id_foreign');
+                $table->dropColumn('admin_id');
+            });
+        }
+
         if (Schema::connection('default_db')->hasTable('resources')) {
             Schema::connection('default_db')->table('resources', function (Blueprint $table) {
                 $table->dropForeign('resources_admin_id_foreign');
@@ -133,6 +140,20 @@ return new class extends Migration
         if (Schema::connection('career_db')->hasTable('jobs')) {
             Schema::connection('career_db')->table('jobs', function (Blueprint $table) {
                 $table->dropForeign('jobs_admin_id_foreign');
+                $table->dropColumn('admin_id');
+            });
+        }
+
+        if (Schema::connection('career_db')->hasTable('job_coworkers')) {
+            Schema::connection('career_db')->table('job_coworkers', function (Blueprint $table) {
+                $table->dropForeign('job_coworkers_admin_id_foreign');
+                $table->dropColumn('admin_id');
+            });
+        }
+
+        if (Schema::connection('career_db')->hasTable('job_tasks')) {
+            Schema::connection('career_db')->table('job_tasks', function (Blueprint $table) {
+                $table->dropForeign('job_tasks_admin_id_foreign');
                 $table->dropColumn('admin_id');
             });
         }
