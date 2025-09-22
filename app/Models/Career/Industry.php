@@ -23,18 +23,6 @@ class Industry extends Model
         'name',
         'slug',
         'abbreviation',
-        'link',
-        'link_name',
-        'description',
-        'image',
-        'image_credit',
-        'image_source',
-        'thumbnail',
-        'sequence',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
     ];
 
     /**

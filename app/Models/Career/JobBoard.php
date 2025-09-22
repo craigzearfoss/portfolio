@@ -4,9 +4,12 @@ namespace App\Models\Career;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class JobBoard extends Model
 {
+    use SoftDeletes;
+
     protected $connection = 'career_db';
 
     protected $table = 'job_boards';
