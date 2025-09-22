@@ -14,7 +14,9 @@
             'message'  => $message ?? '',
         ]),
     'buttons' => [],
-    'errors' => $errors ?? [],
+    'errors'  => $errors->any()  ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
 ])
 
 @section('content')

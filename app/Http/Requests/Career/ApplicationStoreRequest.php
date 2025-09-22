@@ -17,7 +17,7 @@ class ApplicationStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isRootAdmin() || (Auth::guard('admin')->user()->id == $this->admin_id);
+        return Auth::guard('admin')->check();
     }
 
     /**

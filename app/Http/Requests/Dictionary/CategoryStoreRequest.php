@@ -13,7 +13,7 @@ class CategoryStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        return Auth::guard('admin')->check();
     }
 
     /**

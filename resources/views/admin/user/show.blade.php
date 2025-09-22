@@ -10,7 +10,9 @@
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.user.edit', $user) ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => referer('admin.user.index') ],
     ],
-    'errors' => $errors ?? [],
+    'errors'  => $errors->any()  ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
 ])
 
 @section('content')
