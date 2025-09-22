@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Job Task', 'url' => route('admin.career.job-task.create') ],
     ],
-    'errors'  => $errors->any() ?? [],
+    'errorMessages'=> $errors->any() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])
