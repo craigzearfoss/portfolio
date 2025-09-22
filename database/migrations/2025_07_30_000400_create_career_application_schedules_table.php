@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::connection('career_db')->create('application_schedules', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->unique();
-            $table->string('name', 20)->unique();
+            $table->string('abbreviation', 20)->unique();
         });
 
         $data = [

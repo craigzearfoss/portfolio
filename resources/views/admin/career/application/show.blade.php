@@ -89,29 +89,32 @@
 
         @include('admin.components.show-row', [
             'name'  => 'min compensation',
-            'value' => $application->compensation_min,
-            'unit'  => $application->compensation_unit
+            'value' => number_format($application->compensation_min),
         ])
 
-        @include('admin.components.show-row-compensation', [
+        @include('admin.components.show-row', [
             'name'  => 'max compensation',
-            'value' => $application->compensation_max,
-            'unit'  => $application->compensation_unit
+            'value' => number_format($application->compensation_max),
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'compensation unit',
+            'value' => $application->compensation_unit['name']
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'duration',
-            'value' => $application->duration
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'type',
-            'value' => $application->type
+            'value' => $application->duration['name']
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'office',
-            'value' => $application->office
+            'value' => \App\Models\Career\ApplicationOffice::find($application->office_id)->name ?? '',
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'schedule',
+            'value' => \App\Models\Career\ApplicationSchedule::find($application->schedule_id)->name ?? '',
         ])
 
         @include('admin.components.show-row', [
@@ -145,13 +148,13 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'longitude',
-            'value' => $application->longitude
+            'name'  => 'latitude',
+            'value' => $application->latitude
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'latitude',
-            'value' => $application->latitude
+            'name'  => 'longitude',
+            'value' => $application->longitude
         ])
 
         @include('admin.components.show-row', [

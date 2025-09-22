@@ -3,6 +3,10 @@
 namespace App\Models\Career;
 
 use App\Models\Admin;
+use App\Models\Career\ApplicationCompensationUnit;
+use App\Models\Career\ApplicationDuration;
+use App\Models\Career\ApplicationOffice;
+use App\Models\Career\ApplicationSchedule;
 use App\Models\Career\Communication;
 use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
@@ -11,7 +15,6 @@ use App\Models\Career\JobBoard;
 use App\Models\Career\Note;
 use App\Models\Career\Resume;
 use App\Models\Scopes\AdminGlobalScope;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,34 +31,6 @@ class Application extends Model
     protected $connection = 'career_db';
 
     protected $table = 'applications';
-
-    const TYPES = [
-        1 => 'permanent',
-        2 => 'contract',
-        3 => 'contract-to-hire',
-        4 => 'temporary',
-        5 => 'project',
-    ];
-
-    const OFFICES = [
-        1 => 'onsite',
-        2 => 'remote',
-        3 => 'hybrid',
-    ];
-
-    const COMPENSATION_UNITS = [
-        1 => 'hour',
-        2 => 'year',
-        3 => 'month',
-        4 => 'week',
-        5 => 'day',
-        6 => 'project',
-    ];
-
-    const SCHEDULES = [
-        1 => 'full-time',
-        2 => 'part-time',
-    ];
 
     /**
      * The attributes that are mass assignable.
@@ -75,9 +50,8 @@ class Application extends Model
         'close_date',
         'compensation_min',
         'compensation_max',
-        'compensation_unit',
-        'duration',
-        'type_id',
+        'compensation_unit_id',
+        'duration_id',
         'office_id',
         'schedule_id',
         'street',
@@ -125,43 +99,11 @@ class Application extends Model
     }
 
     /**
-     * Returns the job office of the current application.
-     *
-     * @return Attribute
-     */
-    public function office(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => !empty($this->office_id) ? self::officeName($this->office_id) : null,
-        );
-    }
-
-    /**
-     * Returns the job type of the current application.
-     *
-     * @return Attribute
-     */
-    public function type(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => !empty($this->type_id) ? self::typeName($this->type_id) : null,
-        );
-    }
-
-    /**
      * Get the admin who owns the career application.
      */
     public function admin(): BelongsTo
     {
         return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
-    }
-
-    /**
-     * Get the job_board who owns the career application.
-     */
-    public function job_board(): BelongsTo
-    {
-        return $this->setConnection('default_db')->belongsTo(JobBoard::class, 'job_board_id');
     }
 
     /**
@@ -179,7 +121,33 @@ class Application extends Model
      */
     public function company(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(Company::class, 'company_id');
+        return $this->setConnection('career_db')->belongsTo(Company::class)
+            ->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get the career application compensation unit that owns the career application.
+     */
+    public function compensation_unit(): BelongsTo
+    {
+        return $this->setConnection('career_db')->belongsTo(ApplicationCompensationUnit::class);
+    }
+
+    /**
+     * Get the career cover letter for the career application.
+     */
+    public function coverLetter(): HasOne
+    {
+        return $this->setConnection('career_db')->hasOne(CoverLetter::class, 'cover_letter_id')
+            ->orderBy('date', 'desc');
+    }
+
+    /**
+     * Get the career application duration that owns the career application.
+     */
+    public function duration(): BelongsTo
+    {
+        return $this->setConnection('career_db')->belongsTo(ApplicationDuration::class);
     }
 
     /**
@@ -192,11 +160,12 @@ class Application extends Model
     }
 
     /**
-     * Get the career cover letter for the career application.
+     * Get the job_board who owns the career application.
      */
-    public function coverLetter(): HasOne
+    public function job_board(): BelongsTo
     {
-        return $this->setConnection('career_db')->hasOne(CoverLetter::class, 'cover_letter_id');
+        return $this->setConnection('career_db')->belongsTo(JobBoard::class)
+            ->orderBy('name', 'asc');
     }
 
     /**
@@ -209,118 +178,28 @@ class Application extends Model
     }
 
     /**
+     * Get the career application office that owns the career application.
+     */
+    public function office(): BelongsTo
+    {
+        return $this->setConnection('career_db')->belongsTo(ApplicationOffice::class);
+    }
+
+    /**
      * Get the career resume that owns the career application.
      */
     public function resume(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(Resume::class, 'resume_id');
+        return $this->setConnection('career_db')->belongsTo(Resume::class)
+            ->orderBy('name', 'asc');
     }
 
     /**
-     * Returns an array of options for a select list for office types.
-     *
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
+     * Get the career application schedule that owns the career application.
      */
-    public static function officeListOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    public function schedule(): BelongsTo
     {
-        $options = [];
-        if ($includeBlank) {
-            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
-        }
-
-        foreach (self::OFFICES as $i=>$office) {
-            $options[$nameAsKey ? $office : $i] = $office;
-        }
-
-        return $options;
-    }
-
-    /**
-     * Returns the office name for the given id or null if not found.
-     *
-     * @param int | string $id
-     * @return string|null
-     */
-    public static function officeName(int | string $id): string | null
-    {
-        return self::OFFICES[$id] ?? null;
-    }
-
-    /**
-     * Returns the office id for the given name or null if not found.
-     *
-     * @param string $name
-     * @return int|bool
-     */
-    public static function officeIndex(string $name): string | bool
-    {
-        return array_search($name, self::OFFICES);
-    }
-
-    /**
-     * Returns an array of options for a select list for compensation units.
-     *
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function compensationUnitListOptions(bool $includeBlank = false, bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
-        }
-
-        foreach (self::COMPENSATION_UNITS as $i=>$compensationUnit) {
-            $options[$nameAsKey ? $compensationUnit : $i] = $compensationUnit;
-        }
-
-        return $options;
-    }
-
-    /**
-     * Returns an array of options for a select list for types of employment.
-     *
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function typeListOptions(bool $includeBlank = false, bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
-        }
-
-        foreach (self::TYPES as $i=>$type) {
-            $options[$nameAsKey ? $type : $i] = $type;
-        }
-
-        return $options;
-    }
-
-    /**
-     * Returns the type name for the given id or null if not found.
-     *
-     * @param int | string $id
-     * @return string|null
-     */
-    public static function typeName(int | string $id): string | null
-    {
-        return self::TYPES[$id] ?? null;
-    }
-
-    /**
-     * Returns the type id for the given name or null if not found.
-     *
-     * @param string $name
-     * @return string|bool
-     */
-    public static function typeIndex(string $name): string | bool
-    {
-        return array_search($name, self::TYPES);
+        return $this->setConnection('career_db')->belongsTo(ApplicationSchedule::class);
     }
 
     /**
@@ -352,7 +231,6 @@ class Application extends Model
                 . '  (posted: ' . $application->post_date . ')';
         }
 
-        dd($options);
-
+        return $options;
     }
 }

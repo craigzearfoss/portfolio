@@ -43,7 +43,8 @@ class JobBoard extends Model
      */
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class, 'application_id')->orderBy('created_at', 'desc');
+        return $this->hasMany(Application::class, 'application_id')
+            ->orderBy('post_date', 'desc');
     }
 
     /**

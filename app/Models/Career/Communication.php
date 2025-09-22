@@ -58,6 +58,7 @@ class Communication extends Model
      */
     public function application(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(Application::class, 'application_id');
+        return $this->setConnection('career_db')->belongsTo(Application::class, 'application_id')
+            ->orderBy('post_date', 'desc');
     }
 }

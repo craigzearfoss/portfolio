@@ -36,6 +36,14 @@
                 ])
             @endif
 
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'company_id',
+                'label'   => 'company',
+                'value'   => old('company_id') ?? '',
+                'list'    => \App\Models\Career\Company::listOptions(),
+                'message' => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'        => 'role',
                 'value'       => old('role') ?? '',
@@ -47,11 +55,10 @@
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'rating',
-                'value'       => old('rating') ?? 0,
-                'placeholder' => "0, 1, 2, 3, or 4",
+                'value'       => old('rating') ?? 1,
+                'placeholder' => '1, 2, 3, or 4',
                 'min'         => 1,
                 'max'         => 4,
-                'required'    => true,
                 'message'     => $message ?? '',
             ])
 
@@ -65,24 +72,24 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',
-                'label'   => 'post date',
                 'name'    => 'post_date',
+                'label'   => 'post date',
                 'value'   => old('post_date') ?? '',
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',
-                'label'   => 'apply date',
                 'name'    => 'apply_date',
+                'label'   => 'apply date',
                 'value'   => old('apply_date') ?? '',
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',
-                'label'   => 'close date',
                 'name'    => 'close_date',
+                'label'   => 'close date',
                 'value'   => old('close_date') ?? '',
                 'message' => $message ?? '',
             ])
@@ -90,6 +97,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'number',
                 'name'    => 'compensation_min',
+                'label'   => 'min compensation',
                 'value'   => old('compensation_min') ?? '',
                 'min'     => 0,
                 'message' => $message ?? '',
@@ -98,38 +106,56 @@
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'number',
                 'name'    => 'compensation_max',
+                'label'   => 'max compensation',
                 'value'   => old('compensation_max') ?? '',
                 'min'     => 0,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'label'   => 'compensation unit',
                 'name'    => 'compensation_unit',
+                'label'   => 'compensation unit',
                 'value'   => old('compensation_unit') ?? '',
-                'list'    => \App\Models\Career\Application::compensationUnitListOptions(true, true),
+                'list'    => \App\Models\Career\ApplicationCompensationUnit::listOptions(),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'duration_id',
+                'label'   => 'duration',
+                'value'   => old('duration_id') ?? '',
+                'list'    => \App\Models\Career\ApplicationDuration::listOptions(),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'office_id',
+                'label'   => 'office',
+                'value'   => old('office_id') ?? '',
+                'list'    => \App\Models\Career\ApplicationOffice::listOptions(),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'schedule_id',
+                'label'   => 'schedule',
+                'value'   => old('schedule_id') ?? '',
+                'list'    => \App\Models\Career\ApplicationSchedule::listOptions(),
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'duration',
-                'value'     => old('duration') ?? 0,
-                'maxlength' => 100,
+                'name'      => 'street',
+                'value'     => old('street') ?? '',
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'type',
-                'value'   => old('type') ?? '',
-                'list'    => \App\Models\Career\Application::typeListOptions(),
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'office',
-                'value'   => old('office') ?? '',
-                'list'    => \App\Models\Career\Application::officeListOptions(),
-                'message' => $message ?? '',
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'street2',
+                'value'     => old('street2') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -147,8 +173,34 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'zip',
+                'value'     => old('zip') ?? '',
+                'maxlength' => 20,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'country',
+                'value'   => old('country') ?? '',
+                'list'    => \App\Models\Country::listOptions(true, true),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'latitude',
+                'value'     => old('latitude') ?? '',
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'longitude',
+                'value'     => old('longitude') ?? '',
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'bonus',
-                'value'     => old('bonus') ?? 0,
+                'value'     => old('bonus') ?? '',
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -242,7 +294,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'email',
                 'value'     => old('email') ?? '',
-                'maxlength' => 20,
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
@@ -258,7 +310,7 @@
                 'name'      => 'alt_email',
                 'label'     => 'alt email',
                 'value'     => old('alt_email') ?? '',
-                'maxlength' => 20,
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 

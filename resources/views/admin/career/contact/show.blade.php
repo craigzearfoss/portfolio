@@ -72,6 +72,16 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'latitude',
+            'value' => $contact->latitude
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'longitude',
+            'value' => $contact->longitude
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => !empty($contact->phone_label) ? $contact->phone_label : 'phone',
             'value' => $contact->phone
         ])

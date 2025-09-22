@@ -88,7 +88,9 @@
                     <td class="text-nowrap">
                         {{ shortDate($application->apply_date) }}
                     </td>
-                    <td>{{ $application->duration }}</td>
+                    <td>
+                        {{ $application->duration['name'] }}
+                    </td>
                     <td class="text-nowrap">
                         @if ($application->compensation_min)
                             {{ explode('.', Number::currency($application->compensation_min))[0] }}
@@ -100,10 +102,10 @@
                         @endif
                     </td>
                     <td class="text-nowrap">
-                        {{ $application->type }}
+                        {{ $application->type['abbreviation'] ?? '' }}
                     </td>
                     <td class="text-nowrap">
-                        {{ $application->office }}
+                        {{ $application->office['name'] ?? '' }}
                     </td>
                     <td>
                         @if ($application->city)

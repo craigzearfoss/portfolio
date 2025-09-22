@@ -10,12 +10,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class ApplicationFactory extends Factory
 {
     const COMPENSATION = [
-        'hour'    => [ 'min' => [40, 60],       'max' => [80, 120]       ],
-        'year'    => [ 'min' => [25000, 50000], 'max' => [60000, 200000] ],
-        'month'   => [ 'min' => [2000, 3000],   'max' => [3000, 20000]   ],
-        'week'    => [ 'min' => [500, 1800],    'max' => [2000, 4000]    ],
-        'day'     => [ 'min' => [140, 200],     'max' => [500, 1000]     ],
-        'project' => [ 'min' => [500, 5000],    'max' => [6000, 30000]   ],
+        /* [none]  */ 1 => [ 'min' => [40, 60],       'max' => [80, 120]       ],
+        /* hour    */ 2 => [ 'min' => [40, 60],       'max' => [80, 120]       ],
+        /* year    */ 3 => [ 'min' => [25000, 50000], 'max' => [60000, 200000] ],
+        /* month   */ 4 => [ 'min' => [2000, 3000],   'max' => [3000, 20000]   ],
+        /* week    */ 5 => [ 'min' => [500, 1800],    'max' => [2000, 4000]    ],
+        /* day     */ 6 => [ 'min' => [140, 200],     'max' => [500, 1000]     ],
+        /* project */ 7 => [ 'min' => [500, 5000],    'max' => [6000, 30000]   ],
     ];
 
     /**
@@ -25,9 +26,9 @@ class ApplicationFactory extends Factory
      */
     public function definition(): array
     {
-        $compensationUnit = array_keys(self::COMPENSATION)[rand(0, count(self::COMPENSATION) - 1)];
-        $compensationMin = rand(self::COMPENSATION[$compensationUnit]['min'][0], self::COMPENSATION[$compensationUnit]['min'][1]);
-        $compensationMax = rand(self::COMPENSATION[$compensationUnit]['max'][0], self::COMPENSATION[$compensationUnit]['max'][1]);
+        $compensationUnitId = array_keys(self::COMPENSATION)[rand(0, count(self::COMPENSATION) - 1)];
+        $compensationMin = rand(self::COMPENSATION[$compensationUnitId]['min'][0], self::COMPENSATION[$compensationUnitId]['min'][1]);
+        $compensationMax = rand(self::COMPENSATION[$compensationUnitId]['max'][0], self::COMPENSATION[$compensationUnitId]['max'][1]);
 
         return [
             'company_id'        => \App\Models\Career\Company::all()->random()->id,
@@ -38,7 +39,7 @@ class ApplicationFactory extends Factory
             'apply_date'        => fake()->dateTimeBetween('-2 years')->format('Y-m-d'),
             'compensation_min'  => $compensationMin,
             'compensation_max'  => $compensationMax,
-            'compensation_unit' => $compensationUnit,
+            'compensation_unit' => $compensationUnitId,
             'duration'          => fake()->randomElement(['permanent', '3 months', '6 months', '1 year']),
             'type_id'           => fake()->numberBetween(1, 5), // 1-permanent,2-contract,3-contract-to-hire,4-temporary,5-project
             'office_id'         => fake()->numberBetween(1, 3), // 1-onsite,2-remote,3-hybrid

@@ -47,8 +47,8 @@
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'rating',
-                'value'       => old('rating') ?? 0,
-                'placeholder' => "0, 1, 2, 3, or 4",
+                'value'       => old('rating') ?? 1,
+                'placeholder' => '1, 2, 3, or 4',
                 'min'         => 1,
                 'max'         => 4,
                 'required'    => true,

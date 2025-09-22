@@ -82,7 +82,8 @@ class Company extends Model
      */
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class, 'application_id')->orderBy('created_at', 'desc');
+        return $this->hasMany(Application::class, 'application_id')
+            ->orderBy('post_date', 'desc');
     }
 
     /**
@@ -90,7 +91,8 @@ class Company extends Model
      */
     public function industry(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(Industry::class, 'industry_id');
+        return $this->setConnection('career_db')->belongsTo(Industry::class, 'industry_id')
+            ->orderBy('name', 'asc');
     }
 
     /**

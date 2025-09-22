@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('career_db')->create('application_types', function (Blueprint $table) {
+        Schema::connection('career_db')->create('application_durations', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->unique();
             $table->string('abbreviation', 20)->unique();
@@ -45,7 +45,7 @@ return new class extends Migration
             ],
         ];
 
-        App\Models\Career\ApplicationType::insert($data);
+        App\Models\Career\ApplicationDuration::insert($data);
     }
 
     /**
@@ -55,10 +55,10 @@ return new class extends Migration
     {
         if (Schema::connection('career_db')->hasTable('applications')) {
             Schema::connection('career_db')->table('applications', function (Blueprint $table) {
-                $table->dropForeign('applications_type_id_foreign');
-                $table->dropColumn('application_type_id');
+                $table->dropForeign('application_duration_id_foreign');
+                $table->dropColumn('application_duration_id');
             });
         }
-        Schema::connection('career_db')->dropIfExists('application_types');
+        Schema::connection('career_db')->dropIfExists('application_durations');
     }
 };

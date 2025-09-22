@@ -71,6 +71,16 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'latitude',
+            'value' => $company->latitude
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'longitude',
+            'value' => $company->longitude
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => !empty($company->phone_label) ? $company->phone_label : 'phone',
             'value' => $company->phone
         ])

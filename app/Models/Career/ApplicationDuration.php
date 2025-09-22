@@ -5,11 +5,11 @@ namespace App\Models\Career;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ApplicationOffice extends Model
+class ApplicationDuration extends Model
 {
     protected $connection = 'career_db';
 
-    protected $table = 'application_offices';
+    protected $table = 'application_durations';
 
     /**
      * The attributes that are mass assignable.
@@ -22,16 +22,16 @@ class ApplicationOffice extends Model
     ];
 
     /**
-     * Get the career applications for the career application office.
+     * Get the career applications for the career duration.
      */
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class, 'application_office_id')
+        return $this->hasMany(Application::class, 'application_duration_id')
             ->orderBy('post_date', 'desc');
     }
 
     /**
-     * Returns an array of options for a select list for application office.
+     * Returns an array of options for a select list for application duration.
      *
      * @param bool $includeBlank
      * @param bool $nameAsKey
@@ -44,8 +44,8 @@ class ApplicationOffice extends Model
             $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
         }
 
-        foreach (ApplicationOffice::all() as $office) {
-            $options[$nameAsKey ? $office->name : $office->id] = $office->name;
+        foreach (ApplicationDuration::all() as $duration) {
+            $options[$nameAsKey ? $duration->name : $duration->id] = $duration->name;
         }
 
         return $options;
