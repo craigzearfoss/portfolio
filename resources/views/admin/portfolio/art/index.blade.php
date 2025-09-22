@@ -8,7 +8,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Art', 'url' => route('admin.portfolio.art.create') ],
     ],
-    'errors'  => $errors->any() ?? [],
+    'errorMessages'=> $errors->any() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

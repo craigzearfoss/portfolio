@@ -7,7 +7,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'url' => route('admin.user.create') ],
     ],
-    'errors'  => $errors->any()  ?? [],
+    'errorMessages'=> $errors->any() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

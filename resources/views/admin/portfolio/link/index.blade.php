@@ -8,7 +8,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Link', 'url' => route('admin.portfolio.link.create') ],
     ],
-    'errors'  => $errors->any() ?? [],
+    'errorMessages'=> $errors->any() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

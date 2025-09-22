@@ -8,7 +8,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Ingredient', 'url' => route('admin.portfolio.ingredient.create') ],
     ],
-    'errors'  => $errors->any() ?? [],
+    'errorMessages'=> $errors->any() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

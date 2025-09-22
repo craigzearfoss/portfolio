@@ -8,7 +8,7 @@
         [ 'name' => '<i class="fa fa-key"></i> Change Password', 'url' => route('admin.profile.change-password') ],
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.profile.edit') ],
     ],
-    'errors'  => $errors->any() ?? [],
+    'errorMessages'=> $errors->any() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

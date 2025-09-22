@@ -12,7 +12,7 @@
         [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Ingredient', 'url' => route('admin.portfolio.recipe-ingredient.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',                'url' => referer('admin.portfolio.recipe-ingredient.index') ],
     ],
-    'errors'  => $errors->any() ?? [],
+    'errorMessages'=> $errors->any() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

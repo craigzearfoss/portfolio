@@ -6,8 +6,8 @@
     @include('front.components.message-danger', ['message'=> $error ?? null])
 @endif
 
-@if (!empty($errors))
-    @foreach ($errors as $message)
+@if (!empty($errorMessages))
+    @foreach ($errorMessages as $message)
         @include('front.components.message-danger', ['message'=> $message])
     @endforeach
 @endif

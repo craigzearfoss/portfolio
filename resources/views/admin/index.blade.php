@@ -2,7 +2,7 @@
     'title'       => 'Admin',
     'breadcrumbs' => [],
     'buttons'     => [],
-    'errors'  => $errors->any() ?? [],
+    'errorMessages'=> $errors->any() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])
