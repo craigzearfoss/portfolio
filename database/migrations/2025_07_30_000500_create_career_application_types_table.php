@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50)->unique();
             $table->string('abbreviation', 20)->unique();
-            $table->timestamps();
-            $table->softDeletes();
         });
 
         $data = [

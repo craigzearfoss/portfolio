@@ -14,18 +14,20 @@ return new class extends Migration
         Schema::connection('career_db')->create('application_schedules', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->unique();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->string('name', 20)->unique();
         });
 
         $data = [
             [
-                'id'   => 1,
-                'name' => 'full-time',
+                'id'           => 1,
+                'name'         => 'full-time',
+                'abbreviation' => 'ft',
+
             ],
             [
-                'id'   => 2,
-                'name' => 'part-time',
+                'id'           => 2,
+                'name'         => 'part-time',
+                'abbreviation' => 'pt',
             ],
         ];
 

@@ -21,6 +21,11 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $industry->id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $industry->name
         ])
@@ -33,82 +38,6 @@
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
             'value' => $industry->abbreviation
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'  => 'link',
-            'url'    => $industry->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $industry->link_name
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $industry->description
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $industry->image,
-            'alt'   => $industry->name,
-            'width' => '300px',
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'image credit',
-            'value' => $industry->image_credit
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => $industry->image_source
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $industry->thumbnail,
-            'alt'   => $industry->name,
-            'width' => '40px',
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $industry->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $industry->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'readonly',
-            'label'   => 'read-only',
-            'checked' => $industry->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $industry->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $industry->disabled
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'created at',
-            'value' => longDateTime($industry->created_at)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'updated at',
-            'value' => longDateTime($industry->updated_at)
         ])
 
     </div>
