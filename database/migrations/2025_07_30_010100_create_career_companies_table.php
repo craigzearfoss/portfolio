@@ -58,12 +58,44 @@ return new class extends Migration
                 'id'          => 1,
                 'name'        => 'JOBS by allUP',
                 'slug'        => 'jobs-by-allup',
-                'industry_id' => 1,
+                'industry_id' => 10,
                 'link'        => 'https://www.linkedin.com/company/jobs-by-allup/jobs/',
                 'link_name'   => 'LinkedIn',
                 'country'     => 'USA',
                 'admin_id'    => 2,
             ],
+            [
+                'id'          => 2,
+                'name'        => 'iostudio',
+                'slug'        => 'iostudio',
+                'industry_id' => 10,
+                'link'        => 'https://iostudio.com/',
+                'link_name'   => 'iostudio website',
+                'country'     => 'USA',
+                'admin_id'    => 2,
+            ],
+            [
+                'id'          => 3,
+                'name'        => 'Black Airplane',
+                'slug'        => 'black-airplane',
+                'industry_id' => 10,
+                'link'        => 'https://blackairplane.com/',
+                'link_name'   => 'Black Airplane website',
+                'country'     => 'USA',
+                'admin_id'    => 2,
+            ],
+            /*
+            [
+                'id'          => 1,
+                'name'        => '',
+                'slug'        => '',
+                'industry_id' => 10,
+                'link'        => null,
+                'link_name'   => null,
+                'country'     => 'USA',
+                'admin_id'    => 2,
+            ],
+            */
         ];
 
         App\Models\Career\Company::insert($data);

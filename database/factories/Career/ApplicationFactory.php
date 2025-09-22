@@ -42,6 +42,7 @@ class ApplicationFactory extends Factory
             'duration'          => fake()->randomElement(['permanent', '3 months', '6 months', '1 year']),
             'type_id'           => fake()->numberBetween(1, 5), // 1-permanent,2-contract,3-contract-to-hire,4-temporary,5-project
             'office_id'         => fake()->numberBetween(1, 3), // 1-onsite,2-remote,3-hybrid
+            'schedule_id'       => fake()->numberBetween(1, 2), // 1-full-time,2-part-time
             'street'            => fake()->streetAddress(),
             'street2'           => null,
             'city'              => fake()->city(),

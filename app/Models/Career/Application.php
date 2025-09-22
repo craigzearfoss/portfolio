@@ -52,6 +52,11 @@ class Application extends Model
         6 => 'project',
     ];
 
+    const SCHEDULES = [
+        1 => 'full-time',
+        2 => 'part-time',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -74,6 +79,7 @@ class Application extends Model
         'duration',
         'type_id',
         'office_id',
+        'schedule_id',
         'street',
         'street2',
         'city',

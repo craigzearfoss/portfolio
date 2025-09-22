@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('duration',100)->nullable();
             $table->tinyInteger('type_id')->default(0)->comment('1-permanent,2-contract,3-contract-to-hire,4-project,5-temporary');
             $table->tinyInteger('office_id')->default(0)->comment('1-onsite,2-remote,3-hybrid');
+            $table->tinyInteger('schedule_id')->default(0)->comment('1-full-time,2-part-time');
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city')->nullable();
@@ -78,8 +79,9 @@ return new class extends Migration
                 'compensation_min'  => 125000,
                 'compensation_max'  => 140000,
                 'compensation_unit' => 'year',  // hour, year, month, week, day, project
-                'type_id'           => 1,     // 1-permanent, 2-contract, 3-contract-to-hire, 4-project, 5-temporary
+                'type_id'           => 1,     // 1-permanent, 2-contract, 3-contract-to-hire, 4-temporary, 5-project
                 'office_id'         => 2,     // 1-onsite, 2-remote, 3-hybrid
+                'schedule_id'       => 1,     // 1-full-time, 2-part-time, 3-seasonal
                 'city'              => null,
                 'state'             => null,
                 'country'           => 'USA',
@@ -98,13 +100,14 @@ return new class extends Migration
                 'company_id'        => 2,
                 'role'              => 'Senior Software Engineer - Full-Stack Developer',
                 'active'            => 1,
-                'post_date'         => '',
-                'apply_date'        => '',
+                'post_date'         => '2025-09-22',
+                'apply_date'        => '2025-09-22',
                 'compensation_min'  => null,
                 'compensation_max'  => null,
                 'compensation_unit' => null,  // hour, year, month, week, day, project
-                'type_id'           => 1,     // 1-permanent, 2-contract, 3-contract-to-hire, 5-temporary, 5-seasonal, 6-project
+                'type_id'           => 1,     // 1-permanent, 2-contract, 3-contract-to-hire, 4-temporary, 5-project
                 'office_id'         => 2,     // 1-onsite, 2-remote, 3-hybrid
+                'schedule_id'       => 1,     // 1-full-time, 2-part-time, 3-seasonal
                 'city'              => 'Nashville',
                 'state'             => 'TN',
                 'country'           => 'USA',
@@ -119,17 +122,45 @@ return new class extends Migration
                 'admin_id'          => 2,
             ],
             [
+                'id'                => 3,
+                'company_id'        => 3,
+                'role'              => 'Staff Software Engineer (Fullstack - React/Laravel)',
+                'active'            => 1,
+                'post_date'         => '2025-09-22',
+                'apply_date'        => '2025-09-22',
+                'compensation_min'  => 101653,
+                'compensation_max'  => 151015,
+                'compensation_unit' => null,  // hour, year, month, week, day, project
+                'type_id'           => 1,     // 1-permanent, 2-contract, 3-contract-to-hire, 4-temporary, 5-project
+                'office_id'         => 2,     // 1-onsite, 2-remote, 3-hybrid
+                'schedule_id'       => 1,     // 1-full-time, 2-part-time, 3-seasonal
+                'city'              => 'Woodstock',
+                'state'             => 'NY',
+                'country'           => 'USA',
+                'w2'                => 0,
+                'relocation'        => 0,
+                'benefits'          => 0,
+                'vacation'          => 0,
+                'health'            => 0,
+                'job_board_id'      => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
+                'link'              => 'https://www.indeed.com/viewjob?jk=fcf10d24947f906b&from=shareddesktop_copy',
+                'link_name'         => 'Indeed',
+                'admin_id'          => 2,
+            ],
+            /*
+            [
                 'id'                => 1,
                 'company_id'        => 1,
                 'role'              => '',
                 'active'            => 1,
-                'post_date'         => '',
-                'apply_date'        => '',
+                'post_date'         => null,
+                'apply_date'        => null,
                 'compensation_min'  => null,
                 'compensation_max'  => null,
                 'compensation_unit' => null,  // hour, year, month, week, day, project
                 'type_id'           => 1,     // 1-permanent, 2-contract, 3-contract-to-hire, 4-project, 5-temporary
                 'office_id'         => 2,     // 1-onsite, 2-remote, 3-hybrid
+                'schedule_id'       => 1,     // 1-full-time, 2-part-time, 3-seasonal
                 'city'              => null,
                 'state'             => null,
                 'country'           => 'USA',
@@ -143,6 +174,7 @@ return new class extends Migration
                 'link_name'         => '',
                 'admin_id'          => 2,
             ],
+            */
         ];
 
         App\Models\Career\Application::insert($data);

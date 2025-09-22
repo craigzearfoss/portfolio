@@ -56,6 +56,7 @@ class ApplicationUpdateRequest extends FormRequest
             'duration'          => ['string', 'max:100', 'nullable'],
             'type_id'           => ['integer', 'between:1,5'],  // 1-permanent,2-contract,3-contract-to-hire,4-temporary,5-project
             'office_id'         => ['integer', 'between:1,3'],  // 1-onsite,2-remote,3-hybrid
+            'schedule_id'       => ['integer', 'between:1,2'],  // 1-full-time,2-part-time
             'street'            => ['string', 'max:255', 'nullable'],
             'street2'           => ['string', 'max:255', 'nullable'],
             'city'              => ['string', 'max:100', 'nullable'],
