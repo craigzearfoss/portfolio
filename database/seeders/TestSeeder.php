@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Dictionary\DictionarySection;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TestSeeder extends Seeder
@@ -231,7 +230,7 @@ class TestSeeder extends Seeder
 
         echo 'Career/Job' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Career\Job::factory()
+            \App\Models\Portfolio\Job::factory()
                 ->count(random_int(0, 5))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -242,8 +241,8 @@ class TestSeeder extends Seeder
 
         echo 'Career/JobCoworker' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            foreach (\App\Models\Career\Job::where('admin_id', $adminId)->get()->pluck('id') as $jobId) {
-                \App\Models\Career\JobCoworker::factory()
+            foreach (\App\Models\Portfolio\Job::where('admin_id', $adminId)->get()->pluck('id') as $jobId) {
+                \App\Models\Portfolio\JobCoworker::factory()
                     ->count(mt_rand(1, 5))
                     ->set('job_id', $jobId)
                     ->set('admin_id', $adminId)
@@ -256,9 +255,9 @@ class TestSeeder extends Seeder
 
         echo 'Career/JobTask' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            foreach (\App\Models\Career\Job::where('admin_id', $adminId)->get()->pluck('id') as $jobId) {
+            foreach (\App\Models\Portfolio\Job::where('admin_id', $adminId)->get()->pluck('id') as $jobId) {
                 $numTasks = mt_rand(1, 5);
-                \App\Models\Career\JobTask::factory()
+                \App\Models\Portfolio\JobTask::factory()
                     ->count(mt_rand(1, 5))
                     ->set('job_id', $jobId)
                     ->set('admin_id', $adminId)

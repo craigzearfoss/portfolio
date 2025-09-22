@@ -1,46 +1,40 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\DatabaseController;
-use App\Http\Controllers\Admin\IndexController;
-use App\Http\Controllers\Admin\MessageController;
-use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\ResourceController;
-use App\Http\Controllers\Admin\UserController;
-
-use App\Http\Controllers\Admin\Career\IndexController as CareerController;
 use App\Http\Controllers\Admin\Career\ApplicationController as CareerApplicationController;
 use App\Http\Controllers\Admin\Career\CommunicationController as CareerCommunicationController;
 use App\Http\Controllers\Admin\Career\CompanyController as CareerCompanyController;
 use App\Http\Controllers\Admin\Career\ContactController as CareerContactController;
 use App\Http\Controllers\Admin\Career\CoverLetterController as CareerCoverLetterController;
 use App\Http\Controllers\Admin\Career\EventController as CareerEventController;
+use App\Http\Controllers\Admin\Career\IndexController as CareerController;
 use App\Http\Controllers\Admin\Career\IndustryController as CareerIndustryController;
 use App\Http\Controllers\Admin\Career\JobBoardController as CareerJobBoardController;
-use App\Http\Controllers\Admin\Career\JobController as CareerJobController;
-use App\Http\Controllers\Admin\Career\JobCoworkerController as CareerJobCoworkerController;
-use App\Http\Controllers\Admin\Career\JobTaskController as CareerJobTaskController;
 use App\Http\Controllers\Admin\Career\NoteController as CareerNoteController;
 use App\Http\Controllers\Admin\Career\ReferenceController as CareerReferenceController;
 use App\Http\Controllers\Admin\Career\ResumeController as CareerResumeController;
 use App\Http\Controllers\Admin\Career\SkillController as CareerSkillController;
-
-use App\Http\Controllers\Admin\Dictionary\IndexController as DictionaryController;
+use App\Http\Controllers\Admin\DatabaseController;
 use App\Http\Controllers\Admin\Dictionary\CategoryController as DictionaryCategoryController;
 use App\Http\Controllers\Admin\Dictionary\DatabaseController as DictionaryDatabaseController;
 use App\Http\Controllers\Admin\Dictionary\FrameworkController as DictionaryFrameworkController;
+use App\Http\Controllers\Admin\Dictionary\IndexController as DictionaryController;
 use App\Http\Controllers\Admin\Dictionary\LanguageController as DictionaryLanguageController;
 use App\Http\Controllers\Admin\Dictionary\LibraryController as DictionaryLibraryController;
 use App\Http\Controllers\Admin\Dictionary\OperatingSystemController as DictionaryOperatingSystemController;
 use App\Http\Controllers\Admin\Dictionary\ServerController as DictionaryServerController;
 use App\Http\Controllers\Admin\Dictionary\StackController as DictionaryStackController;
-
-use App\Http\Controllers\Admin\Portfolio\IndexController as PortfolioController;
+use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\Portfolio\AcademyController as PortfolioAcademyController;
 use App\Http\Controllers\Admin\Portfolio\ArtController as PortfolioArtController;
 use App\Http\Controllers\Admin\Portfolio\CertificationController as PortfolioCertificationController;
 use App\Http\Controllers\Admin\Portfolio\CourseController as PortfolioCourseController;
+use App\Http\Controllers\Admin\Portfolio\IndexController as PortfolioController;
 use App\Http\Controllers\Admin\Portfolio\IngredientController as PortfolioIngredientController;
+use App\Http\Controllers\Admin\Portfolio\JobController as CareerJobController;
+use App\Http\Controllers\Admin\Portfolio\JobCoworkerController as CareerJobCoworkerController;
+use App\Http\Controllers\Admin\Portfolio\JobTaskController as CareerJobTaskController;
 use App\Http\Controllers\Admin\Portfolio\LinkController as PortfolioLinkController;
 use App\Http\Controllers\Admin\Portfolio\MusicController as PortfolioMusicController;
 use App\Http\Controllers\Admin\Portfolio\ProjectController as PortfolioProjectController;
@@ -50,7 +44,9 @@ use App\Http\Controllers\Admin\Portfolio\RecipeIngredientController as Portfolio
 use App\Http\Controllers\Admin\Portfolio\RecipeStepController as PortfolioRecipeStepController;
 use App\Http\Controllers\Admin\Portfolio\UnitController as PortfolioUnitController;
 use App\Http\Controllers\Admin\Portfolio\VideoController as PortfolioVideoController;
-
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ResourceController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {

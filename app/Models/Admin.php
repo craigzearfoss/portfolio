@@ -2,17 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Database;
-use App\Models\Resource;
 use App\Models\Career\Application;
 use App\Models\Career\Communication;
 use App\Models\Career\Company;
 use App\Models\Career\Contact;
 use App\Models\Career\CoverLetter;
 use App\Models\Career\Event;
-use App\Models\Career\Job;
-use App\Models\Career\JobCoworker;
-use App\Models\Career\JobTask;
 use App\Models\Career\Note;
 use App\Models\Career\Reference;
 use App\Models\Career\Resume;
@@ -20,6 +15,9 @@ use App\Models\Career\Skill;
 use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Certification;
 use App\Models\Portfolio\Course;
+use App\Models\Portfolio\Job;
+use App\Models\Portfolio\JobCoworker;
+use App\Models\Portfolio\JobTask;
 use App\Models\Portfolio\Link;
 use App\Models\Portfolio\Music;
 use App\Models\Portfolio\Project;
