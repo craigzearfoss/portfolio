@@ -16,7 +16,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Language', 'url' => route('admin.dictionary.language.create') ],
     ],
-    'errors'  => $errors->any() ?? [],
+    'errorMessages'=> $errors->any() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])
