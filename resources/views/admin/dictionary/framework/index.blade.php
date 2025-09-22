@@ -16,7 +16,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Framework', 'url' => route('admin.dictionary.framework.create') ],
     ],
-    'errorMessages'=> $errors->any() ?? [],
+    'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

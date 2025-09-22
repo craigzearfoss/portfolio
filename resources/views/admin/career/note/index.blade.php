@@ -8,7 +8,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Note', 'url' => route('admin.career.note.create') ],
     ],
-    'errorMessages'=> $errors->any() ?? [],
+    'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

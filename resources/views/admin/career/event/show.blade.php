@@ -11,7 +11,7 @@
         [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'url' => route('admin.career.event.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => referer('admin.career.event.index') ],
     ],
-    'errorMessages'=> $errors->any() ?? [],
+    'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

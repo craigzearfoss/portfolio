@@ -10,7 +10,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Step', 'url' => route('admin.portfolio.recipe-step.create') ],
     ],
-    'errorMessages'=> $errors->any() ?? [],
+    'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

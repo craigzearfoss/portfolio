@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'url' => route('admin.career.job-coworker.create', ['job_id' => $jobId]) ],
     ],
-    'errorMessages'=> $errors->any() ?? [],
+    'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

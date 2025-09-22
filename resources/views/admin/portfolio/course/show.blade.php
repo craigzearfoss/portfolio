@@ -11,7 +11,7 @@
         [ 'name' => '<i class="fa fa-plus"></i> Add New Course', 'url' => route('admin.portfolio.course.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => referer('admin.portfolio.course.index') ],
     ],
-    'errorMessages'=> $errors->any() ?? [],
+    'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

@@ -2,7 +2,7 @@
     'title' => 'Login',
     'breadcrumbs' => [],
     'buttons' => [],
-    'errors'  => $errors->any() ?? [],
+    'errorMessages' => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

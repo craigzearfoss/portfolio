@@ -10,7 +10,7 @@
         [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'url' => route('admin.resource.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => referer('admin.resource.index') ],
     ],
-    'errorMessages'=> $errors->any() ?? [],
+    'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

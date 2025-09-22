@@ -5,7 +5,7 @@
         [ 'name' => 'Portfolio']
     ],
     'buttons' => [],
-    'errorMessages'=> $errors->any() ?? [],
+    'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

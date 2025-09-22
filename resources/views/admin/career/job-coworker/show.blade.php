@@ -12,7 +12,7 @@
         [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'url' => route('admin.career.job-coworker.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',           'url' => referer('admin.career.job-coworker.index') ],
     ],
-    'errorMessages'=> $errors->any() ?? [],
+    'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

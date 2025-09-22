@@ -10,7 +10,7 @@
         [ 'name' => '<i class="fa fa-plus"></i> Add New Library', 'url' => route('admin.message.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => referer('admin.dictionary.index') ],
     ],
-    'errorMessages'=> $errors->any() ?? [],
+    'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

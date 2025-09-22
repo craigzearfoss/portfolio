@@ -12,7 +12,7 @@
         [ 'name' => '<i class="fa fa-plus"></i> Add New Step',  'url' => route('admin.portfolio.recipe-step.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => referer('admin.portfolio.recipe-step.index') ],
     ],
-    'errorMessages'=> $errors->any() ?? [],
+    'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])
