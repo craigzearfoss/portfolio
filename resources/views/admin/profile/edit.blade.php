@@ -9,7 +9,7 @@
         [ 'name' => '<i class="fa fa-key"></i> Change Password', 'url' => '<a class="btn btn-sm btn-solid" href="' . route('admin.profile.change-password', $admin->id) . '">' ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => referer('admin.profile.show') ],
     ],
-    'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
+    'errorMessages' => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

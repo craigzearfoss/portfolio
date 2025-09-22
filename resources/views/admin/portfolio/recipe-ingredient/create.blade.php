@@ -11,7 +11,7 @@ CREATE
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.portfolio.recipe-ingredient.index') ],
     ],
-    'errors'  => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
+    'errorMessages' => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])
