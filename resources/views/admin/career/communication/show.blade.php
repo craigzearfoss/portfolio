@@ -1,3 +1,4 @@
+@php \App\Models\Career\Application::listOptions(); @endphp
 @extends('admin.layouts.default', [
     'title' => 'Communication',
     'breadcrumbs' => [
@@ -31,18 +32,18 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'contact_id',
-            'value' => $communication->contact_id ?? ''
-        ])
-
-        @include('admin.components.show-row', [
             'name'  => 'subject',
             'value' => $communication->subject
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'date',
+            'value' => longDateTime($communication->date)
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'time',
-            'value' => longDateTime($communication->timestamp)
+            'value' => $communication->time
         ])
 
         @include('admin.components.show-row', [

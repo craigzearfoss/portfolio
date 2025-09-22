@@ -83,12 +83,12 @@ class DictionarySection extends Model
      * Returns an array of words for the specified dictionary section.
      *
      * @param string|null $slug
-     * @param int|null $perPage
+     * @param int | null $perPage
      * @return array|LengthAwarePaginator
      */
     public static function words(
         string|null $slug = null,
-        int|null $perPage = null,
+        int | null $perPage = null,
     ): array|LengthAwarePaginator
     {
         //@TODO: We should be able to get this from the config.

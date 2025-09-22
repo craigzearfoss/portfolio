@@ -45,6 +45,30 @@ if (! function_exists('referer')) {
     }
 }
 
+if (! function_exists('isUser')) {
+    /**
+     * Returns true if a user.
+     *
+     * @return bool
+     */
+    function isUser(): bool
+    {
+        return Auth::guard('user')->check();
+    }
+}
+
+if (! function_exists('isAdmin')) {
+    /**
+     * Returns true if an admin.
+     *
+     * @return bool
+     */
+    function isAdmin(): bool
+    {
+        return Auth::guard('admin')->check();
+    }
+}
+
 if (! function_exists('isRootAdmin')) {
     /**
      * Returns true if an admin with root privileges.
@@ -52,7 +76,7 @@ if (! function_exists('isRootAdmin')) {
      * @return bool
      */
     function isRootAdmin(): bool
-    {return true;
+    {
         return (bool) Auth::guard('admin')->user()->root;
     }
 }

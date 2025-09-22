@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Application extends Model
 {
@@ -232,10 +233,10 @@ class Application extends Model
     /**
      * Returns the office name for the given id or null if not found.
      *
-     * @param int|string $id
+     * @param int | string $id
      * @return string|null
      */
-    public static function officeName(int|string $id): string | null
+    public static function officeName(int | string $id): string | null
     {
         return self::OFFICES[$id] ?? null;
     }
@@ -296,10 +297,10 @@ class Application extends Model
     /**
      * Returns the type name for the given id or null if not found.
      *
-     * @param int|string $id
+     * @param int | string $id
      * @return string|null
      */
-    public static function typeName(int|string $id): string | null
+    public static function typeName(int | string $id): string | null
     {
         return self::TYPES[$id] ?? null;
     }
@@ -313,5 +314,38 @@ class Application extends Model
     public static function typeIndex(string $name): string | bool
     {
         return array_search($name, self::TYPES);
+    }
+
+    /**
+     * Returns an array of options for a select list for applications.
+     *
+     * @param int | null $adminId
+     * @param bool $includeBlank
+     * @return array|string[]
+     */
+    public static function listOptions(int | null $adminId = null, bool $includeBlank = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[''] = '';
+        }
+
+        $query = Application::select(['applications.id', 'role', 'post_date', 'applications.admin_id',
+            DB::raw('companies.name AS company_name')
+        ])
+            ->join('companies','companies.id', 'applications.company_id')
+            ->orderBy('company_name', 'asc');
+
+        if (!empty($adminId)) {
+            $query->where('applications.admin_id', $adminId);
+        }
+
+        foreach ($query->get() as $application) {
+            $options[$application->id] = $application->company_name . ' - ' . $application->role
+                . '  (posted: ' . $application->post_date . ')';
+        }
+
+        dd($options);
+
     }
 }

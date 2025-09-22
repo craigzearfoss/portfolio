@@ -51,7 +51,7 @@ if (! function_exists('shortDate')) {
      * @param string | null $YmdDate - day in the format Y-m-d
      * @return string | null
      */
-    function shortDate(string|null $YmdDate): string | null
+    function shortDate(string | null $YmdDate): string | null
     {
         if (empty($YmdDate)) {
             return '';
@@ -74,10 +74,10 @@ if (! function_exists('longDate')) {
     /**
      * Convert a MySQL date-time to the short form specified by the APP_DATE_FORMAT_LONG .env variable.
      *
-     * @param string|null $YmdDate - day in the format Y-m-d H:i:s
+     * @param string | null $YmdDate - day in the format Y-m-d H:i:s
      * @return string | null
      */
-    function longDate(string|null $YmdDate): string | null
+    function longDate(string | null $YmdDate): string | null
     {
         if (empty($YmdDate)) {
             return '';
@@ -100,11 +100,11 @@ if (! function_exists('shortDateTime')) {
     /**
      * Convert a MySQL date-time to the short form specified by the APP_DATETIME_FORMAT_SHORT .env variable.
      *
-     * @param string|null $YmdHisDateTime - day in the format Y-m-d H:i:s
+     * @param string | null $YmdHisDateTime - day in the format Y-m-d H:i:s
      * @param bool $includeSeconds
      * @return string | null
      */
-    function shortDateTime(string|null $YmdHisDateTime, bool $includeSeconds = false): string | null
+    function shortDateTime(string | null $YmdHisDateTime, bool $includeSeconds = false): string | null
     {
         if (empty($YmdHisDateTime)) {
             return '';
@@ -130,11 +130,11 @@ if (! function_exists('longDateTime')) {
     /**
      * Convert a MySQL date-time to the long form specified by the APP_DATETIME_FORMAT_LONG .env variable.
      *
-     * @param string|null $YmdHisDateTime - day in the format Y-m-d H:i:s
+     * @param string | null $YmdHisDateTime - day in the format Y-m-d H:i:s
      * @param bool $includeSeconds
      * @return string | null
      */
-    function longDateTime(string|null $YmdHisDateTime, bool $includeSeconds = false): string | null
+    function longDateTime(string | null $YmdHisDateTime, bool $includeSeconds = false): string | null
     {
         if (empty($YmdHisDateTime)) {
             return '';
