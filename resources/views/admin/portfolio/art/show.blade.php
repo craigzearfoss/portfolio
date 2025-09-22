@@ -36,6 +36,11 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
+            'name'    => 'featured',
+            'checked' => $art->personal
+        ])
+
+        @include('admin.components.show-row-checkbox', [
             'name'    => 'professional',
             'checked' => $art->professional
         ])

@@ -26,30 +26,30 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th></th>
                             <th>name</th>
+                            <th>featured</th>
+                            <th>professional</th>
+                            <th>personal</th>
                             <th>organization</th>
                             <th>received</th>
                             <th>expiration</th>
-                            <th>professional</th>
-                            <th>personal</th>
                             <th>description</th>
-                            <th>actions</th>
                         </tr>
                         </thead>
 
                         <tbody>
 
                         @forelse ($certifications as $certification)
+
                             <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $certification->name }}</td>
-                                <td>{{ $certification->organization }}</td>
-                                <td class="text-nowrap">
-                                    {{ shortDate($certification->received) }}
+                                <td>
+                                    @include('front.components.link', [
+                                        'name'   => $certification->name,
+                                        'url'    => route('front.certification.show', $certification->slug)
+                                    ])
                                 </td>
-                                <td class="text-nowrap">
-                                    {{ shortDate($certification->expiration) }}
+                                <td class="has-text-centered">
+                                    @include('front.components.checkmark', [ 'checked' => $certification->featured ])
                                 </td>
                                 <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $certification->professional ])
@@ -57,21 +57,26 @@
                                 <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $certification->personal ])
                                 </td>
-                                <td>{!! $certification->description !!}</td>
-                                <td class="text-nowrap">
-                                    <a class="btn btn-sm" href="{{ route('front.certification.show', $certification->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                    @if ($certification->link)
-                                        <a class="btn btn-sm" href="{{ $certification->link }}" target="_blank">
-                                            <i class="fa-solid fa-external-link"></i>{{-- Download--}}
-                                        </a>
-                                    @endif
+                                <td>
+                                    {{ $certification->organization }}
                                 </td>
+                                <td class="text-nowrap">
+                                    {{ shortDate($certification->received) }}
+                                </td>
+                                <td class="text-nowrap">
+                                    {{ shortDate($certification->expiration) }}
+                                </td>
+                                <td>
+                                    {!! $certification->description !!}
+                                </td>
+                            </tr>
 
-                            </tr>
                         @empty
+
                             <tr>
-                                <td colspan="9">There are no certifications.</td>
+                                <td colspan="8">There are no certifications.</td>
                             </tr>
+
                         @endforelse
 
                         </tbody>

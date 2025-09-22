@@ -26,21 +26,30 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th></th>
+                            <th>name</th>
+                            <th>featured</th>
                             <th>professional</th>
                             <th>personal</th>
                             <th>link</th>
                             <th>website</th>
                             <th>description</th>
-                            <th>Actions</th>
                         </tr>
                         </thead>
 
                         <tbody>
 
                         @forelse ($links as $link)
+
                             <tr>
-                                <td>{{ ++$i }}</td>
+                                <td>
+                                    @include('front.components.link', [
+                                        'name'   => $link->name,
+                                        'url'    => route('front.link.show', $link->slug)
+                                    ])
+                                </td>
+                                <td class="has-text-centered">
+                                    @include('front.components.checkmark', [ 'checked' => $link->featured ])
+                                </td>
                                 <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $link->professional ])
                                 </td>
@@ -53,18 +62,21 @@
                                         'url'    => $link->url,
                                         'target' => '_blank'
                                     ])
-                                    <a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a>
                                 </td>
-                                <td>{{ $link->website }}</td>
-                                <td>{!! $link->description !!}</td>
                                 <td>
-                                    <a class="btn btn-sm" href="{{ route('front.music.show', $music->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                    {{ $link->website }}
+                                </td>
+                                <td>
+                                    {!! $link->description !!}
                                 </td>
                             </tr>
+
                         @empty
+
                             <tr>
                                 <td colspan="7">There are no links.</td>
                             </tr>
+
                         @endforelse
 
                         </tbody>

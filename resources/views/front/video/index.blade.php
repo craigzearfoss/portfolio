@@ -26,8 +26,8 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th></th>
                             <th>name</th>
+                            <th>featured</th>
                             <th>professional</th>
                             <th>personal</th>
                             <th>date</th>
@@ -37,41 +37,58 @@
                             <th>location</th>
                             <th>link</th>
                             <th>description</th>
-                            <th>actions</th>
                         </tr>
                         </thead>
 
                         <tbody>
 
                         @forelse ($videos as $video)
+
                             <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $video->name }}</td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $video->professional ])
+                                <td>
+                                    @include('front.components.link', [
+                                        'name'   => $video->name,
+                                        'url'    => route('front.video.show', $video->slug)
+                                    ])
                                 </td>
                                 <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $video->personal ])
+                                    @include('front.components.checkmark', [ 'checked' => $video->$project ])
+                                </td>
+                                <td class="has-text-centered">
+                                    @include('front.components.checkmark', [ 'checked' => $video->$project ])
+                                </td>
+                                <td class="has-text-centered">
+                                    @include('front.components.checkmark', [ 'checked' => $video->$project ])
                                 </td>
                                 <td class="text-nowrap">
                                     {{ shortDate($video->date) }}
                                 </td>
-                                <td>{{ $video->year }}</td>
-                                <td>{{ $video->company }}</td>
-                                <td>{{ $video->credit }}</td>
-                                <td>{{ $video->location }}</td>
+                                <td>
+                                    {{ $video->year }}
+                                </td>
+                                <td>
+                                    {{ $video->company }}
+                                </td>
+                                <td>
+                                    {{ $video->credit }}
+                                </td>
+                                <td>
+                                    {{ $video->location }}
+                                </td>
                                 <td>
                                     @include('front.components.link', [ 'url' => $video->link, 'target' => '_blank' ])
                                 </td>
-                                <td>{!! $video->description !!}</td>
                                 <td>
-                                    <a class="btn btn-sm" href="{{ route('front.video.show', $video->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                    {!! $video->description !!}
                                 </td>
                             </tr>
+
                         @empty
+
                             <tr>
-                                <td colspan="12">There are no videos.</td>
+                                <td colspan="11">There are no videos.</td>
                             </tr>
+
                         @endforelse
 
                         </tbody>

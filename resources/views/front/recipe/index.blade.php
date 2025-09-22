@@ -26,41 +26,45 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th></th>
                             <th>name</th>
+                            <th>featured</th>
                             <th>professional</th>
                             <th>personal</th>
                             <th>description</th>
-                            <th>actions</th>
                         </tr>
                         </thead>
 
                         <tbody>
 
                         @forelse ($recipes as $recipe)
-                            <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $recipe->name }}</td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $recipe->professional ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $recipe->personal ])
-                                </td>
-                                <td>{!! $recipe->description !!}</td>
-                                <td class="text-nowrap">
-                                    <a class="btn btn-sm" href="{{ route('front.recipe.show', $recipe->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>                                    @if ($recipe->link)
-                                        <a class="btn btn-sm" href="{{ $recipe->link }}" target="_blank">
-                                            <i class="fa-solid fa-external-link"></i>{{-- Download--}}
-                                        </a>
-                                    @endif
-                                </td>
 
-                            </tr>
-                        @empty
                             <tr>
-                                <td colspan="7">There is no recipe.</td>
+                                <td>
+                                    @include('front.components.link', [
+                                        'name'   => $recipe->name,
+                                        'url'    => route('front.recipe.show', $recipe->slug)
+                                    ])
+                                </td>
+                                <td class="has-text-centered">
+                                    @include('front.components.checkmark', [ 'checked' => $recipe->$project ])
+                                </td>
+                                <td class="has-text-centered">
+                                    @include('front.components.checkmark', [ 'checked' => $recipe->$project ])
+                                </td>
+                                <td class="has-text-centered">
+                                    @include('front.components.checkmark', [ 'checked' => $recipe->$project ])
+                                </td>
+                                <td>
+                                    {!! $recipe->description !!}
+                                </td>
                             </tr>
+
+                        @empty
+
+                            <tr>
+                                <td colspan="5">There are no recipes.</td>
+                            </tr>
+
                         @endforelse
 
                         </tbody>

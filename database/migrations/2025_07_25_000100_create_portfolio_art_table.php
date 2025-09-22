@@ -14,9 +14,11 @@ return new class extends Migration
     {
         Schema::connection('portfolio_db')->create('art', function (Blueprint $table) {
             $table->id();
+            $table->tinyInteger('featured')->default(1);
             $table->string('name')->unique();
             $table->string('artist')->nullable();
             $table->string('slug')->unique();
+            $table->tinyInteger('featured')->default(1);
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
             $table->year('year')->nullable();

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->string('author')->nullable();
             $table->string('slug')->unique();
+            $table->tinyInteger('featured')->default(1);
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
             $table->integer('publication_year')->nullable();

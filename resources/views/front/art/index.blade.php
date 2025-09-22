@@ -26,42 +26,45 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th></th>
                             <th>name</th>
+                            <th>featured</th>
                             <th>professional</th>
                             <th>personal</th>
                             <th>description</th>
-                            <th>actions</th>
                         </tr>
                         </thead>
 
                         <tbody>
 
                         @forelse ($arts as $art)
+
                             <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $art->name }}</td>
+                                <td>
+                                    @include('front.components.link', [
+                                        'name'   => $art->name,
+                                        'url'    => route('front.art.show', $art->slug)
+                                    ])
+                                </td>
+                                <td class="has-text-centered">
+                                    @include('front.components.checkmark', [ 'checked' => $art->featured ])
+                                </td>
                                 <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $art->professional ])
                                 </td>
                                 <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $art->personal ])
                                 </td>
-                                <td>{!! $art->description !!}</td>
-                                <td class="text-nowrap">
-                                    <a class="btn btn-sm" href="{{ route('front.art.show', $art->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
-                                    @if ($art->link)
-                                        <a class="btn btn-sm" href="{{ $art->link }}" target="_blank">
-                                            <i class="fa-solid fa-external-link"></i>{{-- Download--}}
-                                        </a>
-                                    @endif
+                                <td>
+                                    {!! $art->description !!}
                                 </td>
+                            </tr>
 
-                            </tr>
                         @empty
+
                             <tr>
-                                <td colspan="6">There is no art.</td>
+                                <td colspan="5">There is no art.</td>
                             </tr>
+
                         @endforelse
 
                         </tbody>

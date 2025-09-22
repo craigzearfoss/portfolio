@@ -54,9 +54,10 @@
 
                 <tr>
                     <td>
-                        <a href="{{ route('front.reading.show', $reading->slug) }}">
-                            {{ $reading->title }}
-                        </a>
+                        @include('front.components.link', [
+                            'name'   => $reading->name,
+                            'url'    => route('front.reading.show', $reading->slug)
+                        ])
                     </td>
                     <td>
                         {{ $reading->author }}

@@ -26,46 +26,57 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th></th>
                             <th>name</th>
+                            <th>featured</th>
                             <th>professional</th>
                             <th>personal</th>
                             <th>year</th>
                             <th>repository</th>
                             <th>link</th>
                             <th>description</th>
-                            <th>actions</th>
                         </tr>
                         </thead>
 
                         <tbody>
 
                         @forelse ($projects as $project)
+
                             <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $project->name }}</td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $project->professional ])
+                                <td>
+                                    @include('front.components.link', [
+                                        'name'   => $project->name,
+                                        'url'    => route('front.project.show', $project->slug)
+                                    ])
                                 </td>
                                 <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $project->personal ])
+                                    @include('front.components.checkmark', [ 'checked' => $music->$project ])
                                 </td>
-                                <td>{{ $project->year }}</td>
+                                <td class="has-text-centered">
+                                    @include('front.components.checkmark', [ 'checked' => $music->$project ])
+                                </td>
+                                <td class="has-text-centered">
+                                    @include('front.components.checkmark', [ 'checked' => $music->$project ])
+                                </td>
+                                <td>
+                                    {{ $project->year }}
+                                </td>
                                 <td>
                                     @include('front.components.link', [ 'url' => $project->repository, 'target' => '_blank' ])
                                 </td>
                                 <td>
                                     @include('front.components.link', [ 'url' => $project->link, 'target' => '_blank' ])
                                 </td>
-                                <td>{!! $project->description !!}</td>
                                 <td>
-                                    <a class="btn btn-sm" href="{{ route('front.project.show', $project->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                    {!! $project->description !!}
                                 </td>
                             </tr>
+
                         @empty
+
                             <tr>
-                                <td colspan="9">There are no projects.</td>
+                                <td colspan="8">There are no projects.</td>
                             </tr>
+
                         @endforelse
 
                         </tbody>

@@ -26,25 +26,29 @@
                     <table class="table table-bordered table-striped mt-4">
                         <thead>
                         <tr>
-                            <th></th>
                             <th>name</th>
-                            <th>completed</th>
+                            <th class="has-text-centered">featured</th>
                             <th class="has-text-centered">professional</th>
                             <th class="has-text-centered">personal</th>
+                            <th>completed</th>
                             <th>academy</th>
                             <th>instructor</th>
-                            <th>actions</th>
                         </tr>
                         </thead>
 
                         <tbody>
 
                         @forelse ($courses as $course)
+
                             <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $course->name }}</td>
                                 <td>
-                                    {{ shortDate($course->completed) }}
+                                    @include('front.components.link', [
+                                        'name'   => $course->name,
+                                        'url'    => route('front.course.show', $course->slug)
+                                    ])
+                                </td>
+                                <td class="has-text-centered">
+                                    @include('front.components.checkmark', [ 'checked' => $course->featured ])
                                 </td>
                                 <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $course->professional ])
@@ -52,16 +56,23 @@
                                 <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $course->personal ])
                                 </td>
-                                <td>{{ $course->academy }}</td>
-                                <td>{{ $course->instructor }}</td>
-                                <td class="text-nowrap">
-                                    <a class="btn btn-sm" href="{{ route('front.art.show', $course->slug) }}"><i class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                <td>
+                                    {{ shortDate($course->completed) }}
+                                </td>
+                                <td>
+                                    {{ $course->academy }}
+                                </td>
+                                <td>
+                                    {{ $course->instructor }}
                                 </td>
                             </tr>
+
                         @empty
+
                             <tr>
-                                <td colspan="11">There are no courses.</td>
+                                <td colspan="7">There are no courses.</td>
                             </tr>
+
                         @endforelse
 
                         </tbody>
