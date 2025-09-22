@@ -45,6 +45,30 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'featured',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('featured') ?? $job->featured,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'professional',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('professional') ?? $job->professional,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'personal',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('personal') ?? $job->personal,
+                'message'         => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'street',
                 'value'     => old('street') ?? $job->street,

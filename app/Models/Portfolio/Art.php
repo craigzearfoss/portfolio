@@ -27,6 +27,7 @@ class Art extends Model
         'name',
         'artist',
         'slug',
+        'featured',
         'professional',
         'personal',
         'year',

@@ -48,6 +48,7 @@ class ReadingUpdateRequest extends FormRequest
             'title'            => ['string', 'max:255', 'unique:portfolio_db.readings,name,'.$this->reading->id, 'filled'],
             'author'           => ['string', 'max:255', 'nullable'],
             'slug'             => ['string', 'max:255', 'unique:portfolio_db.readings,slug,'.$this->reading->id, 'filled'],
+            'featured'         => ['integer', 'between:0,1'],
             'professional'     => ['integer', 'between:0,1'],
             'personal'         => ['integer', 'between:0,1'],
             'year'             => ['integer', 'between:-3000,'.date("Y"), 'nullable'],

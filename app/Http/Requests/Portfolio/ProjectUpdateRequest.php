@@ -45,6 +45,7 @@ class ProjectUpdateRequest extends FormRequest
         return [
             'name'             => ['string', 'max:255', 'unique:portfolio_db.projects,name,'.$this->project->id, 'filled'],
             'slug'             => ['string', 'max:255', 'unique:portfolio_db.projects,slug,'.$this->project->id, 'filled'],
+            'featured'         => ['integer', 'between:0,1'],
             'professional'     => ['integer', 'between:0,1'],
             'personal'         => ['integer', 'between:0,1'],
             'year'             => ['integer', 'between:1980,'.date("Y"), 'nullable'],

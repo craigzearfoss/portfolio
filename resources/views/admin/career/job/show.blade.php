@@ -35,6 +35,21 @@
             'value' => $job->slug
         ])
 
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'featured',
+            'checked' => $job->personal
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'professional',
+            'checked' => $job->professional
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'personal',
+            'checked' => $job->personal
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'street',
             'value' => $job->street

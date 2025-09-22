@@ -49,6 +49,7 @@ class MusicStoreRequest extends FormRequest
             'name'           => ['required', 'string', 'max:255', 'unique:portfolio_db.music,name'],
             'artist'         => ['string', 'max:255', 'nullable'],
             'slug'           => ['required', 'string', 'max:255', 'unique:portfolio_db.music,slug'],
+            'featured'       => ['integer', 'between:0,1'],
             'professional'   => ['integer', 'between:0,1'],
             'personal'       => ['integer', 'between:0,1'],
             'label'          => ['string', 'max:255', 'nullable'],

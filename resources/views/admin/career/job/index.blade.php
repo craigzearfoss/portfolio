@@ -22,6 +22,8 @@
             <tr>
                 <th>company</th>
                 <th class="has-text-centered">featured</th>
+                <th class="has-text-centered">professional</th>
+                <th class="has-text-centered">personal</th>
                 <th>role</th>
                 <th>start date</th>
                 <th>end date</th>
@@ -37,6 +39,8 @@
             <tr>
                 <th>company</th>
                 <th class="has-text-centered">featured</th>
+                <th class="has-text-centered">professional</th>
+                <th class="has-text-centered">personal</th>
                 <th>role</th>
                 <th>start date</th>
                 <th>end date</th>
@@ -58,6 +62,12 @@
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->featured ])
+                    </td>
+                    <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $job->professional ])
+                    </td>
+                    <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $job->personal ])
                     </td>
                     <td>
                         {{ $job->role }}
@@ -119,7 +129,7 @@
             @empty
 
                 <tr>
-                    <td colspan="9">There are no jobs.</td>
+                    <td colspan="12">There are no jobs.</td>
                 </tr>
 
             @endforelse

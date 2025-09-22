@@ -46,6 +46,9 @@ class JobStoreRequest extends FormRequest
         return [
             'company'      => ['required', 'string', 'max:255', 'unique:career_db.jobs,name'],
             'slug'         => ['required', 'string', 'max:255', 'unique:career_db.jobs,slug'],
+            'featured'     => ['integer', 'between:0,1'],
+            'professional' => ['integer', 'between:0,1'],
+            'personal'     => ['integer', 'between:0,1'],
             'role'         => ['string', 'max:255',],
             'start_month'  => ['integer', 'between:1,12', 'nullable' ],
             'start_year'   => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],

@@ -27,6 +27,7 @@ class Reading extends Model
         'name',
         'author',
         'slug',
+        'featured',
         'professional',
         'personal',
         'publication_year',
