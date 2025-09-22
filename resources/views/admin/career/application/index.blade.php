@@ -90,8 +90,8 @@
                     </td>
                     <td>{{ $application->duration }}</td>
                     <td class="text-nowrap">
-                        @if ($application->compensation)
-                            {{ explode('.', Number::currency($application->compensation))[0] }}
+                        @if ($application->compensation_min)
+                            {{ explode('.', Number::currency($application->compensation_min))[0] }}
                             @if ($application->compensation_unit)
                                 / {{ $application->compensation_unit }}
                             @endif

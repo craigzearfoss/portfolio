@@ -50,7 +50,8 @@ class ApplicationUpdateRequest extends FormRequest
             'post_date'         => ['date', 'nullable'],
             'apply_date'        => ['date', 'after_or_equal:post_date', 'nullable'],
             'close_date'        => ['date', 'after_or_equal:post_date', 'nullable'],
-            'compensation'      => ['integer', 'nullable'],
+            'compensation_min'  => ['integer', 'nullable'],
+            'compensation_max'  => ['integer', 'nullable'],
             'compensation_unit' => ['string', 'max:20', 'nullable'],
             'duration'          => ['string', 'max:100', 'nullable'],
             'type_id'           => ['integer', 'between:1,5'],  // 1-permanent,2-contract,3-contract-to-hire,4-temporary,5-project

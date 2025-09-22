@@ -90,8 +90,16 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'number',
-                'name'    => 'compensation',
-                'value'   => old('compensation') ?? $application->compensation,
+                'name'    => 'compensation_min',
+                'value'   => old('compensation_min') ?? $application->compensation_min,
+                'min'     => 0,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'    => 'number',
+                'name'    => 'compensation_max',
+                'value'   => old('compensation_max') ?? $application->compensation_max,
                 'min'     => 0,
                 'message' => $message ?? '',
             ])

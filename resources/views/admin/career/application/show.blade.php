@@ -87,9 +87,15 @@
             'value' => longDate($application->close_date)
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'min compensation',
+            'value' => $application->compensation_min,
+            'unit'  => $application->compensation_unit
+        ])
+
         @include('admin.components.show-row-compensation', [
-            'name'  => 'compensation',
-            'value' => $application->compensation,
+            'name'  => 'max compensation',
+            'value' => $application->compensation_max,
             'unit'  => $application->compensation_unit
         ])
 

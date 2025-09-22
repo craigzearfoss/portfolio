@@ -52,6 +52,21 @@ return new class extends Migration
             $table->unique(['admin_id', 'name'], 'admin_id_name_unique');
             $table->unique(['admin_id', 'slug'], 'admin_id_slug_unique');
         });
+
+        $data = [
+            [
+                'id'          => 1,
+                'name'        => 'JOBS by allUP',
+                'slug'        => 'jobs-by-allup',
+                'industry_id' => 1,
+                'link'        => 'https://www.linkedin.com/company/jobs-by-allup/jobs/',
+                'link_name'   => 'LinkedIn',
+                'country'     => 'USA',
+                'admin_id'    => 2,
+            ],
+        ];
+
+        App\Models\Career\Company::insert($data);
     }
 
     /**
