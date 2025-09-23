@@ -37,6 +37,14 @@
                 ])
             @endif
 
+            @include('admin.components.form-select-horizontal', [
+                'name'        => 'application_id',
+                'label'       => 'application',
+                'value'       => old('application_id') ?? $note->application_id,
+                'list'        => \App\Models\Career\Application::listOptions(),
+                'message'     => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'        => 'subject',
                 'value'       => old('subject') ?? $note->subject,

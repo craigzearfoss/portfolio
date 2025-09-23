@@ -73,13 +73,35 @@
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                             </a>
 
-                            @if (!empty($resume->link))
-                                <a title="link" class="button is-small px-1 py-0" href="{{ $resume->link }}"
+                            @if (!empty($resume->doc_url))
+                                <a title="Microsoft Word document" class="button is-small px-1 py-0" href="{{ $resume->doc_url }}"
+                                   target="_blank">
+                                    <i class="fa-solid fa-file-word-o"></i>{{-- doc_url--}}
+                                </a>
+                            @else
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                    <i class="fa-solid fa-file-word-o"></i>{{-- doc_url--}}
+                                </a>
+                            @endif
+
+                            @if (!empty($resume->pdf_url))
+                                <a title="PDF document" class="button is-small px-1 py-0" href="{{ $resume->pdf_url }}"
+                                   target="_blank">
+                                    <i class="fa-solid fa-file-pdf-o"></i>{{-- doc_url--}}
+                                </a>
+                            @else
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                    <i class="fa-solid fa-file-pdf-o"></i>{{-- doc_url--}}
+                                </a>
+                            @endif
+
+                        @if (!empty($resume->link))
+                                <a title="{{ !empty($resume->link_name) ? $resume->link_name : 'link' }}" class="button is-small px-1 py-0" href="{{ $resume->link }}"
                                    target="_blank">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @else
-                                <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
                                     <i class="fa-solid fa-external-link"></i>{{-- link--}}
                                 </a>
                             @endif

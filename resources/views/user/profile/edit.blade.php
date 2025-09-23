@@ -103,7 +103,7 @@
                                                 @include('user.components.form-select', [
                                                     'name'    => 'country',
                                                     'value'   => old('country') ?? $user->country,
-                                                    'list'    => \App\Models\Country::listOptions(true, true),
+                                                    'list'    => \App\Models\Country::listOptions(true),
                                                     'message' => $message ?? '',
                                                 ])
 

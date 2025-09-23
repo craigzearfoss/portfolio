@@ -23,12 +23,19 @@
 
         @include('admin.components.show-row', [
             'name'  => 'id',
-            'value' => $communication->id ?? ''
+            'value' => $communication->id
         ])
 
+        @php
+            $application = !empty($note->application_id)
+                ? \App\Models\Career\Application::find($communication->application_id)
+                : null;
+        @endphp
         @include('admin.components.show-row', [
             'name'  => 'application_id',
-            'value' => $communication->application_id ?? ''
+            'value' => !empty($application)
+                ? ($application->company['name'] . ' - ' . $application->role . ' [' . $application->apply_date . ']')
+                : ''
         ])
 
         @include('admin.components.show-row', [

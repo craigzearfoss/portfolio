@@ -17,14 +17,13 @@ class ResumeFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->unique()->text(20);
-        $slug = Str::slug($name);
-
         return [
-            'name'         => $name,
-            'slug'         => $slug,
+            'name'         => fake()->text(20),
             'date'         => fake()->dateTimeBetween('-20 years')->format('Y-m-d'),
+            'primary'      => fake()->numberBetween(0, 1),
             'content'      => fake()->text(200),
+            'doc_url'      => fake()->url(),
+            'pdf_url'      => fake()->url(),
             'link'         => fake()->url(),
             'link_name'    => fake()->text(20),
             'description'  => fake()->text(200),
@@ -32,7 +31,6 @@ class ResumeFactory extends Factory
             'image_credit' => fake()->name(),
             'image_source' => fake()->company(),
             'thumbnail'    => fake()->imageUrl(),
-            'primary'      => fake()->numberBetween(0, 1),
             'sequence'     => 0,
             'public'       => 0,
             'readonly'     => 0,

@@ -21,13 +21,8 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $coverLetter->name
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $coverLetter->slug
+            'name'  => 'id',
+            'value' => $coverLetter->id
         ])
 
         @include('admin.components.show-row', [
@@ -41,7 +36,13 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'  => 'link',
+            'name'   => 'cover_letter_url',
+            'url'    => $application->cover_letter_url,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'   => 'link',
             'url'    => $coverLetter->link,
             'target' => '_blank'
         ])
@@ -49,17 +50,6 @@
         @include('admin.components.show-row', [
             'name'  => 'link name',
             'value' => $coverLetter->link_name
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'  => 'alt link',
-            'url'    => $coverLetter->alt_link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'alt link name',
-            'url'    => $coverLetter->alt_link_name
         ])
 
         @include('admin.components.show-row', [
@@ -89,11 +79,6 @@
             'src'   => $coverLetter->thumbnail,
             'alt'   => $coverLetter->name,
             'width' => '40px',
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'primary',
-            'checked' => $coverLetter->primary
         ])
 
         @include('admin.components.show-row', [

@@ -26,11 +26,6 @@ class ResumeStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
-        if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
-        }
-
         // Validate the admin_id. (Only root admins can change the admin for a resume.)
         if (empty($this['admin_id'])) {
             $this->merge(['admin_id' => Auth::guard('admin')->user()->id]);
@@ -44,11 +39,13 @@ class ResumeStoreRequest extends FormRequest
             : [Auth::guard('admin')->user()->id];
 
         return [
-            'name'         => ['required', 'string', 'max:255', 'unique:career_db.resumes,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:career_db.resumes,slug'],
+            'name'         => ['required', 'string', 'max:255'],
             'date'         => ['date', 'nullable'],
+            'primary'      => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'content'      => ['nullable'],
+            'doc_url'      => ['string', 'url:http,https', 'max:255', 'nullable'],
+            'pdf_url'      => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
@@ -56,7 +53,6 @@ class ResumeStoreRequest extends FormRequest
             'image_credit' => ['string', 'max:255', 'nullable'],
             'image_source' => ['string', 'max:255', 'nullable'],
             'thumbnail'    => ['string', 'max:255', 'nullable'],
-            'primary'      => ['integer', 'between:0,1'],
             'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],
             'readonly'     => ['integer', 'between:0,1'],

@@ -21,6 +21,23 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $event->id
+        ])
+
+        @php
+            $application = !empty($note->application_id)
+                ? \App\Models\Career\Application::find($event->application_id)
+                : null;
+        @endphp
+        @include('admin.components.show-row', [
+            'name'  => 'application_id',
+            'value' => !empty($application)
+                ? ($application->company['name'] . ' - ' . $application->role . ' [' . $application->apply_date . ']')
+                : ''
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $event->name
         ])
@@ -33,11 +50,6 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => $event->location
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'attendees',
-            'value' => $event->attendees
         ])
 
         @include('admin.components.show-row', [

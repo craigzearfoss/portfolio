@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Resume extends Model
 {
@@ -27,13 +28,13 @@ class Resume extends Model
      */
     protected $fillable = [
         'name',
-        'slug',
         'date',
+        'primary',
         'content',
+        'doc_url',
+        'pdf_url',
         'link',
         'link_name',
-        'alt_link',
-        'alt_link_name',
         'description',
         'image',
         'image_credit',
@@ -68,5 +69,32 @@ class Resume extends Model
     public function applications(): HasMany
     {
         return $this->hasMany(Application::class)->orderBy('post_date', 'desc');
+    }
+
+    /**
+     * Returns an array of options for a select list for resumes.
+     *
+     * @param int | null $adminId
+     * @param bool $includeBlank
+     * @return array|string[]
+     */
+    public static function listOptions(int | null $adminId = null, bool $includeBlank = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[''] = '';
+        }
+
+        $query = Resume::orderBy('name', 'asc')->orderBy('date', 'desc');
+
+        if (!empty($adminId)) {
+            $query->where('resumes.admin_id', $adminId);
+        }
+
+        foreach ($query->get() as $resume) {
+            $options[$resume->id] = $resume->name . ($resume->primary ? '*' : '') . ' - ' . '  (' . $resume->date . ')';
+        }
+
+        return $options;
     }
 }

@@ -41,7 +41,6 @@ class Application extends Model
      */
     protected $fillable = [
         'company_id',
-        'cover_letter_id',
         'resume_id',
         'role',
         'rating',
@@ -148,7 +147,7 @@ class Application extends Model
      */
     public function coverLetter(): HasOne
     {
-        return $this->setConnection('career_db')->hasOne(CoverLetter::class, 'cover_letter_id')
+        return $this->setConnection('career_db')->hasOne(CoverLetter::class)
             ->orderBy('date', 'desc');
     }
 

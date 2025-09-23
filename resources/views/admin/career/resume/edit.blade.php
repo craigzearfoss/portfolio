@@ -54,6 +54,14 @@
                     'message'   => $message ?? '',
                 ])
 
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'primary',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('primary') ?? $resume->primary,
+                    'message'         => $message ?? '',
+                ])
+
                 @include('admin.components.form-textarea-horizontal', [
                     'name'    => 'content',
                     'value'   => old('content') ?? $resume->content,
@@ -61,16 +69,30 @@
                 ])
 
                 @include('admin.components.form-input-horizontal', [
-                    'name'      => 'link',
-                    'value'     => old('link') ?? $resume->link,
-                    'message'   => $message ?? '',
+                    'name'    => 'doc_url',
+                    'label'   => 'doc url',
+                    'value'   => old('doc_url') ?? $resume->doc_url,
+                    'message' => $message ?? '',
                 ])
 
                 @include('admin.components.form-input-horizontal', [
-                    'name'      => 'link_name',
-                    'label'     => 'link name',
-                    'value'     => old('link_name') ?? $resume->link_name,
-                    'message'   => $message ?? '',
+                    'name'    => 'pdf_url',
+                    'label'   => 'pdf url',
+                    'value'   => old('pdf_url') ?? $resume->pdf_url,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'    => 'link',
+                    'value'   => old('link') ?? $resume->link,
+                    'message' => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'    => 'link_name',
+                    'label'   => 'link name',
+                    'value'   => old('link_name') ?? $resume->link_name,
+                    'message' => $message ?? '',
                 ])
 
                 @include('admin.components.form-textarea-horizontal', [
@@ -106,14 +128,6 @@
                     'name'    => 'thumbnail',
                     'value'   => old('thumbnail') ?? $resume->thumbnail,
                     'message' => $message ?? '',
-                ])
-
-                @include('admin.components.form-checkbox-horizontal', [
-                    'name'            => 'primary',
-                    'value'           => 1,
-                    'unchecked_value' => 0,
-                    'checked'         => old('primary') ?? $resume->primary,
-                    'message'         => $message ?? '',
                 ])
 
                 @include('admin.components.form-input-horizontal', [

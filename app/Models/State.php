@@ -3,7 +3,16 @@
 namespace App\Models;
 
 use App\Http\Resources\V1\StateResource;
+use App\Models\Admin;
+use App\Models\Career\Application;
+use App\Models\Career\Company;
+use App\Models\Career\Contact;
+use App\Models\Country;
+use App\Models\User;
+use App\Models\Portfolio\Job;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class State extends Model
 {
@@ -23,6 +32,70 @@ class State extends Model
     ];
 
     /**
+     * Get the admins for the state.
+     */
+    public function admins(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Admin::class)
+            ->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get the career applications for the state.
+     */
+    public function applications(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Country::class)
+            ->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get the admins for the state.
+     */
+    public function companies(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Company::class)
+            ->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get the contacts for the state.
+     */
+    public function contacts(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Contact::class)
+            ->orderBy('name', 'asc');
+    }
+
+
+    /**
+     * Get the country that owns the state.
+     */
+    public function country(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Country::class)
+            ->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get the career applications for the state.
+     */
+    public function jobs(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Job::class)
+            ->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get the users for the state.
+     */
+    public function users(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(User::class)
+            ->orderBy('name', 'asc');
+    }
+
+    /**
      * Returns an array of options for a select list.
      *
      * @param bool $includeBlank
@@ -33,7 +106,7 @@ class State extends Model
     {
         $options = [];
         if ($includeBlank) {
-            $options = $codesAsKey ? [ '' => '' ] : [ 0 => '' ];
+            $options = [ '' => '' ];
         }
 
         foreach (self::all() as $row) {

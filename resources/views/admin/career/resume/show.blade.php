@@ -21,13 +21,25 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $resume->name
+            'name'  => 'id',
+            'value' => $resume->id
+        ])
+
+        @php
+            $application = !empty($resume->application_id)
+                ? \App\Models\Career\Application::find($resume->application_id)
+                : null;
+        @endphp
+        @include('admin.components.show-row', [
+            'name'  => 'application_id',
+            'value' => !empty($application)
+                ? ($application->company['name'] . ' - ' . $application->role . ' [' . $application->apply_date . ']')
+                : ''
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $resume->slug
+            'name'  => 'name',
+            'value' => $resume->name
         ])
 
         @include('admin.components.show-row', [
@@ -35,9 +47,36 @@
             'value' => longDate($resume->date)
         ])
 
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'primary',
+            'checked' => $resume->primary
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'content',
             'value' => $resume->content
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'   => 'doc_url',
+            'label'  => 'doc url',
+            'label'  => $resume->doc_url,
+            'url'    => $resume->doc_url,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'   => 'pdf_url',
+            'label'  => 'pdf url',
+            'label'  => $resume->pdf_url,
+            'url'    => $resume->pdf_url,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'  => 'link',
+            'url'    => $resume->link,
+            'target' => '_blank'
         ])
 
         @include('admin.components.show-row-link', [

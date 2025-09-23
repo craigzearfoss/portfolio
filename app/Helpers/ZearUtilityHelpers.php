@@ -80,3 +80,92 @@ if (! function_exists('isRootAdmin')) {
         return (bool) Auth::guard('admin')->user()->root;
     }
 }
+
+if (! function_exists('formatCompensation')) {
+    /**
+     * Returns a formatted compensation.
+     *
+     * @param array $params
+     * @return string
+     */
+    function formatCompensation(array $params = []): string
+    {
+        $symbol = !empty($params['symbol']) ? $params['symbol'] : '$';
+        $min    = !empty($params['min']) ? $params['min'] : null;
+        $max    = !empty($params['max']) ? $params['max'] : null;
+        $unit   = !empty($params['unit']) ? $params['unit'] : null;
+        $short  = isset($params['short']) && !is_null($params['short']) ? boolval($params['short']) : false;
+
+        if ($short) {
+            if (!empty($min)) {
+                $min = ($min > 999) ? number_format(floor($min / 1000)) . 'k' : floor($min) . 'k';
+            }
+            if (!empty($max)) {
+                $max = ($max > 999) ? number_format(floor($max / 1000)) . 'k' : floor($max) . 'k';
+            }
+        } else {
+            $min = number_format($min);
+            $max = number_format($max);
+        }
+
+        if (!empty($min) && !empty($max)) {
+            $compensation = $symbol . $min . ' / ' . $symbol . $max . (!empty($unit) ? ' ' . $unit : '');
+        } elseif (!empty($min)) {
+            $compensation = $symbol . $min . (!empty($unit) ? ' ' . $unit : '');
+        } elseif (!empty($max)) {
+            $compensation = $symbol . $max . (!empty($unit) ? ' ' . $unit : '');
+        } else {
+            $compensation = '';
+        }
+
+        return $compensation;
+    }
+}
+
+if (! function_exists('formatLocation')) {
+    /**
+     * Returns a formatted address.
+     *
+     * @param array $params
+     * @return string
+     */
+    function formatLocation(array $params = []): string
+    {
+        $street          = !empty($params['street']) ? $params['street'] : null;
+        $street2         = !empty($params['street2']) ? $params['street2'] : null;
+        $city            = !empty($params['city']) ? $params['city'] : null;
+        $state           = !empty($params['state']) ? $params['state'] : null;
+        $zip             = !empty($params['zip']) ? $params['zip'] : null;
+        $country         = !empty($params['country']) ? $params['country'] : null;
+        $separator       = !empty($params['separator']) ? $params['separator'] : '<br>';
+        $streetSeparator = !empty($params['streetSeparator']) ? $params['streetSeparator'] : ', ';
+
+        if (!empty($street) && !empty($street2)) {
+            $location = $street2 . $streetSeparator . $street2;
+        } elseif (!empty($street)) {
+            $location = $street;
+        } elseif (!empty($street2)) {
+            $location = $street2;
+        } else {
+            $location = '';
+        }
+
+        if (!empty($city) && !empty($state)) {
+            $location .= (!empty($location) ? $separator : '') . $city . ', ' . $state;
+        } elseif (!empty($city)) {
+            $location .= (!empty($location) ? $separator : '') . $city;
+        } elseif (!empty($state)) {
+            $location .= (!empty($location) ? $separator : '') . $state;
+        }
+
+        if (!empty($zip)) {
+            $location .= (!empty($location) ? ' ' : '') . $zip;
+        }
+
+        if (!empty($country)) {
+            $location .= (!empty($location) ? ', ' : '') . $country;
+        }
+
+        return $location;
+    }
+}

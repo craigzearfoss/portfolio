@@ -45,6 +45,14 @@
                 'message' => $message ?? '',
             ])
 
+            @include('admin.components.form-select-horizontal', [
+                'name'        => 'resume_id',
+                'label'       => 'resume',
+                'value'       => old('resume_id') ?? $application->resume_id,
+                'list'        => \App\Models\Career\Resume::listOptions(),
+                'message'     => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'        => 'role',
                 'value'       => old('role') ?? $application->role,
@@ -98,7 +106,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'number',
                 'name'    => 'compensation_min',
-                'label'   => 'min compensation',
+                'label'   => 'min compensation ($)',
                 'value'   => old('compensation_min') ?? $application->compensation_min,
                 'min'     => 0,
                 'message' => $message ?? '',
@@ -107,7 +115,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'number',
                 'name'    => 'compensation_max',
-                'label'   => 'max compensation',
+                'label'   => 'max compensation ($)',
                 'value'   => old('compensation_max') ?? $application->compensation_max,
                 'min'     => 0,
                 'message' => $message ?? '',
@@ -185,7 +193,7 @@
                 'name'    => 'country_id',
                 'label'   => 'country',
                 'value'   => old('country_id') ?? $application->country_id,
-                'list'    => \App\Models\Country::listOptions(true, true),
+                'list'    => \App\Models\Country::listOptions(true),
                 'message' => $message ?? '',
             ])
 

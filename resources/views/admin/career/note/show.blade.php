@@ -21,8 +21,20 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $note->id
+        ])
+
+        @php
+            $application = !empty($note->application_id)
+                ? \App\Models\Career\Application::find($note->application_id)
+                : null;
+        @endphp
+        @include('admin.components.show-row', [
             'name'  => 'application_id',
-            'value' => $note->application_id
+            'value' => !empty($application)
+                ? ($application->company['name'] . ' - ' . $application->role . ' [' . $application->apply_date . ']')
+                : ''
         ])
 
         @include('admin.components.show-row', [

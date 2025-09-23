@@ -92,7 +92,7 @@
                 'name'    => 'country_id',
                 'label'   => 'country',
                 'value'   => old('country_id') ?? '',
-                'list'    => \App\Models\Country::listOptions(true, true),
+                'list'    => \App\Models\Country::listOptions(true),
                 'message' => $message ?? '',
             ])
 

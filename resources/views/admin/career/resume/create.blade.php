@@ -26,16 +26,6 @@
                 'value' => referer('admin.career.resume.index')
             ])
 
-            @if(Auth::guard('admin')->user()->root)
-                @include('admin.components.form-select-horizontal', [
-                    'name'    => 'admin_id',
-                    'label'   => 'admin',
-                    'value'   => old('admin_id') ?? Auth::guard('admin')->user()->id,
-                    'list'    => \App\Models\Admin::listOptions(),
-                    'message' => $message ?? '',
-                ])
-            @endif
-
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? '',
@@ -51,6 +41,14 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'primary',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('primary') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'content',
                 'value'   => old('content') ?? '',
@@ -58,16 +56,30 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? '',
-                'message'   => $message ?? '',
+                'name'    => 'doc_url',
+                'label'   => 'doc url',
+                'value'   => old('doc_url') ?? '',
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'link_name',
-                'label'     => 'link name',
-                'value'     => old('link_name') ?? '',
-                'message'   => $message ?? '',
+                'name'    => 'pdf_url',
+                'label'   => 'pdf url',
+                'value'   => old('pdf_url') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'    => 'link',
+                'value'   => old('link') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'    => 'link_name',
+                'label'   => 'link name',
+                'value'   => old('link_name') ?? '',
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
@@ -103,14 +115,6 @@
                 'name'    => 'thumbnail',
                 'value'   => old('thumbnail') ?? '',
                 'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'primary',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('primary') ?? 0,
-                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

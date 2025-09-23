@@ -30,33 +30,15 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'street',
-            'value' => $user->street
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'street2',
-            'value' => $user->street2
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'city',
-            'value' => $user->city
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'state',
-            'value' => \App\Models\State::getName($user->state)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'zip',
-            'value' => $user->zip
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'country',
-            'value' => \App\Models\Country::getName($user->country)
+            'name'  => 'location',
+            'value' => formatLocation([
+                           'street'    => $user->street ?? null,
+                           'street2'   => $user->street2 ?? null,
+                           'city'      => $user->city ?? null,
+                           'state'     => $user->state['code'] ?? null,
+                           'zip'       => $user->zip ?? null,
+                           'country'   => $user->country['iso_alpha3'] ?? null,
+                       ])
         ])
 
         @include('admin.components.show-row', [

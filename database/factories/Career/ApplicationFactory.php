@@ -32,6 +32,7 @@ class ApplicationFactory extends Factory
 
         return [
             'company_id'        => \App\Models\Career\Company::all()->random()->id,
+            'resume_id'         => \App\Models\Career\Resume::all()->random()->id,
             'role'              => fake()->jobTitle(),
             'rating'            => fake()->numberBetween(0, 4),
             'active'            => 1,

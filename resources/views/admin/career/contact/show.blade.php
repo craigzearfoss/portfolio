@@ -42,33 +42,15 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'street',
-            'value' => $contact->street
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'street2',
-            'value' => $contact->street2
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'city',
-            'value' => $contact->city
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'state',
-            'value' => $contact->state['name'] ?? ''
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'zip',
-            'value' => $contact->zip
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'country',
-            'value' => $contact->country
+            'name'  => 'location',
+            'value' => formatLocation([
+                           'street'    => $contact->street ?? null,
+                           'street2'   => $company->street2 ?? null,
+                           'city'      => $contact->city ?? null,
+                           'state'     => $contact->state['code'] ?? null,
+                           'zip'       => $contact->zip ?? null,
+                           'country'   => $contact->country['iso_alpha3'] ?? null,
+                       ])
         ])
 
         @include('admin.components.show-row', [

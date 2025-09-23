@@ -18,8 +18,7 @@
 
     <div class="card form-container p-4">
 
-        <form action="{{ route('admin.career.communication.update', $communication->id) }}"
-              method="POST">
+        <form action="{{ route('admin.career.communication.update', $communication->id) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -37,6 +36,14 @@
                     'message' => $message ?? '',
                 ])
             @endif
+
+            @include('admin.components.form-select-horizontal', [
+                'name'        => 'application_id',
+                'label'       => 'application',
+                'value'       => old('application_id') ?? $communication->application_id,
+                'list'        => \App\Models\Career\Application::listOptions(),
+                'message'     => $message ?? '',
+            ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'        => 'subject',

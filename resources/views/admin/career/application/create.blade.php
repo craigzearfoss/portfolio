@@ -97,7 +97,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'number',
                 'name'    => 'compensation_min',
-                'label'   => 'min compensation',
+                'label'   => 'min compensation ($)',
                 'value'   => old('compensation_min') ?? '',
                 'min'     => 0,
                 'message' => $message ?? '',
@@ -106,7 +106,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'number',
                 'name'    => 'compensation_max',
-                'label'   => 'max compensation',
+                'label'   => 'max compensation ($)',
                 'value'   => old('compensation_max') ?? '',
                 'min'     => 0,
                 'message' => $message ?? '',

@@ -63,7 +63,7 @@ class ApplicationUpdateRequest extends FormRequest
             'city'                 => ['string', 'max:100', 'nullable'],
             'state_id'             => ['integer', Rule::in(State::all('id')->pluck('id')->toArray()), 'nullable'],
             'zip'                  => ['string', 'max:20', 'nullable'],
-            'country'              => ['integer', Rule::in(Country::all('id')->pluck('id')->toArray()), 'nullable'],
+            'country_id'           => ['integer', Rule::in(Country::all('id')->pluck('id')->toArray()), 'nullable'],
             'latitude'             => ['numeric:strict', 'nullable'],
             'longitude'            => ['numeric:strict', 'nullable'],
             'bonus'                => ['string', 'max:255', 'nullable'],

@@ -105,7 +105,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the resource for the admin.
+     * Get the resources for the admin.
      */
     public function resources(): HasMany
     {

@@ -92,14 +92,14 @@
                         {{ $application->duration['name'] }}
                     </td>
                     <td class="text-nowrap">
-                        {{
-                            view('admin.components.compensation', [
+                        {!!
+                            formatCompensation([
                                 'min'   => $application->compensation_min ?? '',
                                 'max'   => $application->compensation_max ?? '',
                                 'unit'  => $application->compensation_unit['abbreviation'] ?? '',
                                 'short' => true
                             ])
-                        }}
+                        !!}
                     </td>
                     <td class="text-nowrap">
                         {{ $application->type['abbreviation'] ?? '' }}
@@ -107,14 +107,13 @@
                     <td class="text-nowrap">
                         {{ $application->office['name'] ?? '' }}
                     </td>
-                    <td>
-                        @if ($application->city)
-                            {{ $application->city }}@if (!empty($application->state))
-                                , {{ $application->state['code'] }}
-                            @endif
-                        @else
-                            {{ $application->state }}
-                        @endif
+                    <td class="text-nowrap">
+                        {!!
+                            formatLocation([
+                                'city'    => $application->city ?? null,
+                                'state'   => $application->state['code'] ?? null,
+                            ])
+                        !!}
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->w2 ])

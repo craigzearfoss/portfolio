@@ -89,12 +89,11 @@
 
         @include('admin.components.show-row', [
             'name'  => 'compensation',
-            'value' => view('admin.components.compensation', [
-                                'min'   => $application->compensation_min ?? '',
-                                'max'   => $application->compensation_max ?? '',
-                                'unit'  => $application->compensation_unit['name'] ?? '',
-                                'short' => false
-                            ])
+            'value' => formatCompensation([
+                            'min'   => $application->compensation_min ?? '',
+                            'max'   => $application->compensation_max ?? '',
+                            'unit'  => $application->compensation_unit['name'] ?? '',
+                        ])
         ])
 
         @include('admin.components.show-row', [
@@ -113,33 +112,15 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'street',
-            'value' => $application->street
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'street2',
-            'value' => $application->street2
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'city',
-            'value' => $application->city
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'state',
-            'value' => $application->state['name'] ?? ''
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'zip',
-            'value' => $application->zip
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'country',
-            'value' => $application->country['name'] ?? ''
+            'name'  => 'location',
+            'value' => formatLocation([
+                           'street'    => $application->street ?? null,
+                           'street2'   => $application->street2 ?? null,
+                           'city'      => $application->city ?? null,
+                           'state'     => $application->state['code'] ?? null,
+                           'zip'       => $application->zip ?? null,
+                           'country'   => $application->country['iso_alpha3'] ?? null,
+                       ])
         ])
 
         @include('admin.components.show-row', [

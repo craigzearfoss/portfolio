@@ -17,7 +17,7 @@
 
         @include('front.components.form-select', [
             'name'     => '',
-            'value'    => old('state') ?? '',
+            'value'    => old('author') ?? '',
             'list'     => \App\Models\Portfolio\Reading::authorlistOptions(true),
             'onchange' => "alert('need to implement route.');",
             'message'  => $message ?? '',

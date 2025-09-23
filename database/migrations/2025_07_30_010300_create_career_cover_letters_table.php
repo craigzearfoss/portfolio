@@ -17,16 +17,14 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Career\Application::class);
             $table->date('date')->nullable();
             $table->text('content')->nullable();
+            $table->string('cover_letter_url')->nullable();
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
-            $table->string('alt_link')->nullable();
-            $table->string('alt_link_name')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();
             $table->string('thumbnail')->nullable();
-            $table->tinyInteger('primary')->default(0);
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('readonly')->default(0);

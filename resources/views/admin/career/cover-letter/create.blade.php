@@ -36,12 +36,12 @@
                 ])
             @endif
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? '',
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-select-horizontal', [
+                'name'        => 'application_id',
+                'label'       => 'application',
+                'value'       => old('application_id') ?? '',
+                'list'        => \App\Models\Career\Application::listOptions(),
+                'message'     => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -56,6 +56,15 @@
                 'id'      => 'inputEditor',
                 'value'   => old('content') ?? '',
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'     => 'cover_letter_url',
+                'name'     => 'cover letter url',
+                'value'    => old('cover_letter_url') ?? '',
+                'maxlength' => 255,
+                'required' => true,
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -75,37 +84,11 @@
                 'message'  => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_link',
-                'label'     => 'alt link',
-                'value'     => old('alt_link') ?? '',
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'     => 'alt_link_name',
-                'label'    => 'alt link name',
-                'value'    => old('alt_link_name') ?? '',
-                'required' => true,
-                'maxlength' => 255,
-                'message'  => $message ?? '',
-            ])
-
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
                 'value'   => old('description') ?? '',
                 'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'primary',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('primary') ?? 0,
-                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
