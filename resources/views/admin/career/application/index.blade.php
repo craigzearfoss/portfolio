@@ -92,14 +92,14 @@
                         {{ $application->duration['name'] }}
                     </td>
                     <td class="text-nowrap">
-                        @if ($application->compensation_min)
-                            {{ explode('.', Number::currency($application->compensation_min))[0] }}
-                            @if ($application->compensation_unit)
-                                / {{ $application->compensation_unit }}
-                            @endif
-                        @else
-                            ?
-                        @endif
+                        {{
+                            view('admin.components.compensation', [
+                                'min'   => $application->compensation_min ?? '',
+                                'max'   => $application->compensation_max ?? '',
+                                'unit'  => $application->compensation_unit['abbreviation'] ?? '',
+                                'short' => true
+                            ])
+                        }}
                     </td>
                     <td class="text-nowrap">
                         {{ $application->type['abbreviation'] ?? '' }}
@@ -109,8 +109,8 @@
                     </td>
                     <td>
                         @if ($application->city)
-                            {{ $application->city }}@if ($application->state)
-                                , {{ $application->state }}
+                            {{ $application->city }}@if (!empty($application->state))
+                                , {{ $application->state['code'] }}
                             @endif
                         @else
                             {{ $application->state }}

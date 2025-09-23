@@ -1,13 +1,13 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add New Skill',
+    'title' => $skill->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Skills',          'url' => route('admin.career.skill.index') ],
-        [ 'name' => 'Add' ],
+        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Skills',          'url' => route('admin.portfolio.skill.index') ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.career.skill.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.portfolio.skill.index') ],
     ],
     'errorMessages' => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -18,19 +18,20 @@
 
     <div class="card form-container p-4">
 
-        <form action="{{ route('admin.career.skill.store') }}" method="POST">
+        <form action="{{ route('admin.portfolio.skill.update', $skill) }}" method="POST">
             @csrf
+            @method('PUT')
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.career.skill.index')
+                'value' => referer('admin.portfolio.skill.index')
             ])
 
             @if(Auth::guard('admin')->user()->root)
                 @include('admin.components.form-select-horizontal', [
                     'name'    => 'admin_id',
                     'label'   => 'admin',
-                    'value'   => old('admin_id') ?? Auth::guard('admin')->user()->id,
+                    'value'   => old('admin_id') ?? $skill->admin_id,
                     'list'    => \App\Models\Admin::listOptions(),
                     'message' => $message ?? '',
                 ])
@@ -38,7 +39,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
-                'value'     => old('name') ?? '',
+                'value'     => old('name') ?? $skill->name,
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
@@ -47,8 +48,8 @@
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'rating',
-                'value'       => old('rating') ?? 1,
-                'placeholder' => '1, 2, 3, or 4',
+                'value'       => old('rating') ?? $skill->rating,
+                'placeholder' => "1, 2, 3, or 4",
                 'min'         => 1,
                 'max'         => 4,
                 'required'    => true,
@@ -58,41 +59,41 @@
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'years',
-                'value'       => old('years') ?? 0,
+                'value'       => old('years') ?? $skill->years,
                 'min'         => 0,
                 'message'     => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
-                'value'     => old('link') ?? '',
+                'value'     => old('link') ?? $skill->link,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link_name',
                 'label'     => 'link name',
-                'value'     => old('link_name') ?? '',
+                'value'     => old('link_name') ?? $skill->link_name,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
-                'value'   => old('description') ?? '',
+                'value'   => old('description') ?? $skill->description,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'image',
-                'value'   => old('image') ?? '',
+                'value'   => old('image') ?? $skill->image,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_credit',
                 'label'     => 'image credit',
-                'value'     => old('image_credit') ?? '',
+                'value'     => old('image_credit') ?? $skill->image_credit,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -100,21 +101,21 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_source',
                 'label'     => 'image source',
-                'value'     => old('image_source') ?? '',
+                'value'     => old('image_source') ?? $skill->image_source,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? '',
+                'value'   => old('thumbnail') ?? $skill->thumbnail,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'sequence',
-                'value'       => old('sequence') ?? 0,
+                'value'       => old('sequence') ?? $skill->sequence,
                 'min'         => 0,
                 'message'     => $message ?? '',
             ])
@@ -123,7 +124,7 @@
                 'name'            => 'public',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('public') ?? 0,
+                'checked'         => old('public') ?? $skill->public,
                 'message'         => $message ?? '',
             ])
 
@@ -132,31 +133,30 @@
                 'label'           => 'read-only',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('readonly') ?? 0,
+                'checked'         => old('readonly') ?? $skill->readonly,
                 'message'         => $message ?? '',
             ])
 
-            @if (Auth::guard('admin')->user()->root)
-                @include('admin.components.form-checkbox-horizontal', [
-                    'name'            => 'root',
-                    'value'           => 1,
-                    'unchecked_value' => 0,
-                    'checked'         => old('root') ?? 0,
-                    'message'         => $message ?? '',
-                ])
-            @endif
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'root',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('root') ?? $skill->root,
+                'disabled'        => !Auth::guard('admin')->user()->root,
+                'message'         => $message ?? '',
+            ])
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'disabled',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? ,
+                'checked'         => old('disabled') ?? $skill->disabled,
                 'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add Skill',
-                'cancel_url' => referer('admin.career.skill.index')
+                'label'      => 'Save',
+                'cancel_url' => referer('admin.portfolio.skill.index')
             ])
 
         </form>

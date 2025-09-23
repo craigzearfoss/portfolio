@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Career;
+namespace App\Http\Requests\Portfolio;
 
 use App\Models\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class SkillUpdateRequest extends FormRequest
@@ -38,7 +37,7 @@ class SkillUpdateRequest extends FormRequest
             : [Auth::guard('admin')->user()->id];
 
         return [
-            'name'         => ['string', 'max:255', 'unique:career_db.jobs,name,'.$this->skill->id, 'filled'],
+            'name'         => ['string', 'max:255', 'unique:portfolio_db.jobs,name,'.$this->skill->id, 'filled'],
             'rating'       => ['integer', 'between:1,10'],
             'years'        => ['integer', 'min:0'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],

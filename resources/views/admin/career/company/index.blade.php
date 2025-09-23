@@ -52,8 +52,8 @@
                     </td>
                     <td>
                         @if ($company->city)
-                            {{ $company->city }}@if ($company->state)
-                                , {{ $company->state }}
+                            {{ $company->city }}@if (!empty($company->state))
+                                , {{ $company->state['name'] }}
                             @endif
                         @else
                             {{ $company->state }}

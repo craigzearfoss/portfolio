@@ -2,11 +2,11 @@
     'title' => 'Skills',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
+        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
         [ 'name' => 'Skills' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Skill', 'url' => route('admin.career.skill.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Skill', 'url' => route('admin.portfolio.skill.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -51,15 +51,15 @@
                         @include('admin.components.checkmark', [ 'checked' => $skill->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
-                        <form action="{{ route('admin.career.skill.destroy', $skill->id) }}" method="POST">
+                        <form action="{{ route('admin.portfolio.skill.destroy', $skill->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.skill.show', $skill->id) }}">
+                               href="{{ route('admin.portfolio.skill.show', $skill->id) }}">
                                 <i class="fa-solid fa-list"></i>{{-- Show--}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.skill.edit', $skill->id) }}">
+                               href="{{ route('admin.portfolio.skill.edit', $skill->id) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                             </a>
 

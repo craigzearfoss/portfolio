@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Country;
+use App\Models\State;
 use App\Models\Career\Application;
 use App\Models\Career\Communication;
 use App\Models\Career\Company;
@@ -11,7 +13,6 @@ use App\Models\Career\Event;
 use App\Models\Career\Note;
 use App\Models\Career\Reference;
 use App\Models\Career\Resume;
-use App\Models\Career\Skill;
 use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Certification;
 use App\Models\Portfolio\Course;
@@ -25,8 +26,10 @@ use App\Models\Portfolio\Reading;
 use App\Models\Portfolio\Recipe;
 use App\Models\Portfolio\RecipeIngredient;
 use App\Models\Portfolio\RecipeStep;
+use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -52,9 +55,9 @@ class Admin extends Authenticatable
         'street',
         'street2',
         'city',
-        'state',
+        'state_id',
         'zip',
-        'country',
+        'country_id',
         'latitude',
         'longitude',
         'phone',
@@ -76,6 +79,22 @@ class Admin extends Authenticatable
         'root',
         'disabled',
     ];
+
+    /**
+     * Get the country that owns the admin.
+     */
+    public function country(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Country::class, 'country_id');
+    }
+
+    /**
+     * Get the state that owns the admin.
+     */
+    public function state(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(State::class, 'state_id');
+    }
 
     /**
      * Get the databases for the admin.

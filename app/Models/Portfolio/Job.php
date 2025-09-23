@@ -3,7 +3,9 @@
 namespace App\Models\Portfolio;
 
 use App\Models\Admin;
+use App\Models\Country;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Models\State;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -40,9 +42,9 @@ class Job extends Model
         'street',
         'street2',
         'city',
-        'state',
+        'state_id',
         'zip',
-        'country',
+        'country_id',
         'latitude',
         'longitude',
         'link',
@@ -68,7 +70,7 @@ class Job extends Model
     }
 
     /**
-     * Get the admin who owns the career job.
+     * Get the admin who owns the portfolio job.
      */
     public function admin(): BelongsTo
     {
@@ -76,7 +78,15 @@ class Job extends Model
     }
 
     /**
-     * Get the career job coworkers for the career job.
+     * Get the country that owns the portfolio job.
+     */
+    public function country(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Country::class, 'country_id');
+    }
+
+    /**
+     * Get the portfolio job coworkers for the portfolio job.
      */
     public function coworkers(): HasMany
     {
@@ -84,7 +94,15 @@ class Job extends Model
     }
 
     /**
-     * Get the career job tasks for the career job.
+     * Get the state that owns the portfolio job.
+     */
+    public function state(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(State::class, 'state_id');
+    }
+
+    /**
+     * Get the portfolio job tasks for the portfolio job.
      */
     public function tasks(): HasMany
     {

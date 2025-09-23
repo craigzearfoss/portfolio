@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Career;
+namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Career\SkillStoreRequest;
-use App\Http\Requests\Career\SkillUpdateRequest;
-use App\Models\Career\Skill;
+use App\Http\Requests\Portfolio\SkillStoreRequest;
+use App\Http\Requests\Portfolio\SkillUpdateRequest;
+use App\Models\Portfolio\Skill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 /**
@@ -29,7 +27,7 @@ class SkillController extends BaseController
 
         $skills = Skill::latest()->paginate($perPage);
 
-        return view('admin.career.skill.index', compact('skills'))
+        return view('admin.portfolio.skill.index', compact('skills'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -40,7 +38,7 @@ class SkillController extends BaseController
      */
     public function create(Request $request): View
     {
-        return view('admin.career.skill.create');
+        return view('admin.portfolio.skill.create');
     }
 
     /**
@@ -53,7 +51,7 @@ class SkillController extends BaseController
     {
         $skill = Skill::create($request->validated());
 
-        return redirect(referer('admin.career.skill.index'))
+        return redirect(referer('admin.portfolio.skill.index'))
             ->with('success', $skill->name . ' added successfully.');
     }
 
@@ -65,7 +63,7 @@ class SkillController extends BaseController
      */
     public function show(Skill $skill): View
     {
-        return view('admin.career.skill.show', compact('skill'));
+        return view('admin.portfolio.skill.show', compact('skill'));
     }
 
     /**
@@ -76,7 +74,7 @@ class SkillController extends BaseController
      */
     public function edit(Skill $skill): View
     {
-        return view('admin.career.skill.edit', compact('skill'));
+        return view('admin.portfolio.skill.edit', compact('skill'));
     }
 
     /**
@@ -90,7 +88,7 @@ class SkillController extends BaseController
     {
         $skill->update($request->validated());
 
-        return redirect(referer('admin.career.skill.index'))
+        return redirect(referer('admin.portfolio.skill.index'))
             ->with('success', $skill->name . ' updated successfully.');
     }
 
@@ -104,7 +102,7 @@ class SkillController extends BaseController
     {
         $skill->delete();
 
-        return redirect(referer('admin.career.skill.index'))
+        return redirect(referer('admin.portfolio.skill.index'))
             ->with('success', $skill->name . ' deleted successfully.');
     }
 }

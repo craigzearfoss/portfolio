@@ -28,7 +28,7 @@ class Country extends Model
      * @param bool $codesAsKey
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false, bool $codesAsKey = true): array
+    public static function listOptions(bool $includeBlank = false, bool $codesAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {

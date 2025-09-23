@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Career;
+namespace App\Models\Portfolio;
 
 use App\Models\Admin;
 use App\Models\Scopes\AdminGlobalScope;
@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Skill extends Model
 {
-    /** @use HasFactory<\Database\Factories\Career\SkillFactory> */
+    /** @use HasFactory<\Database\Factories\Portfolio\SkillFactory> */
     use HasFactory, SoftDeletes;
 
-    protected $connection = 'career_db';
+    protected $connection = 'portfolio_db';
 
     protected $table = 'skills';
 

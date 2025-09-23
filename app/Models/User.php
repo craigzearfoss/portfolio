@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Country;
+use App\Models\State;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -29,9 +32,9 @@ class User extends Authenticatable
         'street',
         'street2',
         'city',
-        'state',
+        'state_id',
         'zip',
-        'country',
+        'country_id',
         'latitude',
         'longitude',
         'phone',
@@ -75,6 +78,22 @@ class User extends Authenticatable
         'Mrs.',
         'Miss',
     ];
+
+    /**
+     * Get the country that owns the user.
+     */
+    public function country(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Country::class, 'country_id');
+    }
+
+    /**
+     * Get the state that owns the user.
+     */
+    public function state(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(State::class, 'state_id');
+    }
 
     /**
      * Get the attributes that should be cast.

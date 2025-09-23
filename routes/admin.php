@@ -13,7 +13,6 @@ use App\Http\Controllers\Admin\Career\JobBoardController as CareerJobBoardContro
 use App\Http\Controllers\Admin\Career\NoteController as CareerNoteController;
 use App\Http\Controllers\Admin\Career\ReferenceController as CareerReferenceController;
 use App\Http\Controllers\Admin\Career\ResumeController as CareerResumeController;
-use App\Http\Controllers\Admin\Career\SkillController as CareerSkillController;
 use App\Http\Controllers\Admin\DatabaseController;
 use App\Http\Controllers\Admin\Dictionary\CategoryController as DictionaryCategoryController;
 use App\Http\Controllers\Admin\Dictionary\DatabaseController as DictionaryDatabaseController;
@@ -42,6 +41,7 @@ use App\Http\Controllers\Admin\Portfolio\ReadingController as PortfolioReadingCo
 use App\Http\Controllers\Admin\Portfolio\RecipeController as PortfolioRecipeController;
 use App\Http\Controllers\Admin\Portfolio\RecipeIngredientController as PortfolioRecipeIngredientController;
 use App\Http\Controllers\Admin\Portfolio\RecipeStepController as PortfolioRecipeStepController;
+use App\Http\Controllers\Admin\Portfolio\SkillController as CareerSkillController;
 use App\Http\Controllers\Admin\Portfolio\UnitController as PortfolioUnitController;
 use App\Http\Controllers\Admin\Portfolio\VideoController as PortfolioVideoController;
 use App\Http\Controllers\Admin\ProfileController;

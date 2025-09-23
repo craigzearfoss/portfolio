@@ -30,9 +30,9 @@ return new class extends Migration
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city')->nullable();
-            $table->string('state', 20)->nullable();
+            $table->integer('state_id')->nullable();
             $table->string('zip', 20)->nullable();
-            $table->string('country', 100)->nullable();
+            $table->integer('country_id')->nullable();
             $table->float('longitude')->nullable();
             $table->float('latitude')->nullable();
             $table->integer('bonus')->default(0);
@@ -82,8 +82,8 @@ return new class extends Migration
                 'office_id'            => 2,     // 1-onsite, 2-remote, 3-hybrid
                 'schedule_id'          => 1,     // 1-full-time, 2-part-time, 3-seasonal
                 'city'                 => null,
-                'state'                => null,
-                'country'              => 'USA',
+                'state_id'             => null,
+                'country_id'           => 237,
                 'w2'                   => 0,
                 'relocation'           => 0,
                 'benefits'             => 0,
@@ -108,8 +108,8 @@ return new class extends Migration
                 'office_id'            => 2,     // 1-onsite, 2-remote, 3-hybrid
                 'schedule_id'          => 1,     // 1-full-time, 2-part-time, 3-seasonal
                 'city'                 => 'Nashville',
-                'state'                => 'TN',
-                'country'              => 'USA',
+                'state_id'             => 43,
+                'country_id'           => 237,
                 'w2'                   => 0,
                 'relocation'           => 0,
                 'benefits'             => 0,
@@ -134,8 +134,8 @@ return new class extends Migration
                 'office_id'            => 2,     // 1-onsite, 2-remote, 3-hybrid
                 'schedule_id'          => 1,     // 1-full-time, 2-part-time, 3-seasonal
                 'city'                 => 'Woodstock',
-                'state'                => 'NY',
-                'country'              => 'USA',
+                'state_id'             => 33,
+                'country_id'           => 237,
                 'w2'                   => 0,
                 'relocation'           => 0,
                 'benefits'             => 0,
@@ -161,8 +161,8 @@ return new class extends Migration
                 'office_id'            => 2,     // 1-onsite, 2-remote, 3-hybrid
                 'schedule_id'          => 1,     // 1-full-time, 2-part-time, 3-seasonal
                 'city'                 => null,
-                'state'                => null,
-                'country'              => 'USA',
+                'state_id'             => null,
+                'country_id'           => 237,
                 'w2'                   => 0,
                 'relocation'           => 0,
                 'benefits'             => 0,

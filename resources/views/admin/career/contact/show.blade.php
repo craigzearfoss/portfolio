@@ -58,7 +58,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'state',
-            'value' => $contact->state
+            'value' => $contact->state['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [

@@ -2,8 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Country;
+use App\Models\State;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use const http\Client\Curl\AUTH_ANY;
 
 class UserStoreRequest extends FormRequest
@@ -30,9 +33,9 @@ class UserStoreRequest extends FormRequest
             'street'            => ['string', 'max:255', 'nullable'],
             'street2'           => ['string', 'max:255', 'nullable'],
             'city'              => ['string', 'max:100', 'nullable'],
-            'state'             => ['string', 'max:20', 'nullable'],
+            'state_id'          => ['integer', Rule::in(State::all('id')->pluck('id')->toArray()), 'nullable'],
             'zip'               => ['string', 'max:20', 'nullable'],
-            'country'           => ['string', 'max:100', 'nullable'],
+            'country'           => ['integer', Rule::in(Country::all('id')->pluck('id')->toArray()), 'nullable'],
             'latitude'          => ['numeric:strict', 'nullable'],
             'longitude'         => ['numeric:strict', 'nullable'],
             'phone'             => ['string', 'max:20', 'nullable'],

@@ -215,7 +215,7 @@ class TestSeeder extends Seeder
                 $skill = $allSkills[array_rand($allSkills)];
                 if (!in_array($skill, $skills)) {
 
-                    \App\Models\Career\Skill::factory()
+                    \App\Models\Portfolio\Skill::factory()
                         ->set('admin_id', $adminId)
                         ->set('name', $skill)
                         ->sequence(fn($sequence) => [

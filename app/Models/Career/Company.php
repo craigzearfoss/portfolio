@@ -5,7 +5,9 @@ namespace App\Models\Career;
 use App\Models\Admin;
 use App\Models\Career\Application;
 use App\Models\Career\Industry;
+use App\Models\Country;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Models\State;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -34,9 +36,9 @@ class Company extends Model
         'street',
         'street2',
         'city',
-        'state',
+        'state_id',
         'zip',
-        'country',
+        'country_id',
         'latitude',
         'longitude',
         'phone',
@@ -87,12 +89,28 @@ class Company extends Model
     }
 
     /**
+     * Get the country that owns the career company.
+     */
+    public function country(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Country::class, 'country_id');
+    }
+
+    /**
      * Get the career industry that owns the career company.
      */
     public function industry(): BelongsTo
     {
         return $this->setConnection('career_db')->belongsTo(Industry::class, 'industry_id')
             ->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get the state that owns the career company.
+     */
+    public function state(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(State::class, 'state_id');
     }
 
     /**

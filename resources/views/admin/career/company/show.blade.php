@@ -57,7 +57,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'state',
-            'value' => $company->state
+            'value' => $company->state['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [
@@ -67,7 +67,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'country',
-            'value' => $company->country
+            'value' => $company->country['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [

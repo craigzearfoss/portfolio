@@ -106,9 +106,10 @@
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'state',
-                'value'   => old('state') ?? '',
-                'list'    => \App\Models\State::listOptions(true, true),
+                'name'    => 'state_id',
+                'label'   => 'state',
+                'value'   => old('state_id') ?? '',
+                'list'    => \App\Models\State::listOptions(true),
                 'message' => $message ?? '',
             ])
 
@@ -120,9 +121,10 @@
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'country',
-                'value'   => old('country') ?? '',
-                'list'    => \App\Models\Country::listOptions(true, true),
+                'name'    => 'country_id',
+                'label'    => 'country',
+                'value'   => old('country_id') ?? '',
+                'list'    => \App\Models\Country::listOptions(true),
                 'message' => $message ?? '',
             ])
 

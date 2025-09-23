@@ -88,18 +88,13 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'min compensation',
-            'value' => number_format($application->compensation_min),
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'max compensation',
-            'value' => number_format($application->compensation_max),
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'compensation unit',
-            'value' => $application->compensation_unit['name']
+            'name'  => 'compensation',
+            'value' => view('admin.components.compensation', [
+                                'min'   => $application->compensation_min ?? '',
+                                'max'   => $application->compensation_max ?? '',
+                                'unit'  => $application->compensation_unit['name'] ?? '',
+                                'short' => false
+                            ])
         ])
 
         @include('admin.components.show-row', [
@@ -134,7 +129,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'state',
-            'value' => $application->state
+            'value' => $application->state['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [
@@ -144,7 +139,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'country',
-            'value' => $application->country
+            'value' => $application->country['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [

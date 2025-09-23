@@ -14,7 +14,9 @@ use App\Models\Career\Event;
 use App\Models\Career\JobBoard;
 use App\Models\Career\Note;
 use App\Models\Career\Resume;
+use App\Models\Country;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Models\State;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -57,9 +59,9 @@ class Application extends Model
         'street',
         'street2',
         'city',
-        'state',
+        'state_id',
         'zip',
-        'country',
+        'country_id',
         'latitude',
         'longitude',
         'bonus',
@@ -134,6 +136,14 @@ class Application extends Model
     }
 
     /**
+     * Get the country that owns the career country.
+     */
+    public function country(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Country::class, 'country_id');
+    }
+
+    /**
      * Get the career cover letter for the career application.
      */
     public function coverLetter(): HasOne
@@ -200,6 +210,14 @@ class Application extends Model
     public function schedule(): BelongsTo
     {
         return $this->setConnection('career_db')->belongsTo(ApplicationSchedule::class);
+    }
+
+    /**
+     * Get the state that owns the career application.
+     */
+    public function state(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(State::class, 'state_id');
     }
 
     /**

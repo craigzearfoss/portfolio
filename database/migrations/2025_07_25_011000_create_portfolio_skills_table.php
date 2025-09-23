@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('career_db')->create('skills', function (Blueprint $table) {
+        Schema::connection('portfolio_db')->create('skills', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->tinyInteger('rating')->default(1);
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('career_db')->dropIfExists('skills');
+        Schema::connection('portfolio_db')->dropIfExists('skills');
     }
 };

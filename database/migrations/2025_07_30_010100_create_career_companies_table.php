@@ -20,9 +20,9 @@ return new class extends Migration
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();
-            $table->string('state', 20)->nullable();
+            $table->integer('state_id')->nullable();
             $table->string('zip', 20)->nullable();
-            $table->string('country', 100)->nullable();
+            $table->integer('country_id')->nullable();
             $table->float('longitude')->nullable();
             $table->float('latitude')->nullable();
             $table->string('phone', 20)->nullable();
@@ -61,7 +61,7 @@ return new class extends Migration
                 'industry_id' => 10,
                 'link'        => 'https://www.linkedin.com/company/jobs-by-allup/jobs/',
                 'link_name'   => 'LinkedIn',
-                'country'     => 'USA',
+                'country_id'  => 237,
                 'admin_id'    => 2,
             ],
             [
@@ -71,7 +71,7 @@ return new class extends Migration
                 'industry_id' => 10,
                 'link'        => 'https://iostudio.com/',
                 'link_name'   => 'iostudio website',
-                'country'     => 'USA',
+                'country_id'  => 237,
                 'admin_id'    => 2,
             ],
             [
@@ -81,7 +81,7 @@ return new class extends Migration
                 'industry_id' => 10,
                 'link'        => 'https://blackairplane.com/',
                 'link_name'   => 'Black Airplane website',
-                'country'     => 'USA',
+                'country_id'  => 237,
                 'admin_id'    => 2,
             ],
             /*
@@ -92,7 +92,7 @@ return new class extends Migration
                 'industry_id' => 10,
                 'link'        => null,
                 'link_name'   => null,
-                'country'     => 'USA',
+                'country_id'  => 237,
                 'admin_id'    => 2,
             ],
             */
