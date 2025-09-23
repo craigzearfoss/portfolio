@@ -50,19 +50,26 @@ class JobBoard extends Model
     /**
      * Returns an array of options for a select list.
      *
-     * @param bool $includeBlank
+     * @param bool $includeOther
      * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = true): array
+    public static function listOptions(bool $includeOther = false, bool $nameAsKey = true): array
     {
         $options = [];
-        if ($includeBlank) {
-            $options = [ '' => '' ];
-        }
+
+        $other = null;
 
         foreach (JobBoard::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
-            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
+            if ($row->name == 'other') {
+                $other = $row;
+            } else {
+                $options[$nameAsKey ? $row->name : $row->id] = $row->name;
+            }
+        }
+
+        if ($includeOther && !empty($other)) {
+            $options[$nameAsKey ? $other->name : $other->id] = $other->name;
         }
 
         return $options;

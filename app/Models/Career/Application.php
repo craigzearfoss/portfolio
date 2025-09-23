@@ -17,6 +17,7 @@ use App\Models\Career\Resume;
 use App\Models\Country;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\State;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -147,7 +148,7 @@ class Application extends Model
      */
     public function coverLetter(): HasOne
     {
-        return $this->setConnection('career_db')->hasOne(CoverLetter::class)
+        return $this->setConnection('career_db')->hasOne(CoverLetter::class, 'application_id')
             ->orderBy('date', 'desc');
     }
 
@@ -175,6 +176,30 @@ class Application extends Model
     {
         return $this->setConnection('career_db')->belongsTo(JobBoard::class)
             ->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get the name of the application.
+     */
+    protected function name(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->calculateName()
+        );
+    }
+
+    /**
+     * Calculate the name of the application.
+     */
+    protected function calculateName()
+    {
+        $company = $this->company['name'] ?? '?company?';
+        $role = $this->role ?? '?role?';
+        $date = !empty($this->apply_date)
+            ? ' [applied: ' . $this->apply_date . ']'
+            : (!empty($this->post_date) ? ' [applied: ' . $this->apply_date . ']' : '');
+
+        return $company . ' - ' . $role . $date;
     }
 
     /**
@@ -244,8 +269,7 @@ class Application extends Model
         }
 
         foreach ($query->get() as $application) {
-            $options[$application->id] = $application->company_name . ' - ' . $application->role
-                . '  (posted: ' . $application->post_date . ')';
+            $options[$application->id] = $application->name();
         }
 
         return $options;

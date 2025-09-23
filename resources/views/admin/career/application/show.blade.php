@@ -26,6 +26,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'name',
+            'value' => $application->name
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'company',
             'value' =>  view('admin.components.link', [
                 'url'  => !empty($application->company)
@@ -35,10 +40,10 @@
             ])
         ])
 
-    @include('admin.components.show-row', [
-        'name'  => 'role',
-        'value' => $application->role
-    ])
+        @include('admin.components.show-row', [
+            'name'  => 'role',
+            'value' => $application->role
+        ])
 
     @if(!empty($application->cover_letter))
             @include('admin.components.show-row', [
@@ -163,15 +168,22 @@
             'checked' => $application->health
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'job board',
-            'value' => view('admin.components.link', [
-                'url' => !empty($application->job_board)
-                    ? route('admin.career.job-board.show', $application->job_board['id'])
-                    : '',
-                'name' => $application->job_board['name'] ?? '',
+        @if(empty($application->job_board['name']) || ($application->job_board['name'] == 'other'))
+            @include('admin.components.show-row', [
+                'name'  => 'source',
+                'value' => 'other'
             ])
-        ])
+        @else
+            @include('admin.components.show-row', [
+                'name'  => 'source->' . $application->job_board['name'] . '<-',
+                'value' => view('admin.components.link', [
+                    'url' => !empty($application->job_board)
+                        ? route('admin.career.job-board.show', $application->job_board['id'])
+                        : '',
+                    'name' => $application->job_board['name'] ?? '',
+                ])
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => !empty($application->phone_label) ? $application->phone_label : 'phone',

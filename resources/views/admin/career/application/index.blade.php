@@ -23,20 +23,24 @@
                 @if(isRootAdmin())
                     <th>admin</th>
                 @endif
+                <th>company</th>
                 <th>role</th>
                 <th>active</th>
                 <th>rating</th>
-                <th class="text-nowrap">apply date</th>
+                <th>posted</th>
+                <th>applied</th>
                 <th>duration</th>
                 <th>compensation</th>
-                <th>type</th>
+                <th>schedule</th>
                 <th>office</th>
                 <th>location</th>
                 <th>w2</th>
+                <?php /*
                 <th>relo</th>
                 <th>ben</th>
                 <th>vac</th>
                 <th>health</th>
+                */ ?>
                 <th>source</th>
                 <th>actions</th>
             </tr>
@@ -47,13 +51,15 @@
                 @if(isRootAdmin())
                     <th>admin</th>
                 @endif
+                <th>company</th>
                 <th>role</th>
                 <th>active</th>
                 <th>rating</th>
-                <th class="text-nowrap">apply date</th>
+                <th>posted</th>
+                <th>applied</th>
                 <th>duration</th>
                 <th>compensation</th>
-                <th>type</th>
+                <th>schedule</th>
                 <th>office</th>
                 <th>location</th>
                 <th>w2</th>
@@ -77,6 +83,9 @@
                         </td>
                     @endif
                     <td>
+                        {{ $application->company['name'] ?? '' }}
+                    </td>
+                    <td>
                         {{ $application->role }}
                     </td>
                     <td class="has-text-centered">
@@ -85,8 +94,11 @@
                     <td class="has-text-centered text-nowrap">
                         @include('admin.components.star-ratings', [ 'rating' => $application->rating ])
                     </td>
+                        <td class="text-nowrap">
+                            {{ !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' }}
+                        </td>
                     <td class="text-nowrap">
-                        {{ shortDate($application->apply_date) }}
+                        {{ !empty($application->apply_date) ? date('M j', strtotime($application->apply_date)) : '' }}
                     </td>
                     <td>
                         {{ $application->duration['name'] }}
@@ -102,7 +114,7 @@
                         !!}
                     </td>
                     <td class="text-nowrap">
-                        {{ $application->type['abbreviation'] ?? '' }}
+                        {{ $application->schedule['name'] ?? '' }}
                     </td>
                     <td class="text-nowrap">
                         {{ $application->office['name'] ?? '' }}
@@ -118,6 +130,7 @@
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->w2 ])
                     </td>
+                    <?php /*
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->relocation ])
                     </td>
@@ -130,7 +143,10 @@
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->health ])
                     </td>
-                    <td>{{ $application->source }}</td>
+                    */ ?>
+                    <td>
+                        {{ $application->job_board['name'] ?? '' }}
+                    </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.application.destroy', $application->id) }}" method="POST">
 
@@ -167,7 +183,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '17' : '16' }}">There are no applications.</td>
+                    <td colspan="{{ isRootAdmin() ? '15' : '14' }}">There are no applications.</td>
                 </tr>
 
             @endforelse

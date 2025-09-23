@@ -32,18 +32,19 @@ return new class extends Migration
         });
 
         $data = [
-            [ 'id' => 1,  'name' => 'Dice',             'slug' => 'dice',             'link' => 'https://dice.com/' ],
-            [ 'id' => 2,  'name' => 'Indeed',           'slug' => 'indeed',           'link' => 'https://indeed.com/' ],
-            [ 'id' => 3,  'name' => 'iHireTechnology',  'slug' => 'ihiretechnology',  'link' => 'https://ihiretechnology.com/' ],
-            [ 'id' => 4,  'name' => 'JobLeads',         'slug' => 'jobleads',         'link' => 'https://jobleads.com/' ],
-            [ 'id' => 5,  'name' => 'Jobright',         'slug' => 'jobright',         'link' => 'https://jobright.ai/' ],
-            [ 'id' => 6,  'name' => 'LaraJobs',         'slug' => 'larajobs',         'link' => 'https://larajobs.com/' ],
-            [ 'id' => 7,  'name' => 'Lensa',            'slug' => 'lensa',            'link' => 'https://lensa.com/' ],
-            [ 'id' => 8,  'name' => 'LinkedIn',         'slug' => 'linked',           'link' => 'https://linkedin.com/' ],
-            [ 'id' => 9,  'name' => 'Monster',          'slug' => 'monster',          'link' => 'https://monster.com/' ],
-            [ 'id' => 10, 'name' => 'SimplyHired',      'slug' => 'simplehired',      'link' => 'https://simplyhired.com/' ],
-            [ 'id' => 11, 'name' => 'VirtualVocations', 'slug' => 'virtualvocations', 'link' => 'https://www.virtualvocations.com/' ],
-            [ 'id' => 12, 'name' => 'ZipRecruiter',     'slug' => 'ziprecruiter',     'link' => 'https://ziprecruiter.com/' ],
+            [ 'id' => 1,  'name' => 'other',            'slug' => 'other',            'link' => null ],
+            [ 'id' => 2,  'name' => 'Dice',             'slug' => 'dice',             'link' => 'https://dice.com/' ],
+            [ 'id' => 3,  'name' => 'Indeed',           'slug' => 'indeed',           'link' => 'https://indeed.com/' ],
+            [ 'id' => 4,  'name' => 'iHireTechnology',  'slug' => 'ihiretechnology',  'link' => 'https://ihiretechnology.com/' ],
+            [ 'id' => 5,  'name' => 'JobLeads',         'slug' => 'jobleads',         'link' => 'https://jobleads.com/' ],
+            [ 'id' => 6,  'name' => 'Jobright',         'slug' => 'jobright',         'link' => 'https://jobright.ai/' ],
+            [ 'id' => 7,  'name' => 'LaraJobs',         'slug' => 'larajobs',         'link' => 'https://larajobs.com/' ],
+            [ 'id' => 8,  'name' => 'Lensa',            'slug' => 'lensa',            'link' => 'https://lensa.com/' ],
+            [ 'id' => 9,  'name' => 'LinkedIn',         'slug' => 'linked',           'link' => 'https://linkedin.com/' ],
+            [ 'id' => 10, 'name' => 'Monster',          'slug' => 'monster',          'link' => 'https://monster.com/' ],
+            [ 'id' => 11, 'name' => 'SimplyHired',      'slug' => 'simplehired',      'link' => 'https://simplyhired.com/' ],
+            [ 'id' => 12, 'name' => 'VirtualVocations', 'slug' => 'virtualvocations', 'link' => 'https://www.virtualvocations.com/' ],
+            [ 'id' => 13, 'name' => 'ZipRecruiter',     'slug' => 'ziprecruiter',     'link' => 'https://ziprecruiter.com/' ],
         ];
 
         App\Models\Career\JobBoard::insert($data);

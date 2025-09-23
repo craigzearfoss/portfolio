@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'url' => route('admin.career.index') ],
         [ 'name' => 'Cover Letters',   'url' => route('admin.career.cover-letter.index') ],
-        [ 'name' => 'Add' ],
+        [ 'name' => 'Attach' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.career.cover-letter.index') ],
@@ -63,14 +63,12 @@
                 'name'     => 'cover letter url',
                 'value'    => old('cover_letter_url') ?? '',
                 'maxlength' => 255,
-                'required' => true,
                 'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'     => 'link',
                 'value'    => old('link') ?? '',
-                'required' => true,
                 'maxlength' => 255,
                 'message'  => $message ?? '',
             ])
@@ -79,7 +77,6 @@
                 'name'     => 'link_name',
                 'label'    => 'link name',
                 'value'    => old('link_name') ?? '',
-                'required' => true,
                 'maxlength' => 255,
                 'message'  => $message ?? '',
             ])
@@ -130,12 +127,12 @@
                 'name'            => 'disabled',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? $coverLetter->disabled,
+                'checked'         => old('disabled') ?? 0,
                 'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add Cover Letter',
+                'label'      => 'Attach Cover Letter',
                 'cancel_url' => referer('admin.career.cover-letter.index')
             ])
 

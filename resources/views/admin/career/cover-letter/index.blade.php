@@ -20,7 +20,7 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th>name</th>
+                <th>application</th>
                 <th>date</th>
                 <th class="has-text-centered">primary</th>
                 <th class="has-text-centered">disabled</th>
@@ -30,7 +30,7 @@
             <?php /*
             <tfoot>
             <tr>
-                <th>name</th>
+                <th>applicatioon</th>
                 <th>date</th>
                 <th class="has-text-centered">primary</th>
                 <th class="has-text-centered">disabled</th>
@@ -41,7 +41,7 @@
             <tbody>
 
             @forelse ($coverLetters as $coverLetter)
-
+@php dd($coverLetter->application) @endphp
                 <tr>
                     <td>
                         {{ $coverLetter->name }}

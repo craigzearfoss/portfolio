@@ -64,7 +64,6 @@
                 'name'     => 'cover letter url',
                 'value'    => old('cover_letter_url') ?? $coverLetter->cover_letter_url,
                 'maxlength' => 255,
-                'required' => true,
                 'message'  => $message ?? '',
             ])
 
@@ -72,7 +71,6 @@
                 'name'     => 'link',
                 'value'    => old('link') ?? $coverLetter->link,
                 'maxlength' => 255,
-                'required' => true,
                 'message'  => $message ?? '',
             ])
 
@@ -81,7 +79,6 @@
                 'label'    => 'link name',
                 'value'    => old('link_name') ?? $coverLetter->link_name,
                 'maxlength' => 255,
-                'required' => true,
                 'message'  => $message ?? '',
             ])
 
