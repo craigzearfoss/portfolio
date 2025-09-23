@@ -85,10 +85,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $project->image,
-            'alt'   => $project->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $project->image,
+            'alt'      => $project->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($project->name, $user->image)
         ])
 
         @include('admin.components.show-row', [
@@ -102,10 +105,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $project->thumbnail,
-            'alt'   => $project->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $project->thumbnail,
+            'alt'      => $project->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($project->name, $project->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -89,10 +89,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $library->image,
-            'alt'   => $library->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $library->image,
+            'alt'      => $library->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($library->name, $library->image)
         ])
 
         @include('admin.components.show-row', [
@@ -106,10 +109,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $library->thumbnail,
-            'alt'   => $library->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $library->thumbnail,
+            'alt'      => $library->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($library->name, $library->thumbnail)
         ])
 
         @include('admin.components.show-row', [

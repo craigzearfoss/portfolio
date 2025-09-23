@@ -90,10 +90,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $music->image,
-            'alt'   => $music->name . ', ' . $music->artist,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $music->image,
+            'alt'      => $music->name . ', ' . $music->artist,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($music->name . '-by-' . $music->artist, $music->image)
         ])
 
         @include('admin.components.show-row', [
@@ -107,10 +110,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $music->thumbnail,
-            'alt'   => $music->name . ', ' . $music->artist,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $music->thumbnail,
+            'alt'      => $music->name . ', ' . $music->artist,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($music->name . '-by-' . $music->artist, $music->thumbnail)
         ])
 
         @include('admin.components.show-row', [

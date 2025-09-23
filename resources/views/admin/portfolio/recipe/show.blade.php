@@ -132,6 +132,9 @@
             'src'   => $recipe->image,
             'alt'   => $recipe->name,
             'width' => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($recipe->name, $recipe->image)
         ])
 
         @include('admin.components.show-row', [
@@ -149,6 +152,9 @@
             'src'   => $recipe->thumbnail,
             'alt'   => $recipe->name,
             'width' => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($recipe->name, $recipe->image)
         ])
 
         @include('admin.components.show-row', [

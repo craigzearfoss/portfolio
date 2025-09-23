@@ -258,8 +258,8 @@ class Application extends Model
             $options[''] = '';
         }
 
-        $query = Application::select(['applications.id', 'role', 'post_date', 'applications.admin_id',
-            DB::raw('companies.name AS company_name')
+        $query = Application::select(['applications.id', 'role', 'apply_date', 'post_date', 'applications.admin_id',
+            DB::raw('`companies`.`name` AS company_name')
         ])
             ->join('companies','companies.id', 'applications.company_id')
             ->orderBy('company_name', 'asc');
@@ -269,7 +269,15 @@ class Application extends Model
         }
 
         foreach ($query->get() as $application) {
-            $options[$application->id] = $application->name();
+            $company = !empty($application->company_name)
+                ? $application->company_name
+                : '?company?';
+            $role = $application->role ?? '?role?';
+            $date = !empty($application->apply_date)
+                ? ' [applied: ' . $application->apply_date . ']'
+                : (!empty($application->post_date) ? ' [applied: ' . $application->post_date . ']' : '');
+
+            $options[$application->id] = $company . ' - ' . $role . $date;
         }
 
         return $options;

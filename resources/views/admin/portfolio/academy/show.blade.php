@@ -48,10 +48,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $academy->image,
-            'alt'   => $academy->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $academy->image,
+            'alt'      => $academy->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($academy->name, $academy->image)
         ])
 
         @include('admin.components.show-row', [
@@ -65,10 +68,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $academy->thumbnail,
-            'alt'   => $academy->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $academy->thumbnail,
+            'alt'      => $academy->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($academy->name, $academy->thumbnail)
         ])
 
         @include('admin.components.show-row', [

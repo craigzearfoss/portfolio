@@ -67,13 +67,16 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $reference->image,
-            'alt'   => $reference->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $reference->image,
+            'alt'      => $reference->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($reference->name, $reference->image)
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image credit',
             'value' => $reference->image_credit
         ])
@@ -84,10 +87,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $reference->thumbnail,
-            'alt'   => $reference->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $reference->thumbnail,
+            'alt'      => $reference->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($reference->name, $reference->thumbnail)
         ])
 
         @include('admin.components.show-row', [

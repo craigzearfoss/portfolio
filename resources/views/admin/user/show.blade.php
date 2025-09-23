@@ -58,27 +58,33 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $user->image,
-            'alt'   => $user->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $user->image,
+            'alt'      => $user->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($user->name, $user->image)
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image credit',
             'value' => $user->image_credit
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image source',
             'value' => $user->image_source
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $user->thumbnail,
-            'alt'   => $user->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $user->thumbnail,
+            'alt'      => $user->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($user->name, $user->thumbnail)
         ])
 
         @include('admin.components.show-row', [

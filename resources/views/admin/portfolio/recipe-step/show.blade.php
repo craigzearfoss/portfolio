@@ -50,10 +50,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $recipeStep->image,
-            'alt'   => $recipeStep->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $recipeStep->image,
+            'alt'      => $recipeStep->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($recipeStep->name, $recipeStep->image)
         ])
 
         @include('admin.components.show-row', [
@@ -67,10 +70,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $recipeStep->thumbnail,
-            'alt'   => $recipeStep->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $recipeStep->thumbnail,
+            'alt'      => $recipeStep->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($recipeStep->name, $recipeStep->thumbnail)
         ])
 
         @include('admin.components.show-row', [

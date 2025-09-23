@@ -89,10 +89,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $language->image,
-            'alt'   => $language->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $language->image,
+            'alt'      => $language->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($language->name, $language->image)
         ])
 
         @include('admin.components.show-row', [
@@ -106,10 +109,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $language->thumbnail,
-            'alt'   => $language->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $language->thumbnail,
+            'alt'      => $language->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($language->name, $language->thumbnail)
         ])
 
         @include('admin.components.show-row', [

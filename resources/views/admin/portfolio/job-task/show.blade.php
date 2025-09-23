@@ -54,13 +54,16 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $jobTask->image,
-            'alt'   => $jobTask->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $jobTask->image,
+            'alt'      => $jobTask->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($jobTask->name, $jobTask->image)
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image credit',
             'value' => $jobTask->image_credit
         ])
@@ -71,10 +74,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $jobTask->thumbnail,
-            'alt'   => $jobTask->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $jobTask->thumbnail,
+            'alt'      => $jobTask->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($jobTask->name, $jobTask->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -53,10 +53,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $unit->image,
-            'alt'   => $unit->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $unit->image,
+            'alt'      => $unit->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($unit->name, $unit->image)
         ])
 
         @include('admin.components.show-row', [
@@ -70,10 +73,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $unit->thumbnail,
-            'alt'   => $unit->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $unit->thumbnail,
+            'alt'      => $unit->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($unit->name, $unit->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -49,7 +49,6 @@ return new class extends Migration
         });
 
         $data = [
-            /*
             [
                 'id' => 1,
                 'name'            => 'AWS Cloud Practitioner Essentials: Cloud Concepts',
@@ -80,6 +79,7 @@ return new class extends Migration
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Cloud%20Practitioner%20Essentials%20-%20Core%20Services.png',
                 'admin_id'        => 2,
             ],
+/*
             [
                 'id'              => 3,
                 'name'            => 'AWS Cloud Practitioner Essentials: Course Introduction',
@@ -220,7 +220,7 @@ return new class extends Migration
             */
         ];
 
-//        Course::insert($data);
+         Course::insert($data);
     }
 
     /**

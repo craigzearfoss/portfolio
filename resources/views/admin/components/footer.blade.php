@@ -32,5 +32,18 @@
         .catch(error => {
             console.error( error );
         });
+
+    (function() {
+        document.querySelectorAll('.download-link').forEach(element => {
+            element.addEventListener('click', function() {
+                let url = element.getAttribute('data-url');
+                let filename = element.getAttribute('data-filename') ?? '';
+                console.log(url,filename)
+                downloadFile(url, filename)
+                console.log('Element with class "download-link" clicked:', this);
+            });
+        });
+
+    })();
 </script>
 

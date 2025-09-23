@@ -85,14 +85,14 @@
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
                             </a>
 
-                            @if (!empty($course->link))
-                                <a title="{{ !empty($course->link_name) ? $course->link_name : 'link' }}" class="button is-small px-1 py-0" href="{{ $course->link }}"
+                            @if (!empty($course->certificate_url))
+                                <a title="open certificate in a new window" class="button is-small px-1 py-0" href="{{ $course->certificate_url }}"
                                    target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- certificate_url--}}
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- certificate_url--}}
                                 </a>
                             @endif
 

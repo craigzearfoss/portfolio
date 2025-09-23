@@ -89,10 +89,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $category->image,
-            'alt'   => $category->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $category->image,
+            'alt'      => $category->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($category->name, $category->image)
         ])
 
         @include('admin.components.show-row', [
@@ -106,10 +109,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $category->thumbnail,
-            'alt'   => $category->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $category->thumbnail,
+            'alt'      => $category->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($category->name, $category->thumbnail)
         ])
 
         @include('admin.components.show-row', [

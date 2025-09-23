@@ -89,10 +89,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $operatingSystem->image,
-            'alt'   => $operatingSystem->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $operatingSystem->image,
+            'alt'      => $operatingSystem->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($operatingSystem->name, $operatingSystem->image)
         ])
 
         @include('admin.components.show-row', [
@@ -106,10 +109,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $operatingSystem->thumbnail,
-            'alt'   => $operatingSystem->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $operatingSystem->thumbnail,
+            'alt'      => $operatingSystem->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($operatingSystem->name, $operatingSystem->image)
         ])
 
         @include('admin.components.show-row', [

@@ -53,10 +53,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $ingredient->image,
-            'alt'   => $ingredient->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $ingredient->image,
+            'alt'      => $ingredient->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($ingredient->name, $ingredient->image)
         ])
 
         @include('admin.components.show-row', [
@@ -70,10 +73,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $ingredient->thumbnail,
-            'alt'   => $ingredient->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $ingredient->thumbnail,
+            'alt'      => $ingredient->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($ingredient->name, $ingredient->thumbnail)
         ])
 
         @include('admin.components.show-row', [

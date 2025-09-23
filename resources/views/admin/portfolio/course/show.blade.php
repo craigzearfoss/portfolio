@@ -91,9 +91,12 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'certificate url',
-            'src'   => $course->certificate_url,
-            'width' => '300px',
+            'name'     => 'certificate url',
+            'src'      => $course->certificate_url,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($course->name, $course->certificate_url)
         ])
 
         @include('admin.components.show-row-link', [
@@ -108,11 +111,14 @@
             'value' => nl2br($course->description)
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $course->image,
-            'alt'   => $course->name,
-            'width' => '300px',
+        @include('admin.components.show-row', [
+            'name'     => 'image',
+            'src'      => $course->image,
+            'alt'      => $course->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($video->name, $video->image)
         ])
 
         @include('admin.components.show-row', [
@@ -126,10 +132,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $course->thumbnail,
-            'alt'   => $course->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $course->thumbnail,
+            'alt'      => $course->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($course->name, $course->thumbail)
         ])
 
         @include('admin.components.show-row', [

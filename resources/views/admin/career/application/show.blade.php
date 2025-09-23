@@ -218,10 +218,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $application->image,
-            'alt'   => $application->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $application->image,
+            'alt'      => $application->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($application->name, $application->image)
         ])
 
         @include('admin.components.show-row', [
@@ -235,10 +238,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $application->thumbnail,
-            'alt'   => $application->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $application->thumbnail,
+            'alt'      => $application->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($application->name, $application->thumbnail)
         ])
 
         @include('admin.components.show-row', [

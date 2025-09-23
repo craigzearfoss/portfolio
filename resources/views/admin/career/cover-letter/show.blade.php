@@ -58,13 +58,16 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $coverLetter->image,
-            'alt'   => $coverLetter->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $coverLetter->image,
+            'alt'      => $coverLetter->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($coverLetter->name, $coverLetter->image)
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image_credit',
             'value' => $coverLetter->image_credit
         ])
@@ -75,10 +78,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $coverLetter->thumbnail,
-            'alt'   => $coverLetter->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $coverLetter->thumbnail,
+            'alt'      => $coverLetter->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($coverLetter->name, $coverLetter->thumbnail)
         ])
 
         @include('admin.components.show-row', [

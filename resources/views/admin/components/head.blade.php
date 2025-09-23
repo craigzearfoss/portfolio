@@ -25,4 +25,6 @@
 
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
 
+    <script src="{{ asset('assets/development-only/main.js') }}"></script>
+
 </head>

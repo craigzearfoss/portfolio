@@ -97,13 +97,16 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $video->image,
-            'alt'   => $video->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $video->image,
+            'alt'      => $video->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($video->name, $video->image)
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image_credit',
             'value' => $video->image_credit
         ])
@@ -114,10 +117,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $video->thumbnail,
-            'alt'   => $video->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $video->thumbnail,
+            'alt'      => $video->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($video->name, $video->thumbnail)
         ])
 
         @include('admin.components.show-row', [

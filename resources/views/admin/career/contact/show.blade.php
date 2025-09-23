@@ -100,13 +100,16 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $contact->image,
-            'alt'   => $contact->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $contact->image,
+            'alt'      => $contact->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($contact->name, $contact->image)
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image credit',
             'value' => $contact->image_credit
         ])
@@ -117,10 +120,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $contact->thumbnail,
-            'alt'   => $contact->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $contact->thumbnail,
+            'alt'      => $contact->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($contact->name, $contact->thumbnail)
         ])
 
         @include('admin.components.show-row', [

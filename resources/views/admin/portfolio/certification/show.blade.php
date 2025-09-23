@@ -76,9 +76,12 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'certificate url',
-            'src'   => $certification->certificate_url,
-            'width' => '300px',
+            'name'     => 'certificate url',
+            'src'      => $certification->certificate_url,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($certification->name, $certification->certificate_url)
         ])
 
         @include('admin.components.show-row-link', [
@@ -94,10 +97,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $certification->image,
-            'alt'   => $certification->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $certification->image,
+            'alt'      => $certification->name,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($certification->name, $certification->image)
         ])
 
         @include('admin.components.show-row', [
@@ -111,10 +117,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $certification->thumbnail,
-            'alt'   => $certification->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $certification->thumbnail,
+            'alt'      => $certification->name,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($certification->name, $certification->thumbnail)
         ])
 
         @include('admin.components.show-row', [

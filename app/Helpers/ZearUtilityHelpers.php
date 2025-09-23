@@ -169,3 +169,30 @@ if (! function_exists('formatLocation')) {
         return $location;
     }
 }
+
+
+if (! function_exists('getFileSlug')) {
+    /**
+     * Returns a formatted address.
+     *
+     * @param string $name
+     * @param string $ext
+     * @return string
+     */
+    function getFileSlug($name, $ext = 'png'): string
+    {
+        $fileSlug = \Illuminate\Support\Str::slug($name);
+
+        if (false !== strpos($ext,'.')) {
+            $ext = pathinfo($ext, PATHINFO_EXTENSION);
+        } else {die('b');
+            $ext = '';
+        }
+
+        if (!empty($ext)) {
+            $fileSlug = $fileSlug . '.' . $ext;
+        }
+
+        return $fileSlug;
+    }
+}

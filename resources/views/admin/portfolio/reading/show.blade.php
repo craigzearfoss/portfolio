@@ -93,10 +93,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $reading->image,
-            'alt'   => $reading->name . ' - ' . $reading->author,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $reading->image,
+            'alt'      => $reading->title . ' - ' . $reading->author,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($reading->title . '-by-' . $reading->author, $reading->image)
         ])
 
         @include('admin.components.show-row', [
@@ -110,10 +113,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $reading->thumbnail,
-            'alt'   => $reading->name . ' - ' . $reading->author,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $reading->thumbnail,
+            'alt'      => $reading->title . ' - ' . $reading->author,
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($reading->title . '-by-' . $reading->author, $user->thumbnail)
         ])
 
         @include('admin.components.show-row', [

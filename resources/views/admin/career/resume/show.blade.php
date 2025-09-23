@@ -58,16 +58,14 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'doc_url',
-            'label'  => 'doc url',
+            'name'   => 'doc url',
             'label'  => $resume->doc_url,
             'url'    => $resume->doc_url,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'pdf_url',
-            'label'  => 'pdf url',
+            'name'   => 'pdf url',
             'label'  => $resume->pdf_url,
             'url'    => $resume->pdf_url,
             'target' => '_blank'
