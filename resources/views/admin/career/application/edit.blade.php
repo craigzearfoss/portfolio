@@ -45,19 +45,19 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'        => 'resume_id',
-                'label'       => 'resume',
-                'value'       => old('resume_id') ?? $application->resume_id,
-                'list'        => \App\Models\Career\Resume::listOptions(),
-                'message'     => $message ?? '',
-            ])
-
             @include('admin.components.form-input-horizontal', [
                 'name'        => 'role',
                 'value'       => old('role') ?? $application->role,
                 'required'    => true,
                 'maxlength'   => 255,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'        => 'resume_id',
+                'label'       => 'resume',
+                'value'       => old('resume_id') ?? $application->resume_id,
+                'list'        => \App\Models\Career\Resume::listOptions(),
                 'message'     => $message ?? '',
             ])
 

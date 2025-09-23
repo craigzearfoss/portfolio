@@ -85,7 +85,7 @@ class Resume extends Model
             $options[''] = '';
         }
 
-        $query = Resume::orderBy('name', 'asc')->orderBy('date', 'desc');
+        $query = Resume::orderBy('date', 'desc')->orderBy('name', 'asc');
 
         if (!empty($adminId)) {
             $query->where('resumes.admin_id', $adminId);

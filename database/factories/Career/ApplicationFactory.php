@@ -32,8 +32,8 @@ class ApplicationFactory extends Factory
 
         return [
             'company_id'        => \App\Models\Career\Company::all()->random()->id,
-            'resume_id'         => \App\Models\Career\Resume::all()->random()->id,
             'role'              => fake()->jobTitle(),
+            'resume_id'         => \App\Models\Career\Resume::all()->random()->id,
             'rating'            => fake()->numberBetween(0, 4),
             'active'            => 1,
             'post_date'         => fake()->dateTimeBetween('-2 years')->format('Y-m-d'),

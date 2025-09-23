@@ -44,9 +44,9 @@ class ApplicationUpdateRequest extends FormRequest
 
         return [
             'company_id'           => ['integer', Rule::in(Company::all('id')->pluck('id')->toArray())],
-            'cover_letter_id'      => ['integer', Rule::in(CoverLetter::all('id')->pluck('id')->toArray())],
-            'resume_id'            => ['integer', Rule::in(Resume::all('id')->pluck('id')->toArray())],
             'role'                 => ['string', 'max:255', 'filled'],
+            'resume_id'            => ['integer', Rule::in(Resume::all('id')->pluck('id')->toArray())],
+            'cover_letter_id'      => ['integer', Rule::in(CoverLetter::all('id')->pluck('id')->toArray())],
             'rating'               => ['integer', 'between:1,5'],
             'active'               => ['integer', 'between:0,1'],
             'post_date'            => ['date', 'nullable'],

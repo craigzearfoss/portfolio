@@ -35,7 +35,12 @@
             ])
         ])
 
-        @if(!empty($application->cover_letter))
+    @include('admin.components.show-row', [
+        'name'  => 'role',
+        'value' => $application->role
+    ])
+
+    @if(!empty($application->cover_letter))
             @include('admin.components.show-row', [
                 'name'  => 'cover letter',
                 'value' => view('admin.components.link', [
@@ -56,11 +61,6 @@
         @endif
 
         <h1 class="subtitle">@TODO: resume</h1>
-
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $application->role
-        ])
 
         @include('admin.components.show-row-rating', [
             'name'  => 'rating',
