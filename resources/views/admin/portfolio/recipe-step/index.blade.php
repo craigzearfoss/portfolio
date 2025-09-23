@@ -67,7 +67,7 @@
                         {{ $recipeStep->step }}
                     </td>
                     <td>
-                        {{ $recipeStep->description }}
+                        {!! nl2br($recipeStep->description) !!}
                     </td>
                     <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipeStep->public ])

@@ -124,7 +124,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $recipe->description
+            'value' => nl2br($recipe->description)
         ])
 
         @include('admin.components.show-row-image', [

@@ -85,7 +85,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $stack->description
+            'value' => nl2br($stack->description)
         ])
 
         @include('admin.components.show-row-image', [

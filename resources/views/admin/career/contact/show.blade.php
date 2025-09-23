@@ -96,7 +96,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $contact->description
+            'value' => nl2br($contact->description)
         ])
 
         @include('admin.components.show-row-image', [

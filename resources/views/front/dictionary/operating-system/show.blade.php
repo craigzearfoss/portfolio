@@ -68,7 +68,7 @@
 
         @include('front.components.show-row', [
             'name'  => 'description',
-            'value' => $operatingSystem->description
+            'value' => nl2br($operatingSystem->description)
         ])
 
         @if(!empty($operatingSystem->image))

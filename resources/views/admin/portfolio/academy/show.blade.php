@@ -44,7 +44,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $academy->description
+            'value' => nl2br($academy->description)
         ])
 
         @include('admin.components.show-row-image', [

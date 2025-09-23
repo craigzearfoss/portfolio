@@ -36,7 +36,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'body',
-            'value' => $message->body
+            'value' => nl2br($message->body)
         ])
 
         @include('admin.components.show-row', [

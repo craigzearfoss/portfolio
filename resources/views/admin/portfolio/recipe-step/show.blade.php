@@ -46,7 +46,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $recipeStep->description
+            'value' => nl2br($recipeStep->description)
         ])
 
         @include('admin.components.show-row-image', [

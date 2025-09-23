@@ -69,12 +69,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $jobCoworker->description
+            'value' => nl2br($jobCoworker->description)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $jobCoworker->notes
+            'value' => nl2br($jobCoworker->notes)
         ])
 
         @include('admin.components.show-row-image', [

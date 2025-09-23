@@ -92,7 +92,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $resume->description
+            'value' => nl2br($resume->description)
         ])
 
         @include('admin.components.show-row-image', [

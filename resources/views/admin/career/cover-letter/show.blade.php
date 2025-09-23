@@ -37,7 +37,7 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'cover_letter_url',
-            'url'    => $application->cover_letter_url,
+            'url'    => $coverLetter->cover_letter_url,
             'target' => '_blank'
         ])
 
@@ -54,7 +54,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $coverLetter->description
+            'value' => nl2br($coverLetter->description)
         ])
 
         @include('admin.components.show-row-image', [

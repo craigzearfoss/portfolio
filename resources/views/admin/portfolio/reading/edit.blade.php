@@ -152,7 +152,7 @@
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'notes',
-                'value'   => old('notes') ?? $reading->notes,
+                'value'   => old('notes') ?? nl2br($reading->notes),
                 'message' => $message ?? '',
             ])
 

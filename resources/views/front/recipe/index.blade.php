@@ -55,7 +55,7 @@
                                     @include('front.components.checkmark', [ 'checked' => $recipe->$project ])
                                 </td>
                                 <td>
-                                    {!! $recipe->description !!}
+                                    {!! nl2br($recipe->description) !!}
                                 </td>
                             </tr>
 

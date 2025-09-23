@@ -112,7 +112,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $job->description
+            'value' => nl2br($job->description)
         ])
 
         @include('admin.components.show-row-image', [

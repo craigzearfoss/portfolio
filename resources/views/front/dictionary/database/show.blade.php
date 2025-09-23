@@ -68,7 +68,7 @@
 
         @include('front.components.show-row', [
             'name'  => 'description',
-            'value' => $database->description
+            'value' => nl2br($database->description)
         ])
 
         @if(!empty($database->image))

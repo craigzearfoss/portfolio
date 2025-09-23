@@ -67,7 +67,7 @@
                                     {{ shortDate($certification->expiration) }}
                                 </td>
                                 <td>
-                                    {!! $certification->description !!}
+                                    {!! nl2br($certification->description) !!}
                                 </td>
                             </tr>
 

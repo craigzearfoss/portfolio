@@ -20,9 +20,13 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th>application</th>
-                <th>date</th>
-                <th class="has-text-centered">primary</th>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
+                <th>company</th>
+                <th>role</th>
+                <th>apply</th>
+                <th>active</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -30,9 +34,13 @@
             <?php /*
             <tfoot>
             <tr>
-                <th>applicatioon</th>
-                <th>date</th>
-                <th class="has-text-centered">primary</th>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
+                <th>company</th>
+                <th>role</th>
+                <th>apply</th>
+                <th>active</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -41,16 +49,24 @@
             <tbody>
 
             @forelse ($coverLetters as $coverLetter)
-@php dd($coverLetter->application) @endphp
+
                 <tr>
+                    @if(isRootAdmin())
+                        <td>
+                            {{ $application->admin['username'] ?? '' }}
+                        </td>
+                    @endif
                     <td>
-                        {{ $coverLetter->name }}
+                        {{ $coverLetter->application->company['name'] ?? '' }}
+                    </td>
+                    <td>
+                        {{ $coverLetter->application['role'] ?? '' }}
                     </td>
                     <td class="text-nowrap">
-                        {{ shortDate($coverLetter->date) }}
+                        {{ shortDate($coverLetter->application['post_date'] ?? null) }}
                     </td>
                     <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $coverLetter->primary ])
+                        @include('admin.components.checkmark', [ 'checked' => $coverLetter->application['active'] ?? 0 ])
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $coverLetter->disabled ])
@@ -91,7 +107,7 @@
             @empty
 
                 <tr>
-                    <td colspan="5">There are no jobs.</td>
+                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There are no cover letters.</td>
                 </tr>
 
             @endforelse

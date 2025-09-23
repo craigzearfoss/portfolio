@@ -64,7 +64,7 @@
 
                                         @include('front.components.show-row', [
                                             'name'  => 'description',
-                                            'value' => $video->description
+                                            'value' => nl2br($video->description)
                                         ])
 
                                 </div>

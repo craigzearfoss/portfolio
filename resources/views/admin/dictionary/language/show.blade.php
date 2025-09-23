@@ -85,7 +85,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $language->description
+            'value' => nl2br($language->description)
         ])
 
         @include('admin.components.show-row-image', [

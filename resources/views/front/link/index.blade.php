@@ -67,7 +67,7 @@
                                     {{ $link->website }}
                                 </td>
                                 <td>
-                                    {!! $link->description !!}
+                                    {!! nl2br($link->description) !!}
                                 </td>
                             </tr>
 
