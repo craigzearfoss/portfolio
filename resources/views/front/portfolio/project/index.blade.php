@@ -67,7 +67,7 @@
                                     @include('front.components.link', [ 'url' => $project->link, 'target' => '_blank' ])
                                 </td>
                                 <td>
-                                    {!! nl2br($project->description) !!}
+                                    {!! nl2br($project->description ?? '') !!}
                                 </td>
                             </tr>
 

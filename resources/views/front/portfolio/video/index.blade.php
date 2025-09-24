@@ -79,7 +79,7 @@
                                     @include('front.components.link', [ 'url' => $video->link, 'target' => '_blank' ])
                                 </td>
                                 <td>
-                                    {!! nl2br($video->description) !!}
+                                    {!! nl2br($video->description ?? '') !!}
                                 </td>
                             </tr>
 

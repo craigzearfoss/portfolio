@@ -55,7 +55,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'body',
-            'value' => nl2br($communication->body)
+            'value' => nl2br($communication->body ?? '')
         ])
 
         @include('admin.components.show-row', [

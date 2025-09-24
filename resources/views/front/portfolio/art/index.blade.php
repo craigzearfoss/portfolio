@@ -178,7 +178,7 @@
                                     @include('front.components.checkmark', [ 'checked' => $art->personal ])
                                 </td>
                                 <td>
-                                    {!! nl2br($art->description) !!}
+                                    {!! nl2br($art->description ?? '') !!}
                                 </td>
                             </tr>
 

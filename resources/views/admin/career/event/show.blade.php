@@ -54,7 +54,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($event->description)
+            'value' => nl2br($event->description ?? '')
         ])
 
         @include('admin.components.show-row', [

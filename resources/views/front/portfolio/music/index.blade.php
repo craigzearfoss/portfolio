@@ -55,7 +55,7 @@
                                     @include('front.components.checkmark', [ 'checked' => $music->personal ])
                                 </td>
                                 <td>
-                                    {!! nl2br($music->description) !!}
+                                    {!! nl2br($music->description ?? '') !!}
                                 </td>
                             </tr>
 

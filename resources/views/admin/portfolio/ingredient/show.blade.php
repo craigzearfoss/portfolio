@@ -49,7 +49,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($ingredient->description)
+            'value' => nl2br($ingredient->description ?? '')
         ])
 
         @include('admin.components.show-row-image', [

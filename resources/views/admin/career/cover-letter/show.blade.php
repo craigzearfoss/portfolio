@@ -54,7 +54,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($coverLetter->description)
+            'value' => nl2br($coverLetter->description ?? '')
         ])
 
         @include('admin.components.show-row-image', [

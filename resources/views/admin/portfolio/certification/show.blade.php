@@ -93,7 +93,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($certification->description)
+            'value' => nl2br($certification->description ?? '')
         ])
 
         @include('admin.components.show-row-image', [

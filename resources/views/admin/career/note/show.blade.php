@@ -44,7 +44,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'body',
-            'value' => nl2br($note->body)
+            'value' => nl2br($note->body ?? '')
         ])
 
         @include('admin.components.show-row', [

@@ -69,7 +69,7 @@
 
                                         @include('front.components.show-row', [
                                             'name'  => 'description',
-                                            'value' => nl2br($certification->description)
+                                            'value' => nl2br($certification->description ?? '')
                                         ])
 
                                     </div>

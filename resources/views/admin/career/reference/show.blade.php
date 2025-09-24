@@ -63,7 +63,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($reference->description)
+            'value' => nl2br($reference->description ?? '')
         ])
 
         @include('admin.components.show-row-image', [

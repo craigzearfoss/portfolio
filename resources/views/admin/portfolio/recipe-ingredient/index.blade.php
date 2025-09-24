@@ -64,7 +64,7 @@
                         {{ $recipeIngredient->unit['name'] ?? ''}}
                     </td>
                     <td class="py-0">
-                        {!! nl2br($recipeIngredient->description) !!}
+                        {!! nl2br($recipeIngredient->description ?? '') !!}
                     </td>
                     <td class="py-0 has-text-centered">
                         {{ $recipeIngredient->sequence }}

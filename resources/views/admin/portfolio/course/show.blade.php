@@ -108,9 +108,10 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($course->description)
+            'value' => nl2br($course->description ?? '')
         ])
 
+        <?php /*
         @include('admin.components.show-row', [
             'name'     => 'image',
             'src'      => $course->image,
@@ -118,8 +119,9 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($video->name, $video->image)
+            'filename' => getFileSlug($course->name, $course->image)
         ])
+        */ ?>
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
@@ -131,6 +133,7 @@
             'value' => $course->image_source
         ])
 
+        <?php /*
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $course->thumbnail,
@@ -140,6 +143,7 @@
             'external' => true,
             'filename' => getFileSlug($course->name, $course->thumbail)
         ])
+        */ ?>
 
         @include('admin.components.show-row', [
             'name'  => 'sequence',

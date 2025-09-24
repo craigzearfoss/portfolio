@@ -51,13 +51,12 @@
                         {{ $company->name }}
                     </td>
                     <td>
-                        @if ($company->city)
-                            {{ $company->city }}@if (!empty($company->state))
-                                , {{ $company->state['name'] }}
-                            @endif
-                        @else
-                            {{ $company->state }}
-                        @endif
+                        {!!
+                            formatLocation([
+                                'city'    => $company->city ?? null,
+                                'state'   => $company->state['code'] ?? null,
+                            ])
+                        !!}
                     </td>
                     <td>
                         {{ $company->phone }}

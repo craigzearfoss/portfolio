@@ -305,7 +305,7 @@
     ])
 
     @include('admin.components.application.notes-panel', [
-        'notes' => nl2br($application->notes),
+        'notes' => nl2br($application->notes ?? ''),
         'links' => [
             'add' => route('admin.career.note.create', ['application_id' => $application->id])
         ]
