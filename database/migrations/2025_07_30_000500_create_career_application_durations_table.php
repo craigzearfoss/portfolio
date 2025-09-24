@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Career\ApplicationDuration;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -45,7 +46,7 @@ return new class extends Migration
             ],
         ];
 
-        App\Models\Career\ApplicationDuration::insert($data);
+        ApplicationDuration::insert($data);
     }
 
     /**

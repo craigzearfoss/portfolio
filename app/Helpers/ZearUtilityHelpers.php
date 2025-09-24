@@ -185,7 +185,7 @@ if (! function_exists('getFileSlug')) {
 
         if (false !== strpos($ext,'.')) {
             $ext = pathinfo($ext, PATHINFO_EXTENSION);
-        } else {die('b');
+        } else {
             $ext = '';
         }
 

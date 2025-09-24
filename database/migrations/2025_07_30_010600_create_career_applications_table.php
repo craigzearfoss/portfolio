@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Career\Application;
 use App\Models\Career\Resume;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -177,7 +178,7 @@ return new class extends Migration
             */
         ];
 
-        App\Models\Career\Application::insert($data);
+        Application::insert($data);
     }
 
     /**

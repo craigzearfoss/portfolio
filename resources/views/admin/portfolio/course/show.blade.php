@@ -111,7 +111,6 @@
             'value' => nl2br($course->description ?? '')
         ])
 
-        <?php /*
         @include('admin.components.show-row', [
             'name'     => 'image',
             'src'      => $course->image,
@@ -121,7 +120,6 @@
             'external' => true,
             'filename' => getFileSlug($course->name, $course->image)
         ])
-        */ ?>
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',

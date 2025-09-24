@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Portfolio\Academy;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -106,7 +107,7 @@ return new class extends Migration
             ],
         ];
 
-        App\Models\Portfolio\Academy::insert($data);
+        Academy::insert($data);
     }
 
     /**

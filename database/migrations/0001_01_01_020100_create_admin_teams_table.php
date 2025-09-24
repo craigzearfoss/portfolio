@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\AdminTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -30,7 +31,7 @@ return new class extends Migration
             ],
         ];
 
-        App\Models\AdminTeam::insert($data);
+        AdminTeam::insert($data);
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Career\ApplicationOffice;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -35,7 +36,7 @@ return new class extends Migration
             ],
         ];
 
-        App\Models\Career\ApplicationOffice::insert($data);
+        ApplicationOffice::insert($data);
     }
 
     /**

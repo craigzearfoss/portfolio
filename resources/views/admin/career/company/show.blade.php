@@ -37,7 +37,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'industry',
-            'value' => $company->industry_id
+            'value' => $company->industry['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [

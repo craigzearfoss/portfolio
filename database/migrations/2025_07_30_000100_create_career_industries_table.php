@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Career\Industry;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -41,7 +42,7 @@ return new class extends Migration
             [ 'id' => 20, 'name' => 'Wholesale & Distribution',           'slug' => 'wholesale-and-distribution',           'abbreviation' => 'WD'   ],
         ];
 
-        App\Models\Career\Industry::insert($data);
+        Industry::insert($data);
     }
 
     /**

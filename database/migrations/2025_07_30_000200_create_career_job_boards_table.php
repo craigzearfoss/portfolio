@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Career\JobBoard;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -48,7 +49,7 @@ return new class extends Migration
             [ 'id' => 14, 'name' => 'Robert Half',      'slug' => 'robert-half',      'link' => null ],
         ];
 
-        App\Models\Career\JobBoard::insert($data);
+        JobBoard::insert($data);
     }
 
     /**
