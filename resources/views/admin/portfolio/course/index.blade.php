@@ -23,6 +23,7 @@
                 <th>name</th>
                 <th class=" has-text-centered">completion<br>date</th>
                 <th>academy</th>
+                <th>sponsor</th>
                 <th class="has-has-text-centered">public</th>
                 <th class="has-has-text-centered">read-only</th>
                 <th class="has-has-text-centered">root</th>
@@ -36,6 +37,7 @@
                 <th>name</th>
                 <th class=" has-text-centered">completion<br>date</th>
                 <th>academy</th>
+                <th>sponsor</th>
                 <th class="has-has-text-centered">public</th>
                 <th class="has-has-text-centered">read-only</th>
                 <th class="has-has-text-centered">root</th>
@@ -59,6 +61,9 @@
                         @if (!empty($course->academy))
                             <a href="{{ $course->academy['id'] }}" target="_blank">{{ $course->academy['name'] }}</a>
                         @endif
+                    </td>
+                    <td class="py-0">
+                        {{ $course->sponsor }}
                     </td>
                     <td class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->public ])
@@ -108,7 +113,7 @@
             @empty
 
                 <tr>
-                    <td colspan="8">There are no courses.</td>
+                    <td colspan="9">There are no courses.</td>
                 </tr>
 
             @endforelse

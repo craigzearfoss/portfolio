@@ -48,7 +48,6 @@ class CertificationUpdateRequest extends FormRequest
             'slug'            => ['string', 'max:255', 'unique:portfolio_db.certifications,slug,'.$this->certification->id, 'filled'],
             'organization'    => ['string', 'max:255', 'nullable'],
             'academy_id'      => ['integer', Rule::in(Academy::all()->pluck('id'))],
-            'featured'        => ['integer', 'between:0,1'],
             'professional'    => ['integer', 'between:0,1'],
             'personal'        => ['integer', 'between:0,1'],
             'year'            => ['integer', 'between:1980,'.date("Y"), 'nullable'],

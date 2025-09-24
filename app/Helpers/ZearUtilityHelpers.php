@@ -196,3 +196,22 @@ if (! function_exists('getFileSlug')) {
         return $fileSlug;
     }
 }
+
+if (! function_exists('imageUrl')) {
+    /**
+     * Returns the url of the refering page or the specified fallback route if there was no referer.
+     *
+     * @param string | null $source
+     * @return string
+     */
+    function imageUrl(string|null $source): string
+    {
+        if (empty($source)) {
+            return '';
+        } elseif ('http' === strtolower(substr($source, 0, 4))) {
+            return $source;
+        } else {
+            return asset($source);
+        }
+    }
+}

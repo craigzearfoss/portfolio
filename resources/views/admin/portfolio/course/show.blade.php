@@ -36,11 +36,6 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $course->featured
-        ])
-
-        @include('admin.components.show-row-checkbox', [
             'name'    => 'professional',
             'checked' => $course->professional
         ])
@@ -92,7 +87,7 @@
 
         @include('admin.components.show-row-image', [
             'name'     => 'certificate url',
-            'src'      => $course->certificate_url,
+            'src'      => imageUrl($course->certificate_url),
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -113,7 +108,7 @@
 
         @include('admin.components.show-row', [
             'name'     => 'image',
-            'src'      => $course->image,
+            'src'      => imageUrl($course->image),
             'alt'      => $course->name,
             'width'    => '300px',
             'download' => true,
@@ -131,17 +126,15 @@
             'value' => $course->image_source
         ])
 
-        <?php /*
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
-            'src'      => $course->thumbnail,
+            'src'      => imageUrl($course->thumbnail),
             'alt'      => $course->name,
             'width'    => '40px',
             'download' => true,
             'external' => true,
             'filename' => getFileSlug($course->name, $course->thumbail)
         ])
-        */ ?>
 
         @include('admin.components.show-row', [
             'name'  => 'sequence',

@@ -36,11 +36,6 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => featured->featured
-        ])
-
-        @include('admin.components.show-row-checkbox', [
             'name'    => 'professional',
             'checked' => $certification->professional
         ])
@@ -77,7 +72,7 @@
 
         @include('admin.components.show-row-image', [
             'name'     => 'certificate url',
-            'src'      => $certification->certificate_url,
+            'src'      => imageUrl($certification->certificate_url),
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -98,7 +93,7 @@
 
         @include('admin.components.show-row-image', [
             'name'     => 'image',
-            'src'      => $certification->image,
+            'src'      => imageUrl($certification->image),
             'alt'      => $certification->name,
             'width'    => '300px',
             'download' => true,
@@ -118,7 +113,7 @@
 
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
-            'src'      => $certification->thumbnail,
+            'src'      => imageUrl($certification->thumbnail),
             'alt'      => $certification->name,
             'width'    => '40px',
             'download' => true,
