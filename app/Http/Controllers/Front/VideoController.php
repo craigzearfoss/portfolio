@@ -29,7 +29,7 @@ class VideoController extends BaseController
             ->paginate($perPage);
 
         $title = 'Videos';
-        return view('front.video.index', compact('videos', 'title'))
+        return view('front.portfolio.video.index', compact('videos', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class VideoController extends BaseController
             throw new ModelNotFoundException();
         }
 
-        return view('front.video.show', compact('video'));
+        return view('front.portfolio.video.show', compact('video'));
     }
 }

@@ -29,7 +29,7 @@ class CourseController extends BaseController
             ->paginate($perPage);
 
         $title = 'Courses';
-        return view('front.course.index', compact('courses', 'title'))
+        return view('front.portfolio.course.index', compact('courses', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class CourseController extends BaseController
             throw new ModelNotFoundException();
         }
 
-        return view('front.course.show', compact('course'));
+        return view('front.portfolio.course.show', compact('course'));
     }
 }

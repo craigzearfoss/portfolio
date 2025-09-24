@@ -29,7 +29,7 @@ class RecipeController extends BaseController
             ->paginate($perPage);
 
         $title = 'Recipes';
-        return view('front.recipe.index', compact('recipes', 'title'))
+        return view('front.portfolio.recipe.index', compact('recipes', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class RecipeController extends BaseController
             throw new ModelNotFoundException();
         }
 
-        return view('front.recipe.show', compact('recipe'));
+        return view('front.portfolio.recipe.show', compact('recipe'));
     }
 }

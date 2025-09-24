@@ -14,7 +14,7 @@
             'message'  => $message ?? '',
         ]),
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Framework', 'url' => route('admin.dictionary.framework.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Framework', 'url' => route('front.dictionary.framework.create') ],
     ],
     'errors'  => $errors->any()  ?? [],
     'success' => session('success') ?? null,

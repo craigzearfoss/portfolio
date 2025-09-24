@@ -16,8 +16,8 @@ return new class extends Migration
         $data = [
             [
                 //'id'       => 3,
-                'name'     => 'portfolio',  //config('app.database_portfolio'), //TODO: using config method brings back null?
-                'database' => 'portfolio',  //config('app.database_portfolio'), //TODO: using config method brings back null?
+                'name'     => 'portfolio',  //config('app.db_portfolio'), //TODO: using config method brings back null?
+                'database' => 'portfolio',  //config('app.db_portfolio'), //TODO: using config method brings back null?
                 'tag'      => 'portfolio_db',
                 'title'    => 'Portfolio',
                 'plural'   => 'Portfolios',
@@ -122,7 +122,7 @@ return new class extends Migration
                     'admin'       => 1,
                     'icon'        => 'fa-pizza-slice',
                     'sequence'    => 3050,
-                    'public'      => 1,
+                    'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 1,
                     'disabled'    => 0,

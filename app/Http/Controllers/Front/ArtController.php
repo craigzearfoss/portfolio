@@ -29,7 +29,7 @@ class ArtController extends BaseController
             ->paginate($perPage);
 
         $title = 'Art';
-        return view('front.art.index', compact('arts', 'title'))
+        return view('front.portfolio.art.index', compact('arts', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class ArtController extends BaseController
             throw new ModelNotFoundException();
         }
 
-        return view('front.art.show', compact('art'));
+        return view('front.portfolio.art.show', compact('art'));
     }
 }

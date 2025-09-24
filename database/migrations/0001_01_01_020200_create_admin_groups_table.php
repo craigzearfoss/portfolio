@@ -1,0 +1,45 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::connection('default_db')->create('admin_groups', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor( \App\Models\AdminTeam::class);
+            $table->string('name', 100)->unique();
+            $table->string('slug', 100)->unique();
+            $table->string('abbreviation', 20)->nullable();
+            $table->text('description')->nullable();
+            $table->tinyInteger('disabled')->default(0);
+            $table->timestamps();
+        });
+
+        $data = [
+            [
+                'id'            => 1,
+                'admin_team_id' => 1,
+                'name'          => 'Default Group',
+                'slug'          => 'default',
+                'abbreviation'  => 'DG'
+            ],
+        ];
+
+        App\Models\AdminGroup::insert($data);
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::connection('default_db')->dropIfExists('admin_groups');
+    }
+};

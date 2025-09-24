@@ -29,7 +29,7 @@ class ProjectController extends BaseController
             ->paginate($perPage);
 
         $title = 'Projects';
-        return view('front.project.index', compact('projects', 'title'))
+        return view('front.portfolio.project.index', compact('projects', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class ProjectController extends BaseController
             throw new ModelNotFoundException();
         }
 
-        return view('front.project.show', compact('project'));
+        return view('front.portfolio.project.show', compact('project'));
     }
 }

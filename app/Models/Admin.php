@@ -49,6 +49,7 @@ class Admin extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'admin_team_id',
         'username',
         'name',
         'title',

@@ -29,7 +29,7 @@ class MusicController extends BaseController
             ->paginate($perPage);
 
         $title = 'Music';
-        return view('front.music.index', compact('musics', 'title'))
+        return view('front.portfolio.music.index', compact('musics', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

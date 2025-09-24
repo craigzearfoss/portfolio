@@ -29,7 +29,7 @@ class LinkController extends BaseController
             ->paginate($perPage);
 
         $title = 'Links';
-        return view('front.link.index', compact('links', 'title'))
+        return view('front.portfolio.link.index', compact('links', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

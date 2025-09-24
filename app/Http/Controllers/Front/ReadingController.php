@@ -29,7 +29,7 @@ class ReadingController extends BaseController
             ->paginate($perPage);
 
         $title = 'Readings';
-        return view('front.reading.index', compact('readings', 'title'))
+        return view('front.portfolio.reading.index', compact('readings', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class ReadingController extends BaseController
             throw new ModelNotFoundException();
         }
 
-        return view('front.reading.show', compact('reading'));
+        return view('front.portfolio.reading.show', compact('reading'));
     }
 }

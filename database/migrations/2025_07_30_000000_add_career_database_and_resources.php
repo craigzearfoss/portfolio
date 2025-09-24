@@ -16,8 +16,8 @@ return new class extends Migration
         $data = [
             [
                 //'id'       => 4,
-                'name'     => 'career',     //config('app.database_career'),    //TODO: using config method brings back null?
-                'database' => 'career',     //config('app.database_career'),    //TODO: using config method brings back null?
+                'name'     => 'career',     //config('app.db_career'),    //TODO: using config method brings back null?
+                'database' => 'career',     //config('app.db_career'),    //TODO: using config method brings back null?
                 'tag'      => 'career_db',
                 'title'    => 'Career',
                 'plural'   => 'Careers',
