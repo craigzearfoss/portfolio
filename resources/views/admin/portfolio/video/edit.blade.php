@@ -46,14 +46,6 @@
             ])
 
             @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'featured',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('featured') ?? $video->featured,
-                'message'         => $message ?? '',
-            ])
-
-            @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'professional',
                 'value'           => 1,
                 'unchecked_value' => 0,
@@ -66,6 +58,49 @@
                 'value'           => 1,
                 'unchecked_value' => 0,
                 'checked'         => old('personal') ?? $video->personal,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'featured',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('featured') ?? $video->featured,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'full_episode',
+                'label'           => 'full episode',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('full_episode') ?? $video->full_episode,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'clip',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('clip') ?? $video->clip,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'public_access',
+                'label'           => 'public access',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('public_access') ?? $video->public_access,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'source_footage',
+                'label'           => 'source footage',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('source_footage') ?? $video->source_footage,
                 'message'         => $message ?? '',
             ])
 

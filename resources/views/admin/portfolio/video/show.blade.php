@@ -36,11 +36,6 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $video->featured
-        ])
-
-        @include('admin.components.show-row-checkbox', [
             'name'    => 'professional',
             'checked' => $video->professional
         ])
@@ -49,6 +44,32 @@
             'name'    => 'personal',
             'checked' => $video->personal
         ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'featured',
+            'checked' => $video->featured
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'full_episode',
+            'checked' => $video->full_episode
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'clip',
+            'checked' => $video->clip
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'public_access',
+            'checked' => $video->public_access
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'source_footage',
+            'checked' => $video->source_footage
+        ])
+
 
         @include('admin.components.show-row', [
             'name'  => 'date',
