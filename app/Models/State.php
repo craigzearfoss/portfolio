@@ -7,6 +7,7 @@ use App\Models\Admin;
 use App\Models\Career\Application;
 use App\Models\Career\Company;
 use App\Models\Career\Contact;
+use App\Models\Career\Recruiter;
 use App\Models\Country;
 use App\Models\User;
 use App\Models\Portfolio\Job;
@@ -67,7 +68,6 @@ class State extends Model
             ->orderBy('name', 'asc');
     }
 
-
     /**
      * Get the country that owns the state.
      */
@@ -83,6 +83,15 @@ class State extends Model
     public function jobs(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Job::class)
+            ->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get the recruiters for the state.
+     */
+    public function recruiters(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Recruiter::class)
             ->orderBy('name', 'asc');
     }
 

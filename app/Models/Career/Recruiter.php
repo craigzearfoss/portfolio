@@ -2,8 +2,11 @@
 
 namespace App\Models\Career;
 
+use App\Models\Country;
+use App\Models\State;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
@@ -14,7 +17,7 @@ class Recruiter extends Model
 
     protected $connection = 'career_db';
 
-    protected $table = 'companies';
+    protected $table = 'recruiters';
 
     /**
      * The attributes that are mass assignable.
@@ -58,6 +61,21 @@ class Recruiter extends Model
         'readonly',
         'root',
         'disabled',
-        'admin_id',
     ];
+
+    /**
+     * Get the country that owns the career recruiter.
+     */
+    public function country(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(Country::class, 'country_id');
+    }
+
+    /**
+     * Get the state that owns the career recruiter.
+     */
+    public function state(): BelongsTo
+    {
+        return $this->setConnection('default_db')->belongsTo(State::class, 'state_id');
+    }
 }

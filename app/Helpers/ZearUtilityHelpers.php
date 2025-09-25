@@ -141,7 +141,7 @@ if (! function_exists('formatLocation')) {
         $streetSeparator = !empty($params['streetSeparator']) ? $params['streetSeparator'] : ', ';
 
         if (!empty($street) && !empty($street2)) {
-            $location = $street2 . $streetSeparator . $street2;
+            $location = $street . $streetSeparator . $street2;
         } elseif (!empty($street)) {
             $location = $street;
         } elseif (!empty($street2)) {

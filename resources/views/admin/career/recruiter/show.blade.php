@@ -105,7 +105,7 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'postings url',
+            'name'   => 'link',
             'label'  => $recruiter->link,
             'url'    => $recruiter->link_name,
             'target' => '_blank'

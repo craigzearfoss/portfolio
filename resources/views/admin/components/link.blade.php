@@ -1,3 +1,6 @@
+@php
+$download = isset($download) ? boolval($download) : false;
+@endphp
 @if (!empty($url) || !empty($name))
 
     <a
@@ -13,7 +16,7 @@
         {{ $name ?? $url ?? '#name#' }}
     </a>
 
-    @if (!empty($url))
+    @if ($download && !empty($url))
         <a class="text-xl"
            title="download"
            href="{{ $url }}"

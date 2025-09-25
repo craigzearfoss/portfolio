@@ -36,7 +36,7 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-
+        /*
         $data = [
             [
                 'id'               => 1,
@@ -47,6 +47,7 @@ return new class extends Migration
         ];
 
         CoverLetter::insert($data);
+        */
     }
 
     /**
