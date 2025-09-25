@@ -63,6 +63,9 @@
                         {{ $skill->name }}
                     </td>
                     <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $skill->featured ])
+                    </td>
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $skill->public ])
                     </td>
                     <td class="has-text-centered">
@@ -106,7 +109,7 @@
             @empty
 
                 <tr>
-                    <td colspan="5">There are no skills.</td>
+                    <td colspan="{{ isRootAdmin() ? '6' : '5' }}">There are no skills.</td>
                 </tr>
 
             @endforelse

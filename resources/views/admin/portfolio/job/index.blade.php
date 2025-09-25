@@ -68,15 +68,6 @@
                     <td>
                         {{ $job->company }}
                     </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $job->featured ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $job->professional ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $job->personal ])
-                    </td>
                     <td>
                         {{ $job->role }}
                     </td>
@@ -89,13 +80,10 @@
                         {{ $job->end_year }}
                     </td>
                     <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $job->featured ])
+                    </td>
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $job->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $job->root ])
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->disabled ])
@@ -139,7 +127,7 @@
             @empty
 
                 <tr>
-                    <td colspan="8">There are no jobs.</td>
+                    <td colspan="{{ isRootAdmin() ? '9' : '8' }}">There are no jobs.</td>
                 </tr>
 
             @endforelse

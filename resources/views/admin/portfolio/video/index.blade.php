@@ -68,10 +68,7 @@
                         {{ $video->year }}
                     </td>
                     <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $video->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $video->root ])
+                        @include('admin.components.checkmark', [ 'checked' => $video->featured ])
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->public ])
@@ -117,7 +114,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">There are no videos.</td>
+                    <td colspan="{{ isRootAdmin() ? '7' : '6' }}">There are no videos.</td>
                 </tr>
 
             @endforelse

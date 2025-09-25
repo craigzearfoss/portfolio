@@ -27,10 +27,7 @@
                 <th>name</th>
                 <th>amount</th>
                 <th>unit</th>
-                <th>description</th>
-                <th class="has-text-centered">featured</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
+                <th>qualifier</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -43,10 +40,7 @@
                 <th>name</th>
                 <th>amount</th>
                 <th>unit</th>
-                <th>description</th>
-                <th class="has-text-centered">featured</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
+                <th>qualifier</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -76,22 +70,7 @@
                         {{ $recipeIngredient->unit['name'] ?? ''}}
                     </td>
                     <td>
-                        {!! nl2br($recipeIngredient->description ?? '') !!}
-                    </td>
-                    <td class="has-text-centered">
-                        {{ $recipeIngredient->sequence }}
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recipeIngredient->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recipeIngredient->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recipeIngredient->root ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recipeIngredient->disabled ])
+                        {{ $recipeIngredient->qualifier ?? '' }}
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.recipe-ingredient.destroy', $recipeIngredient->id) }}" method="POST">
@@ -129,7 +108,7 @@
             @empty
 
                 <tr>
-                    <td colspan="8">There are no recipe ingredients.</td>
+                    <td colspan="{{ isRootAdmin() ? '6' : '5' }}">There are no recipe ingredients.</td>
                 </tr>
 
             @endforelse

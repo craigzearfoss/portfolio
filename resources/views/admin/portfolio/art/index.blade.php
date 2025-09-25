@@ -74,13 +74,10 @@
                         {{ $art->year }}
                     </td>
                     <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $art->featured ])
+                    </td>
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $art->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $art->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $art->root ])
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $art->disabled ])
@@ -123,7 +120,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There is no art.</td>
+                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There is no art.</td>
                 </tr>
 
             @endforelse

@@ -80,13 +80,10 @@
                         {{ $course->sponsor }}
                     </td>
                     <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $course->featured ])
+                    </td>
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $course->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $course->root ])
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->disabled ])
@@ -140,7 +137,7 @@
             @empty
 
                 <tr>
-                    <td colspan="8">There are no courses.</td>
+                    <td colspan="{{ isRootAdmin() ? '9' : '8' }}">There are no courses.</td>
                 </tr>
 
             @endforelse

@@ -98,13 +98,10 @@
                         @include('admin.components.checkmark', [ 'checked' => $reading->wishlist ])
                     </td>
                     <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $reading->featured ])
+                    </td>
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $reading->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $reading->root ])
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->disabled ])
@@ -147,7 +144,7 @@
             @empty
 
                 <tr>
-                    <td colspan="12">There are no readings.</td>
+                    <td colspan="{{ isRootAdmin() ? '13' : '12' }}">There are no readings.</td>
                 </tr>
 
             @endforelse

@@ -62,17 +62,11 @@
                     <td>
                         {{ $link->name }}
                     </td>
-                    <td>
-                        {{ $link->sequence }}
+                    <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $link->featured ])
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $link->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $link->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $link->root ])
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $link->disabled ])
@@ -126,7 +120,7 @@
             @empty
 
                 <tr>
-                    <td colspan="5">There are no links.</td>
+                    <td colspan="{{ isRootAdmin() ? '6' : '5' }}">There are no links.</td>
                 </tr>
 
             @endforelse

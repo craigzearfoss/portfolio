@@ -22,7 +22,6 @@
                 <th>name</th>
                 <th>database</th>
                 <th>table</th>
-                <th>title</th>
                 <th>icon</th>
                 <th class="has-text-centered">guest</th>
                 <th class="has-text-centered">user</th>
@@ -39,7 +38,6 @@
                 <th>name</th>
                 <th>database</th>
                 <th>table</th>
-                <th>title</th>
                 <th>icon</th>
                 <th>sequence</th>
                 <th class="has-text-centered">guest</th>
@@ -56,10 +54,10 @@
             @forelse ($resources as $resource)
 
                 <tr data-id="{{ $resource->id }}">
-                    <td class="py-0">
+                    <td>
                         {{ $resource->name }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $resource->database['name'] }}
                     </td>
                     <td>
@@ -89,12 +87,6 @@
                         @include('admin.components.checkmark', [ 'checked' => $resource->public ])
                     </td>
                     <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $resource->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $resource->root ])
-                    </td>
-                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->disabled ])
                     </td>
                     <td class="text-nowrap">
@@ -120,7 +112,7 @@
             @empty
 
                 <tr>
-                    <td colspan="12">There are no messages.</td>
+                    <td colspan="11">There are no messages.</td>
                 </tr>
 
             @endforelse

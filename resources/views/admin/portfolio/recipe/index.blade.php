@@ -73,13 +73,10 @@
                         {{ implode(', ', $recipe->meals()) }}
                     </td>
                     <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $recipe->featured ])
+                    </td>
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recipe->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recipe->root ])
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->disabled ])
@@ -122,7 +119,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no recipes.</td>
+                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There are no recipes.</td>
                 </tr>
 
             @endforelse

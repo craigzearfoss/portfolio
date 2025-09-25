@@ -83,13 +83,10 @@
                         {{ $music->catalog_number }}
                     </td>
                     <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $music->featured ])
+                    </td>
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $music->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $music->root ])
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->disabled ])
@@ -132,7 +129,7 @@
             @empty
 
                 <tr>
-                    <td colspan="9">There is no music.</td>
+                    <td colspan="{{ isRootAdmin() ? '10' : '9' }}">There is no music.</td>
                 </tr>
 
             @endforelse

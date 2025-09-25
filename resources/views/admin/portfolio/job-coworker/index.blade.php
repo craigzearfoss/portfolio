@@ -132,7 +132,7 @@
             @empty
 
                 <tr>
-                    <td colspan="9">There are no job coworkers.</td>
+                    <td colspan="{{ isRootAdmin() ? '10' : '9' }}">There are no job coworkers.</td>
                 </tr>
 
             @endforelse

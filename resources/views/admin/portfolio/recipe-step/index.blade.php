@@ -28,9 +28,6 @@
                 <th>recipe</th>
                 <th>step</th>
                 <th>description</th>
-                <th class="has-text-centered">featured</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -43,9 +40,6 @@
                 <th>recipe</th>
                 <th>step</th>
                 <th>description</th>
-                <th class="has-text-centered">featured</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -79,18 +73,6 @@
                     <td>
                         {!! nl2br($recipeStep->description ?? '') !!}
                     </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recipeStep->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recipeStep->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recipeStep->root ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recipeStep->disabled ])
-                    </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.recipe-step.destroy', $recipeStep->id) }}" method="POST">
 
@@ -116,7 +98,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ empty($recipe) ? '7' : '6' }}">There are no recipe steps.</td>
+                    <td colspan="{{ isRootAdmin() ? '5' : '4' }}">There are no recipe steps.</td>
                 </tr>
 
             @endforelse

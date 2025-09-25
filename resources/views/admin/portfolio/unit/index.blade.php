@@ -23,8 +23,6 @@
                 <th>name</th>
                 <th>abbreviation</th>
                 <th>system</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -34,8 +32,6 @@
                 <th>name</th>
                 <th>abbreviation</th>
                 <th>system</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -53,12 +49,6 @@
                     </td>
                     <td class="has-text-centered">
                         {{ $unit->system }}
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $unit->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $unit->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.unit.destroy', $unit->id) }}" method="POST">
@@ -98,7 +88,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">There are no units.</td>
+                    <td colspan="4">There are no units.</td>
                 </tr>
 
             @endforelse

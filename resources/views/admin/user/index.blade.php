@@ -23,7 +23,6 @@
                 <th>email</th>
                 <th class="has-text-centered">verified</th>
                 <th>status</th>
-                <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -35,7 +34,6 @@
                 <th>email</th>
                 <th class="has-text-centered">verified</th>
                 <th>status</th>
-                <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -104,7 +102,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no users.</td>
+                    <td colspan="6">There are no users.</td>
                 </tr>
 
             @endforelse

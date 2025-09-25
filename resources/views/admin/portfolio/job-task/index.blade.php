@@ -117,7 +117,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">There are no job tasks.</td>
+                    <td colspan="{{ isRootAdmin() ? '7' : '6' }}">There are no job tasks.</td>
                 </tr>
 
             @endforelse

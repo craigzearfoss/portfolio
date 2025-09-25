@@ -85,13 +85,10 @@
                         ])
                     </td>
                     <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $project->featured ])
+                    </td>
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $project->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $project->root ])
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->disabled ])
@@ -134,7 +131,7 @@
             @empty
 
                 <tr>
-                    <td colspan="8">There are no projects.</td>
+                    <td colspan="{{ isRootAdmin() ? '9' : '8' }}">There are no projects.</td>
                 </tr>
 
             @endforelse

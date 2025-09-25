@@ -85,13 +85,10 @@
                         {{ shortDate($certification->expiration) }}
                     </td>
                     <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $certification->feature ])
+                    </td>
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $certification->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $certification->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $certification->root ])
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $certification->disabled ])
@@ -134,7 +131,7 @@
             @empty
 
                 <tr>
-                    <td colspan="9">There are no certifications.</td>
+                    <td colspan="{{ isRootAdmin() ? '10' : '9' }}">There are no certifications.</td>
                 </tr>
 
             @endforelse
