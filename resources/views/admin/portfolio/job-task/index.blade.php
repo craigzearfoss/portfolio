@@ -21,6 +21,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>company</th>
                 <th>summary</th>
                 <th class="has-text-centered">featured</th>
@@ -32,6 +35,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>company</th>
                 <th>summary</th>
                 <th class="has-text-centered">featured</th>
@@ -45,7 +51,7 @@
 
             @forelse ($jobTasks as $jobTask)
 
-                <tr>
+                <tr data-id="{{ $jobTask->id }}">
                     <td>
                         @if($jobTask->job)
                             {{ $jobTask->job['company'] }}
@@ -63,7 +69,7 @@
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobTask->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.job-task.destroy', $jobTask->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

@@ -76,7 +76,7 @@
 
             @forelse ($applications as $application)
 
-                <tr>
+                <tr data-id="{{ $application->id }}">
                     @if(isRootAdmin())
                         <td>
                             {{ $application->admin['username'] ?? '' }}

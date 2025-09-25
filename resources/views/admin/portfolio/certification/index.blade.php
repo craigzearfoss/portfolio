@@ -20,6 +20,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th>academy</th>
                 <th>year</th>
@@ -34,6 +37,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th>academy</th>
                 <th>year</th>
@@ -50,8 +56,8 @@
 
             @forelse ($certifications as $certification)
 
-                <tr>
-                    <td class="py-0">
+                <tr data-id="{{ $certification->id }}">
+                    <td>
                         {{ $certification->name }}
                     </td>
                     <td>
@@ -59,28 +65,28 @@
                             <a href="{{ $certification->academy['id'] }}" target="_blank">{{ $certification->academy['name'] }}</a>
                         @endif
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $certification->year }}
                     </td>
-                    <td class="py-0 text-nowrap">
+                    <td class="text-nowrap">
                         {{ shortDate($certification->received) }}
                     </td>
-                    <td class="py-0 text-nowrap">
+                    <td class="text-nowrap">
                         {{ shortDate($certification->expiration) }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $certification->public ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $certification->readonly ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $certification->root ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $certification->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.certification.destroy', $certification->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

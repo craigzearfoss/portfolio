@@ -50,7 +50,7 @@
 
             @forelse ($resumes as $resume)
 
-                <tr>
+                <tr data-id="{{ $resume->id }}">
                     <td>
                         {{ $resume->name }}
                     </td>

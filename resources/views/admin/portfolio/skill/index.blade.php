@@ -20,6 +20,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
@@ -30,6 +33,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
@@ -42,7 +48,7 @@
 
             @forelse ($skills as $skill)
 
-                <tr>
+                <tr data-id="{{ $skill->id }}">
                     <td>
                         {{ $skill->name }}
                     </td>
@@ -52,7 +58,7 @@
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $skill->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.skill.destroy', $skill->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

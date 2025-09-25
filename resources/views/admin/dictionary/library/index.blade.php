@@ -50,7 +50,7 @@
 
             @forelse ($libraries as $library)
 
-                <tr>
+                <tr data-id="{{ $library->id }}">
                     <td>
                         {{ $library->name }}
                     </td>

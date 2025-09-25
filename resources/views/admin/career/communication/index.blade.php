@@ -44,7 +44,7 @@
 
             @forelse ($communications as $communication)
 
-                <tr>
+                <tr data-id="{{ $communication->id }}">
                     @if(isRootAdmin())
                         <td>
                             {{ $communication->admin['username'] ?? '' }}

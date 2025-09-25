@@ -43,7 +43,7 @@
 
             @forelse ($messages as $message)
 
-                <tr>
+                <tr data-id="{{ $message->id }}">
                     <td>
                         {{ $message->name }}
                     </td>

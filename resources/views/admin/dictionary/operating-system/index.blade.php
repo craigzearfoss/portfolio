@@ -50,7 +50,7 @@
 
             @forelse ($operatingSystems as $operatingSystem)
 
-                <tr>
+                <tr data-id="{{ $operatingSystem->id }}">
                     <td>
                         {{ $operatingSystem->name }}
                     </td>

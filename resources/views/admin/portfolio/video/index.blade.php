@@ -20,6 +20,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th>year</th>
                 <th class="has-text-centered">featured</th>
@@ -31,6 +34,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th>year</th>
                 <th class="has-text-centered">featured</th>
@@ -44,26 +50,26 @@
 
             @forelse ($videos as $video)
 
-                <tr>
-                    <td class="py-0">
+                <tr data-id="{{ $video->id }}">
+                    <td>
                         {{ $video->name }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $video->year }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->readonly ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->root ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->public ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.video.destroy', $video->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

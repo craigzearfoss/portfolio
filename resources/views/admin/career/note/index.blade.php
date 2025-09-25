@@ -44,7 +44,7 @@
 
             @forelse ($notes as $note)
 
-                <tr>
+                <tr data-id="{{ $note->id }}">
                     <td>
                         {{ $note->subject }}
                     </td>

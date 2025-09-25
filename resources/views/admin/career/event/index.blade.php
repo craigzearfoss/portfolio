@@ -44,7 +44,7 @@
 
             @forelse ($events as $event)
 
-                <tr>
+                <tr data-id="{{ $event->id }}">
                     <td>
                         {{ $event->subject }}
                     </td>

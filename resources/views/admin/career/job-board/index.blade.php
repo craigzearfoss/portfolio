@@ -50,7 +50,7 @@
             @forelse ($jobBoards as $jobBoard)
 
                 <tr>
-                    <td>
+                    <td data-id="{{ $jobBoard->id }}">
                         {{ $jobBoard->name }}
                     </td>
                     <td class="has-text-centered">

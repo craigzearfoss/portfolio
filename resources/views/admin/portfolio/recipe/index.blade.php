@@ -20,6 +20,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th class="has-text-centered">type</th>
                 <th class="has-text-centered">meal</th>
@@ -32,6 +35,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th class="has-text-centered">type</th>
                 <th class="has-text-centered">meal</th>
@@ -46,29 +52,29 @@
 
             @forelse ($recipes as $recipe)
 
-                <tr>
-                    <td class="py-0">
+                <tr data-id="{{ $recipe->id }}">
+                    <td>
                         {{ $recipe->name }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ implode(', ', $recipe->types()) }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ implode(', ', $recipe->meals()) }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->public ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->readonly ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->root ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.recipe.destroy', $recipe->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

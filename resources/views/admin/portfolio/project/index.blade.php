@@ -20,6 +20,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th class="text-nowrap">name</th>
                 <th class="text-nowrap">language</th>
                 <th>year</th>
@@ -33,6 +36,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th class="text-nowrap">name</th>
                 <th class="text-nowrap">language</th>
                 <th>year</th>
@@ -48,39 +54,39 @@
 
             @forelse ($projects as $project)
 
-                <tr>
-                    <td class="py-0 text-nowrap">
+                <tr data-id="{{ $projects->id }}">
+                    <td class="text-nowrap">
                         {{ $project->name }}
                     </td>
-                    <td class="py-0 text-nowrap">
+                    <td class="text-nowrap">
                         {{ !empty($project->language)
                             ? ($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : ''))
                             : ''
                         }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td>
                         {{ $project->year }}
                     </td>
-                    <td class="py-0 text-nowrap">
+                    <td class="text-nowrap">
                         @include('admin.components.link', [
                             'name'   => $project->repository_name,
                             'url'    => $project->repository_url,
                             'target' => '_blank'
                         ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->public ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->readonly ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->root ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.project.destroy', $project->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

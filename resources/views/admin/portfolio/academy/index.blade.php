@@ -22,8 +22,6 @@
             <tr>
                 <th>name</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -33,8 +31,6 @@
             <tr>
                 <th>name</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -44,23 +40,17 @@
 
             @forelse ($academies as $academy)
 
-                <tr>
-                    <td class="py-0">
+                <tr data-id="{{ $academy->id }}">
+                    <td>
                         {{ $academy->name }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $academy->public ])
                     </td>
-                    <td class="py-0 has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $academy->readonly ])
-                    </td>
-                    <td class="py-0 has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $academy->root ])
-                    </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $academy->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.academy.destroy', $academy->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
@@ -98,7 +88,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">There are no academies.</td>
+                    <td colspan="4">There are no academies.</td>
                 </tr>
 
             @endforelse

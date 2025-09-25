@@ -21,7 +21,6 @@
             <thead>
             <tr>
                 <th>name</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -31,7 +30,6 @@
             <tfoot>
             <tr>
                 <th>name</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -42,23 +40,17 @@
 
             @forelse ($ingredients as $ingredient)
 
-                <tr>
-                    <td class="py-0">
+                <tr data-id="{{ $ingredient->id }}">
+                    <td>
                         {{ $ingredient->name }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $ingredient->public ])
                     </td>
-                    <td class="py-0 has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $ingredient->readonly ])
-                    </td>
-                    <td class="py-0 has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $ingredient->root ])
-                    </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $ingredient->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.ingredient.destroy', $ingredient->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
@@ -96,7 +88,7 @@
             @empty
 
                 <tr>
-                    <td colspan="5">There are no ingredients.</td>
+                    <td colspan="4">There are no ingredients.</td>
                 </tr>
 
             @endforelse

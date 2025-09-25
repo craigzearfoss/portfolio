@@ -55,7 +55,7 @@
 
             @forelse ($resources as $resource)
 
-                <tr>
+                <tr data-id="{{ $resource->id }}">
                     <td class="py-0">
                         {{ $resource->name }}
                     </td>

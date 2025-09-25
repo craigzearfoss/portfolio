@@ -20,6 +20,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th>artist</th>
                 <th>year</th>
@@ -34,6 +37,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th>artist</th>
                 <th>year</th>
@@ -50,35 +56,35 @@
 
             @forelse ($musics as $music)
 
-                <tr>
-                    <td class="py0">
+                <tr data-id="{{ $music->id }}">
+                    <td>
                         {{ $music->name }}
                     </td>
-                    <td class="py0">
+                    <td>
                         {{ $music->artist }}
                     </td>
-                    <td class="py0">
+                    <td>
                         {{ $music->year }}
                     </td>
-                    <td class="py0">
+                    <td>
                         {{ $music->label }}
                     </td>
-                    <td class="py0">
+                    <td>
                         {{ $music->catalog_number }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->public ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->readonly ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->root ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.music.destroy', $music->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

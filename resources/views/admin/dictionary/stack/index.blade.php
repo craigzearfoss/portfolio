@@ -50,7 +50,7 @@
 
             @forelse ($stacks as $stack)
 
-                <tr>
+                <tr data-id="{{ $stack->id }}">
                     <td>
                         {{ $stack->name }}
                     </td>

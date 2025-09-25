@@ -20,6 +20,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th class=" has-text-centered">completion<br>date</th>
                 <th>academy</th>
@@ -33,6 +36,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th class=" has-text-centered">completion<br>date</th>
                 <th>academy</th>
@@ -48,34 +54,34 @@
 
             @forelse ($courses as $course)
 
-                <tr>
-                    <td class="py-0">
+                <tr data-id="{{ $course->id }}">
+                    <td>
                         {{ $course->name }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td>
                         {{ shortDate($course->completion_date) }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         @if (!empty($course->academy))
                             <a href="{{ $course->academy['id'] }}" target="_blank">{{ $course->academy['name'] }}</a>
                         @endif
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $course->sponsor }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->public ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->readonly ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->root ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.course.destroy', $course->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

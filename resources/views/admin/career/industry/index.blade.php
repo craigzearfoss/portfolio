@@ -39,7 +39,7 @@
 
             @forelse ($industries as $industry)
 
-                <tr>
+                <tr data-id="{{ $industry->id }}">
                     <td>
                         {{ $industry->name }}
                     </td>

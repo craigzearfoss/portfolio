@@ -48,7 +48,7 @@
 
             @forelse ($references as $reference)
 
-                <tr>
+                <tr data-id="{{ $reference->id }}">
                     <td>
                         {{ $reference->name }}
                     </td>

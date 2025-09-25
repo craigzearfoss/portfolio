@@ -52,7 +52,7 @@
 
             @forelse ($recruiters as $recruiter)
 
-                <tr>
+                <tr data-id="{{ $recruiter->id }}">
                     <td>
                         {{ $recruiter->name }}
                     </td>

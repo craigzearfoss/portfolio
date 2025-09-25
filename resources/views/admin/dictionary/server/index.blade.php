@@ -51,7 +51,7 @@
             @forelse ($servers as $server)
 
                 <tr>
-                    <td>
+                    <td data-id="{{ $server->id }}">
                         {{ $server->name }}
                     </td>
                     <td>

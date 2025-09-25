@@ -20,6 +20,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
@@ -30,6 +33,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
@@ -42,26 +48,26 @@
 
             @forelse ($links as $link)
 
-                <tr>
-                    <td class="py-0">
+                <tr data-id="{{ $link->id }}">
+                    <td>
                         {{ $link->name }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $link->sequence }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $link->public ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $link->readonly ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $link->root ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $link->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.link.destroy', $link->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

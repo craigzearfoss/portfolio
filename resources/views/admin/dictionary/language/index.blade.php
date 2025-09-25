@@ -50,7 +50,7 @@
 
             @forelse ($languages as $language)
 
-                <tr>
+                <tr data-id="{{ $language->id }}">
                     <td>
                         {{ $language->name }}
                     </td>

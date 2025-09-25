@@ -51,7 +51,7 @@
             @forelse ($databases as $database)
 
                 <tr>
-                    <td>
+                    <td data-id="{{ $database->id }}">
                         {{ $database->name }}
                     </td>
                     <td>

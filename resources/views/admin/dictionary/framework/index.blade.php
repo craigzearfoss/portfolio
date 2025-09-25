@@ -51,7 +51,7 @@
             @forelse ($frameworks as $framework)
 
                 <tr>
-                    <td>
+                    <td data-id="{{ $framework->id }}">
                         {{ $framework->name }}
                     </td>
                     <td>

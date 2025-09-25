@@ -47,7 +47,7 @@
 
             @forelse ($admins as $admin)
 
-                <tr>
+                <tr data-id="{{ $admin->id }}">
                     <td>
                         {{ $admin->username }}
                     </td>

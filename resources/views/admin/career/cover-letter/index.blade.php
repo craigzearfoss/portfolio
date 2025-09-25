@@ -50,7 +50,7 @@
 
             @forelse ($coverLetters as $coverLetter)
 
-                <tr>
+                <tr data-id="{{ $coverLetter->id }}">
                     @if(isRootAdmin())
                         <td>
                             {{ $application->admin['username'] ?? '' }}
