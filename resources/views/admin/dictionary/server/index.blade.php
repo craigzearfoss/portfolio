@@ -50,17 +50,17 @@
 
             @forelse ($servers as $server)
 
-                <tr>
-                    <td data-id="{{ $server->id }}">
+                <tr data-id="{{ $server->id }}">
+                    <td data-field="name">
                         {{ $server->name }}
                     </td>
-                    <td>
+                    <td data-field="abbreviation">
                         {{ $server->abbreviation }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $server->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $server->disabled ])
                     </td>
                     <td class="white-space-nowrap" style="white-space: nowrap;">

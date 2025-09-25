@@ -50,17 +50,17 @@
 
             @forelse ($frameworks as $framework)
 
-                <tr>
-                    <td data-id="{{ $framework->id }}">
+                <tr data-id="{{ $framework->id }}">
+                    <td data-field="name">
                         {{ $framework->name }}
                     </td>
-                    <td>
+                    <td data-field="abbreviation">
                         {{ $framework->abbreviation }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $framework->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $framework->disabled ])
                     </td>
                     <td class="white-space-nowrap" style="white-space: nowrap;">

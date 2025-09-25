@@ -51,16 +51,16 @@
             @forelse ($operatingSystems as $operatingSystem)
 
                 <tr data-id="{{ $operatingSystem->id }}">
-                    <td>
+                    <td data-field="name">
                         {{ $operatingSystem->name }}
                     </td>
-                    <td>
+                    <td data-field="abbreviation">
                         {{ $operatingSystem->abbreviation }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $operatingSystem->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $operatingSystem->disabled ])
                     </td>
                     <td class="white-space-nowrap" style="white-space: nowrap;">

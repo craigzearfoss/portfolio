@@ -51,16 +51,16 @@
             @forelse ($stacks as $stack)
 
                 <tr data-id="{{ $stack->id }}">
-                    <td>
+                    <td data-field="name">
                         {{ $stack->name }}
                     </td>
-                    <td>
+                    <td data-field="abbreviation">
                         {{ $stack->abbreviation }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $stack->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $stack->disabled ])
                     </td>
                     <td class="white-space-nowrap" style="white-space: nowrap;">

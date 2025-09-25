@@ -51,16 +51,16 @@
             @forelse ($libraries as $library)
 
                 <tr data-id="{{ $library->id }}">
-                    <td>
+                    <td data-field="name">
                         {{ $library->name }}
                     </td>
-                    <td>
+                    <td data-field="abbreviation">
                         {{ $library->abbreviation }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $library->public ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td data-field="disabled" class="py-0 has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $library->disabled ])
                     </td>
                     <td class="white-space-nowrap" style="white-space: nowrap;">

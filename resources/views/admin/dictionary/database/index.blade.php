@@ -50,17 +50,17 @@
 
             @forelse ($databases as $database)
 
-                <tr>
-                    <td data-id="{{ $database->id }}">
+                <tr data-id="{{ $database->id }}">
+                    <td data-field="name">
                         {{ $database->name }}
                     </td>
-                    <td>
+                    <td data-field="abbreviation">
                         {{ $database->abbreviation }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->disabled ])
                     </td>
                     <td class="white-space-nowrap" style="white-space: nowrap;">

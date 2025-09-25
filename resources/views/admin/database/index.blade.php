@@ -55,20 +55,20 @@
 
             @forelse ($databases as $database)
 
-                <tr>
-                    <td data-id="{{ $database->id }}">
+                <tr data-id="{{ $database->id }}">
+                    <td data-field="name">
                         {{ $database->name }}
                     </td>
-                    <td>
+                    <td data-field="database">
                         {{ $database->database }}
                     </td>
-                    <td>
+                    <td> data-field="tag"
                         {{ $database->tag }}
                     </td>
-                    <td>
+                    <td data-field="title">
                         {{ $database->title }}
                     </td>
-                    <td>
+                    <td data-field="icon">
                         @if (!empty($database->icon))
                             <span class="text-xl">
                                 <i class="fa-solid {{ $database->icon }}"></i>
@@ -76,22 +76,22 @@
                         @else
                         @endif
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="guest" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->guest ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="user" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->user ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="admin" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->admin ])
                     </td>
-                    <td>
+                    <td data-field="sequence">
                         {{ $database->sequence }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->disabled ])
                     </td>
                     <td class="text-nowrap">
