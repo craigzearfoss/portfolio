@@ -27,7 +27,8 @@ class ResumeController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $resumes = Resume::latest()->paginate($perPage);
+        $resumes = Resume::orderBy('date', 'desc')
+            ->orderby('name', 'asc')->paginate($perPage);
 
         return view('admin.career.resume.index', compact('resumes'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

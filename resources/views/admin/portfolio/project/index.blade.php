@@ -21,12 +21,12 @@
             <thead>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
-                <th class="text-nowrap">name</th>
-                <th class="text-nowrap">language</th>
+                <th>name</th>
+                <th>language</th>
                 <th>year</th>
-                <th class="text-nowrap">repository</th>
+                <th>repository</th>
                 <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
@@ -37,12 +37,12 @@
             <tfoot>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
-                <th class="text-nowrap">name</th>
-                <th class="text-nowrap">language</th>
+                <th>name</th>
+                <th>language</th>
                 <th>year</th>
-                <th class="text-nowrap">repository</th>
+                <th>repository</th>
                 <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
@@ -65,10 +65,10 @@
                             @endif
                         </td>
                     @endif
-                    <td data-field="name" class="text-nowrap">
+                    <td data-field="name">
                         {{ $project->name }}
                     </td>
-                    <td data-field="language" class="text-nowrap">
+                    <td data-field="language">
                         {{ !empty($project->language)
                             ? ($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : ''))
                             : ''
@@ -77,7 +77,7 @@
                     <td data-field="year">
                         {{ $project->year }}
                     </td>
-                    <td data-field="repository_url" class="text-nowrap">
+                    <td data-field="repository_url">
                         @include('admin.components.link', [
                             'name'   => $project->repository_name,
                             'url'    => $project->repository_url,
@@ -98,31 +98,32 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.portfolio.project.show', $project->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show --}}
+                                <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.portfolio.project.edit', $project->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
                             @if (!empty($project->link))
-                                <a title="{{ !empty($project->link_name) ? $music->$project : 'link' }}link"
+                                <a title="{{ !empty($project->link_name) ? $project->link_name : 'link' }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $project->link }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                   target="_blank"
+                                >
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @endif
 
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- Delete --}}
+                                <i class="fa-solid fa-trash"></i>{{-- dlete --}}
                             </button>
                         </form>
                     </td>

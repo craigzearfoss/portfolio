@@ -33,7 +33,7 @@
                 <th class="has-text-centered">type</th>
                 <th class="has-text-centered">paper</th>
                 <th class="has-text-centered">audio</th>
-                <th class="text-center text-nowrap">wish list</th>
+                <th class="has-text-centered">wish list</th>
             </tr>
             </thead>
             <?php /*
@@ -44,7 +44,7 @@
                 <th class="has-text-centered">type</th>
                 <th class="has-text-centered">paper</th>
                 <th class="has-text-centered">audio</th>
-                <th class="text-center text-nowrap">wish list</th>
+                <th class="has-text-centered">wish list</th>
             </tr>
             </tfoot>
             */ ?>

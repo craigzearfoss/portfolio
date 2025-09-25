@@ -21,7 +21,7 @@
             <thead>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>name</th>
                 <th>artist</th>
@@ -36,7 +36,7 @@
             <tfoot>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>name</th>
                 <th>artist</th>
@@ -87,31 +87,32 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.portfolio.art.show', $art->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show --}}
+                                <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.portfolio.art.edit', $art->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
                             @if (!empty($art->link))
-                                <a title="{{ !empty($art->link_name) ? $art->link_name : 'link' }}link"
+                                <a title="{{ !empty($art->link_name) ? $art->link_name : 'link' }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $art->link }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                   target="_blank"
+                                >
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @endif
 
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- Delete --}}
+                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
                             </button>
                         </form>
                     </td>

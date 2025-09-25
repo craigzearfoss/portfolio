@@ -89,7 +89,7 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->disabled ])
                     </td>
-                    <td class="text-nowrap">
+                    <td>
                         <form action="{{ route('admin.resource.destroy', $resource->id) }}" method="POST">
 
                             <a class="button is-small px-1 py-0" href="{{ route('admin.resource.show', $resource->id) }}">

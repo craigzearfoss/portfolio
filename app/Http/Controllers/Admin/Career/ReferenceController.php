@@ -27,7 +27,7 @@ class ReferenceController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $references = Reference::latest()->paginate($perPage);
+        $references = Reference::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.career.reference.index', compact('references'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

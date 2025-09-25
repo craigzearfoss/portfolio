@@ -26,7 +26,7 @@ class IndustryController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $industries = Industry::latest()->paginate($perPage);
+        $industries = Industry::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.career.industry.index', compact('industries'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

@@ -21,9 +21,10 @@
             <thead>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>name</th>
+                <th>industry</th>
                 <th>location</th>
                 <th>phone</th>
                 <th>email</th>
@@ -34,9 +35,10 @@
             <tfoot>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>name</th>
+                <th>industry</th>
                 <th>location</th>
                 <th>phone</th>
                 <th>email</th>
@@ -50,7 +52,7 @@
 
                 <tr data-id="{{ $company->id }}">
                     @if(isRootAdmin())
-                        <td data-field="admin,username">
+                        <td data-field="admin,username" style="white-space: nowrap;">
                             @if(!empty($company->admin))
                                 @include('admin.components.link', [
                                     'name' => $company->admin['username'],
@@ -62,7 +64,10 @@
                     <td data-field="name">
                         {{ $company->name }}
                     </td>
-                    <td data-field="location">
+                        <td data-field="industry.name">
+                            {{ $company->industry['name'] ?? '' }}
+                        </td>
+                    <td data-field="location" style="white-space: nowrap;">
                         {!!
                             formatLocation([
                                 'city'    => $company->city ?? null,
@@ -70,10 +75,10 @@
                             ])
                         !!}
                     </td>
-                    <td data-field="phone">
+                    <td data-field="phone" style="white-space: nowrap;">
                         {{ $company->phone }}
                     </td>
-                    <td data-field="email">
+                    <td data-field="email" style="white-space: nowrap;">
                         {{ $company->email }}
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
@@ -81,31 +86,32 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.company.show', $company->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show --}}
+                                <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.company.edit', $company->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
                             @if (!empty($company->link))
-                                <a title="{{ !empty($company->link_name) ? $company->link_name : 'link' }}link"
+                                <a title="{{ !empty($company->link_name) ? $company->link_name : 'link' }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $company->link }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                   target="_blank"
+                                >
+                                    <i class="fa-solid fa-external-link"></i>{{-- lLink --}}
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @endif
 
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- Delete --}}
+                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
                             </button>
                         </form>
                     </td>
@@ -114,7 +120,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '6' : '5' }}">There are no companies.</td>
+                    <td colspan="{{ isRootAdmin() ? '7' : '6' }}">There are no companies.</td>
                 </tr>
 
             @endforelse

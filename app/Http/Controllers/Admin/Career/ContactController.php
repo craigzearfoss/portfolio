@@ -28,7 +28,7 @@ class ContactController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $contacts = Contact::latest()->paginate($perPage);
+        $contacts = Contact::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.career.contact.index', compact('contacts'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

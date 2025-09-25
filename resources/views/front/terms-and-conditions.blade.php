@@ -18,7 +18,7 @@
         <h2 class="title">Terms & Conditions</h2>
 
         <div>
-            <p class="pb-3 ">
+            <p class="pb-3">
                 Pellentesque eu massa nisi. Morbi vel lectus at nunc ultricies efficitur. Donec aliquam fermentum ultricies. Cras facilisis bibendum finibus. Curabitur quis tortor vitae elit vehicula pellentesque quis nec eros. Nulla semper pretium nunc, a pharetra turpis rhoncus ut. Nam pulvinar elit at massa consequat pellentesque. Proin ipsum nunc, auctor tempus iaculis in, iaculis in tortor. Sed ultricies erat quis ullamcorper placerat. Morbi et mauris turpis. Quisque interdum, lectus et gravida facilisis, arcu urna volutpat arcu, eu porttitor est mauris nec est. Curabitur pretium suscipit tincidunt. Morbi vestibulum tincidunt augue, quis auctor ligula facilisis vel. Nam aliquam arcu sapien, eu porta magna tempor at. Ut mollis rutrum hendrerit. Fusce rutrum feugiat porta.
             </p>
             <p class="pb-3">

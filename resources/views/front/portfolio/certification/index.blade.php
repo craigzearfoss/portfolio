@@ -60,10 +60,10 @@
                                 <td>
                                     {{ $certification->organization }}
                                 </td>
-                                <td class="text-nowrap">
+                                <td>
                                     {{ shortDate($certification->received) }}
                                 </td>
-                                <td class="text-nowrap">
+                                <td>
                                     {{ shortDate($certification->expiration) }}
                                 </td>
                                 <td>

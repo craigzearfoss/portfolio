@@ -21,7 +21,7 @@
             <thead>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>company</th>
                 <th>role</th>
@@ -49,7 +49,7 @@
             <tfoot>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>company</th>
                 <th>role</th>
@@ -87,8 +87,13 @@
                             @endif
                         </td>
                     @endif
-                    <td data-field="company.name">
-                        {{ $application->company['name'] ?? '' }}
+                    <td data-field="company.name" style="white-space: nowrap;">
+                        @if(!empty($application->company))
+                            @include('admin.components.link', [
+                                'name' => $application->company['name'],
+                                'url'  => route('admin.career.company.show', $application->company['id'])
+                            ])
+                        @endif
                     </td>
                     <td data-field="role">
                         {{ $application->role }}
@@ -96,19 +101,19 @@
                     <td data-field="active" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->active ])
                     </td>
-                    <td data-field="rating" class="has-text-centered text-nowrap">
+                    <td data-field="rating" class="has-text-centered ">
                         @include('admin.components.star-ratings', [ 'rating' => $application->rating ])
                     </td>
-                    <td data-field="post_date" class="text-nowrap">
+                    <td data-field="post_date" style="white-space: nowrap;">
                         {{ !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' }}
                     </td>
-                    <td data-field="apply_date" class="text-nowrap">
+                    <td data-field="apply_date" style="white-space: nowrap;">
                         {{ !empty($application->apply_date) ? date('M j', strtotime($application->apply_date)) : '' }}
                     </td>
                     <td data-field="duration_id">
                         {{ $application->duration['name'] }}
                     </td>
-                    <td data-field="compensation" class="text-nowrap">
+                    <td data-field="compensation" style="white-space: nowrap;">
                         {!!
                             formatCompensation([
                                 'min'   => $application->compensation_min ?? '',
@@ -118,13 +123,13 @@
                             ])
                         !!}
                     </td>
-                    <td data-field="schedule_id" class="text-nowrap">
+                    <td data-field="schedule_id">
                         {{ $application->schedule['name'] ?? '' }}
                     </td>
-                    <td data-field="office_id" class="text-nowrap">
+                    <td data-field="office_id">
                         {{ $application->office['name'] ?? '' }}
                     </td>
-                    <td data-field="location" class="text-nowrap">
+                    <td data-field="location">
                         {!!
                             formatLocation([
                                 'city'    => $application->city ?? null,
@@ -157,31 +162,32 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.application.show', $application->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show --}}
+                                <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.application.edit', $application->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
                             @if (!empty($application->link))
-                                <a title="{{ !empty($application->link_name) ? $application->link_name : 'link' }}link"
+                                <a title="{{ !empty($application->link_name) ? $application->link_name : 'link' }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $application->link }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                   target="_blank"
+                                >
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @endif
 
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- Delete --}}
+                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
                             </button>
                         </form>
                     </td>

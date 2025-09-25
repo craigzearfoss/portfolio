@@ -21,7 +21,7 @@
             <thead>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
@@ -34,7 +34,7 @@
             <tfoot>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
@@ -76,17 +76,20 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.portfolio.link.show', $link->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show --}}
+                                <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.portfolio.link.edit', $link->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
                             @if (!empty($link->url))
-                                <a title="url" class="button is-small px-1 py-0" href="{{ $link->url }}"
-                                   target="_blank">
+                                <a title="Open link in new window"
+                                   class="button is-small px-1 py-0"
+                                   href="{{ $link->url }}"
+                                   target="_blank"
+                                >
                                     <i class="fa-solid fa-external-link"></i>{{-- url--}}
                                 </a>
                             @else
@@ -96,22 +99,22 @@
                             @endif
 
                             @if (!empty($link->link))
-                                <a title="{{ !empty($link->link_name) ? $link->link_name : 'link' }}link"
+                                <a title="{{ !empty($link->link_name) ? $link->link_name : 'link' }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $link->link }}"
                                    target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @endif
 
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- Delete --}}
+                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
                             </button>
                         </form>
                     </td>

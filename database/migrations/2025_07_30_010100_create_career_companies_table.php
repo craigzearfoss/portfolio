@@ -106,7 +106,7 @@ return new class extends Migration
                 'slug'        => 'jobs-by-allup',
                 'industry_id' => 10,
                 'link'        => 'https://www.allup.world/',
-                'link_name'   => 'LinkedIn',
+                'link_name'   => 'LinkedIn website',
                 'city'        => null,
                 'state_id'    => null,
                 'country_id'  => 237,

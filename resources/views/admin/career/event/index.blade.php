@@ -21,7 +21,7 @@
             <thead>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>name</th>
                 <th>date</th>
@@ -36,7 +36,7 @@
             <tfoot>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>name</th>
                 <th>date</th>
@@ -63,16 +63,16 @@
                             @endif
                         </td>
                     @endif
-                    <td data-field="name">
+                    <td data-field="name" style="white-space: nowrap;">
                         {{ $event->name }}
                     </td>
-                    <td data-field="date" class="text-nowrap">
+                    <td data-field="date" style="white-space: nowrap;">
                         {{ shortDate($event->date) }}
                     </td>
-                    <td data-field="time" class="text-nowrap">
+                    <td data-field="time" style="white-space: nowrap;">
                         {{ $event->time }}
                     </td>
-                    <td data-field="location">
+                    <td data-field="location" style="white-space: nowrap;">
                         {{ $event->location }}
                     </td>
                     <td data-field="public" class="has-text-centered">

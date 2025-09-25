@@ -22,7 +22,7 @@
                 <th>name</th>
                 <th>email</th>
                 <th>subject</th>
-                <th class="text-nowrap">created at</th>
+                <th>created at</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -32,7 +32,7 @@
                 <th>name</th>
                 <th>email</th>
                 <th>subject</th>
-                <th class="text-nowrap">created at</th>
+                <th>created at</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -54,7 +54,7 @@
                     <td data-field="created_at">
                         {{ shortDateTime($message->created_at) }}
                     </td>
-                    <td class="text-nowrap">
+                    <td>
                         <form action="{{ route('admin.message.destroy', $message->id) }}" method="POST">
                             <a class="btn btn-sm" href="{{ route('admin.message.show', $message->id) }}"><i
                                     class="fa-solid fa-list"></i>{{-- Show --}}</a>

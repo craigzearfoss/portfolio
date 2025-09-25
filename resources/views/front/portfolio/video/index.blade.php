@@ -60,7 +60,7 @@
                                 <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $video->$project ])
                                 </td>
-                                <td class="text-nowrap">
+                                <td>
                                     {{ shortDate($video->date) }}
                                 </td>
                                 <td>

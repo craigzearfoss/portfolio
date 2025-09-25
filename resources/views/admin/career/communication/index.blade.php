@@ -21,7 +21,7 @@
             <thead>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>subject</th>
                 <th>date</th>
@@ -33,7 +33,7 @@
             <tfoot>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>subject</th>
                 <th>date</th>
@@ -57,13 +57,13 @@
                             @endif
                         </td>
                     @endif
-                    <td data-field="subject">
+                    <td data-field="subject" style="white-space: nowrap;">
                         {{ $communication->subject }}
                     </td>
-                    <td data-field="date" class="text-nowrap">
+                    <td data-field="date" style="white-space: nowrap;">
                         {{ shortDate($communication->date) }}
                     </td>
-                    <td data-field="time" class="text-nowrap">
+                    <td data-field="time" style="white-space: nowrap;">
                         {{ $communication->time }}
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

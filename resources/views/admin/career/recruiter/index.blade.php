@@ -53,17 +53,7 @@
             @forelse ($recruiters as $recruiter)
 
                 <tr data-id="{{ $recruiter->id }}">
-                    @if(isRootAdmin())
-                        <td data-field="admin.username">
-                            @if(!empty($recruiter->admin))
-                                @include('admin.components.link', [
-                                    'name' => $recruiter->admin['username'],
-                                    'url'  => route('admin.admin.show', $recruiter->admin['id'])
-                                ])
-                            @endif
-                        </td>
-                    @endif
-                    <td data-field="name">
+                    <td data-field="name" style="white-space: nowrap;">
                         {{ $recruiter->name }}
                     </td>
                     <td data-field="location">
@@ -74,10 +64,10 @@
                             ])
                         !!}
                     </td>
-                    <td data-field="phone">
+                    <td data-field="phone" style="white-space: nowrap;">
                         {{ $recruiter->phone }}
                     </td>
-                    <td data-field="email">
+                    <td data-field="email" style="white-space: nowrap;">
                         {{ $recruiter->email }}
                     </td>
                     <td data-field="local" class="has-text-centered">
@@ -100,31 +90,32 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.recruiter.show', $recruiter->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show--}}
+                                <i class="fa-solid fa-list"></i>{{-- show--}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.recruiter.edit', $recruiter->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
                             @if (!empty($recruiter->link))
-                                <a title="{{ !empty($recruiter->link_name) ? $recruiter->link_name : 'link' }}link"
+                                <a title="{{ !empty($recruiter->link_name) ? $recruiter->link_name : 'link' }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $recruiter->link }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                   target="_blank"
+                                >
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @endif
 
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- Delete --}}
+                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
                             </button>
                         </form>
                     </td>

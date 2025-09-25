@@ -23,7 +23,7 @@
             <thead>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>recipe</th>
                 <th>step</th>
@@ -35,7 +35,7 @@
             <tfoot>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>recipe</th>
                 <th>step</th>
@@ -60,7 +60,7 @@
                         </td>
                     @endif
                     @if(empty($recipe))
-                        <td data-field="recipe.name" class="text-nowrap">
+                        <td data-field="recipe.name">
                             @include('admin.components.link', [
                                 'url'  => route('admin.portfolio.recipe.show', $recipeStep->recipe),
                                 'name' => $recipeStep->recipe['name']

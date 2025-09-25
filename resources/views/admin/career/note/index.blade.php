@@ -21,7 +21,7 @@
             <thead>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>subject</th>
                 <th>created at</th>
@@ -32,7 +32,7 @@
             <tfoot>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>subject</th>
                 <th>created at</th>
@@ -55,10 +55,10 @@
                             @endif
                         </td>
                     @endif
-                    <td data-field="subject">
+                    <td data-field="subject" style="white-space: nowrap;">
                         {{ $note->subject }}
                     </td>
-                    <td data-field="created_at" class="text-nowrap">
+                    <td data-field="created_at" style="white-space: nowrap;">
                         {{ shortDateTime($note->created_at) }}
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">

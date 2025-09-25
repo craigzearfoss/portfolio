@@ -21,7 +21,7 @@
             <thead>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>name</th>
                 <th>academy</th>
@@ -38,7 +38,7 @@
             <tfoot>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>name</th>
                 <th>academy</th>
@@ -78,10 +78,10 @@
                     <td data-field="year">
                         {{ $certification->year }}
                     </td>
-                    <td data-field="received" class="text-nowrap">
+                    <td data-field="received">
                         {{ shortDate($certification->received) }}
                     </td>
-                    <td data-field="expiration" class="text-nowrap">
+                    <td data-field="expiration">
                         {{ shortDate($certification->expiration) }}
                     </td>
                     <td data-field="feature" class="has-text-centered">
@@ -98,31 +98,32 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.portfolio.certification.show', $certification->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show --}}
+                                <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.portfolio.certification.edit', $certification->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
                             @if (!empty($certification->link))
-                                <a title="{{ !empty($certification->link_name) ? $certification->link_name : 'link' }}link"
+                                <a title="{{ !empty($certification->link_name) ? $certification->link_name : 'link' }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $certification->link }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                   target="_blank"
+                                >
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @endif
 
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- Delete --}}
+                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
                             </button>
                         </form>
                     </td>

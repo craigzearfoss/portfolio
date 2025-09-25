@@ -72,35 +72,26 @@
                         @include('front.components.checkmark', [ 'checked' => $art->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
-                        <form action="{{ route('front.portfolio.art.destroy', $art->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('front.portfolio.art.show', $art->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show--}}
+                        <a title="show" class="button is-small px-1 py-0"
+                           href="{{ route('front.portfolio.art.show', $art->id) }}">
+                            <i class="fa-solid fa-list"></i>{{-- show --}}
+                        </a>
+
+                        @if (!empty($art->link))
+                            <a title="{{ !empty($art->link_name) ? $art->link_name : 'link' }}"
+                               class="button is-small px-1 py-0"
+                               href="{{ $art->link }}"
+                               target="_blank"
+                            >
+                                <i class="fa-solid fa-external-link"></i>{{-- link --}}
                             </a>
-
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('front.portfolio.art.edit', $art->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                        @else
+                            <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- link --}}
                             </a>
+                        @endif
 
-                            @if (!empty($art->link))
-                                <a title="{{ !empty($art->link_name) ? $art->link_name : 'link' }}" class="button is-small px-1 py-0" href="{{ $art->link }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
-                                </a>
-                            @else
-                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
-                                </a>
-                            @endif
-
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{--  Delete--}}
-                            </button>
-                        </form>
                     </td>
                 </tr>
 

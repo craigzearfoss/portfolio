@@ -21,9 +21,11 @@
             <thead>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>name</th>
+                <th>phone</th>
+                <th>email</th>
                 <th class="has-text-centered">primary</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
@@ -34,9 +36,11 @@
             <tfoot>
             <tr>
                 @if(isRootAdmin())
-                    <th>admin</th>
+                    <th>owner</th>
                 @endif
                 <th>name</th>
+                <th>phone</th>
+                <th>email</th>
                 <th class="has-text-centered">primary</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
@@ -59,8 +63,14 @@
                             @endif
                         </td>
                     @endif
-                    <td data-field="name">
+                    <td data-field="name" style="white-space: nowrap;">
                         {{ $reference->name }}
+                    </td>
+                    <td data-field="name" style="white-space: nowrap;">
+                        {{ $reference->phone }}
+                    </td>
+                    <td data-field="name" style="white-space: nowrap;">
+                        {{ $reference->email }}
                     </td>
                     <td data-field="primary" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reference->primary ])
@@ -76,31 +86,32 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.reference.show', $reference->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show --}}
+                                <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
                             @if (!empty($reference->link))
-                                <a title="{{ !empty($reference->link_name) ? $reference->link_name : 'link' }}link"
+                                <a title="{{ !empty($reference->link_name) ? $reference->link_name : 'link' }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $reference->link }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                   target="_blank"
+                                >
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @endif
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.reference.edit', $reference->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- Delete--}}
+                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
                             </button>
                         </form>
                     </td>
@@ -109,7 +120,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '6' : '5' }}">There are no references.</td>
+                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There are no references.</td>
                 </tr>
 
             @endforelse

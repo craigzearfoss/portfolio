@@ -69,31 +69,32 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.admin.show', $admin->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show --}}
+                                <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
                             @if (!empty($admin->link))
-                                <a title="{{ !empty($admin->link_name) ? $admin->$project : 'link' }}link"
+                                <a title="{{ !empty($admin->link_name) ? $admin->$project : 'link' }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $admin->link }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                   target="_blank"
+                                >
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @endif
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.admin.edit', $admin->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- Delete --}}
+                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
                             </button>
                         </form>
                     </td>

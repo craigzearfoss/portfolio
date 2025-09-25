@@ -17,13 +17,13 @@
 @endif
 
 @if(!empty($word->link))
-    <a title="{{ $word->link_name ?? 'link' }}"
+    <a title="{{ !empty($word->link_name) ? $word->link_name : 'link' }}"
        class="button is-small p-0"
        style="border-width: 0;"
        href="{{ $word->link }}"
        target="_blank"
     >
-        <i class="fa-solid fa-external-link"></i>{{-- link--}}
+        <i class="fa-solid fa-external-link"></i>{{-- link --}}
     </a>
 @endif
 
@@ -34,6 +34,6 @@
        href="{{ $word->wikipedia }}"
        target="_blank"
     >
-        <i class="fa-solid fa-wikipedia-w"></i>{{-- wikipedia--}}
+        <i class="fa-solid fa-wikipedia-w"></i>{{-- wikipedia --}}
     </a>
 @endif

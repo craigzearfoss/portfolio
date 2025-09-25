@@ -18,7 +18,7 @@
         <h2 class="title">About Us</h2>
 
         <div>
-            <p class="pb-3 ">
+            <p class="pb-3">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus ac mi ac sagittis. Etiam id nisi libero. Nullam et est non nibh convallis faucibus. Integer scelerisque, orci in sollicitudin laoreet, augue sem pellentesque dolor, at maximus ipsum justo vel erat. Integer hendrerit nisl turpis, sit amet pharetra purus efficitur eget. Nulla sagittis dui in pulvinar pulvinar. Pellentesque sed tempus orci. Mauris vel luctus eros, in porttitor nulla. Phasellus volutpat enim eu orci ultricies mollis.
             </p>
             <p class="pb-3">

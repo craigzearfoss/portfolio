@@ -68,40 +68,46 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.dictionary.database.show', $database->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show--}}
+                                <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.dictionary.database.edit', $database->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
                             @if (!empty($database->link))
-                                <a title="link" class="button is-small px-1 py-0" href="{{ $database->link }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                                <a title="{{ !empty($database->link_name) ? $database->link_name : 'link' }}"
+                                   class="button is-small px-1 py-0"
+                                   href="{{ $database->link }}"
+                                   target="_blank"
+                                >
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @else
                                 <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @endif
 
                             @if (!empty($database->wikipedia))
-                                <a title="Wikipedia page" class="button is-small px-1 py-0" href="{{ $database->wikipedia }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-wikipedia-w"></i>{{-- wikipedia--}}
+                                <a title="Wikipedia page"
+                                   class="button is-small px-1 py-0"
+                                   href="{{ $database->wikipedia }}"
+                                   target="_blank"
+                                >
+                                    <i class="fa-solid fa-file"></i>{{-- wikipedia --}}
                                 </a>
                             @else
                                 <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-wikipedia-w"></i>{{-- wikipedia--}}
+                                    <i class="fa-solid fa-file"></i>{{-- wikipedia --}}
                                 </a>
                             @endif
 
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
                             </button>
                         </form>
                     </td>

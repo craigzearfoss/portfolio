@@ -18,7 +18,7 @@
         <h2 class="title">Privacy Policy</h2>
 
         <div>
-            <p class="pb-3 ">
+            <p class="pb-3">
                 Vestibulum id libero ut dui pellentesque volutpat. Donec gravida magna ante, venenatis congue ipsum mattis eu. Suspendisse non dignissim ex. Curabitur sit amet molestie ligula. Duis tristique, arcu eu congue tincidunt, nibh orci fringilla est, ac lacinia turpis erat sit amet purus. Quisque non velit vitae lacus pretium bibendum. Mauris tempus enim ligula, eget sollicitudin ante suscipit nec. Nullam sagittis turpis maximus lacus cursus, ac venenatis magna lacinia. Cras bibendum luctus elit, ut pretium neque ultricies sed.
             </p>
             <p class="pb-3">

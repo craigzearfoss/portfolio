@@ -55,7 +55,7 @@ return new class extends Migration
         $data = [
             [
                 'id'            => 1,
-                'name'          => 'https://www.trovasearch.com/about-us/',
+                'name'          => 'Trova',
                 'slug'          => '',
                 'postings_url'  => 'https://www.trovasearch.com/job-postings/',
                 'local'         => 0,
