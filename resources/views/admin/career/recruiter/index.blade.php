@@ -28,7 +28,6 @@
                 <th>regional</th>
                 <th>national</th>
                 <th>international</th>
-                <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -44,7 +43,6 @@
                 <th>regional</th>
                 <th>national</th>
                 <th>international</th>
-                <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -85,12 +83,9 @@
                         @include('admin.components.checkmark', [ 'checked' => $recruiter->international ])
                     </td>
                     <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recruiter->public ])
-                    </td>
-                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recruiter->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.recruiter.destroy', $recruiter->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
@@ -128,7 +123,7 @@
             @empty
 
                 <tr>
-                    <td colspan="11">There are no recruiters.</td>
+                    <td colspan="10">There are no recruiters.</td>
                 </tr>
 
             @endforelse

@@ -61,7 +61,7 @@
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
                     </td>
-                    <td class="white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

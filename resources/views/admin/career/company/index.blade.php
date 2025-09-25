@@ -20,24 +20,26 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th>location</th>
                 <th>phone</th>
                 <th>email</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th>location</th>
                 <th>phone</th>
                 <th>email</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -47,6 +49,11 @@
             @forelse ($companies as $company)
 
                 <tr>
+                    @if(isRootAdmin())
+                        <td>
+                            {{ $application->admin['username'] ?? '' }}
+                        </td>
+                    @endif
                     <td>
                         {{ $company->name }}
                     </td>
@@ -64,13 +71,7 @@
                     <td>
                         {{ $company->email }}
                     </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $company->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $company->disabled ])
-                    </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.company.destroy', $company->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
@@ -108,7 +109,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no companies.</td>
+                    <td colspan="5">There are no companies.</td>
                 </tr>
 
             @endforelse

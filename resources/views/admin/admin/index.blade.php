@@ -19,27 +19,27 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th class="px-2 whitespace-nowrap">user name</th>
-                <th class="px-2">name</th>
-                <th class="px-2">email</th>
-                <th class="px-2">phone</th>
-                <th class="px-2 has-text-centered">root</th>
+                <th class="whitespace-nowrap">user name</th>
+                <th>name</th>
+                <th>email</th>
+                <th>phone</th>
+                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
-                <th class="px-2">actions</th>
+                <th>actions</th>
             </tr>
             </thead>
             <?php /*
             <tfoot>
             <tr>
-                <th class="px-2 whitespace-nowrap">user name</th>
-                <th class="px-2">name</th>
-                <th class="px-2">email</th>
-                <th class="px-2">phone</th>
-                <th class="px-2 has-text-centered">root</th>
+                <th class="whitespace-nowrap">user name</th>
+                <th>name</th>
+                <th>email</th>
+                <th>phone</th>
+                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
-                <th class="px-2">actions</th>
+                <th>actions</th>
             </tr>
             </tfoot>
             */ ?>
@@ -48,25 +48,25 @@
             @forelse ($admins as $admin)
 
                 <tr>
-                    <td class="py-0">
+                    <td>
                         {{ $admin->username }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $admin->name }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $admin->email }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $admin->phone }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $admin->root ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $admin->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.admin.destroy', $admin->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

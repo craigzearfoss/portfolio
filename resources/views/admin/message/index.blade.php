@@ -44,22 +44,22 @@
             @forelse ($messages as $message)
 
                 <tr>
-                    <td class="py-0">
+                    <td>
                         {{ $message->name }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $message->email }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $message->subject }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ shortDateTime($message->created_at) }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ shortDateTime($message->updated_at) }}
                     </td>
-                    <td class="py-0 text-nowrap">
+                    <td class="text-nowrap">
                         <form action="{{ route('admin.message.destroy', $message->id) }}" method="POST">
                             <a class="btn btn-sm" href="{{ route('admin.message.show', $message->id) }}"><i
                                     class="fa-solid fa-list"></i>{{-- Show --}}</a>

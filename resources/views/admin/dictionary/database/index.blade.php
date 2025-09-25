@@ -31,8 +31,6 @@
                 <th>name</th>
                 <th>abbrev</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -42,10 +40,7 @@
             <tr>
                 <th>name</th>
                 <th>abbrev</th>
-                <th class="has-text-centered">sequence</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -56,25 +51,19 @@
             @forelse ($databases as $database)
 
                 <tr>
-                    <td class="py-0">
+                    <td>
                         {{ $database->name }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $database->abbreviation }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->public ])
                     </td>
-                    <td class="py-0 has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $database->readonly ])
-                    </td>
-                    <td class="py-0 has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $database->root ])
-                    </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->disabled ])
                     </td>
-                    <td class="white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.dictionary.database.destroy', $database->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
@@ -121,7 +110,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no databases.</td>
+                    <td colspan="5">There are no databases.</td>
                 </tr>
 
             @endforelse

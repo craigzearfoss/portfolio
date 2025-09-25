@@ -62,10 +62,10 @@
                     <td class="py-0">
                         {{ $resource->database['name'] }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $resource->table }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         @if (!empty($resource->icon))
                             <span class="text-xl">
                                 <i class="fa-solid {{ $resource->icon }}"></i>
@@ -73,31 +73,31 @@
                         @else
                         @endif
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->guest ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->user ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->admin ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td>
                         {{ $resource->sequence }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->public ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->readonly ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->root ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->disabled ])
                     </td>
-                    <td class="py-0 text-nowrap">
+                    <td class="text-nowrap">
                         <form action="{{ route('admin.resource.destroy', $resource->id) }}" method="POST">
 
                             <a class="button is-small px-1 py-0" href="{{ route('admin.resource.show', $resource->id) }}">

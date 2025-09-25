@@ -26,7 +26,6 @@
                 <th class="has-text-centered">regional</th>
                 <th class="has-text-centered">national</th>
                 <th class="has-text-centered">international</th>
-                <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -51,7 +50,7 @@
             @forelse ($jobBoards as $jobBoard)
 
                 <tr>
-                    <td class="py-0">
+                    <td>
                         {{ $jobBoard->name }}
                     </td>
                     <td class="has-text-centered">
@@ -70,12 +69,9 @@
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->international ])
                     </td>
                     <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->public ])
-                    </td>
-                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.job-board.destroy', $jobBoard->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
@@ -104,7 +100,7 @@
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- Delete-- }}
+                                <i class="fa-solid fa-trash"></i>{{-- Delete --}}
                             </button>
                         </form>
                     </td>
@@ -113,7 +109,7 @@
             @empty
 
                 <tr>
-                    <td colspan="9">There are no job boards.</td>
+                    <td colspan="8">There are no job boards.</td>
                 </tr>
 
             @endforelse

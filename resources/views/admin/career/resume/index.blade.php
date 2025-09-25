@@ -20,6 +20,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th>date</th>
                 <th class="has-text-centered">primary</th>
@@ -31,6 +34,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th>date</th>
                 <th class="has-text-centered">primary</th>
@@ -60,7 +66,7 @@
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resume->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.resume.destroy', $resume->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

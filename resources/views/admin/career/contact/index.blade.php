@@ -20,6 +20,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th>location</th>
                 <th>phone</th>
@@ -32,6 +35,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>admin</th>
+                @endif
                 <th>name</th>
                 <th>location</th>
                 <th>phone</th>
