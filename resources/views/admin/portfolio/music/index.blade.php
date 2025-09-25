@@ -57,6 +57,16 @@
             @forelse ($musics as $music)
 
                 <tr data-id="{{ $music->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($music->admin))
+                                @include('admin.components.link', [
+                                    'name' => $music->admin['username'],
+                                    'url'  => route('admin.admin.show', $music->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td>
                         {{ $music->name }}
                     </td>

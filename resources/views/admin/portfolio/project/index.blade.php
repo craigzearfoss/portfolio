@@ -55,6 +55,16 @@
             @forelse ($projects as $project)
 
                 <tr data-id="{{ $projects->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($event->admin))
+                                @include('admin.components.link', [
+                                    'name' => $event->admin['username'],
+                                    'url'  => route('admin.admin.show', $event->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td class="text-nowrap">
                         {{ $project->name }}
                     </td>

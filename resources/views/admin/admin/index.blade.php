@@ -24,7 +24,6 @@
                 <th>email</th>
                 <th>phone</th>
                 <th class="has-text-centered">root</th>
-                <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -37,7 +36,6 @@
                 <th>email</th>
                 <th>phone</th>
                 <th class="has-text-centered">root</th>
-                <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -104,7 +102,7 @@
             @empty
 
                 <tr>
-                    <td colspan="8">There are no admins.</td>
+                    <td colspan="7">There are no admins.</td>
                 </tr>
 
             @endforelse

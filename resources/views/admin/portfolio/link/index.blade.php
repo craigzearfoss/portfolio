@@ -49,6 +49,16 @@
             @forelse ($links as $link)
 
                 <tr data-id="{{ $link->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($link->admin))
+                                @include('admin.components.link', [
+                                    'name' => $link->admin['username'],
+                                    'url'  => route('admin.admin.show', $link->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td>
                         {{ $link->name }}
                     </td>

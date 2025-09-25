@@ -34,12 +34,12 @@
                 <th>schedule</th>
                 <th>office</th>
                 <th>location</th>
-                <th>w2</th>
+                <th class="has-text-centered">w2</th>
                 <?php /*
-                <th>relo</th>
-                <th>ben</th>
-                <th>vac</th>
-                <th>health</th>
+                <th class="has-text-centered">relo</th>
+                <th class="has-text-centered">ben</th>
+                <th class="has-text-centered">vac</th>
+                <th class="has-text-centered">health</th>
                 */ ?>
                 <th>source</th>
                 <th>actions</th>
@@ -62,11 +62,11 @@
                 <th>schedule</th>
                 <th>office</th>
                 <th>location</th>
-                <th>w2</th>
-                <th>relo</th>
-                <th>ben</th>
-                <th>vac</th>
-                <th>health</th>
+                <th class="has-text-centered">w2</th>
+                <th class="has-text-centered">relo</th>
+                <th class="has-text-centered">ben</th>
+                <th class="has-text-centered">vac</th>
+                <th class="has-text-centered">health</th>
                 <th>source</th>
                 <th>actions</th>
             </tr>
@@ -79,7 +79,12 @@
                 <tr data-id="{{ $application->id }}">
                     @if(isRootAdmin())
                         <td>
-                            {{ $application->admin['username'] ?? '' }}
+                            @if(!empty($application->admin))
+                                @include('admin.components.link', [
+                                    'name' => $application->admin['username'],
+                                    'url'  => route('admin.admin.show', $application->admin['id'])
+                                ])
+                            @endif
                         </td>
                     @endif
                     <td>
@@ -94,9 +99,9 @@
                     <td class="has-text-centered text-nowrap">
                         @include('admin.components.star-ratings', [ 'rating' => $application->rating ])
                     </td>
-                        <td class="text-nowrap">
-                            {{ !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' }}
-                        </td>
+                    <td class="text-nowrap">
+                        {{ !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' }}
+                    </td>
                     <td class="text-nowrap">
                         {{ !empty($application->apply_date) ? date('M j', strtotime($application->apply_date)) : '' }}
                     </td>
@@ -147,7 +152,7 @@
                     <td>
                         {{ $application->job_board['name'] ?? '' }}
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.application.destroy', $application->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

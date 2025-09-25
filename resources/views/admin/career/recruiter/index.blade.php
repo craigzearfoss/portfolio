@@ -24,10 +24,10 @@
                 <th>location</th>
                 <th>phone</th>
                 <th>email</th>
-                <th>local</th>
-                <th>regional</th>
-                <th>national</th>
-                <th>international</th>
+                <th class="has-text-centered">local</th>
+                <th class="has-text-centered">regional</th>
+                <th class="has-text-centered">national</th>
+                <th class="has-text-centered">international</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -39,10 +39,10 @@
                 <th>location</th>
                 <th>phone</th>
                 <th>email</th>
-                <th>local</th>
-                <th>regional</th>
-                <th>national</th>
-                <th>international</th>
+                <th class="has-text-centered">local</th>
+                <th class="has-text-centered">regional</th>
+                <th class="has-text-centered">national</th>
+                <th class="has-text-centered">international</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -53,6 +53,16 @@
             @forelse ($recruiters as $recruiter)
 
                 <tr data-id="{{ $recruiter->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($recruiter->admin))
+                                @include('admin.components.link', [
+                                    'name' => $recruiter->admin['username'],
+                                    'url'  => route('admin.admin.show', $recruiter->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td>
                         {{ $recruiter->name }}
                     </td>

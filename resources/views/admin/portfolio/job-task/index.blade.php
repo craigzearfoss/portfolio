@@ -52,6 +52,16 @@
             @forelse ($jobTasks as $jobTask)
 
                 <tr data-id="{{ $jobTask->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($jobTask->admin))
+                                @include('admin.components.link', [
+                                    'name' => $jobTask->admin['username'],
+                                    'url'  => route('admin.admin.show', $jobTask->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td>
                         @if($jobTask->job)
                             {{ $jobTask->job['company'] }}

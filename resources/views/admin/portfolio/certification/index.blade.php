@@ -57,6 +57,16 @@
             @forelse ($certifications as $certification)
 
                 <tr data-id="{{ $certification->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($certification->admin))
+                                @include('admin.components.link', [
+                                    'name' => $certification->admin['username'],
+                                    'url'  => route('admin.admin.show', $certification->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td>
                         {{ $certification->name }}
                     </td>

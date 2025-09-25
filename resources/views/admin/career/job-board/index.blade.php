@@ -39,7 +39,6 @@
                 <th class="has-text-centered">regional</th>
                 <th class="has-text-centered">national</th>
                 <th class="has-text-centered">international</th>
-                <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>

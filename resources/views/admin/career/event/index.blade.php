@@ -23,8 +23,12 @@
                 @if(isRootAdmin())
                     <th>admin</th>
                 @endif
-                <th>subject</th>
-                <th>created at</th>
+                <th>name</th>
+                <th>date</th>
+                <th>time</th>
+                <th>location</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -34,8 +38,12 @@
                 @if(isRootAdmin())
                     <th>admin</th>
                 @endif
-                <th>subject</th>
-                <th>created at</th>
+                <th>name</th>
+                <th>date</th>
+                <th>time</th>
+                <th>location</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -45,13 +53,35 @@
             @forelse ($events as $event)
 
                 <tr data-id="{{ $event->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($event->admin))
+                                @include('admin.components.link', [
+                                    'name' => $event->admin['username'],
+                                    'url'  => route('admin.admin.show', $event->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td>
-                        {{ $event->subject }}
+                        {{ $event->name }}
                     </td>
                     <td class="text-nowrap">
-                        {{ shortDateTime($event->created_at) }}
+                        {{ shortDate($event->date) }}
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="text-nowrap">
+                        {{ $event->time }}
+                    </td>
+                    <td>
+                        {{ $event->location }}
+                    </td>
+                    <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $event->public ])
+                    </td>
+                    <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $event->disabled ])
+                    </td>
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.event.destroy', $event->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
@@ -76,7 +106,7 @@
             @empty
 
                 <tr>
-                    <td colspan="3">There are no events.</td>
+                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There are no events.</td>
                 </tr>
 
             @endforelse

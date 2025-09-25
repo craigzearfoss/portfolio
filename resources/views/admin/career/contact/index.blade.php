@@ -53,17 +53,26 @@
             @forelse ($contacts as $contact)
 
                 <tr data-id="{{ $contact->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($contact->admin))
+                                @include('admin.components.link', [
+                                    'name' => $contact->admin['username'],
+                                    'url'  => route('admin.admin.show', $contact->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td>
                         {{ $contact->name }}
                     </td>
                     <td>
-                        @if ($contact->city)
-                            {{ $contact->city }}@if ($contact->state)
-                                , {{ $contact->state }}
-                            @endif
-                        @else
-                            {{ $contact->state }}
-                        @endif
+                        {!!
+                            formatLocation([
+                                'city'    => $contact->city ?? null,
+                                'state'   => $contact->state['code'] ?? null,
+                            ])
+                        !!}
                     </td>
                     <td>
                         {{ $contact->phone }}
@@ -77,7 +86,7 @@
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $contact->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.contact.destroy', $contact->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
@@ -115,7 +124,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no contacts.</td>
+                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There are no contacts.</td>
                 </tr>
 
             @endforelse

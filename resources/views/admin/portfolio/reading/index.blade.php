@@ -63,6 +63,16 @@
             @forelse ($readings as $reading)
 
                 <tr data-id="{{ $reading->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($reading->admin))
+                                @include('admin.components.link', [
+                                    'name' => $reading->admin['username'],
+                                    'url'  => route('admin.admin.show', $reading->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td>
                         {{ $reading->title }}
                     </td>

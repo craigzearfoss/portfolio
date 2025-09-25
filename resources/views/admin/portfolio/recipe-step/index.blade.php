@@ -55,6 +55,16 @@
             @forelse ($recipeSteps as $recipeStep)
 
                 <tr data-id="{{ $recipeStep->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($recipeStep->admin))
+                                @include('admin.components.link', [
+                                    'name' => $recipeStep->admin['username'],
+                                    'url'  => route('admin.admin.show', $recipeStep->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     @if(empty($recipe))
                         <td class="py-0 text-nowrap">
                             @include('admin.components.link', [

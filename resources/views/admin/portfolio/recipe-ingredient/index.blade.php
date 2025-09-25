@@ -56,6 +56,16 @@
             @forelse ($recipeIngredients as $recipeIngredient)
 
                 <tr data-id="{{ $recipeIngredient->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($recipeIngredient->admin))
+                                @include('admin.components.link', [
+                                    'name' => $recipeIngredient->admin['username'],
+                                    'url'  => route('admin.admin.show', $recipeIngredient->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td>
                         {{ $recipeIngredient->ingredient['name'] ?? '' }}
                     </td>

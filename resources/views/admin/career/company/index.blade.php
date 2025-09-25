@@ -51,7 +51,12 @@
                 <tr data-id="{{ $company->id }}">
                     @if(isRootAdmin())
                         <td>
-                            {{ $application->admin['username'] ?? '' }}
+                            @if(!empty($company->admin))
+                                @include('admin.components.link', [
+                                    'name' => $company->admin['username'],
+                                    'url'  => route('admin.admin.show', $company->admin['id'])
+                                ])
+                            @endif
                         </td>
                     @endif
                     <td>
@@ -109,7 +114,7 @@
             @empty
 
                 <tr>
-                    <td colspan="5">There are no companies.</td>
+                    <td colspan="{{ isRootAdmin() ? '6' : '5' }}">There are no companies.</td>
                 </tr>
 
             @endforelse

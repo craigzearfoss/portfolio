@@ -51,6 +51,16 @@
             @forelse ($videos as $video)
 
                 <tr data-id="{{ $video->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($video->admin))
+                                @include('admin.components.link', [
+                                    'name' => $video->admin['username'],
+                                    'url'  => route('admin.admin.show', $video->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td>
                         {{ $video->name }}
                     </td>

@@ -49,6 +49,16 @@
             @forelse ($references as $reference)
 
                 <tr data-id="{{ $reference->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($reference->admin))
+                                @include('admin.components.link', [
+                                    'name' => $reference->admin['username'],
+                                    'url'  => route('admin.admin.show', $reference->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td>
                         {{ $reference->name }}
                     </td>
@@ -99,7 +109,7 @@
             @empty
 
                 <tr>
-                    <td colspan="5">There are no references.</td>
+                    <td colspan="{{ isRootAdmin() ? '6' : '5' }}">There are no references.</td>
                 </tr>
 
             @endforelse

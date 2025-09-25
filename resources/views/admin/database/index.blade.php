@@ -46,8 +46,6 @@
                 <th class="has-text-centered">admin</th>
                 <th>sequence</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -92,12 +90,6 @@
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $database->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $database->root ])
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->disabled ])

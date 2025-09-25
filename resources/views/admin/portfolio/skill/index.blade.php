@@ -49,6 +49,16 @@
             @forelse ($skills as $skill)
 
                 <tr data-id="{{ $skill->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($skill->admin))
+                                @include('admin.components.link', [
+                                    'name' => $skill->admin['username'],
+                                    'url'  => route('admin.admin.show', $skill->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td>
                         {{ $skill->name }}
                     </td>

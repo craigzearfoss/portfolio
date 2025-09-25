@@ -24,7 +24,8 @@
                     <th>admin</th>
                 @endif
                 <th>subject</th>
-                <th>created at</th>
+                <th>date</th>
+                <th>time</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -35,7 +36,8 @@
                     <th>admin</th>
                 @endif
                 <th>subject</th>
-                <th>created at</th>
+                <th>date</th>
+                <th>time</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -47,16 +49,24 @@
                 <tr data-id="{{ $communication->id }}">
                     @if(isRootAdmin())
                         <td>
-                            {{ $communication->admin['username'] ?? '' }}
+                            @if(!empty($communication->admin))
+                                @include('admin.components.link', [
+                                    'name' => $communication->admin['username'],
+                                    'url'  => route('admin.admin.show', $communication->admin['id'])
+                                ])
+                            @endif
                         </td>
                     @endif
                     <td>
                         {{ $communication->subject }}
                     </td>
                     <td class="text-nowrap">
-                        {{ shortDateTime($communication->created_at) }}
+                        {{ shortDate($communication->date) }}
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="text-nowrap">
+                        {{ $communication->time }}
+                    </td>
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.communication.destroy', $communication->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
@@ -81,7 +91,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '4' : '3' }}">There are no communications.</td>
+                    <td colspan="{{ isRootAdmin() ? '5' : '4' }}">There are no communications.</td>
                 </tr>
 
             @endforelse

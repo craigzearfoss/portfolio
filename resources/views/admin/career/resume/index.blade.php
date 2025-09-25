@@ -51,6 +51,16 @@
             @forelse ($resumes as $resume)
 
                 <tr data-id="{{ $resume->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($resume->admin))
+                                @include('admin.components.link', [
+                                    'name' => $resume->admin['username'],
+                                    'url'  => route('admin.admin.show', $resume->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td>
                         {{ $resume->name }}
                     </td>
@@ -126,7 +136,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">There are no resumes.</td>
+                    <td colspan="{{ isRootAdmin() ? '7' : '6' }}">There are no resumes.</td>
                 </tr>
 
             @endforelse

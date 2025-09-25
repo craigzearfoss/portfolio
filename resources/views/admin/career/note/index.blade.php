@@ -45,6 +45,16 @@
             @forelse ($notes as $note)
 
                 <tr data-id="{{ $note->id }}">
+                    @if(isRootAdmin())
+                        <td>
+                            @if(!empty($note->admin))
+                                @include('admin.components.link', [
+                                    'name' => $note->admin['username'],
+                                    'url'  => route('admin.admin.show', $note->admin['id'])
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td>
                         {{ $note->subject }}
                     </td>
@@ -76,7 +86,7 @@
             @empty
 
                 <tr>
-                    <td colspan="3">There are no notes.</td>
+                    <td colspan="{{ isRootAdmin() ? '4' : '3' }}">There are no notes.</td>
                 </tr>
 
             @endforelse

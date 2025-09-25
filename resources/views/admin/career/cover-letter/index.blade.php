@@ -26,7 +26,7 @@
                 <th>company</th>
                 <th>role</th>
                 <th>apply</th>
-                <th>active</th>
+                <th class="has-text-centered">active</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -40,7 +40,7 @@
                 <th>company</th>
                 <th>role</th>
                 <th>apply</th>
-                <th>active</th>
+                <th class="has-text-centered">active</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -53,7 +53,12 @@
                 <tr data-id="{{ $coverLetter->id }}">
                     @if(isRootAdmin())
                         <td>
-                            {{ $application->admin['username'] ?? '' }}
+                            @if(!empty($coverLetter->admin))
+                                @include('admin.components.link', [
+                                    'name' => $coverLetter->admin['username'],
+                                    'url'  => route('admin.admin.show', $coverLetter->admin['id'])
+                                ])
+                            @endif
                         </td>
                     @endif
                     <td>
@@ -71,7 +76,7 @@
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $coverLetter->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.cover-letter.destroy', $coverLetter->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
@@ -109,7 +114,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There are no cover letters.</td>
+                    <td colspan="{{ isRootAdmin() ? '7' : '6' }}">There are no cover letters.</td>
                 </tr>
 
             @endforelse
