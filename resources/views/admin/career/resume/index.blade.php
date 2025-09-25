@@ -65,51 +65,53 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.resume.show', $resume->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show--}}
+                                <i class="fa-solid fa-list"></i>{{-- Show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.resume.edit', $resume->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
                             </a>
 
                             @if (!empty($resume->doc_url))
                                 <a title="Microsoft Word document" class="button is-small px-1 py-0" href="{{ $resume->doc_url }}"
                                    target="_blank">
-                                    <i class="fa-solid fa-file-word-o"></i>{{-- doc_url--}}
+                                    <i class="fa-solid fa-file-word-o"></i>{{-- doc_url --}}
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-file-word-o"></i>{{-- doc_url--}}
+                                    <i class="fa-solid fa-file-word-o"></i>{{-- doc_url --}}
                                 </a>
                             @endif
 
                             @if (!empty($resume->pdf_url))
                                 <a title="PDF document" class="button is-small px-1 py-0" href="{{ $resume->pdf_url }}"
                                    target="_blank">
-                                    <i class="fa-solid fa-file-pdf-o"></i>{{-- doc_url--}}
+                                    <i class="fa-solid fa-file-pdf-o"></i>{{-- doc_url --}}
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-file-pdf-o"></i>{{-- doc_url--}}
+                                    <i class="fa-solid fa-file-pdf-o"></i>{{-- doc_url --}}
                                 </a>
                             @endif
 
-                        @if (!empty($resume->link))
-                                <a title="{{ !empty($resume->link_name) ? $resume->link_name : 'link' }}" class="button is-small px-1 py-0" href="{{ $resume->link }}"
+                            @if (!empty($resume->link))
+                                <a title="{{ !empty($resume->link_name) ? $resume->link_name : 'link' }}link"
+                                   class="button is-small px-1 py-0"
+                                   href="{{ $resume->link }}"
                                    target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
                                 </a>
                             @endif
 
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                                <i class="fa-solid fa-trash"></i>{{-- Delete --}}
                             </button>
                         </form>
                     </td>

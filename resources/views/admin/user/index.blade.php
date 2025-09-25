@@ -64,17 +64,30 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.user.show', $user->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show--}}
+                                <i class="fa-solid fa-list"></i>{{-- Show --}}
                             </a>
+
+                            @if (!empty($user->link))
+                                <a title="{{ !empty($user->link_name) ? $user->$project : 'link' }}link"
+                                   class="button is-small px-1 py-0"
+                                   href="{{ $user->link }}"
+                                   target="_blank">
+                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                </a>
+                            @else
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                </a>
+                            @endif
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.user.edit', $user->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
                             </a>
 
                             <a title="change password" class="button is-small px-1 py-0"
                                href="{{ route('admin.user.change-password', $user->id) }}">
-                                <i class="fa-solid fa-key"></i>{{-- Edit--}}
+                                <i class="fa-solid fa-key"></i>{{-- Change Password --}}
                             </a>
 
                             @csrf

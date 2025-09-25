@@ -13,7 +13,7 @@ class JobBoardStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return isRootAdmin();
     }
 
     /**
@@ -29,20 +29,25 @@ class JobBoardStoreRequest extends FormRequest
         }
 
         return [
-            'name'         => ['required', 'string', 'max:100', 'unique:career_db.job_boards,name'],
-            'slug'         => ['required', 'string', 'max:100', 'unique:career_db.job_boards,slug'],
-            'link'         => ['string', 'max:255', 'nullable'],
-            'link_name'    => ['string', 'url:http,https', 'max:255', 'nullable'],
-            'description'  => ['nullable'],
-            'image'        => ['string', 'max:255', 'nullable'],
-            'image_credit' => ['string', 'max:255', 'nullable'],
-            'image_source' => ['string', 'max:255', 'nullable'],
-            'thumbnail'    => ['string', 'max:255', 'nullable'],
-            'sequence'     => ['integer', 'min:0'],
-            'public'       => ['integer', 'between:0,1'],
-            'readonly'     => ['integer', 'between:0,1'],
-            'root'         => ['integer', 'between:0,1'],
-            'disabled'     => ['integer', 'between:0,1'],
+            'name'          => ['required', 'string', 'max:100', 'unique:career_db.job_boards,name'],
+            'slug'          => ['required', 'string', 'max:100', 'unique:career_db.job_boards,slug'],
+            'primary'       => ['integer', 'between:0,1'],
+            'local'         => ['integer', 'between:0,1'],
+            'regional'      => ['integer', 'between:0,1'],
+            'national'      => ['integer', 'between:0,1'],
+            'international' => ['integer', 'between:0,1'],
+            'link'          => ['string', 'max:255', 'nullable'],
+            'link_name'     => ['string', 'url:http,https', 'max:255', 'nullable'],
+            'description'   => ['nullable'],
+            'image'         => ['string', 'max:255', 'nullable'],
+            'image_credit'  => ['string', 'max:255', 'nullable'],
+            'image_source'  => ['string', 'max:255', 'nullable'],
+            'thumbnail'     => ['string', 'max:255', 'nullable'],
+            'sequence'      => ['integer', 'min:0'],
+            'public'        => ['integer', 'between:0,1'],
+            'readonly'      => ['integer', 'between:0,1'],
+            'root'          => ['integer', 'between:0,1'],
+            'disabled'      => ['integer', 'between:0,1'],
         ];
     }
 }

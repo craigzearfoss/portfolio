@@ -51,29 +51,31 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.industry.show', $industry->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show--}}
+                                <i class="fa-solid fa-list"></i>{{-- Show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.industry.edit', $industry->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
                             </a>
 
                             @if (!empty($industry->link))
-                                <a title="link" class="button is-small px-1 py-0" href="{{ $industry->link }}"
+                                <a title="{{ !empty($industry->link_name) ? $industry->link_name : 'link' }}link"
+                                   class="button is-small px-1 py-0"
+                                   href="{{ $industry->link }}"
                                    target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
                                 </a>
                             @else
-                                <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
                                 </a>
                             @endif
 
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                                <i class="fa-solid fa-trash"></i>{{-- Delete--}}
                             </button>
                         </form>
                     </td>

@@ -21,9 +21,12 @@
             <thead>
             <tr>
                 <th>name</th>
+                <th class="has-text-centered">primary</th>
+                <th class="has-text-centered">local</th>
+                <th class="has-text-centered">regional</th>
+                <th class="has-text-centered">national</th>
+                <th class="has-text-centered">international</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -32,9 +35,12 @@
             <tfoot>
             <tr>
                 <th>name</th>
+                <th class="has-text-centered">primary</th>
+                <th class="has-text-centered">local</th>
+                <th class="has-text-centered">regional</th>
+                <th class="has-text-centered">national</th>
+                <th class="has-text-centered">international</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -49,13 +55,22 @@
                         {{ $jobBoard->name }}
                     </td>
                     <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->primary ])
+                    </td>
+                    <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->local ])
+                    </td>
+                    <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->regional ])
+                    </td>
+                    <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->national ])
+                    </td>
+                    <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->international ])
+                    </td>
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->public ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->readonly ])
-                    </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->root ])
                     </td>
                     <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->disabled ])
@@ -65,29 +80,31 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.job-board.show', $jobBoard->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show--}}
+                                <i class="fa-solid fa-list"></i>{{-- Show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.job-board.edit', $jobBoard->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
                             </a>
 
                             @if (!empty($jobBoard->link))
-                                <a title="{{ !empty($jobBoard->link_name) ? $jobBoard->link : 'link' }}" class="button is-small px-1 py-0" href="{{ $jobBoard->link }}"
+                                <a title="{{ !empty($jobBoard->link_name) ? $jobBoard->link_name : 'link' }}link"
+                                   class="button is-small px-1 py-0"
+                                   href="{{ $jobBoard->link }}"
                                    target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link--}}
+                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
                                 </a>
                             @endif
 
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                                <i class="fa-solid fa-trash"></i>{{-- Delete-- }}
                             </button>
                         </form>
                     </td>
@@ -96,7 +113,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">There are no job boards.</td>
+                    <td colspan="9">There are no job boards.</td>
                 </tr>
 
             @endforelse

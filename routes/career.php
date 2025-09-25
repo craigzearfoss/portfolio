@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Career\IndexController as AdminCareerIndexControl
 use App\Http\Controllers\Admin\Career\IndustryController as AdminCareerIndustryController;
 use App\Http\Controllers\Admin\Career\JobBoardController as AdminCareerJobBoardController;
 use App\Http\Controllers\Admin\Career\NoteController as AdminCareerNoteController;
+use App\Http\Controllers\Admin\Career\RecruiterController as AdminCareerRecruiterController;
 use App\Http\Controllers\Admin\Career\ReferenceController as AdminCareerReferenceController;
 use App\Http\Controllers\Admin\Career\ResumeController as AdminCareerResumeController;
 
@@ -26,6 +27,7 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::resource('event', AdminCareerEventController::class);
     Route::resource('job-board', AdminCareerJobBoardController::class)->parameter('job-board', 'job_board');
     Route::resource('note', AdminCareerNoteController::class);
+    Route::resource('recruiter', AdminCareerRecruiterController::class);
     Route::resource('reference', AdminCareerReferenceController::class);
     Route::resource('resume', AdminCareerResumeController::class);
 });

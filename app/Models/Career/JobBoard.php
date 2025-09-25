@@ -24,6 +24,11 @@ class JobBoard extends Model
     protected $fillable = [
         'name',
         'slug',
+        'primary',
+        'local',
+        'regional',
+        'national',
+        'international',
         'link',
         'link_name',
         'description',

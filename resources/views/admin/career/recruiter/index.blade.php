@@ -1,12 +1,12 @@
 @extends('admin.layouts.default', [
-    'title' => 'Contacts',
+    'title' => 'Recruiters',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Contacts' ]
+        [ 'name' => 'Recruiters' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Contact', 'url' => route('admin.career.contact.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Recruiter', 'url' => route('admin.career.recruiter.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -24,6 +24,10 @@
                 <th>location</th>
                 <th>phone</th>
                 <th>email</th>
+                <th>local</th>
+                <th>regional</th>
+                <th>national</th>
+                <th>international</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -36,6 +40,10 @@
                 <th>location</th>
                 <th>phone</th>
                 <th>email</th>
+                <th>local</th>
+                <th>regional</th>
+                <th>national</th>
+                <th>international</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -44,50 +52,61 @@
             */ ?>
             <tbody>
 
-            @forelse ($contacts as $contact)
+            @forelse ($recruiters as $recruiter)
 
                 <tr>
                     <td>
-                        {{ $contact->name }}
+                        {{ $recruiter->name }}
                     </td>
                     <td>
-                        @if ($contact->city)
-                            {{ $contact->city }}@if ($contact->state)
-                                , {{ $contact->state }}
-                            @endif
-                        @else
-                            {{ $contact->state }}
-                        @endif
+                        {!!
+                            formatLocation([
+                                'city'    => $recruiter->city ?? null,
+                                'state'   => $recruiter->state['code'] ?? null,
+                            ])
+                        !!}
                     </td>
                     <td>
-                        {{ $contact->phone }}
+                        {{ $recruiter->phone }}
                     </td>
                     <td>
-                        {{ $contact->email }}
+                        {{ $recruiter->email }}
                     </td>
                     <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $contact->publicd ])
+                        @include('admin.components.checkmark', [ 'checked' => $recruiter->local ])
                     </td>
                     <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $contact->disabled ])
+                        @include('admin.components.checkmark', [ 'checked' => $recruiter->regional ])
+                    </td>
+                    <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $recruiter->national ])
+                    </td>
+                    <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $recruiter->international ])
+                    </td>
+                    <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $recruiter->public ])
+                    </td>
+                    <td class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $recruiter->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
-                        <form action="{{ route('admin.career.contact.destroy', $contact->id) }}" method="POST">
+                        <form action="{{ route('admin.career.recruiter.destroy', $recruiter->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.contact.show', $contact->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show --}}
+                               href="{{ route('admin.career.recruiter.show', $recruiter->id) }}">
+                                <i class="fa-solid fa-list"></i>{{-- Show--}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.contact.edit', $contact->id) }}">
+                               href="{{ route('admin.career.recruiter.edit', $recruiter->id) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
                             </a>
 
-                            @if (!empty($contact->link))
-                                <a title="{{ !empty($contact->link_name) ? $contact->link_name : 'link' }}link"
+                            @if (!empty($recruiter->link))
+                                <a title="{{ !empty($recruiter->link_name) ? $recruiter->link_name : 'link' }}link"
                                    class="button is-small px-1 py-0"
-                                   href="{{ $contact->link }}"
+                                   href="{{ $recruiter->link }}"
                                    target="_blank">
                                     <i class="fa-solid fa-external-link"></i>{{-- Link --}}
                                 </a>
@@ -109,7 +128,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no contacts.</td>
+                    <td colspan="11">There are no recruiters.</td>
                 </tr>
 
             @endforelse
@@ -117,7 +136,7 @@
             </tbody>
         </table>
 
-        {!! $contacts->links('vendor.pagination.bulma') !!}
+        {!! $recruiters->links('vendor.pagination.bulma') !!}
 
     </div>
 

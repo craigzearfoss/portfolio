@@ -27,7 +27,7 @@ class CompanyController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $companies = Company::latest()->paginate($perPage);
+        $companies = Company::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.career.company.index', compact('companies'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

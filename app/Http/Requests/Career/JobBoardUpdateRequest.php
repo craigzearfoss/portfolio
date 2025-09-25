@@ -13,7 +13,7 @@ class JobBoardUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return isRootAdmin();
     }
 
     /**
@@ -29,20 +29,25 @@ class JobBoardUpdateRequest extends FormRequest
         }
 
         return [
-            'name'         => ['string', 'max:100', 'unique:career_db.job_boards,name,'.$this->job_board->id, 'filled'],
-            'slug'         => ['string', 'max:100', 'unique:career_db.job_boards,slug,'.$this->job_board->id, 'filled'],
-            'link'         => ['string', 'max:255', 'nullable'],
-            'link_name'    => ['string', 'url:http,https', 'max:255', 'nullable'],
-            'description'  => ['nullable'],
-            'image'        => ['string', 'max:255', 'nullable'],
-            'image_credit' => ['string', 'max:255', 'nullable'],
-            'image_source' => ['string', 'max:255', 'nullable'],
-            'thumbnail'    => ['string', 'max:255', 'nullable'],
-            'sequence'     => ['integer', 'min:0'],
-            'public'       => ['integer', 'between:0,1'],
-            'readonly'     => ['integer', 'between:0,1'],
-            'root'         => ['integer', 'between:0,1'],
-            'disabled'     => ['integer', 'between:0,1'],
+            'name'          => ['string', 'max:100', 'unique:career_db.job_boards,name,'.$this->job_board->id, 'filled'],
+            'slug'          => ['string', 'max:100', 'unique:career_db.job_boards,slug,'.$this->job_board->id, 'filled'],
+            'primary'       => ['integer', 'between:0,1'],
+            'local'         => ['integer', 'between:0,1'],
+            'regional'      => ['integer', 'between:0,1'],
+            'national'      => ['integer', 'between:0,1'],
+            'international' => ['integer', 'between:0,1'],
+            'link'          => ['string', 'max:255', 'nullable'],
+            'link_name'     => ['string', 'url:http,https', 'max:255', 'nullable'],
+            'description'   => ['nullable'],
+            'image'         => ['string', 'max:255', 'nullable'],
+            'image_credit'  => ['string', 'max:255', 'nullable'],
+            'image_source'  => ['string', 'max:255', 'nullable'],
+            'thumbnail'     => ['string', 'max:255', 'nullable'],
+            'sequence'      => ['integer', 'min:0'],
+            'public'        => ['integer', 'between:0,1'],
+            'readonly'      => ['integer', 'between:0,1'],
+            'root'          => ['integer', 'between:0,1'],
+            'disabled'      => ['integer', 'between:0,1'],
         ];
     }
 }

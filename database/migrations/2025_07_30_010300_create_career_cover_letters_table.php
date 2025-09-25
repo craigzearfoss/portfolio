@@ -38,6 +38,12 @@ return new class extends Migration
 
 
         $data = [
+            [
+                'id'               => 1,
+                'date'             => '',
+                'cover_letter_url' => '',
+                'admin_id'         => 2,
+            ]
         ];
 
         CoverLetter::insert($data);

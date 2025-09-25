@@ -30,6 +30,31 @@
             'value' => $jobBoard->slug
         ])
 
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'primary',
+            'checked' => $jobBoard->primary
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'local',
+            'checked' => $jobBoard->local
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'regional',
+            'checked' => $jobBoard->regional
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'national',
+            'checked' => $jobBoard->national
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'international',
+            'checked' => $jobBoard->international
+        ])
+
         @include('admin.components.show-row-link', [
             'name'  => 'link',
             'url'    => $jobBoard->link,

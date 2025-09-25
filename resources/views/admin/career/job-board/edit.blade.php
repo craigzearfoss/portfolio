@@ -36,6 +36,46 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'primary',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('primary') ?? $jobBoard->primary,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'local',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('local') ?? $jobBoard->local,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'regional',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('regional') ?? $jobBoard->regional,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'national',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('national') ?? $jobBoard->national,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'international',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('international') ?? $jobBoard->international,
+                'message'         => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $jobBoard->link,

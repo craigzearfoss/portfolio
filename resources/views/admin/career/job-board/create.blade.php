@@ -34,6 +34,46 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'primary',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('primary') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'local',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('local') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'regional',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('regional') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'national',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('national') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'international',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('international') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? '',

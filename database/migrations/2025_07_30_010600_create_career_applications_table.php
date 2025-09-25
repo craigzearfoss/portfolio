@@ -72,7 +72,7 @@ return new class extends Migration
         $data = [
             [
                 'id'                   => 1,
-                'company_id'           => 25,
+                'company_id'           => 46,
                 'role'                 => 'Full-Stack Software Engineer – PHP',
                 'active'               => 1,
                 'post_date'            => '2025-09-22',
@@ -98,7 +98,7 @@ return new class extends Migration
             ],
             [
                 'id'                   => 2,
-                'company_id'           => 26,
+                'company_id'           => 47,
                 'role'                 => 'Senior Software Engineer - Full-Stack Developer',
                 'active'               => 1,
                 'post_date'            => '2025-09-22',
@@ -110,7 +110,7 @@ return new class extends Migration
                 'office_id'            => 2,     // 1-onsite, 2-remote, 3-hybrid
                 'schedule_id'          => 1,     // 1-full-time, 2-part-time, 3-seasonal
                 'city'                 => 'Nashville',
-                'state_id'             => 43,
+                'state_id'             => 48,
                 'country_id'           => 237,
                 'w2'                   => 0,
                 'relocation'           => 0,
@@ -124,7 +124,7 @@ return new class extends Migration
             ],
             [
                 'id'                   => 3,
-                'company_id'           => 27,
+                'company_id'           => 48,
                 'role'                 => 'Staff Software Engineer (Fullstack - React/Laravel)',
                 'active'               => 1,
                 'post_date'            => '2025-09-22',

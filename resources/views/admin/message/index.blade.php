@@ -62,12 +62,12 @@
                     <td class="py-0 text-nowrap">
                         <form action="{{ route('admin.message.destroy', $message->id) }}" method="POST">
                             <a class="btn btn-sm" href="{{ route('admin.message.show', $message->id) }}"><i
-                                    class="fa-solid fa-list"></i>{{-- Show--}}</a>
+                                    class="fa-solid fa-list"></i>{{-- Show --}}</a>
                                 <?php /*<a class="btn btn-sm" href="{{ route('admin.message.edit', $message->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a> */ ?>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm"><i
-                                    class="fa-solid fa-trash"></i>{{--  Delete--}}</button>
+                                    class="fa-solid fa-trash"></i>{{-- Delete--}}</button>
                         </form>
                     </td>
                 </tr>

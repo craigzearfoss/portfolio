@@ -60,18 +60,31 @@
 
                             <a title="show" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.reference.show', $reference->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show--}}
+                                <i class="fa-solid fa-list"></i>{{-- Show --}}
                             </a>
+
+                            @if (!empty($reference->link))
+                                <a title="{{ !empty($reference->link_name) ? $reference->link_name : 'link' }}link"
+                                   class="button is-small px-1 py-0"
+                                   href="{{ $reference->link }}"
+                                   target="_blank">
+                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                </a>
+                            @else
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                </a>
+                            @endif
 
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.career.reference.edit', $reference->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
                             </a>
 
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{--  Delete--}}
+                                <i class="fa-solid fa-trash"></i>{{-- Delete--}}
                             </button>
                         </form>
                     </td>

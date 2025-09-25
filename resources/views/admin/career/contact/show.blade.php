@@ -89,9 +89,11 @@
             'target' => '_blank'
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $contact->link_name
+        @include('admin.components.show-row-link', [
+            'name'   => 'postings url',
+            'label'  => $contact->link,
+            'url'    => $contact->link_name,
+            'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
