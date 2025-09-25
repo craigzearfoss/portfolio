@@ -57,9 +57,9 @@
 
             @forelse ($jobCoworkers as $jobCoworker)
 
-                <tr>
+                <tr data-id="{{ $jobCoworker->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($jobCoworker->admin))
                                 @include('admin.components.link', [
                                     'name' => $jobCoworker->admin['username'],
@@ -68,30 +68,30 @@
                             @endif
                         </td>
                     @endif
-                    <td data-id="{{ $jobCoworker->id }}">
+                    <td data-field="name">
                         {{ $jobCoworker->name }}
                     </td>
-                    <td>
+                    <td data-field="job_title">
                         {{ $jobCoworker->job_title }}
                     </td>
-                    <td>
+                    <td data-field="job.company">
                         @if($jobCoworker->job)
                             {{ $jobCoworker->job['company'] }}
                         @endif
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="phone" class="text-nowrap">
                         {{ !empty($jobCoworker->personal_phone) ? $jobCoworker->personal_phone : $jobCoworker->work_phone }}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="email" class="text-nowrap">
                         {{ !empty($jobCoworker->personal_email) ? $jobCoworker->personal_email : $jobCoworker->work_email }}
                     </td>
-                    <td>
+                    <td data-field="sequence">
                         {{ $jobCoworker->sequence }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobCoworker->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobCoworker->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

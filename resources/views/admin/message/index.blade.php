@@ -42,16 +42,16 @@
             @forelse ($messages as $message)
 
                 <tr data-id="{{ $message->id }}">
-                    <td>
+                    <td data-field="name">
                         {{ $message->name }}
                     </td>
-                    <td>
+                    <td data-field="email">
                         {{ $message->email }}
                     </td>
-                    <td>
+                    <td data-field="subject">
                         {{ $message->subject }}
                     </td>
-                    <td>
+                    <td data-field="created_at">
                         {{ shortDateTime($message->created_at) }}
                     </td>
                     <td class="text-nowrap">

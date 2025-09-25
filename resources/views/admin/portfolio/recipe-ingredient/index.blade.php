@@ -51,7 +51,7 @@
 
                 <tr data-id="{{ $recipeIngredient->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($recipeIngredient->admin))
                                 @include('admin.components.link', [
                                     'name' => $recipeIngredient->admin['username'],
@@ -60,16 +60,16 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="ingredient.name">
                         {{ $recipeIngredient->ingredient['name'] ?? '' }}
                     </td>
-                    <td>
+                    <td data-field="amount">
                         {{ $recipeIngredient->amount }}
                     </td>
-                    <td>
+                    <td data-field="unit.name">
                         {{ $recipeIngredient->unit['name'] ?? ''}}
                     </td>
-                    <td>
+                    <td data-field="qualifier">
                         {{ $recipeIngredient->qualifier ?? '' }}
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

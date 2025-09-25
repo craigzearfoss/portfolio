@@ -41,13 +41,13 @@
             @forelse ($units as $unit)
 
                 <tr data-id="{{ $unit->id }}">
-                    <td>
+                    <td data-field="name">
                         {{ $unit->name }}
                     </td>
-                    <td>
+                    <td data-field="abbreviation">
                         {{ $unit->abbreviation }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="system" class="has-text-centered">
                         {{ $unit->system }}
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

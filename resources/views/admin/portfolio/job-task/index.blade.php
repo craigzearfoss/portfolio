@@ -53,7 +53,7 @@
 
                 <tr data-id="{{ $jobTask->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($jobTask->admin))
                                 @include('admin.components.link', [
                                     'name' => $jobTask->admin['username'],
@@ -62,21 +62,21 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="job.company">
                         @if($jobTask->job)
                             {{ $jobTask->job['company'] }}
                         @endif
                     </td>
-                    <td>
+                    <td data-field="summary">
                         {{ $jobTask->summary }}
                     </td>
-                    <td>
+                    <td data-field="sequence">
                         {{ $jobTask->sequence }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobTask->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobTask->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

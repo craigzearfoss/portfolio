@@ -52,7 +52,7 @@
 
                 <tr data-id="{{ $video->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($video->admin))
                                 @include('admin.components.link', [
                                     'name' => $video->admin['username'],
@@ -61,19 +61,19 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="name">
                         {{ $video->name }}
                     </td>
-                    <td>
+                    <td data-field="year">
                         {{ $video->year }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->featured ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disbled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

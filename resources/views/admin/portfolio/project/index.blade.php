@@ -56,7 +56,7 @@
 
                 <tr data-id="{{ $projects->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($event->admin))
                                 @include('admin.components.link', [
                                     'name' => $event->admin['username'],
@@ -65,32 +65,32 @@
                             @endif
                         </td>
                     @endif
-                    <td class="text-nowrap">
+                    <td data-field="name" class="text-nowrap">
                         {{ $project->name }}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="language" class="text-nowrap">
                         {{ !empty($project->language)
                             ? ($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : ''))
                             : ''
                         }}
                     </td>
-                    <td>
+                    <td data-field="year">
                         {{ $project->year }}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="repository_url" class="text-nowrap">
                         @include('admin.components.link', [
                             'name'   => $project->repository_name,
                             'url'    => $project->repository_url,
                             'target' => '_blank'
                         ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->featured ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

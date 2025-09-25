@@ -56,7 +56,7 @@
 
                 <tr data-id="{{ $job->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($job->admin))
                                 @include('admin.components.link', [
                                     'name' => $job->admin['username'],
@@ -65,27 +65,27 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="company">
                         {{ $job->company }}
                     </td>
-                    <td>
+                    <td data-field="role">
                         {{ $job->role }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="start_month|start_year" class="has-text-centered">
                         @if(!empty($job->start_month)){{ date('F', mktime(0, 0, 0, $job->start_month, 10)) }} @endif
                         {{ $job->start_year }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="end_month|end_year" class="has-text-centered">
                         @if(!empty($job->end_month)){{ date('F', mktime(0, 0, 0, $job->end_month, 10)) }} @endif
                         {{ $job->end_year }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->featured ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

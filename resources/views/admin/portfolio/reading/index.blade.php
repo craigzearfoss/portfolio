@@ -64,7 +64,7 @@
 
                 <tr data-id="{{ $reading->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($reading->admin))
                                 @include('admin.components.link', [
                                     'name' => $reading->admin['username'],
@@ -73,37 +73,37 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="title">
                         {{ $reading->title }}
                     </td>
-                    <td>
+                    <td data-field="author">
                         {{ $reading->author }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="fiction" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->fiction ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="nonfiction" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->nonfiction ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="publication_year" class="has-text-centered">
                         {{ $reading->publication_year }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="paper" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->paper ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="audio" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->audio ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="wishlist" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->wishlist ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->featured ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

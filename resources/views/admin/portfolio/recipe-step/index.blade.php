@@ -50,7 +50,7 @@
 
                 <tr data-id="{{ $recipeStep->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($recipeStep->admin))
                                 @include('admin.components.link', [
                                     'name' => $recipeStep->admin['username'],
@@ -60,17 +60,17 @@
                         </td>
                     @endif
                     @if(empty($recipe))
-                        <td class="py-0 text-nowrap">
+                        <td data-field="recipe.name" class="text-nowrap">
                             @include('admin.components.link', [
                                 'url'  => route('admin.portfolio.recipe.show', $recipeStep->recipe),
                                 'name' => $recipeStep->recipe['name']
                             ])
                         </td>
                     @endif
-                    <td>
+                    <td data-field="step">
                         {{ $recipeStep->step }}
                     </td>
-                    <td>
+                    <td data-field="description">
                         {!! nl2br($recipeStep->description ?? '') !!}
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

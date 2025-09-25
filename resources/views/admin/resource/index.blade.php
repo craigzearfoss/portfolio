@@ -54,16 +54,16 @@
             @forelse ($resources as $resource)
 
                 <tr data-id="{{ $resource->id }}">
-                    <td>
+                    <td data-field="name">
                         {{ $resource->name }}
                     </td>
-                    <td>
+                    <td data-field="database.name">
                         {{ $resource->database['name'] }}
                     </td>
-                    <td>
+                    <td data-field="table">
                         {{ $resource->table }}
                     </td>
-                    <td>
+                    <td data-field="icon">
                         @if (!empty($resource->icon))
                             <span class="text-xl">
                                 <i class="fa-solid {{ $resource->icon }}"></i>
@@ -71,22 +71,22 @@
                         @else
                         @endif
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="guest" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->guest ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="user" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->user ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="admin" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->admin ])
                     </td>
-                    <td>
+                    <td data-field="sequence">
                         {{ $resource->sequence }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->disabled ])
                     </td>
                     <td class="text-nowrap">

@@ -41,13 +41,13 @@
             @forelse ($academies as $academy)
 
                 <tr data-id="{{ $academy->id }}">
-                    <td>
+                    <td data-field="name">
                         {{ $academy->name }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $academy->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $academy->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

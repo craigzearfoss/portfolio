@@ -50,7 +50,7 @@
 
                 <tr data-id="{{ $skill->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($skill->admin))
                                 @include('admin.components.link', [
                                     'name' => $skill->admin['username'],
@@ -59,16 +59,16 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="name">
                         {{ $skill->name }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $skill->featured ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $skill->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $skill->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

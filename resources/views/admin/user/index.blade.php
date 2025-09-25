@@ -46,22 +46,22 @@
             @forelse ($users as $user)
 
                 <tr data-id="{{ $user->id }}">
-                    <td>
+                    <td data-field="username">
                         {{ $user->username }}
                     </td>
-                    <td>
+                    <td data-field="name">
                         {{ $user->name }}
                     </td>
-                    <td>
+                    <td data-field="email">
                         {{ $user->email }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="email_verified_at" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $user->email_verified_at ])
                     </td>
-                    <td>
+                    <td data-field="status">
                         {{ \App\Models\User::statusName($user->status) }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field=disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
                     </td>
                     <td class="white-space-nowrap" style="white-space: nowrap;">

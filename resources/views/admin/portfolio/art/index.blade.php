@@ -55,7 +55,7 @@
 
                 <tr data-id="{{ $art->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($art->admin))
                                 @include('admin.components.link', [
                                     'name' => $art->admin['username'],
@@ -64,22 +64,22 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="name">
                         {{ $art->name }}
                     </td>
-                    <td>
+                    <td data-field="artist">
                         {{ $art->artist }}
                     </td>
-                    <td>
+                    <td data-field="year">
                         {{ $art->year }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $art->featured ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $art->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $art->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

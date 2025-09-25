@@ -54,7 +54,7 @@
 
                 <tr data-id="{{ $recipe->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($recipe->admin))
                                 @include('admin.components.link', [
                                     'name' => $recipe->admin['username'],
@@ -63,22 +63,22 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="name">
                         {{ $recipe->name }}
                     </td>
-                    <td>
+                    <td data-field="types">
                         {{ implode(', ', $recipe->types()) }}
                     </td>
-                    <td>
+                    <td data-field="meals">
                         {{ implode(', ', $recipe->meals()) }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->featured ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

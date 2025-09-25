@@ -58,7 +58,7 @@
 
                 <tr data-id="{{ $music->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($music->admin))
                                 @include('admin.components.link', [
                                     'name' => $music->admin['username'],
@@ -67,28 +67,28 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="name">
                         {{ $music->name }}
                     </td>
-                    <td>
+                    <td data-field="artist">
                         {{ $music->artist }}
                     </td>
-                    <td>
+                    <td data-field="year">
                         {{ $music->year }}
                     </td>
-                    <td>
+                    <td data-field="label">
                         {{ $music->label }}
                     </td>
-                    <td>
+                    <td data-field="catalog_number">
                         {{ $music->catalog_number }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->featured ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

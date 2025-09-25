@@ -56,7 +56,7 @@
 
                 <tr data-id="{{ $course->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($course->admin))
                                 @include('admin.components.link', [
                                     'name' => $course->admin['username'],
@@ -65,27 +65,27 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="name">
                         {{ $course->name }}
                     </td>
-                    <td>
+                    <td data-field="completion_date">
                         {{ shortDate($course->completion_date) }}
                     </td>
-                    <td>
+                    <td data-field="academy.name">
                         @if (!empty($course->academy))
                             <a href="{{ $course->academy['id'] }}" target="_blank">{{ $course->academy['name'] }}</a>
                         @endif
                     </td>
-                    <td>
+                    <td data-field="sponsor">
                         {{ $course->sponsor }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->featured ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
