@@ -25,9 +25,8 @@
                 <th>year</th>
                 <th>label</th>
                 <th>cat#</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -40,9 +39,8 @@
                 <th>year</th>
                 <th>label</th>
                 <th>cat#</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -118,7 +116,7 @@
             @empty
 
                 <tr>
-                    <td colspan="10">There is no music.</td>
+                    <td colspan="9">There is no music.</td>
                 </tr>
 
             @endforelse

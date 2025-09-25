@@ -29,6 +29,7 @@ class Certification extends Model
         'slug',
         'professional',
         'personal',
+        'featured',
         'organization',
         'academy_id',
         'year',

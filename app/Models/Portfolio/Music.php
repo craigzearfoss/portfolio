@@ -24,16 +24,21 @@ class Music extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'parent_id',
         'name',
         'artist',
         'slug',
-        'featured',
         'professional',
         'personal',
+        'featured',
+        'collection',
+        'track',
         'label',
         'catalog_number',
         'year',
         'release_date',
+        'embed',
+        'audio_url',
         'link',
         'link_name',
         'description',

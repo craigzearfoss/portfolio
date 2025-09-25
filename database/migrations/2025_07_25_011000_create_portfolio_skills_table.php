@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::connection('portfolio_db')->create('skills', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->tinyInteger('professional')->default(1);
+            $table->tinyInteger('personal')->default(0);
+            $table->tinyInteger('featured')->default(0);
             $table->tinyInteger('rating')->default(1);
             $table->integer('years')->default(0);
             $table->string('link')->nullable();

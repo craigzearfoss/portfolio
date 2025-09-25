@@ -28,9 +28,8 @@
                 <th class="has-text-centered">paper</th>
                 <th class="has-text-centered">audio</th>
                 <th class="has-text-centered">wishlist</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">readonly</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -46,9 +45,8 @@
                 <th class="has-text-centered">paper</th>
                 <th class="has-text-centered">audio</th>
                 <th class="has-text-centered">wishlist</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">readonly</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -133,7 +131,7 @@
             @empty
 
                 <tr>
-                    <td colspan="13">There are no readings.</td>
+                    <td colspan="12">There are no readings.</td>
                 </tr>
 
             @endforelse

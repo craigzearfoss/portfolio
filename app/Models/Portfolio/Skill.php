@@ -26,6 +26,9 @@ class Skill extends Model
     protected $fillable = [
         'name',
         'slug',
+        'professional',
+        'personal',
+        'featured',
         'rating',
         'years',
         'link',

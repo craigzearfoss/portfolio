@@ -19,23 +19,25 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th class="px-1">name</th>
-                <th class="px-1">email</th>
-                <th class="px-1 has-text-centered">verified</th>
-                <th class="px-1 has-text-centered">status</th>
-                <th class="px-1 has-text-centered">disabled</th>
-                <th class="px-1">actions</th>
+                <th>name</th>
+                <th>email</th>
+                <th class="has-text-centered">verified</th>
+                <th>status</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
+                <th>actions</th>
             </tr>
             </thead>
             <?php /*
             <tfoot>
             <tr>
-                <th class="px-2">name</th>
-                <th class="px-2">email</th>
-                <th class="px-2 has-text-centered">verified</th>
-                <th class="px-2 has-text-centered">status</th>
-                <th class="px-2 has-text-centered">disabled</th>
-                <th class="px-2">actions</th>
+                <th>name</th>
+                <th>email</th>
+                <th class="has-text-centered">verified</th>
+                <th>status</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
+                <th>actions</th>
             </tr>
             </tfoot>
             */ ?>
@@ -44,19 +46,19 @@
             @forelse ($users as $user)
 
                 <tr>
-                    <td class="py-0">
+                    <td>
                         {{ $user->name }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $user->email }}
                     </td>
-                    <td class="py-0">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $user->email_verified_at ])
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ \App\Models\User::statusName($user->status) }}
                     </td>
-                    <td class="py-0">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
                     </td>
                     <td class="white-space-nowrap py-0" style="white-space: nowrap;">
@@ -102,7 +104,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">There are no user stacks.</td>
+                    <td colspan="7">There are no users.</td>
                 </tr>
 
             @endforelse

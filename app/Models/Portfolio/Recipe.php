@@ -29,9 +29,9 @@ class Recipe extends Model
     protected $fillable = [
         'name',
         'slug',
-        'featured',
         'professional',
         'personal',
+        'featured',
         'source',
         'author',
         'prep_time',

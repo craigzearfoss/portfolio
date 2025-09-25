@@ -24,9 +24,8 @@
                 <th class="text-nowrap">language</th>
                 <th>year</th>
                 <th class="text-nowrap">repository</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">root</th>
-                <th class="has-text-centered">read-only</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -38,9 +37,8 @@
                 <th class="text-nowrap">language</th>
                 <th>year</th>
                 <th class="text-nowrap">repository</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">root</th>
-                <th class="has-text-centered">read-only</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>

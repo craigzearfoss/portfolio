@@ -37,6 +37,7 @@ class VideoFactory extends Factory
             'credit'         => fake()->name(),
             'location'       => fake()->city(),
             'embed'          => null,
+            'video_url'      => fake()->url(),
             'link'           => fake()->url(),
             'link_name'      => fake()->text(20),
             'description'    => fake()->text(200),

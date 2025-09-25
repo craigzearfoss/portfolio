@@ -24,10 +24,9 @@
                 <th class=" has-text-centered">completion<br>date</th>
                 <th>academy</th>
                 <th>sponsor</th>
-                <th class="has-has-text-centered">public</th>
-                <th class="has-has-text-centered">read-only</th>
-                <th class="has-has-text-centered">root</th>
-                <th class="has-has-text-centered">disabled</th>
+                <th class="has-text-centered">featured</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -38,10 +37,9 @@
                 <th class=" has-text-centered">completion<br>date</th>
                 <th>academy</th>
                 <th>sponsor</th>
-                <th class="has-has-text-centered">public</th>
-                <th class="has-has-text-centered">read-only</th>
-                <th class="has-has-text-centered">root</th>
-                <th class="has-has-text-centered">disabled</th>
+                <th class="has-text-centered">featured</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -126,7 +124,7 @@
             @empty
 
                 <tr>
-                    <td colspan="9">There are no courses.</td>
+                    <td colspan="8">There are no courses.</td>
                 </tr>
 
             @endforelse

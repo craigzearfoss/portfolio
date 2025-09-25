@@ -14,16 +14,21 @@ return new class extends Migration
     {
         Schema::connection('portfolio_db')->create('music', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Portfolio\Video::class, 'parent_id')->nullable();
             $table->string('name')->unique();
             $table->string('artist')->nullable();
             $table->string('slug')->unique();
-            $table->tinyInteger('featured')->default(1);
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
+            $table->tinyInteger('featured')->default(0);
+            $table->tinyInteger('collection')->default(1);
+            $table->tinyInteger('track')->default(1);
             $table->string('label')->nullable();
             $table->string('catalog_number', 50)->nullable();
             $table->year('year')->nullable();
             $table->date('release_date')->nullable();
+            $table->text('embed')->nullable();
+            $table->string('audio_url')->nullable();
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();

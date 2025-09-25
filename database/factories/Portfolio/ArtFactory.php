@@ -28,6 +28,7 @@ class ArtFactory extends Factory
             'slug'         => $slug,
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
+            'featured'     => fake()->numberBetween(0, 1),
             'year'         => fake()->numberBetween(1980, 2025),
             'link'         => fake()->url(),
             'link_name'    => fake()->text(20),

@@ -39,6 +39,9 @@ class SkillStoreRequest extends FormRequest
 
         return [
             'name'         => ['required', 'string', 'max:255', 'unique:potfolio_db.skills,name'],
+            'professional' => ['integer', 'between:0,1'],
+            'personal'     => ['integer', 'between:0,1'],
+            'featured'     => ['integer', 'between:0,1'],
             'rating'       => ['integer', 'between:1,10'],
             'years'        => ['integer', 'min:0'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],

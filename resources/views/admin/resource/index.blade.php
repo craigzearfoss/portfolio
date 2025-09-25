@@ -29,8 +29,6 @@
                 <th class="has-text-centered">admin</th>
                 <th class="has-text-centered">sequence</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>

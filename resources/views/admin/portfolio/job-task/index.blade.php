@@ -23,7 +23,7 @@
             <tr>
                 <th>company</th>
                 <th>summary</th>
-                <th>sequence</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -34,7 +34,7 @@
             <tr>
                 <th>company</th>
                 <th>summary</th>
-                <th>sequence</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>

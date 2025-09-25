@@ -22,9 +22,8 @@
             <tr>
                 <th>name</th>
                 <th>year</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -34,9 +33,8 @@
             <tr>
                 <th>name</th>
                 <th>year</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -103,7 +101,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no videos.</td>
+                    <td colspan="6">There are no videos.</td>
                 </tr>
 
             @endforelse

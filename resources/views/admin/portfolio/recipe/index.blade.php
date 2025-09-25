@@ -23,9 +23,8 @@
                 <th>name</th>
                 <th class="has-text-centered">type</th>
                 <th class="has-text-centered">meal</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -36,9 +35,8 @@
                 <th>name</th>
                 <th class="has-text-centered">type</th>
                 <th class="has-text-centered">meal</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -108,7 +106,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">There are no recipes.</td>
+                    <td colspan="7">There are no recipes.</td>
                 </tr>
 
             @endforelse

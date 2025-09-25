@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->tinyInteger('professional')->default(1);
             $table->tinyInteger('personal')->default(0);
+            $table->tinyInteger('featured')->default(0);
             $table->year('year')->nullable()->default(null);
             $table->tinyInteger('completed')->default(0);
             $table->date('completion_date')->nullable();

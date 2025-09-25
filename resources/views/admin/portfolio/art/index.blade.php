@@ -23,9 +23,8 @@
                 <th>name</th>
                 <th>artist</th>
                 <th>year</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -36,9 +35,8 @@
                 <th>name</th>
                 <th>artist</th>
                 <th>year</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -109,7 +107,7 @@
             @empty
 
                 <tr>
-                    <td colspan="8">There is no art.</td>
+                    <td colspan="7">There is no art.</td>
                 </tr>
 
             @endforelse

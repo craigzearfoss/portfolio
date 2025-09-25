@@ -26,7 +26,7 @@
                 <th>company</th>
                 <th>phone</th>
                 <th>email</th>
-                <th>sequence</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -40,7 +40,7 @@
                 <th>company</th>
                 <th>phone</th>
                 <th>email</th>
-                <th>sequence</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -116,7 +116,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no job coworkers.</td>
+                    <td colspan="9">There are no job coworkers.</td>
                 </tr>
 
             @endforelse

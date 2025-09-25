@@ -24,7 +24,8 @@
                 <th class="px-2">email</th>
                 <th class="px-2">phone</th>
                 <th class="px-2 has-text-centered">root</th>
-                <th class="px-2 has-text-centered">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
                 <th class="px-2">actions</th>
             </tr>
             </thead>
@@ -36,7 +37,8 @@
                 <th class="px-2">email</th>
                 <th class="px-2">phone</th>
                 <th class="px-2 has-text-centered">root</th>
-                <th class="px-2 has-text-centered">disabled</th>
+                <th class="has-text-centered">public</th>
+                <th class="has-text-centered">disabled</th>
                 <th class="px-2">actions</th>
             </tr>
             </tfoot>
@@ -102,7 +104,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">There are no user stacks.</td>
+                    <td colspan="8">There are no admins.</td>
                 </tr>
 
             @endforelse

@@ -25,6 +25,7 @@ class RecipeFactory extends Factory
             'slug'         => $slug,
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
+            'featured'     => fake()->numberBetween(0, 1),
             'source'       => fake()->company(),
             'author'       => fake()->name(),
             'main'         => fake()->numberBetween(0, 1),

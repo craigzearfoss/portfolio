@@ -59,6 +59,7 @@ class VideoStoreRequest extends FormRequest
             'credit'         => ['nullable'],
             'location'       => ['string', 'max:255', 'nullable'],
             'embed'          => ['nullable'],
+            'video_url'      => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link'           => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'      => ['string', 'nullable'],
             'description'    => ['nullable'],

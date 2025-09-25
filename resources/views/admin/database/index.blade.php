@@ -27,10 +27,8 @@
                 <th class="has-text-centered">guest</th>
                 <th class="has-text-centered">user</th>
                 <th class="has-text-centered">admin</th>
-                <th class="has-text-centered">sequence</th>
+                <th>sequence</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -46,7 +44,7 @@
                 <th class="has-text-centered">guest</th>
                 <th class="has-text-centered">user</th>
                 <th class="has-text-centered">admin</th>
-                <th class="has-text-centered">sequence</th>
+                <th>sequence</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">read-only</th>
                 <th class="has-text-centered">root</th>
@@ -60,19 +58,19 @@
             @forelse ($databases as $database)
 
                 <tr>
-                    <td class="py-0">
+                    <td>
                         {{ $database->name }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $database->database }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $database->tag }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         {{ $database->title }}
                     </td>
-                    <td class="py-0">
+                    <td>
                         @if (!empty($database->icon))
                             <span class="text-xl">
                                 <i class="fa-solid {{ $database->icon }}"></i>
@@ -80,31 +78,31 @@
                         @else
                         @endif
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->guest ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->user ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->admin ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td>
                         {{ $database->sequence }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->public ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->readonly ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->root ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->disabled ])
                     </td>
-                    <td class="py-0 text-nowrap">
+                    <td class="text-nowrap">
                         <form action="{{ route('admin.database.destroy', $database->id) }}" method="POST">
 
                             <a class="button is-small px-1 py-0" href="{{ route('admin.database.show', $database->id) }}">
@@ -127,7 +125,7 @@
             @empty
 
                 <tr>
-                    <td colspan="14">There are no messages.</td>
+                    <td colspan="12">There are no databases.</td>
                 </tr>
 
             @endforelse

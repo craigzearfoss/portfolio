@@ -25,6 +25,7 @@ class LinkFactory extends Factory
             'slug'         => $slug,
             'professional' => fake()->numberBetween(0, 1),
             'personal'     => fake()->numberBetween(0, 1),
+            'featured'     => fake()->numberBetween(0, 1),
             'url'          => fake()->url(),
             'link'         => fake()->url(),
             'link_name'    => fake()->text(20),

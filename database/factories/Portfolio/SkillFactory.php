@@ -18,6 +18,9 @@ class SkillFactory extends Factory
     {
         return [
             'name'         => fake()->unique()->text(12),
+            'professional' => fake()->numberBetween(0, 1),
+            'personal'     => fake()->numberBetween(0, 1),
+            'featured'     => fake()->numberBetween(0, 1),
             'rating'       => fake()->numberBetween(0, 10),
             'years'        => fake()->numberBetween(0, 20),
             'description'  => fake()->text(200),

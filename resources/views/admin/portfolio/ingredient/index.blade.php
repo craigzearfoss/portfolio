@@ -21,9 +21,8 @@
             <thead>
             <tr>
                 <th>name</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -32,9 +31,8 @@
             <tfoot>
             <tr>
                 <th>name</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -98,7 +96,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">There are no ingredients.</td>
+                    <td colspan="5">There are no ingredients.</td>
                 </tr>
 
             @endforelse

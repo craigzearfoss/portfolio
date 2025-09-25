@@ -27,9 +27,8 @@
                 @endif
                 <th>step</th>
                 <th>description</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -42,9 +41,8 @@
                 @endif
                 <th>step</th>
                 <th>description</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -106,7 +104,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ empty($recipe) ? '8' : '9' }}">There are no recipe steps.</td>
+                    <td colspan="{{ empty($recipe) ? '7' : '6' }}">There are no recipe steps.</td>
                 </tr>
 
             @endforelse

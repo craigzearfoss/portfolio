@@ -38,6 +38,9 @@ class SkillUpdateRequest extends FormRequest
 
         return [
             'name'         => ['string', 'max:255', 'unique:portfolio_db.jobs,name,'.$this->skill->id, 'filled'],
+            'professional' => ['integer', 'between:0,1'],
+            'personal'     => ['integer', 'between:0,1'],
+            'featured'     => ['integer', 'between:0,1'],
             'rating'       => ['integer', 'between:1,10'],
             'years'        => ['integer', 'min:0'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],

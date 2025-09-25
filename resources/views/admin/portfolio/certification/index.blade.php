@@ -25,9 +25,8 @@
                 <th>year</th>
                 <th>received</th>
                 <th>expiration</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -40,9 +39,8 @@
                 <th>year</th>
                 <th>received</th>
                 <th>expiration</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -120,7 +118,7 @@
             @empty
 
                 <tr>
-                    <td colspan="10">There are no certifications.</td>
+                    <td colspan="9">There are no certifications.</td>
                 </tr>
 
             @endforelse

@@ -16,9 +16,9 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->tinyInteger('featured')->default(1);
             $table->tinyInteger('professional')->default(0);
             $table->tinyInteger('personal')->default(0);
+            $table->tinyInteger('featured')->default(0);
             $table->year('year')->nullable();
             $table->string('language', 50)->nullable();
             $table->string('language_version', 20)->nullable();

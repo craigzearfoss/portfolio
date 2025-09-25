@@ -23,10 +23,8 @@
                 <th>name</th>
                 <th>abbreviation</th>
                 <th>system</th>
-                <th class="has-text-centered">sequence</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -37,10 +35,8 @@
                 <th>name</th>
                 <th>abbreviation</th>
                 <th>system</th>
-                <th class="has-text-centered">sequence</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -113,7 +109,7 @@
             @empty
 
                 <tr>
-                    <td colspan="9">There are no units.</td>
+                    <td colspan="7">There are no units.</td>
                 </tr>
 
             @endforelse

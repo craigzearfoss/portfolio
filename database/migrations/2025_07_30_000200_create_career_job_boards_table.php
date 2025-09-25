@@ -58,14 +58,11 @@ return new class extends Migration
             [ 'id' => 18, 'name' => 'Horizontal Talent', 'slug' => 'horizontal-talent', 'primary' => 0,'local' => 1, 'regional' => 0, 'national' => 1, 'international' => 0, 'link' => 'https://www.horizontaltalent.com/job-board' ],
             [ 'id' => 19, 'name' => 'Randstad USA',      'slug' => 'randstad-usa',      'primary' => 0,'local' => 0, 'regional' => 0, 'national' => 1, 'international' => 0, 'link' => 'https://www.randstadusa.com/jobs/' ],
             [ 'id' => 20, 'name' => 'CyberCoders',       'slug' => 'cybercoders',       'primary' => 0,'local' => 0, 'regional' => 0, 'national' => 1, 'international' => 0, 'link' => 'https://www.cybercoders.com/search' ],
+            [ 'id' => 21, 'name' => 'RingSide Talent',   'slug' => 'ringside-talent',   'primary' => 0,'local' => 0, 'regional' => 1, 'national' => 0, 'international' => 0, 'link' => 'https://ringsidetalent.com/jobs/' ],
+            [ 'id' => 22, 'name' => 'RIT Solutions',     'slug' => 'rit-solutions',     'primary' => 0,'local' => 0, 'regional' => 0, 'national' => 0, 'international' => 1, 'link' => 'https://ritsolinc.jobs.net/jobs' ],
+            [ 'id' => 23, 'name' => 'Vernovis',          'slug' => 'vernovis',          'primary' => 0,'local' => 0, 'regional' => 1, 'national' => 0, 'international' => 0, 'link' => 'https://vernovis.com/search-jobs/' ],
 
-            [ 'id' => 20, 'name' => 'RingSide Talent',       'slug' => 'ringside-talent',       'primary' => 0,'local' => 0, 'regional' => 1, 'national' => 0, 'international' => 0, 'link' => 'https://ringsidetalent.com/jobs/' ],
-            [ 'id' => 20, 'name' => 'RIT Solutions',       'slug' => 'rit-solutions',       'primary' => 0,'local' => 0, 'regional' => 0, 'national' => 0, 'international' => 1, 'link' => 'https://ritsolinc.jobs.net/jobs' ],
-            [ 'id' => 20, 'name' => 'Vernovis',       'slug' => 'vernovis',       'primary' => 0,'local' => 0, 'regional' => 1, 'national' => 0, 'international' => 0, 'link' => 'https://vernovis.com/search-jobs/' ],
-            [ 'id' => 20, 'name' => '',       'slug' => '',       'primary' => 0,'local' => 0, 'regional' => 0, 'national' => 0, 'international' => 0, 'link' => '' ],
-            [ 'id' => 20, 'name' => '',       'slug' => '',       'primary' => 0,'local' => 0, 'regional' => 0, 'national' => 0, 'international' => 0, 'link' => '' ],
-            [ 'id' => 20, 'name' => '',       'slug' => '',       'primary' => 0,'local' => 0, 'regional' => 0, 'national' => 0, 'international' => 0, 'link' => '' ],
-            [ 'id' => 20, 'name' => '',       'slug' => '',       'primary' => 0,'local' => 0, 'regional' => 0, 'national' => 0, 'international' => 0, 'link' => '' ],
+            //[ 'id' => #, 'name' => '',       'slug' => '',       'primary' => 0,'local' => 0, 'regional' => 0, 'national' => 0, 'international' => 0, 'link' => '' ],
         ];
 
 

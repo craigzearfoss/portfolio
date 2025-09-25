@@ -46,9 +46,9 @@ class RecipeStoreRequest extends FormRequest
         return [
             'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.recipes,name'],
             'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.recipes,slug'],
-            'featured'     => ['integer', 'between:0,1'],
             'professional' => ['integer', 'between:0,1'],
             'personal'     => ['integer', 'between:0,1'],
+            'featured'     => ['integer', 'between:0,1'],
             'source'       => ['string', 'max:255', 'nullable'],
             'author'       => ['string', 'max:255', 'nullable'],
             'prep_time'    => ['integer', 'min:0'],

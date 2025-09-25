@@ -21,15 +21,11 @@
             <thead>
             <tr>
                 <th>company</th>
-                <th class="has-text-centered">featured</th>
-                <th class="has-text-centered">professional</th>
-                <th class="has-text-centered">personal</th>
                 <th>role</th>
                 <th>start date</th>
                 <th>end date</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -38,15 +34,11 @@
             <tfoot>
             <tr>
                 <th>company</th>
-                <th class="has-text-centered">featured</th>
-                <th class="has-text-centered">professional</th>
-                <th class="has-text-centered">personal</th>
                 <th>role</th>
                 <th>start date</th>
                 <th>end date</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
-                <th class="has-text-centered">read-only</th>
-                <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -131,7 +123,7 @@
             @empty
 
                 <tr>
-                    <td colspan="12">There are no jobs.</td>
+                    <td colspan="8">There are no jobs.</td>
                 </tr>
 
             @endforelse

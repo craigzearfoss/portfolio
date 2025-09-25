@@ -21,6 +21,7 @@
             <thead>
             <tr>
                 <th>name</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -30,6 +31,7 @@
             <tfoot>
             <tr>
                 <th>name</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -88,7 +90,7 @@
             @empty
 
                 <tr>
-                    <td colspan="4">There are no skills.</td>
+                    <td colspan="5">There are no skills.</td>
                 </tr>
 
             @endforelse
