@@ -40,10 +40,10 @@
             @forelse ($industries as $industry)
 
                 <tr data-id="{{ $industry->id }}">
-                    <td>
+                    <td data-field="name">
                         {{ $industry->name }}
                     </td>
-                    <td>
+                    <td data-field="abbreviation">
                         {{ $industry->abbreviation }}
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

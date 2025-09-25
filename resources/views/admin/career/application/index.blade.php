@@ -78,7 +78,7 @@
 
                 <tr data-id="{{ $application->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($application->admin))
                                 @include('admin.components.link', [
                                     'name' => $application->admin['username'],
@@ -87,28 +87,28 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="company.name">
                         {{ $application->company['name'] ?? '' }}
                     </td>
-                    <td>
+                    <td data-field="role">
                         {{ $application->role }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="active" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->active ])
                     </td>
-                    <td class="has-text-centered text-nowrap">
+                    <td data-field="rating" class="has-text-centered text-nowrap">
                         @include('admin.components.star-ratings', [ 'rating' => $application->rating ])
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="post_date" class="text-nowrap">
                         {{ !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' }}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="apply_date" class="text-nowrap">
                         {{ !empty($application->apply_date) ? date('M j', strtotime($application->apply_date)) : '' }}
                     </td>
-                    <td>
+                    <td data-field="duration_id">
                         {{ $application->duration['name'] }}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="compensation" class="text-nowrap">
                         {!!
                             formatCompensation([
                                 'min'   => $application->compensation_min ?? '',
@@ -118,13 +118,13 @@
                             ])
                         !!}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="schedule_id" class="text-nowrap">
                         {{ $application->schedule['name'] ?? '' }}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="office_id" class="text-nowrap">
                         {{ $application->office['name'] ?? '' }}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="location" class="text-nowrap">
                         {!!
                             formatLocation([
                                 'city'    => $application->city ?? null,
@@ -132,24 +132,24 @@
                             ])
                         !!}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="w2" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->w2 ])
                     </td>
                     <?php /*
-                    <td class="has-text-centered">
+                    <td data-field="relocation" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->relocation ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="benefits" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->benefits ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="vacation" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->vacation ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="health" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->health ])
                     </td>
                     */ ?>
-                    <td>
+                    <td data-field="job_board_id">
                         {{ $application->job_board['name'] ?? '' }}
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

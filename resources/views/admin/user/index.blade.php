@@ -19,6 +19,7 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                <th>username</th>
                 <th>name</th>
                 <th>email</th>
                 <th class="has-text-centered">verified</th>
@@ -30,6 +31,7 @@
             <?php /*
             <tfoot>
             <tr>
+                <th>username</th>
                 <th>name</th>
                 <th>email</th>
                 <th class="has-text-centered">verified</th>
@@ -44,6 +46,9 @@
             @forelse ($users as $user)
 
                 <tr data-id="{{ $user->id }}">
+                    <td>
+                        {{ $user->username }}
+                    </td>
                     <td>
                         {{ $user->name }}
                     </td>
@@ -102,7 +107,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">There are no users.</td>
+                    <td colspan="7">There are no users.</td>
                 </tr>
 
             @endforelse

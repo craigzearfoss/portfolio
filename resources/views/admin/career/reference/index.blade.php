@@ -50,7 +50,7 @@
 
                 <tr data-id="{{ $reference->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($reference->admin))
                                 @include('admin.components.link', [
                                     'name' => $reference->admin['username'],
@@ -59,16 +59,16 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="name">
                         {{ $reference->name }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="primary" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reference->primary ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reference->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reference->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

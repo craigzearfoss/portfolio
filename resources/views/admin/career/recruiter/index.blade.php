@@ -54,7 +54,7 @@
 
                 <tr data-id="{{ $recruiter->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($recruiter->admin))
                                 @include('admin.components.link', [
                                     'name' => $recruiter->admin['username'],
@@ -63,10 +63,10 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="name">
                         {{ $recruiter->name }}
                     </td>
-                    <td>
+                    <td data-field="location">
                         {!!
                             formatLocation([
                                 'city'    => $recruiter->city ?? null,
@@ -74,25 +74,25 @@
                             ])
                         !!}
                     </td>
-                    <td>
+                    <td data-field="phone">
                         {{ $recruiter->phone }}
                     </td>
-                    <td>
+                    <td data-field="email">
                         {{ $recruiter->email }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="local" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recruiter->local ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="regional" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recruiter->regional ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="national" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recruiter->national ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="international" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recruiter->international ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recruiter->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

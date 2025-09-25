@@ -48,26 +48,26 @@
 
             @forelse ($jobBoards as $jobBoard)
 
-                <tr>
-                    <td data-id="{{ $jobBoard->id }}">
+                <tr data-id="{{ $jobBoard->id }}">
+                    <td data-field="name">
                         {{ $jobBoard->name }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="primary" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->primary ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="local" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->local ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="regional" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->regional ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="national" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->national ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="international" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->international ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

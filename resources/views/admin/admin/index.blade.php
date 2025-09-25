@@ -46,22 +46,22 @@
             @forelse ($admins as $admin)
 
                 <tr data-id="{{ $admin->id }}">
-                    <td>
+                    <td data-field="username">
                         {{ $admin->username }}
                     </td>
-                    <td>
+                    <td data-field="name">
                         {{ $admin->name }}
                     </td>
-                    <td>
+                    <td data-field="email">
                         {{ $admin->email }}
                     </td>
-                    <td>
+                    <td data-field="phone">
                         {{ $admin->phone }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="root" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $admin->root ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $admin->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

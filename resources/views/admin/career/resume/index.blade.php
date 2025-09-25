@@ -52,7 +52,7 @@
 
                 <tr data-id="{{ $resume->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($resume->admin))
                                 @include('admin.components.link', [
                                     'name' => $resume->admin['username'],
@@ -61,19 +61,19 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="name">
                         {{ $resume->name }}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="date" class="text-nowrap">
                         {{ shortDate($resume->date) }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="primary" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resume->primary ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resume->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resume->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

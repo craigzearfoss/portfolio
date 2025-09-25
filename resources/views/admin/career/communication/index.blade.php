@@ -48,7 +48,7 @@
 
                 <tr data-id="{{ $communication->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($communication->admin))
                                 @include('admin.components.link', [
                                     'name' => $communication->admin['username'],
@@ -57,13 +57,13 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="subject">
                         {{ $communication->subject }}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="date" class="text-nowrap">
                         {{ shortDate($communication->date) }}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="time" class="text-nowrap">
                         {{ $communication->time }}
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

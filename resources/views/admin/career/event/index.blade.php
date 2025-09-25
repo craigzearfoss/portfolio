@@ -54,7 +54,7 @@
 
                 <tr data-id="{{ $event->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($event->admin))
                                 @include('admin.components.link', [
                                     'name' => $event->admin['username'],
@@ -63,22 +63,22 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="name">
                         {{ $event->name }}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="date" class="text-nowrap">
                         {{ shortDate($event->date) }}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="time" class="text-nowrap">
                         {{ $event->time }}
                     </td>
-                    <td>
+                    <td data-field="location">
                         {{ $event->location }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $event->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $event->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

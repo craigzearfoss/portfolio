@@ -50,7 +50,7 @@
 
                 <tr data-id="{{ $company->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin,username">
                             @if(!empty($company->admin))
                                 @include('admin.components.link', [
                                     'name' => $company->admin['username'],
@@ -59,10 +59,10 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="name">
                         {{ $company->name }}
                     </td>
-                    <td>
+                    <td data-field="location">
                         {!!
                             formatLocation([
                                 'city'    => $company->city ?? null,
@@ -70,10 +70,10 @@
                             ])
                         !!}
                     </td>
-                    <td>
+                    <td data-field="phone">
                         {{ $company->phone }}
                     </td>
-                    <td>
+                    <td data-field="email">
                         {{ $company->email }}
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

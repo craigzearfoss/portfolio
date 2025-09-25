@@ -54,7 +54,7 @@
 
                 <tr data-id="{{ $contact->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($contact->admin))
                                 @include('admin.components.link', [
                                     'name' => $contact->admin['username'],
@@ -63,10 +63,10 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="name">
                         {{ $contact->name }}
                     </td>
-                    <td>
+                    <td data-field="location">
                         {!!
                             formatLocation([
                                 'city'    => $contact->city ?? null,
@@ -74,16 +74,16 @@
                             ])
                         !!}
                     </td>
-                    <td>
+                    <td data-field="phone">
                         {{ $contact->phone }}
                     </td>
-                    <td>
+                    <td data-field="email">
                         {{ $contact->email }}
                     </td>
-                    <td class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $contact->publicd ])
+                    <td data-field="public" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $contact->public ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $contact->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">

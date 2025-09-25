@@ -46,7 +46,7 @@
 
                 <tr data-id="{{ $note->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($note->admin))
                                 @include('admin.components.link', [
                                     'name' => $note->admin['username'],
@@ -55,10 +55,10 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="subject">
                         {{ $note->subject }}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="created_at" class="text-nowrap">
                         {{ shortDateTime($note->created_at) }}
                     </td>
                     <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">

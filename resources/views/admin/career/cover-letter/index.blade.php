@@ -52,7 +52,7 @@
 
                 <tr data-id="{{ $coverLetter->id }}">
                     @if(isRootAdmin())
-                        <td>
+                        <td data-field="admin.username">
                             @if(!empty($coverLetter->admin))
                                 @include('admin.components.link', [
                                     'name' => $coverLetter->admin['username'],
@@ -61,19 +61,19 @@
                             @endif
                         </td>
                     @endif
-                    <td>
+                    <td data-field="company.name">
                         {{ $coverLetter->application->company['name'] ?? '' }}
                     </td>
-                    <td>
+                    <td data-field="role">
                         {{ $coverLetter->application['role'] ?? '' }}
                     </td>
-                    <td class="text-nowrap">
+                    <td data-field="post_date" class="text-nowrap">
                         {{ shortDate($coverLetter->application['post_date'] ?? null) }}
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="application.active" data-field="" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $coverLetter->application['active'] ?? 0 ])
                     </td>
-                    <td class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $coverLetter->disabled ])
                     </td>
                     <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
