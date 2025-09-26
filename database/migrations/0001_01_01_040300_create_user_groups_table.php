@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\UserTeam;
+use App\Models\UserGroup;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,14 +12,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('core_db')->create('user_teams', function (Blueprint $table) {
+        Schema::connection('core_db')->create('user_groups', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Admin::class);
+            $table->foreignIdFor( \App\Models\UserTeam::class);
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('disabled')->default(0);
+            $table->foreignIdFor(\App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,13 +28,15 @@ return new class extends Migration
         $data = [
             [
                 'id'           => 1,
-                'name'         => 'Default User Team',
-                'slug'         => 'default-user-team',
-                'abbreviation' => 'DUT'
+                'user_team_id' => 1,
+                'name'         => 'Default User Group',
+                'slug'         => 'default-user-group',
+                'abbreviation' => 'DUG',
+                'admin_id'     => 2,
             ],
         ];
 
-        UserTeam::insert($data);
+        UserGroup::insert($data);
     }
 
     /**
@@ -41,6 +44,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('core_db')->dropIfExists('user_teams');
+        Schema::connection('core_db')->dropIfExists('user_groups');
     }
 };

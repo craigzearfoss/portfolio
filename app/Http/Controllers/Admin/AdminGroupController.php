@@ -93,7 +93,7 @@ class AdminGroupController extends Controller
     {
         $adminGroup->update($request->validated());
 
-        return redirect(referer('admin-admin.team.index'))
+        return redirect(referer('admin.admin-group.index'))
             ->with('success', $adminGroup->name . ' updated successfully.');
     }
 

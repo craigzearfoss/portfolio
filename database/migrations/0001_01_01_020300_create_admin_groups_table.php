@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\UserGroup;
+use App\Models\AdminGroup;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,30 +12,31 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('core_db')->create('user_groups', function (Blueprint $table) {
+        Schema::connection('core_db')->create('admin_groups', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Admin::class);
-            $table->foreignIdFor( \App\Models\UserTeam::class);
+            $table->foreignIdFor( \App\Models\AdminTeam::class);
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('disabled')->default(0);
+            $table->foreignIdFor(\App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
         });
 
         $data = [
             [
-                'id'           => 1,
-                'user_team_id' => 1,
-                'name'         => 'Default User Group',
-                'slug'         => 'default-user-group',
-                'abbreviation' => 'DUG'
+                'id'            => 1,
+                'admin_team_id' => 1,
+                'name'          => 'Default Admin Group',
+                'slug'          => 'default-admin-group',
+                'abbreviation'  => 'DAG',
+                'admin_id'      => 2,
             ],
         ];
 
-        UserGroup::insert($data);
+        AdminGroup::insert($data);
     }
 
     /**
@@ -43,6 +44,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('core_db')->dropIfExists('user_groups');
+        Schema::connection('core_db')->dropIfExists('admin_groups');
     }
 };

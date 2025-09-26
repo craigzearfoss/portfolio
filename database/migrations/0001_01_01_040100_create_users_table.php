@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::connection('core_db')->create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\UserTeam::class);
             $table->string('username', 200)->unique();
             $table->string('name');
             $table->string('title', 100)->nullable();
@@ -67,7 +66,6 @@ return new class extends Migration
         $data = [
             [
                 'id'                => 1,
-                'user_team_id'      => 1,
                 'username'          => 'sample-user',
                 'name'              => 'Sample User',
                 'email'             => 'user@gmail.com',
@@ -78,7 +76,6 @@ return new class extends Migration
             ],
             [
                 'id'                => 2,
-                'user_team_id'      => 1,
                 'username'          => 'demo-user',
                 'name'              => 'Demo User',
                 'email'             => 'demo-user@gmail.com',

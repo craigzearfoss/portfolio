@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $adminGroup->name,
+    'title' => $userGroup->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Admins',          'url' => route('admin.admin.index') ],
@@ -18,7 +18,7 @@
 
     <div class="card form-container p-4">
 
-        <form action="{{ route('admin.admin-group.update', $adminGroup->id) }}" method="POST">
+        <form action="{{ route('admin.admin-group.update', $userGroup->id) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -27,17 +27,27 @@
                 'value' => referer('admin.admin-group.index')
             ])
 
+            @if(Auth::guard('admin')->user()->root)
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'admin_id',
+                    'label'   => 'admin',
+                    'value'   => old('admin_id') ?? $userGroup->admin_id,
+                    'list'    => \App\Models\Admin::listOptions(),
+                    'message' => $message ?? '',
+                ])
+            @endif
+
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'admin_team_id',
                 'label'   => 'team',
-                'value'   => old('admin_team_id') ?? $adminGroup->team['id'] ?? '',
+                'value'   => old('admin_team_id') ?? $userGroup->team['id'] ?? '',
                 'list'    => \App\Models\AdminTeam::listOptions(true),
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
-                'value'     => old('name') ?? $adminGroup->name,
+                'value'     => old('name') ?? $userGroup->name,
                 'required'  => true,
                 'minlength' => 3,
                 'maxlength' => 200,
@@ -46,7 +56,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'abbreviation',
-                'value'     => old('abbreviation') ?? $adminGroup->abbreviation,
+                'value'     => old('abbreviation') ?? $userGroup->abbreviation,
                 'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
@@ -54,7 +64,7 @@
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
-                'value'   => old('description') ?? $adminGroup->description,
+                'value'   => old('description') ?? $userGroup->description,
                 'message' => $message ?? '',
             ])
 
@@ -62,7 +72,7 @@
                 'name'            => 'disabled',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? $adminGroup->disabled,
+                'checked'         => old('disabled') ?? $userGroup->disabled,
                 'message'         => $message ?? '',
             ])
 

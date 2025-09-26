@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\AdminGroup;
+use App\Models\UserTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,30 +12,29 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('core_db')->create('admin_groups', function (Blueprint $table) {
+        Schema::connection('core_db')->create('user_teams', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Admin::class);
-            $table->foreignIdFor( \App\Models\AdminTeam::class);
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('disabled')->default(0);
+            $table->foreignIdFor(\App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
         });
 
         $data = [
             [
-                'id'            => 1,
-                'admin_team_id' => 1,
-                'name'          => 'Default Admin Group',
-                'slug'          => 'default-admin-group',
-                'abbreviation'  => 'DAG'
+                'id'           => 1,
+                'name'         => 'Default User Team',
+                'slug'         => 'default-user-team',
+                'abbreviation' => 'DUT',
+                'admin_id'     => 2,
             ],
         ];
 
-        AdminGroup::insert($data);
+        UserTeam::insert($data);
     }
 
     /**
@@ -43,6 +42,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('core_db')->dropIfExists('admin_groups');
+        Schema::connection('core_db')->dropIfExists('user_teams');
     }
 };

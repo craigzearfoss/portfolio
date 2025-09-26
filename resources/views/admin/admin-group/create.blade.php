@@ -26,6 +26,16 @@
                 'value' => referer('admin.admin-group.index')
             ])
 
+            @if(Auth::guard('admin')->user()->root)
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'admin_id',
+                    'label'   => 'admin',
+                    'value'   => old('admin_id') ?? Auth::guard('admin')->user()->id,
+                    'list'    => \App\Models\Admin::listOptions(),
+                    'message' => $message ?? '',
+                ])
+            @endif
+
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'admin_team_id',
                 'label'   => 'team',
@@ -38,7 +48,7 @@
                 'name'      => 'name',
                 'value'     => old('name') ?? '',
                 'required'  => true,
-                'minlength' => 6,
+                'minlength' => 3,
                 'maxlength' => 200,
                 'message'   => $message ?? '',
             ])

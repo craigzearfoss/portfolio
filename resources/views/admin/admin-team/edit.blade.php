@@ -27,13 +27,22 @@
                 'value' => referer('admin.admin-team.index')
             ])
 
+            @if(Auth::guard('admin')->user()->root)
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'admin_id',
+                    'label'   => 'admin',
+                    'value'   => old('admin_id') ?? $adminTeam->admin_id,
+                    'list'    => \App\Models\Admin::listOptions(),
+                    'message' => $message ?? '',
+                ])
+            @endif
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? $adminTeam->name,
                 'required'  => true,
                 'minlength' => 3,
                 'maxlength' => 200,
-                'disabled'  => true,
                 'message'   => $message ?? '',
             ])
 

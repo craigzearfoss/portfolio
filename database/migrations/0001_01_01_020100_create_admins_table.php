@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::connection('core_db')->create('admins', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\AdminTeam::class);
             $table->string('username', 200)->unique();
             $table->string('name')->nullable(); // note that name is not required for admins
             $table->string('title', 100)->nullable();
@@ -53,7 +52,6 @@ return new class extends Migration
         $data = [
             [
                 'id'                => 1,
-                'admin_team_id'     => 1,
                 'username'          => 'root',
                 'email'             => 'root@gmail.com',
                 'email_verified_at' => now(),
@@ -64,7 +62,6 @@ return new class extends Migration
             ],
             [
                 'id'                => 2,
-                'admin_team_id'     => 1,
                 'username'          => 'admin',
                 'email'             => 'admin@gmail.com',
                 'email_verified_at' => now(),

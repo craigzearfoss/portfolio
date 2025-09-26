@@ -81,7 +81,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no admin teams.</td>
+                    <td colspan="7">There are no admin groups.</td>
                 </tr>
 
             @endforelse

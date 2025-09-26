@@ -93,7 +93,7 @@ class UserTeamController extends Controller
     {
         $userTeam->update($request->validated());
 
-        return redirect(referer('admin.user.team.index'))
+        return redirect(referer('admin.user-team.index'))
             ->with('success', $userTeam->name . ' updated successfully.');
     }
 

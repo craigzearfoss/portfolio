@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $adminGroup->name,
+    'title' => $userGroup->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Admins',          'url' => route('admin.admin.index') ],
@@ -7,7 +7,7 @@
         [ 'name' => 'Show' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',       'url' => route('admin.admin-group.edit', $adminGroup) ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',       'url' => route('admin.admin-group.edit', $userGroup) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Admin Group', 'url' => route('admin.admin-group.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',          'url' => referer('admin.admin-group.index') ],
     ],
@@ -22,42 +22,42 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $adminGroup->name
+            'value' => $userGroup->name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'team',
-            'value' => $adminGroup->team['name'] ?? ''
+            'value' => $userGroup->team['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $adminGroup->abbreviation
+            'value' => $userGroup->abbreviation
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $adminGroup->description
+            'value' => $userGroup->description
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
-            'checked' => $adminGroup->disabled
+            'checked' => $userGroup->disabled
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'admin',
-            'value' => $adminGroup->admin['username'] ?? ''
+            'value' => $userGroup->admin['username'] ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'created at',
-            'value' => longDateTime($adminGroup->created_at)
+            'value' => longDateTime($userGroup->created_at)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'updated at',
-            'value' => longDateTime($adminGroup->updated_at)
+            'value' => longDateTime($userGroup->updated_at)
         ])
 
     </div>

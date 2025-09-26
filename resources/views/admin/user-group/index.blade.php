@@ -41,31 +41,31 @@
             */ ?>
             <tbody>
 
-            @forelse ($adminGroups as $adminGroup)
+            @forelse ($userGroups as $userGroup)
 
-                <tr data-id="{{ $adminGroup->id }}">
+                <tr data-id="{{ $userGroup->id }}">
                     <td data-field="name">
-                        {{ $adminGroup->name }}
+                        {{ $userGroup->name }}
                     </td>
                     <td data-field="team.name">
-                        {{ $adminGroup->team['name'] ?? '' }}
+                        {{ $userGroup->team['name'] ?? '' }}
                     </td>
                     <td data-field="abbreviation">
-                        {{ $adminGroup->abbreviation }}
+                        {{ $userGroup->abbreviation }}
                     </td>
                     <td data-field="disabled" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $adminGroup->disabled ])
+                        @include('admin.components.checkmark', [ 'checked' => $userGroup->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
-                        <form action="{{ route('admin.admin-group.destroy', $adminGroup->id) }}" method="POST">
+                        <form action="{{ route('admin.admin-group.destroy', $userGroup->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.admin-group.show', $adminGroup->id) }}">
+                               href="{{ route('admin.admin-group.show', $userGroup->id) }}">
                                 <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.admin-group.edit', $adminGroup->id) }}">
+                               href="{{ route('admin.admin-group.edit', $userGroup->id) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
@@ -81,7 +81,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no admin teams.</td>
+                    <td colspan="7">There are no user groups.</td>
                 </tr>
 
             @endforelse
@@ -89,7 +89,7 @@
             </tbody>
         </table>
 
-        {!! $adminGroups->links('vendor.pagination.bulma') !!}
+        {!! $userGroups->links('vendor.pagination.bulma') !!}
 
     </div>
 
