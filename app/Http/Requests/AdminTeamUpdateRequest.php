@@ -29,7 +29,7 @@ class AdminTeamUpdateRequest extends FormRequest
         }
 
         return [
-            'name'         => ['string', 'max:255', 'unique:default_db.admins,name,'.$this->admin->id, 'filled'],
+            'name'         => ['string', 'max:255', 'unique:core_db.admins,name,'.$this->admin->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:default_db.admins,slug,'.$this->admin->id, 'filled'],
             'abbreviation' => ['string', 'max:255', 'unique:default_db.admins.abbreviation,'.$this->admin->id, 'filled'],
             'description'  => ['nullable'],

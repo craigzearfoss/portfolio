@@ -12,7 +12,7 @@ class UserTeam extends Model
     /** @use HasFactory<\Database\Factories\UserTeamFactory> */
     use HasFactory, Notifiable, SoftDeletes;
 
-    protected $connection = 'default_db';
+    protected $connection = 'core_db';
 
     protected $table = 'user_teams';
 

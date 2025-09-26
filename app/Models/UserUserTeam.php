@@ -10,7 +10,7 @@ class UserUserTeam extends Model
     /** @use HasFactory<\Database\Factories\UserUserTeamFactory> */
     use HasFactory;
 
-    protected $connection = 'default_db';
+    protected $connection = 'core_db';
 
     protected $table = 'user_user_teams';
 

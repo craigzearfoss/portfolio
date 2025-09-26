@@ -16,7 +16,7 @@ use Illuminate\Support\Collection;
 
 class Resource extends Model
 {
-    protected $connection = 'default_db';
+    protected $connection = 'core_db';
 
     protected $table = 'resources';
 

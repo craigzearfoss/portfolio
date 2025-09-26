@@ -39,7 +39,7 @@ class Admin extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes;
 
-    protected $connection = 'default_db';
+    protected $connection = 'core_db';
 
     protected $table = 'admins';
 
@@ -86,7 +86,7 @@ class Admin extends Authenticatable
      */
     public function country(): BelongsTo
     {
-        return $this->setConnection('default_db')->belongsTo(Country::class, 'country_id');
+        return $this->setConnection('core_db')->belongsTo(Country::class, 'country_id');
     }
 
     /**
@@ -94,7 +94,7 @@ class Admin extends Authenticatable
      */
     public function state(): BelongsTo
     {
-        return $this->setConnection('default_db')->belongsTo(State::class, 'state_id');
+        return $this->setConnection('core_db')->belongsTo(State::class, 'state_id');
     }
 
     /**

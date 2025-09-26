@@ -32,7 +32,7 @@ class UserGroupStoreRequest extends FormRequest
 
         return [
             'admin_team_id' => ['integer', Rule::in(UserTeam::all('id')->pluck('id')->toArray())],
-            'name'          => ['required', 'string', 'max:100', 'unique:default_db.users,name'],
+            'name'          => ['required', 'string', 'max:100', 'unique:core_db.users,name'],
             'slug'          => ['required', 'string', 'max:100', 'unique:default_db.users,slug'],
             'abbreviation'  => ['required', 'string', 'max:20', 'unique:default_db.users,slug'],
             'description'   => ['nullable'],

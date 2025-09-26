@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class State extends Model
 {
-    protected $connection = 'default_db';
+    protected $connection = 'core_db';
 
     protected $table = 'states';
 
@@ -73,7 +73,7 @@ class State extends Model
      */
     public function country(): BelongsTo
     {
-        return $this->setConnection('default_db')->belongsTo(Country::class)
+        return $this->setConnection('core_db')->belongsTo(Country::class)
             ->orderBy('name', 'asc');
     }
 

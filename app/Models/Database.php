@@ -10,7 +10,7 @@ use mysql_xdevapi\Collection;
 
 class Database extends Model
 {
-    protected $connection = 'default_db';
+    protected $connection = 'core_db';
 
     protected $table = 'databases';
 

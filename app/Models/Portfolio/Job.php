@@ -72,7 +72,7 @@ class Job extends Model
      */
     public function admin(): BelongsTo
     {
-        return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+        return $this->setConnection('core_db')->belongsTo(Admin::class, 'admin_id');
     }
 
     /**
@@ -80,7 +80,7 @@ class Job extends Model
      */
     public function country(): BelongsTo
     {
-        return $this->setConnection('default_db')->belongsTo(Country::class, 'country_id');
+        return $this->setConnection('core_db')->belongsTo(Country::class, 'country_id');
     }
 
     /**
@@ -96,7 +96,7 @@ class Job extends Model
      */
     public function state(): BelongsTo
     {
-        return $this->setConnection('default_db')->belongsTo(State::class, 'state_id');
+        return $this->setConnection('core_db')->belongsTo(State::class, 'state_id');
     }
 
     /**

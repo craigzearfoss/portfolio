@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Country extends Model
 {
-    protected $connection = 'default_db';
+    protected $connection = 'core_db';
 
     protected $table = 'countries';
 

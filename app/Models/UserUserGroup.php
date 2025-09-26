@@ -10,7 +10,7 @@ class UserUserGroup extends Model
     /** @use HasFactory<\Database\Factories\UserUserGroupFactory> */
     use HasFactory;
 
-    protected $connection = 'default_db';
+    protected $connection = 'core_db';
 
     protected $table = 'user_user_groups';
 

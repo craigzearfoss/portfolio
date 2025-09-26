@@ -51,7 +51,7 @@ class Event extends Model
      */
     public function admin(): BelongsTo
     {
-        return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+        return $this->setConnection('core_db')->belongsTo(Admin::class, 'admin_id');
     }
 
     /**
@@ -59,7 +59,7 @@ class Event extends Model
      */
     public function application(): BelongsTo
     {
-        return $this->setConnection('default_db')
+        return $this->setConnection('core_db')
             ->belongsTo(Application::class, 'application_id')
             ->orderBy('post_date', 'desc');
     }

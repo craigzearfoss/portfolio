@@ -32,7 +32,7 @@ class AdminGroupStoreRequest extends FormRequest
 
         return [
             'admin_team_id' => ['integer', Rule::in(AdminTeam::all('id')->pluck('id')->toArray())],
-            'name'          => ['required', 'string', 'max:100', 'unique:default_db.admins,name'],
+            'name'          => ['required', 'string', 'max:100', 'unique:core_db.admins,name'],
             'slug'          => ['required', 'string', 'max:100', 'unique:default_db.admins,slug'],
             'abbreviation'  => ['required', 'string', 'max:20', 'unique:default_db.admins,slug'],
             'description'   => ['nullable'],

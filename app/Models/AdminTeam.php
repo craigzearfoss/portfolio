@@ -12,7 +12,7 @@ class AdminTeam extends Model
     /** @use HasFactory<\Database\Factories\AdminTeamFactory> */
     use HasFactory, Notifiable, SoftDeletes;
 
-    protected $connection = 'default_db';
+    protected $connection = 'core_db';
 
     protected $table = 'admin_teams';
 

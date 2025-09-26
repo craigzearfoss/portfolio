@@ -60,7 +60,7 @@ class Resume extends Model
      */
     public function admin(): BelongsTo
     {
-        return $this->setConnection('default_db')->belongsTo(Admin::class, 'admin_id');
+        return $this->setConnection('core_db')->belongsTo(Admin::class, 'admin_id');
     }
 
     /**

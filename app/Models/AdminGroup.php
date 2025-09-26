@@ -12,7 +12,7 @@ class AdminGroup extends Model
     /** @use HasFactory<\Database\Factories\AdminGroupFactory> */
     use HasFactory, Notifiable, SoftDeletes;
 
-    protected $connection = 'default_db';
+    protected $connection = 'core_db';
 
     protected $table = 'admin_groups';
 
