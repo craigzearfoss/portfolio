@@ -31,16 +31,6 @@
                                             'value' => $music->name
                                         ])
 
-                                        @include('front.components.show-row-checkbox', [
-                                            'name'    => 'professional',
-                                            'checked' => $music->professional
-                                        ])
-
-                                        @include('front.components.show-row-checkbox', [
-                                            'name'    => 'personal',
-                                            'checked' => $music->personal
-                                        ])
-
                                         @include('front.components.show-row-link', [
                                             'name'   => 'link',
                                             'url'    => $music->link,

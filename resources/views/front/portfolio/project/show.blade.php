@@ -31,16 +31,6 @@
                                             'value' => $project->name
                                         ])
 
-                                        @include('front.components.show-row-checkbox', [
-                                            'name'    => 'professional',
-                                            'checked' => $project->professional
-                                        ])
-
-                                        @include('front.components.show-row-checkbox', [
-                                            'name'    => 'personal',
-                                            'checked' => $project->personal
-                                        ])
-
                                         @include('front.components.show-row', [
                                             'name'  => 'year',
                                             'value' => $project->year

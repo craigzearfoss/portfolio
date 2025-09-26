@@ -28,8 +28,6 @@
                         <tr>
                             <th>name</th>
                             <th>featured</th>
-                            <th>professional</th>
-                            <th>personal</th>
                             <th>link</th>
                             <th>website</th>
                             <th>description</th>
@@ -49,12 +47,6 @@
                                 </td>
                                 <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $link->featured ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $link->professional ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $link->personal ])
                                 </td>
                                 <td>
                                     @include('front.components.link', [

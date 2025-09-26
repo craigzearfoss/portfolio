@@ -31,16 +31,6 @@
                                             'value' => $course->name
                                         ])
 
-                                        @include('front.components.show-row-checkbox', [
-                                            'name'    => 'professional',
-                                            'checked' => $course->professional
-                                        ])
-
-                                        @include('front.components.show-row-checkbox', [
-                                            'name'    => 'personal',
-                                            'checked' => $course->personal
-                                        ])
-
                                         @include('front.components.show-row', [
                                             'name'  => 'completed',
                                             'value' => longDate($course->completed)

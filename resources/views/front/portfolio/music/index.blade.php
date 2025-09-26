@@ -28,8 +28,6 @@
                         <tr>
                             <th>name</th>
                             <th>featured</th>
-                            <th>professional</th>
-                            <th>personal</th>
                             <th>description</th>
                         </tr>
                         </thead>
@@ -47,12 +45,6 @@
                                 </td>
                                 <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $music->featured ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $music->professional ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $music->personal ])
                                 </td>
                                 <td>
                                     {!! nl2br($music->description ?? '') !!}

@@ -45,7 +45,7 @@
                 'message'   => $message ?? '',
             ])
 
-            professional            @include('admin.components.form-input-horizontal', [
+            @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
                 'name'      => 'year',
                 'value'     => old('year') ?? $course->year,

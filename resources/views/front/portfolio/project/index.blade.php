@@ -28,8 +28,6 @@
                         <tr>
                             <th>name</th>
                             <th>featured</th>
-                            <th>professional</th>
-                            <th>personal</th>
                             <th>year</th>
                             <th>repository</th>
                             <th>link</th>
@@ -49,13 +47,7 @@
                                     ])
                                 </td>
                                 <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $music->$project ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $music->$project ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $music->$project ])
+                                    @include('front.components.checkmark', [ 'checked' => $music->featured ])
                                 </td>
                                 <td>
                                     {{ $project->year }}

@@ -31,16 +31,6 @@
                                             'value' => $video->name
                                         ])
 
-                                        @include('front.components.show-row-checkbox', [
-                                            'name'    => 'professional',
-                                            'checked' => $video->professional
-                                        ])
-
-                                        @include('front.components.show-row-checkbox', [
-                                            'name'    => 'personal',
-                                            'checked' => $video->personal
-                                        ])
-
                                         @include('front.components.show-row', [
                                             'name'  => 'year',
                                             'value' => $video->year

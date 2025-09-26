@@ -28,8 +28,6 @@
                         <tr>
                             <th>name</th>
                             <th>featured</th>
-                            <th>professional</th>
-                            <th>personal</th>
                             <th>date</th>
                             <th>year</th>
                             <th>company</th>
@@ -52,13 +50,7 @@
                                     ])
                                 </td>
                                 <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $video->$project ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $video->$project ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $video->$project ])
+                                    @include('front.components.checkmark', [ 'checked' => $video->featured ])
                                 </td>
                                 <td>
                                     {{ shortDate($video->date) }}

@@ -31,16 +31,6 @@
                                             'value' => $link->name
                                         ])
 
-                                        @include('front.components.show-row-checkbox', [
-                                            'name'    => 'professional',
-                                            'checked' => $link->professional
-                                        ])
-
-                                        @include('front.components.show-row-checkbox', [
-                                            'name'    => 'personal',
-                                            'checked' => $link->personal
-                                        ])
-
                                         @include('front.components.show-row-link', [
                                             'name'   => 'url',
                                             'url'    => $link->url,

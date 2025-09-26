@@ -51,16 +51,6 @@
                                             'value' => $certification->year
                                         ])
 
-                                        @include('front.components.show-row-checkbox', [
-                                            'name'    => 'professional',
-                                            'checked' => $certification->professional
-                                        ])
-
-                                        @include('front.components.show-row-checkbox', [
-                                            'name'    => 'personal',
-                                            'checked' => $certification->personal
-                                        ])
-
                                         @include('front.components.show-row-link', [
                                             'name'   => 'link',
                                             'url'    => $certification->link,

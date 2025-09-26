@@ -31,16 +31,6 @@
                                             'value' => $recipe->name
                                         ])
 
-                                        @include('front.components.show-row-checkbox', [
-                                            'name'    => 'professional',
-                                            'checked' => $recipe->professional
-                                        ])
-
-                                        @include('front.components.show-row-checkbox', [
-                                            'name'    => 'personal',
-                                            'checked' => $recipe->personal
-                                        ])
-
                                         @include('front.components.show-row-link', [
                                             'name'   => 'link',
                                             'url'    => $recipe->link,

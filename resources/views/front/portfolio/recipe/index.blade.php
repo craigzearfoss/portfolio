@@ -28,8 +28,6 @@
                         <tr>
                             <th>name</th>
                             <th>featured</th>
-                            <th>professional</th>
-                            <th>personal</th>
                             <th>description</th>
                         </tr>
                         </thead>
@@ -46,13 +44,7 @@
                                     ])
                                 </td>
                                 <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $recipe->$project ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $recipe->$project ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $recipe->$project ])
+                                    @include('front.components.checkmark', [ 'checked' => $recipe->featured ])
                                 </td>
                                 <td>
                                     {!! nl2br($recipe->description ?? '') !!}

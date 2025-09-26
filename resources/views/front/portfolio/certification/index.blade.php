@@ -28,8 +28,6 @@
                         <tr>
                             <th>name</th>
                             <th>featured</th>
-                            <th>professional</th>
-                            <th>personal</th>
                             <th>organization</th>
                             <th>received</th>
                             <th>expiration</th>
@@ -50,12 +48,6 @@
                                 </td>
                                 <td class="has-text-centered">
                                     @include('front.components.checkmark', [ 'checked' => $certification->featured ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $certification->professional ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('front.components.checkmark', [ 'checked' => $certification->personal ])
                                 </td>
                                 <td>
                                     {{ $certification->organization }}

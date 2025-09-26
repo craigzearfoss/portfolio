@@ -37,7 +37,7 @@
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'featured',
-            'checked' => $job->personal
+            'checked' => $job->featured
         ])
 
         @include('admin.components.show-row', [
