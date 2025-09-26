@@ -46,8 +46,6 @@ class ProjectStoreRequest extends FormRequest
         return [
             'name'             => ['required', 'string', 'max:255', 'unique:portfolio_db.projects,name'],
             'slug'             => ['required', 'string', 'max:255', 'unique:portfolio_db.projects,slug'],
-            'professional'     => ['integer', 'between:0,1'],
-            'personal'         => ['integer', 'between:0,1'],
             'featured'         => ['integer', 'between:0,1'],
             'year'             => ['integer', 'between:1980,'.date("Y"), 'nullable'],
             'language'         => ['string', 'max:50', 'nullable'],

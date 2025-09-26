@@ -27,8 +27,6 @@ class Video extends Model
         'parent_id',
         'name',
         'slug',
-        'professional',
-        'personal',
         'featured',
         'full_episode',
         'clip',

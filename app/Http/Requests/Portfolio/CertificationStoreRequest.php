@@ -47,11 +47,9 @@ class CertificationStoreRequest extends FormRequest
         return[
             'name'            => ['required', 'string', 'max:255', 'unique:portfolio_db.certifications,name'],
             'slug'            => ['required', 'string', 'max:255', 'unique:portfolio_db.certifications,slug'],
+            'featured'        => ['integer', 'between:0,1'],
             'organization'    => ['string', 'max:255', 'nullable'],
             'academy_id'      => ['integer', Rule::in(Academy::all()->pluck('id'))],
-            'professional'    => ['integer', 'between:0,1'],
-            'personal'        => ['integer', 'between:0,1'],
-            'featured'        => ['integer', 'between:0,1'],
             'year'            => ['integer', 'between:1980,'.date("Y"), 'nullable'],
             'received'        => ['date', 'nullable'],
             'expiration'      => ['date', 'nullable'],

@@ -46,8 +46,6 @@ class ArtUpdateRequest extends FormRequest
             'name'         => ['string', 'max:255', 'filled'],
             'artist'       => ['string', 'max:255', 'nullable'],
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.art,slug,'.$this->art->id, 'filled'],
-            'professional' => ['integer', 'between:0,1'],
-            'personal'     => ['integer', 'between:0,1'],
             'featured'     => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:1900,'.date("Y"), 'nullable'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],

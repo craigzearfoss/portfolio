@@ -45,8 +45,6 @@ class VideoUpdateRequest extends FormRequest
         return [
             'name'           => ['string', 'max:255', 'unique:portfolio_db.videos,name,'.$this->video->id, 'filled'],
             'slug'           => ['string', 'max:255', 'unique:portfolio_db.videos,slug,'.$this->video->id, 'filled'],
-            'professional'   => ['integer', 'between:0,1'],
-            'personal'       => ['integer', 'between:0,1'],
             'featured'       => ['integer', 'between:0,1'],
             'full_episode'   => ['integer', 'between:0,1'],
             'clip'           => ['integer', 'between:0,1'],

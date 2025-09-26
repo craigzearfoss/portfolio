@@ -28,8 +28,6 @@ class Music extends Model
         'name',
         'artist',
         'slug',
-        'professional',
-        'personal',
         'featured',
         'collection',
         'track',

@@ -47,8 +47,6 @@ class CourseStoreRequest extends FormRequest
         return [
             'name'            => ['required', 'string', 'max:255', 'unique:portfolio_db.courses,name'],
             'slug'            => ['required', 'string', 'max:255', 'unique:portfolio_db.courses,slug'],
-            'professional'    => ['integer', 'between:0,1'],
-            'personal'        => ['integer', 'between:0,1'],
             'featured'        => ['integer', 'between:0,1'],
             'year'            => ['integer', 'between:1980,'.date("Y"), 'nullable'],
             'completed'       => ['integer', 'between:0,1'],

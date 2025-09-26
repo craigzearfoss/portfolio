@@ -49,8 +49,6 @@ class ReadingStoreRequest extends FormRequest
             'title'            => ['required', 'string', 'max:255', 'unique:portfolio_db.readings,name'],
             'author'           => ['string', 'max:255', 'nullable'],
             'slug'             => ['required', 'string', 'max:255', 'unique:portfolio_db.readings,slug'],
-            'professional'     => ['integer', 'between:0,1'],
-            'personal'         => ['integer', 'between:0,1'],
             'featured'         => ['integer', 'between:0,1'],
             'year'             => ['integer', 'between:-3000,'.date("Y"), 'nullable'],
             'publication_year' => ['integer', 'between:-3000,'.date("Y"), 'nullable'],

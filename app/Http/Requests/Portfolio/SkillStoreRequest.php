@@ -5,6 +5,7 @@ namespace App\Http\Requests\Portfolio;
 use App\Models\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class SkillStoreRequest extends FormRequest
@@ -25,6 +26,11 @@ class SkillStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        // Generate the slug.
+        if (!empty($this['name'])) {
+            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        }
+
         // Validate the admin_id. (Only root admins can change the admin for a skill.)
         if (empty($this['admin_id'])) {
             $this->merge(['admin_id' => Auth::guard('admin')->user()->id]);
@@ -38,9 +44,8 @@ class SkillStoreRequest extends FormRequest
             : [Auth::guard('admin')->user()->id];
 
         return [
-            'name'         => ['required', 'string', 'max:255', 'unique:potfolio_db.skills,name'],
-            'professional' => ['integer', 'between:0,1'],
-            'personal'     => ['integer', 'between:0,1'],
+            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.skills,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.skills,slug'],
             'featured'     => ['integer', 'between:0,1'],
             'rating'       => ['integer', 'between:1,10'],
             'years'        => ['integer', 'min:0'],

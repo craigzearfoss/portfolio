@@ -29,8 +29,6 @@ class Job extends Model
     protected $fillable = [
         'company',
         'slug',
-        'professional',
-        'personal',
         'featured',
         'role',
         'start_month',

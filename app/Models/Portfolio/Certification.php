@@ -27,8 +27,6 @@ class Certification extends Model
     protected $fillable = [
         'name',
         'slug',
-        'professional',
-        'personal',
         'featured',
         'organization',
         'academy_id',

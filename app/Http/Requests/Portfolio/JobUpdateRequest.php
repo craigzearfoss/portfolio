@@ -47,8 +47,6 @@ class JobUpdateRequest extends FormRequest
         return [
             'name'         => ['string', 'max:255', 'unique:career_db.jobs,name,'.$this->job->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:career_db.jobs,slug,'.$this->job->id, 'filled'],
-            'professional' => ['integer', 'between:0,1'],
-            'personal'     => ['integer', 'between:0,1'],
             'featured'     => ['integer', 'between:0,1'],
             'role'         => ['string', 'max:255',],
             'start_month'  => ['integer', 'between:1,12', 'nullable' ],
