@@ -45,16 +45,6 @@
             'checked' => $music->featured
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'professional',
-            'checked' => $music->professional
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'personal',
-            'checked' => $music->personal
-        ])
-
         @include('admin.components.show-row', [
             'name'  => 'label',
             'value' => $music->label

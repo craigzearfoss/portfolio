@@ -40,16 +40,6 @@
             'checked' => $reading->featured
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'professional',
-            'checked' => $reading->professional
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'personal',
-            'checked' => $reading->personal
-        ])
-
         @include('admin.components.show-row', [
             'name'  => 'publication year',
             'value' => $reading->publication_year

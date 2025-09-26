@@ -16,8 +16,6 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->tinyInteger('professional')->default(1);
-            $table->tinyInteger('personal')->default(0);
             $table->tinyInteger('featured')->default(0);
             $table->string('url');
             $table->string('link')->nullable();
@@ -45,8 +43,6 @@ return new class extends Migration
                 'id'           => 1,
                 'name'         => 'LinkedIn',
                 'slug'         => 'linkedin',
-                'professional' => 1,
-                'personal'     => 0,
                 'url'          => 'https://www.linkedin.com/in/craig-zearfoss/',
                 'description'  => '',
                 'public'       => 1,
@@ -57,8 +53,6 @@ return new class extends Migration
                 'id'           => 2,
                 'name'         => 'GitHub',
                 'slug'         => 'github',
-                'professional' => 1,
-                'personal'     => 0,
                 'url'          => 'https://github.com/craigzearfoss',
                 'description'  => '',
                 'public'       => 1,
@@ -69,8 +63,6 @@ return new class extends Migration
                 'id'           => 3,
                 'name'         => 'Facebook',
                 'slug'         => 'facebook',
-                'professional' => 0,
-                'personal'     => 1,
                 'url'          => 'https://www.facebook.com/craig.zearfoss',
                 'description'  => '',
                 'public'       => 1,
@@ -81,8 +73,6 @@ return new class extends Migration
                 'id'           => 4,
                 'name'         => 'Craig Zearfoss Collection, 1988-2008',
                 'slug'         => 'craig-zearfoss-collection-1988-2008',
-                'professional' => 0,
-                'personal'     => 1,
                 'url'          => 'https://finding-aids.lib.unc.edu/catalog/20509',
                 'description'  => 'A publicly available collection of live video recordings, audio recordings, posters, photographs, and papers affiliated with the Triangle\'s indie rock music scene from 1988 to 2008.',
                 'public'       => 1,

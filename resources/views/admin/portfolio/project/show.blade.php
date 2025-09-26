@@ -40,16 +40,6 @@
             'checked' => $project->featured
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'professional',
-            'checked' => $project->professional
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'personal',
-            'checked' => $project->personal
-        ])
-
         @include('admin.components.show-row', [
             'name'  => 'year',
             'value' => $project->year

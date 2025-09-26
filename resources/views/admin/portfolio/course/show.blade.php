@@ -35,16 +35,6 @@
             'value' => $course->slug
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'professional',
-            'checked' => $course->professional
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'personal',
-            'checked' => $course->personal
-        ])
-
         @include('admin.components.show-row', [
             'name'  => 'year',
             'value' => $course->year

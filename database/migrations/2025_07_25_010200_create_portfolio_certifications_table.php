@@ -16,8 +16,6 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->tinyInteger('professional')->default(1);
-            $table->tinyInteger('personal')->default(0);
             $table->tinyInteger('featured')->default(0);
             $table->string('organization')->nullable();
             $table->foreignIdFor( \App\Models\Portfolio\Academy::class)->default(1);
@@ -50,7 +48,6 @@ return new class extends Migration
                 'id'              => 1,
                 'name'            => 'Google Cybersecurity',
                 'slug'            => 'google-cybersecurity',
-                'professional'    => '1',
                 'organization'    => 'Google',
                 'academy_id'      => 8,
                 'year'            => 2023,

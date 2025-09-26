@@ -16,8 +16,6 @@ return new class extends Migration
             $table->id();
             $table->string('company');
             $table->string('slug')->unique();
-            $table->tinyInteger('professional')->default(1);
-            $table->tinyInteger('personal')->default(0);
             $table->tinyInteger('featured')->default(0);
             $table->string('role');
             $table->integer('start_month')->nullable();

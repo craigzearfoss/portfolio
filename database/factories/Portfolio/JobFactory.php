@@ -23,8 +23,6 @@ class JobFactory extends Factory
         return [
             'company'      => $company,
             'slug'         => $slug,
-            'professional' => fake()->numberBetween(0, 1),
-            'personal'     => fake()->numberBetween(0, 1),
             'featured'     => fake()->numberBetween(0, 1),
             'role'         => fake()->jobTitle(),
             'start_month'  => fake()->numberBetween([1, 12]),

@@ -40,16 +40,6 @@
             'checked' => $recipe->featured
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'professional',
-            'checked' => $recipe->professional
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'personal',
-            'checked' => $recipe->personal
-        ])
-
         @include('admin.components.show-row', [
             'name'  => 'source',
             'value' => $recipe->source

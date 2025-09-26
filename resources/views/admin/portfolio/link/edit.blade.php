@@ -53,22 +53,6 @@
                 'message'         => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'professional',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('professional') ?? $link->professional,
-                'message'         => $message ?? '',
-            ])
-
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'personal',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('personal') ?? $link->personal,
-                'message'         => $message ?? '',
-            ])
-
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'url',
                 'value'     => old('url') ?? $link->url,

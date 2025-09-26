@@ -23,8 +23,6 @@ class RecipeFactory extends Factory
         return [
             'name'         => $name,
             'slug'         => $slug,
-            'professional' => fake()->numberBetween(0, 1),
-            'personal'     => fake()->numberBetween(0, 1),
             'featured'     => fake()->numberBetween(0, 1),
             'source'       => fake()->company(),
             'author'       => fake()->name(),

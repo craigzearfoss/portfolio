@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('artist')->nullable();
             $table->string('slug')->unique();
-            $table->tinyInteger('professional')->default(1);
-            $table->tinyInteger('personal')->default(0);
             $table->tinyInteger('featured')->default(0);
             $table->tinyInteger('collection')->default(1);
             $table->tinyInteger('track')->default(1);
@@ -55,8 +53,6 @@ return new class extends Migration
                 'name'           => 'I\'m As Mad As Faust',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'im-as-mad-as-faust-by-zeb-frisbee',
-                'professional'   => 0,
-                'personal'       => 1,
                 'label'          => 'Flavor-Contra Records',
                 'catalog_number' => '0000',
                 'year'           => 1994,
@@ -73,8 +69,6 @@ return new class extends Migration
                 'name'           => 'Haunted',
                 'artist'         => 'Family Dollar Pharaohs',
                 'slug'           => 'haunted-by-family-dollar-pharaohs',
-                'professional'   => 0,
-                'personal'       => 1,
                 'label'          => 'Flavor-Contra Records',
                 'catalog_number' => '0001',
                 'year'           => 1995,
@@ -91,8 +85,6 @@ return new class extends Migration
                 'name'           => 'Sleazefest!',
                 'artist'         => 'various artists',
                 'slug'           => 'sleazefest-by-various-artists',
-                'professional'   => 0,
-                'personal'       => 1,
                 'label'          => 'Sleazy Spoon',
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,

@@ -40,16 +40,6 @@
             'checked' => $job->personal
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'professional',
-            'checked' => $job->professional
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'personal',
-            'checked' => $job->personal
-        ])
-
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([

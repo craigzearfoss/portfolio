@@ -17,8 +17,6 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Portfolio\Video::class, 'parent_id')->nullable();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->tinyInteger('professional')->default(0);
-            $table->tinyInteger('personal')->default(0);
             $table->tinyInteger('featured')->default(0);
             $table->tinyInteger('full_episode')->default(1);
             $table->tinyInteger('clip')->default(1);
@@ -56,7 +54,6 @@ return new class extends Migration
                 'id'             => 1,
                 'name'           => 'Live Around Town - episode 1',
                 'slug'           => 'live-around-town-episode-1',
-                'personal'       => 1,
                 'featured'       => 1,
                 'full_episode'   => 1,
                 'clip'           => 0,
@@ -77,7 +74,6 @@ return new class extends Migration
                 'id'             => 2,
                 'name'           => 'Live Around Town - episode 2',
                 'slug'           => 'live-around-town-episode-2',
-                'personal'       => 1,
                 'featured'       => 1,
                 'full_episode'   => 1,
                 'clip'           => 0,
@@ -98,7 +94,6 @@ return new class extends Migration
                 'id'             => 3,
                 'name'           => 'Live Around Town - episode 3',
                 'slug'           => 'live-around-town-episode-3',
-                'personal'       => 1,
                 'featured'       => 1,
                 'full_episode'   => 1,
                 'clip'           => 0,
@@ -119,7 +114,6 @@ return new class extends Migration
                 'id'             => 4,
                 'name'           => 'Live Around Town - episode 4',
                 'slug'           => 'live-around-town-episode-4',
-                'personal'       => 1,
                 'featured'       => 1,
                 'full_episode'   => 1,
                 'clip'           => 0,
@@ -140,7 +134,6 @@ return new class extends Migration
                 'id'             => 5,
                 'name'           => 'Live Around Town - episode 5',
                 'slug'           => 'live-around-town-episode-5',
-                'personal'       => 1,
                 'featured'       => 1,
                 'full_episode'   => 1,
                 'clip'           => 0,
@@ -161,7 +154,6 @@ return new class extends Migration
                 'id'             => 6,
                 'name'           => 'Bandelirium from the Cave in Chapel Hill, NC - episode 1',
                 'slug'           => 'bandelirium-from-the-cave-in-chapel-hill-nc-episode-1',
-                'personal'       => 1,
                 'featured'       => 1,
                 'full_episode'   => 1,
                 'clip'           => 0,
@@ -181,7 +173,6 @@ return new class extends Migration
                 'id'             => 7,
                 'name'           => 'Bandelirium from the Cave in Chapel Hill, NC - episode 2',
                 'slug'           => 'bandelirium-from-the-cave-in-chapel-hill-nc-episode-2',
-                'personal'       => 1,
                 'featured'       => 1,
                 'full_episode'   => 1,
                 'clip'           => 0,
@@ -202,7 +193,6 @@ return new class extends Migration
                 'id'             => 8,
                 'name'           => 'Bandelirium from the Cave in Chapel Hill, NC - episode 3',
                 'slug'           => 'bandelirium-from-the-cave-in-chapel-hill-nc-episode-3',
-                'personal'       => 1,
                 'featured'       => 1,
                 'full_episode'   => 1,
                 'clip'           => 0,
@@ -223,7 +213,6 @@ return new class extends Migration
                 'id'             => 9,
                 'name'           => 'Sleazefest: The Movie',
                 'slug'           => 'sleazefest-the-movie',
-                'personal'       => 1,
                 'featured'       => 1,
                 'full_episode'   => 1,
                 'clip'           => 0,
@@ -244,7 +233,6 @@ return new class extends Migration
                 'id'             => 10,
                 'name'           => 'The Woggles - Ramadan Romance',
                 'slug'           => 'ramadan-romance-by-the-woggles',
-                'personal'       => 1,
                 'featured'       => 1,
                 'full_episode'   => 0,
                 'clip'           => 0,
@@ -266,7 +254,6 @@ return new class extends Migration
                 'id'             => 11,
                 'name'           => '',
                 'slug'           => '',
-                'personal'       => 1,
                 'featured'       => 0,
                 'full_episode'   => 0,
                 'clip'           => 0,

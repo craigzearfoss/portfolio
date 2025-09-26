@@ -3,6 +3,7 @@
 namespace Database\Factories\Portfolio;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Skills>
@@ -16,10 +17,12 @@ class SkillFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->unique()->text(20);
+        $slug = Str::slug($name);
+
         return [
             'name'         => fake()->unique()->text(12),
-            'professional' => fake()->numberBetween(0, 1),
-            'personal'     => fake()->numberBetween(0, 1),
+            'slug'           => $slug,
             'featured'     => fake()->numberBetween(0, 1),
             'rating'       => fake()->numberBetween(0, 10),
             'years'        => fake()->numberBetween(0, 20),

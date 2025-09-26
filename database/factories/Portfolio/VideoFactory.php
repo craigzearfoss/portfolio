@@ -24,8 +24,6 @@ class VideoFactory extends Factory
         return [
             'name'           => $name,
             'slug'           => $slug,
-            'professional'   => fake()->numberBetween(0, 1),
-            'personal'       => fake()->numberBetween(0, 1),
             'featured'       => fake()->numberBetween(0, 1),
             'full_episode'   => fake()->numberBetween(0, 1),
             'clip'           => fake()->numberBetween(0, 1),

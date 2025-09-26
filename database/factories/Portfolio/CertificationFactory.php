@@ -24,8 +24,6 @@ class CertificationFactory extends Factory
         return [
             'name'            => $name,
             'slug'            => $slug,
-            'professional'    => fake()->numberBetween(0, 1),
-            'personal'        => fake()->numberBetween(0, 1),
             'featured'        => fake()->numberBetween(0, 1),
             'organization'    => fake()->company(),
             'academy_id'      => fake()->randomElement(Academy::all()->pluck('id')->toArray()),

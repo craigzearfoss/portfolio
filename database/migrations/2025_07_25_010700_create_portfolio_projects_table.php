@@ -16,8 +16,6 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->tinyInteger('professional')->default(0);
-            $table->tinyInteger('personal')->default(0);
             $table->tinyInteger('featured')->default(0);
             $table->year('year')->nullable();
             $table->string('language', 50)->nullable();
@@ -49,7 +47,6 @@ return new class extends Migration
                 'id'               => 1,
                 'name'             => 'Multi-guard Framework',
                 'slug'             => 'multi-guard-framework',
-                'personal'         => 1,
                 'year'             => 2025,
                 'language'         => 'Laravel',
                 'language_version' => '12.29',
@@ -65,7 +62,6 @@ return new class extends Migration
                 'id'               => 2,
                 'name'             => 'Portfolio Framework',
                 'slug'             => 'portfolio-framework',
-                'personal'         => 1,
                 'year'             => 2025,
                 'language'         => 'Laravel',
                 'language_version' => '12.29',
@@ -81,7 +77,6 @@ return new class extends Migration
                 'id'               => 3,
                 'name'             => 'Addressable Trait',
                 'slug'             => 'addressable-trait',
-                'personal'         => 1,
                 'year'             => 2016,
                 'language'         => 'Laravel',
                 'language_version' => '5.1',
@@ -97,7 +92,6 @@ return new class extends Migration
                 'id'               => 4,
                 'name'             => 'Speedmon',
                 'slug'             => 'speedmon',
-                'personal'         => 1,
                 'year'             => 2020,
                 'language'         => 'Python',
                 'language_version' => '3',

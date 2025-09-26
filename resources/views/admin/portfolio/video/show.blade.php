@@ -36,16 +36,6 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'professional',
-            'checked' => $video->professional
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'personal',
-            'checked' => $video->personal
-        ])
-
-        @include('admin.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $video->featured
         ])

@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->tinyInteger('featured')->default(0);
-            $table->tinyInteger('professional')->default(1);
-            $table->tinyInteger('personal')->default(0);
             $table->string('source')->nullable();
             $table->string('author')->nullable();
             $table->integer('prep_time')->nullable();
@@ -57,8 +55,6 @@ return new class extends Migration
                 'id'            => 1,
                 'name'          => 'Nestlé Toll House Chocolate Chip Cookies',
                 'slug'          => 'nestle-toll-house-cookies',
-                'professional'  => false,
-                'personal'      => true,
                 'source'        => 'www.nestle.com',
                 'author'        => 'Ruth Wakefield',
                 'main'          => 0,
@@ -77,8 +73,6 @@ return new class extends Migration
                 'id'            => 2,
                 'name'          => 'Seed Crackers',
                 'slug'          => 'seed-crackers',
-                'professional'  => false,
-                'personal'      => true,
                 'source'        => 'Facebook',
                 'author'        => '',
                 'main'          => 0,
@@ -97,8 +91,6 @@ return new class extends Migration
                 'id'            => 3,
                 'name'          => 'Vegan Sloppy Joes',
                 'slug'          => 'vegan-sloppy-joes',
-                'professional'  => false,
-                'personal'      => true,
                 'source'        => 'Facebook',
                 'author'        => '',
                 'main'          => 1,
@@ -117,8 +109,6 @@ return new class extends Migration
                 'id'            => 4,
                 'name'          => 'Miso Soup',
                 'slug'          => 'miso-soup',
-                'professional'  => false,
-                'personal'      => true,
                 'source'        => 'Facebook',
                 'author'        => '',
                 'main'          => 0,
@@ -137,8 +127,6 @@ return new class extends Migration
                 'id'            => 5,
                 'name'          => 'John Cope\'s Baked Corn Supreme',
                 'slug'          => 'john-copes-baked-corn-supreme',
-                'professional'  => false,
-                'personal'      => true,
                 'source'        => 'John Cope\'s Dried Sweet Corn',
                 'author'        => '',
                 'main'          => 0,

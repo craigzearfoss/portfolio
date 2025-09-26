@@ -40,16 +40,6 @@
             'checked' => $link->featured
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'professional',
-            'checked' => $link->professional
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'personal',
-            'checked' => $link->personal
-        ])
-
         @include('admin.components.show-row-link', [
             'name'   => 'url',
             'url'    => $link->url,
