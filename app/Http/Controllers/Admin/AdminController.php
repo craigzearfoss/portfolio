@@ -27,7 +27,7 @@ class AdminController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $admins = Admin::latest()->paginate($perPage);
+        $admins = Admin::orderBy('username', 'asc')->paginate($perPage);
 
         return view('admin.admin.index', compact('admins'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

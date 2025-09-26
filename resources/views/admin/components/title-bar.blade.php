@@ -4,13 +4,9 @@
         <div class="level-left">
             <div class="level-item">
                 @if (!empty($breadcrumbs))
-                    <ul>
-                        @foreach ($breadcrumbs as $breadcrumb)
-                            <li class="is-size-6">
-                                <a href="{{ $breadcrumb['url'] ?? '#' }}">{{ $breadcrumb['name'] ?? '#name#' }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
+                    @include('admin.components.breadcrumbs', [
+                        'breadcrumbs' => $breadcrumbs
+                    ])
                 @endif
             </div>
         </div>

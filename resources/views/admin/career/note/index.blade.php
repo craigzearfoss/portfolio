@@ -61,7 +61,7 @@
                     <td data-field="created_at" style="white-space: nowrap;">
                         {{ shortDateTime($note->created_at) }}
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.note.destroy', $note->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

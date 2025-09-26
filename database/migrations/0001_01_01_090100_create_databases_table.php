@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('default_db')->create('databases', function (Blueprint $table) {
+        Schema::connection('core_db')->create('databases', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
             $table->string('database', 50);
@@ -61,6 +61,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('default_db')->dropIfExists('databases');
+        Schema::connection('core_db')->dropIfExists('databases');
     }
 };

@@ -93,7 +93,7 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
+                    <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.project.destroy', $project->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

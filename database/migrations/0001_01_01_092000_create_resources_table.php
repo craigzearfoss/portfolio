@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('default_db')->create('resources', function (Blueprint $table) {
+        Schema::connection('core_db')->create('resources', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Database::class);
             $table->string('name', 50);
@@ -95,6 +95,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('default_db')->dropIfExists('resources');
+        Schema::connection('core_db')->dropIfExists('resources');
     }
 };

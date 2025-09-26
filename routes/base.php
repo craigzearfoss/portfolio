@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController as AdminAdminController;
+use App\Http\Controllers\Admin\AdminGroupController as AdminAdminGroupController;
+use App\Http\Controllers\Admin\AdminTeamController as AdminAdminTeamController;
 use App\Http\Controllers\Admin\DatabaseController as AdminDatabaseController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
 use App\Http\Controllers\Admin\MessageController as AdminMessageController;
@@ -12,6 +14,8 @@ use App\Http\Controllers\Front\IndexController as FrontIndexController;
 
 use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
+use App\Http\Controllers\Admin\UserGroupController as AdminUserGroupController;
+use App\Http\Controllers\Admin\UserTeamController as AdminUserTeamController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -68,11 +72,18 @@ Route::prefix('admin/profile')->middleware('admin')->name('admin.profile.')->gro
 
 Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminIndexController::class, 'dashboard'])->name('dashboard');
-    Route::resource('admin', AdminIndexController::class);
+    Route::resource('admin', AdminAdminController::class);
+    Route::resource('admin-group', AdminAdminGroupController::class)->parameter('admin-group', 'admin_group');
+    Route::resource('admin-team', AdminAdminTeamController::class)->parameter('admin-team', 'admin_team');
     Route::resource('database', AdminDatabaseController::class);
     Route::resource('message', AdminMessageController::class);
     Route::resource('resource', AdminResourceController::class);
     Route::resource('user', AdminUserController::class);
+    Route::resource('user-group', AdminUserGroupController::class)->parameter('user-group', 'user_group');
+    Route::resource('user-team', AdminUserTeamController::class)->parameter('user-team', 'user_team');
     Route::get('/user/{user}/change-password', [AdminUserController::class, 'change_password'])->name('user.change-password');
     Route::post('/user/{user}/change-password', [AdminUserController::class, 'change_password_submit'])->name('user.change-password-submit');
+});
+
+Route::prefix('admin/admin')->middleware('admin')->name('admin.admin.')->group(function () {
 });

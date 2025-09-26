@@ -6,6 +6,8 @@
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'url' => route('admin.user.create') ],
+        [ 'name' => '<i class="fa fa-list"></i> User Teams',   'url' => route('admin.user-team.index') ],
+        [ 'name' => '<i class="fa fa-list"></i> User Groups',  'url' => route('admin.user-group.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -19,7 +21,7 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th>username</th>
+                <th>user name</th>
                 <th>name</th>
                 <th>email</th>
                 <th class="has-text-centered">verified</th>
@@ -31,7 +33,7 @@
             <?php /*
             <tfoot>
             <tr>
-                <th>username</th>
+                <th>user name</th>
                 <th>name</th>
                 <th>email</th>
                 <th class="has-text-centered">verified</th>
@@ -64,7 +66,7 @@
                     <td data-field=disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $user->disabled ])
                     </td>
-                    <td class="white-space-nowrap" style="white-space: nowrap;">
+                    <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

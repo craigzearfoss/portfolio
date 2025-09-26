@@ -12,8 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('default_db')->create('admin_groups', function (Blueprint $table) {
+        Schema::connection('core_db')->create('admin_groups', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Admin::class);
             $table->foreignIdFor( \App\Models\AdminTeam::class);
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
@@ -21,15 +22,16 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         $data = [
             [
                 'id'            => 1,
                 'admin_team_id' => 1,
-                'name'          => 'Default Group',
-                'slug'          => 'default',
-                'abbreviation'  => 'DG'
+                'name'          => 'Default Admin Group',
+                'slug'          => 'default-admin-group',
+                'abbreviation'  => 'DAG'
             ],
         ];
 
@@ -41,6 +43,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('default_db')->dropIfExists('admin_groups');
+        Schema::connection('core_db')->dropIfExists('admin_groups');
     }
 };

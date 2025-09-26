@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Admin;
 use App\Models\AdminTeam;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -31,13 +32,25 @@ class UserGroupUpdateRequest extends FormRequest
             $this->merge([ 'slug' => Str::slug($this['name']) ]);
         }
 
+        // Validate the admin_id. (Only root admins can change the admin for a course.)
+        if (!empty($this['admin_id']) && !Auth::guard('admin')->user()->root
+            && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
+        ) {
+            throw new \Exception('You are not authorized to change the admin for a course.');
+        }
+
+        $adminIds = Auth::guard('admin')->user()->root
+            ? Admin::all('id')->pluck('id')->toArray()
+            : [Auth::guard('admin')->user()->id];
+
         return [
             'admin_team_id' => ['integer', Rule::in(AdminTeam::all('id')->pluck('id')->toArray())],
-            'name'          => ['string', 'max:255', 'unique:default_db.users,name,'.$this->user->id, 'filled'],
-            'slug'          => ['string', 'max:255', 'unique:default_db.users,slug,'.$this->user->id, 'filled'],
-            'abbreviation'  => ['string', 'max:255', 'unique:default_db.users,abbreviation,'.$this->user->id, 'filled'],
+            'name'          => ['string', 'min:3', 'max:200', 'unique:core_db.user_groups,name,'.$this->user_group->id, 'filled'],
+            'slug'          => ['string', 'min:20', 'max:220', 'unique:core_db.user_groups,slug,'.$this->user_group->id, 'filled'],
+            'abbreviation'  => ['string', 'max:20', 'unique:core_db.user_groups.abbreviation,'.$this->user_group->id, 'nullable'],
             'description'   => ['nullable'],
             'disabled'      => ['integer', 'between:0,1'],
+            'admin_id'      => ['required', 'integer', Rule::in($adminIds)],
         ];
     }
 }

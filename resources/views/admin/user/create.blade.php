@@ -34,6 +34,16 @@
                     ])
 
                     @include('admin.components.form-input-horizontal', [
+                        'name'      => 'username',
+                        'label'     => 'user name',
+                        'value'     => old('username') ?? '',
+                        'required'  => true,
+                        'minlength' => 6,
+                        'maxlength' => 255,
+                        'message'   => $message ?? '',
+                    ])
+
+                    @include('admin.components.form-input-horizontal', [
                         'name'      => 'name',
                         'value'     => old('name') ?? '',
                         'required'  => true,

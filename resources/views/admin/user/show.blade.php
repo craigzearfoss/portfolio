@@ -20,6 +20,11 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'user name',
+            'value' => $user->username
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $user->name
         ])

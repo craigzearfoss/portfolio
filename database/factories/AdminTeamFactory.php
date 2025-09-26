@@ -22,6 +22,7 @@ class AdminTeamFactory extends Factory
         $abbreviation = strtoupper(fake()->unique()->word());
 
         return [
+            'admin_id'     => \App\Models\Admin::all()->random()->id,
             'name'         => $name,
             'slug '        => $slug,
             'abbreviation' => $abbreviation,

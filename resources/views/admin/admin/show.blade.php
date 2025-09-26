@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => $admin->username,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Admins',          'url' => route('admin.admin.index') ],
-        [ 'name' => 'Show']
+        [ 'name' => 'Show' ]
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.admin.edit', $admin) ],
@@ -20,13 +20,13 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $admin->name
+            'name'  => 'user name',
+            'value' => $admin->username
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'user name',
-            'value' => $admin->username
+            'name'  => 'name',
+            'value' => $admin->name
         ])
 
         @include('admin.components.show-row', [

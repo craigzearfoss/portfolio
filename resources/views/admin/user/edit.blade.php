@@ -2,7 +2,7 @@
     'title' => $user->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Users',           'url' => route('admin.user.index')],
+        [ 'name' => 'Users',           'url' => route('admin.user.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
@@ -29,6 +29,16 @@
             @include('admin.components.form-hidden', [
                 'name'  => old('admin_id') ?? Auth::guard('admin')->user()->id,
                 'value' => '0',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'username',
+                'label'     => 'user name',
+                'value'     => old('username') ?? $user->username,
+                'required'  => true,
+                'minlength' => 6,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

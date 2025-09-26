@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('default_db')->create('user_user_groups', function (Blueprint $table) {
+        Schema::connection('core_db')->create('user_user_groups', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\User::class);
             $table->foreignIdFor( \App\Models\UserGroup::class);
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('default_db')->dropIfExists('user_user_groups');
+        Schema::connection('core_db')->dropIfExists('user_user_groups');
     }
 };

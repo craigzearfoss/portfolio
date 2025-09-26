@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('default_db')->create('admins', function (Blueprint $table) {
+        Schema::connection('core_db')->create('admins', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\AdminTeam::class);
             $table->string('username', 200)->unique();
@@ -83,15 +83,15 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (Schema::connection('default_db')->hasTable('databases')) {
-            Schema::connection('default_db')->table('databases', function (Blueprint $table) {
+        if (Schema::connection('core_db')->hasTable('databases')) {
+            Schema::connection('core_db')->table('databases', function (Blueprint $table) {
                 $table->dropForeign('databases_admin_id_foreign');
                 $table->dropColumn('admin_id');
             });
         }
 
-        if (Schema::connection('default_db')->hasTable('resources')) {
-            Schema::connection('default_db')->table('resources', function (Blueprint $table) {
+        if (Schema::connection('core_db')->hasTable('resources')) {
+            Schema::connection('core_db')->table('resources', function (Blueprint $table) {
                 $table->dropForeign('resources_admin_id_foreign');
                 $table->dropColumn('admin_id');
             });

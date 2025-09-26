@@ -50,28 +50,28 @@
             @forelse ($arts as $art)
 
                 <tr>
-                    <td class="py-0">
+                    <td>
                         {{ $art->name }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         {{ $art->artist }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         {{ $art->year }}
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('front.components.checkmark', [ 'checked' => $art->public ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('front.components.checkmark', [ 'checked' => $art->readonly ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('front.components.checkmark', [ 'checked' => $art->root ])
                     </td>
-                    <td class="py-0 has-text-centered">
+                    <td class="has-text-centered">
                         @include('front.components.checkmark', [ 'checked' => $art->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap py-0" style="white-space: nowrap;">
+                    <td class="is-1" style="white-space: nowrap;">
 
                         <a title="show" class="button is-small px-1 py-0"
                            href="{{ route('front.portfolio.art.show', $art->id) }}">

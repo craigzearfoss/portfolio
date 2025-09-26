@@ -12,22 +12,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('default_db')->create('user_teams', function (Blueprint $table) {
+        Schema::connection('core_db')->create('user_teams', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Admin::class);
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         $data = [
             [
                 'id'           => 1,
-                'name'         => 'Default Team',
-                'slug'         => 'default',
-                'abbreviation' => 'DT'
+                'name'         => 'Default User Team',
+                'slug'         => 'default-user-team',
+                'abbreviation' => 'DUT'
             ],
         ];
 
@@ -39,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('default_db')->dropIfExists('user_teams');
+        Schema::connection('core_db')->dropIfExists('user_teams');
     }
 };

@@ -66,7 +66,7 @@
                     <td data-field="time" style="white-space: nowrap;">
                         {{ $communication->time }}
                     </td>
-                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
+                    <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.communication.destroy', $communication->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

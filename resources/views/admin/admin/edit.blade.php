@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => $admin->username,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
         [ 'name' => 'Admins',          'url' => route('admin.admin.index') ],
-        [ 'name' => 'Add']
+        [ 'name' => 'Edit' ]
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.admin.index') ],
@@ -28,11 +28,11 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'username',
+                'label'     => 'user name',
                 'value'     => old('username') ?? $admin->username,
                 'required'  => true,
                 'minlength' => 6,
                 'maxlength' => 200,
-                'disabled'  => true,
                 'message'   => $message ?? '',
             ])
 

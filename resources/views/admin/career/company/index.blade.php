@@ -81,7 +81,7 @@
                     <td data-field="email" style="white-space: nowrap;">
                         {{ $company->email }}
                     </td>
-                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
+                    <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.company.destroy', $company->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

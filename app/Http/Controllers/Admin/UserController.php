@@ -5,13 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
-use App\Mail\VerifyEmail;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class UserController extends BaseController
@@ -26,7 +22,7 @@ class UserController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $users = User::latest()->paginate($perPage);
+        $users = User::orderBy('username','asc')->paginate($perPage);
 
         return view('admin.user.index', compact('users'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -75,14 +71,6 @@ class UserController extends BaseController
      */
     public function edit(User $user): View
     {
-        // admins can only edit any user
-        if (!Auth::guard('admin')->check()) {
-            // users can only edit themselves
-            if ($user->id !== Auth::guard('web')->user()->id) {
-                abort(403);
-            }
-        }
-
         return view('admin.user.edit', compact('user'));
     }
 

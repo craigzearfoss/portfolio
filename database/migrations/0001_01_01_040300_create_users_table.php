@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection('default_db')->create('users', function (Blueprint $table) {
+        Schema::connection('core_db')->create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\UserTeam::class);
             $table->string('username', 200)->unique();
@@ -49,13 +49,13 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::connection('default_db')->create('password_reset_tokens', function (Blueprint $table) {
+        Schema::connection('core_db')->create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
-        Schema::connection('default_db')->create('sessions', function (Blueprint $table) {
+        Schema::connection('core_db')->create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
             $table->string('ip_address', 45)->nullable();
@@ -97,8 +97,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('default_db')->dropIfExists('users');
-        Schema::connection('default_db')->dropIfExists('password_reset_tokens');
-        Schema::connection('default_db')->dropIfExists('sessions');
+        Schema::connection('core_db')->dropIfExists('users');
+        Schema::connection('core_db')->dropIfExists('password_reset_tokens');
+        Schema::connection('core_db')->dropIfExists('sessions');
     }
 };

@@ -1,0 +1,70 @@
+@extends('admin.layouts.default', [
+    'title' =>'Add New Admin Team',
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Admins',          'url' => route('admin.admin.index') ],
+        [ 'name' => 'Admin Teams',     'url' => route('admin.admin-team.index') ],
+        [ 'name' => 'Add' ]
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.admin-team.index') ],
+    ],
+    'errorMessages' => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
+
+@section('content')
+
+    <div class="card form-container p-4">
+
+        <form action="{{ route('admin.admin-team.store') }}" method="POST">
+            @csrf
+
+            @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => referer('admin.admin-team.index')
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'name',
+                'value'     => old('name') ?? '',
+                'required'  => true,
+                'minlength' => 6,
+                'maxlength' => 200,
+                'disabled'  => true,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'abbreviation',
+                'value'     => old('abbreviation') ?? '',
+                'maxlength' => 20,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'description',
+                'id'      => 'inputEditor',
+                'value'   => old('description') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'disabled',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('disabled') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-button-submit-horizontal', [
+                'label'      => 'Add Admin Team',
+                'cancel_url' => referer('admin.admin-team.index')
+            ])
+
+        </form>
+
+    </div>
+
+@endsection

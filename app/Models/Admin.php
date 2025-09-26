@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\AdminGroup;
+use App\Models\AdminTeam;
 use App\Models\Country;
 use App\Models\State;
+use App\Models\UserGroup;
+use App\Models\UserTeam;
 use App\Models\Career\Application;
 use App\Models\Career\Communication;
 use App\Models\Career\Company;
@@ -82,35 +86,19 @@ class Admin extends Authenticatable
     ];
 
     /**
-     * Get the country that owns the admin.
+     * Get the admin groups for the admin.
      */
-    public function country(): BelongsTo
+    public function adminGroups(): HasMany
     {
-        return $this->setConnection('core_db')->belongsTo(Country::class, 'country_id');
+        return $this->hasMany(AdminGroup::class);
     }
 
     /**
-     * Get the state that owns the admin.
+     * Get the admin teams for the admin.
      */
-    public function state(): BelongsTo
+    public function adminTeams(): HasMany
     {
-        return $this->setConnection('core_db')->belongsTo(State::class, 'state_id');
-    }
-
-    /**
-     * Get the databases for the admin.
-     */
-    public function databases(): HasMany
-    {
-        return $this->hasMany(Database::class);
-    }
-
-    /**
-     * Get the resources for the admin.
-     */
-    public function resources(): HasMany
-    {
-        return $this->hasMany(Resource::class);
+        return $this->hasMany(AdminTeam::class);
     }
 
     /**
@@ -119,6 +107,22 @@ class Admin extends Authenticatable
     public function applications(): HasMany
     {
         return $this->hasMany(Application::class);
+    }
+
+    /**
+     * Get the portfolio art for the admin.
+     */
+    public function art(): HasMany
+    {
+        return $this->hasMany(Art::class);
+    }
+
+    /**
+     * Get the portfolio certifications for the admin.
+     */
+    public function certifications(): HasMany
+    {
+        return $this->hasMany(Certification::class);
     }
 
     /**
@@ -146,11 +150,35 @@ class Admin extends Authenticatable
     }
 
     /**
+     * Get the country that owns the admin.
+     */
+    public function country(): BelongsTo
+    {
+        return $this->setConnection('core_db')->belongsTo(Country::class, 'country_id');
+    }
+
+    /**
+     * Get the portfolio courses for the admin.
+     */
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    /**
      * Get the career cover letters for the admin.
      */
     public function coverLetters(): HasMany
     {
         return $this->hasMany(CoverLetter::class);
+    }
+
+    /**
+     * Get the databases for the admin.
+     */
+    public function databases(): HasMany
+    {
+        return $this->hasMany(Database::class);
     }
 
     /**
@@ -186,62 +214,6 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Get the career notes for the admin.
-     */
-    public function notes(): HasMany
-    {
-        return $this->hasMany(Note::class);
-    }
-
-    /**
-     * Get the career references for the admin.
-     */
-    public function references(): HasMany
-    {
-        return $this->hasMany(Reference::class);
-    }
-
-    /**
-     * Get the career resumes for the admin.
-     */
-    public function resumes(): HasMany
-    {
-        return $this->hasMany(Resume::class);
-    }
-
-    /**
-     * Get the career skills for the admin.
-     */
-    public function skills(): HasMany
-    {
-        return $this->hasMany(Skill::class);
-    }
-
-    /**
-     * Get the portfolio art for the admin.
-     */
-    public function art(): HasMany
-    {
-        return $this->hasMany(Art::class);
-    }
-
-    /**
-     * Get the portfolio certifications for the admin.
-     */
-    public function certifications(): HasMany
-    {
-        return $this->hasMany(Certification::class);
-    }
-
-    /**
-     * Get the portfolio courses for the admin.
-     */
-    public function courses(): HasMany
-    {
-        return $this->hasMany(Course::class);
-    }
-
-    /**
      * Get the portfolio links for the admin.
      */
     public function links(): HasMany
@@ -255,6 +227,14 @@ class Admin extends Authenticatable
     public function music(): HasMany
     {
         return $this->hasMany(Music::class);
+    }
+
+    /**
+     * Get the career notes for the admin.
+     */
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class);
     }
 
     /**
@@ -295,6 +275,62 @@ class Admin extends Authenticatable
     public function recipeSteps(): HasMany
     {
         return $this->hasMany(RecipeStep::class);
+    }
+
+    /**
+     * Get the career references for the admin.
+     */
+    public function references(): HasMany
+    {
+        return $this->hasMany(Reference::class);
+    }
+
+    /**
+     * Get the resources for the admin.
+     */
+    public function resources(): HasMany
+    {
+        return $this->hasMany(Resource::class);
+    }
+
+    /**
+     * Get the career resumes for the admin.
+     */
+    public function resumes(): HasMany
+    {
+        return $this->hasMany(Resume::class);
+    }
+
+    /**
+     * Get the career skills for the admin.
+     */
+    public function skills(): HasMany
+    {
+        return $this->hasMany(Skill::class);
+    }
+
+    /**
+     * Get the state that owns the admin.
+     */
+    public function state(): BelongsTo
+    {
+        return $this->setConnection('core_db')->belongsTo(State::class, 'state_id');
+    }
+
+    /**
+     * Get the user groups for the admin.
+     */
+    public function userGroups(): HasMany
+    {
+        return $this->hasMany(UserGroup::class);
+    }
+
+    /**
+     * Get the user teams for the admin.
+     */
+    public function userTeams(): HasMany
+    {
+        return $this->hasMany(UserTeam::class);
     }
 
     /**

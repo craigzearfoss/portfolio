@@ -73,7 +73,7 @@
                     <td data-field="description">
                         {!! nl2br($recipeStep->description ?? '') !!}
                     </td>
-                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
+                    <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.recipe-step.destroy', $recipeStep->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

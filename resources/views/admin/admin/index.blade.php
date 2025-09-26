@@ -1,11 +1,13 @@
 @extends('admin.layouts.default', [
     'title' => 'Admins',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard')],
-        [ 'name' => 'Admins']
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Admins' ]
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Admin', 'url' => route('admin.admin.create') ],
+        [ 'name' => '<i class="fa fa-list"></i> Admin Teams',   'url' => route('admin.admin-team.index') ],
+        [ 'name' => '<i class="fa fa-list"></i> Admin Groups',  'url' => route('admin.admin-group.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -19,7 +21,7 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th class="whitespace-nowrap">user name</th>
+                <th style="white-space: nowrap;">user name</th>
                 <th>name</th>
                 <th>email</th>
                 <th>phone</th>
@@ -31,7 +33,7 @@
             <?php /*
             <tfoot>
             <tr>
-                <th class="whitespace-nowrap">user name</th>
+                <th style="white-space: nowrap;">user name</th>
                 <th>name</th>
                 <th>email</th>
                 <th>phone</th>
@@ -64,7 +66,7 @@
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $admin->disabled ])
                     </td>
-                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
+                    <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.admin.destroy', $admin->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"

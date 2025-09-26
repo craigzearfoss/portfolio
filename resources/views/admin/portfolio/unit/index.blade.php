@@ -50,7 +50,7 @@
                     <td data-field="system" class="has-text-centered">
                         {{ $unit->system }}
                     </td>
-                    <td class="is-1 white-space-nowrap" style="white-space: nowrap;">
+                    <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.unit.destroy', $unit->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
