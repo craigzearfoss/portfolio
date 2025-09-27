@@ -13,7 +13,7 @@ class AdminGlobalScope implements Scope
     {
         if ($admin = Auth::guard('admin')->user()) {
             if (!$admin->root) {
-                $builder->where('admin_id', $admin->id);
+                $builder->where('owner_id', $admin->id);
             }
         }
     }

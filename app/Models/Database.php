@@ -4,9 +4,9 @@ namespace App\Models;
 
 use App\Models\Resource;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
-use mysql_xdevapi\Collection;
 
 class Database extends Model
 {
@@ -20,6 +20,7 @@ class Database extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'owner_id',
         'name',
         'database',
         'tag',
@@ -34,11 +35,18 @@ class Database extends Model
         'readonly',
         'root',
         'disabled',
-        'admin_id',
     ];
 
     /**
-     * Get the resources for the database.
+     * Get the admin who owns the database.
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(Owner::class, 'owner_id');
+    }
+
+    /**
+     * Get the owner of the database.
      */
     public function resources(): HasMany
     {

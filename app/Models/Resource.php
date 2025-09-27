@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Http\Requests\ResourceStoreRequest;
 use App\Models\Database;
+use App\Models\Owner;
 use App\Services\PermissionService;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,6 +27,7 @@ class Resource extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'owner_id',
         'database_id',
         'name',
         'table',
@@ -40,8 +42,15 @@ class Resource extends Model
         'readonly',
         'root',
         'disabled',
-        'admin_id',
     ];
+
+    /**
+     * Get the owner of the resource.
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(Owner::class, 'owner_id');
+    }
 
     /**
      * Get the database that owns the resource.
@@ -83,7 +92,7 @@ class Resource extends Model
                 DB::raw('databases.readonly as db_readonly'),
                 DB::raw('databases.root as db_root'),
                 DB::raw('databases.disabled as db_disabled'),
-                DB::raw('databases.admin_id as db_admin_id'),
+                DB::raw('databases.owner_id as db_owner_id'),
                 'resources.*'
             ]
         )
@@ -98,8 +107,6 @@ class Resource extends Model
             $query->where('databases.disabled', 0)
                 ->where('resources.disabled', 0);
         }
-
-        //return $query->get();
 
         $resources = $query->get();
         for ($i=0; $i<count($resources); $i++) {
@@ -119,11 +126,11 @@ class Resource extends Model
                 'readonly' => $resources[$i]->db_read_only,
                 'root'     => $resources[$i]->db_root,
                 'disabled' => $resources[$i]->db_disabled,
-                'admin_id' => $resources[$i]->db_admin_id,
+                'owner_id' => $resources[$i]->db_owner_id,
             ];
             foreach (['db_id', 'db_name', 'db_database', 'db_tag', 'db_title', 'db_plural', 'db_guest', 'db_user',
                          'db_admin', 'db_icon', 'db_sequence', 'db_public', 'db_readonly', 'db_root', 'db_disabled',
-                         'db_admin_id'
+                         'db_owner_id'
                      ] as $property) {
                 unset($resources[$i]->{$property});
             }

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use app\Models\Admin;
 use App\Models\AdminGroup;
+use App\Models\Owner;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,7 +26,7 @@ class AdminTeam extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
+        'owner_id',
         'name',
         'slug',
         'abbreviation',
@@ -35,11 +35,11 @@ class AdminTeam extends Model
     ];
 
     /**
-     * Get the admin who owns the admin group.
+     * Get the owner of the admin team.
      */
-    public function admin(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\Admin::class);
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
 
     /**
@@ -59,9 +59,10 @@ class AdminTeam extends Model
      */
     public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
     {
-        $options = $includeBlank
-            ? $nameAsKey ? [ '' => '' ] :[ 0 => '' ]
-            : [];
+        $options = [];
+        if ($includeBlank) {
+            $options[$nameAsKey ? '' : 0] = '';
+        }
 
         foreach (AdminTeam::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
             $options[$nameAsKey ? $row->name : $row->id] = $row->name;

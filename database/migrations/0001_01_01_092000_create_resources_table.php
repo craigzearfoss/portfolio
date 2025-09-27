@@ -9,12 +9,28 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * The tag used to identify the core database.
+     *
+     * @var string
+     */
+    protected $database_tag = 'core_db';
+
+    /**
+     * The id of the admin who owns the core resources.
+     * The admin must have root permissions.
+     *
+     * @var int
+     */
+    protected $ownerId = 1;
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection('core_db')->create('resources', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('resources', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
             $table->foreignIdFor(\App\Models\Database::class);
             $table->string('name', 50);
             $table->string('table', 50);
@@ -29,7 +45,6 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(1);
             $table->tinyInteger('disabled')->default(0);
-            $table->foreignIdFor( Admin::class);
             $table->timestamps();
         });
 
@@ -49,7 +64,6 @@ return new class extends Migration
                 'readonly'    => 0,
                 'root'        => 1,
                 'disabled'    => 0,
-                'admin_id'    => 1,
             ],
             [
                 'database_id' => 1,
@@ -66,7 +80,6 @@ return new class extends Migration
                 'readonly'    => 0,
                 'root'        => 1,
                 'disabled'    => 0,
-                'admin_id'    => 1,
             ],
             [
                 'database_id' => 1,
@@ -83,9 +96,15 @@ return new class extends Migration
                 'readonly'    => 0,
                 'root'        => 1,
                 'disabled'    => 0,
-                'admin_id'    => 1,
             ],
         ];
+
+        // add timestamps and owner_ids
+        for($i=0; $i<count($data);$i++) {
+            $data[$i]['created_at'] = now();
+            $data[$i]['updated_at'] = now();
+            $data[$i]['owner_id']   = $this->ownerId;
+        }
 
         Resource::insert($data);
     }
@@ -95,6 +114,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('core_db')->dropIfExists('resources');
+        Schema::connection($this->database_tag)->dropIfExists('resources');
     }
 };

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
-use App\Models\Admin;
+use App\Models\Owner;
 use App\Models\Portfolio\Academy;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -39,11 +39,12 @@ class CertificationUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a certification.');
         }
 
-        $adminIds = Auth::guard('admin')->user()->root
-            ? Admin::all('id')->pluck('id')->toArray()
-            : [Auth::guard('admin')->user()->id];
+        $ownerIds = isRootAdmin()
+            ? Owner::all('id')->pluck('id')->toArray()
+            : [ Auth::guard('admin')->user()->id ];
 
         return [
+            'owner_id'        => ['required', 'integer', Rule::in($ownerIds)],
             'name'            => ['string', 'max:255', 'unique:portfolio_db.certifications,name,'.$this->certification->id, 'filled'],
             'slug'            => ['string', 'max:255', 'unique:portfolio_db.certifications,slug,'.$this->certification->id, 'filled'],
             'featured'        => ['integer', 'between:0,1'],
@@ -65,7 +66,6 @@ class CertificationUpdateRequest extends FormRequest
             'readonly'        => ['integer', 'between:0,1'],
             'root'            => ['integer', 'between:0,1'],
             'disabled'        => ['integer', 'between:0,1'],
-            'admin_id'        => ['integer', Rule::in($adminIds)],
         ];
     }
 }

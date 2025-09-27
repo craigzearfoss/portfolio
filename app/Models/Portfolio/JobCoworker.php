@@ -2,6 +2,7 @@
 
 namespace App\Models\Portfolio;
 
+use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,7 @@ class JobCoworker extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'owner_id',
         'job_id',
         'name',
         'job_title',
@@ -45,7 +47,6 @@ class JobCoworker extends Model
         'readonly',
         'root',
         'disabled',
-        'admin_id',
     ];
 
     const LEVELS = [
@@ -62,11 +63,11 @@ class JobCoworker extends Model
     }
 
     /**
-     * Get the career job that owns the career coworker.
+     * Get the owner of the portfolio job coworker.
      */
-    public function job(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(Job::class, 'job_id');
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Admin;
+use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +24,7 @@ class Art extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'owner_id',
         'name',
         'artist',
         'slug',
@@ -41,7 +42,6 @@ class Art extends Model
         'readonly',
         'root',
         'disabled',
-        'admin_id',
     ];
 
     protected static function booted()
@@ -52,10 +52,11 @@ class Art extends Model
     }
 
     /**
-     * Get the admin who owns the portfolio art.
+     * Get the owner of the portfolio art.
      */
-    public function admin(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(Admin::class, 'admin_id');
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
+
 }

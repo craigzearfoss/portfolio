@@ -2,7 +2,7 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Portfolio\RecipeIngredient;
+use App\Models\Personal\RecipeIngredient;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 

@@ -2,7 +2,7 @@
 
 namespace App\Models\Career;
 
-use App\Models\Admin;
+use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +23,7 @@ class Reference extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'owner_id',
         'name',
         'slug',
         'phone',
@@ -45,7 +46,6 @@ class Reference extends Model
         'readonly',
         'root',
         'disabled',
-        'admin_id',
     ];
 
     protected static function booted()
@@ -54,12 +54,11 @@ class Reference extends Model
 
         static::addGlobalScope(new AdminGlobalScope());
     }
-
     /**
-     * Get the admin who owns the reference.
+     * Get the owner of the career reference.
      */
-    public function admin(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(Admin::class, 'admin_id');
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
 }

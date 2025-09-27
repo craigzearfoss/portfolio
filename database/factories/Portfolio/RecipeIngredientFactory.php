@@ -5,7 +5,7 @@ namespace Database\Factories\Portfolio;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\RecipeIngredient>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Personal\RecipeIngredient>
  */
 class RecipeIngredientFactory extends Factory
 {
@@ -17,12 +17,14 @@ class RecipeIngredientFactory extends Factory
     public function definition(): array
     {
         return [
-            'recipe_id'     => \App\Models\Portfolio\Recipe::all()->random()->id,
-            'ingredient_id' => \App\Models\Portfolio\Ingredient::all()->random()->id,
+            'owner_id'      => \App\Models\Owner::all()->random()->id,
+            'recipe_id'     => \App\Models\Personal\Recipe::all()->random()->id,
+            'ingredient_id' => \App\Models\Personal\Ingredient::all()->random()->id,
             'amount'        => fake()->randomElement(['', '1/4', '1/2', '3/4', '1', '1 1/2', '2', '3', '4']),
             'unit_id'       => \App\Models\Portfolio\Unit::all()->random()->id,
             'qualifier'     => '',
-            'admin_id'      => \App\Models\Admin::all()->random()->id,
+            'created_at'    => now(),
+            'deleted_at'    => now(),
         ];
     }
 }

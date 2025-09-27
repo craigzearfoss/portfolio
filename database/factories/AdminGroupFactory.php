@@ -22,12 +22,14 @@ class AdminGroupFactory extends Factory
         $abbreviation = strtoupper(fake()->unique()->word());
 
         return [
-            'admin_id'      => \App\Models\Admin::all()->random()->id,
+            'owner_id'      => \App\Models\Owner::all()->random()->id,
             'admin_team_id' => \App\Models\AdminTeam::all()->random()->id,
             'name'          => $name,
             'slug '         => $slug,
             'abbreviation'  => $abbreviation,
             'disabled'      => fake()->numberBetween(0, 1),
+            'created_at'    => now(),
+            'deleted_at'    => now(),
         ];
     }
 }

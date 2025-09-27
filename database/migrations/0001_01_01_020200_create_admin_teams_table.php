@@ -8,19 +8,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    protected $database_tag = 'core_db';
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection('core_db')->create('admin_teams', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('admin_teams', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('disabled')->default(0);
-            $table->foreignIdFor(\App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,23 +30,29 @@ return new class extends Migration
         $data = [
             [
                 'id'           => 1,
+                'owner_id'     => 2,
                 'name'         => 'Default Admin Team',
                 'slug'         => 'default-admin-team',
                 'abbreviation' => 'DAT',
-                'admin_id'     => 2,
             ],
         ];
+
+        // add timestamps
+        for($i=0; $i<count($data);$i++) {
+            $data[$i]['created_at'] = now();
+            $data[$i]['updated_at'] = now();
+        }
 
         AdminTeam::insert($data);
 
         // Add admin_team_id column to the admins table.
-        Schema::connection('core_db')->table('admins', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->table('admins', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\AdminTeam::class)->after('id')->nullable();
         });
 
         // Set value for the admin.admin_team_id column.
-        $coreDB = config('app.core_db');
-        DB::update("UPDATE `{$coreDB}`.`admins` SET `admin_team_id` = ?", [1]);
+        $dbName = config('app.' . $this->database_tag);
+        DB::update("UPDATE `{$dbName}`.`admins` SET `admin_team_id` = ?", [1]);
     }
 
     /**
@@ -52,10 +60,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('admins', function (Blueprint $table) {
-            $table::connection('core_db')->dropColumn('admin_team_id');
-        });
-
-        Schema::connection('core_db')->dropIfExists('admin_teams');
+        Schema::connection($this->database_tag)->dropIfExists('admin_teams');
     }
 };

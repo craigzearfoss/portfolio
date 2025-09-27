@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Owner;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class DatabaseUpdateRequest extends FormRequest
 {
@@ -22,7 +24,12 @@ class DatabaseUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $ownerIds = isRootAdmin()
+            ? Owner::all('id')->pluck('id')->toArray()
+            : [ Auth::guard('admin')->user()->id ];
+
         return [
+            'owner_id'    => ['required', 'integer', Rule::in($ownerIds)],
             'name'        => ['string', 'max:50', 'unique:databases,name,'.$this->databases->id, 'filled'],
             'database'    => ['string', 'max:50', 'unique:databases,database,'.$this->databases->id, 'filled'],
             'tag'         => ['string', 'max:50', 'filled'],
@@ -37,7 +44,6 @@ class DatabaseUpdateRequest extends FormRequest
             'readonly'    => ['integer', 'between:0,1'],
             'root'        => ['integer', 'between:0,1'],
             'disabled'    => ['integer', 'between:0,1'],
-            'admin_id'    => ['integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

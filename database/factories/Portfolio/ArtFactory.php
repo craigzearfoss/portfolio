@@ -23,6 +23,7 @@ class ArtFactory extends Factory
             . (!empty($artist) ? '-by-' . $artist : ''));
 
         return [
+            'owner_id'     => \App\Models\Owner::all()->random()->id,
             'name'         => $name,
             'artist'       => $artist,
             'slug'         => $slug,
@@ -40,7 +41,8 @@ class ArtFactory extends Factory
             'readonly'     => 0,
             'root'         => 0,
             'disabled'     => 0,
-            'admin_id'     => \App\Models\Admin::all()->random()->id,
+            'created_at'   => now(),
+            'deleted_at'   => now(),
         ];
     }
 }

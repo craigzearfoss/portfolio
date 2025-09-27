@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Database;
+use App\Models\Owner;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -24,7 +25,12 @@ class ResourceUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $ownerIds = isRootAdmin()
+            ? Owner::all('id')->pluck('id')->toArray()
+            : [ Auth::guard('admin')->user()->id ];
+
         return [
+            'owner_id'    => ['required', 'integer', Rule::in($ownerIds)],
             'database_id' => ['integer', Rule::in(Database::all()->pluck('id')->toArray())],
             'name'        => ['string', 'max:50', 'unique:resources,name,'.$this->resources->id, 'filled'],
             'table'       => ['string', 'max:50', 'unique:resources,table,'.$this->resources->id, 'filled'],
@@ -40,7 +46,6 @@ class ResourceUpdateRequest extends FormRequest
             'readonly'    => ['integer', 'between:0,1'],
             'root'        => ['integer', 'between:0,1'],
             'disabled'    => ['integer', 'between:0,1'],
-            'admin_id'    => ['integer', 'in:' . Auth::guard('admin')->user()->id],
         ];
     }
 }

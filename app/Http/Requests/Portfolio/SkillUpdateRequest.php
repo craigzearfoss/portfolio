@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
-use App\Models\Admin;
+use App\Models\Owner;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -38,11 +38,12 @@ class SkillUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a skill.');
         }
 
-        $adminIds = Auth::guard('admin')->user()->root
-            ? Admin::all('id')->pluck('id')->toArray()
-            : [Auth::guard('admin')->user()->id];
+        $ownerIds = isRootAdmin()
+            ? Owner::all('id')->pluck('id')->toArray()
+            : [ Auth::guard('admin')->user()->id ];
 
         return [
+            'owner_id'     => ['required', 'integer', Rule::in($ownerIds)],
             'name'         => ['string', 'max:255', 'unique:portfolio_db.skills,name,'.$this->skill->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.skills,slug,'.$this->skill->id, 'filled'],
             'featured'     => ['integer', 'between:0,1'],

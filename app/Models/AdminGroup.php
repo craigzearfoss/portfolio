@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use app\Models\Admin;
 use App\Models\AdminTeam;
+use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +26,7 @@ class AdminGroup extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
+        'owner_id',
         'admin_team_id',
         'name',
         'slug',
@@ -43,11 +43,11 @@ class AdminGroup extends Model
     }
 
     /**
-     * Get the admin who owns the admin group.
+     * Get the owner of the admin group.
      */
-    public function admin(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
 
     /**
@@ -67,9 +67,10 @@ class AdminGroup extends Model
      */
     public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
     {
-        $options = $includeBlank
-            ? $nameAsKey ? [ '' => '' ] :[ 0 => '' ]
-            : [];
+        $options = [];
+        if ($includeBlank) {
+            $options[$nameAsKey ? '' : 0] = '';
+        }
 
         foreach (AdminGroup::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
             $options[$nameAsKey ? $row->name : $row->id] = $row->name;

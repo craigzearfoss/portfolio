@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Career;
 
-use App\Models\Admin;
 use App\Models\Career\Industry;
 use App\Models\Country;
+use App\Models\Owner;
 use App\Models\State;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -41,11 +41,12 @@ class CompanyUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a company.');
         }
 
-        $adminIds = Auth::guard('admin')->user()->root
-            ? Admin::all('id')->pluck('id')->toArray()
-            : [Auth::guard('admin')->user()->id];
+        $ownerIds = isRootAdmin()
+            ? Owner::all('id')->pluck('id')->toArray()
+            : [ Auth::guard('admin')->user()->id ];
 
         return [
+            'owner_id'        => ['required', 'integer', Rule::in($ownerIds)],
             'name'            => ['string', 'max:255', 'unique:career_db.companies,name,'.$this->company->id, 'filled'],
             'slug'            => ['string', 'max:255', 'unique:career_db.companies,slug,'.$this->company->id, 'filled'],
             'industry_id'     => ['integer', Rule::in(Industry::all()->pluck('id')->toArray())],
@@ -77,7 +78,6 @@ class CompanyUpdateRequest extends FormRequest
             'readonly'        => ['integer', 'between:0,1'],
             'root'            => ['integer', 'between:0,1'],
             'disabled'        => ['integer', 'between:0,1'],
-            'admin_id'        => ['integer', Rule::in($adminIds)],
         ];
     }
 }

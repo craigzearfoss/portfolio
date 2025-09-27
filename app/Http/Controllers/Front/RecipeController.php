@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\BaseController;
-use App\Models\Portfolio\Recipe;
+use App\Models\Personal\Recipe;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -29,7 +29,7 @@ class RecipeController extends BaseController
             ->paginate($perPage);
 
         $title = 'Recipes';
-        return view('front.portfolio.recipe.index', compact('recipes', 'title'))
+        return view('front.personal.recipe.index', compact('recipes', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class RecipeController extends BaseController
             throw new ModelNotFoundException();
         }
 
-        return view('front.portfolio.recipe.show', compact('recipe'));
+        return view('front.personal.recipe.show', compact('recipe'));
     }
 }

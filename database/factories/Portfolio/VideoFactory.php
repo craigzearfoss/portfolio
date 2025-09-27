@@ -22,6 +22,7 @@ class VideoFactory extends Factory
         $slug = Str::slug($name);
 
         return [
+            'owner_id'       => \App\Models\Owner::all()->random()->id,
             'name'           => $name,
             'slug'           => $slug,
             'featured'       => fake()->numberBetween(0, 1),
@@ -48,7 +49,8 @@ class VideoFactory extends Factory
             'readonly'       => 0,
             'root'           => 0,
             'disabled'       => 0,
-            'admin_id'       => \App\Models\Admin::all()->random()->id,
+            'created_at'     => now(),
+            'deleted_at'     => now(),
         ];
     }
 }

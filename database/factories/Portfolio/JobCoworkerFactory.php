@@ -22,6 +22,7 @@ class JobCoworkerFactory extends Factory
         $slug = Str::slug($name);
 
         return [
+            'owner_id'        => \App\Models\Owner::all()->random()->id,
             'job_id'          => fake()->randomElement(Job::all()->pluck('id')->toArray()),
             'name'            => $name,
             'job_title'       => fake()->jobTitle(),
@@ -43,7 +44,8 @@ class JobCoworkerFactory extends Factory
             'readonly'        => 0,
             'root'            => 0,
             'disabled'        => fake()->numberBetween(0, 1),
-            'admin_id'        => \App\Models\Admin::all()->random()->id,
+            'created_at'      => now(),
+            'deleted_at'      => now(),
         ];
     }
 }

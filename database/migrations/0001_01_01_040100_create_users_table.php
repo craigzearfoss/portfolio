@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    protected $database_tag = 'core_db';
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection('core_db')->create('users', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username', 200)->unique();
             $table->string('name');
@@ -48,13 +50,13 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::connection('core_db')->create('password_reset_tokens', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
-        Schema::connection('core_db')->create('sessions', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
             $table->string('ip_address', 45)->nullable();
@@ -86,6 +88,12 @@ return new class extends Migration
             ],
         ];
 
+        // add timestamps
+        for($i=0; $i<count($data);$i++) {
+            $data[$i]['created_at'] = now();
+            $data[$i]['updated_at'] = now();
+        }
+
         User::insert($data);
     }
 
@@ -94,8 +102,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('core_db')->dropIfExists('users');
-        Schema::connection('core_db')->dropIfExists('password_reset_tokens');
-        Schema::connection('core_db')->dropIfExists('sessions');
+        Schema::connection($this->database_tag)->dropIfExists('users');
+        Schema::connection($this->database_tag)->dropIfExists('password_reset_tokens');
+        Schema::connection($this->database_tag)->dropIfExists('sessions');
     }
 };

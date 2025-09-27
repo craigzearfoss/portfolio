@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use app\Models\Admin;
+use App\Models\Owner;
 use App\Models\UserTeam;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +25,7 @@ class UserGroup extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'admin_id',
+        'owner_id',
         'user_team_id',
         'name',
         'slug',
@@ -35,15 +35,15 @@ class UserGroup extends Model
     ];
 
     /**
-     * Get the admin who owns the user group.
+     * Get the owner of the user group.
      */
-    public function admin(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\Admin::class);
+        return $this->belongsTo(\App\Models\Owner::class, 'owner_id');
     }
 
     /**
-     * Get the user team that owns the user group.
+     * Get the admin who owns the user group.
      */
     public function team(): BelongsTo
     {
@@ -59,9 +59,10 @@ class UserGroup extends Model
      */
     public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
     {
-        $options = $includeBlank
-            ? $nameAsKey ? [ '' => '' ] :[ 0 => '' ]
-            : [];
+        $options = [];
+        if ($includeBlank) {
+            $options[$nameAsKey ? '' : 0] = '';
+        }
 
         foreach (UserGroup::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
             $options[$nameAsKey ? $row->name : $row->id] = $row->name;

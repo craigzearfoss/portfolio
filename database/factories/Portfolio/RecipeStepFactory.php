@@ -5,7 +5,7 @@ namespace Database\Factories\Portfolio;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\RecipeStep>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Personal\RecipeStep>
  */
 class RecipeStepFactory extends Factory
 {
@@ -17,10 +17,12 @@ class RecipeStepFactory extends Factory
     public function definition(): array
     {
         return [
-            'recipe_id'   => \App\Models\Portfolio\Recipe::all()->random()->id,
+            'owner_id'    => \App\Models\Owner::all()->random()->id,
+            'recipe_id'   => \App\Models\Personal\Recipe::all()->random()->id,
             'step'        => fake()->numberBetween(1, 8),
             'description' => fake()->text(200),
-            'admin_id'    => \App\Models\Admin::all()->random()->id,
+            'created_at'  => now(),
+            'deleted_at'  => now(),
         ];
     }
 }

@@ -16,11 +16,15 @@ class MessageFactory extends Factory
      */
     public function definition(): array
     {
+        $msgDateTime = fake()->dateTimeBetween('-2 years', 'now');
+
         return [
-            'name'    => fake()->name(),
-            'email'   => fake()->unique()->safeEmail(),
-            'subject' => fake()->sentence(),
-            'body'    => fake()->text(200),
+            'name'       => fake()->name(),
+            'email'      => fake()->unique()->safeEmail(),
+            'subject'    => fake()->sentence(),
+            'body'       => fake()->text(200),
+            'created_at' => $msgDateTime,
+            'deleted_at' => $msgDateTime,
         ];
     }
 }

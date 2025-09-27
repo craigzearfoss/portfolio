@@ -26,13 +26,15 @@
                 'value' => referer('admin.career.resume.index')
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? '',
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
+            @if(isRootAdmin())
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'owner_id',
+                    'label'   => 'owner',
+                    'value'   => old('owner_id') ?? Auth::guard('admin')->user()->id,
+                    'list'    => \App\Models\Owner::listOptions(),
+                    'message' => $message ?? '',
+                ])
+            @endif
 
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'date',

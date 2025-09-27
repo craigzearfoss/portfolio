@@ -6,18 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    protected $database_tag = 'core_db';
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection('core_db')->create('cache', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('cache', function (Blueprint $table) {
             $table->string('key')->primary();
             $table->mediumText('value');
             $table->integer('expiration');
         });
 
-        Schema::connection('core_db')->create('cache_locks', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('cache_locks', function (Blueprint $table) {
             $table->string('key')->primary();
             $table->string('owner');
             $table->integer('expiration');
@@ -29,7 +31,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('core_db')->dropIfExists('cache');
-        Schema::connection('core_db')->dropIfExists('cache_locks');
+        Schema::connection($this->database_tag)->dropIfExists('cache');
+        Schema::connection($this->database_tag)->dropIfExists('cache_locks');
     }
 };

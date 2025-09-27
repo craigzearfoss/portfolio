@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Career;
 
-use App\Models\Admin;
 use App\Models\Career\Application;
+use App\Models\Owner;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -34,11 +34,12 @@ class EventStoreRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for an event.');
         }
 
-        $adminIds = Auth::guard('admin')->user()->root
-            ? Admin::all('id')->pluck('id')->toArray()
-            : [Auth::guard('admin')->user()->id];
+        $ownerIds = isRootAdmin()
+            ? Owner::all('id')->pluck('id')->toArray()
+            : [ Auth::guard('admin')->user()->id ];
 
         return [
+            'owner_id'             => ['required', 'integer', Rule::in($ownerIds)],
             'application_id' => ['integer', Rule::in(Application::all('id')->pluck('id')->toArray())],
             'name'           => ['required', 'string', 'max:255'],
             'date'           => ['required', 'date_format:Y-m-d'],
@@ -50,7 +51,6 @@ class EventStoreRequest extends FormRequest
             'readonly'       => ['integer', 'between:0,1'],
             'root'           => ['integer', 'between:0,1'],
             'disabled'       => ['integer', 'between:0,1'],
-            'admin_id'       => ['required', 'integer', Rule::in($adminIds)],
         ];
     }
 }

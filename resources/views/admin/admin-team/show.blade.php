@@ -21,8 +21,8 @@
     <div class="card p-4">
 
         @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $adminTeam->name
+            'name'  => 'owner',
+            'value' => $adminTeam->owner['username'] ?? ''
         ])
 
         @include('admin.components.show-row', [
@@ -38,11 +38,6 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
             'checked' => $adminTeam->disabled
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'admin',
-            'value' => $adminTeam->admin['username'] ?? ''
         ])
 
         @include('admin.components.show-row', [

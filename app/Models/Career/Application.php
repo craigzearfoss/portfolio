@@ -2,7 +2,6 @@
 
 namespace App\Models\Career;
 
-use App\Models\Admin;
 use App\Models\Career\ApplicationCompensationUnit;
 use App\Models\Career\ApplicationDuration;
 use App\Models\Career\ApplicationOffice;
@@ -15,6 +14,7 @@ use App\Models\Career\JobBoard;
 use App\Models\Career\Note;
 use App\Models\Career\Resume;
 use App\Models\Country;
+use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\State;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -41,6 +41,7 @@ class Application extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'owner_id',
         'company_id',
         'role',
         'resume_id',
@@ -90,7 +91,6 @@ class Application extends Model
         'readonly',
         'root',
         'disabled',
-        'admin_id',
     ];
 
     protected static function booted()
@@ -101,11 +101,11 @@ class Application extends Model
     }
 
     /**
-     * Get the admin who owns the career application.
+     * Get the owner of the career application.
      */
-    public function admin(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(Admin::class, 'admin_id');
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
 
     /**

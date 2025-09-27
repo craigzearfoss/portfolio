@@ -12,6 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
             __DIR__.'/../routes/dictionary.php',
             __DIR__.'/../routes/portfolio.php',
             __DIR__.'/../routes/career.php',
+            __DIR__.'/../routes/personal.php',
 //            __DIR__.'/../routes/front.php',
 //            __DIR__.'/../routes/user.php',
 //            __DIR__.'/../routes/admin.php',

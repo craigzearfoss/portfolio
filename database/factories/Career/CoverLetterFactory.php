@@ -18,6 +18,7 @@ class CoverLetterFactory extends Factory
     public function definition(): array
     {
         return [
+            'owner_id'         => \App\Models\Owner::all()->random()->id,
             'application_id'   => \App\Models\Career\Application::all()->random()->id,
             'date'             => fake()->dateTimeBetween('-2 years')->format('Y-m-d'),
             'cover_letter_url' => fake()->url(),
@@ -33,7 +34,8 @@ class CoverLetterFactory extends Factory
             'readonly'         => 0,
             'root'             => 0,
             'disabled'         => fake()->numberBetween(0, 1),
-            'admin_id'         => \App\Models\Admin::all()->random()->id,
+            'created_at'       => now(),
+            'deleted_at'       => now(),
         ];
     }
 }

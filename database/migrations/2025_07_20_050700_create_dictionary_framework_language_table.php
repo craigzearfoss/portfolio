@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    protected $database_tag = 'dictionary_db';
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection('dictionary_db')->create('framework_language', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('framework_language', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\Dictionary\Framework::class);
             $table->foreignIdFor( \App\Models\Dictionary\Language::class);
@@ -91,6 +93,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('dictionary_db')->dropIfExists('framework_language');
+        Schema::connection($this->database_tag)->dropIfExists('framework_language');
     }
 };

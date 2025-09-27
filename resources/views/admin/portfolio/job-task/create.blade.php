@@ -27,12 +27,12 @@
                 'value' => referer('admin.portfolio.job-task.index')
             ])
 
-            @if(Auth::guard('admin')->user()->root)
+            @if(isRootAdmin())
                 @include('admin.components.form-select-horizontal', [
-                    'name'    => 'admin_id',
-                    'label'   => 'admin',
-                    'value'   => old('admin_id') ?? Auth::guard('admin')->user()->id,
-                    'list'    => \App\Models\Admin::listOptions(),
+                    'name'    => 'owner_id',
+                    'label'   => 'owner',
+                    'value'   => old('owner_id') ?? Auth::guard('admin')->user()->id,
+                    'list'    => \App\Models\Owner::listOptions(),
                     'message' => $message ?? '',
                 ])
             @endif

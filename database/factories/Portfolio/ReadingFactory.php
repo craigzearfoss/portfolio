@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Reading>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Personal\Reading>
  */
 class ReadingFactory extends Factory
 {
@@ -23,6 +23,7 @@ class ReadingFactory extends Factory
             . (!empty($author) ? '-by-' . $author : ''));
 
         return [
+            'owner_id'         => \App\Models\Owner::all()->random()->id,
             'title'            => $title,
             'author'           => $author,
             'slug'             => $slug,
@@ -45,7 +46,8 @@ class ReadingFactory extends Factory
             'readonly'         => 0,
             'root'             => 0,
             'disabled'         => 0,
-            'admin_id'         => \App\Models\Admin::all()->random()->id,
+            'created_at'       => now(),
+            'deleted_at'       => now(),
         ];
     }
 }

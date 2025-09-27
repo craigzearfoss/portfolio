@@ -26,12 +26,16 @@
 </footer>
 
 <script>
-    console.log(document.querySelector('#inputEditor'));
-    ClassicEditor
-        .create(document.querySelector('#inputEditor'))
-        .catch(error => {
-            console.error( error );
-        });
+    if (document.querySelector('#inputEditor')) {
+        console.log('Has ckeditor textarea.');
+        ClassicEditor
+            .create(document.querySelector('#inputEditor'))
+            .catch(error => {
+                console.error(error);
+            });
+    } else {
+        console.log('No ckeditor textarea.');
+    }
 
     (function() {
         document.querySelectorAll('.download-link').forEach(element => {

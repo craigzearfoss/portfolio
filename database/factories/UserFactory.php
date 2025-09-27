@@ -53,6 +53,8 @@ class UserFactory extends Factory
             'readonly'          => 0,
             'root'              => 0,
             'disabled'          => fake()->numberBetween(0, 1),
+            'created_at'        => now(),
+            'deleted_at'        => now(),
         ];
     }
 

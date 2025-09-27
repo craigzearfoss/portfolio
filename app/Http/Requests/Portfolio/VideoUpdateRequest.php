@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
-use App\Models\Admin;
+use App\Models\Owner;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -38,9 +38,9 @@ class VideoUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a video.');
         }
 
-        $adminIds = Auth::guard('admin')->user()->root
-            ? Admin::all('id')->pluck('id')->toArray()
-            : [Auth::guard('admin')->user()->id];
+        $ownerIds = isRootAdmin()
+            ? Owner::all('id')->pluck('id')->toArray()
+            : [ Auth::guard('admin')->user()->id ];
 
         return [
             'name'           => ['string', 'max:255', 'unique:portfolio_db.videos,name,'.$this->video->id, 'filled'],

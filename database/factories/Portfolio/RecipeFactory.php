@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Portfolio\Recipe>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Personal\Recipe>
  */
 class RecipeFactory extends Factory
 {
@@ -21,6 +21,7 @@ class RecipeFactory extends Factory
         $slug = Str::slug($name);
 
         return [
+            'owner_id'     => \App\Models\Owner::all()->random()->id,
             'name'         => $name,
             'slug'         => $slug,
             'featured'     => fake()->numberBetween(0, 1),
@@ -47,7 +48,8 @@ class RecipeFactory extends Factory
             'readonly'     => 0,
             'root'         => 0,
             'disabled'     => 0,
-            'admin_id'     => \App\Models\Admin::all()->random()->id,
+            'created_at'   => now(),
+            'deleted_at'   => now(),
         ];
     }
 }

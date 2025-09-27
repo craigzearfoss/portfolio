@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    protected $database_tag = 'core_db';
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection('core_db')->create('user_user_teams', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('user_user_teams', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\User::class);
             $table->foreignIdFor( \App\Models\UserTeam::class);
@@ -39,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('core_db')->dropIfExists('user_user_teams');
+        Schema::connection($this->database_tag)->dropIfExists('user_user_teams');
     }
 };

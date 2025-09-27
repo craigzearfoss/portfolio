@@ -1,0 +1,263 @@
+@extends('admin.layouts.default', [
+    'title' =>'Add New Recipe',
+    'breadcrumbs' => [
+        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Personal',       'url' => route('admin.personal.index') ],
+        [ 'name' => 'Recipes',         'url' => route('admin.personal.recipe.index') ],
+        [ 'name' => 'Add' ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.personal.recipe.index') ],
+    ],
+    'errorMessages' => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
+
+@section('content')
+
+    <div class="card form-container p-4">
+
+        <form action="{{ route('admin.personal.recipe.store') }}" method="POST">
+            @csrf
+
+            @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => referer('admin.personal.recipe.index')
+            ])
+
+            @if(isRootAdmin())
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'owner_id',
+                    'label'   => 'owner',
+                    'value'   => old('owner_id') ?? Auth::guard('admin')->user()->id,
+                    'list'    => \App\Models\Owner::listOptions(),
+                    'message' => $message ?? '',
+                ])
+            @endif
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'name',
+                'value'     => old('name') ?? '',
+                'required'  => true,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'featured',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('featured') ?? 1,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'source',
+                'value'     => old('source') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'author',
+                'value'     => old('author') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'prep_time',
+                'label'     => 'prep time (minutes)',
+                'value'     => old('prep_time') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'total_time',
+                'label'     => 'total time (minutes)',
+                'value'     => old('total_time') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'main',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('main') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'side',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('side') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'dessert',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('dessert') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'appetizer',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('appetizer') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'beverage',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('beverage') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'breakfast',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('breakfast') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'lunch',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('lunch') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'dinner',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('dinner') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'snack',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('snack') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'link',
+                'value'     => old('link') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'link_name',
+                'label'     => 'link name',
+                'value'     => old('link_name') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'description',
+                'id'      => 'inputEditor',
+                'value'   => old('description') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'      => 'image',
+                'value'     => old('image') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_credit',
+                'label'     => 'image credit',
+                'value'     => old('image_credit') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'image_source',
+                'label'     => 'image source',
+                'value'     => old('image_source') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'      => 'thumbnail',
+                'value'     => old('thumbnail') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'    => 'number',
+                'name'    => 'sequence',
+                'value'   => old('seq') ?? 0,
+                'min'     => 0,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'public',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('public') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'readonly',
+                'label'           => 'read-only',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('readonly') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @if (Auth::guard('admin')->user()->root)
+                @include('admin.components.form-checkbox-horizontal', [
+                    'name'            => 'root',
+                    'value'           => 1,
+                    'unchecked_value' => 0,
+                    'checked'         => old('root') ?? 0,
+                    'message'         => $message ?? '',
+                ])
+            @endif
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'disabled',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('disabled') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-button-submit-horizontal', [
+                'label'      => 'Add Recipe',
+                'cancel_url' => referer('admin.personal.recipe.index')
+            ])
+
+        </form>
+
+    </div>
+
+@endsection

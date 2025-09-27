@@ -2,6 +2,7 @@
 
 namespace App\Models\Portfolio;
 
+use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,7 @@ class JobTask extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'owner_id',
         'job_id',
         'job_title',
         'summary',
@@ -40,7 +42,6 @@ class JobTask extends Model
         'readonly',
         'root',
         'disabled',
-        'admin_id',
     ];
 
     protected static function booted()
@@ -51,10 +52,10 @@ class JobTask extends Model
     }
 
     /**
-     * Get the career job that owns the career coworker.
+     * Get the owner of the portfolio job task.
      */
-    public function job(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(Job::class, 'job_id');
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
 }

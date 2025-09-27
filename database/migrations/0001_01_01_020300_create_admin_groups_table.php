@@ -7,20 +7,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    protected $database_tag = 'core_db';
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection('core_db')->create('admin_groups', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('admin_groups', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
             $table->foreignIdFor( \App\Models\AdminTeam::class);
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('disabled')->default(0);
-            $table->foreignIdFor(\App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,13 +30,19 @@ return new class extends Migration
         $data = [
             [
                 'id'            => 1,
+                'owner_id'      => 2,
                 'admin_team_id' => 1,
                 'name'          => 'Default Admin Group',
                 'slug'          => 'default-admin-group',
                 'abbreviation'  => 'DAG',
-                'admin_id'      => 2,
             ],
         ];
+
+        // add timestamps
+        for($i=0; $i<count($data);$i++) {
+            $data[$i]['created_at'] = now();
+            $data[$i]['updated_at'] = now();
+        }
 
         AdminGroup::insert($data);
     }
@@ -44,6 +52,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('core_db')->dropIfExists('admin_groups');
+        Schema::connection($this->database_tag)->dropIfExists('admin_groups');
     }
 };

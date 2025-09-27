@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    protected $database_tag = 'core_db';
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection('core_db')->create('admin_admin_groups', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('admin_admin_groups', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\Admin::class);
             $table->foreignIdFor( \App\Models\AdminGroup::class);
@@ -39,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('core_db')->dropIfExists('admin_admin_groups');
+        Schema::connection($this->database_tag)->dropIfExists('admin_admin_groups');
     }
 };

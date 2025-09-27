@@ -21,8 +21,9 @@ class SkillFactory extends Factory
         $slug = Str::slug($name);
 
         return [
+            'owner_id'     => \App\Models\Owner::all()->random()->id,
             'name'         => fake()->unique()->text(12),
-            'slug'           => $slug,
+            'slug'         => $slug,
             'featured'     => fake()->numberBetween(0, 1),
             'rating'       => fake()->numberBetween(0, 10),
             'years'        => fake()->numberBetween(0, 20),
@@ -36,7 +37,8 @@ class SkillFactory extends Factory
             'readonly'     => 0,
             'root'         => 0,
             'disabled'     => fake()->numberBetween(0, 1),
-            'admin_id'     => \App\Models\Admin::all()->random()->id,
+            'created_at'   => now(),
+            'deleted_at'   => now(),
         ];
     }
 }

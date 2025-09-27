@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    protected $database_tag = 'dictionary_db';
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection('dictionary_db')->create('server_stack', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('server_stack', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\Dictionary\Server::class);
             $table->foreignIdFor( \App\Models\Dictionary\Stack::class);
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('dictionary_db')->dropIfExists('server_stack');
+        Schema::connection($this->database_tag)->dropIfExists('server_stack');
     }
 };

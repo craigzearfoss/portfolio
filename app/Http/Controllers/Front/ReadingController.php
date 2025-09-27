@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\BaseController;
-use App\Models\Portfolio\Reading;
+use App\Models\Personal\Reading;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -29,7 +29,7 @@ class ReadingController extends BaseController
             ->paginate($perPage);
 
         $title = 'Readings';
-        return view('front.portfolio.reading.index', compact('readings', 'title'))
+        return view('front.personal.reading.index', compact('readings', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class ReadingController extends BaseController
             throw new ModelNotFoundException();
         }
 
-        return view('front.portfolio.reading.show', compact('reading'));
+        return view('front.personal.reading.show', compact('reading'));
     }
 }

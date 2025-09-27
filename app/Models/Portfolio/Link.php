@@ -2,7 +2,7 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Admin;
+use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +24,7 @@ class Link extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'owner_id',
         'name',
         'slug',
         'featured',
@@ -40,7 +41,6 @@ class Link extends Model
         'readonly',
         'root',
         'disabled',
-        'admin_id',
     ];
 
     protected static function booted()
@@ -51,11 +51,11 @@ class Link extends Model
     }
 
     /**
-     * Get the admin who owns the portfolio link.
+     * Get the owner of the portfolio link.
      */
-    public function admin(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(Admin::class, 'admin_id');
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
 
     /**

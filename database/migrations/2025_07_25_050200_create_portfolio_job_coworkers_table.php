@@ -8,12 +8,27 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * The tag used to identify the portfolio database.
+     *
+     * @var string
+     */
+    protected $database_tag = 'portfolio_db';
+
+    /**
+     * The id of the admin who owns the portfolio job-coworker resource.
+     *
+     * @var int
+     */
+    protected $ownerId = 2;
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection('portfolio_db')->create('job_coworkers', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('job_coworkers', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
             $table->foreignIdFor( \App\Models\Portfolio\Job::class);
             $table->string('name');
             $table->string('job_title', 100)->nullable();
@@ -35,11 +50,10 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
-            $table->foreignIdFor(\App\Models\Admin::class);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['admin_id', 'name'], 'admin_id_name_unique');
+            $table->unique(['owner_id', 'name'], 'owner_id_name_unique');
         });
 
         $data = [
@@ -55,7 +69,6 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => 'https://www.linkedin.com/in/kevin-hemsley-a30740132/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 2,
@@ -69,7 +82,6 @@ return new class extends Migration
                 'personal_email' => 'prtdavis2@yahoo.com',
                 'link'           => null,
                 'link_name'      => null,
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 3,
@@ -83,7 +95,6 @@ return new class extends Migration
                 'personal_email' => 'akahen@live.com',
                 'link'           => 'https://www.linkedin.com/in/alenkahen/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 4,
@@ -97,7 +108,6 @@ return new class extends Migration
                 'personal_email' => 'ngd.00@outlook.com',
                 'link'           => null,
                 'link_name'      => null,
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 5,
@@ -111,7 +121,6 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => 'https://www.linkedin.com/in/tegansnyder/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 6,
@@ -125,7 +134,6 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => 'https://www.linkedin.com/in/benjamintcarey/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 7,
@@ -139,7 +147,6 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => 'https://www.linkedin.com/in/nils-haugen/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 8,
@@ -153,7 +160,6 @@ return new class extends Migration
                 'personal_email' => 'matt.mccall.2121@gmail.com',
                 'link'           => 'https://www.linkedin.com/in/matt-mccall-6342346/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 9,
@@ -167,7 +173,6 @@ return new class extends Migration
                 'personal_email' => 'don@fullstackdon.com',
                 'link'           => 'https://www.linkedin.com/in/donald-w-2093141a2/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 10,
@@ -181,7 +186,6 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => 'https://www.linkedin.com/in/christopher-browning-6b43b9b7/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 11,
@@ -195,7 +199,6 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => 'https://www.linkedin.com/in/tamarajbarum/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 12,
@@ -209,7 +212,6 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => 'https://www.linkedin.com/in/robertwschnurr/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 13,
@@ -223,7 +225,6 @@ return new class extends Migration
                 'personal_email' => 'lancebailles@hotmail.com',
                 'link'           => 'https://www.linkedin.com/in/lance-bailles-a89b78100/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 14,
@@ -237,7 +238,6 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => 'https://www.linkedin.com/in/sarah-wilson-2434585b/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 15,
@@ -251,7 +251,6 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => 'https://www.linkedin.com/in/gavinduffy1/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 16,
@@ -265,7 +264,6 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => 'https://www.linkedin.com/in/sylvia-vassileva/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 17,
@@ -279,7 +277,6 @@ return new class extends Migration
                 'personal_email' => 'txtilde@gmail.com',
                 'link'           => 'https://www.linkedin.com/in/tom-avery-957301275/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 18,
@@ -293,7 +290,6 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => 'https://www.linkedin.com/in/hugheba/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 19,
@@ -307,7 +303,6 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => 'https://www.linkedin.com/in/gastonlonghitano/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 20,
@@ -321,7 +316,6 @@ return new class extends Migration
                 'personal_email' => 'jyanni@gmail.com',
                 'link'           => 'https://www.linkedin.com/in/josephyanni/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 21,
@@ -335,7 +329,6 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => 'https://www.linkedin.com/in/jorgecoello/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 22,
@@ -349,7 +342,6 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => null,
                 'link_name'      => null,
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 23,
@@ -363,7 +355,6 @@ return new class extends Migration
                 'personal_email' => 'pat.cheely@gmail.com',
                 'link'           => 'https://www.linkedin.com/in/patcheely/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
             [
                 'id'             => 24,
@@ -377,9 +368,15 @@ return new class extends Migration
                 'personal_email' => null,
                 'link'           => 'https://www.linkedin.com/in/ethanbailey/',
                 'link_name'      => 'LinkedIn',
-                'admin_id'       => 1,
             ],
         ];
+
+        // add timestamps and owner_ids
+        for($i=0; $i<count($data);$i++) {
+            $data[$i]['created_at'] = now();
+            $data[$i]['updated_at'] = now();
+            $data[$i]['owner_id']   = $this->ownerId;
+        }
 
         JobCoworker::insert($data);
     }
@@ -389,6 +386,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('portfolio_db')->dropIfExists('job_coworkers');
+        Schema::connection($this->database_tag)->dropIfExists('job_coworkers');
     }
 };

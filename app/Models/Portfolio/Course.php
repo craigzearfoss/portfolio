@@ -2,7 +2,7 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Admin;
+use App\Models\Owner;
 use App\Models\Portfolio\Academy;
 use App\Models\Scopes\AdminGlobalScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,6 +25,7 @@ class Course extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'owner_id',
         'name',
         'slug',
         'featured',
@@ -49,7 +50,6 @@ class Course extends Model
         'readonly',
         'root',
         'disabled',
-        'admin_id',
     ];
 
     protected static function booted()
@@ -58,13 +58,12 @@ class Course extends Model
 
         static::addGlobalScope(new AdminGlobalScope());
     }
-
     /**
-     * Get the admin who owns the portfolio course.
+     * Get the owner of the portfolio course.
      */
-    public function admin(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(Admin::class, 'admin_id');
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
 
     /**

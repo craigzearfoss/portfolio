@@ -93,7 +93,7 @@ class TestSeeder extends Seeder
 
         echo 'Portfolio/Reading' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Portfolio\Reading::factory()
+            \App\Models\Personal\Reading::factory()
                 ->count(random_int(0, 40))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -104,7 +104,7 @@ class TestSeeder extends Seeder
 
         echo 'Portfolio/Recipe' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Portfolio\Recipe::factory()
+            \App\Models\Personal\Recipe::factory()
                 ->count(random_int(0, 10))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [
@@ -114,10 +114,10 @@ class TestSeeder extends Seeder
         }
 
         echo 'Portfolio/RecipeIngredient' . PHP_EOL;
-        foreach (\App\Models\Portfolio\Recipe::all(['id', 'admin_id']) as $recipe) {
+        foreach (\App\Models\Personal\Recipe::all(['id', 'admin_id']) as $recipe) {
             $numIngredients = mt_rand(4, 10);
             for ($i = 1; $i <= $numIngredients; $i++) {
-                \App\Models\Portfolio\RecipeIngredient::factory()
+                \App\Models\Personal\RecipeIngredient::factory()
                     ->set('sequence', $i - 1)
                     ->set('admin_id', $recipe->admin_id)
                     ->create();
@@ -125,10 +125,10 @@ class TestSeeder extends Seeder
         }
 
         echo 'Portfolio/RecipeStep' . PHP_EOL;
-        foreach (\App\Models\Portfolio\Recipe::all(['id', 'admin_id']) as $recipe) {
+        foreach (\App\Models\Personal\Recipe::all(['id', 'admin_id']) as $recipe) {
             $numSteps = mt_rand(3, 7);
             for ($step = 1; $step <= $numSteps; $step++) {
-                \App\Models\Portfolio\RecipeStep::factory()
+                \App\Models\Personal\RecipeStep::factory()
                     ->set('step', $step)
                     ->set('sequence', $step - 1)
                     ->set('admin_id', $recipe->admin_id)

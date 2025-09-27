@@ -2,8 +2,8 @@
 
 namespace App\Models\Career;
 
-use App\Models\Admin;
 use App\Models\Country;
+use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\State;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,6 +27,7 @@ class Contact extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'owner_id',
         'name',
         'slug',
         'title',
@@ -59,7 +60,6 @@ class Contact extends Model
         'readonly',
         'root',
         'disabled',
-        'admin_id',
     ];
 
     const TITLES = [
@@ -77,11 +77,11 @@ class Contact extends Model
     }
 
     /**
-     * Get the admin who owns the career contact.
+     * Get the owner of the career contact.
      */
-    public function admin(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(Admin::class, 'admin_id');
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
 
     /**

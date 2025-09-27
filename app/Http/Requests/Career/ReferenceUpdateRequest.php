@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
-use App\Models\Admin;
+use App\Models\Owner;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -38,11 +38,12 @@ class ReferenceUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a reference.');
         }
 
-        $adminIds = Auth::guard('admin')->user()->root
-            ? Admin::all('id')->pluck('id')->toArray()
-            : [Auth::guard('admin')->user()->id];
+        $ownerIds = isRootAdmin()
+            ? Owner::all('id')->pluck('id')->toArray()
+            : [ Auth::guard('admin')->user()->id ];
 
         return [
+            'owner_id'        => ['required', 'integer', Rule::in($ownerIds)],
             'name'            => ['string', 'max:255', 'unique:career_db.references,name,'.$this->reference->id, 'filled'],
             'slug'            => ['string', 'max:255', 'unique:career_db.references,slug,'.$this->reference->id, 'filled'],
             'phone'           => ['string', 'max:20', 'nullable'],
@@ -65,7 +66,6 @@ class ReferenceUpdateRequest extends FormRequest
             'readonly'        => ['integer', 'between:0,1'],
             'root'            => ['integer', 'between:0,1'],
             'disabled'        => ['integer', 'between:0,1'],
-            'admin_id'        => ['integer', Rule::in($adminIds)],
         ];
     }
 }

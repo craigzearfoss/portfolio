@@ -2,8 +2,8 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Admin;
 use App\Models\Country;
+use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\State;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,6 +27,7 @@ class Job extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'owner_id',
         'company',
         'slug',
         'featured',
@@ -57,7 +58,6 @@ class Job extends Model
         'readonly',
         'root',
         'disabled',
-        'admin_id',
     ];
 
     protected static function booted()
@@ -68,11 +68,11 @@ class Job extends Model
     }
 
     /**
-     * Get the admin who owns the portfolio job.
+     * Get the owner of the portfolio job.
      */
-    public function admin(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(Admin::class, 'admin_id');
+        return $this->belongsTo(Owner::class, 'owner_id');
     }
 
     /**

@@ -21,6 +21,7 @@ class ContactFactory extends Factory
         $slug = Str::slug($name);
 
         return [
+            'owner_id'        => \App\Models\Owner::all()->random()->id,
             'name'            => $name,
             'slug'            => $slug,
             'title'           => fake()->randomElement(['Miss','Mr.','Mrs.','Ms', '', null]),
@@ -53,7 +54,8 @@ class ContactFactory extends Factory
             'readonly'        => 0,
             'root'            => 0,
             'disabled'        => fake()->numberBetween(0, 1),
-            'admin_id'        => \App\Models\Admin::all()->random()->id,
+            'created_at'      => now(),
+            'deleted_at'      => now(),
         ];
     }
 }

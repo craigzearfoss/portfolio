@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
-use App\Models\Admin;
+use App\Models\Owner;
 use App\Models\Portfolio\Job;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -33,11 +33,12 @@ class JobTaskUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a contact.');
         }
 
-        $adminIds = Auth::guard('admin')->user()->root
-            ? Admin::all('id')->pluck('id')->toArray()
-            : [Auth::guard('admin')->user()->id];
+        $ownerIds = isRootAdmin()
+            ? Owner::all('id')->pluck('id')->toArray()
+            : [ Auth::guard('admin')->user()->id ];
 
         return [
+            'owner_id'        => ['required', 'integer', Rule::in($ownerIds)],
             'job_id'          => ['required', 'integer', Rule::in(Job::all('id')->pluck('id')->toArray())],
             'summary'         => ['required', 'string', 'max:255'],
             'link'            => ['string', 'url:http,https', 'max:255', 'nullable'],
@@ -53,7 +54,6 @@ class JobTaskUpdateRequest extends FormRequest
             'readonly'        => ['integer', 'between:0,1'],
             'root'            => ['integer', 'between:0,1'],
             'disabled'        => ['integer', 'between:0,1'],
-            'admin_id'        => ['required', 'integer', Rule::in($adminIds)],
         ];
     }
 }

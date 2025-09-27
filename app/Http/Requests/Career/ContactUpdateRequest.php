@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Career;
 
-use App\Models\Admin;
 use App\Models\Country;
+use App\Models\Owner;
 use App\Models\State;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -40,11 +40,12 @@ class ContactUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a contact.');
         }
 
-        $adminIds = Auth::guard('admin')->user()->root
-            ? Admin::all('id')->pluck('id')->toArray()
-            : [Auth::guard('admin')->user()->id];
+        $ownerIds = isRootAdmin()
+            ? Owner::all('id')->pluck('id')->toArray()
+            : [ Auth::guard('admin')->user()->id ];
 
         return [
+            'owner_id'        => ['required', 'integer', Rule::in($ownerIds)],
             'name'            => ['string', 'max:255', 'unique:career_db.contacts,name,'.$this->contact->id, 'filled'],
             'slug'            => ['string', 'max:255', 'unique:career_db.contacts,slug,'.$this->contact->id, 'filled'],
             'title'           => ['string', 'max:20', 'nullable'],
@@ -77,7 +78,6 @@ class ContactUpdateRequest extends FormRequest
             'readonly'        => ['integer', 'between:0,1'],
             'root'            => ['integer', 'between:0,1'],
             'disabled'        => ['integer', 'between:0,1'],
-            'admin_id'        => ['integer', Rule::in($adminIds)],
         ];
     }
 }

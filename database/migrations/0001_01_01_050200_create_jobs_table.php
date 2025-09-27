@@ -6,12 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    protected $database_tag = 'core_db';
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection('core_db')->create('jobs', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('jobs', function (Blueprint $table) {
             $table->id();
             $table->string('queue')->index();
             $table->longText('payload');
@@ -21,7 +23,7 @@ return new class extends Migration
             $table->unsignedInteger('created_at');
         });
 
-        Schema::connection('core_db')->create('job_batches', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('job_batches', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->string('name');
             $table->integer('total_jobs');
@@ -34,7 +36,7 @@ return new class extends Migration
             $table->integer('finished_at')->nullable();
         });
 
-        Schema::connection('core_db')->create('failed_jobs', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('failed_jobs', function (Blueprint $table) {
             $table->id();
             $table->string('uuid')->unique();
             $table->text('connection');
@@ -50,8 +52,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection('core_db')->dropIfExists('jobs');
-        Schema::connection('core_db')->dropIfExists('job_batches');
-        Schema::connection('core_db')->dropIfExists('failed_jobs');
+        Schema::connection($this->database_tag)->dropIfExists('jobs');
+        Schema::connection($this->database_tag)->dropIfExists('job_batches');
+        Schema::connection($this->database_tag)->dropIfExists('failed_jobs');
     }
 };

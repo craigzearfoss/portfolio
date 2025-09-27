@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests\Career;
 
-use App\Models\Admin;
 use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
 use App\Models\Career\Resume;
 use App\Models\Country;
+use App\Models\Owner;
 use App\Models\State;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -38,11 +38,12 @@ class ApplicationUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for an application.');
         }
 
-        $adminIds = Auth::guard('admin')->user()->root
-            ? Admin::all('id')->pluck('id')->toArray()
-            : [Auth::guard('admin')->user()->id];
+        $ownerIds = isRootAdmin()
+            ? Owner::all('id')->pluck('id')->toArray()
+            : [ Auth::guard('admin')->user()->id ];
 
         return [
+            'owner_id'             => ['required', 'integer', Rule::in($ownerIds)],
             'company_id'           => ['integer', Rule::in(Company::all('id')->pluck('id')->toArray())],
             'role'                 => ['string', 'max:255', 'filled'],
             'resume_id'            => ['integer', Rule::in(Resume::all('id')->pluck('id')->toArray())],
@@ -93,7 +94,6 @@ class ApplicationUpdateRequest extends FormRequest
             'readonly'             => ['integer', 'between:0,1'],
             'root'                 => ['integer', 'between:0,1'],
             'disabled'             => ['integer', 'between:0,1'],
-            'admin_id'             => ['integer', Rule::in($adminIds)],
         ];
     }
 }
