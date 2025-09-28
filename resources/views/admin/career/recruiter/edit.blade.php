@@ -27,16 +27,6 @@
                 'value' => referer('admin.career.recruiter.index')
             ])
 
-            @if(Auth::guard('admin')->user()->root)
-                @include('admin.components.form-select-horizontal', [
-                    'name'    => 'admin_id',
-                    'label'   => 'admin',
-                    'value'   => old('admin_id') ?? $recruiter->admin_id,
-                    'list'    => \App\Models\Admin::listOptions(),
-                    'message' => $message ?? '',
-                ])
-            @endif
-
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? $recruiter->name,

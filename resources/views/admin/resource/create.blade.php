@@ -25,6 +25,16 @@
                 'value' => referer('admin.resource.index')
             ])
 
+            @if(isRootAdmin())
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'owner_id',
+                    'label'   => 'owner',
+                    'value'   => old('owner_id') ?? Auth::guard('admin')->user()->id,
+                    'list'    => \App\Models\Admin::listOptions(['root' => 1]),
+                    'message' => $message ?? '',
+                ])
+            @endif
+
             @include('admin.components.form-input', [
                 'name'      => 'name',
                 'value'     => old('name') ?? '',

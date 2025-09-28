@@ -27,14 +27,13 @@
                 'value' => referer('admin.personal.recipe-step.index')
             ])
 
-            @if(Auth::guard('admin')->user()->root)
+            @if(isRootAdmin())
                 @include('admin.components.form-select-horizontal', [
-                    'name'     => 'admin_id',
-                    'label'    => 'admin',
-                    'value'    => old('admin_id') ?? $recipeStep->admin_id,
-                    'required' => true,
-                    'list'     => \App\Models\Admin::listOptions(),
-                    'message'  => $message ?? '',
+                    'name'    => 'owner_id',
+                    'label'   => 'owner',
+                    'value'   => old('owner_id') ?? $recipeStep->owner_id,
+                    'list'    => \App\Models\Admin::listOptions(),
+                    'message' => $message ?? '',
                 ])
             @endif
 

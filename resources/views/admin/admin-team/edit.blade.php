@@ -32,7 +32,7 @@
                     'name'    => 'owner_id',
                     'label'   => 'owner',
                     'value'   => old('owner_id') ?? $adminTeam->owner_id,
-                    'list'    => \App\Models\Owner::listOptions(),
+                    'list'    => \App\Models\Admin::listOptions(),
                     'message' => $message ?? '',
                 ])
             @endif

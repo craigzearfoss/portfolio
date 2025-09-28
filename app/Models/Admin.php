@@ -75,15 +75,17 @@ class Admin extends Authenticatable
     /**
      * Returns an array of options for a select list.
      *
-     * @param bool $includeBlank
+     * @param array $filters
      * @param bool $usernameAsKey
      * @param bool $includeNames
      * @return array|string[]
+     * @param bool $includeBlank
      */
     public static function listOptions(
+        array $filters = [],
         bool $includeBlank = false,
         bool $usernameAsKey = false,
-        bool $includeNames = false
+        bool $includeNames = false,
     ): array
     {
         $options = [];
@@ -91,7 +93,12 @@ class Admin extends Authenticatable
             $options[$usernameAsKey ? '' : 0] = '';
         }
 
-        foreach (self::orderBy('name', 'asc')->get() as $row) {
+        $query = self::orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $row) {
             $options[$usernameAsKey ? $row->username : $row->id] = $includeNames
                 ? $row->username . (!empty($row->name) ? ' (' . $row->name . ')' : '')
                 : $row->username;
