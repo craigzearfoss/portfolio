@@ -30,6 +30,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('resources', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Resource::class, 'parent_id')->nullable();
             $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
             $table->foreignIdFor(\App\Models\Database::class);
             $table->string('name', 50);
@@ -40,6 +41,7 @@ return new class extends Migration
             $table->tinyInteger('user')->default(0);
             $table->tinyInteger('admin')->default(0);
             $table->string('icon', 50)->nullable();
+            $table->integer('level')->default(1);
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(1);
             $table->tinyInteger('readonly')->default(0);
@@ -50,6 +52,7 @@ return new class extends Migration
 
         $data = [
             [
+                'parent_id'   => null,
                 'database_id' => 1,
                 'name'        => 'admin',
                 'table'       => 'admins',
@@ -59,13 +62,15 @@ return new class extends Migration
                 'user'        => 0,
                 'admin'       => 1,
                 'icon'        => 'fa-user-plus',
+                'level'       => 1,
                 'sequence'    => 1010,
-                'public'      => 1,
+                'public'      => 0,
                 'readonly'    => 0,
-                'root'        => 1,
+                'root'        => 0,
                 'disabled'    => 0,
             ],
             [
+                'parent_id'   => null,
                 'database_id' => 1,
                 'name'        => 'user',
                 'table'       => 'users',
@@ -75,13 +80,15 @@ return new class extends Migration
                 'user'        => 0,
                 'admin'       => 1,
                 'icon'        => 'fa-user',
+                'level'       => 1,
                 'sequence'    => 1020,
-                'public'      => 1,
+                'public'      => 0,
                 'readonly'    => 0,
-                'root'        => 1,
+                'root'        => 0,
                 'disabled'    => 0,
             ],
             [
+                'parent_id'   => null,
                 'database_id' => 1,
                 'name'        => 'message',
                 'table'       => 'messages',
@@ -91,10 +98,11 @@ return new class extends Migration
                 'user'        => 0,
                 'admin'       => 1,
                 'icon'        => 'fa-envelope',
+                'level'       => 1,
                 'sequence'    => 1030,
-                'public'      => 1,
+                'public'      => 0,
                 'readonly'    => 0,
-                'root'        => 1,
+                'root'        => 0,
                 'disabled'    => 0,
             ],
         ];

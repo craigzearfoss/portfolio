@@ -65,15 +65,17 @@ return new class extends Migration
 
             $data = [
                 [
+                    'parent_id'   => null,
                     'database_id' => $databaseId,
                     'name'        => 'ingredient',
                     'table'       => 'ingredients',
                     'title'       => 'Ingredient',
                     'plural'      => 'Ingredients',
-                    'guest'       => 1,
+                    'guest'       => 0,
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-pizza-slice',
+                    'level'       => 1,
                     'sequence'    => 5010,
                     'public'      => 0,
                     'readonly'    => 0,
@@ -81,6 +83,7 @@ return new class extends Migration
                     'disabled'    => 0,
                 ],
                 [
+                    'parent_id'   => null,
                     'database_id' => $databaseId,
                     'name'        => 'reading',
                     'table'       => 'readings',
@@ -90,13 +93,15 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-book',
+                    'level'       => 1,
                     'sequence'    => 5020,
                     'public'      => 1,
                     'readonly'    => 0,
-                    'root'        => 1,
+                    'root'        => 0,
                     'disabled'    => 0,
                 ],
                 [
+                    'parent_id'   => null,
                     'database_id' => $databaseId,
                     'name'        => 'recipe',
                     'table'       => 'recipes',
@@ -106,10 +111,47 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-cutlery',
+                    'level'       => 1,
                     'sequence'    => 5030,
                     'public'      => 1,
                     'readonly'    => 0,
-                    'root'        => 1,
+                    'root'        => 0,
+                    'disabled'    => 0,
+                ],
+                [
+                    'parent_id'   => null,
+                    'database_id' => $databaseId,
+                    'name'        => 'recipe-ingredient',
+                    'table'       => 'recipe_ingredients',
+                    'title'       => 'Recipe Ingredient',
+                    'plural'      => 'Recipe Ingredients',
+                    'guest'       => 0,
+                    'user'        => 0,
+                    'admin'       => 1,
+                    'icon'        => 'fa-cutlery',
+                    'level'       => 2,
+                    'sequence'    => 5040,
+                    'public'      => 0,
+                    'readonly'    => 0,
+                    'root'        => 0,
+                    'disabled'    => 0,
+                ],
+                [
+                    'parent_id'   => null,
+                    'database_id' => $databaseId,
+                    'name'        => 'recipe-step',
+                    'table'       => 'recipe_steps',
+                    'title'       => 'Recipe Step',
+                    'plural'      => 'Recipe Steps',
+                    'guest'       => 0,
+                    'user'        => 0,
+                    'admin'       => 1,
+                    'icon'        => 'fa-cutlery',
+                    'level'       => 2,
+                    'sequence'    => 5050,
+                    'public'      => 0,
+                    'readonly'    => 0,
+                    'root'        => 0,
                     'disabled'    => 0,
                 ],
             ];
@@ -122,6 +164,9 @@ return new class extends Migration
             }
 
             Resource::insert($data);
+
+            //@TODO: Set parent_ids for recipe_ingredients and recipe_steps tp recipes table.
+
         }
     }
 
