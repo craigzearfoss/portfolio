@@ -39,8 +39,8 @@
                             <tr>
                                 <td>
                                     @include('front.components.link', [
-                                        'name'   => $music->name,
-                                        'url'    => route('front.portfolio.music.show', $music->slug)
+                                        'name' => $music->name,
+                                        'href' => route('front.portfolio.music.show', $music->slug)
                                     ])
                                 </td>
                                 <td class="has-text-centered">

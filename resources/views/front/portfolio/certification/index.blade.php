@@ -42,8 +42,8 @@
                             <tr>
                                 <td>
                                     @include('front.components.link', [
-                                        'name'   => $certification->name,
-                                        'url'    => route('front.certification.show', $certification->slug)
+                                        'name' => $certification->name,
+                                        'href' => route('front.certification.show', $certification->slug)
                                     ])
                                 </td>
                                 <td class="has-text-centered">

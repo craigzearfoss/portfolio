@@ -1,4 +1,8 @@
+@php
+$download = isset($download) ? boolval($download) : false;
+@endphp
 @if (!empty($url) || !empty($name))
+
     <a
         @if (!empty($url))href="{{ $url }}" @endif
         @if (!empty($target))target="{{ $target }}" @endif
@@ -8,6 +12,17 @@
             onclick="{{ $onclick }}"
         @endif
     >
+        @if(!empty($icon))<i class="fa-solid {{ $icon }}"></i> @endif
         {{ $name ?? $url ?? '#name#' }}
     </a>
+
+    @if ($download && !empty($url))
+        <a class="text-xl"
+           title="download"
+           href="{{ $url }}"
+           download="resume"
+           <?php /* onclick="downloadFile('{{ $url }}', '{{ basename($url) }}');" */ ?>
+        ><i class="fa-solid fa-download"></i></a>
+    @endif
+
 @endif

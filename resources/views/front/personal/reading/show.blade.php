@@ -1,8 +1,8 @@
 @extends('front.layouts.default', [
     'title' => $reading->title,
     'breadcrumbs' => [
-        [ 'name' => 'Home',       'url' => route('front.homepage') ],
-        [ 'name' => 'Readings',   'url' => route('front.personal.reading.index') ],
+        [ 'name' => 'Home',       'href' => route('front.homepage') ],
+        [ 'name' => 'Readings',   'href' => route('front.personal.reading.index') ],
         [ 'name' => $reading->title ],
     ],
     'buttons' => [
@@ -54,8 +54,8 @@
 
         @if(!empty($reading->link))
             @include('front.components.link', [
-                'name'   => $reading->link_name,
-                'url'    =>
+                'name' => $reading->link_name,
+                'href' =>
             ])
         @endif
 

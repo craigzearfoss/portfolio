@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => 'Add New Library',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
-        [ 'name' => 'Libraries',       'url' => route('admin.dictionary.library.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
+        [ 'name' => 'Libraries',       'href' => route('admin.dictionary.library.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [

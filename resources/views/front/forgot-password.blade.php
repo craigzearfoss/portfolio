@@ -1,7 +1,7 @@
 @extends('front.layouts.default', [
     'title' => 'Forgot Password',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'url' => route('front.homepage') ],
+        [ 'name' => 'Home', 'href' => route('front.homepage') ],
         [ 'name' => 'Forgot Password' ],
     ],
     'buttons' => [],

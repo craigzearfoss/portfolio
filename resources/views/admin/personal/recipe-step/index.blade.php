@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
     'title' => (!empty($recipe) ? $recipe->name : 'Recipe') . ' instructions',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard',           'url' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',                 'url' => route('admin.personal.index') ],
-        [ 'name' => 'Recipes',                   'url' => route('admin.personal.recipe.index') ],
-        [ 'name' => $recipeStep->recipe['name'], 'url' => route('admin.personal.recipe.show', $recipeStep->recipe) ],
+        [ 'name' => 'Admin Dashboard',           'href' => route('admin.dashboard') ],
+        [ 'name' => 'Personal',                  'href' => route('admin.personal.index') ],
+        [ 'name' => 'Recipes',                   'href' => route('admin.personal.recipe.index') ],
+        [ 'name' => $recipeStep->recipe['name'], 'href' => route('admin.personal.recipe.show', $recipeStep->recipe) ],
         [ 'name' => 'Steps' ],
     ],
     'buttons' => [
@@ -54,7 +54,7 @@
                             @if(!empty($recipeStep->admin))
                                 @include('admin.components.link', [
                                     'name' => $recipeStep->admin['username'],
-                                    'url'  => route('admin.admin.show', $recipeStep->admin['id'])
+                                    'href' => route('admin.admin.show', $recipeStep->admin['id'])
                                 ])
                             @endif
                         </td>
@@ -62,8 +62,8 @@
                     @if(empty($recipe))
                         <td data-field="recipe.name">
                             @include('admin.components.link', [
-                                'url'  => route('admin.personal.recipe.show', $recipeStep->recipe),
-                                'name' => $recipeStep->recipe['name']
+                                'name' => $recipeStep->recipe['name'],
+                                'href' => route('admin.personal.recipe.show', $recipeStep->recipe)
                             ])
                         </td>
                     @endif

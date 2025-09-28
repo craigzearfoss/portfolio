@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' =>'Add New Industry',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Industries',      'url' => route('admin.career.industry.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+        [ 'name' => 'Industries',      'href' => route('admin.career.industry.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [

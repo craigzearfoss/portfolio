@@ -1,9 +1,9 @@
 @extends('front.layouts.default', [
     'title' => $server->name . ' server',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('front.homepage') ],
-        [ 'name' => 'Dictionary',      'url' => route('front.dictionary.index') ],
-        [ 'name' => 'Servers',         'url' => route('front.dictionary.server.index') ],
+        [ 'name' => 'Home',       'href' => route('front.homepage') ],
+        [ 'name' => 'Dictionary', 'href' => route('front.dictionary.index') ],
+        [ 'name' => 'Servers',    'href' => route('front.dictionary.server.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
@@ -55,13 +55,13 @@
 
         @include('front.components.show-row-link', [
             'name'   => 'wikipedia',
-            'url'    => $server->wikipedia,
+            'href'   => $server->wikipedia,
             'target' => '_blank'
         ])
 
         @include('front.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $server->link,
+            'href'   => $server->link,
             'label'  => $server->link_name,
             'target' => '_blank'
         ])

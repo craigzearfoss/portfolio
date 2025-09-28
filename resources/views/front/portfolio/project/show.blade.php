@@ -38,13 +38,13 @@
 
                                         @include('front.components.show-row-link', [
                                             'name'   => 'repository',
-                                            'url'    => $project->repository,
+                                            'href'   => $project->repository,
                                             'target' => '_blank'
                                         ])
 
                                         @include('front.components.show-row-link', [
                                             'name'   => 'sample link',
-                                            'url'    => $project->link,
+                                            'href'   => $project->link,
                                             'target' => '_blank'
                                         ])
 

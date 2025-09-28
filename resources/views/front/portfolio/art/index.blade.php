@@ -1,13 +1,11 @@
 @extends('Front.layouts.default', [
     'title' => 'Art',
     'breadcrumbs' => [
-        [ 'name' => 'Home',      'url' => route('front.index') ],
-        [ 'name' => 'Portfolio', 'url' => route('front.portfolio.index') ],
+        [ 'name' => 'Home',      'href' => route('front.homepage') ],
+        [ 'name' => 'Portfolio', 'href' => route('front.portfolio.index') ],
         [ 'name' => 'Art' ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Art', 'url' => route('front.portfolio.art.create') ],
-    ],
+    'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
@@ -153,8 +151,8 @@
                             <tr>
                                 <td>
                                     @include('front.components.link', [
-                                        'name'   => $art->name,
-                                        'url'    => route('front.portfolio.art.show', $art->slug)
+                                        'name' => $art->name,
+                                        'href' => route('front.portfolio.art.show', $art->slug)
                                     ])
                                 </td>
                                 <td class="has-text-centered">

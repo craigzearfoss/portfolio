@@ -1,7 +1,7 @@
 @extends('front.layouts.default', [
     'title' => 'Dictionary',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'url' => route('front.homepage')],
+        [ 'name' => 'Home', 'href' => route('front.homepage')],
         [ 'name' => 'Dictionary']
     ],
     'selectList' => View::make('front.components.form-select', [

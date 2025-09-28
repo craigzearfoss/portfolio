@@ -1,9 +1,9 @@
 @extends('front.layouts.default', [
     'title' => $library->name . ' library',
     'breadcrumbs' => [
-        [ 'name' => 'Home',       'url' => route('front.homepage') ],
-        [ 'name' => 'Dictionary', 'url' => route('front.dictionary.index') ],
-        [ 'name' => 'Libraries',  'url' => route('front.dictionary.library.index') ],
+        [ 'name' => 'Home',       'href' => route('front.homepage') ],
+        [ 'name' => 'Dictionary', 'href' => route('front.dictionary.index') ],
+        [ 'name' => 'Libraries',  'href' => route('front.dictionary.library.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
@@ -55,13 +55,13 @@
 
         @include('front.components.show-row-link', [
             'name'   => 'wikipedia',
-            'url'    => $library->wikipedia,
+            'href'   => $library->wikipedia,
             'target' => '_blank'
         ])
 
         @include('front.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $library->link,
+            'href'   => $library->link,
             'label'  => $library->link_name,
             'target' => '_blank'
         ])

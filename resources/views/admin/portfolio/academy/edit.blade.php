@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => $academy->name,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
-        [ 'name' => 'Academies',       'url' => route('admin.portfolio.academy.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Academies',       'href' => route('admin.portfolio.academy.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [

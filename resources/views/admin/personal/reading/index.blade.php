@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Readings',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',       'url' => route('admin.personal.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Readings' ],
     ],
     'buttons' => [
@@ -68,7 +68,7 @@
                             @if(!empty($reading->admin))
                                 @include('admin.components.link', [
                                     'name' => $reading->admin['username'],
-                                    'url'  => route('admin.admin.show', $reading->admin['id'])
+                                    'href' => route('admin.admin.show', $reading->admin['id'])
                                 ])
                             @endif
                         </td>

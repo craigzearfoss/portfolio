@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Skills',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Skills' ],
     ],
     'buttons' => [
@@ -54,7 +54,7 @@
                             @if(!empty($skill->admin))
                                 @include('admin.components.link', [
                                     'name' => $skill->admin['username'],
-                                    'url'  => route('admin.admin.show', $skill->admin['id'])
+                                    'href' => route('admin.admin.show', $skill->admin['id'])
                                 ])
                             @endif
                         </td>

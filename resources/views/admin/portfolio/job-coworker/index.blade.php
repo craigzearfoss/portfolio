@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => !empty($job) ? $job->company . ' Coworkers' : 'Job Coworkers',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Jobs',            'url' => route('admin.portfolio.job.index', ['job_id' => $jobId]) ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+        [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index', ['job_id' => $jobId]) ],
         [ 'name' => 'Coworkers' ]
     ],
     'buttons' => [
@@ -63,7 +63,7 @@
                             @if(!empty($jobCoworker->admin))
                                 @include('admin.components.link', [
                                     'name' => $jobCoworker->admin['username'],
-                                    'url'  => route('admin.admin.show', $jobCoworker->admin['id'])
+                                    'href' => route('admin.admin.show', $jobCoworker->admin['id'])
                                 ])
                             @endif
                         </td>

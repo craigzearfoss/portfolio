@@ -26,11 +26,24 @@
 </footer>
 
 <script>
-    console.log(document.querySelector('#inputEditor'));
-    ClassicEditor
-        .create(document.querySelector('#inputEditor'))
-        .catch(error => {
-            console.error( error );
+    (function() {
+        document.querySelectorAll('.download-link').forEach(element => {
+            element.addEventListener('click', function() {
+                let url = element.getAttribute('data-url');
+                let filename = element.getAttribute('data-filename') ?? '';
+                console.log(url,filename)
+                downloadFile(url, filename)
+                console.log('Element with class "download-link" clicked:', this);
+            });
         });
+
+        if (document.querySelector('#inputEditor')) {
+            ClassicEditor
+                .create(document.querySelector('#inputEditor'))
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    })();
 </script>
 

@@ -1,7 +1,7 @@
 @extends('front.layouts.default', [
     'title' => 'Portfolio',
     'breadcrumbs' => [
-        [ 'name' => 'Home',      'url' => route('front.index') ],
+        [ 'name' => 'Home', 'href' => route('front.homepage') ],
         [ 'Portfolio' ],
     ],
     'buttons' => [],
@@ -21,7 +21,7 @@
                 <li class="list-item">
                     @include('front.components.link', [
                         'name'  => $resource['plural'],
-                        'url'   => route('front.' . $resource['database_database'] . '.' . $resource['name'] . '.index'),
+                        'href'  => route('front.' . $resource['database_database'] . '.' . $resource['name'] . '.index'),
                         'title' => $resource['title'] ?? '',
                         'icon'  => 'fa-pen-to-square'
                     ])

@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Courses',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Courses' ],
     ],
     'buttons' => [
@@ -60,7 +60,7 @@
                             @if(!empty($course->admin))
                                 @include('admin.components.link', [
                                     'name' => $course->admin['username'],
-                                    'url'  => route('admin.admin.show', $course->admin['id'])
+                                    'href' => route('admin.admin.show', $course->admin['id'])
                                 ])
                             @endif
                         </td>

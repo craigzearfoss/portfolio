@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Communications',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Communications' ]
     ],
     'buttons' => [
@@ -52,7 +52,7 @@
                             @if(!empty($communication->admin))
                                 @include('admin.components.link', [
                                     'name' => $communication->admin['username'],
-                                    'url'  => route('admin.admin.show', $communication->admin['id'])
+                                    'href' => route('admin.admin.show', $communication->admin['id'])
                                 ])
                             @endif
                         </td>

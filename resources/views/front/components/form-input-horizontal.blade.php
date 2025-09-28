@@ -2,21 +2,21 @@
     $name    = !empty($name)  ? $name : '#name#';
     $id      = !empty($id) ? $id : ('input' . (!empty($name)  ? ucfirst(trim($name, '#')) : 'Name'));
     $type    = !empty($type) ? $type : 'text';
-        if (!is_null($label)) {
-        $label   = !empty($label) ? $label : (!empty($name) ? $name : '#label#');
-    }
-    $value   = !empty($value) ? $value : '';
+    $label   = !empty($label) ? $label : (!empty($name) ? $name : '#label#');
+    $value   = $value ?? '';
     $class   = !empty($class) ? $class : '';
     if (!empty($style)) {
         $style = is_array($style) ? implode('; ', $style) . ';' : $style;
     } else {
         $style = '';
     }
-    $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'website', 'wikipedia']);
+    $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'website',
+        'wikipedia', 'phone', 'alt_phone', 'home_phone', 'personal_phone', 'work_phone', 'mobile_phone', 'cell_phone',
+        'email', 'alt_email', 'work_email', 'personal_email']);
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
-        @if(!is_null($label))<label class="label">{{ $label }}</label> @endif
+        @if($label !== '-')<label class="label">{{ $label }}</label> @endif
     </div>
     <div class="field-body">
         <div class="field">
@@ -53,6 +53,12 @@
                 @endif
                 @if (in_array($name, ['link', 'website', 'wikipedia']))
                     <span class="icon is-small is-left"><i class="fas fa-link"></i></span>
+                @endif
+                @if (in_array($name, ['phone', 'alt_phone', 'home_phone', 'personal_phone', 'work_phone', 'mobile_phone', 'cell_phone']))
+                    <span class="icon is-small is-left"><i class="fas fa-phone"></i></span>
+                @endif
+                @if (in_array($name, ['email', 'alt_email', 'work_email', 'personal_email']))
+                    <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
                 @endif
 
             </div>

@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => 'My Profile',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'My Profile' ],
     ],
     'buttons' => [

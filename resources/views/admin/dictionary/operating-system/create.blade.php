@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => 'Add New Operating System',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
-        [ 'name' => 'Operating Systems', 'url' => route('admin.dictionary.operating-system.index') ],
+        [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',        'href' => route('admin.dictionary.index') ],
+        [ 'name' => 'Operating Systems', 'href' => route('admin.dictionary.operating-system.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [

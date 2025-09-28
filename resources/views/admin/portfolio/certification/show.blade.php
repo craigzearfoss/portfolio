@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => $certification->name,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
-        [ 'name' => 'Certifications',  'url' => route('admin.portfolio.certification.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Certifications',  'href' => route('admin.portfolio.certification.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [

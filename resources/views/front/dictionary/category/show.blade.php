@@ -1,9 +1,9 @@
 @extends('front.layouts.default', [
     'title' => $category->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',       'url' => route('front.homepage') ],
-        [ 'name' => 'Dictionary', 'url' => route('front.dictionary.index') ],
-        [ 'name' => 'Categories', 'url' => route('front.dictionary.category.index') ],
+        [ 'name' => 'Home',       'href' => route('front.homepage') ],
+        [ 'name' => 'Dictionary', 'href' => route('front.dictionary.index') ],
+        [ 'name' => 'Categories', 'href' => route('front.dictionary.category.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
@@ -55,13 +55,13 @@
 
         @include('front.components.show-row-link', [
             'name'   => 'wikipedia',
-            'url'    => $category->wikipedia,
+            'href'   => $category->wikipedia,
             'target' => '_blank'
         ])
 
         @include('front.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $category->link,
+            'href'   => $category->link,
             'label'  => $category->link_name,
             'target' => '_blank'
         ])

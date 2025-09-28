@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Videos',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Videos' ],
     ],
     'buttons' => [
@@ -56,7 +56,7 @@
                             @if(!empty($video->admin))
                                 @include('admin.components.link', [
                                     'name' => $video->admin['username'],
-                                    'url'  => route('admin.admin.show', $video->admin['id'])
+                                    'href' => route('admin.admin.show', $video->admin['id'])
                                 ])
                             @endif
                         </td>

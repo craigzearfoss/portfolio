@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => 'Application',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Applications',    'url' => route('admin.career.application.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+        [ 'name' => 'Applications',    'href' => route('admin.career.application.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
@@ -33,10 +33,10 @@
         @include('admin.components.show-row', [
             'name'  => 'company',
             'value' =>  view('admin.components.link', [
-                'url'  => !empty($application->company)
+                'name' => $application->company['name'] ?? '',
+                'href' => !empty($application->company)
                     ?route('admin.career.company.show', $application->company['id'])
                     : '',
-                'name' => $application->company['name'] ?? ''
             ])
         ])
 
@@ -49,7 +49,7 @@
             @include('admin.components.show-row', [
                 'name'  => 'cover letter',
                 'value' => view('admin.components.link', [
-                    'url'  => route('admin.career.cover-letter.show', $application->cover_letter['id']),
+                    'href' => route('admin.career.cover-letter.show', $application->cover_letter['id']),
                     'name' => $application->cover_letter['name'] ?? ''
                 ])
             ])
@@ -58,7 +58,7 @@
                 'name'  => 'cover letter',
                 'value' => view('admin.components.link', [
                     'name'  => 'Attach a cover letter',
-                    'url'   => route('admin.career.cover-letter.create', ['application_id' => $application->id]),
+                    'href'  => route('admin.career.cover-letter.create', ['application_id' => $application->id]),
                     'class' => 'button is-primary is-small px-1 py-0',
                     'icon'  => 'fa-plus'
                 ])
@@ -177,10 +177,10 @@
             @include('admin.components.show-row', [
                 'name'  => 'source->' . $application->job_board['name'] . '<-',
                 'value' => view('admin.components.link', [
-                    'url' => !empty($application->job_board)
+                    'name' => $application->job_board['name'] ?? '',
+                    'href' => !empty($application->job_board)
                         ? route('admin.career.job-board.show', $application->job_board['id'])
                         : '',
-                    'name' => $application->job_board['name'] ?? '',
                 ])
             ])
         @endif

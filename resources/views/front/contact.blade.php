@@ -2,7 +2,7 @@
     'title'    => 'Contact',
     'subtitle' => null,
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'url' => route('front.homepage')],
+        [ 'name' => 'Home', 'href' => route('front.homepage')],
         [ 'name' => 'Contact']
     ],
     'buttons' => [],

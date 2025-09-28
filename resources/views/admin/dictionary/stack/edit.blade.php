@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => $stack->name . ' stack',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
-        [ 'name' => 'Stacks',          'url' => route('admin.dictionary.stack.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
+        [ 'name' => 'Stacks',          'href' => route('admin.dictionary.stack.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [

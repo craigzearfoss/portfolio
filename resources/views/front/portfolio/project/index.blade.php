@@ -42,8 +42,8 @@
                             <tr>
                                 <td>
                                     @include('front.components.link', [
-                                        'name'   => $project->name,
-                                        'url'    => route('front.portfolio.project.show', $project->slug)
+                                        'name' => $project->name,
+                                        'href' => route('front.portfolio.project.show', $project->slug)
                                     ])
                                 </td>
                                 <td class="has-text-centered">
@@ -53,10 +53,10 @@
                                     {{ $project->year }}
                                 </td>
                                 <td>
-                                    @include('front.components.link', [ 'url' => $project->repository, 'target' => '_blank' ])
+                                    @include('front.components.link', [ 'href' => $project->repository, 'target' => '_blank' ])
                                 </td>
                                 <td>
-                                    @include('front.components.link', [ 'url' => $project->link, 'target' => '_blank' ])
+                                    @include('front.components.link', [ 'href' => $project->link, 'target' => '_blank' ])
                                 </td>
                                 <td>
                                     {!! nl2br($project->description ?? '') !!}

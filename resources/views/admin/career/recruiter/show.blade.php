@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => $recruiter->name,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Recruiters',       'url' => route('admin.career.recruiter.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+        [ 'name' => 'Recruiters',      'href' => route('admin.career.recruiter.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [

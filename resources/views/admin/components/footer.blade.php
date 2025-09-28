@@ -26,17 +26,6 @@
 </footer>
 
 <script>
-    if (document.querySelector('#inputEditor')) {
-        console.log('Has ckeditor textarea.');
-        ClassicEditor
-            .create(document.querySelector('#inputEditor'))
-            .catch(error => {
-                console.error(error);
-            });
-    } else {
-        console.log('No ckeditor textarea.');
-    }
-
     (function() {
         document.querySelectorAll('.download-link').forEach(element => {
             element.addEventListener('click', function() {
@@ -48,6 +37,13 @@
             });
         });
 
+        if (document.querySelector('#inputEditor')) {
+            ClassicEditor
+                .create(document.querySelector('#inputEditor'))
+                .catch(error => {
+                    console.error(error);
+                });
+        }
     })();
 </script>
 

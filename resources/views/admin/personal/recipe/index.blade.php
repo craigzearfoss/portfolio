@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Recipes',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',       'url' => route('admin.personal.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Recipes' ],
     ],
     'buttons' => [
@@ -58,7 +58,7 @@
                             @if(!empty($recipe->admin))
                                 @include('admin.components.link', [
                                     'name' => $recipe->admin['username'],
-                                    'url'  => route('admin.admin.show', $recipe->admin['id'])
+                                    'href' => route('admin.admin.show', $recipe->admin['id'])
                                 ])
                             @endif
                         </td>

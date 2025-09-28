@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => $userGroup->name,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Admins',          'url' => route('admin.admin.index') ],
-        [ 'name' => 'Admin Groups',    'url' => route('admin.admin-group.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Admins',          'href' => route('admin.admin.index') ],
+        [ 'name' => 'Admin Groups',    'href' => route('admin.admin-group.index') ],
         [ 'name' => 'Edit' ]
     ],
     'buttons' => [

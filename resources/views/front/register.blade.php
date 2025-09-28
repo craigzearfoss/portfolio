@@ -1,7 +1,7 @@
 @extends('front.layouts.empty', [
     'title' => 'Register',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'url' => route('front.homepage') ],
+        [ 'name' => 'Home', 'href' => route('front.homepage') ],
         [ 'name' => 'Register' ],
     ],
     'buttons' => [],

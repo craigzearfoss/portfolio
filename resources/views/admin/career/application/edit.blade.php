@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => 'Edit Application',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Applications',    'url' => route('admin.career.application.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+        [ 'name' => 'Applications',    'href' => route('admin.career.application.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [

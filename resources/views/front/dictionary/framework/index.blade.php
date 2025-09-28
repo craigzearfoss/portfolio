@@ -1,8 +1,8 @@
 @extends('front.layouts.default', [
     'title' => 'Dictionary',
     'breadcrumbs' => [
-        [ 'name' => 'Home',       'url' => route('front.homepage') ],
-        [ 'name' => 'Dictionary', 'url' => route('front.dictionary.index') ],
+        [ 'name' => 'Home',       'href' => route('front.homepage') ],
+        [ 'name' => 'Dictionary', 'href' => route('front.dictionary.index') ],
         [ 'name' => 'Frameworks' ]
     ],
     'selectList' => View::make('front.components.form-select', [
@@ -13,9 +13,7 @@
             'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
             'message'  => $message ?? '',
         ]),
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Framework', 'url' => route('front.dictionary.framework.create') ],
-    ],
+    'buttons' => [],
     'errors'  => $errors->any()  ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

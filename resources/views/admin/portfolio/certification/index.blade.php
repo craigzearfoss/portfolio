@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Certifications',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Certifications' ],
     ],
     'buttons' => [
@@ -62,7 +62,7 @@
                             @if(!empty($certification->admin))
                                 @include('admin.components.link', [
                                     'name' => $certification->admin['username'],
-                                    'url'  => route('admin.admin.show', $certification->admin['id'])
+                                    'href' => route('admin.admin.show', $certification->admin['id'])
                                 ])
                             @endif
                         </td>

@@ -33,7 +33,7 @@
 
                                         @include('front.components.show-row-link', [
                                             'name'   => 'link',
-                                            'url'    => $recipe->link,
+                                            'href'   => $recipe->link,
                                             'target' => '_blank'
                                         ])
 

@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => 'Add New Database',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
-        [ 'name' => 'Databases',       'url' => route('admin.dictionary.database.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
+        [ 'name' => 'Databases',       'href' => route('admin.dictionary.database.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [

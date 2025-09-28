@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'User Teams',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Users',           'url' => route('admin.user.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Users',           'href' => route('admin.user.index') ],
         [ 'name' => 'User Teams' ]
     ],
     'buttons' => [

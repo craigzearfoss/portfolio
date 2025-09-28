@@ -17,7 +17,7 @@
 @endif
 
 @if(!empty($word->link))
-    <a title="{{ !empty($word->link_name) ? $word->link_name : 'link' }}"
+    <a @if(!empty($word->link_name))title="{{ $word->link_name }}"@endif
        class="button is-small p-0"
        style="border-width: 0;"
        href="{{ $word->link }}"

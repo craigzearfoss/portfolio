@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' =>'Add New Cover Letter',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Cover Letters',   'url' => route('admin.career.cover-letter.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+        [ 'name' => 'Cover Letters',   'href' => route('admin.career.cover-letter.index') ],
         [ 'name' => 'Attach' ],
     ],
     'buttons' => [

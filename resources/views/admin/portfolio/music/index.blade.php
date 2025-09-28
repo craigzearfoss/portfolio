@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Music',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Music' ],
     ],
     'buttons' => [
@@ -62,7 +62,7 @@
                             @if(!empty($music->admin))
                                 @include('admin.components.link', [
                                     'name' => $music->admin['username'],
-                                    'url'  => route('admin.admin.show', $music->admin['id'])
+                                    'href' => route('admin.admin.show', $music->admin['id'])
                                 ])
                             @endif
                         </td>

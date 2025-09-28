@@ -41,8 +41,8 @@
                             <tr>
                                 <td>
                                     @include('front.components.link', [
-                                        'name'   => $link->name,
-                                        'url'    => route('front.portfolio.link.show', $link->slug)
+                                        'name' => $link->name,
+                                        'href'  => route('front.portfolio.link.show', $link->slug)
                                     ])
                                 </td>
                                 <td class="has-text-centered">
@@ -51,7 +51,7 @@
                                 <td>
                                     @include('front.components.link', [
                                         'name'   => $link->name ?? $link->url,
-                                        'url'    => $link->url,
+                                        'href'   => $link->url,
                                         'target' => '_blank'
                                     ])
                                 </td>

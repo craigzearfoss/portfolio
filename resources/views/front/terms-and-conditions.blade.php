@@ -2,7 +2,7 @@
     'title'    => 'Terms & Conditions',
     'subtitle' => null,
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'url' => route('front.homepage')],
+        [ 'name' => 'Home', 'href' => route('front.homepage')],
         [ 'name' => 'Terms & Conditions']
     ],
     'buttons' => [],

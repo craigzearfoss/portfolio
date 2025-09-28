@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' =>'Create Note',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
-        [ 'name' => 'Notes',           'url' => route('admin.career.note.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+        [ 'name' => 'Notes',           'href' => route('admin.career.note.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [

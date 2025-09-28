@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Cover Letters',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'url' => route('admin.career.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Cover Letters' ]
     ],
     'buttons' => [
@@ -56,7 +56,7 @@
                             @if(!empty($coverLetter->admin))
                                 @include('admin.components.link', [
                                     'name' => $coverLetter->admin['username'],
-                                    'url'  => route('admin.admin.show', $coverLetter->admin['id'])
+                                    'href' => route('admin.admin.show', $coverLetter->admin['id'])
                                 ])
                             @endif
                         </td>

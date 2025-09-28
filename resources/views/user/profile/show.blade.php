@@ -21,7 +21,7 @@
                                 <div class="card-body md:p-5">
 
                                     <div>
-                                        @include('admin.components.messages', [$errors])
+                                        @include('user.components.messages', [$errors])
                                     </div>
 
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -41,7 +41,7 @@
                                             'value' => $user->title
                                         ])
 
-                                        @include('admin.components.show-row', [
+                                        @include('user.components.show-row', [
                                             'name'  => 'location',
                                             'value' => formatLocation([
                                                            'street'    => $user->street ?? null,

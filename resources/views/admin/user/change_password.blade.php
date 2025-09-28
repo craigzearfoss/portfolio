@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Change password for ' . $user->name,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Users',           'url' => route('admin.user.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Users',           'href' => route('admin.user.index') ],
         [ 'name' => 'Change Password' ],
     ],
     'buttons' => [

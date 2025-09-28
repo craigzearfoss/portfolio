@@ -1,9 +1,9 @@
 @extends('front.layouts.default', [
     'title' => $stack->name . ' stack',
     'breadcrumbs' => [
-        [ 'name' => 'Home',       'url' => route('front.homepage') ],
-        [ 'name' => 'Dictionary', 'url' => route('front.dictionary.index') ],
-        [ 'name' => 'Stacks',     'url' => route('front.dictionary.stack.index') ],
+        [ 'name' => 'Home',       'href' => route('front.homepage') ],
+        [ 'name' => 'Dictionary', 'href' => route('front.dictionary.index') ],
+        [ 'name' => 'Stacks',     'href' => route('front.dictionary.stack.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
@@ -55,13 +55,13 @@
 
         @include('front.components.show-row-link', [
             'name'   => 'wikipedia',
-            'url'    => $stack->wikipedia,
+            'href'   => $stack->wikipedia,
             'target' => '_blank'
         ])
 
         @include('front.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $stack->link,
+            'href'   => $stack->link,
             'label'  => $stack->link_name,
             'target' => '_blank'
         ])

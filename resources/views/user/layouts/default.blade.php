@@ -17,7 +17,9 @@
     ])
 
     @include('user.components.subtitle-bar', [
-        'title' => $title ?? '#title#'
+        'title'      => $title ?? '',
+        'selectList' => $selectList ?? '',
+        'buttons'    => $buttons ?? [],
     ])
 
     <section class="is-main-section px-4 py-3">
@@ -34,20 +36,9 @@
 
     </section>
 
-    @include('admin.components.footer')
+    @include('user.components.footer')
 
 </div>
-
-<!-- Core Vendors JS -->
-<script src="{{ asset('backend/assets/js/vendors.min.js') }}"></script>
-
-<!-- Other Vendors JS -->
-
-<!-- Page js -->
-<script src="{{ asset('backend/assets/js/pages/welcome.js') }}"></script>
-
-<!-- Core JS -->
-<script src="{{ asset('backend/assets/js/app.min.js') }}"></script>
 
 </body>
 

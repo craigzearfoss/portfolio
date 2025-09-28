@@ -1,9 +1,9 @@
 @extends('front.layouts.default', [
     'title' => $operatingSystem->name . ' operating system',
     'breadcrumbs' => [
-        [ 'name' => 'Home',              'url' => route('front.homepage') ],
-        [ 'name' => 'Dictionary',        'url' => route('front.dictionary.index') ],
-        [ 'name' => 'Operating Systems', 'url' => route('front.dictionary.operating-system.index') ],
+        [ 'name' => 'Home',              'href' => route('front.homepage') ],
+        [ 'name' => 'Dictionary',        'href' => route('front.dictionary.index') ],
+        [ 'name' => 'Operating Systems', 'href' => route('front.dictionary.operating-system.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
@@ -55,13 +55,13 @@
 
         @include('front.components.show-row-link', [
             'name'   => 'wikipedia',
-            'url'    => $operatingSystem->wikipedia,
+            'href'   => $operatingSystem->wikipedia,
             'target' => '_blank'
         ])
 
         @include('front.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $operatingSystem->link,
+            'href'   => $operatingSystem->link,
             'label'  => $operatingSystem->link_name,
             'target' => '_blank'
         ])

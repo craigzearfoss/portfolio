@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => $video->name,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
-        [ 'name' => 'Videos',          'url' => route('admin.portfolio.video.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Videos',          'href' => route('admin.portfolio.video.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [

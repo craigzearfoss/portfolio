@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Projects',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'url' => route('admin.portfolio.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Projects' ],
     ],
     'buttons' => [
@@ -60,7 +60,7 @@
                             @if(!empty($event->admin))
                                 @include('admin.components.link', [
                                     'name' => $event->admin['username'],
-                                    'url'  => route('admin.admin.show', $event->admin['id'])
+                                    'href' => route('admin.admin.show', $event->admin['id'])
                                 ])
                             @endif
                         </td>
@@ -80,7 +80,7 @@
                     <td data-field="repository_url">
                         @include('admin.components.link', [
                             'name'   => $project->repository_name,
-                            'url'    => $project->repository_url,
+                            'href'   => $project->repository_url,
                             'target' => '_blank'
                         ])
                     </td>

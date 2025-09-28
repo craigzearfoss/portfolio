@@ -48,7 +48,7 @@
 
                                         @include('front.components.show-row-link', [
                                             'name'   => 'link',
-                                            'url'    => $video->link,
+                                            'href'   => $video->link,
                                             'target' => '_blank'
                                         ])
 

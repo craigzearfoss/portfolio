@@ -1,8 +1,8 @@
 @extends('admin.layouts.default', [
     'title' => 'Dictionary',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Stacks' ],
     ],
     'selectList' => View::make('admin.components.form-select', [

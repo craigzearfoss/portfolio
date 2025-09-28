@@ -2,7 +2,7 @@
 @extends('front.layouts.default', [
     'title' => 'Readings',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'url' => route('front.homepage')],
+        [ 'name' => 'Home', 'href' => route('front.homepage')],
         [ 'name' => 'Readings']
     ],
     'buttons' => [],
@@ -55,8 +55,8 @@
                 <tr>
                     <td>
                         @include('front.components.link', [
-                            'name'   => $reading->title,
-                            'url'    => route('front.personal.reading.show', $reading->slug)
+                            'name' => $reading->title,
+                            'href' => route('front.personal.reading.show', $reading->slug)
                         ])
                     </td>
                     <td>

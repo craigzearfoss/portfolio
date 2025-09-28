@@ -39,8 +39,8 @@
                             <tr>
                                 <td>
                                     @include('front.components.link', [
-                                        'name'   => $recipe->name,
-                                        'url'    => route('front.personal.recipe.show', $recipe->slug)
+                                        'name' => $recipe->name,
+                                        'href' => route('front.personal.recipe.show', $recipe->slug)
                                     ])
                                 </td>
                                 <td class="has-text-centered">

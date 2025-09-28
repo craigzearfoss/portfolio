@@ -53,7 +53,7 @@
 
                                         @include('front.components.show-row-link', [
                                             'name'   => 'link',
-                                            'url'    => $certification->link,
+                                            'href'   => $certification->link,
                                             'target' => '_blank'
                                         ])
 

@@ -1,9 +1,9 @@
 @extends('front.layouts.default', [
     'title' => $database->name . ' database',
     'breadcrumbs' => [
-        [ 'name' => 'Home',       'url' => route('front.homepage') ],
-        [ 'name' => 'Dictionary', 'url' => route('front.dictionary.index') ],
-        [ 'name' => 'Databases',  'url' => route('front.dictionary.database.index') ],
+        [ 'name' => 'Home',       'href' => route('front.homepage') ],
+        [ 'name' => 'Dictionary', 'href' => route('front.dictionary.index') ],
+        [ 'name' => 'Databases',  'href' => route('front.dictionary.database.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
@@ -55,13 +55,13 @@
 
         @include('front.components.show-row-link', [
             'name'   => 'wikipedia',
-            'url'    => $database->wikipedia,
+            'href'   => $database->wikipedia,
             'target' => '_blank'
         ])
 
         @include('front.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $database->link,
+            'href'   => $database->link,
             'label'  => $database->link_name,
             'target' => '_blank'
         ])

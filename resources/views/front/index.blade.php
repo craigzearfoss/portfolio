@@ -20,7 +20,7 @@
                     User Login
                 </a>
                 |
-                <a class="is-size-6" href="{{ route('front.login') }}">
+                <a class="is-size-6" href="{{ route('admin.login') }}">
                     Admin Login
                 </a>
             </div>

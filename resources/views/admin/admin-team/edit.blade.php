@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => $adminTeam->name,
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Admins',          'url' => route('admin.admin.index') ],
-        [ 'name' => 'Admin Teams',     'url' => route('admin.admin-team.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Admins',          'href' => route('admin.admin.index') ],
+        [ 'name' => 'Admin Teams',     'href' => route('admin.admin-team.index') ],
         [ 'name' => 'Edit' ]
     ],
     'buttons' => [

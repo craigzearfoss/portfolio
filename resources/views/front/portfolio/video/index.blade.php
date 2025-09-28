@@ -45,8 +45,8 @@
                             <tr>
                                 <td>
                                     @include('front.components.link', [
-                                        'name'   => $video->name,
-                                        'url'    => route('front.portfolio.video.show', $video->slug)
+                                        'name' => $video->name,
+                                        'href' => route('front.portfolio.video.show', $video->slug)
                                     ])
                                 </td>
                                 <td class="has-text-centered">
@@ -68,7 +68,7 @@
                                     {{ $video->location }}
                                 </td>
                                 <td>
-                                    @include('front.components.link', [ 'url' => $video->link, 'target' => '_blank' ])
+                                    @include('front.components.link', [ 'href' => $video->link, 'target' => '_blank' ])
                                 </td>
                                 <td>
                                     {!! nl2br($video->description ?? '') !!}

@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
     'title' => $framework->name . ' framework',
     'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'url' => route('admin.dashboard') ],
-        [ 'name' => 'Dictionary',      'url' => route('admin.dictionary.index') ],
-        [ 'name' => 'Frameworks',      'url' => route('admin.dictionary.framework.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
+        [ 'name' => 'Frameworks',      'href' => route('admin.dictionary.framework.index') ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
