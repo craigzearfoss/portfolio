@@ -58,13 +58,8 @@
 
                 <tr data-id="{{ $certification->id }}">
                     @if(isRootAdmin())
-                        <td data-field="admin.username">
-                            @if(!empty($certification->admin))
-                                @include('admin.components.link', [
-                                    'name' => $certification->admin['username'],
-                                    'href' => route('admin.admin.show', $certification->admin['id'])
-                                ])
-                            @endif
+                        <td data-field="owner.username">
+                            {{ $certification->owner['username'] ?? '' }}
                         </td>
                     @endif
                     <td data-field="name">

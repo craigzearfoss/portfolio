@@ -20,10 +20,12 @@
 
     <div class="card p-4">
 
-        @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $adminTeam->owner['username'] ?? ''
-        ])
+        @if(isRootAdmin())
+            @include('admin.components.show-row', [
+                'name'  => 'owner',
+                'value' => $adminTeam->owner['username'] ?? ''
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',

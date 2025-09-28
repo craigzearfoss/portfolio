@@ -54,13 +54,8 @@
 
                 <tr data-id="{{ $recipe->id }}">
                     @if(isRootAdmin())
-                        <td data-field="admin.username">
-                            @if(!empty($recipe->admin))
-                                @include('admin.components.link', [
-                                    'name' => $recipe->admin['username'],
-                                    'href' => route('admin.admin.show', $recipe->admin['id'])
-                                ])
-                            @endif
+                        <td data-field="owner.username">
+                            {{ $recipe->owner['username'] ?? '' }}
                         </td>
                     @endif
                     <td data-field="name">

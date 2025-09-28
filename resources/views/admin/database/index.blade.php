@@ -19,6 +19,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>owner</th>
+                @endif
                 <th>name</th>
                 <th>database</th>
                 <th>tag</th>
@@ -36,6 +39,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>owner</th>
+                @endif
                 <th>name</th>
                 <th>database</th>
                 <th>tag</th>
@@ -56,13 +62,18 @@
             @forelse ($databases as $database)
 
                 <tr data-id="{{ $database->id }}">
+                    @if(isRootAdmin())
+                        <td data-field="owner.username">
+                            {{ $database->owner['username'] ?? '' }}
+                        </td>
+                    @endif
                     <td data-field="name">
                         {{ $database->name }}
                     </td>
                     <td data-field="database">
                         {{ $database->database }}
                     </td>
-                    <td> data-field="tag"
+                    <td data-field="tag">
                         {{ $database->tag }}
                     </td>
                     <td data-field="title">
@@ -117,7 +128,7 @@
             @empty
 
                 <tr>
-                    <td colspan="12">There are no databases.</td>
+                    <td colspan="{{ isRootAdmin() ? '13' : '12' }}">There are no databases.</td>
                 </tr>
 
             @endforelse

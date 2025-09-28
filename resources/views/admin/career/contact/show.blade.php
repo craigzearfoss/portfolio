@@ -20,6 +20,13 @@
 
     <div class="card p-4">
 
+        @if(isRootAdmin())
+            @include('admin.components.show-row', [
+                'name'  => 'owner',
+                'value' => $contact->owner['username'] ?? ''
+            ])
+        @endif
+
         @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $contact->name
@@ -155,11 +162,6 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
             'checked' => $contact->disabled
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $contact->admin['username'] ?? ''
         ])
 
         @include('admin.components.show-row', [

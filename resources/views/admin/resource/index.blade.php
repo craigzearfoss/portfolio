@@ -19,6 +19,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>owner</th>
+                @endif
                 <th>name</th>
                 <th>database</th>
                 <th>table</th>
@@ -35,6 +38,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>owner</th>
+                @endif
                 <th>name</th>
                 <th>database</th>
                 <th>table</th>
@@ -54,6 +60,11 @@
             @forelse ($resources as $resource)
 
                 <tr data-id="{{ $resource->id }}">
+                    @if(isRootAdmin())
+                        <td data-field="owner.username">
+                            {{ $resource->owner['username'] ?? '' }}
+                        </td>
+                    @endif
                     <td data-field="name">
                         {{ $resource->name }}
                     </td>
@@ -112,7 +123,7 @@
             @empty
 
                 <tr>
-                    <td colspan="11">There are no messages.</td>
+                    <td colspan="{{ isRootAdmin() ? '12' : '11' }}>There are no messages.</td>
                 </tr>
 
             @endforelse

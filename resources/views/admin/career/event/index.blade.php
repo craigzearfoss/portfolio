@@ -54,13 +54,8 @@
 
                 <tr data-id="{{ $event->id }}">
                     @if(isRootAdmin())
-                        <td data-field="admin.username">
-                            @if(!empty($event->admin))
-                                @include('admin.components.link', [
-                                    'name' => $event->admin['username'],
-                                    'href' => route('admin.admin.show', $event->admin['id'])
-                                ])
-                            @endif
+                        <td data-field="owner.username">
+                            {{ $event->owner['username'] ?? '' }}
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">

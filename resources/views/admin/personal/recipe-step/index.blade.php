@@ -50,13 +50,8 @@
 
                 <tr data-id="{{ $recipeStep->id }}">
                     @if(isRootAdmin())
-                        <td data-field="admin.username">
-                            @if(!empty($recipeStep->admin))
-                                @include('admin.components.link', [
-                                    'name' => $recipeStep->admin['username'],
-                                    'href' => route('admin.admin.show', $recipeStep->admin['id'])
-                                ])
-                            @endif
+                        <td data-field="owner.username">
+                            {{ $recipeStep->owner['username'] ?? '' }}
                         </td>
                     @endif
                     @if(empty($recipe))

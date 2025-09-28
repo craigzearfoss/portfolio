@@ -59,13 +59,8 @@
 
                 <tr data-id="{{ $jobCoworker->id }}">
                     @if(isRootAdmin())
-                        <td data-field="admin.username">
-                            @if(!empty($jobCoworker->admin))
-                                @include('admin.components.link', [
-                                    'name' => $jobCoworker->admin['username'],
-                                    'href' => route('admin.admin.show', $jobCoworker->admin['id'])
-                                ])
-                            @endif
+                        <td data-field="owner.username">
+                            {{ $jobCoworker->owner['username'] ?? '' }}
                         </td>
                     @endif
                     <td data-field="name">

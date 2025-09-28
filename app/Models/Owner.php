@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\AdminGroup;
+use App\Models\AdminTeam;
 use App\Models\Career\Application;
 use App\Models\Career\Communication;
 use App\Models\Career\Company;
@@ -11,6 +13,7 @@ use App\Models\Career\Event;
 use App\Models\Career\Note;
 use App\Models\Career\Reference;
 use App\Models\Career\Resume;
+use App\Models\Database;
 use App\Models\Personal\Reading;
 use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeIngredient;
@@ -26,6 +29,9 @@ use App\Models\Portfolio\Music;
 use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
+use App\Models\Resource;
+use App\Models\UserGroup;
+use App\Models\UserTeam;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 

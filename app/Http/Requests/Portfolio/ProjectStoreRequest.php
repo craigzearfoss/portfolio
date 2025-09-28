@@ -45,7 +45,13 @@ class ProjectStoreRequest extends FormRequest
 
         return [
             'owner_id'         => ['required', 'integer', Rule::in($ownerIds)],
-            'name'             => ['required', 'string', 'max:255', 'unique:portfolio_db.projects,name'],
+            'name'             => [
+                'required',
+                'string',
+                'max:255',
+                'unique:name,id',
+                Rule::unique('name', 'id')->where('id', $this->input('id')),
+            ],
             'slug'             => ['required', 'string', 'max:255', 'unique:portfolio_db.projects,slug'],
             'featured'         => ['integer', 'between:0,1'],
             'year'             => ['integer', 'between:1980,'.date("Y"), 'nullable'],

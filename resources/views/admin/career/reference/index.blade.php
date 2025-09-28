@@ -54,13 +54,8 @@
 
                 <tr data-id="{{ $reference->id }}">
                     @if(isRootAdmin())
-                        <td data-field="admin.username">
-                            @if(!empty($reference->admin))
-                                @include('admin.components.link', [
-                                    'name' => $reference->admin['username'],
-                                    'href' => route('admin.admin.show', $reference->admin['id'])
-                                ])
-                            @endif
+                        <td data-field="owner.username">
+                            {{ $reference->owner['username'] ?? '' }}
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">

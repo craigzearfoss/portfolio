@@ -64,13 +64,8 @@
 
                 <tr data-id="{{ $reading->id }}">
                     @if(isRootAdmin())
-                        <td data-field="admin.username">
-                            @if(!empty($reading->admin))
-                                @include('admin.components.link', [
-                                    'name' => $reading->admin['username'],
-                                    'href' => route('admin.admin.show', $reading->admin['id'])
-                                ])
-                            @endif
+                        <td data-field="owner.username">
+                            {{ $reading->owner['username'] ?? '' }}
                         </td>
                     @endif
                     <td data-field="title">

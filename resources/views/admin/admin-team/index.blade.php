@@ -21,6 +21,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>owner</th>
+                @endif
                 <th>name</th>
                 <th>abbreviation</th>
                 <th class="has-text-centered">disabled</th>
@@ -30,6 +33,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>owner</th>
+                @endif
                 <th>name</th>
                 <th>abbreviation</th>
                 <th class="has-text-centered">disabled</th>
@@ -42,6 +48,11 @@
             @forelse ($adminTeams as $adminTeam)
 
                 <tr data-id="{{ $adminTeam->id }}">
+                    @if(isRootAdmin())
+                        <td data-field="owner.username">
+                            {{ $adminTeam->owner['username'] ?? '' }}
+                        </td>
+                    @endif
                     <td data-field="name">
                         {{ $adminTeam->name }}
                     </td>
@@ -76,7 +87,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no admin teams.</td>
+                    <td colspan="{{ isRootAdmin() ? '5' : '4' }}">There are no admin teams.</td>
                 </tr>
 
             @endforelse

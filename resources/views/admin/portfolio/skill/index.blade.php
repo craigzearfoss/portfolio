@@ -50,13 +50,8 @@
 
                 <tr data-id="{{ $skill->id }}">
                     @if(isRootAdmin())
-                        <td data-field="admin.username">
-                            @if(!empty($skill->admin))
-                                @include('admin.components.link', [
-                                    'name' => $skill->admin['username'],
-                                    'href' => route('admin.admin.show', $skill->admin['id'])
-                                ])
-                            @endif
+                        <td data-field="owner.username">
+                            {{ $skill->owner['username'] ?? '' }}
                         </td>
                     @endif
                     <td data-field="name">

@@ -56,13 +56,8 @@
 
                 <tr data-id="{{ $contact->id }}">
                     @if(isRootAdmin())
-                        <td data-field="admin.username">
-                            @if(!empty($contact->admin))
-                                @include('admin.components.link', [
-                                    'name' => $contact->admin['username'],
-                                    'href' => route('admin.admin.show', $contact->admin['id'])
-                                ])
-                            @endif
+                        <td data-field="owner.username">
+                            {{ $contact->owner['username'] ?? '' }}
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">

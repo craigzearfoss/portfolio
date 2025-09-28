@@ -53,16 +53,10 @@
             <tbody>
 
             @forelse ($projects as $project)
-
-                <tr data-id="{{ $projects->id }}">
+                <tr data-id="{{ $project->id }}">
                     @if(isRootAdmin())
-                        <td data-field="admin.username">
-                            @if(!empty($event->admin))
-                                @include('admin.components.link', [
-                                    'name' => $event->admin['username'],
-                                    'href' => route('admin.admin.show', $event->admin['id'])
-                                ])
-                            @endif
+                        <td data-field="owner.username">
+                            {{ $project->owner['username'] ?? '' }}
                         </td>
                     @endif
                     <td data-field="name">

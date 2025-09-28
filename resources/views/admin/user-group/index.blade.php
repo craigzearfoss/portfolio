@@ -21,6 +21,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
+                @if(isRootAdmin())
+                    <th>owner</th>
+                @endif
                 <th>name</th>
                 <th>team</th>
                 <th>abbreviation</th>
@@ -31,6 +34,9 @@
             <?php /*
             <tfoot>
             <tr>
+                @if(isRootAdmin())
+                    <th>owner</th>
+                @endif
                 <th>name</th>
                 <th>team</th>
                 <th>abbreviation</th>
@@ -44,6 +50,11 @@
             @forelse ($userGroups as $userGroup)
 
                 <tr data-id="{{ $userGroup->id }}">
+                    @if(isRootAdmin())
+                        <td data-field="owner.username">
+                            {{ $userGroup->owner['username'] ?? '' }}
+                        </td>
+                    @endif
                     <td data-field="name">
                         {{ $userGroup->name }}
                     </td>
@@ -81,7 +92,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no user groups.</td>
+                    <td colspan="{{ isRootAdmin() ? '6' : '5' }}">There are no user groups.</td>
                 </tr>
 
             @endforelse

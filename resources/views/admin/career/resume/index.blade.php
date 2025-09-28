@@ -52,13 +52,8 @@
 
                 <tr data-id="{{ $resume->id }}">
                     @if(isRootAdmin())
-                        <td data-field="admin.username">
-                            @if(!empty($resume->admin))
-                                @include('admin.components.link', [
-                                    'name' => $resume->admin['username'],
-                                    'href' => route('admin.admin.show', $resume->admin['id'])
-                                ])
-                            @endif
+                        <td data-field="owner.username">
+                            {{ $resume->owner['username'] ?? '' }}
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">

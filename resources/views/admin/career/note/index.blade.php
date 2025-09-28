@@ -46,13 +46,8 @@
 
                 <tr data-id="{{ $note->id }}">
                     @if(isRootAdmin())
-                        <td data-field="admin.username">
-                            @if(!empty($note->admin))
-                                @include('admin.components.link', [
-                                    'name' => $note->admin['username'],
-                                    'href' => route('admin.admin.show', $note->admin['id'])
-                                ])
-                            @endif
+                        <td data-field="owner.username">
+                            {{ $note->owner['username'] ?? '' }}
                         </td>
                     @endif
                     <td data-field="subject" style="white-space: nowrap;">
