@@ -107,31 +107,6 @@ class Recipe extends Model
     }
 
     /**
-     * Returns an array of options for a select list.
-     *
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            if ($nameAsKey) {
-                $options = [ '' => '' ];
-            } else {
-                $options = [ 0 => '' ];
-            }
-        }
-
-        foreach (Recipe::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
-            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
-        }
-
-        return $options;
-    }
-
-    /**
      * Returns an array of all types available for recipes.
      *
      * @return string[]
@@ -183,5 +158,34 @@ class Recipe extends Model
         }
 
         return $recipeMeals;
+    }
+
+    /**
+     * Returns an array of options for a recipe select list.
+     *
+     * @param array $filters
+     * @param bool $includeBlank
+     * @param bool $nameAsKey
+     * @return array|string[]
+     */
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $nameAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[$nameAsKey ? '' : 0] = '';
+        }
+
+        $query = self::select('id', 'name')->orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $recipe) {
+            $options[$nameAsKey ? $recipe->name : $recipe->id] = $recipe->name;
+        }
+
+        return $options;
     }
 }

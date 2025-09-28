@@ -34,23 +34,50 @@ class Industry extends Model
     }
 
     /**
-     * Returns an array of options for a select list.
+     * Returns an array of options for an industry select list.
      *
+     * @param array $filters
      * @param bool $includeBlank
+     * @param bool $nameAsKey
+     * @param bool $includeOther
      * @param bool $useAbbreviation
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false,bool $useAbbreviation = false): array
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $nameAsKey = false,
+                                       bool $includeOther = true,
+                                       bool $useAbbreviation = false): array
     {
+        $other = null;
+
         $options = [];
         if ($includeBlank) {
-            $options = [ 0 => '' ];
+            $options[$nameAsKey ? '' : 0] = '';
         }
 
-        $labelField = $useAbbreviation ? 'abbreviation' : 'name';
+        $query = self::select('id', 'name')->orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
 
-        foreach (Industry::select('id', $labelField)->orderBy($labelField, 'asc')->get() as $row) {
-            $options[$row->id] = $row->{$labelField};
+        foreach ($query->get() as $industry) {
+            if ($industry->name == 'other') {
+                $other = $industry;
+            } else {
+                $key = $nameAsKey
+                    ? ($useAbbreviation ? $industry->abbreviation : $industry->name)
+                    : $industry->id;
+                $options[$key] = ($useAbbreviation ? $industry->abbreviation : $industry->name);
+            }
+        }
+
+        // we put the 'other' option last
+        if ($includeOther && !empty($other)) {
+            $key = $nameAsKey
+                ? ($useAbbreviation ? $industry->abbreviation : $industry->name)
+                : $industry->id;
+            $options[$key] = ($useAbbreviation ? $industry->abbreviation : $industry->name);;
         }
 
         return $options;

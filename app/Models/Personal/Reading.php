@@ -64,42 +64,68 @@ class Reading extends Model
     }
 
     /**
-     * Returns an array of author options for a select list.
+     * Returns an array of options for a reading author select list.
+     * Note that there might will be duplicate authors.
      *
+     * @param array $filters
      * @param bool $includeBlank
+     * @param bool $authorAsKey - If true then duplicate authors are removed.
      * @return array|string[]
      */
-    public static function authorListOptions(bool $includeBlank = false): array
+    public static function authorListOptions(array  $filters = [],
+                                             bool $includeBlank = false,
+                                             bool $authorAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
-            $options = [ '' => '' ];
+            $options[$authorAsKey ? '' : 0] = '';
         }
 
-        foreach (self::select('id', 'author')->distinct('author')->orderBy('author', 'asc')->get() as $row) {
-            $options[$row->author] = $row->author;
+        $query = self::select('id', 'author')->orderBy('author', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        if ($authorAsKey) {
+            $query->distinct('author');
+        }
+
+        foreach ($query->get() as $reading) {
+            $options[$authorAsKey ? $reading->author : $reading->id] = $reading->author;
         }
 
         return $options;
     }
 
     /**
-     * Returns an array of title options for a select list.
+     * Returns an array of title options for a reading title select list.
      * Note that there might will be duplicate titles.
      *
+     * @param array $filters
      * @param bool $includeBlank
-     * @param bool $titleAsKey
+     * @param bool $titleAsKey  - - If true then duplicate title are removed.
      * @return array|string[]
      */
-    public static function titleListOptions(bool $includeBlank = false, bool $titleAsKey = false): array
+    public static function titleListOptions(array  $filters = [],
+                                            bool $includeBlank = false,
+                                            bool $titleAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
-            $options = [ '' => '' ];
+            $options[$titleAsKey ? '' : 0] = '';
         }
 
-        foreach (self::select('id', 'title')->distinct('title')->orderBy('title', 'asc')->get() as $row) {
-            $options[$titleAsKey ? $row->title : $row->id] = $row->title;
+        $query = self::select('id', 'title')->orderBy('title', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        if ($titleAsKey) {
+            $query->distinct('title');
+        }
+
+        foreach ($query->get() as $reading) {
+            $options[$titleAsKey ? $reading->title : $reading->id] = $reading->title;
         }
 
         return $options;

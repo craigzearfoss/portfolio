@@ -31,20 +31,28 @@ class ApplicationOffice extends Model
     }
 
     /**
-     * Returns an array of options for a select list for application office.
+     * Returns an array of options for an application office select list.
      *
+     * @param array $filters
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
-            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
+            $options[$nameAsKey ? '' : 0] = '';
         }
 
-        foreach (ApplicationOffice::all() as $office) {
+        $query = self::select('id', 'name')->orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $office) {
             $options[$nameAsKey ? $office->name : $office->id] = $office->name;
         }
 

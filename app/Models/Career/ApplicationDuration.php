@@ -31,20 +31,28 @@ class ApplicationDuration extends Model
     }
 
     /**
-     * Returns an array of options for a select list for application duration.
+     * Returns an array of options for an application duration select list.
      *
+     * @param array $filters
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
-            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
+            $options[$nameAsKey ? '' : 0] = '';
         }
 
-        foreach (ApplicationDuration::all() as $duration) {
+        $query = self::select('id', 'name')->orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $duration) {
             $options[$nameAsKey ? $duration->name : $duration->id] = $duration->name;
         }
 

@@ -110,11 +110,14 @@ class Job extends Model
     /**
      * Returns an array of options for a select list for companies.
      *
+     * @param array $filters
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function companyListOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    public static function companyListOptions(array $filters = [],
+                                              bool $includeBlank = false,
+                                              bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {

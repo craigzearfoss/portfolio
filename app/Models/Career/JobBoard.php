@@ -53,26 +53,40 @@ class JobBoard extends Model
     }
 
     /**
-     * Returns an array of options for a select list.
+     * Returns an array of options for a job board select list.
      *
-     * @param bool $includeOther
+     * @param array $filters
+     * @param bool $includeBlank
      * @param bool $nameAsKey
+     * @param bool $includeOther
      * @return array|string[]
      */
-    public static function listOptions(bool $includeOther = false, bool $nameAsKey = true): array
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $nameAsKey = false,
+                                       bool $includeOther = true): array
     {
-        $options = [];
-
         $other = null;
 
-        foreach (JobBoard::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
-            if ($row->name == 'other') {
-                $other = $row;
+        $options = [];
+        if ($includeBlank) {
+            $options[$nameAsKey ? '' : 0] = '';
+        }
+
+        $query = self::select('id', 'name')->orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $jobBoard) {
+            if ($jobBoard->name == 'other') {
+                $other = $jobBoard;
             } else {
-                $options[$nameAsKey ? $row->name : $row->id] = $row->name;
+                $options[$nameAsKey ? $jobBoard->name : $jobBoard->id] = $jobBoard->name;
             }
         }
 
+        // we put the 'other' option last
         if ($includeOther && !empty($other)) {
             $options[$nameAsKey ? $other->name : $other->id] = $other->name;
         }

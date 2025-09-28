@@ -3,11 +3,11 @@
 namespace App\Models\Personal;
 
 use App\Models\Owner;
-use App\Models\Portfolio\Unit;
 use App\Models\Scopes\AdminGlobalScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class RecipeIngredient extends Model
 {
@@ -81,21 +81,34 @@ class RecipeIngredient extends Model
     }
 
     /**
-     * Returns an array of options for a select list.
+     * Returns an array of options for a recipe ingredient select list.
+     * Note that there might will be recipe ingredients.
      *
+     * @param array $filters
      * @param bool $includeBlank
-     * @param bool $nameAsKey
+     * @param bool $nameAsKey   - Do not use this because there are likely to be duplicated names.
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
-            $options = [ '' => '' ];
+            $options[$nameAsKey ? '' : 0] = '';
         }
 
-        foreach (RecipeIngredient::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
-            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
+        $query = self::select('*', DB::raw('`ingredients`.`name` as ingredient_name'))
+            ->join('ingredients', 'ingredients.id', '=', 'recipe_ingredients.ingredient_id')
+            ->orderBy('ingredient_name', 'asc');
+
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $recipeIngredient) {
+            $key = $nameAsKey ? $recipeIngredient->ingredient_name : $recipeIngredient->id;
+            $options[$key] = $recipeIngredient->ingredient_name;
         }
 
         return $options;

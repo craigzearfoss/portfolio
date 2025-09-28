@@ -63,21 +63,29 @@ class Project extends Model
     }
 
     /**
-     * Returns an array of options for a select list.
+     * Returns an array of options for a project select list.
      *
+     * @param array $filters
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
-            $options = [ '' => '' ];
+            $options[$nameAsKey ? '' : 0] = '';
         }
 
-        foreach (self::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
-            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
+        $query = self::select('id', 'name')->orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $project) {
+            $options[$nameAsKey ? $project->name : $project->id] = $project->name;
         }
 
         return $options;

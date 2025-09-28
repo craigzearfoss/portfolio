@@ -103,38 +103,6 @@ class State extends Model
         return $this->setConnection('career_db')->hasMany(User::class)
             ->orderBy('name', 'asc');
     }
-
-    /**
-     * Returns an array of options for a select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $codeAsKey
-     * @return array|string[]
-     */
-    public static function listOptions(
-        array $filters = [],
-        bool $includeBlank = false,
-        bool $codeAsKey = false
-    ): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options = $codeAsKey ? [ '' => '' ] : [ 0 => '' ];
-        }
-
-        $query = self::orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $row) {
-            $options[$codeAsKey ? $row->code : $row->id] = $row->name;
-        }
-
-        return $options;
-    }
-
     /**
      * Returns the state name given the state code or the code passed in if not found.
      *
@@ -144,5 +112,34 @@ class State extends Model
     public static function getName(string $code): string
     {
         return State::where('code', $code)->first()->name ?? $code;
+    }
+
+    /**
+     * Returns an array of options for a state select list.
+     *
+     * @param array $filters
+     * @param bool $includeBlank
+     * @param bool $codeAsKey
+     * @return array|string[]
+     */
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $codeAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[$codeAsKey ? '' : 0] = '';
+        }
+
+        $query = self::orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $state) {
+            $options[$codeAsKey ? $state->code : $state->id] = $state->name;
+        }
+
+        return $options;
     }
 }

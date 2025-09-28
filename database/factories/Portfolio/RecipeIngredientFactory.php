@@ -21,7 +21,7 @@ class RecipeIngredientFactory extends Factory
             'recipe_id'     => \App\Models\Personal\Recipe::all()->random()->id,
             'ingredient_id' => \App\Models\Personal\Ingredient::all()->random()->id,
             'amount'        => fake()->randomElement(['', '1/4', '1/2', '3/4', '1', '1 1/2', '2', '3', '4']),
-            'unit_id'       => \App\Models\Portfolio\Unit::all()->random()->id,
+            'unit_id'       => \App\Models\Personal\Unit::all()->random()->id,
             'qualifier'     => '',
             'created_at'    => now(),
             'deleted_at'    => now(),

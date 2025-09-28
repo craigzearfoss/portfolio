@@ -51,18 +51,16 @@ class AdminTeam extends Model
     }
 
     /**
-     * Returns an array of options for a select list.
+     * Returns an array of options for an admin team select list.
      *
      * @param array $filters
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function listOptions(
-        array $filters = [],
-        bool $includeBlank = false,
-        bool $nameAsKey = false
-    ): array
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
@@ -74,8 +72,8 @@ class AdminTeam extends Model
             $query = $query->where($column, $value);
         }
 
-        foreach ($query->get() as $row) {
-            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
+        foreach ($query->get() as $adminTeam) {
+            $options[$nameAsKey ? $adminTeam->name : $adminTeam->id] = $adminTeam->name;
         }
 
         return $options;

@@ -2,11 +2,11 @@
     'title' => 'Units',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Personal',       'href' => route('admin.personal.index') ],
         [ 'name' => 'Units' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Unit', 'url' => route('admin.portfolio.unit.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Unit', 'url' => route('admin.personal.unit.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -51,15 +51,15 @@
                         {{ $unit->system }}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
-                        <form action="{{ route('admin.portfolio.unit.destroy', $unit->id) }}" method="POST">
+                        <form action="{{ route('admin.personal.unit.destroy', $unit->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.portfolio.unit.show', $unit->id) }}">
+                               href="{{ route('admin.personal.unit.show', $unit->id) }}">
                                 <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.portfolio.unit.edit', $unit->id) }}">
+                               href="{{ route('admin.personal.unit.edit', $unit->id) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 

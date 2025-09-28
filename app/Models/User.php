@@ -74,10 +74,14 @@ class User extends Authenticatable
     ];
 
     const TITLES = [
-        'Mr.',
-        'Ms',
-        'Mrs.',
+        'Dr.',
         'Miss',
+        'Mr.',
+        'Mrs.',
+        'Ms',
+        'Prof.',
+        'Rev.',
+        'Sir',
     ];
 
     /**
@@ -110,27 +114,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Returns an array of options for a select list for statuses.
-     *
-     * @param bool $includeBlank
-     * @param bool $codeAsKey
-     * @return array|string[]
-     */
-    public static function statusListOptions(bool $includeBlank = false, bool $codeAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options = $codeAsKey ? [ '' => '' ] : [ 0 => '' ];
-        }
-
-        foreach (self::STATUSES as $i=>$status) {
-            $options[$codeAsKey ? $status : $i] = $status;
-        }
-
-        return $options;
-    }
-
-    /**
      * Returns the status name for the given id or null if not found.
      *
      * @param int $id
@@ -153,32 +136,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Returns an array of options for a select list for title.
-     *
-     * @param array $filters    (Not used but included to keep signature consistent with other listOptions methods.)
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function titleListOptions(
-        array $filters = [],
-        bool $includeBlank = false,
-        bool $nameAsKey = false
-    ): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
-        }
-
-        foreach (self::TITLES as $i=>$title) {
-            $options[$nameAsKey ? $title : $i] = $title;
-        }
-
-        return $options;
-    }
-
-    /**
      * Returns the title name for the given id or null if not found.
      *
      * @param int $id
@@ -198,5 +155,53 @@ class User extends Authenticatable
     public static function titleIndex(string $name): string |bool
     {
         return array_search($name, self::TITLES);
+    }
+
+    /**
+     * Returns an array of options for a select list for statuses.
+     *
+     * @param array $filters (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param bool $includeBlank
+     * @param bool $nameAsKey
+     * @return array|string[]
+     */
+    public static function statusListOptions(array $filters = [],
+                                             bool $includeBlank = false,
+                                             bool $nameAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[$nameAsKey ? '' : 0] = '';
+        }
+
+        foreach (self::STATUSES as $i=>$status) {
+            $options[$nameAsKey ? $status : $i] = $status;
+        }
+
+        return $options;
+    }
+
+    /**
+     * Returns an array of options for a select list for title.
+     *
+     * @param array $filters    (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param bool $includeBlank
+     * @param bool $nameAsKey
+     * @return array|string[]
+     */
+    public static function titleListOptions(array $filters = [],
+                                            bool $includeBlank = false,
+                                            bool $nameAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[$nameAsKey ? '' : 0] = '';
+        }
+
+        foreach (self::TITLES as $i=>$title) {
+            $options[$nameAsKey ? $title : $i] = $title;
+        }
+
+        return $options;
     }
 }

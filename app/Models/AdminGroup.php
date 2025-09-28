@@ -59,18 +59,16 @@ class AdminGroup extends Model
     }
 
     /**
-     * Returns an array of options for a select list.
+     * Returns an array of options for an admin group select list.
      *
      * @param array $filters
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function listOptions(
-        array $filters = [],
-        bool $includeBlank = false,
-        bool $nameAsKey = false
-    ): array
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
@@ -82,8 +80,8 @@ class AdminGroup extends Model
             $query = $query->where($column, $value);
         }
 
-        foreach ($query->get() as $row) {
-            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
+        foreach ($query->get() as $adminGroup) {
+            $options[$nameAsKey ? $adminGroup->name : $adminGroup->id] = $adminGroup->name;
         }
 
         return $options;

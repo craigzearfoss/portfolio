@@ -83,37 +83,6 @@ class Country extends Model
     }
 
     /**
-     * Returns an array of options for a select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $codeAsKey
-     * @return array|string[]
-     */
-    public static function listOptions(
-        array $filters = [],
-        bool $includeBlank = false,
-        bool $codeAsKey = false
-    ): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options = $codeAsKey ? [ '' => '' ] : [ 0 => '' ];
-        }
-
-        $query = self::orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $row) {
-            $options[$codeAsKey ? $row->iso_alpha3 : $row->id] = $row->name;
-        }
-
-        return $options;
-    }
-
-    /**
      * Returns the country name given the iso alpha3 or m49 value or the abbreviation passed in if not found.
      *
      * @param string $abbreviation
@@ -122,5 +91,34 @@ class Country extends Model
     public static function getName(string $abbreviation): string
     {
         return Country::where(ctype_digit($abbreviation) ? 'm49' : 'iso_alpha3', $abbreviation)->first()->name ?? $abbreviation;
+    }
+
+    /**
+     * Returns an array of options for a country select list.
+     *
+     * @param array $filters
+     * @param bool $includeBlank
+     * @param bool $codeAsKey
+     * @return array|string[]
+     */
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $codeAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[$codeAsKey ? '' : 0] = '';
+        }
+
+        $query = self::orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $country) {
+            $options[$codeAsKey ? $country->iso_alpha3 : $country->id] = $country->name;
+        }
+
+        return $options;
     }
 }

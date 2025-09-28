@@ -57,7 +57,7 @@
                 'name'        => 'resume_id',
                 'label'       => 'resume',
                 'value'       => old('resume_id') ?? $application->resume_id,
-                'list'        => \App\Models\Career\Resume::listOptions(),
+                'list'        => \App\Models\Career\Resume::listOptions(['owner_id' => $application->owner_id]),
                 'message'     => $message ?? '',
             ])
 
@@ -260,7 +260,7 @@
                 'name'    => 'job_board_id',
                 'label'   => 'job board',
                 'value'   => old('job_board_id') ?? $application->source,
-                'list'    => \App\Models\Career\JobBoard::listOptions(true, true),
+                'list'    => \App\Models\Career\JobBoard::listOptions([], true),
                 'message' => $message ?? '',
             ])
 

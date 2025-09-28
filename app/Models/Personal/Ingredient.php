@@ -43,20 +43,28 @@ class Ingredient extends Model
     }
 
     /**
-     * Returns an array of options for a select list.
+     * Returns an array of options for an ingredient select list.
      *
+     * @param array $filters
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    public static function listOptions(array  $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
-            $options = [ '' => '' ];
+            $options[$nameAsKey ? '' : 0] = '';
         }
 
-        foreach (Ingredient::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
+        $query = self::select('id', 'name')->orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $row) {
             $options[$nameAsKey ? $row->name : $row->id] = $row->name;
         }
 

@@ -63,7 +63,7 @@ return new class extends Migration
                 'name'            => 'Google Cybersecurity',
                 'slug'            => 'google-cybersecurity',
                 'organization'    => 'Google',
-                'academy_id'      => 8,
+                'academy_id'      => 3,
                 'year'            => 2023,
                 'received'        => '2023-07-11',
                 'certificate_url' => 'images/admin/portfolio/2/certificate/HGL8U7MSRWFL.png',

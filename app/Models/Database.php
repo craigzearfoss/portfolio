@@ -74,22 +74,20 @@ class Database extends Model
     }
 
     /**
-     * Returns an array of options for a select list.
+     * Returns an array of options for a database select list.
      *
      * @param array $filters
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function listOptions(
-        array $filters = [],
-        bool $includeBlank = false,
-        bool $nameAsKey = false
-    ): array
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
-            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
+            $options[$nameAsKey ? '' : 0] = '';
         }
 
         $query = self::orderBy('name', 'asc');
@@ -97,8 +95,8 @@ class Database extends Model
             $query = $query->where($column, $value);
         }
 
-        foreach ($query->get() as $row) {
-            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
+        foreach ($query->get() as $database) {
+            $options[$nameAsKey ? $database->name : $database->id] = $database->name;
         }
 
         return $options;

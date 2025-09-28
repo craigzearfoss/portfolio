@@ -2,12 +2,12 @@
     'title' =>'Add New Unit',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Units',           'href' => route('admin.portfolio.unit.index') ],
+        [ 'name' => 'Personal',       'href' => route('admin.personal.index') ],
+        [ 'name' => 'Units',           'href' => route('admin.personal.unit.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.portfolio.unit.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.personal.unit.index') ],
     ],
     'errorMessages' => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -18,12 +18,12 @@
 
     <div class="card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.unit.store') }}" method="POST">
+        <form action="{{ route('admin.personal.unit.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.portfolio.unit.index')
+                'value' => referer('admin.personal.unit.index')
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -44,7 +44,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'system',
                 'value'   => old('system') ?? '',
-                'list'    => \App\Models\Portfolio\Unit::systemListOptions(true),
+                'list'    => \App\Models\Personal\Unit::systemListOptions([], true),
                 'message' => $message ?? '',
             ])
 
@@ -145,7 +145,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Unit',
-                'cancel_url' => referer('admin.portfolio.unit.index')
+                'cancel_url' => referer('admin.personal.unit.index')
             ])
 
         </form>

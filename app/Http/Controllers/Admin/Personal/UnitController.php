@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Portfolio;
+namespace App\Http\Controllers\Admin\Personal;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Portfolio\UnitStoreRequest;
-use App\Http\Requests\Portfolio\UnitUpdateRequest;
-use App\Models\Portfolio\Unit;
+use App\Http\Requests\Personal\UnitStoreRequest;
+use App\Http\Requests\Personal\UnitUpdateRequest;
+use App\Models\Personal\Unit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use Illuminate\Support\Str;
 
 /**
  *
@@ -30,7 +28,7 @@ class UnitController extends BaseController
 
         $units = Unit::orderBy('name', 'asc')->paginate($perPage);
 
-        return view('admin.portfolio.unit.index', compact('units'))
+        return view('admin.personal.unit.index', compact('units'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -44,7 +42,7 @@ class UnitController extends BaseController
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add units.');
         }
-        return view('admin.portfolio.unit.create');
+        return view('admin.personal.unit.create');
     }
 
     /**
@@ -61,7 +59,7 @@ class UnitController extends BaseController
 
         $unit = Unit::create($request->validated());
 
-        return redirect(referer('admin.portfolio.unit.index'))
+        return redirect(referer('admin.personal.unit.index'))
             ->with('success', $unit->name . $unit->name . ' added successfully.');
     }
 
@@ -73,7 +71,7 @@ class UnitController extends BaseController
      */
     public function show(Unit $unit): View
     {
-        return view('admin.portfolio.unit.show', compact('unit'));
+        return view('admin.personal.unit.show', compact('unit'));
     }
 
     /**
@@ -88,7 +86,7 @@ class UnitController extends BaseController
             abort(403, 'Only admins with root access can edit units.');
         }
 
-        return view('admin.portfolio.unit.edit', compact('unit'));
+        return view('admin.personal.unit.edit', compact('unit'));
     }
 
     /**
@@ -106,7 +104,7 @@ class UnitController extends BaseController
 
         $unit->update($request->validated());
 
-        return redirect(referer('admin.portfolio.unit.index'))
+        return redirect(referer('admin.personal.unit.index'))
             ->with('success', $unit->name . ' updated successfully.');
     }
 
@@ -124,7 +122,7 @@ class UnitController extends BaseController
 
         $unit->delete();
 
-        return redirect(referer('admin.portfolio.unit.index'))
+        return redirect(referer('admin.personal.unit.index'))
             ->with('success', $unit->name . ' deleted successfully.');
     }
 }

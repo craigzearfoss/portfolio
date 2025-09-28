@@ -250,7 +250,7 @@
                 'name'    => 'job_board_id',
                 'label'   => 'job board',
                 'value'   => old('job_board_id') ?? 1,
-                'list'    => \App\Models\Career\JobBoard::listOptions(true, true),
+                'list'    => \App\Models\Career\JobBoard::listOptions([], true),
                 'message' => $message ?? '',
             ])
 

@@ -32,14 +32,16 @@ class DictionarySection extends Model
     ];
 
     /**
-     * Returns an array of options for a select list.
+     * Returns an array of options for a dictionary section select list.
      *
+     * @param array $filters
      * @param bool $includeBlank
      * @param string $keyField - id, name, slug, table, or route
      * @param string $routePrefix
      * @return array|string[]
      */
     public static function listOptions(
+        array $filters = [],
         bool $includeBlank = false,
         string $keyField = 'id',
         string $routePrefix = ''
@@ -59,21 +61,27 @@ class DictionarySection extends Model
             ];
         }
 
-        foreach (DictionarySection::select('id', 'name', 'slug', 'table')->orderBy('name', 'asc')->get() as $row) {
+
+        $query = DictionarySection::select('id', 'name', 'slug', 'table')->orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $dictionarySection) {
 
             switch ($keyField) {
                 case 'id':
                 case 'name':
                 case 'slug':
                 case 'table':
-                    $key = $row->{$keyField};
+                    $key = $dictionarySection->{$keyField};
                     break;
                 case 'route':
-                    $key =route($routePrefix.'dictionary.'.$row->slug.'.index');
+                    $key =route($routePrefix.'dictionary.'.$dictionarySection->slug.'.index');
                     break;
             }
 
-            $options[$key] = $row->name;
+            $options[$key] = $dictionarySection->name;
         }
 
         return $options;

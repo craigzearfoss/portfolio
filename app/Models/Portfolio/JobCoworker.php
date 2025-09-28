@@ -71,27 +71,6 @@ class JobCoworker extends Model
     }
 
     /**
-     * Returns an array of options for a select list for levels.
-     *
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function levelListOptions(bool $includeBlank = false, bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
-        }
-
-        foreach (self::LEVELS as $i=>$level) {
-            $options[$nameAsKey ? $level : $i] = $level;
-        }
-
-        return $options;
-    }
-
-    /**
      * Returns the name of the level - coworker / superior / subordinate
      *
      * @param int $levelId
@@ -102,5 +81,29 @@ class JobCoworker extends Model
         return array_key_exists($levelId, self::LEVELS)
             ? self::LEVELS[$levelId]
             : '';
+    }
+
+    /**
+     * Returns an array of options for a level select.
+     *
+     * @param array $filters (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param bool $includeBlank
+     * @param bool $nameAsKey
+     * @return array|string[]
+     */
+    public static function levelListOptions(array $filters = [],
+                                            bool $includeBlank = false,
+                                            bool $nameAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[$nameAsKey ? '' : 0] = '';
+        }
+
+        foreach (self::LEVELS as $i => $level) {
+            $options[$nameAsKey ? $level : $i] = $level;
+        }
+
+        return $options;
     }
 }

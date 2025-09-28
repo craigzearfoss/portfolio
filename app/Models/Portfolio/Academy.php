@@ -52,25 +52,42 @@ class Academy extends Model
     }
 
     /**
-     * Returns an array of options for a select list.
+     * Returns an array of options for an academy select list.
      *
+     * @param array $filters
      * @param bool $includeBlank
      * @param bool $nameAsKey
+     * @param bool $includeOther
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $nameAsKey = false,
+                                       bool $includeOther = true): array
     {
+        $other = null;
+
         $options = [];
         if ($includeBlank) {
-            if ($nameAsKey) {
-                $options = [ '' => '' ];
+            $options[$nameAsKey ? '' : 0] = '';
+        }
+
+        $query = self::select('id', 'name')->orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $academy) {
+            if ($academy->name == 'other') {
+                $other = $academy;
             } else {
-                $options = [ 0 => '' ];
+                $options[$nameAsKey ? $academy->name : $academy->id] = $academy->name;
             }
         }
 
-        foreach (Academy::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
-            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
+        // we put the 'other' option last
+        if ($includeOther && !empty($other)) {
+            $options[$nameAsKey ? $academy->name : $academy->id] = $academy->name;;
         }
 
         return $options;

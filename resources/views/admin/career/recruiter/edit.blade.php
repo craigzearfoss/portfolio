@@ -39,7 +39,7 @@
                 'name'    => 'industry_id',
                 'label'   => 'industry',
                 'value'   => old('industry_id') ?? $recruiter->industry_id,
-                'list'    => \App\Models\Career\Industry::listOptions(false),
+                'list'    => \App\Models\Career\Industry::listOptions(),
                 'message' => $message ?? '',
             ])
 

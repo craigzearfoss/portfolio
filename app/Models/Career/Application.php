@@ -245,17 +245,18 @@ class Application extends Model
     }
 
     /**
-     * Returns an array of options for a select list for applications.
+     * Returns an array of options for an application select list.
      *
-     * @param int | null $adminId
+     * @param array $filters
      * @param bool $includeBlank
      * @return array|string[]
      */
-    public static function listOptions(int | null $adminId = null, bool $includeBlank = false): array
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false): array
     {
         $options = [];
         if ($includeBlank) {
-            $options[''] = '';
+            $options[$nameAsKey ? '' : 0] = '';
         }
 
         $query = Application::select(['applications.id', 'role', 'apply_date', 'post_date', 'applications.admin_id',
@@ -264,8 +265,14 @@ class Application extends Model
             ->join('companies','companies.id', 'applications.company_id')
             ->orderBy('company_name', 'asc');
 
-        if (!empty($adminId)) {
-            $query->where('applications.admin_id', $adminId);
+        $query = self::select('id', 'name')->orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        // apply filters to the query
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
         }
 
         foreach ($query->get() as $application) {

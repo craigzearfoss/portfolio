@@ -1,4 +1,3 @@
-@php \App\Models\Career\Application::listOptions(); @endphp
 @extends('admin.layouts.default', [
     'title' => 'Communication',
     'breadcrumbs' => [

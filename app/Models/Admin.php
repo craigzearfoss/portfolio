@@ -73,7 +73,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * Returns an array of options for a select list.
+     * Returns an array of options for an admin select list.
      *
      * @param array $filters
      * @param bool $includeBlank
@@ -81,12 +81,10 @@ class Admin extends Authenticatable
      * @param bool $includeNames
      * @return array|string[]
      */
-    public static function listOptions(
-        array $filters = [],
-        bool $includeBlank = false,
-        bool $usernameAsKey = false,
-        bool $includeNames = false
-    ): array
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $usernameAsKey = false,
+                                       bool $includeNames = false): array
     {
         $options = [];
         if ($includeBlank) {
@@ -98,10 +96,10 @@ class Admin extends Authenticatable
             $query = $query->where($column, $value);
         }
 
-        foreach ($query->get() as $row) {
-            $options[$usernameAsKey ? $row->username : $row->id] = $includeNames
-                ? $row->username . (!empty($row->name) ? ' (' . $row->name . ')' : '')
-                : $row->username;
+        foreach ($query->get() as $admin) {
+            $options[$usernameAsKey ? $admin->username : $admin->id] = $includeNames
+                ? $admin->username . (!empty($admin->name) ? ' (' . $admin->name . ')' : '')
+                : $admin->username;
         }
 
         return $options;

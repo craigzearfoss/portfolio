@@ -38,7 +38,7 @@
                 'name'    => 'industry_id',
                 'label'   => 'industry',
                 'value'   => old('industry_id') ?? 0,
-                'list'    => \App\Models\Career\Industry::listOptions(true, false),
+                'list'    => \App\Models\Career\Industry::listOptions([], true),
                 'message' => $message ?? '',
             ])
 

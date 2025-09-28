@@ -5,7 +5,7 @@ namespace App\Http\Requests\Personal;
 use App\Models\Owner;
 use App\Models\Personal\Ingredient;
 use App\Models\Personal\Recipe;
-use App\Models\Portfolio\Unit;
+use App\Models\Personal\Unit;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;

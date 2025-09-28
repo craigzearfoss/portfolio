@@ -101,66 +101,31 @@ class Contact extends Model
     }
 
     /**
-     * Returns an array of options for a select list.
+     * Returns an array of options for a contact select list.
      *
+     * @param array $filters
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $nameAsKey = false): array
     {
         $options = [];
         if ($includeBlank) {
-            $options = [ '' => '' ];
+            $options[$nameAsKey ? '' : 0] = '';
         }
 
-        foreach (self::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
-            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
+        $query = self::select('id', 'name')->orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
         }
 
-        return $options;
-    }
-
-    /**
-     * Returns an array of options for a select list for title.
-     *
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function titleListOptions(bool $includeBlank = false, bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
-        }
-
-        foreach (self::TITLES as $i=>$title) {
-            $options[$nameAsKey ? $title : $i] = $title;
+        foreach ($query->get() as $contact) {
+            $options[$nameAsKey ? $contact->name : $contact->id] = $contact->name;
         }
 
         return $options;
-    }
-
-    /**
-     * Returns the title name for the given id or null if not found.
-     *
-     * @param int $id
-     * @return string|null
-     */
-    public static function titleName(int $id): string | null
-    {
-        return self::TITLES[$id] ?? null;
-    }
-
-    /**
-     * Returns the title id for the giving name or false if not found.
-     *
-     * @param string $name
-     * @return int|bool
-     */
-    public static function titleIndex(string $name): string |bool
-    {
-        return array_search($name, self::TITLES);
     }
 }

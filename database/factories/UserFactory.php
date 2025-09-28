@@ -26,7 +26,7 @@ class UserFactory extends Factory
         return [
             'username'          => fake()->unique()->userName(),
             'name'              => fake()->name(),
-            'title'             => fake()->randomElement(\App\Models\User::titleListOptions()),
+            'title'             => fake()->randomElement(\App\Models\User::titleListOptions([], true, true)),
             'street'            => fake()->streetAddress(),
             'street2'           => null,
             'city'              => fake()->city(),

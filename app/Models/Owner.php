@@ -282,7 +282,7 @@ class Owner extends Model
     }
 
     /**
-     * Returns an array of options for a select list.
+     * Returns an array of options for an owner select list.
      *
      * @param array $filters
      * @param bool $includeBlank
@@ -290,12 +290,10 @@ class Owner extends Model
      * @param bool $includeNames
      * @return array|string[]
      */
-    public static function listOptions(
-        array $filters = [],
-        bool $includeBlank = false,
-        bool $usernameAsKey = false,
-        bool $includeNames = false
-    ): array
+    public static function listOptions(array $filters = [],
+                                       bool $includeBlank = false,
+                                       bool $usernameAsKey = false,
+                                       bool $includeNames = false): array
     {
         $options = [];
         if ($includeBlank) {
@@ -307,10 +305,10 @@ class Owner extends Model
             $query = $query->where($column, $value);
         }
 
-        foreach ($query->get() as $row) {
-            $options[$usernameAsKey ? $row->username : $row->id] = $includeNames
-                ? $row->username . (!empty($row->name) ? ' (' . $row->name . ')' : '')
-                : $row->username;
+        foreach ($query->get() as $owner) {
+            $options[$usernameAsKey ? $owner->username : $owner->id] = $includeNames
+                ? $owner->username . (!empty($owner->name) ? ' (' . $owner->name . ')' : '')
+                : $owner->username;
         }
 
         return $options;

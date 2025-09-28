@@ -41,7 +41,7 @@
                 'name'        => 'application_id',
                 'label'       => 'application',
                 'value'       => old('application_id') ?? $note->application_id,
-                'list'        => \App\Models\Career\Application::listOptions(),
+                'list'        => \App\Models\Career\Application::listOptions(['owner_id' => $note->owner_id]),
                 'message'     => $message ?? '',
             ])
 

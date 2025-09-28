@@ -32,7 +32,7 @@ return new class extends Migration
             $table->foreignIdFor( \App\Models\Personal\Recipe::class);
             $table->foreignIdFor( \App\Models\Personal\Ingredient::class);
             $table->string('amount', 50)->nullable();
-            $table->foreignIdFor( \App\Models\Portfolio\Unit::class);
+            $table->foreignIdFor( \App\Models\Personal\Unit::class);
             $table->string('qualifier')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();

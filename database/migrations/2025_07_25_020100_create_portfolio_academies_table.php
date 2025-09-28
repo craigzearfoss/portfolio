@@ -42,6 +42,15 @@ return new class extends Migration
         $data = [
             [
                 'id'        => 1,
+                'name'      => 'other',
+                'slug'      => 'other',
+                'link'      => null,
+                'link_name' => null,
+                'sequence'  => 0,
+                'public'    => 1,
+            ],
+            [
+                'id'        => 2,
                 'name'      => 'Coursera',
                 'slug'      => 'coursera',
                 'link'      => 'https://www.coursera.org/',
@@ -50,7 +59,7 @@ return new class extends Migration
                 'public'    => 1,
             ],
             [
-                'id'        => 2,
+                'id'        => 3,
                 'name'      => 'Gymnasium',
                 'slug'      => 'gymnasium',
                 'link'      => 'https://thegymnasium.com/',
@@ -59,7 +68,7 @@ return new class extends Migration
                 'public'    => 1,
             ],
             [
-                'id'        => 3,
+                'id'        => 4,
                 'name'      => 'KodeKloud',
                 'slug'      => 'kodekloud',
                 'link'      => 'https://kodekloud.com/',
@@ -68,7 +77,7 @@ return new class extends Migration
                 'public'    => 1,
             ],
             [
-                'id'        => 4,
+                'id'        => 5,
                 'name'      => 'MongoDB University',
                 'slug'      => 'mongodb-university',
                 'link'      => 'https://learn.mongodb.com/',
@@ -77,7 +86,7 @@ return new class extends Migration
                 'public'    => 1,
             ],
             [
-                'id'        => 5,
+                'id'        => 6,
                 'name'      => 'Scrimba',
                 'slug'      => 'scrimba',
                 'link'      => 'https://scrimba.com/',
@@ -86,7 +95,7 @@ return new class extends Migration
                 'public'    => 1,
             ],
             [
-                'id'        => 6,
+                'id'        => 7,
                 'name'      => 'SitePoint',
                 'slug'      => 'sitepoint',
                 'link'      => 'https://www.sitepoint.com/',
@@ -95,7 +104,7 @@ return new class extends Migration
                 'public'    => 1,
             ],
             [
-                'id'        => 7,
+                'id'        => 8,
                 'name'      => 'Udemy',
                 'slug'      => 'udemy',
                 'link'      => 'https://www.udemy.com/',
@@ -104,7 +113,7 @@ return new class extends Migration
                 'public'    => 1,
             ],
             [
-                'id'        => 8,
+                'id'        => 9,
                 'name'      => 'AWS Training and Certification',
                 'slug'      => 'aws-training-and-certification',
                 'link'      => 'https://aws.amazon.com/training/',

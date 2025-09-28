@@ -47,7 +47,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'      => 'title',
                 'value'     => old('title') ?? '',
-                'list'      => \App\Models\Career\Contact::titleListOptions(true, true),
+                'list'      => \App\Models\User::titleListOptions([], true, true),
                 'message'   => $message ?? '',
             ])
 
