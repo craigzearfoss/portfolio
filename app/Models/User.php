@@ -155,11 +155,16 @@ class User extends Authenticatable
     /**
      * Returns an array of options for a select list for title.
      *
+     * @param array $filters    (Not used but included to keep signature consistent with other listOptions methods.)
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function titleListOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    public static function titleListOptions(
+        array $filters = [],
+        bool $includeBlank = false,
+        bool $nameAsKey = false
+    ): array
     {
         $options = [];
         if ($includeBlank) {

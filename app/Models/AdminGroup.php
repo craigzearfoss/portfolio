@@ -61,18 +61,28 @@ class AdminGroup extends Model
     /**
      * Returns an array of options for a select list.
      *
+     * @param array $filters
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false, bool $nameAsKey = false): array
+    public static function listOptions(
+        array $filters = [],
+        bool $includeBlank = false,
+        bool $nameAsKey = false
+    ): array
     {
         $options = [];
         if ($includeBlank) {
             $options[$nameAsKey ? '' : 0] = '';
         }
 
-        foreach (AdminGroup::select('id', 'name')->orderBy('name', 'asc')->get() as $row) {
+        $query = self::select('id', 'name')->orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $row) {
             $options[$nameAsKey ? $row->name : $row->id] = $row->name;
         }
 

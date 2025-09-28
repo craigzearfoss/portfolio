@@ -44,6 +44,14 @@
                     'message'   => $message ?? '',
                 ])
 
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'team_id',
+                    'label'   => 'team',
+                    'value'   => old('team_id') ?? '',
+                    'list'    => \App\Models\AdminTeam::listOptions([], true),
+                    'message' => $message ?? '',
+                ])
+
                 @include('admin.components.form-input-horizontal', [
                     'name'      => 'phone',
                     'value'     => old('phone') ?? '',

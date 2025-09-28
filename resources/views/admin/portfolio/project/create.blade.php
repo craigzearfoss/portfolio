@@ -31,7 +31,7 @@
                     'name'    => 'owner_id',
                     'label'   => 'owner',
                     'value'   => old('owner_id') ?? Auth::guard('admin')->user()->id,
-                    'list'    => \App\Models\Admin::listOptions(),
+                    'list'    => \App\Models\Owner::listOptions(),
                     'message' => $message ?? '',
                 ])
             @endif

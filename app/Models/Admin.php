@@ -76,16 +76,16 @@ class Admin extends Authenticatable
      * Returns an array of options for a select list.
      *
      * @param array $filters
+     * @param bool $includeBlank
      * @param bool $usernameAsKey
      * @param bool $includeNames
      * @return array|string[]
-     * @param bool $includeBlank
      */
     public static function listOptions(
         array $filters = [],
         bool $includeBlank = false,
         bool $usernameAsKey = false,
-        bool $includeNames = false,
+        bool $includeNames = false
     ): array
     {
         $options = [];

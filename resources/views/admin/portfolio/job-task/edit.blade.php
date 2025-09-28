@@ -33,7 +33,7 @@
                     'name'    => 'owner_id',
                     'label'   => 'owner',
                     'value'   => old('owner_id') ?? $jobTask->owner_id,
-                    'list'    => \App\Models\Admin::listOptions(),
+                    'list'    => \App\Models\Owner::listOptions(),
                     'message' => $message ?? '',
                 ])
             @endif

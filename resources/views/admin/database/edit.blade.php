@@ -31,7 +31,7 @@
                     'name'    => 'owner_id',
                     'label'   => 'owner',
                     'value'   => old('owner_id') ?? $database->owner_id,
-                    'list'    => \App\Models\Admin::listOptions(['root' => 1]),
+                    'list'    => \App\Models\Owner::listOptions(['root' => 1]),
                     'message' => $message ?? '',
                 ])
             @endif

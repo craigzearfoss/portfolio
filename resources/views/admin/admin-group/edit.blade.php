@@ -32,7 +32,7 @@
                     'name'    => 'owner_id',
                     'label'   => 'owner',
                     'value'   => old('owner_id') ?? $adminGroup->owner_id,
-                    'list'    => \App\Models\Admin::listOptions(),
+                    'list'    => \App\Models\Owner::listOptions(),
                     'message' => $message ?? '',
                 ])
             @endif
@@ -41,7 +41,7 @@
                 'name'    => 'admin_team_id',
                 'label'   => 'team',
                 'value'   => old('admin_team_id') ?? $adminGroup->team['id'] ?? '',
-                'list'    => \App\Models\AdminTeam::listOptions(true),
+                'list'    => \App\Models\AdminTeam::listOptions(),
                 'message' => $message ?? '',
             ])
 

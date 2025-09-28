@@ -30,7 +30,7 @@
                     'name'    => 'owner_id',
                     'label'   => 'owner',
                     'value'   => old('owner_id') ?? Auth::guard('admin')->user()->id,
-                    'list'    => \App\Models\Admin::listOptions(['root' => 1]),
+                    'list'    => \App\Models\Owner::listOptions(['root' => 1]),
                     'message' => $message ?? '',
                 ])
             @endif
@@ -48,7 +48,7 @@
                 'label'    => 'database',
                 'value'    => old('resource_database_id') ?? '',
                 'required' => true,
-                'list'     => \App\Models\Database::listOptions(true, false),
+                'list'     => \App\Models\Database::listOptions([], true),
                 'message'  => $message ?? '',
             ])
 

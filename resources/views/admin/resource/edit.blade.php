@@ -31,7 +31,7 @@
                     'name'    => 'owner_id',
                     'label'   => 'owner',
                     'value'   => old('owner_id') ?? $resource->owner_id,
-                    'list'    => \App\Models\Admin::listOptions(['root' => 1]),
+                    'list'    => \App\Models\Owner::listOptions(['root' => 1]),
                     'message' => $message ?? '',
                 ])
             @endif
@@ -47,9 +47,9 @@
             @include('admin.components.form-select-horizontal', [
                 'name'     => 'resource_database_id',
                 'label'    => 'database',
-                'value'    => old('resource_db_id') ?? $resource->resource_db_id,
+                'value'    => old('resource_db_id') ?? $resource->database_id,
                 'required' => true,
-                'list'     => \App\Models\Database::listOptions(true, false),
+                'list'     => \App\Models\Database::listOptions([]),
                 'message'  => $message ?? '',
             ])
 

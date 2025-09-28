@@ -107,19 +107,29 @@ class State extends Model
     /**
      * Returns an array of options for a select list.
      *
+     * @param array $filters
      * @param bool $includeBlank
-     * @param bool $codesAsKey
+     * @param bool $codeAsKey
      * @return array|string[]
      */
-    public static function listOptions(bool $includeBlank = false, bool $codesAsKey = false): array
+    public static function listOptions(
+        array $filters = [],
+        bool $includeBlank = false,
+        bool $codeAsKey = false
+    ): array
     {
         $options = [];
         if ($includeBlank) {
-            $options = [ '' => '' ];
+            $options = $codeAsKey ? [ '' => '' ] : [ 0 => '' ];
         }
 
-        foreach (self::all() as $row) {
-            $options[$codesAsKey ? $row->code : $row->id] = $row->name;
+        $query = self::orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $row) {
+            $options[$codeAsKey ? $row->code : $row->id] = $row->name;
         }
 
         return $options;

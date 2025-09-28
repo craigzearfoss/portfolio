@@ -68,7 +68,7 @@
                 'name'    => 'state_id',
                 'label'   => 'state',
                 'value'   => old('state_id') ?? $recruiter->state_id,
-                'list'    => \App\Models\State::listOptions(true),
+                'list'    => \App\Models\State::listOptions(),
                 'message' => $message ?? '',
             ])
 
@@ -83,7 +83,7 @@
                 'name'    => 'country_id',
                 'label'   => 'country',
                 'value'   => old('country_id') ?? $recruiter->country_id,
-                'list'    => \App\Models\Country::listOptions(true),
+                'list'    => \App\Models\Country::listOptions(),
                 'message' => $message ?? '',
             ])
 

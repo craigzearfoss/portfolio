@@ -284,12 +284,14 @@ class Owner extends Model
     /**
      * Returns an array of options for a select list.
      *
+     * @param array $filters
      * @param bool $includeBlank
      * @param bool $usernameAsKey
      * @param bool $includeNames
      * @return array|string[]
      */
     public static function listOptions(
+        array $filters = [],
         bool $includeBlank = false,
         bool $usernameAsKey = false,
         bool $includeNames = false
@@ -300,7 +302,12 @@ class Owner extends Model
             $options[$usernameAsKey ? '' : 0] = '';
         }
 
-        foreach (self::orderBy('name', 'asc')->get() as $row) {
+        $query = self::orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            $query = $query->where($column, $value);
+        }
+
+        foreach ($query->get() as $row) {
             $options[$usernameAsKey ? $row->username : $row->id] = $includeNames
                 ? $row->username . (!empty($row->name) ? ' (' . $row->name . ')' : '')
                 : $row->username;

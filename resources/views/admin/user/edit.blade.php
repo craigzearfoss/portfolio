@@ -51,9 +51,17 @@
             ])
 
             @include('admin.components.form-select-horizontal', [
+                'name'    => 'team_id',
+                'label'   => 'team',
+                'value'   => old('team_id') ?? $user->team['id'] ?? $user->team_id,
+                'list'    => \App\Models\UserTeam::listOptions(),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
                 'name'    => 'title',
                 'value'   => old('title') ?? $user->title,
-                'list'    => \App\Models\User::titleListOptions(true, true),
+                'list'    => \App\Models\User::titleListOptions([], true, true),
                 'message' => $message ?? '',
             ])
 
@@ -82,7 +90,7 @@
                 'name'    => 'state_id',
                 'label'   => 'state',
                 'value'   => old('state') ?? $user->state_id,
-                'list'    => \App\Models\State::listOptions(true),
+                'list'    => \App\Models\State::listOptions(),
                 'message' => $message ?? '',
             ])
 
@@ -98,7 +106,7 @@
                 'name'    => 'country_id',
                 'label'   => 'country',
                 'value'   => old('country_id') ?? $user->country,
-                'list'    => \App\Models\Country::listOptions(true),
+                'list'    => \App\Models\Country::listOptions(),
                 'message' => $message ?? '',
             ])
 
