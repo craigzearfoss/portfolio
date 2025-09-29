@@ -215,3 +215,52 @@ if (! function_exists('imageUrl')) {
         }
     }
 }
+
+if (! function_exists('reservedKeywords')) {
+    /**
+     * Returns an array of reserved keywords that cannot be used for user names, team names, etc.
+     *
+     * @return array
+     */
+    function reservedWords(): array
+    {
+        $reservedKeywords = array_unique(array_merge(
+            [
+                'about',
+                'admin',
+                'api',
+                'captcha',
+                'contact',
+                'create',
+                'database',
+                'dashboard',
+                'delete',
+                'edit',
+                'forgot username', 'forgot-username',
+                'forgot password', 'forgot-password',
+                'group',
+                'index',
+                'login',
+                'logout',
+                'other',
+                'privacy policy', 'privacy-policy',
+                'register',
+                'resource',
+                'show',
+                'storage',
+                'team',
+                'terms and conditions', 'terms-and-conditions',
+                'up',
+                'update',
+                'user',
+                'verify email', 'verify-email',
+            ],
+            \App\Models\Database::select('name')->get()->pluck('name')->toArray(),
+            \App\Models\Resource::select('name')->get()->pluck('name')->toArray()
+        ));
+
+        sort($reservedKeywords);
+
+        return $reservedKeywords;
+    }
+}

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Models\Owner;
+use App\Rules\CaseInsensitiveNotIn;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -48,7 +49,7 @@ class LinkStoreRequest extends FormRequest
             'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.links,name'],
             'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.links,slug'],
             'featured'     => ['integer', 'between:0,1'],
-            'url'          => ['string', 'url:http,https', 'max:255', 'required'],
+            'url'          => ['string', 'url:http,https', 'max:255', 'unique:portfolio_db.links,url', 'required'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],

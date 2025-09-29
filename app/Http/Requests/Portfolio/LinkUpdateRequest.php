@@ -47,7 +47,7 @@ class LinkUpdateRequest extends FormRequest
             'name'         => ['string', 'max:255', 'unique:portfolio_db.links,name,'.$this->link->id, 'filled'],
             'slug'         => ['string', 'max:255', 'unique:portfolio_db.links,slug,'.$this->link->id, 'filled'],
             'featured'     => ['integer', 'between:0,1'],
-            'url'          => ['string', 'url:http,https', 'max:255', 'required'],
+            'url'          => ['string', 'url:http,https', 'max:255', 'unique:portfolio_db.links,slug,'.$this->link->id, 'filled'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],

@@ -97,7 +97,7 @@ class JobCoworker extends Model
     {
         $options = [];
         if ($includeBlank) {
-            $options[$nameAsKey ? '' : 0] = '';
+            $options[''] = '';
         }
 
         foreach (self::LEVELS as $i => $level) {

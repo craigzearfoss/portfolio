@@ -59,7 +59,7 @@ class Unit extends Model
     {
         $options = [];
         if ($includeBlank) {
-            $options[$abbreviationAsKey ? '' : 0] = '';
+            $options[''] = '';
         }
 
         $query = self::select('id', 'name', 'abbreviation')->orderBy('name', 'asc');
@@ -88,7 +88,7 @@ class Unit extends Model
     {
         $options = [];
         if ($includeBlank) {
-            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
+            $options[''] = '';
         }
 
         $query = self::distinct()->orderBy('system', 'asc');

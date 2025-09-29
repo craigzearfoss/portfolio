@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Country;
 use App\Models\State;
+use App\Rules\CaseInsensitiveNotIn;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -27,7 +28,14 @@ class UserStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username'          => ['required', 'string', 'min:6', 'max:200', 'unique:users,username'],
+            'username' => [
+                'required',
+                'string',
+                'min:6',
+                'max:200',
+                'unique:users,username',
+                new CaseInsensitiveNotIn(reservedWords()),
+            ],
             'name'              => ['required', 'string', 'min:6', 'max:255'],
             'title'             => ['string', 'max:100', 'nullable'],
             'street'            => ['string', 'max:255', 'nullable'],

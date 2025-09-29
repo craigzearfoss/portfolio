@@ -83,7 +83,7 @@ class Video extends Model
     {
         $options = [];
         if ($includeBlank) {
-            $options[$nameAsKey ? '' : 0] = '';
+            $options[''] = '';
         }
 
         $query = self::select('id', 'name')->orderBy('name', 'asc');

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Country;
 use App\Models\State;
+use App\Rules\CaseInsensitiveNotIn;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -37,10 +38,15 @@ class UserUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $userId = $this->user->id ?? Auth::guard('web')->user()->id;
-
         return [
-            //'username'        => ['string', 'min:6', 'max:200', 'unique:users,username,'.$adminId],  // cannot change the username
+            'username' => [
+                'string',
+                'min:6',
+                'max:200',
+                'unique:users,username,'.$this->users->id,
+                'filled',
+                new CaseInsensitiveNotIn(reservedWords()),
+            ],
             'name'              => ['string', 'min:6', 'max:255', 'filled'],
             'title'             => ['string', 'max:100', 'nullable'],
             'street'            => ['string', 'max:255', 'nullable'],
@@ -52,7 +58,11 @@ class UserUpdateRequest extends FormRequest
             'latitude'          => ['numeric:strict', 'nullable'],
             'longitude'         => ['numeric:strict', 'nullable'],
             'phone'             => ['string', 'max:20', 'nullable'],
-            //'email'             => ['email', 'max:255', 'unique:users,email,'.$userId, 'filled'], // you can't update the email
+            'email'             => [
+                'email', 'max:255',
+                'unique:users,email,'.$this->users->id,
+                'filled'
+            ],
             'email_verified_at' => ['nullable'],
             'website'           => ['string', 'max:255', 'nullable'],
             'image'             => ['string', 'max:255', 'nullable'],

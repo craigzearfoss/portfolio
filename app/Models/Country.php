@@ -107,7 +107,7 @@ class Country extends Model
     {
         $options = [];
         if ($includeBlank) {
-            $options[$codeAsKey ? '' : 0] = '';
+            $options[''] = '';
         }
 
         $query = self::orderBy('name', 'asc');

@@ -66,7 +66,7 @@ class Database extends Model
     {
         $options = [];
         if ($includeBlank) {
-            $options = [ '' => '' ];
+            $options[''] = '';
         }
 
         $query = self::select('id', 'name')->orderBy('name', 'asc');

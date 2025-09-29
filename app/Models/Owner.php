@@ -297,7 +297,7 @@ class Owner extends Model
     {
         $options = [];
         if ($includeBlank) {
-            $options[$usernameAsKey ? '' : 0] = '';
+            $options[''] = '';
         }
 
         $query = self::orderBy('name', 'asc');

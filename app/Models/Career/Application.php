@@ -256,7 +256,7 @@ class Application extends Model
     {
         $options = [];
         if ($includeBlank) {
-            $options[$nameAsKey ? '' : 0] = '';
+            $options[''] = '';
         }
 
         $query = Application::select(['applications.id', 'role', 'apply_date', 'post_date', 'applications.admin_id',

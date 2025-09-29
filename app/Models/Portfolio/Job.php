@@ -121,7 +121,7 @@ class Job extends Model
     {
         $options = [];
         if ($includeBlank) {
-            $options = $nameAsKey ? [ '' => '' ] : [ 0 => '' ];
+            $options[''] = '';
         }
 
         foreach (Job::select('id', 'company')->orderBy('company', 'asc')->get() as $job) {

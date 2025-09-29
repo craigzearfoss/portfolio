@@ -171,7 +171,7 @@ class User extends Authenticatable
     {
         $options = [];
         if ($includeBlank) {
-            $options[$nameAsKey ? '' : 0] = '';
+            $options[''] = '';
         }
 
         foreach (self::STATUSES as $i=>$status) {

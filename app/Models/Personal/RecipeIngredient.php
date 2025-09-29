@@ -95,7 +95,7 @@ class RecipeIngredient extends Model
     {
         $options = [];
         if ($includeBlank) {
-            $options[$nameAsKey ? '' : 0] = '';
+            $options[''] = '';
         }
 
         $query = self::select('*', DB::raw('`ingredients`.`name` as ingredient_name'))

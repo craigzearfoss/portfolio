@@ -88,7 +88,7 @@ class Admin extends Authenticatable
     {
         $options = [];
         if ($includeBlank) {
-            $options[$usernameAsKey ? '' : 0] = '';
+            $options[''] = '';
         }
 
         $query = self::orderBy('name', 'asc');

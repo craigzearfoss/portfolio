@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Country;
 use App\Models\State;
+use App\Rules\CaseInsensitiveNotIn;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -35,7 +36,14 @@ class AdminUpdateRequest extends FormRequest
         $adminId = $this->admin->id ?? Auth::guard('admin')->user()->id;
 
         $ruleArray = [
-            //'username'        => ['string', 'min:6', 'max:200', 'unique:admins,username,'.$adminId],  // cannot change the username
+            'username' => [
+                'string',
+                'min:6',
+                'max:200',
+                'unique:admins,username,'.$adminId,
+                'filled',
+                new CaseInsensitiveNotIn(reservedWords()),
+            ],
             'name'             => ['string', 'max:255', 'nullable'],
             'title'            => ['string', 'max:100', 'nullable'],
             'street'           => ['string', 'max:255', 'nullable'],
