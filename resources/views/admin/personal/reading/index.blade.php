@@ -25,13 +25,11 @@
                 @endif
                 <th>title</th>
                 <th>author</th>
-                <th class="has-text-centered">fiction</th>
-                <th class="has-text-centered">nonfiction</th>
-                <th class="has-text-centered">publication year</th>
-                <th class="has-text-centered">paper</th>
-                <th class="has-text-centered">audio</th>
-                <th class="has-text-centered">wishlist</th>
                 <th class="has-text-centered">featured</th>
+                <th>type</th>
+                <th class="has-text-centered">publication year</th>
+                <th>media</th>
+                <th class="has-text-centered">wishlist</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -45,13 +43,11 @@
                 @endif
                 <th>name</th>
                 <th>author</th>
-                <th class="has-text-centered">fiction</th>
-                <th class="has-text-centered">nonfiction</th>
-                <th class="has-text-centered">publication year</th>
-                <th class="has-text-centered">paper</th>
-                <th class="has-text-centered">audio</th>
-                <th class="has-text-centered">wishlist</th>
                 <th class="has-text-centered">featured</th>
+                <th>type</th>
+                <th class="has-text-centered">publication year</th>
+                <th>media</th>
+                <th class="has-text-centered">wishlist</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -71,29 +67,31 @@
                     <td data-field="title">
                         {{ $reading->title }}
                     </td>
+                    <td data-field="featured" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $reading->featured ])
+                    </td>
                     <td data-field="author">
                         {{ $reading->author }}
                     </td>
-                    <td data-field="fiction" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $reading->fiction ])
-                    </td>
-                    <td data-field="nonfiction" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $reading->nonfiction ])
+                    <td data-field="fiction|nonfiction">
+                        {{
+                            (!empty($reading->fiction) && !empty($reading->nonfiction))
+                                ? 'fiction/nonfiction'
+                                : (!empty($reading->fiction) ? 'fiction' : (!empty($reading->nonfiction) ? 'nonfiction' : ''))
+                        }}
                     </td>
                     <td data-field="publication_year" class="has-text-centered">
                         {{ $reading->publication_year }}
                     </td>
-                    <td data-field="paper" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $reading->paper ])
-                    </td>
-                    <td data-field="audio" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $reading->audio ])
+                    <td data-field="paper|audio" style="white-space: nowrap;">
+                        {{
+                            (!empty($reading->paper) && !empty($reading->audio))
+                                ? 'paper, audio'
+                                : (!empty($reading->paper) ? 'paper' : (!empty($reading->audio) ? 'audio' : ''))
+                        }}
                     </td>
                     <td data-field="wishlist" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->wishlist ])
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $reading->featured ])
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reading->public ])
@@ -139,7 +137,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '13' : '12' }}">There are no readings.</td>
+                    <td colspan="{{ isRootAdmin() ? '11' : '10' }}">There are no readings.</td>
                 </tr>
 
             @endforelse

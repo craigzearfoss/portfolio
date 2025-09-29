@@ -24,9 +24,9 @@
                     <th>owner</th>
                 @endif
                 <th>name</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">type</th>
                 <th class="has-text-centered">meal</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -39,9 +39,9 @@
                     <th>owner</th>
                 @endif
                 <th>name</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">type</th>
                 <th class="has-text-centered">meal</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -61,14 +61,14 @@
                     <td data-field="name">
                         {{ $recipe->name }}
                     </td>
+                    <td data-field="featured" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $recipe->featured ])
+                    </td>
                     <td data-field="types">
                         {{ implode(', ', $recipe->types()) }}
                     </td>
                     <td data-field="meals">
                         {{ implode(', ', $recipe->meals()) }}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recipe->featured ])
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recipe->public ])

@@ -42,9 +42,13 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'label'  => $unit->link_name,
             'url'    => $unit->link,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'value'  => $unit->link_name,
         ])
 
         @include('admin.components.show-row', [

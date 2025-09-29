@@ -38,7 +38,7 @@ class RecipeStepController extends BaseController
             $recipeSteps = RecipeStep::latest()->paginate($perPage);
         }
 
-        return view('admin.personal.recipe-step.index', compact('recipeSteps', 'recipe'))
+        return view('admin.personal.recipe-step.index', compact('recipeSteps', 'recipeId'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

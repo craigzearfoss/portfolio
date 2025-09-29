@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\Personal\IndexController as AdminPersonalIndexController;
 use App\Http\Controllers\Admin\Personal\IngredientController as AdminPersonalIngredientController;
 use App\Http\Controllers\Admin\Personal\ReadingController as AdminPersonalReadingController;
 use App\Http\Controllers\Admin\Personal\RecipeController as AdminPersonalRecipeController;
 use App\Http\Controllers\Admin\Personal\RecipeIngredientController as AdminPersonalRecipeIngredientController;
 use App\Http\Controllers\Admin\Personal\RecipeStepController as AdminPersonalRecipeStepController;
-use App\Http\Controllers\Admin\Personal\IndexController as AdminPersonalIndexController;
+use App\Http\Controllers\Admin\Personal\UnitController as AdminPortfolioUnitController;
 use App\Http\Controllers\Front\PersonalController as FrontPersonalController;
 use App\Http\Controllers\Front\ReadingController as FrontReadingController;
 use App\Http\Controllers\Front\RecipeController as FrontRecipeController;
@@ -30,4 +31,5 @@ Route::prefix('admin/personal')->middleware('admin')->name('admin.personal.')->g
     Route::resource('recipe', AdminPersonalRecipeController::class);
     Route::resource('recipe-ingredient', AdminPersonalRecipeIngredientController::class)->parameter('recipe-ingredient', 'recipe_ingredient');
     Route::resource('recipe-step', AdminPersonalRecipeStepController::class)->parameter('recipe-step', 'recipe_step');
+    Route::resource('unit', AdminPortfolioUnitController::class);
 });

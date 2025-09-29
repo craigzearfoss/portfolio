@@ -79,9 +79,19 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'label'  => $reading->link_name,
-            'url'    => $reading->link,
+            'href'   => $reading->link,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'value'  => $reading->link_name,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => nl2br($reading->noate ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -116,7 +126,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($reading->title . '-by-' . $reading->author, $user->thumbnail)
+            'filename' => getFileSlug($reading->title . '-by-' . $reading->author, $reading->thumbnail)
         ])
 
         @include('admin.components.show-row', [

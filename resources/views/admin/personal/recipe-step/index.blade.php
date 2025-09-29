@@ -1,5 +1,7 @@
 @extends('admin.layouts.default', [
-    'title' => (!empty($recipe) ? $recipe->name : 'Recipe') . ' instructions',
+    'title' => (!empty($recipeId) && !empty($recipeStep->recipe))
+        ?  $recipeStep->recipe['name'] . ' Instructions'
+        : 'Recipe Instructions',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard',           'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',                  'href' => route('admin.personal.index') ],
@@ -25,7 +27,9 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
-                <th>recipe</th>
+                @if(empty($recipeId))
+                    <th>recipe</th>
+                @endif
                 <th>step</th>
                 <th>description</th>
                 <th>actions</th>
@@ -37,7 +41,9 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
-                <th>recipe</th>
+                @if(empty($recipeId))
+                    <th>recipe</th>
+                @endif
                 <th>step</th>
                 <th>description</th>
                 <th>actions</th>
@@ -54,15 +60,17 @@
                             {{ $recipeStep->owner['username'] ?? '' }}
                         </td>
                     @endif
-                    @if(empty($recipe))
+                    @if(empty($recipeId))
                         <td data-field="recipe.name">
-                            @include('admin.components.link', [
-                                'name' => $recipeStep->recipe['name'],
-                                'href' => route('admin.personal.recipe.show', $recipeStep->recipe)
-                            ])
+                            @if(!empty($recipeStep->recipe))
+                                @include('admin.components.link', [
+                                    'name' => $recipeStep->recipe['name'],
+                                    'href' => route('admin.personal.recipe.show', $recipeStep->recipe)
+                                ])
+                            @endif
                         </td>
                     @endif
-                    <td data-field="step">
+                    <td data-field="step" class="has-text-centered">
                         {{ $recipeStep->step }}
                     </td>
                     <td data-field="description">
@@ -93,7 +101,13 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '5' : '4' }}">There are no recipe steps.</td>
+                    @php
+                        $cols = isRootAdmin() ? '4' : '3';
+                        if (!empty($recipeId)) {
+                            $cols++;
+                        }
+                    @endphp
+                    <td colspan="{{ $cols }}">There are no recipe steps.</td>
                 </tr>
 
             @endforelse

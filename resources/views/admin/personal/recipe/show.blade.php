@@ -114,8 +114,13 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'label'  => $recipe->link_name,
-            'url'    => $recipe->link,
+            'href'    => $recipe->link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'   => 'link name',
+            'value'  => $recipe->link_name,
             'target' => '_blank'
         ])
 

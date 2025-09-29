@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\Personal\IngredientController as AdminPortfolioIngredientController;
-use App\Http\Controllers\Admin\Personal\UnitController as AdminPortfolioUnitController;
 use App\Http\Controllers\Admin\Portfolio\AcademyController as AdminPortfolioAcademyController;
 use App\Http\Controllers\Admin\Portfolio\ArtController as AdminPortfolioArtController;
 use App\Http\Controllers\Admin\Portfolio\CertificationController as AdminPortfolioCertificationController;
@@ -49,10 +47,8 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
     Route::resource('art', AdminPortfolioArtController::class);
     Route::resource('certification', AdminPortfolioCertificationController::class);
     Route::resource('course', AdminPortfolioCourseController::class);
-    Route::resource('ingredient', AdminPortfolioIngredientController::class);
     Route::resource('link', AdminPortfolioLinkController::class);
     Route::resource('music', AdminPortfolioMusicController::class);
     Route::resource('project', AdminPortfolioProjectController::class);
-    Route::resource('unit', AdminPortfolioUnitController::class);
     Route::resource('video', AdminPortfolioVideoController::class);
 });

@@ -1,5 +1,7 @@
 @extends('admin.layouts.default', [
-    'title' => 'Recipe Ingredients',
+    'title' => (!empty($recipeId) && !empty($recipeIngredient->recipe))
+        ?  $recipeIngredient->recipe['name'] . ' Ingredients'
+        : 'Recipe Ingredients',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
@@ -24,10 +26,12 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
+                @if(empty($recipeId))
+                    <th>recipe</th>
+                @endif
                 <th>name</th>
                 <th>amount</th>
                 <th>unit</th>
-                <th>qualifier</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -37,10 +41,12 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
+                @if(empty($recipeId))
+                    <th>recipe</th>
+                @endif
                 <th>name</th>
                 <th>amount</th>
                 <th>unit</th>
-                <th>qualifier</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -55,6 +61,16 @@
                             {{ $recipeIngredient->owner['username'] ?? '' }}
                         </td>
                     @endif
+                    @if(empty($recipeId))
+                        <td data-field="recipe.name">
+                            @if(!empty($recipeIngredient->recipe))
+                                @include('admin.components.link', [
+                                    'name' => $recipeIngredient->recipe['name'],
+                                    'href' => route('admin.personal.recipe.show', $recipeIngredient->recipe)
+                                ])
+                            @endif
+                        </td>
+                    @endif
                     <td data-field="ingredient.name">
                         {{ $recipeIngredient->ingredient['name'] ?? '' }}
                     </td>
@@ -63,9 +79,6 @@
                     </td>
                     <td data-field="unit.name">
                         {{ $recipeIngredient->unit['name'] ?? ''}}
-                    </td>
-                    <td data-field="qualifier">
-                        {{ $recipeIngredient->qualifier ?? '' }}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.personal.recipe-ingredient.destroy', $recipeIngredient->id) }}" method="POST">
@@ -105,7 +118,13 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '6' : '5' }}">There are no recipe ingredients.</td>
+                    @php
+                    $cols = isRootAdmin() ? '5' : '4';
+                    if (!empty($recipeId)) {
+                        $cols++;
+                    }
+                    @endphp
+                    <td colspan="{{ $cols }}">There are no recipe ingredients.</td>
                 </tr>
 
             @endforelse
