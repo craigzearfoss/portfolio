@@ -45,9 +45,17 @@ class JobUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'     => ['required', 'integer', Rule::in($ownerIds)],
-            'name'         => ['string', 'max:255', 'unique:career_db.jobs,name,'.$this->job->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:career_db.jobs,slug,'.$this->job->id, 'filled'],
+            'owner_id'     => ['integer', 'filled', Rule::in($ownerIds)],
+            'name'         => ['string', 'filled', 'max:255', 'unique:career_db.jobs,name,'.$this->job->id],
+            'slug'         => [
+                'string',
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.jobs')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
             'featured'     => ['integer', 'between:0,1'],
             'role'         => ['string', 'max:255',],
             'start_month'  => ['integer', 'between:1,12', 'nullable' ],

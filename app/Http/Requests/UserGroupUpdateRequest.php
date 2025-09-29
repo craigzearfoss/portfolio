@@ -44,10 +44,19 @@ class UserGroupUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'      => ['required', 'integer', Rule::in($ownerIds)],
-            'admin_team_id' => ['integer', Rule::in(AdminTeam::all('id')->pluck('id')->toArray())],
-            'name'          => ['string', 'min:3', 'max:200', 'unique:core_db.user_groups,name,'.$this->user_group->id, 'filled'],
-            'slug'          => ['string', 'min:20', 'max:220', 'unique:core_db.user_groups,slug,'.$this->user_group->id, 'filled'],
+            'owner_id'      => ['integer', 'filled', Rule::in($ownerIds)],
+            'admin_team_id' => ['integer', 'filled', Rule::in(AdminTeam::all('id')->pluck('id')->toArray())],
+            'name'          => [
+                'string',
+                'filled',
+                'min:3',
+                'max:200',
+                Rule::unique('portfolio_db.user_groups')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'          => ['string', 'filled', 'min:20', 'max:220', 'unique:core_db.user_groups,slug,'.$this->user_group->id, 'filled'],
             'abbreviation'  => ['string', 'max:20', 'unique:core_db.user_groups.abbreviation,'.$this->user_group->id, 'nullable'],
             'description'   => ['nullable'],
             'disabled'      => ['integer', 'between:0,1'],

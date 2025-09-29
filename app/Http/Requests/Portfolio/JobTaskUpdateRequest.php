@@ -38,9 +38,9 @@ class JobTaskUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'        => ['required', 'integer', Rule::in($ownerIds)],
-            'job_id'          => ['required', 'integer', Rule::in(Job::all('id')->pluck('id')->toArray())],
-            'summary'         => ['required', 'string', 'max:255'],
+            'owner_id'        => ['integer', 'filled', Rule::in($ownerIds)],
+            'job_id'          => ['integer', 'filled', Rule::in(Job::all('id')->pluck('id')->toArray())],
+            'summary'         => ['string', 'max:255', 'filled'],
             'link'            => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],
             'description'     => ['nullable'],

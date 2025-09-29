@@ -42,9 +42,18 @@ class UserTeamUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'     => ['required', 'integer', Rule::in($ownerIds)],
-            'name'         => ['string', 'min:3', 'max:200', 'unique:core_db.user_teams,name,'.$this->user_team->id, 'filled'],
-            'slug'         => ['string', 'min:20', 'max:220', 'unique:core_db.user_teams,slug,'.$this->user_team->id, 'filled'],
+            'owner_id'     => ['integer', 'filled', Rule::in($ownerIds)],
+            'name'         => [
+                'string',
+                'filled',
+                'min:3',
+                'max:200',
+                Rule::unique('portfolio_db.user_teams')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'         => ['string', 'filled', 'min:20', 'max:220', 'unique:core_db.user_teams,slug,'.$this->user_team->id],
             'abbreviation' => ['string', 'max:20', 'unique:core_db.user_teams.abbreviation,'.$this->user_team->id, 'nullable'],
             'description'  => ['nullable'],
             'disabled'     => ['integer', 'between:0,1'],

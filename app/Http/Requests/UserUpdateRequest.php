@@ -41,10 +41,10 @@ class UserUpdateRequest extends FormRequest
         return [
             'username' => [
                 'string',
+                'filled',
                 'min:6',
                 'max:200',
                 'unique:users,username,'.$this->users->id,
-                'filled',
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
             'name'              => ['string', 'min:6', 'max:255', 'filled'],

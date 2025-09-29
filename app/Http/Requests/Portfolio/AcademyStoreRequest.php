@@ -29,8 +29,8 @@ class AcademyStoreRequest extends FormRequest
         }
 
         return [
-            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.academies,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.academies,slug'],
+            'name'         => ['string', 'required', 'max:255', 'unique:portfolio_db.academies,name'],
+            'slug'         => ['string', 'required', 'max:255', 'unique:portfolio_db.academies,slug'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],

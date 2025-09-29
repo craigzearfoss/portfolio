@@ -16,8 +16,8 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('states', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 10)->unique();
-            $table->string('name', 50);
+            $table->string('code', 10);
+            $table->string('name', 50)->unique();
             $table->foreignIdFor( \App\Models\Country::class);
         });
 

@@ -43,10 +43,19 @@ class UserGroupStoreRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'      => ['required', 'integer', Rule::in($ownerIds)],
-            'user_team_id'  => ['integer', Rule::in(UserTeam::all('id')->pluck('id')->toArray())],
-            'name'          => ['required', 'string', 'min:3', 'max:200', 'unique:core_db.user_groups,name'],
-            'slug'          => ['required', 'string', 'min:20', 'max:220', 'unique:core_db.user_groups,slug'],
+            'owner_id'      => ['integer', 'required', Rule::in($ownerIds)],
+            'user_team_id'  => ['integer', 'required', Rule::in(UserTeam::all('id')->pluck('id')->toArray())],
+            'name'          => [
+                'string',
+                'required',
+                'min:3',
+                'max:200',
+                Rule::unique('portfolio_db.user_groups')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'          => ['string', 'required', 'min:20', 'max:220', 'unique:core_db.user_groups,slug'],
             'abbreviation'  => ['string', 'max:20', 'unique:core_db.user_groups,slug', 'nullable'],
             'description'   => ['nullable'],
             'disabled'      => ['integer', 'between:0,1'],

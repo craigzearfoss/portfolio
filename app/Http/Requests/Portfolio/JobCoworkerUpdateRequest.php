@@ -38,9 +38,17 @@ class JobCoworkerUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'        => ['required', 'integer', Rule::in($ownerIds)],
-            'job_id'          => ['required', 'integer', Rule::in(Job::all('id')->pluck('id')->toArray())],
-            'name'            => ['required', 'string', 'max:255'],
+            'owner_id'        => ['integer', 'filled', Rule::in($ownerIds)],
+            'job_id'          => ['integer', 'filled', Rule::in(Job::all('id')->pluck('id')->toArray())],
+            'name'            => [
+                'string',
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.job_coworkers')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
             'job_title'       => ['string', 'max:100', 'nullable'],
             'level'           => ['integer', 'between:1,3'],
             'work_phone'      => ['string', 'max:20', 'nullable'],

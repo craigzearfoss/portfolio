@@ -33,15 +33,13 @@ class AdminUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $adminId = $this->admin->id ?? Auth::guard('admin')->user()->id;
-
         $ruleArray = [
             'username' => [
                 'string',
+                'filled',
                 'min:6',
                 'max:200',
-                'unique:admins,username,'.$adminId,
-                'filled',
+                'unique:admins,username,'.$this->admins->id,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
             'name'             => ['string', 'max:255', 'nullable'],
@@ -55,7 +53,7 @@ class AdminUpdateRequest extends FormRequest
             'latitude'         => ['numeric:strict', 'nullable'],
             'longitude'        => ['numeric:strict', 'nullable'],
             'phone'            => ['string', 'max:20', 'nullable'],
-            'email'            => ['email', 'max:255', 'unique:admins,email,'.$adminId, 'nullable'],
+            'email'            => ['email', 'max:255', 'unique:admins,email,'.$this->admins->id, 'nullable'],
             'link'             => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'        => ['string', 'max:255', 'nullable'],
             'description'      => ['nullable'],
@@ -80,7 +78,7 @@ class AdminUpdateRequest extends FormRequest
             $ruleArray = array_merge($ruleArray, [ 'root' => ['integer', 'between:0,1'] ]);
         }
 
-        if (Auth::guard('admin')->user()->root && ($adminId !== Auth::guard('admin')->user()->id)) {
+        if (Auth::guard('admin')->user()->root && ($his->id !== Auth::guard('admin')->user()->id)) {
             // Only root admins can disable other admins, but not themselves.
             $ruleArray = array_merge($ruleArray, [ 'disabled' => ['integer', 'between:0,1'] ]);
         }

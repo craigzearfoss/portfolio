@@ -42,9 +42,17 @@ class AdminTeamStoreRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'     => ['required', 'integer', Rule::in($ownerIds)],
-            'name'         => ['required', 'string', 'min:3', 'max:200', 'unique:core_db.admin_teams,name'],
-            'slug'         => ['required', 'string', 'min:20', 'max:220', 'unique:core_db.admin_teams,slug'],
+            'owner_id'     => ['integer', 'required', Rule::in($ownerIds)],
+            'name'         => [
+                'string', 'required',
+                'min:3',
+                'max:200',
+                Rule::unique('portfolio_db.admin_teams')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'         => ['string', 'required', 'min:20', 'max:220', 'unique:core_db.admin_teams,slug'],
             'abbreviation' => ['string', 'max:20', 'unique:core_db.admin_teams,slug', 'nullable'],
             'description'  => ['nullable'],
             'disabled'     => ['integer', 'between:0,1'],

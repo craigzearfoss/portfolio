@@ -29,12 +29,12 @@ class DatabaseStoreRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id' => ['required', 'integer', Rule::in($ownerIds)],
-            'name'     => ['required', 'string', 'max:50', 'unique:databases,name'],
-            'database' => ['required', 'string', 'max:50', 'unique:databases,database'],
-            'tag'      => ['required', 'string', 'max:50'],
-            'title'    => ['required', 'string', 'max:50'],
-            'plural'   => ['required', 'string', 'max:50'],
+            'owner_id' => ['integer', 'required', Rule::in($ownerIds)],
+            'name'     => ['string', 'required', 'max:50', 'unique:databases,name'],
+            'database' => ['string', 'required', 'max:50', 'unique:databases,database'],
+            'tag'      => ['string', 'required', 'max:50'],
+            'title'    => ['string', 'required', 'max:50'],
+            'plural'   => ['string', 'required', 'max:50'],
             'guest'    => ['integer', 'between:0,1'],
             'user'     => ['integer', 'between:0,1'],
             'admin'    => ['integer', 'between:0,1'],

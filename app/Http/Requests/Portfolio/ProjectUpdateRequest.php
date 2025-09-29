@@ -43,9 +43,25 @@ class ProjectUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'         => ['required', 'integer', Rule::in($ownerIds)],
-            'name'             => ['string', 'max:255', 'unique:portfolio_db.projects,name,'.$this->project->id, 'filled'],
-            'slug'             => ['string', 'max:255', 'unique:portfolio_db.projects,slug,'.$this->project->id, 'filled'],
+            'owner_id'         => ['integer', 'filled', Rule::in($ownerIds)],
+            'name'             => [
+                'string',
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.projects')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'             => [
+                'string',
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.projects')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
             'featured'         => ['integer', 'between:0,1'],
             'year'             => ['integer', 'between:1980,'.date("Y"), 'nullable'],
             'language'         => ['string', 'max:50', 'nullable'],

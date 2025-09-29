@@ -38,9 +38,17 @@ class JobCoworkerStoreRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'        => ['required', 'integer', Rule::in($ownerIds)],
-            'job_id'          => ['required', 'integer', Rule::in(Job::all('id')->pluck('id')->toArray())],
-            'name'            => ['required', 'string', 'max:255'],
+            'owner_id'        => ['integer', 'required', Rule::in($ownerIds)],
+            'job_id'          => ['integer', 'required', Rule::in(Job::all('id')->pluck('id')->toArray())],
+            'name'            => [
+                'string',
+                'required',
+                'max:255',
+                Rule::unique('portfolio_db.job_coworkers')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
             'job_title'       => ['string', 'max:100', 'nullable'],
             'level'           => ['integer', 'between:1,3'],
             'work_phone'      => ['string', 'max:20', 'nullable'],

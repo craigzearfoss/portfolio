@@ -44,9 +44,25 @@ class VideoStoreRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'       => ['required', 'integer', Rule::in($ownerIds)],
-            'name'           => ['required', 'string', 'max:255', 'unique:portfolio_db.videos,name'],
-            'slug'           => ['required', 'string', 'max:255', 'unique:portfolio_db.videos.slug'],
+            'owner_id'       => ['integer', 'required', Rule::in($ownerIds)],
+            'name'           => [
+                'string',
+                'required',
+                'max:255',
+                Rule::unique('portfolio_db.videos')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'           => [
+                'string',
+                'required',
+                'max:255',
+                Rule::unique('portfolio_db.videos')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
             'featured'       => ['integer', 'between:0,1'],
             'full_episode'   => ['integer', 'between:0,1'],
             'clip'           => ['integer', 'between:0,1'],

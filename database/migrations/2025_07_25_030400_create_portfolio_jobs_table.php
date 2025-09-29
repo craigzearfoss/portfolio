@@ -30,7 +30,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
             $table->string('company');
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->tinyInteger('featured')->default(0);
             $table->string('role');
             $table->integer('start_month')->nullable();

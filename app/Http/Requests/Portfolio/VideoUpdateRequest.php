@@ -43,8 +43,25 @@ class VideoUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'name'           => ['string', 'max:255', 'unique:portfolio_db.videos,name,'.$this->video->id, 'filled'],
-            'slug'           => ['string', 'max:255', 'unique:portfolio_db.videos,slug,'.$this->video->id, 'filled'],
+            'owner_id'       => ['integer', 'filled', Rule::in($ownerIds)],
+            'name'           => [
+                'string',
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.videos')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'           => [
+                'string',
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.videos')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
             'featured'       => ['integer', 'between:0,1'],
             'full_episode'   => ['integer', 'between:0,1'],
             'clip'           => ['integer', 'between:0,1'],

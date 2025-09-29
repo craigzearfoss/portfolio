@@ -45,9 +45,26 @@ class LinkStoreRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'     => ['required', 'integer', Rule::in($ownerIds)],
-            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.links,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.links,slug'],
+            'owner_id'     => ['integer', 'required', Rule::in($ownerIds)],
+            'name'         => [
+                'string',
+                'required',
+                'max:255',
+                Rule::unique('portfolio_db.links')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'         => [
+                'required',
+                'filled',
+                'string',
+                'max:255',
+                Rule::unique('portfolio_db.links')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('url', $this->url);
+                })
+            ],
             'featured'     => ['integer', 'between:0,1'],
             'url'          => ['string', 'url:http,https', 'max:255', 'unique:portfolio_db.links,url', 'required'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],

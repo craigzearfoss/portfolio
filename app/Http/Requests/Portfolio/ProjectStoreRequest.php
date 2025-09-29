@@ -44,15 +44,25 @@ class ProjectStoreRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'         => ['required', 'integer', Rule::in($ownerIds)],
+            'owner_id'         => ['integer', 'required', Rule::in($ownerIds)],
             'name'             => [
-                'required',
                 'string',
+                'required',
                 'max:255',
-                'unique:name,id',
-                Rule::unique('name', 'id')->where('id', $this->input('id')),
+                Rule::unique('portfolio_db.projects')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
             ],
-            'slug'             => ['required', 'string', 'max:255', 'unique:portfolio_db.projects,slug'],
+            'slug'             => [
+                'string',
+                'required',
+                'max:255',
+                Rule::unique('portfolio_db.projects')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
             'featured'         => ['integer', 'between:0,1'],
             'year'             => ['integer', 'between:1980,'.date("Y"), 'nullable'],
             'language'         => ['string', 'max:50', 'nullable'],

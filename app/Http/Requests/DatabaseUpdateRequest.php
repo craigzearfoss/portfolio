@@ -29,12 +29,12 @@ class DatabaseUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'    => ['required', 'integer', Rule::in($ownerIds)],
-            'name'        => ['string', 'max:50', 'unique:databases,name,'.$this->databases->id, 'filled'],
-            'database'    => ['string', 'max:50', 'unique:databases,database,'.$this->databases->id, 'filled'],
-            'tag'         => ['string', 'max:50', 'filled'],
-            'title'       => ['string', 'max:50', 'filled'],
-            'plural'      => ['string', 'max:50', 'filled'],
+            'owner_id'    => ['integer', 'filled', Rule::in($ownerIds)],
+            'name'        => ['string', 'filled', 'max:50', 'unique:databases,name,'.$this->databases->id],
+            'database'    => ['string', 'filled', 'max:50', 'unique:databases,database,'.$this->databases->id],
+            'tag'         => ['string', 'filled', 'max:50'],
+            'title'       => ['string', 'filled', 'max:50'],
+            'plural'      => ['string', 'filled', 'max:50'],
             'front'       => ['integer', 'between:0,1'],
             'user'        => ['integer', 'between:0,1'],
             'admin'       => ['integer', 'between:0,1'],

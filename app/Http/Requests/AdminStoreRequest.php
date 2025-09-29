@@ -28,8 +28,8 @@ class AdminStoreRequest extends FormRequest
     {
         $ruleArray = [
             'username'         => [
-                'required',
                 'string',
+                'required',
                 'min:6',
                 'max:200',
                 'unique:admins,username',

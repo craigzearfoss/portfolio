@@ -30,9 +30,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
             $table->foreignIdFor(\App\Models\Portfolio\Video::class, 'parent_id')->nullable();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('artist')->nullable();
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->tinyInteger('featured')->default(0);
             $table->tinyInteger('collection')->default(1);
             $table->tinyInteger('track')->default(1);
