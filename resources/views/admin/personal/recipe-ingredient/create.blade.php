@@ -43,7 +43,7 @@ CREATE
                 'label'    => 'recipe',
                 'value'    => old('recipe_id') ?? '',
                 'required' => true,
-                'list'     => \App\Models\Personal\Recipe::listOptions(true, false),
+                'list'     => \App\Models\Personal\Recipe::listOptions([], true),
                 'message'  => $message ?? '',
             ])
 
@@ -52,7 +52,7 @@ CREATE
                 'label'    => 'ingredient',
                 'value'    => old('ingredient_id') ?? '',
                 'required' => true,
-                'list'     => \App\Models\Personal\Ingredient::listOptions(true, false),
+                'list'     => \App\Models\Personal\Ingredient::listOptions([], true),
                 'message'  => $message ?? '',
             ])
 
@@ -67,7 +67,7 @@ CREATE
                 'name'    => 'unit_id',
                 'label'   => 'unit',
                 'value'   => old('unit_id') ?? '',
-                'list'    => \App\Models\Personal\Unit::listOptions(true, false),
+                'list'    => \App\Models\Personal\Unit::listOptions([], true),
                 'message' => $message ?? '',
             ])
 

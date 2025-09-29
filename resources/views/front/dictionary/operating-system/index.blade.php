@@ -9,7 +9,7 @@
             'name'     => '',
             'label'    => '',
             'value'    => route('front.dictionary.operating-system.index'),
-            'list'     => \App\Models\Dictionary\DictionarySection::listOptions(true, 'route', 'front.'),
+            'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'front.'),
             'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
             'message'  => $message ?? '',
         ]),

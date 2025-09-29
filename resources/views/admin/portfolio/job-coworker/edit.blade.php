@@ -43,7 +43,7 @@
                 'label'     => 'company',
                 'value'     => old('job_id') ?? $jobCoworker->job_id,
                 'required'  => true,
-                'list'      => \App\Models\Portfolio\Job::companyListOptions(true, false),
+                'list'      => \App\Models\Portfolio\Job::companyListOptions([], true),
                 'message'   => $message ?? '',
             ])
 
@@ -67,7 +67,7 @@
                 'name'      => 'level',
                 'value'     => old('level') ?? $jobCoworker->level,
                 'required'  => true,
-                'list'      => \App\Models\Portfolio\JobCoworker::levelListOptions(true, false),
+                'list'      => \App\Models\Portfolio\JobCoworker::levelListOptions([], true),
                 'message'   => $message ?? '',
             ])
 

@@ -9,7 +9,7 @@
             'name'     => '',
             'label'    => '',
             'value'    => route('admin.dictionary.server.index'),
-            'list'     => \App\Models\Dictionary\DictionarySection::listOptions(true, 'route', 'admin.'),
+            'list'     => \App\Models\Dictionary\DictionarySection::listOptions([], true, 'route', 'admin.'),
             'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
             'message'  => $message ?? '',
         ]),

@@ -42,7 +42,7 @@
                 'label'     => 'company',
                 'value'     => old('job_id') ?? $jobId,
                 'required'  => true,
-                'list'      => \App\Models\Portfolio\Job::companyListOptions(true, false),
+                'list'      => \App\Models\Portfolio\Job::companyListOptions([], true),
                 'message'   => $message ?? '',
             ])
 
