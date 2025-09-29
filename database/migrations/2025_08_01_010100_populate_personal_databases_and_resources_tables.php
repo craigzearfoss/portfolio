@@ -28,6 +28,20 @@ return new class extends Migration
      */
     public function up(): void
     {
+        $dbName = config('app.' . $this->database_tag);
+
+        if (empty($dbName)) {
+            throw new \Exception('app.'.$this->database_tag.' not defined in config\app.php file '
+                . ' or PERSONAL_DB_DATABASE not defined in .env file.'
+            );
+        }
+
+        if (empty(DB::select("SHOW DATABASES LIKE '{$dbName}'"))) {
+            throw new \Exception("Database `{$dbName}` does not exist.");
+        }
+
+        //@TODO: Check if the database or and of the resources exist in the databases or resources tables.
+
         $data = [
             [
                 //'id'       => 5,
@@ -63,6 +77,9 @@ return new class extends Migration
 
             $databaseId = $row->id;
 
+            /** -----------------------------------------------------
+             * Add level 1 resources.
+             ** ----------------------------------------------------- */
             $data = [
                 [
                     'parent_id'   => null,
@@ -118,8 +135,25 @@ return new class extends Migration
                     'root'        => 0,
                     'disabled'    => 0,
                 ],
+            ];
+
+            // add timestamps and owner_ids
+            for($i=0; $i<count($data);$i++) {
+                $data[$i]['created_at'] = now();
+                $data[$i]['updated_at'] = now();
+                $data[$i]['owner_id']   = $this->ownerId;
+            }
+
+            Resource::insert($data);
+
+            /** -----------------------------------------------------
+             * Add level 2 resources.
+             ** ----------------------------------------------------- */
+            $recipeResource = Resource::where('name', 'job')->first();
+
+            $data = [
                 [
-                    'parent_id'   => null,
+                    'parent_id'   => $recipeResource->id,
                     'database_id' => $databaseId,
                     'name'        => 'recipe-ingredient',
                     'table'       => 'recipe_ingredients',
@@ -137,7 +171,7 @@ return new class extends Migration
                     'disabled'    => 0,
                 ],
                 [
-                    'parent_id'   => null,
+                    'parent_id'   => $recipeResource->id,
                     'database_id' => $databaseId,
                     'name'        => 'recipe-step',
                     'table'       => 'recipe_steps',
@@ -164,9 +198,6 @@ return new class extends Migration
             }
 
             Resource::insert($data);
-
-            //@TODO: Set parent_ids for recipe_ingredients and recipe_steps tp recipes table.
-
         }
     }
 
@@ -175,6 +206,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //@TODO: Delete personal entries from core_db.databases and core_db.resources tables.
+        if ($personalDatabase = Database::where('name', 'personal')->first()) {
+            Resource::where('database_id', $personalDatabase->id)->delete();
+            $personalDatabase->delete();
+        }
     }
 };

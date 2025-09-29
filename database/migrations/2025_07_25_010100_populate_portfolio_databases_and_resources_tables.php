@@ -40,6 +40,9 @@ return new class extends Migration
             throw new \Exception("Database `{$dbName}` does not exist.");
         }
 
+        //@TODO: Check if the database or and of the resources exist in the databases or resources tables.
+
+        // add level 1 resources
         $data = [
             [
                 //'id'       => 3,
@@ -75,6 +78,9 @@ return new class extends Migration
 
             $databaseId = $row->id;
 
+            /** -----------------------------------------------------
+             * Add level 1 resources.
+             ** ----------------------------------------------------- */
             $data = [
                 [
                     'parent_id'   => null,
@@ -165,42 +171,11 @@ return new class extends Migration
                     'root'        => 0,
                     'disabled'    => 0,
                 ],
-                [
-                    'parent_id'   => null,
-                    'database_id' => $databaseId,
-                    'name'        => 'job-coworker',
-                    'table'       => 'job_coworkers',
-                    'title'       => 'Job Coworker',
-                    'plural'      => 'Job Coworkers',
-                    'guest'       => 0,
-                    'user'        => 0,
-                    'admin'       => 1,
-                    'icon'        => 'fa-users',
-                    'level'       => 2,
-                    'sequence'    => 3060,
-                    'public'      => 0,
-                    'readonly'    => 0,
-                    'root'        => 0,
-                    'disabled'    => 0,
-                ],
-                [
-                    'parent_id'   => null,
-                    'database_id' => $databaseId,
-                    'name'        => 'job-task',
-                    'table'       => 'job_tasks',
-                    'title'       => 'Job Task',
-                    'plural'      => 'Job Tasks',
-                    'guest'       => 0,
-                    'user'        => 0,
-                    'admin'       => 1,
-                    'icon'        => 'fa-cogs',
-                    'level'       => 2,
-                    'sequence'    => 3070,
-                    'public'      => 0,
-                    'readonly'    => 0,
-                    'root'        => 0,
-                    'disabled'    => 0,
-                ],
+
+                // job has the following level 2 resources:
+                //      jb-coworker
+                //      job-task
+
                 [
                     'parent_id'   => null,
                     'database_id' => $databaseId,
@@ -339,9 +314,60 @@ return new class extends Migration
             }
 
             Resource::insert($data);
-        }
 
-        //@TODO: Set parent_ids for job_coworkers and job_tasks to jobs table.
+            /** -----------------------------------------------------
+             * Add level 2 resources.
+             ** ----------------------------------------------------- */
+            $jobResource = Resource::where('name', 'job')->first();
+
+            $data = [
+                [
+                    'parent_id'   => $jobResource->id,
+                    'database_id' => $databaseId,
+                    'name'        => 'job-coworker',
+                    'table'       => 'job_coworkers',
+                    'title'       => 'Job Coworker',
+                    'plural'      => 'Job Coworkers',
+                    'guest'       => 0,
+                    'user'        => 0,
+                    'admin'       => 1,
+                    'icon'        => 'fa-users',
+                    'level'       => 2,
+                    'sequence'    => 3060,
+                    'public'      => 0,
+                    'readonly'    => 0,
+                    'root'        => 0,
+                    'disabled'    => 0,
+                ],
+                [
+                    'parent_id'   => $jobResource->id,
+                    'database_id' => $databaseId,
+                    'name'        => 'job-task',
+                    'table'       => 'job_tasks',
+                    'title'       => 'Job Task',
+                    'plural'      => 'Job Tasks',
+                    'guest'       => 0,
+                    'user'        => 0,
+                    'admin'       => 1,
+                    'icon'        => 'fa-cogs',
+                    'level'       => 2,
+                    'sequence'    => 3070,
+                    'public'      => 0,
+                    'readonly'    => 0,
+                    'root'        => 0,
+                    'disabled'    => 0,
+                ],
+            ];
+
+            // add timestamps and owner_ids
+            for($i=0; $i<count($data);$i++) {
+                $data[$i]['created_at'] = now();
+                $data[$i]['updated_at'] = now();
+                $data[$i]['owner_id']   = $this->ownerId;
+            }
+
+            Resource::insert($data);
+        }
     }
 
     /**
@@ -349,6 +375,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //@TODO: Delete portfolio entries from core_db.databases and core_db.resources tables.
+        if ($portfolioDatabase = Database::where('name', 'portfolio')->first()) {
+            Resource::where('database_id', $portfolioDatabase->id)->delete();
+            $portfolioDatabase->delete();
+        }
     }
 };

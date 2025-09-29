@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Unit extends Model
 {
-    protected $connection = 'portfolio_db';
+    protected $connection = 'personal_db';
 
     protected $table = 'units';
 

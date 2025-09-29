@@ -40,6 +40,8 @@ return new class extends Migration
             throw new \Exception("Database `{$dbName}` does not exist.");
         }
 
+        //@TODO: Check if the database or and of the resources exist in the databases or resources tables.
+
         $data = [
             [
                 //'id'       => 4,
@@ -75,6 +77,9 @@ return new class extends Migration
 
             $databaseId = $row->id;
 
+            /** -----------------------------------------------------
+             * Add level 1 resources.
+             ** ----------------------------------------------------- */
             $data = [
                 [
                     'parent_id'   => null,
@@ -310,6 +315,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //@TODO: Delete career entries from core_db.databases and core_db.resources tables.
+        if ($careerDatabase = Database::where('name', 'career')->first()) {
+            Resource::where('database_id', $careerDatabase->id)->delete();
+            $careerDatabase->delete();
+        }
     }
 };

@@ -12,7 +12,7 @@ return new class extends Migration
      *
      * @var string
      */
-    protected $database_tag = 'portfolio_db';
+    protected $database_tag = 'personal_db';
 
     /**
      * Run the migrations.
