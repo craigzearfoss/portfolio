@@ -25,8 +25,8 @@
                 @endif
                 <th>name</th>
                 <th>artist</th>
-                <th>year</th>
                 <th class="has-text-centered">featured</th>
+                <th>year</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -40,8 +40,8 @@
                 @endif
                 <th>name</th>
                 <th>artist</th>
-                <th>year</th>
                 <th class="has-text-centered">featured</th>
+                <th>year</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -65,11 +65,11 @@
                     <td data-field="artist">
                         {{ $art->artist }}
                     </td>
-                    <td data-field="year">
-                        {{ $art->year }}
-                    </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $art->featured ])
+                    </td>
+                    <td data-field="year">
+                        {{ $art->year }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $art->public ])

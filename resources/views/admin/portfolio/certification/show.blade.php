@@ -42,13 +42,18 @@
             'value' => $certification->slug
         ])
 
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'featured',
+            'checked' => $certification->featured
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'organization',
             'value' => $certification->organization
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'academy',
+            'name' => 'academy',
             'value' => $certification->academy['name'] ?? ''
         ])
 
@@ -78,9 +83,13 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'value'  => $certification->link_name,
-            'url'    => $certification->link,
+            'href'   => $certification->link,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'value'  => $certification->link_name,
         ])
 
         @include('admin.components.show-row', [

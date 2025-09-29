@@ -5,6 +5,9 @@ use App\Http\Controllers\Admin\Portfolio\ArtController as AdminPortfolioArtContr
 use App\Http\Controllers\Admin\Portfolio\CertificationController as AdminPortfolioCertificationController;
 use App\Http\Controllers\Admin\Portfolio\CourseController as AdminPortfolioCourseController;
 use App\Http\Controllers\Admin\Portfolio\IndexController as AdminPortfolioIndexController;
+use App\Http\Controllers\Admin\Portfolio\JobController as AdminPortfolioJobController;
+use App\Http\Controllers\Admin\Portfolio\JobCoworkerController as AdminPortfolioJobCoworkerController;
+use App\Http\Controllers\Admin\Portfolio\JobTaskController as AdminPortfolioJobTaskController;
 use App\Http\Controllers\Admin\Portfolio\LinkController as AdminPortfolioLinkController;
 use App\Http\Controllers\Admin\Portfolio\MusicController as AdminPortfolioMusicController;
 use App\Http\Controllers\Admin\Portfolio\ProjectController as AdminPortfolioProjectController;
@@ -47,6 +50,9 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
     Route::resource('art', AdminPortfolioArtController::class);
     Route::resource('certification', AdminPortfolioCertificationController::class);
     Route::resource('course', AdminPortfolioCourseController::class);
+    Route::resource('job', AdminPortfolioJobController::class);
+    Route::resource('job-coworkers', AdminPortfolioJobCoworkerController::class);
+    Route::resource('job-tasks', AdminPortfolioJobTaskController::class);
     Route::resource('link', AdminPortfolioLinkController::class);
     Route::resource('music', AdminPortfolioMusicController::class);
     Route::resource('project', AdminPortfolioProjectController::class);

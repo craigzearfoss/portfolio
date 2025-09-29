@@ -37,9 +37,13 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'label'  => $academy->link_name,
-            'url'    => $academy->link,
+            'href'    => $academy->link,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'   => 'link name',
+            'value'  => $academy->link_name,
         ])
 
         @include('admin.components.show-row', [

@@ -24,11 +24,11 @@
                     <th>owner</th>
                 @endif
                 <th>name</th>
+                <th class="has-text-centered">featured</th>
                 <th>academy</th>
                 <th>year</th>
                 <th>received</th>
                 <th>expiration</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -41,11 +41,11 @@
                     <th>owner</th>
                 @endif
                 <th>name</th>
+                <th class="has-text-centered">featured</th>
                 <th>academy</th>
                 <th>year</th>
                 <th>received</th>
                 <th>expiration</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -65,9 +65,16 @@
                     <td data-field="name">
                         {{ $certification->name }}
                     </td>
+                    <td data-field="feature" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $certification->feature ])
+                    </td>
                     <td data-field="academy.name">
                         @if (!empty($certification->academy))
-                            <a href="{{ $certification->academy['id'] }}" target="_blank">{{ $certification->academy['name'] }}</a>
+                            @include('admin.components.link', [
+                                'name'   => $certification->academy['name'],
+                                'href'   => route('admin.portfolio.academy.show', $certification->academy),
+                                'target' => '_blank'
+                            ])
                         @endif
                     </td>
                     <td data-field="year">
@@ -78,9 +85,6 @@
                     </td>
                     <td data-field="expiration">
                         {{ shortDate($certification->expiration) }}
-                    </td>
-                    <td data-field="feature" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $certification->feature ])
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $certification->public ])

@@ -49,15 +49,19 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'url',
-            'url'    => $link->url,
+            'href'    => $link->url,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'label'  => $link->link_name,
-            'url'    => $link->link,
+            'href'   => $link->link,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'value'  => $link->link_name,
         ])
 
         @include('admin.components.show-row', [

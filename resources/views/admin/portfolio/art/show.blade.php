@@ -38,6 +38,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'artist',
+            'value' => $art->artist
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'slug',
             'value' => $art->slug
         ])
@@ -48,20 +53,19 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'artist',
-            'value' => $art->artist
-        ])
-
-        @include('admin.components.show-row', [
             'name'  => 'year',
             'value' => $art->year
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'label'  => $art->link_name,
-            'url'    => $art->link,
+            'href'   => $art->link,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'   => 'link name',
+            'value'  => $art->link_name,
         ])
 
         @include('admin.components.show-row', [

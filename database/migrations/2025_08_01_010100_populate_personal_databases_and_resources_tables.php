@@ -149,7 +149,7 @@ return new class extends Migration
             /** -----------------------------------------------------
              * Add level 2 resources.
              ** ----------------------------------------------------- */
-            $recipeResource = Resource::where('name', 'job')->first();
+            $recipeResource = Resource::where('name', 'recipe')->first();
 
             $data = [
                 [

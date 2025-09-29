@@ -38,7 +38,7 @@
 
         @if(!empty($resource->parent))
             @include('admin.components.show-row-link', [
-                'name'   => 'link',
+                'name'   => 'parent',
                 'label'  => $resource->parent['name'],
                 'href'   => route('admin.resource.show', $resource->parent['id'])
             ])
@@ -48,6 +48,24 @@
                 'value' => ''
             ])
         @endif
+
+        <div class="columns">
+            <div class="column is-2"><strong>children</strong>:</div>
+            <div class="column is-10 pl-0">
+                @if(!empty($resource->children))
+                    <ol>
+                        @foreach($resource->children as $child)
+                            <li>
+                                @include('admin.components.link', [
+                                    'name' => $child['name'],
+                                    'href' => route('admin.resource.show', $child)
+                                ])
+                            </li>
+                        @endforeach
+                    </ol>
+                @endif
+            </div>
+        </div>
 
         @include('admin.components.show-row', [
             'name'  => 'table',

@@ -69,7 +69,7 @@ return new class extends Migration
                 'certificate_url' => 'images/admin/portfolio/2/certificate/HGL8U7MSRWFL.png',
                 'link'            => 'https://coursera.org/verify/professional-cert/HGL8U7MSRWFL',
                 'link_name'       => 'Coursera verification',
-                'description'     => 'Includes the following courses:\\n1. Foundations of Cybersecurity\\n2. Play It Safe: Manage Security Risks\\n3. Connect and Protect: Networks and Network Security\\n4. Tools of the Trade: Linux and SQL\\n5. Assets, Threats, Vulnerabilities\\n6. Sound the Alarm: Detection and Response\\n7. Automate Cybersecurity Tasks with Python\\n8. Put It to Work: Prepare for Cybersecurity Jobs',
+                'description'     => 'Includes the following courses:<ul><li>Foundations of Cybersecurity</li><li>Play It Safe: Manage Security Risks</li><li>Connect and Protect: Networks and Network Security</li><li>Tools of the Trade: Linux and SQL</li><li>Assets, Threats, Vulnerabilities</li><li>Sound the Alarm: Detection and Response</li><li>Automate Cybersecurity Tasks with Python</li><li>Put It to Work: Prepare for Cybersecurity Jobs</li></ul>',
             ]
         ];
 

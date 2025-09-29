@@ -24,9 +24,9 @@
                     <th>owner</th>
                 @endif
                 <th>name</th>
-                <th class=" has-text-centered">completion<br>date</th>
+                <th class="has-text-centered">featured</th>
                 <th>academy</th>
-                <th>sponsor</th>
+                <th class=" has-text-centered">completion<br>date</th>
                 <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
@@ -40,10 +40,9 @@
                     <th>owner</th>
                 @endif
                 <th>name</th>
-                <th class=" has-text-centered">completion<br>date</th>
-                <th>academy</th>
-                <th>sponsor</th>
                 <th class="has-text-centered">featured</th>
+                <th>academy</th>
+                <th class=" has-text-centered">completion<br>date</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -63,19 +62,20 @@
                     <td data-field="name">
                         {{ $course->name }}
                     </td>
-                    <td data-field="completion_date">
-                        {{ shortDate($course->completion_date) }}
+                    <td data-field="featured" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $course->featured ])
                     </td>
                     <td data-field="academy.name">
                         @if (!empty($course->academy))
-                            <a href="{{ $course->academy['id'] }}" target="_blank">{{ $course->academy['name'] }}</a>
+                            @include('admin.components.link', [
+                                'name'   => $course->academy['name'],
+                                'href'   => route('admin.portfolio.academy.show', $course->academy),
+                                'target' => '_blank'
+                            ])
                         @endif
                     </td>
-                    <td data-field="sponsor">
-                        {{ $course->sponsor }}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $course->featured ])
+                    <td data-field="completion_date">
+                        {{ shortDate($course->completion_date) }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $course->public ])
@@ -133,7 +133,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '9' : '8' }}">There are no courses.</td>
+                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There are no courses.</td>
                 </tr>
 
             @endforelse

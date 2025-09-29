@@ -7,6 +7,7 @@ use App\Models\Scopes\AdminGlobalScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Music extends Model
@@ -68,4 +69,19 @@ class Music extends Model
         return $this->belongsTo(Owner::class, 'owner_id');
     }
 
+    /**
+     * Get the parent of the music.
+     */
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Music::class, 'parent_id');
+    }
+
+    /**
+     * Get the children of the music.
+     */
+    public function children(): HasMany
+    {
+        return $this->hasMany(Music::class, 'parent_id');
+    }
 }

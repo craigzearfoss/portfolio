@@ -47,9 +47,50 @@
             'value' => $music->slug
         ])
 
+        @if(!empty($music->parent))
+            @include('admin.components.show-row-link', [
+                'name'   => 'parent',
+                'label'  => $music->parent['name'],
+                'href'   => route('admin.resource.show', $music->parent['id'])
+            ])
+        @else
+            @include('admin.components.show-row', [
+                'name'  => 'parent',
+                'value' => ''
+            ])
+        @endif
+
+        <div class="columns">
+            <div class="column is-2"><strong>children</strong>:</div>
+            <div class="column is-10 pl-0">
+                @if(!empty($music->children))
+                    <ol>
+                        @foreach($music->children as $child)
+                            <li>
+                                @include('admin.components.link', [
+                                    'name' => $child['name'],
+                                    'href' => route('admin.portfolio.music.show', $child)
+                                ])
+                            </li>
+                        @endforeach
+                    </ol>
+                @endif
+            </div>
+        </div>
+
         @include('admin.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $music->featured
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'collection',
+            'checked' => $music->collection
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'track',
+            'checked' => $music->track
         ])
 
         @include('admin.components.show-row', [
@@ -73,13 +114,27 @@
             'value' => longDate($music->release_date)
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'embed',
+            'value' => $music->embed
+        ])
+
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'label'  => $music->link_name,
-            'url'    => $music->link,
+            'name'   => 'audio url',
+            'href'   => $music->audio_url,
             'target' => '_blank'
         ])
 
+        @include('admin.components.show-row-link', [
+            'name'   => 'link',
+            'href'   => $music->link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'value'  => $music->link_name,
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

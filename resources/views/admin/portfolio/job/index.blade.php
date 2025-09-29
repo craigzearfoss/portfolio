@@ -24,10 +24,10 @@
                     <th>owner</th>
                 @endif
                 <th>company</th>
+                <th class="has-text-centered">featured</th>
                 <th>role</th>
                 <th>start date</th>
                 <th>end date</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -40,10 +40,10 @@
                     <th>owner</th>
                 @endif
                 <th>company</th>
+                <th class="has-text-centered">featured</th>
                 <th>role</th>
                 <th>start date</th>
                 <th>end date</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -63,6 +63,9 @@
                     <td data-field="company">
                         {{ $job->company }}
                     </td>
+                    <td data-field="featured" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $job->featured ])
+                    </td>
                     <td data-field="role">
                         {{ $job->role }}
                     </td>
@@ -73,9 +76,6 @@
                     <td data-field="end_month|end_year" class="has-text-centered">
                         @if(!empty($job->end_month)){{ date('F', mktime(0, 0, 0, $job->end_month, 10)) }} @endif
                         {{ $job->end_year }}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $job->featured ])
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->public ])

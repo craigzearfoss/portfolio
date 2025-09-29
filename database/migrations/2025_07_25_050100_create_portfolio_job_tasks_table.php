@@ -76,7 +76,7 @@ return new class extends Migration
             [
                 'id'       => 5,
                 'job_id'   => 3,
-                'summary'  => 'Created custom JavaScript interactions for webbased student exams.',
+                'summary'  => 'Created custom JavaScript interactions for web-based student exams.',
                 'sequence' => 1,
             ],
             [

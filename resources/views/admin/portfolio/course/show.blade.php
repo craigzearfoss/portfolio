@@ -42,6 +42,11 @@
             'value' => $course->slug
         ])
 
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'featured',
+            'checked' => $course->featured
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'year',
             'value' => $course->year
@@ -63,7 +68,7 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'academy',
+            'name' => 'academy',
             'value' => $course->academy['name'] ?? ''
         ])
 
@@ -93,15 +98,19 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $course->link,
-            'label'  => $course->link_name,
+            'url'    => $course->link_name,
             'target' => '_blank'
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => nl2br($course->description ?? '')
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'link name',
+                'value' => $course->link_name,
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'description',
+                'value' => nl2br($course->description ?? '')
+            ])
 
         @include('admin.components.show-row', [
             'name'     => 'image',

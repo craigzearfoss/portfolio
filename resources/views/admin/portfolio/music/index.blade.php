@@ -25,10 +25,10 @@
                 @endif
                 <th>name</th>
                 <th>artist</th>
+                <th class="has-text-centered">featured</th>
                 <th>year</th>
                 <th>label</th>
                 <th>cat#</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -42,10 +42,10 @@
                 @endif
                 <th>name</th>
                 <th>artist</th>
+                <th class="has-text-centered">featured</th>
                 <th>year</th>
                 <th>label</th>
                 <th>cat#</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -68,6 +68,9 @@
                     <td data-field="artist">
                         {{ $music->artist }}
                     </td>
+                    <td data-field="featured" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $music->featured ])
+                    </td>
                     <td data-field="year">
                         {{ $music->year }}
                     </td>
@@ -76,9 +79,6 @@
                     </td>
                     <td data-field="catalog_number">
                         {{ $music->catalog_number }}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $music->featured ])
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $music->public ])

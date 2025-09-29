@@ -48,6 +48,31 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'role',
+            'value' => $job->role
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'start',
+            'value' => (!empty($job->start_month) ? date('F', mktime(0, 0, 0, $job->start_month, 10)) : '') . ' ' . $job->start_year
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'end',
+            'value' => (!empty($job->end_month) ? date('F', mktime(0, 0, 0, $job->end_month, 10)) : '') . ' ' . $job->end_year
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'summary',
+            'value' => $job->summary
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'note',
+            'value' => $job->notes
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
                            'street'    => $job->street ?? null,
@@ -60,51 +85,24 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'latitude',
-            'value' => $job->latitude
-        ])
-
-        @include('admin.components.show-row', [
             'name'  => 'longitude',
             'value' => $job->longitude
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'role',
-            'value' => $job->role
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'start_date',
-            'value' => (!empty($job->start_month) ? date('F', mktime(0, 0, 0, $job->start_month, 10)) : '') . ' ' . $job->start_year
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'end_date',
-            'value' => (!empty($job->end_month) ? date('F', mktime(0, 0, 0, $job->end_month, 10)) : '') . ' ' . $job->end_year
-        ])
-
-
-        @include('admin.components.show-row', [
-            'name'  => 'summary',
-            'value' => $job->summary
-        ])
-
-        @include('admin.components.show-row-list', [
-            'name'  => 'tasks',
-            'values' => $job->tasks->pluck('summary')
-        ])
-
-        @include('admin.components.show-row-list', [
-            'name'  => 'coworkers',
-            'values' => $job->coworkers->pluck('name')
+            'name'  => 'latitude',
+            'value' => $job->latitude
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $job->link,
-            'label'  => $job->link_name,
+            'href'   => $job->link,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'value'  => $job->link_name,
         ])
 
         @include('admin.components.show-row', [
@@ -139,7 +137,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($job->name, $jobCoworker->thumbnail)
+            'filename' => getFileSlug($job->name, $job->thumbnail)
         ])
 
         @include('admin.components.show-row', [
@@ -176,6 +174,16 @@
         @include('admin.components.show-row', [
             'name'  => 'updated at',
             'value' => longDateTime($job->updated_at)
+        ])
+
+        @include('admin.components.show-row-list', [
+            'name'  => 'tasks',
+            'values' => $job->tasks->pluck('summary')
+        ])
+
+        @include('admin.components.show-row-list', [
+            'name'  => 'coworkers',
+            'values' => $job->coworkers->pluck('name')
         ])
 
     </div>
