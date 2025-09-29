@@ -42,7 +42,7 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'plural',
+            'name'  => 'title',
             'value' => $database->title
         ])
 

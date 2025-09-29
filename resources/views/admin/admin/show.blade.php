@@ -30,6 +30,33 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'title',
+            'value' => $admin->title
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'location',
+            'value' => formatLocation([
+                           'street'    => $admin->street ?? null,
+                           'street2'   => $admin->street2 ?? null,
+                           'city'      => $admin->city ?? null,
+                           'state'     => $admin->state['code'] ?? null,
+                           'zip'       => $admin->zip ?? null,
+                           'country'   => $admin->country['iso_alpha3'] ?? null,
+                       ])
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'longitude',
+            'value' => $admin->longitude
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'latitude',
+            'value' => $admin->latitude
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'phone',
             'value' => $admin->phone
         ])
@@ -37,6 +64,23 @@
         @include('admin.components.show-row', [
             'name'  => 'email',
             'value' => $admin->email
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'email verified at',
+            'value' => longDateTime($admin->email_verified_at)
+        ])
+
+        @include('admin.components.show-row-link', [
+            'name'   => 'link',
+            'label'  => $admin->link,
+            'href'   => $admin->link_name,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => $admin->description
         ])
 
         @include('admin.components.show-row-image', [
@@ -67,6 +111,11 @@
             'download' => true,
             'external' => true,
             'filename' => getFileSlug($admin->name, $admin->thumbnail)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'status',
+            'value' => \App\Models\User::statusName($admin->status)
         ])
 
         @include('admin.components.show-row', [

@@ -27,14 +27,27 @@
         @endif
 
         @include('admin.components.show-row', [
+            'name'  => 'database',
+            'value' => $resource->database->name
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $resource->name
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'database',
-            'value' => $resource->database->name
-        ])
+        @if(!empty($resource->parent))
+            @include('admin.components.show-row-link', [
+                'name'   => 'link',
+                'label'  => $resource->parent['name'],
+                'href'   => route('admin.resource.show', $resource->parent['id'])
+            ])
+        @else
+            @include('admin.components.show-row', [
+                'name'  => 'parent',
+                'value' => ''
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'table',
@@ -69,6 +82,11 @@
         @include('admin.components.show-row-icon', [
             'name' => 'icon',
             'icon' => $resource->icon
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'level',
+            'value' => $resource->level
         ])
 
         @include('admin.components.show-row', [

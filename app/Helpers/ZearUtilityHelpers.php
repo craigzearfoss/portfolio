@@ -246,6 +246,7 @@ if (! function_exists('reservedKeywords')) {
                 'privacy policy', 'privacy-policy',
                 'register',
                 'resource',
+                'root',
                 'show',
                 'storage',
                 'team',

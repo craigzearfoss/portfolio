@@ -47,6 +47,16 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'longitude',
+            'value' => $user->longitude
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'latitude',
+            'value' => $user->latitude
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'phone',
             'value' => $user->phone
         ])
@@ -56,10 +66,21 @@
             'value' => $user->email
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'email verified at',
+            'value' => longDateTime($user->email_verified_at)
+        ])
+
         @include('admin.components.show-row-link', [
-            'name'   => 'website',
-            'url'    => $user->website,
+            'name'   => 'link',
+            'label'  => $user->link,
+            'href'   => $user->link_name,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => $user->description
         ])
 
         @include('admin.components.show-row-image', [
@@ -120,11 +141,6 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
             'checked' => $user->disabled
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'email verified at',
-            'value' => longDateTime($user->email_verified_at)
         ])
 
         @include('admin.components.show-row', [

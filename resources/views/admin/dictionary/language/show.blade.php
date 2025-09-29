@@ -72,14 +72,14 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'wikipedia',
-            'url'    => $language->wikipedia,
+            'href'   => $language->wikipedia,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $language->link,
             'label'  => $language->link_name,
+            'href'   => $language->link,
             'target' => '_blank'
         ])
 

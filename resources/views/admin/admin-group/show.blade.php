@@ -28,19 +28,24 @@
         @endif
 
         @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $adminGroup->name
-        ])
-
-        @include('admin.components.show-row', [
             'name'  => 'team',
             'value' => $adminGroup->team['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'abbreviation',
-            'value' => $adminGroup->abbreviation
+            'name'  => 'name',
+            'value' => $adminGroup->name
         ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'slug',
+                'value' => $adminGroup->slug
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'abbreviation',
+                'value' => $adminGroup->abbreviation
+            ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

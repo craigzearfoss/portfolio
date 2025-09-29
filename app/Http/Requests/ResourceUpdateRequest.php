@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Database;
 use App\Models\Owner;
+use App\Models\Resource;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -33,7 +34,7 @@ class ResourceUpdateRequest extends FormRequest
             'owner_id'    => ['integer', 'filled', Rule::in($ownerIds)],
             'database_id' => ['integer', 'filled', Rule::in(Database::all()->pluck('id')->toArray())],
             'name'        => ['string', 'filled', 'max:50', 'unique:resources,name,'.$this->resources->id],
-            'table'       => ['string', 'filled', 'max:50', 'unique:resources,table,'.$this->resources->id],
+            'parent_id'   => ['integer', Rule::in(Resource::where('id', '<>', $this->id)->all()->pluck('id')->toArray()), 'nullable'],            'table'       => ['string', 'filled', 'max:50', 'unique:resources,table,'.$this->resources->id],
             'title'       => ['string', 'filled', 'max:50'],
             'plural'      => ['string', 'filled', 'max:50'],
             'guest'       => ['integer', 'between:0,1'],

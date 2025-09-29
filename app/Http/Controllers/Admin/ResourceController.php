@@ -26,7 +26,7 @@ class ResourceController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $resources = Resource::latest()->paginate($perPage);
+        $resources = Resource::orderBy('name')->paginate($perPage);
 
         return view('admin.resource.index', compact('resources'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

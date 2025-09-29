@@ -72,14 +72,14 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'wikipedia',
-            'url'    => $category->wikipedia,
+            'href'   => $category->wikipedia,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $category->link,
             'label'  => $category->link_name,
+            'href'   => $category->link,
             'target' => '_blank'
         ])
 

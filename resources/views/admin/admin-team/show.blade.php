@@ -28,6 +28,16 @@
         @endif
 
         @include('admin.components.show-row', [
+            'name'  => 'name',
+            'value' => $adminTeam->name
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'slug',
+            'value' => $adminTeam->slug
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'abbreviation',
             'value' => $adminTeam->abbreviation
         ])

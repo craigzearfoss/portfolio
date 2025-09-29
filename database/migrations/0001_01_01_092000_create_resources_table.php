@@ -30,10 +30,10 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('resources', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Resource::class, 'parent_id')->nullable();
             $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
             $table->foreignIdFor(\App\Models\Database::class);
             $table->string('name', 50);
+            $table->foreignIdFor(\App\Models\Resource::class, 'parent_id')->nullable();
             $table->string('table', 50);
             $table->string('title', 50);
             $table->string('plural', 50);

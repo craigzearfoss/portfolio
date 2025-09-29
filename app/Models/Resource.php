@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Requests\ResourceStoreRequest;
 use App\Models\Database;
 use App\Models\Owner;
+use App\Models\Resource;
 use App\Services\PermissionService;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,6 +31,7 @@ class Resource extends Model
         'owner_id',
         'database_id',
         'name',
+        'parent_id',
         'table',
         'title',
         'plural',
@@ -37,6 +39,7 @@ class Resource extends Model
         'user',
         'admin',
         'icon',
+        'level',
         'sequence',
         'public',
         'readonly',
@@ -58,6 +61,14 @@ class Resource extends Model
     public function database(): BelongsTo
     {
         return $this->belongsTo(Database::class, 'database_id');
+    }
+
+    /**
+     * Get the parent of the resource.
+     */
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Resource::class, 'parent_id');
     }
 
     /**

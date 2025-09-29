@@ -20,32 +20,37 @@
 
     <div class="card p-4">
 
-        @if(isRootAdmin())
+            @if(isRootAdmin())
+                @include('admin.components.show-row', [
+                    'name'  => 'owner',
+                    'value' => $userGroup->owner['username'] ?? ''
+                ])
+            @endif
+
             @include('admin.components.show-row', [
-                'name'  => 'owner',
-                'value' => $userGroup->owner['username'] ?? ''
+                'name'  => 'team',
+                'value' => $userGroup->team['name'] ?? ''
             ])
-        @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $userGroup->name
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'name',
+                'value' => $userGroup->name
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'team',
-            'value' => $userGroup->team['name'] ?? ''
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'slug',
+                'value' => $userGroup->slug
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'abbreviation',
-            'value' => $userGroup->abbreviation
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'abbreviation',
+                'value' => $userGroup->abbreviation
+            ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'description',
-            'value' => $userGroup->description
-        ])
+            @include('admin.components.show-row', [
+                'name'  => 'description',
+                'value' => $userGroup->description
+            ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',

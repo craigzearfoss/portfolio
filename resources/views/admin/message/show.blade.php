@@ -50,6 +50,16 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
+            'name'    => 'read-only',
+            'checked' => $message->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $message->root
+        ])
+
+        @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
             'checked' => $message->disabled
         ])

@@ -25,6 +25,7 @@
                 <th>name</th>
                 <th>email</th>
                 <th>phone</th>
+                <th>status</th>
                 <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -37,6 +38,7 @@
                 <th>name</th>
                 <th>email</th>
                 <th>phone</th>
+                <th>status</th>
                 <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -59,6 +61,9 @@
                     </td>
                     <td data-field="phone">
                         {{ $admin->phone }}
+                    </td>
+                    <td data-field="phone">
+                        {{ \App\Models\User::statusName($admin->status) }}
                     </td>
                     <td data-field="root" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $admin->root ])
@@ -105,7 +110,7 @@
             @empty
 
                 <tr>
-                    <td colspan="7">There are no admins.</td>
+                    <td colspan="8">There are no admins.</td>
                 </tr>
 
             @endforelse

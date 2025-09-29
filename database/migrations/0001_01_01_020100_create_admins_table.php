@@ -55,6 +55,7 @@ return new class extends Migration
             [
                 'id'                => 1,
                 'username'          => 'root',
+                'name'              => 'Root Admin',
                 'email'             => 'root@gmail.com',
                 'email_verified_at' => now(),
                 'password'          => Hash::make('changeme'),
@@ -65,6 +66,7 @@ return new class extends Migration
             [
                 'id'                => 2,
                 'username'          => 'admin',
+                'name'              => 'Default Admin',
                 'email'             => 'admin@gmail.com',
                 'email_verified_at' => now(),
                 'password'          => Hash::make('changeme'),

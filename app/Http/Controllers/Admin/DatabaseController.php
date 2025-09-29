@@ -25,7 +25,7 @@ class DatabaseController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $databases = Database::latest()->paginate($perPage);
+        $databases = Database::orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.database.index', compact('databases'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

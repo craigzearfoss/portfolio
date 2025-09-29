@@ -24,7 +24,6 @@ class MessageFactory extends Factory
             'subject'    => fake()->sentence(),
             'body'       => fake()->text(200),
             'created_at' => $msgDateTime,
-            'deleted_at' => $msgDateTime,
         ];
     }
 }

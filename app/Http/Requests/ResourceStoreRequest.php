@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Database;
+use App\Models\Resource;
 use App\Models\Owner;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,7 @@ class ResourceStoreRequest extends FormRequest
             'owner_id'    => ['integer', 'required', Rule::in($ownerIds)],
             'database_id' => ['integer', 'required', Rule::in(Database::all()->pluck('id')->toArray())],
             'name'        => ['string', 'required', 'max:50', 'unique:resources,name'],
+            'parent_id'   => ['integer', Rule::in(Resource::where('id', '<>', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
             'table'       => ['string', 'required', 'max:50', 'unique:resources,name'],
             'title'       => ['string', 'required', 'max:50'],
             'plural'      => ['string', 'required', 'max:50'],
