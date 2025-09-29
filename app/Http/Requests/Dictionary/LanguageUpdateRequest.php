@@ -29,9 +29,9 @@ class LanguageUpdateRequest extends FormRequest
         }
 
         return [
-            'full_name'    => ['string', 'max:255', 'unique:dictionary_db.languages,full_name,'.$this->language->id, 'filled'],
-            'name'         => ['string', 'max:255', 'unique:dictionary_db.languages,name,'.$this->language->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:dictionary_db.languages,slug,'.$this->language->id, 'filled'],
+            'full_name'    => ['string', 'filled', 'max:255', 'unique:dictionary_db.languages,full_name,'.$this->language->id],
+            'name'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.languages,name,'.$this->language->id],
+            'slug'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.languages,slug,'.$this->language->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

@@ -29,9 +29,9 @@ class LibraryUpdateRequest extends FormRequest
         }
 
         return [
-            'full_name'    => ['string', 'max:255', 'unique:dictionary_db.libraries,full_name,'.$this->library->id, 'filled'],
-            'name'         => ['string', 'max:255', 'unique:dictionary_db.libraries,name,'.$this->library->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:dictionary_db.libraries,slug,'.$this->library->id, 'filled'],
+            'full_name'    => ['string', 'filled', 'max:255', 'unique:dictionary_db.libraries,full_name,'.$this->library->id],
+            'name'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.libraries,name,'.$this->library->id],
+            'slug'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.libraries,slug,'.$this->library->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

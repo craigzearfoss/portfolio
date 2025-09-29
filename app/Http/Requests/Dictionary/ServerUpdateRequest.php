@@ -29,9 +29,9 @@ class ServerUpdateRequest extends FormRequest
         }
 
         return [
-            'full_name'    => ['string', 'max:255', 'unique:dictionary_db.servers,full_name,'.$this->server->id, 'filled'],
-            'name'         => ['string', 'max:255', 'unique:dictionary_db.servers,name,'.$this->server->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:dictionary_db.servers,slug,'.$this->server->id, 'filled'],
+            'full_name'    => ['string', 'filled', 'max:255', 'unique:dictionary_db.servers,full_name,'.$this->server->id],
+            'name'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.servers,name,'.$this->server->id],
+            'slug'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.servers,slug,'.$this->server->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

@@ -29,9 +29,9 @@ class OperatingSystemStoreRequest extends FormRequest
         }
 
         return [
-            'full_name'    => ['required', 'string', 'max:255', 'unique:dictionary_db.operating_systems,full_name'],
-            'name'         => ['required', 'string', 'max:255', 'unique:dictionary_db.operating_systems,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:dictionary_db.operating_systems,slug'],
+            'full_name'    => ['string', 'required', 'max:255', 'unique:dictionary_db.operating_systems,full_name'],
+            'name'         => ['string', 'required', 'max:255', 'unique:dictionary_db.operating_systems,name'],
+            'slug'         => ['string', 'required', 'max:255', 'unique:dictionary_db.operating_systems,slug'],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
