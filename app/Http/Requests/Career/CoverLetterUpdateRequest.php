@@ -39,8 +39,8 @@ class CoverLetterUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'         => ['required', 'integer', Rule::in($ownerIds)],
-            'application_id'   => ['integer', Rule::in(Application::all('id')->pluck('id')->toArray())],
+            'owner_id'         => ['integer', 'filled', Rule::in($ownerIds)],
+            'application_id'   => ['integer', 'filled', Rule::in(Application::all('id')->pluck('id')->toArray())],
             'date'             => ['date', 'nullable'],
             'content'          => ['nullable'],
             'cover_letter_url' => ['string', 'url:http,https', 'max:255', 'nullable'],

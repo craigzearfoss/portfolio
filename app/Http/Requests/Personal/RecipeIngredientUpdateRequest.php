@@ -40,15 +40,15 @@ class RecipeIngredientUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'      => ['required', 'integer', Rule::in($ownerIds)],
+            'owner_id'      => ['integer', 'filled', Rule::in($ownerIds)],
             'recipe_id'     => [
-                'required',
                 'integer',
-                Rule::in(Recipe::where('admin_id', Auth::guard('admin')->user()->id)->get()->pluck('id')->toArray()),
+                'filled',
+                Rule::in(Recipe::where('owner_id', $this->owner_id)->get()->pluck('id')->toArray()),
             ],
-            'ingredient_id' => ['required', 'integer', Rule::in(Ingredient::all()->pluck('id')->toArray())],
+            'ingredient_id' => ['integer', 'filled', Rule::in(Ingredient::all()->pluck('id')->toArray())],
             'amount'        => ['string', 'max:50:', 'nullable'],
-            'unit_id'       => ['required', 'integer', Rule::in(Unit::all()->pluck('id')->toArray()), 'nullable'],
+            'unit_id'       => ['integer', 'filled', Rule::in(Unit::all()->pluck('id')->toArray()), 'nullable'],
             'qualifier'     => ['string', 'max:255:', 'nullable'],
             'description'   => ['nullable'],
             'image'         => ['string', 'max:255', 'nullable'],

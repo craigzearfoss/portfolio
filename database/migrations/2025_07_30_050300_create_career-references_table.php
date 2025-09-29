@@ -29,8 +29,8 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('references', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
+            $table->string('name');
+            $table->string('slug');
             $table->string('phone', 20)->nullable();
             $table->string('phone_label', 255)->nullable();
             $table->string('alt_phone', 20)->nullable();

@@ -23,9 +23,9 @@ class UnitStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'max:50', 'unique:portfolio_db.units,name'],
-            'abbreviation' => ['required', 'string', 'max:20', 'unique:portfolio_db.units,abbreviation'],
-            'system'       => ['required', 'string', 'max:10', 'nullable'],
+            'name'         => ['required', 'string', 'required', 'max:50', 'unique:portfolio_db.units,name'],
+            'abbreviation' => ['required', 'string', 'required', 'max:20', 'unique:portfolio_db.units,abbreviation'],
+            'system'       => ['string', 'max:10', 'nullable'],
             'link'         => ['string', 'max:255', 'nullable'],
             'link_name'    => ['string', 'url:http,https', 'max:255', 'nullable'],
             'description'  => ['nullable'],

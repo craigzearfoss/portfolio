@@ -39,8 +39,16 @@ class ResumeStoreRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'     => ['required', 'integer', Rule::in($ownerIds)],
-            'name'         => ['required', 'string', 'max:255'],
+            'owner_id'     => ['integer', 'required', Rule::in($ownerIds)],
+            'name'         => [
+                'string',
+                'required',
+                'max:255',
+                Rule::unique('portfolio_db.resumes')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
             'date'         => ['date', 'nullable'],
             'primary'      => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],

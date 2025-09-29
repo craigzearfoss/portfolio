@@ -43,9 +43,9 @@ class ApplicationStoreRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'             => ['required', 'integer', Rule::in($ownerIds)],
-            'company_id'           => ['integer', Rule::in(Company::all('id')->pluck('id')->toArray())],
-            'role'                 => ['required', 'string', 'max:255'],
+            'owner_id'             => ['integer', 'required', Rule::in($ownerIds)],
+            'company_id'           => ['integer', 'required', Rule::in(Company::all('id')->pluck('id')->toArray())],
+            'role'                 => ['string', 'required', 'max:255'],
             'resume_id'            => ['integer', Rule::in(Resume::all('id')->pluck('id')->toArray())],
             'cover_letter_id'      => ['integer', Rule::in(CoverLetter::all('id')->pluck('id')->toArray())],
             'rating'               => ['integer', 'between:1,5'],

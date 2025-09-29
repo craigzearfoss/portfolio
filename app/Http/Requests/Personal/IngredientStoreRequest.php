@@ -29,9 +29,9 @@ class IngredientStoreRequest extends FormRequest
         }
 
         return [
-            'full_name'    => ['required', 'string', 'max:255', 'unique:personal_db.ingredients,full_name'],
-            'name'         => ['required', 'string', 'max:100', 'unique:personal_db.ingredients,name'],
-            'slug'         => ['required', 'string', 'max:100', 'unique:personal_db.ingredients,slug'],
+            'full_name'    => ['string', 'required', 'max:255', 'unique:personal_db.ingredients,full_name'],
+            'name'         => ['string', 'required', 'max:100', 'unique:personal_db.ingredients,name'],
+            'slug'         => ['string', 'required', 'max:100', 'unique:personal_db.ingredients,slug'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],

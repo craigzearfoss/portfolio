@@ -38,11 +38,11 @@ class EventUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'       => ['required', 'integer', Rule::in($ownerIds)],
-            'application_id' => ['integer', Rule::in(Application::all('id')->pluck('id')->toArray())],
-            'name'           => ['string', 'max:255', 'filled'],
-            'date'           => ['required', 'date_format:Y-m-d'],
-            'time'           => ['required', 'date_format:H:i:s'],
+            'owner_id'       => ['integer', 'filled', Rule::in($ownerIds)],
+            'application_id' => ['integer', 'filled', Rule::in(Application::all('id')->pluck('id')->toArray())],
+            'name'           => ['string', 'filled', 'max:255'],
+            'date'           => ['date_format:Y-m-d'],
+            'time'           => ['date_format:H:i:s'],
             'location'       => ['string', 'max:255', 'nullable'],
             'description'    => ['nullable'],
             'sequence'       => ['integer', 'min:0'],

@@ -46,10 +46,26 @@ class CompanyUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'        => ['required', 'integer', Rule::in($ownerIds)],
-            'name'            => ['string', 'max:255', 'unique:career_db.companies,name,'.$this->company->id, 'filled'],
-            'slug'            => ['string', 'max:255', 'unique:career_db.companies,slug,'.$this->company->id, 'filled'],
-            'industry_id'     => ['integer', Rule::in(Industry::all()->pluck('id')->toArray())],
+            'owner_id'        => ['integer', 'required', Rule::in($ownerIds)],
+            'name'            => [
+                'string',
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.companies')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'            => [
+                'string',
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.companies')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
+            'industry_id'     => ['integer', 'filled', Rule::in(Industry::all()->pluck('id')->toArray())],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],

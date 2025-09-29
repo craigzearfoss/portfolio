@@ -30,7 +30,7 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('applications', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
-            $table->foreignIdFor( \App\Models\Career\Company::class)->nullable();
+            $table->foreignIdFor( \App\Models\Career\Company::class);
             $table->string('role');
             $table->foreignIdFor( \App\Models\Career\Resume::class)->nullable();
             $table->tinyInteger('rating')->default(1);

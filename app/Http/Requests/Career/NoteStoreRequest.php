@@ -39,10 +39,10 @@ class NoteStoreRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'       => ['required', 'integer', Rule::in($ownerIds)],
-            'application_id' => ['required', 'integer', Rule::in(Application::all('id')->pluck('id')->toArray())],
-            'subject'        => ['required', 'string', 'max:255'],
-            'body'           => ['required'],
+            'owner_id'       => ['integer', 'required', Rule::in($ownerIds)],
+            'application_id' => ['integer', 'required', Rule::in(Application::all('id')->pluck('id')->toArray())],
+            'subject'        => ['string', 'required', 'max:255'],
+            'body'           => ['nullable'],
             'sequence'       => ['integer', 'min:0'],
             'public'         => ['integer', 'between:0,1'],
             'readonly'       => ['integer', 'between:0,1'],

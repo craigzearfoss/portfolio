@@ -43,9 +43,23 @@ class RecipeUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'     => ['required', 'integer', Rule::in($ownerIds)],
-            'name'         => ['string', 'max:255', 'unique:personal_db.recipes,name,'.$this->recipe->id, 'filled'],
-            'slug'         => ['string', 'max:255', 'unique:personal_db.recipes,slug,'.$this->recipe->id, 'filled'],
+            'owner_id'     => ['integer', 'filled', Rule::in($ownerIds)],
+            'name'         => [
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.recipes')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'         => [
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.recipes')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
             'featured'     => ['integer', 'between:0,1'],
             'source'       => ['string', 'max:255', 'nullable'],
             'author'       => ['string', 'max:255', 'nullable'],

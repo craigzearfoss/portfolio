@@ -29,9 +29,9 @@ class IngredientUpdateRequest extends FormRequest
         }
 
         return [
-            'full_name'    => ['string', 'max:255', 'unique:personal_db.ingredients,full_name,'.$this->ingredient->id, 'filled'],
-            'name'         => ['string', 'max:100', 'unique:personal_db.ingredients,name,'.$this->ingredient->id, 'filled'],
-            'slug'         => ['string', 'max:100', 'unique:personal_db.ingredients,slug,'.$this->ingredient->id, 'filled'],
+            'full_name'    => ['string', 'filled', 'max:255', 'unique:personal_db.ingredients,full_name,'.$this->ingredient->id],
+            'name'         => ['string', 'filled', 'max:100', 'unique:personal_db.ingredients,name,'.$this->ingredient->id],
+            'slug'         => ['string', 'filled', 'max:100', 'unique:personal_db.ingredients,slug,'.$this->ingredient->id],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],

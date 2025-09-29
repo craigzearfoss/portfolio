@@ -62,11 +62,18 @@ class LinkStoreRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.links')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('url', $this->url);
+                        ->where('slug', $this->slug);
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],
-            'url'          => ['string', 'url:http,https', 'max:255', 'unique:portfolio_db.links,url', 'required'],
+            'url'          => [
+                'string',
+                'required',
+                Rule::unique('portfolio_db.links')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('url', $this->url);
+                })
+            ],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],

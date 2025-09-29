@@ -38,10 +38,10 @@ class NoteUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'       => ['required', 'integer', Rule::in($ownerIds)],
-            'application_id' => ['required', 'integer', Rule::in(Application::all('id')->pluck('id')->toArray())],
-            'subject'        => ['string', 'max:255', 'filled'],
-            'body'           => ['filled'],
+            'owner_id'       => ['integer', 'filled', Rule::in($ownerIds)],
+            'application_id' => ['integer', 'filled', Rule::in(Application::all('id')->pluck('id')->toArray())],
+            'subject'        => ['filled', 'max:255', 'filled'],
+            'body'           => ['nullable'],
             'sequence'       => ['integer', 'min:0'],
             'public'         => ['integer', 'between:0,1'],
             'readonly'       => ['integer', 'between:0,1'],

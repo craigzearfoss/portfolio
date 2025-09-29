@@ -31,11 +31,11 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('communications', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
-            $table->foreignId('application_id', Application::class)->nullable()->index();
+            $table->foreignId('application_id', Application::class);
             $table->string('subject');
             $table->date('date')->nullable();
             $table->time('time')->nullable();
-            $table->text('body');
+            $table->text('body')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('readonly')->default(0);

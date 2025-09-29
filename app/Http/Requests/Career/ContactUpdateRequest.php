@@ -45,9 +45,25 @@ class ContactUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'        => ['required', 'integer', Rule::in($ownerIds)],
-            'name'            => ['string', 'max:255', 'unique:career_db.contacts,name,'.$this->contact->id, 'filled'],
-            'slug'            => ['string', 'max:255', 'unique:career_db.contacts,slug,'.$this->contact->id, 'filled'],
+            'owner_id'        => ['integer', 'filled', Rule::in($ownerIds)],
+            'name'            => [
+                'string',
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.contacts')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'            => [
+                'string',
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.contacts')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
             'title'           => ['string', 'max:20', 'nullable'],
             'job_title'       => ['string', 'max:100', 'nullable'],
             'street'          => ['string', 'max:255', 'nullable'],

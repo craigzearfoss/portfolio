@@ -44,9 +44,25 @@ class ReferenceStoreRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'        => ['required', 'integer', Rule::in($ownerIds)],
-            'name'            => ['required', 'string', 'max:255', 'unique:career_db.references,name'],
-            'slug'            => ['required', 'string', 'max:255', 'unique:career_db.references,slug'],
+            'owner_id'        => ['integer', 'required', Rule::in($ownerIds)],
+            'name'            => [
+                'string',
+                'required',
+                'max:255',
+                Rule::unique('portfolio_db.references')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'            => [
+                'string',
+                'required',
+                'max:255',
+                Rule::unique('portfolio_db.references')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
             'phone'           => ['string', 'max:20', 'nullable'],
             'phone_label'     => ['string', 'max:255', 'nullable'],
             'alt_phone'       => ['string', 'max:20', 'nullable'],

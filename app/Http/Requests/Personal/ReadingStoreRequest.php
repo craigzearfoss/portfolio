@@ -46,10 +46,18 @@ class ReadingStoreRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'         => ['required', 'integer', Rule::in($ownerIds)],
-            'title'            => ['required', 'string', 'max:255', 'unique:personal_db.readings,name'],
+            'owner_id'         => ['integer', 'required', Rule::in($ownerIds)],
+            'title'            => ['string', 'required', 'max:255', 'unique:personal_db.readings,name'],
             'author'           => ['string', 'max:255', 'nullable'],
-            'slug'             => ['required', 'string', 'max:255', 'unique:personal_db.readings,slug'],
+            'slug'             => [
+                'string',
+                'required',
+                'max:255',
+                Rule::unique('portfolio_db.readings')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
             'featured'         => ['integer', 'between:0,1'],
             'year'             => ['integer', 'between:-3000,'.date("Y"), 'nullable'],
             'publication_year' => ['integer', 'between:-3000,'.date("Y"), 'nullable'],

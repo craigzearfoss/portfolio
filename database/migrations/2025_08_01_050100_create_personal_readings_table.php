@@ -29,7 +29,7 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('readings', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
-            $table->string('title')->unique();
+            $table->string('title');
             $table->string('author')->nullable();
             $table->string('slug')->unique();
             $table->tinyInteger('featured')->default(0);

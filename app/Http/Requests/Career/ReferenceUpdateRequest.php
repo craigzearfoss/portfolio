@@ -43,9 +43,25 @@ class ReferenceUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'        => ['required', 'integer', Rule::in($ownerIds)],
-            'name'            => ['string', 'max:255', 'unique:career_db.references,name,'.$this->reference->id, 'filled'],
-            'slug'            => ['string', 'max:255', 'unique:career_db.references,slug,'.$this->reference->id, 'filled'],
+            'owner_id'        => ['required', 'integer', 'filled', Rule::in($ownerIds)],
+            'name'            => [
+                'string',
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.references')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'            => [
+                'string',
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.references')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
             'phone'           => ['string', 'max:20', 'nullable'],
             'phone_label'     => ['string', 'max:255', 'nullable'],
             'alt_phone'       => ['string', 'max:20', 'nullable'],

@@ -34,8 +34,8 @@ return new class extends Migration
             $table->string('name');
             $table->date('date')->nullable();
             $table->time('time')->nullable();
-            $table->string('location');
-            $table->text('description');
+            $table->string('location')->nullable();
+            $table->text('description')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('readonly')->default(0);

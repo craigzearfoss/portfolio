@@ -30,9 +30,9 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('notes', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
-            $table->foreignId('application_id', \App\Models\Career\Application::class)->nullable();
+            $table->foreignId('application_id', \App\Models\Career\Application::class);
             $table->string('subject');
-            $table->text('body');
+            $table->text('body')->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('readonly')->default(0);

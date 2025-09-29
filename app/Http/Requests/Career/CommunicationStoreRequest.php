@@ -39,12 +39,12 @@ class CommunicationStoreRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'       => ['required', 'integer', Rule::in($ownerIds)],
-            'application_id' => ['integer', Rule::in(Application::all('id')->pluck('id')->toArray())],
-            'subject'        => ['required', 'string', 'max:255'],
-            'date'           => ['required', 'date_format:Y-m-d'],
-            'time'           => ['required', 'date_format:H:i:s'],
-            'body'           => ['required'],
+            'owner_id'       => ['integer', 'required', Rule::in($ownerIds)],
+            'application_id' => ['integer', 'required', Rule::in(Application::all('id')->pluck('id')->toArray())],
+            'subject'        => ['string', 'required', 'max:255'],
+            'date'           => ['date_format:Y-m-d'],
+            'time'           => ['date_format:H:i:s'],
+            'body'           => ['nullable'],
             'sequence'       => ['integer', 'min:0'],
             'public'         => ['integer', 'between:0,1'],
             'readonly'       => ['integer', 'between:0,1'],

@@ -38,11 +38,11 @@ class RecipeStepUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'    => ['required', 'integer', Rule::in($ownerIds)],
+            'owner_id'    => ['integer', 'filled', Rule::in($ownerIds)],
             'recipe_id'   => [
-                'required',
                 'integer',
-                Rule::in(Recipe::where('admin_id', Auth::guard('admin')->user()->id)->get()->pluck('id')->toArray()),
+                'filled',
+                Rule::in(Recipe::where('owner_id', $this->owner_id)->get()->pluck('id')->toArray()),
             ],
             'step'         => ['integer', 'min:1'],
             'description'  => ['nullable'],

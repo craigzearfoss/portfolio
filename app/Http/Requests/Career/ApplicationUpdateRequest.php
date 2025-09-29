@@ -43,9 +43,9 @@ class ApplicationUpdateRequest extends FormRequest
             : [ Auth::guard('admin')->user()->id ];
 
         return [
-            'owner_id'             => ['required', 'integer', Rule::in($ownerIds)],
-            'company_id'           => ['integer', Rule::in(Company::all('id')->pluck('id')->toArray())],
-            'role'                 => ['string', 'max:255', 'filled'],
+            'owner_id'             => ['integer', 'filled', Rule::in($ownerIds)],
+            'company_id'           => ['integer', 'filled', Rule::in(Company::all('id')->pluck('id')->toArray())],
+            'role'                 => ['string', 'filled', 'max:255'],
             'resume_id'            => ['integer', Rule::in(Resume::all('id')->pluck('id')->toArray())],
             'cover_letter_id'      => ['integer', Rule::in(CoverLetter::all('id')->pluck('id')->toArray())],
             'rating'               => ['integer', 'between:1,5'],

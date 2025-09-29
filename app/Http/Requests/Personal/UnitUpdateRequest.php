@@ -23,9 +23,9 @@ class UnitUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['string', 'max:255', 'unique:portfolio_db.units,name,'.$this->unit->id, 'filled'],
-            'abbreviation' => ['string', 'max:10', 'unique:portfolio_db.units,abbreviation,'.$this->unit->id, 'filled'],
-            'system'       => ['string', 'max:20', 'filled', 'nullable'],
+            'name'         => ['max:255', 'filled', 'unique:portfolio_db.units,name,'.$this->unit->id],
+            'abbreviation' => ['max:10', 'filled', 'unique:portfolio_db.units,abbreviation,'.$this->unit->id],
+            'system'       => ['string', 'max:20', 'nullable'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'nullable'],
             'description'  => ['nullable'],
