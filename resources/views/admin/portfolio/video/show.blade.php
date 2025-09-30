@@ -67,7 +67,6 @@
             'checked' => $video->source_footage
         ])
 
-
         @include('admin.components.show-row', [
             'name'  => 'date',
             'value' => longDate($video->date)
@@ -96,6 +95,11 @@
         @include('admin.components.show-row', [
             'name'   => 'embed',
             'value'  => $video->embed,
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'video url',
+            'value' => $video->video_url,
         ])
 
         @include('admin.components.show-row-link', [
