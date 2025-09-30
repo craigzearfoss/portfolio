@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Portfolio;
 
+use App\Models\Dictionary\Category;
 use App\Models\Owner;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -53,17 +54,11 @@ class SkillUpdateRequest extends FormRequest
                         ->where('name', $this->name);
                 })
             ],
-            'slug'         => [
-                'string',
-                'filled',
-                'max:255',
-                Rule::unique('portfolio_db.skills')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
-                })
-            ],
+            'version'      => ['string', 'max:20', 'nullable'],
             'featured'     => ['integer', 'between:0,1'],
             'rating'       => ['integer', 'between:1,10'],
+            'category_id'  => ['integer', Rule::in(Category::all('id')->pluck('id')->toArray())],
+            'start_year'   => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
             'years'        => ['integer', 'min:0'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],

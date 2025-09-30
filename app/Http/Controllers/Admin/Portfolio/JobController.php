@@ -25,7 +25,7 @@ class JobController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $jobs = Job::latest()->paginate($perPage);
+        $jobs = Job::orderBy('start_year', 'desc')->orderBy('start_month', 'desc')->paginate($perPage);
 
         return view('admin.portfolio.job.index', compact('jobs'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

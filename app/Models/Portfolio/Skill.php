@@ -2,6 +2,7 @@
 
 namespace App\Models\Portfolio;
 
+use App\Models\Dictionary\Category;
 use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,9 +27,11 @@ class Skill extends Model
     protected $fillable = [
         'owner_id',
         'name',
-        'slug',
+        'version',
         'featured',
         'rating',
+        'category_id',
+        'start_year',
         'years',
         'link',
         'link_name',
@@ -59,4 +62,11 @@ class Skill extends Model
         return $this->belongsTo(Owner::class, 'owner_id');
     }
 
+    /**
+     * Get the dictionary category that owns the admin.
+     */
+    public function category(): BelongsTo
+    {
+        return $this->setConnection('dictionary_db')->belongsTo(Category::class, 'category_id');
+    }
 }

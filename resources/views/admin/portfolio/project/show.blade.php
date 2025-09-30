@@ -64,16 +64,24 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'repository',
-            'url'    => $project->repository_url,
-            'label'  => $project->repository_name,
+            'href'    => $project->repository_url,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'repository name',
+            'value' => $project->repository_name,
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $project->link,
-            'label'  => $project->link_name,
+            'href'    => $project->link,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'value'  => $project->link_name,
         ])
 
         @include('admin.components.show-row', [
@@ -88,7 +96,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($project->name, $user->image)
+            'filename' => getFileSlug($project->name, $project->image)
         ])
 
         @include('admin.components.show-row', [

@@ -277,7 +277,7 @@ return new class extends Migration
                     'plural'      => 'Units',
                     'guest'       => 0,
                     'user'        => 0,
-                    'admin'       => 1,
+                    'admin'       => 0,
                     'icon'        => 'fa-video-camera',
                     'level'       => 1,
                     'sequence'    => 3130,

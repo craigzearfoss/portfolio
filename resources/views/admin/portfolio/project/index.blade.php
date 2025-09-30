@@ -24,10 +24,10 @@
                     <th>owner</th>
                 @endif
                 <th>name</th>
+                <th class="has-text-centered">featured</th>
                 <th>language</th>
                 <th>year</th>
                 <th>repository</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -40,10 +40,10 @@
                     <th>owner</th>
                 @endif
                 <th>name</th>
+                <th class="has-text-centered">featured</th>
                 <th>language</th>
                 <th>year</th>
                 <th>repository</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -62,6 +62,9 @@
                     <td data-field="name">
                         {{ $project->name }}
                     </td>
+                    <td data-field="featured" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $project->featured ])
+                    </td>
                     <td data-field="language">
                         {{ !empty($project->language)
                             ? ($project->language . (!empty($project->language_version) ? (' ' . $project->language_version) : ''))
@@ -77,9 +80,6 @@
                             'href'   => $project->repository_url,
                             'target' => '_blank'
                         ])
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $project->featured ])
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->public ])

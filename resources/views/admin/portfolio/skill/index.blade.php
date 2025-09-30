@@ -25,6 +25,9 @@
                 @endif
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
+                <th>category</th>
+                <th>rating</th>
+                <th>years</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -38,6 +41,9 @@
                 @endif
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
+                <th>category</th>
+                <th>rating</th>
+                <th>years</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -54,11 +60,20 @@
                             {{ $skill->owner['username'] ?? '' }}
                         </td>
                     @endif
-                    <td data-field="name">
-                        {{ $skill->name }}
+                    <td data-field="name" style="white-space: nowrap;">
+                        {{ $skill->name . (!empty($skill->version) ? ' ' . $skill->version : '')}}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $skill->featured ])
+                    </td>
+                    <td data-field="category">
+                        {{ $skill->category['name'] ?? '' }}
+                    </td>
+                    <td data-field="rating">
+                        @include('admin.components.star-ratings', [ 'rating' => $skill->rating ?? 0 ])
+                    </td>
+                    <td data-field="years" class="has-text-centered">
+                        {{ $skill->years }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $skill->public ])
@@ -105,7 +120,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '6' : '5' }}">There are no skills.</td>
+                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There are no skills.</td>
                 </tr>
 
             @endforelse

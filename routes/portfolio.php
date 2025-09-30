@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Portfolio\JobTaskController as AdminPortfolioJobT
 use App\Http\Controllers\Admin\Portfolio\LinkController as AdminPortfolioLinkController;
 use App\Http\Controllers\Admin\Portfolio\MusicController as AdminPortfolioMusicController;
 use App\Http\Controllers\Admin\Portfolio\ProjectController as AdminPortfolioProjectController;
+use App\Http\Controllers\Admin\Portfolio\SkillController as AdminPortfolioSkillController;
 use App\Http\Controllers\Admin\Portfolio\VideoController as AdminPortfolioVideoController;
 use App\Http\Controllers\Front\ArtController as FrontArtController;
 use App\Http\Controllers\Front\CertificationController as FrontCertificationController;
@@ -56,5 +57,6 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
     Route::resource('link', AdminPortfolioLinkController::class);
     Route::resource('music', AdminPortfolioMusicController::class);
     Route::resource('project', AdminPortfolioProjectController::class);
+    Route::resource('skill', AdminPortfolioSkillController::class);
     Route::resource('video', AdminPortfolioVideoController::class);
 });
