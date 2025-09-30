@@ -532,6 +532,17 @@ return new class extends Migration
                 'state_id'    => 21,
                 'country_id'  => 237,
             ],
+            [
+                'id'          => 85,
+                'name'        => 'Idaho National Laboratory',
+                'slug'        => 'idaho-national-laboratory',
+                'industry_id' => 11,
+                'link'        => 'https://inl.gov/',
+                'link_name'   => null,
+                'city'        => 'Idaho Falls',
+                'state_id'    => 13,
+                'country_id'  => 237,
+            ],
 
 
 

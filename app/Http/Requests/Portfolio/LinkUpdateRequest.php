@@ -50,6 +50,7 @@ class LinkUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.links')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->link->id)
                         ->where('name', $this->name);
                 })
             ],
@@ -59,6 +60,7 @@ class LinkUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.links')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->link->id)
                         ->where('slug', $this->slug);
                 })
             ],
@@ -70,6 +72,7 @@ class LinkUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.links')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->link->id)
                         ->where('url', $this->url);
                 })
             ],

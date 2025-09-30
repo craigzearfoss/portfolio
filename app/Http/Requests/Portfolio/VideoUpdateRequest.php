@@ -50,6 +50,7 @@ class VideoUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.videos')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->video->id)
                         ->where('name', $this->name);
                 })
             ],
@@ -59,6 +60,7 @@ class VideoUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.videos')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->video->id)
                         ->where('slug', $this->slug);
                 })
             ],

@@ -53,6 +53,7 @@ class CompanyUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.companies')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->company->id)
                         ->where('name', $this->name);
                 })
             ],
@@ -62,6 +63,7 @@ class CompanyUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.companies')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->company->id)
                         ->where('slug', $this->slug);
                 })
             ],

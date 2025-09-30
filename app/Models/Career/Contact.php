@@ -48,6 +48,7 @@ class Contact extends Model
         'email_label',
         'alt_email',
         'alt_email_label',
+        'birthday',
         'link',
         'link_name',
         'description',

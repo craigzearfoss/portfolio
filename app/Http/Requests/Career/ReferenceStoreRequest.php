@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Company;
+use App\Models\Country;
 use App\Models\Owner;
+use App\Models\State;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -49,7 +52,7 @@ class ReferenceStoreRequest extends FormRequest
                 'string',
                 'required',
                 'max:255',
-                Rule::unique('portfolio_db.references')->where(function ($query) {
+                Rule::unique('career_db.references')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
@@ -58,11 +61,27 @@ class ReferenceStoreRequest extends FormRequest
                 'string',
                 'required',
                 'max:255',
-                Rule::unique('portfolio_db.references')->where(function ($query) {
+                Rule::unique('career_db.references')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })
             ],
+            'friend'          => ['integer', 'between:0,1'],
+            'family'          => ['integer', 'between:0,1'],
+            'coworker'        => ['integer', 'between:0,1'],
+            'supervisor'      => ['integer', 'between:0,1'],
+            'subordinate'     => ['integer', 'between:0,1'],
+            'professional'    => ['integer', 'between:0,1'],
+            'other'           => ['integer', 'between:0,1'],
+            'company_id'      => ['integer', Rule::in(Company::all('id')->pluck('id')->toArray()), 'nullable'],
+            'street'          => ['string', 'max:255', 'nullable'],
+            'street2'         => ['string', 'max:255', 'nullable'],
+            'city'            => ['string', 'max:100', 'nullable'],
+            'state_id'        => ['integer', Rule::in(State::all('id')->pluck('id')->toArray()), 'nullable'],
+            'zip'             => ['string', 'max:20', 'nullable'],
+            'country_id'      => ['integer', Rule::in(Country::all('id')->pluck('id')->toArray()), 'nullable'],
+            'latitude'        => ['numeric:strict', 'nullable'],
+            'longitude'       => ['numeric:strict', 'nullable'],
             'phone'           => ['string', 'max:20', 'nullable'],
             'phone_label'     => ['string', 'max:255', 'nullable'],
             'alt_phone'       => ['string', 'max:20', 'nullable'],
@@ -71,6 +90,7 @@ class ReferenceStoreRequest extends FormRequest
             'email_label'     => ['string', 'max:255', 'nullable'],
             'alt_email'       => ['string', 'max:255', 'nullable'],
             'alt_email_label' => ['string', 'max:255', 'nullable'],
+            'birthday'        => ['date', 'nullable'],
             'link'            => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],
             'description'     => ['nullable'],

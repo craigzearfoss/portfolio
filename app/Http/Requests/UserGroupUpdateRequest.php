@@ -53,6 +53,7 @@ class UserGroupUpdateRequest extends FormRequest
                 'max:200',
                 Rule::unique('portfolio_db.user_groups')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->user_group->id)
                         ->where('name', $this->name);
                 })
             ],

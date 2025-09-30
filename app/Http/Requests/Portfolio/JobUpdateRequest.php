@@ -53,6 +53,7 @@ class JobUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.jobs')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->job->id)
                         ->where('slug', $this->slug);
                 })
             ],

@@ -8,6 +8,7 @@ use App\Models\Career\Application;
 use App\Models\Career\Company;
 use App\Models\Career\Contact;
 use App\Models\Career\Recruiter;
+use App\Models\Career\Reference;
 use App\Models\Country;
 use App\Models\User;
 use App\Models\Portfolio\Job;
@@ -92,6 +93,15 @@ class State extends Model
     public function recruiters(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Recruiter::class)
+            ->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get the admins for the state.
+     */
+    public function references(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Reference::class)
             ->orderBy('name', 'asc');
     }
 

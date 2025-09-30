@@ -42,6 +42,7 @@ class ContactFactory extends Factory
             'email_label'     => 'work',
             'alt_email'       => fake()->safeEmail(),
             'alt_email_label' => fake()->randomElement(['personal', 'alternate']),
+            'birthday'        => fake()->dateTimeBetween('-60 years', '-20 years')->format('Y-m-d'),
             'link'            => fake()->url(),
             'link_name'       => fake()->text(20),
             'description'     => fake()->text(200),

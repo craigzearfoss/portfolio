@@ -24,9 +24,9 @@
                     <th>owner</th>
                 @endif
                 <th>name</th>
+                <th>relation</th>
                 <th>phone</th>
                 <th>email</th>
-                <th class="has-text-centered">primary</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -39,9 +39,9 @@
                     <th>owner</th>
                 @endif
                 <th>name</th>
+                <th>relation</th>
                 <th>phone</th>
                 <th>email</th>
-                <th class="has-text-centered">primary</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -61,14 +61,14 @@
                     <td data-field="name" style="white-space: nowrap;">
                         {{ $reference->name }}
                     </td>
+                    <td data-field="relation">
+                        {{ $reference->relation ?? '' }}
+                    </td>
                     <td data-field="name" style="white-space: nowrap;">
                         {{ $reference->phone }}
                     </td>
                     <td data-field="name" style="white-space: nowrap;">
                         {{ $reference->email }}
-                    </td>
-                    <td data-field="primary" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $reference->primary ])
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $reference->public ])
@@ -84,7 +84,12 @@
                                 <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
-                            @if (!empty($reference->link))
+                            <a title="edit" class="button is-small px-1 py-0"
+                               href="{{ route('admin.career.reference.edit', $reference->id) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
+                            </a>
+
+                        @if (!empty($reference->link))
                                 <a title="{{ !empty($reference->link_name) ? $reference->link_name : 'link' }}"
                                    class="button is-small px-1 py-0"
                                    href="{{ $reference->link }}"
@@ -97,11 +102,6 @@
                                     <i class="fa-solid fa-external-link"></i>{{-- link --}}
                                 </a>
                             @endif
-
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.reference.edit', $reference->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
-                            </a>
 
                             @csrf
                             @method('DELETE')

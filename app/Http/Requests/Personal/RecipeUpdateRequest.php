@@ -49,6 +49,7 @@ class RecipeUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.recipes')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->recipe->id)
                         ->where('name', $this->name);
                 })
             ],
@@ -57,6 +58,7 @@ class RecipeUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.recipes')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->recipe->id)
                         ->where('slug', $this->slug);
                 })
             ],

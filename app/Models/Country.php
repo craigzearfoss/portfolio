@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Admin;
+use App\Models\Career\Reference;
 use App\Models\User;
 use App\Models\Career\Company;
 use App\Models\Career\Contact;
@@ -70,6 +71,15 @@ class Country extends Model
     public function recruiters(): HasMany
     {
         return $this->setConnection('career_db')->hasMany(Recruiter::class)
+            ->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get the references for the state.
+     */
+    public function references(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(Reference::class)
             ->orderBy('name', 'asc');
     }
 

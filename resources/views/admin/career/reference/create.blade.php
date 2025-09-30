@@ -38,9 +38,129 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
-                'value'     => old('name') ?? ,
+                'value'     => old('name') ?? '',
                 'required'  => true,
                 'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'friend',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('friend') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'family',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('family') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'coworker',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('coworker') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'supervisor',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('supervisor') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'subordinate',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('subordinate') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'professional',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('professional') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'other',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('other') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'company_id',
+                'label'   => 'company',
+                'value'   => old('company_id') ?? '',
+                'list'    => \App\Models\Career\Company::listOptions([], true),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'street',
+                'value'     => old('street') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'street2',
+                'value'     => old('street2') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'city',
+                'value'     => old('city') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'state_id',
+                'label'   => 'state',
+                'value'   => old('state_id') ?? '',
+                'list'    => \App\Models\State::listOptions([], true),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'zip',
+                'value'     => old('zip') ?? '',
+                'maxlength' => 20,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'country_id',
+                'label'   => 'country',
+                'value'   => old('country_id') ?? '',
+                'list'    => \App\Models\Country::listOptions([], true),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'latitude',
+                'value'     => old('latitude') ?? '',
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'longitude',
+                'value'     => old('longitude') ?? '',
                 'message'   => $message ?? '',
             ])
 
@@ -158,8 +278,8 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
-                'name'        => 'sequence' ?? 0,
-                'value'       => old('sequence'),
+                'name'        => 'sequence',
+                'value'       => old('sequence') ?? 0,
                 'min'         => 0,
                 'message'     => $message ?? '',
             ])

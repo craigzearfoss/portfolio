@@ -38,6 +38,38 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'relation',
+            'value' => $reference->relation ?? ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'company',
+            'value' => $reference->company['name'] ?? ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'location',
+            'value' => formatLocation([
+                'street'    => $reference->street ?? null,
+                'street2'   => $company->street2 ?? null,
+                'city'      => $reference->city ?? null,
+                'state'     => $reference->state['code'] ?? null,
+                'zip'       => $reference->zip ?? null,
+                'country'   => $reference->country['iso_alpha3'] ?? null,
+            ])
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'latitude',
+            'value' => $reference->latitude
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'longitude',
+            'value' => $reference->longitude
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => !empty($reference->phone_label) ? $reference->phone_label : 'phone',
             'value' => $reference->phone
         ])
@@ -57,15 +89,20 @@
             'value' => $reference->alt_email
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'birthday',
+            'value' => longDate($reference->birthday)
+        ])
+
         @include('admin.components.show-row-link', [
-            'name'  => 'link',
-            'url'    => $reference->link,
+            'name'   => 'link',
+            'href'   => $reference->link,
             'target' => '_blank'
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $reference->link_name
+        @include('admin.components.show-row-link', [
+            'name'   => 'link name',
+            'value'    => $reference->link_name,
         ])
 
         @include('admin.components.show-row', [
@@ -104,8 +141,8 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $reference->sequence
+            'name'    => 'sequence',
+            'checked' => $reference->sequence
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -114,9 +151,9 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'readonly',
-            'label'   => 'read-only',
-            'checked' => $reference->readonly
+            'name'     => 'readonly',
+            'readonly' => 'read-only',
+            'checked'  => $reference->readonly
         ])
 
         @include('admin.components.show-row-checkbox', [

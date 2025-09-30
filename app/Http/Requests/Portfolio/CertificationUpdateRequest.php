@@ -50,6 +50,7 @@ class CertificationUpdateRequest extends FormRequest
                 'filled',
                 Rule::unique('portfolio_db.certifications')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->certification->id)
                         ->where('name', $this->name);
                 })
             ],
@@ -59,6 +60,7 @@ class CertificationUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.certifications')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->certification->id)
                         ->where('slug', $this->slug);
                 })
             ],

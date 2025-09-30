@@ -50,6 +50,7 @@ class UserTeamUpdateRequest extends FormRequest
                 'max:200',
                 Rule::unique('portfolio_db.user_teams')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->user_team->id)
                         ->where('name', $this->name);
                 })
             ],

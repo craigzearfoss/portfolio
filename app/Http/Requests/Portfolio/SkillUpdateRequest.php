@@ -51,6 +51,7 @@ class SkillUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.skills')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->skill->id)
                         ->where('name', $this->name);
                 })
             ],

@@ -52,6 +52,7 @@ class ContactUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.contacts')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->contact->id)
                         ->where('name', $this->name);
                 })
             ],
@@ -61,6 +62,7 @@ class ContactUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.contacts')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->contact->id)
                         ->where('slug', $this->slug);
                 })
             ],
@@ -82,6 +84,7 @@ class ContactUpdateRequest extends FormRequest
             'email_label'     => ['string', 'max:255', 'nullable'],
             'alt_email'       => ['string', 'max:255', 'nullable'],
             'alt_email_label' => ['string', 'max:255', 'nullable'],
+            'birthday'        => ['date', 'nullable'],
             'link'            => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],
             'description'     => ['nullable'],

@@ -41,7 +41,7 @@
                 'label'   => 'company',
                 'value'   => old('company_id') ?? '',
                 'required'  => true,
-                'list'    => \App\Models\Career\Company::listOptions(),
+                'list'    => \App\Models\Career\Company::listOptions([], true),
                 'message' => $message ?? '',
             ])
 

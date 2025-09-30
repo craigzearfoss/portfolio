@@ -51,6 +51,7 @@ class CourseUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.courses')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->course->id)
                         ->where('name', $this->name);
                 })
             ],
@@ -60,6 +61,7 @@ class CourseUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.courses')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->course->id)
                         ->where('slug', $this->slug);
                 })
             ],

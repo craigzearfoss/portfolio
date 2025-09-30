@@ -65,8 +65,10 @@ class JobBoard extends Model
 
     /**
      * Return an array of coverage areas for the job board (international, national, regional, local).
+     *
+     * @return array
      */
-    protected function getCoverageAreas()
+    protected function getCoverageAreas(): array
     {
         $coverageAreas = [];
         if (!empty($this->international)) $coverageAreas[] = 'international';
