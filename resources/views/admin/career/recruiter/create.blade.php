@@ -34,12 +34,44 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'industry_id',
-                'label'   => 'industry',
-                'value'   => old('industry_id') ?? 0,
-                'list'    => \App\Models\Career\Industry::listOptions([], true),
-                'message' => $message ?? '',
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'postings_url',
+                'label'     => 'postings url',
+                'value'     => old('postings_url') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'local',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('local') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'regional',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('regional') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'national',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('national') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'international',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('international') ?? 0,
+                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -87,14 +119,14 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'latitude',
-                'value'     => old('latitude') ?? '',
+                'name'      => 'longitude',
+                'value'     => old('longitude') ?? '',
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'longitude',
-                'value'     => old('longitude') ?? '',
+                'name'      => 'latitude',
+                'value'     => old('latitude') ?? '',
                 'message'   => $message ?? '',
             ])
 
@@ -222,7 +254,7 @@
                 'name'            => 'public',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('public') ?? 0,
+                'checked'         => old('public') ?? 1,
                 'message'         => $message ?? '',
             ])
 

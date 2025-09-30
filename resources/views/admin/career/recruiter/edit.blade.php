@@ -35,12 +35,44 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'industry_id',
-                'label'   => 'industry',
-                'value'   => old('industry_id') ?? $recruiter->industry_id,
-                'list'    => \App\Models\Career\Industry::listOptions(),
-                'message' => $message ?? '',
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'postings_url',
+                'label'     => 'postings url',
+                'value'     => old('postings_url') ?? $recruiter->postings_url,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'local',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('local') ?? $recruiter->local,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'regional',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('regional') ?? $recruiter->regional,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'national',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('national') ?? $recruiter->national,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'international',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('international') ?? $recruiter->international,
+                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -68,7 +100,7 @@
                 'name'    => 'state_id',
                 'label'   => 'state',
                 'value'   => old('state_id') ?? $recruiter->state_id,
-                'list'    => \App\Models\State::listOptions(),
+                'list'    => \App\Models\State::listOptions([], true),
                 'message' => $message ?? '',
             ])
 
@@ -83,19 +115,19 @@
                 'name'    => 'country_id',
                 'label'   => 'country',
                 'value'   => old('country_id') ?? $recruiter->country_id,
-                'list'    => \App\Models\Country::listOptions(),
+                'list'    => \App\Models\Country::listOptions([], true),
                 'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'latitude',
-                'value'     => old('latitude') ?? $recruiter->latitude,
-                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'longitude',
                 'value'     => old('longitude') ?? $recruiter->longitude,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'latitude',
+                'value'     => old('latitude') ?? $recruiter->latitude,
                 'message'   => $message ?? '',
             ])
 

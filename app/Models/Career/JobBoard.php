@@ -2,6 +2,7 @@
 
 namespace App\Models\Career;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -50,6 +51,30 @@ class JobBoard extends Model
     {
         return $this->hasMany(Application::class, 'application_id')
             ->orderBy('post_date', 'desc');
+    }
+
+    /**
+     * Get the coverage areas for the job board (international, national, regional, local).
+     */
+    protected function coverageAreas(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->getCoverageAreas()
+        );
+    }
+
+    /**
+     * Return an array of coverage areas for the job board (international, national, regional, local).
+     */
+    protected function getCoverageAreas()
+    {
+        $coverageAreas = [];
+        if (!empty($this->international)) $coverageAreas[] = 'international';
+        if (!empty($this->national)) $coverageAreas[] = 'national';
+        if (!empty($this->regional)) $coverageAreas[] = 'regional';
+        if (!empty($this->local)) $coverageAreas[] = 'local';
+
+        return $coverageAreas;
     }
 
     /**

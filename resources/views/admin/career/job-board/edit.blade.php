@@ -18,8 +18,7 @@
 
     <div class="card form-container p-4">
 
-        <form action="{{ route('admin.career.job-board.update', $jobBoard) }}"
-              method="POST">
+        <form action="{{ route('admin.career.job-board.update', $jobBoard) }}" method="POST">
             @csrf
             @method('PUT')
 

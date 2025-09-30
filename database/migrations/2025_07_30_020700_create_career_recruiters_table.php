@@ -52,7 +52,7 @@ return new class extends Migration
             $table->string('image_source')->nullable();
             $table->string('thumbnail')->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(0);
+            $table->tinyInteger('public')->default(1);
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);

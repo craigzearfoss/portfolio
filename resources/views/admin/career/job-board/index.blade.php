@@ -22,10 +22,8 @@
             <tr>
                 <th>name</th>
                 <th class="has-text-centered">primary</th>
-                <th class="has-text-centered">local</th>
-                <th class="has-text-centered">regional</th>
-                <th class="has-text-centered">national</th>
-                <th class="has-text-centered">international</th>
+                <th>coverage area</th>
+                <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -35,10 +33,8 @@
             <tr>
                 <th>name</th>
                 <th class="has-text-centered">primary</th>
-                <th class="has-text-centered">local</th>
-                <th class="has-text-centered">regional</th>
-                <th class="has-text-centered">national</th>
-                <th class="has-text-centered">international</th>
+                <th>coverage area</th>
+                <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -55,17 +51,11 @@
                     <td data-field="primary" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->primary ])
                     </td>
-                    <td data-field="local" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->local ])
+                    <td data-field="international|national|regional|local" style="white-space: nowrap;">
+                        {{ implode(', ', $jobBoard->coverageAreas ?? []) }}
                     </td>
-                    <td data-field="regional" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->regional ])
-                    </td>
-                    <td data-field="national" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->national ])
-                    </td>
-                    <td data-field="international" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->international ])
+                    <td data-field="public" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $jobBoard->public ])
                     </td>
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobBoard->disabled ])
@@ -108,7 +98,7 @@
             @empty
 
                 <tr>
-                    <td colspan="8">There are no job boards.</td>
+                    <td colspan="6">There are no job boards.</td>
                 </tr>
 
             @endforelse

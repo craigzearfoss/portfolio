@@ -102,10 +102,10 @@
         @include('admin.components.show-row', [
             'name'  => 'compensation',
             'value' => formatCompensation([
-                            'min'   => $application->compensation_min ?? '',
-                            'max'   => $application->compensation_max ?? '',
-                            'unit'  => $application->compensation_unit['name'] ?? '',
-                        ])
+                'min'   => $application->compensation_min ?? '',
+                'max'   => $application->compensation_max ?? '',
+                'unit'  => $application->compensation_unit['name'] ?? '',
+            ])
         ])
 
         @include('admin.components.show-row', [
@@ -126,23 +126,23 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'    => $application->street ?? null,
-                           'street2'   => $application->street2 ?? null,
-                           'city'      => $application->city ?? null,
-                           'state'     => $application->state['code'] ?? null,
-                           'zip'       => $application->zip ?? null,
-                           'country'   => $application->country['iso_alpha3'] ?? null,
-                       ])
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'latitude',
-            'value' => $application->latitude
+               'street'    => $application->street ?? null,
+               'street2'   => $application->street2 ?? null,
+               'city'      => $application->city ?? null,
+               'state'     => $application->state['code'] ?? null,
+               'zip'       => $application->zip ?? null,
+               'country'   => $application->country['iso_alpha3'] ?? null,
+           ])
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'longitude',
             'value' => $application->longitude
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'latitude',
+            'value' => $application->latitude
         ])
 
         @include('admin.components.show-row', [
@@ -175,22 +175,15 @@
             'checked' => $application->health
         ])
 
-        @if(empty($application->job_board['name']) || ($application->job_board['name'] == 'other'))
-            @include('admin.components.show-row', [
-                'name'  => 'source',
-                'value' => 'other'
+        @include('admin.components.show-row', [
+            'name'  => 'source',
+            'value' => view('admin.components.link', [
+                'name' => $application->job_board['name'] ?? '',
+                'href' => !empty($application->job_board)
+                    ? route('admin.career.job-board.show', $application->job_board['id'])
+                    : '',
             ])
-        @else
-            @include('admin.components.show-row', [
-                'name'  => 'source->' . $application->job_board['name'] . '<-',
-                'value' => view('admin.components.link', [
-                    'name' => $application->job_board['name'] ?? '',
-                    'href' => !empty($application->job_board)
-                        ? route('admin.career.job-board.show', $application->job_board['id'])
-                        : '',
-                ])
-            ])
-        @endif
+        ])
 
         @include('admin.components.show-row', [
             'name'  => !empty($application->phone_label) ? $application->phone_label : 'phone',
@@ -214,9 +207,13 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'label'  => $application->link_name,
-            'url'    => $application->link,
+            'href'   => $application->link,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'value'  => $application->link_name,
         ])
 
         @include('admin.components.show-row', [
@@ -293,21 +290,21 @@
     </div>
 
     @include('admin.components.application.communications-panel', [
-        'communications' => $application->communications,
+        'communications' => $application->communications ?? [],
         'links' => [
             'add' => route('admin.career.communication.create', ['application_id' => $application->id])
         ]
     ])
 
     @include('admin.components.application.events-panel', [
-        'events' => $application->events,
+        'events' => $application->events ?? [],
         'links'  => [
             'add' => route('admin.career.event.create', ['application_id' => $application->id])
         ]
     ])
 
     @include('admin.components.application.notes-panel', [
-        'notes' => nl2br($application->notes ?? ''),
+        'notes' => $application->notes ?? [],
         'links' => [
             'add' => route('admin.career.note.create', ['application_id' => $application->id])
         ]

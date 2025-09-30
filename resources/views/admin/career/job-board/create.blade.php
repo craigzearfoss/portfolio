@@ -140,7 +140,7 @@
                 'name'            => 'public',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('public') ?? 0,
+                'checked'         => old('public') ?? 1,
                 'message'         => $message ?? '',
             ])
 
@@ -158,7 +158,7 @@
                     'name'            => 'root',
                     'value'           => 1,
                     'unchecked_value' => 0,
-                    'checked'         => old('root') ?? 0,
+                    'checked'         => old('root') ?? 1,
                     'message'         => $message ?? '',
                 ])
             @endif

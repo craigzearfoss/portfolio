@@ -4,6 +4,7 @@ namespace App\Models\Career;
 
 use App\Models\Country;
 use App\Models\State;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -77,5 +78,29 @@ class Recruiter extends Model
     public function state(): BelongsTo
     {
         return $this->setConnection('core_db')->belongsTo(State::class, 'state_id');
+    }
+
+    /**
+     * Get the coverage areas for the recruiter (international, national, regional, local).
+     */
+    protected function coverageAreas(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->getCoverageAreas()
+        );
+    }
+
+    /**
+     * Return an array of coverage areas for the recruiter (international, national, regional, local).
+     */
+    protected function getCoverageAreas()
+    {
+        $coverageAreas = [];
+        if (!empty($this->international)) $coverageAreas[] = 'international';
+        if (!empty($this->national)) $coverageAreas[] = 'national';
+        if (!empty($this->regional)) $coverageAreas[] = 'regional';
+        if (!empty($this->local)) $coverageAreas[] = 'local';
+
+        return $coverageAreas;
     }
 }

@@ -60,13 +60,13 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'latitude',
-            'value' => $company->latitude
+            'name'  => 'longitude',
+            'value' => $company->longitude
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'longitude',
-            'value' => $company->longitude
+            'name'  => 'latitude',
+            'value' => $company->latitude
         ])
 
         @include('admin.components.show-row', [
@@ -91,9 +91,13 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'label'  => $company->link_name,
-            'url'    => $company->link,
+            'href'   => $company->link,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'value'  => $company->link_name,
         ])
 
         @include('admin.components.show-row', [

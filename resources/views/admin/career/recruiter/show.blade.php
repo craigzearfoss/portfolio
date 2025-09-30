@@ -35,6 +35,11 @@
             'value' => $recruiter->slug
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'coverage area',
+            'value' => implode(', ', $recruiter->coverageAreas ?? [])
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'postings url',
             'label'  => $recruiter->postings_url,
@@ -75,13 +80,13 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'latitude',
-            'value' => $recruiter->latitude
+            'name'  => 'longitude',
+            'value' => $recruiter->longitude
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'longitude',
-            'value' => $recruiter->longitude
+            'name'  => 'latitude',
+            'value' => $recruiter->latitude
         ])
 
         @include('admin.components.show-row', [
@@ -106,8 +111,13 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'label'  => $recruiter->link,
-            'url'    => $recruiter->link_name,
+            'href'   => $recruiter->link,
+            'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'   => 'link name',
+            'value'  => $recruiter->link_name,
             'target' => '_blank'
         ])
 

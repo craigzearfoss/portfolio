@@ -26,8 +26,6 @@
                 <th>name</th>
                 <th>industry</th>
                 <th>location</th>
-                <th>phone</th>
-                <th>email</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -40,8 +38,6 @@
                 <th>name</th>
                 <th>industry</th>
                 <th>location</th>
-                <th>phone</th>
-                <th>email</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -69,12 +65,6 @@
                                 'state'   => $company->state['code'] ?? null,
                             ])
                         !!}
-                    </td>
-                    <td data-field="phone" style="white-space: nowrap;">
-                        {{ $company->phone }}
-                    </td>
-                    <td data-field="email" style="white-space: nowrap;">
-                        {{ $company->email }}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.company.destroy', $company->id) }}" method="POST">
@@ -115,7 +105,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '7' : '6' }}">There are no companies.</td>
+                    <td colspan="{{ isRootAdmin() ? '5' : '4' }}">There are no companies.</td>
                 </tr>
 
             @endforelse

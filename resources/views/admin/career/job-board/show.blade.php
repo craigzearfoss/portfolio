@@ -35,6 +35,11 @@
             'checked' => $jobBoard->primary
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'coverage area',
+            'value' => implode(', ', $jobBoard->coverageAreas ?? [])
+        ])
+
         @include('admin.components.show-row-checkbox', [
             'name'    => 'local',
             'checked' => $jobBoard->local
@@ -56,8 +61,8 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'  => 'link',
-            'url'    => $jobBoard->link,
+            'name'   => 'link',
+            'href'   => $jobBoard->link,
             'target' => '_blank'
         ])
 

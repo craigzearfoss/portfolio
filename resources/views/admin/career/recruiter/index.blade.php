@@ -21,13 +21,9 @@
             <thead>
             <tr>
                 <th>name</th>
+                <th>coverage area</th>
                 <th>location</th>
-                <th>phone</th>
-                <th>email</th>
-                <th class="has-text-centered">local</th>
-                <th class="has-text-centered">regional</th>
-                <th class="has-text-centered">national</th>
-                <th class="has-text-centered">international</th>
+                <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -36,13 +32,9 @@
             <tfoot>
             <tr>
                 <th>name</th>
+                <th>coverage area</th>
                 <th>location</th>
-                <th>phone</th>
-                <th>email</th>
-                <th class="has-text-centered">local</th>
-                <th class="has-text-centered">regional</th>
-                <th class="has-text-centered">national</th>
-                <th class="has-text-centered">international</th>
+                <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
             </tr>
@@ -56,6 +48,9 @@
                     <td data-field="name" style="white-space: nowrap;">
                         {{ $recruiter->name }}
                     </td>
+                    <td data-field="international|national|regional|local" style="white-space: nowrap;">
+                        {{ implode(', ', $recruiter->coverageAreas ?? []) }}
+                    </td>
                     <td data-field="location">
                         {!!
                             formatLocation([
@@ -64,23 +59,8 @@
                             ])
                         !!}
                     </td>
-                    <td data-field="phone" style="white-space: nowrap;">
-                        {{ $recruiter->phone }}
-                    </td>
-                    <td data-field="email" style="white-space: nowrap;">
-                        {{ $recruiter->email }}
-                    </td>
-                    <td data-field="local" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recruiter->local ])
-                    </td>
-                    <td data-field="regional" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recruiter->regional ])
-                    </td>
-                    <td data-field="national" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recruiter->national ])
-                    </td>
-                    <td data-field="international" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $recruiter->international ])
+                    <td data-field="disabled" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $recruiter->public ])
                     </td>
                     <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $recruiter->disabled ])
@@ -112,6 +92,20 @@
                                 </a>
                             @endif
 
+                            @if (!empty($recruiter->postings_url))
+                                <a title="job postings"
+                                   class="button is-small px-1 py-0"
+                                   href="{{ $recruiter->postings_url }}"
+                                   target="_blank"
+                                >
+                                    <i class="fa-solid fa-external-link-square"></i>{{-- job_postings --}}
+                                </a>
+                            @else
+                                <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                    <i class="fa-solid fa-external-link-square"></i>{{-- link --}}
+                                </a>
+                            @endif
+
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
@@ -124,7 +118,7 @@
             @empty
 
                 <tr>
-                    <td colspan="10">There are no recruiters.</td>
+                    <td colspan="6">There are no recruiters.</td>
                 </tr>
 
             @endforelse

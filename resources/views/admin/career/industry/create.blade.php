@@ -42,13 +42,6 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Industry',
                 'cancel_url' => referer('admin.career.industry.index')
