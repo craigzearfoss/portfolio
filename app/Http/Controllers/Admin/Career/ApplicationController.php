@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\ApplicationStoreRequest;
 use App\Http\Requests\Career\ApplicationUpdateRequest;
 use App\Models\Career\Application;
+use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -36,9 +37,15 @@ class ApplicationController extends BaseController
      *
      * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.career.application.create');
+        if ($resumeId = $request->query('resume_id')) {
+            $resume = Resume::findOrFail($resumeId);
+        } else {
+
+        } $resume = null;
+
+        return view('admin.career.application.create', compact('resume'));
     }
 
     /**

@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add New Application',
+    'title' =>'Create a New Application',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
@@ -40,6 +40,7 @@
                 'name'    => 'company_id',
                 'label'   => 'company',
                 'value'   => old('company_id') ?? '',
+                'required'  => true,
                 'list'    => \App\Models\Career\Company::listOptions(),
                 'message' => $message ?? '',
             ])
@@ -50,6 +51,22 @@
                 'required'    => true,
                 'maxlength'   => 255,
                 'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'job_board_id',
+                'label'   => 'job board',
+                'value'   => old('job_board_id') ?? 1,
+                'list'    => \App\Models\Career\JobBoard::listOptions([], true),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'resume_id',
+                'label'   => 'resume',
+                'value'   => old('resume_id') ?? '',
+                'list'    => \App\Models\Career\Resume::listOptions(),
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -124,7 +141,8 @@
                 'name'    => 'duration_id',
                 'label'   => 'duration',
                 'value'   => old('duration_id') ?? '',
-                'list'    => \App\Models\Career\ApplicationDuration::listOptions(),
+                'required'  => true,
+                'list'    => \App\Models\Career\ApplicationDuration::listOptions([], true),
                 'message' => $message ?? '',
             ])
 
@@ -132,7 +150,8 @@
                 'name'    => 'office_id',
                 'label'   => 'office',
                 'value'   => old('office_id') ?? '',
-                'list'    => \App\Models\Career\ApplicationOffice::listOptions(),
+                'required'  => true,
+                'list'    => \App\Models\Career\ApplicationOffice::listOptions([], true),
                 'message' => $message ?? '',
             ])
 
@@ -140,7 +159,8 @@
                 'name'    => 'schedule_id',
                 'label'   => 'schedule',
                 'value'   => old('schedule_id') ?? '',
-                'list'    => \App\Models\Career\ApplicationSchedule::listOptions(),
+                'required'  => true,
+                'list'    => \App\Models\Career\ApplicationSchedule::listOptions([], true),
                 'message' => $message ?? '',
             ])
 
@@ -244,21 +264,6 @@
                 'unchecked_value' => 0,
                 'checked'         => old('health') ?? 0,
                 'message'         => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'job_board_id',
-                'label'   => 'job board',
-                'value'   => old('job_board_id') ?? 1,
-                'list'    => \App\Models\Career\JobBoard::listOptions([], true),
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? '',
-                'maxlength' => 100,
-                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

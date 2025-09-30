@@ -34,8 +34,8 @@ return new class extends Migration
             $table->integer('state_id')->nullable();
             $table->string('zip', 20)->nullable();
             $table->integer('country_id')->nullable();
-            $table->float('longitude')->nullable();
             $table->float('latitude')->nullable();
+            $table->float('longitude')->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('phone_label', 255)->nullable();
             $table->string('alt_phone', 20)->nullable();

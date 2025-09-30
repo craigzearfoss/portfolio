@@ -119,14 +119,14 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'longitude',
-                'value'     => old('longitude') ?? '',
+                'name'      => 'latitude',
+                'value'     => old('latitude') ?? '',
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'latitude',
-                'value'     => old('latitude') ?? '',
+                'name'      => 'longitude',
+                'value'     => old('longitude') ?? '',
                 'message'   => $message ?? '',
             ])
 

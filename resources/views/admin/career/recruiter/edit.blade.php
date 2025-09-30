@@ -120,14 +120,14 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'longitude',
-                'value'     => old('longitude') ?? $recruiter->longitude,
+                'name'      => 'latitude',
+                'value'     => old('latitude') ?? $recruiter->latitude,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'latitude',
-                'value'     => old('latitude') ?? $recruiter->latitude,
+                'name'      => 'longitude',
+                'value'     => old('longitude') ?? $recruiter->longitude,
                 'message'   => $message ?? '',
             ])
 

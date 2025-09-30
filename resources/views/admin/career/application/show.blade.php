@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',       'url' => route('admin.career.application.edit', $application) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Application', 'url' => route('admin.career.application.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',          'url' => referer('admin.career.application.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',            'url' => route('admin.career.application.edit', $application) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Create a New Application', 'url' => route('admin.career.application.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',               'url' => referer('admin.career.application.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -136,13 +136,13 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'longitude',
-            'value' => $application->longitude
+            'name'  => 'latitude',
+            'value' => $application->latitude
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'latitude',
-            'value' => $application->latitude
+            'name'  => 'longitude',
+            'value' => $application->longitude
         ])
 
         @include('admin.components.show-row', [

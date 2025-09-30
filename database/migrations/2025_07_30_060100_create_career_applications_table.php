@@ -32,6 +32,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
             $table->foreignIdFor( \App\Models\Career\Company::class);
             $table->string('role');
+            $table->string('job_board_id')->nullable();
             $table->foreignIdFor( \App\Models\Career\Resume::class)->nullable();
             $table->tinyInteger('rating')->default(1);
             $table->tinyInteger('active')->default(1);
@@ -50,15 +51,14 @@ return new class extends Migration
             $table->integer('state_id')->nullable();
             $table->string('zip', 20)->nullable();
             $table->integer('country_id')->nullable();
-            $table->float('longitude')->nullable();
             $table->float('latitude')->nullable();
+            $table->float('longitude')->nullable();
             $table->integer('bonus')->default(0);
             $table->tinyInteger('w2')->default(0);
             $table->tinyInteger('relocation')->default(0);
             $table->tinyInteger('benefits')->default(0);
             $table->tinyInteger('vacation')->default(0);
             $table->tinyInteger('health')->default(0);
-            $table->string('job_board_id')->nullable();
             $table->string('phone', 20)->nullable();
             $table->string('phone_label', 255)->nullable();
             $table->string('alt_phone', 20)->nullable();

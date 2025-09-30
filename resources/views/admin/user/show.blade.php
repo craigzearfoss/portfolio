@@ -47,13 +47,13 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'longitude',
-            'value' => $user->longitude
+            'name'  => 'latitude',
+            'value' => $user->latitude
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'latitude',
-            'value' => $user->latitude
+            'name'  => 'longitude',
+            'value' => $user->longitude
         ])
 
         @include('admin.components.show-row', [

@@ -85,13 +85,13 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'longitude',
-            'value' => $job->longitude
+            'name'  => 'latitude',
+            'value' => $job->latitude
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'latitude',
-            'value' => $job->latitude
+            'name'  => 'longitude',
+            'value' => $job->longitude
         ])
 
         @include('admin.components.show-row-link', [

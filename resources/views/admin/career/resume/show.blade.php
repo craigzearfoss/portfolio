@@ -84,10 +84,9 @@
             'target' => '_blank'
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'  => 'link',
-            'url'    => $resume->link,
-            'target' => '_blank'
+        @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $resume->link_name,
         ])
 
         @include('admin.components.show-row', [
@@ -158,6 +157,12 @@
         @include('admin.components.show-row', [
             'name'  => 'updated at',
             'value' => longDateTime($resume->updated_at)
+        ])
+
+
+        @include('admin.components.resume.applications-panel', [
+            'applications' => $resume->applications ?? [],
+            'links' => []
         ])
 
     </div>

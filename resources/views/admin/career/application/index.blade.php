@@ -6,7 +6,7 @@
         [ 'name' => 'Applications' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Application', 'url' => route('admin.career.application.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Create a New Application', 'url' => route('admin.career.application.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

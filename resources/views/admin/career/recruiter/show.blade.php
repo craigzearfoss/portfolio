@@ -80,13 +80,13 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'longitude',
-            'value' => $recruiter->longitude
+            'name'  => 'latitude',
+            'value' => $recruiter->latitude
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'latitude',
-            'value' => $recruiter->latitude
+            'name'  => 'longitude',
+            'value' => $recruiter->longitude
         ])
 
         @include('admin.components.show-row', [
