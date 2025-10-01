@@ -95,7 +95,8 @@ class Company extends Model
      */
     public function contacts(): BelongsToMany
     {
-        return $this->belongsToMany(Contact::class)->withPivot('active');
+        return $this->belongsToMany(Contact::class)->withPivot('active')
+            ->orderBy('name', 'asc');
     }
 
     /**

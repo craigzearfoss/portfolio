@@ -38,13 +38,13 @@ $notes = $notes ?? [];
                 >
 
                     <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.career.company.contact.add', [$contact->pivot->company_id]) }}">
+                           href="{{ route('admin.career.contact.show', $contact) }}">
                         <i class="fa-solid fa-list"></i>{{-- show --}}
                     </a>
 
                     @csrf
                     @method('DELETE')
-                    <button title="delete" type="submit" class="button is-small px-1 py-0">
+                    <button title="remove" type="submit" class="button is-small px-1 py-0">
                         <i class="fa-solid fa-trash"></i>{{-- delete --}}
                     </button>
                 </form>

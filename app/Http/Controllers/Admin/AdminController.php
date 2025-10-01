@@ -56,9 +56,9 @@ class AdminController extends BaseController
         $admin = new Admin();
         $admin->admin_id = Auth::guard('admin')->user()->id;
         $admin->username = $adminStoreRequest->username;
-        $admin->email = $request->email;
-        $admin->password = Hash::make($request->password);
-        $admin->disabled = $request->disabled;
+        $admin->email = $adminStoreRequest->email;
+        $admin->password = Hash::make($adminStoreRequest->password);
+        $admin->disabled = $adminStoreRequest->disabled;
 
         $admin->save();
 

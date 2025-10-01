@@ -8,41 +8,45 @@
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('admin.career.company.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.company.show', $company) ],
     ],
-    'errorMessages' => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
+    'errorMessages' => $errors->all(),
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])
 
 @section('content')
 
-    <div class="card form-container p-4">
-
-        <h4 class="subtitle">Select an Existing Contact or Create a New One</h4>
+    <div id="contact-select" class="card form-container p-2">
 
         <form action="{{ route('admin.career.company.contact.attach', $company) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.career.company.index')
+                'value' => route('admin.career.company.show', $company)
             ])
 
-            <div id="existing-contact" class="p-2">
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'contact_id',
+                'label'    => 'contact',
+                'value'    => old('contact_id') ?? '',
+                'list'     => \App\Models\Career\Contact::listOptions(['owner_id'=>$company->owner_id], true),
+                'onchange' => "if (this.value) { document.getElementById('existing-contact').style.display='none'; document.getElementById('new-contact').style.display='block';  } else { document.getElementById('existing-contact').style.display='block'; document.getElementById('new-contact').style.display='none'; }",
+                'message'  => $message ?? '',
+            ])
 
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'contact_id',
-                    'label'    => 'contact',
-                    'value'    => old('contact_id') ?? '',
-                    'list'     => \App\Models\Career\Contact::listOptions(['owner_id'=>$company->owner_id], true),
-                    'onchange' => "if (this.value) { document.getElementById('new-contact').style.display='none'; } else { document.getElementById('new-contact').style.display='block'; }",
-                    'message'  => $message ?? '',
+            <div id="existing-contact" class="card form-container p-4">
+
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $company->owner['id'] ?? ''
                 ])
 
-            </div>
-
-            <div id="new-contact" class="p-2">
+                @include('admin.components.form-hidden', [
+                    'name'  => 'company_id',
+                    'value' => $company->id
+                ])
 
                 @include('admin.components.form-input-horizontal', [
                     'name'      => 'name',
