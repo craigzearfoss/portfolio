@@ -1,5 +1,5 @@
 @php
-$notes = $notes ?? [];
+$companies = $companies ?? [];
 @endphp
 <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
     <thead>
@@ -38,8 +38,25 @@ $notes = $notes ?? [];
             <td>
                 {{ $company->phone ?? '' }}
             </td>
-            <td>
-                {{ $company->email ?? '' }}
+            <td class="is-1" style="white-space: nowrap;">
+                <form action="{{ route('admin.career.contact.company.detach', [
+                        $company->pivot->contact_id,
+                        $company->pivot->company_id
+                    ]) }}"
+                      method="POST"
+                >
+
+                    <a title="show" class="button is-small px-1 py-0"
+                           href="{{ route('admin.career.company.show', $company) }}">
+                        <i class="fa-solid fa-list"></i>{{-- show --}}
+                    </a>
+
+                    @csrf
+                    @method('DELETE')
+                    <button title="remove" type="submit" class="button is-small px-1 py-0">
+                        <i class="fa-solid fa-trash"></i>{{-- delete --}}
+                    </button>
+                </form>
             </td>
         </tr>
 

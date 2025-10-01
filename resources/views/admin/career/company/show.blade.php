@@ -44,7 +44,7 @@
 
         @include('admin.components.company.contacts-panel', [
             'contacts' => $company->contacts ?? [],
-            'company'  =>  $company
+            'company'  => $company
         ])
 
         @include('admin.components.show-row', [

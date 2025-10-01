@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Requests\Career\CompanyContactStoreRequest;
 use App\Http\Requests\Career\ContactStoreRequest;
 use App\Http\Requests\Career\ContactUpdateRequest;
 use App\Http\Requests\Career\rContactUpdateRequest;
+use App\Models\Career\Company;
 use App\Models\Career\Contact;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -107,5 +109,67 @@ class ContactController extends BaseController
 
         return redirect(referer('admin.career.contact.index'))
             ->with('success', $contact->name . ' deleted successfully.');
+    }
+
+    /**
+     * Show the page to add a company to the contact.
+     *
+     * @param Contact $contact
+     * @return View
+     */
+    public function addCompany(Contact $contact): View
+    {
+        return view('admin.career.contact.company.add', compact('contact'));
+    }
+
+    /**
+     * Attach a company to the contact.
+     *
+     * @param int $contactId
+     * @param CompanyContactStoreRequest $companyContactStoreRequest
+     * @return RedirectResponse
+     */
+    public function attachCompany(int $contactId, CompanyContactStoreRequest $companyContactStoreRequest): RedirectResponse
+    {
+        $contact = Contact::find($contactId);
+
+        $data = $companyContactStoreRequest->validated();
+
+        if (!empty($data['company_id'])) {
+
+            // Attach an existing contact.
+            if (!$company = Company::find($data['company_id'])) {
+                return redirect(route('admin.career.contact.company.add', $contactId))
+                    ->with('error', 'Company ' . $data['company_id'] . ' not found.');
+            }
+            $contact->companies()->attach($data['company_id']);
+
+        } else {
+
+            // Create a new company and attach it.
+            $company = new Company();
+            $company->fill($data);
+            $company->save();
+
+            $contact->companies()->attach($company->id);
+        }
+
+        return redirect(referer('admin.career.contact.index'))
+            ->with('success', $company->name . ' successfully added to ' . $contact->name . '.');
+    }
+
+    /**
+     * Detach the specified company from the contact.
+     *
+     * @param Contact $contact
+     * @param Company $company
+     * @return RedirectResponse
+     */
+    public function detachCompany(Contact $contact, Company $company): RedirectResponse
+    {
+        $contact->companies()->detach($company->id);
+
+        return redirect(referer('admin.career.contact.index'))
+            ->with('success', $company->name . ' deleted successfully removed from ' . $contact->name . '.');
     }
 }

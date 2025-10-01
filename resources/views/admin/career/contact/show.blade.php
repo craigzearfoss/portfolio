@@ -28,6 +28,11 @@
         @endif
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $contact->id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $contact->name
         ])
@@ -39,7 +44,7 @@
 
         @include('admin.components.contact.companies-panel', [
             'companies' => $contact->companies ?? [],
-            'links'     => []
+            'contact'   => $contact
         ])
 
         @include('admin.components.show-row', [

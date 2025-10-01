@@ -1,51 +1,51 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add a Contact to ' . $company->name,
+    'title' =>'Add a Company to ' . $contact->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Companies',       'href' => route('admin.career.company.index') ],
-        [ 'name' => $company->name,    'href' => route('admin.career.company.show', $company) ],
+        [ 'name' => 'Contacts',       'href' => route('admin.career.contact.index') ],
+        [ 'name' => $contact->name,    'href' => route('admin.career.contact.show', $contact) ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.company.show', $company) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => route('admin.career.contact.show', $contact) ],
     ],
-    'errorMessages' => $errors->all(),
+    'errorMessages' =>  $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])
 
 @section('content')
 
-    <div id="contact-select" class="card form-container p-2">
+    <div id="company-select" class="card form-container p-2">
 
-        <form action="{{ route('admin.career.company.contact.attach', $company) }}" method="POST">
+        <form action="{{ route('admin.career.contact.company.attach', $contact) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => route('admin.career.company.show', $company)
+                'value' => route('admin.career.contact.show', $contact)
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'     => 'contact_id',
-                'label'    => 'contact',
-                'value'    => old('contact_id') ?? '',
-                'list'     => \App\Models\Career\Contact::listOptions(['owner_id'=>$company->owner_id], true),
-                'onchange' => "if (this.value) { document.getElementById('new-contact').style.display='none'; } else { document.getElementById('new-contact').style.display='block'; }",
+                'name'     => 'company_id',
+                'label'    => 'company',
+                'value'    => old('company_id') ?? '',
+                'list'     => \App\Models\Career\Company::listOptions(['owner_id'=>$contact->owner_id], true),
+                'onchange' => "if (this.value) { document.getElementById('new-company').style.display='none'; } else { document.getElementById('new-company').style.display='block'; }",
                 'message'  => $message ?? '',
             ])
 
-            <div id="new-contact" class="card form-container p-4">
+            <div id="new-company" class="card form-container p-4">
 
                 @include('admin.components.form-hidden', [
                     'name'  => 'owner_id',
-                    'value' => $company->owner['id'] ?? ''
+                    'value' => $contact->owner['id'] ?? ''
                 ])
 
                 @include('admin.components.form-hidden', [
-                    'name'  => 'company_id',
-                    'value' => $company->id
+                    'name'  => 'contact_id',
+                    'value' => $contact->id
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -56,16 +56,10 @@
                 ])
 
                 @include('admin.components.form-select-horizontal', [
-                    'name'      => 'title',
-                    'value'     => old('title') ?? '',
-                    'list'      => \App\Models\User::titleListOptions([], true, true),
-                    'message'   => $message ?? '',
-                ])
-
-                @include('admin.components.form-input-horizontal', [
-                    'name'    => 'job_title',
-                    'label'   => 'job title',
-                    'value'   => old('job_title') ?? '',
+                    'name'    => 'industry_id',
+                    'label'   => 'industry',
+                    'value'   => old('industry_id') ?? 0,
+                    'list'    => \App\Models\Career\Industry::listOptions([], true, false, true),
                     'message' => $message ?? '',
                 ])
 
@@ -190,8 +184,8 @@
             </div>
 
             @include('admin.components.form-button-submit', [
-                'label'      => 'Add Contact',
-                'cancel_url' => referer('admin.career.company.show', $company)
+                'label'      => 'Add Company',
+                'cancel_url' => referer('admin.career.contact.show', $contact)
             ])
 
         </form>
