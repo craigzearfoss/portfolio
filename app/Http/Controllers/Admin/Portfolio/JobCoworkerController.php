@@ -51,12 +51,12 @@ class JobCoworkerController extends BaseController
     /**
      * Store a newly created job coworker in storage.
      *
-     * @param JobCoworkerStoreRequest $request
+     * @param JobCoworkerStoreRequest $jobCoworkerStoreRequest
      * @return RedirectResponse
      */
-    public function store(JobCoworkerStoreRequest $request): RedirectResponse
+    public function store(JobCoworkerStoreRequest $jobCoworkerStoreRequest): RedirectResponse
     {
-        $jobCoworker = JobCoworker::create($request->validated());
+        $jobCoworker = JobCoworker::create($jobCoworkerStoreRequest->validated());
 
         return redirect(referer('admin.portfolio.job-coworker.index'))
             ->with('success', $jobCoworker->name . ' added successfully.');

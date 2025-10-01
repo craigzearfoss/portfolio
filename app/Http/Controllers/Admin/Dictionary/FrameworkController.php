@@ -51,26 +51,19 @@ class FrameworkController extends BaseController
     /**
      * Store a newly created framework in storage.
      *
-     * @param FrameworkStoreRequest $request
+     * @param FrameworkStoreRequest $frameworkStoreRequest
      * @return RedirectResponse
      */
-    public function store(FrameworkStoreRequest $request): RedirectResponse
+    public function store(FrameworkStoreRequest $frameworkStoreRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add frameworks.');
         }
 
-        $framework = Framework::create($request->validated());
+        $framework = Framework::create($frameworkStoreRequest->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $framework->name . ' added successfully.');
-        } else {
-            return redirect()->route('admin.dictionary.framework.index')
-                ->with('success', $framework->name . ' added successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $framework->name . ' added successfully.');
     }
 
     /**

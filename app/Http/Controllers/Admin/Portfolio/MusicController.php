@@ -46,12 +46,12 @@ class MusicController extends BaseController
     /**
      * Store a newly created music in storage.
      *
-     * @param MusicStoreRequest $request
+     * @param MusicStoreRequest $musicStoreRequest
      * @return RedirectResponse
      */
-    public function store(MusicStoreRequest $request): RedirectResponse
+    public function store(MusicStoreRequest $musicStoreRequest): RedirectResponse
     {
-        $music = Music::create($request->validated());
+        $music = Music::create($musicStoreRequest->validated());
 
         return redirect(referer('admin.portfolio.music.index'))
             ->with('success', $music->name . ' added successfully.');

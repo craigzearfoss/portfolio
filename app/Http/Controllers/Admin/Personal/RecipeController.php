@@ -44,12 +44,12 @@ class RecipeController extends BaseController
     /**
      * Store a newly created recipe in storage.
      *
-     * @param RecipeStoreRequest $request
+     * @param RecipeStoreRequest $recipeStoreRequest
      * @return RedirectResponse
      */
-    public function store(RecipeStoreRequest $request): RedirectResponse
+    public function store(RecipeStoreRequest $recipeStoreRequest): RedirectResponse
     {
-        $recipe = Recipe::create($request->validated());
+        $recipe = Recipe::create($recipeStoreRequest->validated());
 
         return redirect(referer('admin.personal.recipe.index'))
             ->with('success', $recipe->name . ' added successfully.');

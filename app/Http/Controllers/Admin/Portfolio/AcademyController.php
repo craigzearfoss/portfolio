@@ -51,16 +51,16 @@ class AcademyController extends BaseController
     /**
      * Store a newly created academy in storage.
      *
-     * @param AcademyStoreRequest $request
+     * @param AcademyStoreRequest $academyStoreRequest
      * @return RedirectResponse
      */
-    public function store(AcademyStoreRequest $request): RedirectResponse
+    public function store(AcademyStoreRequest $academyStoreRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add academies.');
         }
 
-        $academy = Academy::create($request->validated());
+        $academy = Academy::create($academyStoreRequest->validated());
 
         return redirect(referer('admin.portfolio.academy.index'))
             ->with('success', $academy->name . ' added successfully.');

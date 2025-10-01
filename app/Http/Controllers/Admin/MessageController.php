@@ -44,12 +44,12 @@ class MessageController extends BaseController
     /**
      * Store a newly created message in storage.
      *
-     * @param MessageStoreRequest $request
+     * @param MessageStoreRequest $messageStoreRequest
      * @return RedirectResponse
      */
-    public function store(MessageStoreRequest $request): RedirectResponse
+    public function store(MessageStoreRequest $messageStoreRequest): RedirectResponse
     {
-        $message = Message::create($request->validated());
+        $message = Message::create($messageStoreRequest->validated());
 
         return redirect(referer('admin.message.index'))
             ->with('success', 'Message added successfully.');

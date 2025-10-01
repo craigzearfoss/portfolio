@@ -44,12 +44,12 @@ class NoteController extends BaseController
     /**
      * Store a newly created note in storage.
      *
-     * @param NoteStoreRequest $request
+     * @param NoteStoreRequest $noteStoreRequest
      * @return RedirectResponse
      */
-    public function store(NoteStoreRequest $request): RedirectResponse
+    public function store(NoteStoreRequest $noteStoreRequest): RedirectResponse
     {
-        $note = Note::create($request->validated());
+        $note = Note::create($noteStoreRequest->validated());
 
         return redirect(referer('admin.career.note.index'))
             ->with('success', 'Note added successfully.');

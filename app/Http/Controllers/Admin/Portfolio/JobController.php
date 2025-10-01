@@ -44,12 +44,12 @@ class JobController extends BaseController
     /**
      * Store a newly created job in storage.
      *
-     * @param JobStoreRequest $request
+     * @param JobStoreRequest $jobStoreRequest
      * @return RedirectResponse
      */
-    public function store(JobStoreRequest $request): RedirectResponse
+    public function store(JobStoreRequest $jobStoreRequest): RedirectResponse
     {
-        $job = Job::create($request->validated());
+        $job = Job::create($jobStoreRequest->validated());
 
         return redirect(referer('admin.portfolio.job.index'))
             ->with('success', $job->company . ' job added successfully.');

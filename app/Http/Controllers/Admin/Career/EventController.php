@@ -44,12 +44,12 @@ class EventController extends BaseController
     /**
      * Store a newly created event in storage.
      *
-     * @param EventStoreRequest $request
+     * @param EventStoreRequest $eventStoreRequest
      * @return RedirectResponse
      */
-    public function store(EventStoreRequest $request): RedirectResponse
+    public function store(EventStoreRequest $eventStoreRequest): RedirectResponse
     {
-        $event = Event::create($request->validated());
+        $event = Event::create($eventStoreRequest->validated());
 
         return redirect(referer('admin.career.event.index'))
             ->with('success', 'Event added successfully.');

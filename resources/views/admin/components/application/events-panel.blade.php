@@ -18,14 +18,6 @@
                 'icon'  => 'fa-pen-to-square'
             ])
 
-            @include('admin.components.link', [
-                'name'  => 'Add an event',
-                'href'  => route('admin.career.event.create', ['application_id' => $application->id]),
-                'class' => 'button is-primary is-small px-1 py-0',
-                'title' => 'add event',
-                'icon'  => 'fa-plus'
-            ])
-
         @endif
     </h2>
 

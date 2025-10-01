@@ -51,16 +51,16 @@ class CategoryController extends BaseController
     /**
      * Store a newly created category in storage.
      *
-     * @param CategoryStoreRequest $request
+     * @param CategoryStoreRequest $categoryStoreRequest
      * @return RedirectResponse
      */
-    public function store(CategoryStoreRequest $request): RedirectResponse
+    public function store(CategoryStoreRequest $categoryStoreRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add categories.');
         }
 
-        $category = Category::create($request->validated());
+        $category = Category::create($categoryStoreRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $category->name . ' added successfully.');

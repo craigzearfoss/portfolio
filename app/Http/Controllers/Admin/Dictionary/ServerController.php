@@ -51,16 +51,16 @@ class ServerController extends BaseController
     /**
      * Store a newly created server in storage.
      *
-     * @param ServerStoreRequest $request
+     * @param ServerStoreRequest $serverStoreRequest
      * @return RedirectResponse
      */
-    public function store(ServerStoreRequest $request): RedirectResponse
+    public function store(ServerStoreRequest $serverStoreRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add servers.');
         }
 
-        $server = Server::create($request->validated());
+        $server = Server::create($serverStoreRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $server->name . ' added successfully.');

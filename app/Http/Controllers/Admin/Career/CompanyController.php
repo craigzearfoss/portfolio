@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin\Career;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\CompanyStoreRequest;
 use App\Http\Requests\Career\CompanyUpdateRequest;
+use App\Http\Requests\Career\ContactStoreRequest;
 use App\Models\Career\Company;
+use App\Models\Career\Contact;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -102,6 +104,49 @@ class CompanyController extends BaseController
      */
     public function destroy(Company $company): RedirectResponse
     {
+        $company->delete();
+
+        return redirect(referer('admin.career.company.index'))
+            ->with('success', $company->name . ' deleted successfully.');
+    }
+
+    /**
+     * Show the page to add a contact to the company.
+     *
+     * @param Company $company
+     * @return View
+     */
+    public function addContact(Company $company): View
+    {
+        return view('admin.career.company.contact.add', compact('company'));
+    }
+
+    /**
+     * Store a newly created company in storage.
+     *
+     * @param CompanyStoreRequest $companyStoreRequest
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function attachContact(CompanyStoreRequest $companyStoreRequest, Request $request): RedirectResponse
+    {dd([$companyStoreRequest, $request]);
+        $company = Company::create($companyStoreRequest->validated());
+
+        return redirect(referer('admin.career.company.index'))
+            ->with('success', $company->name . ' added successfully.');
+    }
+
+    /**
+     * Detach the specified contact from the company.
+     *
+     * @param Company $company
+     * @param Contact $contact
+     * @return RedirectResponse
+     */
+    public function detachContact(Company $company, Contact $contact): RedirectResponse
+    {
+        dd([$company, $contact]);
+
         $company->delete();
 
         return redirect(referer('admin.career.company.index'))

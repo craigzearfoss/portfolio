@@ -44,7 +44,7 @@ class ResumeStoreRequest extends FormRequest
                 'string',
                 'required',
                 'max:255',
-                Rule::unique('portfolio_db.resumes')->where(function ($query) {
+                Rule::unique('career_db.resumes')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })

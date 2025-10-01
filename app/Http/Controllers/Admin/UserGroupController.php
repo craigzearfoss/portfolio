@@ -46,12 +46,12 @@ class UserGroupController extends Controller
     /**
      * Store a newly created user group in storage.
      *
-     * @param UserGroupStoreRequest $request
+     * @param UserGroupStoreRequest $userGroupStoreRequest
      * @return RedirectResponse
      */
-    public function store(UserGroupStoreRequest $request): RedirectResponse
+    public function store(UserGroupStoreRequest $userGroupStoreRequest): RedirectResponse
     {
-        $userGroup = UserGroup::create($request->validated());
+        $userGroup = UserGroup::create($userGroupStoreRequest->validated());
 
         return redirect(referer('admin.user-group.index'))
             ->with('success', $userGroup->name . ' added successfully.');

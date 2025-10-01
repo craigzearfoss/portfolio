@@ -46,12 +46,12 @@ class CoverLetterController extends BaseController
     /**
      * Store a newly created cover letter in storage.
      *
-     * @param CoverLetterStoreRequest $request
+     * @param CoverLetterStoreRequest $coverLetterStoreRequest
      * @return RedirectResponse
      */
-    public function store(CoverLetterStoreRequest $request): RedirectResponse
+    public function store(CoverLetterStoreRequest $coverLetterStoreRequest): RedirectResponse
     {
-        $coverLetter = CoverLetter::create($request->validated());
+        $coverLetter = CoverLetter::create($coverLetterStoreRequest->validated());
 
         return redirect(referer('admin.career.cover-letter.index'))
             ->with('success', 'Cover Letter added successfully.');

@@ -43,7 +43,7 @@ class ResumeUpdateRequest extends FormRequest
                 'string',
                 'filled',
                 'max:255',
-                Rule::unique('portfolio_db.resumes')->where(function ($query) {
+                Rule::unique('career_db.resumes')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('id', '<>', $this->resume->id)
                         ->where('name', $this->name);

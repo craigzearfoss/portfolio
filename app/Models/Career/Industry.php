@@ -75,9 +75,9 @@ class Industry extends Model
         // we put the 'other' option last
         if ($includeOther && !empty($other)) {
             $key = $nameAsKey
-                ? ($useAbbreviation ? $industry->abbreviation : $industry->name)
-                : $industry->id;
-            $options[$key] = ($useAbbreviation ? $industry->abbreviation : $industry->name);;
+                ? ($useAbbreviation ? $other->abbreviation : $other->id)
+                : $other->id;
+            $options[$key] = ($useAbbreviation ? $other->abbreviation : $other->name);;
         }
 
         return $options;

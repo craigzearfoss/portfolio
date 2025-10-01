@@ -37,6 +37,11 @@
             'value' => $contact->slug
         ])
 
+        @include('admin.components.contact.companies-panel', [
+            'companies' => $contact->companies ?? [],
+            'links'     => []
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'title',
             'value' => $contact->title

@@ -35,7 +35,7 @@ class Ingredient extends Model
     ];
 
     /**
-     * Get the portfolio recipe ingredients for the portfolio ingredient.
+     * Get the portfolio recipe ingredients for the personal ingredient.
      */
     public function recipeIngredients(): HasMany
     {

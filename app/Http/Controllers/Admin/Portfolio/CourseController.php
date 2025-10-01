@@ -46,12 +46,12 @@ class CourseController extends BaseController
     /**
      * Store a newly created course in storage.
      *
-     * @param CourseStoreRequest $request
+     * @param CourseStoreRequest $courseStoreRequest
      * @return RedirectResponse
      */
-    public function store(CourseStoreRequest $request): RedirectResponse
+    public function store(CourseStoreRequest $courseStoreRequest): RedirectResponse
     {
-        $course = Course::create($request->validated());
+        $course = Course::create($courseStoreRequest->validated());
 
         return redirect(referer('admin.portfolio.course.index'))
             ->with('success', $course-> name . ' added successfully.');

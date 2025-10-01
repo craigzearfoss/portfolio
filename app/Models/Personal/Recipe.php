@@ -91,7 +91,7 @@ class Recipe extends Model
     }
 
     /**
-     * Get the portfolio recipe ingredients for the portfolio recipe.
+     * Get the portfolio recipe ingredients for the personal recipe.
      */
     public function ingredients(): HasMany
     {
@@ -99,7 +99,7 @@ class Recipe extends Model
     }
 
     /**
-     * Get the portfolio recipe steps for the portfolio recipe.
+     * Get the portfolio recipe steps for the personal recipe.
      */
     public function steps(): HasMany
     {

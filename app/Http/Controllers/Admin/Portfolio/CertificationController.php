@@ -46,12 +46,12 @@ class CertificationController extends BaseController
     /**
      * Store a newly created certification in storage.
      *
-     * @param CertificationStoreRequest $request
+     * @param CertificationStoreRequest $certificationStoreRequest
      * @return RedirectResponse
      */
-    public function store(CertificationStoreRequest $request): RedirectResponse
+    public function store(CertificationStoreRequest $certificationStoreRequest): RedirectResponse
     {
-        $certification = Certification::create($request->validated());
+        $certification = Certification::create($certificationStoreRequest->validated());
 
         return redirect(referer('admin.portfolio.certification.index'))
             ->with('success', $certification->name . ' certification added successfully.');

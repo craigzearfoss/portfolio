@@ -46,12 +46,12 @@ class VideoController extends BaseController
     /**
      * Store a newly created video in storage.
      *
-     * @param VideoStoreRequest $request
+     * @param VideoStoreRequest $videoStorerequest
      * @return RedirectResponse
      */
-    public function store(VideoStoreRequest $request): RedirectResponse
+    public function store(VideoStoreRequest $videoStorerequest): RedirectResponse
     {
-        $video = Video::create($request->validated());
+        $video = Video::create($videoStorerequest->validated());
 
         return redirect(referer('admin.portfolio.video.index'))
             ->with('success', $video->name . ' added successfully.');

@@ -48,12 +48,12 @@ class RecipeIngredientController extends BaseController
     /**
      * Store a newly created recipe ingredient in storage.
      *
-     * @param RecipeIngredientStoreRequest $request
+     * @param RecipeIngredientStoreRequest $recipeIngredientStoreRequest
      * @return RedirectResponse
      */
-    public function store(RecipeIngredientStoreRequest $request): RedirectResponse
+    public function store(RecipeIngredientStoreRequest $recipeIngredientStoreRequest): RedirectResponse
     {
-        $recipeIngredient = RecipeIngredient::create($request->validated());
+        $recipeIngredient = RecipeIngredient::create($recipeIngredientStoreRequest->validated());
 
         return redirect(referer('admin.personal.recipe-ingredient.index'))
             ->with('success', 'Recipe ingredient added successfully.');

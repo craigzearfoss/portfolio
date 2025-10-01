@@ -51,16 +51,16 @@ class LanguageController extends BaseController
     /**
      * Store a newly created language in storage.
      *
-     * @param LanguageStoreRequest $request
+     * @param LanguageStoreRequest $languageStoreRequest
      * @return RedirectResponse
      */
-    public function store(LanguageStoreRequest $request): RedirectResponse
+    public function store(LanguageStoreRequest $languageStoreRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add languages.');
         }
 
-        $language = Language::create($request->validated());
+        $language = Language::create($languageStoreRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $language->name . ' added successfully.');

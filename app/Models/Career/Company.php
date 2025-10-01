@@ -3,6 +3,7 @@
 namespace App\Models\Career;
 
 use App\Models\Career\Application;
+use App\Models\Career\Contact;
 use App\Models\Career\Industry;
 use App\Models\Country;
 use App\Models\Owner;
@@ -11,6 +12,7 @@ use App\Models\State;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -86,6 +88,14 @@ class Company extends Model
     {
         return $this->hasMany(Application::class, 'application_id')
             ->orderBy('post_date', 'desc');
+    }
+
+    /**
+     * Get the contacts for the career company.
+     */
+    public function contacts(): BelongsToMany
+    {
+        return $this->belongsToMany(Contact::class)->withPivot('active');
     }
 
     /**

@@ -21,6 +21,9 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::resource('application', AdminCareerApplicationController::class);
     Route::resource('communication', AdminCareerCommunicationController::class);
     Route::resource('company', AdminCareerCompanyController::class);
+    Route::get('company/{company}/contact/add', [AdminCareerCompanyController::class, 'addContact'])->name('company.contact.add');
+    Route::post('company/{company}/contact/attach', [AdminCareerCompanyController::class, 'attachContact'])->name('company.contact.attach');
+    Route::get('company/{company}/contact/detach/{contact}', [AdminCareerCompanyController::class, 'detachContact'])->name('company.contact.detach');
     Route::resource('contact', AdminCareerContactController::class);
     Route::resource('cover-letter', AdminCareerCoverLetterController::class)->parameter('cover-letter', 'cover_letter');
     Route::resource('industry', AdminCareerIndustryController::class);

@@ -52,7 +52,7 @@ class ReadingUpdateRequest extends FormRequest
                 'string',
                 'filled',
                 'max:255',
-                Rule::unique('portfolio_db.readings')->where(function ($query) {
+                Rule::unique('personal_db.readings')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('id', '<>', $this->reading->id)
                         ->where('slug', $this->slug);

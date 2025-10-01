@@ -46,16 +46,16 @@ class AdminController extends BaseController
     /**
      * Store a newly created admin in storage.
      *
-     * @param AdminStoreRequest $request
+     * @param AdminStoreRequest $adminStoreRequest
      * @return RedirectResponse
      */
-    public function store(AdminStoreRequest $request): RedirectResponse
+    public function store(AdminStoreRequest $adminStoreRequest): RedirectResponse
     {
-        $request->validate($request->rules());
+        $adminStoreRequest->validate($adminStoreRequest->rules());
 
         $admin = new Admin();
         $admin->admin_id = Auth::guard('admin')->user()->id;
-        $admin->username = $request->username;
+        $admin->username = $adminStoreRequest->username;
         $admin->email = $request->email;
         $admin->password = Hash::make($request->password);
         $admin->disabled = $request->disabled;

@@ -45,12 +45,12 @@ class UserTeamController extends Controller
     /**
      * Store a newly created user team in storage.
      *
-     * @param UserTeamStoreRequest $request
+     * @param UserTeamStoreRequest $userTeamStoreRequest
      * @return RedirectResponse
      */
-    public function store(UserTeamStoreRequest $request): RedirectResponse
+    public function store(UserTeamStoreRequest $userTeamStoreRequest): RedirectResponse
     {
-        $userTeam = UserTeam::create($request->validated());
+        $userTeam = UserTeam::create($userTeamStoreRequest->validated());
 
         return redirect(referer('admin.user-team.index'))
             ->with('success', $userTeam->name . ' added successfully.');

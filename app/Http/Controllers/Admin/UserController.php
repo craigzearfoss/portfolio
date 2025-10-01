@@ -41,12 +41,12 @@ class UserController extends BaseController
     /**
      * Store a newly created user in storage.
      *
-     * @param UserStoreRequest $request
+     * @param UserStoreRequest $userStoreRequest
      * @return RedirectResponse
      */
-    public function store(UserStoreRequest $request): RedirectResponse
+    public function store(UserStoreRequest $userStoreRequest): RedirectResponse
     {
-        $user = User::create($request->validated());
+        $user = User::create($userStoreRequest->validated());
 
         return redirect(referer('admin.user.index'))
             ->with('success', $user->username . ' added successfully. User will need to verify email.');

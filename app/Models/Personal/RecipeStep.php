@@ -53,10 +53,10 @@ class RecipeStep extends Model
     }
 
     /**
-     * Get the portfolio recipe that owns the portfolio recipe step.
+     * Get the portfolio recipe that owns the personal recipe step.
      */
     public function recipe(): BelongsTo
     {
-        return $this->setConnection('portfolio_db')->belongsTo(Recipe::class, 'recipe_id');
+        return $this->setConnection('personal_db')->belongsTo(Recipe::class, 'recipe_id');
     }
 }

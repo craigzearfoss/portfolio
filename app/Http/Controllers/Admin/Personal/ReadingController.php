@@ -44,12 +44,12 @@ class ReadingController extends BaseController
     /**
      * Store a newly created reading in storage.
      *
-     * @param ReadingStoreRequest $request
+     * @param ReadingStoreRequest $readingStoreRequest
      * @return RedirectResponse
      */
-    public function store(ReadingStoreRequest $request): RedirectResponse
+    public function store(ReadingStoreRequest $readingStoreRequest): RedirectResponse
     {
-        $reading = Reading::create($request->validated());
+        $reading = Reading::create($readingStoreRequest->validated());
 
         return redirect(referer('admin.personal.reading.index'))
             ->with('success', $reading->title . ' added successfully.');

@@ -64,7 +64,9 @@
                         {{ $contact->name }}
                     </td>
                         <td data-field="name" style="white-space: nowrap;">
-                            //@TODO
+                            @php
+
+                            @endphp
                         </td>
                     <td data-field="location" style="white-space: nowrap;">
                         {!!

@@ -49,16 +49,16 @@ class IngredientController extends BaseController
     /**
      * Store a newly created ingredient in storage.
      *
-     * @param IngredientStoreRequest $request
+     * @param IngredientStoreRequest $ingredientStoreRequest
      * @return RedirectResponse
      */
-    public function store(IngredientStoreRequest $request): RedirectResponse
+    public function store(IngredientStoreRequest $ingredientStoreRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add ingredients.');
         }
 
-        $ingredient = Ingredient::create($request->validated());
+        $ingredient = Ingredient::create($ingredientStoreRequest->validated());
 
         return redirect(referer('admin.personal.ingredient.index'))
             ->with('success', $ingredient->name . ' added successfully.');

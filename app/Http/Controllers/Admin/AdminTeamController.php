@@ -45,12 +45,12 @@ class AdminTeamController extends Controller
     /**
      * Store a newly created admin team in storage.
      *
-     * @param AdminTeamStoreRequest $request
+     * @param AdminTeamStoreRequest $adminTeamStoreRequest
      * @return RedirectResponse
      */
-    public function store(AdminTeamStoreRequest $request): RedirectResponse
+    public function store(AdminTeamStoreRequest $adminTeamStoreRequest): RedirectResponse
     {
-        $adminTeam = AdminTeam::create($request->validated());
+        $adminTeam = AdminTeam::create($adminTeamStoreRequest->validated());
 
         return redirect(referer('admin.admin-team.index'))
             ->with('success', $adminTeam->name . ' added successfully.');

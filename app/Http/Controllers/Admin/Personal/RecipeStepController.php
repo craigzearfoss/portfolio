@@ -55,12 +55,12 @@ class RecipeStepController extends BaseController
     /**
      * Store a newly created recipe step in storage.
      *
-     * @param RecipeStepStoreRequest $request
+     * @param RecipeStepStoreRequest $recipeStepStoreRequest
      * @return RedirectResponse
      */
-    public function store(RecipeStepStoreRequest $request): RedirectResponse
+    public function store(RecipeStepStoreRequest $recipeStepStoreRequest): RedirectResponse
     {
-        $recipeStep = RecipeStep::create($request->validated());
+        $recipeStep = RecipeStep::create($recipeStepStoreRequest->validated());
 
         return redirect(referer('admin.personal.recipe-step.index')
             ->with('success', 'Recipe step added successfully.'));

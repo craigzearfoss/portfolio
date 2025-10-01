@@ -2,6 +2,7 @@
 
 namespace App\Models\Career;
 
+use App\Models\Career\Company;
 use App\Models\Country;
 use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
@@ -9,6 +10,7 @@ use App\Models\State;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
@@ -83,6 +85,14 @@ class Contact extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(Owner::class, 'owner_id');
+    }
+
+    /**
+     * Get the companies for the career contact.
+     */
+    public function companies(): BelongsToMany
+    {
+        return $this->belongsToMany(Company::class)->withPivot('active');
     }
 
     /**

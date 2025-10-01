@@ -51,16 +51,16 @@ class LibraryController extends BaseController
     /**
      * Store a newly created library in storage.
      *
-     * @param LibraryStoreRequest $request
+     * @param LibraryStoreRequest $libraryStoreRequest
      * @return RedirectResponse
      */
-    public function store(LibraryStoreRequest $request): RedirectResponse
+    public function store(LibraryStoreRequest $libraryStoreRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add libraries.');
         }
 
-        $library = Library::create($request->validated());
+        $library = Library::create($libraryStoreRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $library->name . ' added successfully.');

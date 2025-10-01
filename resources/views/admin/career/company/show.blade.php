@@ -42,6 +42,11 @@
             'value' => $company->slug
         ])
 
+        @include('admin.components.company.contacts-panel', [
+            'contacts' => $company->contacts ?? [],
+            'company'  =>  $company
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'industry',
             'value' => $company->industry['name'] ?? ''
@@ -50,13 +55,13 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'    => $company->street ?? null,
-                           'street2'   => $company->street2 ?? null,
-                           'city'      => $company->city ?? null,
-                           'state'     => $company->state['code'] ?? null,
-                           'zip'       => $company->zip ?? null,
-                           'country'   => $company->country['iso_alpha3'] ?? null,
-                       ])
+                'street'    => $company->street ?? null,
+                'street2'   => $company->street2 ?? null,
+                'city'      => $company->city ?? null,
+                'state'     => $company->state['code'] ?? null,
+                'zip'       => $company->zip ?? null,
+                'country'   => $company->country['iso_alpha3'] ?? null,
+            ])
         ])
 
         @include('admin.components.show-row', [

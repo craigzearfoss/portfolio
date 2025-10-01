@@ -49,16 +49,16 @@ class IndustryController extends BaseController
     /**
      * Store a newly created industry in storage.
      *
-     * @param IndustryStoreRequest $request
+     * @param IndustryStoreRequest $industryStoreRequest
      * @return RedirectResponse
      */
-    public function store(IndustryStoreRequest $request): RedirectResponse
+    public function store(IndustryStoreRequest $industryStoreRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add industries.');
         }
 
-        $industry = Industry::create($request->validated());
+        $industry = Industry::create($industryStoreRequest->validated());
 
         return redirect(referer('admin.career.industry.index'))
             ->with('success', $industry->name . ' added successfully.');

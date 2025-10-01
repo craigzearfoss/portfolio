@@ -46,7 +46,7 @@ class JobUpdateRequest extends FormRequest
 
         return [
             'owner_id'     => ['integer', 'filled', Rule::in($ownerIds)],
-            'name'         => ['string', 'filled', 'max:255', 'unique:career_db.jobs,name,'.$this->job->id],
+            'name'         => ['string', 'filled', 'max:255', 'unique:portfolio_db.jobs,name,'.$this->job->id],
             'slug'         => [
                 'string',
                 'filled',

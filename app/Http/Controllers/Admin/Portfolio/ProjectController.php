@@ -46,12 +46,12 @@ class ProjectController extends BaseController
     /**
      * Store a newly created project in storage.
      *
-     * @param ProjectStoreRequest $request
+     * @param ProjectStoreRequest $projectStoreRequest
      * @return RedirectResponse
      */
-    public function store(ProjectStoreRequest $request): RedirectResponse
+    public function store(ProjectStoreRequest $projectStoreRequest): RedirectResponse
     {
-        $project = Project::create($request->validated());
+        $project = Project::create($projectStoreRequest->validated());
 
         return redirect(referer('admin.portfolio.project.index'))
             ->with('success', $project->name . ' project added successfully.');

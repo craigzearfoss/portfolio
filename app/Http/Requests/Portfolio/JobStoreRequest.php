@@ -47,7 +47,7 @@ class JobStoreRequest extends FormRequest
 
         return [
             'owner_id'     => ['integer', 'required', Rule::in($ownerIds)],
-            'company'      => ['string', 'max:255', 'required', 'unique:career_db.jobs,name'],
+            'company'      => ['string', 'max:255', 'required', 'unique:portfolio_db.jobs,name'],
             'slug'         => [
                 'string',
                 'required',

@@ -49,7 +49,7 @@
                 'name'    => 'industry_id',
                 'label'   => 'industry',
                 'value'   => old('industry_id') ?? $company->industry_id,
-                'list'    => \App\Models\Career\Industry::listOptions(),
+                'list'    => \App\Models\Career\Industry::listOptions([], true, false, true),
                 'message' => $message ?? '',
             ])
 
@@ -78,7 +78,7 @@
                 'name'    => 'state_id',
                 'label'   => 'state',
                 'value'   => old('state_id') ?? $company->state_id,
-                'list'    => \App\Models\State::listOptions(),
+                'list'    => \App\Models\State::listOptions([], true),
                 'message' => $message ?? '',
             ])
 
@@ -93,7 +93,7 @@
                 'name'    => 'country_id',
                 'label'   => 'country',
                 'value'   => old('country_id') ?? $company->country_id,
-                'list'    => \App\Models\Country::listOptions(),
+                'list'    => \App\Models\Country::listOptions([], true),
                 'message' => $message ?? '',
             ])
 

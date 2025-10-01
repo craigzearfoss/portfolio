@@ -51,12 +51,12 @@ class JobTaskController extends BaseController
     /**
      * Store a newly created job task in storage.
      *
-     * @param JobTaskStoreRequest $request
+     * @param JobTaskStoreRequest $jobTaskStoreRequest
      * @return RedirectResponse
      */
-    public function store(JobTaskStoreRequest $request): RedirectResponse
+    public function store(JobTaskStoreRequest $jobTaskStoreRequest): RedirectResponse
     {
-        $jobTask = JobTask::create($request->validated());
+        $jobTask = JobTask::create($jobTaskStoreRequest->validated());
 
         return redirect(referer('admin.portfolio.job-task.index'))
             ->with('success', 'Job task added successfully.');

@@ -51,16 +51,16 @@ class DatabaseController extends BaseController
     /**
      * Store a newly created database in storage.
      *
-     * @param DatabaseStoreRequest $request
+     * @param DatabaseStoreRequest $databaseStoreRequest
      * @return RedirectResponse
      */
-    public function store(DatabaseStoreRequest $request): RedirectResponse
+    public function store(DatabaseStoreRequest $databaseStoreRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add databases.');
         }
 
-        $database = Database::create($request->validated());
+        $database = Database::create($databaseStoreRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $database->name . ' added successfully.');

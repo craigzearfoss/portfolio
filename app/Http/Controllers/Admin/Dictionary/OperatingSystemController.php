@@ -51,16 +51,16 @@ class OperatingSystemController extends BaseController
     /**
      * Store a newly created operating system in storage.
      *
-     * @param OperatingSystemStoreRequest $request
+     * @param OperatingSystemStoreRequest $operatingSystemStoreRequest
      * @return RedirectResponse
      */
-    public function store(OperatingSystemStoreRequest $request): RedirectResponse
+    public function store(OperatingSystemStoreRequest $operatingSystemStoreRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add operating systems.');
         }
 
-        $operatingSystem = OperatingSystem::create($request->validated());
+        $operatingSystem = OperatingSystem::create($operatingSystemStoreRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $operatingSystem->name . ' added successfully.');

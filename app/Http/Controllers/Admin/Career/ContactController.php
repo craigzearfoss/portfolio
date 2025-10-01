@@ -47,12 +47,12 @@ class ContactController extends BaseController
     /**
      * Store a newly created contact in storage.
      *
-     * @param ContactStoreRequest $request
+     * @param ContactStoreRequest $contactStoreRequest
      * @return RedirectResponse
      */
-    public function store(ContactStoreRequest $request): RedirectResponse
+    public function store(ContactStoreRequest $contactStoreRequest): RedirectResponse
     {
-        $contact = Contact::create($request->validated());
+        $contact = Contact::create($contactStoreRequest->validated());
 
         return redirect(referer('admin.career.contact.index'))
             ->with('success', $contact->name . ' added successfully.');

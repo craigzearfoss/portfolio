@@ -24,5 +24,6 @@ class CompanyContact extends Model
     protected $fillable = [
         'company_id',
         'contact_id',
+        'active',
     ];
 }

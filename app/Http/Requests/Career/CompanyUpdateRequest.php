@@ -51,7 +51,7 @@ class CompanyUpdateRequest extends FormRequest
                 'string',
                 'filled',
                 'max:255',
-                Rule::unique('portfolio_db.companies')->where(function ($query) {
+                Rule::unique('career_db.companies')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('id', '<>', $this->company->id)
                         ->where('name', $this->name);
@@ -61,7 +61,7 @@ class CompanyUpdateRequest extends FormRequest
                 'string',
                 'filled',
                 'max:255',
-                Rule::unique('portfolio_db.companies')->where(function ($query) {
+                Rule::unique('career_db.companies')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('id', '<>', $this->company->id)
                         ->where('slug', $this->slug);
@@ -96,6 +96,13 @@ class CompanyUpdateRequest extends FormRequest
             'readonly'        => ['integer', 'between:0,1'],
             'root'            => ['integer', 'between:0,1'],
             'disabled'        => ['integer', 'between:0,1'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'industry_id'  => 'Please select an industry.',
         ];
     }
 }

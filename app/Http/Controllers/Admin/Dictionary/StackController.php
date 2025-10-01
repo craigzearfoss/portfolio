@@ -51,16 +51,16 @@ class StackController extends BaseController
     /**
      * Store a newly created stack in storage.
      *
-     * @param StackStoreRequest $request
+     * @param StackStoreRequest $stackStoreRequest
      * @return RedirectResponse
      */
-    public function store(StackStoreRequest $request): RedirectResponse
+    public function store(StackStoreRequest $stackStoreRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add stacks.');
         }
 
-        $stack = Stack::create($request->validated());
+        $stack = Stack::create($stackStoreRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $stack->name . ' added successfully.');

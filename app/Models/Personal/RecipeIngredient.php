@@ -57,27 +57,27 @@ class RecipeIngredient extends Model
     }
 
     /**
-     * Get the portfolio recipe that owns the portfolio recipe ingredient.
+     * Get the portfolio recipe that owns the personal recipe ingredient.
      */
     public function recipe(): BelongsTo
     {
-        return $this->setConnection('portfolio_db')->belongsTo(Recipe::class, 'recipe_id');
+        return $this->setConnection('personal_db')->belongsTo(Recipe::class, 'recipe_id');
     }
 
     /**
-     * Get the portfolio ingredient that owns the portfolio recipe ingredient.
+     * Get the portfolio ingredient that owns the personal recipe ingredient.
      */
     public function ingredient(): BelongsTo
     {
-        return $this->setConnection('portfolio_db')->belongsTo(Ingredient::class, 'ingredient_id');
+        return $this->setConnection('personal_db')->belongsTo(Ingredient::class, 'ingredient_id');
     }
 
     /**
-     * Get the portfolio unit that owns the portfolio recipe ingredient.
+     * Get the portfolio unit that owns the personal recipe ingredient.
      */
     public function unit(): BelongsTo
     {
-        return $this->setConnection('portfolio_db')->belongsTo(Unit::class, 'unit_id');
+        return $this->setConnection('personal_db')->belongsTo(Unit::class, 'unit_id');
     }
 
     /**

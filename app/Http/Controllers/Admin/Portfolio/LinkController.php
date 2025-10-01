@@ -46,12 +46,12 @@ class LinkController extends BaseController
     /**
      * Store a newly created link in storage.
      *
-     * @param ApplicationStoreRequest $request
+     * @param ApplicationStoreRequest $linkStoreRequest
      * @return RedirectResponse
      */
-    public function store(LinkStoreRequest $request): RedirectResponse
+    public function store(LinkStoreRequest $linkStoreRequest): RedirectResponse
     {
-        $link = Link::create($request->validated());
+        $link = Link::create($linkStoreRequest->validated());
 
         return redirect(referer('admin.portfolio.link.index'))
             ->with('success', $link->name . ' link added successfully.');

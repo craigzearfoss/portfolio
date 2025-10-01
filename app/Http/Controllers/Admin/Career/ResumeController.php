@@ -47,12 +47,12 @@ class ResumeController extends BaseController
     /**
      * Store a newly created resume in storage.
      *
-     * @param ResumeStoreRequest $request
+     * @param ResumeStoreRequest $resumeStoreRequest
      * @return RedirectResponse
      */
-    public function store(ResumeStoreRequest $request): RedirectResponse
+    public function store(ResumeStoreRequest $resumeStoreRequest): RedirectResponse
     {
-        $resume = Resume::create($request->validated());
+        $resume = Resume::create($resumeStoreRequest->validated());
 
         return redirect(referer('admin.career.resume.index'))
             ->with('success', $resume->name . ' resume added successfully.');

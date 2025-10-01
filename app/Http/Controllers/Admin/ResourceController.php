@@ -45,12 +45,12 @@ class ResourceController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param ResourceStoreRequest $request
+     * @param ResourceStoreRequest $resourceStoreRequest
      * @return RedirectResponse
      */
-    public function store(ResourceStoreRequest $request): RedirectResponse
+    public function store(ResourceStoreRequest $resourceStoreRequest): RedirectResponse
     {
-        $resource = Resource::create($request->validated());
+        $resource = Resource::create($resourceStoreRequest->validated());
 
         return redirect(referer('admin.resource.index'))
             ->with('success', $resource->name . ' resource added successfully.');

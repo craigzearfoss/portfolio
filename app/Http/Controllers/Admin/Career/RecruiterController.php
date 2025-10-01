@@ -41,12 +41,12 @@ class RecruiterController extends Controller
     /**
      * Store a newly created recruiter in storage.
      *
-     * @param RecruiterStoreRequest $request
+     * @param RecruiterStoreRequest $recruiterStoreRequest
      * @return RedirectResponse
      */
-    public function store(RecruiterStoreRequest $request): RedirectResponse
+    public function store(RecruiterStoreRequest $recruiterStoreRequest): RedirectResponse
     {
-        $recruiter = Recruiter::create($request->validated());
+        $recruiter = Recruiter::create($recruiterStoreRequest->validated());
 
         return redirect(referer('admin.career.recruiter.index'))
             ->with('success', $recruiter->name . ' added successfully.');

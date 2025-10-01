@@ -44,12 +44,12 @@ class DatabaseController extends BaseController
     /**
      * Store a newly created database in storage.
      *
-     * @param DatabaseStoreRequest $request
+     * @param DatabaseStoreRequest $databaseStoreRequest
      * @return RedirectResponse
      */
-    public function store(DatabaseStoreRequest $request): RedirectResponse
+    public function store(DatabaseStoreRequest $databaseStoreRequest): RedirectResponse
     {
-        $database = Database::create($request->validated());
+        $database = Database::create($databaseStoreRequest->validated());
 
         return redirect(referer('admin.database.index'))
             ->with('success', $database->name . ' database added successfully.');

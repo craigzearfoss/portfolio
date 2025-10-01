@@ -51,12 +51,12 @@ class ApplicationController extends BaseController
     /**
      * Store a newly created application in storage.
      *
-     * @param ApplicationStoreRequest $request
+     * @param ApplicationStoreRequest $applicationStoreRequest
      * @return RedirectResponse
      */
-    public function store(ApplicationStoreRequest $request): RedirectResponse
+    public function store(ApplicationStoreRequest $applicationStoreRequest): RedirectResponse
     {
-        $application = Application::create($request->validated());
+        $application = Application::create($applicationStoreRequest->validated());
 
         return redirect(referer('admin.career.application.index'))
             ->with('success', 'Application added successfully.');

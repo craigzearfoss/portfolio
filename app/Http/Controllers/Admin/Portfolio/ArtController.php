@@ -47,12 +47,12 @@ class ArtController extends BaseController
      * Store a newly created art in storage.
      *
      *
-     * @param ArtStoreRequest $request
+     * @param ArtStoreRequest $artStoreRequest
      * @return RedirectResponse
      */
-    public function store(ArtStoreRequest $request): RedirectResponse
+    public function store(ArtStoreRequest $artStoreRequest): RedirectResponse
     {
-        $art = Art::create($request->validated());
+        $art = Art::create($artStoreRequest->validated());
 
         return redirect(referer('admin.portfolio.art.index'))
             ->with('success', $art->name . ' added successfully.');

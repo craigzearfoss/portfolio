@@ -48,16 +48,16 @@ class UnitController extends BaseController
     /**
      * Store a newly created unit in storage.
      *
-     * @param UnitStoreRequest $request
+     * @param UnitStoreRequest $unitStoreRequest
      * @return RedirectResponse
      */
-    public function store(UnitStoreRequest $request): RedirectResponse
+    public function store(UnitStoreRequest $unitStoreRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add units.');
         }
 
-        $unit = Unit::create($request->validated());
+        $unit = Unit::create($unitStoreRequest->validated());
 
         return redirect(referer('admin.personal.unit.index'))
             ->with('success', $unit->name . $unit->name . ' added successfully.');

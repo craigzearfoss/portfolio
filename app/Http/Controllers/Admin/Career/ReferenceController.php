@@ -46,12 +46,12 @@ class ReferenceController extends BaseController
     /**
      * Store a newly created reference in storage.
      *
-     * @param ReferenceStoreRequest $request
+     * @param ReferenceStoreRequest $referenceStoreRequest
      * @return RedirectResponse
      */
-    public function store(ReferenceStoreRequest $request): RedirectResponse
+    public function store(ReferenceStoreRequest $referenceStoreRequest): RedirectResponse
     {
-        $reference = Reference::create($request->validated());
+        $reference = Reference::create($referenceStoreRequest->validated());
 
         return redirect(referer('admin.career.reference.index'))
             ->with('success', $reference->name . ' added successfully.');

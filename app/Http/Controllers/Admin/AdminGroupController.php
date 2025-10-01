@@ -45,12 +45,12 @@ class AdminGroupController extends Controller
     /**
      * Store a newly created admin group in storage.
      *
-     * @param AdminGroupStoreRequest $request
+     * @param AdminGroupStoreRequest $adminGroupStoreRequest
      * @return RedirectResponse
      */
-    public function store(AdminGroupStoreRequest $request): RedirectResponse
+    public function store(AdminGroupStoreRequest $adminGroupStoreRequest): RedirectResponse
     {
-        $adminGroup = AdminGroup::create($request->validated());
+        $adminGroup = AdminGroup::create($adminGroupStoreRequest->validated());
 
         return redirect(referer('admin.admin-group.index'))
             ->with('success', $adminGroup->name . ' added successfully.');

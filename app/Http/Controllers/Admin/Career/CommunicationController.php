@@ -44,12 +44,12 @@ class CommunicationController extends BaseController
     /**
      * Store a newly created communication in storage.
      *
-     * @param CommunicationStoreRequest $request
+     * @param CommunicationStoreRequest $communicationStoreRequest
      * @return RedirectResponse
      */
-    public function store(CommunicationStoreRequest $request): RedirectResponse
+    public function store(CommunicationStoreRequest $communicationStoreRequest): RedirectResponse
     {
-        $communication = Communication::create($request->validated());
+        $communication = Communication::create($communicationStoreRequest->validated());
 
         return redirect(referer('admin.career.communication.index'))
             ->with('success', 'Communication added successfully.');

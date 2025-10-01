@@ -52,7 +52,7 @@ class CompanyStoreRequest extends FormRequest
                 'string',
                 'required',
                 'max:255',
-                Rule::unique('portfolio_db.companies')->where(function ($query) {
+                Rule::unique('career_db.companies')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
@@ -61,7 +61,7 @@ class CompanyStoreRequest extends FormRequest
                 'string',
                 'required',
                 'max:255',
-                Rule::unique('portfolio_db.companies')->where(function ($query) {
+                Rule::unique('career_db.companies')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })
@@ -95,6 +95,13 @@ class CompanyStoreRequest extends FormRequest
             'readonly'        => ['integer', 'between:0,1'],
             'root'            => ['integer', 'between:0,1'],
             'disabled'        => ['integer', 'between:0,1'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'industry_id'  => 'Please select an industry.',
         ];
     }
 }

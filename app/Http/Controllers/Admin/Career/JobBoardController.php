@@ -51,16 +51,16 @@ class JobBoardController extends BaseController
     /**
      * Store a newly created job board in storage.
      *
-     * @param JobBoardStoreRequest $request
+     * @param JobBoardStoreRequest $jobBoardStoreRequest
      * @return RedirectResponse
      */
-    public function store(JobBoardStoreRequest $request): RedirectResponse
+    public function store(JobBoardStoreRequest $jobBoardStoreRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add job boards.');
         }
 
-        $jobBoard =JobBoard::create($request->validated());
+        $jobBoard =JobBoard::create($jobBoardStoreRequest->validated());
 
         return redirect(referer('admin.career.job-board.index'))
             ->with('success', $jobBoard->name . ' added successfully.');
