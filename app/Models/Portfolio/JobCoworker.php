@@ -63,7 +63,7 @@ class JobCoworker extends Model
     }
 
     /**
-     * Get the owner of the portfolio job coworker.
+     * Get the owner of the job coworker.
      */
     public function owner(): BelongsTo
     {

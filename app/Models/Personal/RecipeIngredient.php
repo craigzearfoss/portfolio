@@ -49,7 +49,7 @@ class RecipeIngredient extends Model
     }
 
     /**
-     * Get the owner of the personal recipe ingredient.
+     * Get the owner of the recipe ingredient.
      */
     public function owner(): BelongsTo
     {
@@ -57,7 +57,7 @@ class RecipeIngredient extends Model
     }
 
     /**
-     * Get the portfolio recipe that owns the personal recipe ingredient.
+     * Get the portfolio recipe that owns the recipe ingredient.
      */
     public function recipe(): BelongsTo
     {
@@ -65,7 +65,7 @@ class RecipeIngredient extends Model
     }
 
     /**
-     * Get the portfolio ingredient that owns the personal recipe ingredient.
+     * Get the portfolio ingredient that owns the recipe ingredient.
      */
     public function ingredient(): BelongsTo
     {
@@ -73,7 +73,7 @@ class RecipeIngredient extends Model
     }
 
     /**
-     * Get the portfolio unit that owns the personal recipe ingredient.
+     * Get the portfolio unit that owns the recipe ingredient.
      */
     public function unit(): BelongsTo
     {

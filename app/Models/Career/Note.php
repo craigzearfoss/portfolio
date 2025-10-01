@@ -52,7 +52,7 @@ class Note extends Model
     }
 
     /**
-     * Get the career application that owns the career note.
+     * Get the application that owns the note.
      */
     public function application(): BelongsTo
     {

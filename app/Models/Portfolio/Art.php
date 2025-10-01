@@ -52,7 +52,7 @@ class Art extends Model
     }
 
     /**
-     * Get the owner of the portfolio art.
+     * Get the owner of the art.
      */
     public function owner(): BelongsTo
     {

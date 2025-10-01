@@ -56,7 +56,7 @@ class Resume extends Model
     }
 
     /**
-     * Get the owner of the career resume.
+     * Get the owner of the resume.
      */
     public function owner(): BelongsTo
     {
@@ -64,7 +64,7 @@ class Resume extends Model
     }
 
     /**
-     * Get the career applications for the career resume.
+     * Get the applications for the resume.
      */
     public function applications(): HasMany
     {

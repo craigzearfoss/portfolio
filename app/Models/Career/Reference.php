@@ -75,7 +75,7 @@ class Reference extends Model
         static::addGlobalScope(new AdminGlobalScope());
     }
     /**
-     * Get the owner of the career reference.
+     * Get the owner of the reference.
      */
     public function owner(): BelongsTo
     {

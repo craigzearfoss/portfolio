@@ -68,7 +68,7 @@ class Job extends Model
     }
 
     /**
-     * Get the owner of the portfolio job.
+     * Get the owner of the job.
      */
     public function owner(): BelongsTo
     {
@@ -76,7 +76,7 @@ class Job extends Model
     }
 
     /**
-     * Get the country that owns the portfolio job.
+     * Get the country that owns the job.
      */
     public function country(): BelongsTo
     {
@@ -84,7 +84,7 @@ class Job extends Model
     }
 
     /**
-     * Get the portfolio job coworkers for the portfolio job.
+     * Get the job coworkers for the job.
      */
     public function coworkers(): HasMany
     {
@@ -92,7 +92,7 @@ class Job extends Model
     }
 
     /**
-     * Get the state that owns the portfolio job.
+     * Get the state that owns the job.
      */
     public function state(): BelongsTo
     {
@@ -100,7 +100,7 @@ class Job extends Model
     }
 
     /**
-     * Get the portfolio job tasks for the portfolio job.
+     * Get the job tasks for the job.
      */
     public function tasks(): HasMany
     {

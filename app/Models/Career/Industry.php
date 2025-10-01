@@ -26,7 +26,7 @@ class Industry extends Model
     ];
 
     /**
-     * Get the career companies for the career industry.
+     * Get the companies for the industry.
      */
     public function companies(): HasMany
     {

@@ -57,7 +57,7 @@ class Country extends Model
     }
 
     /**
-     * Get the career applications for the state.
+     * Get the applications for the state.
      */
     public function jobs(): HasMany
     {

@@ -22,7 +22,7 @@ class ApplicationSchedule extends Model
     ];
 
     /**
-     * Get the career applications for the career schedule.
+     * Get the applications for the career schedule.
      */
     public function applications(): HasMany
     {

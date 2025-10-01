@@ -62,7 +62,7 @@ class Music extends Model
     }
 
     /**
-     * Get the owner of the portfolio music.
+     * Get the owner of the music.
      */
     public function owner(): BelongsTo
     {

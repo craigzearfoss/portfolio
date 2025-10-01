@@ -22,7 +22,7 @@ class ApplicationOffice extends Model
     ];
 
     /**
-     * Get the career applications for the career application office.
+     * Get the applications for the application office.
      */
     public function applications(): HasMany
     {

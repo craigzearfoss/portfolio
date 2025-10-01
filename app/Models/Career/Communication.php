@@ -46,7 +46,7 @@ class Communication extends Model
     }
 
     /**
-     * Get the owner of the career communication.
+     * Get the owner of the communication.
      */
     public function owner(): BelongsTo
     {
@@ -54,7 +54,7 @@ class Communication extends Model
     }
 
     /**
-     * Get the career application that owns the career communication.
+     * Get the application that owns the communication.
      */
     public function application(): BelongsTo
     {

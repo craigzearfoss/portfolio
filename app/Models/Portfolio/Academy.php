@@ -36,7 +36,7 @@ class Academy extends Model
     ];
 
     /**
-     * Get the portfolio certifications for the portfolio academy.
+     * Get the certifications for the academy.
      */
     public function certifications(): HasMany
     {
@@ -44,7 +44,7 @@ class Academy extends Model
     }
 
     /**
-     * Get the portfolio courses for the portfolio academy.
+     * Get the courses for the academy.
      */
     public function courses(): HasMany
     {

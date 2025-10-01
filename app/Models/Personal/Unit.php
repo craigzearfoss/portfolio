@@ -38,7 +38,7 @@ class Unit extends Model
     ];
 
     /**
-     * Get the personal recipeIngredients for the personal unit.
+     * Get the readingIngredients for the unit.
      */
     public function recipeIngredients(): HasMany
     {

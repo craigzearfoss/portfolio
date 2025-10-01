@@ -58,7 +58,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the career applications owners.
+     * Get the applications owners.
      */
     public function applications(): HasMany
     {
@@ -66,7 +66,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the portfolio art owners.
+     * Get the art owners.
      */
     public function art(): HasMany
     {
@@ -74,7 +74,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the portfolio certifications owners.
+     * Get the certifications owners.
      */
     public function certifications(): HasMany
     {
@@ -82,7 +82,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the career communications owners.
+     * Get the communications owners.
      */
     public function communications(): HasMany
     {
@@ -90,7 +90,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the career companies owners.
+     * Get the companies owners.
      */
     public function companies(): HasMany
     {
@@ -98,7 +98,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the career contacts owners.
+     * Get the contacts owners.
      */
     public function contacts(): HasMany
     {
@@ -106,7 +106,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the portfolio courses owners.
+     * Get the courses owners.
      */
     public function courses(): HasMany
     {
@@ -114,7 +114,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the career cover letters owners.
+     * Get the cover letters owners.
      */
     public function coverLetters(): HasMany
     {
@@ -130,7 +130,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the career events owners.
+     * Get the events owners.
      */
     public function events(): HasMany
     {
@@ -162,7 +162,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the portfolio links owners.
+     * Get the links owners.
      */
     public function links(): HasMany
     {
@@ -170,7 +170,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the portfolio music owners.
+     * Get the music owners.
      */
     public function music(): HasMany
     {
@@ -178,7 +178,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the career notes owners.
+     * Get the notes owners.
      */
     public function notes(): HasMany
     {
@@ -186,7 +186,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the portfolio projects owners.
+     * Get the projects owners.
      */
     public function projects(): HasMany
     {
@@ -194,7 +194,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the personal readings owners.
+     * Get the readings owners.
      */
     public function readings(): HasMany
     {
@@ -202,7 +202,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the personal recipes owners.
+     * Get the readings owners.
      */
     public function recipes(): HasMany
     {
@@ -210,7 +210,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the personal recipe ingredients owners.
+     * Get the reading ingredients owners.
      */
     public function recipeIngredients(): HasMany
     {
@@ -218,7 +218,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the personal recipe steps owners.
+     * Get the reading steps owners.
      */
     public function recipeSteps(): HasMany
     {
@@ -226,7 +226,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the career references owners.
+     * Get the references owners.
      */
     public function references(): HasMany
     {
@@ -242,7 +242,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the career resumes owners.
+     * Get the resumes owners.
      */
     public function resumes(): HasMany
     {
@@ -274,7 +274,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the portfolio videos owners.
+     * Get the videos owners.
      */
     public function videos(): HasMany
     {

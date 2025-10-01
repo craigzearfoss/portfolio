@@ -101,7 +101,7 @@ class Application extends Model
     }
 
     /**
-     * Get the owner of the career application.
+     * Get the owner of the application.
      */
     public function owner(): BelongsTo
     {
@@ -109,7 +109,7 @@ class Application extends Model
     }
 
     /**
-     * Get the career communications for the career application.
+     * Get the communications for the application.
      */
     public function communications(): HasMany
     {
@@ -119,7 +119,7 @@ class Application extends Model
     }
 
     /**
-     * Get the career company that owns the career application.
+     * Get the company that owns the application.
      */
     public function company(): BelongsTo
     {
@@ -128,7 +128,7 @@ class Application extends Model
     }
 
     /**
-     * Get the career application compensation unit that owns the career application.
+     * Get the application compensation unit that owns the application.
      */
     public function compensation_unit(): BelongsTo
     {
@@ -144,7 +144,7 @@ class Application extends Model
     }
 
     /**
-     * Get the career cover letter for the career application.
+     * Get the cover letter for the application.
      */
     public function coverLetter(): HasOne
     {
@@ -153,7 +153,7 @@ class Application extends Model
     }
 
     /**
-     * Get the career application duration that owns the career application.
+     * Get the application duration that owns the application.
      */
     public function duration(): BelongsTo
     {
@@ -161,7 +161,7 @@ class Application extends Model
     }
 
     /**
-     * Get the career events for the career application.
+     * Get the events for the application.
      */
     public function events(): HasMany
     {
@@ -170,7 +170,7 @@ class Application extends Model
     }
 
     /**
-     * Get the job_board who owns the career application.
+     * Get the job_board who owns the application.
      */
     public function job_board(): BelongsTo
     {
@@ -203,7 +203,7 @@ class Application extends Model
     }
 
     /**
-     * Get the career notes for the career application.
+     * Get the notes for the application.
      */
     public function notes(): HasMany
     {
@@ -212,7 +212,7 @@ class Application extends Model
     }
 
     /**
-     * Get the career application office that owns the career application.
+     * Get the application office that owns the application.
      */
     public function office(): BelongsTo
     {
@@ -220,7 +220,7 @@ class Application extends Model
     }
 
     /**
-     * Get the career resume that owns the career application.
+     * Get the resume that owns the application.
      */
     public function resume(): BelongsTo
     {
@@ -229,7 +229,7 @@ class Application extends Model
     }
 
     /**
-     * Get the career application schedule that owns the career application.
+     * Get the application schedule that owns the application.
      */
     public function schedule(): BelongsTo
     {
@@ -237,7 +237,7 @@ class Application extends Model
     }
 
     /**
-     * Get the state that owns the career application.
+     * Get the state that owns the application.
      */
     public function state(): BelongsTo
     {

@@ -65,7 +65,7 @@ class Recruiter extends Model
     ];
 
     /**
-     * Get the country that owns the career recruiter.
+     * Get the country that owns the recruiter.
      */
     public function country(): BelongsTo
     {
@@ -73,7 +73,7 @@ class Recruiter extends Model
     }
 
     /**
-     * Get the state that owns the career recruiter.
+     * Get the state that owns the recruiter.
      */
     public function state(): BelongsTo
     {

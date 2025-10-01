@@ -62,7 +62,7 @@ class Video extends Model
     }
 
     /**
-     * Get the owner of the portfolio video.
+     * Get the owner of the video.
      */
     public function owner(): BelongsTo
     {

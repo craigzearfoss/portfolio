@@ -51,7 +51,7 @@ class Link extends Model
     }
 
     /**
-     * Get the owner of the portfolio link.
+     * Get the owner of the link.
      */
     public function owner(): BelongsTo
     {

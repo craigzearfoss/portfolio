@@ -22,7 +22,7 @@ class ApplicationCompensationUnit extends Model
     ];
 
     /**
-     * Get the career applications for the career application compensation unit.
+     * Get the applications for the application compensation unit.
      */
     public function applications(): HasMany
     {

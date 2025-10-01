@@ -52,7 +52,7 @@ class JobTask extends Model
     }
 
     /**
-     * Get the owner of the portfolio job task.
+     * Get the owner of the job task.
      */
     public function owner(): BelongsTo
     {

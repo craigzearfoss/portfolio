@@ -80,7 +80,7 @@ class Contact extends Model
     }
 
     /**
-     * Get the owner of the career contact.
+     * Get the owner of the contact.
      */
     public function owner(): BelongsTo
     {
@@ -88,7 +88,7 @@ class Contact extends Model
     }
 
     /**
-     * Get the companies for the career contact.
+     * Get the companies for the contact.
      */
     public function companies(): BelongsToMany
     {
@@ -96,7 +96,7 @@ class Contact extends Model
     }
 
     /**
-     * Get the country that owns the career contact.
+     * Get the country that owns the contact.
      */
     public function country(): BelongsTo
     {
@@ -104,7 +104,7 @@ class Contact extends Model
     }
 
     /**
-     * Get the state that owns the career contact.
+     * Get the state that owns the contact.
      */
     public function state(): BelongsTo
     {

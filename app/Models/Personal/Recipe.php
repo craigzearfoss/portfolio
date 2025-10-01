@@ -83,7 +83,7 @@ class Recipe extends Model
     }
 
     /**
-     * Get the owner of the personal recipe.
+     * Get the owner of the recipe.
      */
     public function owner(): BelongsTo
     {
@@ -91,7 +91,7 @@ class Recipe extends Model
     }
 
     /**
-     * Get the portfolio recipe ingredients for the personal recipe.
+     * Get the portfolio recipe ingredients for the recipe.
      */
     public function ingredients(): HasMany
     {
@@ -99,7 +99,7 @@ class Recipe extends Model
     }
 
     /**
-     * Get the portfolio recipe steps for the personal recipe.
+     * Get the portfolio recipe steps for the recipe.
      */
     public function steps(): HasMany
     {

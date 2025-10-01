@@ -46,7 +46,7 @@ class Event extends Model
         static::addGlobalScope(new AdminGlobalScope());
     }
     /**
-     * Get the owner of the career event.
+     * Get the owner of the event.
      */
     public function owner(): BelongsTo
     {
@@ -55,7 +55,7 @@ class Event extends Model
 
 
     /**
-     * Get the career application that owns career event.
+     * Get the application that owns event.
      */
     public function application(): BelongsTo
     {

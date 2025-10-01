@@ -59,7 +59,7 @@ class Course extends Model
         static::addGlobalScope(new AdminGlobalScope());
     }
     /**
-     * Get the owner of the portfolio course.
+     * Get the owner of the course.
      */
     public function owner(): BelongsTo
     {
@@ -67,7 +67,7 @@ class Course extends Model
     }
 
     /**
-     * Get the portfolio academy that owns the portfolio course.
+     * Get the academy that owns the course.
      */
     public function academy(): BelongsTo
     {

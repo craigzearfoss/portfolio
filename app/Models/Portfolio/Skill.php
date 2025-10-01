@@ -55,7 +55,7 @@ class Skill extends Model
     }
 
     /**
-     * Get the owner of the portfolio skill.
+     * Get the owner of the skill.
      */
     public function owner(): BelongsTo
     {

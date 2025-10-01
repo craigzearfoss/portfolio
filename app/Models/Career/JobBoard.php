@@ -45,7 +45,7 @@ class JobBoard extends Model
     ];
 
     /**
-     * Get the career applications for the career job board.
+     * Get the applications for the job board.
      */
     public function applications(): HasMany
     {

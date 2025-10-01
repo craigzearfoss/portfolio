@@ -74,7 +74,7 @@ class Company extends Model
     }
 
     /**
-     * Get the owner of the career company.
+     * Get the owner of the company.
      */
     public function owner(): BelongsTo
     {
@@ -82,7 +82,7 @@ class Company extends Model
     }
 
     /**
-     * Get the career applications for the career company.
+     * Get the applications for the company.
      */
     public function applications(): HasMany
     {
@@ -91,7 +91,7 @@ class Company extends Model
     }
 
     /**
-     * Get the contacts for the career company.
+     * Get the contacts for the company.
      */
     public function contacts(): BelongsToMany
     {
@@ -99,7 +99,7 @@ class Company extends Model
     }
 
     /**
-     * Get the country that owns the career company.
+     * Get the country that owns the company.
      */
     public function country(): BelongsTo
     {
@@ -107,7 +107,7 @@ class Company extends Model
     }
 
     /**
-     * Get the career industry that owns the career company.
+     * Get the industry that owns the company.
      */
     public function industry(): BelongsTo
     {
@@ -116,7 +116,7 @@ class Company extends Model
     }
 
     /**
-     * Get the state that owns the career company.
+     * Get the state that owns the company.
      */
     public function state(): BelongsTo
     {

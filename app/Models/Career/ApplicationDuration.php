@@ -22,7 +22,7 @@ class ApplicationDuration extends Model
     ];
 
     /**
-     * Get the career applications for the career duration.
+     * Get the applications for the career duration.
      */
     public function applications(): HasMany
     {
