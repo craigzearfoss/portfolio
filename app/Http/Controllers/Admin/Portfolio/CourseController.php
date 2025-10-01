@@ -82,13 +82,13 @@ class CourseController extends BaseController
     /**
      * Update the specified course in storage.
      *
-     * @param CourseUpdateRequest $request
+     * @param CourseUpdateRequest $courseUpdateRequest
      * @param Course $course
      * @return RedirectResponse
      */
-    public function update(CourseUpdateRequest $request, Course $course): RedirectResponse
+    public function update(CourseUpdateRequest $courseUpdateRequest, Course $course): RedirectResponse
     {
-        $course->update($request->validated());
+        $course->update($courseUpdateRequest->validated());
 
         return redirect(referer('admin.portfolio.course.index'))
             ->with('success', $course->name . ' updated successfully.');

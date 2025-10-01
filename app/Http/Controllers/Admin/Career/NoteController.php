@@ -80,13 +80,13 @@ class NoteController extends BaseController
     /**
      * Update the specified note in storage.
      *
-     * @param NoteUpdateRequest $request
+     * @param NoteUpdateRequest $noteUpdateRequest
      * @param Note $note
      * @return RedirectResponse
      */
-    public function update(NoteUpdateRequest $request, Note $note): RedirectResponse
+    public function update(NoteUpdateRequest $noteUpdateRequest, Note $note): RedirectResponse
     {
-        $note->update($request->validated());
+        $note->update($noteUpdateRequest->validated());
 
         return redirect(referer('admin.career.note.index'))
             ->with('success', 'Note updated successfully.');

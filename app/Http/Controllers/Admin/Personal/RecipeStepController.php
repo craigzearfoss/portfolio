@@ -91,13 +91,13 @@ class RecipeStepController extends BaseController
     /**
      * Update the specified recipe step in storage.
      *
-     * @param RecipeStepUpdateRequest $request
+     * @param RecipeStepUpdateRequest $recipeStepUpdateRequest
      * @param RecipeStep $recipeStep
      * @return RedirectResponse
      */
-    public function update(RecipeStepUpdateRequest $request, RecipeStep $recipeStep): RedirectResponse
+    public function update(RecipeStepUpdateRequest $recipeStepUpdateRequest, RecipeStep $recipeStep): RedirectResponse
     {
-        $recipeStep->update($request->validated());
+        $recipeStep->update($recipeStepUpdateRequest->validated());
 
         return redirect(referer('admin.personal.recipe-step.index'))
             ->with('success', 'Recipe step updated successfully.');

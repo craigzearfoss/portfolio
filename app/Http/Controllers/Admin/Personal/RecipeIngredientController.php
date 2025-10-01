@@ -84,14 +84,14 @@ class RecipeIngredientController extends BaseController
     /**
      * Update the specified recipe ingredient in storage.
      *
-     * @param RecipeIngredientUpdateRequest $request
+     * @param RecipeIngredientUpdateRequest $recipeIngredientUpdateRequest
      * @param RecipeIngredient $recipeIngredient
      * @return RedirectResponse
      */
-    public function update(RecipeIngredientUpdateRequest $request,
+    public function update(RecipeIngredientUpdateRequest $recipeIngredientUpdateRequest,
                            RecipeIngredient  $recipeIngredient): RedirectResponse
     {
-        $recipeIngredient->update($request->validated());
+        $recipeIngredient->update($recipeIngredientUpdateRequest->validated());
 
         return redirect(referer('admin.personal.recipe-ingredient.index'))
             ->with('success', 'Recipe ingredient updated successfully.');

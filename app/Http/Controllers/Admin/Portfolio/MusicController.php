@@ -82,13 +82,13 @@ class MusicController extends BaseController
     /**
      * Update the specified music in storage.
      *
-     * @param MusicUpdateRequest $request
+     * @param MusicUpdateRequest $musicUpdateRequest
      * @param Music $music
      * @return RedirectResponse
      */
-    public function update(MusicUpdateRequest $request, Music $music): RedirectResponse
+    public function update(MusicUpdateRequest $musicUpdateRequest, Music $music): RedirectResponse
     {
-        $music->update($request->validated());
+        $music->update($musicUpdateRequest->validated());
 
         return redirect(referer('admin.portfolio.music.index'))
             ->with('success', $music->name . ' updated successfully.');

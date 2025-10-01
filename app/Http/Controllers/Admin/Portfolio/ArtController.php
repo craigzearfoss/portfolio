@@ -83,13 +83,13 @@ class ArtController extends BaseController
     /**
      * Update the specified art in storage.
      *
-     * @param ArtUpdateRequest $request
+     * @param ArtUpdateRequest $artUpdateRequest
      * @param Art $art
      * @return RedirectResponse
      */
-    public function update(ArtUpdateRequest $request, Art $art): RedirectResponse
+    public function update(ArtUpdateRequest $artUpdateRequest, Art $art): RedirectResponse
     {
-        $art->update($request->validated());
+        $art->update($artUpdateRequest->validated());
 
         return redirect(referer('admin.portfolio.art.index'))
             ->with('success', $art->name . ' updated successfully.');

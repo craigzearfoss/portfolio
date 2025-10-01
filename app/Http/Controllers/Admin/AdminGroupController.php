@@ -85,13 +85,13 @@ class AdminGroupController extends Controller
     /**
      * Update the specified admin group in storage.
      *
-     * @param AdminGroupUpdateRequest $request
+     * @param AdminGroupUpdateRequest $adminGroupUpdateRequest
      * @param AdminGroup $adminGroup
      * @return RedirectResponse
      */
-    public function update(AdminGroupUpdateRequest $request, AdminGroup $adminGroup): RedirectResponse
+    public function update(AdminGroupUpdateRequest $adminGroupUpdateRequest, AdminGroup $adminGroup): RedirectResponse
     {
-        $adminGroup->update($request->validated());
+        $adminGroup->update($adminGroupUpdateRequest->validated());
 
         return redirect(referer('admin.admin-group.index'))
             ->with('success', $adminGroup->name . ' updated successfully.');

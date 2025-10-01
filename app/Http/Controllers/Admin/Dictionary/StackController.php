@@ -95,17 +95,17 @@ class StackController extends BaseController
     /**
      * Update the specified stack in storage.
      *
-     * @param StackUpdateRequest $request
+     * @param StackUpdateRequest $stackUpdateRequest
      * @param Stack $stack
      * @return RedirectResponse
      */
-    public function update(StackUpdateRequest $request, Stack $stack): RedirectResponse
+    public function update(StackUpdateRequest $stackUpdateRequest, Stack $stack): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update stacks.');
         }
 
-        $stack->update($request->validated());
+        $stack->update($stackUpdateRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $stack->name . ' updated successfully.');

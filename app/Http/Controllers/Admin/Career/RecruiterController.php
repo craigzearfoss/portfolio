@@ -77,13 +77,13 @@ class RecruiterController extends Controller
     /**
      * Update the specified recruiter in storage.
      *
-     * @param RecruiterUpdateRequest $request
+     * @param RecruiterUpdateRequest $recruiterUpdateRequest
      * @param Recruiter $recruiter
      * @return RedirectResponse
      */
-    public function update(RecruiterUpdateRequest $request, Recruiter $recruiter): RedirectResponse
+    public function update(RecruiterUpdateRequest $recruiterUpdateRequest, Recruiter $recruiter): RedirectResponse
     {
-        $recruiter->update($request->validated());
+        $recruiter->update($recruiterUpdateRequest->validated());
 
         return redirect(referer('admin.career.recruiter.index'))
             ->with('success', $recruiter->name . ' updated successfully.');

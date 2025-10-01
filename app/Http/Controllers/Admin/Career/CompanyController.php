@@ -84,13 +84,13 @@ class CompanyController extends BaseController
     /**
      * Update the specified company in storage.
      *
-     * @param CompanyUpdateRequest $request
+     * @param CompanyUpdateRequest $companyUpdateRequest
      * @param Company $company
      * @return RedirectResponse
      */
-    public function update(CompanyUpdateRequest $request, Company $company): RedirectResponse
+    public function update(CompanyUpdateRequest $companyUpdateRequest, Company $company): RedirectResponse
     {
-        $company->update($request->validated());
+        $company->update($companyUpdateRequest->validated());
 
         return redirect(referer('admin.career.company.index'))
             ->with('success', $company->name . ' updated successfully.');

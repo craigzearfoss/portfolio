@@ -117,13 +117,13 @@ class UserController extends BaseController
     /**
      * Update the new password.
      *
-     * @param UserUpdateRequest $request
+     * @param UserUpdateRequest $userUpdateRequest
      * @param User $user
      * @return RedirectResponse
      */
-    public function change_password_submit(UserUpdateRequest $request, User $user): RedirectResponse
+    public function change_password_submit(UserUpdateRequest $userUpdateRequest, User $user): RedirectResponse
     {
-        $user->update($request->validated());
+        $user->update($userUpdateRequest->validated());
 
         return redirect(referer('admin.user.show', $user))
             ->with('success', 'Password for ' . $user->username . ' updated successfully.');

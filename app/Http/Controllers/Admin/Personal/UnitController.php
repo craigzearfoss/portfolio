@@ -92,17 +92,17 @@ class UnitController extends BaseController
     /**
      * Update the specified unit in storage.
      *
-     * @param UnitUpdateRequest $request
+     * @param UnitUpdateRequest $unitUpdateRequest
      * @param Unit $unit
      * @return RedirectResponse
      */
-    public function update(UnitUpdateRequest $request, Unit $unit): RedirectResponse
+    public function update(UnitUpdateRequest $unitUpdateRequest, Unit $unit): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update units.');
         }
 
-        $unit->update($request->validated());
+        $unit->update($unitUpdateRequest->validated());
 
         return redirect(referer('admin.personal.unit.index'))
             ->with('success', $unit->name . ' updated successfully.');

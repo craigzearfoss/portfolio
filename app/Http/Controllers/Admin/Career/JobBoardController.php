@@ -96,17 +96,17 @@ class JobBoardController extends BaseController
     /**
      * Update the specified job board in storage.
      *
-     * @param JobBoardUpdateRequest $request
+     * @param JobBoardUpdateRequest $jobBoardUpdateRequest
      * @param JobBoard $jobBoard
      * @return RedirectResponse
      */
-    public function update(JobBoardUpdateRequest $request, JobBoard $jobBoard): RedirectResponse
+    public function update(JobBoardUpdateRequest $jobBoardUpdateRequest, JobBoard $jobBoard): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update job boards.');
         }
 
-        $jobBoard->update($request->validated());
+        $jobBoard->update($jobBoardUpdateRequest->validated());
 
         return redirect(referer('admin.career.job-board.index'))
             ->with('success', $jobBoard->name . ' updated successfully.');

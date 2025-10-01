@@ -82,13 +82,13 @@ class VideoController extends BaseController
     /**
      * Update the specified video in storage.
      *
-     * @param VideoUpdateRequest $request
+     * @param VideoUpdateRequest $videoUpdateRequest
      * @param Video $video
      * @return RedirectResponse
      */
-    public function update(VideoUpdateRequest $request, Video $video): RedirectResponse
+    public function update(VideoUpdateRequest $videoUpdateRequest, Video $video): RedirectResponse
     {
-        $video->update($request->validated());
+        $video->update($videoUpdateRequest->validated());
 
         return redirect(referer('admin.portfolio.video.index'))
             ->with('success', $video->name . ' updated successfully.');

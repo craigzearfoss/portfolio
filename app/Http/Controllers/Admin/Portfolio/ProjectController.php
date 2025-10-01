@@ -82,13 +82,13 @@ class ProjectController extends BaseController
     /**
      * Update the specified project in storage.
      *
-     * @param ProjectUpdateRequest $request
+     * @param ProjectUpdateRequest $projectUpdateRequest
      * @param Project $project
      * @return RedirectResponse
      */
-    public function update(ProjectUpdateRequest $request, Project $project): RedirectResponse
+    public function update(ProjectUpdateRequest $projectUpdateRequest, Project $project): RedirectResponse
     {
-        $project->update($request->validated());
+        $project->update($projectUpdateRequest->validated());
 
         return redirect(referer('admin.portfolio.project.index'))
             ->with('success', $project->name . ' project updated successfully.');

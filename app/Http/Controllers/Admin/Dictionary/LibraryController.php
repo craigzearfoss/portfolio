@@ -95,17 +95,17 @@ class LibraryController extends BaseController
     /**
      * Update the specified library in storage.
      *
-     * @param LibraryUpdateRequest $request
+     * @param LibraryUpdateRequest $libraryUpdateRequest
      * @param Library $library
      * @return RedirectResponse
      */
-    public function update(LibraryUpdateRequest $request, Library $library): RedirectResponse
+    public function update(LibraryUpdateRequest $libraryUpdateRequest, Library $library): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update libraries.');
         }
 
-        $library->update($request->validated());
+        $library->update($libraryUpdateRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $library->name . ' updated successfully.');

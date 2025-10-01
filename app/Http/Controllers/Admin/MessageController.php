@@ -80,13 +80,13 @@ class MessageController extends BaseController
     /**
      * Update the specified message in storage.
      *
-     * @param MessageUpdateRequest $request
+     * @param MessageUpdateRequest $messageUpdateRequest
      * @param Message $message
      * @return RedirectResponse
      */
-    public function update(MessageUpdateRequest $request, Message $message): RedirectResponse
+    public function update(MessageUpdateRequest $messageUpdateRequest, Message $message): RedirectResponse
     {
-        $message->update($request->validated());
+        $message->update($messageUpdateRequest->validated());
 
         return redirect(referer('admin.message.index'))
             ->with('success', 'Message updated successfully.');

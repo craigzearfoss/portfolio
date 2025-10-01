@@ -81,13 +81,13 @@ class ResourceController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param ResourceUpdateRequest $request
+     * @param ResourceUpdateRequest $resourceUpdateRequest
      * @param Resource $resource
      * @return RedirectResponse
      */
-    public function update(ResourceUpdateRequest $request, Resource $resource): RedirectResponse
+    public function update(ResourceUpdateRequest $resourceUpdateRequest, Resource $resource): RedirectResponse
     {
-        $resource->update($request->validated());
+        $resource->update($resourceUpdateRequest->validated());
 
         return redirect(referer('admin.resource.index'))
             ->with('success', $resource->name . ' resource updated successfully.');

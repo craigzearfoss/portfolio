@@ -82,13 +82,13 @@ class LinkController extends BaseController
     /**
      * Update the specified link in storage.
      *
-     * @param LinkUpdateRequest $request
+     * @param LinkUpdateRequest $linkUpdateRequest
      * @param Link $link
      * @return RedirectResponse
      */
-    public function update(LinkUpdateRequest $request, Link $link): RedirectResponse
+    public function update(LinkUpdateRequest $linkUpdateRequest, Link $link): RedirectResponse
     {
-        $link->update($request->validated());
+        $link->update($linkUpdateRequest->validated());
 
         return redirect(referer('admin.portfolio.link.index'))
             ->with('success', $link->name . ' link updated successfully.');

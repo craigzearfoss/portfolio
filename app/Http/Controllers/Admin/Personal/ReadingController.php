@@ -80,13 +80,13 @@ class ReadingController extends BaseController
     /**
      * Update the specified reading in storage.
      *
-     * @param ReadingUpdateRequest $request
+     * @param ReadingUpdateRequest $readingUpdateRequest
      * @param Reading $reading
      * @return RedirectResponse
      */
-    public function update(ReadingUpdateRequest $request, Reading $reading): RedirectResponse
+    public function update(ReadingUpdateRequest $readingUpdateRequest, Reading $reading): RedirectResponse
     {
-        $reading->update($request->validated());
+        $reading->update($readingUpdateRequest->validated());
 
         return redirect(referer('admin.personal.reading.index'))
             ->with('success', $reading->title . ' updated successfully.');

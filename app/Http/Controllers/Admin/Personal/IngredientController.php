@@ -93,17 +93,17 @@ class IngredientController extends BaseController
     /**
      * Update the specified ingredient in storage.
      *
-     * @param IngredientUpdateRequest $request
+     * @param IngredientUpdateRequest $ingredientUpdateRequest
      * @param Ingredient $ingredient
      * @return RedirectResponse
      */
-    public function update(IngredientUpdateRequest $request, Ingredient $ingredient): RedirectResponse
+    public function update(IngredientUpdateRequest $ingredientUpdateRequest, Ingredient $ingredient): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update ingredients.');
         }
 
-        $ingredient->update($request->validated());
+        $ingredient->update($ingredientUpdateRequest->validated());
 
         return redirect(referer('admin.personal.ingredient.index'))
             ->with('success', $ingredient->name . ' updated successfully.');

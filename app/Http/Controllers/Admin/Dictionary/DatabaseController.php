@@ -95,17 +95,17 @@ class DatabaseController extends BaseController
     /**
      * Update the specified database in storage.
      *
-     * @param DatabaseUpdateRequest $request
+     * @param DatabaseUpdateRequest $databaseUpdateRequest
      * @param Database $database
      * @return RedirectResponse
      */
-    public function update(DatabaseUpdateRequest $request, Database $database): RedirectResponse
+    public function update(DatabaseUpdateRequest $databaseUpdateRequest, Database $database): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update databases.');
         }
 
-        $database->update($request->validated());
+        $database->update($databaseUpdateRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $database->name . ' updated successfully.');

@@ -95,17 +95,17 @@ class CategoryController extends BaseController
     /**
      * Update the specified category in storage.
      *
-     * @param CategoryUpdateRequest $request
+     * @param CategoryUpdateRequest $categoryUpdateRequest
      * @param Category $category
      * @return RedirectResponse
      */
-    public function update(CategoryUpdateRequest $request, Category $category): RedirectResponse
+    public function update(CategoryUpdateRequest $categoryUpdateRequest, Category $category): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update categories.');
         }
 
-        $category->update($request->validated());
+        $category->update($categoryUpdateRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $category->name . ' updated successfully.');

@@ -86,13 +86,13 @@ class UserGroupController extends Controller
     /**
      * Update the specified user group in storage.
      *
-     * @param UserGroupUpdateRequest $request
+     * @param UserGroupUpdateRequest $userGroupUpdateRequest
      * @param UserGroup $userGroup
      * @return RedirectResponse
      */
-    public function update(UserGroupUpdateRequest $request, UserGroup $userGroup): RedirectResponse
+    public function update(UserGroupUpdateRequest $userGroupUpdateRequest, UserGroup $userGroup): RedirectResponse
     {
-        $userGroup->update($request->validated());
+        $userGroup->update($userGroupUpdateRequest->validated());
 
         return redirect(referer('admin.user-group.index'))
             ->with('success', $userGroup->name . ' updated successfully.');

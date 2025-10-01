@@ -93,17 +93,17 @@ class IndustryController extends BaseController
     /**
      * Update the specified industry in storage.
      *
-     * @param IndustryUpdateRequest $request
+     * @param IndustryUpdateRequest $industryUpdateRequest
      * @param Industry $industry
      * @return RedirectResponse
      */
-    public function update(IndustryUpdateRequest $request, Industry $industry): RedirectResponse
+    public function update(IndustryUpdateRequest $industryUpdateRequest, Industry $industry): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update industries.');
         }
 
-        $industry->update($request->validated());
+        $industry->update($industryUpdateRequest->validated());
 
         return redirect(referer('admin.career.industry.index'))
             ->with('success', $industry->name . ' updated successfully.');

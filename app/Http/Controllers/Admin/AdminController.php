@@ -96,13 +96,13 @@ class AdminController extends BaseController
     /**
      * Update the specified admin in storage.
      *
-     * @param AdminUpdateRequest $request
+     * @param AdminUpdateRequest $adminUpdateRequest
      * @param Admin $admin
      * @return RedirectResponse
      */
-    public function update(AdminUpdateRequest $request, Admin $admin): RedirectResponse
+    public function update(AdminUpdateRequest $adminUpdateRequest, Admin $admin): RedirectResponse
     {
-        $admin->update($request->validated());
+        $admin->update($adminUpdateRequest->validated());
 
         return redirect(referer('admin.admin.index'))
             ->with('success', $admin->username . ' updated successfully.');

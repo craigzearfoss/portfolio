@@ -95,17 +95,17 @@ class ServerController extends BaseController
     /**
      * Update the specified server in storage.
      *
-     * @param ServerUpdateRequest $request
+     * @param ServerUpdateRequest $serverUpdateRequest
      * @param Server $server
      * @return RedirectResponse
      */
-    public function update(ServerUpdateRequest $request, Server $server): RedirectResponse
+    public function update(ServerUpdateRequest $serverUpdateRequest, Server $server): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update servers.');
         }
 
-        $server->update($request->validated());
+        $server->update($serverUpdateRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $server->name . ' updated successfully.');

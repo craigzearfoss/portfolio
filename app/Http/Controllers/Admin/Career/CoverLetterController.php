@@ -82,13 +82,14 @@ class CoverLetterController extends BaseController
     /**
      * Update the specified cover letter in storage.
      *
-     * @param CoverLetterUpdateRequest $request
+     * @param CoverLetterUpdateRequest $coverLetterUpdateRequest
      * @param CoverLetter $coverLetter
      * @return RedirectResponse
      */
-    public function update(CoverLetterUpdateRequest $request, CoverLetter $coverLetter): RedirectResponse
+    public function update(CoverLetterUpdateRequest $coverLetterUpdateRequest,
+                           CoverLetter $coverLetter): RedirectResponse
     {
-        $coverLetter->update($request->validated());
+        $coverLetter->update($coverLetterUpdateRequest->validated());
 
         return redirect(referer('admin.career.cover-letter.index'))
             ->with('success', 'Cover letter updated successfully.');

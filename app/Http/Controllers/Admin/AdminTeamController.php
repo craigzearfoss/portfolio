@@ -85,13 +85,13 @@ class AdminTeamController extends Controller
     /**
      * Update the specified admin team in storage.
      *
-     * @param AdminTeamUpdateRequest $request
+     * @param AdminTeamUpdateRequest $adminTeamUpdateRequest
      * @param AdminTeam $adminTeam
      * @return RedirectResponse
      */
-    public function update(AdminTeamUpdateRequest $request, AdminTeam $adminTeam): RedirectResponse
+    public function update(AdminTeamUpdateRequest $adminTeamUpdateRequest, AdminTeam $adminTeam): RedirectResponse
     {
-        $adminTeam->update($request->validated());
+        $adminTeam->update($adminTeamUpdateRequest->validated());
 
         return redirect(referer('admin.admin-team.index'))
             ->with('success', $adminTeam->name . ' updated successfully.');

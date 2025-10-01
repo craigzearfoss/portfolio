@@ -87,13 +87,14 @@ class ApplicationController extends BaseController
     /**
      * Update the specified application in storage.
      *
-     * @param ApplicationUpdateRequest $request
+     * @param ApplicationUpdateRequest $applicationUpdateRequest
      * @param Application $application
      * @return RedirectResponse
      */
-    public function update(ApplicationUpdateRequest $request, Application $application): RedirectResponse
+    public function update(ApplicationUpdateRequest $applicationUpdateRequest,
+                           Application $application): RedirectResponse
     {
-        $application->update($request->validated());
+        $application->update($applicationUpdateRequest->validated());
 
         return redirect(referer('admin.career.application.index'))
             ->with('success', 'Application updated successfully.');

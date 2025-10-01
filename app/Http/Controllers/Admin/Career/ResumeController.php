@@ -83,13 +83,13 @@ class ResumeController extends BaseController
     /**
      * Update the specified resume in storage.
      *
-     * @param ResumeUpdateRequest $request
+     * @param ResumeUpdateRequest $resumeUpdateRequest
      * @param Resume $resume
      * @return RedirectResponse
      */
-    public function update(ResumeUpdateRequest $request, Resume $resume): RedirectResponse
+    public function update(ResumeUpdateRequest $resumeUpdateRequest, Resume $resume): RedirectResponse
     {
-        $resume->update($request->validated());
+        $resume->update($resumeUpdateRequest->validated());
 
         return redirect(referer('admin.career.resume.index'))
             ->with('success', $resume->name . ' resume updated successfully.');

@@ -88,13 +88,13 @@ class JobCoworkerController extends BaseController
     /**
      * Update the specified job coworker in storage.
      *
-     * @param JobCoworkerUpdateRequest $request
+     * @param JobCoworkerUpdateRequest $jobCoworkerUpdateRequest
      * @param JobCoworker $jobCoworker
      * @return RedirectResponse
      */
-    public function update(JobCoworkerUpdateRequest $request, JobCoworker $jobCoworker): RedirectResponse
+    public function update(JobCoworkerUpdateRequest $jobCoworkerUpdateRequest, JobCoworker $jobCoworker): RedirectResponse
     {
-        $jobCoworker->update($request->validated());
+        $jobCoworker->update($jobCoworkerUpdateRequest->validated());
 
         return redirect(referer('admin.portfolio.job-coworker.index'))
             ->with('success', $jobCoworker->name . ' updated successfully.');

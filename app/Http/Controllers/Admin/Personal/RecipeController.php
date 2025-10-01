@@ -80,13 +80,13 @@ class RecipeController extends BaseController
     /**
      * Update the specified recipe in storage.
      *
-     * @param RecipeUpdateRequest $request
+     * @param RecipeUpdateRequest $recipeUpdateRequest
      * @param Recipe $recipe
      * @return RedirectResponse
      */
-    public function update(RecipeUpdateRequest $request, Recipe $recipe): RedirectResponse
-    {dd($recipe);
-        $recipe->update($request->validated());
+    public function update(RecipeUpdateRequest $recipeUpdateRequest, Recipe $recipe): RedirectResponse
+    {
+        $recipe->update($recipeUpdateRequest->validated());
 
         return redirect(referer('admin.personal.recipe.index'))
             ->with('success', $recipe->name . ' updated successfully.');

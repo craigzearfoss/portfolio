@@ -80,13 +80,14 @@ class CommunicationController extends BaseController
     /**
      * Update the specified communication in storage.
      *
-     * @param CommunicationUpdateRequest $request
+     * @param CommunicationUpdateRequest $communicationUpdateRequest
      * @param Communication $communication
      * @return RedirectResponse
      */
-    public function update(CommunicationUpdateRequest $request, Communication $communication): RedirectResponse
+    public function update(CommunicationUpdateRequest $communicationUpdateRequest,
+                           Communication $communication): RedirectResponse
     {
-        $communication->update($request->validated());
+        $communication->update($communicationUpdateRequest->validated());
 
         return redirect(referer('admin.career.communication.index'))
             ->with('success', 'Communication updated successfully.');

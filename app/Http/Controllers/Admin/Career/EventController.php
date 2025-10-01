@@ -80,13 +80,13 @@ class EventController extends BaseController
     /**
      * Update the specified event in storage.
      *
-     * @param EventUpdateRequest $request
+     * @param EventUpdateRequest $eventUpdateRequest
      * @param Event $event
      * @return RedirectResponse
      */
-    public function update(EventUpdateRequest $request, Event $event): RedirectResponse
+    public function update(EventUpdateRequest $eventUpdateRequest, Event $event): RedirectResponse
     {
-        $event->update($request->validated());
+        $event->update($eventUpdateRequest->validated());
 
         return redirect(referer('admin.career.event.index'))
             ->with('success', 'Event updated successfully.');

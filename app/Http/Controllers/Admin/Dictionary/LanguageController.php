@@ -95,17 +95,17 @@ class LanguageController extends BaseController
     /**
      * Update the specified language in storage.
      *
-     * @param LanguageUpdateRequest $request
+     * @param LanguageUpdateRequest $languageUpdateRequest
      * @param Language $language
      * @return RedirectResponse
      */
-    public function update(LanguageUpdateRequest $request, Language $language): RedirectResponse
+    public function update(LanguageUpdateRequest $languageUpdateRequest, Language $language): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update languages.');
         }
 
-        $language->update($request->validated());
+        $language->update($languageUpdateRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $language->name . ' updated successfully.');

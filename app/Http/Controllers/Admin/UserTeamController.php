@@ -85,13 +85,13 @@ class UserTeamController extends Controller
     /**
      * Update the specified user team in storage.
      *
-     * @param UserTeamUpdateRequest $request
+     * @param UserTeamUpdateRequest $userTeamUpdateRequest
      * @param UserTeam $userTeam
      * @return RedirectResponse
      */
-    public function update(UserTeamUpdateRequest $request, UserTeam $userTeam): RedirectResponse
+    public function update(UserTeamUpdateRequest $userTeamUpdateRequest, UserTeam $userTeam): RedirectResponse
     {
-        $userTeam->update($request->validated());
+        $userTeam->update($userTeamUpdateRequest->validated());
 
         return redirect(referer('admin.user-team.index'))
             ->with('success', $userTeam->name . ' updated successfully.');

@@ -81,13 +81,13 @@ class SkillController extends BaseController
     /**
      * Update the specified skill in storage.
      *
-     * @param SkillUpdateRequest $request
-     * @param Skill $application
+     * @param SkillUpdateRequest $skillUpdateRequest
+     * @param Skill $skill
      * @return RedirectResponse
      */
-    public function update(SkillUpdateRequest $request, Skill $skill): RedirectResponse
+    public function update(SkillUpdateRequest $skillUpdateRequest, Skill $skill): RedirectResponse
     {
-        $skill->update($request->validated());
+        $skill->update($skillUpdateRequest->validated());
 
         return redirect(referer('admin.portfolio.skill.index'))
             ->with('success', $skill->name . ' updated successfully.');

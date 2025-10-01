@@ -81,13 +81,13 @@ class JobController extends BaseController
     /**
      * Update the specified job in storage.
      *
-     * @param JobUpdateRequest $request
+     * @param JobUpdateRequest $jobUpdateRequest
      * @param Job $job
      * @return RedirectResponse
      */
-    public function update(JobUpdateRequest $request, Job $job): RedirectResponse
+    public function update(JobUpdateRequest $jobUpdateRequest, Job $job): RedirectResponse
     {
-        $job->update($request->validated());
+        $job->update($jobUpdateRequest->validated());
 
         return redirect(referer('admin.portfolio.job.index'))
             ->with('success', $job->company . ' job updated successfully.');

@@ -80,13 +80,13 @@ class DatabaseController extends BaseController
     /**
      * Update the specified database in storage.
      *
-     * @param DatabaseUpdateRequest $request
+     * @param DatabaseUpdateRequest $databaseUpdateRequest
      * @param Database $database
      * @return RedirectResponse
      */
-    public function update(DatabaseUpdateRequest $request, Database $database): RedirectResponse
+    public function update(DatabaseUpdateRequest $databaseUpdateRequest, Database $database): RedirectResponse
     {
-        $database->update($request->validated());
+        $database->update($databaseUpdateRequest->validated());
 
         return redirect(referer('admin.database.index'))
             ->with('success', $database->name . ' database updated successfully.');

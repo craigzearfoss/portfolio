@@ -83,13 +83,13 @@ class ContactController extends BaseController
     /**
      * Update the specified contact in storage.
      *
-     * @param ContactUpdateRequest $request
+     * @param ContactUpdateRequest $contactUpdateRequest
      * @param Contact $contact
      * @return RedirectResponse
      */
-    public function update(ContactUpdateRequest $request, Contact $contact): RedirectResponse
+    public function update(ContactUpdateRequest $contactUpdateRequest, Contact $contact): RedirectResponse
     {
-        $contact->update($request->validated());
+        $contact->update($contactUpdateRequest->validated());
 
         return redirect(referer('admin.career.application.index'))
             ->with('success', $contact->name . ' updated successfully.');

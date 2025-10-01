@@ -82,13 +82,14 @@ class CertificationController extends BaseController
     /**
      * Update the specified certification in storage.
      *
-     * @param CertificationUpdateRequest $request
+     * @param CertificationUpdateRequest $certificationUpdateRequest
      * @param Certification $certification
      * @return RedirectResponse
      */
-    public function update(CertificationUpdateRequest $request, Certification $certification): RedirectResponse
+    public function update(CertificationUpdateRequest $certificationUpdateRequest,
+                           Certification $certification): RedirectResponse
     {
-        $certification->update($request->validated());
+        $certification->update($certificationUpdateRequest->validated());
 
         return redirect(referer('admin.portfolio.certification.index'))
             ->with('success', $certification->name . ' certification updated successfully.');

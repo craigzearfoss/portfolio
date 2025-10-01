@@ -98,27 +98,20 @@ class FrameworkController extends BaseController
     /**
      * Update the specified framework in storage.
      *
-     * @param FrameworkUpdateRequest $request
+     * @param FrameworkUpdateRequest $frameworkUpdateRequest
      * @param Framework $framework
      * @return RedirectResponse
      */
-    public function update(FrameworkUpdateRequest $request, Framework $framework): RedirectResponse
+    public function update(FrameworkUpdateRequest $frameworkUpdateRequest, Framework $framework): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update frameworks.');
         }
 
-        $framework->update($request->validated());
+        $framework->update($frameworkUpdateRequest->validated());
 
-        $referer = $request->input('referer');
-
-        if (!empty($referer)) {
-            return redirect(str_replace(config('app.url'), '', $referer))
-                ->with('success', $framework->name . ' updated successfully.');
-        } else {
-             return redirect()->route('admin.dictionary.framework.index')
-                 ->with('success', $framework->name . ' updated successfully.');
-        }
+        return redirect(referer('admin.dictionary.index'))
+            ->with('success', $framework->name . ' updated successfully.');
     }
 
     /**

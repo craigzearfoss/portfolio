@@ -82,13 +82,13 @@ class ReferenceController extends BaseController
     /**
      * Update the specified reference in storage.
      *
-     * @param ReferenceUpdateRequest $request
+     * @param ReferenceUpdateRequest $referenceUpdateRequest
      * @param Reference $reference
      * @return RedirectResponse
      */
-    public function update(ReferenceUpdateRequest $request, Reference $reference): RedirectResponse
+    public function update(ReferenceUpdateRequest $referenceUpdateRequest, Reference $reference): RedirectResponse
     {
-        $reference->update($request->validated());
+        $reference->update($referenceUpdateRequest->validated());
 
         return redirect(referer('admin.career.reference.index'))
             ->with('success', $reference->name . ' updated successfully.');

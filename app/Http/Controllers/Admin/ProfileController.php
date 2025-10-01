@@ -45,14 +45,14 @@ class ProfileController extends BaseController
     /**
      * Update the current admin in storage.
      *
-     * @param AdminUpdateRequest $request
+     * @param AdminUpdateRequest $adminUpdateRequest
      * @return RedirectResponse
      */
-    public function update(AdminUpdateRequest $request): RedirectResponse
+    public function update(AdminUpdateRequest $adminUpdateRequest): RedirectResponse
     {
         $admin = Auth::guard('admin')->user();
 
-        $admin->update($request->validated());
+        $admin->update($adminUpdateRequest->validated());
 
         return redirect(referer('admin.portfolio.show'))
             ->with('success', 'Profile updated successfully.');

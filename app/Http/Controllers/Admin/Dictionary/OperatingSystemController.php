@@ -95,17 +95,18 @@ class OperatingSystemController extends BaseController
     /**
      * Update the specified operating system in storage.
      *
-     * @param OperatingSystemUpdateRequest $request
+     * @param OperatingSystemUpdateRequest $operatingSystemUpdateRequest
      * @param OperatingSystem $operatingSystem
      * @return RedirectResponse
      */
-    public function update(OperatingSystemUpdateRequest $request, OperatingSystem $operatingSystem): RedirectResponse
+    public function update(OperatingSystemUpdateRequest $operatingSystemUpdateRequest,
+                           OperatingSystem $operatingSystem): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update operating systems.');
         }
 
-        $operatingSystem->update($request->validated());
+        $operatingSystem->update($operatingSystemUpdateRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $operatingSystem->name . ' updated successfully.');
