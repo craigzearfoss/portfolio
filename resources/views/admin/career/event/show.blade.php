@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.career.event.edit', $event) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'url' => route('admin.career.event.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => referer('admin.career.event.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.event.edit', $event) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'href' => route('admin.career.event.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.event.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

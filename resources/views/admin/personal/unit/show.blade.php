@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.personal.unit.edit', $unit) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Unit',  'url' => route('admin.personal.unit.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => referer('admin.personal.unit.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.personal.unit.edit', $unit) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Unit',  'href' => route('admin.personal.unit.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.personal.unit.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -42,7 +42,7 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $unit->link,
+            'href'   => $unit->link,
             'target' => '_blank'
         ])
 

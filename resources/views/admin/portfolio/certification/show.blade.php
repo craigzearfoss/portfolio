@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',         'url' => route('admin.portfolio.certification.edit', $certification) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Certification', 'url' => route('admin.portfolio.certification.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',            'url' => referer('admin.portfolio.certification.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',         'href' => route('admin.portfolio.certification.edit', $certification) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Certification', 'href' => route('admin.portfolio.certification.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',            'href' => referer('admin.portfolio.certification.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

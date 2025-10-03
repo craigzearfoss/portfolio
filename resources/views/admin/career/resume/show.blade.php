@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.career.resume.edit', $resume) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'url' => route('admin.career.resume.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => referer('admin.career.resume.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'href' => route('admin.career.resume.edit', $resume) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.career.resume.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'href' => referer('admin.career.resume.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -67,20 +67,20 @@
         @include('admin.components.show-row-link', [
             'name'   => 'doc url',
             'label'  => $resume->doc_url,
-            'url'    => $resume->doc_url,
+            'href'   => $resume->doc_url,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'pdf url',
             'label'  => $resume->pdf_url,
-            'url'    => $resume->pdf_url,
+            'href'   => $resume->pdf_url,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row-link', [
             'name'  => 'link',
-            'url'    => $resume->link,
+            'href'   => $resume->link,
             'target' => '_blank'
         ])
 

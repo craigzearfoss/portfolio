@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.personal.recipe.edit', $recipe) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe', 'url' => route('admin.personal.recipe.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => referer('admin.personal.recipe.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'href' => route('admin.personal.recipe.edit', $recipe) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe', 'href' => route('admin.personal.recipe.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'href' => referer('admin.personal.recipe.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

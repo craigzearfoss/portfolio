@@ -5,7 +5,7 @@
         [ 'name' => 'Databases' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'url' => route('admin.database.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'href' => route('admin.database.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

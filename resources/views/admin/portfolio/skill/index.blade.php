@@ -6,7 +6,7 @@
         [ 'name' => 'Skills' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Skill', 'url' => route('admin.portfolio.skill.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Skill', 'href' => route('admin.portfolio.skill.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

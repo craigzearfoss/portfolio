@@ -12,8 +12,8 @@ class AdminGlobalScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         if ($admin = Auth::guard('admin')->user()) {
-            if (!$admin->root) {
-                $builder->where('owner_id', $admin->id);
+            if (!isRootAdmin()) {
+                $builder->where($model->getTable().'.owner_id', $admin->id);
             }
         }
     }

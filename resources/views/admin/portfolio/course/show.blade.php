@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.portfolio.course.edit', $course) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Course', 'url' => route('admin.portfolio.course.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => referer('admin.portfolio.course.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'href' => route('admin.portfolio.course.edit', $course) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Course', 'href' => route('admin.portfolio.course.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'href' => referer('admin.portfolio.course.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -98,7 +98,7 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $course->link_name,
+            'href'   => $course->link_name,
             'target' => '_blank'
         ])
 

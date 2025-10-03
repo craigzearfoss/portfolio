@@ -5,6 +5,7 @@ namespace App\Models\Career;
 use App\Models\Career\Application;
 use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -58,6 +59,30 @@ class CoverLetter extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(Owner::class, 'owner_id');
+    }
+
+    /**
+     * Get the name of the application.
+     */
+    protected function name(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->calculateName()
+        );
+    }
+
+    /**
+     * Calculate the name of the application.
+     */
+    protected function calculateName()
+    {
+        $company = $this->application->company['name'];
+        $role = $this->application['role'] ?? '?role?';
+        $date = !empty($this->application['apply_date'])
+            ? ' [applied: ' . $this->application['apply_date'] . ']'
+            : (!empty($this->application['post_date']) ? ' [applied: ' . $this->application['apply_date'] . ']' : '');
+
+        return $company . ' - ' . $role . $date;
     }
 
     /**

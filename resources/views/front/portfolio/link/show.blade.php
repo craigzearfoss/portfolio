@@ -32,7 +32,7 @@
                                         ])
 
                                         @include('front.components.show-row-link', [
-                                            'name'   => 'url',
+                                            'name'   => 'href',
                                             'href'   => $link->url,
                                             'target' => '_blank'
                                         ])

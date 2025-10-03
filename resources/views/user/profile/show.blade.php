@@ -65,7 +65,7 @@
 
                                         @include('user.components.show-row-link', [
                                             'name'   => 'website',
-                                            'url'    => $user->website,
+                                            'href'   => $user->website,
                                             'target' => '_blank'
                                         ])
 

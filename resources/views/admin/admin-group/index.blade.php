@@ -6,8 +6,8 @@
         [ 'name' => 'Admin Groups' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Admin Group', 'url' => route('admin.admin-group.create') ],
-        [ 'name' => '<i class="fa fa-list"></i> Admin Teams',         'url' => route('admin.admin-team.index') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Admin Group', 'href' => route('admin.admin-group.create') ],
+        [ 'name' => '<i class="fa fa-list"></i> Admin Teams',         'href' => route('admin.admin-team.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

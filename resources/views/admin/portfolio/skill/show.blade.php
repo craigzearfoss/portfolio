@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.portfolio.skill.edit', $skill) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Skill', 'url' => route('admin.portfolio.skill.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => referer('admin.portfolio.skill.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.skill.edit', $skill) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Skill', 'href' => route('admin.portfolio.skill.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.skill.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -69,8 +69,8 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'url'    => $skill->link_name
+            'name' => 'link name',
+            'href' => $skill->link_name
         ])
 
         @include('admin.components.show-row', [

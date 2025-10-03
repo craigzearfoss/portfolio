@@ -1,10 +1,10 @@
 <ul>
     @foreach ($breadcrumbs as $breadcrumb)
         <li class="is-size-6">
-            @if(!empty($breadcrumb['url']))
+            @if(!empty($breadcrumb['href']))
                 @include('admin.components.link', [
                     'name' => $breadcrumb['name'] ?? '#name#',
-                    'href' => $breadcrumb['url'],
+                    'href' => $breadcrumb['href'],
                 ])
             @else
                 <a>{{ $breadcrumb['name'] ?? '#name#' }}</a>

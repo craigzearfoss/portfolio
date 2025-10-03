@@ -7,7 +7,7 @@
         [ 'name' => 'Tasks' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Task', 'url' => route('admin.portfolio.job-task.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Task', 'href' => route('admin.portfolio.job-task.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

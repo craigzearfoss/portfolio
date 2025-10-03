@@ -5,9 +5,9 @@
         [ 'name' => 'Users' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'url' => route('admin.user.create') ],
-        [ 'name' => '<i class="fa fa-list"></i> User Teams',   'url' => route('admin.user-team.index') ],
-        [ 'name' => '<i class="fa fa-list"></i> User Groups',  'url' => route('admin.user-group.index') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'href' => route('admin.user.create') ],
+        [ 'name' => '<i class="fa fa-list"></i> User Teams',   'href' => route('admin.user-team.index') ],
+        [ 'name' => '<i class="fa fa-list"></i> User Groups',  'href' => route('admin.user-group.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

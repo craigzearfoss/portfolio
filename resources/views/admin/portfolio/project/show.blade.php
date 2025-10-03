@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'url' => route('admin.portfolio.project.edit', $project) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Project', 'url' => route('admin.portfolio.project.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => referer('admin.portfolio.project.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.portfolio.project.edit', $project) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Project', 'href' => route('admin.portfolio.project.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'href' => referer('admin.portfolio.project.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'url' => route('admin.dictionary.server.edit', $server) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Server', 'url' => route('admin.dictionary.server.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => referer('admin.dictionary.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'href' => route('admin.dictionary.server.edit', $server) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Server', 'href' => route('admin.dictionary.server.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'href' => referer('admin.dictionary.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

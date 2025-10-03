@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'url' => route('admin.career.contact.edit', $contact) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Contact', 'url' => route('admin.career.contact.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => referer('admin.career.contact.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.career.contact.edit', $contact) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Contact', 'href' => route('admin.career.contact.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'href' => referer('admin.career.contact.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -100,16 +100,14 @@
             'value' => $contact->alt_email
         ])
 
-        @include('admin.components.show-row-link', [
+        @include('admin.components.show-row', [
             'name'   => 'link',
-            'url'    => $contact->link,
-            'target' => '_blank'
+            'value'    => $contact->link,
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'postings url',
-            'label'  => $contact->link,
-            'url'    => $contact->link_name,
+            'name'   => 'link name',
+            'href'   => $contact->link_name,
             'target' => '_blank'
         ])
 

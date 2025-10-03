@@ -14,7 +14,7 @@
             'message'  => $message ?? '',
         ]),
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Operating System', 'url' => route('admin.dictionary.operating-system.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Operating System', 'href' => route('admin.dictionary.operating-system.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

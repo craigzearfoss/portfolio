@@ -10,7 +10,7 @@
         [ 'name' => 'Steps' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Step', 'url' => route('admin.personal.recipe-step.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Step', 'href' => route('admin.personal.recipe-step.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

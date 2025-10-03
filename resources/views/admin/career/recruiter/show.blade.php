@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'url' => route('admin.career.recruiter.edit', $recruiter) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Recruiter', 'url' => route('admin.career.recruiter.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => referer('admin.career.recruiter.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'href' => route('admin.career.recruiter.edit', $recruiter) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Recruiter', 'href' => route('admin.career.recruiter.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',        'href' => referer('admin.career.recruiter.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -43,7 +43,7 @@
         @include('admin.components.show-row-link', [
             'name'   => 'postings url',
             'label'  => $recruiter->postings_url,
-            'url'    => $recruiter->postings_url,
+            'href'   => $recruiter->postings_url,
             'target' => '_blank'
         ])
 

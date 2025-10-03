@@ -6,7 +6,7 @@
         [ 'name' => 'Jobs' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Job', 'url' => route('admin.portfolio.job.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Job', 'href' => route('admin.portfolio.job.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

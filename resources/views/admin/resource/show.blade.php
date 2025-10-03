@@ -6,9 +6,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'url' => route('admin.resource.edit', $resource) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'url' => route('admin.resource.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => referer('admin.resource.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.resource.edit', $resource) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'href' => route('admin.resource.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.resource.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

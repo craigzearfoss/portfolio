@@ -8,9 +8,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',        'url' => route('admin.portfolio.job-task.edit', $jobTask) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'url' => route('admin.portfolio.job-task.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',           'url' => referer('admin.portfolio.job-task.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',        'href' => route('admin.portfolio.job-task.edit', $jobTask) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'href' => route('admin.portfolio.job-task.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',           'href' => referer('admin.portfolio.job-task.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -45,7 +45,7 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'url'    => $jobTask->link,
+            'href'   => $jobTask->link,
             'label'  => $jobTask->link_name,
             'target' => '_blank'
         ])

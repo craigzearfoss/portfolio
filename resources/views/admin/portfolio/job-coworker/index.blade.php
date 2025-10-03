@@ -7,7 +7,7 @@
         [ 'name' => 'Coworkers' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'url' => route('admin.portfolio.job-coworker.create', ['job_id' => $jobId]) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'href' => route('admin.portfolio.job-coworker.create', ['job_id' => $jobId]) ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

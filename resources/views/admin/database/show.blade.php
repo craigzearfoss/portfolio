@@ -6,9 +6,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'url' => route('admin.database.edit', $database) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'url' => route('admin.database.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'url' => referer('admin.database.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.database.edit', $database) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'href' => route('admin.database.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.database.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

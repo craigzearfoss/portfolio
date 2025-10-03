@@ -20,7 +20,7 @@
                     <div class="level-item">
                         <div class="buttons is-right">
                             @foreach ($buttons as $button)
-                                <a href="{{ $button['url'] ?? '' }}"
+                                <a href="{{ $button['href'] ?? '' }}"
                                    @if (!empty($button['target']))target="{{ $button['target'] }}" @endif
                                    class="button is-small is-dark my-0"
                                 >

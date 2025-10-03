@@ -48,7 +48,6 @@ class Application extends Model
         'resume_id',
         'rating',
         'active',
-        'resume_id',
         'post_date',
         'apply_date',
         'close_date',
@@ -146,7 +145,7 @@ class Application extends Model
     /**
      * Get the cover letter for the application.
      */
-    public function coverLetter(): HasOne
+    public function cover_letter(): HasOne
     {
         return $this->setConnection('career_db')->hasOne(CoverLetter::class, 'application_id')
             ->orderBy('date', 'desc');
@@ -259,20 +258,18 @@ class Application extends Model
             $options[''] = '';
         }
 
-        $query = Application::select(['applications.id', 'role', 'apply_date', 'post_date', 'applications.admin_id',
-            DB::raw('`companies`.`name` AS company_name')
+        $query = Application::select(['applications.id', 'applications.owner_id', 'role', 'apply_date', 'post_date',
+            DB::raw('`companies`.`id` AS company_id'), DB::raw('`companies`.`name` AS company_name')
         ])
             ->join('companies','companies.id', 'applications.company_id')
             ->orderBy('company_name', 'asc');
 
-        $query = self::select('id', 'name')->orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
         // apply filters to the query
         foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
+            if (in_array($column, ['id', 'owner_id'])) {
+                $column = 'applications.' . $column;
+            }
+            $query->where($column, $value);
         }
 
         foreach ($query->get() as $application) {

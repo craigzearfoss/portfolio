@@ -14,7 +14,7 @@
             'message'  => $message ?? '',
         ]),
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'url' => route('admin.dictionary.stack.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'href' => route('admin.dictionary.stack.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

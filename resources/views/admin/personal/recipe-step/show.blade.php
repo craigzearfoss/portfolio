@@ -8,9 +8,9 @@
         [ 'name' => 'Step ' . $recipeStep->step ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'url' => route('admin.personal.recipe-step.edit', $recipeStep) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Step',  'url' => route('admin.personal.recipe-step.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'url' => referer('admin.personal.recipe-step.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.personal.recipe-step.edit', $recipeStep) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Step',  'href' => route('admin.personal.recipe-step.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.personal.recipe-step.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

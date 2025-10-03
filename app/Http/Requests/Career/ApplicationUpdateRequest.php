@@ -4,6 +4,7 @@ namespace App\Http\Requests\Career;
 
 use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
+use App\Models\Career\JobBoard;
 use App\Models\Career\Resume;
 use App\Models\Country;
 use App\Models\Owner;
@@ -45,10 +46,9 @@ class ApplicationUpdateRequest extends FormRequest
         return [
             'owner_id'             => ['integer', 'filled', Rule::in($ownerIds)],
             'company_id'           => ['integer', 'filled', Rule::in(Company::all('id')->pluck('id')->toArray())],
-            'role'                 => ['string', 'filled', 'max:255'],
-            'job_board_id'         => ['integer', 'nullable'],
+            'role'                 => ['string', 'required', 'max:255'],
+            'job_board_id'         => ['integer', Rule::in(JobBoard::all('id')->pluck('id')->toArray())],
             'resume_id'            => ['integer', Rule::in(Resume::all('id')->pluck('id')->toArray())],
-            'cover_letter_id'      => ['integer', Rule::in(CoverLetter::all('id')->pluck('id')->toArray())],
             'rating'               => ['integer', 'between:1,5'],
             'active'               => ['integer', 'between:0,1'],
             'post_date'            => ['date', 'nullable'],

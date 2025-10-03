@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',      'url' => route('admin.personal.ingredient.edit', $ingredient) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Ingredient', 'url' => route('admin.personal.ingredient.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',         'url' => referer('admin.personal.ingredient.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',      'href' => route('admin.personal.ingredient.edit', $ingredient) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Ingredient', 'href' => route('admin.personal.ingredient.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',         'href' => referer('admin.personal.ingredient.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -43,7 +43,7 @@
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'label'  => $ingredient->link_name,
-            'url'    => $ingredient->link,
+            'href'   => $ingredient->link,
             'target' => '_blank'
         ])
 

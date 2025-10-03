@@ -6,7 +6,7 @@
         [ 'name' => 'Ingredients' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Ingredient', 'url' => route('admin.personal.ingredient.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Ingredient', 'href' => route('admin.personal.ingredient.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',       'url' => route('admin.admin-group.edit', $adminGroup) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Admin Group', 'url' => route('admin.admin-group.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',          'url' => referer('admin.admin-group.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',       'href' => route('admin.admin-group.edit', $adminGroup) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Admin Group', 'href' => route('admin.admin-group.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',          'href' => referer('admin.admin-group.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

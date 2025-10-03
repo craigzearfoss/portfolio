@@ -6,7 +6,7 @@
         [ 'name' => $reading->title ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'url' => referer('front.personal.reading.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('front.personal.reading.index') ],
     ],
     'errors'  => $errors->any()  ?? [],
     'success' => session('success') ?? null,

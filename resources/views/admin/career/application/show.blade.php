@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',            'url' => route('admin.career.application.edit', $application) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Create a New Application', 'url' => route('admin.career.application.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',               'url' => referer('admin.career.application.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',            'href' => route('admin.career.application.edit', $application) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Create a New Application', 'href' => route('admin.career.application.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',               'href' => referer('admin.career.application.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -52,12 +52,13 @@
             'value' => $application->role
         ])
 
-    @if(!empty($application->cover_letter))
+    @if(!empty($application->coverLetter))
             @include('admin.components.show-row', [
                 'name'  => 'cover letter',
                 'value' => view('admin.components.link', [
-                    'href' => route('admin.career.cover-letter.show', $application->cover_letter['id']),
-                    'name' => $application->cover_letter['name'] ?? ''
+                    'name'  => 'View',
+                    'href'  => route('admin.career.cover-letter.show', $application->cover_letter),
+                    'class' => 'button is-small is-primary',
                 ])
             ])
         @else
@@ -71,6 +72,7 @@
                 ])
             ])
         @endif
+
 
         <h1 class="subtitle">@TODO: resume</h1>
 

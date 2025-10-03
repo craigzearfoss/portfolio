@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\ApplicationStoreRequest;
 use App\Http\Requests\Career\ApplicationUpdateRequest;
 use App\Models\Career\Application;
+use App\Models\Career\CoverLetter;
 use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,15 +38,9 @@ class ApplicationController extends BaseController
      *
      * @return View
      */
-    public function create(Request $request): View
+    public function create(): View
     {
-        if ($resumeId = $request->query('resume_id')) {
-            $resume = Resume::findOrFail($resumeId);
-        } else {
-
-        } $resume = null;
-
-        return view('admin.career.application.create', compact('resume'));
+        return view('admin.career.application.create');
     }
 
     /**
@@ -57,6 +52,12 @@ class ApplicationController extends BaseController
     public function store(ApplicationStoreRequest $applicationStoreRequest): RedirectResponse
     {
         $application = Application::create($applicationStoreRequest->validated());
+
+        // Create a cover letter for the application.
+        CoverLetter::insert([
+            'owner_id'       => $application->owner_id,
+            'application_id' => $application->id,
+        ]);
 
         return redirect(referer('admin.career.application.index'))
             ->with('success', 'Application added successfully.');
@@ -112,5 +113,10 @@ class ApplicationController extends BaseController
 
         return redirect(referer('admin.dictionary.database.index'))
             ->with('success', 'Application deleted successfully.');
+    }
+
+    public function showCoverLetter(Application $application): View
+    {
+        return view('admin.career.application.cover-letter.show', compact('application'));
     }
 }

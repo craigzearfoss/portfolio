@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'url' => route('admin.career.company.edit', $company) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Company', 'url' => route('admin.career.company.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'url' => referer('admin.career.company.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.career.company.edit', $company) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Company', 'href' => route('admin.career.company.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'href' => referer('admin.career.company.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

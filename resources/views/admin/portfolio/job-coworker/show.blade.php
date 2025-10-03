@@ -8,9 +8,9 @@
         [ 'name' => 'Show' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',        'url' => route('admin.portfolio.job-coworker.edit', $jobCoworker) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'url' => route('admin.portfolio.job-coworker.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',           'url' => referer('admin.portfolio.job-coworker.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',        'href' => route('admin.portfolio.job-coworker.edit', $jobCoworker) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'href' => route('admin.portfolio.job-coworker.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',           'href' => referer('admin.portfolio.job-coworker.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -70,7 +70,7 @@
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'label'  => $jobCoworker->link_name,
-            'url'    => $jobCoworker->link,
+            'href'   => $jobCoworker->link,
             'target' => '_blank'
         ])
 

@@ -5,7 +5,7 @@
         [ 'name' => 'Resources' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'url' => route('admin.resource.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'href' => route('admin.resource.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

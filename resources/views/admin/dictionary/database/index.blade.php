@@ -14,7 +14,7 @@
             'message'  => $message ?? '',
         ]),
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'url' => route('admin.dictionary.database.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'href' => route('admin.dictionary.database.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

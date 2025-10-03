@@ -7,9 +7,9 @@
         [ 'name' => 'Show' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',      'url' => route('admin.user-team.edit', $userTeam) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New User Team', 'url' => route('admin.user-team.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',         'url' => referer('admin.user-team.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'href' => route('admin.user-team.edit', $userTeam) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New User Team', 'href' => route('admin.user-team.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',        'href' => referer('admin.user-team.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

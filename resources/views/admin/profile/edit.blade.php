@@ -6,8 +6,8 @@
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-key"></i> Change Password', 'url' => '<a class="btn btn-sm btn-solid" href="' . route('admin.profile.change-password', $admin->id) . '">' ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'url' => referer('admin.profile.show') ],
+        [ 'name' => '<i class="fa fa-key"></i> Change Password', 'href' => '<a class="btn btn-sm btn-solid" href="' . route('admin.profile.change-password', $admin->id) . '">' ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'href' => referer('admin.profile.show') ],
     ],
     'errorMessages' => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
