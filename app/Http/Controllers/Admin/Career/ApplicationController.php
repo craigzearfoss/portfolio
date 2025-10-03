@@ -71,6 +71,10 @@ class ApplicationController extends BaseController
      */
     public function show(Application $application): View
     {
+        if (empty($application->cover_letter)) {
+            $application = $this->createCoverLetter($application);
+        }
+
         return view('admin.career.application.show', compact('application'));
     }
 
@@ -117,6 +121,60 @@ class ApplicationController extends BaseController
 
     public function showCoverLetter(Application $application): View
     {
+        if (empty($application->cover_letter)) {
+            $application = $this->createCoverLetter($application);
+        }
+
         return view('admin.career.application.cover-letter.show', compact('application'));
+    }
+
+    /**
+     * Show the form for editing the specified application.
+     *
+     * @param Application $application
+     * @return View
+     */
+    public function editCoverLetter(Application $application): View
+    {
+        if (empty($application->cover_letter)) {
+            $application = $this->createCoverLetter($application);
+        }
+
+        return view('admin.career.application.cover-letter.edit', compact('application'));
+    }
+
+    /**
+     * Update the specified application in storage.
+     *
+     * @param ApplicationUpdateRequest $applicationUpdateRequest
+     * @param Application $application
+     * @return RedirectResponse
+     */
+    public function updateCoverLetter(ApplicationUpdateRequest $applicationUpdateRequest,
+                           Application $application): RedirectResponse
+    {dd($applicationUpdateRequest);
+        $application->update($applicationUpdateRequest->validated());
+
+        return redirect(referer('admin.career.application.index'))
+            ->with('success', 'Application updated successfully.');
+    }
+
+    /**
+     * Create a cover letter.
+     *
+     * @param Application $application
+     * @return Application
+     */
+    protected function createCoverLetter(Application $application): Application
+    {
+        if (empty($application->cover_letter)) {
+            CoverLetter::insert([
+                'owner_id'       => $application->owner_id,
+                'application_id' => $application->id,
+            ]);
+            $application = Application::find($application->id);
+        }
+
+        return $application;
     }
 }

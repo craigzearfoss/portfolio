@@ -52,27 +52,38 @@
             'value' => $application->role
         ])
 
-    @if(!empty($application->coverLetter))
-            @include('admin.components.show-row', [
-                'name'  => 'cover letter',
-                'value' => view('admin.components.link', [
-                    'name'  => 'View',
-                    'href'  => route('admin.career.cover-letter.show', $application->cover_letter),
-                    'class' => 'button is-small is-primary',
-                ])
-            ])
-        @else
-            @include('admin.components.show-row', [
-                'name'  => 'cover letter',
-                'value' => view('admin.components.link', [
-                    'name'  => 'Attach a cover letter',
-                    'href'  => route('admin.career.cover-letter.create', ['application_id' => $application->id]),
-                    'class' => 'button is-primary is-small px-1 py-0',
-                    'icon'  => 'fa-plus'
-                ])
-            ])
-        @endif
 
+        <div class="card p-4">
+            @include('admin.components.show-row', [
+                'name'  => 'cover letter',
+                'value' => view('admin.components.link', [
+                    'name'  => 'Show',
+                    'href'  => route('admin.career.application.cover-letter.show', $application->cover_letter),
+                    'class' => 'button is-primary is-small px-1 py-0'
+                ])
+            ])
+            @include('admin.components.show-row', [
+                'name'  => 'cover letter date',
+                'value' => longDate($application->cover_letter['date'])
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'cover letter url',
+                'value' => empty($application->cover_letter['cover_letter_url'])
+                    ? view('admin.components.link', [
+                            'name'   => 'Attach',
+                            'href'   => route('admin.career.application.cover-letter.edit', $application->cover_letter),
+                            'class'  => 'button is-primary is-small px-1 py-0'
+                        ])
+                    : view('admin.components.link', [
+                            'name'   => 'View',
+                            'href'   => $application->cover_letter['cover_letter_url'],
+                            'target' => '_blank',
+                            'class'  => 'button is-primary is-small px-1 py-0'
+                        ])
+            ])
+
+        </div>
 
         <h1 class="subtitle">@TODO: resume</h1>
 
