@@ -27,16 +27,19 @@
 .edit-container .field:not(:last-child) {
     margin-bottom: .5rem;
 }
+.edit-container input[name="level"],
+.edit-container input[name="rating"] {
+    width: 4em   ;
+}
 .edit-container input[name="sequence"],
 .edit-container input[name="year"],
 .edit-container input[name="years"] {
     width: 5em   ;
 }
-.edit-container input[name="level"],
-.edit-container input[name="rating"] {
-    width: 4em   ;
-}
-.edit-container input[name="date"] {
+.edit-container input[name="catalog_number"],
+.edit-container input[name="date"],
+.edit-container input[name="release_date"],
+.edit-container input[name="version"] {
     width: 10em   ;
 }
 

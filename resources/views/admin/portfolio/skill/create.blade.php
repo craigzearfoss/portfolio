@@ -45,6 +45,22 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'version',
+                'value'     => old('version') ?? '',
+                'required'  => true,
+                'maxlength' => 20,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'featured',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('featured') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'level',
                 'label'       => 'level (1 to 10)',

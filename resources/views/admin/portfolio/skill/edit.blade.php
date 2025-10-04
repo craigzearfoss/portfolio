@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Skills',          'href' => route('admin.portfolio.skill.index') ],
-        [ 'name' => $project->name ],
+        [ 'name' => $skill->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.skill.index') ],
@@ -48,6 +48,22 @@
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'version',
+                'value'     => old('version') ?? $skill->version,
+                'required'  => true,
+                'maxlength' => 20,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'featured',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('featured') ?? $skill->featured,
+                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

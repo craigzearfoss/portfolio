@@ -44,6 +44,8 @@ class MusicUpdateRequest extends FormRequest
             ? Owner::all('id')->pluck('id')->toArray()
             : [ Auth::guard('admin')->user()->id ];
 
+        $maxYear = intval(date("Y")) + 1;
+
         return [
             'owner_id'       => ['integer', 'filled', Rule::in($ownerIds)],
             'name'           => ['string', 'filled', 'max:255', 'unique:portfolio_db.music,name,'.$this->music->id],
@@ -63,7 +65,7 @@ class MusicUpdateRequest extends FormRequest
             'track'          => ['integer', 'between:0,1'],
             'label'          => ['string', 'max:255', 'nullable'],
             'catalog_number' => ['string', 'max:50', 'nullable'],
-            'year'           => ['integer', 'between:1900,'.date("Y"), 'nullable'],
+            'year'           => ['integer', 'between:1900,'.$maxYear, 'nullable'],
             'release_date'   => ['date', 'nullable'],
             'embed'          => ['nullable'],
             'audio_url'      => ['string', 'url:http,https', 'max:255', 'nullable'],

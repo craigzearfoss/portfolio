@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Skills',          'href' => route('admin.portfolio.skill.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $skill->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.skill.edit', $skill) ],
@@ -18,7 +18,7 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
 
         @include('admin.components.show-row', [
             'name'  => 'id',

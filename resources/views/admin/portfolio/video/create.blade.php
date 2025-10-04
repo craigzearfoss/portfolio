@@ -52,6 +52,14 @@
                 'message' => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'featured',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('featured') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
                 </div>
@@ -59,14 +67,6 @@
                     <div class="field">
 
                         <div class="checkbox-container card form-container p-4">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'featured',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('featured') ?? 0,
-                                'message'         => $message ?? '',
-                            ])
 
                             @include('admin.components.form-checkbox', [
                                 'name'            => 'full_episode',

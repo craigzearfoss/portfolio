@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $music->name,
+    'title' => $music->name . (!empty($music->artist) ? ' - ' . $music->artist : ''),
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Music',           'href' => route('admin.portfolio.music.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $music->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.music.edit', $music) ],
@@ -18,7 +18,12 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $music->id
+        ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
@@ -26,11 +31,6 @@
                 'value' => $music->owner['username'] ?? ''
             ])
         @endif
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $music->id
-        ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
@@ -47,18 +47,21 @@
             'value' => $music->slug
         ])
 
-        @if(!empty($music->parent))
-            @include('admin.components.show-row-link', [
-                'name'   => 'parent',
-                'label'  => $music->parent['name'],
-                'href'   => route('admin.resource.show', $music->parent['id'])
-            ])
-        @else
-            @include('admin.components.show-row', [
-                'name'  => 'parent',
-                'value' => ''
-            ])
-        @endif
+        @include('admin.components.show-row', [
+            'name'  => 'parent',
+            'value' => !empty($music->parent)
+                ? view('admin.components.link', [
+                        'name' => $music->parent['name'],
+                        'href' => route('admin.portfolio.music.show', $music->parent)
+                    ])
+                : ''
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'featured',
+            'checked' => $music->featured
+        ])
+
 
         <div class="columns">
             <div class="column is-2"><strong>children</strong>:</div>
