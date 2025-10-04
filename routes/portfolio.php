@@ -52,8 +52,8 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
     Route::resource('certification', AdminPortfolioCertificationController::class);
     Route::resource('course', AdminPortfolioCourseController::class);
     Route::resource('job', AdminPortfolioJobController::class);
-    Route::resource('job-coworkers', AdminPortfolioJobCoworkerController::class);
-    Route::resource('job-tasks', AdminPortfolioJobTaskController::class);
+    Route::resource('job-coworker', AdminPortfolioJobCoworkerController::class);
+    Route::resource('job-task', AdminPortfolioJobTaskController::class);
     Route::resource('link', AdminPortfolioLinkController::class);
     Route::resource('music', AdminPortfolioMusicController::class);
     Route::resource('project', AdminPortfolioProjectController::class);

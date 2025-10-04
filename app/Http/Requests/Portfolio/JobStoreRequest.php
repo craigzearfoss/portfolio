@@ -29,8 +29,10 @@ class JobStoreRequest extends FormRequest
     public function rules(): array
     {
         // Generate the slug.
-        if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+        if (!empty($this['company'])) {
+            $this->merge([ 'slug' => Str::slug($this['company']
+                . (!empty($this['role']) ? ' (' . $this['role'] : ')'))
+            ]);
         }
 
         // Validate the admin_id. (Only root admins can change the admin for a job.)
@@ -48,6 +50,7 @@ class JobStoreRequest extends FormRequest
         return [
             'owner_id'     => ['integer', 'required', Rule::in($ownerIds)],
             'company'      => ['string', 'max:255', 'required', 'unique:portfolio_db.jobs,name'],
+            'role'         => ['string', 'max:255',],
             'slug'         => [
                 'string',
                 'required',
@@ -58,7 +61,6 @@ class JobStoreRequest extends FormRequest
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],
-            'role'         => ['string', 'max:255',],
             'start_month'  => ['integer', 'between:1,12', 'nullable' ],
             'start_year'   => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
             'end_month'    => ['integer', 'between:1,12', 'nullable' ],

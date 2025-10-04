@@ -46,20 +46,20 @@ class JobCoworkerUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique('portfolio_db.job_coworkers')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->job_coworkers->id)
-                        ->where('slug', $this->slug);
+                        ->where('id', '<>', $this->job_coworker->id)
+                        ->where('name', $this->name);
                 })
             ],
             'job_title'       => ['string', 'max:100', 'nullable'],
-            'level'           => ['integer', 'between:1,3'],
+            'level_id'        => ['integer', 'between:1,3'],
             'work_phone'      => ['string', 'max:20', 'nullable'],
             'personal_phone'  => ['string', 'max:20', 'nullable'],
             'work_email'      => ['string', 'max:255', 'nullable'],
             'personal_email'  => ['string', 'max:255', 'nullable'],
+            'notes'           => ['nullable'],
             'link'            => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],
             'description'     => ['nullable'],
-            'notes'           => ['nullable'],
             'image'           => ['string', 'max:255', 'nullable'],
             'image_credit'    => ['string', 'max:255', 'nullable'],
             'image_source'    => ['string', 'max:255', 'nullable'],

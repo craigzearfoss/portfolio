@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $job->company . (!empty($job->role) ? ' (' . $job->role . ')' :''),
+    'title' => $job->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => $job->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-task.index') ],
@@ -16,7 +16,7 @@
 
 @section('content')
 
-    <div class="card form-container p-4">
+    <div class="edit-container card form-container p-4">
 
         <form action="{{ route('admin.portfolio.job.update', $job) }}" method="POST">
             @csrf

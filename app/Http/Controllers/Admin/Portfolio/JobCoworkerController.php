@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Portfolio\JobCoworkerStoreRequest;
 use App\Http\Requests\Portfolio\JobCoworkerUpdateRequest;
+use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -43,9 +44,13 @@ class JobCoworkerController extends BaseController
      */
     public function create(Request $request): View
     {
-        $jobId = $request->query('job_id');
+        if ($jobId = $request->query('job_id')) {
+            $job = Job::find($jobId);
+        } else {
+            $job = null;
+        }
 
-        return view('admin.portfolio.job-coworker.create', compact('jobId'));
+        return view('admin.portfolio.job-coworker.create', compact('job'));
     }
 
     /**

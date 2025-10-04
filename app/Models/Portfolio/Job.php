@@ -6,6 +6,7 @@ use App\Models\Country;
 use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\State;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -29,9 +30,9 @@ class Job extends Model
     protected $fillable = [
         'owner_id',
         'company',
+        'role',
         'slug',
         'featured',
-        'role',
         'start_month',
         'start_year',
         'end_month',
@@ -92,6 +93,24 @@ class Job extends Model
     }
 
     /**
+     * Get the name of the job.
+     */
+    protected function name(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->calculateName()
+        );
+    }
+
+    /**
+     * Calculate the name of the application.
+     */
+    protected function calculateName()
+    {
+        return $this->company . (!empty($this->role) ? ' (' . $this->role . ')' : '');
+    }
+
+    /**
      * Get the state that owns the job.
      */
     public function state(): BelongsTo
@@ -126,6 +145,54 @@ class Job extends Model
 
         foreach (Job::select('id', 'company')->orderBy('company', 'asc')->get() as $job) {
             $options[$nameAsKey ? $job->company : $job->id] = $job->company;
+        }
+
+        return $options;
+    }
+
+    /**
+     * Returns an array of options for a job select list.
+     *
+     * @param array $filters
+     * @param bool $includeBlank
+     * @param bool $nameAsKey
+     * @return array
+     * @throws \Exception
+     */
+    public static function listOptions(array $filters = [],
+                                       bool  $includeBlank = false,
+                                       bool  $nameAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[''] = '';
+        }
+
+        $query = self::select('id', 'company', 'role')->orderBy('company', 'asc');
+        foreach ($filters as $column => $value) {
+            if (is_array($value)) {
+                $query = $query->whereIn($column, $value);
+            } else {
+                $parts = explode(' ', $column);
+                $column = $parts[0];
+                if (!empty($parts[1])) {
+                    $operation = trim($parts[1]);
+                    if (in_array($operation, ['<>', '!=', '=!'])) {
+                        $query->whereNot($column, $value);
+                    } elseif (strtolower($operation) == 'like') {
+                        $query->whereLike($column, $value);
+                    } else {
+                        throw new \Exception('Invalid select list filter column: ' . $column . ' ' . $operation);
+                    }
+                } else {
+                    $query = $query->where($column, $value);
+                }
+            }
+        }
+
+        foreach ($query->get() as $job) {
+            $jobLabel = $job->name . (!empty($job->role) ? ' - ' . $job->role : '');
+            $options[$nameAsKey ? $jobLabel : $job->id] = $jobLabel;
         }
 
         return $options;

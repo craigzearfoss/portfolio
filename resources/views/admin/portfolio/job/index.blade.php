@@ -24,8 +24,8 @@
                     <th>owner</th>
                 @endif
                 <th>company</th>
-                <th class="has-text-centered">featured</th>
                 <th>role</th>
+                <th class="has-text-centered">featured</th>
                 <th>start date</th>
                 <th>end date</th>
                 <th class="has-text-centered">public</th>
@@ -40,8 +40,8 @@
                     <th>owner</th>
                 @endif
                 <th>company</th>
-                <th class="has-text-centered">featured</th>
                 <th>role</th>
+                <th class="has-text-centered">featured</th>
                 <th>start date</th>
                 <th>end date</th>
                 <th class="has-text-centered">public</th>
@@ -63,11 +63,11 @@
                     <td data-field="company">
                         {{ $job->company }}
                     </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $job->featured ])
-                    </td>
                     <td data-field="role">
                         {{ $job->role }}
+                    </td>
+                    <td data-field="featured" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $job->featured ])
                     </td>
                     <td data-field="start_month|start_year" class="has-text-centered">
                         @if(!empty($job->start_month)){{ date('F', mktime(0, 0, 0, $job->start_month, 10)) }} @endif

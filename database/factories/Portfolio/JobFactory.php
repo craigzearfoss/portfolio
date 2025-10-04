@@ -18,14 +18,15 @@ class JobFactory extends Factory
     public function definition(): array
     {
         $company = fake()->unique()->company();
-        $slug = Str::slug($company);
+        $role = fake()->jobTitle();
+        $slug = Str::slug($company . ' (' . $role . ')');
 
         return [
             'owner_id'     => \App\Models\Owner::all()->random()->id,
             'company'      => $company,
+            'role'         => $role,
             'slug'         => $slug,
             'featured'     => fake()->numberBetween(0, 1),
-            'role'         => fake()->jobTitle(),
             'start_month'  => fake()->numberBetween([1, 12]),
             'start_year'   => fake()->numberBetween(2000, 2025),
             'end_month'    => fake()->numberBetween([1, 12]),

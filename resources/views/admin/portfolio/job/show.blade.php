@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $job->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.job.edit', $job) ],
@@ -18,7 +18,12 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $job->id
+        ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
@@ -28,13 +33,13 @@
         @endif
 
         @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $job->id
+            'name'  => 'company',
+            'value' => $job->company
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'company',
-            'value' => $job->company
+            'name'  => 'role',
+            'value' => $job->role
         ])
 
         @include('admin.components.show-row', [
@@ -45,11 +50,6 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $job->featured
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'role',
-            'value' => $job->role
         ])
 
         @include('admin.components.show-row', [
@@ -68,7 +68,7 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'note',
+            'name'  => 'notes',
             'value' => $job->notes
         ])
 
@@ -92,6 +92,11 @@
         @include('admin.components.show-row', [
             'name'  => 'longitude',
             'value' => $job->longitude
+        ])
+
+        @include('admin.portfolio.job.coworker.panel', [
+            'coworkers' => $job->coworkers ?? [],
+            'job'  => $job
         ])
 
         @include('admin.components.show-row-link', [

@@ -3,7 +3,9 @@
 namespace App\Models\Portfolio;
 
 use App\Models\Owner;
+use App\Models\Portfolio\Job;
 use App\Models\Scopes\AdminGlobalScope;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -29,15 +31,15 @@ class JobCoworker extends Model
         'job_id',
         'name',
         'job_title',
-        'level',
+        'level_id',
         'work_phone',
         'personal_phone',
         'work_email',
         'personal_email',
+        'notes',
         'link',
         'link_name',
         'description',
-        'notes',
         'image',
         'image_credit',
         'image_source',
@@ -71,16 +73,21 @@ class JobCoworker extends Model
     }
 
     /**
-     * Returns the name of the level - coworker / superior / subordinate
-     *
-     * @param int $levelId
-     * @return string
+     * Get the job of the job coworker.
      */
-    public static function getLevel(int $levelId): string
+    public function job(): BelongsTo
     {
-        return array_key_exists($levelId, self::LEVELS)
-            ? self::LEVELS[$levelId]
-            : '';
+        return $this->belongsTo(Job::class, 'job_id');
+    }
+
+    /**
+     * Get the level of the job.
+     */
+    protected function level(): Attribute
+    {
+        return new Attribute(
+            get: fn () => self::LEVELS[$this->level_id] ?? ''
+        );
     }
 
     /**

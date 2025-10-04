@@ -5,7 +5,7 @@
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index') ],
         [ 'name' => 'Coworkers',       'href' => route('admin.portfolio.job-coworker.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $jobCoworker->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',        'href' => route('admin.portfolio.job-coworker.edit', $jobCoworker) ],
@@ -19,7 +19,12 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $jobCoworker->id
+        ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
@@ -29,8 +34,11 @@
         @endif
 
         @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $jobCoworker->id
+            'name'  => 'job',
+            'value' =>  view('admin.components.link', [
+                'name' => $jobCoworker->job->name,
+                'href' => route('admin.portfolio.job.show', $jobCoworker->job)
+            ])
         ])
 
         @include('admin.components.show-row', [
@@ -39,32 +47,38 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'job_title',
-            'label' => 'job title',
+            'name' => 'job title',
             'value' => $jobCoworker->job_title
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'level',
-            'value' => \App\Models\Portfolio\JobCoworker::getLevel($jobCoworker->level)
+            'value' => $jobCoworker->level
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'work_phone',
-            'label' => 'work phone',
+            'name'  => 'work phone',
             'value' => $jobCoworker->work_phone
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'personal_phone',
-            'label' => 'personal phone',
+            'name' => 'personal phone',
             'value' => $jobCoworker->personal_phone
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'work_email',
-            'label' => 'work email',
+            'name' => 'work email',
             'value' => $jobCoworker->work_email
+        ])
+
+        @include('admin.components.show-row', [
+            'name' => 'personal email',
+            'value' => $jobCoworker->personal_email
+        ])
+
+        @include('admin.components.show-row', [
+            'name' => 'notes',
+            'value' => $jobCoworker->notes
         ])
 
         @include('admin.components.show-row-link', [
