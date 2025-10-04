@@ -84,4 +84,52 @@ class Music extends Model
     {
         return $this->hasMany(Music::class, 'parent_id');
     }
+
+    /**
+     * Returns an array of options for a music select list.
+     *
+     * @param array $filters
+     * @param bool $includeBlank
+     * @param bool $nameAsKey
+     * @return array
+     * @throws \Exception
+     */
+    public static function listOptions(array $filters = [],
+                                       bool  $includeBlank = false,
+                                       bool  $nameAsKey = false): array
+    {
+        $options = [];
+        if ($includeBlank) {
+            $options[''] = '';
+        }
+
+        $query = self::select('id', 'name', 'artist')->orderBy('name', 'asc');
+        foreach ($filters as $column => $value) {
+            if (is_array($value)) {
+                $query = $query->whereIn($column, $value);
+            } else {
+                $parts = explode(' ', $column);
+                $column = $parts[0];
+                if (!empty($parts[1])) {
+                    $operation = trim($parts[1]);
+                    if (in_array($operation, ['<>', '!=', '=!'])) {
+                        $query->whereNot($column, $value);
+                    } elseif (strtolower($operation) == 'like') {
+                        $query->whereLike($column, $value);
+                    } else {
+                        throw new \Exception('Invalid select list filter column: ' . $column . ' ' . $operation);
+                    }
+                } else {
+                    $query = $query->where($column, $value);
+                }
+            }
+        }
+
+        foreach ($query->get() as $music) {
+            $musicLabel = $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '');
+            $options[$nameAsKey ? $musicLabel : $music->id] = $musicLabel;
+        }
+
+        return $options;
+    }
 }

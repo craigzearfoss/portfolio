@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Links',           'href' => route('admin.portfolio.link.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $link->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.link.edit', $link) ],
@@ -18,7 +18,12 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container ard p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $link->id
+        ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
@@ -26,11 +31,6 @@
                 'value' => $link->owner['username'] ?? ''
             ])
         @endif
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $link->id
-        ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
@@ -48,7 +48,7 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
+            'name'   => 'url',
             'href'    => $link->url,
             'target' => '_blank'
         ])

@@ -17,7 +17,7 @@ class JobUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return isRootAdmin() || (Auth::guard('admin')->user()->id = $this->id);
     }
 
     /**

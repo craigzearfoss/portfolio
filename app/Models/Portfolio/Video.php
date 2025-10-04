@@ -85,6 +85,7 @@ class Video extends Model
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
+     * @throws \Exception
      */
     public static function listOptions(array $filters = [],
                                        bool $includeBlank = false,
