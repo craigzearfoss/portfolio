@@ -69,8 +69,10 @@
                     <td data-field="category">
                         {{ $skill->category['name'] ?? '' }}
                     </td>
-                    <td data-field="rating">
-                        @include('admin.components.star-ratings', [ 'rating' => $skill->rating ?? 0 ])
+                    <td data-field="level" style="white-space: nowrap;">
+                        @include('admin.components.star-ratings', [
+                            'rating' => $skill->level ?? 1,
+                        ])
                     </td>
                     <td data-field="years" class="has-text-centered">
                         {{ $skill->years }}

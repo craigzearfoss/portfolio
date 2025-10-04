@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Models\Owner;
+use App\Models\Portfolio\Video;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -15,7 +16,7 @@ class VideoUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return isRootAdmin() || (Auth::guard('admin')->user()->id = $this->id);
     }
 
     /**
@@ -64,6 +65,11 @@ class VideoUpdateRequest extends FormRequest
                         ->where('slug', $this->slug);
                 })
             ],
+            'parent_id'      => [
+                'integer',
+                Rule::in(Video::whereNot('id', $this->id)->get('id')->pluck('id')->toArray()),
+                'nullable'
+            ],
             'featured'       => ['integer', 'between:0,1'],
             'full_episode'   => ['integer', 'between:0,1'],
             'clip'           => ['integer', 'between:0,1'],
@@ -88,7 +94,6 @@ class VideoUpdateRequest extends FormRequest
             'readonly'       => ['integer', 'between:0,1'],
             'root'           => ['integer', 'between:0,1'],
             'disabled'       => ['integer', 'between:0,1'],
-            'admin_id'       => ['integer', Rule::in($adminIds)],
         ];
     }
 }

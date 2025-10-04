@@ -18,7 +18,7 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
@@ -40,6 +40,16 @@
         @include('admin.components.show-row', [
             'name'  => 'slug',
             'value' => $video->slug
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'parent',
+            'value' => !empty($video->parent)
+                ? view('admin.components.link', [
+                        'name' => $video->parent['name'],
+                        'href' => route('admin.portfolio.video.show', $video->parent)
+                    ])
+                : ''
         ])
 
         @include('admin.components.show-row-checkbox', [

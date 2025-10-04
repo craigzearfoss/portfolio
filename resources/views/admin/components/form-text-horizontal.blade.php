@@ -8,7 +8,7 @@
     <div class="field-body">
         <div class="field">
             <div class="control">
-                {{ $value ?? '' }}
+                <span class="text-field">{{ $value ?? '' }}</span>
             </div>
 
             @error($name ?? 'name')

@@ -58,6 +58,7 @@ class Course extends Model
 
         static::addGlobalScope(new AdminGlobalScope());
     }
+
     /**
      * Get the owner of the course.
      */

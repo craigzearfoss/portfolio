@@ -7,6 +7,7 @@
 
     <!-- Bulma is included -->
     <link rel="stylesheet" href="{{ asset('assets/bulma/css/main.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/fontawesome-free-7.0.0-web/css/all.min.css') }}">
 

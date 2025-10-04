@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use function PHPUnit\Framework\throwException;
 
 class Video extends Model
 {
@@ -25,9 +26,9 @@ class Video extends Model
      */
     protected $fillable = [
         'owner_id',
-        'parent_id',
         'name',
         'slug',
+        'parent_id',
         'featured',
         'full_episode',
         'clip',
@@ -70,6 +71,14 @@ class Video extends Model
     }
 
     /**
+     * Get the parent of the video.
+     */
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Video::class, 'parent_id');
+    }
+
+    /**
      * Returns an array of options for a video select list.
      *
      * @param array $filters
@@ -88,7 +97,24 @@ class Video extends Model
 
         $query = self::select('id', 'name')->orderBy('name', 'asc');
         foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
+            if (is_array($value)) {
+                $query = $query->whereIn($column, $value);
+            } else {
+                $parts = explode(' ', $column);
+                $column = $parts[0];
+                if (!empty($parts[1])) {
+                    $operation = trim($parts[1]);
+                    if (in_array($operation, ['<>', '!=', '=!'])) {
+                        $query->whereNot($column, $value);
+                    } elseif (strtolower($operation) == 'like') {
+                        $query->whereLike($column, $value);
+                    } else {
+                        throw new \Exception('Invalid select list filter column: ' . $column . ' ' . $operation);
+                    }
+                } else {
+                    $query = $query->where($column, $value);
+                }
+            }
         }
 
         foreach ($query->get() as $video) {

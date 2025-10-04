@@ -43,8 +43,8 @@
         ])
 
         @include('admin.components.show-row-rating', [
-            'name'  => 'rating',
-            'value' => $skill->rating
+            'name'  => 'level',
+            'value' => $skill->level
         ])
 
         @include('admin.components.show-row', [
@@ -53,13 +53,13 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'    => 'start year',
-            'checked' => $skill->star_year
+            'name'  => 'start year',
+            'value' => $skill->star_year
         ])
 
         @include('admin.components.show-row', [
-            'name'    => 'years',
-            'checked' => $skill->years
+            'name'  => 'years',
+            'value' => $skill->years
         ])
 
         @include('admin.components.show-row-link', [

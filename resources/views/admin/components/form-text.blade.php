@@ -4,7 +4,7 @@
 <div class="field">
     <label for="{{ $id }}" class="label">{{ $label ?? $name ?? '#label#' }}</label>
     <div class="control">
-        {{ $value ?? '' }}
+        <span class="text-field">{{ $value ?? '' }}</span>
     </div>
 
     @error($name ?? 'name')

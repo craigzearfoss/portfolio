@@ -16,7 +16,7 @@
 
 @section('content')
 
-    <div class="card form-container p-4">
+    <div class="edit-container card form-container p-4">
 
         <form action="{{ route('admin.portfolio.video.update', $video->id) }}" method="POST">
             @csrf
@@ -45,48 +45,70 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'featured',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('featured') ?? $video->featured,
-                'message'         => $message ?? '',
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'parent_id',
+                'label'   => 'parent',
+                'value'   => old('parent_id') ?? $video->parent_id,
+                'list'    => \App\Models\Portfolio\Video::listOptions(['id <>' => $video->id], true),
+                'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'full_episode',
-                'label'           => 'full episode',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('full_episode') ?? $video->full_episode,
-                'message'         => $message ?? '',
-            ])
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                </div>
+                <div class="field-body">
+                    <div class="field">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'clip',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('clip') ?? $video->clip,
-                'message'         => $message ?? '',
-            ])
+                        <div class="checkbox-container card form-container p-4">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'public_access',
-                'label'           => 'public access',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('public_access') ?? $video->public_access,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'featured',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('featured') ?? $video->featured,
+                                'message'         => $message ?? '',
+                            ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'source_footage',
-                'label'           => 'source footage',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('source_footage') ?? $video->source_footage,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'full_episode',
+                                'label'           => 'full episode',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('full_episode') ?? $video->full_episode,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'clip',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('clip') ?? $video->clip,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'public_access',
+                                'label'           => 'public access',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('public_access') ?? $video->public_access,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'source_footage',
+                                'label'           => 'source footage',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('source_footage') ?? $video->source_footage,
+                                'message'         => $message ?? '',
+                            ])
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'date',
@@ -128,6 +150,14 @@
                 'name'    => 'embed',
                 'value'   => old('embed') ?? $video->embed,
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'video_url',
+                'label'     => 'video url',
+                'value'     => old('video_url') ?? $video->video_url,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -190,39 +220,53 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'public',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('public') ?? $video->public,
-                'message'         => $message ?? '',
-            ])
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                </div>
+                <div class="field-body">
+                    <div class="field">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'readonly',
-                'label'           => 'read-only',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('readonly') ?? $video->readonly,
-                'message'         => $message ?? '',
-            ])
+                        <div class="checkbox-container card form-container p-4">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'root',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('root') ?? $video->root,
-                'disabled'        => !Auth::guard('admin')->user()->root,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'public',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('public') ?? $video->public,
+                                'message'         => $message ?? '',
+                            ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'disabled',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? $video->disabled,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'readonly',
+                                'label'           => 'read-only',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('readonly') ?? $video->readonly,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'root',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('root') ?? $video->root,
+                                'disabled'        => !isRootAdmin(),
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'disabled',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('disabled') ?? $video->disabled,
+                                'message'         => $message ?? '',
+                            ])
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',

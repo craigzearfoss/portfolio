@@ -46,8 +46,8 @@
                     <div class="field">
                         <div class="control">
                             {{ view('admin.components.link', [
-                                'name' => $application->cover_letter->name ?? '',
-                                'href' => route('admin.career.application.show', $application->cover_letter->application),
+                                'name' => $application->name ?? '',
+                                'href' => route('admin.career.application.show', $application),
                             ]) }}
                         </div>
                     </div>

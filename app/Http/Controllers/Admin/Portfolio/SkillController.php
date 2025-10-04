@@ -25,7 +25,7 @@ class SkillController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $skills = Skill::orderBy('rating', 'desc')->orderBy('featured', 'desc')
+        $skills = Skill::orderBy('level', 'desc')->orderBy('featured', 'desc')
             ->orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.portfolio.skill.index', compact('skills'))

@@ -25,7 +25,7 @@ class SkillFactory extends Factory
             'name'         => fake()->unique()->text(12),
             'slug'         => $slug,
             'featured'     => fake()->numberBetween(0, 1),
-            'rating'       => fake()->numberBetween(0, 10),
+            'level'        => fake()->numberBetween(1, 10),
             'years'        => fake()->numberBetween(0, 20),
             'description'  => fake()->text(200),
             'image'        => fake()->imageUrl(),

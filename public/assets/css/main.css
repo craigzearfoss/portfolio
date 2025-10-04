@@ -1,0 +1,65 @@
+
+.field .field-body .control span.text-field {
+    display: inline-block !important;
+    margin-top: 0.4em !important;
+    margin-left: 0.5em !important
+}
+
+/* show-container */
+.show-container .columns .column {
+    padding: 0.1em  0.5em 0.1em 0.5em;
+}
+
+/* edit container */
+.edit-container .input,
+.edit-container span.file-cta,
+.edit-container span.file-label {
+    height: 2em !important;
+    padding-bottom: calc(0.2em - 1px) !important;
+    /*padding-left: calc(0.5em - 1px) !important; */
+    padding-right: calc(0.5em - 1px) !important;
+    top: calc(0.1em - 1px) !important;
+    max-width: 36em;
+}
+.edit-container span.file-name {
+    height: 2em;
+}
+.edit-container .field:not(:last-child) {
+    margin-bottom: .5rem;
+}
+.edit-container input[name="sequence"],
+.edit-container input[name="year"],
+.edit-container input[name="years"] {
+    width: 5em   ;
+}
+.edit-container input[name="rating"] {
+    width: 6em   ;
+}
+.edit-container input[name="date"] {
+    width: 10em   ;
+}
+
+
+/* checkbox-container */
+.checkbox-container {
+    padding: 0.5rem 0.2rem 0 1rem !important;
+}
+.checkbox-container div.field {
+    display: inline-block;
+    width: 9em;
+}
+.checkbox-container div.field-label,
+.checkbox-container div.field-body {
+    width: 5em;
+}
+.checkbox-container div.field-label {
+    margin-right: 0;
+}
+.checkbox-container label {
+    display: flex !important;
+    align-items: center; /* Vertically centers the checkbox and text */
+}
+.checkbox-container label input[type=checkbox] {
+    margin-right: 8px !important; /* Adds space between checkbox and label */
+    flex: none !important;
+}

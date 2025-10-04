@@ -58,7 +58,7 @@
                 'name'  => 'cover letter',
                 'value' => view('admin.components.link', [
                     'name'  => 'Show',
-                    'href'  => route('admin.career.application.cover-letter.show', $application->cover_letter),
+                    'href'  => route('admin.career.application.cover-letter.show', $application),
                     'class' => 'button is-primary is-small px-1 py-0'
                 ])
             ])

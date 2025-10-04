@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Models\Owner;
+use App\Models\Portfolio\Video;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -15,7 +16,7 @@ class VideoStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return true;
     }
 
     /**
@@ -62,6 +63,11 @@ class VideoStoreRequest extends FormRequest
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })
+            ],
+            'parent_id'      => [
+                'integer',
+                Rule::in(Video::whereNot('id', $this->id)->get('id')->pluck('id')->toArray()),
+                'nullable'
             ],
             'featured'       => ['integer', 'between:0,1'],
             'full_episode'   => ['integer', 'between:0,1'],

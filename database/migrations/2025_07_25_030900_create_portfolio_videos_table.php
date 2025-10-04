@@ -29,9 +29,9 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('videos', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
-            $table->foreignIdFor(\App\Models\Portfolio\Video::class, 'parent_id')->nullable();
             $table->string('name')->unique();
             $table->string('slug')->unique();
+            $table->foreignIdFor(\App\Models\Portfolio\Video::class, 'parent_id')->nullable();
             $table->tinyInteger('featured')->default(0);
             $table->tinyInteger('full_episode')->default(1);
             $table->tinyInteger('clip')->default(1);

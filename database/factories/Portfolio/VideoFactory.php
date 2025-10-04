@@ -25,6 +25,7 @@ class VideoFactory extends Factory
             'owner_id'       => \App\Models\Owner::all()->random()->id,
             'name'           => $name,
             'slug'           => $slug,
+            'parent_id'      => null,
             'featured'       => fake()->numberBetween(0, 1),
             'full_episode'   => fake()->numberBetween(0, 1),
             'clip'           => fake()->numberBetween(0, 1),

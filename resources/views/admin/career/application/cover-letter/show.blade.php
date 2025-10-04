@@ -8,7 +8,7 @@
         [ 'name' => 'Cover Letter' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.application.cover-letter.edit', $application->cover_letter) ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.application.cover-letter.edit', $application) ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.application.index') ],
     ],
     'errorMessages' => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
@@ -35,7 +35,7 @@
         @include('admin.components.show-row', [
             'name'    => 'application',
             'value'   => view('admin.components.link', [
-                'name' => $application->cover_letter->name ?? '',
+                'name' => $application->name ?? '',
                 'href' => route('admin.career.application.show', $application->cover_letter->application),
             ]),
             'message' => $message ?? '',
