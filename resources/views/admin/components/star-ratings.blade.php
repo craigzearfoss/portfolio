@@ -12,10 +12,12 @@
                 <i class="fa-solid fa-star-half"></i>
             @endif
         @endfor
+        {{ $label ?? '' }}
     @else
         //TODO rating with max
         @for ($cnt=1; $cnt<$max; $cnt++)
             <i class="fa-solid fa-star"></i>
         @endfor
+        {{ $label ?? '' }}
     @endif
 </div>

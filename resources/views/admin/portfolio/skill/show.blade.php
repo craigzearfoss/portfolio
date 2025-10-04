@@ -20,6 +20,11 @@
 
     <div class="card p-4">
 
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $skill->id
+        ])
+
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
@@ -44,6 +49,7 @@
 
         @include('admin.components.show-row-rating', [
             'name'  => 'level',
+            'label' => "({$skill->level} out of 10)",
             'value' => $skill->level
         ])
 

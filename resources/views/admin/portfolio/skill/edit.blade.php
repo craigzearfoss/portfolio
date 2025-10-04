@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Skills',          'href' => route('admin.portfolio.skill.index') ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => $project->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.skill.index') ],
@@ -27,6 +27,11 @@
                 'value' => referer('admin.portfolio.skill.index')
             ])
 
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $skill->id
+            ])
+
             @if(isRootAdmin())
                 @include('admin.components.form-select-horizontal', [
                     'name'    => 'owner_id',
@@ -47,11 +52,11 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
-                'name'        => 'rating',
-                'value'       => old('rating') ?? $skill->rating,
-                'placeholder' => "1 to 10",
+                'name'        => 'level',
+                'label'       => 'level (1 to 10)',
+                'value'       => old('level') ?? $skill->level,
                 'min'         => 1,
-                'max'         => 4,
+                'max'         => 10,
                 'required'    => true,
                 'message'     => $message ?? '',
             ])

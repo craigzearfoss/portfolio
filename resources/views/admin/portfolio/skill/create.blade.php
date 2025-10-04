@@ -46,11 +46,11 @@
 
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
-                'name'        => 'rating',
-                'value'       => old('rating') ?? 1,
-                'placeholder' => '1, 2, 3, or 4',
+                'name'        => 'level',
+                'label'       => 'level (1 to 10)',
+                'value'       => old('level') ?? 1,
                 'min'         => 1,
-                'max'         => 4,
+                'max'         => 10,
                 'required'    => true,
                 'message'     => $message ?? '',
             ])

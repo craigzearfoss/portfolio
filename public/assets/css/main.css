@@ -32,8 +32,9 @@
 .edit-container input[name="years"] {
     width: 5em   ;
 }
+.edit-container input[name="level"],
 .edit-container input[name="rating"] {
-    width: 6em   ;
+    width: 4em   ;
 }
 .edit-container input[name="date"] {
     width: 10em   ;

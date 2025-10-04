@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Projects' ,       'href' => route('admin.portfolio.project.index') ],
-        [ 'name' => 'Show' ]
+        [ 'name' => $project->name ]
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.portfolio.project.edit', $project) ],
@@ -20,17 +20,17 @@
 
     <div class="card p-4">
 
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $project->id
+        ])
+
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $project->owner['username'] ?? ''
             ])
         @endif
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $project->id
-        ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',

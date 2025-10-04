@@ -20,17 +20,17 @@
 
     <div class="show-container card p-4">
 
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $video->id
+        ])
+
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
                 'value' => $video->owner['username'] ?? ''
             ])
         @endif
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $video->id
-        ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',

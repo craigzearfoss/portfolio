@@ -16,7 +16,7 @@ class SkillStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return true;
     }
 
     /**

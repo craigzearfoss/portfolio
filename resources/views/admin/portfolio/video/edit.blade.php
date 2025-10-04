@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Videos',          'href' => route('admin.portfolio.video.index') ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => $video->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.video.index') ],
@@ -25,6 +25,12 @@
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
                 'value' => referer('admin.portfolio.video.index')
+            ])
+
+
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $video->id
             ])
 
             @if(isRootAdmin())
