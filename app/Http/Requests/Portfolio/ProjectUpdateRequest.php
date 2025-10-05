@@ -71,7 +71,7 @@ class ProjectUpdateRequest extends FormRequest
             'repository_url'   => ['string', 'max:255', 'nullable'],
             'repository_name'  => ['string', 'max:255', 'nullable'],
             'link'             => ['string', 'url:http,https', 'max:255', 'nullable'],
-            'link_name'        => ['string', 'nullable'],
+            'link_name'        => ['string', 'max:255', 'nullable'],
             'description'      => ['nullable'],
             'image'            => ['string', 'max:255', 'nullable'],
             'image_credit'     => ['string', 'max:255', 'nullable'],

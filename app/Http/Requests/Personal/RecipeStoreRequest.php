@@ -78,7 +78,7 @@ class RecipeStoreRequest extends FormRequest
             'dinner'       => ['integer', 'between:0,1'],
             'snack'        => ['integer', 'between:0,1'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
-            'link_name'    => ['string', 'nullable'],
+            'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],
             'image_credit' => ['string', 'max:255', 'nullable'],

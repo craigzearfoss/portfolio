@@ -76,7 +76,7 @@ class CourseUpdateRequest extends FormRequest
             'sponsor'         => ['string', 'max:255', 'nullable'],
             'certificate_url' => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link'            => ['string', 'url:http,https', 'max:255', 'nullable'],
-            'link_name'       => ['string', 'nullable'],
+            'link_name'       => ['string', 'max:255', 'nullable'],
             'description'     => ['nullable'],
             'image'           => ['string', 'max:255', 'nullable'],
             'image_credit'    => ['string', 'max:255', 'nullable'],

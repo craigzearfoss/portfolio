@@ -30,6 +30,7 @@ class Art extends Model
         'slug',
         'featured',
         'year',
+        'image_url',
         'link',
         'link_name',
         'description',

@@ -68,6 +68,7 @@ class LinkStoreRequest extends FormRequest
             'featured'     => ['integer', 'between:0,1'],
             'url'          => [
                 'string',
+                'max:255',
                 'required',
                 Rule::unique('portfolio_db.links')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
@@ -75,7 +76,7 @@ class LinkStoreRequest extends FormRequest
                 })
             ],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
-            'link_name'    => ['string', 'nullable'],
+            'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],
             'image_credit' => ['string', 'max:255', 'nullable'],

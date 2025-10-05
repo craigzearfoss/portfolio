@@ -23,11 +23,11 @@ class UnitStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['required', 'string', 'required', 'max:50', 'unique:personal_db.units,name'],
-            'abbreviation' => ['required', 'string', 'required', 'max:20', 'unique:personal_db.units,abbreviation'],
+            'name'         => ['string', 'required', 'max:50', 'unique:personal_db.units,name'],
+            'abbreviation' => ['string', 'required', 'max:20', 'unique:personal_db.units,abbreviation'],
             'system'       => ['string', 'max:10', 'nullable'],
-            'link'         => ['string', 'max:255', 'nullable'],
-            'link_name'    => ['string', 'url:http,https', 'max:255', 'nullable'],
+            'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
+            'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],
             'image_credit' => ['string', 'max:255', 'nullable'],

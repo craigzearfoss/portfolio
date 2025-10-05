@@ -67,6 +67,7 @@ class LinkUpdateRequest extends FormRequest
             'featured'     => ['integer', 'between:0,1'],
             'url'          => [
                 'string',
+                'max:255',
                 'filled',
                 'url:http,https',
                 'max:255',
@@ -77,7 +78,7 @@ class LinkUpdateRequest extends FormRequest
                 })
             ],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
-            'link_name'    => ['string', 'nullable'],
+            'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],
             'image_credit' => ['string', 'max:255', 'nullable'],

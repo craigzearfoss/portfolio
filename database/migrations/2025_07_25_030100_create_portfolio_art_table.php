@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('slug');
             $table->tinyInteger('featured')->default(0);
             $table->year('year')->nullable();
+            $table->string('image_url')->nullable();
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();

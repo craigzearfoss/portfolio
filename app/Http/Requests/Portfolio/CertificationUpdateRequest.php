@@ -71,7 +71,7 @@ class CertificationUpdateRequest extends FormRequest
             'received'        => ['date', 'nullable'],
             'expiration'      => ['date', 'nullable'],
             'certificate_url' => ['string', 'max:255', 'nullable'],
-            'link'            => ['string', 'url:http,https', 'max:255', 'nullable'],
+            'link'            => ['string', 'max:255', 'url:http,https', 'max:255', 'nullable'],
             'link_name'       => ['string', 'nullable'],
             'description'     => ['nullable'],
             'image'           => ['string', 'max:255', 'nullable'],

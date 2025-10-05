@@ -29,6 +29,7 @@ class ArtFactory extends Factory
             'slug'         => $slug,
             'featured'     => fake()->numberBetween(0, 1),
             'year'         => fake()->numberBetween(1980, 2025),
+            'image_url'    => fake()->url(),
             'link'         => fake()->url(),
             'link_name'    => fake()->text(20),
             'description'  => fake()->text(200),
@@ -42,7 +43,7 @@ class ArtFactory extends Factory
             'root'         => 0,
             'disabled'     => 0,
             'created_at'   => now(),
-            'deleted_at'   => now(),
+            'deleted_at'    => now(),
         ];
     }
 }
