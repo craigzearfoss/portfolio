@@ -54,6 +54,10 @@
 .edit-container input[name="version"] {
     width: 10em   ;
 }
+.edit-container input[name="alt-phone"],
+.edit-container input[name="phone"] {
+    width: 20em;
+}
 
 
 /* checkbox-container */

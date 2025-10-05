@@ -110,7 +110,7 @@
                                                 @include('user.components.form-input', [
                                                     'name'      => 'phone',
                                                     'value'     => old('phone') ?? $user->phone,
-                                                    'maxlength' => 20,
+                                                    'maxlength' => 50,
                                                     'message'   => $message ?? '',
                                                 ])
 

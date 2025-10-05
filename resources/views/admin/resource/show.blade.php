@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
-    'title' => 'Resource',
+    'title' => 'Resource: ' . $resource->database->name . '.' . $resource->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Resources',       'href' => route('admin.resource.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $resource->database->name . '.' . $resource->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.resource.edit', $resource) ],
@@ -17,7 +17,12 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $resource->id
+        ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [

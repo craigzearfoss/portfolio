@@ -78,7 +78,7 @@
                 'name'      => 'work_phone',
                 'label'     => 'work phone',
                 'value'     => old('work_phone') ?? '',
-                'maxlength' => 20,
+                'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
 
@@ -86,7 +86,7 @@
                 'name'      => 'personal_phone',
                 'label'     => 'personal phone',
                 'value'     => old('personal_phone') ?? '',
-                'maxlength' => 20,
+                'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
 

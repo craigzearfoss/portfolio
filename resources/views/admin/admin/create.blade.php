@@ -56,7 +56,7 @@
                     'name'      => 'phone',
                     'value'     => old('phone') ?? '',
                     'required'  => true,
-                    'maxlength' => 20,
+                    'maxlength' => 50,
                     'message'   => $message ?? '',
                 ])
 

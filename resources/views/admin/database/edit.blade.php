@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
-    'title' => 'Edit Database',
+    'title' => 'Database: ' . $database->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Databases',       'href' => route('admin.database.index') ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => $database->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.database.index') ],
@@ -15,7 +15,7 @@
 
 @section('content')
 
-    <div class="card form-container p-4">
+    <div class="edit-container card form-container p-4">
 
         <form action="{{ route('admin.database.update', $database) }}" method="POST">
             @csrf
@@ -30,7 +30,7 @@
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $datbase->owner_id,
+                    'value'    => old('owner_id') ?? $database->owner_id,
                     'required' => true,
                     'list'     => \App\Models\Owner::listOptions(['root' => 1], true),
                     'message'  => $message ?? '',
@@ -78,29 +78,43 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'guest',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('guest') ?? $database->guest,
-                'message'         => $message ?? '',
-            ])
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                </div>
+                <div class="field-body">
+                    <div class="field">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'user',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('user') ?? $database->user,
-                'message'         => $message ?? '',
-            ])
+                        <div class="checkbox-container card form-container p-4">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'admin',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('admin') ?? $database->admin,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'guest',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('guest') ?? $database->guest,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'user',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('user') ?? $database->user,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'admin',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('admin') ?? $database->admin,
+                                'message'         => $message ?? '',
+                            ])
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'icon',
@@ -117,39 +131,53 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'public',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('public') ?? $database->public,
-                'message'         => $message ?? '',
-            ])
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                </div>
+                <div class="field-body">
+                    <div class="field">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'readonly',
-                'label'           => 'read-only',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('readonly') ?? $database->readonly,
-                'message'         => $message ?? '',
-            ])
+                        <div class="checkbox-container card form-container p-4">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'root',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('root') ?? $database->root,
-                'disabled'        => !Auth::guard('admin')->user()->root,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'public',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('public') ?? $database->public,
+                                'message'         => $message ?? '',
+                            ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'disabled',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? $database->disabled,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'readonly',
+                                'label'           => 'read-only',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('readonly') ?? $database->readonly,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'root',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('root') ?? $database->root,
+                                'disabled'        => !isRootAdmin(),
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'disabled',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('disabled') ?? $database->disabled,
+                                'message'         => $message ?? '',
+                            ])
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',

@@ -52,7 +52,7 @@ class AdminUpdateRequest extends FormRequest
             'country_id'       => ['integer', Rule::in(Country::all('id')->pluck('id')->toArray()), 'nullable'],
             'latitude'         => ['numeric:strict', 'nullable'],
             'longitude'        => ['numeric:strict', 'nullable'],
-            'phone'            => ['string', 'max:20', 'nullable'],
+            'phone'            => ['string', 'max:50', 'nullable'],
             'email'            => ['email', 'max:255', 'unique:admins,email,'.$this->admins->id, 'nullable'],
             'link'             => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'        => ['string', 'max:255', 'nullable'],

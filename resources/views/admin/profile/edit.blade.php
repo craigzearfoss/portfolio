@@ -16,7 +16,7 @@
 
 @section('content')
 
-    <div class="card form-container p-4">
+    <div class="edit-container card form-container p-4">
 
         <form action="{{ route('admin.admin.update', $admin) }}" method="POST">
             @csrf
@@ -47,7 +47,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'phone',
                 'value'     => old('phone') ?? $admin->phone,
-                'maxlength' => 20,
+                'maxlength' => 50,
                 'message'   => $message ?? '',
             ])
 

@@ -46,7 +46,7 @@ class UserStoreRequest extends FormRequest
             'country_id'        => ['integer', Rule::in(Country::all('id')->pluck('id')->toArray()), 'nullable'],
             'latitude'          => ['numeric:strict', 'nullable'],
             'longitude'         => ['numeric:strict', 'nullable'],
-            'phone'             => ['string', 'max:20', 'nullable'],
+            'phone'             => ['string', 'max:50', 'nullable'],
             'email'             => ['required', 'email', 'max:255', 'unique:users,email'],
             'email_verified_at' => ['nullable'],
             'link'              => ['string', 'max:255', 'nullable'],

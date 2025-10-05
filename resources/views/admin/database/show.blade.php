@@ -1,9 +1,9 @@
 @extends('admin.layouts.default', [
-    'title' => 'Show Database',
+    'title' => 'Database: ' . $database->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Databases',       'href' => route('admin.database.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $database->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.database.edit', $database) ],
@@ -17,7 +17,7 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
