@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Admins',          'href' => route('admin.admin.index') ],
         [ 'name' => 'Admin Groups',    'href' => route('admin.admin-group.index') ],
-        [ 'name' => 'Edit' ]
+        [ 'name' => $adminGroup->name ]
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.admin-group.index') ],
@@ -16,7 +16,7 @@
 
 @section('content')
 
-    <div class="card form-container p-4">
+    <div class="edit-container card form-container p-4">
 
         <form action="{{ route('admin.admin-group.update', $adminGroup->id) }}" method="POST">
             @csrf

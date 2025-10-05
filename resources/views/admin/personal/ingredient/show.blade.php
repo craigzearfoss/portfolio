@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Ingredients',     'href' => route('admin.personal.ingredient.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $ingredient->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',      'href' => route('admin.personal.ingredient.edit', $ingredient) ],
@@ -18,7 +18,7 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
 
         @include('admin.components.show-row', [
             'name'  => 'id',

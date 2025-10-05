@@ -3,7 +3,7 @@
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Admins',          'href' => route('admin.admin.index') ],
-        [ 'name' => 'Show' ]
+        [ 'name' => $admin->username ]
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.admin.edit', $admin) ],
@@ -17,7 +17,7 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
 
         @include('admin.components.show-row', [
             'name'  => 'user name',

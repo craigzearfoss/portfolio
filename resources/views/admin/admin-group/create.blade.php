@@ -16,7 +16,7 @@
 
 @section('content')
 
-    <div class="card form-container p-4">
+    <div class="edit-container card form-container p-4">
 
         <form action="{{ route('admin.admin-group.store') }}" method="POST">
             @csrf
@@ -30,7 +30,7 @@
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $adminGroup->owner_id,
+                    'value'    => old('owner_id') ?? '',
                     'required' => true,
                     'list'     => \App\Models\Owner::listOptions([], true),
                     'message'  => $message ?? '',

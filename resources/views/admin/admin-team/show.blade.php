@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Admins',          'href' => route('admin.admin.index') ],
         [ 'name' => 'Admin Teams',     'href' => route('admin.admin-team.index') ],
-        [ 'name' => 'Show' ]
+        [ 'name' => $adminTeam->name ]
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',      'href' => route('admin.admin-team.edit', $adminTeam) ],
@@ -18,7 +18,7 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [

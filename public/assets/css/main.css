@@ -37,7 +37,10 @@
 .edit-container input[name="rating"] {
     width: 4em   ;
 }
+.edit-container input[name="prep_time"],
+.edit-container input[name="publication_year"],
 .edit-container input[name="sequence"],
+.edit-container input[name="total_time"]
 .edit-container input[name="year"],
 .edit-container input[name="years"] {
     width: 5em   ;
@@ -45,6 +48,7 @@
 .edit-container input[name="duration_hours"] {
     width: 8em   ;
 }
+.edit-container input[name="abbreviation"],
 .edit-container input[name="catalog_number"],
 .edit-container input[name="completion_date"],
 .edit-container input[name="date"],
