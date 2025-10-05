@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $library->name . ' library',
+    'title' => $library->name . ' (library)',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Libraries',       'href' => route('admin.dictionary.library.index') ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => $library->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ],

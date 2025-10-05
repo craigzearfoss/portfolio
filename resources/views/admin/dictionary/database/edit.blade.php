@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $database->name . ' database',
+    'title' => $database->name . ' (database)',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Databases',       'href' => route('admin.dictionary.database.index') ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => $database->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ],

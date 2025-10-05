@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $framework->name . ' framework',
+    'title' => $framework->name . ' (framework)',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Frameworks',      'href' => route('admin.dictionary.framework.index') ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => $framework->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ],

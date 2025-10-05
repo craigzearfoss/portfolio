@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $operatingSystem->name . ' operating system',
+    'title' => $operatingSystem->name . ' (operating system)',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',        'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Operating Systems', 'href' => route('admin.dictionary.operating-system.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $operatingSystem->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',             'href' => route('admin.dictionary.operating-system.edit', $operatingSystem) ],

@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $server->name . ' server',
+    'title' => $server->name . ' (server)',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Servers',         'href' => route('admin.dictionary.server.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $server->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'href' => route('admin.dictionary.server.edit', $server) ],

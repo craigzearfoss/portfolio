@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $language->name . ' language',
+    'title' => $language->name . ' (language)',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Languages',       'href' => route('admin.dictionary.language.index') ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => $language->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ],

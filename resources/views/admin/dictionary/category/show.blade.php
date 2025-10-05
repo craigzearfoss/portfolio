@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $category->name,
+    'title' => $category->name . ' (category)',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Categories',      'href' => route('admin.dictionary.category.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $category->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.dictionary.category.edit', $category) ],
