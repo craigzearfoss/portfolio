@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $art->name,
+    'title' => 'Art: ' . $art->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],

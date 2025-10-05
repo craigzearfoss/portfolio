@@ -5,7 +5,7 @@
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Companies',       'href' => route('admin.career.company.index') ],
         [ 'name' => $company->name,    'href' => route('admin.career.company.show', $company) ],
-        [ 'name' => 'Add' ],
+        [ 'name' => 'Add Contact' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => route('admin.career.company.show', $company) ],

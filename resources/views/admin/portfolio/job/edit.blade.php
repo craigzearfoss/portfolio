@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $job->name,
+    'title' => 'Job: ' . $job->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],

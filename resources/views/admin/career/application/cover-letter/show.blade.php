@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $application->name . ' cover letter',
+    'title' => 'Cover Letter: ' . $application->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',           'href' => route('admin.career.index') ],

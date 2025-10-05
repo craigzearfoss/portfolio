@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $unit->name,
+    'title' => 'Unit: ' . $unit->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',       'href' => route('admin.personal.index') ],
         [ 'name' => 'Units',           'href' => route('admin.personal.unit.index') ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => $unit->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.personal.unit.index') ],

@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => 'Application',
+    'title' => 'Application: ' . $application->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Applications',    'href' => route('admin.career.application.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $application->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',            'href' => route('admin.career.application.edit', $application) ],

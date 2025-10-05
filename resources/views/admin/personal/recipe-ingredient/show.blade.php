@@ -1,11 +1,11 @@
 @extends('admin.layouts.default', [
-    'title' => $recipeIngredient->name,
+    'title' => 'Recipe Ingredient: ' . $recipeIngredient->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard')],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
         [ 'name' => 'Ingredients',     'href' => route('admin.personal.recipe-ingredient.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $recipeIngredient->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',             'href' => route('admin.personal.recipe-ingredient.edit', $recipeIngredient) ],
