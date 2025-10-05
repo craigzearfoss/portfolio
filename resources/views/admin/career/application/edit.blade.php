@@ -222,45 +222,59 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'w2',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('w2') ?? $application->w2,
-                'message'         => $message ?? '',
-            ])
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                </div>
+                <div class="field-body">
+                    <div class="field">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'relocation',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('relocation') ?? $application->relocation,
-                'message'         => $message ?? '',
-            ])
+                        <div class="checkbox-container card form-container p-4">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'benefits',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('benefits') ?? $application->benefits,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'w2',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('w2') ?? $application->w2,
+                                'message'         => $message ?? '',
+                            ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'vacation',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('vacation') ?? $application->vacation,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'relocation',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('relocation') ?? $application->relocation,
+                                'message'         => $message ?? '',
+                            ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'health',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('health') ?? $application->health,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'benefits',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('benefits') ?? $application->benefits,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'vacation',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('vacation') ?? $application->vacation,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'health',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('health') ?? $application->health,
+                                'message'         => $message ?? '',
+                            ])
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'job_board_id',

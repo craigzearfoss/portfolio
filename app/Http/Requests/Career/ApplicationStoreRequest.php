@@ -13,6 +13,7 @@ use App\Models\State;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class ApplicationStoreRequest extends FormRequest
 {
@@ -21,7 +22,7 @@ class ApplicationStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isAdmin();
+        return true;
     }
 
     /**
@@ -32,12 +33,14 @@ class ApplicationStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Validate the admin_id. (Only root admins can change the admin for an application.)
-        if (empty($this['admin_id'])) {
-            $this->merge(['admin_id' => Auth::guard('admin')->user()->id]);
+        // Validate the owner_id. (Only root admins can add an application for another admin.)
+        if (empty($this['owner_id'])) {
+            $this->merge(['owner_id' => Auth::guard('admin')->user()->id]);
         }
-        if (!Auth::guard('admin')->user()->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
-            throw new \Exception('You are not authorized to change the admin for an application.');
+        if (!isRootAdmin() && ($this->owner_id !== Auth::guard('admin')->user()->id)) {
+            throw ValidationException::withMessages([
+                'company_id' => 'You are not authorized to add an application for this admin.'
+            ]);
         }
 
         $ownerIds = isRootAdmin()

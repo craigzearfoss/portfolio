@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class MusicStoreRequest extends FormRequest
 {
@@ -33,12 +34,14 @@ class MusicStoreRequest extends FormRequest
             ]);
         }
 
-        // Validate the admin_id. (Only root admins can change the admin for a music.)
-        if (empty($this['admin_id'])) {
-            $this->merge(['admin_id' => Auth::guard('admin')->user()->id]);
+        // Validate the owner_id. (Only root admins can add music for another admin.)
+        if (empty($this['owner_id'])) {
+            $this->merge(['owner_id' => Auth::guard('admin')->user()->id]);
         }
-        if (!Auth::guard('admin')->user()->root && ($this['admin_id'] == !Auth::guard('admin')->user()->id)) {
-            throw new \Exception('You are not authorized to change the admin for music.');
+        if (!isRootAdmin() && ($this->owner_id !== Auth::guard('admin')->user()->id)) {
+            throw ValidationException::withMessages([
+                'name' => 'You are not authorized to add music for this admin.'
+            ]);
         }
 
         $ownerIds = isRootAdmin()

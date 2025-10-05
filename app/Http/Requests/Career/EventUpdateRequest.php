@@ -15,7 +15,7 @@ class EventUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return isRootAdmin() || ($this->event->owner_id == Auth::guard('admin')->user()->id);
     }
 
     /**

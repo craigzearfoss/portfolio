@@ -45,14 +45,20 @@
 .edit-container input[name="years"] {
     width: 5em   ;
 }
-.edit-container input[name="duration_hours"] {
+.edit-container input[name="duration_hours"],
+.edit-container input[name="compensation_max"],
+.edit-container input[name="compensation_min"],
+.edit-container input[name="zip"] {
     width: 8em   ;
 }
 .edit-container input[name="abbreviation"],
+.edit-container input[name="apply_date"],
 .edit-container input[name="catalog_number"],
+.edit-container input[name="close_date"],
 .edit-container input[name="completion_date"],
 .edit-container input[name="date"],
 .edit-container input[name="expiration"],
+.edit-container input[name="post_date"],
 .edit-container input[name="received"],
 .edit-container input[name="release_date"],
 .edit-container input[name="version"] {

@@ -16,7 +16,7 @@ class CertificationUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isRootAdmin() || (Auth::guard('admin')->user()->id = $this->id);
+        return isRootAdmin() || ($this->owner_id == Auth::guard('admin')->user()->id);
     }
 
     /**

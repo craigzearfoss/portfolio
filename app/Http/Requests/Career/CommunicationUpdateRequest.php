@@ -15,8 +15,7 @@ class CommunicationUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isRootAdmin()
-            || (isAdmin() && ($this->communication->id == Auth::guard('admin')->user()->id));
+        return isRootAdmin() || ($this->communication->owner_id == Auth::guard('admin')->user()->id);
     }
 
     /**

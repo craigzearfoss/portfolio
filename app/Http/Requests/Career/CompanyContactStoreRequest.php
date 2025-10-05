@@ -10,6 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class CompanyContactStoreRequest extends FormRequest
 {
@@ -18,7 +19,8 @@ class CompanyContactStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isAdmin();
+        //@TODO: Need to verify the owners of the company and contact.
+        return true;
     }
 
     /**

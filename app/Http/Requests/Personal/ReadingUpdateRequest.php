@@ -15,7 +15,7 @@ class ReadingUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return isRootAdmin() || ($this->reading->owner_id == Auth::guard('admin')->user()->id);
     }
 
     /**

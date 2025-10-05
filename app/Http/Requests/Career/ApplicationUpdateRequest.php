@@ -20,8 +20,7 @@ class ApplicationUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isRootAdmin()
-            || (isAdmin() && ($this->application->admin_id == Auth::guard('admin')->user()->id));
+        return isRootAdmin() || ($this->application->owner_id == Auth::guard('admin')->user()->id);
     }
 
     /**

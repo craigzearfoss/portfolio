@@ -13,7 +13,7 @@ class LanguageStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return isRootAdmin();
     }
 
     /**

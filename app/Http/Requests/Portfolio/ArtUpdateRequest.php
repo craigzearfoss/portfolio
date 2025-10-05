@@ -15,7 +15,7 @@ class ArtUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isRootAdmin() || (Auth::guard('admin')->user()->id = $this->id);
+        return isRootAdmin() || (Auth::guard('admin')->user()->id = $this->owner_id);
     }
 
     /**

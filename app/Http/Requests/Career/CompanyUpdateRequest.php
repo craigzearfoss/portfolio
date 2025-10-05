@@ -18,7 +18,7 @@ class CompanyUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        return isRootAdmin() || ($this->company->owner_id == Auth::guard('admin')->user()->id);
     }
 
     /**
