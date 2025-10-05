@@ -89,7 +89,7 @@
                                                 @include('user.components.form-select', [
                                                     'name'    => 'state',
                                                     'value'   => old('state') ?? $user->state_id,
-                                                    'list'    => \App\Models\State::listOptions(),
+                                                    'list'    => \App\Models\State::listOptions([], 'id', 'name', true),
                                                     'message' => $message ?? '',
                                                 ])
 

@@ -12,12 +12,15 @@ use App\Models\Career\Reference;
 use App\Models\Country;
 use App\Models\User;
 use App\Models\Portfolio\Job;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class State extends Model
 {
+    use SearchableModelTrait;
+
     protected $connection = 'core_db';
 
     protected $table = 'states';
@@ -32,6 +35,12 @@ class State extends Model
         'name',
         'country_id'
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'name', 'code', 'country_id'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
      * Get the admins for the state.
@@ -122,34 +131,5 @@ class State extends Model
     public static function getName(string $code): string
     {
         return State::where('code', $code)->first()->name ?? $code;
-    }
-
-    /**
-     * Returns an array of options for a state select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $codeAsKey
-     * @return array|string[]
-     */
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $codeAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $state) {
-            $options[$codeAsKey ? $state->code : $state->id] = $state->name;
-        }
-
-        return $options;
     }
 }

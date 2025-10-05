@@ -41,7 +41,11 @@
                 'name'        => 'application_id',
                 'label'       => 'application',
                 'value'       => old('application_id') ?? '',
-                'list'        => \App\Models\Career\Application::listOptions(['owner_id' => $coverLetter->owner_id]),
+                'list'        => isAdmin()
+                                    ? \App\Models\Career\Application::listOptions([], true)
+                                    : \App\Models\Career\Application::listOptions([
+                                            'owner_id' => Auth::guard('admin')->user()->id
+                                        ], true),
                 'message'     => $message ?? '',
             ])
 

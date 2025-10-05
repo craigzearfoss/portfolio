@@ -9,11 +9,14 @@ use App\Models\Career\Company;
 use App\Models\Career\Contact;
 use App\Models\Career\Recruiter;
 use App\Models\Portfolio\Job;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Country extends Model
 {
+    use SearchableModelTrait;
+
     protected $connection = 'core_db';
 
     protected $table = 'countries';
@@ -28,6 +31,12 @@ class Country extends Model
         'm49',
         'iso_alpha3',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'name', 'm49', 'iso_alpha3'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
      * Get the admins for the state.
@@ -101,34 +110,5 @@ class Country extends Model
     public static function getName(string $abbreviation): string
     {
         return Country::where(ctype_digit($abbreviation) ? 'm49' : 'iso_alpha3', $abbreviation)->first()->name ?? $abbreviation;
-    }
-
-    /**
-     * Returns an array of options for a country select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $codeAsKey
-     * @return array|string[]
-     */
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $codeAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $country) {
-            $options[$codeAsKey ? $country->iso_alpha3 : $country->id] = $country->name;
-        }
-
-        return $options;
     }
 }

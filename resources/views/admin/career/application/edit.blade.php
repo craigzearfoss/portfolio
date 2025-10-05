@@ -184,7 +184,7 @@
                 'name'    => 'state_id',
                 'label'   => 'state',
                 'value'   => old('state_id') ?? $application->state_id,
-                'list'    => \App\Models\State::listOptions(),
+                'list'    => \App\Models\State::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
@@ -199,7 +199,7 @@
                 'name'    => 'country_id',
                 'label'   => 'country',
                 'value'   => old('country_id') ?? $application->country_id,
-                'list'    => \App\Models\Country::listOptions(),
+                'list'    => \App\Models\Country::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
