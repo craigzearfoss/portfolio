@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $industry->name,
+    'title' => 'Industry: ' . $industry->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Industries',      'href' => route('admin.career.industry.index') ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => $industry->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.industry.index') ],
@@ -16,7 +16,7 @@
 
 @section('content')
 
-    <div class="card form-container p-4">
+    <div class="edit-container card form-container p-4">
 
         <form action="{{ route('admin.career.industry.update', $industry) }}" method="POST">
             @csrf
@@ -25,6 +25,11 @@
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
                 'value' => referer('admin.career.industry.index')
+            ])
+
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $industry->id
             ])
 
             @include('admin.components.form-input-horizontal', [

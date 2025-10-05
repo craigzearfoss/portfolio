@@ -21,7 +21,7 @@
         @endif
     </h2>
 
-    @include('admin.components.application.events-table', [
+    @include('admin.career.application.event.table', [
         'events' => $events
     ])
 

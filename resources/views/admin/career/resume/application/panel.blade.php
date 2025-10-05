@@ -30,7 +30,7 @@
 
     </h2>
 
-    @include('admin.components.resume.applications-table', [
+    @include('admin.career.resume.application.table', [
         'applications' => $applications
     ])
 

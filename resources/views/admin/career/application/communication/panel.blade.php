@@ -26,7 +26,7 @@
 
     </h2>
 
-    @include('admin.components.application.communications-table', [
+    @include('admin.career.application.communication.table', [
         'communications' => $communications
     ])
 

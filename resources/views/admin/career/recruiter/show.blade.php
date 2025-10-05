@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => $recruiter->name,
+    'title' => 'Recruiter: ' . $recruiter->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
@@ -18,7 +18,7 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
 
         @include('admin.components.show-row', [
             'name'  => 'id',

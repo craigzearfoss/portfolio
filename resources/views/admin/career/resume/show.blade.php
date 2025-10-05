@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $resume->name,
+    'title' => 'Resume: ' . $resume->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $resume->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'href' => route('admin.career.resume.edit', $resume) ],
@@ -18,7 +18,12 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $resume->id
+        ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
@@ -26,11 +31,6 @@
                 'value' => $resume->owner['username'] ?? ''
             ])
         @endif
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $resume->id
-        ])
 
         @php
             $application = !empty($resume->application_id)
@@ -160,7 +160,7 @@
         ])
 
 
-        @include('admin.components.resume.applications-panel', [
+        @include('admin.career.resume.application.panel', [
             'applications' => $resume->applications ?? [],
             'links' => []
         ])

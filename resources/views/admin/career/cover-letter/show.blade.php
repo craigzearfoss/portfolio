@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $coverLetter->name,
+    'title' => 'Cover Letter: ' . $coverLetter->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Cover Letters',   'href' => route('admin.career.cover-letter.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $coverLetter->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',        'href' => route('admin.career.cover-letter.edit', $coverLetter) ],
@@ -18,7 +18,12 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $coverLetter->id
+        ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
@@ -26,11 +31,6 @@
                 'value' => $coverLetter->owner['username'] ?? ''
             ])
         @endif
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $coverLetter->id
-        ])
 
         @include('admin.components.show-row', [
             'name'    => 'application',

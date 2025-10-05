@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $reference->name,
+    'title' => 'Reference: ' . $reference->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'References',      'href' => route('admin.career.reference.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $reference->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'href' => route('admin.career.reference.edit', $reference) ],
@@ -18,7 +18,12 @@
 
 @section('content')
 
-    <div class="card form-container p-4">
+    <div class="show-container card form-container p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $reference->id
+        ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [

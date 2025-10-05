@@ -17,7 +17,7 @@
 
 @section('content')
 
-    <div id="contact-select" class="card form-container p-2">
+    <div id="contact-select" class="edit-container card form-container p-2">
 
         <form action="{{ route('admin.career.company.contact.attach', $company) }}" method="POST">
             @csrf
@@ -36,17 +36,7 @@
                 'message'  => $message ?? '',
             ])
 
-            <div id="new-contact" class="card form-container p-4">
-
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $company->owner['id'] ?? ''
-                ])
-
-                @include('admin.components.form-hidden', [
-                    'name'  => 'company_id',
-                    'value' => $company->id
-                ])
+            <div id="new-contact" class="edit-container card form-container p-4">
 
                 @include('admin.components.form-input-horizontal', [
                     'name'      => 'name',

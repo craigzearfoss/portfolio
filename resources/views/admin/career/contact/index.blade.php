@@ -25,7 +25,6 @@
                 @endif
                 <th>name</th>
                 <th>company</th>
-                <th>location</th>
                 <th>phone</th>
                 <th>email</th>
                 <th class="has-text-centered">public</th>
@@ -41,7 +40,6 @@
                 @endif
                 <th>name</th>
                 <th>company</th>
-                <th>location</th>
                 <th>phone</th>
                 <th>email</th>
                 <th class="has-text-centered">public</th>
@@ -63,18 +61,8 @@
                     <td data-field="name" style="white-space: nowrap;">
                         {{ $contact->name }}
                     </td>
-                        <td data-field="name" style="white-space: nowrap;">
-                            @php
-
-                            @endphp
-                        </td>
-                    <td data-field="location" style="white-space: nowrap;">
-                        {!!
-                            formatLocation([
-                                'city'    => $contact->city ?? null,
-                                'state'   => $contact->state['code'] ?? null,
-                            ])
-                        !!}
+                    <td data-field="contact.company.names" style="white-space: nowrap;">
+                        {{ implode(', ', $contact->companies->pluck('name')->toArray()) }}
                     </td>
                     <td data-field="phone" style="white-space: nowrap;">
                         {{ $contact->phone }}

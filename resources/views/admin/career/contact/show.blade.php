@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $contact->name,
+    'title' => 'Contact: ' . $contact->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Contacts',        'href' => route('admin.career.contact.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $contact->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.career.contact.edit', $contact) ],
@@ -18,7 +18,12 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $contact->id
+        ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
@@ -26,11 +31,6 @@
                 'value' => $contact->owner['username'] ?? ''
             ])
         @endif
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $contact->id
-        ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
@@ -42,19 +42,13 @@
             'value' => $contact->slug
         ])
 
-        @include('admin.components.contact.companies-panel', [
+        @include('admin.career.contact.company.panel', [
             'companies' => $contact->companies ?? [],
             'contact'   => $contact
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'title',
-            'value' => $contact->title
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'job_title',
-            'label' => 'job title',
+            'name'  => 'job title',
             'value' => $contact->job_title
         ])
 

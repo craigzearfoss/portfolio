@@ -143,7 +143,24 @@ class Company extends Model
 
         $query = self::select('id', 'name')->orderBy('name', 'asc');
         foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
+            if (is_array($value)) {
+                $query = $query->whereIn($column, $value);
+            } else {
+                $parts = explode(' ', $column);
+                $column = $parts[0];
+                if (!empty($parts[1])) {
+                    $operation = trim($parts[1]);
+                    if (in_array($operation, ['<>', '!=', '=!'])) {
+                        $query->whereNot($column, $value);
+                    } elseif (strtolower($operation) == 'like') {
+                        $query->whereLike($column, $value);
+                    } else {
+                        throw new \Exception('Invalid select list filter column: ' . $column . ' ' . $operation);
+                    }
+                } else {
+                    $query = $query->where($column, $value);
+                }
+            }
         }
 
         foreach ($query->get() as $company) {

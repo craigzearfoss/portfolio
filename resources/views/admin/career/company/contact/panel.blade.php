@@ -1,6 +1,6 @@
 @php
-$contacts = $contacts ?? [];//dd($contacts);
-$addLink = $links['add'] ?? null
+    $contacts = $contacts ?? [];//dd($contacts);
+    $addLink = $links['add'] ?? null
 @endphp
 <div class="card p-4">
 
@@ -22,7 +22,7 @@ $addLink = $links['add'] ?? null
 
     </h2>
 
-    @include('admin.components.company.contacts-table', [
+    @include('admin.career.company.contact.table', [
         'contacts' => $contacts ?? []
     ])
 

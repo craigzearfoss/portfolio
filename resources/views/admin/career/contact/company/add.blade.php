@@ -17,7 +17,7 @@
 
 @section('content')
 
-    <div id="company-select" class="card form-container p-2">
+    <div id="company-select" class="edit-container card form-container p-2">
 
         <form action="{{ route('admin.career.contact.company.attach', $contact) }}" method="POST">
             @csrf

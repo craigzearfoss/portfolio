@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $jobBoard->name,
+    'title' => 'Job Board: ' . $jobBoard->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Job Boards',      'href' => route('admin.career.job-board.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $jobBoard->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'href' => route('admin.career.job-board.edit', $jobBoard) ],
@@ -18,7 +18,12 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $jobBoard->id
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',

@@ -45,68 +45,86 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'friend',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('friend') ?? 0,
-                'message'         => $message ?? '',
-            ])
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                </div>
+                <div class="field-body">
+                    <div class="field">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'family',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('family') ?? 0,
-                'message'         => $message ?? '',
-            ])
+                        <div class="checkbox-container card form-container p-4">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'coworker',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('coworker') ?? 0,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'friend',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('friend') ?? 0,
+                                'message'         => $message ?? '',
+                            ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'supervisor',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('supervisor') ?? 0,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'family',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('family') ?? 0,
+                                'message'         => $message ?? '',
+                            ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'subordinate',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('subordinate') ?? 0,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'coworker',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('coworker') ?? 0,
+                                'message'         => $message ?? '',
+                            ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'professional',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('professional') ?? 0,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'supervisor',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('supervisor') ?? 0,
+                                'message'         => $message ?? '',
+                            ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'other',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('other') ?? 0,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'subordinate',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('subordinate') ?? 0,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'professional',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('professional') ?? 0,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'other',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('other') ?? 0,
+                                'message'         => $message ?? '',
+                            ])
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'company_id',
                 'label'   => 'company',
                 'value'   => old('company_id') ?? '',
-                'list'    => \App\Models\Career\Company::listOptions([], true),
-                'message' => $message ?? '',
+                'list'    => isAdmin()
+                                ? \App\Models\Career\Company::listOptions([], true)
+                                : \App\Models\Career\Company::listOptions([
+                                        'owner_id' => Auth::guard('admin')->user()->id
+                                    ], true),
+                'message'     => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -285,40 +303,55 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'public',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('public') ?? 0,
-                'message'         => $message ?? '',
-            ])
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                </div>
+                <div class="field-body">
+                    <div class="field">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'readonly',
-                'label'           => 'read-only',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('readonly') ?? 0,
-                'message'         => $message ?? '',
-            ])
+                        <div class="checkbox-container card form-container p-4">
 
-            @if (Auth::guard('admin')->user()->root)
-                @include('admin.components.form-checkbox-horizontal', [
-                    'name'            => 'root',
-                    'value'           => 1,
-                    'unchecked_value' => 0,
-                    'checked'         => old('root') ?? 0,
-                    'message'         => $message ?? '',
-                ])
-            @endif
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'public',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('public') ?? 0,
+                                'message'         => $message ?? '',
+                            ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'disabled',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? 0,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'readonly',
+                                'label'           => 'read-only',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('readonly') ?? 0,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @if(isRootAdmin())
+                                @include('admin.components.form-checkbox', [
+                                    'name'            => 'root',
+                                    'value'           => 1,
+                                    'unchecked_value' => 0,
+                                    'checked'         => old('root') ?? 0,
+                                    'disabled'        => 0,
+                                    'message'         => $message ?? '',
+                                ])
+                            @endif
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'disabled',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('disabled') ?? 0,
+                                'message'         => $message ?? '',
+                            ])
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Reference',

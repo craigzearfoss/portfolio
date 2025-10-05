@@ -18,7 +18,12 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $application->id
+        ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
@@ -26,11 +31,6 @@
                 'value' => $application->owner['username'] ?? ''
             ])
         @endif
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $application->id
-        ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
@@ -302,21 +302,21 @@
 
     </div>
 
-    @include('admin.components.application.communications-panel', [
+    @include('admin.career.application.communication.panel', [
         'communications' => $application->communications ?? [],
         'links' => [
             'add' => route('admin.career.communication.create', ['application_id' => $application->id])
         ]
     ])
 
-    @include('admin.components.application.events-panel', [
+    @include('admin.career.application.event.panel', [
         'events' => $application->events ?? [],
         'links'  => [
             'add' => route('admin.career.event.create', ['application_id' => $application->id])
         ]
     ])
 
-    @include('admin.components.application.notes-panel', [
+    @include('admin.career.application.note.panel', [
         'notes' => $application->notes ?? [],
         'links' => [
             'add' => route('admin.career.note.create', ['application_id' => $application->id])

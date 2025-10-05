@@ -22,7 +22,7 @@
 
     </h2>
 
-    @include('admin.components.contact.companies-table', [
+    @include('admin.career.contact.company.table', [
         'companies' => $companies ?? []
     ])
 

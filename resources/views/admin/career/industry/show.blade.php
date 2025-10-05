@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => $industry->name,
+    'title' => 'Industry: ' . $industry->name,
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Industries',      'href' => route('admin.career.industry.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $industry->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.career.industry.edit', $industry) ],
@@ -18,7 +18,7 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
 
         @include('admin.components.show-row', [
             'name'  => 'id',

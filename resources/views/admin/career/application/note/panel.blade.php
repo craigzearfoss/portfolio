@@ -26,7 +26,7 @@
 
     </h2>
 
-    @include('admin.components.application.notes-table', [
+    @include('admin.career.application.note.table', [
         'notes' => $notes
     ])
 

@@ -18,7 +18,12 @@
 
 @section('content')
 
-    <div class="card form-container p-4">
+    <div class="show-container card form-container p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $application->cover_letter->id
+        ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
@@ -26,11 +31,6 @@
                 'value' => $application->cover_letter->owner['username'] ?? ''
             ])
         @endif
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $application->cover_letter->id
-        ])
 
         @include('admin.components.show-row', [
             'name'    => 'application',

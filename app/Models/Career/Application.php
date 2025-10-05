@@ -269,7 +269,24 @@ class Application extends Model
             if (in_array($column, ['id', 'owner_id'])) {
                 $column = 'applications.' . $column;
             }
-            $query->where($column, $value);
+            if (is_array($value)) {
+                $query = $query->whereIn($column, $value);
+            } else {
+                $parts = explode(' ', $column);
+                $column = $parts[0];
+                if (!empty($parts[1])) {
+                    $operation = trim($parts[1]);
+                    if (in_array($operation, ['<>', '!=', '=!'])) {
+                        $query->whereNot($column, $value);
+                    } elseif (strtolower($operation) == 'like') {
+                        $query->whereLike($column, $value);
+                    } else {
+                        throw new \Exception('Invalid select list filter column: ' . $column . ' ' . $operation);
+                    }
+                } else {
+                    $query = $query->where($column, $value);
+                }
+            }
         }
 
         foreach ($query->get() as $application) {

@@ -40,7 +40,7 @@
 .edit-container input[name="prep_time"],
 .edit-container input[name="publication_year"],
 .edit-container input[name="sequence"],
-.edit-container input[name="total_time"]
+.edit-container input[name="total_time"],
 .edit-container input[name="year"],
 .edit-container input[name="years"] {
     width: 5em   ;
@@ -58,7 +58,7 @@
 .edit-container input[name="version"] {
     width: 10em   ;
 }
-.edit-container input[name="alt-phone"],
+.edit-container input[name="alt_phone"],
 .edit-container input[name="phone"] {
     width: 20em;
 }
