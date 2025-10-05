@@ -18,8 +18,14 @@
     padding-bottom: calc(0.2em - 1px) !important;
     /*padding-left: calc(0.5em - 1px) !important; */
     padding-right: calc(0.5em - 1px) !important;
-    top: calc(0.1em - 1px) !important;
+    padding-top: calc(0.2em - 1px) !important;
     max-width: 36em;
+}
+.edit-container .select,
+.edit-container select {
+    height: 2em !important;
+    padding-bottom: calc(0.1em - 1px) !important;
+    padding-top: calc(0.1em - 1px) !important;
 }
 .edit-container span.file-name {
     height: 2em;
@@ -36,8 +42,14 @@
 .edit-container input[name="years"] {
     width: 5em   ;
 }
+.edit-container input[name="duration_hours"] {
+    width: 8em   ;
+}
 .edit-container input[name="catalog_number"],
+.edit-container input[name="completion_date"],
 .edit-container input[name="date"],
+.edit-container input[name="expiration"],
+.edit-container input[name="received"],
 .edit-container input[name="release_date"],
 .edit-container input[name="version"] {
     width: 10em   ;

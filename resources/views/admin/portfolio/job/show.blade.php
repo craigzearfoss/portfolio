@@ -99,6 +99,11 @@
             'job'  => $job
         ])
 
+        @include('admin.portfolio.job.task.panel', [
+            'tasks' => $job->tasks ?? [],
+            'job'   => $job
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $job->link,
@@ -179,16 +184,6 @@
         @include('admin.components.show-row', [
             'name'  => 'updated at',
             'value' => longDateTime($job->updated_at)
-        ])
-
-        @include('admin.components.show-row-list', [
-            'name'  => 'tasks',
-            'values' => $job->tasks->pluck('summary')
-        ])
-
-        @include('admin.components.show-row-list', [
-            'name'  => 'coworkers',
-            'values' => $job->coworkers->pluck('name')
         ])
 
     </div>

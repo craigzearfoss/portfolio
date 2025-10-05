@@ -2,7 +2,6 @@
     $name    = !empty($name)  ? $name : '#name#';
     $id      = !empty($id) ? $id : ('input' . (!empty($name)  ? ucfirst(trim($name, '#')) : 'Name'));
     $type    = !empty($type) ? $type : 'text';
-    $label   = !empty($label) ? $label : (!empty($name) ? $name : '#label#');
     $value   = $value ?? '';
     $class   = !empty($class) ? $class : '';
     if (!empty($style)) {
@@ -13,7 +12,10 @@
     $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'website', 'wikipedia']);
 @endphp
 <div class="field">
-    @if($label !== '-')<label class="label">{{ $label }}</label> @endif
+    @if(isset($label) && ($label === '') )
+    @else
+        <label class="label">{{ $label ?? $name }}</label>
+    @endif
     <div class="control {{ $hasIcon ? 'has-icons-left' : '' }}">
         <input class="input {{ $class }} @error('role') is-invalid @enderror"
                type="{{ $type }}"

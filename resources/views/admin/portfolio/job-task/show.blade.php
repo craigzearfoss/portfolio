@@ -19,7 +19,12 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $jobTask->id
+        ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
@@ -29,8 +34,11 @@
         @endif
 
         @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $jobTask->id
+            'name'  => 'job',
+            'value' =>  view('admin.components.link', [
+                'name' => $jobTask->job->name,
+                'href' => route('admin.portfolio.job.show', $jobTask->job)
+            ])
         ])
 
         @include('admin.components.show-row', [
@@ -43,21 +51,25 @@
             'value' => $jobTask->summary
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => nl2br($jobTask->notes ?? '')
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $jobTask->link,
-            'label'  => $jobTask->link_name,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $jobTask->link_name,
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => nl2br($jobTask->description ?? '')
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => nl2br($jobTask->notes ?? '')
         ])
 
         @include('admin.components.show-row-image', [

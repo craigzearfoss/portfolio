@@ -29,10 +29,10 @@ class JobTask extends Model
         'job_id',
         'job_title',
         'summary',
+        'notes',
         'link',
         'link_name',
         'description',
-        'notes',
         'image',
         'image_credit',
         'image_source',
@@ -57,5 +57,13 @@ class JobTask extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(Owner::class, 'owner_id');
+    }
+
+    /**
+     * Get the job of the job task.
+     */
+    public function job(): BelongsTo
+    {
+        return $this->belongsTo(Job::class, 'job_id');
     }
 }

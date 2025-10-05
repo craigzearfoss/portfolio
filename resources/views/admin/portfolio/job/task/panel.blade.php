@@ -6,15 +6,15 @@
 
     <h2 class="subtitle">
 
-        Coworkers
+        Tasks
 
         @if(!empty($job))
 
             @include('admin.components.link', [
-                'name'  => 'Add a Coworker',
-                'href'  => route('admin.portfolio.job-coworker.create', ['job_id' => $job->id]),
+                'name'  => 'Add a Task',
+                'href'  => route('admin.portfolio.job-task.create', ['job_id' => $job->id]),
                 'class' => 'button is-primary is-small px-1 py-0',
-                'title' => 'add a coworker',
+                'title' => 'add a task',
                 'icon'  => 'fa-plus'
             ])
 
@@ -22,8 +22,8 @@
 
     </h2>
 
-    @include('admin.portfolio.job.coworker.table', [
-        'coworkers' => $coworkers ?? []
+    @include('admin.portfolio.job.task.table', [
+        'tasks' => $tasks ?? []
     ])
 
 </div>

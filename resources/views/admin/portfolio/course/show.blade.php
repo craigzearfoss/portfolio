@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Courses',         'href' => route('admin.portfolio.course.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $course->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'href' => route('admin.portfolio.course.edit', $course) ],
@@ -18,7 +18,12 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $course->id
+        ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
@@ -26,11 +31,6 @@
                 'value' => $course->owner['username'] ?? ''
             ])
         @endif
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $course->id
-        ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
@@ -62,14 +62,19 @@
             'value' => longDate($course->completion_date)
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'duration hours',
-            'checked' => $course->duration_hours
+        @include('admin.components.show-row', [
+            'name'  => 'duration hours',
+            'value' => $course->duration_hours
         ])
 
         @include('admin.components.show-row', [
             'name' => 'academy',
-            'value' => $course->academy['name'] ?? ''
+            'value' => view('admin.components.link', [
+                'name' => $course->academy['name'] ?? '',
+                'href' => !empty($course->academy)
+                                ? route('admin.portfolio.academy.show', $course->academy)
+                                : ''
+                            ])
         ])
 
         @include('admin.components.show-row', [
@@ -98,19 +103,19 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'href'   => $course->link_name,
+            'href'   => $course->link,
             'target' => '_blank'
         ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'link name',
-                'value' => $course->link_name,
-            ])
+        @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $course->link_name,
+        ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'description',
-                'value' => nl2br($course->description ?? '')
-            ])
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => nl2br($course->description ?? '')
+        ])
 
         @include('admin.components.show-row', [
             'name'     => 'image',

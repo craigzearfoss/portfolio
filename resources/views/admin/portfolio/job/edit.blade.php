@@ -27,13 +27,19 @@
                 'value' => referer('admin.portfolio.job-task.index')
             ])
 
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $job->id
+            ])
+
             @if(isRootAdmin())
                 @include('admin.components.form-select-horizontal', [
-                    'name'    => 'owner_id',
-                    'label'   => 'owner',
-                    'value'   => old('owner_id') ?? $company->owner_id,
-                    'list'    => \App\Models\Owner::listOptions(),
-                    'message' => $message ?? '',
+                    'name'     => 'owner_id',
+                    'label'    => 'owner',
+                    'value'    => old('owner_id') ?? $job->owner_id,
+                    'required' => true,
+                    'list'     => \App\Models\Owner::listOptions([], true),
+                    'message'  => $message ?? '',
                 ])
             @endif
 
@@ -45,12 +51,103 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'role',
+                'value'     => old('role') ?? $job->role,
+                'required'  => true,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'featured',
                 'value'           => 1,
                 'unchecked_value' => 0,
                 'checked'         => old('featured') ?? $job->featured,
                 'message'         => $message ?? '',
+            ])
+
+            @php
+                $startMonth = view('admin.components.form-select', [
+                    'name'      => 'start_month',
+                    'label'     => '',
+                    'value'     => old('start_month') ?? $job->start_month,
+                    'list'      => months(true),
+                    'message'   => $message ?? '',
+                ]);
+                $startYear = view('admin.components.form-input', [
+                    'type'      => 'number',
+                    'name'      => 'start_year',
+                    'label'     => '',
+                    'value'     => old('start_year') ?? $job->start_year,
+                    'min'       => 1980,
+                    'max'       => 2050,
+                    'message'   => $message ?? '',
+                ]);
+            @endphp
+
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'start',
+                'value' => '<div style="display: flex; gap: 0.4em; margin-left: -0.5em; margin-top: -0.5em;">'
+                            . '<div>'
+                                . $startMonth
+                            . '</div><div>'
+                                . $startYear
+                            . '</div></div>',
+                'raw'   => true
+            ])
+
+            @php
+                $endMonth = view('admin.components.form-select', [
+                    'name'      => 'end_month',
+                    'label'     => '',
+                    'value'     => old('end_month') ?? $job->end_month,
+                    'list'      => months(true),
+                    'message'   => $message ?? '',
+                ]);
+                $endYear = view('admin.components.form-input', [
+                    'type'      => 'number',
+                    'name'      => 'end_year',
+                    'label'     => '',
+                    'value'     => old('end_year') ?? $job->end_year,
+                    'min'       => 1980,
+                    'max'       => 2050,
+                    'message'   => $message ?? '',
+                ]);
+            @endphp
+
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'end',
+                'value' => '<div style="display: flex; gap: 0.4em; margin-left: -0.5em; margin-top: -0.5em;">'
+                            . '<div>'
+                                . $endMonth
+                            . '</div><div>'
+                                . $endYear
+                            . '</div></div>',
+                'raw'   => true
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'summary',
+                'value'     => old('summary') ?? $job->summary,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? nl2br($job->notes ?? ''),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.portfolio.job.coworker.panel', [
+                'coworkers' => $job->coworkers ?? [],
+                'job'  => $job
+            ])
+
+            @include('admin.portfolio.job.task.panel', [
+                'tasks' => $job->tasks ?? [],
+                'job'   => $job
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -94,7 +191,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'country_id',
                 'label'   => 'country',
-                'value'   => old('country_id') ?? $job->country,
+                'value'   => old('country_id') ?? $job->country_id,
                 'list'    => \App\Models\Country::listOptions(),
                 'message' => $message ?? '',
             ])
@@ -112,81 +209,6 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'role',
-                'value'     => old('role') ?? $job->role,
-                'required'  => true,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'      => 'start_month',
-                'label'     => 'start year',
-                'value'     => old('start_month') ?? $job->start_month,
-                'list'      => months(true),
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'start_year',
-                'label'     => 'start year',
-                'value'     => old('start_year') ?? $job->start_year,
-                'min'       => 1980,
-                'max'       => 2050,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'      => 'end_month',
-                'value'     => old('end_month') ?? $job->end_month,
-                'label'     => 'end month',
-                'list'      => months(true),
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'end_year',
-                'label'     => 'end year',
-                'value'     => old('end_year') ?? $job->end_year,
-                'min'       => 1980,
-                'max'       => 2050,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'summary',
-                'value'     => old('summary') ?? $job->summary,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.show-row-list', [
-                'name'  => 'tasks',
-                'values' => $job->tasks->pluck('summary')
-            ])
-
-            @include('admin.components.link', [
-                'name' => 'Edit Job Coworkers',
-                'href' => route('admin.portfolio.job-coworker.index', [
-                    'job_id' => $job->id
-                ])
-            ])
-
-            @include('admin.components.show-row-list', [
-                'name'  => 'coworkers',
-                'values' => $job->coworkers->pluck('name')
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? $job->link,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
                 'name'      => 'link_name',
                 'label'     => 'link name',
                 'value'     => old('link_name') ?? $job->link_name,
@@ -198,12 +220,6 @@
                 'name'    => 'description',
                 'id'      => 'inputEditor',
                 'value'   => old('description') ?? $job->description,
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? nl2br($job->notes ?? ''),
                 'message' => $message ?? '',
             ])
 
@@ -245,41 +261,53 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'public',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('public') ?? $job->public,
-                'message'         => $message ?? '',
-            ])
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                </div>
+                <div class="field-body">
+                    <div class="field">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'readonly',
-                'label'           => 'read-only',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('readonly') ?? $job->readonly,
-                'message'         => $message ?? '',
-            ])
+                        <div class="checkbox-container card form-container p-4">
 
-            @if (Auth::guard('admin')->user()->root)
-                @include('admin.components.form-checkbox-horizontal', [
-                    'name'            => 'root',
-                    'value'           => 1,
-                    'unchecked_value' => 0,
-                    'disabled'        => !Auth::guard('admin')->user()->root,
-                    'checked'         => old('root') ?? $job->root,
-                    'message'         => $message ?? '',
-                ])
-            @endif
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'public',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('public') ?? $job->public,
+                                'message'         => $message ?? '',
+                            ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'disabled',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? $job->disabled,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'readonly',
+                                'label'           => 'read-only',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('readonly') ?? $job->readonly,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'root',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('root') ?? $job->root,
+                                'disabled'        => !isRootAdmin(),
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'disabled',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('disabled') ?? $job->disabled,
+                                'message'         => $message ?? '',
+                            ])
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',

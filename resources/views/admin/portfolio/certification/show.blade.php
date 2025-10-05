@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Certifications',  'href' => route('admin.portfolio.certification.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $certification->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',         'href' => route('admin.portfolio.certification.edit', $certification) ],
@@ -18,7 +18,12 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $certification->id
+        ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
@@ -26,11 +31,6 @@
                 'value' => $certification->owner['username'] ?? ''
             ])
         @endif
-
-        @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $certification->id
-        ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
@@ -54,7 +54,12 @@
 
         @include('admin.components.show-row', [
             'name' => 'academy',
-            'value' => $certification->academy['name'] ?? ''
+            'value' => view('admin.components.link', [
+                'name' => $certification->academy['name'] ?? '',
+                'href' => !empty($certification->academy)
+                                ? route('admin.portfolio.academy.show', $certification->academy)
+                                : ''
+                            ])
         ])
 
         @include('admin.components.show-row', [

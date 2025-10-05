@@ -88,7 +88,7 @@
 
                                                 @include('user.components.form-select', [
                                                     'name'    => 'state',
-                                                    'value'   => old('state') ?? $user->state,
+                                                    'value'   => old('state') ?? $user->state_id,
                                                     'list'    => \App\Models\State::listOptions(),
                                                     'message' => $message ?? '',
                                                 ])
@@ -102,7 +102,7 @@
 
                                                 @include('user.components.form-select', [
                                                     'name'    => 'country',
-                                                    'value'   => old('country') ?? $user->country,
+                                                    'value'   => old('country') ?? $user->country_id,
                                                     'list'    => \App\Models\Country::listOptions(),
                                                     'message' => $message ?? '',
                                                 ])

@@ -87,7 +87,7 @@ class Academy extends Model
 
         // we put the 'other' option last
         if ($includeOther && !empty($other)) {
-            $options[$nameAsKey ? $academy->name : $academy->id] = $academy->name;;
+            $options[$nameAsKey ? $other->name : $other->id] = $other->name;;
         }
 
         return $options;

@@ -83,9 +83,13 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'label'  => $jobCoworker->link_name,
             'href'   => $jobCoworker->link,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'link name',
+            'value' => $jobCoworker->link_name,
         ])
 
         @include('admin.components.show-row', [

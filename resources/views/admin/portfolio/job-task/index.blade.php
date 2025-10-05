@@ -65,9 +65,6 @@
                     <td data-field="summary">
                         {{ $jobTask->summary }}
                     </td>
-                    <td data-field="sequence">
-                        {{ $jobTask->sequence }}
-                    </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobTask->public ])
                     </td>

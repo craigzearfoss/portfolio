@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Portfolio\JobTaskStoreRequest;
 use App\Http\Requests\Portfolio\JobTaskUpdateRequest;
+use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobTask;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -43,9 +44,13 @@ class JobTaskController extends BaseController
      */
     public function create(Request $request): View
     {
-        $jobId = $request->query('job_id');
+        if ($jobId = $request->query('job_id')) {
+            $job = Job::find($jobId);
+        } else {
+            $job = null;
+        }
 
-        return view('admin.portfolio.job-task.create', compact('jobId'));
+        return view('admin.portfolio.job-task.create', compact('job'));
     }
 
     /**

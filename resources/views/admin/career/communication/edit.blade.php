@@ -29,11 +29,12 @@
 
             @if(isRootAdmin())
                 @include('admin.components.form-select-horizontal', [
-                    'name'    => 'owner_id',
-                    'label'   => 'owner',
-                    'value'   => old('owner_id') ?? $communication->owner_id,
-                    'list'    => \App\Models\Owner::listOptions(),
-                    'message' => $message ?? '',
+                    'name'     => 'owner_id',
+                    'label'    => 'owner',
+                    'value'    => old('owner_id') ?? $communication->owner_id,
+                    'required' => true,
+                    'list'     => \App\Models\Owner::listOptions([], true),
+                    'message'  => $message ?? '',
                 ])
             @endif
 

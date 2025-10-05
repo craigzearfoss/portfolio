@@ -73,7 +73,6 @@
                             @include('admin.components.link', [
                                 'name'   => $certification->academy['name'],
                                 'href'   => route('admin.portfolio.academy.show', $certification->academy),
-                                'target' => '_blank'
                             ])
                         @endif
                     </td>

@@ -4,7 +4,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Courses',         'href' => route('admin.portfolio.course.index') ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => $course->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.course.index') ],
@@ -16,7 +16,7 @@
 
 @section('content')
 
-    <div class="card form-container p-4">
+    <div class="edit-container card form-container p-4">
 
         <form action="{{ route('admin.portfolio.course.update', $course) }}" method="POST">
             @csrf
@@ -27,13 +27,19 @@
                 'value' => referer('admin.portfolio.course.index')
             ])
 
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $course->id
+            ])
+
             @if(isRootAdmin())
                 @include('admin.components.form-select-horizontal', [
-                    'name'    => 'owner_id',
-                    'label'   => 'owner',
-                    'value'   => old('owner_id') ?? $course->owner_id,
-                    'list'    => \App\Models\Owner::listOptions(),
-                    'message' => $message ?? '',
+                    'name'     => 'owner_id',
+                    'label'    => 'owner',
+                    'value'    => old('owner_id') ?? $course->owner_id,
+                    'required' => true,
+                    'list'     => \App\Models\Owner::listOptions([], true),
+                    'message'  => $message ?? '',
                 ])
             @endif
 
@@ -72,6 +78,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'duration_hours',
+                'label'     => 'duration hours',
                 'value'     => old('duration_hours') ?? $course->duration_hours,
                 'message'   => $message ?? '',
             ])
@@ -79,7 +86,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'      => 'academy',
                 'value'     => old('academy_id') ?? $course->academy_id,
-                'list'      => \App\Models\Portfolio\Academy::listOptions(),
+                'list'      => \App\Models\Portfolio\Academy::listOptions([], true, false, true),
                 'required'  => true,
                 'message'   => $message ?? '',
             ])
@@ -173,39 +180,53 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'public',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('public') ?? $course->public,
-                'message'         => $message ?? '',
-            ])
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                </div>
+                <div class="field-body">
+                    <div class="field">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'readonly',
-                'label'           => 'read-only',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('readonly') ?? $course->readonly,
-                'message'         => $message ?? '',
-            ])
+                        <div class="checkbox-container card form-container p-4">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'root',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('root') ?? $course->root,
-                'disabled'        => !Auth::guard('admin')->user()->root,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'public',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('public') ?? $course->public,
+                                'message'         => $message ?? '',
+                            ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'disabled',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? $course->disabled,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'readonly',
+                                'label'           => 'read-only',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('readonly') ?? $course->readonly,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'root',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('root') ?? $course->root,
+                                'disabled'        => !isRootAdmin(),
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'disabled',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('disabled') ?? $course->disabled,
+                                'message'         => $message ?? '',
+                            ])
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',

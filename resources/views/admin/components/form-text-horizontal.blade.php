@@ -1,5 +1,6 @@
 @php
     $id = $id ?? ('input' . (!empty($name)  ? ucfirst($name) : 'Name'));
+    $raw = isset($raw) ? boolval($raw) : false;
 @endphp
 <div class="field is-horizontal">
     <div class="field-label is-normal">
@@ -8,13 +9,14 @@
     <div class="field-body">
         <div class="field">
             <div class="control">
-                <span class="text-field">{{ $value ?? '' }}</span>
+                <span class="text-field">
+                    @if($raw)
+                        {!! $value ?? '' !!}
+                    @else
+                        {{ $value ?? '' }}
+                    @endif
+                </span>
             </div>
-
-            @error($name ?? 'name')
-                <p class="help is-danger">{{ $message }}</p>
-            @enderror
-
         </div>
     </div>
 </div>

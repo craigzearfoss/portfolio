@@ -27,11 +27,12 @@
 
             @if(isRootAdmin())
                 @include('admin.components.form-select-horizontal', [
-                    'name'    => 'owner_id',
-                    'label'   => 'owner',
-                    'value'   => old('owner_id') ?? Auth::guard('admin')->user()->id,
-                    'list'    => \App\Models\Owner::listOptions(['root' => 1]),
-                    'message' => $message ?? '',
+                    'name'     => 'owner_id',
+                    'label'    => 'owner',
+                    'value'    => old('owner_id') ?? '',
+                    'required' => true,
+                    'list'     => \App\Models\Owner::listOptions(['owner_id' => 1], true),
+                    'message'  => $message ?? '',
                 ])
             @endif
 

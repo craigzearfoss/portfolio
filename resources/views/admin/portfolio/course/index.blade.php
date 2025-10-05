@@ -27,7 +27,6 @@
                 <th class="has-text-centered">featured</th>
                 <th>academy</th>
                 <th class=" has-text-centered">completion<br>date</th>
-                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -70,7 +69,6 @@
                             @include('admin.components.link', [
                                 'name'   => $course->academy['name'],
                                 'href'   => route('admin.portfolio.academy.show', $course->academy),
-                                'target' => '_blank'
                             ])
                         @endif
                     </td>

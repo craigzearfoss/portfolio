@@ -66,9 +66,9 @@
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $jobCoworker->featured ])
                     </td>
-                        <td data-field="level">
-                            {{ $jobCoworker->level }}
-                        </td>
+                    <td data-field="level">
+                        {{ $jobCoworker->level }}
+                    </td>
                     <td data-field="job.company">
                         @if($jobCoworker->job)
                             {{ $jobCoworker->job['company'] }}

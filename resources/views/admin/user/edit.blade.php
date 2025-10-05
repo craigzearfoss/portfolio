@@ -105,7 +105,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'country_id',
                 'label'   => 'country',
-                'value'   => old('country_id') ?? $user->country,
+                'value'   => old('country_id') ?? $user->country_id,
                 'list'    => \App\Models\Country::listOptions(),
                 'message' => $message ?? '',
             ])

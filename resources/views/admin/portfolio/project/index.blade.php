@@ -75,11 +75,13 @@
                         {{ $project->year }}
                     </td>
                     <td data-field="repository_url">
-                        @include('admin.components.link', [
-                            'name'   => $project->repository_name,
-                            'href'   => $project->repository_url,
-                            'target' => '_blank'
-                        ])
+                        @if(!empty($project->repository_url))
+                            @include('admin.components.link', [
+                                'name'   => $project->repository_name ?? '',
+                                'href'   => $project->repository_url,
+                                'target' => '_blank'
+                            ])
+                        @endif
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $project->public ])

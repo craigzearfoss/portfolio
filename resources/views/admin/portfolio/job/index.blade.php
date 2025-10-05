@@ -69,11 +69,11 @@
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $job->featured ])
                     </td>
-                    <td data-field="start_month|start_year" class="has-text-centered">
+                    <td data-field="start_month|start_year">
                         @if(!empty($job->start_month)){{ date('F', mktime(0, 0, 0, $job->start_month, 10)) }} @endif
                         {{ $job->start_year }}
                     </td>
-                    <td data-field="end_month|end_year" class="has-text-centered">
+                    <td data-field="end_month|end_year">
                         @if(!empty($job->end_month)){{ date('F', mktime(0, 0, 0, $job->end_month, 10)) }} @endif
                         {{ $job->end_year }}
                     </td>
@@ -92,7 +92,7 @@
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.portfolio.job.edit', $job->id) }}">
+                               href="{{ route('admin.portfolio.job.edit', $job) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
