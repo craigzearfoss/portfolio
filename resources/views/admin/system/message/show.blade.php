@@ -1,0 +1,86 @@
+@extends('admin.layouts.default', [
+    'title' => 'Message',
+    'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Message',         'href' => route('admin.system.message.index') ],
+        [ 'name' => 'Show' ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.system.message.edit', $message) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Library', 'href' => route('admin.system.message.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'href' => referer('admin.dictionary.index') ],
+    ],
+    'errorMessages'=> $errors->messages() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
+
+@section('content')
+
+    <div class="show-container card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $message->id
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'name',
+            'value' => $message->name
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'email',
+            'value' => $message->email
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'subject',
+            'value' => $message->subject
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'body',
+            'value' => nl2br($message->body ?? '')
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'sequence',
+            'value' => $message->sequence
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'public',
+            'checked' => $message->public
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'read-only',
+            'checked' => $message->readonly
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'root',
+            'checked' => $message->root
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'disabled',
+            'checked' => $message->disabled
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'created at',
+            'value' => longDateTime($message->created_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'updated at',
+            'value' => longDateTime($message->updated_at)
+        ])
+
+    </div>
+
+@endsection

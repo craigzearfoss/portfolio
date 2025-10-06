@@ -1,6 +1,7 @@
 @extends('admin.layouts.default', [
     'title' =>'Add a Contact to ' . $company->name,
     'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Companies',       'href' => route('admin.career.company.index') ],

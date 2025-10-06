@@ -1,22 +1,20 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminController as AdminAdminController;
-use App\Http\Controllers\Admin\AdminGroupController as AdminAdminGroupController;
-use App\Http\Controllers\Admin\AdminTeamController as AdminAdminTeamController;
-use App\Http\Controllers\Admin\DatabaseController as AdminDatabaseController;
 use App\Http\Controllers\Admin\IndexController as AdminIndexController;
-use App\Http\Controllers\Admin\MessageController as AdminMessageController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
-use App\Http\Controllers\Admin\ResourceController as AdminResourceController;
-use App\Http\Controllers\Admin\UserController as AdminUserController;
-
+use App\Http\Controllers\Admin\System\AdminController as AdminSystemAdminController;
+use App\Http\Controllers\Admin\System\AdminGroupController as AdminSystemAdminGroupController;
+use App\Http\Controllers\Admin\System\AdminTeamController as AdminSystemAdminTeamController;
+use App\Http\Controllers\Admin\System\DatabaseController as AdminSystemDatabaseController;
+use App\Http\Controllers\Admin\System\IndexController as AdminSystemIndexController;
+use App\Http\Controllers\Admin\System\MessageController as AdminMessageController;
+use App\Http\Controllers\Admin\System\ResourceController as AdminSystemResourceController;
+use App\Http\Controllers\Admin\System\UserController as AdminSystemUserController;
+use App\Http\Controllers\Admin\System\UserGroupController as AdminSystemUserGroupController;
+use App\Http\Controllers\Admin\System\UserTeamController as AdminSystemUserTeamController;
 use App\Http\Controllers\Guest\IndexController as FrontIndexController;
-
 use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
-use App\Http\Controllers\Admin\UserGroupController as AdminUserGroupController;
-use App\Http\Controllers\Admin\UserTeamController as AdminUserTeamController;
-
 use Illuminate\Support\Facades\Route;
 
 Route::name('guest.')->group(function () {
@@ -72,18 +70,19 @@ Route::prefix('admin/profile')->middleware('admin')->name('admin.profile.')->gro
 
 Route::prefix('admin')->middleware('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminIndexController::class, 'dashboard'])->name('dashboard');
-    Route::resource('admin', AdminAdminController::class);
-    Route::resource('admin-group', AdminAdminGroupController::class)->parameter('admin-group', 'admin_group');
-    Route::resource('admin-team', AdminAdminTeamController::class)->parameter('admin-team', 'admin_team');
-    Route::resource('database', AdminDatabaseController::class);
-    Route::resource('message', AdminMessageController::class);
-    Route::resource('resource', AdminResourceController::class);
-    Route::resource('user', AdminUserController::class);
-    Route::resource('user-group', AdminUserGroupController::class)->parameter('user-group', 'user_group');
-    Route::resource('user-team', AdminUserTeamController::class)->parameter('user-team', 'user_team');
-    Route::get('/user/{user}/change-password', [AdminUserController::class, 'change_password'])->name('user.change-password');
-    Route::post('/user/{user}/change-password', [AdminUserController::class, 'change_password_submit'])->name('user.change-password-submit');
 });
 
-Route::prefix('admin/admin')->middleware('admin')->name('admin.admin.')->group(function () {
+Route::prefix('admin/system')->middleware('admin')->name('admin.system.')->group(function () {
+    Route::get('/', [AdminSystemIndexController::class, 'index'])->name('index');
+    Route::resource('admin', AdminSystemAdminController::class);
+    Route::resource('admin-group', AdminSystemAdminGroupController::class)->parameter('admin-group', 'admin_group');
+    Route::resource('admin-team', AdminSystemAdminTeamController::class)->parameter('admin-team', 'admin_team');
+    Route::resource('database', AdminSystemDatabaseController::class);
+    Route::resource('message', AdminMessageController::class);
+    Route::resource('resource', AdminSystemResourceController::class);
+    Route::resource('user', AdminSystemUserController::class);
+    Route::get('/user/{user}/change-password', [AdminSystemUserController::class, 'change_password'])->name('user.change-password');
+    Route::post('/user/{user}/change-password', [AdminSystemUserController::class, 'change_password_submit'])->name('user.change-password-submit');
+    Route::resource('user-group', AdminSystemUserGroupController::class)->parameter('user-group', 'user_group');
+    Route::resource('user-team', AdminSystemUserTeamController::class)->parameter('user-team', 'user_team');
 });

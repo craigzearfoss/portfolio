@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => 'Portfolio',
+    'title' => 'Portfolios',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard')],
@@ -15,17 +15,27 @@
 
     <div class="card m-4">
 
-        <div class="card-head p-4">
-            <h1>Portfolios</h1>
-        </div>
-
         <div class="card-body p-4">
 
-            <ul>
-                @foreach ($portfolioTypes as $portfolioType)
-                    <li><a href="{{ route('admin.portfolio.'.$portfolioType->type.'.index') }}">{{ $portfolioType->name }}</a></li>
-                @endforeach
-            </ul>
+            <div class="list is-hoverable">
+
+                <ul class="menu-list" style="max-width: 20em;">
+
+                    @foreach ($portfolios as $portfolio)
+
+                        <li>
+                            @include('admin.components.link', [
+                                'name'  => $portfolio->plural,
+                                'href'  => route('admin.portfolio.'.$portfolio->name.'.index'),
+                                'class' => 'list-item',
+                            ])
+                        </li>
+
+                    @endforeach
+
+                </ul>
+
+            </div>
 
         </div>
 

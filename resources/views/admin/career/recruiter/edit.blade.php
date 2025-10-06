@@ -1,6 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => 'Recruiter: ' . $recruiter->name,
     'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Recruiters',      'href' => route('admin.career.recruiter.index') ],

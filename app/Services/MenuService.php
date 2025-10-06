@@ -12,18 +12,18 @@ class MenuService
     /**
      * Returns the array of items for the left nav menu.
      *
-     * @param string|null $userType
+     * @param string | null $envType
      * @return array
      * @throws \Exception
      */
-    public function getLeftMenu(string|null $userType = null): array
+    public function getLeftMenu(string | null $envType = null): array
     {
-        // Verify the user type.
-        if (empty($userType)) {
-            $userType = PermissionService::currentUserType();
+        // Verify the ENV type.
+        if (empty($envType)) {
+            $envType = PermissionService::currentEnvType();
         }
-        if (!in_array($userType, PermissionService::ENV_TYPES)) {
-            throw new \Exception('Invalid current user type');
+        if (!in_array($envType, PermissionService::ENV_TYPES)) {
+            throw new \Exception('Invalid current ENV type');
         }
 
         // Get the name of the current route.
@@ -33,19 +33,19 @@ class MenuService
         $menu = [];
         $currentDatabaseName = null;
         $i = -1;
-        foreach ((new Resource())->bySequence($userType) as $resource) {
+        foreach (Resource::bySequence(null, $envType) as $resource) {
             if ($resource->database['name'] !== $currentDatabaseName) {
                 $currentDatabaseName = $resource->database['name'];
                 $i++;
-                $menu[$i] = $this->databaseItem($resource->database, $userType, $currentRouteName);
+                $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName);
             }
-            $menu[$i]->children[] = $this->resourceItem($resource, $userType, $currentRouteName);
+            $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName);
         }
 
         if (Auth::guard('admin')->check()) {
 
             $menu[] = $this->menuItem(
-                [ 'title' => 'Admin Dashboard', 'route'    => 'admin.dashboard' ],
+                [ 'title' => 'Admin Dashboard', 'route' => 'admin.dashboard' ],
                 $currentRouteName
             );
 
@@ -121,18 +121,18 @@ class MenuService
     /**
      * Returns the array of items for the left nav menu.
      *
-     * @param string|null $userType
+     * @param string | null $envType
      * @return array
      * @throws \Exception
      */
-    public function getTopMenu(string|null $userType = null): array
+    public function getTopMenu(string | null $envType = null): array
     {
-        // Verify the user type.
-        if (empty($userType)) {
-            $userType = PermissionService::currentUserType();
+        // Verify the ENV type.
+        if (empty($envType)) {
+            $envType = PermissionService::currentEnvType();
         }
-        if (!in_array($userType, PermissionService::ENV_TYPES)) {
-            throw new \Exception('Invalid current user type');
+        if (!in_array($envType, PermissionService::ENV_TYPES)) {
+            throw new \Exception('Invalid current ENV type');
         }
 
         // Get the name of the current route.
@@ -142,13 +142,13 @@ class MenuService
         $menu = [];
         $currentDatabaseName = null;
         $i = -1;
-        foreach ((new Resource())->bySequence($userType) as $resource) {
+        foreach (Resource::bySequence(null, $envType) as $resource) {
             if ($resource->database['name'] !== $currentDatabaseName) {
                 $currentDatabaseName = $resource->database['name'];
                 $i++;
-                $menu[$i] = $this->databaseItem($resource->database, $userType, $currentRouteName);
+                $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName);
             }
-            $menu[$i]->children[] = $this->resourceItem($resource, $userType, $currentRouteName);
+            $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName);
         }
 
         if (Auth::guard('admin')->check()) {
@@ -261,13 +261,13 @@ class MenuService
      * Returns the menu item for a database.
      *
      * @param array $database
-     * @param string $userType
+     * @param string $envType
      * @param string $currentRouteName
      * @return stdClass
      */
-    public function databaseItem(array $database, string $userType, string $currentRouteName): stdClass
+    public function databaseItem(array $database, string $envType, string $currentRouteName): stdClass
     {
-        $routePrefix = $userType . '.';
+        $routePrefix = $envType . '.';
 
         $menuItem = new stdClass();
         $menuItem->id                = $database['id'] ?? null;
@@ -299,13 +299,13 @@ class MenuService
      * Returns the menu item for a resource.
      * *
      * @param Resource $resource
-     * @param string $userType
+     * @param string $envType
      * @param string $currentRouteName
      * @return stdClass
      */
-    public function resourceItem(Resource $resource, string $userType, string $currentRouteName): stdClass
+    public function resourceItem(Resource $resource, string $envType, string $currentRouteName): stdClass
     {
-        $routePrefix = $userType . '.';
+        $routePrefix = $envType . '.';
         if ($resource->database['tag'] !== 'db') {
             $routePrefix .= $resource->database['name'] . '.';
         }

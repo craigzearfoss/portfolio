@@ -1,11 +1,12 @@
 @extends('admin.layouts.default', [
     'title' => 'Career',
     'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard')],
         [ 'name' => 'Career']
     ],
     'buttons' => [],
-    'errors'  => $errors->any() ?? [],
+    'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])
@@ -14,20 +15,30 @@
 
     <div class="card m-4">
 
-        <div class="card-head p-4">
-            <h1>Careers</h1>
-        </div>
-
         <div class="card-body p-4">
 
-            <ul>
-                @foreach ($careerTypes as $careerType)
-                    <li><a href="{{ route('admin.career.'.$careerType->type.'.index') }}">{{ $careerType->name }}</a></li>
-                @endforeach
-            </ul>
+            <div class="list is-hoverable">
+
+                <ul class="menu-list" style="max-width: 20em;">
+
+                    @foreach ($careers as $career)
+
+                        <li>
+                            @include('admin.components.link', [
+                                'name'  => $career->plural,
+                                'href'  => route('admin.career.'.$career->name.'.index'),
+                                'class' => 'list-item',
+                            ])
+                        </li>
+
+                    @endforeach
+
+                </ul>
+
+            </div>
 
         </div>
 
-    </div>
+</div>
 
 @endsection

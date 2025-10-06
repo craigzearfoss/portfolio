@@ -31,20 +31,20 @@ class PermissionService
     ];
 
     /**
-     * Returns true if the user type has permission to execute the given action on the resource type.
+     * Returns true if the ENV type has permission to execute the given action on the resource type.
      *
      * @param string $resourceType
      * @param string $action
-     * @param string $userType
+     * @param string $envType
      * @return bool
      */
-    public function allowResource(string $resourceType, string $action, string $userType = 'guest'): bool
+    public function allowResource(string $resourceType, string $action, string $envType = 'guest'): bool
     {
-        if (empty($userType)) {
-            $userType = $this->currentUserType();
+        if (empty($envType)) {
+            $envType = self::currentEnvType();
         }
 
-        if (in_array($userType, [self::ENV_GUEST, self::ENV_USER])) {
+        if (in_array($envType, [self::ENV_GUEST, self::ENV_USER])) {
 
             // Guests and users can only read resource types.
             if ($action !== self::ACTION_READ) {
@@ -56,7 +56,7 @@ class PermissionService
                         ->get()->count() > 0;
             }
 
-        } elseif ($userType === self::ENV_ADMIN) {
+        } elseif ($envType === self::ENV_ADMIN) {
 
             if (!empty(Auth::guard('admin')->user()->root)) {
                 // Root admins can view disabled resource types.
@@ -74,22 +74,22 @@ class PermissionService
     }
 
     /**
-     * Returns an array of resource permissions for the specified user type.
+     * Returns an array of resource permissions for the specified ENV type.
      *
-     * @param string|null $userType - If not specified, this defaults to the type for the current user.
+     * @param string|null $envType - If not specified, this defaults to the type for the current user.
      * @param bool $isRoot
      * @return array
      * @throws \Exception
      */
-    public function resourcePermissions(string|null $userType, bool $isRoot = false): array
+    public function resourcePermissions(string|null $envType, bool $isRoot = false): array
     {
-        if (empty($userType)) {
-            $userType = $this->currentUserType();
+        if (empty($envType)) {
+            $envType = self::currentEnvType();
         }
 
         $permissions = [];
 
-        foreach ((new Resource())->bySequence($userType) as $resource) {
+        foreach (Resource::bySequence(null, $envType) as $resource) {
 
             if (!array_key_exists($resource->db_name, $permissions)) {
                 $permissions[$resource->db_name] = [
@@ -102,7 +102,7 @@ class PermissionService
 
             $permissions[$resource->db_name]['READ'][] = $resource->name;
 
-            if ($userType ===  self::ENV_ADMIN) {
+            if ($envType ===  self::ENV_ADMIN) {
                 if ($isRoot || empty($resource->root)) {
                     $permissions[$resource->db_name]['CREATE'][] = $resource->name;
                     $permissions[$resource->db_name]['UPDATE'][] = $resource->name;
@@ -115,11 +115,11 @@ class PermissionService
     }
 
     /**
-     * Returns the type of the current user.
+     * Returns the current ENV type of the user.
      *
      * @return string
      */
-    public static function currentUserType(): string
+    public static function currentEnvType(): string
     {
         if (Auth::guard('admin')->user()) {
             return self::ENV_ADMIN;

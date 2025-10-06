@@ -1,0 +1,78 @@
+@extends('admin.layouts.default', [
+    'title' => 'Admin Group: ' . $adminGroup->name,
+    'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'System',          'href' => route('admin.system.index') ],
+        [ 'name' => 'Admin Groups',    'href' => route('admin.system.admin-group.index') ],
+        [ 'name' => $adminGroup->name ]
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',       'href' => route('admin.system.admin-group.edit', $adminGroup) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Admin Group', 'href' => route('admin.system.admin-group.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',          'href' => referer('admin.system.admin-group.index') ],
+    ],
+    'errorMessages'=> $errors->messages() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
+
+@section('content')
+
+    <div class="show-container card p-4">
+
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $adminGroup->id
+        ])
+
+        @if(isRootAdmin())
+            @include('admin.components.show-row', [
+                'name'  => 'owner',
+                'value' => $adminGroup->owner['username'] ?? ''
+            ])
+        @endif
+
+        @include('admin.components.show-row', [
+            'name'  => 'team',
+            'value' => $adminGroup->team['name'] ?? ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'name',
+            'value' => $adminGroup->name
+        ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'slug',
+                'value' => $adminGroup->slug
+            ])
+
+            @include('admin.components.show-row', [
+                'name'  => 'abbreviation',
+                'value' => $adminGroup->abbreviation
+            ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => $adminGroup->description
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'disabled',
+            'checked' => $adminGroup->disabled
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'created at',
+            'value' => longDateTime($adminGroup->created_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'updated at',
+            'value' => longDateTime($adminGroup->updated_at)
+        ])
+
+    </div>
+
+@endsection

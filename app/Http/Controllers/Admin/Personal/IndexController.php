@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Admin\Personal;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Resource;
+use App\Services\PermissionService;
 
 class IndexController extends BaseController
 {
     public function index()
     {
-        $careerTypes = Resource::where('section', 'Career')->orderBy('sequence', 'asc') ->get();
+        $personals = Resource::bySequence( 'personal', PermissionService::ENV_ADMIN);
 
-        return view('admin.career.index', compact('careerTypes'));
+        return view('admin.personal.index', compact('personals'));
     }
 }
