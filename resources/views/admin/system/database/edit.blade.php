@@ -19,7 +19,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.database.update', $database) }}" method="POST">
+        <form action="{{ route('admin.system.database.update', $database) }}" method="POST">
             @csrf
             @method('PUT')
 

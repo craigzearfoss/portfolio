@@ -43,12 +43,8 @@ class SkillStoreRequest extends FormRequest
             ]);
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'     => ['integer', 'required', Rule::in($ownerIds)],
+            'owner_id'     => ['integer', 'exists:core_db.admins,id'],
             'name'         => [
                 'string',
                 'required',

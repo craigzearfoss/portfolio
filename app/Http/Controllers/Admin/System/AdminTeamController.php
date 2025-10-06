@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminTeamStoreRequest;
-use App\Http\Requests\AdminTeamUpdateRequest;
+use App\Http\Requests\System\AdminTeamStoreRequest;
+use App\Http\Requests\System\AdminTeamUpdateRequest;
 use App\Models\AdminTeam;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

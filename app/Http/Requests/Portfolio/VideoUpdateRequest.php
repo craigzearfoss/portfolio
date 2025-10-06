@@ -39,12 +39,8 @@ class VideoUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a video.');
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'       => ['integer', 'filled', Rule::in($ownerIds)],
+            'owner_id'       => ['integer', 'exists:core_db.admins,id'],
             'name'           => [
                 'string',
                 'filled',

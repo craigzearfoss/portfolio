@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\AdminStoreRequest;
-use App\Http\Requests\AdminUpdateRequest;
+use App\Http\Requests\System\AdminStoreRequest;
+use App\Http\Requests\System\AdminUpdateRequest;
 use App\Models\Admin;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

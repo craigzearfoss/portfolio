@@ -40,14 +40,10 @@ class MusicUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for music.');
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         $maxYear = intval(date("Y")) + 1;
 
         return [
-            'owner_id'       => ['integer', 'filled', Rule::in($ownerIds)],
+            'owner_id'      => ['integer', 'exists:core_db.admins,id'],
             'name'           => ['string', 'filled', 'max:255', 'unique:portfolio_db.music,name,'.$this->music->id],
             'artist'         => ['string', 'max:255', 'nullable'],
             'slug'           => [

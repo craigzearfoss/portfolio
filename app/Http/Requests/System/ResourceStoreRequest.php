@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\System;
 
 use App\Models\Database;
 use App\Models\Resource;
@@ -26,12 +26,8 @@ class ResourceStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'    => ['integer', 'required', Rule::in($ownerIds)],
+            'owner_id'    => ['integer', 'exists:core_db.admins,id'],
             'database_id' => ['integer', 'required', Rule::in(Database::all()->pluck('id')->toArray())],
             'name'        => ['string', 'required', 'max:50', 'unique:resources,name'],
             'parent_id'   => ['integer', Rule::in(Resource::where('id', '<>', $this->id)->all()->pluck('id')->toArray()), 'nullable'],

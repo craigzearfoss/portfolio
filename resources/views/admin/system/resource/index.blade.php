@@ -7,7 +7,7 @@
         [ 'name' => 'Resources' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'href' => route('admin.resource.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'href' => route('admin.system.resource.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -103,13 +103,13 @@
                         @include('admin.components.checkmark', [ 'checked' => $resource->disabled ])
                     </td>
                     <td>
-                        <form action="{{ route('admin.resource.destroy', $resource->id) }}" method="POST">
+                        <form action="{{ route('admin.system.resource.destroy', $resource->id) }}" method="POST">
 
-                            <a class="button is-small px-1 py-0" href="{{ route('admin.resource.show', $resource->id) }}">
+                            <a class="button is-small px-1 py-0" href="{{ route('admin.system.resource.show', $resource->id) }}">
                                 <i class="fa-solid fa-list"></i>{{-- Show --}}
                             </a>
 
-                            <a class="button is-small px-1 py-0" href="{{ route('admin.resource.edit', $resource->id) }}">
+                            <a class="button is-small px-1 py-0" href="{{ route('admin.system.resource.edit', $resource->id) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
                             </a>
 

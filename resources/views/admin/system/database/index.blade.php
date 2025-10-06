@@ -7,7 +7,7 @@
         [ 'name' => 'Databases' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'href' => route('admin.database.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'href' => route('admin.system.database.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -108,13 +108,13 @@
                         @include('admin.components.checkmark', [ 'checked' => $database->disabled ])
                     </td>
                     <td>
-                        <form action="{{ route('admin.database.destroy', $database->id) }}" method="POST">
+                        <form action="{{ route('admin.system.database.destroy', $database->id) }}" method="POST">
 
-                            <a class="button is-small px-1 py-0" href="{{ route('admin.database.show', $database->id) }}">
+                            <a class="button is-small px-1 py-0" href="{{ route('admin.system.database.show', $database->id) }}">
                                 <i class="fa-solid fa-list"></i>{{-- Show --}}
                             </a>
 
-                            <a class="button is-small px-1 py-0" href="{{ route('admin.database.edit', $database->id) }}">
+                            <a class="button is-small px-1 py-0" href="{{ route('admin.system.database.edit', $database->id) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
                             </a>
 

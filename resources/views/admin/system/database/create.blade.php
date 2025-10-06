@@ -4,11 +4,11 @@
         [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => 'Databases',       'href' => route('admin.database.index') ],
+        [ 'name' => 'Databases',       'href' => route('admin.system.database.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.database.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.database.index') ],
     ],
     'errorMessages' => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -19,12 +19,12 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.database.store') }}" method="POST">
+        <form action="{{ route('admin.system.database.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.database.index')
+                'value' => referer('admin.system.database.index')
             ])
 
             @if(isRootAdmin())
@@ -184,7 +184,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Database',
-                'cancel_url' => referer('admin.database.index')
+                'cancel_url' => referer('admin.system.database.index')
             ])
 
         </form>

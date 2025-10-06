@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\UserStoreRequest;
-use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\System\UserStoreRequest;
+use App\Http\Requests\System\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

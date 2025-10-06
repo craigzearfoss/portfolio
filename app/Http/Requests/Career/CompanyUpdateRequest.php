@@ -67,13 +67,13 @@ class CompanyUpdateRequest extends FormRequest
                         ->where('slug', $this->slug);
                 })
             ],
-            'industry_id'     => ['integer', 'filled', Rule::in(Industry::all()->pluck('id')->toArray())],
+            'industry_id'     => ['integer', 'filled', 'exists:career_db.industries,id'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],
-            'state_id'        => ['integer', Rule::in(State::all('id')->pluck('id')->toArray()), 'nullable'],
+            'state_id'        => ['integer', 'exists:core_db.states,id', 'nullable'],
             'zip'             => ['string', 'max:20', 'nullable'],
-            'country_id'      => ['integer', Rule::in(Country::all('id')->pluck('id')->toArray()), 'nullable'],
+            'country_id'      => ['integer', 'exists:core_db.countries,id', 'nullable'],
             'latitude'        => ['numeric:strict', 'nullable'],
             'longitude'       => ['numeric:strict', 'nullable'],
             'phone'           => ['string', 'max:50', 'nullable'],

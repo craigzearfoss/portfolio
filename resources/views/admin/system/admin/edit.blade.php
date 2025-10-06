@@ -33,6 +33,14 @@
                 'value' => $admin->id
             ])
 
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'team_id',
+                'label'   => 'team',
+                'value'   => old('team_id') ?? $admin->team['id'] ?? $admin->team_id,
+                'list'    => \App\Models\AdminTeam::listOptions(),
+                'message' => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'username',
                 'label'     => 'user name',
@@ -51,11 +59,66 @@
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'team_id',
-                'label'   => 'team',
-                'value'   => old('team_id') ?? $admin->team['id'] ?? $admin->team_id,
-                'list'    => \App\Models\AdminTeam::listOptions(),
+                'name'    => 'title',
+                'value'   => old('title') ?? $admin->title,
+                'list'    => \App\Models\User::titleListOptions([], true, true),
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'street',
+                'value'     => old('street') ?? $admin->street,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'street2',
+                'value'     => old('street2') ?? $admin->street2,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'city',
+                'value'     => old('city') ?? $admin->city,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'state_id',
+                'label'   => 'state',
+                'value'   => old('state_id') ?? $admin->state_id,
+                'list'    => \App\Models\State::listOptions([], 'id', 'name', true),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'zip',
+                'value'     => old('zip') ?? $admin->zip,
+                'maxlength' => 20,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'country_id',
+                'label'   => 'country',
+                'value'   => old('country_id') ?? $admin->country_id,
+                'list'    => \App\Models\Country::listOptions([], 'id', 'name', true),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'latitude',
+                'value'     => old('latitude') ?? $admin->latitude,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'longitude',
+                'value'     => old('longitude') ?? $admin->longitude,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -72,6 +135,28 @@
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'link',
+                'value'     => old('link') ?? $admin->link,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'link_name',
+                'label'     => 'link name',
+                'value'     => old('link_name') ?? $admin->link_name,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'description',
+                'id'      => 'inputEditor',
+                'value'   => old('description') ?? $admin->description,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [

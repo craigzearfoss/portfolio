@@ -47,61 +47,6 @@ class ContactStoreRequest extends FormRequest
         $ownerIds = isRootAdmin()
             ? Owner::all('id')->pluck('id')->toArray()
             : [ Auth::guard('admin')->user()->id ];
-/*
-        dd($this);
-        dd([
-            'owner_id'        => ['integer', 'required', Rule::in($ownerIds)],
-            'name'            => [
-                'string',
-                'required',
-                'max:255',
-                Rule::unique('career_db.contacts')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name);
-                })
-            ],
-            'slug'            => [
-                'string',
-                'required',
-                'max:255',
-                Rule::unique('career_db.contacts')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
-                })
-            ],
-            'title'           => ['string', 'max:20', 'nullable'],
-            'job_title'       => ['string', 'max:100', 'nullable'],
-            'street'          => ['string', 'max:255', 'nullable'],
-            'street2'         => ['string', 'max:255', 'nullable'],
-            'city'            => ['string', 'max:100', 'nullable'],
-            'state_id'        => ['integer', Rule::in(State::all('id')->pluck('id')->toArray()), 'nullable'],
-            'zip'             => ['string', 'max:20', 'nullable'],
-            'country_id'      => ['integer', Rule::in(Country::all('id')->pluck('id')->toArray()), 'nullable'],
-            'latitude'        => ['numeric:strict', 'nullable'],
-            'longitude'       => ['numeric:strict', 'nullable'],
-            'phone'           => ['string', 'max:20', 'nullable'],
-            'phone_label'     => ['string', 'max:255', 'nullable'],
-            'alt_phone'       => ['string', 'max:20', 'nullable'],
-            'alt_phone_label' => ['string', 'max:255', 'nullable'],
-            'email'           => ['string', 'max:255', 'nullable'],
-            'email_label'     => ['string', 'max:255', 'nullable'],
-            'alt_email'       => ['string', 'max:255', 'nullable'],
-            'alt_email_label' => ['string', 'max:255', 'nullable'],
-            'birthday'        => ['date', 'nullable'],
-            'link'            => ['string', 'url:http,https', 'max:255', 'nullable'],
-            'link_name'       => ['string', 'max:255', 'nullable'],
-            'description'     => ['nullable'],
-            'image'           => ['string', 'max:255', 'nullable'],
-            'image_credit'    => ['string', 'max:255', 'nullable'],
-            'image_source'    => ['string', 'max:255', 'nullable'],
-            'thumbnail'       => ['string', 'max:255', 'nullable'],
-            'sequence'        => ['integer', 'min:0'],
-            'public'          => ['integer', 'between:0,1'],
-            'readonly'        => ['integer', 'between:0,1'],
-            'root'            => ['integer', 'between:0,1'],
-            'disabled'        => ['integer', 'between:0,1'],
-        ]);
-*/
 
         return [
             'owner_id'        => ['integer', 'required', Rule::in($ownerIds)],
@@ -128,9 +73,9 @@ class ContactStoreRequest extends FormRequest
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],
-            'state_id'        => ['integer', Rule::in(State::all('id')->pluck('id')->toArray()), 'nullable'],
+            'state_id'        => ['integer', 'exists:core_db.states,id', 'nullable'],
             'zip'             => ['string', 'max:20', 'nullable'],
-            'country_id'      => ['integer', Rule::in(Country::all('id')->pluck('id')->toArray()), 'nullable'],
+            'country_id'      => ['integer', 'exists:core_db.countries,id', 'nullable'],
             'latitude'        => ['numeric:strict', 'nullable'],
             'longitude'       => ['numeric:strict', 'nullable'],
             'phone'           => ['string', 'max:50', 'nullable'],

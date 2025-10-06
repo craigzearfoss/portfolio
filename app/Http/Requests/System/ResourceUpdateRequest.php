@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\System;
 
 use App\Models\Database;
 use App\Models\Owner;
@@ -26,12 +26,8 @@ class ResourceUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'    => ['integer', 'filled', Rule::in($ownerIds)],
+            'owner_id'    => ['integer', 'exists:core_db.admins,id'],
             'database_id' => ['integer', 'filled', Rule::in(Database::all()->pluck('id')->toArray())],
             'name'        => ['string', 'filled', 'max:50', 'unique:resources,name,'.$this->resources->id],
             'parent_id'   => ['integer', Rule::in(Resource::where('id', '<>', $this->id)->all()->pluck('id')->toArray()), 'nullable'],            'table'       => ['string', 'filled', 'max:50', 'unique:resources,table,'.$this->resources->id],

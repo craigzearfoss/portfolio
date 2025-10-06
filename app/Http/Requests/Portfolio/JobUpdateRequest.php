@@ -42,12 +42,8 @@ class JobUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a job.');
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'     => ['integer', 'filled', Rule::in($ownerIds)],
+            'owner_id'     => ['integer', 'exists:core_db.admins,id'],
             'name'         => ['string', 'filled', 'max:255', 'unique:portfolio_db.jobs,name,'.$this->job->id],
             'role'         => ['string', 'max:255',],
             'slug'         => [
@@ -70,9 +66,9 @@ class JobUpdateRequest extends FormRequest
             'street'       => ['string', 'max:255', 'nullable'],
             'street2'      => ['string', 'max:255', 'nullable'],
             'city'         => ['string', 'max:100', 'nullable'],
-            'state_id'     => ['integer', Rule::in(State::all('id')->pluck('id')->toArray()), 'nullable'],
+            'state_id'     => ['integer', 'exists:core_db.states,id', 'nullable'],
             'zip'          => ['string', 'max:20', 'nullable'],
-            'country_id'   => ['integer', Rule::in(Country::all('id')->pluck('id')->toArray()), 'nullable'],
+            'country_id'   => ['integer', 'exists:core_db.countries,id', 'nullable'],
             'latitude'     => ['numeric:strict', 'nullable'],
             'longitude'    => ['numeric:strict', 'nullable'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],

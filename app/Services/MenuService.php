@@ -77,12 +77,12 @@ class MenuService
                     if (property_exists($menu[$i],'tag') && ($menu[$i]->tag === 'db')) {
 
                         $menu[$i]->children[] = $this->menuItem(
-                            [ 'title' => 'Databases', 'route' => 'admin.database.index', 'icon' => 'fa-database' ],
+                            [ 'title' => 'Databases', 'route' => 'admin.system.database.index', 'icon' => 'fa-database' ],
                             $currentRouteName
                         );
 
                         $menu[$i]->children[] = $this->menuItem(
-                            [ 'title' => 'Resources', 'route'    => 'admin.resource.index', 'icon' => 'fa-table' ],
+                            [ 'title' => 'Resources', 'route'    => 'admin.system.resource.index', 'icon' => 'fa-table' ],
                             $currentRouteName
                         );
                     }
@@ -216,12 +216,12 @@ class MenuService
                     if (property_exists($menu[$i],'tag') && ($menu[$i]->tag === 'db')) {
 
                         $menu[$i]->children[] = $this->menuItem(
-                            [ 'title' => 'Databases', 'route'    => 'admin.database.index', 'icon' => 'fa-database' ],
+                            [ 'title' => 'Databases', 'route'    => 'admin.system.database.index', 'icon' => 'fa-database' ],
                             $currentRouteName
                         );
 
                         $menu[$i]->children[] = $this->menuItem(
-                            [ 'title' => 'Resources', 'route'    => 'admin.resource.index', 'icon' => 'fa-table' ],
+                            [ 'title' => 'Resources', 'route'    => 'admin.system.resource.index', 'icon' => 'fa-table' ],
                             $currentRouteName
                         );
                     }

@@ -4,11 +4,11 @@
         [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => 'Resources',       'href' => route('admin.resource.index') ],
+        [ 'name' => 'Resources',       'href' => route('admin.system.resource.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.resource.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.resource.index') ],
     ],
     'errorMessages' => $errors->any() ? ['Fix the indicated errors before saving.'] : [],
     'success' => session('success') ?? null,
@@ -19,12 +19,12 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.resource.store') }}" method="POST">
+        <form action="{{ route('admin.system.resource.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.resource.index')
+                'value' => referer('admin.system.resource.index')
             ])
 
             @if(isRootAdmin())
@@ -185,7 +185,7 @@
 
             @include('admin.components.form-button-submit', [
                 'label'      => 'Add Resource',
-                'cancel_url' => referer('admin.resource.index')
+                'cancel_url' => referer('admin.system.resource.index')
             ])
 
         </form>

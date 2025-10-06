@@ -36,12 +36,8 @@ class JobTaskStoreRequest extends FormRequest
             ]);
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'        => ['integer', 'required',Rule::in($ownerIds)],
+            'owner_id'        => ['integer', 'exists:core_db.admins,id'],
             'job_id'          => ['integer', 'required', Rule::in(Job::all('id')->pluck('id')->toArray())],
             'summary'         => ['string', 'required', 'max:255'],
             'notes'           => ['nullable'],

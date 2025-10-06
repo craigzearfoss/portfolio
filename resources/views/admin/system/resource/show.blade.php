@@ -4,13 +4,13 @@
         [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => 'Resources',       'href' => route('admin.resource.index') ],
+        [ 'name' => 'Resources',       'href' => route('admin.system.resource.index') ],
         [ 'name' => $resource->database->name . '.' . $resource->name ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.resource.edit', $resource) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'href' => route('admin.resource.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.resource.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.system.resource.edit', $resource) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'href' => route('admin.system.resource.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.system.resource.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -47,7 +47,7 @@
             @include('admin.components.show-row-link', [
                 'name'   => 'parent',
                 'label'  => $resource->parent['name'],
-                'href'   => route('admin.resource.show', $resource->parent['id'])
+                'href'   => route('admin.system.resource.show', $resource->parent['id'])
             ])
         @else
             @include('admin.components.show-row', [
@@ -65,7 +65,7 @@
                             <li>
                                 @include('admin.components.link', [
                                     'name' => $child['name'],
-                                    'href' => route('admin.resource.show', $child)
+                                    'href' => route('admin.system.resource.show', $child)
                                 ])
                             </li>
                         @endforeach

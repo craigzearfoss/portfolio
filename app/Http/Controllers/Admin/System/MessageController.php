@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\MessageStoreRequest;
-use App\Http\Requests\MessageUpdateRequest;
+use App\Http\Requests\System\MessageStoreRequest;
+use App\Http\Requests\System\MessageUpdateRequest;
 use App\Models\Message;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

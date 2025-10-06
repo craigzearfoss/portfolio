@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\DatabaseStoreRequest;
-use App\Http\Requests\DatabaseUpdateRequest;
+use App\Http\Requests\System\DatabaseStoreRequest;
+use App\Http\Requests\System\DatabaseUpdateRequest;
 use App\Models\Database;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,7 +27,7 @@ class DatabaseController extends BaseController
 
         $databases = Database::orderBy('name', 'asc')->paginate($perPage);
 
-        return view('admin.database.index', compact('databases'))
+        return view('admin.system.database.index', compact('databases'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -38,7 +38,7 @@ class DatabaseController extends BaseController
      */
     public function create(): View
     {
-        return view('admin.database.create');
+        return view('admin.system.database.create');
     }
 
     /**
@@ -51,7 +51,7 @@ class DatabaseController extends BaseController
     {
         $database = Database::create($databaseStoreRequest->validated());
 
-        return redirect(referer('admin.database.index'))
+        return redirect(referer('admin.system.database.index'))
             ->with('success', $database->name . ' database added successfully.');
     }
 
@@ -63,7 +63,7 @@ class DatabaseController extends BaseController
      */
     public function show(Database $database): View
     {
-        return view('admin.database.show', compact('database'));
+        return view('admin.system.database.show', compact('database'));
     }
 
     /**
@@ -74,7 +74,7 @@ class DatabaseController extends BaseController
      */
     public function edit(Database $database): View
     {
-        return view('admin.database.edit', compact('database'));
+        return view('admin.system.database.edit', compact('database'));
     }
 
     /**
@@ -88,7 +88,7 @@ class DatabaseController extends BaseController
     {
         $database->update($databaseUpdateRequest->validated());
 
-        return redirect(referer('admin.database.index'))
+        return redirect(referer('admin.system.database.index'))
             ->with('success', $database->name . ' database updated successfully.');
     }
 
@@ -102,7 +102,7 @@ class DatabaseController extends BaseController
     {
         $database->delete();
 
-        return redirect(referer('admin.database.index'))
+        return redirect(referer('admin.system.database.index'))
             ->with('success', $database->name . ' database deleted successfully.');
     }
 }

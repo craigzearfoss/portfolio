@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin\System;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserGroupStoreRequest;
-use App\Http\Requests\UserGroupUpdateRequest;
+use App\Http\Requests\System\UserGroupStoreRequest;
+use App\Http\Requests\System\UserGroupUpdateRequest;
 use App\Models\UserGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

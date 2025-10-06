@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\AdminStoreRequest;
+use App\Http\Requests\System\AdminStoreRequest;
 use App\Http\Requests\Career\CompanyContactStoreRequest;
 use App\Http\Requests\Career\CompanyStoreRequest;
 use App\Http\Requests\Career\CompanyUpdateRequest;

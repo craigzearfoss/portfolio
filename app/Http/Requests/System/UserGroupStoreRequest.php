@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\System;
 
 use App\Models\Owner;
 use App\Models\UserTeam;
@@ -38,12 +38,8 @@ class UserGroupStoreRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a course.');
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'      => ['integer', 'required', Rule::in($ownerIds)],
+            'owner_id'      => ['integer', 'exists:core_db.admins,id'],
             'user_team_id'  => ['integer', 'required', Rule::in(UserTeam::all('id')->pluck('id')->toArray())],
             'name'          => [
                 'string',
