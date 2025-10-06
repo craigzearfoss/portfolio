@@ -6,7 +6,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu();
     <div class="aside-tools">
         <div class="aside-tools-label">
 
-            <a class="has-text-primary" href="{{ route('front.homepage') }}"><strong>{{ config('app.name') }}</strong></a>
+            <a class="has-text-primary" href="{{ route('guest.homepage') }}"><strong>{{ config('app.name') }}</strong></a>
 
         </div>
     </div>

@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Front\CertificateController as FrontCertificateController;
-use App\Http\Controllers\Front\FrontendController;
+use App\Http\Controllers\Guest\CertificateController as FrontCertificateController;
+use App\Http\Controllers\Guest\FrontendController;
 use App\Http\Controllers\User\UserController;
 /*
 Route::prefix('api/v1/')->group(function () {

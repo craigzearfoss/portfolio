@@ -13,35 +13,35 @@ use App\Http\Controllers\Admin\Portfolio\MusicController as AdminPortfolioMusicC
 use App\Http\Controllers\Admin\Portfolio\ProjectController as AdminPortfolioProjectController;
 use App\Http\Controllers\Admin\Portfolio\SkillController as AdminPortfolioSkillController;
 use App\Http\Controllers\Admin\Portfolio\VideoController as AdminPortfolioVideoController;
-use App\Http\Controllers\Front\ArtController as FrontArtController;
-use App\Http\Controllers\Front\CertificationController as FrontCertificationController;
-use App\Http\Controllers\Front\CourseController as FrontCourseController;
-use App\Http\Controllers\Front\LinkController as FrontLinkController;
-use App\Http\Controllers\Front\MusicController as FrontMusicController;
-use App\Http\Controllers\Front\PortfolioController as FrontPortfolioController;
-use App\Http\Controllers\Front\ProjectController as FrontProjectController;
-use App\Http\Controllers\Front\VideoController as FrontVideoController;
+use App\Http\Controllers\Guest\Portfolio\ArtController as GuestPortfolioArtController;
+use App\Http\Controllers\Guest\Portfolio\CertificationController as GuestPortfolioCertificationController;
+use App\Http\Controllers\Guest\Portfolio\CourseController as GuestPortfolioCourseController;
+use App\Http\Controllers\Guest\Portfolio\LinkController as GuestPortfolioLinkController;
+use App\Http\Controllers\Guest\Portfolio\MusicController as GuestPortfolioMusicController;
+use App\Http\Controllers\Guest\Portfolio\IndexController as GuestPortfolioIndexController;
+use App\Http\Controllers\Guest\Portfolio\ProjectController as GuestPortfolioProjectController;
+use App\Http\Controllers\Guest\Portfolio\VideoController as GuestPortfolioVideoController;
 use Illuminate\Support\Facades\Route;
 
-Route::name('front.')->group(function () {
+Route::name('guest.')->group(function () {
 
     // resources
     Route::prefix('portfolio')->name('portfolio.')->group(function () {
-        Route::get('/', [FrontPortfolioController::class, 'index'])->name('index');
-        Route::get('/art', [FrontArtController::class, 'index'])->name('art.index');
-        Route::get('/art/{slug}', [FrontArtController::class, 'show'])->name('art.show');
-        Route::get('/certifications', [FrontCertificationController::class, 'index'])->name('certification.index');
-        Route::get('/certification/{slug}', [FrontCertificationController::class, 'show'])->name('certification.show');
-        Route::get('/courses', [FrontCourseController::class, 'index'])->name('course.index');
-        Route::get('/course/{slug}', [FrontCourseController::class, 'show'])->name('course.show');
-        Route::get('/links', [FrontLinkController::class, 'index'])->name('link.index');
-        Route::get('/link/{slug}', [FrontLinkController::class, 'show'])->name('link.show');
-        Route::get('/music', [FrontMusicController::class, 'index'])->name('music.index');
-        Route::get('/music/{slug}', [FrontMusicController::class, 'show'])->name('music.show');
-        Route::get('/projects', [FrontProjectController::class, 'index'])->name('project.index');
-        Route::get('/project/{slug}', [FrontProjectController::class, 'show'])->name('project.show');
-        Route::get('/videos', [FrontVideoController::class, 'index'])->name('video.index');
-        Route::get('/video/{slug}', [FrontVideoController::class, 'show'])->name('video.show');
+        Route::get('/', [GuestPortfolioIndexController::class, 'index'])->name('index');
+        Route::get('/art', [GuestPortfolioArtController::class, 'index'])->name('art.index');
+        Route::get('/art/{slug}', [GuestPortfolioArtController::class, 'show'])->name('art.show');
+        Route::get('/certifications', [GuestPortfolioCertificationController::class, 'index'])->name('certification.index');
+        Route::get('/certification/{slug}', [GuestPortfolioCertificationController::class, 'show'])->name('certification.show');
+        Route::get('/courses', [GuestPortfolioCourseController::class, 'index'])->name('course.index');
+        Route::get('/course/{slug}', [GuestPortfolioCourseController::class, 'show'])->name('course.show');
+        Route::get('/links', [GuestPortfolioLinkController::class, 'index'])->name('link.index');
+        Route::get('/link/{slug}', [GuestPortfolioLinkController::class, 'show'])->name('link.show');
+        Route::get('/music', [GuestPortfolioMusicController::class, 'index'])->name('music.index');
+        Route::get('/music/{slug}', [GuestPortfolioMusicController::class, 'show'])->name('music.show');
+        Route::get('/projects', [GuestPortfolioProjectController::class, 'index'])->name('project.index');
+        Route::get('/project/{slug}', [GuestPortfolioProjectController::class, 'show'])->name('project.show');
+        Route::get('/videos', [GuestPortfolioVideoController::class, 'index'])->name('video.index');
+        Route::get('/video/{slug}', [GuestPortfolioVideoController::class, 'show'])->name('video.show');
     });
 });
 

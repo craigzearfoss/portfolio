@@ -31,7 +31,7 @@
 
                                         <h4>We are not currently accepting new users.</h4>
                                         <p class="p-4">
-                                            <a class="btn btn-sm btn-solid" href="{{ route('front.homepage') }}"><i
+                                            <a class="btn btn-sm btn-solid" href="{{ route('guest.homepage') }}"><i
                                                     class="fa fa-house"></i> Home</a>
                                         </p>
 
@@ -86,7 +86,7 @@
 
                                             <div class="mt-3 has-text-centered">
                                                 <span>Already have an account?</span>
-                                                <a class="text-primary-600 hover:underline" href="{{ route('front.login') }}">Login</a>
+                                                <a class="text-primary-600 hover:underline" href="{{ route('guest.login') }}">Login</a>
                                             </div>
 
                                         </form>

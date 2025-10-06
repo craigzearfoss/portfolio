@@ -22,7 +22,7 @@ class IndexController extends BaseController
         if (Auth::guard('web')->check()) {
             return view('user.dashboard');
         } else {
-            return view('front.index');
+            return view('guest.index');
         }
     }
 

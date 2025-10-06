@@ -1,28 +1,5 @@
 <?php
 
-use App\Http\Controllers\Front\ArtController;
-use App\Http\Controllers\Front\CertificationController;
-use App\Http\Controllers\Front\CourseController;
-use App\Http\Controllers\Front\IndexController;
-use App\Http\Controllers\Front\LinkController;
-use App\Http\Controllers\Front\MusicController;
-use App\Http\Controllers\Front\ProjectController;
-use App\Http\Controllers\Front\ReadingController;
-use App\Http\Controllers\Front\RecipeController;
-use App\Http\Controllers\Front\VideoController;
-
-use App\Http\Controllers\Front\Dictionary\IndexController as DictionaryController;
-use App\Http\Controllers\Front\Dictionary\CategoryController as DictionaryCategoryController;
-use App\Http\Controllers\Front\Dictionary\DatabaseController as DictionaryDatabaseController;
-use App\Http\Controllers\Front\Dictionary\FrameworkController as DictionaryFrameworkController;
-use App\Http\Controllers\Front\Dictionary\LanguageController as DictionaryLanguageController;
-use App\Http\Controllers\Front\Dictionary\LibraryController as DictionaryLibraryController;
-use App\Http\Controllers\Front\Dictionary\OperatingSystemController as DictionaryOperatingSystemController;
-use App\Http\Controllers\Front\Dictionary\ServerController as DictionaryServerController;
-use App\Http\Controllers\Front\Dictionary\StackController as DictionaryStackController;
-
-use Illuminate\Support\Facades\Route;
-
 /*Route::name('front.')->group(function () {
 
     Route::get('/', [IndexController::class, 'index'])->name('homepage');

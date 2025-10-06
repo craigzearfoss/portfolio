@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\ResourceController as AdminResourceController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 
-use App\Http\Controllers\Front\IndexController as FrontIndexController;
+use App\Http\Controllers\Guest\IndexController as FrontIndexController;
 
 use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
@@ -19,7 +19,7 @@ use App\Http\Controllers\Admin\UserTeamController as AdminUserTeamController;
 
 use Illuminate\Support\Facades\Route;
 
-Route::name('front.')->group(function () {
+Route::name('guest.')->group(function () {
 
     Route::get('/', [FrontIndexController::class, 'index'])->name('homepage');
     Route::get('/about', [FrontIndexController::class, 'about'])->name('about');

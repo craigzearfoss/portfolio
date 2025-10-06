@@ -30,7 +30,7 @@
                                         <button class="btn btn-solid w-full" type="submit">Send Email</button>
                                         <div class="mt-4 has-text-centered">
                                             <span>Back to </span>
-                                            <a class="text-primary-600 hover:underline" href="{{ route('front.login') }}">Login</a>
+                                            <a class="text-primary-600 hover:underline" href="{{ route('guest.login') }}">Login</a>
                                         </div>
                                     </div>
                                 </form>

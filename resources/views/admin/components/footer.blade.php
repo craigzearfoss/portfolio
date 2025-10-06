@@ -12,13 +12,13 @@
             </div>
             <div class="level-right">
                 <div class="level-item">
-                    <a href="{{ route('front.about') }}">About</a>
+                    <a href="{{ route('guest.about') }}">About</a>
                     <span class="mx-2"> | </span>
-                    <a href="{{ route('front.terms-and-conditions') }}">Terms & Conditions</a>
+                    <a href="{{ route('guest.terms-and-conditions') }}">Terms & Conditions</a>
                     <span class="mx-2"> | </span>
-                    <a href="{{ route('front.privacy-policy') }}">Privacy policy</a>
+                    <a href="{{ route('guest.privacy-policy') }}">Privacy policy</a>
                     <span class="mx-2"> | </span>
-                    <a href="{{ route('front.contact') }}">Contact</a>
+                    <a href="{{ route('guest.contact') }}">Contact</a>
                 </div>
             </div>
         </div>

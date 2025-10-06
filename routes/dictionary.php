@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Controllers\Front\Dictionary\CategoryController as FrontCategoryController;
-use App\Http\Controllers\Front\Dictionary\DatabaseController as FrontDatabaseController;
-use App\Http\Controllers\Front\Dictionary\FrameworkController as FrontFrameworkController;
-use App\Http\Controllers\Front\Dictionary\IndexController as FrontIndexController;
-use App\Http\Controllers\Front\Dictionary\LanguageController as FrontLanguageController;
-use App\Http\Controllers\Front\Dictionary\LibraryController as FrontLibraryController;
-use App\Http\Controllers\Front\Dictionary\OperatingSystemController as FrontOperatingSystemController;
-use App\Http\Controllers\Front\Dictionary\ServerController as FrontServerController;
-use App\Http\Controllers\Front\Dictionary\StackController as FrontStackController;
+use App\Http\Controllers\Guest\Dictionary\CategoryController as FrontCategoryController;
+use App\Http\Controllers\Guest\Dictionary\DatabaseController as FrontDatabaseController;
+use App\Http\Controllers\Guest\Dictionary\FrameworkController as FrontFrameworkController;
+use App\Http\Controllers\Guest\Dictionary\IndexController as FrontIndexController;
+use App\Http\Controllers\Guest\Dictionary\LanguageController as FrontLanguageController;
+use App\Http\Controllers\Guest\Dictionary\LibraryController as FrontLibraryController;
+use App\Http\Controllers\Guest\Dictionary\OperatingSystemController as FrontOperatingSystemController;
+use App\Http\Controllers\Guest\Dictionary\ServerController as FrontServerController;
+use App\Http\Controllers\Guest\Dictionary\StackController as FrontStackController;
 
 use App\Http\Controllers\Admin\Dictionary\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\Dictionary\DatabaseController as AdminDatabaseController;
@@ -22,7 +22,7 @@ use App\Http\Controllers\Admin\Dictionary\StackController as AdminStackControlle
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('dictionary')->name('front.dictionary.')->group(function () {
+Route::prefix('dictionary')->name('guest.dictionary.')->group(function () {
     Route::get('/', [FrontIndexController::class, 'index'])->name('index');
     Route::get('/category', [FrontCategoryController::class, 'index'])->name('category.index');
     Route::get('/category/{slug}', [FrontCategoryController::class, 'show'])->name('category.show');

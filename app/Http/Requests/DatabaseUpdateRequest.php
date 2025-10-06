@@ -35,7 +35,7 @@ class DatabaseUpdateRequest extends FormRequest
             'tag'         => ['string', 'filled', 'max:50'],
             'title'       => ['string', 'filled', 'max:50'],
             'plural'      => ['string', 'filled', 'max:50'],
-            'front'       => ['integer', 'between:0,1'],
+            'guest'       => ['integer', 'between:0,1'],
             'user'        => ['integer', 'between:0,1'],
             'admin'       => ['integer', 'between:0,1'],
             'icon'        => ['string', 'max:50', 'nullable'],

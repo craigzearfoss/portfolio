@@ -98,7 +98,7 @@ class Resource extends Model
      */
     public function bySequence(string $userType, bool $isRoot = false): Collection
     {
-        if (!in_array($userType, PermissionService::USER_TYPES)) {
+        if (!in_array($userType, PermissionService::ENV_TYPES)) {
             throw new \Exception('User type not supported');
         }
 

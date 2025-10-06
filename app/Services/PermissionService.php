@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class PermissionService
 {
-    const USER_TYPE_ADMIN = 'admin';
-    const USER_TYPE_USER = 'user';
-    const USER_TYPE_GUEST = 'guest';
+    const ENV_ADMIN = 'admin';
+    const ENV_USER = 'user';
+    const ENV_GUEST = 'guest';
 
-    const USER_TYPES = [
-        self::USER_TYPE_ADMIN,
-        self::USER_TYPE_USER,
-        self::USER_TYPE_GUEST,
+    const ENV_TYPES = [
+        self::ENV_ADMIN,
+        self::ENV_USER,
+        self::ENV_GUEST,
     ];
 
     const ACTION_CREATE = 'CREATE';
@@ -44,7 +44,7 @@ class PermissionService
             $userType = $this->currentUserType();
         }
 
-        if (in_array($userType, [self::USER_TYPE_GUEST, self::USER_TYPE_USER])) {
+        if (in_array($userType, [self::ENV_GUEST, self::ENV_USER])) {
 
             // Guests and users can only read resource types.
             if ($action !== self::ACTION_READ) {
@@ -56,7 +56,7 @@ class PermissionService
                         ->get()->count() > 0;
             }
 
-        } elseif ($userType === self::USER_TYPE_ADMIN) {
+        } elseif ($userType === self::ENV_ADMIN) {
 
             if (!empty(Auth::guard('admin')->user()->root)) {
                 // Root admins can view disabled resource types.
@@ -102,7 +102,7 @@ class PermissionService
 
             $permissions[$resource->db_name]['READ'][] = $resource->name;
 
-            if ($userType ===  self::USER_TYPE_ADMIN) {
+            if ($userType ===  self::ENV_ADMIN) {
                 if ($isRoot || empty($resource->root)) {
                     $permissions[$resource->db_name]['CREATE'][] = $resource->name;
                     $permissions[$resource->db_name]['UPDATE'][] = $resource->name;
@@ -122,11 +122,11 @@ class PermissionService
     public static function currentUserType(): string
     {
         if (Auth::guard('admin')->user()) {
-            return self::USER_TYPE_ADMIN;
+            return self::ENV_ADMIN;
         } elseif (Auth::guard('web')->user()) {
-            return self::USER_TYPE_USER;
+            return self::ENV_USER;
         } else {
-            return self::USER_TYPE_GUEST;
+            return self::ENV_GUEST;
         }
     }
 }

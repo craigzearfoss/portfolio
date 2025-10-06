@@ -22,7 +22,7 @@ class MenuService
         if (empty($userType)) {
             $userType = PermissionService::currentUserType();
         }
-        if (!in_array($userType, PermissionService::USER_TYPES)) {
+        if (!in_array($userType, PermissionService::ENV_TYPES)) {
             throw new \Exception('Invalid current user type');
         }
 
@@ -104,7 +104,7 @@ class MenuService
         } else {
 
             $menu[] = $this->menuItem(
-                [ 'name' => 'user-login', 'title'=> 'User Login', 'route' => 'front.login' ],
+                [ 'name' => 'user-login', 'title'=> 'User Login', 'route' => 'guest.login' ],
                 $currentRouteName
             );
 
@@ -131,7 +131,7 @@ class MenuService
         if (empty($userType)) {
             $userType = PermissionService::currentUserType();
         }
-        if (!in_array($userType, PermissionService::USER_TYPES)) {
+        if (!in_array($userType, PermissionService::ENV_TYPES)) {
             throw new \Exception('Invalid current user type');
         }
 
@@ -243,7 +243,7 @@ class MenuService
         } else {
 
             $menu[] = $this->menuItem(
-                [ 'title'=> 'User Login', 'route' => 'front.login' ],
+                [ 'title'=> 'User Login', 'route' => 'guest.login' ],
                 $currentRouteName
             );
 
@@ -267,7 +267,7 @@ class MenuService
      */
     public function databaseItem(array $database, string $userType, string $currentRouteName): stdClass
     {
-        $routePrefix = in_array($userType, [PermissionService::USER_TYPE_GUEST]) ? '' : $userType . '.';
+        $routePrefix = $userType . '.';
 
         $menuItem = new stdClass();
         $menuItem->id                = $database['id'] ?? null;
@@ -305,7 +305,7 @@ class MenuService
      */
     public function resourceItem(Resource $resource, string $userType, string $currentRouteName): stdClass
     {
-        $routePrefix = in_array($userType, [PermissionService::USER_TYPE_GUEST]) ? '' : $userType . '.';
+        $routePrefix = $userType . '.';
         if ($resource->database['tag'] !== 'db') {
             $routePrefix .= $resource->database['name'] . '.';
         }

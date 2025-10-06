@@ -1,5 +1,5 @@
 @php
-    $menuItems = (new \App\Services\MenuService())->getTopMenu(\App\Services\PermissionService::USER_TYPE_ADMIN);
+    $menuItems = (new \App\Services\MenuService())->getTopMenu(\App\Services\PermissionService::ENV_ADMIN);
 @endphp
 <nav id="navbar-main" class="navbar is-fixed-top">
     <div class="navbar-brand">
@@ -23,7 +23,7 @@
 
                 @if($menuItem->name == 'user-dropdown')
 
-                    <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
+                    <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable" style="width: 12em;">
                         <a class="navbar-link is-arrowless">
 
                             @if (!empty($menuItem->thumbnail))

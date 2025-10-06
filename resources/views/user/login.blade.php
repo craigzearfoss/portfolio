@@ -46,7 +46,7 @@
                     <div class="has-text-centered">
                         @include('user.components.form-button-submit', [
                             'label'      => 'Login',
-                            'cancel_url' => route('front.homepage')
+                            'cancel_url' => route('guest.homepage')
                         ])
                     </div>
 
