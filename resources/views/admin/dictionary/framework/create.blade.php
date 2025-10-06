@@ -1,6 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => 'Add New Framework',
     'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Frameworks',      'href' => route('admin.dictionary.framework.index') ],

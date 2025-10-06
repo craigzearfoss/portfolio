@@ -1,6 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => $server->name . ' (server)',
     'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Servers',         'href' => route('admin.dictionary.server.index') ],

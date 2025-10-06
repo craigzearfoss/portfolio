@@ -1,6 +1,7 @@
 @extends('admin.layouts.default', [
     'title' =>'Add New Ingredient',
     'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Ingredients',     'href' => route('admin.personal.ingredient.index') ],

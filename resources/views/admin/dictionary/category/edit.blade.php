@@ -1,6 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => $category->name . ' (category)',
     'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Categories',      'href' => route('admin.dictionary.category.index') ],

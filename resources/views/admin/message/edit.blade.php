@@ -1,6 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => 'Edit Message',
     'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Message',         'href' => route('admin.message.index') ],
         [ 'name' => 'Edit' ],
