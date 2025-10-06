@@ -27,6 +27,11 @@
                 'value' => referer('admin.personal.ingredient.index')
             ])
 
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $ingredient->id
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'full_name',
                 'label'     => 'full name',

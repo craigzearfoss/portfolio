@@ -2,11 +2,14 @@
 
 namespace App\Models\Career;
 
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ApplicationSchedule extends Model
 {
+    use SearchableModelTrait;
+
     protected $connection = 'career_db';
 
     protected $table = 'application_schedules';
@@ -20,6 +23,12 @@ class ApplicationSchedule extends Model
         'name',
         'abbreviation',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'name', 'abbreviation'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
      * Get the applications for the career schedule.
@@ -37,7 +46,7 @@ class ApplicationSchedule extends Model
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
-     */
+     * /
     public static function listOptions(array $filters = [],
                                        bool $includeBlank = false,
                                        bool $nameAsKey = false): array
@@ -57,5 +66,5 @@ class ApplicationSchedule extends Model
         }
 
         return $options;
-    }
+    }*/
 }

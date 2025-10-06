@@ -9,6 +9,7 @@ use App\Models\Country;
 use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\State;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,7 +21,7 @@ use Illuminate\Notifications\Notifiable;
 class Company extends Model
 {
     /** @use HasFactory<\Database\Factories\Career\CompanyFactory> */
-    use HasFactory, Notifiable, SoftDeletes;
+    use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
     protected $connection = 'career_db';
 
@@ -65,6 +66,13 @@ class Company extends Model
         'root',
         'disabled',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'industry_id', 'city', 'state_id', 'zip', 'country_id',
+        'phone', 'alt_phone', 'email', 'alt_email', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {
@@ -122,51 +130,5 @@ class Company extends Model
     public function state(): BelongsTo
     {
         return $this->setConnection('core_db')->belongsTo(State::class, 'state_id');
-    }
-
-    /**
-     * Returns an array of options for a company select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::select('id', 'name')->orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            if (is_array($value)) {
-                $query = $query->whereIn($column, $value);
-            } else {
-                $parts = explode(' ', $column);
-                $column = $parts[0];
-                if (!empty($parts[1])) {
-                    $operation = trim($parts[1]);
-                    if (in_array($operation, ['<>', '!=', '=!'])) {
-                        $query->whereNot($column, $value);
-                    } elseif (strtolower($operation) == 'like') {
-                        $query->whereLike($column, $value);
-                    } else {
-                        throw new \Exception('Invalid select list filter column: ' . $column . ' ' . $operation);
-                    }
-                } else {
-                    $query = $query->where($column, $value);
-                }
-            }
-        }
-
-        foreach ($query->get() as $company) {
-            $options[$nameAsKey ? $company->name : $company->id] = $company->name;
-        }
-
-        return $options;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Owner;
 use App\Models\UserGroup;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,7 +15,7 @@ use Illuminate\Notifications\Notifiable;
 class UserTeam extends Model
 {
     /** @use HasFactory<\Database\Factories\UserTeamFactory> */
-    use HasFactory, Notifiable, SoftDeletes;
+    use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
     protected $connection = 'core_db';
 
@@ -33,6 +34,12 @@ class UserTeam extends Model
         'description',
         'disabled',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'abbreviation'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
      * Get the owner of the user team.

@@ -38,7 +38,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $project->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\Owner::listOptions([], true),
+                    'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
                 ])
             @endif

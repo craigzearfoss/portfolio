@@ -21,6 +21,11 @@
 
     <div class="card p-4">
 
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $recipeIngredient->id
+        ])
+
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',

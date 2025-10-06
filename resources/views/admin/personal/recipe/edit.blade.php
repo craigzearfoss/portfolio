@@ -27,13 +27,18 @@
                 'value' => referer('admin.personal.recipe.index')
             ])
 
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $recipe->id
+            ])
+
             @if(isRootAdmin())
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $recipe->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\Owner::listOptions([], true),
+                    'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
                 ])
             @endif

@@ -20,6 +20,11 @@
 
     <div class="show-container card p-4">
 
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $adminGroup->id
+        ])
+
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',

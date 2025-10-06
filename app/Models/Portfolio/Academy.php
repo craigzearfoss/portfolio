@@ -4,11 +4,14 @@ namespace App\Models\Portfolio;
 
 use App\Models\Portfolio\Certification;
 use App\Models\Portfolio\Course;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Academy extends Model
 {
+    use SearchableModelTrait;
+
     protected $connection = 'portfolio_db';
 
     protected $table = 'academies';
@@ -36,6 +39,12 @@ class Academy extends Model
     ];
 
     /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'name', 'primary', 'local', 'regional', 'national', 'international', 'public'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
+
+    /**
      * Get the certifications for the academy.
      */
     public function certifications(): HasMany
@@ -49,47 +58,5 @@ class Academy extends Model
     public function courses(): HasMany
     {
         return $this->hasMany(Course::class);
-    }
-
-    /**
-     * Returns an array of options for an academy select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @param bool $includeOther
-     * @return array|string[]
-     */
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $nameAsKey = false,
-                                       bool $includeOther = true): array
-    {
-        $other = null;
-
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::select('id', 'name')->orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $academy) {
-            if ($academy->name == 'other') {
-                $other = $academy;
-            } else {
-                $options[$nameAsKey ? $academy->name : $academy->id] = $academy->name;
-            }
-        }
-
-        // we put the 'other' option last
-        if ($includeOther && !empty($other)) {
-            $options[$nameAsKey ? $other->name : $other->id] = $other->name;;
-        }
-
-        return $options;
     }
 }

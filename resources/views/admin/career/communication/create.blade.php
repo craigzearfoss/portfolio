@@ -32,43 +32,39 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? '',
                     'required' => true,
-                    'list'     => \App\Models\Owner::listOptions([], true),
+                    'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
                 ])
             @endif
 
             @include('admin.components.form-select-horizontal', [
-                'name'        => 'application_id',
-                'label'       => 'application',
-                'value'       => old('application_id') ?? '',
-                'list'        => isAdmin()
-                                    ? \App\Models\Career\Application::listOptions([], true)
-                                    : \App\Models\Career\Application::listOptions([
-                                            'owner_id' => Auth::guard('admin')->user()->id
-                                        ], true),
-                'message'     => $message ?? '',
+                'name'    => 'application_id',
+                'label'   => 'application',
+                'value'   => old('application_id') ?? '',
+                'list'    => \App\Models\Career\Application::listOptions([], 'id', 'name', true),
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'        => 'subject',
-                'value'       => old('subject') ?? '',
-                'required'    => true,
-                'maxlength'   => 255,
-                'message'     => $message ?? '',
+                'name'      => 'subject',
+                'value'     => old('subject') ?? '',
+                'required'  => true,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'        => 'date',
-                'name'        => 'date',
-                'value'       => old('timestamp') ?? '',
-                'message'     => $message ?? '',
+                'type'    => 'date',
+                'name'    => 'date',
+                'value'   => old('timestamp') ?? '',
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'        => 'time',
-                'name'        => 'time',
-                'value'       => old('time') ?? '',
-                'message'     => $message ?? '',
+                'type'    => 'time',
+                'name'    => 'time',
+                'value'   => old('time') ?? '',
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
@@ -79,11 +75,11 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('sequence') ?? 0,
-                'min'         => 0,
-                'message'     => $message ?? '',
+                'type'    => 'number',
+                'name'    => 'sequence',
+                'value'   => old('sequence') ?? 0,
+                'min'     => 0,
+                'message' => $message ?? '',
             ])
 
             <div class="field is-horizontal">

@@ -247,58 +247,74 @@ class Application extends Model
      * Returns an array of options for an application select list.
      *
      * @param array $filters
+     * @param string $valueColumn
+     * @param string $labelColumn
+     * @param bool $includeOther
      * @param bool $includeBlank
-     * @return array|string[]
+     * @param array $orderBy
+     * @return array
+     * @throws \Exception
      */
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false): array
+    public static function listOptions(array  $filters = [],
+                                       string $valueColumn = 'id',
+                                       string $labelColumn = 'name',
+                                       bool   $includeOther = false,
+                                       bool   $includeBlank = false,
+                                       array  $orderBy = ['company_name', 'asc']): array
     {
         $options = [];
         if ($includeBlank) {
             $options[''] = '';
         }
 
-        $query = Application::select(['applications.id', 'applications.owner_id', 'role', 'apply_date', 'post_date',
+        $selectColumns = ['applications.id', 'applications.owner_id', 'role', 'apply_date', 'post_date',
             DB::raw('`companies`.`id` AS company_id'), DB::raw('`companies`.`name` AS company_name')
-        ])
-            ->join('companies','companies.id', 'applications.company_id')
-            ->orderBy('company_name', 'asc');
+        ];
+        $sortColumn = $orderBy[0] ?? 'name';
+        $sortDir = $orderBy[1] ?? 'asc';
 
-        // apply filters to the query
-        foreach ($filters as $column => $value) {
-            if (in_array($column, ['id', 'owner_id'])) {
-                $column = 'applications.' . $column;
+        $query = Application::select($selectColumns)
+            ->join('companies','companies.id', 'applications.company_id')
+            ->orderBy($sortColumn, $sortDir);
+
+        // Apply filters to the query.
+        foreach ($filters as $col => $value) {
+            if (in_array($col, ['id', 'owner_id'])) {
+                $col = 'applications.' . $col;
             }
             if (is_array($value)) {
-                $query = $query->whereIn($column, $value);
+                $query = $query->whereIn($col, $value);
             } else {
-                $parts = explode(' ', $column);
-                $column = $parts[0];
+                $parts = explode(' ', $col);
+                $col = $parts[0];
                 if (!empty($parts[1])) {
                     $operation = trim($parts[1]);
                     if (in_array($operation, ['<>', '!=', '=!'])) {
-                        $query->whereNot($column, $value);
+                        $query->whereNot($col, $value);
                     } elseif (strtolower($operation) == 'like') {
-                        $query->whereLike($column, $value);
+                        $query->whereLike($col, $value);
                     } else {
-                        throw new \Exception('Invalid select list filter column: ' . $column . ' ' . $operation);
+                        throw new \Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
                     }
                 } else {
-                    $query = $query->where($column, $value);
+                    $query = $query->where($col, $value);
                 }
             }
         }
 
-        foreach ($query->get() as $application) {
-            $company = !empty($application->company_name)
-                ? $application->company_name
-                : '?company?';
-            $role = $application->role ?? '?role?';
-            $date = !empty($application->apply_date)
-                ? ' [applied: ' . $application->apply_date . ']'
-                : (!empty($application->post_date) ? ' [applied: ' . $application->post_date . ']' : '');
+        foreach ($query->get() as $row) {
+            if ($labelColumn == 'name') {
+                $label = (!empty($row->company_name) ? $row->company_name : '?company?') . ' - '
+                    . ($row->role ?? '?role?')
+                    . (!empty($row->apply_date)
+                        ? ' [applied: ' . $row->apply_date . ']'
+                        : (!empty($row->post_date) ? ' [applied: ' . $row->post_date . ']' : '')
+                    );
+            } else {
+                $label = $row->{$labelColumn};
+            }
 
-            $options[$application->id] = $company . ' - ' . $role . $date;
+            $options[$row->{$valueColumn}] = $label;
         }
 
         return $options;

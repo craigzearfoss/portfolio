@@ -38,7 +38,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $reference->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\Owner::listOptions([], true),
+                    'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
                 ])
             @endif
@@ -125,11 +125,7 @@
                 'name'    => 'company_id',
                 'label'   => 'company',
                 'value'   => old('company_id') ?? $reference->company_id,
-                'list'    => isAdmin()
-                                ? \App\Models\Career\Company::listOptions([], true)
-                                : \App\Models\Career\Company::listOptions([
-                                        'owner_id' => Auth::guard('admin')->user()->id
-                                    ], true),
+                'list'    => \App\Models\Career\Company::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

@@ -32,14 +32,24 @@ use App\Models\Portfolio\Video;
 use App\Models\Resource;
 use App\Models\UserGroup;
 use App\Models\UserTeam;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Owner extends Model
 {
+    use SearchableModelTrait;
+
     protected $connection = 'core_db';
 
     protected $table = 'admins';
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'username', 'name', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email',
+        'status', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['username', 'asc'];
 
     /**
      * Get the admin groups owners.
@@ -289,7 +299,7 @@ class Owner extends Model
      * @param bool $usernameAsKey
      * @param bool $includeNames
      * @return array|string[]
-     */
+     * /
     public static function listOptions(array $filters = [],
                                        bool $includeBlank = false,
                                        bool $usernameAsKey = false,
@@ -313,4 +323,5 @@ class Owner extends Model
 
         return $options;
     }
+    */
 }

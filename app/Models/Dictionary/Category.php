@@ -2,10 +2,13 @@
 
 namespace App\Models\Dictionary;
 
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    use SearchableModelTrait;
+
     protected $connection = 'dictionary_db';
 
     protected $table = 'categories';
@@ -41,6 +44,12 @@ class Category extends Model
         'root',
         'disabled',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'name', 'full_name', 'abbreviation', 'open_source', 'proprietary', 'compiled', 'owner'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
      * Returns an array of options for a category select list.

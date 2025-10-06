@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Resource;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 class Database extends Model
 {
+    use SearchableModelTrait;
+
     protected $connection = 'core_db';
 
     protected $table = 'databases';
@@ -36,6 +39,13 @@ class Database extends Model
         'root',
         'disabled',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'database', 'tag', 'title', 'plural', 'guest', 'user', 'admin',
+        'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
      * Get the admin who owns the database.

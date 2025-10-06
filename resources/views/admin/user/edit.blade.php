@@ -26,9 +26,9 @@
                 'value' => Request::header('referer')
             ])
 
-            @include('admin.components.form-hidden', [
-                'name'  => old('admin_id') ?? Auth::guard('admin')->user()->id,
-                'value' => '0',
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $user->id
             ])
 
             @include('admin.components.form-input-horizontal', [

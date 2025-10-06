@@ -46,7 +46,7 @@ class AdminStoreRequest extends FormRequest
             'latitude'         => ['numeric:strict', 'nullable'],
             'longitude'        => ['numeric:strict', 'nullable'],
             'phone'            => ['string', 'max:50', 'nullable'],
-            'email'            => ['email', 'max:255', 'unique:admins,email', 'nullable'],
+            'email'            => ['email', 'required', 'max:255', 'unique:admins,email'],
             'link'             => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'        => ['string', 'max:255', 'nullable'],
             'description'      => ['nullable'],

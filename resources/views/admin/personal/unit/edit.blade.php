@@ -27,6 +27,11 @@
                 'value' => referer('admin.personal.unit.index')
             ])
 
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $unit->id
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? $unit->name,

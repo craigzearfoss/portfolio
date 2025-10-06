@@ -26,13 +26,20 @@
                 'value' => referer('admin.database.index')
             ])
 
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $database->id
+            ])
+
             @if(isRootAdmin())
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $database->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\Owner::listOptions(['root' => 1], true),
+                    'list'     => \App\Models\Owner::listOptions(
+                        ['root' => 1], 'id', 'username', true, false, ['username', 'asc']
+                    ),
                     'message'  => $message ?? '',
                 ])
             @endif

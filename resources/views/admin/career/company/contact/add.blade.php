@@ -31,7 +31,7 @@
                 'name'     => 'contact_id',
                 'label'    => 'contact',
                 'value'    => old('contact_id') ?? '',
-                'list'     => \App\Models\Career\Contact::listOptions(['owner_id'=>$company->owner_id], true),
+                'list'     => \App\Models\Career\Contact::listOptions([], 'id', 'name', true),
                 'onchange' => "if (this.value) { document.getElementById('new-contact').style.display='none'; } else { document.getElementById('new-contact').style.display='block'; }",
                 'message'  => $message ?? '',
             ])

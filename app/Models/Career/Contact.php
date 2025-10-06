@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\State;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,7 +18,7 @@ use Illuminate\Notifications\Notifiable;
 class Contact extends Model
 {
     /** @use HasFactory<\Database\Factories\Career\ContactFactory> */
-    use HasFactory, Notifiable, SoftDeletes;
+    use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
     protected $connection = 'career_db';
 
@@ -72,6 +73,13 @@ class Contact extends Model
         'Ms',
     ];
 
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'city', 'state_id', 'zip', 'country_id',
+        'phone', 'alt_phone', 'email', 'alt_email', 'birthday', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
+
     protected static function booted()
     {
         parent::booted();
@@ -118,7 +126,7 @@ class Contact extends Model
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array|string[]
-     */
+     * /
     public static function listOptions(array $filters = [],
                                        bool $includeBlank = false,
                                        bool $nameAsKey = false): array
@@ -138,5 +146,5 @@ class Contact extends Model
         }
 
         return $options;
-    }
+    }*/
 }

@@ -38,7 +38,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $application->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\Owner::listOptions([], true),
+                    'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
                 ])
             @endif
@@ -47,7 +47,7 @@
                 'name'    => 'company_id',
                 'label'   => 'company',
                 'value'   => old('company_id') ?? $application->company_id,
-                'list'    => \App\Models\Career\Company::listOptions(),
+                'list'    => \App\Models\Career\Company::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
@@ -63,7 +63,7 @@
                 'name'        => 'resume_id',
                 'label'       => 'resume',
                 'value'       => old('resume_id') ?? $application->resume_id,
-                'list'        => \App\Models\Career\Resume::listOptions(['owner_id' => $application->owner_id]),
+                'list'        => \App\Models\Career\Resume::listOptions([], 'id', 'name', true),
                 'message'     => $message ?? '',
             ])
 
@@ -131,7 +131,7 @@
                 'name'    => 'compensation_unit',
                 'label'   => 'compensation unit',
                 'value'   => old('compensation_unit') ?? $application->compensation_unit_id,
-                'list'    => \App\Models\Career\ApplicationCompensationUnit::listOptions(),
+                'list'    => \App\Models\Career\ApplicationCompensationUnit::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
@@ -139,7 +139,7 @@
                 'name'    => 'duration_id',
                 'label'   => 'duration',
                 'value'   => old('duration_id') ?? $application->duration_id,
-                'list'    => \App\Models\Career\ApplicationDuration::listOptions(),
+                'list'    => \App\Models\Career\ApplicationDuration::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
@@ -147,7 +147,7 @@
                 'name'    => 'office_id',
                 'label'   => 'office',
                 'value'   => old('office_id') ?? $application->office_id,
-                'list'    => \App\Models\Career\ApplicationOffice::listOptions(),
+                'list'    => \App\Models\Career\ApplicationOffice::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
@@ -155,7 +155,7 @@
                 'name'    => 'schedule_id',
                 'label'   => 'schedule',
                 'value'   => old('schedule_id') ?? $application->schedule_id,
-                'list'    => \App\Models\Career\ApplicationSchedule::listOptions(),
+                'list'    => \App\Models\Career\ApplicationSchedule::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
@@ -280,7 +280,7 @@
                 'name'    => 'job_board_id',
                 'label'   => 'job board',
                 'value'   => old('job_board_id') ?? $application->source,
-                'list'    => \App\Models\Career\JobBoard::listOptions([], true),
+                'list'    => \App\Models\Career\JobBoard::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

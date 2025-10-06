@@ -20,6 +20,11 @@
     <div class="show-container card p-4">
 
         @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $message->id
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $message->name
         ])

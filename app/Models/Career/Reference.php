@@ -6,6 +6,7 @@ use App\Models\Country;
 use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\State;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Reference extends Model
 {
     /** @use HasFactory<\Database\Factories\Career\ReferenceFactory> */
-    use HasFactory;
+    use SearchableModelTrait, HasFactory;
 
     protected $connection = 'career_db';
 
@@ -67,6 +68,14 @@ class Reference extends Model
         'root',
         'disabled',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'friend', 'family', 'coworker', 'supervisor', 'subordinate', 'professional',
+        'other', 'company_id', 'city', 'state_id', 'zip', 'country_id', 'phone', 'alt_phone', 'email', 'alt_email',
+        'birthday', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Country;
 use App\Models\State;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,7 +15,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, SoftDeletes;
+    use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
     protected $connection = 'core_db';
 
@@ -83,6 +84,13 @@ class User extends Authenticatable
         'Rev.',
         'Sir',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'username', 'name', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email',
+        'status', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['username', 'asc'];
 
     /**
      * Get the country that owns the user.

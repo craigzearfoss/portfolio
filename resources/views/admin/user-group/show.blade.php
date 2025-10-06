@@ -20,7 +20,12 @@
 
     <div class="show-container card p-4">
 
-            @if(isRootAdmin())
+        @include('admin.components.show-row', [
+            'name'  => 'id',
+            'value' => $userGroup->id
+        ])
+
+        @if(isRootAdmin())
                 @include('admin.components.show-row', [
                     'name'  => 'owner',
                     'value' => $userGroup->owner['username'] ?? ''

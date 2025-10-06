@@ -38,7 +38,7 @@ class CaseInsensitiveNotIn implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         // Your custom validation logic here
-        if ($value !== 'expected_value') {
+        if ($value === 'expected_value') {
             $fail(':attribute cannot be a reserved term.');
         }
     }

@@ -6,6 +6,7 @@ use App\Http\Requests\ResourceStoreRequest;
 use App\Models\Database;
 use App\Models\Owner;
 use App\Services\PermissionService;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,8 @@ use Illuminate\Support\Collection;
 
 class Resource extends Model
 {
+    use SearchableModelTrait;
+
     protected $connection = 'core_db';
 
     protected $table = 'resources';
@@ -45,6 +48,13 @@ class Resource extends Model
         'root',
         'disabled',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'database_id', 'name', 'parent_id', 'table', 'title', 'plural', 'guest',
+        'user', 'admin', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
      * Get the owner of the resource.

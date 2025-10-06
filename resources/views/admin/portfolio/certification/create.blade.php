@@ -32,7 +32,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? '',
                     'required' => true,
-                    'list'     => \App\Models\Owner::listOptions([], true),
+                    'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
                 ])
             @endif
@@ -55,7 +55,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'      => 'academy',
                 'value'     => old('academy_id') ?? 0,
-                'list'      => \App\Models\Portfolio\Academy::listOptions([], true, false, true),
+                'list'      => \App\Models\Portfolio\Academy::listOptions([], 'id', 'name', true),
                 'required'  => true,
                 'message'   => $message ?? '',
             ])

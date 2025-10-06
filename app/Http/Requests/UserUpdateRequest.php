@@ -58,11 +58,7 @@ class UserUpdateRequest extends FormRequest
             'latitude'          => ['numeric:strict', 'nullable'],
             'longitude'         => ['numeric:strict', 'nullable'],
             'phone'             => ['string', 'max:50', 'nullable'],
-            'email'             => [
-                'email', 'max:255',
-                'unique:users,email,'.$this->users->id,
-                'filled'
-            ],
+            'email'             => ['email', 'filled', 'max:255', 'unique:users,email,'.$this->users->id],
             'email_verified_at' => ['nullable'],
             'website'           => ['string', 'max:255', 'nullable'],
             'image'             => ['string', 'max:255', 'nullable'],

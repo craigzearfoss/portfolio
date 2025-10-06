@@ -26,6 +26,11 @@
                 'value' => referer('admin.admin.index')
             ])
 
+            @include('admin.components.form-text-horizontal', [
+                'name'  => 'id',
+                'value' => $admin->id
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'username',
                 'label'     => 'user name',
@@ -54,7 +59,6 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'phone',
                 'value'     => old('phone') ?? $admin->phone,
-                'required'  => true,
                 'maxlength' => 50,
                 'message'   => $message ?? '',
             ])

@@ -2,11 +2,14 @@
 
 namespace App\Models\Career;
 
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ApplicationDuration extends Model
 {
+    use SearchableModelTrait;
+
     protected $connection = 'career_db';
 
     protected $table = 'application_durations';
@@ -22,40 +25,17 @@ class ApplicationDuration extends Model
     ];
 
     /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'name', 'abbreviation'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
+
+    /**
      * Get the applications for the career duration.
      */
     public function applications(): HasMany
     {
         return $this->hasMany(Application::class, 'application_duration_id')
             ->orderBy('post_date', 'desc');
-    }
-
-    /**
-     * Returns an array of options for an application duration select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::select('id', 'name')->orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $duration) {
-            $options[$nameAsKey ? $duration->name : $duration->id] = $duration->name;
-        }
-
-        return $options;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models\Career;
 
 use App\Models\Country;
 use App\Models\State;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,7 @@ use Illuminate\Notifications\Notifiable;
 class Recruiter extends Model
 {
     /** @use HasFactory<\Database\Factories\Career\RecruiterFactory> */
-    use HasFactory, Notifiable, SoftDeletes;
+    use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
     protected $connection = 'career_db';
 
@@ -63,6 +64,13 @@ class Recruiter extends Model
         'root',
         'disabled',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'name', 'local', 'regional', 'national', 'international', 'city', 'state_id', 'zip',
+        'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
      * Get the country that owns the recruiter.

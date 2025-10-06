@@ -55,7 +55,6 @@
                 @include('admin.components.form-input-horizontal', [
                     'name'      => 'phone',
                     'value'     => old('phone') ?? '',
-                    'required'  => true,
                     'maxlength' => 50,
                     'message'   => $message ?? '',
                 ])

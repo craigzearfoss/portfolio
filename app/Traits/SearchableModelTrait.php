@@ -12,14 +12,16 @@ trait SearchableModelTrait
      * @param string $labelColumn
      * @param bool $includeBlank
      * @param bool $includeOther
-     * @return array|string[]
+     * @param array $orderBy
+     * @return array
+     * @throws \Exception
      */
-    public static function listOptions(array $filters = [],
+    public static function listOptions(array  $filters = [],
                                        string $valueColumn = 'id',
                                        string $labelColumn = 'name',
-                                       bool $includeBlank = false,
-                                       bool $includeOther = false,
-                                       array $orderBy = self::SEARCH_ORDER_BY): array
+                                       bool   $includeBlank = false,
+                                       bool   $includeOther = false,
+                                       array  $orderBy = self::SEARCH_ORDER_BY): array
     {
         $other = null;
 
@@ -35,6 +37,28 @@ trait SearchableModelTrait
         $query = self::select($selectColumns)->orderBy($sortColumn, $sortDir);
         foreach ($filters as $col => $value) {
             $query = $query->where($col, $value);
+        }
+
+        // Apply filters to the query.
+        foreach ($filters as $col => $value) {
+            if (is_array($value)) {
+                $query = $query->whereIn($col, $value);
+            } else {
+                $parts = explode(' ', $col);
+                $col = $parts[0];
+                if (!empty($parts[1])) {
+                    $operation = trim($parts[1]);
+                    if (in_array($operation, ['<>', '!=', '=!'])) {
+                        $query->whereNot($col, $value);
+                    } elseif (strtolower($operation) == 'like') {
+                        $query->whereLike($col, $value);
+                    } else {
+                        throw new \Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
+                    }
+                } else {
+                    $query = $query->where($col, $value);
+                }
+            }
         }
 
         foreach ($query->get() as $row) {

@@ -28,11 +28,6 @@
             <div class="card p-4">
                 <div class="card-body p-4">
 
-                    @include('admin.components.form-hidden', [
-                        'name'  => Auth::guard('admin')->user()->id,
-                        'value' => '0',
-                    ])
-
                     @include('admin.components.form-input-horizontal', [
                         'name'      => 'username',
                         'label'     => 'user name',
