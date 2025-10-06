@@ -1,72 +1,142 @@
-@extends('guest.layouts.default')
+@extends('guest.layouts.default', [
+    'title' => $title ?? 'Video: ' . $video->name,
+    'breadcrumbs' => [
+        [ 'name' => 'Home',       'href' => route('guest.homepage') ],
+        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
+        [ 'name' => 'Videos',    'href' => route('guest.portfolio.video.index') ],
+        [ 'name' => $video->name ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.personal.video.index') ],
+    ],
+    'errors'  => $errors->any()  ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="show-container card p-4">
 
-            @include('guest.components.nav-left')
+        @include('guest.components.show-row', [
+            'name'  => 'name',
+            'value' => $video->name
+        ])
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+        @if(!empty($video->parent))
+            @include('admin.components.show-row', [
+                'name'  => 'parent',
+                'value' => !empty($video->parent)
+                    ? view('guest.components.link', [
+                            'name' => $video->parent['name'],
+                            'href' => route('guest.portfolio.video.show', $video->parent->slug)
+                        ])
+                    : ''
+            ])
+        @endif
 
-                @include('guest.components.header')
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'featured',
+            'checked' => $video->featured
+        ])
 
-                @include('guest.components.popup')
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'full episode',
+            'checked' => $video->full_episode
+        ])
 
-                <div class="page-container relative h-full flex flex-auto flex-col">
-                    <div class="h-full">
-                        <h3 class="card-header ml-3">Show Video</h3>
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
-                            <div class="card min-w-[320px] md:min-w-[450px] max-w-[800px] card-shadow" role="presentation">
-                                <div class="card-body md:p-5">
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'clip',
+            'checked' => $video->clip
+        ])
 
-                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-solid btn-sm" href="{{ route('guest.portfolio.video.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
-                                    </div>
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'public access',
+            'checked' => $video->public_access
+        ])
 
-                                    <div class="row">
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'source footage',
+            'checked' => $video->source_footage
+        ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'name',
-                                            'value' => $video->name
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => 'date',
+            'value' => longDate($video->date)
+        ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'year',
-                                            'value' => $video->year
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => 'year',
+            'value' => $video->year
+        ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'company',
-                                            'value' => $video->company
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => 'company',
+            'value' => $video->company
+        ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'credit',
-                                            'value' => $video->credit
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => 'credit',
+            'value' => $video->credit
+        ])
 
-                                        @include('guest.components.show-row-link', [
-                                            'name'   => 'link',
-                                            'href'   => $video->link,
-                                            'target' => '_blank'
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => 'location',
+            'value' => $video->location
+        ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'description',
-                                            'value' => nl2br($video->description ?? '')
-                                        ])
+        @include('admin.components.show-row', [
+            'name'   => 'embed',
+            'value'  => $video->embed,
+        ])
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        @include('admin.components.show-row', [
+            'name'  => 'video url',
+            'value' => $video->video_url,
+        ])
 
-                    @include('guest.components.footer')
+        @if(!empty($video->link))
+            @include('admin.components.show-row-link', [
+                'name'   => 'link',
+                'label'  => $video->link_name,
+                'href'   => $video->link,
+                'target' => '_blank'
+            ])
+        @endif
 
-                </div>
-            </div>
-        </div>
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => nl2br($video->description ?? '')
+        ])
+
+        @if(!empty($video->image))
+
+            @include('admin.components.show-row-image', [
+                'name'     => 'image',
+                'src'      => $video->image,
+                'alt'      => $video->name,
+                'width'    => '300px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($video->name, $video->image)
+            ])
+
+            @if(!empty($video->image_credit))
+                @include('admin.components.show-row', [
+                    'name'  => 'image credit',
+                    'value' => $video->image_credit
+                ])
+            @endif
+
+            @if(!empty($video->image_source))
+                @include('admin.components.show-row', [
+                    'name'  => 'image source',
+                    'value' => $video->image_source
+                ])
+            @endif
+
+        @endif
+
     </div>
 
 @endsection

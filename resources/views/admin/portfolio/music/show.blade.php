@@ -1,6 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => 'Music: ' . $music->name . (!empty($music->artist) ? ' - ' . $music->artist : ''),
     'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Music',           'href' => route('admin.portfolio.music.index') ],

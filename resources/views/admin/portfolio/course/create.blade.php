@@ -1,6 +1,7 @@
 @extends('admin.layouts.default', [
     'title' =>'Add New Course',
     'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Courses',         'href' => route('admin.portfolio.course.index') ],

@@ -1,8 +1,8 @@
 @extends('guest.layouts.default', [
     'title' => $reading->title,
     'breadcrumbs' => [
-        [ 'name' => 'Home',       'href' => route('guest.homepage') ],
-        [ 'name' => 'Readings',   'href' => route('guest.personal.reading.index') ],
+        [ 'name' => 'Home',     'href' => route('guest.homepage') ],
+        [ 'name' => 'Readings', 'href' => route('guest.personal.reading.index') ],
         [ 'name' => $reading->title ],
     ],
     'buttons' => [

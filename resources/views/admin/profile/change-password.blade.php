@@ -1,6 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => 'Change Password',
     'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Change Password' ],
     ],

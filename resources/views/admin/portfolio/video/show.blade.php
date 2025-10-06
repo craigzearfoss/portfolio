@@ -1,6 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => 'Video: ' . $video->name,
     'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Videos',          'href' => route('admin.portfolio.video.index') ],
@@ -58,7 +59,7 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'full_episode',
+            'name'    => 'full episode',
             'checked' => $video->full_episode
         ])
 
@@ -68,12 +69,12 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'public_access',
+            'name'    => 'public access',
             'checked' => $video->public_access
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'source_footage',
+            'name'    => 'source footage',
             'checked' => $video->source_footage
         ])
 
@@ -139,12 +140,12 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_credit',
+            'name'  => 'image credit',
             'value' => $video->image_credit
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_source',
+            'name'  => 'image source',
             'value' => $video->image_source
         ])
 

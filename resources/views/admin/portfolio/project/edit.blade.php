@@ -1,6 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => 'Project: ' . $project->name,
     'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Projects' ,       'href' => route('admin.portfolio.project.index') ],

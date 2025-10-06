@@ -1,98 +1,65 @@
-@extends('guest.layouts.default')
+@php @endphp
+@extends('guest.layouts.default', [
+    'title' => $title ?? 'Videos',
+    'breadcrumbs' => [
+        [ 'name' => 'Home',      'href' => route('guest.homepage')],
+        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
+        [ 'name' => 'Videos']
+    ],
+    'buttons' => [],
+    'errors'  => $errors->any()  ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="card p-4">
 
-            @include('guest.components.nav-left')
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <thead>
+            <tr>
+                <th>name</th>
+                <th>year</th>
+            </tr>
+            </thead>
+            <?php /*
+            <tfoot>
+            <tr>
+                <th>name</th>
+                <th>year</th>
+            </tr>
+            </tfoot>
+            */ ?>
+            <tbody>
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            @forelse ($videos as $video)
 
-                @include('guest.components.header')
+                <tr data-id="{{ $video->id }}">
+                    <td data-field="name">
+                        @include('guest.components.link', [
+                            'name' => $video->name,
+                            'href' => route('guest.portfolio.video.show', $video->slug)
+                        ])
+                    </td>
+                    <td data-field="year">
+                        {{ $video->year }}
+                    </td>
+                </tr>
 
-                @include('guest.components.popup')
+            @empty
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
+                <tr>
+                    <td colspan="2">There are no videos.</td>
+                </tr>
 
-                    <h3 class="card-header">Videos</h3>
+            @endforelse
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('guest.components.messages', [$errors])
-                        </div>
-                    </div>
+            </tbody>
+        </table>
 
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th>name</th>
-                            <th>featured</th>
-                            <th>date</th>
-                            <th>year</th>
-                            <th>company</th>
-                            <th>credit</th>
-                            <th>location</th>
-                            <th>link</th>
-                            <th>description</th>
-                        </tr>
-                        </thead>
+        {!! $videos->links('vendor.pagination.bulma') !!}
 
-                        <tbody>
-
-                        @forelse ($videos as $video)
-
-                            <tr>
-                                <td>
-                                    @include('guest.components.link', [
-                                        'name' => $video->name,
-                                        'href' => route('guest.portfolio.video.show', $video->slug)
-                                    ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('guest.components.checkmark', [ 'checked' => $video->featured ])
-                                </td>
-                                <td>
-                                    {{ shortDate($video->date) }}
-                                </td>
-                                <td>
-                                    {{ $video->year }}
-                                </td>
-                                <td>
-                                    {{ $video->company }}
-                                </td>
-                                <td>
-                                    {{ $video->credit }}
-                                </td>
-                                <td>
-                                    {{ $video->location }}
-                                </td>
-                                <td>
-                                    @include('guest.components.link', [ 'href' => $video->link, 'target' => '_blank' ])
-                                </td>
-                                <td>
-                                    {!! nl2br($video->description ?? '') !!}
-                                </td>
-                            </tr>
-
-                        @empty
-
-                            <tr>
-                                <td colspan="11">There are no videos.</td>
-                            </tr>
-
-                        @endforelse
-
-                        </tbody>
-                    </table>
-
-                    {!! $videos->links() !!}
-
-                    @include('guest.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

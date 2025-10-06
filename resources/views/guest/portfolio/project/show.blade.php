@@ -1,70 +1,97 @@
-@extends('guest.layouts.default')
+@extends('guest.layouts.default', [
+    'title' => $title ?? 'Project: ' . $project->name,
+    'breadcrumbs' => [
+        [ 'name' => 'Home',      'href' => route('guest.homepage') ],
+        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
+        [ 'name' => 'Projects',  'href' => route('guest.portfolio.project.index') ],
+        [ 'name' => $project->name ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.personal.project.index') ],
+    ],
+    'errors'  => $errors->any()  ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="show-container card p-4">
 
-            @include('guest.components.nav-left')
+        @include('guest.components.show-row', [
+            'name'  => 'name',
+            'value' => $project->name
+        ])
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'featured',
+            'checked' => $project->featured
+        ])
 
-                @include('guest.components.header')
+        @include('admin.components.show-row', [
+            'name'  => 'year',
+            'value' => $project->year
+        ])
 
-                @include('guest.components.popup')
+        @include('admin.components.show-row', [
+            'name'  => 'language',
+            'value' => $project->language
+        ])
 
-                <div class="page-container relative h-full flex flex-auto flex-col">
-                    <div class="h-full">
-                        <h3 class="card-header ml-3">Show Project</h3>
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
-                            <div class="card min-w-[320px] md:min-w-[450px] max-w-[800px] card-shadow" role="presentation">
-                                <div class="card-body md:p-5">
+        @include('admin.components.show-row', [
+            'name'  => 'language version',
+            'value' => $project->language_version
+        ])
 
-                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-solid btn-sm" href="{{ route('guest.roject.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
-                                    </div>
+        @include('admin.components.show-row-link', [
+            'name'   => 'repository',
+            'label'  => $project->repository_name,
+            'href'   => $project->repository_url,
+            'target' => '_blank'
+        ])
 
-                                    <div class="row">
+        @if(!empty($project->link))
+            @include('admin.components.show-row-link', [
+                'name'   => 'link',
+                'label'  => $project->link_name,
+                'href'   => $project->link,
+                'target' => '_blank'
+            ])
+        @endif
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'name',
-                                            'value' => $project->name
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => nl2br($project->description ?? '')
+        ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'year',
-                                            'value' => $project->year
-                                        ])
+        @if(!empty($project->image))
 
-                                        @include('guest.components.show-row-link', [
-                                            'name'   => 'repository',
-                                            'href'   => $project->repository,
-                                            'target' => '_blank'
-                                        ])
+            @include('admin.components.show-row-image', [
+                'name'     => 'image',
+                'src'      => $project->image,
+                'alt'      => $project->name,
+                'width'    => '300px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($project->name, $project->image)
+            ])
 
-                                        @include('guest.components.show-row-link', [
-                                            'name'   => 'sample link',
-                                            'href'   => $project->link,
-                                            'target' => '_blank'
-                                        ])
+            @if(!empty($project->image_credit))
+                @include('admin.components.show-row', [
+                    'name'  => 'image credit',
+                    'value' => $project->image_credit
+                ])
+            @endif
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'description',
-                                            'value' => nl2br($project->description ?? '')
-                                        ])
+            @if(!empty($project->image_source))
+                @include('admin.components.show-row', [
+                    'name'  => 'image source',
+                    'value' => $project->image_source
+                ])
+            @endif
 
-                                    </div>
+        @endif
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @include('guest.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

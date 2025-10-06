@@ -1,6 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => 'Resource: ' . $resource->database->name . '.' . $resource->name,
     'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Resources',       'href' => route('admin.resource.index') ],
         [ 'name' => $resource->database->name . '.' . $resource->name ],
