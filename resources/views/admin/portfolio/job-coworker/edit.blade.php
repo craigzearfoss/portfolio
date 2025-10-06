@@ -49,10 +49,7 @@
                 'label'     => 'job',
                 'value'     => old('job_id') ?? $jobCoworker->job_id,
                 'required'  => true,
-                'list'      => \App\Models\Portfolio\Job::listOptions(
-                                    isRootAdmin() ? [] : ['owner_id' => $jobCoworker->owner_id],
-                                    true
-                                ),
+                'list'      => \App\Models\Portfolio\Job::listOptions([], 'id', 'name', true),
                 'message'   => $message ?? '',
             ])
 

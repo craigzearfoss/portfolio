@@ -43,10 +43,7 @@
                 'label'     => 'job',
                 'value'     => old('job_id') ?? $job->id ?? '',
                 'required'  => true,
-                'list'      => \App\Models\Portfolio\Job::listOptions(
-                                    isRootAdmin() ? [] : ['owner_id' => Auth::guard('admin')->user()->id],
-                                    true
-                                ),
+                'list'      => \App\Models\Portfolio\Job::listOptions([], 'id', 'name', true),
                 'message'   => $message ?? '',
             ])
 

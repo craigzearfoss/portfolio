@@ -4,6 +4,7 @@ namespace App\Models\Portfolio;
 
 use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Link extends Model
 {
     /** @use HasFactory<\Database\Factories\Portfolio\LinkFactory> */
-    use HasFactory, SoftDeletes;
+    use SearchableModelTrait, HasFactory, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 
@@ -43,6 +44,12 @@ class Link extends Model
         'disabled',
     ];
 
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
+
     protected static function booted()
     {
         parent::booted();
@@ -56,34 +63,5 @@ class Link extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(Owner::class, 'owner_id');
-    }
-
-    /**
-     * Returns an array of options for a link select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::select('id', 'name')->orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $link) {
-            $options[$nameAsKey ? $link->name : $link->id] = $link->name;
-        }
-
-        return $options;
     }
 }

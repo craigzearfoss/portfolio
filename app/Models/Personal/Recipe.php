@@ -4,6 +4,7 @@ namespace App\Models\Personal;
 
 use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Recipe extends Model
 {
-    use SoftDeletes;
+    use SearchableModelTrait, SoftDeletes;
 
     protected $connection = 'personal_db';
 
@@ -74,6 +75,13 @@ class Recipe extends Model
         'dinner',
         'snack',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'author', 'main', 'side', 'dessert', 'appetizer',
+        'beverage', 'breakfast', 'lunch', 'dinner', 'snack', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {
@@ -158,34 +166,5 @@ class Recipe extends Model
         }
 
         return $recipeMeals;
-    }
-
-    /**
-     * Returns an array of options for a recipe select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::select('id', 'name')->orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $recipe) {
-            $options[$nameAsKey ? $recipe->name : $recipe->id] = $recipe->name;
-        }
-
-        return $options;
     }
 }

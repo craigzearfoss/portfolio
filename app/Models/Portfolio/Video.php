@@ -4,6 +4,7 @@ namespace App\Models\Portfolio;
 
 use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +14,7 @@ use function PHPUnit\Framework\throwException;
 class Video extends Model
 {
     /** @use HasFactory<\Database\Factories\Portfolio\VideoFactory> */
-    use HasFactory, SoftDeletes;
+    use SearchableModelTrait, HasFactory, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 
@@ -55,6 +56,13 @@ class Video extends Model
         'disabled',
     ];
 
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'parent_id', 'featured', 'full_episode', 'clip', 'public_access',
+        'source_footage', 'date', 'year', 'company', 'credit', 'location', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
+
     protected static function booted()
     {
         parent::booted();
@@ -76,52 +84,5 @@ class Video extends Model
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Video::class, 'parent_id');
-    }
-
-    /**
-     * Returns an array of options for a video select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     * @throws \Exception
-     */
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::select('id', 'name')->orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            if (is_array($value)) {
-                $query = $query->whereIn($column, $value);
-            } else {
-                $parts = explode(' ', $column);
-                $column = $parts[0];
-                if (!empty($parts[1])) {
-                    $operation = trim($parts[1]);
-                    if (in_array($operation, ['<>', '!=', '=!'])) {
-                        $query->whereNot($column, $value);
-                    } elseif (strtolower($operation) == 'like') {
-                        $query->whereLike($column, $value);
-                    } else {
-                        throw new \Exception('Invalid select list filter column: ' . $column . ' ' . $operation);
-                    }
-                } else {
-                    $query = $query->where($column, $value);
-                }
-            }
-        }
-
-        foreach ($query->get() as $video) {
-            $options[$nameAsKey ? $video->name : $video->id] = $video->name;
-        }
-
-        return $options;
     }
 }

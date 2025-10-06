@@ -35,9 +35,6 @@ trait SearchableModelTrait
         $sortDir = $orderBy[1] ?? 'asc';
 
         $query = self::select($selectColumns)->orderBy($sortColumn, $sortDir);
-        foreach ($filters as $col => $value) {
-            $query = $query->where($col, $value);
-        }
 
         // Apply filters to the query.
         foreach ($filters as $col => $value) {
@@ -49,7 +46,7 @@ trait SearchableModelTrait
                 if (!empty($parts[1])) {
                     $operation = trim($parts[1]);
                     if (in_array($operation, ['<>', '!=', '=!'])) {
-                        $query->whereNot($col, $value);
+                        $query->where($col, $operation, $value);
                     } elseif (strtolower($operation) == 'like') {
                         $query->whereLike($col, $value);
                     } else {

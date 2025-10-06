@@ -42,7 +42,7 @@
                 'name'     => 'recipe_id',
                 'label'    => 'recipe',
                 'value'    => old('recipe_id') ?? '',
-                'list'     => \App\Models\Personal\Recipe::listOptions(false),
+                'list'     => \App\Models\Personal\Recipe::listOptions([], 'id', 'name', true),
                 'required' => true,
                 'message'  => $message ?? '',
             ])

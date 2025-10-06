@@ -49,7 +49,7 @@
                 'name'    => 'parent_id',
                 'label'   => 'parent',
                 'value'   => old('parent_id') ?? '',
-                'list'    => \App\Models\Portfolio\Video::listOptions(['id <>' => $video->id], true),
+                'list'    => \App\Models\Portfolio\Video::listOptions(['id <>' => $video->id], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

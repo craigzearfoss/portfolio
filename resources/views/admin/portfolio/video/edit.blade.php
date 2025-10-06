@@ -32,7 +32,7 @@
                 'name'  => 'id',
                 'value' => $video->id
             ])
-
+<?php /*
             @if(isRootAdmin())
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
@@ -43,7 +43,7 @@
                     'message'  => $message ?? '',
                 ])
             @endif
-
+*/ ?>
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? $video->name,
@@ -56,7 +56,7 @@
                 'name'    => 'parent_id',
                 'label'   => 'parent',
                 'value'   => old('parent_id') ?? $video->parent_id,
-                'list'    => \App\Models\Portfolio\Video::listOptions(['id <>' => $video->id], true),
+                'list'    => \App\Models\Portfolio\Video::listOptions(['id <>' => $video->id], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

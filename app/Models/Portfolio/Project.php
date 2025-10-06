@@ -4,6 +4,7 @@ namespace App\Models\Portfolio;
 
 use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Project extends Model
 {
     /** @use HasFactory<\Database\Factories\Portfolio\ProjectFactory> */
-    use HasFactory, SoftDeletes;
+    use SearchableModelTrait, HasFactory, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 
@@ -30,7 +31,7 @@ class Project extends Model
         'featured',
         'year',
         'language',
-        'language_name',
+        'language_version',
         'repository_url',
         'repository_name',
         'link',
@@ -46,6 +47,13 @@ class Project extends Model
         'root',
         'disabled',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'year', 'language', 'language_version',
+        'repository_name', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {

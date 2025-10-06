@@ -62,7 +62,7 @@
                 'name'    => 'parent_id',
                 'label'   => 'parent',
                 'value'   => old('parent_id') ?? $music->parent_id,
-                'list'    => \App\Models\Portfolio\Music::listOptions(['id <>' => $music->id], true),
+                'list'    => \App\Models\Portfolio\Music::listOptions(['id <>' => $music->id], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

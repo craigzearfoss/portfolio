@@ -5,6 +5,7 @@ namespace App\Models\Portfolio;
 use App\Models\Dictionary\Category;
 use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Skill extends Model
 {
     /** @use HasFactory<\Database\Factories\Portfolio\SkillFactory> */
-    use HasFactory, SoftDeletes;
+    use SearchableModelTrait, HasFactory, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 
@@ -46,6 +47,13 @@ class Skill extends Model
         'root',
         'disabled',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'version', 'featured', 'level', 'category_id', 'start_year',
+        'years', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {

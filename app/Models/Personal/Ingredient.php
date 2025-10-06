@@ -2,11 +2,15 @@
 
 namespace App\Models\Personal;
 
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ingredient extends Model
 {
+    use SearchableModelTrait;
+
     protected $connection = 'personal_db';
 
     protected $table = 'ingredients';
@@ -35,39 +39,16 @@ class Ingredient extends Model
     ];
 
     /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'full_name', 'name', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
+
+    /**
      * Get the portfolio recipe ingredients for the personal ingredient.
      */
     public function recipeIngredients(): HasMany
     {
         return $this->hasMany(RecipeIngredient::class);
-    }
-
-    /**
-     * Returns an array of options for an ingredient select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function listOptions(array  $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::select('id', 'name')->orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $row) {
-            $options[$nameAsKey ? $row->name : $row->id] = $row->name;
-        }
-
-        return $options;
     }
 }

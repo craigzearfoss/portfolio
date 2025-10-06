@@ -4,6 +4,7 @@ namespace App\Models\Portfolio;
 
 use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Music extends Model
 {
     /** @use HasFactory<\Database\Factories\Portfolio\MusicFactory> */
-    use HasFactory, SoftDeletes;
+    use SearchableModelTrait, HasFactory, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 
@@ -54,6 +55,13 @@ class Music extends Model
         'admin_id',
     ];
 
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'parent_id', 'name', 'artist', 'featured', 'collection', 'track', 'label',
+        'catalog_number', 'year', 'release_date', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
+
     protected static function booted()
     {
         parent::booted();
@@ -89,45 +97,65 @@ class Music extends Model
      * Returns an array of options for a music select list.
      *
      * @param array $filters
+     * @param string $valueColumn
+     * @param string $labelColumn
+     * @param bool $includeBlank
+     * @param bool $includeOther
+     * @param array $orderBy
+     *
+     * @param array $filters
      * @param bool $includeBlank
      * @param bool $nameAsKey
      * @return array
      * @throws \Exception
      */
-    public static function listOptions(array $filters = [],
-                                       bool  $includeBlank = false,
-                                       bool  $nameAsKey = false): array
+    public static function listOptions(array  $filters = [],
+                                       string $valueColumn = 'id',
+                                       string $labelColumn = 'name',
+                                       bool   $includeBlank = false,
+                                       bool   $includeOther = false,
+                                       array  $orderBy = self::SEARCH_ORDER_BY): array
     {
         $options = [];
         if ($includeBlank) {
             $options[''] = '';
         }
 
-        $query = self::select('id', 'name', 'artist')->orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
+        $selectColumns = self::SEARCH_COLUMNS;
+        $sortColumn = $orderBy[0] ?? 'name';
+        $sortDir = $orderBy[1] ?? 'asc';
+
+        $query = self::select($selectColumns)->orderBy($sortColumn, $sortDir);
+
+        // Apply filters to the query.
+        foreach ($filters as $col => $value) {
             if (is_array($value)) {
-                $query = $query->whereIn($column, $value);
+                $query = $query->whereIn($col, $value);
             } else {
-                $parts = explode(' ', $column);
-                $column = $parts[0];
+                $parts = explode(' ', $col);
+                $col = $parts[0];
                 if (!empty($parts[1])) {
                     $operation = trim($parts[1]);
                     if (in_array($operation, ['<>', '!=', '=!'])) {
-                        $query->whereNot($column, $value);
+                        $query->where($col, $operation, $value);
                     } elseif (strtolower($operation) == 'like') {
-                        $query->whereLike($column, $value);
+                        $query->whereLike($col, $value);
                     } else {
-                        throw new \Exception('Invalid select list filter column: ' . $column . ' ' . $operation);
+                        throw new \Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
                     }
                 } else {
-                    $query = $query->where($column, $value);
+                    $query = $query->where($col, $value);
                 }
             }
         }
 
-        foreach ($query->get() as $music) {
-            $musicLabel = $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '');
-            $options[$nameAsKey ? $musicLabel : $music->id] = $musicLabel;
+        foreach ($query->get() as $row) {
+            if ($labelColumn == 'name') {
+                $label = $row->name . (!empty($row->artist) ? ' - ' . $row->artist : '');
+            } else {
+                $label = $row->{$labelColumn};
+            }
+            $options[$row->{$valueColumn}] = $label;
         }
 
         return $options;

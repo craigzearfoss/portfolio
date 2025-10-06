@@ -48,7 +48,7 @@
                 'label'    => 'recipe',
                 'value'    => old('recipe_id') ?? $recipeStep->recipe_id,
                 'required' => true,
-                'list'     => \App\Models\Personal\Recipe::listOptions(false),
+                'list'     => \App\Models\Personal\Recipe::listOptions([], 'id', 'name', true),
                 'message'  => $message ?? '',
             ])
 

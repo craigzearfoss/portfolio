@@ -51,7 +51,7 @@ EDIT
                 'label'    => 'recipe',
                 'value'    => old('recipe_id') ?? $recipeIngredient->recipe_id,
                 'required' => true,
-                'list'     => \App\Models\Personal\Recipe::listOptions(true, false),
+                'list'     => \App\Models\Personal\Recipe::listOptions([], 'id', 'name', true),
                 'message'  => $message ?? '',
             ])
 
@@ -60,7 +60,7 @@ EDIT
                 'label'    => 'ingredient',
                 'value'    => old('ingredient_id') ?? $recipeIngredient->ingredient_id,
                 'required' => true,
-                'list'     => \App\Models\Personal\Ingredient::listOptions([], true),
+                'list'     => \App\Models\Personal\Ingredient::listOptions([], 'id', 'name', true),
                 'message'  => $message ?? '',
             ])
 
@@ -75,7 +75,7 @@ EDIT
                 'name'    => 'unit_id',
                 'label'   => 'unit',
                 'value'   => old('unit_id') ?? $recipeIngredient->unit_id,
-                'list'    => \App\Models\Personal\Unit::listOptions([], true),
+                'list'    => \App\Models\Personal\Unit::listOptions([], 'id', 'name', false),
                 'message' => $message ?? '',
             ])
 

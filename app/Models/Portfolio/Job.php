@@ -6,17 +6,19 @@ use App\Models\Country;
 use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\State;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Job extends Model
 {
     /** @use HasFactory<\Database\Factories\Portfolio\JobFactory> */
-    use HasFactory, SoftDeletes;
+    use SearchableModelTrait, HasFactory, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 
@@ -60,6 +62,13 @@ class Job extends Model
         'root',
         'disabled',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'company', 'role', 'featured', 'start_month', 'start_year', 'end_month',
+        'end_year', 'city', 'state_id', 'zip', 'country_id', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {
@@ -154,45 +163,61 @@ class Job extends Model
      * Returns an array of options for a job select list.
      *
      * @param array $filters
+     * @param string $valueColumn
+     * @param string $labelColumn
      * @param bool $includeBlank
-     * @param bool $nameAsKey
+     * @param bool $includeOther
+     * @param array $orderBy
      * @return array
      * @throws \Exception
      */
-    public static function listOptions(array $filters = [],
-                                       bool  $includeBlank = false,
-                                       bool  $nameAsKey = false): array
+    public static function listOptions(array  $filters = [],
+                                       string $valueColumn = 'id',
+                                       string $labelColumn = 'name',
+                                       bool   $includeBlank = false,
+                                       bool   $includeOther = false,
+                                       array  $orderBy = ['company', 'asc']): array
     {
         $options = [];
         if ($includeBlank) {
             $options[''] = '';
         }
 
-        $query = self::select('id', 'company', 'role')->orderBy('company', 'asc');
-        foreach ($filters as $column => $value) {
+        $selectColumns = self::SEARCH_COLUMNS;
+        $sortColumn = $orderBy[0] ?? 'name';
+        $sortDir = $orderBy[1] ?? 'asc';
+
+        $query = self::select($selectColumns)->orderBy($sortColumn, $sortDir);
+
+        // Apply filters to the query.
+        foreach ($filters as $col => $value) {
             if (is_array($value)) {
-                $query = $query->whereIn($column, $value);
+                $query = $query->whereIn($col, $value);
             } else {
-                $parts = explode(' ', $column);
-                $column = $parts[0];
+                $parts = explode(' ', $col);
+                $col = $parts[0];
                 if (!empty($parts[1])) {
                     $operation = trim($parts[1]);
                     if (in_array($operation, ['<>', '!=', '=!'])) {
-                        $query->whereNot($column, $value);
+                        $query->whereNot($col, $value);
                     } elseif (strtolower($operation) == 'like') {
-                        $query->whereLike($column, $value);
+                        $query->whereLike($col, $value);
                     } else {
-                        throw new \Exception('Invalid select list filter column: ' . $column . ' ' . $operation);
+                        throw new \Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
                     }
                 } else {
-                    $query = $query->where($column, $value);
+                    $query = $query->where($col, $value);
                 }
             }
         }
 
-        foreach ($query->get() as $job) {
-            $jobLabel = $job->name . (!empty($job->role) ? ' - ' . $job->role : '');
-            $options[$nameAsKey ? $jobLabel : $job->id] = $jobLabel;
+        foreach ($query->get() as $row) {
+            if ($labelColumn == 'name') {
+                $label = $row->name . (!empty($row->role) ? ' - ' . $row->role : '');
+            } else {
+                $label = $row->{$labelColumn};
+            }
+            $options[$row->{$valueColumn}] = $label;
         }
 
         return $options;

@@ -50,7 +50,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'system',
                 'value'   => old('system') ?? $unit->system,
-                'list'    => \App\Models\Personal\Unit::systemListOptions([], true),
+                'list'    => \App\Models\Personal\Unit::listOptions([], 'system', 'system', true),
                 'message' => $message ?? '',
             ])
 

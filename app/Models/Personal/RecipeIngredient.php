@@ -79,38 +79,4 @@ class RecipeIngredient extends Model
     {
         return $this->setConnection('personal_db')->belongsTo(Unit::class, 'unit_id');
     }
-
-    /**
-     * Returns an array of options for a recipe ingredient select list.
-     * Note that there might will be recipe ingredients.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey   - Do not use this because there are likely to be duplicated names.
-     * @return array|string[]
-     */
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::select('*', DB::raw('`ingredients`.`name` as ingredient_name'))
-            ->join('ingredients', 'ingredients.id', '=', 'recipe_ingredients.ingredient_id')
-            ->orderBy('ingredient_name', 'asc');
-
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $recipeIngredient) {
-            $key = $nameAsKey ? $recipeIngredient->ingredient_name : $recipeIngredient->id;
-            $options[$key] = $recipeIngredient->ingredient_name;
-        }
-
-        return $options;
-    }
 }

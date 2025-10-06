@@ -5,6 +5,7 @@ namespace App\Models\Portfolio;
 use App\Models\Owner;
 use App\Models\Portfolio\Job;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,7 @@ use Illuminate\Notifications\Notifiable;
 class JobCoworker extends Model
 {
     /** @use HasFactory<\Database\Factories\Portfolio\JobCoworkerFactory> */
-    use HasFactory, Notifiable, SoftDeletes;
+    use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 
@@ -57,6 +58,13 @@ class JobCoworker extends Model
         3 => 'subordinate',
     ];
 
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'job_id', 'name', 'job_title', 'level_id', 'work_phone', 'personal_phone',
+        'work_email', 'personal_email', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
+
     protected static function booted()
     {
         parent::booted();
@@ -94,13 +102,19 @@ class JobCoworker extends Model
      * Returns an array of options for a level select.
      *
      * @param array $filters (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param string $valueColumn
+     * @param string $labelColumn
      * @param bool $includeBlank
-     * @param bool $nameAsKey
+     * @param bool $includeOther (Not used but included to keep signature consistent with other listOptions methods.)
+     * @param array $orderBy (Not used but included to keep signature consistent with other listOptions methods.)
      * @return array|string[]
      */
-    public static function levelListOptions(array $filters = [],
-                                            bool $includeBlank = false,
-                                            bool $nameAsKey = false): array
+    public static function levelListOptions(array  $filters = [],
+                                            string $valueColumn = 'id',
+                                            string $labelColumn = 'name',
+                                            bool   $includeBlank = false,
+                                            bool   $includeOther = false,
+                                            array  $orderBy = ['name', 'asc']): array
     {
         $options = [];
         if ($includeBlank) {
@@ -108,7 +122,7 @@ class JobCoworker extends Model
         }
 
         foreach (self::LEVELS as $i => $level) {
-            $options[$nameAsKey ? $level : $i] = $level;
+            $options[$valueColumn == 'id' ? $i : $level] = $labelColumn == 'id' ? $i : $level;
         }
 
         return $options;
