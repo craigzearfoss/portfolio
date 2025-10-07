@@ -1,73 +1,106 @@
-@extends('guest.layouts.default')
+@extends('guest.layouts.default', [
+    'title' => $title ?? 'Course: ' . $course->name,
+    'breadcrumbs' => [
+        [ 'name' => 'Home',      'href' => route('guest.homepage') ],
+        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
+        [ 'name' => 'Course',    'href' => route('guest.portfolio.course.index') ],
+        [ 'name' => $course->name ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.portfolio.course.index') ],
+    ],
+    'errors'  => $errors->any()  ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="show-container card p-4">
 
-            @include('guest.components.nav-left')
+        @include('admin.components.show-row', [
+            'name'  => 'name',
+            'value' => $course->name
+        ])
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'featured',
+            'checked' => $course->featured
+        ])
 
-                @include('guest.components.header')
+        @include('admin.components.show-row', [
+            'name'  => 'summary',
+            'value' => $course->summary
+        ])
 
-                @include('guest.components.popup')
+        @include('admin.components.show-row', [
+            'name'  => 'year',
+            'value' => $course->year
+        ])
 
-                <div class="page-container relative h-full flex flex-auto flex-col">
-                    <div class="h-full">
-                        <h3 class="card-header ml-3">Show Course</h3>
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
-                            <div class="card min-w-[320px] md:min-w-[450px] max-w-[800px] card-shadow" role="presentation">
-                                <div class="card-body md:p-5">
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'completed',
+            'checked' => $course->completed
+        ])
 
-                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-solid btn-sm" href="{{ route('guest.portfolio.course.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
-                                    </div>
+        @include('admin.components.show-row', [
+            'name'  => 'completion date',
+            'value' => longDate($course->completion_date)
+        ])
 
-                                    <div class="row">
+        @include('admin.components.show-row', [
+            'name'  => 'duration hours',
+            'value' => $course->duration_hours
+        ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'name',
-                                            'value' => $course->name
-                                        ])
+        @include('admin.components.show-row', [
+            'name' => 'academy',
+            'value' => view('admin.components.link', [
+                            'name' => $course->academy['name'] ?? '',
+                            'href' => $course->academy['link'] ?? null,
+                            'target' =>'_blank'
+                        ])
+        ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'completed',
-                                            'value' => longDate($course->completed)
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => 'school',
+            'value' => $course->school
+        ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'academy',
-                                            'value' => $course->academy
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => 'instructor',
+            'value' => $course->instructor
+        ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'website',
-                                            'value' => $course->website
-                                        ])
+        @include('admin.components.show-row', [
+            'name'  => 'sponsor',
+            'value' => $course->sponsor
+        ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'instructor',
-                                            'value' => $course->instructor
-                                        ])
+        @if(!empty($course->certificate_url))
+            @include('admin.components.show-row-image', [
+                'name'     => 'certificate url',
+                'src'      => imageUrl($course->certificate_url),
+                'width'    => '300px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($course->name, $course->certificate_url)
+            ])
+        @endif
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'description',
-                                            'value' => nl2br($course->description ?? '')
-                                        ])
+        @if(!empty($course->link))
+            @include('admin.components.show-row-link', [
+                'name'   => 'link',
+                'href'   => $course->link,
+                'target' => '_blank'
+            ])
+        @endif
 
-                                    </div>
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => nl2br($course->description ?? '')
+        ])
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @include('guest.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

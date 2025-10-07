@@ -1,82 +1,84 @@
-@extends('guest.layouts.default')
+@extends('guest.layouts.default', [
+    'title' => $title ?? 'Courses',
+    'breadcrumbs' => [
+        [ 'name' => 'Home',      'href' => route('guest.homepage') ],
+        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
+        [ 'name' => 'Courses' ],
+    ],
+    'buttons' => [],
+    'errorMessages'=> $errors->messages() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="card p-4">
 
-            @include('guest.components.nav-left')
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <thead>
+            <tr>
+                <th>name</th>
+                <th>academy</th>
+                <th>instructor</th>
+                <th style="white-space: nowrap;">completion date</th>
+            </tr>
+            </thead>
+            <?php /*
+            <tfoot>
+            <tr>
+                <th>name</th>
+                <th>academy</th>
+                <th>instructor</th>
+                <th style="white-space: nowrap;">completion date</th>
+            </tr>
+            </tr>
+            </tfoot>
+            */ ?>
+            <tbody>
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            @forelse ($courses as $course)
 
-                @include('guest.components.header')
+                <tr>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'  => $course->name,
+                            'href'  => route('guest.portfolio.course.show', $course->slug),
+                            'class' => $course->featured ? 'has-text-weight-bold' : ''
+                        ])
+                    </td>
+                    <td>
+                        @if(!empty($course->academy['link']))
+                            {{ $course->academy['name'] }}
+                        @else
+                            @include('guest.components.link', [
+                                'name'   => $course->academy['name'],
+                                'href'   => $course->academy['link'],
+                                'target' => '_blank',
+                            ])
+                        @endif
+                    </td>
+                    <td>
+                        {{ $course->instructor }}
+                    </td>
+                    <td>
+                        {{ longDate($course->completion_date) }}
+                    </td>
+                </tr>
 
-                @include('guest.components.popup')
+            @empty
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
+                <tr>
+                    <td colspan="3">There are no courses.</td>
+                </tr>
 
-                    <h3 class="card-header">Courses</h3>
+            @endforelse
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('guest.components.messages', [$errors])
-                        </div>
-                    </div>
+            </tbody>
+        </table>
 
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th>name</th>
-                            <th class="has-text-centered">featured</th>
-                            <th>completed</th>
-                            <th>academy</th>
-                            <th>instructor</th>
-                        </tr>
-                        </thead>
+        {!! $courses->links('vendor.pagination.bulma') !!}
 
-                        <tbody>
-
-                        @forelse ($courses as $course)
-
-                            <tr>
-                                <td>
-                                    @include('guest.components.link', [
-                                        'name' => $course->name,
-                                        'href' => route('guest.portfolio.course.show', $course->slug)
-                                    ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('guest.components.checkmark', [ 'checked' => $course->featured ])
-                                </td>
-                                <td>
-                                    {{ shortDate($course->completed) }}
-                                </td>
-                                <td>
-                                    {{ $course->academy }}
-                                </td>
-                                <td>
-                                    {{ $course->instructor }}
-                                </td>
-                            </tr>
-
-                        @empty
-
-                            <tr>
-                                <td colspan="7">There are no courses.</td>
-                            </tr>
-
-                        @endforelse
-
-                        </tbody>
-                    </table>
-
-                    {!! $courses->links() !!}
-
-                    @include('guest.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection
