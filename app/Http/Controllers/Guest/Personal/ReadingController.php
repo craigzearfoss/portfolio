@@ -25,7 +25,7 @@ class ReadingController extends BaseController
 
         $readings = Reading::where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('title', 'asc')
+            ->orderBy('title', 'asc')->orderBy('author', 'asc')
             ->paginate($perPage);
 
         $title = 'Readings';

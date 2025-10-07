@@ -43,7 +43,8 @@
                     <td data-field="name">
                         @include('guest.components.link', [
                             'name' => $project->name,
-                            'href' => route('guest.portfolio.project.show', $project->slug)
+                            'href' => route('guest.portfolio.project.show', $project->slug),
+                            'class' => $project->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td data-field="language">
@@ -69,7 +70,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">There are no projects.</td>
+                    <td colspan="4">There are no projects.</td>
                 </tr>
 
             @endforelse

@@ -69,7 +69,7 @@
             @empty
 
                 <tr>
-                    <td colspan="3">There are no courses.</td>
+                    <td colspan="4">There are no courses.</td>
                 </tr>
 
             @endforelse

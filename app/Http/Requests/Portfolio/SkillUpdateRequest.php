@@ -29,7 +29,9 @@ class SkillUpdateRequest extends FormRequest
     {
         // Generate the slug.
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([ 'slug' => Str::slug($this['name']
+                . (!empty($this['version']) ? '-' . Str::slug($this['version']) : ''))
+            ]);
         }
 
         // Validate the admin_id. (Only root admins can change the admin for a skill.)
@@ -52,6 +54,16 @@ class SkillUpdateRequest extends FormRequest
                 })
             ],
             'version'      => ['string', 'max:20', 'nullable'],
+            'slug'         => [
+                'string',
+                'filled',
+                'max:255',
+                Rule::unique('portfolio_db.skills')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->skill->id)
+                        ->where('slug', $this->slug);
+                })
+            ],
             'featured'     => ['integer', 'between:0,1'],
             'summary'      => ['string', 'max:500', 'nullable'],
             'level'        => ['integer', 'between:1,10'],

@@ -27,7 +27,7 @@
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
                 <th>category</th>
-                <th>rating</th>
+                <th>level (out of 10)</th>
                 <th>years</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
@@ -43,7 +43,7 @@
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
                 <th>category</th>
-                <th>rating</th>
+                <th>level (out of 10)</th>
                 <th>years</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
@@ -62,7 +62,7 @@
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">
-                        {{ $skill->name . (!empty($skill->version) ? ' ' . $skill->version : '')}}
+                        {{ $skill->name . (!empty($skill->version) ? ' ' . $skill->version : '') }}
                     </td>
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $skill->featured ])
@@ -73,6 +73,7 @@
                     <td data-field="level" style="white-space: nowrap;">
                         @include('admin.components.star-ratings', [
                             'rating' => $skill->level ?? 1,
+                            'label'  => '(' . ($skill->level ?? 1) . ')'
                         ])
                     </td>
                     <td data-field="years" class="has-text-centered">

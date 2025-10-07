@@ -25,10 +25,11 @@ class ArtController extends BaseController
 
         $arts = Art::where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('sequence', 'asc')
+            ->orderBy('name', 'asc')->orderBy('artist', 'asc')
             ->paginate($perPage);
 
         $title = 'Art';
+
         return view('guest.portfolio.art.index', compact('arts', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }

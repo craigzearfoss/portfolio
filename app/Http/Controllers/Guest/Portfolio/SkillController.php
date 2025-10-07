@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers\Guest\Portfolio;
 
-use App\Http\Controllers\BaseController;
-use App\Models\Portfolio\Project;
+use App\Http\Controllers\Controller;
+use App\Models\Portfolio\Skill;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-/**
- *
- */
-class ProjectController extends BaseController
+class SkillController extends Controller
 {
     /**
-     * Display a listing of projects.
+     * Display a listing of skills.
      *
      * @param Request $request
      * @return View
@@ -23,29 +20,29 @@ class ProjectController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $projects = Project::where('public', 1)
+        $skills = Skill::where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('name', 'asc')
+            ->orderBy('level', 'desc')->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        $title = 'Projects';
+        $title = 'Skills';
 
-        return view('guest.portfolio.project.index', compact('projects', 'title'))
+        return view('guest.portfolio.skill.index', compact('skills', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
-     * Display the specified project.
+     * Display the specified skill.
      *
      * @param string $slug
      * @return View
      */
     public function show(string $slug): View
     {
-        if (!$project = Project::where('slug', $slug)->first()) {
+        if (!$skill = Skill::where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view('guest.portfolio.project.show', compact('project'));
+        return view('guest.portfolio.skill.show', compact('skill'));
     }
 }

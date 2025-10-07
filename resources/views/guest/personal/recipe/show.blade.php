@@ -72,7 +72,7 @@
             @include('guest.components.show-row-link', [
                 'name'   => 'link',
                 'label'  => $recipe->link_name,
-                'href'    => $recipe->link,
+                'href'   => $recipe->link,
                 'target' => '_blank'
             ])
         @endif
@@ -82,31 +82,45 @@
             'value' => nl2br($recipe->description ?? '')
         ])
 
-        @if(!empty($video->image))
+        @if(!empty($recipe->image))
 
             @include('guest.components.show-row-image', [
                 'name'     => 'image',
-                'src'      => $video->image,
-                'alt'      => $video->name,
+                'src'      => $recipe->image,
+                'alt'      => $recipe->name . ', ' . $recipe->artist,
                 'width'    => '300px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($video->name, $video->image)
+                'filename' => getFileSlug($recipe->name . '-by-' . $recipe->artist, $recipe->image)
             ])
 
-            @if(!empty($video->image_credit))
+            @if(!empty($recipe->image_credit))
                 @include('guest.components.show-row', [
                     'name'  => 'image credit',
-                    'value' => $video->image_credit
+                    'value' => $recipe->image_credit
                 ])
             @endif
 
-            @if(!empty($video->image_source))
+            @if(!empty($recipe->image_source))
                 @include('guest.components.show-row', [
                     'name'  => 'image source',
-                    'value' => $video->image_source
+                    'value' => $recipe->image_source
                 ])
             @endif
+
+        @endif
+
+        @if(!empty($recipe->thumbnail))
+
+            @include('guest.components.show-row-image', [
+                'name'     => 'thumbnail',
+                'src'      => $recipe->thumbnail,
+                'alt'      => $recipe->name . ', ' . $recipe->artist,
+                'width'    => '40px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($recipe->name . '-by-' . $recipe->artist, $recipe->thumbnail)
+            ])
 
         @endif
 

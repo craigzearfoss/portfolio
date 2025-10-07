@@ -25,10 +25,11 @@ class CertificationController extends BaseController
 
         $certifications = Certification::where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('sequence', 'asc')
+            ->orderBy('name', 'asc')
             ->paginate($perPage);
 
         $title = 'Certifications';
+
         return view('guest.portfolio.certification.index', compact('certifications', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }

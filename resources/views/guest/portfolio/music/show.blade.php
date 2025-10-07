@@ -1,59 +1,175 @@
-@extends('guest.layouts.default')
+@extends('guest.layouts.default', [
+    'title' => $title ?? 'Music: ' . $music->name,
+    'breadcrumbs' => [
+        [ 'name' => 'Home',      'href' => route('guest.homepage') ],
+        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
+        [ 'name' => 'Music',     'href' => route('guest.portfolio.music.index') ],
+        [ 'name' => $music->name ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.portfolio.music.index') ],
+    ],
+    'errors'  => $errors->any()  ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="show-container ard p-4">
 
-            @include('guest.components.nav-left')
+        @include('guest.components.show-row', [
+            'name'  => 'name',
+            'value' => $music->name
+        ])
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+        @include('guest.components.show-row', [
+            'name'  => 'artist',
+            'value' => $music->artist
+        ])
 
-                @include('guest.components.header')
+        @if(!empty($music->parent))
+            @include('guest.components.show-row', [
+                'name'  => 'parent',
+                'value' => !empty($music->parent)
+                    ? view('guest.components.link', [
+                            'name' => $music->parent['name'],
+                            'href' => route('guest.portfolio.music.show', $music->parent)
+                        ])
+                    : ''
+            ])
+        @endif
 
-                @include('guest.components.popup')
+        @include('guest.components.show-row-checkbox', [
+            'name'    => 'featured',
+            'checked' => $music->featured
+        ])
 
-                <div class="page-container relative h-full flex flex-auto flex-col">
-                    <div class="h-full">
-                        <h3 class="card-header ml-3">Show Music</h3>
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
-                            <div class="card min-w-[320px] md:min-w-[450px] max-w-[800px] card-shadow" role="presentation">
-                                <div class="card-body md:p-5">
+        @include('guest.components.show-row', [
+            'name'  => 'summary',
+            'value' => $music->summary
+        ])
 
-                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-solid btn-sm" href="{{ route('guest.portfolio.music.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
-                                    </div>
-
-                                    <div class="row">
-
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'name',
-                                            'value' => $music->name
-                                        ])
-
-                                        @include('guest.components.show-row-link', [
-                                            'name'   => 'link',
-                                            'href'   => $music->link,
-                                            'target' => '_blank'
-                                        ])
-
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'description',
-                                            'value' => nl2br($music->description ?? '')
-                                        ])
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @include('guest.components.footer')
-
+        @if(!empty($music->children))
+            <div class="columns">
+                <div class="column is-2"><strong>children</strong>:</div>
+                <div class="column is-10 pl-0">
+                    <ol>
+                        @foreach($music->children as $child)
+                            <li>
+                                @include('guest.components.link', [
+                                    'name' => $child['name'],
+                                    'href' => route('guest.portfolio.music.show', $child)
+                                ])
+                            </li>
+                        @endforeach
+                    </ol>
                 </div>
             </div>
-        </div>
+        @endif
+
+        @include('guest.components.show-row-checkbox', [
+            'name'    => 'featured',
+            'checked' => $music->featured
+        ])
+
+        @include('guest.components.show-row-checkbox', [
+            'name'    => 'collection',
+            'checked' => $music->collection
+        ])
+
+        @include('guest.components.show-row-checkbox', [
+            'name'    => 'track',
+            'checked' => $music->track
+        ])
+
+        @include('guest.components.show-row', [
+            'name'  => 'label',
+            'value' => $music->label
+        ])
+
+        @include('guest.components.show-row', [
+            'name'  => 'catalog number',
+            'value' => $music->catalog_number
+        ])
+
+        @include('guest.components.show-row', [
+            'name'  => 'year',
+            'value' => $music->year
+        ])
+
+        @include('guest.components.show-row', [
+            'name'  => 'release_date',
+            'label' => 'release date',
+            'value' => longDate($music->release_date)
+        ])
+
+        @include('guest.components.show-row', [
+            'name'  => 'embed',
+            'value' => $music->embed
+        ])
+
+        @include('guest.components.show-row-link', [
+            'name'   => 'audio url',
+            'href'   => $music->audio_url,
+            'target' => '_blank'
+        ])
+
+        @if(!empty($music->link))
+            @include('guest.components.show-row-link', [
+                'name'   => $music->link_name,
+                'href'   => $music->link,
+                'target' => '_blank'
+            ])
+        @endif
+
+        @include('guest.components.show-row', [
+            'name'  => 'description',
+            'value' => nl2br($music->description ?? '')
+        ])
+
+        @if(!empty($music->image))
+
+            @include('guest.components.show-row-image', [
+                'name'     => 'image',
+                'src'      => $music->image,
+                'alt'      => $music->name . ', ' . $music->artist,
+                'width'    => '300px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($music->name . '-by-' . $music->artist, $music->image)
+            ])
+
+            @if(!empty($music->image_credit))
+                @include('guest.components.show-row', [
+                    'name'  => 'image credit',
+                    'value' => $music->image_credit
+                ])
+            @endif
+
+            @if(!empty($music->image_source))
+                @include('guest.components.show-row', [
+                    'name'  => 'image source',
+                    'value' => $music->image_source
+                ])
+            @endif
+
+        @endif
+
+        @if(!empty($music->thumbnail))
+
+            @include('guest.components.show-row-image', [
+                'name'     => 'thumbnail',
+                'src'      => $music->thumbnail,
+                'alt'      => $music->name . ', ' . $music->artist,
+                'width'    => '40px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($music->name . '-by-' . $music->artist, $music->thumbnail)
+            ])
+
+        @endif
+
     </div>
 
 @endsection

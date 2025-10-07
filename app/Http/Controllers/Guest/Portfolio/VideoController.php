@@ -29,6 +29,7 @@ class VideoController extends BaseController
             ->paginate($perPage);
 
         $title = 'Videos';
+
         return view('guest.portfolio.video.index', compact('videos', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }

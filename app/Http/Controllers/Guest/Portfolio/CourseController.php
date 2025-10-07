@@ -25,10 +25,11 @@ class CourseController extends BaseController
 
         $courses = Course::where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('sequence', 'asc')
+            ->orderBy('name', 'asc')
             ->paginate($perPage);
 
         $title = 'Courses';
+
         return view('guest.portfolio.course.index', compact('courses', 'title'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }

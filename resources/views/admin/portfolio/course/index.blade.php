@@ -27,7 +27,7 @@
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
                 <th>academy</th>
-                <th class=" has-text-centered">completion<br>date</th>
+                <th class="has-text-centered">completion<br>date</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -42,7 +42,7 @@
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
                 <th>academy</th>
-                <th class=" has-text-centered">completion<br>date</th>
+                <th class="has-text-centered">completion<br>date</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>

@@ -64,15 +64,19 @@
             'value' => $skill->category['name'] ?? ''
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'start year',
-            'value' => $skill->star_year
-        ])
+        @if(!empty($skill->start_year))
+            @include('admin.components.show-row', [
+                'name'  => 'start year',
+                'value' => $skill->start_year
+            ])
+        @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'years',
-            'value' => $skill->years
-        ])
+        @if(!empty($skill->start_year))
+            @include('admin.components.show-row', [
+                'name'  => 'years',
+                'value' => $skill->years
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'notes',

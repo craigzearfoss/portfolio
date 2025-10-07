@@ -25,7 +25,7 @@ class RecipeController extends BaseController
 
         $recipes = Recipe::where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('sequence', 'asc')
+            ->orderBy('name', 'asc')
             ->paginate($perPage);
 
         $title = 'Recipes';

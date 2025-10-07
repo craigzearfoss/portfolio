@@ -107,8 +107,7 @@
 
         @if(!empty($video->link))
             @include('guest.components.show-row-link', [
-                'name'   => 'link',
-                'label'  => $video->link_name,
+                'name'   => $video->link_name,
                 'href'   => $video->link,
                 'target' => '_blank'
             ])
@@ -124,11 +123,11 @@
             @include('guest.components.show-row-image', [
                 'name'     => 'image',
                 'src'      => $video->image,
-                'alt'      => $video->name,
+                'alt'      => $video->name . ', ' . $video->artist,
                 'width'    => '300px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($video->name, $video->image)
+                'filename' => getFileSlug($video->name . '-by-' . $video->artist, $video->image)
             ])
 
             @if(!empty($video->image_credit))
@@ -144,6 +143,20 @@
                     'value' => $video->image_source
                 ])
             @endif
+
+        @endif
+
+        @if(!empty($video->thumbnail))
+
+            @include('guest.components.show-row-image', [
+                'name'     => 'thumbnail',
+                'src'      => $video->thumbnail,
+                'alt'      => $video->name . ', ' . $video->artist,
+                'width'    => '40px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($video->name . '-by-' . $video->artist, $video->thumbnail)
+            ])
 
         @endif
 

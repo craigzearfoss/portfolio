@@ -25,7 +25,7 @@ class MusicController extends BaseController
 
         $musics = Music::where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('sequence', 'asc')
+            ->orderBy('name', 'asc')->orderBy('artist', 'asc')
             ->paginate($perPage);
 
         $title = 'Music';
@@ -45,6 +45,6 @@ class MusicController extends BaseController
             throw new ModelNotFoundException();
         }
 
-        return view('music.show', compact('music'));
+        return view('guest.portfolio.music.show', compact('music'));
     }
 }

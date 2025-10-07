@@ -58,8 +58,9 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name' => $reading->title,
-                            'href' => route('guest.personal.reading.show', $reading->slug)
+                            'name'  => $reading->title,
+                            'href'  => route('guest.personal.reading.show', $reading->slug),
+                            'class' => $reading->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td>

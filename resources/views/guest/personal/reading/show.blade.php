@@ -53,24 +53,59 @@
             'checked' => $reading->wishlist
         ])
 
-        @if(!empty($reading->image))
-            @include('guest.components.show-row-image', [
-                'name'     => 'image',
-                'src'      => $reading->image,
-                'alt'      => $reading->title . ' - ' . $reading->author,
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($reading->title . '-by-' . $reading->author, $reading->image)
-            ])
-        @endif
-
         @if(!empty($reading->link))
             @include('guest.components.show-row-link', [
                 'name'   => $reading->link_name,
                 'href'   => $reading->link,
                 'target' => '_blank'
             ])
+        @endif
+
+        @include('guest.components.show-row', [
+            'name'  => 'description',
+            'value' => nl2br($reading->description ?? '')
+        ])
+
+        @if(!empty($reading->image))
+
+            @include('guest.components.show-row-image', [
+                'name'     => 'image',
+                'src'      => $reading->image,
+                'alt'      => $reading->name . ', ' . $reading->artist,
+                'width'    => '300px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($reading->name . '-by-' . $reading->artist, $reading->image)
+            ])
+
+            @if(!empty($reading->image_credit))
+                @include('guest.components.show-row', [
+                    'name'  => 'image credit',
+                    'value' => $reading->image_credit
+                ])
+            @endif
+
+            @if(!empty($reading->image_source))
+                @include('guest.components.show-row', [
+                    'name'  => 'image source',
+                    'value' => $reading->image_source
+                ])
+            @endif
+
+        @endif
+
+        @if(!empty($reading->thumbnail))
+
+            @include('guest.components.show-row-image', [
+                'name'     => 'thumbnail',
+                'src'      => $reading->thumbnail,
+                'alt'      => $reading->name . ', ' . $reading->artist,
+                'width'    => '40px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($reading->name . '-by-' . $reading->artist, $reading->thumbnail)
+            ])
+
         @endif
 
     </div>

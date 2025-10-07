@@ -1,9 +1,9 @@
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Links',
+    'title' => $title ?? 'Skills',
     'breadcrumbs' => [
         [ 'name' => 'Home',      'href' => route('guest.homepage') ],
         [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
-        [ 'name' => 'Links' ],
+        [ 'name' => 'Skills' ],
     ],
     'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],
@@ -19,36 +19,45 @@
             <thead>
             <tr>
                 <th>name</th>
-                <th>url</th>
+                <th>category</th>
+                <th>level (out of 10)</th>
+                <th>years</th>
             </tr>
             </thead>
             <?php /*
             <tfoot>
             <tr>
                 <th>name</th>
-                <th>url</th>
+                <th>category</th>
+                <th>level (out of 10)</th>
+                <th>years</th>
             </tr>
             </tr>
             </tfoot>
             */ ?>
             <tbody>
 
-            @forelse ($links as $link)
+            @forelse ($skills as $skill)
 
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => $link->name,
-                            'href'  => route('guest.portfolio.link.show', $link->slug),
-                            'class' => $link->featured ? 'has-text-weight-bold' : ''
+                            'name'  => $skill->name . (!empty($skill->version) ? ' ' . $skill->version : ''),
+                            'href'  => route('guest.portfolio.skill.show', $skill->slug),
+                            'class' => $skill->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td>
-                        @include('guest.components.link', [
-                            'name'   => $link->url,
-                            'href'   => $link->url,
-                            'target' => '_blank',
+                        {{ $skill->category['name'] ?? '' }}
+                    </td>
+                    <td data-field="level" style="white-space: nowrap;" class="is">
+                        @include('admin.components.star-ratings', [
+                            'rating' => $skill->level ?? 1,
+                            'label'  => '(' . ($skill->level ?? 1) . ')'
                         ])
+                    </td>
+                    <td class="has-text-centered">
+                        {{ $skill->years }}
                     </td>
                 </tr>
 
@@ -63,7 +72,7 @@
             </tbody>
         </table>
 
-        {!! $links->links('vendor.pagination.bulma') !!}
+        {!! $skills->links('vendor.pagination.bulma') !!}
 
     </div>
 

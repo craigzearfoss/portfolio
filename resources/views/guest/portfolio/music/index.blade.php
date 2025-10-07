@@ -1,74 +1,80 @@
-@extends('guest.layouts.default')
+@extends('guest.layouts.default', [
+    'title' => $title ?? 'Music',
+    'breadcrumbs' => [
+        [ 'name' => 'Home',      'href' => route('guest.homepage') ],
+        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
+        [ 'name' => 'Music' ],
+    ],
+    'buttons' => [],
+    'errorMessages'=> $errors->messages() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="card p-4">
 
-            @include('guest.components.nav-left')
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <thead>
+            <tr>
+                <th>name</th>
+                <th>artist</th>
+                <th>year</th>
+                <th>label</th>
+                <th>cat#</th>
+            </tr>
+            </thead>
+            <?php /*
+            <tfoot>
+            <tr>
+                <th>name</th>
+                <th>artist</th>
+                <th>year</th>
+                <th>label</th>
+                <th>cat#</th>
+            </tr>
+            </tfoot>
+            */ ?>
+            <tbody>
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            @forelse ($musics as $music)
 
-                @include('guest.components.header')
+                <tr data-id="{{ $music->id }}">
+                    <td data-field="name">
+                        @include('guest.components.link', [
+                            'name'  => $music->name,
+                            'href'  => route('guest.portfolio.music.show', $music->slug),
+                            'class' => $music->featured ? 'has-text-weight-bold' : ''
+                        ])
+                    </td>
+                    <td data-field="artist">
+                        {{ $music->artist }}
+                    </td>
+                    <td data-field="year">
+                        {{ $music->year }}
+                    </td>
+                    <td data-field="label">
+                        {{ $music->label }}
+                    </td>
+                    <td data-field="catalog_number">
+                        {{ $music->catalog_number }}
+                    </td>
+                </tr>
 
-                @include('guest.components.popup')
+            @empty
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
+                <tr>
+                    <td colspan="5">There is no music.</td>
+                </tr>
 
-                    <h3 class="card-header">Music</h3>
+            @endforelse
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('guest.components.messages', [$errors])
-                        </div>
-                    </div>
+            </tbody>
+        </table>
 
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th>name</th>
-                            <th>featured</th>
-                            <th>description</th>
-                        </tr>
-                        </thead>
+        {!! $musics->links('vendor.pagination.bulma') !!}
 
-                        <tbody>
-
-                        @forelse ($musics as $music)
-
-                            <tr>
-                                <td>
-                                    @include('guest.components.link', [
-                                        'name' => $music->name,
-                                        'href' => route('guest.portfolio.music.show', $music->slug)
-                                    ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('guest.components.checkmark', [ 'checked' => $music->featured ])
-                                </td>
-                                <td>
-                                    {!! nl2br($music->description ?? '') !!}
-                                </td>
-                            </tr>
-
-                        @empty
-
-                            <tr>
-                                <td colspan="5">There is no music.</td>
-                            </tr>
-
-                        @endforelse
-
-                        </tbody>
-                    </table>
-
-                    {!! $musics->links() !!}
-
-                    @include('guest.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

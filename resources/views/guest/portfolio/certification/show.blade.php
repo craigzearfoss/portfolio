@@ -66,10 +66,57 @@
 
         @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'description',
-            'value' => $certification->description
-        ])
+        @if(!empty($certification->image_credit))
+            @include('guest.components.show-row', [
+                'name'  => 'image credit',
+                'value' => $certification->image_credit
+            ])
+        @endif
+
+        @if(!empty($certification->image_source))
+            @include('guest.components.show-row', [
+                'name'  => 'image source',
+                'value' => $certification->image_source
+            ])
+        @endif
+
+        @if(!empty($certification->image))
+
+            @include('guest.components.show-row-image', [
+                'name'     => 'image',
+                'src'      => $certification->image,
+                'alt'      => $certification->name . ', ' . $certification->artist,
+                'width'    => '300px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($certification->name . '-by-' . $certification->artist, $certification->image)
+            ])
+
+            @include('guest.components.show-row', [
+                'name'  => 'image credit',
+                'value' => $certification->image_credit
+            ])
+
+            @include('guest.components.show-row', [
+                'name'  => 'image source',
+                'value' => $certification->image_source
+            ])
+
+        @endif
+
+        @if(!empty($certification->thumbnail))
+
+            @include('guest.components.show-row-image', [
+                'name'     => 'thumbnail',
+                'src'      => $certification->thumbnail,
+                'alt'      => $certification->name . ', ' . $certification->artist,
+                'width'    => '40px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($certification->name . '-by-' . $certification->artist, $certification->thumbnail)
+            ])
+
+        @endif
 
     </div>
 

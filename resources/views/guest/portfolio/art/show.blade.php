@@ -55,6 +55,61 @@
 
         @endif
 
+        @if(!empty($art->link))
+            @include('guest.components.show-row-link', [
+                'name'   => $art->link_name,
+                'href'   => $art->link,
+                'target' => '_blank'
+            ])
+        @endif
+
+        @include('guest.components.show-row', [
+            'name'  => 'description',
+            'value' => nl2br($art->description ?? '')
+        ])
+
+        @if(!empty($art->image))
+
+            @include('guest.components.show-row-image', [
+                'name'     => 'image',
+                'src'      => $art->image,
+                'alt'      => $art->name . ', ' . $art->artist,
+                'width'    => '300px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($art->name . '-by-' . $art->artist, $art->image)
+            ])
+
+            @if(!empty($art->image_credit))
+                @include('guest.components.show-row', [
+                    'name'  => 'image credit',
+                    'value' => $art->image_credit
+                ])
+            @endif
+
+            @if(!empty($art->image_source))
+                @include('guest.components.show-row', [
+                    'name'  => 'image source',
+                    'value' => $art->image_source
+                ])
+            @endif
+
+        @endif
+
+        @if(!empty($art->thumbnail))
+
+            @include('guest.components.show-row-image', [
+                'name'     => 'thumbnail',
+                'src'      => $art->thumbnail,
+                'alt'      => $art->name . ', ' . $art->artist,
+                'width'    => '40px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($art->name . '-by-' . $art->artist, $art->thumbnail)
+            ])
+
+        @endif
+
     </div>
 
 @endsection

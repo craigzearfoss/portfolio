@@ -16,14 +16,18 @@ use App\Http\Controllers\Admin\Portfolio\VideoController as AdminPortfolioVideoC
 use App\Http\Controllers\Guest\Portfolio\ArtController as GuestPortfolioArtController;
 use App\Http\Controllers\Guest\Portfolio\CertificationController as GuestPortfolioCertificationController;
 use App\Http\Controllers\Guest\Portfolio\CourseController as GuestPortfolioCourseController;
+use App\Http\Controllers\Guest\Portfolio\JobController as GuestPortfolioJobController;
 use App\Http\Controllers\Guest\Portfolio\LinkController as GuestPortfolioLinkController;
 use App\Http\Controllers\Guest\Portfolio\MusicController as GuestPortfolioMusicController;
 use App\Http\Controllers\Guest\Portfolio\IndexController as GuestPortfolioIndexController;
 use App\Http\Controllers\Guest\Portfolio\ProjectController as GuestPortfolioProjectController;
+use App\Http\Controllers\Guest\Portfolio\SkillController as GuestPortfolioSkillController;
 use App\Http\Controllers\Guest\Portfolio\VideoController as GuestPortfolioVideoController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('guest.')->group(function () {
+
+    Route::get('/resume', [GuestPortfolioJobController::class, 'show'])->name('show');
 
     // resources
     Route::prefix('portfolio')->name('portfolio.')->group(function () {
@@ -40,6 +44,8 @@ Route::name('guest.')->group(function () {
         Route::get('/music/{slug}', [GuestPortfolioMusicController::class, 'show'])->name('music.show');
         Route::get('/project', [GuestPortfolioProjectController::class, 'index'])->name('project.index');
         Route::get('/project/{slug}', [GuestPortfolioProjectController::class, 'show'])->name('project.show');
+        Route::get('/skill', [GuestPortfolioSkillController::class, 'index'])->name('skill.index');
+        Route::get('/skill/{slug}', [GuestPortfolioSkillController::class, 'show'])->name('skill.show');
         Route::get('/video', [GuestPortfolioVideoController::class, 'index'])->name('video.index');
         Route::get('/video/{slug}', [GuestPortfolioVideoController::class, 'show'])->name('video.show');
     });
