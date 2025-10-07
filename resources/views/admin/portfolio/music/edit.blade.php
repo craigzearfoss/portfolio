@@ -153,7 +153,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $music->link,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
@@ -175,7 +175,7 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'image',
                 'value'     => old('image') ?? $music->image,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
@@ -198,7 +198,7 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
                 'value'     => old('thumbnail') ?? $music->thumbnail,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 

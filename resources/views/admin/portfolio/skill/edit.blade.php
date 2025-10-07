@@ -103,6 +103,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $skill->link,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
@@ -110,6 +111,7 @@
                 'name'      => 'link_name',
                 'label'     => 'link name',
                 'value'     => old('link_name') ?? $skill->link_name,
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
@@ -121,9 +123,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image',
-                'value'   => old('image') ?? $skill->image,
-                'message' => $message ?? '',
+                'name'      => 'image',
+                'value'     => old('image') ?? $skill->image,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -143,9 +146,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? $skill->thumbnail,
-                'message' => $message ?? '',
+                'name'      => 'thumbnail',
+                'value'     => old('thumbnail') ?? $skill->thumbnail,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

@@ -35,10 +35,10 @@ return new class extends Migration
             $table->foreignIdFor( \App\Models\Personal\Unit::class);
             $table->string('qualifier')->nullable();
             $table->text('description')->nullable();
-            $table->string('image')->nullable();
+            $table->string('image', 500)->nullable();
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();
-            $table->string('thumbnail')->nullable();
+            $table->string('thumbnail', 500)->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('readonly')->default(0);

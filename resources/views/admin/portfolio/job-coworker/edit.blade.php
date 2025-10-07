@@ -120,7 +120,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $jobCoworker->link,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
@@ -140,10 +140,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image',
-                'value'   => old('image') ?? $jobCoworker->image,
-                'maxlength' => 255,
-                'message' => $message ?? '',
+                'name'      => 'image',
+                'value'     => old('image') ?? $jobCoworker->image,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -163,10 +163,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? $jobCoworker->thumbnail,
-                'maxlength' => 255,
-                'message' => $message ?? '',
+                'name'      =>  'thumbnail',
+                'value'     => old('thumbnail') ?? $jobCoworker->thumbnail,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
