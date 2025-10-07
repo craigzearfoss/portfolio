@@ -62,6 +62,12 @@ if (! function_exists('shortDate')) {
             $dateFormat = 'm/d/Y';
         }
 
+        if (count(explode('-', $YmdDate)) == 2) {
+            // Assume the date only has a year and a month, but no day like 'Y-m'.
+            $YmdDate = $YmdDate . '-01';
+            $dateFormat = 'm/Y';
+        }
+
         try {
             return Carbon::createFromFormat('Y-m-d', $YmdDate)->format($dateFormat);
         } catch (\Exception $e) {
@@ -75,21 +81,32 @@ if (! function_exists('longDate')) {
      * Convert a MySQL date-time to the short form specified by the APP_DATE_FORMAT_LONG .env variable.
      *
      * @param string | null $YmdDate - day in the format Y-m-d H:i:s
+     * @param bool $useThreeLetterMonth
      * @return string | null
      */
-    function longDate(string | null $YmdDate): string | null
+    function longDate(?string $YmdDate, bool $useThreeLetterMonth = false): string | null
     {
         if (empty($YmdDate)) {
             return '';
         }
         $YmdDate = explode(' ', $YmdDate)[0];
 
-        if (!$dateTime = config( 'app.date_format_long')) {
-            $dateTime = 'F j, Y';
+        if (!$dateFormat = config( 'app.date_format_long')) {
+            $dateFormat = 'F j, Y';
+        }
+
+        if (count(explode('-', $YmdDate)) == 2) {
+            // Assume the date only has a year and a month, but no day like 'Y-m'.
+            $YmdDate = $YmdDate . '-01';
+            $dateFormat = 'F Y';
+        }
+
+        if ($useThreeLetterMonth) {
+            $dateFormat = str_replace('F', 'M', $dateFormat);
         }
 
         try {
-            return Carbon::createFromFormat('Y-m-d', $YmdDate)->format($dateTime);
+            return Carbon::createFromFormat('Y-m-d', $YmdDate)->format($dateFormat);
         } catch (\Exception $e) {
             return $YmdDate;
         }

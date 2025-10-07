@@ -69,6 +69,16 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'employment type',
+            'value' => $job->employmentType['name'] ?? ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'employment location',
+            'value' => $job->locationType['name'] ?? ''
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'notes',
             'value' => $job->notes
         ])

@@ -135,6 +135,28 @@
                 'raw'   => true
             ])
 
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'job_employment_type_id',
+                'label'    => 'employment type',
+                'value'    => old('job_employment_type_id') ?? $job->job_employment_type_id,
+                'required' => true,
+                'list'     => \App\Models\Portfolio\JobEmploymentType::listOptions(
+                                    [], 'id', 'name', true
+                                ),
+                'message'  => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'job_location_type_id',
+                'label'    => 'location type',
+                'value'    => old('job_location_type_id') ?? $job->job_location_type_id,
+                'required' => true,
+                'list'     => \App\Models\Portfolio\JobLocationType::listOptions(
+                                    [], 'id', 'name', true
+                                ),
+                'message'  => $message ?? '',
+            ])
+
             @include('admin.portfolio.job.coworker.panel', [
                 'coworkers' => $job->coworkers ?? [],
                 'job'  => $job
@@ -148,7 +170,6 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'street',
                 'value'     => old('street') ?? $job->street,
-                'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -156,7 +177,6 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'street2',
                 'value'     => old('street2') ?? $job->street2,
-                'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])

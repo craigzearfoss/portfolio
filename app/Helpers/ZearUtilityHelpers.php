@@ -197,6 +197,77 @@ if (! function_exists('getFileSlug')) {
     }
 }
 
+if (! function_exists('dateRangeDetails')) {
+    /**
+     * Returns an array of details about a date range.
+     *
+     * @param string $startDate
+     * @param string | null $endDate
+     * @param bool $shortFormat
+     * @return array
+     */
+    function dateRangeDetails(string $startDate, ?string $endDate = null, bool $shortFormat = true): array
+    {
+        $calculateDownToDays = true;
+
+        $data = [
+            'start'      => longDate($startDate, $shortFormat),
+            'end'        => empty($endDate) ? 'Present' :  longDate($endDate, $shortFormat),
+            'start_date' => $startDate,
+            'end_date'   => $endDate,
+            'days'       => null,
+            'months'     => null,
+            'range'      => null,
+        ];
+
+        if (count(explode('-', $data['start_date'])) == 2) {
+            // Assume the date only has a year and a month, but no day like 'Y-m'.
+            $calculateDownToDays = false;
+            $data['start_date'] .= '-01';
+        }
+
+        if (empty($data['end_date'])) {
+            $data['end_date'] = date("Y-m-d");
+        }
+        if (count(explode('-', $data['end_date'])) == 2) {
+            // Assume the date only has a year and a month, but no day like 'Y-m'.
+            $data['end_date'] .= '-01';
+        }
+
+        $startDate = new DateTime($data['start_date']);
+        $endDate = new DateTime($data['end_date']);
+
+
+        $interval = $startDate->diff($endDate);
+        $data['days'] = $interval->days;
+        $data['months'] = ($interval->y * 12) + $interval->m;
+
+        $parts = [];
+        if (!empty($interval->y)) {
+            $parts[] = $interval->y;
+            $parts[] = ($interval->y > 1)
+                ? ($shortFormat ? 'yrs' : 'years')
+                : ($shortFormat ? 'yr' : 'year');
+        }
+        if (!empty($interval->m)) {
+            $parts[] = $interval->m;
+            $parts[] = ($interval->m > 1)
+                ? ($shortFormat ? 'mos' : 'months')
+                : ($shortFormat ? 'mo' : 'month');
+        }
+        if ($calculateDownToDays) {
+            $parts[] = $interval->d;
+            $parts[] = ($interval->d > 1)
+                ? ($shortFormat ? 'dys' : 'days')
+                : ($shortFormat ? 'dy' : 'day');
+        }
+
+        $data['range'] = implode(' ', $parts);
+
+        return $data;
+    }
+}
+
 if (! function_exists('imageUrl')) {
     /**
      * Returns the url of the refering page or the specified fallback route if there was no referer.

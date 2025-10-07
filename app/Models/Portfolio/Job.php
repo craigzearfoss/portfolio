@@ -40,7 +40,8 @@ class Job extends Model
         'start_year',
         'end_month',
         'end_year',
-        'summary',
+        'job_employment_type_id',
+        'job_location_type_id',
         'notes',
         'street',
         'street2',
@@ -101,6 +102,22 @@ class Job extends Model
     public function coworkers(): HasMany
     {
         return $this->hasMany(JobCoworker::class);
+    }
+
+    /**
+     * Get the employment type of the job.
+     */
+    public function employmentType(): BelongsTo
+    {
+        return $this->belongsTo(JobEmploymentType::class, 'job_employment_type_id');
+    }
+
+    /**
+     * Get the location type of the job.
+     */
+    public function locationType(): BelongsTo
+    {
+        return $this->belongsTo(JobLocationType::class, 'job_location_type_id');
     }
 
     /**

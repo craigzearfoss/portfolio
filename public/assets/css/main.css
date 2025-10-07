@@ -97,3 +97,18 @@
     margin-right: 8px !important; /* Adds space between checkbox and label */
     flex: none !important;
 }
+
+.resume-container .list-item-title {
+    font-size: 1.1em;
+    font-weight: 700;
+    line-height: 1.2em;
+}
+.resume-container .list-item-description {
+    font-size: 0.9em;
+    line-height: 1.2em;
+}
+.resume-container .list-item-description.gray {
+    color: #7a7a7a;
+    line-height: 1.2em;
+
+}

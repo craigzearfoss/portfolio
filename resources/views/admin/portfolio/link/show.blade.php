@@ -19,7 +19,7 @@
 
 @section('content')
 
-    <div class="show-container ard p-4">
+    <div class="show-container card p-4">
 
         @include('admin.components.show-row', [
             'name'  => 'id',

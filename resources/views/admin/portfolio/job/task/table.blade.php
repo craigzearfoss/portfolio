@@ -15,24 +15,21 @@
                 {{ $task->summary ?? '' }}
             </td>
             <td class="is-1" style="white-space: nowrap;">
-                <form action="{{ route('admin.portfolio.job-task.destroy', $task) }}" method="POST">
 
-                    <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.portfolio.job-task.show', $task) }}">
-                        <i class="fa-solid fa-list"></i>{{-- show --}}
-                    </a>
+                <a title="show" class="button is-small px-1 py-0"
+                       href="{{ route('admin.portfolio.job-task.show', $task) }}">
+                    <i class="fa-solid fa-list"></i>{{-- show --}}
+                </a>
 
-                    <a title="edit" class="button is-small px-1 py-0"
-                       href="{{ route('admin.portfolio.job-task.edit', $task) }}">
-                        <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
-                    </a>
+                <a title="edit" class="button is-small px-1 py-0"
+                   href="{{ route('admin.portfolio.job-task.edit', $task) }}">
+                    <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
+                </a>
 
-                    @csrf
-                    @method('DELETE')
-                    <button title="remove" type="submit" class="button is-small px-1 py-0">
-                        <i class="fa-solid fa-trash"></i>{{-- delete --}}
-                    </button>
-                </form>
+                <button title="remove" type="submit" class="button is-small px-1 py-0">
+                    <i class="fa-solid fa-trash"></i>{{-- delete --}}
+                </button>
+
             </td>
         </tr>
 
