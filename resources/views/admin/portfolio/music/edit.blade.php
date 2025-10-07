@@ -78,8 +78,24 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',
                 'value'     => old('summary') ?? $music->summary,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'collection',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('collection') ?? $music->collection,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'track',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('track') ?? $music->track,
+                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -112,6 +128,26 @@
                 'label'     => 'release date',
                 'value'     => old('release_date') ?? $music->release_date,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'embed',
+                'value'   => old('embed') ?? $music->embed,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'audio_url',
+                'label'     => 'audio_url url',
+                'value'     => old('audio_url') ?? $music->audio_url,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? $music->notes,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

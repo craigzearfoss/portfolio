@@ -34,6 +34,7 @@ return new class extends Migration
             $table->tinyInteger('featured')->default(0);
             $table->string('summary')->nullable();
             $table->string('url');
+            $table->text('notes')->nullable();
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();

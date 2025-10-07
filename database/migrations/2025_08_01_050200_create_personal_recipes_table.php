@@ -46,6 +46,7 @@ return new class extends Migration
             $table->integer('lunch')->default(0);
             $table->integer('dinner')->default(0);
             $table->integer('snack')->default(0);
+            $table->text('notes')->nullable();
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();

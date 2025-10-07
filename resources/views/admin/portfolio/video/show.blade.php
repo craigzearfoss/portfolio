@@ -123,6 +123,11 @@
             'value' => $video->video_url,
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $video->notes
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $video->link,

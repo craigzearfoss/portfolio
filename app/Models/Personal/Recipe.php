@@ -42,6 +42,7 @@ class Recipe extends Model
         'lunch',
         'dinner',
         'snack',
+        'notes',
         'link',
         'link_name',
         'description',

@@ -63,7 +63,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',
                 'value'     => old('summary') ?? $link->summary,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
@@ -73,6 +73,12 @@
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? $link->notes,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

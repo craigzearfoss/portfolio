@@ -64,8 +64,24 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',
                 'value'     => old('name') ?? '',
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'collection',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('collection') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'track',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('track') ?? 0,
+                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -98,6 +114,26 @@
                 'label'     => 'release date',
                 'value'     => old('release_date') ?? '',
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'embed',
+                'value'   => old('embed') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'audio_url',
+                'label'     => 'audio url',
+                'value'     => old('audio_url') ?? '',
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? $reading->notes,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

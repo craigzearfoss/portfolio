@@ -65,7 +65,7 @@ class LinkStoreRequest extends FormRequest
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],
-            'summary'      => ['string', 'max:255', 'nullable'],
+            'summary'      => ['string', 'max:500', 'nullable'],
             'url'          => [
                 'string',
                 'max:255',
@@ -75,6 +75,7 @@ class LinkStoreRequest extends FormRequest
                         ->where('url', $this->url);
                 })
             ],
+            'notes'        => ['nullable'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

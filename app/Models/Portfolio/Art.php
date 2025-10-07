@@ -33,6 +33,7 @@ class Art extends Model
         'summary',
         'year',
         'image_url',
+        'notes',
         'link',
         'link_name',
         'description',

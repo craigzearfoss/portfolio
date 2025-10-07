@@ -59,7 +59,7 @@ class RecipeUpdateRequest extends FormRequest
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],
-            'summary'      => ['string', 'max:255', 'nullable'],
+            'summary'      => ['string', 'max:500', 'nullable'],
             'source'       => ['string', 'max:255', 'nullable'],
             'author'       => ['string', 'max:255', 'nullable'],
             'prep_time'    => ['integer', 'min:0'],
@@ -73,6 +73,7 @@ class RecipeUpdateRequest extends FormRequest
             'lunch'        => ['integer', 'between:0,1'],
             'dinner'       => ['integer', 'between:0,1'],
             'snack'        => ['integer', 'between:0,1'],
+            'notes'        => ['nullable'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

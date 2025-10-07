@@ -92,6 +92,11 @@
             'filename' => getFileSlug($certification->name, $certification->certificate_url)
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $certification->notes
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $certification->link,

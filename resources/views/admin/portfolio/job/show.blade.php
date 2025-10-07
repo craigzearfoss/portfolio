@@ -105,6 +105,11 @@
             'job'   => $job
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $job->notes
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $job->link,

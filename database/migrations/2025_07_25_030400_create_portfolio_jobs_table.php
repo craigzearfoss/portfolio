@@ -38,7 +38,6 @@ return new class extends Migration
             $table->integer('start_year')->nullable();
             $table->integer('end_month')->nullable();
             $table->integer('end_year')->nullable();
-            $table->text('notes')->nullable();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100);
@@ -47,6 +46,7 @@ return new class extends Migration
             $table->integer('country_id')->nullable();
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
+            $table->text('notes')->nullable();
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();

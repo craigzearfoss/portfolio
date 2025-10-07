@@ -50,6 +50,7 @@ class Job extends Model
         'country_id',
         'latitude',
         'longitude',
+        'notes',
         'link',
         'link_name',
         'description',

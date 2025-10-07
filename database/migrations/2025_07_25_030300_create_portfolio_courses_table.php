@@ -42,6 +42,7 @@ return new class extends Migration
             $table->string('instructor')->nullable()->default(null);
             $table->string('sponsor')->nullable()->default(null);
             $table->string('certificate_url')->nullable();
+            $table->text('notes')->nullable();
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();

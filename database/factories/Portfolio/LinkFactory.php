@@ -27,6 +27,7 @@ class LinkFactory extends Factory
             'featured'     => fake()->numberBetween(0, 1),
             'summary'      => fake()->text(200),
             'url'          => fake()->url(),
+            'notes'        => fake()->text(200),
             'link'         => fake()->url(),
             'link_name'    => fake()->text(20),
             'description'  => fake()->text(200),

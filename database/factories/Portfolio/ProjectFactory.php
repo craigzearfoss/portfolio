@@ -51,6 +51,7 @@ class ProjectFactory extends Factory
             'language_version' => $languageVersion,
             'repository_url'   => fake()->url(),
             'repository_name'  => fake()->text(20),
+            'notes'            => fake()->text(200),
             'link'             => fake()->url(),
             'link_name'        => fake()->text(20),
             'description'      => fake()->text(200),

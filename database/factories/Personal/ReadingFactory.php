@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\Portfolio;
+namespace Database\Factories\Personal;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -35,6 +35,7 @@ class ReadingFactory extends Factory
             'paper'            => fake()->numberBetween(0, 1),
             'audio'            => fake()->numberBetween(0, 1),
             'wishlist'         => fake()->numberBetween(0, 1),
+            'notes'            => fake()->text(200),
             'link'             => fake()->url(),
             'link_name'        => fake()->text(20),
             'description'      => fake()->text(200),

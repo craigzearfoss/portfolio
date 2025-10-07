@@ -72,7 +72,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',
                 'value'     => old('summary') ?? $video->summary,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
@@ -178,8 +178,14 @@
                 'name'      => 'video_url',
                 'label'     => 'video url',
                 'value'     => old('video_url') ?? $video->video_url,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? $video->notes,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

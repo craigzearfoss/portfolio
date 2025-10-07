@@ -63,6 +63,19 @@
             'value' => $art->year
         ])
 
+        @include('admin.components.show-row-image', [
+            'name'     => 'image',
+            'src'      => $art->image_url,
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $art->notes
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $art->link,

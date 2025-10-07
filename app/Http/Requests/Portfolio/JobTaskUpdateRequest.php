@@ -36,7 +36,7 @@ class JobTaskUpdateRequest extends FormRequest
         return [
             'owner_id'        => ['integer', 'exists:core_db.admins,id'],
             'job_id'          => ['integer', 'filled', 'exists:portfolio_db.jobs,id'],
-            'summary'         => ['string', 'max:255', 'filled'],
+            'summary'         => ['string', 'max:500', 'filled'],
             'notes'           => ['nullable'],
             'link'            => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],

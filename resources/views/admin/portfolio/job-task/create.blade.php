@@ -52,7 +52,7 @@
                 'name'      => 'summary',
                 'value'     => old('summary') ?? '',
                 'required'  => true,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 

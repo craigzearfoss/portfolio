@@ -40,10 +40,10 @@ return new class extends Migration
             $table->tinyInteger('paper')->default(1);
             $table->tinyInteger('audio')->default(0);
             $table->tinyInteger('wishlist')->default(0);
+            $table->text('notes')->nullable();
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();
-            $table->text('notes')->nullable();
             $table->string('image')->nullable();
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();

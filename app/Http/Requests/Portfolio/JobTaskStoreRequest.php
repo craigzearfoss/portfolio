@@ -39,7 +39,7 @@ class JobTaskStoreRequest extends FormRequest
         return [
             'owner_id'        => ['integer', 'exists:core_db.admins,id'],
             'job_id'          => ['integer', 'required', 'exists:portfolio_db.jobs,id'],
-            'summary'         => ['string', 'required', 'max:255'],
+            'summary'         => ['string', 'required', 'max:500'],
             'notes'           => ['nullable'],
             'link'            => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],

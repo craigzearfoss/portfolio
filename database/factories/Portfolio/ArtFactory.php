@@ -31,6 +31,7 @@ class ArtFactory extends Factory
             'summary'      => fake()->text(200),
             'year'         => fake()->numberBetween(1980, 2025),
             'image_url'    => fake()->url(),
+            'notes'        => fake()->text(200),
             'link'         => fake()->url(),
             'link_name'    => fake()->text(20),
             'description'  => fake()->text(200),

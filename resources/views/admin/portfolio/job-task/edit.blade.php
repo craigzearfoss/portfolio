@@ -58,7 +58,7 @@
                 'name'      => 'summary',
                 'value'     => old('summary') ?? $jobTask->summary,
                 'required'  => true,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 

@@ -37,6 +37,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Dictionary\Category::class, 'category_id');
             $table->integer('start_year')->nullable();
             $table->integer('years')->default(0);
+            $table->text('notes')->nullable();
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();

@@ -71,7 +71,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',
                 'value'     => old('summary') ?? $job->summary,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
@@ -133,19 +133,6 @@
                                 . $endYear
                             . '</div></div>',
                 'raw'   => true
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'summary',
-                'value'     => old('summary') ?? $job->summary,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? nl2br($job->notes ?? ''),
-                'message' => $message ?? '',
             ])
 
             @include('admin.portfolio.job.coworker.panel', [
@@ -213,6 +200,19 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'longitude',
                 'value'     => old('longitude') ?? $job->longitude,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? $job->notes,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'link',
+                'value'     => old('link') ?? $job->link,
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 

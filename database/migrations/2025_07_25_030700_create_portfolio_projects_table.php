@@ -40,6 +40,7 @@ return new class extends Migration
             $table->string('repository_name')->nullable();
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
+            $table->text('notes')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('image_credit')->nullable();

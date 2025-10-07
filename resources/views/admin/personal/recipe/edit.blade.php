@@ -63,7 +63,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',
                 'value'     => old('summary') ?? $recipe->summary,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
@@ -198,6 +198,12 @@
                     </div>
                 </div>
             </div>
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? $recipe->notes,
+                'message' => $message ?? '',
+            ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',

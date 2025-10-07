@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\Portfolio;
+namespace Database\Factories\Personal;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -37,6 +37,7 @@ class RecipeFactory extends Factory
             'lunch'        => fake()->numberBetween(0, 1),
             'dinner'       => fake()->numberBetween(0, 1),
             'snack'        => fake()->numberBetween(0, 1),
+            'notes'        => fake()->text(200),
             'link'         => fake()->url(),
             'link_name'    => fake()->text(20),
             'description'  => fake()->text(200),

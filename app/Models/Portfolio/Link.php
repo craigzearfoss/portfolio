@@ -31,6 +31,7 @@ class Link extends Model
         'featured',
         'summary',
         'url',
+        'notes',
         'link',
         'link_name',
         'description',

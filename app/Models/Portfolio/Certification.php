@@ -37,6 +37,7 @@ class Certification extends Model
         'received',
         'expiration',
         'certificate_url',
+        'notes',
         'link',
         'link_name',
         'description',

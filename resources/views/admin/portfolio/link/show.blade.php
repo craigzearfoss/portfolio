@@ -59,6 +59,11 @@
             'target' => '_blank'
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $link->notes
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $link->link,

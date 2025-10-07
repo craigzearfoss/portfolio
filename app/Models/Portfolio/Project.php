@@ -35,6 +35,7 @@ class Project extends Model
         'language_version',
         'repository_url',
         'repository_name',
+        'notes',
         'link',
         'link_name',
         'description',

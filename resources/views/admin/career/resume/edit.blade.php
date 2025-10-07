@@ -76,17 +76,19 @@
                 ])
 
                 @include('admin.components.form-input-horizontal', [
-                    'name'    => 'doc_url',
-                    'label'   => 'doc url',
-                    'value'   => old('doc_url') ?? $resume->doc_url,
-                    'message' => $message ?? '',
+                    'name'      => 'doc_url',
+                    'label'     => 'doc url',
+                    'value'     => old('doc_url') ?? $resume->doc_url,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
                 ])
 
                 @include('admin.components.form-input-horizontal', [
-                    'name'    => 'pdf_url',
-                    'label'   => 'pdf url',
-                    'value'   => old('pdf_url') ?? $resume->pdf_url,
-                    'message' => $message ?? '',
+                    'name'      => 'pdf_url',
+                    'label'     => 'pdf url',
+                    'value'     => old('pdf_url') ?? $resume->pdf_url,
+                    'maxlength' => 500,
+                    'message'   => $message ?? '',
                 ])
 
                 @include('admin.components.form-input-horizontal', [

@@ -35,6 +35,7 @@ class Skill extends Model
         'category_id',
         'start_year',
         'years',
+        'notes',
         'link',
         'link_name',
         'description',

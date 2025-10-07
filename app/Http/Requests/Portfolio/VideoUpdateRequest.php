@@ -67,7 +67,7 @@ class VideoUpdateRequest extends FormRequest
                 'nullable'
             ],
             'featured'       => ['integer', 'between:0,1'],
-            'summary'        => ['string', 'max:255', 'nullable'],
+            'summary'        => ['string', 'max:500', 'nullable'],
             'full_episode'   => ['integer', 'between:0,1'],
             'clip'           => ['integer', 'between:0,1'],
             'public_access'  => ['integer', 'between:0,1'],
@@ -79,7 +79,7 @@ class VideoUpdateRequest extends FormRequest
             'show'           => ['string', 'max:255', 'nullable'],
             'location'       => ['string', 'max:255', 'nullable'],
             'embed'          => ['nullable'],
-            'video_url'      => ['string', 'max:255', 'nullable'],
+            'video_url'      => ['string', 'max:500', 'nullable'],
             'notes'          => ['nullable'],
             'link'           => ['string', 'url:http,https', 'max:255', 'nullable'],
             'link_name'      => ['string', 'max:255', 'nullable'],

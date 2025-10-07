@@ -40,6 +40,7 @@ class Course extends Model
         'instructor',
         'sponsor',
         'certificate_url',
+        'notes',
         'link',
         'link_name',
         'description',

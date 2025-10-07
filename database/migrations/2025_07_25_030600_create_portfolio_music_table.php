@@ -43,6 +43,7 @@ return new class extends Migration
             $table->date('release_date')->nullable();
             $table->text('embed')->nullable();
             $table->string('audio_url')->nullable();
+            $table->text('notes')->nullable();
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();

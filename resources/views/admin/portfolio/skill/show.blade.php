@@ -74,6 +74,11 @@
             'value' => $skill->years
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $skill->notes
+        ])
+
         @include('admin.components.show-row-link', [
             'name'  => 'link',
             'url'    => $skill->link,

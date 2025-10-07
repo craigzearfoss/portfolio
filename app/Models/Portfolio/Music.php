@@ -41,6 +41,7 @@ class Music extends Model
         'release_date',
         'embed',
         'audio_url',
+        'notes',
         'link',
         'link_name',
         'description',
