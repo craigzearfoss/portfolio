@@ -1,86 +1,70 @@
-@extends('guest.layouts.default')
+@extends('guest.layouts.default', [
+    'title' => $title ?? 'Links',
+    'breadcrumbs' => [
+        [ 'name' => 'Home',      'href' => route('guest.homepage') ],
+        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
+        [ 'name' => 'Links' ],
+    ],
+    'buttons' => [],
+    'errorMessages'=> $errors->messages() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="card p-4">
 
-            @include('guest.components.nav-left')
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <thead>
+            <tr>
+                <th>name</th>
+                <th>url</th>
+            </tr>
+            </thead>
+            <?php /*
+            <tfoot>
+            <tr>
+                <th>name</th>
+                <th>url</th>
+            </tr>
+            </tr>
+            </tfoot>
+            */ ?>
+            <tbody>
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            @forelse ($links as $link)
 
-                @include('guest.components.header')
+                <tr>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'  => $link->name,
+                            'href'  => route('guest.portfolio.link.show', $link->slug),
+                            'class' => $link->featured ? 'has-text-weight-bold' : ''
+                        ])
+                    </td>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'   => $link->url,
+                            'href'   => $link->url,
+                            'target' => '_blank',
+                        ])
+                    </td>
+                </tr>
 
-                @include('guest.components.popup')
+            @empty
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
+                <tr>
+                    <td colspan="3">There are no courses.</td>
+                </tr>
 
-                    <h3 class="card-header">Links</h3>
+            @endforelse
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('guest.components.messages', [$errors])
-                        </div>
-                    </div>
+            </tbody>
+        </table>
 
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th>name</th>
-                            <th>featured</th>
-                            <th>link</th>
-                            <th>website</th>
-                            <th>description</th>
-                        </tr>
-                        </thead>
+        {!! $links->links('vendor.pagination.bulma') !!}
 
-                        <tbody>
-
-                        @forelse ($links as $link)
-
-                            <tr>
-                                <td>
-                                    @include('guest.components.link', [
-                                        'name' => $link->name,
-                                        'href'  => route('guest.portfolio.link.show', $link->slug)
-                                    ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('guest.components.checkmark', [ 'checked' => $link->featured ])
-                                </td>
-                                <td>
-                                    @include('guest.components.link', [
-                                        'name'   => $link->name ?? $link->url,
-                                        'href'   => $link->url,
-                                        'target' => '_blank'
-                                    ])
-                                </td>
-                                <td>
-                                    {{ $link->website }}
-                                </td>
-                                <td>
-                                    {!! nl2br($link->description ?? '') !!}
-                                </td>
-                            </tr>
-
-                        @empty
-
-                            <tr>
-                                <td colspan="7">There are no links.</td>
-                            </tr>
-
-                        @endforelse
-
-                        </tbody>
-                    </table>
-
-                    {!! $links->links() !!}
-
-                    @include('guest.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

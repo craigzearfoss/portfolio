@@ -45,6 +45,6 @@ class LinkController extends BaseController
             throw new ModelNotFoundException();
         }
 
-        return view('link.show', compact('link'));
+        return view('guest.portfolio.link.show', compact('link'));
     }
 }
