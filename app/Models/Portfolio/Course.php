@@ -30,6 +30,7 @@ class Course extends Model
         'name',
         'slug',
         'featured',
+        'summary',
         'year',
         'completed',
         'completion_date',

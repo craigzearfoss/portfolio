@@ -61,6 +61,13 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'summary',
+                'value'     => old('summary') ?? $art->summary,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'artist',
                 'value'     => old('artist') ?? $art->artist,
                 'maxlength' => 255,

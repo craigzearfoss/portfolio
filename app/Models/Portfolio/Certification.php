@@ -30,6 +30,7 @@ class Certification extends Model
         'name',
         'slug',
         'featured',
+        'summary',
         'organization',
         'academy_id',
         'year',

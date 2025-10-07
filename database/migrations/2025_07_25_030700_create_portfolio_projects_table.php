@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->tinyInteger('featured')->default(0);
+            $table->string('summary')->nullable();
             $table->year('year')->nullable();
             $table->string('language', 50)->nullable();
             $table->string('language_version', 20)->nullable();
@@ -61,6 +62,8 @@ return new class extends Migration
                 'id'               => 1,
                 'name'             => 'Multi-guard Framework',
                 'slug'             => 'multi-guard-framework',
+                'featured'         => 1,
+                'summary'          => null,
                 'year'             => 2025,
                 'language'         => 'Laravel',
                 'language_version' => '12.29',
@@ -75,6 +78,8 @@ return new class extends Migration
                 'id'               => 2,
                 'name'             => 'Portfolio Framework',
                 'slug'             => 'portfolio-framework',
+                'featured'         => 1,
+                'summary'          => null,
                 'year'             => 2025,
                 'language'         => 'Laravel',
                 'language_version' => '12.29',
@@ -89,6 +94,8 @@ return new class extends Migration
                 'id'               => 3,
                 'name'             => 'Addressable Trait',
                 'slug'             => 'addressable-trait',
+                'featured'         => 0,
+                'summary'          => null,
                 'year'             => 2016,
                 'language'         => 'Laravel',
                 'language_version' => '5.1',
@@ -103,6 +110,8 @@ return new class extends Migration
                 'id'               => 4,
                 'name'             => 'Speedmon',
                 'slug'             => 'speedmon',
+                'featured'         => 0,
+                'summary'          => null,
                 'year'             => 2020,
                 'language'         => 'Python',
                 'language_version' => '3',

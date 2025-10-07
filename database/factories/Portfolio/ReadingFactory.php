@@ -28,6 +28,7 @@ class ReadingFactory extends Factory
             'author'           => $author,
             'slug'             => $slug,
             'featured'         => fake()->numberBetween(0, 1),
+            'summary'          => fake()->text(200),
             'publication_year' => fake()->numberBetween(1750, 2025),
             'fiction'          => fake()->numberBetween(0, 1),
             'nonfiction'       => fake()->numberBetween(0, 1),

@@ -46,7 +46,7 @@
                     'type'        => 'password',
                     'name'        => 'confirm_password',
                     'label'       => 'confirm new password',
-                    'value'       => old('confirm_password'),
+                    'value'       => '',
                     'required'    => true,
                     'minlength'   => 8,
                     'maxlength'   => 255,

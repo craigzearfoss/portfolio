@@ -113,7 +113,7 @@
                     'label'       => 'confirm password',
                     'type'        => 'password',
                     'name'        => 'confirm_password',
-                    'value'       => old('confirm_password') ?? '',
+                    'value'       => '',
                     'required'    => true,
                     'minlength'   => 8,
                     'maxlength'   => 255,

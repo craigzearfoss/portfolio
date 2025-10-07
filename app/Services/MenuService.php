@@ -42,7 +42,7 @@ class MenuService
             $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName);
         }
 
-        if (Auth::guard('admin')->check()) {
+        if (isAdmin()) {
 
             $menu[] = $this->menuItem(
                 [ 'title' => 'Admin Dashboard', 'route' => 'admin.dashboard' ],
@@ -71,7 +71,7 @@ class MenuService
                 $currentRouteName
             );
 
-            if (Auth::guard('admin')->user()->root) {
+            if (isRootAdmin()) {
 
                 for ($i=0; $i<count($menu); $i++) {
                     if (property_exists($menu[$i],'tag') && ($menu[$i]->tag === 'db')) {
@@ -151,7 +151,7 @@ class MenuService
             $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName);
         }
 
-        if (Auth::guard('admin')->check()) {
+        if (isAdmin()) {
 
             $admin = Auth::guard('admin')->user();
 
@@ -306,9 +306,7 @@ class MenuService
     public function resourceItem(Resource $resource, string $envType, string $currentRouteName): stdClass
     {
         $routePrefix = $envType . '.';
-        if ($resource->database['tag'] !== 'db') {
-            $routePrefix .= $resource->database['name'] . '.';
-        }
+        $routePrefix .= ($resource->database['tag'] === 'db') ? 'system.' :  $resource->database['name'] . '.';
 
         $menuItem = new stdClass();
         $menuItem->id                = $resource->id ?? null;

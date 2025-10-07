@@ -45,6 +45,7 @@ class ProjectFactory extends Factory
             'name'             => $name,
             'slug'             => $slug,
             'featured'         => fake()->numberBetween(0, 1),
+            'summary'          => fake()->text(200),
             'year'             => fake()->numberBetween(2000, 2025),
             'language'         => $language,
             'language_version' => $languageVersion,

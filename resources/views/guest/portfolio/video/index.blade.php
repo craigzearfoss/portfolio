@@ -21,6 +21,8 @@
             <tr>
                 <th>name</th>
                 <th>year</th>
+                <th>show</th>
+                <th>company</th>
             </tr>
             </thead>
             <?php /*
@@ -28,6 +30,8 @@
             <tr>
                 <th>name</th>
                 <th>year</th>
+                <th>show</th>
+                <th>company</th>
             </tr>
             </tfoot>
             */ ?>
@@ -39,18 +43,25 @@
                     <td data-field="name">
                         @include('guest.components.link', [
                             'name' => $video->name,
-                            'href' => route('guest.portfolio.video.show', $video->slug)
+                            'href' => route('guest.portfolio.video.show', $video->slug),
+                            'class' => $video->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td data-field="year">
                         {{ $video->year }}
+                    </td>
+                    <td data-field="show">
+                        {{ $video->show }}
+                    </td>
+                    <td data-field="company">
+                        {{ $video->company }}
                     </td>
                 </tr>
 
             @empty
 
                 <tr>
-                    <td colspan="2">There are no videos.</td>
+                    <td colspan="4">There are no videos.</td>
                 </tr>
 
             @endforelse

@@ -63,6 +63,13 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'summary',
+                'value'     => old('name') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'level',
                 'label'       => 'level (1 to 10)',

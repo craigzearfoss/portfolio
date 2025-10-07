@@ -28,6 +28,7 @@ class Recipe extends Model
         'name',
         'slug',
         'featured',
+        'summary',
         'source',
         'author',
         'prep_time',

@@ -49,6 +49,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'summary',
+            'value' => $certification->summary
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'organization',
             'value' => $certification->organization
         ])

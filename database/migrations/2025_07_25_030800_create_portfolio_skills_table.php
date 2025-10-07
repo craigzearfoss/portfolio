@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('version', 20)->nullable();
             $table->tinyInteger('featured')->default(0);
+            $table->string('summary')->nullable();
             $table->tinyInteger('level')->default(1);
             $table->foreignIdFor(\App\Models\Dictionary\Category::class, 'category_id');
             $table->integer('start_year')->nullable();

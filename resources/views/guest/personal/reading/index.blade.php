@@ -2,7 +2,8 @@
 @extends('guest.layouts.default', [
     'title' => 'Readings',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('guest.homepage')],
+        [ 'name' => 'Home',     'href' => route('guest.homepage')],
+        [ 'name' => 'Personal', 'href' => route('guest.personal.index') ],
         [ 'name' => 'Readings']
     ],
     'buttons' => [],
@@ -13,7 +14,7 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="show-container card p-4">
 
         @include('guest.components.form-select', [
             'name'     => '',

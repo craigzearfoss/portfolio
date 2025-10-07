@@ -54,6 +54,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'summary',
+            'value' => $recipe->summary
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'source',
             'value' => $recipe->source
         ])

@@ -33,11 +33,11 @@ return new class extends Migration
             $table->string('role');
             $table->string('slug');
             $table->tinyInteger('featured')->default(0);
+            $table->string('summary')->nullable();
             $table->integer('start_month')->nullable();
             $table->integer('start_year')->nullable();
             $table->integer('end_month')->nullable();
             $table->integer('end_year')->nullable();
-            $table->string('summary')->nullable();
             $table->text('notes')->nullable();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();

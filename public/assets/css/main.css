@@ -10,6 +10,10 @@
     padding: 0.1em  0.5em 0.1em 0.5em;
 }
 
+.show-container table tr td {
+    padding: .1em .4em !important;
+}
+
 /* edit container */
 .edit-container .input,
 .edit-container span.file-cta,

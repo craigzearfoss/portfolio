@@ -54,6 +54,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'summary',
+            'value' => $job->summary
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'start',
             'value' => (!empty($job->start_month) ? date('F', mktime(0, 0, 0, $job->start_month, 10)) : '') . ' ' . $job->start_year
         ])
@@ -61,11 +66,6 @@
         @include('admin.components.show-row', [
             'name'  => 'end',
             'value' => (!empty($job->end_month) ? date('F', mktime(0, 0, 0, $job->end_month, 10)) : '') . ' ' . $job->end_year
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'summary',
-            'value' => $job->summary
         ])
 
         @include('admin.components.show-row', [

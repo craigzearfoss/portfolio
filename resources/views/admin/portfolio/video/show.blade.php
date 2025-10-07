@@ -58,6 +58,11 @@
             'checked' => $video->featured
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'summary',
+            'value' => $video->summary
+        ])
+
         @include('admin.components.show-row-checkbox', [
             'name'    => 'full episode',
             'checked' => $video->full_episode
@@ -96,6 +101,11 @@
         @include('admin.components.show-row', [
             'name'  => 'credit',
             'value' => $video->credit
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'show',
+            'value' => $video->show
         ])
 
         @include('admin.components.show-row', [

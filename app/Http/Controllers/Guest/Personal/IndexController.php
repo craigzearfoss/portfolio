@@ -12,11 +12,8 @@ class IndexController extends Controller
 {
     public function index(): View
     {
+        $personals = Resource::bySequence( 'personal', PermissionService::ENV_GUEST);
 
-        $resources = Resource::bySequence('personal', PermissionService::ENV_GUEST);
-
-        $resources = Database::getResources(config('app.personal_db'), [ 'public' => true, 'disabled' => false ]);
-
-        return view('guest.personal', compact('resources'));
+        return view('guest.personal.index', compact('personals'));
     }
 }

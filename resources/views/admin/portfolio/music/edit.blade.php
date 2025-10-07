@@ -76,6 +76,13 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'summary',
+                'value'     => old('summary') ?? $music->summary,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'label',
                 'value'     => old('label') ?? $music->label,
                 'maxlength' => 255,

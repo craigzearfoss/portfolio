@@ -62,6 +62,13 @@
                 'message'         => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'summary',
+                'value'     => old('name') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
                 </div>
@@ -138,6 +145,13 @@
                 'name'    => 'credit',
                 'value'   => old('credit') ?? '',
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'show',
+                'value'     => old('show') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

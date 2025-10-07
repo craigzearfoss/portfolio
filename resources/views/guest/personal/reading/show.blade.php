@@ -2,6 +2,7 @@
     'title' => $reading->title,
     'breadcrumbs' => [
         [ 'name' => 'Home',     'href' => route('guest.homepage') ],
+        [ 'name' => 'Personal', 'href' => route('guest.personal.index') ],
         [ 'name' => 'Readings', 'href' => route('guest.personal.reading.index') ],
         [ 'name' => $reading->title ],
     ],

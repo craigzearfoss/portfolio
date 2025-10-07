@@ -56,6 +56,7 @@ class SkillStoreRequest extends FormRequest
             ],
             'version'      => ['string', 'max:20', 'nullable'],
             'featured'     => ['integer', 'between:0,1'],
+            'summary'      => ['string', 'max:255', 'nullable'],
             'level'        => ['integer', 'between:1,10'],
             'category_id'  => ['integer', 'exists:dictionary_db.categories,id'],
             'start_year'   => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],

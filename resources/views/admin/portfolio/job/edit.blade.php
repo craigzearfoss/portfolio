@@ -68,6 +68,13 @@
                 'message'         => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'summary',
+                'value'     => old('summary') ?? $job->summary,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
             @php
                 $startMonth = view('admin.components.form-select', [
                     'name'      => 'start_month',

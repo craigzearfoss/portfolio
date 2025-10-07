@@ -28,6 +28,7 @@ class MusicFactory extends Factory
             'artist'         => $artist,
             'slug'           => $slug,
             'featured'       => fake()->numberBetween(0, 1),
+            'summary'        => fake()->text(200),
             'collection'     => fake()->numberBetween(0, 1),
             'track'          => fake()->numberBetween(0, 1),
             'label'          => fake()->company(),

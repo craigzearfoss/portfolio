@@ -53,6 +53,21 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'featured',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('featured') ?? $certification->featured,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'summary',
+                'value'     => old('summary') ?? $certification->summary,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'organization',
                 'value'     => old('organization') ?? $certification->organization,

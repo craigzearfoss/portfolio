@@ -55,6 +55,7 @@ class ReadingUpdateRequest extends FormRequest
                 })
             ],
             'featured'         => ['integer', 'between:0,1'],
+            'summary'          => ['string', 'max:255', 'nullable'],
             'year'             => ['integer', 'between:-3000,'.date("Y"), 'nullable'],
             'publication_year' => ['integer', 'between:-3000,'.date("Y"), 'nullable'],
             'fiction'          => ['integer', 'between:0,1'],

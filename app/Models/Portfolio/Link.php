@@ -29,6 +29,7 @@ class Link extends Model
         'name',
         'slug',
         'featured',
+        'summary',
         'url',
         'link',
         'link_name',

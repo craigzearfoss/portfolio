@@ -35,6 +35,7 @@ class Job extends Model
         'role',
         'slug',
         'featured',
+        'summary',
         'start_month',
         'start_year',
         'end_month',

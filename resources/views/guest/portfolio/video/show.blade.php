@@ -24,7 +24,7 @@
         ])
 
         @if(!empty($video->parent))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'parent',
                 'value' => !empty($video->parent)
                     ? view('guest.components.link', [
@@ -35,68 +35,78 @@
             ])
         @endif
 
-        @include('admin.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $video->featured
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('guest.components.show-row', [
+            'name'  => 'summary',
+            'value' => $video->summary
+        ])
+
+        @include('guest.components.show-row-checkbox', [
             'name'    => 'full episode',
             'checked' => $video->full_episode
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkbox', [
             'name'    => 'clip',
             'checked' => $video->clip
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkbox', [
             'name'    => 'public access',
             'checked' => $video->public_access
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkbox', [
             'name'    => 'source footage',
             'checked' => $video->source_footage
         ])
 
-        @include('admin.components.show-row', [
+        @include('guest.components.show-row', [
             'name'  => 'date',
             'value' => longDate($video->date)
         ])
 
-        @include('admin.components.show-row', [
+        @include('guest.components.show-row', [
             'name'  => 'year',
             'value' => $video->year
         ])
 
-        @include('admin.components.show-row', [
+        @include('guest.components.show-row', [
             'name'  => 'company',
             'value' => $video->company
         ])
 
-        @include('admin.components.show-row', [
+        @include('guest.components.show-row', [
             'name'  => 'credit',
             'value' => $video->credit
         ])
 
-        @include('admin.components.show-row', [
+        @include('guest.components.show-row', [
+            'name'  => 'show',
+            'value' => $video->show
+        ])
+
+        @include('guest.components.show-row', [
             'name'  => 'location',
             'value' => $video->location
         ])
 
-        @include('admin.components.show-row', [
+        @include('guest.components.show-row', [
             'name'   => 'embed',
             'value'  => $video->embed,
         ])
 
-        @include('admin.components.show-row', [
+        @include('guest.components.show-row', [
             'name'  => 'video url',
             'value' => $video->video_url,
         ])
 
         @if(!empty($video->link))
-            @include('admin.components.show-row-link', [
+            @include('guest.components.show-row-link', [
                 'name'   => 'link',
                 'label'  => $video->link_name,
                 'href'   => $video->link,
@@ -104,14 +114,14 @@
             ])
         @endif
 
-        @include('admin.components.show-row', [
+        @include('guest.components.show-row', [
             'name'  => 'description',
             'value' => nl2br($video->description ?? '')
         ])
 
         @if(!empty($video->image))
 
-            @include('admin.components.show-row-image', [
+            @include('guest.components.show-row-image', [
                 'name'     => 'image',
                 'src'      => $video->image,
                 'alt'      => $video->name,
@@ -122,14 +132,14 @@
             ])
 
             @if(!empty($video->image_credit))
-                @include('admin.components.show-row', [
+                @include('guest.components.show-row', [
                     'name'  => 'image credit',
                     'value' => $video->image_credit
                 ])
             @endif
 
             @if(!empty($video->image_source))
-                @include('admin.components.show-row', [
+                @include('guest.components.show-row', [
                     'name'  => 'image source',
                     'value' => $video->image_source
                 ])

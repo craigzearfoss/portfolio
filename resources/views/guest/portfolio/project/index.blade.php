@@ -57,7 +57,7 @@
                     </td>
                     <td data-field="year">
                         @if(!empty($project->repository_url))
-                            @include('admin.components.link', [
+                            @include('guest.components.link', [
                                 'name'   => $project->repository_name ?? '',
                                 'href'   => $project->repository_url,
                                 'target' => '_blank'

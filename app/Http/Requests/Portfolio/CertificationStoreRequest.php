@@ -64,6 +64,7 @@ class CertificationStoreRequest extends FormRequest
                 })
             ],
             'featured'        => ['integer', 'between:0,1'],
+            'summary'         => ['string', 'max:255', 'nullable'],
             'organization'    => ['string', 'max:255', 'nullable'],
             'academy_id'      => ['integer', Rule::in(Academy::all()->pluck('id'))],
             'year'            => ['integer', 'between:1980,'.date("Y"), 'nullable'],

@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->tinyInteger('featured')->default(0);
+            $table->string('summary')->nullable();
             $table->string('url');
             $table->string('link')->nullable();
             $table->string('link_name')->nullable();
@@ -58,6 +59,7 @@ return new class extends Migration
                 'name'         => 'LinkedIn',
                 'slug'         => 'linkedin',
                 'featured'     => 1,
+                'summary'      => null,
                 'url'          => 'https://www.linkedin.com/in/craig-zearfoss/',
                 'description'  => '',
                 'public'       => 1,
@@ -68,6 +70,7 @@ return new class extends Migration
                 'name'         => 'GitHub',
                 'slug'         => 'github',
                 'featured'     => 1,
+                'summary'      => null,
                 'url'          => 'https://github.com/craigzearfoss',
                 'description'  => '',
                 'public'       => 1,
@@ -78,6 +81,7 @@ return new class extends Migration
                 'name'         => 'Facebook',
                 'slug'         => 'facebook',
                 'featured'     => 1,
+                'summary'      => null,
                 'url'          => 'https://www.facebook.com/craig.zearfoss',
                 'description'  => '',
                 'public'       => 1,
@@ -88,6 +92,7 @@ return new class extends Migration
                 'name'         => 'Craig Zearfoss Collection, 1988-2008',
                 'slug'         => 'craig-zearfoss-collection-1988-2008',
                 'featured'     => 1,
+                'summary'      => null,
                 'url'          => 'https://finding-aids.lib.unc.edu/catalog/20509',
                 'description'  => 'A publicly available collection of live video recordings, audio recordings, posters, photographs, and papers affiliated with the Triangle\'s indie rock music scene from 1988 to 2008.',
                 'public'       => 1,
@@ -100,6 +105,7 @@ return new class extends Migration
                 'name'         => '',
                 'slug'         => '',
                 'featured'     => 0,
+                'summary'      => null,
                 'url'          => '',
                 'description'  => null,
                 'public'       => 1,

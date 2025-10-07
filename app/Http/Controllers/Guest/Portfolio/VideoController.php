@@ -25,7 +25,7 @@ class VideoController extends BaseController
 
         $videos = Video::where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('sequence', 'asc')
+            ->orderBy('name', 'asc')
             ->paginate($perPage);
 
         $title = 'Videos';

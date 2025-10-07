@@ -52,6 +52,21 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'featured',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('featured') ?? $course->featured,
+                'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'summary',
+                'value'     => old('summary') ?? $course->summary,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
                 'name'      => 'year',

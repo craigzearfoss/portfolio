@@ -30,6 +30,7 @@ class Skill extends Model
         'name',
         'version',
         'featured',
+        'summary',
         'level',
         'category_id',
         'start_year',

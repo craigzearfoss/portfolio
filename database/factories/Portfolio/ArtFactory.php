@@ -28,6 +28,7 @@ class ArtFactory extends Factory
             'artist'       => $artist,
             'slug'         => $slug,
             'featured'     => fake()->numberBetween(0, 1),
+            'summary'      => fake()->text(200),
             'year'         => fake()->numberBetween(1980, 2025),
             'image_url'    => fake()->url(),
             'link'         => fake()->url(),

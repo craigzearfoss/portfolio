@@ -61,6 +61,13 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'summary',
+                'value'     => old('summary') ?? $recipe->summary,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'source',
                 'value'     => old('source') ?? $recipe->source,
                 'maxlength' => 255,

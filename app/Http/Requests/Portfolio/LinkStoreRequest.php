@@ -65,6 +65,7 @@ class LinkStoreRequest extends FormRequest
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],
+            'summary'      => ['string', 'max:255', 'nullable'],
             'url'          => [
                 'string',
                 'max:255',

@@ -23,27 +23,27 @@
             'value' => $project->name
         ])
 
-        @include('admin.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $project->featured
         ])
 
-        @include('admin.components.show-row', [
+        @include('guest.components.show-row', [
             'name'  => 'year',
             'value' => $project->year
         ])
 
-        @include('admin.components.show-row', [
+        @include('guest.components.show-row', [
             'name'  => 'language',
             'value' => $project->language
         ])
 
-        @include('admin.components.show-row', [
+        @include('guest.components.show-row', [
             'name'  => 'language version',
             'value' => $project->language_version
         ])
 
-        @include('admin.components.show-row-link', [
+        @include('guest.components.show-row-link', [
             'name'   => 'repository',
             'label'  => $project->repository_name,
             'href'   => $project->repository_url,
@@ -51,7 +51,7 @@
         ])
 
         @if(!empty($project->link))
-            @include('admin.components.show-row-link', [
+            @include('guest.components.show-row-link', [
                 'name'   => 'link',
                 'label'  => $project->link_name,
                 'href'   => $project->link,
@@ -59,14 +59,14 @@
             ])
         @endif
 
-        @include('admin.components.show-row', [
+        @include('guest.components.show-row', [
             'name'  => 'description',
             'value' => nl2br($project->description ?? '')
         ])
 
         @if(!empty($project->image))
 
-            @include('admin.components.show-row-image', [
+            @include('guest.components.show-row-image', [
                 'name'     => 'image',
                 'src'      => $project->image,
                 'alt'      => $project->name,
@@ -77,14 +77,14 @@
             ])
 
             @if(!empty($project->image_credit))
-                @include('admin.components.show-row', [
+                @include('guest.components.show-row', [
                     'name'  => 'image credit',
                     'value' => $project->image_credit
                 ])
             @endif
 
             @if(!empty($project->image_source))
-                @include('admin.components.show-row', [
+                @include('guest.components.show-row', [
                     'name'  => 'image source',
                     'value' => $project->image_source
                 ])

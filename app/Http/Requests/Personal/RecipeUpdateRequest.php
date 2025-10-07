@@ -59,6 +59,7 @@ class RecipeUpdateRequest extends FormRequest
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],
+            'summary'      => ['string', 'max:255', 'nullable'],
             'source'       => ['string', 'max:255', 'nullable'],
             'author'       => ['string', 'max:255', 'nullable'],
             'prep_time'    => ['integer', 'min:0'],

@@ -63,6 +63,10 @@
             'checked' => $music->featured
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'summary',
+            'value' => $music->summary
+        ])
 
         <div class="columns">
             <div class="column is-2"><strong>children</strong>:</div>

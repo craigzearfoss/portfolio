@@ -46,14 +46,29 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'featured',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('featured') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'year',
-                'value'     => old('year') ?? '',
-                'min'       => 1980,
-                'max'       => 2050,
+                'name'      => 'summary',
+                'value'     => old('name') ?? '',
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
+
+            @include('admin.components.form-input-horizontal', [
+                  'type'      => 'number',
+                  'name'      => 'year',
+                  'value'     => old('year') ?? '',
+                  'min'       => 1980,
+                  'max'       => 2050,
+                  'message'   => $message ?? '',
+              ])
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'completed',

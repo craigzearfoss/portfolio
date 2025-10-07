@@ -54,6 +54,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'summary',
+            'value' => $art->summary
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'year',
             'value' => $art->year
         ])

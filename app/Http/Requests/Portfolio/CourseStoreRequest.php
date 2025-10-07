@@ -64,6 +64,7 @@ class CourseStoreRequest extends FormRequest
                 })
             ],
             'featured'        => ['integer', 'between:0,1'],
+            'summary'         => ['string', 'max:255', 'nullable'],
             'year'            => ['integer', 'between:1980,'.date("Y"), 'nullable'],
             'completed'       => ['integer', 'between:0,1'],
             'completion_date' => ['date', 'nullable'],

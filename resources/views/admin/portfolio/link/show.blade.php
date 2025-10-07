@@ -48,6 +48,11 @@
             'checked' => $link->featured
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'summary',
+            'value' => $link->summary
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'url',
             'href'    => $link->url,

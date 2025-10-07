@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->tinyInteger('featured')->default(0);
+            $table->string('summary')->nullable();
             $table->string('source')->nullable();
             $table->string('author')->nullable();
             $table->integer('prep_time')->nullable();

@@ -48,6 +48,11 @@
             'checked' => $skill->featured
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'summary',
+            'value' => $skill->summary
+        ])
+
         @include('admin.components.show-row-rating', [
             'name'  => 'level',
             'label' => "({$skill->level} out of 10)",

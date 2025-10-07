@@ -57,6 +57,7 @@ class MusicUpdateRequest extends FormRequest
                 })
             ],
             'featured'       => ['integer', 'between:0,1'],
+            'summary'        => ['string', 'max:255', 'nullable'],
             'collection'     => ['integer', 'between:0,1'],
             'track'          => ['integer', 'between:0,1'],
             'label'          => ['string', 'max:255', 'nullable'],

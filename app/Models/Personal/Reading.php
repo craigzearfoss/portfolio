@@ -28,6 +28,7 @@ class Reading extends Model
         'author',
         'slug',
         'featured',
+        'summary',
         'publication_year',
         'fiction',
         'nonfiction',

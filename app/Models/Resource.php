@@ -93,13 +93,13 @@ class Resource extends Model
      *
      * @param string | null $database
      * @param string | null $envType
-     * @param bool $isRoot
+     * @param array $filters
      * @return Collection
      * @throws \Exception
      */
     public static function bySequence(string | null $database,
                                       string | null $envType,
-                                      bool $isRoot = false): Collection
+                                      array $filters = []): Collection
     {
         if (!in_array($envType, PermissionService::ENV_TYPES)) {
             throw new \Exception('ENV type ' . $envType . ' not supported');
@@ -140,10 +140,26 @@ class Resource extends Model
                 ->where('resources.'.$envType, 1);
         }
 
-        if (!$isRoot) {
-            // Only root users have access to disabled databases.
-            $query->where('databases.disabled', 0)
-                ->where('resources.disabled', 0);
+        // Apply filters to the query.
+        foreach ($filters as $col => $value) {
+            if (is_array($value)) {
+                $query = $query->whereIn($col, $value);
+            } else {
+                $parts = explode(' ', $col);
+                $col = $parts[0];
+                if (!empty($parts[1])) {
+                    $operation = trim($parts[1]);
+                    if (in_array($operation, ['<>', '!=', '=!'])) {
+                        $query->where($col, $operation, $value);
+                    } elseif (strtolower($operation) == 'like') {
+                        $query->whereLike($col, $value);
+                    } else {
+                        throw new \Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
+                    }
+                } else {
+                    $query = $query->where($col, $value);
+                }
+            }
         }
 
         $resources = $query->get();

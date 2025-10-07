@@ -29,6 +29,7 @@ class Project extends Model
         'name',
         'slug',
         'featured',
+        'summary',
         'year',
         'language',
         'language_version',

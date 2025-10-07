@@ -60,11 +60,11 @@ class JobStoreRequest extends FormRequest
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],
+            'summary'      => ['string', 'max:255', 'nullable'],
             'start_month'  => ['integer', 'between:1,12', 'nullable' ],
             'start_year'   => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
             'end_month'    => ['integer', 'between:1,12', 'nullable' ],
             'end_year'     => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
-            'summary'      => ['string', 'max:255', 'nullable'],
             'notes'        => ['nullable'],
             'street'       => ['string', 'max:255', 'nullable'],
             'street2'      => ['string', 'max:255', 'nullable'],

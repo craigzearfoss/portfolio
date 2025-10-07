@@ -26,6 +26,7 @@ class CourseFactory extends Factory
             'name'            => $name,
             'slug'            => $slug,
             'featured'        => fake()->numberBetween(0, 1),
+            'summary'         => fake()->text(200),
             'year'            => fake()->numberBetween(2000, 2025),
             'completed'       => 1,
             'academy_id'      => fake()->randomElement(Academy::all()->pluck('id')->toArray()),

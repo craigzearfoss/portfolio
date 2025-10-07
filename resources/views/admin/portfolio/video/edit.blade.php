@@ -33,7 +33,7 @@
                 'name'  => 'id',
                 'value' => $video->id
             ])
-<?php /*
+
             @if(isRootAdmin())
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
@@ -44,7 +44,7 @@
                     'message'  => $message ?? '',
                 ])
             @endif
-*/ ?>
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? $video->name,
@@ -67,6 +67,13 @@
                 'unchecked_value' => 0,
                 'checked'         => old('featured') ?? $video->featured,
                 'message'         => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'summary',
+                'value'     => old('summary') ?? $video->summary,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             <div class="field is-horizontal">
@@ -145,6 +152,13 @@
                 'name'    => 'credit',
                 'value'   => old('credit') ?? $video->credit,
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'show',
+                'value'     => old('show') ?? $video->show,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

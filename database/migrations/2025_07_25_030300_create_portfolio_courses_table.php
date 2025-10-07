@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->tinyInteger('featured')->default(0);
+            $table->string('summary')->nullable();
             $table->year('year')->nullable()->default(null);
             $table->tinyInteger('completed')->default(0);
             $table->date('completion_date')->nullable();

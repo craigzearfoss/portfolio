@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('author')->nullable();
             $table->string('slug')->unique();
             $table->tinyInteger('featured')->default(0);
+            $table->string('summary')->nullable();
             $table->integer('publication_year')->nullable();
             $table->tinyInteger('fiction')->default(0);
             $table->tinyInteger('nonfiction')->default(0);

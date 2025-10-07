@@ -34,6 +34,7 @@ return new class extends Migration
             $table->string('artist')->nullable();
             $table->string('slug');
             $table->tinyInteger('featured')->default(0);
+            $table->string('summary')->nullable();
             $table->year('year')->nullable();
             $table->string('image_url')->nullable();
             $table->string('link')->nullable();

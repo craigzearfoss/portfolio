@@ -12,11 +12,11 @@ class IndexController extends Controller
 {
     public function index(): View
     {
+        $portfolios = Resource::bySequence(
+            'portfolio',
+            PermissionService::ENV_GUEST
+        );
 
-        $resources = Resource::bySequence('portfolio', PermissionService::ENV_GUEST);
-
-        $resources = Database::getResources(config('app.portfolio_db'), [ 'public' => true, 'disabled' => false ]);
-
-        return view('guest.portfolio', compact('resources'));
+        return view('guest.portfolio.index', compact('portfolios'));
     }
 }
