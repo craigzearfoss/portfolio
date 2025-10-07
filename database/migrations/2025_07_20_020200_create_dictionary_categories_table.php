@@ -25,8 +25,8 @@ return new class extends Migration
             $table->tinyInteger('proprietary')->default(0);
             $table->tinyInteger('compiled')->default(0);
             $table->string('owner', 100)->nullable();
-            $table->string('wikipedia')->nullable();
-            $table->string('link')->nullable();
+            $table->string('wikipedia', 500)->nullable();
+            $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();

@@ -32,7 +32,7 @@ class IngredientStoreRequest extends FormRequest
             'full_name'    => ['string', 'required', 'max:255', 'unique:personal_db.ingredients,full_name'],
             'name'         => ['string', 'required', 'max:100', 'unique:personal_db.ingredients,name'],
             'slug'         => ['string', 'required', 'max:100', 'unique:personal_db.ingredients,slug'],
-            'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
+            'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

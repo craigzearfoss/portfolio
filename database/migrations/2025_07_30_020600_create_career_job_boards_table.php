@@ -28,7 +28,7 @@ return new class extends Migration
             $table->tinyInteger('regional')->default(0);
             $table->tinyInteger('national')->default(0);
             $table->tinyInteger('international')->default(0);
-            $table->string('link')->nullable();
+            $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();

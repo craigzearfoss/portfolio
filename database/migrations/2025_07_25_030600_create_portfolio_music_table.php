@@ -44,7 +44,7 @@ return new class extends Migration
             $table->text('embed')->nullable();
             $table->string('audio_url')->nullable();
             $table->text('notes')->nullable();
-            $table->string('link')->nullable();
+            $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();

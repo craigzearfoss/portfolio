@@ -42,12 +42,12 @@
                 <tr data-id="{{ $video->id }}">
                     <td data-field="name">
                         @include('guest.components.link', [
-                            'name' => $video->name,
-                            'href' => route('guest.portfolio.video.show', $video->slug),
+                            'name'  => $video->name,
+                            'href'  => route('guest.portfolio.video.show', $video->slug),
                             'class' => $video->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
-                    <td data-field="year">
+                    <td data-field="year" class="has-text-centered">
                         {{ $video->year }}
                     </td>
                     <td data-field="show">

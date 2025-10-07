@@ -64,14 +64,14 @@
                 'name'      => 'cover_letter_url',
                 'name'      => 'cover letter url',
                 'value'     => old('cover_letter_url') ?? '',
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? '',
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 

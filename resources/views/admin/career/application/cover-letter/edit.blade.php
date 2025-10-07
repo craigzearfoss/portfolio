@@ -78,14 +78,14 @@
             @include('admin.components.form-input-horizontal', [
                 'name'        => 'cover_letter_url',
                 'value'       => old('cover_letter_url') ?? $application->cover_letter->cover_letter_url,
-                'maxlength'   => 255,
+                'maxlength'   => 500,
                 'message'     => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $application->cover_letter->link,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
@@ -105,9 +105,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image',
-                'value'   => old('image') ?? $application->cover_letter->image,
-                'message' => $message ?? '',
+                'name'      => 'image',
+                'value'     => old('image') ?? $application->cover_letter->image,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -127,9 +128,10 @@
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'thumbnail',
-                'value'   => old('thumbnail') ?? $application->cover_letter->thumbnail,
-                'message' => $message ?? '',
+                'name'      => 'thumbnail',
+                'value'     => old('thumbnail') ?? $application->cover_letter->thumbnail,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

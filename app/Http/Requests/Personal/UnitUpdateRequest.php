@@ -26,7 +26,7 @@ class UnitUpdateRequest extends FormRequest
             'name'         => ['max:255', 'filled', 'unique:personal_db.units,name,'.$this->unit->id],
             'abbreviation' => ['max:10', 'filled', 'unique:personal_db.units,abbreviation,'.$this->unit->id],
             'system'       => ['string', 'max:20', 'nullable'],
-            'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
+            'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

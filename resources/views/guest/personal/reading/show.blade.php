@@ -1,5 +1,5 @@
 @extends('guest.layouts.default', [
-    'title' => $reading->title,
+    'title' => $title ?? 'Reading: ' . $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : ''),
     'breadcrumbs' => [
         [ 'name' => 'Home',     'href' => route('guest.homepage') ],
         [ 'name' => 'Personal', 'href' => route('guest.personal.index') ],

@@ -1,6 +1,6 @@
 @php @endphp
 @extends('guest.layouts.default', [
-    'title' => 'Readings',
+    'title' => $title ?? 'Readings',
     'breadcrumbs' => [
         [ 'name' => 'Home',     'href' => route('guest.homepage')],
         [ 'name' => 'Personal', 'href' => route('guest.personal.index') ],

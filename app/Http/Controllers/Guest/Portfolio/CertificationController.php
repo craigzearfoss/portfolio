@@ -45,6 +45,6 @@ class CertificationController extends BaseController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.certification.show', compact('certification'));
+        return view('guest.portfolio.certification.show', compact('certification'));
     }
 }

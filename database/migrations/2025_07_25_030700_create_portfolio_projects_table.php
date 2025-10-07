@@ -38,7 +38,7 @@ return new class extends Migration
             $table->string('language_version', 20)->nullable();
             $table->string('repository_url')->nullable();
             $table->string('repository_name')->nullable();
-            $table->string('link')->nullable();
+            $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
             $table->text('notes')->nullable();
             $table->text('description')->nullable();

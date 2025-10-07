@@ -1,59 +1,165 @@
-@extends('guest.layouts.default')
+@extends('guest.layouts.default', [
+    'title' => $title ?? 'Recipe: ' . $recipe->name,
+    'breadcrumbs' => [
+        [ 'name' => 'Home',     'href' => route('guest.homepage') ],
+        [ 'name' => 'Personal', 'href' => route('guest.personal.index') ],
+        [ 'name' => 'Recipes',  'href' => route('guest.personal.recipe.index') ],
+        [ 'name' => $recipe->name ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.personal.reading.index') ],
+    ],
+    'errors'  => $errors->any()  ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="show-container card p-4">
 
-            @include('guest.components.nav-left')
+        @include('guest.components.show-row', [
+            'name'  => 'name',
+            'value' => $recipe->name
+        ])
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+        @include('guest.components.show-row-checkbox', [
+            'name'    => 'featured',
+            'checked' => $recipe->featured
+        ])
 
-                @include('guest.components.header')
+        @include('guest.components.show-row', [
+            'name'  => 'summary',
+            'value' => $recipe->summary
+        ])
 
-                @include('guest.components.popup')
+        @include('guest.components.show-row', [
+            'name'  => 'source',
+            'value' => $recipe->source
+        ])
 
-                <div class="page-container relative h-full flex flex-auto flex-col">
-                    <div class="h-full">
-                        <h3 class="card-header ml-3">Show Recipe</h3>
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
-                            <div class="card min-w-[320px] md:min-w-[450px] max-w-[800px] card-shadow" role="presentation">
-                                <div class="card-body md:p-5">
+        @include('guest.components.show-row', [
+            'name'  => 'author',
+            'value' => $recipe->author
+        ])
 
-                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-solid btn-sm" href="{{ route('guest.personal.recipe.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
-                                    </div>
+        @include('guest.components.show-row', [
+            'name'  => 'prep time',
+            'value' => !empty($recipe->prep_time) ? ($recipe->prep_time . ' minutes') : ''
+        ])
 
-                                    <div class="row">
+        @include('guest.components.show-row', [
+            'name'  => 'total time',
+            'value' => !empty($recipe->total_time) ? ($recipe->total_time . ' minutes') : ''
+        ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'name',
-                                            'value' => $recipe->name
-                                        ])
+        @include('guest.components.show-row', [
+            'name'  => 'type',
+            'value' => $recipe->type
+        ])
 
-                                        @include('guest.components.show-row-link', [
-                                            'name'   => 'link',
-                                            'href'   => $recipe->link,
-                                            'target' => '_blank'
-                                        ])
+        @include('guest.components.show-row', [
+            'name'  => 'meal',
+            'value' => $recipe->meal
+        ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'description',
-                                            'value' => nl2br($recipe->description ?? '')
-                                        ])
+        @include('guest.components.show-row', [
+            'name'  => 'notes',
+            'value' => $recipe->notes
+        ])
 
-                                    </div>
+        @if(!empty($recipe->link))
+            @include('guest.components.show-row-link', [
+                'name'   => 'link',
+                'label'  => $recipe->link_name,
+                'href'    => $recipe->link,
+                'target' => '_blank'
+            ])
+        @endif
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        @include('guest.components.show-row', [
+            'name'  => 'description',
+            'value' => nl2br($recipe->description ?? '')
+        ])
 
-                    @include('guest.components.footer')
+        @if(!empty($video->image))
 
-                </div>
-            </div>
-        </div>
+            @include('guest.components.show-row-image', [
+                'name'     => 'image',
+                'src'      => $video->image,
+                'alt'      => $video->name,
+                'width'    => '300px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($video->name, $video->image)
+            ])
+
+            @if(!empty($video->image_credit))
+                @include('guest.components.show-row', [
+                    'name'  => 'image credit',
+                    'value' => $video->image_credit
+                ])
+            @endif
+
+            @if(!empty($video->image_source))
+                @include('guest.components.show-row', [
+                    'name'  => 'image source',
+                    'value' => $video->image_source
+                ])
+            @endif
+
+        @endif
+
+    </div>
+
+    <div class="card p-4">
+
+        <h2 class="subtitle">
+            Ingredients
+        </h2>
+        <ul>
+
+            @foreach($recipe->ingredients as $ingredient)
+
+                <li>
+                    {{ $ingredient['amount'] }}
+                    {{ \App\Models\Personal\Unit::find($ingredient['unit_id'])->name }}
+                    {{ \App\Models\Personal\Ingredient::find($ingredient['ingredient_id'])->name }}
+                    @if(!empty($ingredient['qualifier']))
+                        - {{ $ingredient['qualifier'] }}
+                    @endif
+                </li>
+
+            @endforeach
+
+        </ul>
+
+    </div>
+
+    <div class="card p-4">
+
+        <h2 class="subtitle">
+            Instructions
+        </h2>
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <tbody>
+
+            @foreach($recipe->steps as $step)
+
+                <tr>
+                    <td>
+                        {{ $step['step'] }}
+                    </td>
+                    <td>
+                        {{ $step['description'] }}
+                    </td>
+                </tr>
+
+            @endforeach
+
+            </tbody>
+        </table>
+
     </div>
 
 @endsection

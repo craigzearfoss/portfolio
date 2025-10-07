@@ -1,79 +1,76 @@
-@extends('guest.layouts.default')
+@extends('guest.layouts.default', [
+    'title' => $title ?? 'Certification: ' . $certification->name,
+    'breadcrumbs' => [
+        [ 'name' => 'Home',           'href' => route('guest.homepage') ],
+        [ 'name' => 'Portfolio',      'href' => route('guest.portfolio.index') ],
+        [ 'name' => 'Certifications', 'href' => route('guest.portfolio.certification.index') ],
+        [ 'name' => $certification->name ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.portfolio.certification.index') ],
+    ],
+    'errors'  => $errors->any()  ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="show-container card p-4">
 
-            @include('guest.components.nav-left')
+        @include('guest.components.show-row', [
+            'name'  => 'name',
+            'value' => $certification->name
+        ])
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+        @include('guest.components.show-row-checkbox', [
+            'name'    => 'featured',
+            'checked' => $certification->featured
+        ])
 
-                @include('guest.components.header')
+        @include('guest.components.show-row', [
+            'name'  => 'summary',
+            'value' => $certification->summary
+        ])
 
-                @include('guest.components.popup')
+        @include('guest.components.show-row', [
+            'name'  => 'organization',
+            'value' => $certification->organization
+        ])
 
-                <div class="page-container relative h-full flex flex-auto flex-col">
-                    <div class="h-full">
-                        <h3 class="card-header ml-3">Show Certification</h3>
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
-                            <div class="card min-w-[320px] md:min-w-[450px] max-w-[800px] card-shadow" role="presentation">
-                                <div class="card-body md:p-5">
+        @include('guest.components.show-row', [
+            'name'  => 'year',
+            'value' => $certification->year
+        ])
 
-                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-solid btn-sm" href="{{ route('guest.portfolio.certification.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
-                                    </div>
+        @include('guest.components.show-row', [
+            'name'  => 'academy',
+            'value' => view('guest.components.show-row', [
+                            'name'   => $certification->academy['name'],
+                            'href'   => $certification->academy['link'],
+                            'target' => '_blank',
+                        ]),
+            'raw'   => true
+        ])
 
-                                    <div class="row">
+        @if(!empty($certification->certificate_url))
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'name',
-                                            'value' => $certification->name
-                                        ])
+            @include('guest.components.show-row-image', [
+                'name'     => 'certificate url',
+                'src'      => imageUrl($certification->certificate_url),
+                'width'    => '300px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($certification->name, $certification->certificate_url)
+            ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'organization',
-                                            'value' => $certification->organization
-                                        ])
+        @endif
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'received',
-                                            'value' => longDate($certification->received)
-                                        ])
+        @include('guest.components.show-row', [
+            'name'  => 'description',
+            'value' => $certification->description
+        ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'expiration',
-                                            'value' => longDate($certification->expiration)
-                                        ])
-
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'year',
-                                            'value' => $certification->year
-                                        ])
-
-                                        @include('guest.components.show-row-link', [
-                                            'name'   => 'link',
-                                            'href'   => $certification->link,
-                                            'target' => '_blank'
-                                        ])
-
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'description',
-                                            'value' => nl2br($certification->description ?? '')
-                                        ])
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @include('guest.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

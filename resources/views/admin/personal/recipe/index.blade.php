@@ -26,8 +26,8 @@
                 @endif
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
-                <th class="has-text-centered">type</th>
-                <th class="has-text-centered">meal</th>
+                <th>type</th>
+                <th>meal</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -41,8 +41,8 @@
                 @endif
                 <th>name</th>
                 <th class="has-text-centered">featured</th>
-                <th class="has-text-centered">type</th>
-                <th class="has-text-centered">meal</th>
+                <th>type</th>
+                <th>meal</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>

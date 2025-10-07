@@ -38,7 +38,7 @@ return new class extends Migration
             $table->year('year')->nullable();
             $table->string('image_url', 500)->nullable();
             $table->text('notes')->nullable();
-            $table->string('link')->nullable();
+            $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
@@ -122,6 +122,19 @@ return new class extends Migration
                 'summary'        => null,
                 'year'           => 1994,
                 'image_url'      => 'https://previews.dropbox.com/p/thumb/ACzefzZk9ckCnCKMjN7gcH5wKdmAWVdEZlCyarmAQGkFNvEx0i-56udCzC1LNRxDRIVWXDpeyfu_b8pODnOVTGZMxIyEHF2X-PQZ76OsFedkGFHOX4pKx2kmHd3lpj-cfgd_kNEQxYKIboYajLP0TS1-Z0vvF6OuGbQQdM40xaxkxBdKDokdfDZc7xlyUA5qx9F0zlseZaMXBTv6YxM4ovjC2DYw3CLsEoMZSnaOkV77YOgG2nx8ZRxchleRJcGU-PN2NtAnmW89jruvZpUgyV5oUC44HKacBukhtbsp-iZ5AjOVuy1BzeZRe0PPudm22A0p48CXuYMfDlOr8Sx1ciTb/p.jpeg?is_prewarmed=true',
+                'notes'          => null,
+                'description'    => '',
+                'public'         => 1,
+            ],
+            [
+                'id'             => 6,
+                'name'           => 'Knife',
+                'artist'         => 'Dexter Romweber',
+                'slug'           => 'knife-dexter-romweber',
+                'featured'       => 1,
+                'summary'        => null,
+                'year'           => 1998,
+                'image_url'      => 'https://previews.dropbox.com/p/thumb/ACxdHcpXj2erKRER4sMta1eVL8i7kXmfbwu3f7rQftSXwQ9kWauEkfrECVbN77B6AgYlFK8fYAGKZYCKPnQLpa4jsu7fOGvj0wWchOa4y1fdJxuzRbLaIug-Ovprw7krb7tgxP7ZLJhm3cbND9CTQJi6gNqmRnsATpOioSxFCf5Wlmzqe8N7ZzbkA9fd3V6k9BULj-SRC3lUokpHCWNqNahmmxKXygENnQCwp_d4D0QInsiBf8OrpRBx7uxlK4zcWoCib_wXagMxRkPYDUOlPzX866X7iv4xDEub5sjoUuY-Is2Aa07nXgZA9aKZkOXzL5d44moZzmXI_DjjsKhChLhD/p.png?is_prewarmed=true',
                 'notes'          => null,
                 'description'    => '',
                 'public'         => 1,

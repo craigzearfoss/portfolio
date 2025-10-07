@@ -132,7 +132,7 @@
                 'name'      => 'certificate_url',
                 'label'     => 'certificate url',
                 'value'     => old('certificate_url') ?? $course->certificate_url,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 

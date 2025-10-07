@@ -32,7 +32,7 @@ class IngredientUpdateRequest extends FormRequest
             'full_name'    => ['string', 'filled', 'max:255', 'unique:personal_db.ingredients,full_name,'.$this->ingredient->id],
             'name'         => ['string', 'filled', 'max:100', 'unique:personal_db.ingredients,name,'.$this->ingredient->id],
             'slug'         => ['string', 'filled', 'max:100', 'unique:personal_db.ingredients,slug,'.$this->ingredient->id],
-            'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
+            'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

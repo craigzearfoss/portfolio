@@ -74,7 +74,7 @@ class RecipeUpdateRequest extends FormRequest
             'dinner'       => ['integer', 'between:0,1'],
             'snack'        => ['integer', 'between:0,1'],
             'notes'        => ['nullable'],
-            'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
+            'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

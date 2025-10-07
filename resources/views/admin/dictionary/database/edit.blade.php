@@ -114,14 +114,14 @@
                 'name'      => 'wikipedia',
                 'label'     => 'wikipedia',
                 'value'     => old('wikipedia') ?? $database->wikipedia,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $database->link,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
@@ -143,7 +143,7 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'image',
                 'value'     => old('image') ?? $database->image,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
@@ -166,7 +166,7 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
                 'value'     => old('thumbnail') ?? $database->thumbnail,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 

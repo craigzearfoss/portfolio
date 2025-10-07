@@ -67,7 +67,7 @@ class MusicUpdateRequest extends FormRequest
             'embed'          => ['nullable'],
             'audio_url'      => ['string', 'max:500', 'nullable'],
             'notes'          => ['nullable'],
-            'link'           => ['string', 'url:http,https', 'max:255', 'nullable'],
+            'link'           => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'      => ['string', 'max:255', 'nullable'],
             'description'    => ['nullable'],
             'image'          => ['string', 'max:255', 'nullable'],

@@ -65,7 +65,7 @@ class ArtStoreRequest extends FormRequest
             'summary'      => ['string', 'max:500', 'nullable'],
             'year'         => ['integer', 'between:1900,'.date("Y"), 'nullable'],
             'notes'        => ['nullable'],
-            'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
+            'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'image_url'    => ['string', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

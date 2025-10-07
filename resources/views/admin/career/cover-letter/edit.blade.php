@@ -67,18 +67,18 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'     => 'cover_letter_url',
-                'name'     => 'cover letter url',
-                'value'    => old('cover_letter_url') ?? $coverLetter->cover_letter_url,
-                'maxlength' => 255,
-                'message'  => $message ?? '',
+                'name'      => 'cover_letter_url',
+                'name'      => 'cover letter url',
+                'value'     => old('cover_letter_url') ?? $coverLetter->cover_letter_url,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'     => 'link',
-                'value'    => old('link') ?? $coverLetter->link,
+                'name'      => 'link',
+                'value'     => old('link') ?? $coverLetter->link,
                 'maxlength' => 255,
-                'message'  => $message ?? '',
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

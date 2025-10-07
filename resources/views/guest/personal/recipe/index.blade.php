@@ -1,74 +1,71 @@
-@extends('guest.layouts.default')
+@extends('guest.layouts.default', [
+    'title' => $title ?? 'Recipe: ' . $recipe->name,
+    'breadcrumbs' => [
+        [ 'name' => 'Home',     'href' => route('guest.homepage') ],
+        [ 'name' => 'Personal', 'href' => route('guest.personal.index') ],
+        [ 'name' => $recipe->name ],
+    ],
+    'buttons' => [],
+    'errorMessages'=> $errors->messages() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="card p-4">
 
-            @include('guest.components.nav-left')
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <thead>
+            <tr>
+                <th>name</th>
+                <th>type</th>
+                <th>meal</th>
+            </tr>
+            </thead>
+            <?php /*
+            <tfoot>
+            <tr>
+                <th>name</th>
+                <th>type</th>
+                <th>meal</th>
+            </tr>
+            </tr>
+            </tfoot>
+            */ ?>
+            <tbody>
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            @forelse ($recipes as $recipe)
 
-                @include('guest.components.header')
+                <tr>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'  => $recipe->name,
+                            'href'  => route('guest.personal.recipe.show', $recipe->slug),
+                            'class' => $recipe->featured ? 'has-text-weight-bold' : ''
+                        ])
+                    </td>
+                    <td data-field="types">
+                        {{ implode(', ', $recipe->types()) }}
+                    </td>
+                    <td data-field="meals">
+                        {{ implode(', ', $recipe->meals()) }}
+                    </td>
+                </tr>
 
-                @include('guest.components.popup')
+            @empty
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
+                <tr>
+                    <td colspan="3">There are no recipes.</td>
+                </tr>
 
-                    <h3 class="card-header">Recipes</h3>
+            @endforelse
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('guest.components.messages', [$errors])
-                        </div>
-                    </div>
+            </tbody>
+        </table>
 
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th>name</th>
-                            <th>featured</th>
-                            <th>description</th>
-                        </tr>
-                        </thead>
+        {!! $recipes->links('vendor.pagination.bulma') !!}
 
-                        <tbody>
-
-                        @forelse ($recipes as $recipe)
-
-                            <tr>
-                                <td>
-                                    @include('guest.components.link', [
-                                        'name' => $recipe->name,
-                                        'href' => route('guest.personal.recipe.show', $recipe->slug)
-                                    ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('guest.components.checkmark', [ 'checked' => $recipe->featured ])
-                                </td>
-                                <td>
-                                    {!! nl2br($recipe->description ?? '') !!}
-                                </td>
-                            </tr>
-
-                        @empty
-
-                            <tr>
-                                <td colspan="5">There are no recipes.</td>
-                            </tr>
-
-                        @endforelse
-
-                        </tbody>
-                    </table>
-
-                    {!! $recipes->links() !!}
-
-                    @include('guest.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

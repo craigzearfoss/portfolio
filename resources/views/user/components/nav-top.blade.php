@@ -4,7 +4,11 @@
             <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
         </a>
         <div class="navbar-item has-control">
-            <div class="control"><input placeholder="Search everywhere..." class="input"></div>
+            <div class="control">
+                <?php /*
+                <input placeholder="Search everywhere..." class="input">
+                */ ?>
+            </div>
         </div>
     </div>
     <div class="navbar-brand is-right">

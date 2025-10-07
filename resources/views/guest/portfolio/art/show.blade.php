@@ -1,59 +1,60 @@
-@extends('guest.layouts.default')
+@extends('guest.layouts.default', [
+    'title' => $title ?? 'Art: ' . $art->name . (!empty($art->artist) ? ' by ' . $art->artist : ''),
+    'breadcrumbs' => [
+        [ 'name' => 'Home',       'href' => route('guest.homepage') ],
+        [ 'name' => 'Portfolio',  'href' => route('guest.portfolio.index') ],
+        [ 'name' => 'Art',        'href' => route('guest.portfolio.art.index') ],
+        [ 'name' => $art->name ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.portfolio.art.index') ],
+    ],
+    'errors'  => $errors->any()  ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="show-container card p-4">
 
-            @include('guest.components.nav-left')
+        @include('guest.components.show-row', [
+            'name'  => 'name',
+            'value' => $art->name
+        ])
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+        @include('guest.components.show-row', [
+            'name'  => 'artist',
+            'value' => $art->artist
+        ])
 
-                @include('guest.components.header')
+        @include('guest.components.show-row-checkbox', [
+            'name'    => 'featured',
+            'checked' => $art->featured
+        ])
 
-                @include('guest.components.popup')
+        @include('guest.components.show-row', [
+            'name'  => 'summary',
+            'value' => $art->summary
+        ])
 
-                <div class="page-container relative h-full flex flex-auto flex-col">
-                    <div class="h-full">
-                        <h3 class="card-header ml-3">Show Art</h3>
-                        <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0">
-                            <div class="card min-w-[320px] md:min-w-[450px] max-w-[800px] card-shadow" role="presentation">
-                                <div class="card-body md:p-5">
+        @include('guest.components.show-row', [
+            'name'    => 'year',
+            'checked' => $art->year
+        ])
 
-                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <a class="btn btn-solid btn-sm" href="{{ route('guest.portfolio.art.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
-                                    </div>
+        @if(!empty($art->image_url))
 
-                                    <div class="row">
+            @include('guest.components.show-row-image', [
+                'name'     => 'image',
+                'src'      => $art->image_url,
+                'width'    => '300px',
+                'download' => true,
+                'external' => true,
+            ])
 
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'name',
-                                            'value' => $art->name
-                                        ])
+        @endif
 
-                                        @include('guest.components.show-row-link', [
-                                            'name'   => 'link',
-                                            'href'   => $art->link,
-                                            'target' => '_blank'
-                                        ])
-
-                                        @include('guest.components.show-row', [
-                                            'name'  => 'description',
-                                            'value' => nl2br($art->description ?? '')
-                                        ])
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    @include('guest.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

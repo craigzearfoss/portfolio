@@ -49,7 +49,7 @@ class UserStoreRequest extends FormRequest
             'phone'             => ['string', 'max:50', 'nullable'],
             'email'             => ['email', 'required', 'max:255', 'unique:users,email'],
             'email_verified_at' => ['nullable'],
-            'link'              => ['string', 'max:255', 'nullable'],
+            'link'              => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'         => ['string', 'max:255', 'nullable'],
             'description'       => ['nullable'],
             'image'             => ['string', 'max:255', 'nullable'],

@@ -53,7 +53,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $ingredient->link,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
@@ -75,7 +75,7 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'image',
                 'value'     => old('image') ?? $ingredient->image,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
@@ -98,7 +98,7 @@
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
                 'value'     => old('thumbnail') ?? $ingredient->thumbnail,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 

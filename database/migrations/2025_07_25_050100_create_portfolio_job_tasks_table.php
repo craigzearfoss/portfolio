@@ -32,7 +32,7 @@ return new class extends Migration
             $table->foreignIdFor( \App\Models\Portfolio\Job::class);
             $table->string('summary')->nullable();
             $table->text('notes')->nullable();
-            $table->string('link')->nullable();
+            $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();

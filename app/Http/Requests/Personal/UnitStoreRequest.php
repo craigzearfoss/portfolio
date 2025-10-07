@@ -26,7 +26,7 @@ class UnitStoreRequest extends FormRequest
             'name'         => ['string', 'required', 'max:50', 'unique:personal_db.units,name'],
             'abbreviation' => ['string', 'required', 'max:20', 'unique:personal_db.units,abbreviation'],
             'system'       => ['string', 'max:10', 'nullable'],
-            'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
+            'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],

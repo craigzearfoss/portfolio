@@ -1,86 +1,94 @@
-@extends('guest.layouts.default')
+@extends('guest.layouts.default', [
+    'title' => $title ?? 'Certifications',
+    'breadcrumbs' => [
+        [ 'name' => 'Home',      'href' => route('guest.homepage') ],
+        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
+        [ 'name' => 'Certifications' ],
+    ],
+    'buttons' => [],
+    'errorMessages'=> $errors->messages() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="app-layout-modern flex flex-auto flex-col">
-        <div class="flex flex-auto min-w-0">
+    <div class="card p-4">
 
-            @include('guest.components.nav-left')
+        <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+            <thead>
+            <tr>
+                <th>name</th>
+                <th>academy</th>
+                <th>organization</th>
+                <th>year</th>
+                <th>received</th>
+                <th>expiration</th>
+            </tr>
+            </thead>
+            <?php /*
+            <tfoot>
+            <tr>
+                <th>name</th>
+                <th>academy</th>
+                <th>organization</th>
+                <th>year</th>
+                <th>received</th>
+                <th>expiration</th>
+            </tr>
+            </tr>
+            </tfoot>
+            */ ?>
+            <tbody>
 
-            <div class="flex flex-col flex-auto min-h-screen min-w-0 relative w-full bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700">
+            @forelse ($certifications as $certification)
 
-                @include('guest.components.header')
+                <tr>
+                    <td>
+                        @include('guest.components.link', [
+                            'name'  => $certification->name,
+                            'href'  => route('guest.portfolio.certification.show', $certification->slug),
+                            'class' => $certification->featured ? 'has-text-weight-bold' : ''
+                        ])
+                    </td>
+                    <td>
+                        @if(!empty($certification->academy['link']))
+                            {{ $certification->academy['name'] }}
+                        @else
+                            @include('guest.components.link', [
+                                'name'   => $certification->academy['name'],
+                                'href'   => $certification->academy['link'],
+                                'target' => '_blank',
+                            ])
+                        @endif
+                    </td>
+                    <td class="has-text-centered">
+                        {{ $certification->organization }}
+                    </td>
+                    <td class="has-text-centered">
+                        {{ $certification->year }}
+                    </td>
+                    <td class="has-text-centered">
+                        {{ shortDate($certification->received) }}
+                    </td>
+                    <td class="has-text-centered">
+                        {{ shortDate($certification->expiration) }}
+                    </td>
+                </tr>
 
-                @include('guest.components.popup')
+            @empty
 
-                <div class="h-full flex flex-auto flex-col justify-between ml-4 mr-4">
+                <tr>
+                    <td colspan="5">There are no certifications.</td>
+                </tr>
 
-                    <h3 class="card-header">Certifications</h3>
+            @endforelse
 
-                    <div class="d-grid gap-2 d-md-flex justify-between">
-                        <div>
-                            @include('guest.components.messages', [$errors])
-                        </div>
-                    </div>
+            </tbody>
+        </table>
 
-                    <table class="table table-bordered table-striped mt-4">
-                        <thead>
-                        <tr>
-                            <th>name</th>
-                            <th>featured</th>
-                            <th>organization</th>
-                            <th>received</th>
-                            <th>expiration</th>
-                            <th>description</th>
-                        </tr>
-                        </thead>
+        {!! $certifications->links('vendor.pagination.bulma') !!}
 
-                        <tbody>
-
-                        @forelse ($certifications as $certification)
-
-                            <tr>
-                                <td>
-                                    @include('guest.components.link', [
-                                        'name' => $certification->name,
-                                        'href' => route('guest.certification.show', $certification->slug)
-                                    ])
-                                </td>
-                                <td class="has-text-centered">
-                                    @include('guest.components.checkmark', [ 'checked' => $certification->featured ])
-                                </td>
-                                <td>
-                                    {{ $certification->organization }}
-                                </td>
-                                <td>
-                                    {{ shortDate($certification->received) }}
-                                </td>
-                                <td>
-                                    {{ shortDate($certification->expiration) }}
-                                </td>
-                                <td>
-                                    {!! nl2br($certification->description ?? '') !!}
-                                </td>
-                            </tr>
-
-                        @empty
-
-                            <tr>
-                                <td colspan="8">There are no certifications.</td>
-                            </tr>
-
-                        @endforelse
-
-                        </tbody>
-                    </table>
-
-                    {!! $certifications->links() !!}
-
-                    @include('guest.components.footer')
-
-                </div>
-            </div>
-        </div>
     </div>
 
 @endsection

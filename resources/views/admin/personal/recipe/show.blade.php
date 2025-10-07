@@ -34,11 +34,6 @@
         @endif
 
         @include('admin.components.show-row', [
-            'name'  => 'id',
-            'value' => $recipe->id
-        ])
-
-        @include('admin.components.show-row', [
             'name'  => 'name',
             'value' => $recipe->name
         ])

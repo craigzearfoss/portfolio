@@ -33,8 +33,8 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Career\Application::class);
             $table->date('date')->nullable();
             $table->text('content')->nullable();
-            $table->string('cover_letter_url')->nullable();
-            $table->string('link')->nullable();
+            $table->string('cover_letter_url', 500)->nullable();
+            $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();

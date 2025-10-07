@@ -32,7 +32,7 @@ class IndustryStoreRequest extends FormRequest
             'name'         => ['required', 'string', 'max:50', 'unique:career_db.industries,name'],
             'slug'         => ['required', 'string', 'max:50', 'unique:career_db.industries,slug'],
             'abbreviation' => ['required', 'string', 'max:20', 'unique:career_db.industries,abbreviation'],
-            'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],
+            'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:255', 'nullable'],
