@@ -28,9 +28,10 @@ class ResourceUpdateRequest extends FormRequest
     {
         return [
             'owner_id'    => ['integer', 'exists:core_db.admins,id'],
-            'database_id' => ['integer', 'filled', Rule::in(Database::all()->pluck('id')->toArray())],
+            'database_id' => ['integer', 'filled', 'exists:core_db.databases,id'],
             'name'        => ['string', 'filled', 'max:50', 'unique:resources,name,'.$this->resources->id],
-            'parent_id'   => ['integer', Rule::in(Resource::where('id', '<>', $this->id)->all()->pluck('id')->toArray()), 'nullable'],            'table'       => ['string', 'filled', 'max:50', 'unique:resources,table,'.$this->resources->id],
+            'parent_id'   => ['integer', Rule::in(Resource::where('id', '<>', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
+            'table'       => ['string', 'filled', 'max:50', 'unique:resources,table,'.$this->resources->id],
             'title'       => ['string', 'filled', 'max:50'],
             'plural'      => ['string', 'filled', 'max:50'],
             'guest'       => ['integer', 'between:0,1'],

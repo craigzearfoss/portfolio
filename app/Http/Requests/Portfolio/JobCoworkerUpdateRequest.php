@@ -35,7 +35,7 @@ class JobCoworkerUpdateRequest extends FormRequest
 
         return [
             'owner_id'        => ['integer', 'exists:core_db.admins,id'],
-            'job_id'          => ['integer', 'filled', Rule::in(Job::all('id')->pluck('id')->toArray())],
+            'job_id'          => ['integer', 'filled', 'exists:portfolio_db.jobs,id'],
             'name'            => [
                 'string',
                 'filled',

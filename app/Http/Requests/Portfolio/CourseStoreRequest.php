@@ -68,7 +68,7 @@ class CourseStoreRequest extends FormRequest
             'completed'       => ['integer', 'between:0,1'],
             'completion_date' => ['date', 'nullable'],
             'duration_hours'  => ['numeric', 'nullable'],
-            'academy_id'      => ['integer', Rule::in(Academy::all()->pluck('id'))],
+            'academy_id'      => ['integer', 'exists:portfolio_db.academies,id'],
             'school'          => ['string', 'max:255', 'nullable'],
             'instructor'      => ['string', 'max:255', 'nullable'],
             'sponsor'         => ['string', 'max:255', 'nullable'],

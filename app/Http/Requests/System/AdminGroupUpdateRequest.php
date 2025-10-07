@@ -40,7 +40,7 @@ class AdminGroupUpdateRequest extends FormRequest
 
         return [
             'owner_id'      => ['integer', 'exists:core_db.admins,id'],
-            'admin_team_id' => ['integer', 'filled', Rule::in(AdminTeam::all('id')->pluck('id')->toArray())],
+            'admin_team_id' => ['integer', 'filled', 'exists:core_db.admin_teams,id'],
             'name'          => [
                 'string',
                 'filled',

@@ -38,12 +38,8 @@ class RecipeUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a recipe.');
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'     => ['integer', 'filled', Rule::in($ownerIds)],
+            'owner_id'     => ['integer', 'filled', 'exists:core_db.admins,id'],
             'name'         => [
                 'filled',
                 'max:255',

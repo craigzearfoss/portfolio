@@ -33,13 +33,9 @@ class NoteUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a note.');
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'       => ['integer', 'filled', Rule::in($ownerIds)],
-            'application_id' => ['integer', 'filled', Rule::in(Application::all('id')->pluck('id')->toArray())],
+            'owner_id'       => ['integer', 'filled', 'exists:core_db.admins,id'],
+            'application_id' => ['integer', 'filled', 'exists:career_db.applications,id'],
             'subject'        => ['filled', 'max:255', 'filled'],
             'body'           => ['nullable'],
             'sequence'       => ['integer', 'min:0'],

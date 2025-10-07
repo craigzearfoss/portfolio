@@ -28,7 +28,7 @@ class ResourceStoreRequest extends FormRequest
     {
         return [
             'owner_id'    => ['integer', 'exists:core_db.admins,id'],
-            'database_id' => ['integer', 'required', Rule::in(Database::all()->pluck('id')->toArray())],
+            'database_id' => ['integer', 'required', 'exists:core_db.databases,id'],
             'name'        => ['string', 'required', 'max:50', 'unique:resources,name'],
             'parent_id'   => ['integer', Rule::in(Resource::where('id', '<>', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
             'table'       => ['string', 'required', 'max:50', 'unique:resources,name'],

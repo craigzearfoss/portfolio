@@ -40,12 +40,8 @@ class ContactUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a contact.');
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'        => ['integer', 'filled', Rule::in($ownerIds)],
+            'owner_id'        => ['integer', 'filled', 'exists:core_db.admins,id'],
             'name'            => [
                 'string',
                 'filled',

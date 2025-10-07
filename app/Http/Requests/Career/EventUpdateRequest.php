@@ -33,13 +33,9 @@ class EventUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for an event.');
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'       => ['integer', 'filled', Rule::in($ownerIds)],
-            'application_id' => ['integer', 'filled', Rule::in(Application::all('id')->pluck('id')->toArray())],
+            'owner_id'       => ['integer', 'filled', 'exists:core_db.admins,id'],
+            'application_id' => ['integer', 'filled', 'exists:career_db.applications,id'],
             'name'           => ['string', 'filled', 'max:255'],
             'date'           => ['date_format:Y-m-d'],
             'time'           => ['date_format:H:i:s'],

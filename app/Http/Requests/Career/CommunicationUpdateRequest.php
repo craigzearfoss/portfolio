@@ -33,13 +33,9 @@ class CommunicationUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a communication.');
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'       => ['required', 'integer', 'filled', Rule::in($ownerIds)],
-            'application_id' => ['integer', 'filled', Rule::in(Application::all('id')->pluck('id')->toArray())],
+            'owner_id'       => ['required', 'integer', 'filled', 'exists:core_db.admins,id'],
+            'application_id' => ['integer', 'filled', 'exists:career_db.applications,id'],
             'subject'        => ['string', 'filled', 'max:255'],
             'date'           => ['date_format:Y-m-d'],
             'time'           => ['date_format:H:i:s'],

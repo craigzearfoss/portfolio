@@ -38,13 +38,9 @@ class ApplicationUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for an application.');
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'             => ['integer', 'filled', Rule::in($ownerIds)],
-            'company_id'           => ['integer', 'filled', Rule::in(Company::all('id')->pluck('id')->toArray())],
+            'owner_id'             => ['integer', 'filled', 'exists:core_db.admins,id'],
+            'company_id'           => ['integer', 'filled', 'exists:career_db.companies,id'],
             'role'                 => ['string', 'required', 'max:255'],
             'job_board_id'         => ['integer', 'filled', 'exists:career_db.job_boards,id'],
             'resume_id'            => ['integer', 'exists:career_db.resumes,id'],

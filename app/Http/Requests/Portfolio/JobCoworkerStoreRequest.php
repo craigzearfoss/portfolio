@@ -38,7 +38,7 @@ class JobCoworkerStoreRequest extends FormRequest
 
         return [
             'owner_id'        => ['integer', 'exists:core_db.admins,id'],
-            'job_id'          => ['integer', 'required', Rule::in(Job::all('id')->pluck('id')->toArray())],
+            'job_id'          => ['integer', 'required', 'exists:portfolio_db.jobs,id'],
             'name'            => [
                 'string',
                 'required',

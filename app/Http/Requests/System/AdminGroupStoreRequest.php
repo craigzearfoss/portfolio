@@ -40,7 +40,7 @@ class AdminGroupStoreRequest extends FormRequest
 
         return [
             'owner_id '     => ['integer', 'exists:core_db.admins,id'],
-            'admin_team_id' => ['integer', 'required', Rule::in(AdminTeam::all('id')->pluck('id')->toArray())],
+            'admin_team_id' => ['integer', 'required', 'exists:core_db.admin_teams,id'],
             'name'          => ['string',
                 'required',
                 'min:3',

@@ -37,13 +37,9 @@ class NoteStoreRequest extends FormRequest
             ]);
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'       => ['integer', 'required', Rule::in($ownerIds)],
-            'application_id' => ['integer', 'required', Rule::in(Application::all('id')->pluck('id')->toArray())],
+            'owner_id'       => ['integer', 'required', 'exists:core_db.admins,id'],
+            'application_id' => ['integer', 'required', 'exists:career_db.applications,id'],
             'subject'        => ['string', 'required', 'max:255'],
             'body'           => ['nullable'],
             'sequence'       => ['integer', 'min:0'],

@@ -54,7 +54,7 @@ class SkillUpdateRequest extends FormRequest
             'version'      => ['string', 'max:20', 'nullable'],
             'featured'     => ['integer', 'between:0,1'],
             'level'        => ['integer', 'between:1,10'],
-            'category_id'  => ['integer', Rule::in(Category::all('id')->pluck('id')->toArray())],
+            'category_id'  => ['integer', 'exists:dictionary_db.categories,id'],
             'start_year'   => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
             'years'        => ['integer', 'min:0'],
             'link'         => ['string', 'url:http,https', 'max:255', 'nullable'],

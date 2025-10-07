@@ -43,13 +43,9 @@ class ApplicationStoreRequest extends FormRequest
             ]);
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'             => ['integer', 'required', Rule::in($ownerIds)],
-            'company_id'           => ['integer', 'required', Rule::in(Company::all('id')->pluck('id')->toArray())],
+            'owner_id'             => ['integer', 'required', 'exists:core_db.admins,id'],
+            'company_id'           => ['integer', 'required', 'exists:career_db.applications,id'],
             'role'                 => ['string', 'required', 'max:255'],
             'job_board_id'         => ['integer', 'filled', 'exists:career_db.job_boards,id'],
             'resume_id'            => ['integer', 'exists:career_db.resumes,id'],

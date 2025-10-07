@@ -40,7 +40,7 @@ class UserGroupStoreRequest extends FormRequest
 
         return [
             'owner_id'      => ['integer', 'exists:core_db.admins,id'],
-            'user_team_id'  => ['integer', 'required', Rule::in(UserTeam::all('id')->pluck('id')->toArray())],
+            'user_team_id'  => ['integer', 'required', 'exists:core_db.user_teams,id'],
             'name'          => [
                 'string',
                 'required',

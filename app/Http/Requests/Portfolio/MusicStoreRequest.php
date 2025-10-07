@@ -44,10 +44,6 @@ class MusicStoreRequest extends FormRequest
             ]);
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         $maxYear = intval(date("Y")) + 1;
 
         return [

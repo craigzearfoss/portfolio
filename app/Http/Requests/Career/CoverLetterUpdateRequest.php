@@ -34,13 +34,9 @@ class CoverLetterUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a cover letter.');
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'         => ['integer', 'filled', Rule::in($ownerIds)],
-            'application_id'   => ['integer', 'filled', Rule::in(Application::all('id')->pluck('id')->toArray())],
+            'owner_id'         => ['integer', 'filled', 'exists:core_db.admins,id'],
+            'application_id'   => ['integer', 'filled', 'exists:career_db.applications,id'],
             'date'             => ['date', 'nullable'],
             'content'          => ['nullable'],
             'cover_letter_url' => ['string', 'url:http,https', 'max:255', 'nullable'],

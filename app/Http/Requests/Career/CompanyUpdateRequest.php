@@ -41,12 +41,8 @@ class CompanyUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a company.');
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'        => ['integer', 'required', Rule::in($ownerIds)],
+            'owner_id'        => ['integer', 'required', 'exists:core_db.admins,id'],
             'name'            => [
                 'string',
                 'filled',

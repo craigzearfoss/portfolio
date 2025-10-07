@@ -38,13 +38,9 @@ class CoverLetterStoreRequest extends FormRequest
             ]);
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'         => ['integer', 'required', Rule::in($ownerIds)],
-            'application_id'   => ['integer', 'required', Rule::in(Application::all('id')->pluck('id')->toArray())],
+            'owner_id'         => ['integer', 'required', 'exists:core_db.admins,id'],
+            'application_id'   => ['integer', 'required', 'exists:career_db.applications,id'],
             'date'             => ['date', 'nullable'],
             'content'          => ['nullable'],
             'cover_letter_url' => ['string', 'url:http,https', 'max:255', 'nullable'],

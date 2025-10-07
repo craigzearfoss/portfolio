@@ -41,12 +41,8 @@ class ReferenceUpdateRequest extends FormRequest
             throw new \Exception('You are not authorized to change the admin for a reference.');
         }
 
-        $ownerIds = isRootAdmin()
-            ? Owner::all('id')->pluck('id')->toArray()
-            : [ Auth::guard('admin')->user()->id ];
-
         return [
-            'owner_id'        => ['required', 'integer', 'filled', Rule::in($ownerIds)],
+            'owner_id'        => ['required', 'integer', 'filled', 'exists:core_db.admins,id'],
             'name'            => [
                 'string',
                 'filled',
