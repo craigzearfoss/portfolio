@@ -2,11 +2,14 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
 class UnitUpdateRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -22,6 +25,8 @@ class UnitUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         return [
             'name'         => ['max:255', 'filled', 'unique:personal_db.units,name,'.$this->unit->id],
             'abbreviation' => ['max:10', 'filled', 'unique:personal_db.units,abbreviation,'.$this->unit->id],

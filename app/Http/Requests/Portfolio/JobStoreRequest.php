@@ -5,6 +5,7 @@ namespace App\Http\Requests\Portfolio;
 use App\Models\Country;
 use App\Models\Owner;
 use App\Models\State;
+use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -13,6 +14,8 @@ use Illuminate\Validation\ValidationException;
 
 class JobStoreRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -29,6 +32,8 @@ class JobStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         // Generate the slug.
         if (!empty($this['company'])) {
             $this->merge([ 'slug' => Str::slug($this['company']

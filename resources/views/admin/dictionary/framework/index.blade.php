@@ -108,7 +108,10 @@
                             </a>
                         @endif
 
-                        <form action="{{ route('admin.dictionary.framework.destroy', $framework->id) }}" method="POST">
+                        <form action="{{ route('admin.dictionary.framework.destroy', $framework->id) }}"
+                              method="POST"
+                              style="display:inline-flex"
+                        >
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">

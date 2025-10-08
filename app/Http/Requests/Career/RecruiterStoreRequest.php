@@ -4,6 +4,7 @@ namespace App\Http\Requests\Career;
 
 use App\Models\Country;
 use App\Models\State;
+use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -11,6 +12,8 @@ use Illuminate\Validation\ValidationException;
 
 class RecruiterStoreRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -26,6 +29,8 @@ class RecruiterStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         // Generate the slug.
         if (!empty($this['name'])) {
             $this->merge([ 'slug' => Str::slug($this['name']) ]);

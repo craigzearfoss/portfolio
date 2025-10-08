@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Personal;
 
 use App\Models\Owner;
+use App\Traits\ModelPermissionsTrait;
 use App\Models\Personal\Recipe;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,8 @@ use Illuminate\Validation\Rule;
 
 class RecipeStepUpdateRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -26,6 +29,8 @@ class RecipeStepUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         // Validate the admin_id. (Only root admins can change the admin for a recipe step.)
         if (!empty($this['admin_id']) && !Auth::guard('admin')->user()->root
             && ($this['admin_id'] == !Auth::guard('admin')->user()->id)

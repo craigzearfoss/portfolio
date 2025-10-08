@@ -11,7 +11,9 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => route('admin.career.company.show', $company) ],
     ],
-    'errorMessages' => $errors->all(),
+    'errorMessages' => $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
+        : [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

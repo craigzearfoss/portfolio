@@ -56,7 +56,7 @@ class CompanyController extends BaseController
      * @return RedirectResponse
      */
     public function store(CompanyStoreRequest $request): RedirectResponse
-    {
+    {die('ddd');
         $company = Company::create($request->validated());
 
         return redirect(referer('admin.career.company.index'))

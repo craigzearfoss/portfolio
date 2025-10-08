@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Personal;
 
 use App\Models\Owner;
+use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -11,6 +12,8 @@ use Illuminate\Validation\ValidationException;
 
 class ReadingStoreRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -27,6 +30,8 @@ class ReadingStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         // Generate the slug.
         if (!empty($this['title'])) {
             $this->merge([ 'slug' => Str::slug($this['title']

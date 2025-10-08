@@ -4,6 +4,7 @@ namespace App\Http\Requests\Portfolio;
 
 use App\Models\Owner;
 use App\Models\Portfolio\Job;
+use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -11,6 +12,8 @@ use Illuminate\Validation\ValidationException;
 
 class JobCoworkerStoreRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -26,6 +29,8 @@ class JobCoworkerStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         // Validate the owner_id. (Only root admins can add a coworker for another admin.)
         if (empty($this['owner_id'])) {
             $this->merge(['owner_id' => Auth::guard('admin')->user()->id]);

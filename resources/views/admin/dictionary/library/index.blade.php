@@ -109,7 +109,10 @@
                         @endif
 
                         @if(isRootAdmin())
-                            <form action="{{ route('admin.dictionary.library.destroy', $library->id) }}" method="POST">
+                            <form action="{{ route('admin.dictionary.library.destroy', $library->id) }}"
+                                  method="POST"
+                                  style="display:inline-flex"
+                            >
                                 @csrf
                                 @method('DELETE')
                                 <button title="delete" type="submit" class="button is-small px-1 py-0">

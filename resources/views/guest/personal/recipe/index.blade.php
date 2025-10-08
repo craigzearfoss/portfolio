@@ -6,7 +6,7 @@
         [ 'name' => $recipe->name ],
     ],
     'buttons' => [],
-    'errorMessages'=> $errors->messages() ?? [],
+    'errors'  => $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

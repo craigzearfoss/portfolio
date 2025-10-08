@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.personal.reading.index') ],
     ],
-    'errors'  => $errors->any()  ?? [],
+    'errors'  => $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

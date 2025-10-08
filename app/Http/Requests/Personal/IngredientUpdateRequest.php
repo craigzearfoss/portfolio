@@ -2,12 +2,15 @@
 
 namespace App\Http\Requests\Personal;
 
+use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class IngredientUpdateRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -23,6 +26,8 @@ class IngredientUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         // Generate the slug.
         if (!empty($this['name'])) {
             $this->merge([ 'slug' => Str::slug($this['name']) ]);

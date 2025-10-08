@@ -6,9 +6,9 @@
         [ 'name' => 'Skills' ],
     ],
     'buttons' => [],
-    'errorMessages'=> $errors->messages() ?? [],
+    'errors'  => $errors->messages() ?? [],
     'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'error'    => session('error') ?? null,
 ])
 
 @section('content')

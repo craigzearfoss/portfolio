@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Personal;
 
 use App\Models\Owner;
+use App\Traits\ModelPermissionsTrait;
 use App\Models\Personal\Recipe;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,8 @@ use Illuminate\Validation\ValidationException;
 
 class RecipeStepStoreRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -27,6 +30,8 @@ class RecipeStepStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         // Validate the owner_id. (Only root admins can update a recipe for another admin.)
         if (empty($this['owner_id'])) {
             $this->merge(['owner_id' => Auth::guard('admin')->user()->id]);

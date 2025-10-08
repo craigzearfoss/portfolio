@@ -3,12 +3,15 @@
 namespace App\Http\Requests\System;
 
 use App\Models\Owner;
+use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class DatabaseUpdateRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,6 +27,8 @@ class DatabaseUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         return [
             'owner_id'    => ['integer', 'exists:core_db.admins,id'],
             'name'        => ['string', 'filled', 'max:50', 'unique:databases,name,'.$this->databases->id],

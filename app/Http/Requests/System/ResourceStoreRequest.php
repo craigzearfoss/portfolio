@@ -5,12 +5,15 @@ namespace App\Http\Requests\System;
 use App\Models\Database;
 use App\Models\Resource;
 use App\Models\Owner;
+use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class ResourceStoreRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -26,6 +29,8 @@ class ResourceStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         return [
             'owner_id'    => ['integer', 'exists:core_db.admins,id'],
             'database_id' => ['integer', 'required', 'exists:core_db.databases,id'],

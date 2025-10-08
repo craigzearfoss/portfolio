@@ -335,4 +335,17 @@ if (! function_exists('reservedKeywords')) {
 
         return $reservedKeywords;
     }
+
+    if (! function_exists('isDemo')) {
+        /**
+         * Returns true if the site is in demo mode. Demo mode is set in the .env file
+         * with the APP_DEMO setting.
+         *
+         * @return bool
+         */
+        function isDemo(): bool
+        {
+            return (bool) config('app.demo', false);
+        }
+    }
 }

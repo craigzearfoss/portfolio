@@ -6,6 +6,7 @@ use App\Models\Career\Company;
 use App\Models\Country;
 use App\Models\Owner;
 use App\Models\State;
+use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -14,6 +15,8 @@ use Illuminate\Validation\ValidationException;
 
 class ReferenceStoreRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -30,6 +33,8 @@ class ReferenceStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         // Generate the slug.
         if (!empty($this['name'])) {
             $this->merge([ 'slug' => Str::slug($this['name']) ]);

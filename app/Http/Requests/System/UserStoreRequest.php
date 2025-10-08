@@ -4,6 +4,7 @@ namespace App\Http\Requests\System;
 
 use App\Models\Country;
 use App\Models\State;
+use App\Traits\ModelPermissionsTrait;
 use App\Rules\CaseInsensitiveNotIn;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,8 @@ use const http\Client\Curl\AUTH_ANY;
 
 class UserStoreRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -27,6 +30,8 @@ class UserStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         return [
             'username' => [
                 'string',

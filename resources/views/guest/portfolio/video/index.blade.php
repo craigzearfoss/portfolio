@@ -7,7 +7,7 @@
         [ 'name' => 'Videos']
     ],
     'buttons' => [],
-    'errors'  => $errors->any()  ?? [],
+    'errors'  => $errors->messages()  ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

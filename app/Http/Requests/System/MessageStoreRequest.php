@@ -2,11 +2,14 @@
 
 namespace App\Http\Requests\System;
 
+use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
 class MessageStoreRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -22,6 +25,8 @@ class MessageStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         return [
             'name'     => ['required', 'max:255'],
             'email'    => ['required', 'email', 'max:255'],
