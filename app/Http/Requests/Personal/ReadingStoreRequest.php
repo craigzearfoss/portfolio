@@ -34,20 +34,22 @@ class ReadingStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['title'])) {
-            $this->merge([ 'slug' => Str::slug($this['title']
-                . (!empty($this['author']) ? '-by-' . $this['author'] : ''))
+            $this->merge([
+                'slug' => uniqueSlug($this['title'] . (!empty($this['author']) ? '-by-' . $this['author'] : '')),
+                'career_db.companies',
+                $this->owner_id
             ]);
         }
 
         return [
-            'owner_id'         => ['integer', 'required', 'exists:core_db.admins,id'],
-            'title'            => ['string', 'required', 'max:255', 'unique:personal_db.readings,name'],
+            'owner_id'         => ['required', 'integer', 'exists:core_db.admins,id'],
+            'title'            => ['required', 'string', 'max:255', 'unique:personal_db.readings,name'],
             'author'           => ['string', 'max:255', 'nullable'],
             'slug'             => [
-                'string',
                 'required',
+                'string',
                 'max:255',
                 Rule::unique('personal_db.readings')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)

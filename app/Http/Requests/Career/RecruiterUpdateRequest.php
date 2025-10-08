@@ -28,14 +28,16 @@ class RecruiterUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'career_db.recruiters')
+            ]);
         }
 
         return [
-            'name'            => ['string', 'max:255', 'unique:career_db.recruiters,name,'.$this->recruiter->id, 'filled'],
-            'slug'            => ['string', 'max:255', 'unique:career_db.recruiters,slug,'.$this->recruiter->id, 'filled'],
+            'name'            => ['filled', 'string', 'max:255', 'unique:career_db.recruiters,name,'.$this->recruiter->id],
+            'slug'            => ['filled', 'string', 'max:255', 'unique:career_db.recruiters,slug,'.$this->recruiter->id],
             'postings_url'    => ['string', 'max:255', 'nullable'],
             'local'           => ['integer', 'between:0,1'],
             'regional'        => ['integer', 'between:0,1'],

@@ -36,16 +36,18 @@ class ReferenceUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'career_db.references', $this->owner_id)
+            ]);
         }
 
         return [
-            'owner_id'        => ['required', 'integer', 'filled', 'exists:core_db.admins,id'],
+            'owner_id'        => ['filled', 'integer', 'exists:core_db.admins,id'],
             'name'            => [
-                'string',
                 'filled',
+                'string',
                 'max:255',
                 Rule::unique('career_db.references')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
@@ -54,8 +56,8 @@ class ReferenceUpdateRequest extends FormRequest
                 })
             ],
             'slug'            => [
-                'string',
                 'filled',
+                'string',
                 'max:255',
                 Rule::unique('career_db.references')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)

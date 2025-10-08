@@ -26,15 +26,17 @@ class StackStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.stacks ', $this->owner_id)
+            ]);
         }
 
         return [
-            'full_name'    => ['string', 'required', 'max:255', 'unique:dictionary_db.stacks,full_name'],
-            'name'         => ['string', 'required', 'max:255', 'unique:dictionary_db.stacks,name'],
-            'slug'         => ['string', 'required', 'max:255', 'unique:dictionary_db.stacks,slug'],
+            'full_name'    => ['required', 'string', 'max:255', 'unique:dictionary_db.stacks,full_name'],
+            'name'         => ['required', 'string', 'max:255', 'unique:dictionary_db.stacks,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:dictionary_db.stacks,slug'],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

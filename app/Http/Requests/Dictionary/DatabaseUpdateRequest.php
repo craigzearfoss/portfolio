@@ -26,15 +26,17 @@ class DatabaseUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.databases ', $this->owner_id)
+            ]);
         }
 
         return [
-            'full_name'    => ['string', 'filled', 'max:255', 'unique:dictionary_db.databases,full_name,'.$this->database->id],
-            'name'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.databases,name,'.$this->database->id],
-            'slug'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.databases,slug,'.$this->database->id],
+            'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.databases,full_name,'.$this->database->id],
+            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.databases,name,'.$this->database->id],
+            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.databases,slug,'.$this->database->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

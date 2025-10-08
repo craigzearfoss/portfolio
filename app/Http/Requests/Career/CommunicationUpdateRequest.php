@@ -34,9 +34,9 @@ class CommunicationUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'       => ['required', 'integer', 'filled', 'exists:core_db.admins,id'],
-            'application_id' => ['integer', 'filled', 'exists:career_db.applications,id'],
-            'subject'        => ['string', 'filled', 'max:255'],
+            'owner_id'       => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'application_id' => ['filled', 'integer', 'exists:career_db.applications,id'],
+            'subject'        => ['filled', 'string', 'max:255'],
             'date'           => ['date_format:Y-m-d'],
             'time'           => ['date_format:H:i:s'],
             'body'           => ['nullable'],

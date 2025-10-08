@@ -35,10 +35,10 @@ class RecipeStepStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'    => ['integer', 'required', 'exists:core_db.admins,id'],
+            'owner_id'    => ['required', 'integer', 'exists:core_db.admins,id'],
             'recipe_id'   => [
-                'integer',
                 'required',
+                'integer',
                 Rule::in(Recipe::where('owner_id', $this->owner_id)->get()->pluck('id')->toArray())
             ],
             'step'         => ['integer', 'min:1'],

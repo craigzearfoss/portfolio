@@ -34,10 +34,10 @@ class ResumeUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'     => ['integer', 'filled', 'exists:core_db.admins,id'],
+            'owner_id'     => ['filled', 'integer', 'exists:core_db.admins,id'],
             'name'         => [
-                'string',
                 'filled',
+                'string',
                 'max:255',
                 Rule::unique('career_db.resumes')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)

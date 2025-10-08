@@ -26,15 +26,17 @@ class IngredientStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'personal_db.ingredients')
+            ]);
         }
 
         return [
-            'full_name'    => ['string', 'required', 'max:255', 'unique:personal_db.ingredients,full_name'],
-            'name'         => ['string', 'required', 'max:100', 'unique:personal_db.ingredients,name'],
-            'slug'         => ['string', 'required', 'max:100', 'unique:personal_db.ingredients,slug'],
+            'full_name'    => ['required', 'string', 'max:255', 'unique:personal_db.ingredients,full_name'],
+            'name'         => ['required', 'string', 'max:100', 'unique:personal_db.ingredients,name'],
+            'slug'         => ['required', 'string', 'max:100', 'unique:personal_db.ingredients,slug'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

@@ -26,14 +26,16 @@ class JobBoardUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'career_db.job_boards')
+            ]);
         }
 
         return [
-            'name'          => ['string', 'max:100', 'unique:career_db.job_boards,name,'.$this->jobBoard->id, 'filled'],
-            'slug'          => ['string', 'max:100', 'unique:career_db.job_boards,slug,'.$this->jobBoard->id, 'filled'],
+            'name'          => ['filled','string', 'max:100', 'unique:career_db.job_boards,name,'.$this->jobBoard->id],
+            'slug'          => ['filled', 'string', 'max:100', 'unique:career_db.job_boards,slug,'.$this->jobBoard->id],
             'primary'       => ['integer', 'between:0,1'],
             'local'         => ['integer', 'between:0,1'],
             'regional'      => ['integer', 'between:0,1'],

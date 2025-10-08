@@ -26,15 +26,17 @@ class LibraryUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.libraries ', $this->owner_id)
+            ]);
         }
 
         return [
-            'full_name'    => ['string', 'filled', 'max:255', 'unique:dictionary_db.libraries,full_name,'.$this->library->id],
-            'name'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.libraries,name,'.$this->library->id],
-            'slug'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.libraries,slug,'.$this->library->id],
+            'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.libraries,full_name,'.$this->library->id],
+            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.libraries,name,'.$this->library->id],
+            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.libraries,slug,'.$this->library->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

@@ -34,9 +34,9 @@ class NoteUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'       => ['integer', 'filled', 'exists:core_db.admins,id'],
-            'application_id' => ['integer', 'filled', 'exists:career_db.applications,id'],
-            'subject'        => ['filled', 'max:255', 'filled'],
+            'owner_id'       => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'application_id' => ['filled', 'integer', 'exists:career_db.applications,id'],
+            'subject'        => ['filled', 'string', 'max:255'],
             'body'           => ['nullable'],
             'sequence'       => ['integer', 'min:0'],
             'public'         => ['integer', 'between:0,1'],

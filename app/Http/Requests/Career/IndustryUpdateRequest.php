@@ -26,15 +26,17 @@ class IndustryUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'career_db.industries')
+            ]);
         }
 
         return [
-            'name'         => ['string', 'max:50', 'unique:career_db.industries,name,'.$this->industry->id, 'filled'],
-            'slug'         => ['string', 'max:50', 'unique:career_db.industries,slug,'.$this->industry->id, 'filled'],
-            'abbreviation' => ['string', 'max:20', 'unique:career_db.industries,abbreviation,'.$this->industry->id, 'filled'],
+            'name'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,name,'.$this->industry->id],
+            'slug'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,slug,'.$this->industry->id],
+            'abbreviation' => ['filled', 'string', 'max:20', 'unique:career_db.industries,abbreviation,'.$this->industry->id],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

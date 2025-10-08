@@ -35,14 +35,14 @@ class ResumeStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'     => ['integer', 'required', 'exists:core_db.admins,id'],
+            'owner_id'     => ['required', 'integer', 'exists:core_db.admins,id'],
             'name'         => [
-                'string',
                 'required',
+                'string',
                 'max:255',
                 Rule::unique('career_db.resumes')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('slug', $this->slug);
+                        ->where('name', $this->name);
                 })
             ],
             'date'         => ['date', 'nullable'],

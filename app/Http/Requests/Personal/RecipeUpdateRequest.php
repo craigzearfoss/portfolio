@@ -33,13 +33,15 @@ class RecipeUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'personal_db.recipes', $this->owner_id)
+            ]);
         }
 
         return [
-            'owner_id'     => ['integer', 'filled', 'exists:core_db.admins,id'],
+            'owner_id'     => ['filled', 'integer', 'exists:core_db.admins,id'],
             'name'         => [
                 'filled',
                 'max:255',

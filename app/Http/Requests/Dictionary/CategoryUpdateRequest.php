@@ -26,15 +26,17 @@ class CategoryUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.categories ', $this->owner_id)
+            ]);
         }
 
         return [
-            'full_name'    => ['string', 'filled', 'max:255', 'unique:dictionary_db.categories,full_name,'.$this->category->id],
-            'name'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.categories,name,'.$this->category->id],
-            'slug'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.categories,slug,'.$this->category->id],
+            'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.categories,full_name,'.$this->category->id],
+            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.categories,name,'.$this->category->id],
+            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.categories,slug,'.$this->category->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

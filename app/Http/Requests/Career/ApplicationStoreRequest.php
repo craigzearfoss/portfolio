@@ -41,10 +41,10 @@ class ApplicationStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'               => ['integer', 'required', 'exists:core_db.admins,id'],
-            'company_id'             => ['integer', 'required', 'exists:career_db.applications,id'],
-            'role'                   => ['string', 'required', 'max:255'],
-            'job_board_id'           => ['integer', 'filled', 'exists:career_db.job_boards,id'],
+            'owner_id'               => ['required', 'integer', 'exists:core_db.admins,id'],
+            'company_id'             => ['required', 'integer', 'exists:career_db.applications,id'],
+            'role'                   => ['required', 'string', 'max:255'],
+            'job_board_id'           => ['required','integer', 'exists:career_db.job_boards,id'],
             'resume_id'              => ['integer', 'exists:career_db.resumes,id'],
             'rating'                 => ['integer', 'between:1,5'],
             'active'                 => ['integer', 'between:0,1'],

@@ -35,8 +35,8 @@ class CoverLetterUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'         => ['integer', 'filled', 'exists:core_db.admins,id'],
-            'application_id'   => ['integer', 'filled', 'exists:career_db.applications,id'],
+            'owner_id'         => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'application_id'   => ['filled', 'integer', 'exists:career_db.applications,id'],
             'date'             => ['date', 'nullable'],
             'content'          => ['nullable'],
             'cover_letter_url' => ['string', 'url:http,https', 'max:500', 'nullable'],

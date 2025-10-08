@@ -36,15 +36,15 @@ class RecipeIngredientUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'      => ['integer', 'filled', 'exists:core_db.admins,id'],
+            'owner_id'      => ['filled', 'integer', 'exists:core_db.admins,id'],
             'recipe_id'     => [
-                'integer',
                 'filled',
+                'integer',
                 Rule::in(Recipe::where('owner_id', $this->owner_id)->get()->pluck('id')->toArray()),
             ],
-            'ingredient_id' => ['integer', 'filled', Rule::in(Ingredient::all()->pluck('id')->toArray())],
+            'ingredient_id' => ['filled', 'integer', Rule::in(Ingredient::all()->pluck('id')->toArray())],
             'amount'        => ['string', 'max:50:', 'nullable'],
-            'unit_id'       => ['integer', 'filled', Rule::in(Unit::all()->pluck('id')->toArray()), 'nullable'],
+            'unit_id'       => ['filled', 'integer', Rule::in(Unit::all()->pluck('id')->toArray()), 'nullable'],
             'qualifier'     => ['string', 'max:255:', 'nullable'],
             'description'   => ['nullable'],
             'image'         => ['string', 'max:500', 'nullable'],

@@ -36,8 +36,8 @@ class CoverLetterStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'         => ['integer', 'required', 'exists:core_db.admins,id'],
-            'application_id'   => ['integer', 'required', 'exists:career_db.applications,id'],
+            'owner_id'         => ['required', 'integer', 'exists:core_db.admins,id'],
+            'application_id'   => ['required', 'integer', 'exists:career_db.applications,id'],
             'date'             => ['date', 'nullable'],
             'content'          => ['nullable'],
             'cover_letter_url' => ['string', 'url:http,https', 'max:500', 'nullable'],

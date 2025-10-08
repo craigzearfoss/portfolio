@@ -26,15 +26,17 @@ class LanguageUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.languages ', $this->owner_id)
+            ]);
         }
 
         return [
-            'full_name'    => ['string', 'filled', 'max:255', 'unique:dictionary_db.languages,full_name,'.$this->language->id],
-            'name'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.languages,name,'.$this->language->id],
-            'slug'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.languages,slug,'.$this->language->id],
+            'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.languages,full_name,'.$this->language->id],
+            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.languages,name,'.$this->language->id],
+            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.languages,slug,'.$this->language->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

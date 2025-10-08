@@ -39,7 +39,7 @@ class ArtStoreRequest extends FormRequest
             $this->merge([
                 'slug'  => uniqueSlug(
                     $this['name']. (!empty($this['artist']) ? ' by ' . $this['artist'] : ''),
-                    'portfolio_db.art',
+                    'art',
                     $this->owner_id
                 ),
             ]);

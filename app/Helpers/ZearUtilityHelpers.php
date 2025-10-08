@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+
 if (! function_exists('refererRouteName')) {
     /**
      * Returns the route name of the refering page or null if there was no refering page.
@@ -77,7 +80,7 @@ if (! function_exists('isRootAdmin')) {
      */
     function isRootAdmin(): bool
     {
-        return (bool) Auth::guard('admin')->user()->root;
+        return Auth::guard('admin')->check() && (bool) Auth::guard('admin')->user()->root;
     }
 }
 
@@ -354,6 +357,7 @@ if (! function_exists('reservedKeywords')) {
     /**
      * Returns a unique slug. If a table is specified the table must have a slug column.
      * If an ownerId is specified then it will make sure the slug is unique for that owner.
+     * TODO: Come up with a nicer way of append characters to slug when needed to make it unique.
      *
      * @return array
      */
@@ -370,22 +374,30 @@ if (! function_exists('reservedKeywords')) {
                 $database = null;
             }
 
-            $table = DB::connection($database)->table($table);
+            if (!empty($ownerId)) {
 
-            //@TODO: This loop is not working
-            $slugIsUnique = false;
-            while (!$slugIsUnique) {
-
-                $query = $table->select('slug')->where('slug', $slug);
-                if (!empty($ownerId)) {
-                    $query->where('owner_id', $ownerId);
-                }
-
-                if ($query->get()->count() > 0) {
-                    $slug = $slug . '+';
+                if (empty($database)) {
+                    while (DB::table($table)->where('owner_id', $ownerId)->where('slug', $slug)->count()) {
+                        $slug = $slug . '-1';
+                    }
                 } else {
-                    $slugIsUnique = true;
+                    while (DB::connection($database)->table($table)->where('owner_id', $ownerId)->where('slug', $slug)->count()) {
+                        $slug = $slug . '-1';
+                    }
                 }
+
+            } else {
+
+                if (empty($database)) {
+                    while (DB::table($table)->where('slug', $slug)->count()) {
+                        $slug = $slug . '-1';
+                    }
+                } else {
+                    while (DB::connection($database)->table($table)->where('slug', $slug)->count()) {
+                        $slug = $slug . '-1';
+                    }
+                }
+
             }
         }
 

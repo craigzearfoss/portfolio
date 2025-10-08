@@ -37,15 +37,15 @@ class RecipeIngredientStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'      => ['integer', 'required', 'exists:core_db.admins,id'],
+            'owner_id'      => ['required', 'integer', 'exists:core_db.admins,id'],
             'recipe_id'     => [
-                'integer',
                 'required',
+                'integer',
                 Rule::in(Recipe::where('owner_id', $this->owner_id)->get()->pluck('id')->toArray())
             ],
-            'ingredient_id' => ['integer', 'required', Rule::in(Ingredient::all()->pluck('id')->toArray())],
+            'ingredient_id' => ['required', 'integer', Rule::in(Ingredient::all()->pluck('id')->toArray())],
             'amount'        => ['string', 'max:50:', 'nullable'],
-            'unit_id'       => ['integer', 'required', Rule::in(Unit::all()->pluck('id')->toArray()), 'nullable'],
+            'unit_id'       => ['required', 'integer', Rule::in(Unit::all()->pluck('id')->toArray()), 'nullable'],
             'qualifier'     => ['string', 'max:255:', 'nullable'],
             'description'   => ['nullable'],
             'image'         => ['string', 'max:500', 'nullable'],

@@ -26,15 +26,17 @@ class OperatingSystemUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.operating_systems ', $this->owner_id)
+            ]);
         }
 
         return [
-            'full_name'    => ['string', 'filled', 'max:255', 'unique:dictionary_db.operating_systems,full_name,'.$this->operating_system->id],
-            'name'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.operating_systems,name,'.$this->operating_system->id],
-            'slug'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.operating_systems,slug,'.$this->operating_system->id],
+            'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.operating_systems,full_name,'.$this->operating_system->id],
+            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.operating_systems,name,'.$this->operating_system->id],
+            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.operating_systems,slug,'.$this->operating_system->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

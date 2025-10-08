@@ -39,15 +39,15 @@ class CompanyContactStoreRequest extends FormRequest
 
             $rules = [
                 'company_id' => [
+                    'required',
                     'integer',
                     'exists:career_db.companies,id',
                     Rule::unique('career_db.company_contact')->where(function ($query) {
                         return $query->where('company_id', $this->company_id)
                             ->where('contact_id', $this->contact_id);
                     }),
-                    'required'
                 ],
-                'contact_id' => ['integer', 'required', 'exists:career_db.contacts,id', 'required'],
+                'contact_id' => ['required', 'integer', 'exists:career_db.contacts,id'],
                 'active'     => ['integer', 'between:0,1'],
             ];
 

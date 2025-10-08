@@ -26,15 +26,17 @@ class ServerUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.servers ', $this->owner_id)
+            ]);
         }
 
         return [
-            'full_name'    => ['string', 'filled', 'max:255', 'unique:dictionary_db.servers,full_name,'.$this->server->id],
-            'name'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.servers,name,'.$this->server->id],
-            'slug'         => ['string', 'filled', 'max:255', 'unique:dictionary_db.servers,slug,'.$this->server->id],
+            'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.servers,full_name,'.$this->server->id],
+            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.servers,name,'.$this->server->id],
+            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.servers,slug,'.$this->server->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
