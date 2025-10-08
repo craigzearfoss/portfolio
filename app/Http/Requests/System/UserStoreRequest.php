@@ -20,7 +20,9 @@ class UserStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check() || Auth::guard('web')->check();
+        $this->checkDemoMode();
+
+        return true;
     }
 
     /**
@@ -30,8 +32,6 @@ class UserStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         return [
             'username' => [
                 'string',

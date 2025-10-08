@@ -15,7 +15,9 @@ class MessageStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        $this->checkDemoMode();
+
+        return true;
     }
 
     /**
@@ -25,8 +27,6 @@ class MessageStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         return [
             'name'     => ['required', 'max:255'],
             'email'    => ['required', 'email', 'max:255'],

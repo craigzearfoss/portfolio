@@ -19,14 +19,13 @@ class AdminUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        /*
-        if (Auth::guard('admin')->check()) {
-            if (Auth::guard('admin')->user()->root || ($this->admin->id === Auth::guard('admin')->user()->id)) {
-                return true;
-            }
+        $this->checkDemoMode();
+
+        if (isRootAdmin() || ($this->admin->id === Auth::guard('admin')->user()->id)) {
+            return true;
         }
-        */
-        return Auth::guard('admin')->check();
+
+        return false;
     }
 
     /**

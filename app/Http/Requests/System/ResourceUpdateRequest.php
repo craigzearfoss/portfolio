@@ -19,7 +19,7 @@ class ResourceUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check() && Auth::guard('admin')->user()->root;
+        return isRootAdmin();
     }
 
     /**
@@ -29,8 +29,6 @@ class ResourceUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         return [
             'owner_id'    => ['integer', 'exists:core_db.admins,id'],
             'database_id' => ['integer', 'filled', 'exists:core_db.databases,id'],

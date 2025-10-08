@@ -19,6 +19,10 @@ class ReadingStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        $this->checkDemoMode();
+
+        $this->checkOwner();
+
         return true;
     }
 
@@ -30,22 +34,10 @@ class ReadingStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         // Generate the slug.
         if (!empty($this['title'])) {
             $this->merge([ 'slug' => Str::slug($this['title']
                 . (!empty($this['author']) ? '-by-' . $this['author'] : ''))
-            ]);
-        }
-
-        // Validate the owner_id. (Only root admins can add a reading for another admin.)
-        if (empty($this['owner_id'])) {
-            $this->merge(['owner_id' => Auth::guard('admin')->user()->id]);
-        }
-        if (!isRootAdmin() && ($this->owner_id !== Auth::guard('admin')->user()->id)) {
-            throw ValidationException::withMessages([
-                'title' => 'You are not authorized to add a reading for this admin.'
             ]);
         }
 

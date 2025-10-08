@@ -48,6 +48,13 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'artist',
+                'value'     => old('artist') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'featured',
                 'value'           => 1,
@@ -64,13 +71,6 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'artist',
-                'value'     => old('artist') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
                 'name'      => 'year',
                 'value'     => old('year') ?? '',
@@ -81,7 +81,7 @@
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'notes',
-                'value'   => old('notes') ?? $reading->notes,
+                'value'   => old('notes') ?? '',
                 'message' => $message ?? '',
             ])
 

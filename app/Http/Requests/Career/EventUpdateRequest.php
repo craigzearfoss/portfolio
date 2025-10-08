@@ -18,7 +18,11 @@ class EventUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isRootAdmin() || ($this->event->owner_id == Auth::guard('admin')->user()->id);
+        $this->checkDemoMode();
+
+        $this->checkOwner();
+
+        return true;
     }
 
     /**
@@ -29,15 +33,6 @@ class EventUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
-        // Validate the admin_id. (Only root admins can change the admin for an event.)
-        if (!empty($this['admin_id']) && !Auth::guard('admin')->user()->root
-            && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
-        ) {
-            throw new \Exception('You are not authorized to change the admin for an event.');
-        }
-
         return [
             'owner_id'       => ['integer', 'filled', 'exists:core_db.admins,id'],
             'application_id' => ['integer', 'filled', 'exists:career_db.applications,id'],

@@ -19,6 +19,10 @@ class ArtStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        $this->checkDemoMode();
+
+        $this->checkOwner();
+
         return true;
     }
 
@@ -30,26 +34,14 @@ class ArtStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         // Generate the slug.
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']
-                . (!empty($this['artist']) ? '-by-' . $this['artist'] : ''))
-            ]);
-        }
-
-        if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
-        }
-
-        // Validate the owner_id. (Only root admins can add art for another admin.)
-        if (empty($this['owner_id'])) {
-            $this->merge(['owner_id' => Auth::guard('admin')->user()->id]);
-        }
-        if (!isRootAdmin() && ($this->owner_id !== Auth::guard('admin')->user()->id)) {
-            throw ValidationException::withMessages([
-                'name' => 'You are not authorized to add art for this admin.'
+            $this->merge([
+                'slug'  => uniqueSlug(
+                    $this['name']. (!empty($this['artist']) ? ' by ' . $this['artist'] : ''),
+                    'portfolio_db.art',
+                    $this->owner_id
+                ),
             ]);
         }
 

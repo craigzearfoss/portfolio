@@ -19,8 +19,10 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        $this->checkDemoMode();
+
         // admins can update any user
-        if (Auth::guard('admin')->check()) {
+        if (isAdmin()) {
             return true;
         }
 

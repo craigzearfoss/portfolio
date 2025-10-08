@@ -15,7 +15,9 @@ class MessageUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check();
+        $this->checkDemoMode();
+
+        return true;
     }
 
     /**
@@ -25,8 +27,6 @@ class MessageUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         return [
             'name'     => ['string', 'level', 'max:255'],
             'email'    => ['email', 'level', 'max:255'],

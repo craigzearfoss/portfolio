@@ -19,6 +19,10 @@ class ResumeStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        $this->checkDemoMode();
+
+        $this->checkOwner();
+
         return true;
     }
 
@@ -30,18 +34,6 @@ class ResumeStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
-        // Validate the owner_id. (Only root admins can add a resume for another admin.)
-        if (empty($this['owner_id'])) {
-            $this->merge(['owner_id' => Auth::guard('admin')->user()->id]);
-        }
-        if (!isRootAdmin() && ($this->owner_id !== Auth::guard('admin')->user()->id)) {
-            throw ValidationException::withMessages([
-                'date' => 'You are not authorized to add a resume for this admin.'
-            ]);
-        }
-
         return [
             'owner_id'     => ['integer', 'required', 'exists:core_db.admins,id'],
             'name'         => [

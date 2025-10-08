@@ -349,3 +349,46 @@ if (! function_exists('reservedKeywords')) {
         }
     }
 }
+
+if (! function_exists('reservedKeywords')) {
+    /**
+     * Returns a unique slug. If a table is specified the table must have a slug column.
+     * If an ownerId is specified then it will make sure the slug is unique for that owner.
+     *
+     * @return array
+     */
+    function uniqueSlug(string $name, ?string $table = null, ?int $ownerId = null): string
+    {
+        $slug = \Illuminate\Support\Str::slug($name);
+
+        if (!empty($table)) {
+
+            if (strpos($table, '.') !== false) {
+                $database = explode('.', $table)[0];
+                $table = explode('.', $table)[1];
+            } else {
+                $database = null;
+            }
+
+            $table = DB::connection($database)->table($table);
+
+            //@TODO: This loop is not working
+            $slugIsUnique = false;
+            while (!$slugIsUnique) {
+
+                $query = $table->select('slug')->where('slug', $slug);
+                if (!empty($ownerId)) {
+                    $query->where('owner_id', $ownerId);
+                }
+
+                if ($query->get()->count() > 0) {
+                    $slug = $slug . '+';
+                } else {
+                    $slugIsUnique = true;
+                }
+            }
+        }
+
+        return $slug;
+    }
+}

@@ -23,7 +23,11 @@ class ApplicationUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isRootAdmin() || ($this->application->owner_id == Auth::guard('admin')->user()->id);
+        $this->checkDemoMode();
+
+        $this->checkOwner();
+
+        return true;
     }
 
     /**
@@ -34,15 +38,6 @@ class ApplicationUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
-        // Validate the admin_id. (Only root admins can change the admin for an application.)
-        if (!empty($this['admin_id']) && !Auth::guard('admin')->user()->root
-            && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
-        ) {
-            throw new \Exception('You are not authorized to change the admin for an application.');
-        }
-
         return [
             'owner_id'               => ['integer', 'filled', 'exists:core_db.admins,id'],
             'company_id'             => ['integer', 'filled', 'exists:career_db.companies,id'],

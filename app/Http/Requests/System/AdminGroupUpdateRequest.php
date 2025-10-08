@@ -19,7 +19,11 @@ class AdminGroupUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check() && Auth::guard('admin')->user()->root;
+        $this->checkDemoMode();
+
+        $this->checkOwner();
+
+        return true;
     }
 
     /**
@@ -29,18 +33,9 @@ class AdminGroupUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         // Generate the slug.
         if (!empty($this['name'])) {
             $this->merge([ 'slug' => Str::slug($this['name']) ]);
-        }
-
-        // Validate the admin_id. (Only root admins can change the admin for a course.)
-        if (!empty($this['admin_id']) && !Auth::guard('admin')->user()->root
-            && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
-        ) {
-            throw new \Exception('You are not authorized to change the admin for a course.');
         }
 
         return [

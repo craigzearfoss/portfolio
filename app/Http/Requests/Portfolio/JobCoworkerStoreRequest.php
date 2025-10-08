@@ -19,7 +19,11 @@ class JobCoworkerStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isRootAdmin() || ($this->owner_id == Auth::guard('admin')->user()->id);
+        $this->checkDemoMode();
+
+        $this->checkOwner();
+
+        return true;
     }
 
     /**
@@ -29,18 +33,6 @@ class JobCoworkerStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
-        // Validate the owner_id. (Only root admins can add a coworker for another admin.)
-        if (empty($this['owner_id'])) {
-            $this->merge(['owner_id' => Auth::guard('admin')->user()->id]);
-        }
-        if (!isRootAdmin() && ($this->owner_id !== Auth::guard('admin')->user()->id)) {
-            throw ValidationException::withMessages([
-                'job_id' => 'You are not authorized to add a coworker for this admin.'
-            ]);
-        }
-
         return [
             'owner_id'        => ['integer', 'exists:core_db.admins,id'],
             'job_id'          => ['integer', 'required', 'exists:portfolio_db.jobs,id'],

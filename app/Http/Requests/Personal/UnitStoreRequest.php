@@ -25,8 +25,6 @@ class UnitStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         return [
             'name'         => ['string', 'required', 'max:50', 'unique:personal_db.units,name'],
             'abbreviation' => ['string', 'required', 'max:20', 'unique:personal_db.units,abbreviation'],

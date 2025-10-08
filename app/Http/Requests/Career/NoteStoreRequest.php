@@ -19,7 +19,11 @@ class NoteStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isRootAdmin() || ($this->note->owner_id == Auth::guard('admin')->user()->id);
+        $this->checkDemoMode();
+
+        $this->checkOwner();
+
+        return true;
     }
 
     /**
@@ -30,18 +34,6 @@ class NoteStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
-        // Validate the owner_id. (Only root admins can add update an application for another admin.)
-        if (empty($this['owner_id'])) {
-            $this->merge(['owner_id' => Auth::guard('admin')->user()->id]);
-        }
-        if (!isRootAdmin() && ($this->owner_id !== Auth::guard('admin')->user()->id)) {
-            throw ValidationException::withMessages([
-                'application_id' => 'You are not authorized to update an application for this admin.'
-            ]);
-        }
-
         return [
             'owner_id'       => ['integer', 'required', 'exists:core_db.admins,id'],
             'application_id' => ['integer', 'required', 'exists:career_db.applications,id'],

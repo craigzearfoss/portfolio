@@ -17,7 +17,7 @@ class DatabaseUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::guard('admin')->check() && Auth::guard('admin')->user()->root;
+        return isRootAdmin();
     }
 
     /**
@@ -27,8 +27,6 @@ class DatabaseUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         return [
             'owner_id'    => ['integer', 'exists:core_db.admins,id'],
             'name'        => ['string', 'filled', 'max:50', 'unique:databases,name,'.$this->databases->id],

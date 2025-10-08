@@ -25,8 +25,6 @@ class UnitUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         return [
             'name'         => ['max:255', 'filled', 'unique:personal_db.units,name,'.$this->unit->id],
             'abbreviation' => ['max:10', 'filled', 'unique:personal_db.units,abbreviation,'.$this->unit->id],

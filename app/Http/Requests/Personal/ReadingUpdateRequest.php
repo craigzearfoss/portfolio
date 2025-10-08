@@ -18,7 +18,11 @@ class ReadingUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isRootAdmin() || ($this->reading->owner_id == Auth::guard('admin')->user()->id);
+        $this->checkDemoMode();
+
+        $this->checkOwner();
+
+        return true;
     }
 
     /**
@@ -29,20 +33,11 @@ class ReadingUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         // Generate the slug.
         if (!empty($this['title'])) {
             $this->merge([ 'slug' => Str::slug($this['title']
                 . (!empty($this['author']) ? '-by-' . $this['author'] : ''))
             ]);
-        }
-
-        // Validate the admin_id. (Only root admins can change the admin for a reading.)
-        if (!empty($this['admin_id']) && !Auth::guard('admin')->user()->root
-            && ($this['admin_id'] == !Auth::guard('admin')->user()->id)
-        ) {
-            throw new \Exception('You are not authorized to change the admin for a reading.');
         }
 
         return [

@@ -21,6 +21,10 @@ class JobStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        $this->checkDemoMode();
+
+        $this->checkOwner();
+
         return true;
     }
 
@@ -32,22 +36,10 @@ class JobStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         // Generate the slug.
         if (!empty($this['company'])) {
             $this->merge([ 'slug' => Str::slug($this['company']
                 . (!empty($this['role']) ? ' (' . $this['role'] : ')'))
-            ]);
-        }
-
-        // Validate the owner_id. (Only root admins can add a job for another admin.)
-        if (empty($this['owner_id'])) {
-            $this->merge(['owner_id' => Auth::guard('admin')->user()->id]);
-        }
-        if (!isRootAdmin() && ($this->owner_id !== Auth::guard('admin')->user()->id)) {
-            throw ValidationException::withMessages([
-                'company' => 'You are not authorized to add a job for this admin.'
             ]);
         }
 

@@ -44,12 +44,24 @@
                     'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
                 ])
+            @else
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $art->owner_id
+                ])
             @endif
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? $art->name,
                 'required'  => true,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'artist',
+                'value'     => old('artist') ?? $art->artist,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -66,13 +78,6 @@
                 'name'      => 'summary',
                 'value'     => old('summary') ?? $art->summary,
                 'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'artist',
-                'value'     => old('artist') ?? $art->artist,
-                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 

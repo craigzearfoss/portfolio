@@ -26,8 +26,6 @@ class AcademyUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         // Generate the slug.
         if (!empty($this['name'])) {
             $this->merge([ 'slug' => Str::slug($this['name']) ]);

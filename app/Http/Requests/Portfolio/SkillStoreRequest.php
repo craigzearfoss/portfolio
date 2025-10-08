@@ -20,6 +20,10 @@ class SkillStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        $this->checkDemoMode();
+
+        $this->checkOwner();
+
         return true;
     }
 
@@ -31,22 +35,10 @@ class SkillStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         // Generate the slug.
         if (!empty($this['name'])) {
             $this->merge([ 'slug' => Str::slug($this['name']
                 . (!empty($this['version']) ? '-' . Str::slug($this['version']) : ''))
-            ]);
-        }
-
-        // Validate the owner_id. (Only root admins can add a skill for another admin.)
-        if (empty($this['owner_id'])) {
-            $this->merge(['owner_id' => Auth::guard('admin')->user()->id]);
-        }
-        if (!isRootAdmin() && ($this->owner_id !== Auth::guard('admin')->user()->id)) {
-            throw ValidationException::withMessages([
-                'name' => 'You are not authorized to add a skill for this admin.'
             ]);
         }
 
