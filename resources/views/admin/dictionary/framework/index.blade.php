@@ -14,9 +14,11 @@
             'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
             'message'  => $message ?? '',
         ]),
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Framework', 'href' => route('admin.dictionary.framework.create') ],
-    ],
+    'buttons' => isRootAdmin()
+            ? [
+                [ 'name' => '<i class="fa fa-plus"></i> Add New Framework', 'href' => route('admin.dictionary.framework.create') ]
+              ]
+            : [],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
@@ -65,52 +67,55 @@
                         @include('admin.components.checkmark', [ 'checked' => $framework->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
-                        <form action="{{ route('admin.dictionary.framework.destroy', $framework->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.dictionary.framework.show', $framework->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- show --}}
-                            </a>
+                        <a title="show" class="button is-small px-1 py-0"
+                           href="{{ route('admin.dictionary.framework.show', $framework->id) }}">
+                            <i class="fa-solid fa-list"></i>{{-- show --}}
+                        </a>
 
+                        @if(isRootAdmin())
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.dictionary.framework.edit', $framework->id) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
+                        @endif
 
-                            @if (!empty($framework->link))
-                                <a title="link"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ !empty($framework->link_name) ? $framework->link_name : 'link' }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
-                                </a>
-                            @else
-                                <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
-                                </a>
-                            @endif
+                        @if (!empty($framework->link))
+                            <a title="link"
+                               class="button is-small px-1 py-0"
+                               href="{{ !empty($framework->link_name) ? $framework->link_name : 'link' }}"
+                               target="_blank"
+                            >
+                                <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                            </a>
+                        @else
+                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                            </a>
+                        @endif
 
-                            @if (!empty($framework->wikipedia))
-                                <a title="Wikipedia page"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $framework->wikipedia }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-file"></i>{{-- wikipedia --}}
-                                </a>
-                            @else
-                                <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-file"></i>{{-- wikipedia --}}
-                                </a>
-                            @endif
+                        @if (!empty($framework->wikipedia))
+                            <a title="Wikipedia page"
+                               class="button is-small px-1 py-0"
+                               href="{{ $framework->wikipedia }}"
+                               target="_blank"
+                            >
+                                <i class="fa-solid fa-file"></i>{{-- wikipedia --}}
+                            </a>
+                        @else
+                            <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-file"></i>{{-- wikipedia --}}
+                            </a>
+                        @endif
 
+                        <form action="{{ route('admin.dictionary.framework.destroy', $framework->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button title="delete" type="submit" class="button is-small px-1 py-0">
                                 <i class="fa-solid fa-trash"></i>{{-- delete --}}
                             </button>
                         </form>
+
                     </td>
                 </tr>
 

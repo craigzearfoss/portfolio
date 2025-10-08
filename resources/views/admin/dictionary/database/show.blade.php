@@ -7,11 +7,15 @@
         [ 'name' => 'Databases',       'href' => route('admin.dictionary.database.index') ],
         [ 'name' => $database->name  ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.dictionary.database.edit', $database) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'href' => route('admin.dictionary.database.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.dictionary.index') ],
-    ],
+    'buttons' => isRootAdmin()
+            ? [
+                [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.dictionary.database.edit', $database) ],
+                [ 'name' => '<i class="fa fa-plus"></i> Add New Database', 'href' => route('admin.dictionary.database.create') ],
+                [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.dictionary.index') ],
+              ]
+            : [
+                [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.dictionary.index') ],
+              ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

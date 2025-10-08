@@ -14,9 +14,11 @@
             'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
             'message'  => $message ?? '',
         ]),
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Category', 'href' => route('admin.dictionary.category.create') ],
-    ],
+    'buttons' => isRootAdmin()
+            ? [
+                [ 'name' => '<i class="fa fa-plus"></i> Add New Category', 'href' => route('admin.dictionary.category.create') ]
+              ]
+            : [],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
@@ -65,52 +67,57 @@
                         @include('admin.components.checkmark', [ 'checked' => $category->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
-                        <form action="{{ route('admin.dictionary.category.destroy', $category->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.dictionary.category.show', $category->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- show --}}
-                            </a>
+                        <a title="show" class="button is-small px-1 py-0"
+                           href="{{ route('admin.dictionary.category.show', $category->id) }}">
+                            <i class="fa-solid fa-list"></i>{{-- show --}}
+                        </a>
 
+                        @if(isRootAdmin())
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.dictionary.category.edit', $category->id) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
+                        @endif
 
-                            @if (!empty($category->link))
-                                <a title="{{ !empty($category->link_name) ? $category->link_name : 'link' }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $category->link }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
-                                </a>
-                            @else
-                                <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
-                                </a>
-                            @endif
+                        @if (!empty($category->link))
+                            <a title="{{ !empty($category->link_name) ? $category->link_name : 'link' }}"
+                               class="button is-small px-1 py-0"
+                               href="{{ $category->link }}"
+                               target="_blank"
+                            >
+                                <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                            </a>
+                        @else
+                            <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                            </a>
+                        @endif
 
-                            @if (!empty($category->wikipedia))
-                                <a title="Wikipedia page"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $category->wikipedia }}"
-                                   target="_blank"
-                                >
-                                    <i class="fa-solid fa-file"></i>{{-- wikipedia --}}
-                                </a>
-                            @else
-                                <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-file"></i>{{-- wikipedia --}}
-                                </a>
-                            @endif
+                        @if (!empty($category->wikipedia))
+                            <a title="Wikipedia page"
+                               class="button is-small px-1 py-0"
+                               href="{{ $category->wikipedia }}"
+                               target="_blank"
+                            >
+                                <i class="fa-solid fa-file"></i>{{-- wikipedia --}}
+                            </a>
+                        @else
+                            <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
+                                <i class="fa-solid fa-file"></i>{{-- wikipedia --}}
+                            </a>
+                        @endif
 
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
-                            </button>
-                        </form>
+                        @if(isRootAdmin())
+                            <form action="{{ route('admin.dictionary.category.destroy', $category->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button title="delete" type="submit" class="button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>{{-- delete --}}
+                                </button>
+                            </form>
+                        @endif
+
                     </td>
                 </tr>
 

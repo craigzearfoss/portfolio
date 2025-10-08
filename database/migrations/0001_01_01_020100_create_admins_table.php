@@ -73,6 +73,17 @@ return new class extends Migration
                 'status'            => 1,
                 'token'             => '',
                 'root'              => 0,
+            ],
+            [
+                'id'                => 3,
+                'username'          => 'demo-admin',
+                'name'              => 'Demo Admin',
+                'email'             => 'demo@gmail.com',
+                'email_verified_at' => now(),
+                'password'          => Hash::make('changeme'),
+                'status'            => 1,
+                'token'             => '',
+                'root'              => 0,
             ]
         ];
 
