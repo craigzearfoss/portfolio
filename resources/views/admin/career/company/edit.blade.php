@@ -49,6 +49,11 @@
                     'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
                 ])
+            @else
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $company->owner_id
+                ])
             @endif
 
             @include('admin.components.form-input-horizontal', [

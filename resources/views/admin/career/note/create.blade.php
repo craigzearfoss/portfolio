@@ -38,6 +38,11 @@
                     'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
                 ])
+            @else
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => Auth::guard('admin')->user()->id
+                ])
             @endif
 
             @include('admin.components.form-select-horizontal', [

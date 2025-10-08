@@ -35,7 +35,7 @@
                 'value' => $userGroup->id
             ])
 
-        @if(isRootAdmin())
+            @if(isRootAdmin())
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
@@ -43,6 +43,11 @@
                     'required' => true,
                     'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
+                ])
+            @else
+                @include('admin.components.form-hidden', [
+                    'name'  => 'owner_id',
+                    'value' => $userGroup->owner_id
                 ])
             @endif
 
