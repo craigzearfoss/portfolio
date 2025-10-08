@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Career\ApplicationDuration;
+use App\Models\Career\JobDurationType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +19,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('application_durations', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('job_duration_types', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->unique();
             $table->string('abbreviation', 20)->unique();
@@ -28,32 +28,22 @@ return new class extends Migration
         $data = [
             [
                 'id'           => 1,
-                'name'         => 'permanent',
+                'name'         => 'Permanent',
                 'abbreviation' => 'perm',
             ],
             [
                 'id'           => 2,
-                'name'         => 'contract',
-                'abbreviation' => 'cont',
-            ],
-            [
-                'id'           => 3,
-                'name'         => 'contract-to-hire',
-                'abbreviation' => 'c-t-h',
-            ],
-            [
-                'id'           => 4,
-                'name'         => 'temporary',
+                'name'         => 'Temporary',
                 'abbreviation' => 'temp',
             ],
             [
-                'id'           => 5,
-                'name'         => 'project',
-                'abbreviation' => 'proj',
+                'id'           => 3,
+                'name'         => 'Intermittent',
+                'abbreviation' => 'int',
             ],
         ];
 
-        ApplicationDuration::insert($data);
+        JobDurationType::insert($data);
     }
 
     /**
@@ -61,6 +51,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('application_durations');
+        Schema::connection($this->database_tag)->dropIfExists('job_duration_types');
     }
 };

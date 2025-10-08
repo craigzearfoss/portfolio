@@ -42,9 +42,9 @@ return new class extends Migration
             $table->integer('compensation_min')->nullable();
             $table->integer('compensation_max')->nullable();
             $table->integer('compensation_unit_id')->nullable();
-            $table->integer('duration_id')->nullable();
-            $table->integer('office_id')->default(0)->nullable();
-            $table->integer('schedule_id')->default(0)->nullable();
+            $table->foreignIdFor(\App\Models\Career\JobDurationType::class, 'job_duration_type_id');
+            $table->foreignIdFor(\App\Models\Career\JobLocationType::class, 'job_location_type_id');
+            $table->foreignIdFor(\App\Models\Career\JobEmploymentType::class, 'job_employment_type_id');
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city')->nullable();
@@ -85,105 +85,105 @@ return new class extends Migration
 
         $data = [
             [
-                'id'                   => 1,
-                'company_id'           => 46,
-                'role'                 => 'Full-Stack Software Engineer – PHP',
-                'active'               => 1,
-                'post_date'            => '2025-09-22',
-                'apply_date'           => '2025-09-22',
-                'compensation_min'     => 125000,
-                'compensation_max'     => 140000,
-                'compensation_unit_id' => 2,     // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
-                'duration_id'          => 1,     // 1-permanent, 2-contract, 3-contract-to-hire, 4-temporary, 5-project
-                'office_id'            => 2,     // 1-onsite, 2-remote, 3-hybrid
-                'schedule_id'          => 1,     // 1-full-time, 2-part-time, 3-seasonal
-                'city'                 => null,
-                'state_id'             => null,
-                'country_id'           => 237,
-                'w2'                   => 0,
-                'relocation'           => 0,
-                'benefits'             => 0,
-                'vacation'             => 0,
-                'health'               => 0,
-                'job_board_id'         => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
-                'link'                 => 'https://www.linkedin.com/jobs/view/4303651950',
-                'link_name'            => 'LinkedIn',
+                'id'                     => 1,
+                'company_id'             => 46,
+                'role'                   => 'Full-Stack Software Engineer – PHP',
+                'active'                 => 1,
+                'post_date'              => '2025-09-22',
+                'apply_date'             => '2025-09-22',
+                'compensation_min'       => 125000,
+                'compensation_max'       => 140000,
+                'compensation_unit_id'   => 2,     // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
+                'job_duration_type_id'   => 1,     // 1-Permanent, 2-Temporary, 3-Intermittent
+                'job_employment_type_id' => 1,     // 1-Full-time, 2-Part-time, 5-Contract
+                'job_location_type_id'   => 3,     // 1-On-site, 2-Hybrid, 3-Remote
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => 237,
+                'w2'                     => 0,
+                'relocation'             => 0,
+                'benefits'               => 0,
+                'vacation'               => 0,
+                'health'                 => 0,
+                'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
+                'link'                   => 'https://www.linkedin.com/jobs/view/4303651950',
+                'link_name'              => 'LinkedIn',
             ],
             [
-                'id'                   => 2,
-                'company_id'           => 47,
-                'role'                 => 'Senior Software Engineer - Full-Stack Developer',
-                'active'               => 1,
-                'post_date'            => '2025-09-22',
-                'apply_date'           => '2025-09-22',
-                'compensation_min'     => null,
-                'compensation_max'     => null,
-                'compensation_unit'    => null,  // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
-                'duration_id'          => 1,     // 1-permanent, 2-contract, 3-contract-to-hire, 4-temporary, 5-project
-                'office_id'            => 2,     // 1-onsite, 2-remote, 3-hybrid
-                'schedule_id'          => 1,     // 1-full-time, 2-part-time, 3-seasonal
-                'city'                 => 'Nashville',
-                'state_id'             => 48,
-                'country_id'           => 237,
-                'w2'                   => 0,
-                'relocation'           => 0,
-                'benefits'             => 0,
-                'vacation'             => 0,
-                'health'               => 0,
-                'job_board_id'         => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
-                'link'                 => 'https://www.indeed.com/viewjob?jk=fcf10d24947f906b&from=shareddesktop_copy',
-                'link_name'            => 'Indeed',
+                'id'                     => 2,
+                'company_id'             => 47,
+                'role'                   => 'Senior Software Engineer - Full-Stack Developer',
+                'active'                 => 1,
+                'post_date'              => '2025-09-22',
+                'apply_date'             => '2025-09-22',
+                'compensation_min'       => null,
+                'compensation_max'       => null,
+                'compensation_unit'      => null,  // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
+                'job_duration_type_id'   => 1,     // 1-Permanent, 2-Temporary, 3-Intermittent
+                'job_employment_type_id' => 1,     // 1-Full-time, 2-Part-time, 5-Contract
+                'job_location_type_id'   => 3,     // 1-On-site, 2-Hybrid, 3-Remote
+                'city'                   => 'Nashville',
+                'state_id'               => 48,
+                'country_id'             => 237,
+                'w2'                     => 0,
+                'relocation'             => 0,
+                'benefits'               => 0,
+                'vacation'               => 0,
+                'health'                 => 0,
+                'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
+                'link'                   => 'https://www.indeed.com/viewjob?jk=fcf10d24947f906b&from=shareddesktop_copy',
+                'link_name'              => 'Indeed',
             ],
             [
-                'id'                   => 3,
-                'company_id'           => 48,
-                'role'                 => 'Staff Software Engineer (Fullstack - React/Laravel)',
-                'active'               => 1,
-                'post_date'            => '2025-09-22',
-                'apply_date'           => '2025-09-22',
-                'compensation_min'     => 101653,
-                'compensation_max'     => 151015,
-                'compensation_unit'    => 2,     // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
-                'duration_id'          => 1,     // 1-permanent, 2-contract, 3-contract-to-hire, 4-temporary, 5-project
-                'office_id'            => 2,     // 1-onsite, 2-remote, 3-hybrid
-                'schedule_id'          => 1,     // 1-full-time, 2-part-time, 3-seasonal
-                'city'                 => 'Woodstock',
-                'state_id'             => 33,
-                'country_id'           => 237,
-                'w2'                   => 0,
-                'relocation'           => 0,
-                'benefits'             => 0,
-                'vacation'             => 0,
-                'health'               => 0,
-                'job_board_id'         => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
-                'link'                 => 'https://www.indeed.com/viewjob?jk=fcf10d24947f906b&from=shareddesktop_copy',
-                'link_name'            => 'Indeed',
+                'id'                     => 3,
+                'company_id'             => 48,
+                'role'                   => 'Staff Software Engineer (Fullstack - React/Laravel)',
+                'active'                 => 1,
+                'post_date'              => '2025-09-22',
+                'apply_date'             => '2025-09-22',
+                'compensation_min'       => 101653,
+                'compensation_max'       => 151015,
+                'compensation_unit'      => 2,     // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
+                'job_duration_type_id'   => 1,     // 1-Permanent, 2-Temporary, 3-Intermittent
+                'job_employment_type_id' => 1,     // 1-Full-time, 2-Part-time, 5-Contract
+                'job_location_type_id'   => 3,     // 1-On-site, 2-Hybrid, 3-Remote
+                'city'                   => 'Woodstock',
+                'state_id'               => 33,
+                'country_id'             => 237,
+                'w2'                     => 0,
+                'relocation'             => 0,
+                'benefits'               => 0,
+                'vacation'               => 0,
+                'health'                 => 0,
+                'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
+                'link'                   => 'https://www.indeed.com/viewjob?jk=fcf10d24947f906b&from=shareddesktop_copy',
+                'link_name'              => 'Indeed',
             ],
             /*
             [
-                'id'                   => 1,
-                'company_id'           => 1,
-                'role'                 => '',
-                'active'               => 1,
-                'post_date'            => null,
-                'apply_date'           => null,
-                'compensation_min'     => null,
-                'compensation_max'     => null,
-                'compensation_unit'    => null,  // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
-                'duration_id'          => 1,     // 1-permanent, 2-contract, 3-contract-to-hire, 4-temporary, 5-project
-                'office_id'            => 2,     // 1-onsite, 2-remote, 3-hybrid
-                'schedule_id'          => 1,     // 1-full-time, 2-part-time, 3-seasonal
-                'city'                 => null,
-                'state_id'             => null,
-                'country_id'           => 237,
-                'w2'                   => 0,
-                'relocation'           => 0,
-                'benefits'             => 0,
-                'vacation'             => 0,
-                'health'               => 0,
-                'job_board_id'         => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
-                'link'                 => '',
-                'link_name'            => '',
+                'id'                     => 1,
+                'company_id'             => 1,
+                'role'                   => '',
+                'active'                 => 1,
+                'post_date'              => null,
+                'apply_date'             => null,
+                'compensation_min'       => null,
+                'compensation_max'       => null,
+                'compensation_unit'      => null,  // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
+                'job_duration_type_id'   => 1,     // 1-Permanent, 2-Temporary, 3-Intermittent
+                'job_employment_type_id' => 1,     // 1-Full-time, 2-Part-time, 5-Contract
+                'job_location_type_id'   => 3,     // 1-On-site, 2-Hybrid, 3-Remote
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => 237,
+                'w2'                     => 0,
+                'relocation'             => 0,
+                'benefits'               => 0,
+                'vacation'               => 0,
+                'health'                 => 0,
+                'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
+                'link'                   => '',
+                'link_name'              => '',
             ],
             */
         ];

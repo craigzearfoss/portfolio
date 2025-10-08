@@ -32,8 +32,8 @@
                 <th>applied</th>
                 <th>duration</th>
                 <th>compensation</th>
-                <th>schedule</th>
-                <th>office</th>
+                <th class="has-text-centered">employment<br>type</th>
+                <th class="has-text-centered">location<br>type</th>
                 <th>location</th>
                 <th class="has-text-centered">w2</th>
                 <?php /*
@@ -60,8 +60,8 @@
                 <th>applied</th>
                 <th>duration</th>
                 <th>compensation</th>
-                <th>schedule</th>
-                <th>office</th>
+                <th class="has-text-centered">employment<br>type</th>
+                <th class="has-text-centered">location<br>type</th>
                 <th>location</th>
                 <th class="has-text-centered">w2</th>
                 <th class="has-text-centered">relo</th>
@@ -106,24 +106,24 @@
                     <td data-field="apply_date" style="white-space: nowrap;">
                         {{ !empty($application->apply_date) ? date('M j', strtotime($application->apply_date)) : '' }}
                     </td>
-                    <td data-field="duration_id">
-                        {{ $application->duration['name'] }}
+                    <td data-field="job_duration_id">
+                        {{ $application->durationType['name'] }}
                     </td>
                     <td data-field="compensation" style="white-space: nowrap;">
                         {!!
                             formatCompensation([
                                 'min'   => $application->compensation_min ?? '',
                                 'max'   => $application->compensation_max ?? '',
-                                'unit'  => $application->compensation_unit['abbreviation'] ?? '',
+                                'unit'  => $application->compensationUnit['abbreviation'] ?? '',
                                 'short' => true
                             ])
                         !!}
                     </td>
-                    <td data-field="schedule_id">
-                        {{ $application->schedule['name'] ?? '' }}
+                    <td data-field="job_employment_type_id" class="has-text-centered" >
+                        {{ $application->employmentType['name'] ?? '' }}
                     </td>
-                    <td data-field="office_id">
-                        {{ $application->office['name'] ?? '' }}
+                    <td data-field="job_location_type_id" class="has-text-centered">
+                        {{ $application->locationType['name'] ?? '' }}
                     </td>
                     <td data-field="location">
                         {!!
@@ -151,7 +151,7 @@
                     </td>
                     */ ?>
                     <td data-field="job_board_id">
-                        {{ $application->job_board['name'] ?? '' }}
+                        {{ $application->jobBoard['name'] ?? '' }}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.application.destroy', $application->id) }}" method="POST">

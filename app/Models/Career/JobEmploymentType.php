@@ -6,13 +6,13 @@ use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ApplicationOffice extends Model
+class JobEmploymentType extends Model
 {
     use SearchableModelTrait;
 
     protected $connection = 'career_db';
 
-    protected $table = 'application_offices';
+    protected $table = 'job_employment_types';
 
     /**
      * The attributes that are mass assignable.
@@ -31,11 +31,11 @@ class ApplicationOffice extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the applications for the application office.
+     * Get the applications for the job schedule.
      */
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class, 'application_office_id')
+        return $this->hasMany(Application::class, 'job_employment_type_id')
             ->orderBy('post_date', 'desc');
     }
 }

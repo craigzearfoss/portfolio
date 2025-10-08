@@ -23,13 +23,13 @@
 
         @include('admin.components.show-row', [
             'name'  => 'id',
-            'value' => $application->cover_letter->id
+            'value' => $application->coverLetter->id
         ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $application->cover_letter->owner['username'] ?? ''
+                'value' => $application->coverLetter->owner['username'] ?? ''
             ])
         @endif
 
@@ -37,107 +37,107 @@
             'name'    => 'application',
             'value'   => view('admin.components.link', [
                 'name' => $application->name ?? '',
-                'href' => route('admin.career.application.show', $application->cover_letter->application),
+                'href' => route('admin.career.application.show', $application->coverLetter->application),
             ]),
             'message' => $message ?? '',
         ])
 
         @include('admin.components.show-row-link', [
             'name'  => 'date',
-            'value' => longDate($application->cover_letter->date)
+            'value' => longDate($application->coverLetter->date)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'content',
-            'value' => $application->cover_letter->content
+            'value' => $application->coverLetter->content
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'cover letter url',
-            'href'   => $application->cover_letter->cover_letter_url,
+            'href'   => $application->coverLetter->cover_letter_url,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'href'   => $application->cover_letter->link,
+            'href'   => $application->coverLetter->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'link name',
-            'value' => $application->cover_letter->link_name
+            'value' => $application->coverLetter->link_name
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($application->cover_letter->description ?? '')
+            'value' => nl2br($application->coverLetter->description ?? '')
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'image',
-            'src'      => $application->cover_letter->image,
-            'alt'      => $application->cover_letter->name,
+            'src'      => $application->coverLetter->image,
+            'alt'      => $application->coverLetter->name,
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($application->cover_letter->name, $application->cover_letter->image)
+            'filename' => getFileSlug($application->coverLetter->name, $application->coverLetter->image)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image_credit',
-            'value' => $application->cover_letter->image_credit
+            'value' => $application->coverLetter->image_credit
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image_source',
-            'value' => $application->cover_letter->image_source
+            'value' => $application->coverLetter->image_source
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
-            'src'      => $application->cover_letter->thumbnail,
-            'alt'      => $application->cover_letter->name,
+            'src'      => $application->coverLetter->thumbnail,
+            'alt'      => $application->coverLetter->name,
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($application->cover_letter->name, $application->cover_letter->thumbnail)
+            'filename' => getFileSlug($application->coverLetter->name, $application->coverLetter->thumbnail)
         ])
 
         @include('admin.components.show-row', [
             'name'    => 'sequence',
-            'checked' => $application->cover_letter->sequence
+            'checked' => $application->coverLetter->sequence
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'public',
-            'checked' => $application->cover_letter->public
+            'checked' => $application->coverLetter->public
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'     => 'readonly',
             'readonly' => 'read-only',
-            'checked'  => $application->cover_letter->readonly
+            'checked'  => $application->coverLetter->readonly
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'root',
-            'checked' => $application->cover_letter->root
+            'checked' => $application->coverLetter->root
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
-            'checked' => $application->cover_letter->disabled
+            'checked' => $application->coverLetter->disabled
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'created at',
-            'value' => longDateTime($application->cover_letter->created_at)
+            'value' => longDateTime($application->coverLetter->created_at)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'updated at',
-            'value' => longDateTime($application->cover_letter->updated_at)
+            'value' => longDateTime($application->coverLetter->updated_at)
         ])
 
     </div>

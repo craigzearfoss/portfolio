@@ -71,7 +71,7 @@ class ApplicationController extends BaseController
      */
     public function show(Application $application): View
     {
-        if (empty($application->cover_letter)) {
+        if (empty($application->coverLetter)) {
             $application = $this->createCoverLetter($application);
         }
 
@@ -121,7 +121,7 @@ class ApplicationController extends BaseController
 
     public function showCoverLetter(Application $application): View
     {
-        if (empty($application->cover_letter)) {
+        if (empty($application->coverLetter)) {
             $application = $this->createCoverLetter($application);
         }
 
@@ -136,7 +136,7 @@ class ApplicationController extends BaseController
      */
     public function editCoverLetter(Application $application): View
     {
-        if (empty($application->cover_letter)) {
+        if (empty($application->coverLetter)) {
             $application = $this->createCoverLetter($application);
         }
 
@@ -167,7 +167,7 @@ class ApplicationController extends BaseController
      */
     protected function createCoverLetter(Application $application): Application
     {
-        if (empty($application->cover_letter)) {
+        if (empty($application->coverLetter)) {
             CoverLetter::insert([
                 'owner_id'       => $application->owner_id,
                 'application_id' => $application->id,

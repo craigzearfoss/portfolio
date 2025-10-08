@@ -6,13 +6,13 @@ use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ApplicationCompensationUnit extends Model
+class CompensationUnit extends Model
 {
     use SearchableModelTrait;
 
     protected $connection = 'career_db';
 
-    protected $table = 'application_compensation_units';
+    protected $table = 'compensation_units';
 
     /**
      * The attributes that are mass assignable.
@@ -35,7 +35,7 @@ class ApplicationCompensationUnit extends Model
      */
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class, 'application_compensation_unit_id')
+        return $this->hasMany(Application::class, 'compensation_unit_id')
             ->orderBy('post_date', 'desc');
     }
 }

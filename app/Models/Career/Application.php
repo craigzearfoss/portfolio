@@ -2,15 +2,15 @@
 
 namespace App\Models\Career;
 
-use App\Models\Career\ApplicationCompensationUnit;
-use App\Models\Career\ApplicationDuration;
-use App\Models\Career\ApplicationOffice;
-use App\Models\Career\ApplicationSchedule;
+use App\Models\Career\CompensationUnit;
 use App\Models\Career\Communication;
 use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
 use App\Models\Career\Event;
 use App\Models\Career\JobBoard;
+use App\Models\Career\JobDurationType;
+use App\Models\Career\JobLocationType;
+use App\Models\Career\JobEmploymentType;
 use App\Models\Career\Note;
 use App\Models\Career\Resume;
 use App\Models\Country;
@@ -54,9 +54,9 @@ class Application extends Model
         'compensation_min',
         'compensation_max',
         'compensation_unit_id',
-        'duration_id',
-        'office_id',
-        'schedule_id',
+        'job_duration_type_id',
+        'job_employment_type_id',
+        'job_location_type_id',
         'street',
         'street2',
         'city',
@@ -127,11 +127,12 @@ class Application extends Model
     }
 
     /**
-     * Get the application compensation unit that owns the application.
+     * Get the compensation unit that owns the application.
      */
-    public function compensation_unit(): BelongsTo
+    public function compensationUnit(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(ApplicationCompensationUnit::class);
+        return $this->setConnection('career_db')->belongsTo(
+            CompensationUnit::class, 'compensation_unit_id');
     }
 
     /**
@@ -145,18 +146,28 @@ class Application extends Model
     /**
      * Get the cover letter for the application.
      */
-    public function cover_letter(): HasOne
+    public function coverLetter(): HasOne
     {
         return $this->setConnection('career_db')->hasOne(CoverLetter::class, 'application_id')
             ->orderBy('date', 'desc');
     }
 
     /**
-     * Get the application duration that owns the application.
+     * Get the job duration type that owns the application.
      */
-    public function duration(): BelongsTo
+    public function durationType(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(ApplicationDuration::class);
+        return $this->setConnection('career_db')->belongsTo(
+            JobDurationType::class, 'job_duration_type_id');
+    }
+
+    /**
+     * Get the job employment type that owns the application.
+     */
+    public function employmentType(): BelongsTo
+    {
+        return $this->setConnection('career_db')->belongsTo(
+            JobEmploymentType::class, 'job_employment_type_id');
     }
 
     /**
@@ -169,12 +180,21 @@ class Application extends Model
     }
 
     /**
-     * Get the job_board who owns the application.
+     * Get the job board who owns the application.
      */
-    public function job_board(): BelongsTo
+    public function jobBoard(): BelongsTo
     {
         return $this->setConnection('career_db')->belongsTo(JobBoard::class)
             ->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get the job location type that owns the application.
+     */
+    public function locationType(): BelongsTo
+    {
+        return $this->setConnection('career_db')->belongsTo(
+            JobLocationType::class,'job_location_type_id');
     }
 
     /**
@@ -211,28 +231,12 @@ class Application extends Model
     }
 
     /**
-     * Get the application office that owns the application.
-     */
-    public function office(): BelongsTo
-    {
-        return $this->setConnection('career_db')->belongsTo(ApplicationOffice::class);
-    }
-
-    /**
      * Get the resume that owns the application.
      */
     public function resume(): BelongsTo
     {
         return $this->setConnection('career_db')->belongsTo(Resume::class)
             ->orderBy('name', 'asc');
-    }
-
-    /**
-     * Get the application schedule that owns the application.
-     */
-    public function schedule(): BelongsTo
-    {
-        return $this->setConnection('career_db')->belongsTo(ApplicationSchedule::class);
     }
 
     /**

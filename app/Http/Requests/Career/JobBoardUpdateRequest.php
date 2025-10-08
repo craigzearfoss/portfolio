@@ -29,8 +29,8 @@ class JobBoardUpdateRequest extends FormRequest
         }
 
         return [
-            'name'          => ['string', 'max:100', 'unique:career_db.job_boards,name,'.$this->job_board->id, 'filled'],
-            'slug'          => ['string', 'max:100', 'unique:career_db.job_boards,slug,'.$this->job_board->id, 'filled'],
+            'name'          => ['string', 'max:100', 'unique:career_db.job_boards,name,'.$this->jobBoard->id, 'filled'],
+            'slug'          => ['string', 'max:100', 'unique:career_db.job_boards,slug,'.$this->jobBoard->id, 'filled'],
             'primary'       => ['integer', 'between:0,1'],
             'local'         => ['integer', 'between:0,1'],
             'regional'      => ['integer', 'between:0,1'],

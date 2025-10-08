@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Career\ApplicationCompensationUnit;
+use App\Models\Career\CompensationUnit;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +19,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('application_compensation_units', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('compensation_units', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->unique();
             $table->string('abbreviation', 20)->unique();
@@ -58,7 +58,7 @@ return new class extends Migration
             ],
         ];
 
-        ApplicationCompensationUnit::insert($data);
+        CompensationUnit::insert($data);
     }
 
     /**
@@ -66,6 +66,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('application_compensation_units');
+        Schema::connection($this->database_tag)->dropIfExists('compensation_units');
     }
 };

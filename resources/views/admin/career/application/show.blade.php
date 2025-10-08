@@ -65,20 +65,20 @@
             ])
             @include('admin.components.show-row', [
                 'name'  => 'cover letter date',
-                'value' => longDate($application->cover_letter['date'])
+                'value' => longDate($application->coverLetter['date'])
             ])
 
             @include('admin.components.show-row', [
                 'name'  => 'cover letter url',
-                'value' => empty($application->cover_letter['cover_letter_url'])
+                'value' => empty($application->coverLetter['cover_letter_url'])
                     ? view('admin.components.link', [
                             'name'   => 'Attach',
-                            'href'   => route('admin.career.application.cover-letter.edit', $application->cover_letter),
+                            'href'   => route('admin.career.application.cover-letter.edit', $application->coverLetter),
                             'class'  => 'button is-primary is-small px-1 py-0'
                         ])
                     : view('admin.components.link', [
                             'name'   => 'View',
-                            'href'   => $application->cover_letter['cover_letter_url'],
+                            'href'   => $application->coverLetter['cover_letter_url'],
                             'target' => '_blank',
                             'class'  => 'button is-primary is-small px-1 py-0'
                         ])
@@ -118,23 +118,23 @@
             'value' => formatCompensation([
                 'min'   => $application->compensation_min ?? '',
                 'max'   => $application->compensation_max ?? '',
-                'unit'  => $application->compensation_unit['name'] ?? '',
+                'unit'  => $application->compensationUnit['name'] ?? '',
             ])
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'duration',
-            'value' => $application->duration['name']
+            'name'  => 'duration type',
+            'value' => $application->durationType['name']
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'office',
-            'value' => \App\Models\Career\ApplicationOffice::find($application->office_id)->name ?? '',
+            'name'  => 'employment type',
+            'value' => $application->employmentType['name'] ?? '',
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'schedule',
-            'value' => \App\Models\Career\ApplicationSchedule::find($application->schedule_id)->name ?? '',
+            'name'  => 'location type',
+            'value' => $application->locationType['name'] ?? '',
         ])
 
         @include('admin.components.show-row', [
@@ -192,9 +192,9 @@
         @include('admin.components.show-row', [
             'name'  => 'source',
             'value' => view('admin.components.link', [
-                'name' => $application->job_board['name'] ?? '',
-                'href' => !empty($application->job_board)
-                    ? route('admin.career.job-board.show', $application->job_board['id'])
+                'name' => $application->jobBoard['name'] ?? '',
+                'href' => !empty($application->jobBoard)
+                    ? route('admin.career.job-board.show', $application->jobBoard['id'])
                     : '',
             ])
         ])

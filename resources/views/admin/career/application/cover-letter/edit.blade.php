@@ -31,7 +31,7 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $application->cover_letter->id
+                'value' => $application->coverLetter->id
             ])
 
             @if(isRootAdmin())
@@ -65,26 +65,26 @@
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',
                 'name'    => 'date',
-                'value'   => old('date') ?? $application->cover_letter->date,
+                'value'   => old('date') ?? $application->coverLetter->date,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'content',
-                'value'   => old('content') ?? $application->cover_letter->content,
+                'value'   => old('content') ?? $application->coverLetter->content,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'        => 'cover_letter_url',
-                'value'       => old('cover_letter_url') ?? $application->cover_letter->cover_letter_url,
+                'value'       => old('cover_letter_url') ?? $application->coverLetter->cover_letter_url,
                 'maxlength'   => 500,
                 'message'     => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
-                'value'     => old('link') ?? $application->cover_letter->link,
+                'value'     => old('link') ?? $application->coverLetter->link,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
@@ -92,7 +92,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link_name',
                 'label'     => 'link name',
-                'value'     => old('link_name') ?? $application->cover_letter->link_name,
+                'value'     => old('link_name') ?? $application->coverLetter->link_name,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -100,13 +100,13 @@
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
-                'value'   => old('description') ?? $application->cover_letter->description,
+                'value'   => old('description') ?? $application->coverLetter->description,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'image',
-                'value'     => old('image') ?? $application->cover_letter->image,
+                'value'     => old('image') ?? $application->coverLetter->image,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
@@ -114,7 +114,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_credit',
                 'label'     => 'image credit',
-                'value'     => old('image_credit') ?? $application->cover_letter->image_credit,
+                'value'     => old('image_credit') ?? $application->coverLetter->image_credit,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -122,14 +122,14 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_source',
                 'label'     => 'image source',
-                'value'     => old('image_source') ?? $application->cover_letter->image_source,
+                'value'     => old('image_source') ?? $application->coverLetter->image_source,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
-                'value'     => old('thumbnail') ?? $application->cover_letter->thumbnail,
+                'value'     => old('thumbnail') ?? $application->coverLetter->thumbnail,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
@@ -137,7 +137,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'sequence',
-                'value'       => old('sequence') ?? $application->cover_letter->sequence,
+                'value'       => old('sequence') ?? $application->coverLetter->sequence,
                 'min'         => 0,
                 'message'     => $message ?? '',
             ])
@@ -154,7 +154,7 @@
                                 'name'            => 'public',
                                 'value'           => 1,
                                 'unchecked_value' => 0,
-                                'checked'         => old('public') ?? $application->cover_letter->public,
+                                'checked'         => old('public') ?? $application->coverLetter->public,
                                 'message'         => $message ?? '',
                             ])
 
@@ -163,7 +163,7 @@
                                 'label'           => 'read-only',
                                 'value'           => 1,
                                 'unchecked_value' => 0,
-                                'checked'         => old('readonly') ?? $application->cover_letter->readonly,
+                                'checked'         => old('readonly') ?? $application->coverLetter->readonly,
                                 'message'         => $message ?? '',
                             ])
 
@@ -171,7 +171,7 @@
                                 'name'            => 'root',
                                 'value'           => 1,
                                 'unchecked_value' => 0,
-                                'checked'         => old('root') ?? $application->cover_letter->root,
+                                'checked'         => old('root') ?? $application->coverLetter->root,
                                 'disabled'        => !isRootAdmin(),
                                 'message'         => $message ?? '',
                             ])
@@ -180,7 +180,7 @@
                                 'name'            => 'disabled',
                                 'value'           => 1,
                                 'unchecked_value' => 0,
-                                'checked'         => old('disabled') ?? $application->cover_letter->disabled,
+                                'checked'         => old('disabled') ?? $application->coverLetter->disabled,
                                 'message'         => $message ?? '',
                             ])
 

@@ -16,7 +16,7 @@ class CoverLetterUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isRootAdmin() || ($this->cover_letter->owner_id == Auth::guard('admin')->user()->id);
+        return isRootAdmin() || ($this->coverLetter->owner_id == Auth::guard('admin')->user()->id);
     }
 
     /**

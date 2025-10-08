@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Career\ApplicationSchedule;
+use App\Models\Career\JobLocationType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +19,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('application_schedules', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('job_location_types', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->unique();
             $table->string('abbreviation', 20)->unique();
@@ -28,18 +28,22 @@ return new class extends Migration
         $data = [
             [
                 'id'           => 1,
-                'name'         => 'full-time',
-                'abbreviation' => 'ft',
-
+                'name'         => 'On-site',
+                'abbreviation' => 'on',
             ],
             [
                 'id'           => 2,
-                'name'         => 'part-time',
-                'abbreviation' => 'pt',
+                'name'         => 'Hybrid',
+                'abbreviation' => 'hyb',
+            ],
+            [
+                'id'           => 3,
+                'name'         => 'Remote',
+                'abbreviation' => 'rem',
             ],
         ];
 
-        ApplicationSchedule::insert($data);
+        JobLocationType::insert($data);
     }
 
     /**
@@ -47,6 +51,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('application_schedules');
+        Schema::connection($this->database_tag)->dropIfExists('job_location_types');
     }
 };

@@ -131,32 +131,32 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'compensation_unit',
                 'label'   => 'compensation unit',
-                'value'   => old('compensation_unit') ?? $application->compensation_unit_id,
-                'list'    => \App\Models\Career\ApplicationCompensationUnit::listOptions([], 'id', 'name', true),
+                'value'   => old('compensation_unit') ?? $application->compensationUnit_id,
+                'list'    => \App\Models\Career\CompensationUnit::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'duration_id',
-                'label'   => 'duration',
-                'value'   => old('duration_id') ?? $application->duration_id,
-                'list'    => \App\Models\Career\ApplicationDuration::listOptions([], 'id', 'name', true),
+                'name'    => 'job_duration_id',
+                'label'   => 'duration type',
+                'value'   => old('job_duration_id') ?? $application->job_duration_id,
+                'list'    => \App\Models\Career\JobDurationType::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'office_id',
-                'label'   => 'office',
-                'value'   => old('office_id') ?? $application->office_id,
-                'list'    => \App\Models\Career\ApplicationOffice::listOptions([], 'id', 'name', true),
+                'name'    => 'job_employment_type_id',
+                'label'   => 'employment type',
+                'value'   => old('job_employment_type_id') ?? $application->job_employment_type_id,
+                'list'    => \App\Models\Career\JobEmploymentType::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'schedule_id',
-                'label'   => 'schedule',
-                'value'   => old('schedule_id') ?? $application->schedule_id,
-                'list'    => \App\Models\Career\ApplicationSchedule::listOptions([], 'id', 'name', true),
+                'name'    => 'job_location_type_id',
+                'label'   => 'location type',
+                'value'   => old('job_location_type_id') ?? $application->job_location_type_id,
+                'list'    => \App\Models\Career\JobLocationType::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
