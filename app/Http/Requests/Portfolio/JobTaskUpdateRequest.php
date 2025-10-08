@@ -33,9 +33,9 @@ class JobTaskUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'        => ['integer', 'exists:core_db.admins,id'],
-            'job_id'          => ['integer', 'filled', 'exists:portfolio_db.jobs,id'],
-            'summary'         => ['string', 'max:500', 'filled'],
+            'owner_id'        => ['filled','integer', 'exists:core_db.admins,id'],
+            'job_id'          => ['filled', 'integer', 'exists:portfolio_db.jobs,id'],
+            'summary'         => ['filled', 'string', 'max:500'],
             'notes'           => ['nullable'],
             'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],

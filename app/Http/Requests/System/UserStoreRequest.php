@@ -34,8 +34,8 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'username' => [
-                'string',
                 'required',
+                'string',
                 'min:6',
                 'max:200',
                 'unique:users,username',
@@ -52,7 +52,7 @@ class UserStoreRequest extends FormRequest
             'latitude'          => ['numeric:strict', 'nullable'],
             'longitude'         => ['numeric:strict', 'nullable'],
             'phone'             => ['string', 'max:50', 'nullable'],
-            'email'             => ['email', 'required', 'max:255', 'unique:users,email'],
+            'email'             => ['required', 'email', 'max:255', 'unique:users,email'],
             'email_verified_at' => ['nullable'],
             'link'              => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'         => ['string', 'max:255', 'nullable'],

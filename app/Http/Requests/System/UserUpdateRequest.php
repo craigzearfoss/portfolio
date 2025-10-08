@@ -47,6 +47,7 @@ class UserUpdateRequest extends FormRequest
 
         return [
             'username' => [
+                'filled',
                 'string',
                 'filled',
                 'min:6',
@@ -54,7 +55,7 @@ class UserUpdateRequest extends FormRequest
                 'unique:users,username,'.$this->users->id,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
-            'name'              => ['string', 'min:6', 'max:255', 'filled'],
+            'name'              => ['filled', 'string', 'min:6', 'max:255'],
             'title'             => ['string', 'max:100', 'nullable'],
             'street'            => ['string', 'max:255', 'nullable'],
             'street2'           => ['string', 'max:255', 'nullable'],
@@ -72,8 +73,8 @@ class UserUpdateRequest extends FormRequest
             'image_credit'      => ['string', 'max:255', 'nullable'],
             'image_source'      => ['string', 'max:255', 'nullable'],
             'thumbnail'         => ['string', 'max:500', 'nullable'],
-            'password'          => ['string', 'min:8', 'max:255', 'filled'],
-            'confirm_password'  => ['string', 'same:password', 'filled'],
+            'password'          => ['filled', 'string', 'min:8', 'max:255'],
+            'confirm_password'  => ['filled', 'string', 'same:password'],
             'remember_token'    => ['string', 'max:200', 'nullable'],
             'token'             => ['string', 'max:255', 'nullable'],
             'status'            => ['integer', 'between:0,1'],

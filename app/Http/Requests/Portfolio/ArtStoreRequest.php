@@ -34,24 +34,24 @@ class ArtStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
                 'slug'  => uniqueSlug(
                     $this['name']. (!empty($this['artist']) ? ' by ' . $this['artist'] : ''),
-                    'art',
+                    'portfolio_db.art',
                     $this->owner_id
                 ),
             ]);
         }
 
         return [
-            'owner_id'     => ['integer', 'exists:core_db.admins,id'],
-            'name'         => ['string', 'required', 'max:255'],
+            'owner_id'     => ['required', 'integer', 'exists:core_db.admins,id'],
+            'name'         => ['required', 'string', 'max:255'],
             'artist'       => ['string', 'max:255', 'nullable'],
             'slug'         => [
-                'string',
                 'required',
+                'string',
                 'max:255',
                 Rule::unique('portfolio_db.art')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)

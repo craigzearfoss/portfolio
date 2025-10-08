@@ -31,7 +31,7 @@ class DatabaseUpdateRequest extends FormRequest
             'owner_id'    => ['integer', 'exists:core_db.admins,id'],
             'name'        => ['string', 'filled', 'max:50', 'unique:databases,name,'.$this->databases->id],
             'database'    => ['string', 'filled', 'max:50', 'unique:databases,database,'.$this->databases->id],
-            'tag'         => ['string', 'filled', 'max:50'],
+            'tag'         => ['string', 'filled', 'max:50', 'unique:databases,tag,'.$this->databases->id],
             'title'       => ['string', 'filled', 'max:50'],
             'plural'      => ['string', 'filled', 'max:50'],
             'guest'       => ['integer', 'between:0,1'],

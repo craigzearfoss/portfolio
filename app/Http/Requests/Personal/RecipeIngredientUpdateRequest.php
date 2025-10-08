@@ -44,7 +44,7 @@ class RecipeIngredientUpdateRequest extends FormRequest
             ],
             'ingredient_id' => ['filled', 'integer', Rule::in(Ingredient::all()->pluck('id')->toArray())],
             'amount'        => ['string', 'max:50:', 'nullable'],
-            'unit_id'       => ['filled', 'integer', Rule::in(Unit::all()->pluck('id')->toArray()), 'nullable'],
+            'unit_id'       => ['filled', 'integer', 'exists:personal_db.units,id'],
             'qualifier'     => ['string', 'max:255:', 'nullable'],
             'description'   => ['nullable'],
             'image'         => ['string', 'max:500', 'nullable'],
@@ -56,6 +56,17 @@ class RecipeIngredientUpdateRequest extends FormRequest
             'readonly'      => ['integer', 'between:0,1'],
             'root'          => ['integer', 'between:0,1'],
             'disabled'      => ['integer', 'between:0,1'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.filled'      => 'Please select an owner.',
+            'owner_id.exists'      => 'The specified owner does not exist.',
+            'recipe_id.filled'     => 'Please select a recipe.',
+            'ingredient_id.filled' => 'Please select an ingredient.',
+            'unit_id.filled'       => 'Please select a unit.',
         ];
     }
 }

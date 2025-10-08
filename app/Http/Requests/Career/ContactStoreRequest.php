@@ -96,4 +96,14 @@ class ContactStoreRequest extends FormRequest
             'disabled'        => ['integer', 'between:0,1'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.required' => 'Please select an owner for the contact.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'state_id.exists'   => 'The specified state does not exist.',
+            'country_id.exists' => 'The specified country does not exist.',
+        ];
+    }
 }

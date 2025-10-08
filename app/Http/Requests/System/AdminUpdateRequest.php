@@ -39,8 +39,8 @@ class AdminUpdateRequest extends FormRequest
 
         $ruleArray = [
             'username' => [
-                'string',
                 'filled',
+                'string',
                 'min:6',
                 'max:200',
                 'unique:admins,username,'.$this->admin->id,
@@ -57,7 +57,7 @@ class AdminUpdateRequest extends FormRequest
             'latitude'         => ['numeric:strict', 'nullable'],
             'longitude'        => ['numeric:strict', 'nullable'],
             'phone'            => ['string', 'max:50', 'nullable'],
-            'email'            => ['email', 'filled', 'max:255', 'unique:admins,email,'.$this->admin->id,],
+            'email'            => ['filled', 'email', 'max:255', 'unique:admins,email,'.$this->admin->id,],
             'link'             => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'        => ['string', 'max:255', 'nullable'],
             'description'      => ['nullable'],

@@ -101,7 +101,12 @@ class CompanyUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'industry_id'  => 'Please select an industry.',
+            'owner_id.filled'    => 'Please select an owner for the company.',
+            'owner_id.exists'    => 'The specified owner does not exist.',
+            'industry_id.filled' => 'Please select an industry for the company.',
+            'industry_id.exists' => 'The specified industry does not exist.',
+            'state_id.exists'    => 'The specified state does not exist.',
+            'country_id.exists'  => 'The specified country does not exist.',
         ];
     }
 }

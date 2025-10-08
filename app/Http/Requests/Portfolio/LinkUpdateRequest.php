@@ -33,9 +33,11 @@ class LinkUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portrait_db.links', $this->owner_id)
+            ]);
         }
 
         return [

@@ -34,9 +34,9 @@ class JobTaskStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'        => ['integer', 'exists:core_db.admins,id'],
-            'job_id'          => ['integer', 'required', 'exists:portfolio_db.jobs,id'],
-            'summary'         => ['string', 'required', 'max:500'],
+            'owner_id'        => ['required', 'integer', 'exists:core_db.admins,id'],
+            'job_id'          => ['required', 'integer', 'exists:portfolio_db.jobs,id'],
+            'summary'         => ['required','string', 'max:500'],
             'notes'           => ['nullable'],
             'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],

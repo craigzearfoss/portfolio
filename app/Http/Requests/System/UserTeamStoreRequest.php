@@ -32,16 +32,18 @@ class UserTeamStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portrait_db.user_teams', $this->owner_id)
+            ]);
         }
 
         return [
-            'owner_id'     => ['integer', 'exists:core_db.admins,id'],
+            'owner_id'     => ['required', 'integer', 'exists:core_db.admins,id'],
             'name'         => [
-                'string',
                 'required',
+                'string',
                 'min:3',
                 'max:200',
                 Rule::unique('portfolio_db.user_teams')->where(function ($query) {
@@ -49,7 +51,7 @@ class UserTeamStoreRequest extends FormRequest
                         ->where('name', $this->name);
                 })
             ],
-            'slug'         => ['string', 'required', 'min:20', 'max:220', 'unique:core_db.user_teams,slug'],
+            'slug'         => ['required', 'string', 'min:20', 'max:220', 'unique:core_db.user_teams,slug'],
             'abbreviation' => ['string', 'max:20', 'unique:core_db.user_teams,slug', 'nullable'],
             'description'  => ['nullable'],
             'disabled'     => ['integer', 'between:0,1'],

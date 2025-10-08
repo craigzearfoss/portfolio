@@ -26,14 +26,16 @@ class AcademyStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portrait_db.academies ', $this->owner_id)
+            ]);
         }
 
         return [
-            'name'         => ['string', 'required', 'max:255', 'unique:portfolio_db.academies,name'],
-            'slug'         => ['string', 'required', 'max:255', 'unique:portfolio_db.academies,slug'],
+            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.academies,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.academies,slug'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

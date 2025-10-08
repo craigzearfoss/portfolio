@@ -35,18 +35,22 @@ class SkillStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']
-                . (!empty($this['version']) ? '-' . Str::slug($this['version']) : ''))
+            $this->merge([
+                'slug' => uniqueSlug(
+                    $this['name'] . (!empty($this['version']) ? '-' . $this['version'] : ''),
+                    'portrait_db.skills',
+                    $this->owner_id
+                )
             ]);
         }
 
         return [
-            'owner_id'     => ['integer', 'exists:core_db.admins,id'],
+            'owner_id'     => ['required', 'integer', 'exists:core_db.admins,id'],
             'name'         => [
-                'string',
                 'required',
+                'string',
                 'max:255',
                 Rule::unique('portfolio_db.skills')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
@@ -56,7 +60,6 @@ class SkillStoreRequest extends FormRequest
             'version'      => ['string', 'max:20', 'nullable'],
             'slug'         => [
                 'required',
-                'filled',
                 'string',
                 'max:255',
                 Rule::unique('portfolio_db.skills')->where(function ($query) {

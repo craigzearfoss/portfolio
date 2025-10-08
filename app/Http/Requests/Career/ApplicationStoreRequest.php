@@ -93,4 +93,26 @@ class ApplicationStoreRequest extends FormRequest
             'disabled'               => ['integer', 'between:0,1'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.required'               => 'Please select an owner for the application.',
+            'owner_id.exists'                 => 'The specified owner does not exist.',
+            'company_id.required'             => 'Please select a company for the application.',
+            'company_id.exists'               => 'The specified company does not exist.',
+            'job_board_id.required'           => 'Please select a job board for the application.',
+            'job_board_id.exists'             => 'The specified job board does not exist.',
+            'resume_id.exists'                => 'The specified resume does not exist.',
+            'compensation_unit_id.exists'     => 'The specified compensation unit type does not exist.',
+            'job_duration_type_id.required'   => 'Please select a duration type for the application.',
+            'job_duration_type_id.exists'     => 'The specified duration type does not exist.',
+            'job_employment_type_id.required' => 'Please select an employment type for the application.',
+            'job_employment_type_id.exists'   => 'The specified employment type does not exist.',
+            'job_location_type_id.required'   => 'Please select an location type for the application.',
+            'job_location_type_id.exists'     => 'The specified location type does not exist.',
+            'state_id.exists'                 => 'The specified state does not exist.',
+            'country_id.exists'               => 'The specified country does not exist.',
+        ];
+    }
 }

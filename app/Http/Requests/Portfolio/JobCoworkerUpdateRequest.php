@@ -33,11 +33,11 @@ class JobCoworkerUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'        => ['integer', 'exists:core_db.admins,id'],
-            'job_id'          => ['integer', 'filled', 'exists:portfolio_db.jobs,id'],
+            'owner_id'        => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'job_id'          => ['filled', 'integer', 'exists:portfolio_db.jobs,id'],
             'name'            => [
-                'string',
                 'filled',
+                'string',
                 'max:255',
                 Rule::unique('portfolio_db.job_coworkers')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)

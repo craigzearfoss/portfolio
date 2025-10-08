@@ -29,11 +29,11 @@ class DatabaseStoreRequest extends FormRequest
     {
         return [
             'owner_id' => ['integer', 'exists:core_db.admins,id'],
-            'name'     => ['string', 'required', 'max:50', 'unique:databases,name'],
-            'database' => ['string', 'required', 'max:50', 'unique:databases,database'],
-            'tag'      => ['string', 'required', 'max:50'],
-            'title'    => ['string', 'required', 'max:50'],
-            'plural'   => ['string', 'required', 'max:50'],
+            'name'     => ['required', 'string', 'max:50', 'unique:databases,name'],
+            'database' => ['required', 'string', 'max:50', 'unique:databases,database'],
+            'tag'      => ['required', 'string', 'max:50', 'unique:databases,tag'],
+            'title'    => ['required', 'string', 'max:50'],
+            'plural'   => ['required', 'string', 'max:50'],
             'guest'    => ['integer', 'between:0,1'],
             'user'     => ['integer', 'between:0,1'],
             'admin'    => ['integer', 'between:0,1'],

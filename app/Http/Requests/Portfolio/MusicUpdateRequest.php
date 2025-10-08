@@ -33,22 +33,26 @@ class MusicUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']
-                . (!empty($this['artist']) ? '-by-' . $this['artist'] : ''))
+            $this->merge([
+                'slug' => uniqueSlug(
+                    $this['name'] . (!empty($this['artist']) ? '-by-' . $this['artist'] : ''),
+                    'portrait_db.music',
+                    $this->owner_id
+                )
             ]);
         }
 
         $maxYear = intval(date("Y")) + 1;
 
         return [
-            'owner_id'      => ['integer', 'exists:core_db.admins,id'],
-            'name'           => ['string', 'filled', 'max:255', 'unique:portfolio_db.music,name,'.$this->music->id],
+            'owner_id'       => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'name'           => ['filled', 'string', 'max:255', 'unique:portfolio_db.music,name,'.$this->music->id],
             'artist'         => ['string', 'max:255', 'nullable'],
             'slug'           => [
-                'string',
                 'filled',
+                'string',
                 'max:255',
                 Rule::unique('portfolio_db.music')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)

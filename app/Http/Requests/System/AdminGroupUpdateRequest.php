@@ -33,17 +33,19 @@ class AdminGroupUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portrait_db.admin_groups', $this->owner_id)
+            ]);
         }
 
         return [
-            'owner_id'      => ['integer', 'exists:core_db.admins,id'],
-            'admin_team_id' => ['integer', 'filled', 'exists:core_db.admin_teams,id'],
+            'owner_id'      => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'admin_team_id' => ['filled', 'integer', 'exists:core_db.admin_teams,id'],
             'name'          => [
-                'string',
                 'filled',
+                'string',
                 'min:3',
                 'max:200',
                 Rule::unique('portfolio_db.admin_groups')->where(function ($query) {
@@ -52,7 +54,7 @@ class AdminGroupUpdateRequest extends FormRequest
                         ->where('name', $this->name);
                 })
             ],
-            'slug'          => ['string', 'filled', 'min:20', 'max:220', 'unique:core_db.admin_groups,slug,'.$this->admin_group->id],
+            'slug'          => ['filled', 'string', 'min:20', 'max:220', 'unique:core_db.admin_groups,slug,'.$this->admin_group->id],
             'abbreviation'  => ['string', 'max:20', 'unique:core_db.admin_groups.abbreviation,'.$this->admin_group->id, 'nullable'],
             'description'   => ['nullable'],
             'disabled'      => ['integer', 'between:0,1'],

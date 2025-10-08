@@ -35,20 +35,23 @@ class JobUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
-        if (!empty($this['company'])) {
-            $this->merge([ 'slug' => Str::slug($this['company']
-                . (!empty($this['role']) ? ' (' . $this['role'] : ')'))
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug(
+                    $this['company'] . (!empty($this['role']) ? ' (' . $this['role'] : ')'),
+                    'portrait_db.jobs ',
+                    $this->owner_id)
             ]);
         }
 
         return [
-            'owner_id'               => ['integer', 'exists:core_db.admins,id'],
-            'name'                   => ['string', 'filled', 'max:255', 'unique:portfolio_db.jobs,name,'.$this->job->id],
-            'role'                   => ['string', 'max:255',],
+            'owner_id'               => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'company'                => ['filled', 'string', 'max:255'],
+            'role'                   => ['filled', 'string', 'max:255',],
             'slug'                   => [
-                'string',
                 'filled',
+                'string',
                 'max:255',
                 Rule::unique('portfolio_db.jobs')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)

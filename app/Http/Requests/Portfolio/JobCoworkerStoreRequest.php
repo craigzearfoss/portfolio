@@ -34,11 +34,11 @@ class JobCoworkerStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'        => ['integer', 'exists:core_db.admins,id'],
-            'job_id'          => ['integer', 'required', 'exists:portfolio_db.jobs,id'],
+            'owner_id'        => ['required', 'integer', 'exists:core_db.admins,id'],
+            'job_id'          => ['required', 'integer', 'exists:portfolio_db.jobs,id'],
             'name'            => [
-                'string',
                 'required',
+                'string',
                 'max:255',
                 Rule::unique('portfolio_db.job_coworkers')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)

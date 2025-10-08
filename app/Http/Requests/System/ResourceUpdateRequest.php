@@ -30,13 +30,13 @@ class ResourceUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'    => ['integer', 'exists:core_db.admins,id'],
-            'database_id' => ['integer', 'filled', 'exists:core_db.databases,id'],
-            'name'        => ['string', 'filled', 'max:50', 'unique:resources,name,'.$this->resources->id],
+            'owner_id'    => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'database_id' => ['filled', 'integer', 'exists:core_db.databases,id'],
+            'name'        => ['filled', 'string', 'max:50', 'unique:resources,name,'.$this->resources->id],
             'parent_id'   => ['integer', Rule::in(Resource::where('id', '<>', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
-            'table'       => ['string', 'filled', 'max:50', 'unique:resources,table,'.$this->resources->id],
-            'title'       => ['string', 'filled', 'max:50'],
-            'plural'      => ['string', 'filled', 'max:50'],
+            'table'       => ['filled', 'string', 'max:50', 'unique:resources,table,'.$this->resources->id],
+            'title'       => ['filled', 'string', 'max:50'],
+            'plural'      => ['filled', 'string', 'max:50'],
             'guest'       => ['integer', 'between:0,1'],
             'user'        => ['integer', 'between:0,1'],
             'admin'       => ['integer', 'between:0,1'],

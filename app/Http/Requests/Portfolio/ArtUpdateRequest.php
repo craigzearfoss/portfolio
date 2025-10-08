@@ -33,20 +33,24 @@ class ArtUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']
-                . (!empty($this['artist']) ? '-by-' . $this['artist'] : ''))
+            $this->merge([
+                'slug'  => uniqueSlug(
+                    $this['name']. (!empty($this['artist']) ? ' by ' . $this['artist'] : ''),
+                    'portfolio_db.art',
+                    $this->owner_id
+                ),
             ]);
         }
 
         return [
-            'owner_id'     => ['integer', 'exists:core_db.admins,id'],
-            'name'         => ['string', 'filled', 'max:255'],
+            'owner_id'     => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'name'         => ['filled', 'string', 'max:255'],
             'artist'       => ['string', 'max:255', 'nullable'],
             'slug'         => [
-                'string',
                 'filled',
+                'string',
                 'max:255',
                 Rule::unique('portfolio_db.art')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)

@@ -34,16 +34,18 @@ class CourseUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portrait_db.courses', $this->owner_id)
+            ]);
         }
 
         return [
-            'owner_id'        => ['integer', 'exists:core_db.admins,id'],
+            'owner_id'        => ['filled', 'integer', 'exists:core_db.admins,id'],
             'name' => [
-                'string',
                 'filled',
+                'string',
                 'max:255',
                 Rule::unique('portfolio_db.courses')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
@@ -52,8 +54,8 @@ class CourseUpdateRequest extends FormRequest
                 })
             ],
             'slug'            => [
-                'string',
                 'filled',
+                'string',
                 'max:255',
                 Rule::unique('portfolio_db.courses')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)

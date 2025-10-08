@@ -48,4 +48,14 @@ class EventUpdateRequest extends FormRequest
             'disabled'       => ['integer', 'between:0,1'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.filled'       => 'Please select an owner for the event.',
+            'owner_id.exists'       => 'The specified owner does not exist.',
+            'application_id.filled' => 'Please select an application for the event.',
+            'application_id.exists' => 'The specified application does not exist.',
+        ];
+    }
 }

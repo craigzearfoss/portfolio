@@ -35,16 +35,18 @@ class LinkStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portrait_db.links', $this->owner_id)
+            ]);
         }
 
         return [
-            'owner_id'     => ['integer', 'exists:core_db.admins,id'],
+            'owner_id'     => ['required', 'integer', 'exists:core_db.admins,id'],
             'name'         => [
-                'string',
                 'required',
+                'string',
                 'max:255',
                 Rule::unique('portfolio_db.links')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)

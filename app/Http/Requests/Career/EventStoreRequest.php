@@ -49,4 +49,14 @@ class EventStoreRequest extends FormRequest
             'disabled'       => ['integer', 'between:0,1'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.required'       => 'Please select an owner for the event.',
+            'owner_id.exists'         => 'The specified owner does not exist.',
+            'application_id.required' => 'Please select an application for the event.',
+            'application_id.exists'   => 'The specified application does not exist.',
+        ];
+    }
 }

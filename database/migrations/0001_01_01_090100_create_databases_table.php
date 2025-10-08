@@ -31,9 +31,9 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('databases', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
-            $table->string('name', 50);
-            $table->string('database', 50);
-            $table->string('tag', 50);
+            $table->string('name', 50)->unique();
+            $table->string('database', 50)->unique();
+            $table->string('tag', 50)->unique();
             $table->string('title', 50);
             $table->string('plural', 50);
             $table->tinyInteger('guest')->default(0);

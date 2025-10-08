@@ -46,4 +46,14 @@ class NoteStoreRequest extends FormRequest
             'disabled'       => ['integer', 'between:0,1'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.required'       => 'Please select an owner for the note.',
+            'owner_id.exists'         => 'The specified owner does not exist.',
+            'application_id.required' => 'Please select an application for the note.',
+            'application_id.exists'   => 'The specified application does not exist.',
+        ];
+    }
 }

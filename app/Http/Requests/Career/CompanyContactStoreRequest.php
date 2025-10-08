@@ -53,9 +53,11 @@ class CompanyContactStoreRequest extends FormRequest
 
         } else {
 
-            // Generate the slug.
+            // generate the slug
             if (!empty($this['name'])) {
-                $this->merge(['slug' => Str::slug($this['name'])]);
+                $this->merge([
+                    'slug' => uniqueSlug($this['name'], 'career_db.companies ', $this->owner_id)
+                ]);
             }
 
             // Validate the admin_id. (Only root admins can change the admin for a contact.)

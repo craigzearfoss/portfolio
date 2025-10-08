@@ -36,20 +36,23 @@ class JobStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
-        if (!empty($this['company'])) {
-            $this->merge([ 'slug' => Str::slug($this['company']
-                . (!empty($this['role']) ? ' (' . $this['role'] : ')'))
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug(
+                    $this['company'] . (!empty($this['role']) ? ' (' . $this['role'] : ')'),
+                    'portrait_db.jobs ',
+                $this->owner_id)
             ]);
         }
 
         return [
-            'owner_id'               => ['integer', 'exists:core_db.admins,id'],
-            'company'                => ['string', 'max:255', 'required', 'unique:portfolio_db.jobs,name'],
-            'role'                   => ['string', 'max:255',],
+            'owner_id'               => ['required', 'integer', 'exists:core_db.admins,id'],
+            'company'                => ['required', 'string', 'max:255'],
+            'role'                   => ['required', 'string', 'max:255',],
             'slug'                   => [
-                'string',
                 'required',
+                'string',
                 'max:255',
                 Rule::unique('portfolio_db.jobs')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)

@@ -48,6 +48,9 @@ return new class extends Migration
             $table->tinyInteger('root')->default(1);
             $table->tinyInteger('disabled')->default(0);
             $table->timestamps();
+
+            $table->unique(['database_id', 'name'], 'database_id_name_unique');
+            $table->unique(['database_id', 'table'], 'database_id_table_unique');
         });
 
         $data = [

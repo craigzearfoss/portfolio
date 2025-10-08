@@ -32,16 +32,18 @@ class AdminTeamUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        // Generate the slug.
+        // generate the slug
         if (!empty($this['name'])) {
-            $this->merge([ 'slug' => Str::slug($this['name']) ]);
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portrait_db.admin_teams', $this->owner_id)
+            ]);
         }
 
         return [
-            'owner_id'     => ['integer', 'exists:core_db.admins,id'],
+            'owner_id'     => ['filled', 'integer', 'exists:core_db.admins,id'],
             'name'         => [
-                'string',
                 'filled',
+                'string',
                 'min:3',
                 'max:200',
                 Rule::unique('portfolio_db.admin_teams')->where(function ($query) {
@@ -50,7 +52,7 @@ class AdminTeamUpdateRequest extends FormRequest
                         ->where('name', $this->name);
                 })
             ],
-            'slug'         => ['string', 'filled', 'min:20', 'max:220', 'unique:core_db.admin_teams,slug,'.$this->admin_team->id],
+            'slug'         => ['filled', 'string', 'min:20', 'max:220', 'unique:core_db.admin_teams,slug,'.$this->admin_team->id],
             'abbreviation' => ['string', 'max:20', 'unique:core_db.admin_teams.abbreviation,'.$this->admin_team->id, 'nullable'],
             'description'  => ['nullable'],
             'disabled'     => ['integer', 'between:0,1'],

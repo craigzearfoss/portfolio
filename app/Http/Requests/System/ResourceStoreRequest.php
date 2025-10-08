@@ -30,13 +30,30 @@ class ResourceStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'    => ['integer', 'exists:core_db.admins,id'],
-            'database_id' => ['integer', 'required', 'exists:core_db.databases,id'],
-            'name'        => ['string', 'required', 'max:50', 'unique:resources,name'],
+            'owner_id'    => ['required', 'integer', 'exists:core_db.admins,id'],
+            'database_id' => ['required', 'integer', 'exists:core_db.databases,id'],
+            'name'        => [
+                'required',
+                'string',
+                'max:50',
+                Rule::unique('career_db.resources')->where(function ($query) {
+                    return $query->where('database_id', $this->database_id)
+                        ->where('name', $this->name);
+                })
+            ],
             'parent_id'   => ['integer', Rule::in(Resource::where('id', '<>', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
-            'table'       => ['string', 'required', 'max:50', 'unique:resources,name'],
-            'title'       => ['string', 'required', 'max:50'],
-            'plural'      => ['string', 'required', 'max:50'],
+            'table'       => [
+                'required',
+                'string',
+                'required',
+                'max:50',
+                Rule::unique('career_db.resources')->where(function ($query) {
+                    return $query->where('database_id', $this->database_id)
+                        ->where('table', $this->table);
+                })
+            ],
+            'title'       => ['required', 'string', 'required', 'max:50'],
+            'plural'      => ['required', 'string', 'required', 'max:50'],
             'guest'       => ['integer', 'between:0,1'],
             'user'        => ['integer', 'between:0,1'],
             'admin'       => ['integer', 'between:0,1'],
