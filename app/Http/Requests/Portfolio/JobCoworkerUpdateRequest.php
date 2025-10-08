@@ -66,4 +66,16 @@ class JobCoworkerUpdateRequest extends FormRequest
             'disabled'        => ['integer', 'between:0,1'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.filled' => 'Please select an owner for the coworker.',
+            'owner_id.exists' => 'The specified owner does not exist.',
+            'job_id.filled'   => 'Please select a job for the coworker.',
+            'job_id.exists'   => 'The specified job does not exist.',
+            'level_id.filled' => 'Please select a level type for the coworker.',
+            'level_id.exists' => 'The specified level does not exist.',
+        ];
+    }
 }

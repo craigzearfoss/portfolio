@@ -73,4 +73,12 @@ class UserStoreRequest extends FormRequest
             'disabled'          => ['integer', 'between:0,1'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'state_id.exists'   => 'The specified state does not exist.',
+            'country_id.exists' => 'The specified country does not exist.',
+        ];
+    }
 }

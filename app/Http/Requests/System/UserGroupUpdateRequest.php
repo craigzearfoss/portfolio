@@ -60,4 +60,14 @@ class UserGroupUpdateRequest extends FormRequest
             'disabled'      => ['integer', 'between:0,1'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.filled'     => 'Please select an owner for the user group.',
+            'owner_id.exists'     => 'The specified owner does not exist.',
+            'user_team_id.filled' => 'Please select a user team for the user group.',
+            'user_team_id.exists' => 'The specified user team does not exist.',
+        ];
+    }
 }

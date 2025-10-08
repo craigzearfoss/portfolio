@@ -60,4 +60,14 @@ class AdminGroupUpdateRequest extends FormRequest
             'disabled'      => ['integer', 'between:0,1'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.filled'      => 'Please select an owner for the admin group.',
+            'owner_id.exists'      => 'The specified owner does not exist.',
+            'admin_team_id.filled' => 'Please select an admin team for the admin group.',
+            'admin_team_id.exists' => 'The specified admin team does not exist.',
+        ];
+    }
 }

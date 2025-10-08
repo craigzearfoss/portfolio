@@ -89,4 +89,14 @@ class CourseUpdateRequest extends FormRequest
             'disabled'        => ['integer', 'between:0,1'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.filled'   => 'Please select an owner for the course.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'academy_id.filled' => 'Please select an academy for the course.',
+            'academy_id.exists' => 'The specified academy does not exist.',
+        ];
+    }
 }

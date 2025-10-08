@@ -52,4 +52,14 @@ class JobTaskStoreRequest extends FormRequest
             'disabled'        => ['integer', 'between:0,1'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.required' => 'Please select an owner for the task.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'job_id.required'   => 'Please select a job for the task.',
+            'job_id.exists'     => 'The specified job does not exist.',
+        ];
+    }
 }

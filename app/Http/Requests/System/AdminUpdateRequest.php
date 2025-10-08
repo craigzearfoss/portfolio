@@ -89,4 +89,12 @@ class AdminUpdateRequest extends FormRequest
 
         return $ruleArray;
     }
+
+    public function messages(): array
+    {
+        return [
+            'state_id.exists'   => 'The specified state does not exist.',
+            'country_id.exists' => 'The specified country does not exist.',
+        ];
+    }
 }

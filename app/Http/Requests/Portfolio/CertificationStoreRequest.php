@@ -65,7 +65,7 @@ class CertificationStoreRequest extends FormRequest
             'featured'        => ['integer', 'between:0,1'],
             'summary'         => ['string', 'max:500', 'nullable'],
             'organization'    => ['string', 'max:255', 'nullable'],
-            'academy_id'      => ['integer', Rule::in(Academy::all()->pluck('id'))],
+            'academy_id'      => ['integer', 'exists:portfolio_db.academies,id'],
             'year'            => ['integer', 'between:1980,'.date("Y"), 'nullable'],
             'received'        => ['date', 'nullable'],
             'expiration'      => ['date', 'nullable'],
@@ -83,6 +83,16 @@ class CertificationStoreRequest extends FormRequest
             'readonly'        => ['integer', 'between:0,1'],
             'root'            => ['integer', 'between:0,1'],
             'disabled'        => ['integer', 'between:0,1'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.required'   => 'Please select an owner for the certification.',
+            'owner_id.exists'     => 'The specified owner does not exist.',
+            'academy_id.required' => 'Please select an academy for the certification.',
+            'academy_id.exists'   => 'The specified academy does not exist.',
         ];
     }
 }

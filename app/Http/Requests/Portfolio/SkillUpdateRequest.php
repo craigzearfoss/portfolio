@@ -89,4 +89,14 @@ class SkillUpdateRequest extends FormRequest
             'disabled'     => ['integer', 'between:0,1'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.filled'    => 'Please select an owner for the skill.',
+            'owner_id.exists'    => 'The specified owner does not exist.',
+            'category_id.filled' => 'Please select an category for the skill.',
+            'category_id.exists' => 'The specified category does not exist.',
+        ];
+    }
 }

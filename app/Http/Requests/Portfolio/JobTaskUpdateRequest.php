@@ -51,4 +51,14 @@ class JobTaskUpdateRequest extends FormRequest
             'disabled'        => ['integer', 'between:0,1'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.filled' => 'Please select an owner for the task.',
+            'owner_id.exists' => 'The specified owner does not exist.',
+            'job_id.filled'   => 'Please select a job for the task.',
+            'job_id.exists'   => 'The specified job does not exist.',
+        ];
+    }
 }
