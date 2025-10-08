@@ -4,7 +4,9 @@
 <div class="field">
     <div class="control">
         <label class="label">
+                @if(empty($nohidden))
             <input type="hidden" name="{{ $name ?? 'name' }}" value="{{ $unchecked_value ?? '0' }}">
+            @endif
             <input
                 type="checkbox"
                 id="{{ $id }}"
@@ -18,6 +20,7 @@
                 @if (!empty($form))form="{{ $form }}" @endif
                 @if (!empty($readonly))readonly @endif
                 @if (!empty($required))required @endif
+                @if (!empty($onclick))onchange="{!! $onclick !!}" @endif
             >
             {{ $label ?? $name ?? '#label#' }}
         </label>

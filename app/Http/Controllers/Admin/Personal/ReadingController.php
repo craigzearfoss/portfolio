@@ -25,7 +25,8 @@ class ReadingController extends BaseController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $readings = Reading::orderBy('title', 'asc')->paginate($perPage);
+        //$readings = Reading::orderBy('title', 'asc')->paginate($perPage);
+        $readings = Reading::searchBuilder($request->all(), ['title', 'asc'])->paginate($perPage);
 
         return view('admin.personal.reading.index', compact('readings'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

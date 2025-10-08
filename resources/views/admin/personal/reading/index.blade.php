@@ -16,7 +16,61 @@
 
 @section('content')
 
-    <div class="card p-4">
+    <div class="search-container card p-2">
+        <form id="searchForm" action="{{ route('admin.personal.reading.index') }}" method="get">
+            <div class="control">
+                @include('admin.components.form-select', [
+                    'name'     => 'author',
+                    'value'    => Request::get('author'),
+                    'list'     => \App\Models\Personal\Reading::listOptions([], 'author', 'author', true, false, ['author', 'asc']),
+                    'onchange' => "document.getElementById('searchForm').submit()"
+                ])
+            </div>
+            <div class="control">
+                @include('admin.components.form-checkbox', [
+                    'name'     => 'fiction',
+                    'value'    => 1,
+                    'checked'  => boolval(Request::get('fiction') ?? false),
+                    'nohidden' => true,
+                    'onclick'  => "document.getElementById('searchForm').submit()"
+                ])
+                @include('admin.components.form-checkbox', [
+                   'name'     => 'nonfiction',
+                   'value'    => 1,
+                   'checked'  => boolval(Request::get('nonfiction') ?? false),
+                   'nohidden' => true,
+                   'onclick'  => "document.getElementById('searchForm').submit()"
+               ])
+            </div>
+            <div class="control">
+                @include('admin.components.form-checkbox', [
+                    'name'     => 'paper',
+                    'value'    => 1,
+                    'checked'  => boolval(Request::get('paper') ?? false),
+                    'nohidden' => true,
+                    'onclick'  => "document.getElementById('searchForm').submit()"
+                ])
+                @include('admin.components.form-checkbox', [
+                   'name'     => 'audio',
+                   'value'    => 1,
+                   'checked'  => boolval(Request::get('audio') ?? false),
+                   'nohidden' => true,
+                   'onclick'  => "document.getElementById('searchForm').submit()"
+               ])
+            </div>
+            <div class="control">
+                @include('admin.components.form-checkbox', [
+                    'name'     => 'wishlist',
+                    'value'    => 1,
+                    'checked'  => boolval(Request::get('wishlist') ?? false),
+                    'nohidden' => true,
+                    'onclick'  => "document.getElementById('searchForm').submit()"
+                ])
+            </div>
+        </form>
+    </div>
+
+    <div class="show-container card p-4">
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>

@@ -110,5 +110,18 @@
 .resume-container .list-item-description.gray {
     color: #7a7a7a;
     line-height: 1.2em;
+}
 
+.search-container .control {
+    display: inline-block;
+    padding: 0.2em 0.3em;
+}
+.search-container .control label,
+.search-container .control .field {
+    margin-bottom: 0.1em;
+}
+.search-container .control .field .select .form-select {
+    padding: 0.1em !important;
+    line-height: 1;
+    height: calc(1em + .75em) !important;
 }
