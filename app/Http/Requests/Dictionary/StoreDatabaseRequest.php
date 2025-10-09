@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class LibraryUpdateRequest extends FormRequest
+class StoreDatabaseRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -29,14 +29,14 @@ class LibraryUpdateRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.libraries ', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.databases ', $this->owner_id)
             ]);
         }
 
         return [
-            'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.libraries,full_name,'.$this->library->id],
-            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.libraries,name,'.$this->library->id],
-            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.libraries,slug,'.$this->library->id],
+            'full_name'    => ['required', 'string', 'max:255', 'unique:dictionary_db.databases,full_name'],
+            'name'         => ['required', 'string', 'max:255', 'unique:dictionary_db.databases,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:dictionary_db.databases,slug'],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

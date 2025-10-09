@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class OperatingSystemStoreRequest extends FormRequest
+class UpdateLanguageRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -29,14 +29,14 @@ class OperatingSystemStoreRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.operating_systems ', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.languages ', $this->owner_id)
             ]);
         }
 
         return [
-            'full_name'    => ['required', 'string', 'max:255', 'unique:dictionary_db.operating_systems,full_name'],
-            'name'         => ['required', 'string', 'max:255', 'unique:dictionary_db.operating_systems,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:dictionary_db.operating_systems,slug'],
+            'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.languages,full_name,'.$this->language->id],
+            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.languages,name,'.$this->language->id],
+            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.languages,slug,'.$this->language->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

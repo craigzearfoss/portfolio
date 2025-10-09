@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\CategoryStoreRequest;
-use App\Http\Requests\Dictionary\CategoryUpdateRequest;
+use App\Http\Requests\Dictionary\StoreCategoryRequest;
+use App\Http\Requests\Dictionary\UpdateCategoryRequest;
 use App\Models\Dictionary\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,16 +51,16 @@ class CategoryController extends BaseController
     /**
      * Store a newly created category in storage.
      *
-     * @param CategoryStoreRequest $categoryStoreRequest
+     * @param StoreCategoryRequest $storeCategoryRequest
      * @return RedirectResponse
      */
-    public function store(CategoryStoreRequest $categoryStoreRequest): RedirectResponse
+    public function store(StoreCategoryRequest $storeCategoryRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add categories.');
         }
 
-        $category = Category::create($categoryStoreRequest->validated());
+        $category = Category::create($storeCategoryRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $category->name . ' added successfully.');
@@ -95,17 +95,17 @@ class CategoryController extends BaseController
     /**
      * Update the specified category in storage.
      *
-     * @param CategoryUpdateRequest $categoryUpdateRequest
+     * @param UpdateCategoryRequest $updateCategoryRequest
      * @param Category $category
      * @return RedirectResponse
      */
-    public function update(CategoryUpdateRequest $categoryUpdateRequest, Category $category): RedirectResponse
+    public function update(UpdateCategoryRequest $updateCategoryRequest, Category $category): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update categories.');
         }
 
-        $category->update($categoryUpdateRequest->validated());
+        $category->update($updateCategoryRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $category->name . ' updated successfully.');

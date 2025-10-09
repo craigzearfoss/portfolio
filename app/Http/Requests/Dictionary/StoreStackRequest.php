@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class DatabaseStoreRequest extends FormRequest
+class StoreStackRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -29,14 +29,14 @@ class DatabaseStoreRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.databases ', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.stacks ', $this->owner_id)
             ]);
         }
 
         return [
-            'full_name'    => ['required', 'string', 'max:255', 'unique:dictionary_db.databases,full_name'],
-            'name'         => ['required', 'string', 'max:255', 'unique:dictionary_db.databases,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:dictionary_db.databases,slug'],
+            'full_name'    => ['required', 'string', 'max:255', 'unique:dictionary_db.stacks,full_name'],
+            'name'         => ['required', 'string', 'max:255', 'unique:dictionary_db.stacks,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:dictionary_db.stacks,slug'],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

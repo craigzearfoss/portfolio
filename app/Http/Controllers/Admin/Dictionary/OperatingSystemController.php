@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\OperatingSystemStoreRequest;
-use App\Http\Requests\Dictionary\OperatingSystemUpdateRequest;
+use App\Http\Requests\Dictionary\StoreOperatingSystemRequest;
+use App\Http\Requests\Dictionary\UpdateOperatingSystemRequest;
 use App\Models\Dictionary\OperatingSystem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,16 +51,16 @@ class OperatingSystemController extends BaseController
     /**
      * Store a newly created operating system in storage.
      *
-     * @param OperatingSystemStoreRequest $operatingSystemStoreRequest
+     * @param StoreOperatingSystemRequest $storeOperatingSystemRequest
      * @return RedirectResponse
      */
-    public function store(OperatingSystemStoreRequest $operatingSystemStoreRequest): RedirectResponse
+    public function store(StoreOperatingSystemRequest $storeOperatingSystemRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add operating systems.');
         }
 
-        $operatingSystem = OperatingSystem::create($operatingSystemStoreRequest->validated());
+        $operatingSystem = OperatingSystem::create($storeOperatingSystemRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $operatingSystem->name . ' added successfully.');
@@ -95,18 +95,18 @@ class OperatingSystemController extends BaseController
     /**
      * Update the specified operating system in storage.
      *
-     * @param OperatingSystemUpdateRequest $operatingSystemUpdateRequest
+     * @param UpdateOperatingSystemRequest $updateOperatingSystemRequest
      * @param OperatingSystem $operatingSystem
      * @return RedirectResponse
      */
-    public function update(OperatingSystemUpdateRequest $operatingSystemUpdateRequest,
-                           OperatingSystem $operatingSystem): RedirectResponse
+    public function update(UpdateOperatingSystemRequest $updateOperatingSystemRequest,
+                           OperatingSystem              $operatingSystem): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update operating systems.');
         }
 
-        $operatingSystem->update($operatingSystemUpdateRequest->validated());
+        $operatingSystem->update($updateOperatingSystemRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $operatingSystem->name . ' updated successfully.');

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class FrameworkUpdateRequest extends FormRequest
+class UpdateServerRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -29,14 +29,14 @@ class FrameworkUpdateRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.frameworks ', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.servers ', $this->owner_id)
             ]);
         }
 
         return [
-            'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.frameworks,full_name,'.$this->framework->id],
-            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.frameworks,name,'.$this->framework->id],
-            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.frameworks,slug,'.$this->framework->id],
+            'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.servers,full_name,'.$this->server->id],
+            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.servers,name,'.$this->server->id],
+            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.servers,slug,'.$this->server->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

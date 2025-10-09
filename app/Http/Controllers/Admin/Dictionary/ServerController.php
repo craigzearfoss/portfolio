@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\ServerStoreRequest;
-use App\Http\Requests\Dictionary\ServerUpdateRequest;
+use App\Http\Requests\Dictionary\StoreServerRequest;
+use App\Http\Requests\Dictionary\UpdateServerRequest;
 use App\Models\Dictionary\Server;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,16 +51,16 @@ class ServerController extends BaseController
     /**
      * Store a newly created server in storage.
      *
-     * @param ServerStoreRequest $serverStoreRequest
+     * @param StoreServerRequest $storeServerRequest
      * @return RedirectResponse
      */
-    public function store(ServerStoreRequest $serverStoreRequest): RedirectResponse
+    public function store(StoreServerRequest $storeServerRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add servers.');
         }
 
-        $server = Server::create($serverStoreRequest->validated());
+        $server = Server::create($storeServerRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $server->name . ' added successfully.');
@@ -95,17 +95,17 @@ class ServerController extends BaseController
     /**
      * Update the specified server in storage.
      *
-     * @param ServerUpdateRequest $serverUpdateRequest
+     * @param UpdateServerRequest $updateServerRequest
      * @param Server $server
      * @return RedirectResponse
      */
-    public function update(ServerUpdateRequest $serverUpdateRequest, Server $server): RedirectResponse
+    public function update(UpdateServerRequest $updateServerRequest, Server $server): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update servers.');
         }
 
-        $server->update($serverUpdateRequest->validated());
+        $server->update($updateServerRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $server->name . ' updated successfully.');

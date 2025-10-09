@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Guest\Dictionary;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\LibraryStoreRequest;
+use App\Http\Requests\Dictionary\StoreLibraryRequest;
 use App\Http\Requests\Dictionary\UpdateRequest;
 use App\Models\Dictionary\Library;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\LanguageStoreRequest;
-use App\Http\Requests\Dictionary\LanguageUpdateRequest;
+use App\Http\Requests\Dictionary\StoreLanguageRequest;
+use App\Http\Requests\Dictionary\UpdateLanguageRequest;
 use App\Models\Dictionary\Language;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,16 +51,16 @@ class LanguageController extends BaseController
     /**
      * Store a newly created language in storage.
      *
-     * @param LanguageStoreRequest $languageStoreRequest
+     * @param StoreLanguageRequest $storeLanguageRequest
      * @return RedirectResponse
      */
-    public function store(LanguageStoreRequest $languageStoreRequest): RedirectResponse
+    public function store(StoreLanguageRequest $storeLanguageRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add languages.');
         }
 
-        $language = Language::create($languageStoreRequest->validated());
+        $language = Language::create($storeLanguageRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $language->name . ' added successfully.');
@@ -95,17 +95,17 @@ class LanguageController extends BaseController
     /**
      * Update the specified language in storage.
      *
-     * @param LanguageUpdateRequest $languageUpdateRequest
+     * @param UpdateLanguageRequest $updateLanguageRequest
      * @param Language $language
      * @return RedirectResponse
      */
-    public function update(LanguageUpdateRequest $languageUpdateRequest, Language $language): RedirectResponse
+    public function update(UpdateLanguageRequest $updateLanguageRequest, Language $language): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update languages.');
         }
 
-        $language->update($languageUpdateRequest->validated());
+        $language->update($updateLanguageRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $language->name . ' updated successfully.');

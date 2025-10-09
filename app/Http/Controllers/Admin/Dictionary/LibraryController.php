@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\LibraryStoreRequest;
-use App\Http\Requests\Dictionary\LibraryUpdateRequest;
+use App\Http\Requests\Dictionary\StoreLibraryRequest;
+use App\Http\Requests\Dictionary\UpdateLibraryRequest;
 use App\Models\Dictionary\Library;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,16 +51,16 @@ class LibraryController extends BaseController
     /**
      * Store a newly created library in storage.
      *
-     * @param LibraryStoreRequest $libraryStoreRequest
+     * @param StoreLibraryRequest $storeLibraryRequest
      * @return RedirectResponse
      */
-    public function store(LibraryStoreRequest $libraryStoreRequest): RedirectResponse
+    public function store(StoreLibraryRequest $storeLibraryRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add libraries.');
         }
 
-        $library = Library::create($libraryStoreRequest->validated());
+        $library = Library::create($storeLibraryRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $library->name . ' added successfully.');
@@ -95,17 +95,17 @@ class LibraryController extends BaseController
     /**
      * Update the specified library in storage.
      *
-     * @param LibraryUpdateRequest $libraryUpdateRequest
+     * @param UpdateLibraryRequest $updateLibraryRequest
      * @param Library $library
      * @return RedirectResponse
      */
-    public function update(LibraryUpdateRequest $libraryUpdateRequest, Library $library): RedirectResponse
+    public function update(UpdateLibraryRequest $updateLibraryRequest, Library $library): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update libraries.');
         }
 
-        $library->update($libraryUpdateRequest->validated());
+        $library->update($updateLibraryRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $library->name . ' updated successfully.');

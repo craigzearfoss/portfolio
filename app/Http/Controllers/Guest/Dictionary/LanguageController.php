@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Guest\Dictionary;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\LanguageStoreRequest;
-use App\Http\Requests\Dictionary\LanguageUpdateRequest;
+use App\Http\Requests\Dictionary\StoreLanguageRequest;
+use App\Http\Requests\Dictionary\UpdateLanguageRequest;
 use App\Models\Dictionary\Language;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;

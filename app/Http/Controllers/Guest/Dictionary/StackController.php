@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Guest\Dictionary;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\StackStoreRequest;
-use App\Http\Requests\Dictionary\StackUpdateRequest;
+use App\Http\Requests\Dictionary\StoreStackRequest;
+use App\Http\Requests\Dictionary\UpdateStackRequest;
 use App\Models\Dictionary\Stack;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;

@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class OperatingSystemUpdateRequest extends FormRequest
+class UpdateLibraryRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -29,14 +29,14 @@ class OperatingSystemUpdateRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'dictionary_db.operating_systems ', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'dictionary_db.libraries ', $this->owner_id)
             ]);
         }
 
         return [
-            'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.operating_systems,full_name,'.$this->operating_system->id],
-            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.operating_systems,name,'.$this->operating_system->id],
-            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.operating_systems,slug,'.$this->operating_system->id],
+            'full_name'    => ['filled', 'string', 'max:255', 'unique:dictionary_db.libraries,full_name,'.$this->library->id],
+            'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.libraries,name,'.$this->library->id],
+            'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.libraries,slug,'.$this->library->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
             'definition'   => ['string', 'max:255', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],

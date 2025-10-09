@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\DatabaseStoreRequest;
-use App\Http\Requests\Dictionary\DatabaseUpdateRequest;
+use App\Http\Requests\Dictionary\StoreDatabaseRequest;
+use App\Http\Requests\Dictionary\UpdateDatabaseRequest;
 use App\Models\Dictionary\Database;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,16 +51,16 @@ class DatabaseController extends BaseController
     /**
      * Store a newly created database in storage.
      *
-     * @param DatabaseStoreRequest $databaseStoreRequest
+     * @param StoreDatabaseRequest $storeDatabaseRequest
      * @return RedirectResponse
      */
-    public function store(DatabaseStoreRequest $databaseStoreRequest): RedirectResponse
+    public function store(StoreDatabaseRequest $storeDatabaseRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add databases.');
         }
 
-        $database = Database::create($databaseStoreRequest->validated());
+        $database = Database::create($storeDatabaseRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $database->name . ' added successfully.');
@@ -95,17 +95,17 @@ class DatabaseController extends BaseController
     /**
      * Update the specified database in storage.
      *
-     * @param DatabaseUpdateRequest $databaseUpdateRequest
+     * @param UpdateDatabaseRequest $updateDatabaseRequest
      * @param Database $database
      * @return RedirectResponse
      */
-    public function update(DatabaseUpdateRequest $databaseUpdateRequest, Database $database): RedirectResponse
+    public function update(UpdateDatabaseRequest $updateDatabaseRequest, Database $database): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update databases.');
         }
 
-        $database->update($databaseUpdateRequest->validated());
+        $database->update($updateDatabaseRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $database->name . ' updated successfully.');

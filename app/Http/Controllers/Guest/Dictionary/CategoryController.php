@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Guest\Dictionary;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\CategoryStoreRequest;
-use App\Http\Requests\Dictionary\CategoryUpdateRequest;
+use App\Http\Requests\Dictionary\StoreCategoryRequest;
+use App\Http\Requests\Dictionary\UpdateCategoryRequest;
 use App\Models\Dictionary\Category;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
