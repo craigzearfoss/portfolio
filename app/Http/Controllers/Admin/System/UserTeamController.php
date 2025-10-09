@@ -35,10 +35,6 @@ class UserTeamController extends Controller
      */
     public function create(): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
-        }
-
         return view('admin.system.user-team.create');
     }
 
