@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => 'Forgot Password',
+    'title' => '',
     'breadcrumbs' => [
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Forgot Password' ],
@@ -12,9 +12,15 @@
 
 @section('content')
 
-    <div class="card column is-6 p-4">
+    <div class="edit-container card form-container p-4 is-6 container" style="max-width: 30em;">
 
-        <p>Please enter your email address to receive a password reset link.</p>
+        <div class="is-size-4 has-text-centered">
+            Forgot password
+        </div>
+
+        <p class="has-text-centered">
+            Enter your email address to receive a password reset link.
+        </p>
 
         <form action="{{ route('admin.forgot-password-submit') }}" method="POST">
             @csrf
@@ -30,6 +36,7 @@
                 @include('admin.components.form-input', [
                     'type'        => 'email',
                     'name'        => 'email',
+                    'label'       => 'Email',
                     'placeholder' => 'Email',
                     'value'       => '',
                     'required'    => true,

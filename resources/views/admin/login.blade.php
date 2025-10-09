@@ -1,5 +1,5 @@
-@extends('admin.layouts.empty', [
-    'title'       => 'Login',
+@extends('admin.layouts.default', [
+    'title'       => '',
     'breadcrumbs' => [],
     'buttons'     => [],
     'errorMessages'=> $errors->messages() ?? [],
@@ -9,61 +9,53 @@
 
 @section('content')
 
-    <div class="columns has-text-centered mt-4 pt-4">
+    <div class="edit-container card form-container p-4 is-6 container" style="max-width: 30em;">
 
-        <div class="card column is-5 mt-4">
+        <div class="is-size-4 has-text-centered">
+            Admin Login
+        </div>
 
-            <div class="is-size-4 has-text-centered">
-                Admin Login
+        <form action="{{ route('admin.login-submit') }}" method="POST">
+            @csrf
+
+            @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => referer('admin.index')
+            ])
+
+            @include('admin.components.form-input', [
+                'name'        => 'username',
+                'label'       => 'User Name',
+                'value'       => old('username'),
+                'placeholder' => 'User Name',
+                'required'    => true,
+                'maxlength'   => 255,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
+                'type'        => 'password',
+                'name'        => 'password',
+                'label'       => 'Password',
+                'value'       => old('password'),
+                'placeholder' => 'Password',
+                'required'    => true,
+                'maxlength'   => 255,
+                'message'     => $message ?? '',
+            ])
+
+            <div class="has-text-centered my-3">
+                <a class="text-primary-600 hover:underline" href="{{ route('admin.forgot-password') }}">Forgot Password?</a>
             </div>
 
-            <form action="{{ route('admin.login-submit') }}" method="POST">
-                @csrf
-
-                @include('admin.components.form-hidden', [
-                    'name'  => 'referer',
-                    'value' => referer('admin.index')
+            <div class="has-text-centered">
+                @include('admin.components.form-button-submit', [
+                    'label'      => 'Login',
+                    'cancel_url' => referer('admin.index')
                 ])
+            </div>
 
-                <div class="column is-12">
-
-                    @include('admin.components.form-input', [
-                        'name'        => 'username',
-                        'label'       => 'User Name',
-                        'value'       => old('username'),
-                        'placeholder' => 'User Name',
-                        'required'    => true,
-                        'maxlength'   => 255,
-                        'message'     => $message ?? '',
-                    ])
-
-                    @include('admin.components.form-input', [
-                        'type'        => 'password',
-                        'name'        => 'password',
-                        'label'       => 'Password',
-                        'value'       => old('password'),
-                        'placeholder' => 'Password',
-                        'required'    => true,
-                        'maxlength'   => 255,
-                        'message'     => $message ?? '',
-                    ])
-
-                    <div class="has-text-centered my-3">
-                        <a class="text-primary-600 hover:underline" href="{{ route('admin.forgot-password') }}">Forgot Password?</a>
-                    </div>
-
-                    <div class="has-text-centered">
-                        @include('admin.components.form-button-submit', [
-                            'label'      => 'Login',
-                            'cancel_url' => referer('admin.index')
-                        ])
-                    </div>
-
-                </div>
-
-            </form>
-
-        </div>
+        </form>
     </div>
 
 @endsection

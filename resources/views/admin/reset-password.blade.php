@@ -1,72 +1,67 @@
-@extends('admin.layouts.login')
+@extends('admin.layouts.default', [
+    'title'       => '',
+    'breadcrumbs' => [],
+    'buttons'     => [],
+    'errorMessages'=> $errors->messages() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
 
 @section('content')
 
-    <div class="page-container relative h-full flex flex-auto flex-col">
-        <div class="h-full">
-            <div class="container mx-auto flex flex-col flex-auto items-center justify-center min-w-0 h-full">
-                <div class="card min-w-[320px] md:min-w-[450px] card-shadow" role="presentation">
-                    <div class="card-body md:p-10">
-                        <div class="has-text-centered">
-                            <div class="logo">
-                                <img class="mx-auto" src="{{ asset('images/site/logo-thumb-sm.png') }}" alt="site logo">
-                            </div>
-                        </div>
-                        <div class="has-text-centered">
-                            <div class="mb-4">
-                                <h3 class="mb-1">Set new password</h3>
-                                <p>Your new password must be different from previous password.</p>
+    <div class="edit-container card form-container p-4 is-6 container" style="max-width: 30em;">
 
-                                @include('admin.components.messages', [$errors])
-
-                            </div>
-                            <div>
-                                <form action="{{ route('admin.reset-password-submit', [$token, $email]) }}" method="POST">
-                                    @csrf
-                                    <div class="form-container vertical">
-                                        <div class="form-item vertical">
-                                            <label class="form-label mb-2">New Password</label>
-                                            <div>
-                                                <span class="input-wrapper">
-                                                    <input class="input pr-8" type="password" name="password" placeholder="New Password">
-                                                    <div class="input-suffix-end">
-                                                        <span class="cursor-pointer text-xl">
-                                                            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </div>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="form-item vertical">
-                                            <label class="form-label mb-2">Confirm New Password</label>
-                                            <div>
-                                                <span class="input-wrapper">
-                                                    <input class="input pr-8" type="password" name="confirm_password" placeholder="Confirm New Password">
-                                                    <div class="input-suffix-end">
-                                                        <span class="cursor-pointer text-xl">
-                                                            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
-                                                            </svg>
-                                                        </span>
-                                                    </div>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-solid w-full" type="submit">Submit</button>
-                                        <div class="mt-4 has-text-centered">
-                                            <span>Back to</span>
-                                            <a class="text-primary-600 hover:underline" href="{{ route('admin.login') }}">Login</a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="is-size-4 has-text-centered">
+            Set new password
         </div>
+
+        <p class="has-text-centered">
+            Your new password must be different from previous password.
+        </p>
+
+        <form action="{{ route('admin.reset-password-submit', [$token, $email]) }}" method="POST">
+            @csrf
+
+            @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => referer('admin.index')
+            ])
+
+            @include('admin.components.form-input', [
+                'type'        => 'password',
+                'name'        => 'password',
+                'label'       => 'New Password',
+                'value'       => old('username'),
+                'placeholder' => 'New Password',
+                'required'    => true,
+                'maxlength'   => 255,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
+                'type'        => 'password',
+                'name'        => 'confirm_password',
+                'label'       => 'Confirm New Password',
+                'value'       => old('confirm_password'),
+                'placeholder' => 'Confirm New Password',
+                'required'    => true,
+                'maxlength'   => 255,
+                'message'     => $message ?? '',
+            ])
+
+            <div class="has-text-centered">
+                @include('admin.components.form-button-submit', [
+                    'label' => 'Submit',
+                ])
+            </div>
+
+            <div class="mt-4 has-text-centered">
+                <span>Back to</span>
+                <a class="text-primary-600 hover:underline" href="{{ route('admin.login') }}">Login</a>
+            </div>
+
+        </form>
+
     </div>
 
 @endsection
