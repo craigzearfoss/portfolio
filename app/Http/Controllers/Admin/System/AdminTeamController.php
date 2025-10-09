@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\System\AdminTeamStoreRequest;
-use App\Http\Requests\System\AdminTeamUpdateRequest;
+use App\Http\Requests\System\StoreAdminTeamRequest;
+use App\Http\Requests\System\UpdateAdminTeamRequest;
 use App\Models\AdminTeam;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -45,12 +45,12 @@ class AdminTeamController extends Controller
     /**
      * Store a newly created admin team in storage.
      *
-     * @param AdminTeamStoreRequest $adminTeamStoreRequest
+     * @param StoreAdminTeamRequest $storeAdminTeamRequest
      * @return RedirectResponse
      */
-    public function store(AdminTeamStoreRequest $adminTeamStoreRequest): RedirectResponse
+    public function store(StoreAdminTeamRequest $storeAdminTeamRequest): RedirectResponse
     {
-        $adminTeam = AdminTeam::create($adminTeamStoreRequest->validated());
+        $adminTeam = AdminTeam::create($storeAdminTeamRequest->validated());
 
         return redirect(referer('admin.system.admin-team.index'))
             ->with('success', $adminTeam->name . ' added successfully.');
@@ -85,13 +85,13 @@ class AdminTeamController extends Controller
     /**
      * Update the specified admin team in storage.
      *
-     * @param AdminTeamUpdateRequest $adminTeamUpdateRequest
+     * @param UpdateAdminTeamRequest $updateAdminTeamRequest
      * @param AdminTeam $adminTeam
      * @return RedirectResponse
      */
-    public function update(AdminTeamUpdateRequest $adminTeamUpdateRequest, AdminTeam $adminTeam): RedirectResponse
+    public function update(UpdateAdminTeamRequest $updateAdminTeamRequest, AdminTeam $adminTeam): RedirectResponse
     {
-        $adminTeam->update($adminTeamUpdateRequest->validated());
+        $adminTeam->update($updateAdminTeamRequest->validated());
 
         return redirect(referer('admin.system.admin-team.index'))
             ->with('success', $adminTeam->name . ' updated successfully.');

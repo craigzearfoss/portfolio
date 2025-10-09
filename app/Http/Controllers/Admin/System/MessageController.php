@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\System\MessageStoreRequest;
-use App\Http\Requests\System\MessageUpdateRequest;
+use App\Http\Requests\System\StoreMessageRequest;
+use App\Http\Requests\System\UpdateMessageRequest;
 use App\Models\Message;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,12 +44,12 @@ class MessageController extends BaseController
     /**
      * Store a newly created message in storage.
      *
-     * @param MessageStoreRequest $messageStoreRequest
+     * @param StoreMessageRequest $storeMessageRequest
      * @return RedirectResponse
      */
-    public function store(MessageStoreRequest $messageStoreRequest): RedirectResponse
+    public function store(StoreMessageRequest $storeMessageRequest): RedirectResponse
     {
-        $message = Message::create($messageStoreRequest->validated());
+        $message = Message::create($storeMessageRequest->validated());
 
         return redirect(referer('admin.system.message.index'))
             ->with('success', 'Message added successfully.');
@@ -80,13 +80,13 @@ class MessageController extends BaseController
     /**
      * Update the specified message in storage.
      *
-     * @param MessageUpdateRequest $messageUpdateRequest
+     * @param UpdateMessageRequest $updateMessageRequest
      * @param Message $message
      * @return RedirectResponse
      */
-    public function update(MessageUpdateRequest $messageUpdateRequest, Message $message): RedirectResponse
+    public function update(UpdateMessageRequest $updateMessageRequest, Message $message): RedirectResponse
     {
-        $message->update($messageUpdateRequest->validated());
+        $message->update($updateMessageRequest->validated());
 
         return redirect(referer('admin.system.message.index'))
             ->with('success', 'Message updated successfully.');

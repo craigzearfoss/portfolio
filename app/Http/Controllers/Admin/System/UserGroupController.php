@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin\System;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\System\UserGroupStoreRequest;
-use App\Http\Requests\System\UserGroupUpdateRequest;
+use App\Http\Requests\System\StoreUserGroupRequest;
+use App\Http\Requests\System\UpdateUserGroupRequest;
 use App\Models\UserGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,12 +46,12 @@ class UserGroupController extends Controller
     /**
      * Store a newly created user group in storage.
      *
-     * @param UserGroupStoreRequest $userGroupStoreRequest
+     * @param StoreUserGroupRequest $storeUserGroupRequest
      * @return RedirectResponse
      */
-    public function store(UserGroupStoreRequest $userGroupStoreRequest): RedirectResponse
+    public function store(StoreUserGroupRequest $storeUserGroupRequest): RedirectResponse
     {
-        $userGroup = UserGroup::create($userGroupStoreRequest->validated());
+        $userGroup = UserGroup::create($storeUserGroupRequest->validated());
 
         return redirect(referer('admin.system.user-group.index'))
             ->with('success', $userGroup->name . ' added successfully.');
@@ -86,13 +86,13 @@ class UserGroupController extends Controller
     /**
      * Update the specified user group in storage.
      *
-     * @param UserGroupUpdateRequest $userGroupUpdateRequest
+     * @param UpdateUserGroupRequest $updateUserGroupRequest
      * @param UserGroup $userGroup
      * @return RedirectResponse
      */
-    public function update(UserGroupUpdateRequest $userGroupUpdateRequest, UserGroup $userGroup): RedirectResponse
+    public function update(UpdateUserGroupRequest $updateUserGroupRequest, UserGroup $userGroup): RedirectResponse
     {
-        $userGroup->update($userGroupUpdateRequest->validated());
+        $userGroup->update($updateUserGroupRequest->validated());
 
         return redirect(referer('admin.system.user-group.index'))
             ->with('success', $userGroup->name . ' updated successfully.');

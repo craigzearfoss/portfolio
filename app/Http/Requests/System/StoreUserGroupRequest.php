@@ -2,15 +2,15 @@
 
 namespace App\Http\Requests\System;
 
-use App\Models\AdminTeam;
 use App\Models\Owner;
+use App\Models\UserTeam;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class UserGroupUpdateRequest extends FormRequest
+class StoreUserGroupRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -41,21 +41,20 @@ class UserGroupUpdateRequest extends FormRequest
         }
 
         return [
-            'owner_id'      => ['filled', 'integer', 'exists:core_db.admins,id'],
-            'admin_team_id' => ['filled', 'integer', 'exists:core_db.user_teams,id'],
+            'owner_id'      => ['required', 'integer', 'exists:core_db.admins,id'],
+            'user_team_id'  => ['required', 'integer', 'exists:core_db.user_teams,id'],
             'name'          => [
-                'filled',
+                'required',
                 'string',
                 'min:3',
                 'max:200',
                 Rule::unique('portfolio_db.user_groups')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->user_group->id)
                         ->where('name', $this->name);
                 })
             ],
-            'slug'          => ['filled', 'string', 'min:20', 'max:220', 'unique:core_db.user_groups,slug,'.$this->user_group->id],
-            'abbreviation'  => ['string', 'max:20', 'unique:core_db.user_groups.abbreviation,'.$this->user_group->id, 'nullable'],
+            'slug'          => ['required', 'string', 'min:20', 'max:220', 'unique:core_db.user_groups,slug'],
+            'abbreviation'  => ['string', 'max:20', 'unique:core_db.user_groups,slug', 'nullable'],
             'description'   => ['nullable'],
             'disabled'      => ['integer', 'between:0,1'],
         ];
@@ -64,10 +63,10 @@ class UserGroupUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'     => 'Please select an owner for the user group.',
-            'owner_id.exists'     => 'The specified owner does not exist.',
-            'user_team_id.filled' => 'Please select a user team for the user group.',
-            'user_team_id.exists' => 'The specified user team does not exist.',
+            'owner_id.required'      => 'Please select an owner for the user group.',
+            'owner_id.exists'        => 'The specified owner does not exist.',
+            'user_team_id.required' => 'Please select a user team for the user group.',
+            'user_team_id.exists'   => 'The specified user team does not exist.',
         ];
     }
 }

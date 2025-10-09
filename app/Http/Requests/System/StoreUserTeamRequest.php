@@ -3,14 +3,13 @@
 namespace App\Http\Requests\System;
 
 use App\Models\Owner;
-use App\Models\UserTeam;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class UserGroupStoreRequest extends FormRequest
+class StoreUserTeamRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -36,37 +35,34 @@ class UserGroupStoreRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portrait_db.user_groups', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'portrait_db.user_teams', $this->owner_id)
             ]);
         }
 
         return [
-            'owner_id'      => ['required', 'integer', 'exists:core_db.admins,id'],
-            'user_team_id'  => ['required', 'integer', 'exists:core_db.user_teams,id'],
-            'name'          => [
+            'owner_id'     => ['required', 'integer', 'exists:core_db.admins,id'],
+            'name'         => [
                 'required',
                 'string',
                 'min:3',
                 'max:200',
-                Rule::unique('portfolio_db.user_groups')->where(function ($query) {
+                Rule::unique('portfolio_db.user_teams')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
             ],
-            'slug'          => ['required', 'string', 'min:20', 'max:220', 'unique:core_db.user_groups,slug'],
-            'abbreviation'  => ['string', 'max:20', 'unique:core_db.user_groups,slug', 'nullable'],
-            'description'   => ['nullable'],
-            'disabled'      => ['integer', 'between:0,1'],
+            'slug'         => ['required', 'string', 'min:20', 'max:220', 'unique:core_db.user_teams,slug'],
+            'abbreviation' => ['string', 'max:20', 'unique:core_db.user_teams,slug', 'nullable'],
+            'description'  => ['nullable'],
+            'disabled'     => ['integer', 'between:0,1'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'owner_id.required'      => 'Please select an owner for the user group.',
-            'owner_id.exists'        => 'The specified owner does not exist.',
-            'user_team_id.required' => 'Please select a user team for the user group.',
-            'user_team_id.exists'   => 'The specified user team does not exist.',
+            'owner_id.required' => 'Please select an owner for the user team.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
         ];
     }
 }

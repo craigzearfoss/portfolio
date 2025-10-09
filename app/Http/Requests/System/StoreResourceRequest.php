@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class ResourceStoreRequest extends FormRequest
+class StoreResourceRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

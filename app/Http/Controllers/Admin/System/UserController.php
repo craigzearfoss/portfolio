@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\System\UserStoreRequest;
-use App\Http\Requests\System\UserUpdateRequest;
+use App\Http\Requests\System\StoreUserRequest;
+use App\Http\Requests\System\UpdateUserRequest;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -43,12 +43,12 @@ class UserController extends BaseController
     /**
      * Store a newly created user in storage.
      *
-     * @param UserStoreRequest $userStoreRequest
+     * @param StoreUserRequest $storeUserRequest
      * @return RedirectResponse
      */
-    public function store(UserStoreRequest $userStoreRequest): RedirectResponse
+    public function store(StoreUserRequest $storeUserRequest): RedirectResponse
     {
-        $user = User::create($userStoreRequest->validated());
+        $user = User::create($storeUserRequest->validated());
 
         return redirect(referer('admin.system.user.index'))
             ->with('success', $user->username . ' added successfully. User will need to verify email.');
@@ -79,13 +79,13 @@ class UserController extends BaseController
     /**
      * Update the specified user in storage.
      *
-     * @param UserUpdateRequest $request
+     * @param UpdateUserRequest $updateUserRequest
      * @param User $user
      * @return RedirectResponse
      */
-    public function update(UserUpdateRequest $request, User $user): RedirectResponse
+    public function update(UpdateUserRequest $updateUserRequest, User $user): RedirectResponse
     {
-        $user->update($request->validated());
+        $user->update($updateUserRequest->validated());
 
         return redirect(referer('admin.system.user.index'))
             ->with('success', $user->username . ' updated successfully.');
@@ -119,11 +119,11 @@ class UserController extends BaseController
     /**
      * Update the new password.
      *
-     * @param UserUpdateRequest $userUpdateRequest
+     * @param UpdateUserRequest $userUpdateRequest
      * @param User $user
      * @return RedirectResponse
      */
-    public function change_password_submit(UserUpdateRequest $userUpdateRequest, User $user): RedirectResponse
+    public function change_password_submit(UpdateUserRequest $userUpdateRequest, User $user): RedirectResponse
     {
         $userUpdateRequest->validate([
             'password' => ['required'],

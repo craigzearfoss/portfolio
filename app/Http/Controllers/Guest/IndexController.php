@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\MessageStoreRequest;
-use App\Http\Requests\System\UserUpdateRequest;
+use App\Http\Requests\System\UpdateUserRequest;
 use App\Mail\ForgotUsername;
 use App\Mail\ResetPassword;
 use App\Mail\VerifyEmail;
@@ -27,17 +27,17 @@ class IndexController extends BaseController
     /**
      * Update the new password.
      *
-     * @param UserUpdateRequest $userUpdateRequest
+     * @param UpdateUserRequest $updateUserRequest
      * @return RedirectResponse|View
      */
-    public function login(UserUpdateRequest $userUpdateRequest): RedirectResponse|View
+    public function login(UpdateUserRequest $updateUserRequest): RedirectResponse|View
     {
-        if ($userUpdateRequest->isMethod('post')) {
+        if ($updateUserRequest->isMethod('post')) {
 
-            $inputs = $userUpdateRequest->all();
+            $inputs = $updateUserRequest->all();
             $username = $inputs['username'] ?? '';
 
-            $userUpdateRequest->validate([
+            $updateUserRequest->validate([
                 'username' => ['required', 'username'],
                 'password' => ['required'],
             ]);

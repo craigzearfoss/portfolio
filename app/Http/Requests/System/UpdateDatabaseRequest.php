@@ -2,15 +2,13 @@
 
 namespace App\Http\Requests\System;
 
-use App\Models\Database;
 use App\Models\Owner;
-use App\Models\Resource;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class ResourceUpdateRequest extends FormRequest
+class UpdateDatabaseRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -30,23 +28,29 @@ class ResourceUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'    => ['filled', 'integer', 'exists:core_db.admins,id'],
-            'database_id' => ['filled', 'integer', 'exists:core_db.databases,id'],
-            'name'        => ['filled', 'string', 'max:50', 'unique:resources,name,'.$this->resources->id],
-            'parent_id'   => ['integer', Rule::in(Resource::where('id', '<>', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
-            'table'       => ['filled', 'string', 'max:50', 'unique:resources,table,'.$this->resources->id],
-            'title'       => ['filled', 'string', 'max:50'],
-            'plural'      => ['filled', 'string', 'max:50'],
+            'owner_id'    => ['integer', 'exists:core_db.admins,id'],
+            'name'        => ['string', 'filled', 'max:50', 'unique:databases,name,'.$this->databases->id],
+            'database'    => ['string', 'filled', 'max:50', 'unique:databases,database,'.$this->databases->id],
+            'tag'         => ['string', 'filled', 'max:50', 'unique:databases,tag,'.$this->databases->id],
+            'title'       => ['string', 'filled', 'max:50'],
+            'plural'      => ['string', 'filled', 'max:50'],
             'guest'       => ['integer', 'between:0,1'],
             'user'        => ['integer', 'between:0,1'],
             'admin'       => ['integer', 'between:0,1'],
             'icon'        => ['string', 'max:50', 'nullable'],
-            'level'       => ['integer'],
             'sequence'    => ['integer', 'min:0'],
             'public'      => ['integer', 'between:0,1'],
             'readonly'    => ['integer', 'between:0,1'],
             'root'        => ['integer', 'between:0,1'],
             'disabled'    => ['integer', 'between:0,1'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.filled' => 'Please select an owner for the database.',
+            'owner_id.exists' => 'The specified owner does not exist.',
         ];
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\System\UserTeamStoreRequest;
-use App\Http\Requests\System\UserTeamUpdateRequest;
+use App\Http\Requests\System\StoreUserTeamRequest;
+use App\Http\Requests\System\UpdateUserTeamRequest;
 use App\Models\UserTeam;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -45,12 +45,12 @@ class UserTeamController extends Controller
     /**
      * Store a newly created user team in storage.
      *
-     * @param UserTeamStoreRequest $userTeamStoreRequest
+     * @param StoreUserTeamRequest $storeUserTeamRequest
      * @return RedirectResponse
      */
-    public function store(UserTeamStoreRequest $userTeamStoreRequest): RedirectResponse
+    public function store(StoreUserTeamRequest $storeUserTeamRequest): RedirectResponse
     {
-        $userTeam = UserTeam::create($userTeamStoreRequest->validated());
+        $userTeam = UserTeam::create($storeUserTeamRequest->validated());
 
         return redirect(referer('admin.system.user-team.index'))
             ->with('success', $userTeam->name . ' added successfully.');
@@ -85,13 +85,13 @@ class UserTeamController extends Controller
     /**
      * Update the specified user team in storage.
      *
-     * @param UserTeamUpdateRequest $userTeamUpdateRequest
+     * @param UpdateUserTeamRequest $updateUserTeamRequest
      * @param UserTeam $userTeam
      * @return RedirectResponse
      */
-    public function update(UserTeamUpdateRequest $userTeamUpdateRequest, UserTeam $userTeam): RedirectResponse
+    public function update(UpdateUserTeamRequest $updateUserTeamRequest, UserTeam $userTeam): RedirectResponse
     {
-        $userTeam->update($userTeamUpdateRequest->validated());
+        $userTeam->update($updateUserTeamRequest->validated());
 
         return redirect(referer('admin.system.user-team.index'))
             ->with('success', $userTeam->name . ' updated successfully.');

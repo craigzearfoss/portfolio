@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class AdminTeamUpdateRequest extends FormRequest
+class StoreAdminTeamRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -40,20 +40,19 @@ class AdminTeamUpdateRequest extends FormRequest
         }
 
         return [
-            'owner_id'     => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'     => ['required', 'integer', 'exists:core_db.admins,id'],
             'name'         => [
-                'filled',
+                'required',
                 'string',
                 'min:3',
                 'max:200',
                 Rule::unique('portfolio_db.admin_teams')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->admin_team->id)
                         ->where('name', $this->name);
                 })
             ],
-            'slug'         => ['filled', 'string', 'min:20', 'max:220', 'unique:core_db.admin_teams,slug,'.$this->admin_team->id],
-            'abbreviation' => ['string', 'max:20', 'unique:core_db.admin_teams.abbreviation,'.$this->admin_team->id, 'nullable'],
+            'slug'         => ['required', 'string', 'min:20', 'max:220', 'unique:core_db.admin_teams,slug'],
+            'abbreviation' => ['string', 'max:20', 'unique:core_db.admin_teams,slug', 'nullable'],
             'description'  => ['nullable'],
             'disabled'     => ['integer', 'between:0,1'],
         ];
@@ -62,8 +61,8 @@ class AdminTeamUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the admin team.',
-            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.required' => 'Please select an owner for the admin team.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
         ];
     }
 }

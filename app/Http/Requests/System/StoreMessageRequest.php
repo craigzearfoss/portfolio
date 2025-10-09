@@ -6,7 +6,7 @@ use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class MessageUpdateRequest extends FormRequest
+class StoreMessageRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -28,10 +28,10 @@ class MessageUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => ['filled', 'string', 'max:255'],
-            'email'    => ['filled', 'email:rfc,dns', 'max:255'],
-            'subject'  => ['filled', 'string', 'max:255'],
-            'body'     => ['filled'],
+            'name'     => ['required', 'max:255'],
+            'email'    => ['required', 'email:rfc,dns', 'max:255'],
+            'subject'  => ['required', 'string', 'max:500'],
+            'body'     => ['required'],
             'sequence' => ['integer', 'min:0'],
             'public'   => ['integer', 'between:0,1'],
             'readonly' => ['integer', 'between:0,1'],

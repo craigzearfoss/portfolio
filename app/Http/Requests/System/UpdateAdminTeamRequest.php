@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class UserTeamStoreRequest extends FormRequest
+class UpdateAdminTeamRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -35,24 +35,25 @@ class UserTeamStoreRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portrait_db.user_teams', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'portrait_db.admin_teams', $this->owner_id)
             ]);
         }
 
         return [
-            'owner_id'     => ['required', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'     => ['filled', 'integer', 'exists:core_db.admins,id'],
             'name'         => [
-                'required',
+                'filled',
                 'string',
                 'min:3',
                 'max:200',
-                Rule::unique('portfolio_db.user_teams')->where(function ($query) {
+                Rule::unique('portfolio_db.admin_teams')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->admin_team->id)
                         ->where('name', $this->name);
                 })
             ],
-            'slug'         => ['required', 'string', 'min:20', 'max:220', 'unique:core_db.user_teams,slug'],
-            'abbreviation' => ['string', 'max:20', 'unique:core_db.user_teams,slug', 'nullable'],
+            'slug'         => ['filled', 'string', 'min:20', 'max:220', 'unique:core_db.admin_teams,slug,'.$this->admin_team->id],
+            'abbreviation' => ['string', 'max:20', 'unique:core_db.admin_teams.abbreviation,'.$this->admin_team->id, 'nullable'],
             'description'  => ['nullable'],
             'disabled'     => ['integer', 'between:0,1'],
         ];
@@ -61,8 +62,8 @@ class UserTeamStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.required' => 'Please select an owner for the user team.',
-            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.filled' => 'Please select an owner for the admin team.',
+            'owner_id.exists' => 'The specified owner does not exist.',
         ];
     }
 }

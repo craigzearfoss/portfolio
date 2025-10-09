@@ -10,7 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class AdminStoreRequest extends FormRequest
+class UpdateAdminRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -21,7 +21,11 @@ class AdminStoreRequest extends FormRequest
     {
         $this->checkDemoMode();
 
-        return true;
+        if (isRootAdmin() || ($this->admin->id === Auth::guard('admin')->user()->id)) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -31,13 +35,15 @@ class AdminStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         $ruleArray = [
-            'username'         => [
-                'required',
+            'username' => [
+                'filled',
                 'string',
                 'min:6',
                 'max:200',
-                'unique:admins,username',
+                'unique:admins,username,'.$this->admin->id,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
             'name'             => ['string', 'max:255', 'nullable'],
@@ -51,7 +57,7 @@ class AdminStoreRequest extends FormRequest
             'latitude'         => ['numeric:strict', 'nullable'],
             'longitude'        => ['numeric:strict', 'nullable'],
             'phone'            => ['string', 'max:50', 'nullable'],
-            'email'            => ['required', 'email', 'max:255', 'unique:admins,email'],
+            'email'            => ['filled', 'email', 'max:255', 'unique:admins,email,'.$this->admin->id,],
             'link'             => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'        => ['string', 'max:255', 'nullable'],
             'description'      => ['nullable'],
@@ -72,13 +78,13 @@ class AdminStoreRequest extends FormRequest
         ];
 
         if (Auth::guard('admin')->user()->root) {
-            // Only root admins can set the value for the root field. This defaults to 0.
-            $ruleArray = array_merge(
-                $ruleArray,
-                [
-                    'root'     => ['integer', 'between:0,1'],
-                ]
-            );
+            // Only root admins can change the root value.
+            $ruleArray = array_merge($ruleArray, [ 'root' => ['integer', 'between:0,1'] ]);
+        }
+
+        if (Auth::guard('admin')->user()->root && ($this->id !== Auth::guard('admin')->user()->id)) {
+            // Only root admins can disable other admins, but not themselves.
+            $ruleArray = array_merge($ruleArray, [ 'disabled' => ['integer', 'between:0,1'] ]);
         }
 
         return $ruleArray;

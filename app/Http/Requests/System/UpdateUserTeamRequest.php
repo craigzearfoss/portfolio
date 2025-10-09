@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class UserTeamUpdateRequest extends FormRequest
+class UpdateUserTeamRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

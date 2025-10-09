@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\System\AdminStoreRequest;
-use App\Http\Requests\System\AdminUpdateRequest;
+use App\Http\Requests\System\StoreAdminRequest;
+use App\Http\Requests\System\UpdateAdminRequest;
 use App\Models\Admin;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,18 +46,18 @@ class AdminController extends BaseController
     /**
      * Store a newly created admin in storage.
      *
-     * @param AdminStoreRequest $adminStoreRequest
+     * @param StoreAdminRequest $storeAdminRequest
      * @return RedirectResponse
      */
-    public function store(AdminStoreRequest $adminStoreRequest): RedirectResponse
+    public function store(StoreAdminRequest $storeAdminRequest): RedirectResponse
     {
-        $adminStoreRequest->validate($adminStoreRequest->rules());
+        $storeAdminRequest->validate($storeAdminRequest->rules());
 
         $admin = new Admin();
-        $admin->username = $adminStoreRequest->username;
-        $admin->email = $adminStoreRequest->email;
-        $admin->password = Hash::make($adminStoreRequest->password);
-        $admin->disabled = $adminStoreRequest->disabled;
+        $admin->username = $storeAdminRequest->username;
+        $admin->email = $storeAdminRequest->email;
+        $admin->password = Hash::make($storeAdminRequest->password);
+        $admin->disabled = $storeAdminRequest->disabled;
 
         $admin->save();
 
@@ -95,13 +95,13 @@ class AdminController extends BaseController
     /**
      * Update the specified admin in storage.
      *
-     * @param AdminUpdateRequest $adminUpdateRequest
+     * @param UpdateAdminRequest $updateAdminRequest
      * @param Admin $admin
      * @return RedirectResponse
      */
-    public function update(AdminUpdateRequest $adminUpdateRequest, Admin $admin): RedirectResponse
+    public function update(UpdateAdminRequest $updateAdminRequest, Admin $admin): RedirectResponse
     {
-        $admin->update($adminUpdateRequest->validated());
+        $admin->update($updateAdminRequest->validated());
 
         return redirect(referer('admin.system.admin.index'))
             ->with('success', $admin->username . ' updated successfully.');

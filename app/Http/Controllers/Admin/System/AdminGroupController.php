@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\System\AdminGroupStoreRequest;
-use App\Http\Requests\System\AdminGroupUpdateRequest;
+use App\Http\Requests\System\StoreAdminGroupRequest;
+use App\Http\Requests\System\UpdateAdminGroupRequest;
 use App\Models\AdminGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -45,12 +45,12 @@ class AdminGroupController extends Controller
     /**
      * Store a newly created admin group in storage.
      *
-     * @param AdminGroupStoreRequest $adminGroupStoreRequest
+     * @param StoreAdminGroupRequest $storeAdminGroupRequest
      * @return RedirectResponse
      */
-    public function store(AdminGroupStoreRequest $adminGroupStoreRequest): RedirectResponse
+    public function store(StoreAdminGroupRequest $storeAdminGroupRequest): RedirectResponse
     {
-        $adminGroup = AdminGroup::create($adminGroupStoreRequest->validated());
+        $adminGroup = AdminGroup::create($storeAdminGroupRequest->validated());
 
         return redirect(referer('admin.system.admin-group.index'))
             ->with('success', $adminGroup->name . ' added successfully.');
@@ -85,13 +85,13 @@ class AdminGroupController extends Controller
     /**
      * Update the specified admin group in storage.
      *
-     * @param AdminGroupUpdateRequest $adminGroupUpdateRequest
+     * @param UpdateAdminGroupRequest $updateAdminGroupRequest
      * @param AdminGroup $adminGroup
      * @return RedirectResponse
      */
-    public function update(AdminGroupUpdateRequest $adminGroupUpdateRequest, AdminGroup $adminGroup): RedirectResponse
+    public function update(UpdateAdminGroupRequest $updateAdminGroupRequest, AdminGroup $adminGroup): RedirectResponse
     {
-        $adminGroup->update($adminGroupUpdateRequest->validated());
+        $adminGroup->update($updateAdminGroupRequest->validated());
 
         return redirect(referer('admin.system.admin-group.index'))
             ->with('success', $adminGroup->name . ' updated successfully.');

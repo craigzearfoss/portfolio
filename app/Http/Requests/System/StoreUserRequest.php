@@ -9,8 +9,9 @@ use App\Rules\CaseInsensitiveNotIn;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use const http\Client\Curl\AUTH_ANY;
 
-class UserUpdateRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -21,19 +22,7 @@ class UserUpdateRequest extends FormRequest
     {
         $this->checkDemoMode();
 
-        // admins can update any user
-        if (isAdmin()) {
-            return true;
-        }
-
-        if (Auth::guard('web')->check()) {
-            // users can only update themselves
-            if ($this->user->id === Auth::guard('web')->user()->id) {
-                return true;
-            }
-        }
-
-        return false;
+        return true;
     }
 
     /**
@@ -43,19 +32,16 @@ class UserUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $this->checkDemoMode();
-
         return [
             'username' => [
-                'filled',
+                'required',
                 'string',
-                'filled',
                 'min:6',
                 'max:200',
-                'unique:users,username,'.$this->user->id,
+                'unique:users,username',
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
-            'name'              => ['filled', 'string', 'min:6', 'max:255'],
+            'name'              => ['required', 'string', 'min:6', 'max:255'],
             'title'             => ['string', 'max:100', 'nullable'],
             'street'            => ['string', 'max:255', 'nullable'],
             'street2'           => ['string', 'max:255', 'nullable'],
@@ -66,15 +52,17 @@ class UserUpdateRequest extends FormRequest
             'latitude'          => ['numeric:strict', 'nullable'],
             'longitude'         => ['numeric:strict', 'nullable'],
             'phone'             => ['string', 'max:50', 'nullable'],
-            'email'             => ['email', 'filled', 'max:255', 'unique:users,email,'.$this->user->id],
+            'email'             => ['required', 'email', 'max:255', 'unique:users,email'],
             'email_verified_at' => ['nullable'],
-            'website'           => ['string', 'max:255', 'nullable'],
+            'link'              => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'link_name'         => ['string', 'max:255', 'nullable'],
+            'description'       => ['nullable'],
             'image'             => ['string', 'max:500', 'nullable'],
             'image_credit'      => ['string', 'max:255', 'nullable'],
             'image_source'      => ['string', 'max:255', 'nullable'],
             'thumbnail'         => ['string', 'max:500', 'nullable'],
-            'password'          => ['filled', 'string', 'min:8', 'max:255'],
-            'confirm_password'  => ['filled', 'string', 'same:password'],
+            'password'          => ['required', 'string', 'min:8', 'max:255'],
+            'confirm_password'  => ['required', 'string', 'same:password'],
             'remember_token'    => ['string', 'max:200', 'nullable'],
             'token'             => ['string', 'max:255', 'nullable'],
             'status'            => ['integer', 'between:0,1'],
