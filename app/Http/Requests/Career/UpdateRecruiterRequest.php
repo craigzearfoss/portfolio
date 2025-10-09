@@ -3,15 +3,13 @@
 namespace App\Http\Requests\Career;
 
 use App\Models\Country;
-use App\Models\Owner;
 use App\Models\State;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class ContactUpdateRequest extends FormRequest
+class UpdateRecruiterRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -20,52 +18,31 @@ class ContactUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
-
-        $this->checkOwner();
-
-        return true;
+        return isRootAdmin();
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     * @throws \Exception
      */
     public function rules(): array
     {
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.contacts', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'career_db.recruiters')
             ]);
         }
 
         return [
-            'owner_id'        => ['filled', 'integer', 'exists:core_db.admins,id'],
-            'name'            => [
-                'filled',
-                'string',
-                'max:255',
-                Rule::unique('career_db.contacts')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->contact->id)
-                        ->where('name', $this->name);
-                })
-            ],
-            'slug'            => [
-                'filled',
-                'string',
-                'max:255',
-                Rule::unique('career_db.contacts')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->contact->id)
-                        ->where('slug', $this->slug);
-                })
-            ],
-            'title'           => ['string', 'max:20', 'nullable'],
-            'job_title'       => ['string', 'max:100', 'nullable'],
+            'name'            => ['filled', 'string', 'max:255', 'unique:career_db.recruiters,name,'.$this->recruiter->id],
+            'slug'            => ['filled', 'string', 'max:255', 'unique:career_db.recruiters,slug,'.$this->recruiter->id],
+            'postings_url'    => ['string', 'max:255', 'nullable'],
+            'local'           => ['integer', 'between:0,1'],
+            'regional'        => ['integer', 'between:0,1'],
+            'national'        => ['integer', 'between:0,1'],
+            'international'   => ['integer', 'between:0,1'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],
@@ -82,7 +59,6 @@ class ContactUpdateRequest extends FormRequest
             'email_label'     => ['string', 'max:255', 'nullable'],
             'alt_email'       => ['string', 'max:255', 'nullable'],
             'alt_email_label' => ['string', 'max:255', 'nullable'],
-            'birthday'        => ['date', 'nullable'],
             'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],
             'description'     => ['nullable'],
@@ -101,8 +77,6 @@ class ContactUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'   => 'Please select an owner for the contact.',
-            'owner_id.exists'   => 'The specified owner does not exist.',
             'state_id.exists'   => 'The specified state does not exist.',
             'country_id.exists' => 'The specified country does not exist.',
         ];

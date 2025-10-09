@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class JobBoardStoreRequest extends FormRequest
+class UpdateJobBoardRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -34,8 +34,8 @@ class JobBoardStoreRequest extends FormRequest
         }
 
         return [
-            'name'          => ['required', 'string', 'max:100', 'unique:career_db.job_boards,name'],
-            'slug'          => ['required', 'string', 'max:100', 'unique:career_db.job_boards,slug'],
+            'name'          => ['filled','string', 'max:100', 'unique:career_db.job_boards,name,'.$this->jobBoard->id],
+            'slug'          => ['filled', 'string', 'max:100', 'unique:career_db.job_boards,slug,'.$this->jobBoard->id],
             'primary'       => ['integer', 'between:0,1'],
             'local'         => ['integer', 'between:0,1'],
             'regional'      => ['integer', 'between:0,1'],

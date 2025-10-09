@@ -8,8 +8,9 @@ use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
-class CommunicationUpdateRequest extends FormRequest
+class StoreEventRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -34,12 +35,13 @@ class CommunicationUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'       => ['filled', 'integer', 'exists:core_db.admins,id'],
-            'application_id' => ['filled', 'integer', 'exists:career_db.applications,id'],
-            'subject'        => ['filled', 'string', 'max:255'],
+            'owner_id'       => ['required', 'integer', 'exists:core_db.admins,id'],
+            'application_id' => ['required', 'integer', 'exists:career_db.applications,id'],
+            'name'           => ['required', 'string', 'max:255'],
             'date'           => ['date_format:Y-m-d'],
             'time'           => ['date_format:H:i:s'],
-            'body'           => ['nullable'],
+            'location'       => ['string', 'max:255', 'nullable'],
+            'description'    => ['nullable'],
             'sequence'       => ['integer', 'min:0'],
             'public'         => ['integer', 'between:0,1'],
             'readonly'       => ['integer', 'between:0,1'],
@@ -51,10 +53,10 @@ class CommunicationUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'       => 'Please select an owner for the communication.',
-            'owner_id.exists'       => 'The specified owner does not exist.',
-            'application_id.filled' => 'Please select an application for the communication.',
-            'application_id.exists' => 'The specified application does not exist.',
+            'owner_id.required'       => 'Please select an owner for the event.',
+            'owner_id.exists'         => 'The specified owner does not exist.',
+            'application_id.required' => 'Please select an application for the event.',
+            'application_id.exists'   => 'The specified application does not exist.',
         ];
     }
 }

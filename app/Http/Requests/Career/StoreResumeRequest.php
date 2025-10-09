@@ -8,8 +8,9 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
-class ResumeUpdateRequest extends FormRequest
+class StoreResumeRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -34,14 +35,13 @@ class ResumeUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'     => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'     => ['required', 'integer', 'exists:core_db.admins,id'],
             'name'         => [
-                'filled',
+                'required',
                 'string',
                 'max:255',
                 Rule::unique('career_db.resumes')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->resume->id)
                         ->where('name', $this->name);
                 })
             ],
@@ -69,8 +69,8 @@ class ResumeUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the resume.',
-            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.required' => 'Please select an owner for the resume.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
         ];
     }
 }

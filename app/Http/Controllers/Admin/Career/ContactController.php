@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Career\CompanyContactStoreRequest;
-use App\Http\Requests\Career\ContactStoreRequest;
-use App\Http\Requests\Career\ContactUpdateRequest;
+use App\Http\Requests\Career\StoreCompanyContactRequest;
+use App\Http\Requests\Career\StoreContactRequest;
+use App\Http\Requests\Career\UpdateContactRequest;
 use App\Http\Requests\Career\rContactUpdateRequest;
 use App\Models\Career\Company;
 use App\Models\Career\Contact;
@@ -49,12 +49,12 @@ class ContactController extends BaseController
     /**
      * Store a newly created contact in storage.
      *
-     * @param ContactStoreRequest $contactStoreRequest
+     * @param StoreContactRequest $storeContactStoreRequest
      * @return RedirectResponse
      */
-    public function store(ContactStoreRequest $contactStoreRequest): RedirectResponse
+    public function store(StoreContactRequest $storeContactStoreRequest): RedirectResponse
     {
-        $contact = Contact::create($contactStoreRequest->validated());
+        $contact = Contact::create($storeContactStoreRequest->validated());
 
         return redirect(referer('admin.career.contact.index'))
             ->with('success', $contact->name . ' added successfully.');
@@ -85,13 +85,13 @@ class ContactController extends BaseController
     /**
      * Update the specified contact in storage.
      *
-     * @param ContactUpdateRequest $contactUpdateRequest
+     * @param UpdateContactRequest $updateContactRequest
      * @param Contact $contact
      * @return RedirectResponse
      */
-    public function update(ContactUpdateRequest $contactUpdateRequest, Contact $contact): RedirectResponse
+    public function update(UpdateContactRequest $updateContactRequest, Contact $contact): RedirectResponse
     {
-        $contact->update($contactUpdateRequest->validated());
+        $contact->update($updateContactRequest->validated());
 
         return redirect(referer('admin.career.application.index'))
             ->with('success', $contact->name . ' updated successfully.');
@@ -126,14 +126,14 @@ class ContactController extends BaseController
      * Attach a company to the contact.
      *
      * @param int $contactId
-     * @param CompanyContactStoreRequest $companyContactStoreRequest
+     * @param StoreCompanyContactRequest $storeCompanyContactRequest
      * @return RedirectResponse
      */
-    public function attachCompany(int $contactId, CompanyContactStoreRequest $companyContactStoreRequest): RedirectResponse
+    public function attachCompany(int $contactId, StoreCompanyContactRequest $storeCompanyContactRequest): RedirectResponse
     {
         $contact = Contact::find($contactId);
 
-        $data = $companyContactStoreRequest->validated();
+        $data = $storeCompanyContactRequest->validated();
 
         if (!empty($data['company_id'])) {
 

@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class CompanyContactStoreRequest extends FormRequest
+class StoreCompanyContactRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -69,8 +69,8 @@ class CompanyContactStoreRequest extends FormRequest
             }
 
             $rules = empty($this->company_id)
-                ? (new CompanyStoreRequest())->rules()
-                : (new ContactStoreRequest())->rules();;
+                ? (new StoreCompanyRequest())->rules()
+                : (new StoreContactRequest())->rules();;
         }
 
         return $rules;

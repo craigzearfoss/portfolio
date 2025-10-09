@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Career\RecruiterStoreRequest;
-use App\Http\Requests\Career\RecruiterUpdateRequest;
+use App\Http\Requests\Career\StoreRecruiterRequest;
+use App\Http\Requests\Career\UpdateRecruiterRequest;
 use App\Models\Career\Recruiter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -41,10 +41,10 @@ class RecruiterController extends Controller
     /**
      * Store a newly created recruiter in storage.
      *
-     * @param RecruiterStoreRequest $recruiterStoreRequest
+     * @param StoreRecruiterRequest $recruiterStoreRequest
      * @return RedirectResponse
      */
-    public function store(RecruiterStoreRequest $recruiterStoreRequest): RedirectResponse
+    public function store(StoreRecruiterRequest $recruiterStoreRequest): RedirectResponse
     {
         $recruiter = Recruiter::create($recruiterStoreRequest->validated());
 
@@ -77,13 +77,13 @@ class RecruiterController extends Controller
     /**
      * Update the specified recruiter in storage.
      *
-     * @param RecruiterUpdateRequest $recruiterUpdateRequest
+     * @param UpdateRecruiterRequest $updateRecruiterRequest
      * @param Recruiter $recruiter
      * @return RedirectResponse
      */
-    public function update(RecruiterUpdateRequest $recruiterUpdateRequest, Recruiter $recruiter): RedirectResponse
+    public function update(UpdateRecruiterRequest $updateRecruiterRequest, Recruiter $recruiter): RedirectResponse
     {
-        $recruiter->update($recruiterUpdateRequest->validated());
+        $recruiter->update($updateRecruiterRequest->validated());
 
         return redirect(referer('admin.career.recruiter.index'))
             ->with('success', $recruiter->name . ' updated successfully.');

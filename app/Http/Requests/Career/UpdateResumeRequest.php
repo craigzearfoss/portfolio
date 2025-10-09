@@ -2,12 +2,14 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Owner;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
-class IndustryUpdateRequest extends FormRequest
+class UpdateResumeRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -16,27 +18,39 @@ class IndustryUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        $this->checkDemoMode();
+
+        $this->checkOwner();
+
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @throws \Exception
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.industries')
-            ]);
-        }
-
         return [
-            'name'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,name,'.$this->industry->id],
-            'slug'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,slug,'.$this->industry->id],
-            'abbreviation' => ['filled', 'string', 'max:20', 'unique:career_db.industries,abbreviation,'.$this->industry->id],
+            'owner_id'     => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'name'         => [
+                'filled',
+                'string',
+                'max:255',
+                Rule::unique('career_db.resumes')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->resume->id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'date'         => ['date', 'nullable'],
+            'primary'      => ['integer', 'between:0,1'],
+            'year'         => ['integer', 'between:0,3000', 'nullable'],
+            'content'      => ['nullable'],
+            'doc_url'      => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'pdf_url'      => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
@@ -49,6 +63,14 @@ class IndustryUpdateRequest extends FormRequest
             'readonly'     => ['integer', 'between:0,1'],
             'root'         => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.filled' => 'Please select an owner for the resume.',
+            'owner_id.exists' => 'The specified owner does not exist.',
         ];
     }
 }

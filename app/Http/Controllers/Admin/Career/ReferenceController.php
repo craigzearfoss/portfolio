@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Career\ReferenceStoreRequest;
-use App\Http\Requests\Career\ReferenceUpdateRequest;
+use App\Http\Requests\Career\StoreReferenceRequest;
+use App\Http\Requests\Career\UpdateReferenceRequest;
 use App\Models\Career\Reference;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,12 +46,12 @@ class ReferenceController extends BaseController
     /**
      * Store a newly created reference in storage.
      *
-     * @param ReferenceStoreRequest $referenceStoreRequest
+     * @param StoreReferenceRequest $referenceStoreRequest
      * @return RedirectResponse
      */
-    public function store(ReferenceStoreRequest $referenceStoreRequest): RedirectResponse
+    public function store(StoreReferenceRequest $storeReferenceRequest): RedirectResponse
     {
-        $reference = Reference::create($referenceStoreRequest->validated());
+        $reference = Reference::create($storeReferenceRequest->validated());
 
         return redirect(referer('admin.career.reference.index'))
             ->with('success', $reference->name . ' added successfully.');
@@ -82,13 +82,13 @@ class ReferenceController extends BaseController
     /**
      * Update the specified reference in storage.
      *
-     * @param ReferenceUpdateRequest $referenceUpdateRequest
+     * @param UpdateReferenceRequest $updateReferenceUpdateRequest
      * @param Reference $reference
      * @return RedirectResponse
      */
-    public function update(ReferenceUpdateRequest $referenceUpdateRequest, Reference $reference): RedirectResponse
+    public function update(UpdateReferenceRequest $updateReferenceUpdateRequest, Reference $reference): RedirectResponse
     {
-        $reference->update($referenceUpdateRequest->validated());
+        $reference->update($updateReferenceUpdateRequest->validated());
 
         return redirect(referer('admin.career.reference.index'))
             ->with('success', $reference->name . ' updated successfully.');

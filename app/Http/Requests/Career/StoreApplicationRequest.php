@@ -8,13 +8,15 @@ use App\Models\Career\JobBoard;
 use App\Models\Career\Resume;
 use App\Models\Country;
 use App\Models\Owner;
+use App\Models\Portfolio\Job;
 use App\Models\State;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
-class ApplicationUpdateRequest extends FormRequest
+class StoreApplicationRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -39,10 +41,10 @@ class ApplicationUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'               => ['filled', 'integer', 'exists:core_db.admins,id'],
-            'company_id'             => ['filled', 'integer', 'exists:career_db.companies,id'],
-            'role'                   => ['filled', 'string', 'max:255'],
-            'job_board_id'           => ['filled', 'integer', 'exists:career_db.job_boards,id'],
+            'owner_id'               => ['required', 'integer', 'exists:core_db.admins,id'],
+            'company_id'             => ['required', 'integer', 'exists:career_db.applications,id'],
+            'role'                   => ['required', 'string', 'max:255'],
+            'job_board_id'           => ['required','integer', 'exists:career_db.job_boards,id'],
             'resume_id'              => ['integer', 'exists:career_db.resumes,id'],
             'rating'                 => ['integer', 'between:1,5'],
             'active'                 => ['integer', 'between:0,1'],
@@ -95,23 +97,22 @@ class ApplicationUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'               => 'Please select an owner for the application.',
-            'owner_id.exists'               => 'The specified owner does not exist.',
-            'company_id.filled'             => 'Please select a company for the application.',
-            'company_id.exists'             => 'The specified company does not exist.',
-            'job_board_id.filled'           => 'Please select a job board for the application.',
-            'job_board_id.exists'           => 'The specified job board does not exist.',
-            'resume_id.exists'              => 'The specified resume does not exist.',
-            'compensation_unit_id.filled'   => 'Please select a compensation unit for the application.',
-            'compensation_unit_id.exists'   => 'The specified compensation unit type does not exist.',
-            'job_duration_type_id.filled'   => 'Please select a duration type for the application.',
-            'job_duration_type_id.exists'   => 'The specified duration type does not exist.',
-            'job_employment_type_id.filled' => 'Please select an employment type for the application.',
-            'job_employment_type_id.exists' => 'The specified employment type does not exist.',
-            'job_location_type_id.filled'   => 'Please select an location type for the application.',
-            'job_location_type_id.exists'   => 'The specified location type does not exist.',
-            'state_id.exists'               => 'The specified state does not exist.',
-            'country_id.exists'             => 'The specified country does not exist.',
+            'owner_id.required'               => 'Please select an owner for the application.',
+            'owner_id.exists'                 => 'The specified owner does not exist.',
+            'company_id.required'             => 'Please select a company for the application.',
+            'company_id.exists'               => 'The specified company does not exist.',
+            'job_board_id.required'           => 'Please select a job board for the application.',
+            'job_board_id.exists'             => 'The specified job board does not exist.',
+            'resume_id.exists'                => 'The specified resume does not exist.',
+            'compensation_unit_id.exists'     => 'The specified compensation unit type does not exist.',
+            'job_duration_type_id.required'   => 'Please select a duration type for the application.',
+            'job_duration_type_id.exists'     => 'The specified duration type does not exist.',
+            'job_employment_type_id.required' => 'Please select an employment type for the application.',
+            'job_employment_type_id.exists'   => 'The specified employment type does not exist.',
+            'job_location_type_id.required'   => 'Please select an location type for the application.',
+            'job_location_type_id.exists'     => 'The specified location type does not exist.',
+            'state_id.exists'                 => 'The specified state does not exist.',
+            'country_id.exists'               => 'The specified country does not exist.',
         ];
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Career\ApplicationStoreRequest;
-use App\Http\Requests\Career\ApplicationUpdateRequest;
+use App\Http\Requests\Career\StoreApplicationRequest;
+use App\Http\Requests\Career\UpdateApplicationRequest;
 use App\Models\Career\Application;
 use App\Models\Career\CoverLetter;
 use App\Models\Career\Resume;
@@ -46,12 +46,12 @@ class ApplicationController extends BaseController
     /**
      * Store a newly created application in storage.
      *
-     * @param ApplicationStoreRequest $applicationStoreRequest
+     * @param StoreApplicationRequest $storeApplicationStoreRequest
      * @return RedirectResponse
      */
-    public function store(ApplicationStoreRequest $applicationStoreRequest): RedirectResponse
+    public function store(StoreApplicationRequest $storeApplicationStoreRequest): RedirectResponse
     {
-        $application = Application::create($applicationStoreRequest->validated());
+        $application = Application::create($storeApplicationStoreRequest->validated());
 
         // Create a cover letter for the application.
         CoverLetter::insert([
@@ -92,14 +92,14 @@ class ApplicationController extends BaseController
     /**
      * Update the specified application in storage.
      *
-     * @param ApplicationUpdateRequest $applicationUpdateRequest
+     * @param UpdateApplicationRequest $updateApplicationRequest
      * @param Application $application
      * @return RedirectResponse
      */
-    public function update(ApplicationUpdateRequest $applicationUpdateRequest,
-                           Application $application): RedirectResponse
+    public function update(UpdateApplicationRequest $updateApplicationRequest,
+                           Application              $application): RedirectResponse
     {
-        $application->update($applicationUpdateRequest->validated());
+        $application->update($updateApplicationRequest->validated());
 
         return redirect(referer('admin.career.application.index'))
             ->with('success', 'Application updated successfully.');
@@ -146,12 +146,12 @@ class ApplicationController extends BaseController
     /**
      * Update the specified application in storage.
      *
-     * @param ApplicationUpdateRequest $applicationUpdateRequest
+     * @param UpdateApplicationRequest $applicationUpdateRequest
      * @param Application $application
      * @return RedirectResponse
      */
-    public function updateCoverLetter(ApplicationUpdateRequest $applicationUpdateRequest,
-                           Application $application): RedirectResponse
+    public function updateCoverLetter(UpdateApplicationRequest $applicationUpdateRequest,
+                                      Application              $application): RedirectResponse
     {dd($applicationUpdateRequest);
         $application->update($applicationUpdateRequest->validated());
 

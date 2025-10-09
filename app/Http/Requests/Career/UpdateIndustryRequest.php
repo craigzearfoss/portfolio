@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class IndustryStoreRequest extends FormRequest
+class UpdateIndustryRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -34,9 +34,9 @@ class IndustryStoreRequest extends FormRequest
         }
 
         return [
-            'name'         => ['required', 'string', 'max:50', 'unique:career_db.industries,name'],
-            'slug'         => ['required', 'string', 'max:50', 'unique:career_db.industries,slug'],
-            'abbreviation' => ['required', 'string', 'max:20', 'unique:career_db.industries,abbreviation'],
+            'name'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,name,'.$this->industry->id],
+            'slug'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,slug,'.$this->industry->id],
+            'abbreviation' => ['filled', 'string', 'max:20', 'unique:career_db.industries,abbreviation,'.$this->industry->id],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

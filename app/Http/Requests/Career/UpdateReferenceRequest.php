@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Career;
 
-use App\Models\Career\Industry;
+use App\Models\Career\Company;
 use App\Models\Country;
 use App\Models\Owner;
 use App\Models\State;
@@ -11,9 +11,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
-class CompanyUpdateRequest extends FormRequest
+class UpdateReferenceRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -40,7 +39,7 @@ class CompanyUpdateRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.companies', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'career_db.references', $this->owner_id)
             ]);
         }
 
@@ -50,9 +49,9 @@ class CompanyUpdateRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies')->where(function ($query) {
+                Rule::unique('career_db.references')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->company->id)
+                        ->where('id', '<>', $this->reference->id)
                         ->where('name', $this->name);
                 })
             ],
@@ -60,13 +59,20 @@ class CompanyUpdateRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies')->where(function ($query) {
+                Rule::unique('career_db.references')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->company->id)
+                        ->where('id', '<>', $this->reference->id)
                         ->where('slug', $this->slug);
                 })
             ],
-            'industry_id'     => ['filled', 'integer', 'exists:career_db.industries,id'],
+            'friend'          => ['integer', 'between:0,1'],
+            'family'          => ['integer', 'between:0,1'],
+            'coworker'        => ['integer', 'between:0,1'],
+            'supervisor'      => ['integer', 'between:0,1'],
+            'subordinate'     => ['integer', 'between:0,1'],
+            'professional'    => ['integer', 'between:0,1'],
+            'other'           => ['integer', 'between:0,1'],
+            'company_id'      => ['integer', Rule::in(Company::all('id')->pluck('id')->toArray()), 'nullable'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],
@@ -83,6 +89,7 @@ class CompanyUpdateRequest extends FormRequest
             'email_label'     => ['string', 'max:255', 'nullable'],
             'alt_email'       => ['string', 'max:255', 'nullable'],
             'alt_email_label' => ['string', 'max:255', 'nullable'],
+            'birthday'        => ['date', 'nullable'],
             'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],
             'description'     => ['nullable'],
@@ -101,12 +108,10 @@ class CompanyUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'    => 'Please select an owner for the company.',
-            'owner_id.exists'    => 'The specified owner does not exist.',
-            'industry_id.filled' => 'Please select an industry for the company.',
-            'industry_id.exists' => 'The specified industry does not exist.',
-            'state_id.exists'    => 'The specified state does not exist.',
-            'country_id.exists'  => 'The specified country does not exist.',
+            'owner_id.filled'   => 'Please select an owner for the reference.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'state_id.exists'   => 'The specified state does not exist.',
+            'country_id.exists' => 'The specified country does not exist.',
         ];
     }
 }

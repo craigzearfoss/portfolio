@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Career;
 
-use App\Models\Career\Industry;
 use App\Models\Country;
 use App\Models\Owner;
 use App\Models\State;
@@ -11,9 +10,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
-class CompanyStoreRequest extends FormRequest
+class UpdateContactRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -40,31 +38,34 @@ class CompanyStoreRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.companies', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'career_db.contacts', $this->owner_id)
             ]);
         }
 
         return [
-            'owner_id'        => ['required', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'        => ['filled', 'integer', 'exists:core_db.admins,id'],
             'name'            => [
-                'required',
+                'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies')->where(function ($query) {
+                Rule::unique('career_db.contacts')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->contact->id)
                         ->where('name', $this->name);
                 })
             ],
             'slug'            => [
-                'required',
+                'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies')->where(function ($query) {
+                Rule::unique('career_db.contacts')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->contact->id)
                         ->where('slug', $this->slug);
                 })
             ],
-            'industry_id'     => ['required', 'integer', 'exists:career_db.industries,id'],
+            'title'           => ['string', 'max:20', 'nullable'],
+            'job_title'       => ['string', 'max:100', 'nullable'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],
@@ -81,6 +82,7 @@ class CompanyStoreRequest extends FormRequest
             'email_label'     => ['string', 'max:255', 'nullable'],
             'alt_email'       => ['string', 'max:255', 'nullable'],
             'alt_email_label' => ['string', 'max:255', 'nullable'],
+            'birthday'        => ['date', 'nullable'],
             'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],
             'description'     => ['nullable'],
@@ -99,12 +101,10 @@ class CompanyStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.required'    => 'Please select an owner for the company.',
-            'owner_id.exists'      => 'The specified owner does not exist.',
-            'industry_id.required' => 'Please select an industry for the company.',
-            'industry_id.exists'   => 'The specified industry does not exist.',
-            'state_id.exists'      => 'The specified state does not exist.',
-            'country_id.exists'    => 'The specified country does not exist.',
+            'owner_id.filled'   => 'Please select an owner for the contact.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'state_id.exists'   => 'The specified state does not exist.',
+            'country_id.exists' => 'The specified country does not exist.',
         ];
     }
 }

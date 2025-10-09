@@ -9,9 +9,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
-class CoverLetterStoreRequest extends FormRequest
+class UpdateCoverLetterRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -36,8 +35,8 @@ class CoverLetterStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'         => ['required', 'integer', 'exists:core_db.admins,id'],
-            'application_id'   => ['required', 'integer', 'exists:career_db.applications,id'],
+            'owner_id'         => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'application_id'   => ['filled', 'integer', 'exists:career_db.applications,id'],
             'date'             => ['date', 'nullable'],
             'content'          => ['nullable'],
             'cover_letter_url' => ['string', 'url:http,https', 'max:500', 'nullable'],
@@ -59,10 +58,10 @@ class CoverLetterStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.required'       => 'Please select an owner for the cover letter.',
-            'owner_id.exists'         => 'The specified owner does not exist.',
-            'application_id.required' => 'Please select an application for the cover letter.',
-            'application_id.exists'   => 'The specified application does not exist.',
+            'owner_id.filled'       => 'Please select an owner for the cover letter.',
+            'owner_id.exists'       => 'The specified owner does not exist.',
+            'application_id.filled' => 'Please select an application for the cover letter.',
+            'application_id.exists' => 'The specified application does not exist.',
         ];
     }
 }

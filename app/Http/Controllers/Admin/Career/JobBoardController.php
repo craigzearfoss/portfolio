@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Career\JobBoardStoreRequest;
-use App\Http\Requests\Career\JobBoardUpdateRequest;
+use App\Http\Requests\Career\StoreJobBoardRequest;
+use App\Http\Requests\Career\UpdateJobBoardRequest;
 use App\Models\Career\JobBoard;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,10 +51,10 @@ class JobBoardController extends BaseController
     /**
      * Store a newly created job board in storage.
      *
-     * @param JobBoardStoreRequest $jobBoardStoreRequest
+     * @param StoreJobBoardRequest $jobBoardStoreRequest
      * @return RedirectResponse
      */
-    public function store(JobBoardStoreRequest $jobBoardStoreRequest): RedirectResponse
+    public function store(StoreJobBoardRequest $jobBoardStoreRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add job boards.');
@@ -96,17 +96,17 @@ class JobBoardController extends BaseController
     /**
      * Update the specified job board in storage.
      *
-     * @param JobBoardUpdateRequest $jobBoardUpdateRequest
+     * @param UpdateJobBoardRequest $updateJobBoardRequest
      * @param JobBoard $jobBoard
      * @return RedirectResponse
      */
-    public function update(JobBoardUpdateRequest $jobBoardUpdateRequest, JobBoard $jobBoard): RedirectResponse
+    public function update(UpdateJobBoardRequest $updateJobBoardRequest, JobBoard $jobBoard): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update job boards.');
         }
 
-        $jobBoard->update($jobBoardUpdateRequest->validated());
+        $jobBoard->update($updateJobBoardRequest->validated());
 
         return redirect(referer('admin.career.job-board.index'))
             ->with('success', $jobBoard->name . ' updated successfully.');

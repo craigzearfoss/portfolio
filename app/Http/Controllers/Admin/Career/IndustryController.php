@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Career\IndustryStoreRequest;
-use App\Http\Requests\Career\IndustryUpdateRequest;
+use App\Http\Requests\Career\StoreIndustryRequest;
+use App\Http\Requests\Career\UpdateIndustryRequest;
 use App\Models\Career\Industry;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -49,16 +49,16 @@ class IndustryController extends BaseController
     /**
      * Store a newly created industry in storage.
      *
-     * @param IndustryStoreRequest $industryStoreRequest
+     * @param StoreIndustryRequest $storeIndustryRequest
      * @return RedirectResponse
      */
-    public function store(IndustryStoreRequest $industryStoreRequest): RedirectResponse
+    public function store(StoreIndustryRequest $storeIndustryRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add industries.');
         }
 
-        $industry = Industry::create($industryStoreRequest->validated());
+        $industry = Industry::create($storeIndustryRequest->validated());
 
         return redirect(referer('admin.career.industry.index'))
             ->with('success', $industry->name . ' added successfully.');
@@ -93,17 +93,17 @@ class IndustryController extends BaseController
     /**
      * Update the specified industry in storage.
      *
-     * @param IndustryUpdateRequest $industryUpdateRequest
+     * @param UpdateIndustryRequest $updateIndustryRequest
      * @param Industry $industry
      * @return RedirectResponse
      */
-    public function update(IndustryUpdateRequest $industryUpdateRequest, Industry $industry): RedirectResponse
+    public function update(UpdateIndustryRequest $updateIndustryRequest, Industry $industry): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update industries.');
         }
 
-        $industry->update($industryUpdateRequest->validated());
+        $industry->update($updateIndustryRequest->validated());
 
         return redirect(referer('admin.career.industry.index'))
             ->with('success', $industry->name . ' updated successfully.');

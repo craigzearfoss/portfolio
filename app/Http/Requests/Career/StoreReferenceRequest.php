@@ -2,15 +2,18 @@
 
 namespace App\Http\Requests\Career;
 
+use App\Models\Career\Company;
 use App\Models\Country;
+use App\Models\Owner;
 use App\Models\State;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class RecruiterStoreRequest extends FormRequest
+class StoreReferenceRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -19,31 +22,56 @@ class RecruiterStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return isRootAdmin();
+        $this->checkDemoMode();
+
+        $this->checkOwner();
+
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @throws \Exception
      */
     public function rules(): array
     {
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'career_db.recruiters')
+                'slug' => uniqueSlug($this['name'], 'career_db.references', $this->owner_id)
             ]);
         }
 
         return [
-            'name'            => ['required', 'string', 'max:255', 'unique:career_db.companies,name'],
-            'slug'            => ['required', 'string', 'max:255', 'unique:career_db.companies,slug'],
-            'postings_url'    => ['string', 'max:255', 'nullable'],
-            'local'           => ['integer', 'between:0,1'],
-            'regional'        => ['integer', 'between:0,1'],
-            'national'        => ['integer', 'between:0,1'],
-            'international'   => ['integer', 'between:0,1'],
+            'owner_id'        => ['required', 'integer', 'required', 'exists:core_db.admins,id'],
+            'name'            => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('career_db.references')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('name', $this->name);
+                })
+            ],
+            'slug'            => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('career_db.references')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
+            'friend'          => ['integer', 'between:0,1'],
+            'family'          => ['integer', 'between:0,1'],
+            'coworker'        => ['integer', 'between:0,1'],
+            'supervisor'      => ['integer', 'between:0,1'],
+            'subordinate'     => ['integer', 'between:0,1'],
+            'professional'    => ['integer', 'between:0,1'],
+            'other'           => ['integer', 'between:0,1'],
+            'company_id'      => ['integer', Rule::in(Company::all('id')->pluck('id')->toArray()), 'nullable'],
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],
@@ -60,6 +88,7 @@ class RecruiterStoreRequest extends FormRequest
             'email_label'     => ['string', 'max:255', 'nullable'],
             'alt_email'       => ['string', 'max:255', 'nullable'],
             'alt_email_label' => ['string', 'max:255', 'nullable'],
+            'birthday'        => ['date', 'nullable'],
             'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],
             'description'     => ['nullable'],
@@ -78,6 +107,8 @@ class RecruiterStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'owner_id.required' => 'Please select an owner for the reference.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
             'state_id.exists'   => 'The specified state does not exist.',
             'country_id.exists' => 'The specified country does not exist.',
         ];
