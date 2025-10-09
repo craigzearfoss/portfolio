@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Portfolio\ProjectStoreRequest;
-use App\Http\Requests\Portfolio\ProjectUpdateRequest;
+use App\Http\Requests\Portfolio\StoreProjectRequest;
+use App\Http\Requests\Portfolio\UpdateProjectRequest;
 use App\Models\Portfolio\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,12 +46,12 @@ class ProjectController extends BaseController
     /**
      * Store a newly created project in storage.
      *
-     * @param ProjectStoreRequest $projectStoreRequest
+     * @param StoreProjectRequest $storeProjectRequest
      * @return RedirectResponse
      */
-    public function store(ProjectStoreRequest $projectStoreRequest): RedirectResponse
+    public function store(StoreProjectRequest $storeProjectRequest): RedirectResponse
     {
-        $project = Project::create($projectStoreRequest->validated());
+        $project = Project::create($storeProjectRequest->validated());
 
         return redirect(referer('admin.portfolio.project.index'))
             ->with('success', $project->name . ' project added successfully.');
@@ -82,13 +82,13 @@ class ProjectController extends BaseController
     /**
      * Update the specified project in storage.
      *
-     * @param ProjectUpdateRequest $projectUpdateRequest
+     * @param UpdateProjectRequest $updateProjectRequest
      * @param Project $project
      * @return RedirectResponse
      */
-    public function update(ProjectUpdateRequest $projectUpdateRequest, Project $project): RedirectResponse
+    public function update(UpdateProjectRequest $updateProjectRequest, Project $project): RedirectResponse
     {
-        $project->update($projectUpdateRequest->validated());
+        $project->update($updateProjectRequest->validated());
 
         return redirect(referer('admin.portfolio.project.index'))
             ->with('success', $project->name . ' project updated successfully.');

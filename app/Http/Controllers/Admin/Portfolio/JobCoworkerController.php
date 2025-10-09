@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Portfolio\JobCoworkerStoreRequest;
-use App\Http\Requests\Portfolio\JobCoworkerUpdateRequest;
+use App\Http\Requests\Portfolio\StoreJobCoworkerRequest;
+use App\Http\Requests\Portfolio\UpdateJobCoworkerRequest;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
 use Illuminate\Http\RedirectResponse;
@@ -56,12 +56,12 @@ class JobCoworkerController extends BaseController
     /**
      * Store a newly created job coworker in storage.
      *
-     * @param JobCoworkerStoreRequest $jobCoworkerStoreRequest
+     * @param StoreJobCoworkerRequest $storeJobCoworkerRequest
      * @return RedirectResponse
      */
-    public function store(JobCoworkerStoreRequest $jobCoworkerStoreRequest): RedirectResponse
+    public function store(StoreJobCoworkerRequest $storeJobCoworkerRequest): RedirectResponse
     {
-        $jobCoworker = JobCoworker::create($jobCoworkerStoreRequest->validated());
+        $jobCoworker = JobCoworker::create($storeJobCoworkerRequest->validated());
 
         return redirect(referer('admin.portfolio.job-coworker.index'))
             ->with('success', $jobCoworker->name . ' added successfully.');
@@ -93,13 +93,13 @@ class JobCoworkerController extends BaseController
     /**
      * Update the specified job coworker in storage.
      *
-     * @param JobCoworkerUpdateRequest $jobCoworkerUpdateRequest
+     * @param UpdateJobCoworkerRequest $updateJobCoworkerRequest
      * @param JobCoworker $jobCoworker
      * @return RedirectResponse
      */
-    public function update(JobCoworkerUpdateRequest $jobCoworkerUpdateRequest, JobCoworker $jobCoworker): RedirectResponse
+    public function update(UpdateJobCoworkerRequest $updateJobCoworkerRequest, JobCoworker $jobCoworker): RedirectResponse
     {
-        $jobCoworker->update($jobCoworkerUpdateRequest->validated());
+        $jobCoworker->update($updateJobCoworkerRequest->validated());
 
         return redirect(referer('admin.portfolio.job-coworker.index'))
             ->with('success', $jobCoworker->name . ' updated successfully.');

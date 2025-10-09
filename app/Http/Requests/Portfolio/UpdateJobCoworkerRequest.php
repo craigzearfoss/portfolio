@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class JobCoworkerUpdateRequest extends FormRequest
+class UpdateJobCoworkerRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

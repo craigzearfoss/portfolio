@@ -10,8 +10,9 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
-class JobUpdateRequest extends FormRequest
+class StoreJobRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -29,8 +30,8 @@ class JobUpdateRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * *
+     * * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      * @throws \Exception
      */
     public function rules(): array
@@ -41,21 +42,20 @@ class JobUpdateRequest extends FormRequest
                 'slug' => uniqueSlug(
                     $this['company'] . (!empty($this['role']) ? ' (' . $this['role'] : ')'),
                     'portrait_db.jobs ',
-                    $this->owner_id)
+                $this->owner_id)
             ]);
         }
 
         return [
-            'owner_id'               => ['filled', 'integer', 'exists:core_db.admins,id'],
-            'company'                => ['filled', 'string', 'max:255'],
-            'role'                   => ['filled', 'string', 'max:255',],
+            'owner_id'               => ['required', 'integer', 'exists:core_db.admins,id'],
+            'company'                => ['required', 'string', 'max:255'],
+            'role'                   => ['required', 'string', 'max:255',],
             'slug'                   => [
-                'filled',
+                'required',
                 'string',
                 'max:255',
                 Rule::unique('portfolio_db.jobs')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->job->id)
                         ->where('slug', $this->slug);
                 })
             ],
@@ -94,14 +94,14 @@ class JobUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'               => 'Please select an owner for the job.',
-            'owner_id.exists'               => 'The specified owner does not exist.',
-            'job_employment_type_id.filled' => 'Please select an employment type for the job.',
-            'job_employment_type_id.exists' => 'The specified employment type does not exist.',
-            'job_location_type_id.filled'   => 'Please select a location type for the job.',
-            'job_location_type_id.exists'   => 'The specified industry does not exist.',
-            'state_id.exists'               => 'The specified state does not exist.',
-            'country_id.exists'             => 'The specified country does not exist.',
+            'owner_id.required'               => 'Please select an owner for the job.',
+            'owner_id.exists'                 => 'The specified owner does not exist.',
+            'job_employment_type_id.required' => 'Please select an employment type for the job.',
+            'job_employment_type_id.exists'   => 'The specified employment type does not exist.',
+            'job_location_type_id.required'   => 'Please select a location type for the job.',
+            'job_location_type_id.exists'     => 'The specified industry does not exist.',
+            'state_id.exists'                 => 'The specified state does not exist.',
+            'country_id.exists'               => 'The specified country does not exist.',
         ];
     }
 }

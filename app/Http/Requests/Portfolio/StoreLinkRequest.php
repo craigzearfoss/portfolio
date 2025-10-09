@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class LinkStoreRequest extends FormRequest
+class StoreLinkRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

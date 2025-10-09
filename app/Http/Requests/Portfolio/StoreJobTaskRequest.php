@@ -8,8 +8,9 @@ use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
-class JobTaskUpdateRequest extends FormRequest
+class StoreJobTaskRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -33,9 +34,9 @@ class JobTaskUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'        => ['filled','integer', 'exists:core_db.admins,id'],
-            'job_id'          => ['filled', 'integer', 'exists:portfolio_db.jobs,id'],
-            'summary'         => ['filled', 'string', 'max:500'],
+            'owner_id'        => ['required', 'integer', 'exists:core_db.admins,id'],
+            'job_id'          => ['required', 'integer', 'exists:portfolio_db.jobs,id'],
+            'summary'         => ['required','string', 'max:500'],
             'notes'           => ['nullable'],
             'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],
@@ -55,10 +56,10 @@ class JobTaskUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the task.',
-            'owner_id.exists' => 'The specified owner does not exist.',
-            'job_id.filled'   => 'Please select a job for the task.',
-            'job_id.exists'   => 'The specified job does not exist.',
+            'owner_id.required' => 'Please select an owner for the task.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
+            'job_id.required'   => 'Please select a job for the task.',
+            'job_id.exists'     => 'The specified job does not exist.',
         ];
     }
 }

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class VideoUpdateRequest extends FormRequest
+class UpdateVideoRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

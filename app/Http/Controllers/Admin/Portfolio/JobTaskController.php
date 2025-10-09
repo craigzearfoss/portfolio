@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Portfolio\JobTaskStoreRequest;
-use App\Http\Requests\Portfolio\JobTaskUpdateRequest;
+use App\Http\Requests\Portfolio\StoreJobTaskRequest;
+use App\Http\Requests\Portfolio\UpdateJobTaskRequest;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobTask;
 use Illuminate\Http\RedirectResponse;
@@ -56,12 +56,12 @@ class JobTaskController extends BaseController
     /**
      * Store a newly created job task in storage.
      *
-     * @param JobTaskStoreRequest $jobTaskStoreRequest
+     * @param StoreJobTaskRequest $updateJobTaskStoreRequest
      * @return RedirectResponse
      */
-    public function store(JobTaskStoreRequest $jobTaskStoreRequest): RedirectResponse
+    public function store(StoreJobTaskRequest $updateJobTaskStoreRequest): RedirectResponse
     {
-        $jobTask = JobTask::create($jobTaskStoreRequest->validated());
+        $jobTask = JobTask::create($updateJobTaskStoreRequest->validated());
 
         return redirect(referer('admin.portfolio.job-task.index'))
             ->with('success', 'Job task added successfully.');
@@ -93,13 +93,13 @@ class JobTaskController extends BaseController
     /**
      * Update the specified job task in storage.
      *
-     * @param JobTaskUpdateRequest $jobTaskUpdateRequest
+     * @param UpdateJobTaskRequest $updateJobTaskRequest
      * @param JobTask $jobTask
      * @return RedirectResponse
      */
-    public function update(JobTaskUpdateRequest $jobTaskUpdateRequest, JobTask $jobTask): RedirectResponse
+    public function update(UpdateJobTaskRequest $updateJobTaskRequest, JobTask $jobTask): RedirectResponse
     {
-        $jobTask->update($jobTaskUpdateRequest->validated());
+        $jobTask->update($updateJobTaskRequest->validated());
 
         return redirect(referer('admin.portfolio.job-task.index'))
             ->with('success', 'Job task updated successfully.');

@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class VideoStoreRequest extends FormRequest
+class StoreVideoRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

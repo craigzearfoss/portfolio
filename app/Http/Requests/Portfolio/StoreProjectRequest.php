@@ -8,8 +8,9 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
-class ProjectUpdateRequest extends FormRequest
+class StoreProjectRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -41,24 +42,22 @@ class ProjectUpdateRequest extends FormRequest
         }
 
         return [
-            'owner_id'         => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'         => ['required', 'integer', 'exists:core_db.admins,id'],
             'name'             => [
-                'filled',
+                'required',
                 'string',
                 'max:255',
                 Rule::unique('portfolio_db.projects')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->project->id)
                         ->where('name', $this->name);
                 })
             ],
             'slug'             => [
-                'filled',
+                'required',
                 'string',
                 'max:255',
                 Rule::unique('portfolio_db.projects')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->project->id)
                         ->where('slug', $this->slug);
                 })
             ],
@@ -88,8 +87,8 @@ class ProjectUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the project.',
-            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.required' => 'Please select an owner for the project.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
         ];
     }
 }

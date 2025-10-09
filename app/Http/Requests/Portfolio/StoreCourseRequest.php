@@ -3,14 +3,15 @@
 namespace App\Http\Requests\Portfolio;
 
 use App\Models\Owner;
-use App\Models\Portfolio\Job;
+use App\Models\Portfolio\Academy;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class JobCoworkerStoreRequest extends FormRequest
+class StoreCourseRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -30,27 +31,48 @@ class JobCoworkerStoreRequest extends FormRequest
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @throws \Exception
      */
     public function rules(): array
     {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'portrait_db.courses', $this->owner_id)
+            ]);
+        }
+
         return [
             'owner_id'        => ['required', 'integer', 'exists:core_db.admins,id'],
-            'job_id'          => ['required', 'integer', 'exists:portfolio_db.jobs,id'],
             'name'            => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.job_coworkers')->where(function ($query) {
+                Rule::unique('portfolio_db.courses')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
             ],
-            'job_title'       => ['string', 'max:100', 'nullable'],
-            'level_id'        => ['integer', 'between:1,3'],
-            'work_phone'      => ['string', 'max:50', 'nullable'],
-            'personal_phone'  => ['string', 'max:50', 'nullable'],
-            'work_email'      => ['string', 'max:255', 'nullable'],
-            'personal_email'  => ['string', 'max:255', 'nullable'],
+            'slug'            => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('portfolio_db.courses')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
+            'featured'        => ['integer', 'between:0,1'],
+            'summary'         => ['string', 'max:500', 'nullable'],
+            'year'            => ['integer', 'between:1980,'.date("Y"), 'nullable'],
+            'completed'       => ['integer', 'between:0,1'],
+            'completion_date' => ['date', 'nullable'],
+            'duration_hours'  => ['numeric', 'nullable'],
+            'academy_id'      => ['integer', 'exists:portfolio_db.academies,id'],
+            'school'          => ['string', 'max:255', 'nullable'],
+            'instructor'      => ['string', 'max:255', 'nullable'],
+            'sponsor'         => ['string', 'max:255', 'nullable'],
+            'certificate_url' => ['string', 'url:http,https', 'max:500', 'nullable'],
             'notes'           => ['nullable'],
             'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],
@@ -70,12 +92,10 @@ class JobCoworkerStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.required' => 'Please select an owner for the coworker.',
-            'owner_id.exists'   => 'The specified owner does not exist.',
-            'job_id.required'   => 'Please select a job for the coworker.',
-            'job_id.exists'     => 'The specified job does not exist.',
-            'level_id.required' => 'Please select a level type for the coworker.',
-            'level_id.exists'   => 'The specified level does not exist.',
+            'owner_id.required'   => 'Please select an owner for the course.',
+            'owner_id.exists'     => 'The specified owner does not exist.',
+            'academy_id.required' => 'Please select an academy for the course.',
+            'academy_id.exists'   => 'The specified academy does not exist.',
         ];
     }
 }

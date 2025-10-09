@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Portfolio\AcademyStoreRequest;
-use App\Http\Requests\Portfolio\AcademyUpdateRequest;
+use App\Http\Requests\Portfolio\StoreAcademyRequest;
+use App\Http\Requests\Portfolio\UpdateAcademyRequest;
 use App\Models\Portfolio\Academy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,16 +51,16 @@ class AcademyController extends BaseController
     /**
      * Store a newly created academy in storage.
      *
-     * @param AcademyStoreRequest $academyStoreRequest
+     * @param StoreAcademyRequest $storeAcademyRequest
      * @return RedirectResponse
      */
-    public function store(AcademyStoreRequest $academyStoreRequest): RedirectResponse
+    public function store(StoreAcademyRequest $storeAcademyRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add academies.');
         }
 
-        $academy = Academy::create($academyStoreRequest->validated());
+        $academy = Academy::create($storeAcademyRequest->validated());
 
         return redirect(referer('admin.portfolio.academy.index'))
             ->with('success', $academy->name . ' added successfully.');
@@ -95,17 +95,17 @@ class AcademyController extends BaseController
     /**
      * Update the specified academy in storage.
      *
-     * @param AcademyUpdateRequest $request
+     * @param UpdateAcademyRequest $updateAcademyRequest
      * @param Academy $academy
      * @return RedirectResponse
      */
-    public function update(AcademyUpdateRequest $request, Academy $academy): RedirectResponse
+    public function update(UpdateAcademyRequest $updateAcademyRequest, Academy $academy): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update academies.');
         }
 
-        $academy->update($request->validated());
+        $academy->update($updateAcademyRequest->validated());
 
         return redirect(referer('admin.portfolio.academy.index'))
             ->with('success', $academy->name . ' updated successfully.');

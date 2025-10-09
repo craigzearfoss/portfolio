@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Portfolio\MusicStoreRequest;
-use App\Http\Requests\Portfolio\MusicUpdateRequest;
+use App\Http\Requests\Portfolio\StoreMusicRequest;
+use App\Http\Requests\Portfolio\UpdateMusicRequest;
 use App\Models\Portfolio\Music;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,12 +46,12 @@ class MusicController extends BaseController
     /**
      * Store a newly created music in storage.
      *
-     * @param MusicStoreRequest $musicStoreRequest
+     * @param StoreMusicRequest $storeMusicRequest
      * @return RedirectResponse
      */
-    public function store(MusicStoreRequest $musicStoreRequest): RedirectResponse
+    public function store(StoreMusicRequest $storeMusicRequest): RedirectResponse
     {
-        $music = Music::create($musicStoreRequest->validated());
+        $music = Music::create($storeMusicRequest->validated());
 
         return redirect(referer('admin.portfolio.music.index'))
             ->with('success', $music->name . ' added successfully.');
@@ -82,13 +82,13 @@ class MusicController extends BaseController
     /**
      * Update the specified music in storage.
      *
-     * @param MusicUpdateRequest $musicUpdateRequest
+     * @param UpdateMusicRequest $updateMusicRequest
      * @param Music $music
      * @return RedirectResponse
      */
-    public function update(MusicUpdateRequest $musicUpdateRequest, Music $music): RedirectResponse
+    public function update(UpdateMusicRequest $updateMusicRequest, Music $music): RedirectResponse
     {
-        $music->update($musicUpdateRequest->validated());
+        $music->update($updateMusicRequest->validated());
 
         return redirect(referer('admin.portfolio.music.index'))
             ->with('success', $music->name . ' updated successfully.');

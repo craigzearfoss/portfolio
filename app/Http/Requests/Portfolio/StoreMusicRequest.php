@@ -8,8 +8,9 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
-class MusicUpdateRequest extends FormRequest
+class StoreMusicRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -47,16 +48,15 @@ class MusicUpdateRequest extends FormRequest
         $maxYear = intval(date("Y")) + 1;
 
         return [
-            'owner_id'       => ['filled', 'integer', 'exists:core_db.admins,id'],
-            'name'           => ['filled', 'string', 'max:255', 'unique:portfolio_db.music,name,'.$this->music->id],
+            'owner_id'       => ['required','integer', 'exists:core_db.admins,id'],
+            'name'           => ['required', 'string', 'max:255', 'unique:portfolio_db.music,name'],
             'artist'         => ['string', 'max:255', 'nullable'],
             'slug'           => [
-                'filled',
+                'required',
                 'string',
                 'max:255',
                 Rule::unique('portfolio_db.music')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->music->id)
                         ->where('slug', $this->slug);
                 })
             ],
@@ -89,8 +89,8 @@ class MusicUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the music.',
-            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.required' => 'Please select an owner for the music.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
         ];
     }
 }

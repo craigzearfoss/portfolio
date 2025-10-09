@@ -8,8 +8,9 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
-class LinkUpdateRequest extends FormRequest
+class StoreArtRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -36,48 +37,33 @@ class LinkUpdateRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portrait_db.links', $this->owner_id)
+                'slug'  => uniqueSlug(
+                    $this['name']. (!empty($this['artist']) ? ' by ' . $this['artist'] : ''),
+                    'portfolio_db.art',
+                    $this->owner_id
+                ),
             ]);
         }
 
         return [
-            'owner_id'     => ['integer', 'exists:core_db.admins,id'],
-            'name'         => [
-                'string',
-                'filled',
-                'max:255',
-                Rule::unique('portfolio_db.links')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->link->id)
-                        ->where('name', $this->name);
-                })
-            ],
+            'owner_id'     => ['required', 'integer', 'exists:core_db.admins,id'],
+            'name'         => ['required', 'string', 'max:255'],
+            'artist'       => ['string', 'max:255', 'nullable'],
             'slug'         => [
+                'required',
                 'string',
-                'filled',
                 'max:255',
-                Rule::unique('portfolio_db.links')->where(function ($query) {
+                Rule::unique('portfolio_db.art')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->link->id)
                         ->where('slug', $this->slug);
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],
             'summary'      => ['string', 'max:500', 'nullable'],
-            'url'          => [
-                'string',
-                'max:255',
-                'filled',
-                'url:http,https',
-                'max:255',
-                Rule::unique('portfolio_db.links')->where(function ($query) {
-                    return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->link->id)
-                        ->where('url', $this->url);
-                })
-            ],
+            'year'         => ['integer', 'between:1900,'.date("Y"), 'nullable'],
             'notes'        => ['nullable'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'image_url'    => ['string', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:500', 'nullable'],
@@ -95,8 +81,8 @@ class LinkUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the link.',
-            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.required' => 'Please select an owner for the art.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
         ];
     }
 }

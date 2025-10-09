@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Portfolio\VideoStoreRequest;
-use App\Http\Requests\Portfolio\VideoUpdateRequest;
+use App\Http\Requests\Portfolio\StoreVideoRequest;
+use App\Http\Requests\Portfolio\UpdateVideoRequest;
 use App\Models\Portfolio\Video;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,12 +46,12 @@ class VideoController extends BaseController
     /**
      * Store a newly created video in storage.
      *
-     * @param VideoStoreRequest $videoStorerequest
+     * @param StoreVideoRequest $storeVideoRequest
      * @return RedirectResponse
      */
-    public function store(VideoStoreRequest $videoStorerequest): RedirectResponse
+    public function store(StoreVideoRequest $storeVideoRequest): RedirectResponse
     {
-        $video = Video::create($videoStorerequest->validated());
+        $video = Video::create($storeVideoRequest->validated());
 
         return redirect(referer('admin.portfolio.video.index'))
             ->with('success', $video->name . ' added successfully.');
@@ -82,13 +82,13 @@ class VideoController extends BaseController
     /**
      * Update the specified video in storage.
      *
-     * @param VideoUpdateRequest $videoUpdateRequest
+     * @param UpdateVideoRequest $updateVideoRequest
      * @param Video $video
      * @return RedirectResponse
      */
-    public function update(VideoUpdateRequest $videoUpdateRequest, Video $video): RedirectResponse
+    public function update(UpdateVideoRequest $updateVideoRequest, Video $video): RedirectResponse
     {
-        $video->update($videoUpdateRequest->validated());
+        $video->update($updateVideoRequest->validated());
 
         return redirect(referer('admin.portfolio.video.index'))
             ->with('success', $video->name . ' updated successfully.');

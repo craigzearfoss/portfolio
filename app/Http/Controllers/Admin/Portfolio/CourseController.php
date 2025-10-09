@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Portfolio\CourseStoreRequest;
-use App\Http\Requests\Portfolio\CourseUpdateRequest;
+use App\Http\Requests\Portfolio\StoreCourseRequest;
+use App\Http\Requests\Portfolio\UpdateCourseRequest;
 use App\Models\Portfolio\Course;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,12 +46,12 @@ class CourseController extends BaseController
     /**
      * Store a newly created course in storage.
      *
-     * @param CourseStoreRequest $courseStoreRequest
+     * @param StoreCourseRequest $storeCourseRequest
      * @return RedirectResponse
      */
-    public function store(CourseStoreRequest $courseStoreRequest): RedirectResponse
+    public function store(StoreCourseRequest $storeCourseRequest): RedirectResponse
     {
-        $course = Course::create($courseStoreRequest->validated());
+        $course = Course::create($storeCourseRequest->validated());
 
         return redirect(referer('admin.portfolio.course.index'))
             ->with('success', $course-> name . ' added successfully.');
@@ -82,13 +82,13 @@ class CourseController extends BaseController
     /**
      * Update the specified course in storage.
      *
-     * @param CourseUpdateRequest $courseUpdateRequest
+     * @param UpdateCourseRequest $updateCourseUpdateRequest
      * @param Course $course
      * @return RedirectResponse
      */
-    public function update(CourseUpdateRequest $courseUpdateRequest, Course $course): RedirectResponse
+    public function update(UpdateCourseRequest $updateCourseUpdateRequest, Course $course): RedirectResponse
     {
-        $course->update($courseUpdateRequest->validated());
+        $course->update($updateCourseUpdateRequest->validated());
 
         return redirect(referer('admin.portfolio.course.index'))
             ->with('success', $course->name . ' updated successfully.');

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Portfolio\ArtStoreRequest;
-use App\Http\Requests\Portfolio\ArtUpdateRequest;
+use App\Http\Requests\Portfolio\StoreArtRequest;
+use App\Http\Requests\Portfolio\UpdateArtRequest;
 use App\Models\Portfolio\Art;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -47,12 +47,12 @@ class ArtController extends BaseController
      * Store a newly created art in storage.
      *
      *
-     * @param ArtStoreRequest $artStoreRequest
+     * @param StoreArtRequest $storeArtRequest
      * @return RedirectResponse
      */
-    public function store(ArtStoreRequest $artStoreRequest): RedirectResponse
+    public function store(StoreArtRequest $storeArtRequest): RedirectResponse
     {
-        $art = Art::create($artStoreRequest->validated());
+        $art = Art::create($storeArtRequest->validated());
 
         return redirect(referer('admin.portfolio.art.index'))
             ->with('success', $art->name . ' added successfully.');
@@ -83,13 +83,13 @@ class ArtController extends BaseController
     /**
      * Update the specified art in storage.
      *
-     * @param ArtUpdateRequest $artUpdateRequest
+     * @param UpdateArtRequest $updateArtRequest
      * @param Art $art
      * @return RedirectResponse
      */
-    public function update(ArtUpdateRequest $artUpdateRequest, Art $art): RedirectResponse
+    public function update(UpdateArtRequest $updateArtRequest, Art $art): RedirectResponse
     {
-        $art->update($artUpdateRequest->validated());
+        $art->update($updateArtRequest->validated());
 
         return redirect(referer('admin.portfolio.art.index'))
             ->with('success', $art->name . ' updated successfully.');
