@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\BaseController;
 use App\Mail\ResetPassword;
 use App\Models\Admin;
+use App\Models\Message;
 use App\Models\Resource;
 use App\Services\PermissionService;
 use Illuminate\Http\RedirectResponse;
@@ -32,6 +33,11 @@ class IndexController extends BaseController
 
     public function login(Request $request): RedirectResponse | View
     {
+        if (isAdmin()) {
+            // admin is already logged in
+            return redirect()->route('admin.dashboard');
+        }
+
         if ($request->isMethod('post')) {
 
             $inputs= $request->all();
@@ -143,7 +149,7 @@ class IndexController extends BaseController
         $admin = Auth::guard('admin')->user();
 
         $title = $admin->username;
-        return view('admin.profile', compact('admin', 'title'));
+        return view('admin.profile.show', compact('admin', 'title'));
     }
 
     /**
@@ -154,7 +160,7 @@ class IndexController extends BaseController
         $admin = Auth::guard('admin')->user();
 
         $title = 'Edit My Profile';
-        return view('admin.profile-edit', compact('admin', 'title'));
+        return view('admin.profile.edit', compact('admin', 'title'));
     }
 
     /**
@@ -173,7 +179,21 @@ class IndexController extends BaseController
         $admin->email    = $request->email;
         $admin->save();
 
-        return redirect()->route('admin.profile')
+        return redirect()->route('admin.profile.show')
             ->with('success', 'Profile updated successfully.');
+    }
+
+    /**
+     * Remove the specified message from storage.
+     *
+     * @param Message $message
+     * @return RedirectResponse
+     */
+    public function destroy(Message $message): RedirectResponse
+    {
+        $message->delete();
+
+        return redirect(referer('admin.system.message.index'))
+            ->with('success', 'Message deleted successfully.');
     }
 }

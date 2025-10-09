@@ -4,7 +4,7 @@
         [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
-        [ 'name' => 'Message',         'href' => route('admin.system.message.index') ],
+        [ 'name' => 'Messages',        'href' => route('admin.system.message.index') ],
         [ 'name' => 'Show' ],
     ],
     'buttons' => [

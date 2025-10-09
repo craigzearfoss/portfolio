@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->string('subject');
+            $table->string('subject', 500);
             $table->text('body');
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);

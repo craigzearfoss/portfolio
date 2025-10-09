@@ -1,12 +1,14 @@
 @extends('guest.layouts.default', [
-    'title'    => 'Contact',
+    'title'    => '',
     'subtitle' => null,
     'breadcrumbs' => [
         [ 'name' => 'Home', 'href' => route('guest.homepage')],
-        [ 'name' => 'Contact']
+        [ 'name' => 'Contact Us']
     ],
     'buttons' => [],
-    'errorMessages'=> $errors->messages() ?? [],
+    'errorMessages' => $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated problems and submit again.']
+        : [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])
@@ -17,7 +19,13 @@
 
         <h2 class="title">Contact Us</h2>
 
-            <form action="{{ route('guest.database.store') }}" method="POST">
+        @if(empty(config('app.contactable')))
+
+            <h3 class="subtitle p-4">Sorry, but we are not currently accepting messages.</h3>
+
+        @else
+
+            <form action="{{ route('guest.contact.storeMessage') }}" method="POST">
                 @csrf
 
                 <div class="column is-6">
@@ -67,6 +75,8 @@
                 </div>
 
             </form>
+
+        @endif
 
     </div>
 

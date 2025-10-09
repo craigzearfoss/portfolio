@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\MessageStoreRequest;
 use App\Mail\ForgotUsername;
 use App\Mail\ResetPassword;
 use App\Mail\VerifyEmail;
+use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -234,6 +235,19 @@ class IndexController extends BaseController
     {
         $title = 'Contact Us';
         return view('guest.contact', compact('title'));
+    }
+
+    /**
+     * Store a submitted contact message in storage.
+     *
+     * @param MessageStoreRequest $messageStoreRequest
+     * @return RedirectResponse
+     */
+    public function storeMessage(MessageStoreRequest $messageStoreRequest): RedirectResponse
+    {
+        $message = Message::create($messageStoreRequest->validated());
+
+        return redirect(route('guest.homepage'))->with('success', 'Your message has been sent. Thank you!.');
     }
 
     public function privacy_policy(): View

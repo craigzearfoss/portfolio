@@ -28,9 +28,9 @@ class MessageUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => ['string', 'level', 'max:255'],
-            'email'    => ['email', 'level', 'max:255'],
-            'subject'  => ['string', 'level', 'max:255'],
+            'name'     => ['filled', 'string', 'max:255'],
+            'email'    => ['filled', 'email:rfc,dns', 'max:255'],
+            'subject'  => ['filled', 'string', 'max:255'],
             'body'     => ['filled'],
             'sequence' => ['integer', 'min:0'],
             'public'   => ['integer', 'between:0,1'],

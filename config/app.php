@@ -24,11 +24,12 @@ return [
     'career_db'             => env('CAREER_DB_DATABASE'),
     'portfolio_db'          => env('PORTFOLIO_DB_DATABASE'),
     'personal_db'           => env('PERSONAL_DB_DATABASE'),
-    'demo'                  => env('APP_DEMO', '0'),
     'name'                  => env('APP_NAME', 'Laravel'),
     'open_enrollment'       => env('APP_OPEN_ENROLLMENT', '0'),
     'owner'                 => env('APP_OWNER', ''),
+    'demo'                  => env('APP_DEMO', '0'),
     'readonly'              => env('APP_READONLY', '0'),
+    'contactable'           => env('APP_CONTACTABLE', '0'),
     'root_resources'        => env('APP_ROOT_RESOURCES', ''),
 
     /*

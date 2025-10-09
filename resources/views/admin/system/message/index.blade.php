@@ -56,16 +56,29 @@
                     <td data-field="created_at">
                         {{ shortDateTime($message->created_at) }}
                     </td>
-                    <td>
-                        <form action="{{ route('admin.system.message.destroy', $message->id) }}" method="POST">
-                            <a class="btn btn-sm" href="{{ route('admin.system.message.show', $message->id) }}"><i
-                                    class="fa-solid fa-list"></i>{{-- Show --}}</a>
-                                <?php /*<a class="btn btn-sm" href="{{ route('admin.system.message.edit', $message->id) }}"><i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}</a> */ ?>
+                    <td style="white-space: nowrap;">
+
+                        <a class="btn btn-sm" href="{{ route('admin.system.message.show', $message->id) }}">
+                            <i class="fa-solid fa-list"></i>{{-- show --}}
+                        </a>
+
+                        <?php /*
+                        <a class="btn btn-sm" href="{{ route('admin.system.message.edit', $message->id) }}">
+                            <i class="fa-solid fa-pen-to-square"></i>{{-- edit--}}
+                        </a>
+                        */ ?>
+
+                        <form action="{{ route('admin.system.message.destroy', $message->id) }}"
+                              method="POST"
+                              style="display: inline-block;"
+                        >
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm"><i
-                                    class="fa-solid fa-trash"></i>{{-- Delete--}}</button>
+                            <button type="submit" class="btn btn-sm">
+                                <i class="fa-solid fa-trash"></i>{{-- delete--}}
+                            </button>
                         </form>
+
                     </td>
                 </tr>
 

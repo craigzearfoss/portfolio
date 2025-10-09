@@ -29,8 +29,8 @@ class MessageStoreRequest extends FormRequest
     {
         return [
             'name'     => ['required', 'max:255'],
-            'email'    => ['required', 'email', 'max:255'],
-            'subject'  => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'email:rfc,dns', 'max:255'],
+            'subject'  => ['required', 'string', 'max:500'],
             'body'     => ['required'],
             'sequence' => ['integer', 'min:0'],
             'public'   => ['integer', 'between:0,1'],

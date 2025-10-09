@@ -77,7 +77,7 @@ class ContactStoreRequest extends FormRequest
             'phone_label'     => ['string', 'max:255', 'nullable'],
             'alt_phone'       => ['string', 'max:50', 'nullable'],
             'alt_phone_label' => ['string', 'max:255', 'nullable'],
-            'email'           => ['string', 'max:255', 'nullable'],
+            'email'           => ['email:rfc,dns', 'max:255', 'nullable'],
             'email_label'     => ['string', 'max:255', 'nullable'],
             'alt_email'       => ['string', 'max:255', 'nullable'],
             'alt_email_label' => ['string', 'max:255', 'nullable'],
