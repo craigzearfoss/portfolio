@@ -18,7 +18,7 @@
 
 @section('content')
 
-    <div class="form-container">
+    <div class="form-container container" style="width: 30em;">
 
         <form action="{{ route('admin.system.user.change-password-submit', $user) }}"
               method="POST">
@@ -31,7 +31,7 @@
 
             <div class="card p-4 mb-3">
 
-                @include('admin.components.form-input-horizontal', [
+                @include('admin.components.form-input', [
                     'type'        => 'password',
                     'name'        => 'password',
                     'label'       => 'new password',
@@ -43,7 +43,7 @@
                     'placeholder' => 'Password'
                 ])
 
-                @include('admin.components.form-input-horizontal', [
+                @include('admin.components.form-input', [
                     'label'       => 'confirm password',
                     'type'        => 'password',
                     'name'        => 'confirm_password',
@@ -57,10 +57,13 @@
                 ])
 
             </div>
-            @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Save',
-                'cancel_url' => referer('admin.system.user.index')
-            ])
+
+            <div class="has-text-centered">
+                @include('admin.components.form-button-submit-horizontal', [
+                    'label'      => 'Save',
+                    'cancel_url' => referer('admin.system.user.index')
+                ])
+            </div>
 
         </form>
 

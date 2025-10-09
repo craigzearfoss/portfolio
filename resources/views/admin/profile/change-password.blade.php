@@ -15,7 +15,9 @@
 
 @section('content')
 
-    <div class="card column is-5 p-4">
+<div class="container has-text-centered">
+
+    <div class="card p-4" style="width: 30em; display: inline-block">
 
         <form action="{{ route('admin.profile.change-password-submit', $admin) }}" method="POST">
             @csrf
@@ -60,5 +62,5 @@
         </form>
 
     </div>
-
+</div>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\MessageStoreRequest;
+use App\Http\Requests\System\UserUpdateRequest;
 use App\Mail\ForgotUsername;
 use App\Mail\ResetPassword;
 use App\Mail\VerifyEmail;
@@ -23,25 +24,31 @@ class IndexController extends BaseController
         return view('guest.index');
     }
 
-    public function login(Request $request): RedirectResponse|View
+    /**
+     * Update the new password.
+     *
+     * @param UserUpdateRequest $userUpdateRequest
+     * @return RedirectResponse|View
+     */
+    public function login(UserUpdateRequest $userUpdateRequest): RedirectResponse|View
     {
-        if ($request->isMethod('post')) {
+        if ($userUpdateRequest->isMethod('post')) {
 
-            $inputs = $request->all();
-            $email = $inputs['email'] ?? '';
+            $inputs = $userUpdateRequest->all();
+            $username = $inputs['username'] ?? '';
 
-            $request->validate([
-                'email' => ['required', 'email'],
+            $userUpdateRequest->validate([
+                'username' => ['required', 'username'],
                 'password' => ['required'],
             ]);
 
             $data = [
-                'email' => $email,
+                'username' => $username,
                 'password' => $inputs['password'],
             ];
 
-            if (Auth::guard('web')->attempt($data)) {
-                return redirect()->route('guest.homepage');
+            if (Auth::guard('web')->attempt($data)) {die('ddd');
+                return redirect()->route('user.dashboard');
             } else {
                 $title = 'Login';
                 return view('guest.login', compact('title'))->withErrors('Invalid login credentials. Please try again.');

@@ -9,9 +9,9 @@
 
 @section('content')
 
-    <div class="columns has-text-centered mt-4 pt-4">
+    <div class="has-text-centered mt-4 pt-4" style="max-width: 80em;">
 
-        <div class="card column is-6 m-4 p-4  has-text-centered">
+        <div class="card m-4 p-4 has-text-centered">
 
             <h1 class="title">{{ config('app.name') }} Admin</h1>
 

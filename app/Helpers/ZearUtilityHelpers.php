@@ -56,7 +56,11 @@ if (! function_exists('isUser')) {
      */
     function isUser(): bool
     {
-        return Auth::guard('user')->check();
+        try {
+            return Auth::guard('user')->check();
+        } catch (\Throwable $th) {
+            return false;
+        }
     }
 }
 
@@ -68,7 +72,11 @@ if (! function_exists('isAdmin')) {
      */
     function isAdmin(): bool
     {
-        return Auth::guard('admin')->check();
+        try {
+            return Auth::guard('admin')->check();
+        } catch (\Throwable $th) {
+            return false;
+        }
     }
 }
 
@@ -80,7 +88,11 @@ if (! function_exists('isRootAdmin')) {
      */
     function isRootAdmin(): bool
     {
-        return Auth::guard('admin')->check() && (bool) Auth::guard('admin')->user()->root;
+        try {
+            return Auth::guard('admin')->check() && (bool)Auth::guard('admin')->user()->root;
+        } catch (\Throwable $th) {
+            return false;
+        }
     }
 }
 

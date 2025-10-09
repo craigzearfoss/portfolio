@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin\System;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\System\UserStoreRequest;
 use App\Http\Requests\System\UserUpdateRequest;
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class UserController extends BaseController
@@ -123,7 +125,17 @@ class UserController extends BaseController
      */
     public function change_password_submit(UserUpdateRequest $userUpdateRequest, User $user): RedirectResponse
     {
-        $user->update($userUpdateRequest->validated());
+        $userUpdateRequest->validate([
+            'password' => ['required'],
+            'confirm_password' => ['required', 'same:password']
+        ]);
+
+        if (Hash::check($userUpdateRequest->password, $user->password)) {
+            return redirect()->back()->with('error', ' You cannot use your old password again.');
+        }
+
+        $user->password = Hash::make($userUpdateRequest->password);
+        $user->update();
 
         return redirect(referer('admin.system.user.show', $user))
             ->with('success', 'Password for ' . $user->username . ' updated successfully.');

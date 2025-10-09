@@ -12,7 +12,7 @@
 
 @section('content')
 
-    <div class="card p-8 my-4">
+    <div class="card p-8 my-4 container" style="width: 50em;">
 
         <h1 class="p-4">Welcome to {{ config('app.name') }} Admin!</h1>
 

@@ -42,7 +42,7 @@ Route::middleware('web')->name('user.')->group(function () {
     Route::get('/dashboard', [UserIndexController::class, 'dashboard'])->name('dashboard');
     Route::get('/logout', [UserIndexController::class, 'logout'])->name('logout');
     Route::get('/profile/change-password', [UserProfileController::class, 'change_password'])->name('change-password');
-    Route::post('/profile/change-password', [UserProfileController::class, 'change_password_submit'])->name('change-password-submit');
+    Route::put('/profile/change-password', [UserProfileController::class, 'change_password_submit'])->name('change-password-submit');
     Route::get('/profile', [UserProfileController::class, 'show'])->name('show');
     Route::get('/profile/edit', [UserProfileController::class, 'edit'])->name('edit');
     Route::post('/profile/update', [UserProfileController::class, 'update'])->name('update');
@@ -64,7 +64,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::prefix('admin/profile')->middleware('admin')->name('admin.profile.')->group(function () {
     Route::get('/', [AdminProfileController::class, 'show'])->name('show');
     Route::get('change-password', [AdminProfileController::class, 'change_password'])->name('change-password');
-    Route::post('change-password', [AdminProfileController::class, 'change_password_submit'])->name('change-password-submit');
+    Route::put('change-password', [AdminProfileController::class, 'change_password_submit'])->name('change-password-submit');
     Route::get('edit', [AdminProfileController::class, 'edit'])->name('edit');
     Route::post('update', [AdminProfileController::class, 'update'])->name('update');
 });

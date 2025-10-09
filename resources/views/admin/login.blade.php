@@ -9,7 +9,7 @@
 
 @section('content')
 
-    <div class="edit-container card form-container p-4 is-6 container" style="max-width: 30em;">
+    <div class="edit-container card form-container p-4 is-6 container" style="width: 30em;">
 
         <div class="is-size-4 has-text-centered">
             Admin Login
