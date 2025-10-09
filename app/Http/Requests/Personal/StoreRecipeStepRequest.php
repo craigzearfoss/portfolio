@@ -8,8 +8,9 @@ use App\Models\Personal\Recipe;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
-class RecipeStepUpdateRequest extends FormRequest
+class StoreRecipeStepRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -34,11 +35,11 @@ class RecipeStepUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'    => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'    => ['required', 'integer', 'exists:core_db.admins,id'],
             'recipe_id'   => [
-                'filled',
+                'required',
                 'integer',
-                Rule::in(Recipe::where('owner_id', $this->owner_id)->get()->pluck('id')->toArray()),
+                Rule::in(Recipe::where('owner_id', $this->owner_id)->get()->pluck('id')->toArray())
             ],
             'step'         => ['integer', 'min:1'],
             'description'  => ['nullable'],
@@ -57,9 +58,9 @@ class RecipeStepUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'  => 'Please select an owner.',
-            'owner_id.exists'  => 'The specified owner does not exist.',
-            'recipe_id.filled' => 'Please select a recipe.',
+            'owner_id.required'  => 'Please select an owner.',
+            'owner_id.exists'    => 'The specified owner does not exist.',
+            'recipe_id.required' => 'Please select a recipe.',
         ];
     }
 }

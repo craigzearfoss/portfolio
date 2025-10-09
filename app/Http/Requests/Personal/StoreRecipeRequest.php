@@ -8,8 +8,9 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
-class RecipeUpdateRequest extends FormRequest
+class StoreRecipeRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -36,27 +37,27 @@ class RecipeUpdateRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'personal_db.recipes', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'personal_db.recipes ', $this->owner_id)
             ]);
         }
 
         return [
-            'owner_id'     => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'     => ['required', 'integer', 'exists:core_db.admins,id'],
             'name'         => [
-                'filled',
+                'required',
+                'string',
                 'max:255',
                 Rule::unique('personal_db.recipes')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->recipe->id)
                         ->where('name', $this->name);
                 })
             ],
             'slug'         => [
-                'filled',
+                'required',
+                'string',
                 'max:255',
                 Rule::unique('personal_db.recipes')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->recipe->id)
                         ->where('slug', $this->slug);
                 })
             ],
@@ -94,8 +95,8 @@ class RecipeUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled' => 'Please select an owner for the recipe.',
-            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.required' => 'Please select an owner for the recipe.',
+            'owner_id.exists'   => 'The specified owner does not exist.',
         ];
     }
 }

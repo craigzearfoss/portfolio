@@ -6,7 +6,7 @@ use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UnitUpdateRequest extends FormRequest
+class UpdateUnitRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

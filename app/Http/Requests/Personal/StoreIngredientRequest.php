@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class IngredientUpdateRequest extends FormRequest
+class StoreIngredientRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -29,14 +29,14 @@ class IngredientUpdateRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'personal_db.ingredients', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'personal_db.ingredients')
             ]);
         }
 
         return [
-            'full_name'    => ['filled', 'string', 'max:255', 'unique:personal_db.ingredients,full_name,'.$this->ingredient->id],
-            'name'         => ['filled', 'string', 'max:100', 'unique:personal_db.ingredients,name,'.$this->ingredient->id],
-            'slug'         => ['filled', 'string', 'max:100', 'unique:personal_db.ingredients,slug,'.$this->ingredient->id],
+            'full_name'    => ['required', 'string', 'max:255', 'unique:personal_db.ingredients,full_name'],
+            'name'         => ['required', 'string', 'max:100', 'unique:personal_db.ingredients,name'],
+            'slug'         => ['required', 'string', 'max:100', 'unique:personal_db.ingredients,slug'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

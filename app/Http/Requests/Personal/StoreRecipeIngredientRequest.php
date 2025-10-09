@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class RecipeIngredientStoreRequest extends FormRequest
+class StoreRecipeIngredientRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

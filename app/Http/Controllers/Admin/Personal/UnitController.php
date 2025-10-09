@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Personal;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Personal\UnitStoreRequest;
-use App\Http\Requests\Personal\UnitUpdateRequest;
+use App\Http\Requests\Personal\StoreUnitRequest;
+use App\Http\Requests\Personal\UpdateUnitRequest;
 use App\Models\Personal\Unit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -48,16 +48,16 @@ class UnitController extends BaseController
     /**
      * Store a newly created unit in storage.
      *
-     * @param UnitStoreRequest $unitStoreRequest
+     * @param StoreUnitRequest $storeUnitRequest
      * @return RedirectResponse
      */
-    public function store(UnitStoreRequest $unitStoreRequest): RedirectResponse
+    public function store(StoreUnitRequest $storeUnitRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add units.');
         }
 
-        $unit = Unit::create($unitStoreRequest->validated());
+        $unit = Unit::create($storeUnitRequest->validated());
 
         return redirect(referer('admin.personal.unit.index'))
             ->with('success', $unit->name . $unit->name . ' added successfully.');
@@ -92,17 +92,17 @@ class UnitController extends BaseController
     /**
      * Update the specified unit in storage.
      *
-     * @param UnitUpdateRequest $unitUpdateRequest
+     * @param UpdateUnitRequest $updateUnitRequest
      * @param Unit $unit
      * @return RedirectResponse
      */
-    public function update(UnitUpdateRequest $unitUpdateRequest, Unit $unit): RedirectResponse
+    public function update(UpdateUnitRequest $updateUnitRequest, Unit $unit): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update units.');
         }
 
-        $unit->update($unitUpdateRequest->validated());
+        $unit->update($updateUnitRequest->validated());
 
         return redirect(referer('admin.personal.unit.index'))
             ->with('success', $unit->name . ' updated successfully.');

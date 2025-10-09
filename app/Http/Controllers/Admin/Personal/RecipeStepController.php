@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Personal;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Personal\RecipeStepStoreRequest;
-use App\Http\Requests\Personal\RecipeStepUpdateRequest;
+use App\Http\Requests\Personal\StoreRecipeStepRequest;
+use App\Http\Requests\Personal\UpdateRecipeStepRequest;
 use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeStep;
 use Illuminate\Http\RedirectResponse;
@@ -55,12 +55,12 @@ class RecipeStepController extends BaseController
     /**
      * Store a newly created recipe step in storage.
      *
-     * @param RecipeStepStoreRequest $recipeStepStoreRequest
+     * @param StoreRecipeStepRequest $storeRecipeStepStoreRequest
      * @return RedirectResponse
      */
-    public function store(RecipeStepStoreRequest $recipeStepStoreRequest): RedirectResponse
+    public function store(StoreRecipeStepRequest $storeRecipeStepStoreRequest): RedirectResponse
     {
-        $recipeStep = RecipeStep::create($recipeStepStoreRequest->validated());
+        $recipeStep = RecipeStep::create($storeRecipeStepStoreRequest->validated());
 
         return redirect(referer('admin.personal.recipe-step.index')
             ->with('success', 'Recipe step added successfully.'));
@@ -91,13 +91,13 @@ class RecipeStepController extends BaseController
     /**
      * Update the specified recipe step in storage.
      *
-     * @param RecipeStepUpdateRequest $recipeStepUpdateRequest
+     * @param UpdateRecipeStepRequest $updateRecipeStepRequest
      * @param RecipeStep $recipeStep
      * @return RedirectResponse
      */
-    public function update(RecipeStepUpdateRequest $recipeStepUpdateRequest, RecipeStep $recipeStep): RedirectResponse
+    public function update(UpdateRecipeStepRequest $updateRecipeStepRequest, RecipeStep $recipeStep): RedirectResponse
     {
-        $recipeStep->update($recipeStepUpdateRequest->validated());
+        $recipeStep->update($updateRecipeStepRequest->validated());
 
         return redirect(referer('admin.personal.recipe-step.index'))
             ->with('success', 'Recipe step updated successfully.');

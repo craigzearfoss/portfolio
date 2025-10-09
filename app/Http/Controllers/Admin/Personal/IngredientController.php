@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Personal;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Personal\IngredientStoreRequest;
-use App\Http\Requests\Personal\IngredientUpdateRequest;
+use App\Http\Requests\Personal\StoreIngredientRequest;
+use App\Http\Requests\Personal\UpdateIngredientRequest;
 use App\Models\Personal\Ingredient;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -49,16 +49,16 @@ class IngredientController extends BaseController
     /**
      * Store a newly created ingredient in storage.
      *
-     * @param IngredientStoreRequest $ingredientStoreRequest
+     * @param StoreIngredientRequest $storeIngredientRequest
      * @return RedirectResponse
      */
-    public function store(IngredientStoreRequest $ingredientStoreRequest): RedirectResponse
+    public function store(StoreIngredientRequest $storeIngredientRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add ingredients.');
         }
 
-        $ingredient = Ingredient::create($ingredientStoreRequest->validated());
+        $ingredient = Ingredient::create($storeIngredientRequest->validated());
 
         return redirect(referer('admin.personal.ingredient.index'))
             ->with('success', $ingredient->name . ' added successfully.');
@@ -93,17 +93,17 @@ class IngredientController extends BaseController
     /**
      * Update the specified ingredient in storage.
      *
-     * @param IngredientUpdateRequest $ingredientUpdateRequest
+     * @param UpdateIngredientRequest $updateIngredientUpdateRequest
      * @param Ingredient $ingredient
      * @return RedirectResponse
      */
-    public function update(IngredientUpdateRequest $ingredientUpdateRequest, Ingredient $ingredient): RedirectResponse
+    public function update(UpdateIngredientRequest $updateIngredientUpdateRequest, Ingredient $ingredient): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update ingredients.');
         }
 
-        $ingredient->update($ingredientUpdateRequest->validated());
+        $ingredient->update($updateIngredientUpdateRequest->validated());
 
         return redirect(referer('admin.personal.ingredient.index'))
             ->with('success', $ingredient->name . ' updated successfully.');

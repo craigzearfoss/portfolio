@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Personal;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Personal\ReadingStoreRequest;
-use App\Http\Requests\Personal\ReadingUpdateRequest;
+use App\Http\Requests\Personal\StoreReadingRequest;
+use App\Http\Requests\Personal\UpdateReadingRequest;
 use App\Models\Personal\Reading;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -45,12 +45,12 @@ class ReadingController extends BaseController
     /**
      * Store a newly created reading in storage.
      *
-     * @param ReadingStoreRequest $readingStoreRequest
+     * @param StoreReadingRequest $storeReadingStoreRequest
      * @return RedirectResponse
      */
-    public function store(ReadingStoreRequest $readingStoreRequest): RedirectResponse
+    public function store(StoreReadingRequest $storeReadingStoreRequest): RedirectResponse
     {
-        $reading = Reading::create($readingStoreRequest->validated());
+        $reading = Reading::create($storeReadingStoreRequest->validated());
 
         return redirect(referer('admin.personal.reading.index'))
             ->with('success', $reading->title . ' added successfully.');
@@ -81,13 +81,13 @@ class ReadingController extends BaseController
     /**
      * Update the specified reading in storage.
      *
-     * @param ReadingUpdateRequest $readingUpdateRequest
+     * @param UpdateReadingRequest $updateReadingRequest
      * @param Reading $reading
      * @return RedirectResponse
      */
-    public function update(ReadingUpdateRequest $readingUpdateRequest, Reading $reading): RedirectResponse
+    public function update(UpdateReadingRequest $updateReadingRequest, Reading $reading): RedirectResponse
     {
-        $reading->update($readingUpdateRequest->validated());
+        $reading->update($updateReadingRequest->validated());
 
         return redirect(referer('admin.personal.reading.index'))
             ->with('success', $reading->title . ' updated successfully.');

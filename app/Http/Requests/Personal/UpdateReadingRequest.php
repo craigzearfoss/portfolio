@@ -8,9 +8,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
-class ReadingStoreRequest extends FormRequest
+class UpdateReadingRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -44,15 +43,16 @@ class ReadingStoreRequest extends FormRequest
         }
 
         return [
-            'owner_id'         => ['required', 'integer', 'exists:core_db.admins,id'],
-            'title'            => ['required', 'string', 'max:255', 'unique:personal_db.readings,name'],
+            'owner_id'         => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'title'            => ['filled', 'string', 'max:255', 'unique:personal_db.readings,name,'.$this->reading->id],
             'author'           => ['string', 'max:255', 'nullable'],
             'slug'             => [
-                'required',
+                'filled',
                 'string',
                 'max:255',
                 Rule::unique('personal_db.readings')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('id', '<>', $this->reading->id)
                         ->where('slug', $this->slug);
                 })
             ],
@@ -84,8 +84,8 @@ class ReadingStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.required' => 'Please select an owner for the reading.',
-            'owner_id.exists'   => 'The specified owner does not exist.',
+            'owner_id.filled' => 'Please select an owner for the reading.',
+            'owner_id.exists' => 'The specified owner does not exist.',
         ];
     }
 }

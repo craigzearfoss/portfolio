@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Personal;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Personal\RecipeIngredientStoreRequest;
-use App\Http\Requests\Personal\RecipeIngredientUpdateRequest;
+use App\Http\Requests\Personal\StoreRecipeIngredientRequest;
+use App\Http\Requests\Personal\UpdateRecipeIngredientRequest;
 use App\Models\Personal\RecipeIngredient;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -48,12 +48,12 @@ class RecipeIngredientController extends BaseController
     /**
      * Store a newly created recipe ingredient in storage.
      *
-     * @param RecipeIngredientStoreRequest $recipeIngredientStoreRequest
+     * @param StoreRecipeIngredientRequest $storeRecipeIngredientRequest
      * @return RedirectResponse
      */
-    public function store(RecipeIngredientStoreRequest $recipeIngredientStoreRequest): RedirectResponse
+    public function store(StoreRecipeIngredientRequest $storeRecipeIngredientRequest): RedirectResponse
     {
-        $recipeIngredient = RecipeIngredient::create($recipeIngredientStoreRequest->validated());
+        $recipeIngredient = RecipeIngredient::create($storeRecipeIngredientRequest->validated());
 
         return redirect(referer('admin.personal.recipe-ingredient.index'))
             ->with('success', 'Recipe ingredient added successfully.');
@@ -84,14 +84,14 @@ class RecipeIngredientController extends BaseController
     /**
      * Update the specified recipe ingredient in storage.
      *
-     * @param RecipeIngredientUpdateRequest $recipeIngredientUpdateRequest
+     * @param UpdateRecipeIngredientRequest $updateRecipeIngredientRequest
      * @param RecipeIngredient $recipeIngredient
      * @return RedirectResponse
      */
-    public function update(RecipeIngredientUpdateRequest $recipeIngredientUpdateRequest,
-                           RecipeIngredient  $recipeIngredient): RedirectResponse
+    public function update(UpdateRecipeIngredientRequest $updateRecipeIngredientRequest,
+                           RecipeIngredient              $recipeIngredient): RedirectResponse
     {
-        $recipeIngredient->update($recipeIngredientUpdateRequest->validated());
+        $recipeIngredient->update($updateRecipeIngredientRequest->validated());
 
         return redirect(referer('admin.personal.recipe-ingredient.index'))
             ->with('success', 'Recipe ingredient updated successfully.');

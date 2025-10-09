@@ -2,15 +2,12 @@
 
 namespace App\Http\Requests\Personal;
 
-use App\Models\Owner;
 use App\Traits\ModelPermissionsTrait;
-use App\Models\Personal\Recipe;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 
-class RecipeStepStoreRequest extends FormRequest
+class UpdateIngredientRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -19,29 +16,29 @@ class RecipeStepStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $this->checkDemoMode();
-
-        $this->checkOwner();
-
-        return true;
+        return isRootAdmin();
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     * @throws \Exception
      */
     public function rules(): array
     {
+        // generate the slug
+        if (!empty($this['name'])) {
+            $this->merge([
+                'slug' => uniqueSlug($this['name'], 'personal_db.ingredients', $this->owner_id)
+            ]);
+        }
+
         return [
-            'owner_id'    => ['required', 'integer', 'exists:core_db.admins,id'],
-            'recipe_id'   => [
-                'required',
-                'integer',
-                Rule::in(Recipe::where('owner_id', $this->owner_id)->get()->pluck('id')->toArray())
-            ],
-            'step'         => ['integer', 'min:1'],
+            'full_name'    => ['filled', 'string', 'max:255', 'unique:personal_db.ingredients,full_name,'.$this->ingredient->id],
+            'name'         => ['filled', 'string', 'max:100', 'unique:personal_db.ingredients,name,'.$this->ingredient->id],
+            'slug'         => ['filled', 'string', 'max:100', 'unique:personal_db.ingredients,slug,'.$this->ingredient->id],
+            'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:500', 'nullable'],
             'image_credit' => ['string', 'max:255', 'nullable'],
@@ -52,15 +49,6 @@ class RecipeStepStoreRequest extends FormRequest
             'readonly'     => ['integer', 'between:0,1'],
             'root'         => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'owner_id.required'  => 'Please select an owner.',
-            'owner_id.exists'    => 'The specified owner does not exist.',
-            'recipe_id.required' => 'Please select a recipe.',
         ];
     }
 }

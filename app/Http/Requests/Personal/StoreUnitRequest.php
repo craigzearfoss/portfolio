@@ -5,9 +5,8 @@ namespace App\Http\Requests\Personal;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
-class IngredientStoreRequest extends FormRequest
+class StoreUnitRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -26,17 +25,10 @@ class IngredientStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // generate the slug
-        if (!empty($this['name'])) {
-            $this->merge([
-                'slug' => uniqueSlug($this['name'], 'personal_db.ingredients')
-            ]);
-        }
-
         return [
-            'full_name'    => ['required', 'string', 'max:255', 'unique:personal_db.ingredients,full_name'],
-            'name'         => ['required', 'string', 'max:100', 'unique:personal_db.ingredients,name'],
-            'slug'         => ['required', 'string', 'max:100', 'unique:personal_db.ingredients,slug'],
+            'name'         => ['required', 'string', 'max:50', 'unique:personal_db.units,name'],
+            'abbreviation' => ['required', 'string', 'max:20', 'unique:personal_db.units,abbreviation'],
+            'system'       => ['string', 'max:10', 'nullable'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
