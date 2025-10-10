@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Guest\Dictionary;
 
-use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\StoreOperatingSystemRequest;
-use App\Http\Requests\Dictionary\UpdateOperatingSystemRequest;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Dictionary\OperatingSystem;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
  *
  */
-class OperatingSystemController extends BaseController
+class OperatingSystemController extends BaseGuestController
 {
     /**
      * Display a listing of operations systems.

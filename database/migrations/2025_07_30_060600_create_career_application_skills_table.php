@@ -6,20 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    protected $database_tag = 'dictionary_db';
+    protected $database_tag = 'career_db';
 
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('tags', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('application_skills', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\Owner::class);
+            $table->foreignIdFor( \App\Models\Career\Application::class)->nullable();
             $table->string('name', 100);
-            $table->foreignIdFor( \App\Models\Resource::class)->nullable();
-            $table->string('model_class')->nullable();
-            $table->integer('model_item_id')->nullable();
             $table->tinyInteger('level')->default(1);
             $table->foreignIdFor(\App\Models\Dictionary\Category::class, 'category_id')->nullable();
             $table->integer('dictionary_term_id')->nullable();
@@ -36,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('tags');
+        Schema::connection($this->database_tag)->dropIfExists('application_skills');
     }
 };

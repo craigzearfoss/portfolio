@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreArtRequest;
 use App\Http\Requests\Portfolio\UpdateArtRequest;
 use App\Models\Portfolio\Art;
+use Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -15,7 +17,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class ArtController extends BaseController
+class ArtController extends BaseAdminController
 {
     /**
      * Display a listing of art.
@@ -40,6 +42,10 @@ class ArtController extends BaseController
      */
     public function create(): View
     {
+        if (! Gate::allows('root-only')) {
+            abort(403, 'Unauthorized action.');
+        }
+        Gate::authorize('create-get', Auth::guard('admin')->user());
         return view('admin.portfolio.art.create');
     }
 

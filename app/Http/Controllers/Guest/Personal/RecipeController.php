@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Guest\Personal;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Personal\Recipe;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class RecipeController extends BaseController
+class RecipeController extends BaseGuestController
 {
     /**
      * Display a listing of recipes.

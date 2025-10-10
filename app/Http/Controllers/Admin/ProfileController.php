@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\UpdateAdminRequest;
 use App\Models\Admin;
 use Illuminate\Http\RedirectResponse;
@@ -13,7 +13,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class ProfileController extends BaseController
+class ProfileController extends BaseAdminController
 {
     /**
      * Display the current admin.

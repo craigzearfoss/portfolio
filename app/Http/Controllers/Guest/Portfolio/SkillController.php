@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Guest\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Portfolio\Skill;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class SkillController extends Controller
+class SkillController extends BaseGuestController
 {
     /**
      * Display a listing of skills.

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\Dictionary\DictionarySection;
 use App\Models\Resource;
 use Illuminate\Http\Request;
 
-class IndexController extends BaseController
+class IndexController extends BaseAdminController
 {
     protected $perPage = 30;
     public function index(Request $request)

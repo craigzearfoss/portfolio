@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreCategoryRequest;
 use App\Http\Requests\Dictionary\UpdateCategoryRequest;
 use App\Models\Dictionary\Category;
@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 /**
  *
  */
-class CategoryController extends BaseController
+class CategoryController extends BaseAdminController
 {
     /**
      * Display a listing of categories.

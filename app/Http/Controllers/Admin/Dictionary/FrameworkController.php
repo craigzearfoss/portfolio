@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreFrameworkRequest;
 use App\Http\Requests\Dictionary\UpdateFrameworkRequest;
 use App\Models\Dictionary\Framework;
@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 /**
  *
  */
-class FrameworkController extends BaseController
+class FrameworkController extends BaseAdminController
 {
     /**
      * Display a listing of frameworks.

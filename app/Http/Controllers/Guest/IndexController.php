@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Guest;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Http\Requests\MessageStoreRequest;
 use App\Http\Requests\System\UpdateUserRequest;
 use App\Mail\ForgotUsername;
@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
-class IndexController extends BaseController
+class IndexController extends BaseGuestController
 {
     public function index(): View
     {

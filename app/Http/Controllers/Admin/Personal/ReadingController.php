@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreReadingRequest;
 use App\Http\Requests\Personal\UpdateReadingRequest;
 use App\Models\Personal\Reading;
@@ -13,7 +13,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class ReadingController extends BaseController
+class ReadingController extends BaseAdminController
 {
     /**
      * Display a listing of readings.

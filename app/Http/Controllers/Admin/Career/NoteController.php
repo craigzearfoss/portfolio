@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreNoteRequest;
 use App\Http\Requests\Career\UpdateNoteRequest;
 use App\Models\Career\Note;
@@ -13,7 +13,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class NoteController extends BaseController
+class NoteController extends BaseAdminController
 {
     /**
      * Display a listing of notes.

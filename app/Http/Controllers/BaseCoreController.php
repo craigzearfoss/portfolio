@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\MenuService;
+use Illuminate\Http\Request;
 use App\Services\PermissionService;
 
-class BaseController extends Controller
+class BaseCoreController extends Controller
 {
     protected $permissionService;
 

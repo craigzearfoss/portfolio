@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreUnitRequest;
 use App\Http\Requests\Personal\UpdateUnitRequest;
 use App\Models\Personal\Unit;
@@ -14,7 +14,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class UnitController extends BaseController
+class UnitController extends BaseAdminController
 {
     /**
      * Display a listing of units.

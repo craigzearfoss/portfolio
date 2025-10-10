@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin\System;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\Resource;
 use App\Services\PermissionService;
 
-class IndexController extends BaseController
+class IndexController extends BaseAdminController
 {
     public function index()
     {

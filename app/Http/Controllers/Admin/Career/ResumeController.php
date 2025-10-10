@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreResumeRequest;
 use App\Http\Requests\Career\UpdateResumeRequest;
 use App\Models\Career\Resume;
@@ -15,7 +15,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class ResumeController extends BaseController
+class ResumeController extends BaseAdminController
 {
     /**
      * Display a listing of resumes.

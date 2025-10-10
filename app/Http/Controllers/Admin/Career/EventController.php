@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\StoreEventRequest;
 use App\Http\Requests\Career\UpdateEventRequest;
@@ -13,7 +14,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class EventController extends BaseController
+class EventController extends BaseAdminController
 {
     /**
      * Display a listing of events.

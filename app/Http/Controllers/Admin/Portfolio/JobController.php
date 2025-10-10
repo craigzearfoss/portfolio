@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobRequest;
 use App\Http\Requests\Portfolio\UpdateJobRequest;
 use App\Models\Portfolio\Job;
@@ -13,7 +13,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class JobController extends BaseController
+class JobController extends BaseAdminController
 {
     /**
      * Display a listing of jobs.

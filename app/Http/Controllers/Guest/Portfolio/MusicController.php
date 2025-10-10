@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Guest\Portfolio;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Portfolio\Music;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class MusicController extends BaseController
+class MusicController extends BaseGuestController
 {
     /**
      * Display a listing of music.

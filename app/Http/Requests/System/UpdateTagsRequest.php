@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Dictionary;
+namespace App\Http\Requests\System;
 
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;

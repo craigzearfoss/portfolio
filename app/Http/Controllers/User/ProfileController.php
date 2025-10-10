@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\BaseController;
-use App\Http\Requests\UserUpdateRequest;
+use App\Http\Controllers\User\BaseUserController;
+use App\Http\Requests\System\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class ProfileController extends BaseController
+class ProfileController extends BaseUserController
 {
     /**
      * Display the current user.
@@ -36,11 +36,11 @@ class ProfileController extends BaseController
     /**
      * Update the current user in storage.
      */
-    public function update(UserUpdateRequest $request): RedirectResponse
+    public function update(UpdateUserRequest $updateUserRequest): RedirectResponse
     {
         $user = Auth::user();
 
-        $user->update($request->validated());
+        $user->update($updateUserRequest->validated());
 
         return redirect()->route('user.show')
             ->with('success', 'Profile updated successfully.');
@@ -57,11 +57,11 @@ class ProfileController extends BaseController
     /**
      * Update the new password.
      */
-    public function change_password_submit(UserUpdateRequest $request, User $user): RedirectResponse|View
+    public function change_password_submit(UpdateUserRequest $updateUserRequest, User $user): RedirectResponse|View
     {
         $user = Auth::user();
 
-        $user->update($request->validated());
+        $user->update($updateUserRequest->validated());
 
         return redirect()->route('user.show', $user)
             ->with('success', 'User password updated successfully.');

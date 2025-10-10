@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreProjectRequest;
 use App\Http\Requests\Portfolio\UpdateProjectRequest;
 use App\Models\Portfolio\Project;
@@ -15,7 +15,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class ProjectController extends BaseController
+class ProjectController extends BaseAdminController
 {
     /**
      * Display a listing of projects.

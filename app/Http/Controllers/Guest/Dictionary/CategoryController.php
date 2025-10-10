@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Guest\Dictionary;
 
-use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\StoreCategoryRequest;
-use App\Http\Requests\Dictionary\UpdateCategoryRequest;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Dictionary\Category;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
  *
  */
-class CategoryController extends BaseController
+class CategoryController extends BaseGuestController
 {
     /**
      * Display a listing of categories.

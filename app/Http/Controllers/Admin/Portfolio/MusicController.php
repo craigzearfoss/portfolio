@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreMusicRequest;
 use App\Http\Requests\Portfolio\UpdateMusicRequest;
 use App\Models\Portfolio\Music;
@@ -15,7 +15,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class MusicController extends BaseController
+class MusicController extends BaseAdminController
 {
     /**
      * Display a listing of music.

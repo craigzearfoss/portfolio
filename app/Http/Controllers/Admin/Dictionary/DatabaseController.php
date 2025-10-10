@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreDatabaseRequest;
 use App\Http\Requests\Dictionary\UpdateDatabaseRequest;
 use App\Models\Dictionary\Database;
@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 /**
  *
  */
-class DatabaseController extends BaseController
+class DatabaseController extends BaseAdminController
 {
     /**
      * Display a listing of databases.

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreVideoRequest;
 use App\Http\Requests\Portfolio\UpdateVideoRequest;
 use App\Models\Portfolio\Video;
@@ -15,7 +15,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class VideoController extends BaseController
+class VideoController extends BaseAdminController
 {
     /**
      * Display a listing of videos.

@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Guest\Dictionary;
 
-use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\StoreLibraryRequest;
-use App\Http\Requests\Dictionary\UpdateRequest;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Dictionary\Library;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
  *
  */
-class LibraryController extends BaseController
+class LibraryController extends BaseGuestController
 {
     /**
      * Display a listing of libraries.

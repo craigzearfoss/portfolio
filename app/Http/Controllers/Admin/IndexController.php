@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Mail\ResetPassword;
 use App\Models\Admin;
 use App\Models\Message;
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
-class IndexController extends BaseController
+class IndexController extends BaseAdminController
 {
     public function index(): View
     {

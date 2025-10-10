@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Dictionary;
+namespace App\Http\Requests\Portfolio;
 
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreTagsRequest extends FormRequest
+class UpdateJobSkillRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -31,6 +31,7 @@ class StoreTagsRequest extends FormRequest
     {
         return [
             'owner_id'        => ['required', 'integer', 'exists:core_db.admins,id'],
+            'job_id'          => ['required', 'integer', 'exists:career_db.Jobs,id'],
             'name'            => [
                 'required',
                 'string',
@@ -40,9 +41,6 @@ class StoreTagsRequest extends FormRequest
                         ->where('name', $this->name);
                 })
             ],
-            'resource_id'           => ['integer', 'exists:career_db.resources,id', 'nullable'],
-            'model_class'           => ['string', 'max:255', 'nullable'],
-            'model_item_id'         => ['integer', 'nullable'],
             'level'                 => ['integer', 'between:0,10'],
             'category_id'           => ['integer', 'exists:dictionary_db.categories,id', 'nullable'],
             'dictionary_id_term_id' => ['integer', 'nullable'],
@@ -55,8 +53,8 @@ class StoreTagsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.required'  => 'Please select an owner for the tag.',
-            'owner_id.exists'    => 'The specified owner does not exist.',
+            'owner_id.required' => 'Please select an owner for the tag.',
+            'owner_id.exists' => 'The specified owner does not exist.',
             'resource_id.exists' => 'The specified resource does not exist.',
             'category_id.exists' => 'The specified category does not exist.',
         ];

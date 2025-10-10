@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreLibraryRequest;
 use App\Http\Requests\Dictionary\UpdateLibraryRequest;
 use App\Models\Dictionary\Library;
@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 /**
  *
  */
-class LibraryController extends BaseController
+class LibraryController extends BaseAdminController
 {
     /**
      * Display a listing of libraries.

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreOperatingSystemRequest;
 use App\Http\Requests\Dictionary\UpdateOperatingSystemRequest;
 use App\Models\Dictionary\OperatingSystem;
@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 /**
  *
  */
-class OperatingSystemController extends BaseController
+class OperatingSystemController extends BaseAdminController
 {
     /**
      * Display a listing of operations systems.

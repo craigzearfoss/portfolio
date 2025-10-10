@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreCourseRequest;
 use App\Http\Requests\Portfolio\UpdateCourseRequest;
 use App\Models\Portfolio\Course;
@@ -15,7 +15,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class CourseController extends BaseController
+class CourseController extends BaseAdminController
 {
     /**
      * Display a listing of courses.

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Dictionary;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Dictionary\StoreServerRequest;
 use App\Http\Requests\Dictionary\UpdateServerRequest;
 use App\Models\Dictionary\Server;
@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 /**
  *
  */
-class ServerController extends BaseController
+class ServerController extends BaseAdminController
 {
     /**
      * Display a listing of servers.

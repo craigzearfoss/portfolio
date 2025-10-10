@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreRecipeStepRequest;
 use App\Http\Requests\Personal\UpdateRecipeStepRequest;
 use App\Models\Personal\Recipe;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  *
  */
-class RecipeStepController extends BaseController
+class RecipeStepController extends BaseAdminController
 {
     /**
      * Display a listing of recipe steps.

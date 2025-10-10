@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Guest\Dictionary;
 
-use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\StoreStackRequest;
-use App\Http\Requests\Dictionary\UpdateStackRequest;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Dictionary\Stack;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
  *
  */
-class StackController extends BaseController
+class StackController extends BaseGuestController
 {
     /**
      * Display a listing of stacks.

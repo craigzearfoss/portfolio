@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Guest\Portfolio;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Portfolio\Video;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class VideoController extends BaseController
+class VideoController extends BaseGuestController
 {
     /**
      * Display a listing of videos.

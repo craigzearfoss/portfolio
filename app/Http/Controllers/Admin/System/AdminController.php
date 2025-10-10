@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminRequest;
 use App\Http\Requests\System\UpdateAdminRequest;
 use App\Models\Admin;
@@ -15,7 +15,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class AdminController extends BaseController
+class AdminController extends BaseAdminController
 {
     /**
      * Display a listing of admins.

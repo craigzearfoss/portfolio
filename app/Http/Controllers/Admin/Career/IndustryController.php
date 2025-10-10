@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreIndustryRequest;
 use App\Http\Requests\Career\UpdateIndustryRequest;
 use App\Models\Career\Industry;
@@ -14,7 +14,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class IndustryController extends BaseController
+class IndustryController extends BaseAdminController
 {
     /**
      * Display a listing of industries.
@@ -39,7 +39,7 @@ class IndustryController extends BaseController
      */
     public function create(): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add industries.');
         }
 

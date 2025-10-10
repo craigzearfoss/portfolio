@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreMessageRequest;
 use App\Http\Requests\System\UpdateMessageRequest;
 use App\Models\Message;
@@ -13,7 +13,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class MessageController extends BaseController
+class MessageController extends BaseAdminController
 {
     /**
      * Display a listing of messages.

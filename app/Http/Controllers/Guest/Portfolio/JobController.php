@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Guest\Portfolio;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Portfolio\Job;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class JobController extends Controller
+class JobController extends BaseGuestController
 {
     public function show(Request $request): View
     {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminTeamRequest;
 use App\Http\Requests\System\UpdateAdminTeamRequest;
 use App\Models\AdminTeam;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class AdminTeamController extends Controller
+class AdminTeamController extends BaseAdminController
 {
     /**
      * Display a listing of admin teams.

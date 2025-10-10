@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminRequest;
 use App\Http\Requests\Career\StoreCompanyContactRequest;
 use App\Http\Requests\Career\StoreCompanyRequest;
@@ -21,7 +21,7 @@ use function PHPUnit\Framework\throwException;
 /**
  *
  */
-class CompanyController extends BaseController
+class CompanyController extends BaseAdminController
 {
     /**
      * Display a listing of companies.

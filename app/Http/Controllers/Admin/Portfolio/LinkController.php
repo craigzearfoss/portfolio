@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreLinkRequest;
 use App\Http\Requests\Portfolio\UpdateLinkRequest;
 use App\Models\Portfolio\Link;
@@ -15,7 +15,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class LinkController extends BaseController
+class LinkController extends BaseAdminController
 {
     /**
      * Display a listing of links.

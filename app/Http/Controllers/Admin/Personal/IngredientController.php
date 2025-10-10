@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Personal;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Personal\StoreIngredientRequest;
 use App\Http\Requests\Personal\UpdateIngredientRequest;
 use App\Models\Personal\Ingredient;
@@ -14,7 +14,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class IngredientController extends BaseController
+class IngredientController extends BaseAdminController
 {
     /**
      * Display a listing of ingredients.

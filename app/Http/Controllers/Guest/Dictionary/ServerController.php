@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Guest\Dictionary;
 
-use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\StoreServerRequest;
-use App\Http\Requests\Dictionary\UpdateServerRequest;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Dictionary\Server;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
  *
  */
-class ServerController extends BaseController
+class ServerController extends BaseGuestController
 {
     /**
      * Display a listing of servers.

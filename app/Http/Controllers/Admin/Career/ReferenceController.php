@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreReferenceRequest;
 use App\Http\Requests\Career\UpdateReferenceRequest;
 use App\Models\Career\Reference;
@@ -15,7 +15,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class ReferenceController extends BaseController
+class ReferenceController extends BaseAdminController
 {
     /**
      * Display a listing of references.

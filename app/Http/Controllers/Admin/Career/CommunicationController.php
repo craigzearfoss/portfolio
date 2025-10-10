@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCommunicationRequest;
 use App\Http\Requests\Career\UpdateCommunicationRequest;
 use App\Models\Career\Communication;
@@ -13,7 +13,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class CommunicationController extends BaseController
+class CommunicationController extends BaseAdminController
 {
     /**
      * Display a listing of communications.

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Career\UpdateApplicationRequest;
 use App\Http\Requests\Career\StoreCoverLetterRequest;
@@ -16,7 +17,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class CoverLetterController extends BaseController
+class CoverLetterController extends BaseAdminController
 {
     /**
      * Display a listing of cover letters.

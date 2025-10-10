@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCompanyContactRequest;
 use App\Http\Requests\Career\StoreContactRequest;
 use App\Http\Requests\Career\UpdateContactRequest;
-use App\Http\Requests\Career\rContactUpdateRequest;
 use App\Models\Career\Company;
 use App\Models\Career\Contact;
 use Illuminate\Http\RedirectResponse;
@@ -18,7 +17,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class ContactController extends BaseController
+class ContactController extends BaseAdminController
 {
     /**
      * Display a listing of contacts.

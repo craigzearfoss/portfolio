@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreRecruiterRequest;
 use App\Http\Requests\Career\UpdateRecruiterRequest;
 use App\Models\Career\Recruiter;
@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class RecruiterController extends Controller
+class RecruiterController extends BaseAdminController
 {
     /**
      * Display a listing of recruiters.

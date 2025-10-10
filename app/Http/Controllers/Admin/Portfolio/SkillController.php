@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreSkillRequest;
 use App\Http\Requests\Portfolio\UpdateSkillRequest;
 use App\Models\Portfolio\Skill;
@@ -13,7 +13,7 @@ use Illuminate\View\View;
 /**
  *
  */
-class SkillController extends BaseController
+class SkillController extends BaseAdminController
 {
     /**
      * Display a listing of skills.

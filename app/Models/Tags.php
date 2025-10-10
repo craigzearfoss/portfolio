@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Dictionary;
+namespace App\Models;
 
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;

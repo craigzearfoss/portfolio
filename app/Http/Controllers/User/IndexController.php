@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\BaseController;
-use App\Http\Requests\UserStoreRequest;
+use App\Http\Controllers\User\BaseUserController;
+use App\Http\Requests\System\StoreUserRequest;
 use App\Mail\ResetPassword;
 use App\Mail\VerifyEmail;
 use App\Models\Resource;
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
-class IndexController extends BaseController
+class IndexController extends BaseUserController
 {
     public function index(): View
     {

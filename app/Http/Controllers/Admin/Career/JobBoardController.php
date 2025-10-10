@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Career;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreJobBoardRequest;
 use App\Http\Requests\Career\UpdateJobBoardRequest;
 use App\Models\Career\JobBoard;
@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 /**
  *
  */
-class JobBoardController extends BaseController
+class JobBoardController extends BaseAdminController
 {
     /**
      * Display a listing of job boards.

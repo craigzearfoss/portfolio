@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\Guest\Dictionary;
 
-use App\Http\Controllers\BaseController;
-use App\Http\Requests\Dictionary\StoreLanguageRequest;
-use App\Http\Requests\Dictionary\UpdateLanguageRequest;
+use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Dictionary\Language;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
  *
  */
-class LanguageController extends BaseController
+class LanguageController extends BaseGuestController
 {
     /**
      * Display a listing of languages.

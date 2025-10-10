@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Admin\System;
 
-
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreUserGroupRequest;
 use App\Http\Requests\System\UpdateUserGroupRequest;
 use App\Models\UserGroup;
@@ -11,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class UserGroupController extends Controller
+class UserGroupController extends BaseAdminController
 {
     /**
      * Display a listing of user groups.
