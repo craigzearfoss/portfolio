@@ -35,7 +35,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? '',
                     'required' => true,
-                    'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -174,7 +174,7 @@
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'notes',
-                'value'   => old('notes') ?? $reading->notes,
+                'value'   => old('notes') ?? '',
                 'message' => $message ?? '',
             ])
 

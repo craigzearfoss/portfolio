@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\System;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreMessageRequest;
 use App\Http\Requests\System\UpdateMessageRequest;
-use App\Models\Message;
+use App\Models\System\Message;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;

@@ -2,21 +2,10 @@
 
 namespace App\Models\Career;
 
-use App\Models\Career\CompensationUnit;
-use App\Models\Career\Communication;
-use App\Models\Career\Company;
-use App\Models\Career\CoverLetter;
-use App\Models\Career\Event;
-use App\Models\Career\JobBoard;
-use App\Models\Career\JobDurationType;
-use App\Models\Career\JobLocationType;
-use App\Models\Career\JobEmploymentType;
-use App\Models\Career\Note;
-use App\Models\Career\Resume;
-use App\Models\Country;
-use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
-use App\Models\State;
+use App\Models\System\Country;
+use App\Models\System\Owner;
+use App\Models\System\State;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -239,6 +228,16 @@ class Application extends Model
             ->orderBy('name', 'asc');
     }
 
+
+    /**
+     * Get the skills for the application.
+     */
+    public function skills(): HasMany
+    {
+        return $this->hasMany(ApplicationSkill::class, 'application_id')
+            ->orderBy('date', 'desc')
+            ->orderBy('time', 'desc');
+    }
     /**
      * Get the state that owns the application.
      */

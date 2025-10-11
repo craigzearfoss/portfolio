@@ -2,13 +2,9 @@
 
 namespace App\Http\Requests\Portfolio;
 
-use App\Models\Owner;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 class StoreProjectRequest extends FormRequest
 {
@@ -37,7 +33,7 @@ class StoreProjectRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portrait_db.projects', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.projects', $this->owner_id)
             ]);
         }
 

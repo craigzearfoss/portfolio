@@ -2,11 +2,8 @@
 
 namespace App\Http\Requests\Portfolio;
 
-use App\Models\Owner;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class UpdateLinkRequest extends FormRequest
@@ -36,7 +33,7 @@ class UpdateLinkRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portrait_db.links', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.links', $this->owner_id)
             ]);
         }
 

@@ -18,7 +18,7 @@ class JobTaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'owner_id'        => \App\Models\Owner::all()->random()->id,
+            'owner_id'        => \App\Models\System\Owner::all()->random()->id,
             'job_id'          => fake()->randomElement(Job::all()->pluck('id')->toArray()),
             'summary'         => fake()->sentence(8),
             'notes'           => fake()->text(200),

@@ -2,8 +2,8 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -70,34 +70,5 @@ class Project extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(Owner::class, 'owner_id');
-    }
-
-    /**
-     * Returns an array of options for a project select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::select('id', 'name')->orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $project) {
-            $options[$nameAsKey ? $project->name : $project->id] = $project->name;
-        }
-
-        return $options;
     }
 }

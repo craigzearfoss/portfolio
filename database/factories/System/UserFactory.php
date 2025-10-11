@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\System\User>
  */
 class UserFactory extends Factory
 {
@@ -26,7 +26,7 @@ class UserFactory extends Factory
         return [
             'username'          => fake()->unique()->userName(),
             'name'              => fake()->name(),
-            'title'             => fake()->randomElement(\App\Models\User::titleListOptions([], true, true)),
+            'title'             => fake()->randomElement(\App\Models\System\User::titleListOptions([], true, true)),
             'street'            => fake()->streetAddress(),
             'street2'           => null,
             'city'              => fake()->city(),

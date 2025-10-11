@@ -17,7 +17,7 @@ class NoteFactory extends Factory
     public function definition(): array
     {
         return [
-            'owner_id'       => \App\Models\Owner::all()->random()->id,
+            'owner_id'       => \App\Models\System\Owner::all()->random()->id,
             'application_id' => \App\Models\Career\Application::all()->random()->id,
             'subject'        => fake()->sentence(6),
             'body'           => fake()->text(200),

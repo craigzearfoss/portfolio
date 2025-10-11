@@ -2,9 +2,8 @@
 
 namespace App\Models\Career;
 
-use App\Models\Admin;
-use App\Models\Career\Application;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Models\System\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

@@ -71,33 +71,4 @@ class Library extends Model
     {
         return $this->belongsToMany(Stack::class);
     }
-
-    /**
-     * Returns an array of options for a library select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $nameAsKey = true): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::select('id', 'name')->orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $library) {
-            $options[$nameAsKey ? $library->name : $library->id] = $library->name;
-        }
-
-        return $options;
-    }
 }

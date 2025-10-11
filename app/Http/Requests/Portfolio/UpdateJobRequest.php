@@ -2,13 +2,8 @@
 
 namespace App\Http\Requests\Portfolio;
 
-use App\Models\Country;
-use App\Models\Owner;
-use App\Models\State;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class UpdateJobRequest extends FormRequest
@@ -40,7 +35,7 @@ class UpdateJobRequest extends FormRequest
             $this->merge([
                 'slug' => uniqueSlug(
                     $this['company'] . (!empty($this['role']) ? ' (' . $this['role'] : ')'),
-                    'portrait_db.jobs ',
+                    'portfolio_db.jobs ',
                     $this->owner_id)
             ]);
         }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Career\Company;
 use App\Models\Career\Contact;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -29,7 +28,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->string('title', 20)->nullable();

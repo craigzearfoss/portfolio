@@ -3,7 +3,6 @@
 namespace Database\Factories\Career;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Career\CoverLetter>
@@ -18,7 +17,7 @@ class CoverLetterFactory extends Factory
     public function definition(): array
     {
         return [
-            'owner_id'         => \App\Models\Owner::all()->random()->id,
+            'owner_id'         => \App\Models\System\Owner::all()->random()->id,
             'application_id'   => \App\Models\Career\Application::all()->random()->id,
             'date'             => fake()->dateTimeBetween('-2 years')->format('Y-m-d'),
             'cover_letter_url' => fake()->url(),

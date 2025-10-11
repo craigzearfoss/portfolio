@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\AdminTeam;
+use App\Models\System\AdminTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +17,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('admin_teams', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('name', 100);
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();
@@ -47,7 +47,7 @@ return new class extends Migration
 
         // Add admin_team_id column to the admins table.
         Schema::connection($this->database_tag)->table('admins', function (Blueprint $table) {
-            $table->foreignIdFor(\App\Models\AdminTeam::class)->after('id')->nullable();
+            $table->foreignIdFor(\App\Models\System\AdminTeam::class)->after('id')->nullable();
         });
 
         // Set value for the admin.admin_team_id column.

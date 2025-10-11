@@ -21,7 +21,7 @@ class CompanyFactory extends Factory
         $slug = Str::slug($name);
 
         return [
-            'owner_id'        => \App\Models\Owner::all()->random()->id,
+            'owner_id'        => \App\Models\System\Owner::all()->random()->id,
             'name'            => $name,
             'slug'            => $slug,
             'industry_id'     => \App\Models\Career\Industry::all()->random()->id,

@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('recipe_steps', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->foreignIdFor( \App\Models\Personal\Recipe::class);
             $table->integer('step')->default(1);
             $table->text('description')->nullable();

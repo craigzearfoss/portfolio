@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('tags', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Owner::class);
+            $table->foreignIdFor( \App\Models\System\Owner::class);
             $table->string('name', 100);
-            $table->foreignIdFor( \App\Models\Resource::class)->nullable();
+            $table->foreignIdFor( \App\Models\System\Resource::class)->nullable();
             $table->string('model_class')->nullable();
             $table->integer('model_item_id')->nullable();
-            $table->foreignIdFor(\App\Models\Dictionary\Category::class, 'category_id')->nullable();
+            $table->foreignIdFor(\App\Models\Dictionary\Category::class, 'dictionary_category_id')->nullable();
             $table->integer('dictionary_term_id')->nullable();
 
             $table->unique(['owner_id', 'name'], 'owner_id_name_unique');

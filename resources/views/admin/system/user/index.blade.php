@@ -63,7 +63,7 @@
                         @include('admin.components.checkmark', [ 'checked' => $user->email_verified_at ])
                     </td>
                     <td data-field="status">
-                        {{ \App\Models\User::statusName($user->status) }}
+                        {{ \App\Models\System\User::statusName($user->status) }}
                     </td>
                     <td data-field=disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $user->disabled ])

@@ -1,16 +1,12 @@
 <?php
 
 
-use Illuminate\Http\Request;
 use App\Http\Resources\V1\CompanyCollection;
-use App\Http\Resources\V1\CompanyResource;
 use App\Http\Resources\V1\StateResource;
-use App\Http\Resources\V1\UserCollection;
 use App\Http\Resources\V1\UserResource;
 use App\Models\Career\Company;
-use App\Models\State;
-use App\Models\User;
-
+use App\Models\System\State;
+use App\Models\System\User;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {

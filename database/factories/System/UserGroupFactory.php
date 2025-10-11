@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserGroup>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\System\UserGroup>
  */
 class UserGroupFactory extends Factory
 {
@@ -22,8 +22,8 @@ class UserGroupFactory extends Factory
         $abbreviation = strtoupper(fake()->unique()->word());
 
         return [
-            'owner_id'      => \App\Models\Owner::all()->random()->id,
-            'admin_team_id' => \App\Models\UserTeam::all()->random()->id,
+            'owner_id'      => \App\Models\System\Owner::all()->random()->id,
+            'admin_team_id' => \App\Models\System\UserTeam::all()->random()->id,
             'name'          => $name,
             'slug '         => $slug,
             'abbreviation'  => $abbreviation,

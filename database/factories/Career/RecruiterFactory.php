@@ -21,7 +21,7 @@ class RecruiterFactory extends Factory
         $slug = Str::slug($name);
 
         return [
-            'owner_id'        => \App\Models\Owner::all()->random()->id,
+            'owner_id'        => \App\Models\System\Owner::all()->random()->id,
             'name'            => $name,
             'slug'            => $slug,
             'postings_url'    => fake()->url(),

@@ -21,7 +21,7 @@ class ContactFactory extends Factory
         $slug = Str::slug($name);
 
         return [
-            'owner_id'        => \App\Models\Owner::all()->random()->id,
+            'owner_id'        => \App\Models\System\Owner::all()->random()->id,
             'name'            => $name,
             'slug'            => $slug,
             'title'           => fake()->randomElement(['Miss','Mr.','Mrs.','Ms', '', null]),

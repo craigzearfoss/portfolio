@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Career\Application;
-use App\Models\Career\Event;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -29,7 +28,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('events', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->foreignId('application_id', Application::class)->nullable()->index();
             $table->string('name');
             $table->date('date')->nullable();

@@ -17,7 +17,7 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            'owner_id'       => \App\Models\Owner::all()->random()->id,
+            'owner_id'       => \App\Models\System\Owner::all()->random()->id,
             'application_id' => \App\Models\Career\Application::all()->random()->id,
             'name'           => fake()->text(20),
             'date'           => fake()->dateTimeBetween('-2 years')->format('Y-m-d'),

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Admin;
 use App\Models\Portfolio\Art;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -29,7 +28,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('art', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('name');
             $table->string('artist')->nullable();
             $table->string('slug');
@@ -58,7 +57,6 @@ return new class extends Migration
             $table->index('name');
             $table->index('artist');
         });
-
 
         $data = [
             [

@@ -2,14 +2,12 @@
 
 namespace App\Models\Career;
 
-use App\Models\Career\Application;
-use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CoverLetter extends Model

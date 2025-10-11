@@ -2,12 +2,9 @@
 
 namespace App\Http\Requests\Portfolio;
 
-use App\Models\Owner;
-use App\Traits\ModelPermissionsTrait;
 use App\Models\Portfolio\Video;
+use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class UpdateVideoRequest extends FormRequest
@@ -37,7 +34,7 @@ class UpdateVideoRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portrait_db.videos', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.videos', $this->owner_id)
             ]);
         }
 

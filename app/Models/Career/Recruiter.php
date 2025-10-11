@@ -2,8 +2,8 @@
 
 namespace App\Models\Career;
 
-use App\Models\Country;
-use App\Models\State;
+use App\Models\System\Country;
+use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

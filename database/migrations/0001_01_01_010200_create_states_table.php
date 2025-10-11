@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\State;
+use App\Models\System\State;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('code', 10);
             $table->string('name', 50)->unique();
-            $table->foreignIdFor( \App\Models\Country::class);
+            $table->foreignIdFor( \App\Models\System\Country::class);
         });
 
         $data = [

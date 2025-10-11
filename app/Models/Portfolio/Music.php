@@ -2,8 +2,8 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -93,73 +93,5 @@ class Music extends Model
     public function children(): HasMany
     {
         return $this->hasMany(Music::class, 'parent_id');
-    }
-
-    /**
-     * Returns an array of options for a music select list.
-     *
-     * @param array $filters
-     * @param string $valueColumn
-     * @param string $labelColumn
-     * @param bool $includeBlank
-     * @param bool $includeOther
-     * @param array $orderBy
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array
-     * @throws \Exception
-     */
-    public static function listOptions(array  $filters = [],
-                                       string $valueColumn = 'id',
-                                       string $labelColumn = 'name',
-                                       bool   $includeBlank = false,
-                                       bool   $includeOther = false,
-                                       array  $orderBy = self::SEARCH_ORDER_BY): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $selectColumns = self::SEARCH_COLUMNS;
-        $sortColumn = $orderBy[0] ?? 'name';
-        $sortDir = $orderBy[1] ?? 'asc';
-
-        $query = self::select($selectColumns)->orderBy($sortColumn, $sortDir);
-
-        // Apply filters to the query.
-        foreach ($filters as $col => $value) {
-            if (is_array($value)) {
-                $query = $query->whereIn($col, $value);
-            } else {
-                $parts = explode(' ', $col);
-                $col = $parts[0];
-                if (!empty($parts[1])) {
-                    $operation = trim($parts[1]);
-                    if (in_array($operation, ['<>', '!=', '=!'])) {
-                        $query->where($col, $operation, $value);
-                    } elseif (strtolower($operation) == 'like') {
-                        $query->whereLike($col, $value);
-                    } else {
-                        throw new \Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
-                    }
-                } else {
-                    $query = $query->where($col, $value);
-                }
-            }
-        }
-
-        foreach ($query->get() as $row) {
-            if ($labelColumn == 'name') {
-                $label = $row->name . (!empty($row->artist) ? ' - ' . $row->artist : '');
-            } else {
-                $label = $row->{$labelColumn};
-            }
-            $options[$row->{$valueColumn}] = $label;
-        }
-
-        return $options;
     }
 }

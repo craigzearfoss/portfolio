@@ -2,8 +2,8 @@
 
 namespace App\Models\Personal;
 
-use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

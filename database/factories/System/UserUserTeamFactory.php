@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserUserTeam>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\System\UserUserTeam>
  */
 class UserUserTeamFactory extends Factory
 {
@@ -17,8 +17,8 @@ class UserUserTeamFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'      => \App\Models\User::all()->random()->id,
-            'user_team_id' => \App\Models\UserTeam::all()->random()->id,
+            'user_id'      => \App\Models\System\User::all()->random()->id,
+            'user_team_id' => \App\Models\System\UserTeam::all()->random()->id,
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Guest\Personal;
 
 use App\Http\Controllers\Guest\BaseGuestController;
-use App\Models\Resource;
+use App\Models\System\Resource;
 use App\Services\PermissionService;
 use Illuminate\View\View;
 

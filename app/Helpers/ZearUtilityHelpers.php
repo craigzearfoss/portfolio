@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
-
 if (! function_exists('refererRouteName')) {
     /**
      * Returns the route name of the refering page or null if there was no refering page.
@@ -342,8 +339,8 @@ if (! function_exists('reservedKeywords')) {
                 'user',
                 'verify email', 'verify-email',
             ],
-            \App\Models\Database::select('name')->get()->pluck('name')->toArray(),
-            \App\Models\Resource::select('name')->get()->pluck('name')->toArray()
+            \App\Models\System\Database::select('name')->get()->pluck('name')->toArray(),
+            \App\Models\System\Resource::select('name')->get()->pluck('name')->toArray()
         ));
 
         sort($reservedKeywords);

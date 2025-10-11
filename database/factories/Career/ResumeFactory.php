@@ -3,7 +3,6 @@
 namespace Database\Factories\Career;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Career\Resume>
@@ -18,7 +17,7 @@ class ResumeFactory extends Factory
     public function definition(): array
     {
         return [
-            'owner_id'     => \App\Models\Owner::all()->random()->id,
+            'owner_id'     => \App\Models\System\Owner::all()->random()->id,
             'name'         => fake()->text(20),
             'date'         => fake()->dateTimeBetween('-20 years')->format('Y-m-d'),
             'primary'      => fake()->numberBetween(0, 1),

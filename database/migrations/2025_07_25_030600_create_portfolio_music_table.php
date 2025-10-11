@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('music', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->foreignIdFor(\App\Models\Portfolio\Video::class, 'parent_id')->nullable();
             $table->string('name');
             $table->string('artist')->nullable();

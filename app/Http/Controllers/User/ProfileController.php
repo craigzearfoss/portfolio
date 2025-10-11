@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\User\BaseUserController;
 use App\Http\Requests\System\UpdateUserRequest;
-use App\Models\User;
+use App\Models\System\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;

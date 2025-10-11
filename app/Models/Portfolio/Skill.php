@@ -3,8 +3,8 @@
 namespace App\Models\Portfolio;
 
 use App\Models\Dictionary\Category;
-use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,8 +33,9 @@ class Skill extends Model
         'slug',
         'summary',
         'level',
-        'category_id',
+        'dictionary_category_id',
         'start_year',
+        'end_year',
         'years',
         'notes',
         'link',
@@ -54,8 +55,8 @@ class Skill extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'version', 'featured', 'level', 'category_id', 'start_year',
-        'years', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'version', 'featured', 'level', 'dictionary_category_id',
+        'dictionary_term_id','start_year', 'end_year', 'years', 'public', 'readonly', 'root', 'disabled'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
@@ -78,6 +79,8 @@ class Skill extends Model
      */
     public function category(): BelongsTo
     {
-        return $this->setConnection('dictionary_db')->belongsTo(Category::class, 'category_id');
+        return $this->setConnection('dictionary_db')->belongsTo(
+            Category::class, 'dictionary_category_id'
+        );
     }
 }

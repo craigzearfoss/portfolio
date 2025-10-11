@@ -15,15 +15,15 @@ class TestSeeder extends Seeder
         // populate tables
 
         echo 'User' . PHP_EOL;
-        \App\Models\User::factory()->count(10)->create();
+        \App\Models\System\User::factory()->count(10)->create();
 
         echo 'Admin' . PHP_EOL;
-        \App\Models\Admin::factory()->count(4)->create();
+        \App\Models\System\Admin::factory()->count(4)->create();
 
         echo 'Message' . PHP_EOL;
-        \App\Models\Message::factory()->count(100)->create();
+        \App\Models\System\Message::factory()->count(100)->create();
 
-        $adminIds = \App\Models\Admin::all()->where('root', '<>', 1)->pluck('id')->toArray();
+        $adminIds = \App\Models\System\Admin::all()->where('root', '<>', 1)->pluck('id')->toArray();
 
         echo 'Portfolio/Art' . PHP_EOL;
         foreach ($adminIds as $adminId) {

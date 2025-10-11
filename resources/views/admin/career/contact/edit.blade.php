@@ -41,7 +41,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $contact->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -62,7 +62,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'title',
                 'value'   => old('title') ?? $contact->title,
-                'list'    => \App\Models\User::titleListOptions([], true, true),
+                'list'    => \App\Models\System\User::titleListOptions([], true, true),
                 'message' => $message ?? '',
             ])
 
@@ -98,7 +98,7 @@
                 'name'    => 'state_id',
                 'label'   => 'state',
                 'value'   => old('state_id') ?? $contact->state_id,
-                'list'    => \App\Models\State::listOptions([], 'id', 'name', true),
+                'list'    => \App\Models\System\State::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
@@ -113,7 +113,7 @@
                 'name'    => 'country_id',
                 'label'   => 'country',
                 'value'   => old('country_id') ?? $contact->country_id,
-                'list'    => \App\Models\Country::listOptions([], 'id', 'name', true),
+                'list'    => \App\Models\System\Country::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

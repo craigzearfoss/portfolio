@@ -17,7 +17,7 @@ class RecipeStepFactory extends Factory
     public function definition(): array
     {
         return [
-            'owner_id'    => \App\Models\Owner::all()->random()->id,
+            'owner_id'    => \App\Models\System\Owner::all()->random()->id,
             'recipe_id'   => \App\Models\Personal\Recipe::all()->random()->id,
             'step'        => fake()->numberBetween(1, 8),
             'description' => fake()->text(200),

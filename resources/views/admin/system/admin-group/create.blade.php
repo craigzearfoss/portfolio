@@ -35,7 +35,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? '',
                     'required' => true,
-                    'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -49,7 +49,7 @@
                 'name'    => 'admin_team_id',
                 'label'   => 'team',
                 'value'   => old('admin_team_id') ?? '',
-                'list'    => \App\Models\AdminTeam::listOptions([], true),
+                'list'    => \App\Models\System\AdminTeam::listOptions([], true),
                 'message' => $message ?? '',
             ])
 

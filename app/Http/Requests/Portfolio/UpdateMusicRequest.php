@@ -2,11 +2,8 @@
 
 namespace App\Http\Requests\Portfolio;
 
-use App\Models\Owner;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class UpdateMusicRequest extends FormRequest
@@ -38,7 +35,7 @@ class UpdateMusicRequest extends FormRequest
             $this->merge([
                 'slug' => uniqueSlug(
                     $this['name'] . (!empty($this['artist']) ? '-by-' . $this['artist'] : ''),
-                    'portrait_db.music',
+                    'portfolio_db.music',
                     $this->owner_id
                 )
             ]);

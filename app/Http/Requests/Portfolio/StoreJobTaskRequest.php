@@ -2,13 +2,8 @@
 
 namespace App\Http\Requests\Portfolio;
 
-use App\Models\Owner;
-use App\Models\Portfolio\Job;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 class StoreJobTaskRequest extends FormRequest
 {

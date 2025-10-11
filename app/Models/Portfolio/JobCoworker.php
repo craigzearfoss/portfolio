@@ -2,9 +2,8 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Owner;
-use App\Models\Portfolio\Job;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

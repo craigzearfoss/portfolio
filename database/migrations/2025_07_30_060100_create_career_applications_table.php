@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Career\Application;
-use App\Models\Career\Resume;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -29,7 +28,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('applications', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->foreignIdFor( \App\Models\Career\Company::class);
             $table->string('role');
             $table->foreignIdFor( \App\Models\Career\JobBoard::class)->nullable();

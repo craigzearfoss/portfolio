@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\System;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreAdminGroupRequest;
 use App\Http\Requests\System\UpdateAdminGroupRequest;
-use App\Models\AdminGroup;
+use App\Models\System\AdminGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;

@@ -41,7 +41,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $job->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -199,7 +199,7 @@
                 'name'    => 'state_id',
                 'label'   => 'state',
                 'value'   => old('state_id') ?? $job->state_id,
-                'list'    => \App\Models\State::listOptions([], 'id', 'name', true),
+                'list'    => \App\Models\System\State::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
@@ -214,7 +214,7 @@
                 'name'    => 'country_id',
                 'label'   => 'country',
                 'value'   => old('country_id') ?? $job->country_id,
-                'list'    => \App\Models\Country::listOptions([], 'id', 'name', true),
+                'list'    => \App\Models\System\Country::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 

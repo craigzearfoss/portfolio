@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('references', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('name');
             $table->string('slug');
             $table->tinyInteger('friend')->default(0);

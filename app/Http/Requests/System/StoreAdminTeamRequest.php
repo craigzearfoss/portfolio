@@ -2,11 +2,8 @@
 
 namespace App\Http\Requests\System;
 
-use App\Models\Owner;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class StoreAdminTeamRequest extends FormRequest
@@ -35,7 +32,7 @@ class StoreAdminTeamRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portrait_db.admin_teams', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'core_db.admin_teams', $this->owner_id)
             ]);
         }
 
@@ -46,7 +43,7 @@ class StoreAdminTeamRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:200',
-                Rule::unique('portfolio_db.admin_teams')->where(function ($query) {
+                Rule::unique('core_db.admin_teams')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })

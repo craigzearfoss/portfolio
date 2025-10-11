@@ -122,7 +122,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'status',
-            'value' => \App\Models\User::statusName($user->status)
+            'value' => \App\Models\System\User::statusName($user->status)
         ])
 
         @include('admin.components.show-row', [

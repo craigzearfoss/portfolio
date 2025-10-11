@@ -2,12 +2,9 @@
 
 namespace App\Http\Requests\System;
 
-use App\Models\Database;
-use App\Models\Owner;
-use App\Models\Resource;
+use App\Models\System\Resource;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class UpdateResourceRequest extends FormRequest

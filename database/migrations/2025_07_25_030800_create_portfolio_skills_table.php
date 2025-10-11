@@ -28,15 +28,16 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('skills', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('name');
             $table->string('slug');
             $table->string('version', 20)->nullable();
             $table->tinyInteger('featured')->default(0);
             $table->string('summary')->nullable();
             $table->tinyInteger('level')->default(1);
-            $table->foreignIdFor(\App\Models\Dictionary\Category::class, 'category_id');
+            $table->foreignIdFor(\App\Models\Dictionary\Category::class, 'dictionary_category_id')->nullable();
             $table->integer('start_year')->nullable();
+            $table->integer('end_year')->nullable();
             $table->integer('years')->default(0);
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
@@ -58,44 +59,44 @@ return new class extends Migration
         });
 
         $data = [
-            [ 'id' => 1,  'name' => 'Laravel',           'slug' => 'laravel-12',        'version' => '12', 'category_id' => 11,  'featured' => 1, 'level' => 10, 'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 2,  'name' => 'CodeIgniter',       'slug' => 'codeigniter-4',     'version' => '4',  'category_id' => 11,  'featured' => 1, 'level' => 10, 'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 3,  'name' => 'CakePHP',           'slug' => 'cakephp',           'version' => null, 'category_id' => 11,  'featured' => 0, 'level' => 3,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 4,  'name' => 'Symfony',           'slug' => 'symfony',           'version' => null, 'category_id' => 11,  'featured' => 0, 'level' => 1,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 5,  'name' => 'Vue.js',            'slug' => 'vue-js',            'version' => null, 'category_id' => 11,  'featured' => 1, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 6,  'name' => 'jQuery',            'slug' => 'jquery',            'version' => null, 'category_id' => 11,  'featured' => 0, 'level' => 10, 'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 7,  'name' => 'React',             'slug' => 'react',             'version' => null, 'category_id' => 11,  'featured' => 0, 'level' => 3,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 8,  'name' => 'JavaScript',        'slug' => 'javascript',        'version' => null, 'category_id' => 12,  'featured' => 1, 'level' => 9,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 9,  'name' => 'PHP',               'slug' => 'php',               'version' => null, 'category_id' => 12,  'featured' => 1, 'level' => 10, 'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 10, 'name' => 'SQL',               'slug' => 'sql',               'version' => null, 'category_id' => 12,  'featured' => 1, 'level' => 9,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 11, 'name' => 'Powershell',        'slug' => 'powershell',        'version' => null, 'category_id' => 12,  'featured' => 0, 'level' => 3,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 12, 'name' => 'BASH',              'slug' => 'bash',              'version' => null, 'category_id' => 12,  'featured' => 0, 'level' => 6,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 13, 'name' => 'DOS',               'slug' => 'dos',               'version' => null, 'category_id' => 12,  'featured' => 0, 'level' => 6,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 14, 'name' => 'MySQL',             'slug' => 'mysql',             'version' => null, 'category_id' => 8,   'featured' => 1, 'level' => 9,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 15, 'name' => 'MariaDB',           'slug' => 'mariadb',           'version' => null, 'category_id' => 8,   'featured' => 1, 'level' => 9,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 16, 'name' => 'Postgres',          'slug' => 'postgres',          'version' => null, 'category_id' => 8,   'featured' => 1, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 17, 'name' => 'MongoDB',           'slug' => 'mongodb',           'version' => null, 'category_id' => 8,   'featured' => 0, 'level' => 3,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 18, 'name' => 'Elasticsearch',     'slug' => 'elasticsearch',     'version' => null, 'category_id' => 8,   'featured' => 0, 'level' => 3,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 19, 'name' => 'Linux',             'slug' => 'linux',             'version' => null, 'category_id' => 17,  'featured' => 1, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 20, 'name' => 'Ubuntu',            'slug' => 'ubuntu',            'version' => null, 'category_id' => 17,  'featured' => 1, 'level' => 7,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 21, 'name' => 'Windows',           'slug' => 'windows',           'version' => null, 'category_id' => 17,  'featured' => 1, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 22, 'name' => 'macOS',             'slug' => 'macos',             'version' => null, 'category_id' => 17,  'featured' => 0, 'level' => 4,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 23, 'name' => 'Apache2',           'slug' => 'apache2',           'version' => null, 'category_id' => 26,  'featured' => 0, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 24, 'name' => 'Nginx',             'slug' => 'nginx',             'version' => null, 'category_id' => 26,  'featured' => 0, 'level' => 7,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 25, 'name' => 'Git',               'slug' => 'git',               'version' => null, 'category_id' => 34,  'featured' => 0, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 26, 'name' => 'JIRA',              'slug' => 'jira',              'version' => null, 'category_id' => 34,  'featured' => 0, 'level' => 7,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 27, 'name' => 'HTML5',             'slug' => 'html5',             'version' => null, 'category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 28, 'name' => 'CSS3',              'slug' => 'css3',              'version' => null, 'category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 29, 'name' => 'DOM',               'slug' => 'dom',               'version' => null, 'category_id' => 12,  'featured' => 0, 'level' => 10, 'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 30, 'name' => 'JSX',               'slug' => 'jsx',               'version' => null, 'category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 31, 'name' => 'Ajax',              'slug' => 'ajax',              'version' => null, 'category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 32, 'name' => 'Twitter Bootstrap', 'slug' => 'twitter-bootstrap', 'version' => null, 'category_id' => 11,  'featured' => 0, 'level' => 7,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 33, 'name' => 'Bulma',             'slug' => 'bulma',             'version' => null, 'category_id' => 11,  'featured' => 0, 'level' => 4,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 34, 'name' => 'JSON',              'slug' => 'json',              'version' => null, 'category_id' => 12,  'featured' => 0, 'level' => 10, 'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 35, 'name' => 'REST',              'slug' => 'rest',              'version' => null, 'category_id' => 16,  'featured' => 0, 'level' => 9,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 36, 'name' => 'XML',               'slug' => 'xml',               'version' => null, 'category_id' => 12,  'featured' => 0, 'level' => 7,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 37, 'name' => 'RDF',               'slug' => 'rdf',               'version' => null, 'category_id' => 12,  'featured' => 0, 'level' => 7,  'years' => 20, 'start_year' => null, 'public' => 1 ],
-            [ 'id' => 38, 'name' => 'Docker',            'slug' => 'docker',            'version' => null, 'category_id' => 19,  'featured' => 0, 'level' => 4,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 1,  'name' => 'Laravel',           'slug' => 'laravel-12',        'version' => '12', 'dictionary_category_id' => 11,  'featured' => 1, 'level' => 10, 'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 2,  'name' => 'CodeIgniter',       'slug' => 'codeigniter-4',     'version' => '4',  'dictionary_category_id' => 11,  'featured' => 1, 'level' => 10, 'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 3,  'name' => 'CakePHP',           'slug' => 'cakephp',           'version' => null, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 3,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 4,  'name' => 'Symfony',           'slug' => 'symfony',           'version' => null, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 1,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 5,  'name' => 'Vue.js',            'slug' => 'vue-js',            'version' => null, 'dictionary_category_id' => 11,  'featured' => 1, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 6,  'name' => 'jQuery',            'slug' => 'jquery',            'version' => null, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 10, 'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 7,  'name' => 'React',             'slug' => 'react',             'version' => null, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 3,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 8,  'name' => 'JavaScript',        'slug' => 'javascript',        'version' => null, 'dictionary_category_id' => 12,  'featured' => 1, 'level' => 9,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 9,  'name' => 'PHP',               'slug' => 'php',               'version' => null, 'dictionary_category_id' => 12,  'featured' => 1, 'level' => 10, 'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 10, 'name' => 'SQL',               'slug' => 'sql',               'version' => null, 'dictionary_category_id' => 12,  'featured' => 1, 'level' => 9,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 11, 'name' => 'Powershell',        'slug' => 'powershell',        'version' => null, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 3,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 12, 'name' => 'BASH',              'slug' => 'bash',              'version' => null, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 6,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 13, 'name' => 'DOS',               'slug' => 'dos',               'version' => null, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 6,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 14, 'name' => 'MySQL',             'slug' => 'mysql',             'version' => null, 'dictionary_category_id' => 8,   'featured' => 1, 'level' => 9,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 15, 'name' => 'MariaDB',           'slug' => 'mariadb',           'version' => null, 'dictionary_category_id' => 8,   'featured' => 1, 'level' => 9,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 16, 'name' => 'Postgres',          'slug' => 'postgres',          'version' => null, 'dictionary_category_id' => 8,   'featured' => 1, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 17, 'name' => 'MongoDB',           'slug' => 'mongodb',           'version' => null, 'dictionary_category_id' => 8,   'featured' => 0, 'level' => 3,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 18, 'name' => 'Elasticsearch',     'slug' => 'elasticsearch',     'version' => null, 'dictionary_category_id' => 8,   'featured' => 0, 'level' => 3,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 19, 'name' => 'Linux',             'slug' => 'linux',             'version' => null, 'dictionary_category_id' => 17,  'featured' => 1, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 20, 'name' => 'Ubuntu',            'slug' => 'ubuntu',            'version' => null, 'dictionary_category_id' => 17,  'featured' => 1, 'level' => 7,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 21, 'name' => 'Windows',           'slug' => 'windows',           'version' => null, 'dictionary_category_id' => 17,  'featured' => 1, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 22, 'name' => 'macOS',             'slug' => 'macos',             'version' => null, 'dictionary_category_id' => 17,  'featured' => 0, 'level' => 4,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 23, 'name' => 'Apache2',           'slug' => 'apache2',           'version' => null, 'dictionary_category_id' => 26,  'featured' => 0, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 24, 'name' => 'Nginx',             'slug' => 'nginx',             'version' => null, 'dictionary_category_id' => 26,  'featured' => 0, 'level' => 7,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 25, 'name' => 'Git',               'slug' => 'git',               'version' => null, 'dictionary_category_id' => 34,  'featured' => 0, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 26, 'name' => 'JIRA',              'slug' => 'jira',              'version' => null, 'dictionary_category_id' => 34,  'featured' => 0, 'level' => 7,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 27, 'name' => 'HTML5',             'slug' => 'html5',             'version' => null, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 28, 'name' => 'CSS3',              'slug' => 'css3',              'version' => null, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 29, 'name' => 'DOM',               'slug' => 'dom',               'version' => null, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 10, 'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 30, 'name' => 'JSX',               'slug' => 'jsx',               'version' => null, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 31, 'name' => 'Ajax',              'slug' => 'ajax',              'version' => null, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 8,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 32, 'name' => 'Twitter Bootstrap', 'slug' => 'twitter-bootstrap', 'version' => null, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 7,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 33, 'name' => 'Bulma',             'slug' => 'bulma',             'version' => null, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 4,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 34, 'name' => 'JSON',              'slug' => 'json',              'version' => null, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 10, 'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 35, 'name' => 'REST',              'slug' => 'rest',              'version' => null, 'dictionary_category_id' => 16,  'featured' => 0, 'level' => 9,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 36, 'name' => 'XML',               'slug' => 'xml',               'version' => null, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 7,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 37, 'name' => 'RDF',               'slug' => 'rdf',               'version' => null, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 7,  'years' => 20, 'start_year' => null, 'public' => 1 ],
+            [ 'id' => 38, 'name' => 'Docker',            'slug' => 'docker',            'version' => null, 'dictionary_category_id' => 19,  'featured' => 0, 'level' => 4,  'years' => 20, 'start_year' => null, 'public' => 1 ],
         ];
 
         // add timestamps and owner_ids

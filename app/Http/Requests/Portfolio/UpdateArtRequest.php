@@ -2,11 +2,8 @@
 
 namespace App\Http\Requests\Portfolio;
 
-use App\Models\Owner;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class UpdateArtRequest extends FormRequest

@@ -30,23 +30,23 @@ class UpdateJobSkillRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'        => ['required', 'integer', 'exists:core_db.admins,id'],
-            'job_id'          => ['required', 'integer', 'exists:career_db.Jobs,id'],
-            'name'            => [
+            'owner_id'               => ['required', 'integer', 'exists:core_db.admins,id'],
+            'job_id'                 => ['required', 'integer', 'exists:portfolio_db.job_skills,id'],
+            'name'                   => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies')->where(function ($query) {
+                Rule::unique('portfolio_db.job_skills')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
             ],
-            'level'                 => ['integer', 'between:0,10'],
-            'category_id'           => ['integer', 'exists:dictionary_db.categories,id', 'nullable'],
-            'dictionary_id_term_id' => ['integer', 'nullable'],
-            'start_year'            => ['integer', 'between:1980,'.date("Y"), 'nullable'],
-            'end_year'              => ['integer', 'between:1980,'.date("Y"), 'gt:start_year', 'nullable'],
-            'years'                 => ['integer', 'min:0', 'nullable'],
+            'level'                  => ['integer', 'between:0,10'],
+            'dictionary_category_id' => ['integer', 'exists:dictionary_db.categories,id', 'nullable'],
+            'dictionary_id_term_id'  => ['integer', 'nullable'],
+            'start_year'             => ['integer', 'between:1980,'.date("Y"), 'nullable'],
+            'end_year'               => ['integer', 'between:1980,'.date("Y"), 'gt:start_year', 'nullable'],
+            'years'                  => ['integer', 'min:0', 'nullable'],
         ];
     }
 

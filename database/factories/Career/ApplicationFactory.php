@@ -31,7 +31,7 @@ class ApplicationFactory extends Factory
         $compensationMax = rand(self::COMPENSATION[$compensationUnitId]['max'][0], self::COMPENSATION[$compensationUnitId]['max'][1]);
 
         return [
-            'owner_id'               => \App\Models\Owner::all()->random()->id,
+            'owner_id'               => \App\Models\System\Owner::all()->random()->id,
             'company_id'             => \App\Models\Career\Company::all()->random()->id,
             'role'                   => fake()->jobTitle(),
             'resume_id'              => \App\Models\Career\Resume::all()->random()->id,

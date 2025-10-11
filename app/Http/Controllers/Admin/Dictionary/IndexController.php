@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Models\Dictionary\DictionarySection;
-use App\Models\Resource;
+use App\Models\System\Resource;
 use Illuminate\Http\Request;
 
 class IndexController extends BaseAdminController

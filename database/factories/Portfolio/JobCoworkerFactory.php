@@ -22,7 +22,7 @@ class JobCoworkerFactory extends Factory
         $slug = Str::slug($name);
 
         return [
-            'owner_id'        => \App\Models\Owner::all()->random()->id,
+            'owner_id'        => \App\Models\System\Owner::all()->random()->id,
             'job_id'          => fake()->randomElement(Job::all()->pluck('id')->toArray()),
             'name'            => $name,
             'job_title'       => fake()->jobTitle(),

@@ -22,7 +22,7 @@ class CertificationFactory extends Factory
         $slug = Str::slug($name);
 
         return [
-            'owner_id'        => \App\Models\Owner::all()->random()->id,
+            'owner_id'        => \App\Models\System\Owner::all()->random()->id,
             'name'            => $name,
             'slug'            => $slug,
             'featured'        => fake()->numberBetween(0, 1),

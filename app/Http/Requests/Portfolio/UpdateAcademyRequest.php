@@ -29,7 +29,7 @@ class UpdateAcademyRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portrait_db.academies ', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.academies ', $this->owner_id)
             ]);
         }
 

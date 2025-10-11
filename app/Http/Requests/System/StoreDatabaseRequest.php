@@ -2,11 +2,8 @@
 
 namespace App\Http\Requests\System;
 
-use App\Models\Owner;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 
 class StoreDatabaseRequest extends FormRequest
 {

@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('resumes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('name');
             $table->date('date')->nullable();
             $table->tinyInteger('primary')->default(0);

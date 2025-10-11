@@ -32,8 +32,11 @@
                                                 @endif
 
                                                 <div>
-                                                    <a class="btn btn-sm btn-solid" href="{{ route('user.change-password', $user->id) }}"><i class="fa fa-key"></i> Change Password</a>
-                                                    <a class="btn btn-sm btn-solid" href="{{ route('user.show') }}"><i class="fa fa-arrow-left"></i> Back</a>
+                                                    <a class="btn btn-sm btn-solid"
+                                                       href="{{ route('user.change-password', $user->id) }}"><i
+                                                            class="fa fa-key"></i> Change Password</a>
+                                                    <a class="btn btn-sm btn-solid" href="{{ route('user.show') }}"><i
+                                                            class="fa fa-arrow-left"></i> Back</a>
                                                 </div>
 
                                             </div>
@@ -61,7 +64,7 @@
                                                 @include('user.components.form-select', [
                                                     'name'    => 'title',
                                                     'value'   => old('title') ?? $user->title,
-                                                    'list'    => \App\Models\User::titleListOptions([], true, true),
+                                                    'list'    => \App\Models\System\User::titleListOptions([], true, true),
                                                     'message' => $message ?? '',
                                                 ])
 
@@ -89,7 +92,7 @@
                                                 @include('user.components.form-select', [
                                                     'name'    => 'state',
                                                     'value'   => old('state') ?? $user->state_id,
-                                                    'list'    => \App\Models\State::listOptions([], 'id', 'name', true),
+                                                    'list'    => \App\Models\System\State::listOptions([], 'id', 'name', true),
                                                     'message' => $message ?? '',
                                                 ])
 
@@ -103,7 +106,7 @@
                                                 @include('user.components.form-select', [
                                                     'name'    => 'country',
                                                     'value'   => old('country') ?? $user->country_id,
-                                                    'list'    => \App\Models\Country::listOptions(),
+                                                    'list'    => \App\Models\System\Country::listOptions(),
                                                     'message' => $message ?? '',
                                                 ])
 

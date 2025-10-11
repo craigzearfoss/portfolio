@@ -2,13 +2,10 @@
 
 namespace App\Models\Career;
 
-use App\Models\Career\Application;
-use App\Models\Career\Contact;
-use App\Models\Career\Industry;
-use App\Models\Country;
-use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
-use App\Models\State;
+use App\Models\System\Country;
+use App\Models\System\Owner;
+use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

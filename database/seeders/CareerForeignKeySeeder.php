@@ -2,14 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
 use App\Models\Career\Application;
 use App\Models\Career\Communication;
 use App\Models\Career\Company;
 use App\Models\Career\Contact;
 use App\Models\Career\Note;
 use App\Models\Career\Resume;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\System\Admin;
 use Illuminate\Database\Seeder;
 
 class CareerForeignKeySeeder extends Seeder

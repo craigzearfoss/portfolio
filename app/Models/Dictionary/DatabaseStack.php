@@ -2,6 +2,8 @@
 
 namespace App\Models\Dictionary;
 
+use App\Models\Dictionary\Database;
+use App\Models\Dictionary\Stack;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class DatabaseStack extends Pivot
@@ -34,7 +36,7 @@ class DatabaseStack extends Pivot
      */
     public function stack()
     {
-        return $this->belongsTo('App\Models\Dictionary\Stack', 'stack_id');
+        return $this->belongsTo(Stack::class, 'stack_id');
     }
 
     /**
@@ -42,6 +44,6 @@ class DatabaseStack extends Pivot
      */
     public function database()
     {
-        return $this->belongsTo('App\Models\Dictionary\Database', 'database_id');
+        return $this->belongsTo(Database::class, 'database_id');
     }
 }

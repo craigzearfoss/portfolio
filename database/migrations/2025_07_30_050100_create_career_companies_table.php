@@ -29,7 +29,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('companies', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->foreignIdFor(Industry::class);

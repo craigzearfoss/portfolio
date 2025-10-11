@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\System;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreDatabaseRequest;
 use App\Http\Requests\System\UpdateDatabaseRequest;
-use App\Models\Database;
+use App\Models\System\Database;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;

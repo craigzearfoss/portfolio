@@ -2,10 +2,10 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Country;
-use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
-use App\Models\State;
+use App\Models\System\Country;
+use App\Models\System\Owner;
+use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
 
 class Job extends Model
 {
@@ -101,7 +100,7 @@ class Job extends Model
      */
     public function coworkers(): HasMany
     {
-        return $this->hasMany(JobCoworker::class);
+        return $this->hasMany(JobCoworker::class, 'job_id');
     }
 
     /**
@@ -131,6 +130,14 @@ class Job extends Model
     }
 
     /**
+     * Get the job skills for the job.
+     */
+    public function skills(): HasMany
+    {
+        return $this->hasMany(JobSkill::class, 'job_id');
+    }
+
+    /**
      * Calculate the name of the application.
      */
     protected function calculateName()
@@ -151,94 +158,6 @@ class Job extends Model
      */
     public function tasks(): HasMany
     {
-        return $this->hasMany(JobTask::class);
-    }
-
-    /**
-     * Returns an array of options for a select list for companies.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function companyListOptions(array $filters = [],
-                                              bool $includeBlank = false,
-                                              bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        foreach (Job::select('id', 'company')->orderBy('company', 'asc')->get() as $job) {
-            $options[$nameAsKey ? $job->company : $job->id] = $job->company;
-        }
-
-        return $options;
-    }
-
-    /**
-     * Returns an array of options for a job select list.
-     *
-     * @param array $filters
-     * @param string $valueColumn
-     * @param string $labelColumn
-     * @param bool $includeBlank
-     * @param bool $includeOther
-     * @param array $orderBy
-     * @return array
-     * @throws \Exception
-     */
-    public static function listOptions(array  $filters = [],
-                                       string $valueColumn = 'id',
-                                       string $labelColumn = 'name',
-                                       bool   $includeBlank = false,
-                                       bool   $includeOther = false,
-                                       array  $orderBy = ['company', 'asc']): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $selectColumns = self::SEARCH_COLUMNS;
-        $sortColumn = $orderBy[0] ?? 'name';
-        $sortDir = $orderBy[1] ?? 'asc';
-
-        $query = self::select($selectColumns)->orderBy($sortColumn, $sortDir);
-
-        // Apply filters to the query.
-        foreach ($filters as $col => $value) {
-            if (is_array($value)) {
-                $query = $query->whereIn($col, $value);
-            } else {
-                $parts = explode(' ', $col);
-                $col = $parts[0];
-                if (!empty($parts[1])) {
-                    $operation = trim($parts[1]);
-                    if (in_array($operation, ['<>', '!=', '=!'])) {
-                        $query->whereNot($col, $value);
-                    } elseif (strtolower($operation) == 'like') {
-                        $query->whereLike($col, $value);
-                    } else {
-                        throw new \Exception('Invalid select list filter column: ' . $col . ' ' . $operation);
-                    }
-                } else {
-                    $query = $query->where($col, $value);
-                }
-            }
-        }
-
-        foreach ($query->get() as $row) {
-            if ($labelColumn == 'name') {
-                $label = $row->name . (!empty($row->role) ? ' - ' . $row->role : '');
-            } else {
-                $label = $row->{$labelColumn};
-            }
-            $options[$row->{$valueColumn}] = $label;
-        }
-
-        return $options;
+        return $this->hasMany(JobTask::class, 'job_id');
     }
 }

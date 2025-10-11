@@ -2,14 +2,9 @@
 
 namespace App\Http\Requests\System;
 
-use App\Models\Country;
-use App\Models\State;
-use App\Traits\ModelPermissionsTrait;
 use App\Rules\CaseInsensitiveNotIn;
+use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
-use const http\Client\Curl\AUTH_ANY;
 
 class StoreUserRequest extends FormRequest
 {

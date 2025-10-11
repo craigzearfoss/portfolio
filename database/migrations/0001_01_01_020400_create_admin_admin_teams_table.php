@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\AdminAdminTeam;
+use App\Models\System\AdminAdminTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +16,8 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('admin_admin_teams', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class);
-            $table->foreignIdFor( \App\Models\AdminTeam::class);
+            $table->foreignIdFor( \App\Models\System\Admin::class);
+            $table->foreignIdFor( \App\Models\System\AdminTeam::class);
         });
 
         $data = [

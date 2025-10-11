@@ -23,7 +23,7 @@ class ArtFactory extends Factory
             . (!empty($artist) ? '-by-' . $artist : ''));
 
         return [
-            'owner_id'     => \App\Models\Owner::all()->random()->id,
+            'owner_id'     => \App\Models\System\Owner::all()->random()->id,
             'name'         => $name,
             'artist'       => $artist,
             'slug'         => $slug,

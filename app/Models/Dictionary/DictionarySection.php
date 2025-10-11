@@ -31,6 +31,16 @@ class DictionarySection extends Model
         'disabled',
     ];
 
+    /*
+     *      * @param array $filters
+     * @param string $valueColumn
+     * @param string $labelColumn
+     * @param bool $includeBlank
+     * @param bool $includeOther
+     * @param array $orderBy
+     * @return array
+
+     */
     /**
      * Returns an array of options for a dictionary section select list.
      *

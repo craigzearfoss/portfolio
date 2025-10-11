@@ -65,7 +65,7 @@
                         {{ $admin->phone }}
                     </td>
                     <td data-field="phone">
-                        {{ \App\Models\User::statusName($admin->status) }}
+                        {{ \App\Models\System\User::statusName($admin->status) }}
                     </td>
                     <td data-field="root" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $admin->root ])

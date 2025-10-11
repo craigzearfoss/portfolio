@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Personal;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Models\Resource;
+use App\Models\System\Resource;
 use App\Services\PermissionService;
 
 class IndexController extends BaseAdminController

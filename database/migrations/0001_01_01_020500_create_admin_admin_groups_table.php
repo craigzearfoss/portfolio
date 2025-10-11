@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\AdminAdminGroup;
+use App\Models\System\AdminAdminGroup;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +16,8 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('admin_admin_groups', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\Admin::class);
-            $table->foreignIdFor( \App\Models\AdminGroup::class);
+            $table->foreignIdFor( \App\Models\System\Admin::class);
+            $table->foreignIdFor( \App\Models\System\AdminGroup::class);
         });
 
         $data = [

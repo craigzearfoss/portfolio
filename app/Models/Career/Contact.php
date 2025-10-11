@@ -2,11 +2,10 @@
 
 namespace App\Models\Career;
 
-use App\Models\Career\Company;
-use App\Models\Country;
-use App\Models\Owner;
 use App\Models\Scopes\AdminGlobalScope;
-use App\Models\State;
+use App\Models\System\Country;
+use App\Models\System\Owner;
+use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -118,33 +117,4 @@ class Contact extends Model
     {
         return $this->setConnection('core_db')->belongsTo(State::class, 'state_id');
     }
-
-    /**
-     * Returns an array of options for a contact select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     * /
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $nameAsKey = false): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::select('id', 'name')->orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $contact) {
-            $options[$nameAsKey ? $contact->name : $contact->id] = $contact->name;
-        }
-
-        return $options;
-    }*/
 }

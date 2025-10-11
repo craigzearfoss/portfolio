@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('recipe_ingredients', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->foreignIdFor( \App\Models\Personal\Recipe::class);
             $table->foreignIdFor( \App\Models\Personal\Ingredient::class);
             $table->string('amount', 50)->nullable();

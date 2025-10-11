@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Career\ApplicationController as AdminCareerApplicationController;
+use App\Http\Controllers\Admin\Career\ApplicationSkillController as AdminCareerApplicationSkillController;
 use App\Http\Controllers\Admin\Career\CommunicationController as AdminCareerCommunicationController;
 use App\Http\Controllers\Admin\Career\CompanyController as AdminCareerCompanyController;
 use App\Http\Controllers\Admin\Career\ContactController as AdminCareerContactController;
@@ -22,6 +23,7 @@ Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group
     Route::get('application/{application}/cover-letter', [AdminCareerApplicationController::class, 'showCoverLetter'])->name('application.cover-letter.show');
     Route::get('application/{application}/cover-letter/edit', [AdminCareerApplicationController::class, 'editCoverLetter'])->name('application.cover-letter.edit');
     Route::put('application/{application}/cover-letter/update', [AdminCareerApplicationController::class, 'updateCoverLetter'])->name('application.cover-letter.update');
+    Route::resource('application/skill', AdminCareerApplicationSkillController::class);
     Route::resource('communication', AdminCareerCommunicationController::class);
     Route::resource('company', AdminCareerCompanyController::class);
     Route::get('company/{company}/contact/add', [AdminCareerCompanyController::class, 'addContact'])->name('company.contact.add');

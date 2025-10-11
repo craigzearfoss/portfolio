@@ -41,7 +41,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? $resource->owner_id,
                     'required' => true,
-                    'list'     => \App\Models\Owner::listOptions(
+                    'list'     => \App\Models\System\Owner::listOptions(
                         ['root' => 1], 'id', 'username', true, false, ['username', 'asc']
                     ),
                     'message'  => $message ?? '',
@@ -66,7 +66,7 @@
                 'label'    => 'database',
                 'value'    => old('resource_db_id') ?? $resource->database_id,
                 'required' => true,
-                'list'     => \App\Models\Database::listOptions([]),
+                'list'     => \App\Models\System\Database::listOptions([]),
                 'message'  => $message ?? '',
             ])
 

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\AdminGroup;
+use App\Models\System\AdminGroup;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +16,8 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('admin_groups', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
-            $table->foreignIdFor( \App\Models\AdminTeam::class);
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
+            $table->foreignIdFor( \App\Models\System\AdminTeam::class);
             $table->string('name', 100);
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();

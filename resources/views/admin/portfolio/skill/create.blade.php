@@ -35,7 +35,7 @@
                     'label'    => 'owner',
                     'value'    => old('owner_id') ?? '',
                     'required' => true,
-                    'list'     => \App\Models\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
                 ])
             @else
@@ -56,7 +56,6 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'version',
                 'value'     => old('version') ?? '',
-                'required'  => true,
                 'maxlength' => 20,
                 'message'   => $message ?? '',
             ])
@@ -76,6 +75,16 @@
                 'message'   => $message ?? '',
             ])
 
+
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'dictionary_category_id',
+                'label'    => 'category',
+                'value'    => old('dictionary_category_id') ?? '',
+                'required' => true,
+                'list'     => \App\Models\Dictionary\Category::listOptions([], 'id', 'name', true),
+                'message'  => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'level',
@@ -88,6 +97,26 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'start_year',
+                'label'     => 'start year',
+                'value'     => old('start_year') ?? '',
+                'min'       => 1980,
+                'max'       => date("Y"),
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'end_year',
+                'label'     => 'end year',
+                'value'     => old('end_year') ?? '',
+                'min'       => 1980,
+                'max'       => date("Y"),
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'years',
                 'value'       => old('years') ?? 0,
@@ -97,7 +126,7 @@
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'notes',
-                'value'   => old('notes') ?? $reading->notes,
+                'value'   => old('notes') ?? '',
                 'message' => $message ?? '',
             ])
 

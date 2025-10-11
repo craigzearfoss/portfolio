@@ -60,33 +60,4 @@ class Database extends Model
     {
         return $this->belongsToMany(Stack::class);
     }
-
-    /**
-     * Returns an array of options for a database select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $nameAsKey = true): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::select('id', 'name')->orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $database) {
-            $options[$nameAsKey ? $database->name : $database->id] = $database->name;
-        }
-
-        return $options;
-    }
 }

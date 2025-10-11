@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\UserUserTeam;
+use App\Models\System\UserUserTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,8 +16,8 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('user_user_teams', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor( \App\Models\User::class);
-            $table->foreignIdFor( \App\Models\UserTeam::class);
+            $table->foreignIdFor( \App\Models\System\User::class);
+            $table->foreignIdFor( \App\Models\System\UserTeam::class);
         });
 
         $data = [

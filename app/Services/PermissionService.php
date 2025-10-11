@@ -2,8 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Database;
-use App\Models\Resource;
+use App\Models\System\Resource;
 use Illuminate\Support\Facades\Auth;
 
 class PermissionService

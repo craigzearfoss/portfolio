@@ -52,7 +52,7 @@
                     'name'    => 'team_id',
                     'label'   => 'team',
                     'value'   => old('team_id') ?? '',
-                    'list'    => \App\Models\AdminTeam::listOptions([], true),
+                    'list'    => \App\Models\System\AdminTeam::listOptions([], true),
                     'message' => $message ?? '',
                 ])
 

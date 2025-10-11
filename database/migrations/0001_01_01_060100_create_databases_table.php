@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Admin;
-use App\Models\Database;
+use App\Models\System\Database;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -30,7 +29,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('databases', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Owner::class, 'owner_id');
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('name', 50)->unique();
             $table->string('database', 50)->unique();
             $table->string('tag', 50)->unique();

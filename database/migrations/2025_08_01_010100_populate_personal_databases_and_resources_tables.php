@@ -1,10 +1,8 @@
 <?php
 
-use \App\Models\Database;
-use \App\Models\Resource;
+use App\Models\System\Database;
+use App\Models\System\Resource;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -54,7 +52,7 @@ return new class extends Migration
                 'guest'    => 1,
                 'user'     => 1,
                 'admin'    => 1,
-                'sequence' => 3000,
+                'sequence' => 200,
                 'public'   => 1,
                 'disabled' => 0,
             ],

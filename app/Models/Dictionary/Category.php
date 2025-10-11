@@ -50,33 +50,4 @@ class Category extends Model
      */
     const SEARCH_COLUMNS = ['id', 'name', 'full_name', 'abbreviation', 'open_source', 'proprietary', 'compiled', 'owner'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
-
-    /**
-     * Returns an array of options for a category select list.
-     *
-     * @param array $filters
-     * @param bool $includeBlank
-     * @param bool $nameAsKey
-     * @return array|string[]
-     */
-    public static function listOptions(array $filters = [],
-                                       bool $includeBlank = false,
-                                       bool $nameAsKey = true): array
-    {
-        $options = [];
-        if ($includeBlank) {
-            $options[''] = '';
-        }
-
-        $query = self::select('id', 'name')->orderBy('name', 'asc');
-        foreach ($filters as $column => $value) {
-            $query = $query->where($column, $value);
-        }
-
-        foreach ($query->get() as $category) {
-            $options[$nameAsKey ? $category->name : $category->id] = $category->name;
-        }
-
-        return $options;
-    }
 }

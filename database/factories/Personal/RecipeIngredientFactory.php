@@ -17,7 +17,7 @@ class RecipeIngredientFactory extends Factory
     public function definition(): array
     {
         return [
-            'owner_id'      => \App\Models\Owner::all()->random()->id,
+            'owner_id'      => \App\Models\System\Owner::all()->random()->id,
             'recipe_id'     => \App\Models\Personal\Recipe::all()->random()->id,
             'ingredient_id' => \App\Models\Personal\Ingredient::all()->random()->id,
             'amount'        => fake()->randomElement(['', '1/4', '1/2', '3/4', '1', '1 1/2', '2', '3', '4']),
