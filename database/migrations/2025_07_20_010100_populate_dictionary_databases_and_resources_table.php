@@ -40,6 +40,9 @@ return new class extends Migration
 
         //@TODO: Check if the database or and of the resources exist in the databases or resources tables.
 
+        /** -----------------------------------------------------
+         * Add dictionary database.
+         ** ----------------------------------------------------- */
         $data = [
             [
                 //'id'       => 2,
@@ -52,7 +55,7 @@ return new class extends Migration
                 'user'     => 1,
                 'admin'    => 1,
                 'icon'     => 'fa-book',
-                'sequence' => 1000,
+                'sequence' => 9000,
                 'public'   => 1,
                 'disabled' => 0,
             ],
@@ -67,31 +70,29 @@ return new class extends Migration
 
         Database::insert($data);
 
-        if (!$row = Database::where('database', '=', $dbName)->first()) {
+        if (!$database = Database::where('database', $dbName)->first()) {
 
             throw new \Exception($dbName . 'database not found.');
 
         } else {
 
-            $databaseId = $row->id;
-
             /** -----------------------------------------------------
-             * Add level 1 resources.
+             * Add dictionary resources.
              ** ----------------------------------------------------- */
             $data = [
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'category',
                     'table'       => 'categories',
                     'title'       => 'Category',
                     'plural'      => 'Categories',
                     'guest'       => 1,
-                    'user'        => 0,
+                    'user'        => 1,
                     'admin'       => 1,
                     'icon'        => 'fa-chevron-circle-right',
-                    'level'       => 1,
-                    'sequence'    => 2010,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 10,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 1,
@@ -99,17 +100,17 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'database',
                     'table'       => 'databases',
                     'title'       => 'Database',
                     'plural'      => 'Databases',
                     'guest'       => 1,
-                    'user'        => 0,
+                    'user'        => 1,
                     'admin'       => 1,
                     'icon'        => 'fa-chevron-circle-right',
-                    'level'       => 1,
-                    'sequence'    => 2020,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 20,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 1,
@@ -117,17 +118,17 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'framework',
                     'table'       => 'frameworks',
                     'title'       => 'Framework',
                     'plural'      => 'Frameworks',
                     'guest'       => 1,
-                    'user'        => 0,
+                    'user'        => 1,
                     'admin'       => 1,
                     'icon'        => 'fa-chevron-circle-right',
-                    'level'       => 1,
-                    'sequence'    => 2030,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 30,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 1,
@@ -135,17 +136,17 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'language',
                     'table'       => 'languages',
                     'title'       => 'Language',
                     'plural'      => 'Languages',
                     'guest'       => 1,
-                    'user'        => 0,
+                    'user'        => 1,
                     'admin'       => 1,
                     'icon'        => 'fa-chevron-circle-right',
-                    'level'       => 1,
-                    'sequence'    => 2040,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 40,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 1,
@@ -153,17 +154,17 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'library',
                     'table'       => 'libraries',
                     'title'       => 'Library',
                     'plural'      => 'Libraries',
                     'guest'       => 1,
-                    'user'        => 0,
+                    'user'        => 1,
                     'admin'       => 1,
                     'icon'        => 'fa-chevron-circle-right',
-                    'level'       => 1,
-                    'sequence'    => 2050,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 50,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 1,
@@ -171,17 +172,17 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'operating-system',
                     'table'       => 'operating_systems',
                     'title'       => 'Operating System',
                     'plural'      => 'Operating Systems',
                     'guest'       => 1,
-                    'user'        => 0,
+                    'user'        => 1,
                     'admin'       => 1,
                     'icon'        => 'fa-chevron-circle-right',
-                    'level'       => 1,
-                    'sequence'    => 2060,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 60,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 1,
@@ -189,17 +190,17 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'server',
                     'table'       => 'servers',
                     'title'       => 'Server',
                     'plural'      => 'Servers',
                     'guest'       => 1,
-                    'user'        => 0,
+                    'user'        => 1,
                     'admin'       => 1,
                     'icon'        => 'fa-chevron-circle-right',
-                    'level'       => 1,
-                    'sequence'    => 2070,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 70,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 1,
@@ -207,17 +208,17 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'stack',
                     'table'       => 'stacks',
                     'title'       => 'Stack',
                     'plural'      => 'Stacks',
                     'guest'       => 1,
-                    'user'        => 0,
+                    'user'        => 1,
                     'admin'       => 1,
                     'icon'        => 'fa-chevron-circle-right',
-                    'level'       => 1,
-                    'sequence'    => 2080,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 80,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 1,

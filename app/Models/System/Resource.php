@@ -139,9 +139,11 @@ class Resource extends Model
             $query->where('databases.name', $database);
         }
 
-        if (!empty($envType)) {
-            $query->where('databases.'.$envType, 1)
-                ->where('resources.'.$envType, 1);
+        if ($envType == 'admin') {
+            $query->where('databases.admin', 1)->where('resources.admin', 1);
+        } else {
+            $query->where('databases.'.$envType, 1)->where('databases.public', 0)->where('databases.disabled', 0)
+                ->where('resources.'.$envType, 1)->where('resources.public', 0)->where('resources.disabled', 0);
         }
 
         // Apply filters to the query.

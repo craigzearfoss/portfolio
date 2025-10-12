@@ -47,7 +47,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
-
+        /** -----------------------------------------------------
+         * Add system database.
+         ** ----------------------------------------------------- */
         $data = [
             [
                 'id'       => 1,

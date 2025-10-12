@@ -40,9 +40,12 @@ return new class extends Migration
 
         //@TODO: Check if the database or and of the resources exist in the databases or resources tables.
 
+        /** -----------------------------------------------------
+         * Add personal database.
+         ** ----------------------------------------------------- */
         $data = [
             [
-                //'id'       => 5,
+                //'id'       => 3,
                 'name'     => 'personal',
                 'database' => config('app.' . $this->database_tag),
                 'tag'      => $this->database_tag,
@@ -52,7 +55,7 @@ return new class extends Migration
                 'guest'    => 1,
                 'user'     => 1,
                 'admin'    => 1,
-                'sequence' => 200,
+                'sequence' => 2000,
                 'public'   => 1,
                 'disabled' => 0,
             ],
@@ -67,21 +70,19 @@ return new class extends Migration
 
         Database::insert($data);
 
-        if (!$row = Database::where('database', '=', $dbName)->first()) {
+        if (!$database = Database::where('database', $dbName)->first()) {
 
-            throw new \Exception($dbName . ' database not found.');
+            throw new \Exception($dbName . 'database not found.');
 
         } else {
 
-            $databaseId = $row->id;
-
             /** -----------------------------------------------------
-             * Add level 1 resources.
+             * Add personal resources.
              ** ----------------------------------------------------- */
             $data = [
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'ingredient',
                     'table'       => 'ingredients',
                     'title'       => 'Ingredient',
@@ -90,26 +91,26 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-pizza-slice',
-                    'level'       => 1,
-                    'sequence'    => 5010,
-                    'public'      => 0,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 10,
+                    'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 1,
                     'disabled'    => 0,
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'reading',
                     'table'       => 'readings',
                     'title'       => 'Reading',
                     'plural'      => 'Readings',
                     'guest'       => 1,
-                    'user'        => 0,
+                    'user'        => 1,
                     'admin'       => 1,
                     'icon'        => 'fa-book',
-                    'level'       => 1,
-                    'sequence'    => 5020,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 20,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -117,42 +118,25 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'recipe',
                     'table'       => 'recipes',
                     'title'       => 'Recipe',
                     'plural'      => 'Recipes',
                     'guest'       => 1,
-                    'user'        => 0,
+                    'user'        => 1,
                     'admin'       => 1,
                     'icon'        => 'fa-cutlery',
-                    'level'       => 1,
-                    'sequence'    => 5030,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 30,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
                 ],
-            ];
-
-            // add timestamps and owner_ids
-            for($i=0; $i<count($data);$i++) {
-                $data[$i]['created_at'] = now();
-                $data[$i]['updated_at'] = now();
-                $data[$i]['owner_id']   = $this->ownerId;
-            }
-
-            Resource::insert($data);
-
-            /** -----------------------------------------------------
-             * Add level 2 resources.
-             ** ----------------------------------------------------- */
-            $recipeResource = Resource::where('name', 'recipe')->first();
-
-            $data = [
                 [
-                    'parent_id'   => $recipeResource->id,
-                    'database_id' => $databaseId,
+                    'parent_id'   => null,
+                    'database_id' => $database->id,
                     'name'        => 'recipe-ingredient',
                     'table'       => 'recipe_ingredients',
                     'title'       => 'Recipe Ingredient',
@@ -161,16 +145,16 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-cutlery',
-                    'level'       => 2,
-                    'sequence'    => 5040,
-                    'public'      => 0,
+                    'level'       => 3,
+                    'sequence'    => $database->sequence + 40,
+                    'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
                 ],
                 [
-                    'parent_id'   => $recipeResource->id,
-                    'database_id' => $databaseId,
+                    'parent_id'   => null,
+                    'database_id' => $database->id,
                     'name'        => 'recipe-step',
                     'table'       => 'recipe_steps',
                     'title'       => 'Recipe Step',
@@ -179,9 +163,9 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-cutlery',
-                    'level'       => 2,
-                    'sequence'    => 5050,
-                    'public'      => 0,
+                    'level'       => 3,
+                    'sequence'    => $database->sequence + 50,
+                    'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
@@ -204,9 +188,5 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if ($personalDatabase = Database::where('name', 'personal')->first()) {
-            Resource::where('database_id', $personalDatabase->id)->delete();
-            $personalDatabase->delete();
-        }
     }
 };

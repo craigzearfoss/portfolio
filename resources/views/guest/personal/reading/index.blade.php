@@ -14,17 +14,22 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <?php /*
+    <div class="search-container card p-2 pb-0 mb-1">
+        <form id="searchForm" action="{{ route('guest.personal.reading.index') }}" method="get">
+            <div class="control">
+                @include('admin.components.form-select', [
+                    'name'     => 'author',
+                    'value'    => Request::get('author'),
+                    'list'     => \App\Models\Personal\Reading::listOptions([], 'author', 'author', true, false, ['author', 'asc']),
+                    'onchange' => "document.getElementById('searchForm').submit()"
+                ])
+            </div>
+        </form>
+    </div>
+    */ ?>
 
-        @include('guest.components.form-select', [
-            'name'     => '',
-            'value'    => old('author') ?? '',
-            'list'     => \App\Models\Personal\Reading::listOptions(
-                                [], 'author', 'author', true, false, ['author', 'asc']
-                            ),
-            'onchange' => "alert('need to implement route.');",
-            'message'  => $message ?? '',
-        ])
+    <div class="show-container card p-4">
 
         {!! $readings->links('vendor.pagination.bulma') !!}
 

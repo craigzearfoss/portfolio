@@ -40,6 +40,9 @@ return new class extends Migration
 
         //@TODO: Check if the database or and of the resources exist in the databases or resources tables.
 
+        /** -----------------------------------------------------
+         * Add career database.
+         ** ----------------------------------------------------- */
         $data = [
             [
                 //'id'       => 4,
@@ -52,8 +55,8 @@ return new class extends Migration
                 'user'     => 0,
                 'admin'    => 1,
                 'icon'     => 'fa-briefcase',
-                'sequence' => 300,
-                'public'   => 1,
+                'sequence' => 3000,
+                'public'   => 0,
                 'disabled' => 0,
             ],
         ];
@@ -67,21 +70,19 @@ return new class extends Migration
 
         Database::insert($data);
 
-        if (!$row = Database::where('database', '=', $dbName)->first()) {
+        if (!$database = Database::where('database', $dbName)->first()) {
 
             throw new \Exception($dbName . ' database not found.');
 
         } else {
 
-            $databaseId = $row->id;
-
             /** -----------------------------------------------------
-             * Add level 1 resources.
+             * Add career resources.
              ** ----------------------------------------------------- */
             $data = [
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'application',
                     'table'       => 'applications',
                     'title'       => 'Application',
@@ -90,8 +91,8 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-thumbtack',
-                    'level'       => 1,
-                    'sequence'    => 4010,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 10,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -99,7 +100,7 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'communication',
                     'table'       => 'communications',
                     'title'       => 'Communication',
@@ -108,8 +109,8 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-phone',
-                    'level'       => 1,
-                    'sequence'    => 4020,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 20,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -117,7 +118,7 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'company',
                     'table'       => 'companies',
                     'title'       => 'Company',
@@ -126,8 +127,8 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-chart-line',
-                    'level'       => 1,
-                    'sequence'    => 4030,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 30,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -135,7 +136,7 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'contact',
                     'table'       => 'contacts',
                     'title'       => 'Contact',
@@ -144,8 +145,8 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-address-book',
-                    'level'       => 1,
-                    'sequence'    => 4040,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 40,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -153,7 +154,7 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'cover-letter',
                     'table'       => 'cover_letters',
                     'title'       => 'Cover Letter',
@@ -162,8 +163,8 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-file-text',
-                    'level'       => 1,
-                    'sequence'    => 4050,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 50,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -171,7 +172,7 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'event',
                     'table'       => 'events',
                     'title'       => 'Event',
@@ -180,8 +181,8 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-calendar',
-                    'level'       => 1,
-                    'sequence'    => 4060,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 60,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -189,7 +190,7 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'industry',
                     'table'       => 'industries',
                     'title'       => 'Industry',
@@ -198,8 +199,8 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-industry',
-                    'level'       => 1,
-                    'sequence'    => 4070,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 70,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 1,
@@ -207,7 +208,7 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'job-board',
                     'table'       => 'job_boards',
                     'title'       => 'Job Board',
@@ -216,16 +217,16 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-clipboard',
-                    'level'       => 1,
-                    'sequence'    => 4080,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 80,
                     'public'      => 0,
                     'readonly'    => 0,
-                    'root'        => 0,
+                    'root'        => 1,
                     'disabled'    => 0,
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'note',
                     'table'       => 'notes',
                     'title'       => 'Note',
@@ -234,8 +235,8 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-sticky-note',
-                    'level'       => 1,
-                    'sequence'    => 4090,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 90,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -243,7 +244,7 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'recruiter',
                     'table'       => 'recruiters',
                     'title'       => 'Recruiter',
@@ -252,8 +253,8 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-handshake',
-                    'level'       => 1,
-                    'sequence'    => 4100,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 100,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -261,7 +262,7 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'reference',
                     'table'       => 'references',
                     'title'       => 'Reference',
@@ -270,8 +271,8 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-address-card',
-                    'level'       => 1,
-                    'sequence'    => 4110,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 110,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -279,7 +280,7 @@ return new class extends Migration
                 ],
                 [
                     'parent_id'   => null,
-                    'database_id' => $databaseId,
+                    'database_id' => $database->id,
                     'name'        => 'resume',
                     'table'       => 'resumes',
                     'title'       => 'Resume',
@@ -288,8 +289,8 @@ return new class extends Migration
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-file',
-                    'level'       => 1,
-                    'sequence'    => 4120,
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 120,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,
