@@ -5,6 +5,9 @@ namespace App\Models\Portfolio;
 use App\Models\Scopes\AccessGlobalScope;
 use App\Models\System\Country;
 use App\Models\System\Owner;
+use App\Models\System\Database;
+use App\Models\System\Resource;
+use App\Models\System\ResourceSetting;
 use App\Models\System\State;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -19,7 +22,9 @@ class Job extends Model
     /** @use HasFactory<\Database\Factories\Portfolio\JobFactory> */
     use SearchableModelTrait, HasFactory, SoftDeletes;
 
-    protected $connection = 'portfolio_db';
+    const DATABASE_TAG = 'portfolio_db';
+
+    protected $connection = self::DATABASE_TAG;
 
     protected $table = 'jobs';
 
@@ -143,6 +148,24 @@ class Job extends Model
     protected function calculateName()
     {
         return $this->company . (!empty($this->role) ? ' (' . $this->role . ')' : '');
+    }
+
+    public static function resumeTemplate()
+    {
+        $template = 'default';
+
+        if ($database = Database::where('tag', self::DATABASE_TAG)->first()) {
+            if ($resource = Resource::where('database_id', $database->id)->where('table', 'jobs')->first()) {
+                $value = ResourceSetting::getSetting($resource->id, 'template');
+                if (!empty($value)) {
+                    $template = $value;
+                }
+            }
+        }
+
+        $resumePath = 'guest.portfolio.job.resume.templates.' . $template;
+
+        return $resumePath;
     }
 
     /**

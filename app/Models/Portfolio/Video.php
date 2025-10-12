@@ -8,6 +8,7 @@ use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Video extends Model
@@ -92,5 +93,13 @@ class Video extends Model
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Video::class, 'parent_id');
+    }
+
+    /**
+     * Get the children of the video.
+     */
+    public function children(): HasMany
+    {
+        return $this->hasMany(Video::class, 'parent_id');
     }
 }

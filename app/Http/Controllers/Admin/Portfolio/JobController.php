@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobRequest;
 use App\Http\Requests\Portfolio\UpdateJobsRequest;
 use App\Models\Portfolio\Job;
+use App\Models\System\Database;
+use App\Models\System\Resource;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -26,8 +28,10 @@ class JobController extends BaseAdminController
         $perPage = $request->query('per_page', $this->perPage);
 
         $jobs = Job::orderBy('start_year', 'desc')->orderBy('start_month', 'desc')->paginate($perPage);
+        $resource = Resource::where('database_id', Database::where('tag', 'portfolio_db')->first()->id)
+            ->where('name', 'job')->first();
 
-        return view('admin.portfolio.job.index', compact('jobs'))
+        return view('admin.portfolio.job.index', compact('jobs', 'resource'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

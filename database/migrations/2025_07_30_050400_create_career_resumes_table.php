@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Career\Resume;
-use App\Models\System\SiteSetting;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -234,14 +233,6 @@ return new class extends Migration
         }
 
         Resume::insert($data);
-
-        SiteSetting::insert([
-            [
-                'name'            => 'template',
-                'setting_type_id' => 2,
-                'value'           => 'default',
-            ]
-        ]);
     }
 
     /**

@@ -16,6 +16,42 @@
 
 @section('content')
 
+    @if(!empty($resource->settings))
+
+        <div class="card p-4" style="width: auto;">
+
+            <div>
+                Settings
+            </div>
+            <div>
+            <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+                <thead>
+                <tr>
+                    <th>name</th>
+                    <th>type</th>
+                    <th>value</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach($resource->settings as $setting)
+                        <td>
+                            {{ $setting->name }}
+                        </td>
+                        <td>
+                            {{ $setting->type->name ?? '' }}
+                        </td>
+                        <td>
+                            {{ $setting->value }}
+                        </td>
+                    @endforeach
+                </tbody>
+            </table>
+            </div>
+
+        </div>
+
+    @endif
+
     <div class="card p-4">
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">

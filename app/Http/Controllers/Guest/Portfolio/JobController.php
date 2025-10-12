@@ -15,6 +15,6 @@ class JobController extends BaseGuestController
             ->where('disabled', 0)
             ->orderBy('start_year', 'desc')->orderBy('start_month', 'desc')->get();
 
-        return view('guest.portfolio.job.show', compact('jobs'));
+        return view(Job::resumeTemplate(), compact('jobs'));
     }
 }

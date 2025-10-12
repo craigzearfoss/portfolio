@@ -8,6 +8,7 @@ use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Audio extends Model
@@ -92,5 +93,13 @@ class Audio extends Model
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Audio::class, 'parent_id');
+    }
+
+    /**
+     * Get the children of the audio.
+     */
+    public function children(): HasMany
+    {
+        return $this->hasMany(Audio::class, 'parent_id');
     }
 }

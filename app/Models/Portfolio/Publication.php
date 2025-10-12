@@ -8,6 +8,7 @@ use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Publication extends Model
@@ -88,7 +89,7 @@ class Publication extends Model
     }
 
     /**
-     * Get the owner of the video.
+     * Get the owner of the publication.
      */
     public function owner(): BelongsTo
     {
@@ -96,10 +97,18 @@ class Publication extends Model
     }
 
     /**
-     * Get the parent of the video.
+     * Get the parent of the publication.
      */
     public function parent(): BelongsTo
     {
         return $this->belongsTo(Publication::class, 'parent_id');
+    }
+
+    /**
+     * Get the children of the publication.
+     */
+    public function children(): HasMany
+    {
+        return $this->hasMany(Publication::class, 'parent_id');
     }
 }

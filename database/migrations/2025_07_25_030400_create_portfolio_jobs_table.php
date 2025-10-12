@@ -1,6 +1,9 @@
 <?php
 
 use App\Models\Portfolio\Job;
+use App\Models\System\Database;
+use App\Models\System\Resource;
+use App\Models\System\ResourceSetting;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -26,6 +29,19 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!$database = Database::where('tag', $this->database_tag)->first()) {
+            throw new \Exception(
+                'Database with tag `' . $this->database_tag . '` not found in '
+                . config('app.core_db') . '.databases table.'
+            );
+        }
+
+        if (!$jobResource = Resource::where('database_id', $database->id)->where('table', 'jobs')->first()) {
+            throw new \Exception(
+                'Resource with name `job` not found in ' . config('system_db') . '.resources table.'
+            );
+        }
+
         Schema::connection($this->database_tag)->create('jobs', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
@@ -80,7 +96,7 @@ return new class extends Migration
                 'end_month'   => null,
                 'end_year'    => null,
                 'job_employment_type_id' => 1,
-                'job_location_type_id'   => 2,
+                'job_location_type_id'   => 3,
                 'city'        => 'Idaho Falls',
                 'state_id'    => 13,
                 'country_id'  => 237,
@@ -234,6 +250,17 @@ return new class extends Migration
         }
 
         Job::insert($data);
+
+        // add an entry for the default template into the resource_settings table
+        ResourceSetting::insert([
+            [
+                'owner_id'        => $this->ownerId,
+                'resource_id'     => $jobResource->id,
+                'name'            => 'template',
+                'setting_type_id' => 5,
+                'value'           => 'default',
+            ]
+        ]);
     }
 
     /**

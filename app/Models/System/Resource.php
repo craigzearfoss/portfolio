@@ -3,6 +3,7 @@
 namespace App\Models\System;
 
 use App\Http\Requests\ResourceStoreRequest;
+use App\Models\System\ResourceSetting;
 use App\Services\PermissionService;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -81,6 +82,14 @@ class Resource extends Model
     public function children(): HasMany
     {
         return $this->hasMany(Resource::class, 'parent_id');
+    }
+
+    /**
+     * Get the settings of the resource.
+     */
+    public function settings(): HasMany
+    {
+        return $this->hasMany(ResourceSetting::class, 'resource_id');
     }
 
     /**
