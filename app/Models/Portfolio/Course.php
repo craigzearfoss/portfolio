@@ -2,7 +2,7 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AccessGlobalScope;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -65,7 +65,7 @@ class Course extends Model
     {
         parent::booted();
 
-        static::addGlobalScope(new AdminGlobalScope());
+        static::addGlobalScope(new AccessGlobalScope());
     }
 
     /**

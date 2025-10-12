@@ -1,10 +1,10 @@
 @php @endphp
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Videos',
+    'title' => $title ?? 'Video',
     'breadcrumbs' => [
         [ 'name' => 'Home',      'href' => route('guest.homepage')],
         [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
-        [ 'name' => 'Videos']
+        [ 'name' => 'Video' ]
     ],
     'buttons' => [],
     'errors'  => $errors->messages()  ?? [],
@@ -61,7 +61,7 @@
             @empty
 
                 <tr>
-                    <td colspan="4">There are no videos.</td>
+                    <td colspan="4">There is no video.</td>
                 </tr>
 
             @endforelse

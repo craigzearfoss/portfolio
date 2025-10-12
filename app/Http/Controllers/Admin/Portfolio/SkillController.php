@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Portfolio\StoreSkillRequest;
-use App\Http\Requests\Portfolio\UpdateSkillRequest;
+use App\Http\Requests\Portfolio\StoreSkillsRequest;
+use App\Http\Requests\Portfolio\UpdateSkillsRequest;
 use App\Models\Portfolio\Skill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -45,10 +45,10 @@ class SkillController extends BaseAdminController
     /**
      * Store a newly created skill in storage.
      *
-     * @param StoreSkillRequest $storeSkillRequest
+     * @param StoreSkillsRequest $storeSkillRequest
      * @return RedirectResponse
      */
-    public function store(StoreSkillRequest $storeSkillRequest): RedirectResponse
+    public function store(StoreSkillsRequest $storeSkillRequest): RedirectResponse
     {
         $skill = Skill::create($storeSkillRequest->validated());
 
@@ -81,11 +81,11 @@ class SkillController extends BaseAdminController
     /**
      * Update the specified skill in storage.
      *
-     * @param UpdateSkillRequest $updateSkillRequest
+     * @param UpdateSkillsRequest $updateSkillRequest
      * @param Skill $skill
      * @return RedirectResponse
      */
-    public function update(UpdateSkillRequest $updateSkillRequest, Skill $skill): RedirectResponse
+    public function update(UpdateSkillsRequest $updateSkillRequest, Skill $skill): RedirectResponse
     {
         $skill->update($updateSkillRequest->validated());
 

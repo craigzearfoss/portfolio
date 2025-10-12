@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\System\StoreMessageRequest;
-use App\Http\Requests\System\UpdateMessageRequest;
+use App\Http\Requests\System\StoreMessagesRequest;
+use App\Http\Requests\System\UpdateMessagesRequest;
 use App\Models\System\Message;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,10 +44,10 @@ class MessageController extends BaseAdminController
     /**
      * Store a newly created message in storage.
      *
-     * @param StoreMessageRequest $storeMessageRequest
+     * @param StoreMessagesRequest $storeMessageRequest
      * @return RedirectResponse
      */
-    public function store(StoreMessageRequest $storeMessageRequest): RedirectResponse
+    public function store(StoreMessagesRequest $storeMessageRequest): RedirectResponse
     {
         $message = Message::create($storeMessageRequest->validated());
 
@@ -80,11 +80,11 @@ class MessageController extends BaseAdminController
     /**
      * Update the specified message in storage.
      *
-     * @param UpdateMessageRequest $updateMessageRequest
+     * @param UpdateMessagesRequest $updateMessageRequest
      * @param Message $message
      * @return RedirectResponse
      */
-    public function update(UpdateMessageRequest $updateMessageRequest, Message $message): RedirectResponse
+    public function update(UpdateMessagesRequest $updateMessageRequest, Message $message): RedirectResponse
     {
         $message->update($updateMessageRequest->validated());
 

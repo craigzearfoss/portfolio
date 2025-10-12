@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\System\StoreUserGroupRequest;
-use App\Http\Requests\System\UpdateUserGroupRequest;
+use App\Http\Requests\System\StoreUserGroupsRequest;
+use App\Http\Requests\System\UpdateUserGroupsRequest;
 use App\Models\System\UserGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -45,10 +45,10 @@ class UserGroupController extends BaseAdminController
     /**
      * Store a newly created user group in storage.
      *
-     * @param StoreUserGroupRequest $storeUserGroupRequest
+     * @param StoreUserGroupsRequest $storeUserGroupRequest
      * @return RedirectResponse
      */
-    public function store(StoreUserGroupRequest $storeUserGroupRequest): RedirectResponse
+    public function store(StoreUserGroupsRequest $storeUserGroupRequest): RedirectResponse
     {
         $userGroup = UserGroup::create($storeUserGroupRequest->validated());
 
@@ -85,11 +85,11 @@ class UserGroupController extends BaseAdminController
     /**
      * Update the specified user group in storage.
      *
-     * @param UpdateUserGroupRequest $updateUserGroupRequest
+     * @param UpdateUserGroupsRequest $updateUserGroupRequest
      * @param UserGroup $userGroup
      * @return RedirectResponse
      */
-    public function update(UpdateUserGroupRequest $updateUserGroupRequest, UserGroup $userGroup): RedirectResponse
+    public function update(UpdateUserGroupsRequest $updateUserGroupRequest, UserGroup $userGroup): RedirectResponse
     {
         $userGroup->update($updateUserGroupRequest->validated());
 

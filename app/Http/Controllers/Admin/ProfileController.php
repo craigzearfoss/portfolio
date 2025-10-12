@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\System\UpdateAdminRequest;
+use App\Http\Requests\System\UpdateAdminsRequest;
 use App\Models\System\Admin;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -43,10 +43,10 @@ class ProfileController extends BaseAdminController
     /**
      * Update the current admin in storage.
      *
-     * @param UpdateAdminRequest $updateAdminRequest
+     * @param UpdateAdminsRequest $updateAdminRequest
      * @return RedirectResponse
      */
-    public function update(UpdateAdminRequest $updateAdminRequest): RedirectResponse
+    public function update(UpdateAdminsRequest $updateAdminRequest): RedirectResponse
     {
         $admin = Auth::guard('admin')->user();
 
@@ -70,11 +70,11 @@ class ProfileController extends BaseAdminController
     /**
      * Update the new password.
      *
-     * @param UpdateAdminRequest $request
+     * @param UpdateAdminsRequest $request
      * @param Admin $admin
      * @return RedirectResponse|View
      */
-    public function change_password_submit(UpdateAdminRequest $request, Admin $admin): RedirectResponse|View
+    public function change_password_submit(UpdateAdminsRequest $request, Admin $admin): RedirectResponse|View
     {
         $admin = Auth::guard('admin')->user();
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Portfolio\StoreProjectRequest;
-use App\Http\Requests\Portfolio\UpdateProjectRequest;
+use App\Http\Requests\Portfolio\StoreProjectsRequest;
+use App\Http\Requests\Portfolio\UpdateProjectsRequest;
 use App\Models\Portfolio\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,10 +46,10 @@ class ProjectController extends BaseAdminController
     /**
      * Store a newly created project in storage.
      *
-     * @param StoreProjectRequest $storeProjectRequest
+     * @param StoreProjectsRequest $storeProjectRequest
      * @return RedirectResponse
      */
-    public function store(StoreProjectRequest $storeProjectRequest): RedirectResponse
+    public function store(StoreProjectsRequest $storeProjectRequest): RedirectResponse
     {
         $project = Project::create($storeProjectRequest->validated());
 
@@ -82,11 +82,11 @@ class ProjectController extends BaseAdminController
     /**
      * Update the specified project in storage.
      *
-     * @param UpdateProjectRequest $updateProjectRequest
+     * @param UpdateProjectsRequest $updateProjectRequest
      * @param Project $project
      * @return RedirectResponse
      */
-    public function update(UpdateProjectRequest $updateProjectRequest, Project $project): RedirectResponse
+    public function update(UpdateProjectsRequest $updateProjectRequest, Project $project): RedirectResponse
     {
         $project->update($updateProjectRequest->validated());
 

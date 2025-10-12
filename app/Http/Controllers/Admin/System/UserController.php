@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\System\StoreUserRequest;
-use App\Http\Requests\System\UpdateUserRequest;
+use App\Http\Requests\System\StoreUsersRequest;
+use App\Http\Requests\System\UpdateUsersRequest;
 use App\Models\System\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -42,10 +42,10 @@ class UserController extends BaseAdminController
     /**
      * Store a newly created user in storage.
      *
-     * @param StoreUserRequest $storeUserRequest
+     * @param StoreUsersRequest $storeUserRequest
      * @return RedirectResponse
      */
-    public function store(StoreUserRequest $storeUserRequest): RedirectResponse
+    public function store(StoreUsersRequest $storeUserRequest): RedirectResponse
     {
         $user = User::create($storeUserRequest->validated());
 
@@ -78,11 +78,11 @@ class UserController extends BaseAdminController
     /**
      * Update the specified user in storage.
      *
-     * @param UpdateUserRequest $updateUserRequest
+     * @param UpdateUsersRequest $updateUserRequest
      * @param User $user
      * @return RedirectResponse
      */
-    public function update(UpdateUserRequest $updateUserRequest, User $user): RedirectResponse
+    public function update(UpdateUsersRequest $updateUserRequest, User $user): RedirectResponse
     {
         $user->update($updateUserRequest->validated());
 
@@ -118,11 +118,11 @@ class UserController extends BaseAdminController
     /**
      * Update the new password.
      *
-     * @param UpdateUserRequest $userUpdateRequest
+     * @param UpdateUsersRequest $userUpdateRequest
      * @param User $user
      * @return RedirectResponse
      */
-    public function change_password_submit(UpdateUserRequest $userUpdateRequest, User $user): RedirectResponse
+    public function change_password_submit(UpdateUsersRequest $userUpdateRequest, User $user): RedirectResponse
     {
         $userUpdateRequest->validate([
             'password' => ['required'],

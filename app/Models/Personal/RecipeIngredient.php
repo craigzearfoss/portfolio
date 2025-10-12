@@ -2,7 +2,7 @@
 
 namespace App\Models\Personal;
 
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AccessGlobalScope;
 use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -44,7 +44,7 @@ class RecipeIngredient extends Model
     {
         parent::booted();
 
-        static::addGlobalScope(new AdminGlobalScope());
+        static::addGlobalScope(new AccessGlobalScope());
     }
 
     /**

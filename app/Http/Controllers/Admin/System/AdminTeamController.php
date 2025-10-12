@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\System\StoreAdminTeamRequest;
-use App\Http\Requests\System\UpdateAdminTeamRequest;
+use App\Http\Requests\System\StoreAdminTeamsRequest;
+use App\Http\Requests\System\UpdateAdminTeamsRequest;
 use App\Models\System\AdminTeam;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -45,10 +45,10 @@ class AdminTeamController extends BaseAdminController
     /**
      * Store a newly created admin team in storage.
      *
-     * @param StoreAdminTeamRequest $storeAdminTeamRequest
+     * @param StoreAdminTeamsRequest $storeAdminTeamRequest
      * @return RedirectResponse
      */
-    public function store(StoreAdminTeamRequest $storeAdminTeamRequest): RedirectResponse
+    public function store(StoreAdminTeamsRequest $storeAdminTeamRequest): RedirectResponse
     {
         $adminTeam = AdminTeam::create($storeAdminTeamRequest->validated());
 
@@ -85,11 +85,11 @@ class AdminTeamController extends BaseAdminController
     /**
      * Update the specified admin team in storage.
      *
-     * @param UpdateAdminTeamRequest $updateAdminTeamRequest
+     * @param UpdateAdminTeamsRequest $updateAdminTeamRequest
      * @param AdminTeam $adminTeam
      * @return RedirectResponse
      */
-    public function update(UpdateAdminTeamRequest $updateAdminTeamRequest, AdminTeam $adminTeam): RedirectResponse
+    public function update(UpdateAdminTeamsRequest $updateAdminTeamRequest, AdminTeam $adminTeam): RedirectResponse
     {
         $adminTeam->update($updateAdminTeamRequest->validated());
 

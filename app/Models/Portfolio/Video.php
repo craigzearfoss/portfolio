@@ -2,7 +2,7 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AccessGlobalScope;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -34,7 +34,7 @@ class Video extends Model
         'full_episode',
         'clip',
         'public_access',
-        'source_footage',
+        'source_recording',
         'date',
         'year',
         'company',
@@ -43,6 +43,12 @@ class Video extends Model
         'location',
         'embed',
         'video_url',
+        'review_link1',
+        'review_link1_name',
+        'review_link2',
+        'review_link2_name',
+        'review_link3',
+        'review_link3_name',
         'notes',
         'link',
         'link_name',
@@ -62,14 +68,14 @@ class Video extends Model
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'parent_id', 'featured', 'full_episode', 'clip', 'public_access',
-        'source_footage', 'date', 'year', 'company', 'credit', 'location', 'public', 'readonly', 'root', 'disabled'];
+        'source_recording', 'date', 'year', 'company', 'credit', 'location', 'public', 'readonly', 'root', 'disabled'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {
         parent::booted();
 
-        static::addGlobalScope(new AdminGlobalScope());
+        static::addGlobalScope(new AccessGlobalScope());
     }
 
     /**

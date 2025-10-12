@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\System\StoreAdminGroupRequest;
-use App\Http\Requests\System\UpdateAdminGroupRequest;
+use App\Http\Requests\System\StoreAdminGroupsRequest;
+use App\Http\Requests\System\UpdateAdminGroupsRequest;
 use App\Models\System\AdminGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -45,10 +45,10 @@ class AdminGroupController extends BaseAdminController
     /**
      * Store a newly created admin group in storage.
      *
-     * @param StoreAdminGroupRequest $storeAdminGroupRequest
+     * @param StoreAdminGroupsRequest $storeAdminGroupRequest
      * @return RedirectResponse
      */
-    public function store(StoreAdminGroupRequest $storeAdminGroupRequest): RedirectResponse
+    public function store(StoreAdminGroupsRequest $storeAdminGroupRequest): RedirectResponse
     {
         $adminGroup = AdminGroup::create($storeAdminGroupRequest->validated());
 
@@ -85,11 +85,11 @@ class AdminGroupController extends BaseAdminController
     /**
      * Update the specified admin group in storage.
      *
-     * @param UpdateAdminGroupRequest $updateAdminGroupRequest
+     * @param UpdateAdminGroupsRequest $updateAdminGroupRequest
      * @param AdminGroup $adminGroup
      * @return RedirectResponse
      */
-    public function update(UpdateAdminGroupRequest $updateAdminGroupRequest, AdminGroup $adminGroup): RedirectResponse
+    public function update(UpdateAdminGroupsRequest $updateAdminGroupRequest, AdminGroup $adminGroup): RedirectResponse
     {
         $adminGroup->update($updateAdminGroupRequest->validated());
 

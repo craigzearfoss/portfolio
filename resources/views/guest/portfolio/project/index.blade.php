@@ -4,7 +4,7 @@
     'breadcrumbs' => [
         [ 'name' => 'Home',      'href' => route('guest.homepage')],
         [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
-        [ 'name' => 'Projects']
+        [ 'name' => 'Projects' ]
     ],
     'buttons' => [],
     'errors'  => $errors->messages()  ?? [],

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Portfolio\StoreLinkRequest;
-use App\Http\Requests\Portfolio\UpdateLinkRequest;
+use App\Http\Requests\Portfolio\StoreLinksRequest;
+use App\Http\Requests\Portfolio\UpdateLinksRequest;
 use App\Models\Portfolio\Link;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,10 +46,10 @@ class LinkController extends BaseAdminController
     /**
      * Store a newly created link in storage.
      *
-     * @param StoreLinkRequest $storeLinkRequest
+     * @param StoreLinksRequest $storeLinkRequest
      * @return RedirectResponse
      */
-    public function store(StoreLinkRequest $storeLinkRequest): RedirectResponse
+    public function store(StoreLinksRequest $storeLinkRequest): RedirectResponse
     {
         $link = Link::create($storeLinkRequest->validated());
 
@@ -82,11 +82,11 @@ class LinkController extends BaseAdminController
     /**
      * Update the specified link in storage.
      *
-     * @param UpdateLinkRequest $updateLinkRequest
+     * @param UpdateLinksRequest $updateLinkRequest
      * @param Link $link
      * @return RedirectResponse
      */
-    public function update(UpdateLinkRequest $updateLinkRequest, Link $link): RedirectResponse
+    public function update(UpdateLinksRequest $updateLinkRequest, Link $link): RedirectResponse
     {
         $link->update($updateLinkRequest->validated());
 

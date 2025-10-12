@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Portfolio\StoreJobSkillRequest;
-use App\Http\Requests\Portfolio\UpdateJobSkillRequest;
+use App\Http\Requests\Portfolio\StoreJobSkillsRequest;
+use App\Http\Requests\Portfolio\UpdateJobSkillsRequest;
 use App\Models\Portfolio\JobSkill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -52,10 +52,10 @@ class JobSkillController extends Controller
     /**
      * Store a newly created job skill in storage.
      *
-     * @param StoreJobSkillRequest $storeJobSkillRequest
+     * @param StoreJobSkillsRequest $storeJobSkillRequest
      * @return RedirectResponse
      */
-    public function store(StoreJobSkillRequest $storeJobSkillRequest): RedirectResponse
+    public function store(StoreJobSkillsRequest $storeJobSkillRequest): RedirectResponse
     {
         $jobSkill = JobSkill::create($storeJobSkillRequest->validated());
 
@@ -89,11 +89,11 @@ class JobSkillController extends Controller
     /**
      * Update the specified job skill in storage.
      *
-     * @param UpdateJobSkillRequest $updateJobSkillRequest
+     * @param UpdateJobSkillsRequest $updateJobSkillRequest
      * @param JobSkill $jobSkill
      * @return RedirectResponse
      */
-    public function update(UpdateJobSkillRequest $updateJobSkillRequest, JobSkill $jobSkill): RedirectResponse
+    public function update(UpdateJobSkillsRequest $updateJobSkillRequest, JobSkill $jobSkill): RedirectResponse
     {
         $jobSkill->update($updateJobSkillRequest->validated());
 

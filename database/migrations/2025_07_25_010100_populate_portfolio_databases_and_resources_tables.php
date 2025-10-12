@@ -68,9 +68,9 @@ return new class extends Migration
 
         Database::insert($data);
 
-        if (!$row = Database::where('database', '=', 'portfolio')->first()) {
+        if (!$row = Database::where('database', '=', $dbName)->first()) {
 
-            throw new \Exception('portfolio database not found.');
+            throw new \Exception($dbName . 'database not found.');
 
         } else {
 
@@ -119,6 +119,24 @@ return new class extends Migration
                 [
                     'parent_id'   => null,
                     'database_id' => $databaseId,
+                    'name'        => 'audio',
+                    'table'       => 'audios',
+                    'title'       => 'Audio',
+                    'plural'      => 'Audio',
+                    'guest'       => 1,
+                    'user'        => 0,
+                    'admin'       => 1,
+                    'icon'        => 'fa-microphone',
+                    'level'       => 1,
+                    'sequence'    => 3030,
+                    'public'      => 1,
+                    'readonly'    => 0,
+                    'root'        => 0,
+                    'disabled'    => 0,
+                ],
+                [
+                    'parent_id'   => null,
+                    'database_id' => $databaseId,
                     'name'        => 'certification',
                     'table'       => 'certifications',
                     'title'       => 'Certification',
@@ -128,7 +146,7 @@ return new class extends Migration
                     'admin'       => 1,
                     'icon'        => 'fa-graduation-cap',
                     'level'       => 1,
-                    'sequence'    => 3030,
+                    'sequence'    => 3040,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -145,7 +163,7 @@ return new class extends Migration
                     'admin'       => 1,
                     'icon'        => 'fa-chalkboard',
                     'level'       => 1,
-                    'sequence'    => 3040,
+                    'sequence'    => 3050,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -163,7 +181,7 @@ return new class extends Migration
                     'admin'       => 1,
                     'icon'        => 'fa-briefcase',
                     'level'       => 1,
-                    'sequence'    => 3050,
+                    'sequence'    => 3060,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -186,7 +204,7 @@ return new class extends Migration
                     'admin'       => 1,
                     'icon'        => 'fa-link',
                     'level'       => 1,
-                    'sequence'    => 3080,
+                    'sequence'    => 3070,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -204,7 +222,7 @@ return new class extends Migration
                     'admin'       => 1,
                     'icon'        => 'fa-music',
                     'level'       => 1,
-                    'sequence'    => 3090,
+                    'sequence'    => 3080,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -222,13 +240,12 @@ return new class extends Migration
                     'admin'       => 1,
                     'icon'        => 'fa-wrench',
                     'level'       => 1,
-                    'sequence'    => 3100,
+                    'sequence'    => 3090,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
                 ],
-/*
                 [
                     'parent_id'   => null,
                     'database_id' => $databaseId,
@@ -239,15 +256,14 @@ return new class extends Migration
                     'guest'       => 1,
                     'user'        => 0,
                     'admin'       => 1,
-                    'icon'        => 'fa-pencil',
+                    'icon'        => 'fa-book',
                     'level'       => 1,
-                    'sequence'    => 3110,
+                    'sequence'    => 3100,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
                     'disabled'    => 0,
                 ],
-*/
                 [
                     'parent_id'   => null,
                     'database_id' => $databaseId,
@@ -260,7 +276,7 @@ return new class extends Migration
                     'admin'       => 1,
                     'icon'        => 'fa-certificate',
                     'level'       => 1,
-                    'sequence'    => 3120,
+                    'sequence'    => 3110,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,
@@ -278,7 +294,7 @@ return new class extends Migration
                     'admin'       => 0,
                     'icon'        => 'fa-video-camera',
                     'level'       => 1,
-                    'sequence'    => 3130,
+                    'sequence'    => 3120,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 1,
@@ -290,13 +306,13 @@ return new class extends Migration
                     'name'        => 'video',
                     'table'       => 'videos',
                     'title'       => 'Video',
-                    'plural'      => 'Videos',
+                    'plural'      => 'Video',
                     'guest'       => 1,
                     'user'        => 0,
                     'admin'       => 1,
                     'icon'        => 'fa-video-camera',
                     'level'       => 1,
-                    'sequence'    => 3140,
+                    'sequence'    => 3130,
                     'public'      => 1,
                     'readonly'    => 0,
                     'root'        => 0,

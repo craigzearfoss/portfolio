@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobRequest;
-use App\Http\Requests\Portfolio\UpdateJobRequest;
+use App\Http\Requests\Portfolio\UpdateJobsRequest;
 use App\Models\Portfolio\Job;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -81,11 +81,11 @@ class JobController extends BaseAdminController
     /**
      * Update the specified job in storage.
      *
-     * @param UpdateJobRequest $updateJobRequest
+     * @param UpdateJobsRequest $updateJobRequest
      * @param Job $job
      * @return RedirectResponse
      */
-    public function update(UpdateJobRequest $updateJobRequest, Job $job): RedirectResponse
+    public function update(UpdateJobsRequest $updateJobRequest, Job $job): RedirectResponse
     {
         $job->update($updateJobRequest->validated());
 

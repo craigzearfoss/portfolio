@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\System\StoreAdminRequest;
-use App\Http\Requests\System\UpdateAdminRequest;
+use App\Http\Requests\System\StoreAdminsRequest;
+use App\Http\Requests\System\UpdateAdminsRequest;
 use App\Models\System\Admin;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,10 +46,10 @@ class AdminController extends BaseAdminController
     /**
      * Store a newly created admin in storage.
      *
-     * @param StoreAdminRequest $storeAdminRequest
+     * @param StoreAdminsRequest $storeAdminRequest
      * @return RedirectResponse
      */
-    public function store(StoreAdminRequest $storeAdminRequest): RedirectResponse
+    public function store(StoreAdminsRequest $storeAdminRequest): RedirectResponse
     {
         $storeAdminRequest->validate($storeAdminRequest->rules());
 
@@ -95,11 +95,11 @@ class AdminController extends BaseAdminController
     /**
      * Update the specified admin in storage.
      *
-     * @param UpdateAdminRequest $updateAdminRequest
+     * @param UpdateAdminsRequest $updateAdminRequest
      * @param Admin $admin
      * @return RedirectResponse
      */
-    public function update(UpdateAdminRequest $updateAdminRequest, Admin $admin): RedirectResponse
+    public function update(UpdateAdminsRequest $updateAdminRequest, Admin $admin): RedirectResponse
     {
         $admin->update($updateAdminRequest->validated());
 

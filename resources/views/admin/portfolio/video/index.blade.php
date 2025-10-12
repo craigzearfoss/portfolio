@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' => 'Videos',
+    'title' => 'Video',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Videos' ],
+        [ 'name' => 'Video' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Video', 'href' => route('admin.portfolio.video.create') ],
@@ -69,7 +69,7 @@
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->public ])
                     </td>
-                    <td data-field="disbled" class="has-text-centered">
+                    <td data-field="disabled" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $video->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
@@ -111,7 +111,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '7' : '6' }}">There are no videos.</td>
+                    <td colspan="{{ isRootAdmin() ? '7' : '6' }}">There is no video.</td>
                 </tr>
 
             @endforelse

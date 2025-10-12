@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreCertificationRequest;
-use App\Http\Requests\Portfolio\UpdateCertificationRequest;
+use App\Http\Requests\Portfolio\UpdateCertificationsRequest;
 use App\Models\Portfolio\Certification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -82,12 +82,12 @@ class CertificationController extends BaseAdminController
     /**
      * Update the specified certification in storage.
      *
-     * @param UpdateCertificationRequest $updateCertificationRequest
+     * @param UpdateCertificationsRequest $updateCertificationRequest
      * @param Certification $certification
      * @return RedirectResponse
      */
-    public function update(UpdateCertificationRequest $updateCertificationRequest,
-                           Certification              $certification): RedirectResponse
+    public function update(UpdateCertificationsRequest $updateCertificationRequest,
+                           Certification               $certification): RedirectResponse
     {
         $certification->update($updateCertificationRequest->validated());
 

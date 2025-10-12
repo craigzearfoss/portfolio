@@ -1,9 +1,9 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Video: ' . $video->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',       'href' => route('guest.homepage') ],
+        [ 'name' => 'Home',      'href' => route('guest.homepage') ],
         [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
-        [ 'name' => 'Videos',    'href' => route('guest.portfolio.video.index') ],
+        [ 'name' => 'Video',     'href' => route('guest.portfolio.video.index') ],
         [ 'name' => $video->name ],
     ],
     'buttons' => [
@@ -61,8 +61,8 @@
         ])
 
         @include('guest.components.show-row-checkbox', [
-            'name'    => 'source footage',
-            'checked' => $video->source_footage
+            'name'    => 'source recording',
+            'checked' => $video->source_recording
         ])
 
         @include('guest.components.show-row', [

@@ -4,7 +4,7 @@
         [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Videos',          'href' => route('admin.portfolio.video.index') ],
+        [ 'name' => 'Video',           'href' => route('admin.portfolio.video.index') ],
         [ 'name' => $video->name ],
     ],
     'buttons' => [
@@ -79,8 +79,8 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'source footage',
-            'checked' => $video->source_footage
+            'name'    => 'source recording',
+            'checked' => $video->source_recording
         ])
 
         @include('admin.components.show-row', [

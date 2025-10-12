@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreJobCoworkerRequest;
-use App\Http\Requests\Portfolio\UpdateJobCoworkerRequest;
+use App\Http\Requests\Portfolio\UpdateJobCoworkersRequest;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
 use Illuminate\Http\RedirectResponse;
@@ -93,11 +93,11 @@ class JobCoworkerController extends BaseAdminController
     /**
      * Update the specified job coworker in storage.
      *
-     * @param UpdateJobCoworkerRequest $updateJobCoworkerRequest
+     * @param UpdateJobCoworkersRequest $updateJobCoworkerRequest
      * @param JobCoworker $jobCoworker
      * @return RedirectResponse
      */
-    public function update(UpdateJobCoworkerRequest $updateJobCoworkerRequest, JobCoworker $jobCoworker): RedirectResponse
+    public function update(UpdateJobCoworkersRequest $updateJobCoworkerRequest, JobCoworker $jobCoworker): RedirectResponse
     {
         $jobCoworker->update($updateJobCoworkerRequest->validated());
 

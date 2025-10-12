@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreCourseRequest;
-use App\Http\Requests\Portfolio\UpdateCourseRequest;
+use App\Http\Requests\Portfolio\UpdateCoursesRequest;
 use App\Models\Portfolio\Course;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -82,11 +82,11 @@ class CourseController extends BaseAdminController
     /**
      * Update the specified course in storage.
      *
-     * @param UpdateCourseRequest $updateCourseUpdateRequest
+     * @param UpdateCoursesRequest $updateCourseUpdateRequest
      * @param Course $course
      * @return RedirectResponse
      */
-    public function update(UpdateCourseRequest $updateCourseUpdateRequest, Course $course): RedirectResponse
+    public function update(UpdateCoursesRequest $updateCourseUpdateRequest, Course $course): RedirectResponse
     {
         $course->update($updateCourseUpdateRequest->validated());
 

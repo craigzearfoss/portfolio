@@ -11,7 +11,7 @@ class SettingType extends Model
 
     protected $connection = 'core_db';
 
-    protected $table = 'resources';
+    protected $table = 'setting_types';
 
     /**
      * The attributes that are mass assignable.

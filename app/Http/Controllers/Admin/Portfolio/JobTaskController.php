@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Portfolio\StoreJobTaskRequest;
-use App\Http\Requests\Portfolio\UpdateJobTaskRequest;
+use App\Http\Requests\Portfolio\StoreJobTasksRequest;
+use App\Http\Requests\Portfolio\UpdateJobTasksRequest;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobTask;
 use Illuminate\Http\RedirectResponse;
@@ -56,10 +56,10 @@ class JobTaskController extends BaseAdminController
     /**
      * Store a newly created job task in storage.
      *
-     * @param StoreJobTaskRequest $updateJobTaskStoreRequest
+     * @param StoreJobTasksRequest $updateJobTaskStoreRequest
      * @return RedirectResponse
      */
-    public function store(StoreJobTaskRequest $updateJobTaskStoreRequest): RedirectResponse
+    public function store(StoreJobTasksRequest $updateJobTaskStoreRequest): RedirectResponse
     {
         $jobTask = JobTask::create($updateJobTaskStoreRequest->validated());
 
@@ -93,11 +93,11 @@ class JobTaskController extends BaseAdminController
     /**
      * Update the specified job task in storage.
      *
-     * @param UpdateJobTaskRequest $updateJobTaskRequest
+     * @param UpdateJobTasksRequest $updateJobTaskRequest
      * @param JobTask $jobTask
      * @return RedirectResponse
      */
-    public function update(UpdateJobTaskRequest $updateJobTaskRequest, JobTask $jobTask): RedirectResponse
+    public function update(UpdateJobTasksRequest $updateJobTaskRequest, JobTask $jobTask): RedirectResponse
     {
         $jobTask->update($updateJobTaskRequest->validated());
 

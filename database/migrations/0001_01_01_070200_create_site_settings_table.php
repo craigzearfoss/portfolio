@@ -14,6 +14,14 @@ return new class extends Migration
     protected $database_tag = 'core_db';
 
     /**
+     * The id of the admin who owns the core resources.
+     * The admin must have root permissions.
+     *
+     * @var int
+     */
+    protected $ownerId = 1;
+
+    /**
      * Run the migrations.
      */
     public function up(): void

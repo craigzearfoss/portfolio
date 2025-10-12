@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Portfolio\StoreVideoRequest;
-use App\Http\Requests\Portfolio\UpdateVideoRequest;
+use App\Http\Requests\Portfolio\StoreVideosRequest;
+use App\Http\Requests\Portfolio\UpdateVideosRequest;
 use App\Models\Portfolio\Video;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,10 +46,10 @@ class VideoController extends BaseAdminController
     /**
      * Store a newly created video in storage.
      *
-     * @param StoreVideoRequest $storeVideoRequest
+     * @param StoreVideosRequest $storeVideoRequest
      * @return RedirectResponse
      */
-    public function store(StoreVideoRequest $storeVideoRequest): RedirectResponse
+    public function store(StoreVideosRequest $storeVideoRequest): RedirectResponse
     {
         $video = Video::create($storeVideoRequest->validated());
 
@@ -82,11 +82,11 @@ class VideoController extends BaseAdminController
     /**
      * Update the specified video in storage.
      *
-     * @param UpdateVideoRequest $updateVideoRequest
+     * @param UpdateVideosRequest $updateVideoRequest
      * @param Video $video
      * @return RedirectResponse
      */
-    public function update(UpdateVideoRequest $updateVideoRequest, Video $video): RedirectResponse
+    public function update(UpdateVideosRequest $updateVideoRequest, Video $video): RedirectResponse
     {
         $video->update($updateVideoRequest->validated());
 

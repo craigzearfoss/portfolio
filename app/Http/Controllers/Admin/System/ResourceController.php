@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\System\StoreResourceRequest;
-use App\Http\Requests\System\UpdateResourceRequest;
+use App\Http\Requests\System\StoreResourcesRequest;
+use App\Http\Requests\System\UpdateResourcesRequest;
 use App\Models\System\Resource;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,10 +44,10 @@ class ResourceController extends BaseAdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreResourceRequest $storeResourceRequest
+     * @param StoreResourcesRequest $storeResourceRequest
      * @return RedirectResponse
      */
-    public function store(StoreResourceRequest $storeResourceRequest): RedirectResponse
+    public function store(StoreResourcesRequest $storeResourceRequest): RedirectResponse
     {
         $resource = Resource::create($storeResourceRequest->validated());
 
@@ -80,11 +80,11 @@ class ResourceController extends BaseAdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateResourceRequest $updateResourceRequest
+     * @param UpdateResourcesRequest $updateResourceRequest
      * @param Resource $resource
      * @return RedirectResponse
      */
-    public function update(UpdateResourceRequest $updateResourceRequest, Resource $resource): RedirectResponse
+    public function update(UpdateResourcesRequest $updateResourceRequest, Resource $resource): RedirectResponse
     {
         $resource->update($updateResourceRequest->validated());
 

@@ -2,7 +2,7 @@
 
 namespace App\Models\Career;
 
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AccessGlobalScope;
 use App\Models\System\Owner;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,7 +48,7 @@ class CoverLetter extends Model
     {
         parent::booted();
 
-        static::addGlobalScope(new AdminGlobalScope());
+        static::addGlobalScope(new AccessGlobalScope());
     }
 
     /**

@@ -4,7 +4,7 @@
         [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Videos',          'href' => route('admin.portfolio.video.index') ],
+        [ 'name' => 'Video',           'href' => route('admin.portfolio.video.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
@@ -57,7 +57,7 @@
                 'name'    => 'parent_id',
                 'label'   => 'parent',
                 'value'   => old('parent_id') ?? '',
-                'list'    => \App\Models\Portfolio\Video::listOptions(['id <>' => $video->id], 'id', 'name', true),
+                'list'    => \App\Models\Portfolio\Video::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
@@ -71,7 +71,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',
-                'value'     => old('name') ?? '',
+                'value'     => old('summary') ?? '',
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
@@ -111,11 +111,11 @@
                             ])
 
                             @include('admin.components.form-checkbox', [
-                                'name'            => 'source_footage',
-                                'label'           => 'source footage',
+                                'name'            => 'source_recording',
+                                'label'           => 'source recording',
                                 'value'           => 1,
                                 'unchecked_value' => 0,
-                                'checked'         => old('source_footage') ?? 0,
+                                'checked'         => old('source_recording') ?? 0,
                                 'message'         => $message ?? '',
                             ])
 

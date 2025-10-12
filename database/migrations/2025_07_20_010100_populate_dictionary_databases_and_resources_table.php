@@ -67,9 +67,9 @@ return new class extends Migration
 
         Database::insert($data);
 
-        if (!$row = Database::where('database', '=', 'dictionary')->first()) {
+        if (!$row = Database::where('database', '=', $dbName)->first()) {
 
-            throw new \Exception('dictionary database not found.');
+            throw new \Exception($dbName . 'database not found.');
 
         } else {
 

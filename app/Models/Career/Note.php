@@ -2,7 +2,7 @@
 
 namespace App\Models\Career;
 
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AccessGlobalScope;
 use App\Models\System\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,7 +39,7 @@ class Note extends Model
     {
         parent::booted();
 
-        static::addGlobalScope(new AdminGlobalScope());
+        static::addGlobalScope(new AccessGlobalScope());
     }
 
     /**

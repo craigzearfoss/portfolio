@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Portfolio\StoreAcademyRequest;
-use App\Http\Requests\Portfolio\UpdateAcademyRequest;
+use App\Http\Requests\Portfolio\UpdateAcademiesRequest;
 use App\Models\Portfolio\Academy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -95,11 +95,11 @@ class AcademyController extends BaseAdminController
     /**
      * Update the specified academy in storage.
      *
-     * @param UpdateAcademyRequest $updateAcademyRequest
+     * @param UpdateAcademiesRequest $updateAcademyRequest
      * @param Academy $academy
      * @return RedirectResponse
      */
-    public function update(UpdateAcademyRequest $updateAcademyRequest, Academy $academy): RedirectResponse
+    public function update(UpdateAcademiesRequest $updateAcademyRequest, Academy $academy): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update academies.');

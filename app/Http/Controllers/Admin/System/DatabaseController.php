@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\System;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\System\StoreDatabaseRequest;
-use App\Http\Requests\System\UpdateDatabaseRequest;
+use App\Http\Requests\System\StoreDatabasesRequest;
+use App\Http\Requests\System\UpdateDatabasesRequest;
 use App\Models\System\Database;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,10 +44,10 @@ class DatabaseController extends BaseAdminController
     /**
      * Store a newly created database in storage.
      *
-     * @param StoreDatabaseRequest $storeDatabaseRequest
+     * @param StoreDatabasesRequest $storeDatabaseRequest
      * @return RedirectResponse
      */
-    public function store(StoreDatabaseRequest $storeDatabaseRequest): RedirectResponse
+    public function store(StoreDatabasesRequest $storeDatabaseRequest): RedirectResponse
     {
         $database = Database::create($storeDatabaseRequest->validated());
 
@@ -80,11 +80,11 @@ class DatabaseController extends BaseAdminController
     /**
      * Update the specified database in storage.
      *
-     * @param UpdateDatabaseRequest $updateDatabaseRequest
+     * @param UpdateDatabasesRequest $updateDatabaseRequest
      * @param Database $database
      * @return RedirectResponse
      */
-    public function update(UpdateDatabaseRequest $updateDatabaseRequest, Database $database): RedirectResponse
+    public function update(UpdateDatabasesRequest $updateDatabaseRequest, Database $database): RedirectResponse
     {
         $database->update($updateDatabaseRequest->validated());
 

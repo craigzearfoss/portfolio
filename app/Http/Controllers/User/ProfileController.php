@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Requests\System\UpdateUserRequest;
+use App\Http\Requests\System\UpdateUsersRequest;
 use App\Models\System\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +35,7 @@ class ProfileController extends BaseUserController
     /**
      * Update the current user in storage.
      */
-    public function update(UpdateUserRequest $updateUserRequest): RedirectResponse
+    public function update(UpdateUsersRequest $updateUserRequest): RedirectResponse
     {
         $user = Auth::user();
 
@@ -56,7 +56,7 @@ class ProfileController extends BaseUserController
     /**
      * Update the new password.
      */
-    public function change_password_submit(UpdateUserRequest $updateUserRequest, User $user): RedirectResponse|View
+    public function change_password_submit(UpdateUsersRequest $updateUserRequest, User $user): RedirectResponse|View
     {
         $user = Auth::user();
 

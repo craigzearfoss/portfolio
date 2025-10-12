@@ -30,8 +30,8 @@ class StoreTagsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'        => ['required', 'integer', 'exists:core_db.admins,id'],
-            'name'            => [
+            'owner_id'               => ['required', 'integer', 'exists:core_db.admins,id'],
+            'name'                   => [
                 'required',
                 'string',
                 'max:255',
@@ -40,15 +40,12 @@ class StoreTagsRequest extends FormRequest
                         ->where('name', $this->name);
                 })
             ],
-            'resource_id'           => ['integer', 'exists:career_db.resources,id', 'nullable'],
-            'model_class'           => ['string', 'max:255', 'nullable'],
-            'model_item_id'         => ['integer', 'nullable'],
-            'level'                 => ['integer', 'between:0,10'],
-            'category_id'           => ['integer', 'exists:dictionary_db.categories,id', 'nullable'],
-            'dictionary_id_term_id' => ['integer', 'nullable'],
-            'start_year'            => ['integer', 'between:1980,'.date("Y"), 'nullable'],
-            'end_year'              => ['integer', 'between:1980,'.date("Y"), 'gt:start_year', 'nullable'],
-            'years'                 => ['integer', 'min:0', 'nullable'],
+            'resource_id'            => ['integer', 'exists:career_db.resources,id', 'nullable'],
+            'model_class'            => ['string', 'max:255', 'nullable'],
+            'model_item_id'          => ['integer', 'nullable'],
+            'level'                  => ['integer', 'between:0,10'],
+            'dictionary_category_id' => ['integer', 'exists:dictionary_db.categories,id', 'nullable'],
+            'dictionary_id_term_id'  => ['integer', 'nullable'],
         ];
     }
 
