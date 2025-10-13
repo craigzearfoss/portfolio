@@ -46,12 +46,12 @@ class AudioController extends BaseAdminController
     /**
      * Store a newly created audio in storage.
      *
-     * @param StoreAudiosRequest $storeAudioRequest
+     * @param StoreAudiosRequest $storeAudiosRequest
      * @return RedirectResponse
      */
-    public function store(StoreAudiosRequest $storeAudioRequest): RedirectResponse
+    public function store(StoreAudiosRequest $storeAudiosRequest): RedirectResponse
     {
-        $audio = Audio::create($storeAudioRequest->validated());
+        $audio = Audio::create($storeAudiosRequest->validated());
 
         return redirect(referer('admin.portfolio.audio.index'))
             ->with('success', $audio->name . ' added successfully.');
@@ -82,13 +82,13 @@ class AudioController extends BaseAdminController
     /**
      * Update the specified audio in storage.
      *
-     * @param UpdateAudiosRequest $updateAudioRequest
+     * @param UpdateAudiosRequest $updateAudiosRequest
      * @param Audio $audio
      * @return RedirectResponse
      */
-    public function update(UpdateAudiosRequest $updateAudioRequest, Audio $audio): RedirectResponse
+    public function update(UpdateAudiosRequest $updateAudiosRequest, Audio $audio): RedirectResponse
     {
-        $audio->update($updateAudioRequest->validated());
+        $audio->update($updateAudiosRequest->validated());
 
         return redirect(referer('admin.portfolio.audio.index'))
             ->with('success', $audio->name . ' updated successfully.');

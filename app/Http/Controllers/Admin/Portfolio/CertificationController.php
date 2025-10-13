@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Portfolio\StoreCertificationRequest;
+use App\Http\Requests\Portfolio\StoreCertificationsRequest;
 use App\Http\Requests\Portfolio\UpdateCertificationsRequest;
 use App\Models\Portfolio\Certification;
 use Illuminate\Http\RedirectResponse;
@@ -46,12 +46,12 @@ class CertificationController extends BaseAdminController
     /**
      * Store a newly created certification in storage.
      *
-     * @param StoreCertificationRequest $storeCertificationRequest
+     * @param StoreCertificationsRequest $storeCertificationsRequest
      * @return RedirectResponse
      */
-    public function store(StoreCertificationRequest $storeCertificationRequest): RedirectResponse
+    public function store(StoreCertificationsRequest $storeCertificationsRequest): RedirectResponse
     {
-        $certification = Certification::create($storeCertificationRequest->validated());
+        $certification = Certification::create($storeCertificationsRequest->validated());
 
         return redirect(referer('admin.portfolio.certification.index'))
             ->with('success', $certification->name . ' certification added successfully.');
@@ -82,14 +82,14 @@ class CertificationController extends BaseAdminController
     /**
      * Update the specified certification in storage.
      *
-     * @param UpdateCertificationsRequest $updateCertificationRequest
+     * @param UpdateCertificationsRequest $updateCertificationsRequest
      * @param Certification $certification
      * @return RedirectResponse
      */
-    public function update(UpdateCertificationsRequest $updateCertificationRequest,
+    public function update(UpdateCertificationsRequest $updateCertificationsRequest,
                            Certification               $certification): RedirectResponse
     {
-        $certification->update($updateCertificationRequest->validated());
+        $certification->update($updateCertificationsRequest->validated());
 
         return redirect(referer('admin.portfolio.certification.index'))
             ->with('success', $certification->name . ' certification updated successfully.');

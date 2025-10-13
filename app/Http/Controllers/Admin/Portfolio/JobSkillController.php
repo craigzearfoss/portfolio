@@ -52,12 +52,12 @@ class JobSkillController extends Controller
     /**
      * Store a newly created job skill in storage.
      *
-     * @param StoreJobSkillsRequest $storeJobSkillRequest
+     * @param StoreJobSkillsRequest $storeJobSkillsRequest
      * @return RedirectResponse
      */
-    public function store(StoreJobSkillsRequest $storeJobSkillRequest): RedirectResponse
+    public function store(StoreJobSkillsRequest $storeJobSkillsRequest): RedirectResponse
     {
-        $jobSkill = JobSkill::create($storeJobSkillRequest->validated());
+        $jobSkill = JobSkill::create($storeJobSkillsRequest->validated());
 
         return redirect(referer('admin.portfolio.job-skill.index'))
             ->with('success', $jobSkill->name . ' added successfully.');

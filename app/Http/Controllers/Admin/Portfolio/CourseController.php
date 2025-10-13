@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Portfolio\StoreCourseRequest;
+use App\Http\Requests\Portfolio\StoreCoursesRequest;
 use App\Http\Requests\Portfolio\UpdateCoursesRequest;
 use App\Models\Portfolio\Course;
 use Illuminate\Http\RedirectResponse;
@@ -46,12 +46,12 @@ class CourseController extends BaseAdminController
     /**
      * Store a newly created course in storage.
      *
-     * @param StoreCourseRequest $storeCourseRequest
+     * @param StoreCoursesRequest $storeCoursesRequest
      * @return RedirectResponse
      */
-    public function store(StoreCourseRequest $storeCourseRequest): RedirectResponse
+    public function store(StoreCoursesRequest $storeCoursesRequest): RedirectResponse
     {
-        $course = Course::create($storeCourseRequest->validated());
+        $course = Course::create($storeCoursesRequest->validated());
 
         return redirect(referer('admin.portfolio.course.index'))
             ->with('success', $course-> name . ' added successfully.');

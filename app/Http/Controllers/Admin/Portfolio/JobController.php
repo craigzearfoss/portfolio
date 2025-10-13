@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Portfolio\StoreJobRequest;
+use App\Http\Requests\Portfolio\StoreJobsRequest;
 use App\Http\Requests\Portfolio\UpdateJobsRequest;
 use App\Models\Portfolio\Job;
 use App\Models\System\Database;
@@ -48,12 +48,12 @@ class JobController extends BaseAdminController
     /**
      * Store a newly created job in storage.
      *
-     * @param StoreJobRequest $storeJobRequest
+     * @param StoreJobsRequest $storeJobsRequest
      * @return RedirectResponse
      */
-    public function store(StoreJobRequest $storeJobRequest): RedirectResponse
+    public function store(StoreJobsRequest $storeJobsRequest): RedirectResponse
     {
-        $job = Job::create($storeJobRequest->validated());
+        $job = Job::create($storeJobsRequest->validated());
 
         return redirect(referer('admin.portfolio.job.index'))
             ->with('success', $job->company . ' job added successfully.');
@@ -85,13 +85,13 @@ class JobController extends BaseAdminController
     /**
      * Update the specified job in storage.
      *
-     * @param UpdateJobsRequest $updateJobRequest
+     * @param UpdateJobsRequest $updateJobsRequest
      * @param Job $job
      * @return RedirectResponse
      */
-    public function update(UpdateJobsRequest $updateJobRequest, Job $job): RedirectResponse
+    public function update(UpdateJobsRequest $updateJobsRequest, Job $job): RedirectResponse
     {
-        $job->update($updateJobRequest->validated());
+        $job->update($updateJobsRequest->validated());
 
         return redirect(referer('admin.portfolio.job.index'))
             ->with('success', $job->company . ' job updated successfully.');

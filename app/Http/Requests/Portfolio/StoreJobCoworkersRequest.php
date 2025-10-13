@@ -6,7 +6,7 @@ use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreJobCoworkerRequest extends FormRequest
+class StoreJobCoworkersRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

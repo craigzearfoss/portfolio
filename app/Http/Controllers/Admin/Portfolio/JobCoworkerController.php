@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Portfolio\StoreJobCoworkerRequest;
+use App\Http\Requests\Portfolio\StoreJobCoworkersRequest;
 use App\Http\Requests\Portfolio\UpdateJobCoworkersRequest;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
@@ -56,12 +56,12 @@ class JobCoworkerController extends BaseAdminController
     /**
      * Store a newly created job coworker in storage.
      *
-     * @param StoreJobCoworkerRequest $storeJobCoworkerRequest
+     * @param StoreJobCoworkersRequest $storeJobCoworkersRequest
      * @return RedirectResponse
      */
-    public function store(StoreJobCoworkerRequest $storeJobCoworkerRequest): RedirectResponse
+    public function store(StoreJobCoworkersRequest $storeJobCoworkersRequest): RedirectResponse
     {
-        $jobCoworker = JobCoworker::create($storeJobCoworkerRequest->validated());
+        $jobCoworker = JobCoworker::create($storeJobCoworkersRequest->validated());
 
         return redirect(referer('admin.portfolio.job-coworker.index'))
             ->with('success', $jobCoworker->name . ' added successfully.');

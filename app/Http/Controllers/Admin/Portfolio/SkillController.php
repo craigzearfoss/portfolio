@@ -45,12 +45,12 @@ class SkillController extends BaseAdminController
     /**
      * Store a newly created skill in storage.
      *
-     * @param StoreSkillsRequest $storeSkillRequest
+     * @param StoreSkillsRequest $storeSkillsRequest
      * @return RedirectResponse
      */
-    public function store(StoreSkillsRequest $storeSkillRequest): RedirectResponse
+    public function store(StoreSkillsRequest $storeSkillsRequest): RedirectResponse
     {
-        $skill = Skill::create($storeSkillRequest->validated());
+        $skill = Skill::create($storeSkillsRequest->validated());
 
         return redirect(referer('admin.portfolio.skill.index'))
             ->with('success', $skill->name . ' added successfully.');
@@ -81,13 +81,13 @@ class SkillController extends BaseAdminController
     /**
      * Update the specified skill in storage.
      *
-     * @param UpdateSkillsRequest $updateSkillRequest
+     * @param UpdateSkillsRequest $updateSkillsRequest
      * @param Skill $skill
      * @return RedirectResponse
      */
-    public function update(UpdateSkillsRequest $updateSkillRequest, Skill $skill): RedirectResponse
+    public function update(UpdateSkillsRequest $updateSkillsRequest, Skill $skill): RedirectResponse
     {
-        $skill->update($updateSkillRequest->validated());
+        $skill->update($updateSkillsRequest->validated());
 
         return redirect(referer('admin.portfolio.skill.index'))
             ->with('success', $skill->name . ' updated successfully.');

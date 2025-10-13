@@ -93,13 +93,13 @@ class JobTaskController extends BaseAdminController
     /**
      * Update the specified job task in storage.
      *
-     * @param UpdateJobTasksRequest $updateJobTaskRequest
+     * @param UpdateJobTasksRequest $updateJobTasksRequest
      * @param JobTask $jobTask
      * @return RedirectResponse
      */
-    public function update(UpdateJobTasksRequest $updateJobTaskRequest, JobTask $jobTask): RedirectResponse
+    public function update(UpdateJobTasksRequest $updateJobTasksRequest, JobTask $jobTask): RedirectResponse
     {
-        $jobTask->update($updateJobTaskRequest->validated());
+        $jobTask->update($updateJobTasksRequest->validated());
 
         return redirect(referer('admin.portfolio.job-task.index'))
             ->with('success', 'Job task updated successfully.');
