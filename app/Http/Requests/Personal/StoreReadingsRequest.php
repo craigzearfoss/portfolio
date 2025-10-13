@@ -6,7 +6,7 @@ use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreReadingRequest extends FormRequest
+class StoreReadingsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

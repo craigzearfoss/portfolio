@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Personal;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Personal\StoreRecipeStepRequest;
-use App\Http\Requests\Personal\UpdateRecipeStepRequest;
+use App\Http\Requests\Personal\StoreRecipeStepsRequest;
+use App\Http\Requests\Personal\UpdateRecipeStepsRequest;
 use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeStep;
 use Illuminate\Http\RedirectResponse;
@@ -55,12 +55,12 @@ class RecipeStepController extends BaseAdminController
     /**
      * Store a newly created recipe step in storage.
      *
-     * @param StoreRecipeStepRequest $storeRecipeStepStoreRequest
+     * @param StoreRecipeStepsRequest $storeRecipeStepsRequest
      * @return RedirectResponse
      */
-    public function store(StoreRecipeStepRequest $storeRecipeStepStoreRequest): RedirectResponse
+    public function store(StoreRecipeStepsRequest $storeRecipeStepsRequest): RedirectResponse
     {
-        $recipeStep = RecipeStep::create($storeRecipeStepStoreRequest->validated());
+        $recipeStep = RecipeStep::create($storeRecipeStepsRequest->validated());
 
         return redirect(referer('admin.personal.recipe-step.index')
             ->with('success', 'Recipe step added successfully.'));
@@ -91,13 +91,13 @@ class RecipeStepController extends BaseAdminController
     /**
      * Update the specified recipe step in storage.
      *
-     * @param UpdateRecipeStepRequest $updateRecipeStepRequest
+     * @param UpdateRecipeStepsRequest $updateRecipeStepsRequest
      * @param RecipeStep $recipeStep
      * @return RedirectResponse
      */
-    public function update(UpdateRecipeStepRequest $updateRecipeStepRequest, RecipeStep $recipeStep): RedirectResponse
+    public function update(UpdateRecipeStepsRequest $updateRecipeStepsRequest, RecipeStep $recipeStep): RedirectResponse
     {
-        $recipeStep->update($updateRecipeStepRequest->validated());
+        $recipeStep->update($updateRecipeStepsRequest->validated());
 
         return redirect(referer('admin.personal.recipe-step.index'))
             ->with('success', 'Recipe step updated successfully.');

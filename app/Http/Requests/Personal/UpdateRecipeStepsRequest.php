@@ -7,7 +7,7 @@ use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateRecipeStepRequest extends FormRequest
+class UpdateRecipeStepsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Personal;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Personal\StoreRecipeRequest;
-use App\Http\Requests\Personal\UpdateRecipeRequest;
+use App\Http\Requests\Personal\StoreRecipesRequest;
+use App\Http\Requests\Personal\UpdateRecipesRequest;
 use App\Models\Personal\Recipe;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,12 +44,12 @@ class RecipeController extends BaseAdminController
     /**
      * Store a newly created recipe in storage.
      *
-     * @param StoreRecipeRequest $storeRecipeRequest
+     * @param StoreRecipesRequest $storeRecipesRequest
      * @return RedirectResponse
      */
-    public function store(StoreRecipeRequest $storeRecipeRequest): RedirectResponse
+    public function store(StoreRecipesRequest $storeRecipesRequest): RedirectResponse
     {
-        $recipe = Recipe::create($storeRecipeRequest->validated());
+        $recipe = Recipe::create($storeRecipesRequest->validated());
 
         return redirect(referer('admin.personal.recipe.index'))
             ->with('success', $recipe->name . ' added successfully.');
@@ -80,13 +80,13 @@ class RecipeController extends BaseAdminController
     /**
      * Update the specified recipe in storage.
      *
-     * @param UpdateRecipeRequest $updateRecipeRequest
+     * @param UpdateRecipesRequest $updateRecipesRequest
      * @param Recipe $recipe
      * @return RedirectResponse
      */
-    public function update(UpdateRecipeRequest $updateRecipeRequest, Recipe $recipe): RedirectResponse
+    public function update(UpdateRecipesRequest $updateRecipesRequest, Recipe $recipe): RedirectResponse
     {
-        $recipe->update($updateRecipeRequest->validated());
+        $recipe->update($updateRecipesRequest->validated());
 
         return redirect(referer('admin.personal.recipe.index'))
             ->with('success', $recipe->name . ' updated successfully.');
