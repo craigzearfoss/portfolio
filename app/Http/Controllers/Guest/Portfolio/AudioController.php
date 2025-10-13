@@ -28,9 +28,7 @@ class AudioController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        $title = 'Audio';
-
-        return view('guest.portfolio.audio.index', compact('audios', 'title'))
+        return view(themedTemplate('guest.portfolio.audio.index'), compact('audios'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -46,6 +44,6 @@ class AudioController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.portfolio.audio.show', compact('audio'));
+        return view(themedTemplate('guest.portfolio.audio.show'), compact('audio'));
     }
 }

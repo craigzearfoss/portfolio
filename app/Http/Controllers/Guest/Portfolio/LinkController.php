@@ -28,9 +28,7 @@ class LinkController extends BaseGuestController
             ->orderBy('sequence', 'asc')
             ->paginate($perPage);
 
-        $title = 'Links';
-
-        return view('guest.portfolio.link.index', compact('links', 'title'))
+        return view(themedTemplate('guest.portfolio.link.index'), compact('links'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -46,6 +44,6 @@ class LinkController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.portfolio.link.show', compact('link'));
+        return view(themedTemplate('guest.portfolio.link.show'), compact('link'));
     }
 }

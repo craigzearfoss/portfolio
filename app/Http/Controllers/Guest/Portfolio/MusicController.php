@@ -28,8 +28,7 @@ class MusicController extends BaseGuestController
             ->orderBy('name', 'asc')->orderBy('artist', 'asc')
             ->paginate($perPage);
 
-        $title = 'Music';
-        return view('guest.portfolio.music.index', compact('musics', 'title'))
+        return view(themedTemplate('guest.portfolio.music.index'), compact('musics'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +44,6 @@ class MusicController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.portfolio.music.show', compact('music'));
+        return view(themedTemplate('guest.portfolio.music.show'), compact('music'));
     }
 }

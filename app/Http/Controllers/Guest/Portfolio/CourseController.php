@@ -28,9 +28,7 @@ class CourseController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        $title = 'Courses';
-
-        return view('guest.portfolio.course.index', compact('courses', 'title'))
+        return view(themedTemplate('guest.portfolio.course.index'), compact('courses'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -46,6 +44,6 @@ class CourseController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.portfolio.course.show', compact('course'));
+        return view(themedTemplate('guest.portfolio.course.show'), compact('course'));
     }
 }

@@ -28,9 +28,7 @@ class VideoController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        $title = 'Videos';
-
-        return view('guest.portfolio.video.index', compact('videos', 'title'))
+        return view(themedTemplate('guest.portfolio.video.index'), compact('videos'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -46,6 +44,6 @@ class VideoController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.portfolio.video.show', compact('video'));
+        return view(themedTemplate('guest.portfolio.video.show'), compact('video'));
     }
 }

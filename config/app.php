@@ -30,6 +30,7 @@ return [
     'demo'                  => env('APP_DEMO', '0'),
     'readonly'              => env('APP_READONLY', '0'),
     'contactable'           => env('APP_CONTACTABLE', '0'),
+    'theme'                 => env('APP_THEME', null),
 
     /*
     |--------------------------------------------------------------------------

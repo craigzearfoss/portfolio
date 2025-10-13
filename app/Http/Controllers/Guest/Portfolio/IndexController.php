@@ -16,6 +16,6 @@ class IndexController extends BaseGuestController
             PermissionService::ENV_GUEST
         );
 
-        return view('guest.portfolio.index', compact('portfolios'));
+        return view(themedTemplate('guest.portfolio.index'), compact('portfolios'));
     }
 }

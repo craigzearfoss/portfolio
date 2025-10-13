@@ -25,9 +25,7 @@ class SkillController extends BaseGuestController
             ->orderBy('level', 'desc')->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        $title = 'Skills';
-
-        return view('guest.portfolio.skill.index', compact('skills', 'title'))
+        return view(themedTemplate('guest.portfolio.skill.index'), compact('skills'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -43,6 +41,6 @@ class SkillController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.portfolio.skill.show', compact('skill'));
+        return view(themedTemplate('guest.portfolio.skill.show'), compact('skill'));
     }
 }

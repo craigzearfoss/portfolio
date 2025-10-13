@@ -418,9 +418,15 @@ if (! function_exists('reservedKeywords')) {
     }
 }
 
-if (! function_exists('themedRoute')) {
-    function themedRoute(string $route, array $parameters = []): string
+if (! function_exists('themedTemplate')) {
+    function themedTemplate(string $template): string
     {
+        if (!$theme = config('app.theme')) {
+            return $template;
+        }
 
+        return View::exists('_themes.'.$theme.'.' . $template) ?
+            '_themes.'.$theme.'.' . $template
+            : $template;
     }
 }

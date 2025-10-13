@@ -25,10 +25,7 @@ class PublicationController extends BaseGuestController
 
         $publications = Publication::orderBy('title', 'asc')
             ->paginate($perPage);
-
-        $title = 'Publications';
-
-        return view('guest.portfolio.publication.index', compact('publications', 'title'))
+        return view(themedTemplate('guest.portfolio.publication.index'), compact('publications'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -44,6 +41,6 @@ class PublicationController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.portfolio.publication.show', compact('publication'));
+        return view(themedTemplate('guest.portfolio.publication.show'), compact('publication'));
     }
 }

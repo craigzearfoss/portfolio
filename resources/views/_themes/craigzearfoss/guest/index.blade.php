@@ -10,7 +10,7 @@
 @section('content')
 
     <div class="card column p-4">
-
+HELLO WORLD
         <div class="column has-text-centered">
 
             <h1 class="title">{{ config('app.name') }}</h1>

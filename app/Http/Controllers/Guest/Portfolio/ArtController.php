@@ -28,9 +28,7 @@ class ArtController extends BaseGuestController
             ->orderBy('name', 'asc')->orderBy('artist', 'asc')
             ->paginate($perPage);
 
-        $title = 'Art';
-
-        return view('guest.portfolio.art.index', compact('arts', 'title'))
+        return view(themedTemplate('guest.portfolio.art.index'), compact('arts'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -46,6 +44,6 @@ class ArtController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.portfolio.art.show', compact('art'));
+        return view(themedTemplate('guest.portfolio.art.show'), compact('art'));
     }
 }

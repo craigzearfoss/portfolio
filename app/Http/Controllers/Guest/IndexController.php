@@ -20,7 +20,7 @@ class IndexController extends BaseGuestController
 {
     public function index(): View
     {
-        return view('guest.index');
+        return view(themedTemplate('guest.index'));
     }
 
     /**
@@ -54,12 +54,13 @@ class IndexController extends BaseGuestController
             if (Auth::guard('web')->attempt($data)) {
                 return redirect()->route('user.dashboard');
             } else {
-                return view('guest.login')->withErrors('Invalid login credentials. Please try again.');
+                return view(themedTemplate('guest.login'))
+                    ->withErrors('Invalid login credentials. Please try again.');
             }
 
         } else {
 
-            return view('guest.login');
+            return view(themedTemplate('guest.login'));
         }
     }
 
@@ -79,13 +80,17 @@ class IndexController extends BaseGuestController
 
             $email = $request->email ?? '';
             if (!$user = User::where('email', $email)->where('status', 1)->first()) {
-                return view('guest.forgot-password')->withErrors('User with provided email does not exist.');
+                return view(themedTemplate('guest.forgot-password'))
+                    ->withErrors('User with provided email does not exist.');
             }
 
             $user->token = hash('sha256', time());
             $user->update();
 
-            $pResetLink = route('guest.reset-password', ['token' => $user->token, 'email' => urlencode($email)]);
+            $pResetLink = route(
+                'guest.reset-password',
+                ['token' => $user->token, 'email' => urlencode($email)]
+            );
             $subject = "Reset Password from " . config('app.name');
             $info = [
                 'user'       => $user->name,
@@ -95,12 +100,12 @@ class IndexController extends BaseGuestController
 
             Mail::to($request->email)->send(new ResetPassword($subject, $info));
 
-            return redirect()->back()->with('success', 'A reset link has been sent to your email address. Please check your
-            email. If you do not find the email in your inbox, please check your spam folder.');
+            return redirect()->back()->with('success', 'A reset link has been sent to your email address. Please check
+            your email. If you do not find the email in your inbox, please check your spam folder.');
 
         } else {
 
-            return view('guest.forgot-password');
+            return view(themedTemplate('guest.forgot-password'));
         }
     }
 
@@ -115,7 +120,8 @@ class IndexController extends BaseGuestController
             $username = $request->username ?? '';
             $user = User::where('username', $username)->where('status', 1)->first();
             if (!$user) {
-                return view('guest.forgot-username')->withErrors('User with provided username does not exist.');
+                return view(themedTemplate('guest.forgot-username'))
+                    ->withErrors('User with provided username does not exist.');
             }
 
             $user->token = hash('sha256', time());
@@ -134,16 +140,17 @@ class IndexController extends BaseGuestController
 
         } else {
 
-            return view('guest.forgot-username');
+            return view(themedTemplate('guest.forgot-username'));
         }
     }
 
     public function reset_password($token, $email): RedirectResponse |View
     {
         if (!$user = User::where('email', $email)->where('token', $token)->first()) {
-            return redirect()->route('guest.login')->with('error', 'Your reset password token is expired. Please try again.');
+            return redirect()->route('guest.login')
+                ->with('error', 'Your reset password token is expired. Please try again.');
         } else {
-            return view('guest.reset-password', compact('token', 'email'));
+            return view(themedTemplate('guest.reset-password'), compact('token', 'email'));
         }
     }
 
@@ -204,7 +211,7 @@ class IndexController extends BaseGuestController
 
         } else {
 
-            return view('guest.register');
+            return view(themedTemplate('guest.register'));
         }
     }
 
@@ -222,20 +229,18 @@ class IndexController extends BaseGuestController
 
         $user->markEmailAsVerified();
 
-        return redirect()->route('guest.login')->with('success', 'Your email has been verified. You can now login
-        to your account.');
+        return redirect()->route('guest.login')
+            ->with('success', 'Your email has been verified. You can now login to your account.');
     }
 
     public function about(): View
     {
-        $title = 'About Us';
-        return view('guest.about', compact('title'));
+        return view(themedTemplate('guest.about'));
     }
 
     public function contact(): View
     {
-        $title = 'Contact Us';
-        return view('guest.contact', compact('title'));
+        return view(themedTemplate('guest.contact'));
     }
 
     /**
@@ -248,18 +253,17 @@ class IndexController extends BaseGuestController
     {
         $message = Message::create($messageStoreRequest->validated());
 
-        return redirect(route('guest.homepage'))->with('success', 'Your message has been sent. Thank you!.');
+        return redirect(route('guest.homepage'))
+            ->with('success', 'Your message has been sent. Thank you!.');
     }
 
     public function privacy_policy(): View
     {
-        $title = 'Privacy Policy';
-        return view('guest.privacy-policy', compact('title'));
+        return view(themedTemplate('guest.privacy-policy'));
     }
 
     public function terms_and_conditions(): View
     {
-        $title = 'Terms & Conditions';
-        return view('guest.terms-and-conditions', compact('title'));
+        return view(themedTemplate('guest.terms-and-conditions'));
     }
 }

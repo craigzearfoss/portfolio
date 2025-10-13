@@ -28,9 +28,7 @@ class CertificationController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        $title = 'Certifications';
-
-        return view('guest.portfolio.certification.index', compact('certifications', 'title'))
+        return view(themedTemplate('guest.portfolio.certification.index'), compact('certifications'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -46,6 +44,6 @@ class CertificationController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.portfolio.certification.show', compact('certification'));
+        return view(themedTemplate('guest.portfolio.certification.show'), compact('certification'));
     }
 }
