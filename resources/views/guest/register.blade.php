@@ -2,8 +2,7 @@
     'pageTitle'   => 'Register',
     'title'       => '',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('guest.homepage') ],
-        [ 'name' => 'Register' ],
+        [ 'name' => 'Home', 'href' => route('guest.homepage')],
     ],
     'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],

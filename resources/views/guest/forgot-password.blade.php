@@ -1,7 +1,9 @@
 @extends('guest.layouts.default', [
     'pageTitle'   => 'Forgot Password',
     'title'       => '',
-    'breadcrumbs' => [],
+    'breadcrumbs' => [
+        [ 'name' => 'Home', 'href' => route('guest.homepage')],
+    ],
     'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

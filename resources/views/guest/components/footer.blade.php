@@ -19,6 +19,10 @@
                     <a href="{{ route('guest.privacy-policy') }}">Privacy policy</a>
                     <span class="mx-2"> | </span>
                     <a href="{{ route('guest.contact') }}">Contact</a>
+                    @if(!isUser())
+                        <span class="mx-2"> | </span>
+                        <a href="{{ route('guest.register') }}">Register</a>
+                    @endif
                 </div>
             </div>
         </div>

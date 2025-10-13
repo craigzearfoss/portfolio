@@ -1,8 +1,7 @@
 @extends('guest.layouts.empty', [
     'title' => 'Set New Password',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('guest.homepage') ],
-        [ 'name' => 'Set New Password' ],
+        [ 'name' => 'Home', 'href' => route('guest.homepage')],
     ],
     'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],

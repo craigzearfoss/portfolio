@@ -3,7 +3,6 @@
     'subtitle' => null,
     'breadcrumbs' => [
         [ 'name' => 'Home', 'href' => route('guest.homepage')],
-        [ 'name' => 'Contact']
     ],
     'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],
