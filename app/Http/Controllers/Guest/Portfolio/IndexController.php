@@ -11,10 +11,7 @@ class IndexController extends BaseGuestController
 {
     public function index(): View
     {
-        $portfolios = Resource::bySequence(
-            'portfolio',
-            PermissionService::ENV_GUEST
-        );
+        $portfolios = Resource::bySequence('portfolio', PermissionService::ENV_GUEST);
 
         return view(themedTemplate('guest.portfolio.index'), compact('portfolios'));
     }

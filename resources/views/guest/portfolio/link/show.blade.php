@@ -9,7 +9,7 @@
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.portfolio.course.index') ],
     ],
-    'errors'  => $errors->messages() ?? [],
+    'errorMessages' => $errors->messages()  ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

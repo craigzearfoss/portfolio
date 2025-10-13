@@ -14,7 +14,7 @@
             'message'  => $message ?? '',
         ]),
     'buttons' => [],
-    'errors'  => $errors->messages() ?? [],
+    'errorMessages' => $errors->messages()  ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

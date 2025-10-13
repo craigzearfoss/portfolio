@@ -7,9 +7,7 @@
         [ 'name' => 'Contact Us']
     ],
     'buttons' => [],
-    'errorMessages' => $errors->any()
-        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated problems and submit again.']
-        : [],
+    'errorMessages' => $errors->messages()  ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])
