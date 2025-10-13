@@ -185,7 +185,7 @@ if (! function_exists('formatLocation')) {
 
 if (! function_exists('getFileSlug')) {
     /**
-     * Returns a formatted address.
+     * Returns a 'sluggified' name with the specified file extension appended.
      *
      * @param string $name
      * @param string $ext
@@ -283,7 +283,7 @@ if (! function_exists('dateRangeDetails')) {
 
 if (! function_exists('imageUrl')) {
     /**
-     * Returns the url of the refering page or the specified fallback route if there was no referer.
+     * Returns the url of an image. If not a fully specifed url then the asset directory is used.
      *
      * @param string | null $source
      * @return string
@@ -292,7 +292,9 @@ if (! function_exists('imageUrl')) {
     {
         if (empty($source)) {
             return '';
-        } elseif ('http' === strtolower(substr($source, 0, 4))) {
+        } elseif ('http://' === strtolower(substr($source, 0, 7))) {
+            return $source;
+        } elseif ('https://' === strtolower(substr($source, 0, 8))) {
             return $source;
         } else {
             return asset($source);
@@ -363,7 +365,7 @@ if (! function_exists('reservedKeywords')) {
     }
 }
 
-if (! function_exists('reservedKeywords')) {
+if (! function_exists('uniqueSlug')) {
     /**
      * Returns a unique slug. If a table is specified the table must have a slug column.
      * If an ownerId is specified then it will make sure the slug is unique for that owner.
@@ -419,6 +421,13 @@ if (! function_exists('reservedKeywords')) {
 }
 
 if (! function_exists('themedTemplate')) {
+    /**
+     * If the specified template is found in the current theme directory then that is returned.
+     * Otherwise, the specified theme is returned.
+     *
+     * @param string $template
+     * @return string
+     */
     function themedTemplate(string $template): string
     {
         if (!$theme = config('app.theme')) {

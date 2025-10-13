@@ -25,7 +25,7 @@ class ProjectController extends BaseGuestController
 
         $projects = Project::where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('name', 'asc')
+            ->orderBy('sequence', 'asc')
             ->paginate($perPage);
 
         return view(themedTemplate('guest.portfolio.project.index'), compact('projects'))
