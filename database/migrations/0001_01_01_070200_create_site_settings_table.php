@@ -35,16 +35,18 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        /*
         $data = [
             [
                 'id'              => 1,
-                'name'            => 'theme',
+                'name'            => '',
                 'setting_type_id' =>  5,
-                'value'           => 'craigzearfoss',
+                'value'           => null,
             ],
         ];
 
         SiteSetting::insert($data);
+        */
     }
 
     /**
