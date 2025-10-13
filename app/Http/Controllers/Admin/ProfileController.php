@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\System\UpdateAdminsRequest;
 use App\Models\System\Admin;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -34,23 +35,20 @@ class ProfileController extends BaseAdminController
     public function edit(): View
     {
         $admin = Auth::guard('admin')->user();
-
-        $title = 'Edit My Profile';
-
-        return view('admin.profile.edit', compact('admin', 'title'));
+        return view('admin.profile.edit', compact('admin'));
     }
 
     /**
      * Update the current admin in storage.
      *
-     * @param UpdateAdminsRequest $updateAdminRequest
+     * @param UpdateAdminsRequest $updateAdminsRequest
      * @return RedirectResponse
      */
-    public function update(UpdateAdminsRequest $updateAdminRequest): RedirectResponse
+    public function update(UpdateAdminsRequest $updateAdminsRequest): RedirectResponse
     {
         $admin = Auth::guard('admin')->user();
 
-        $admin->update($updateAdminRequest->validated());
+        $admin->update($updateAdminsRequest->validated());
 
         return redirect(referer('admin.portfolio.show'))
             ->with('success', 'Profile updated successfully.');
@@ -70,11 +68,11 @@ class ProfileController extends BaseAdminController
     /**
      * Update the new password.
      *
-     * @param UpdateAdminsRequest $request
+     * @param Request $request
      * @param Admin $admin
      * @return RedirectResponse|View
      */
-    public function change_password_submit(UpdateAdminsRequest $request, Admin $admin): RedirectResponse|View
+    public function change_password_submit(Request $request, Admin $admin): RedirectResponse|View
     {
         $admin = Auth::guard('admin')->user();
 

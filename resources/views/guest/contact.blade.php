@@ -1,6 +1,7 @@
 @extends('guest.layouts.default', [
-    'title'    => '',
-    'subtitle' => null,
+    'pageTitle'   => 'Contact Us',
+    'title'       => '',
+    'subtitle'    => null,
     'breadcrumbs' => [
         [ 'name' => 'Home', 'href' => route('guest.homepage')],
         [ 'name' => 'Contact Us']
@@ -33,7 +34,7 @@
                     @include('guest.components.form-input-horizontal', [
                         'name'        => 'name',
                         'value'       => old('name') ?? '',
-                        'unique'      => true,
+                        'required'    => true,
                         'maxlength'   => 255,
                         'placeholder' => 'Your Name',
                         'message  '   => $message ?? '',
@@ -43,7 +44,7 @@
                         'type'        => 'email',
                         'name'        => 'email',
                         'value'       => old('email') ?? '',
-                        'unique'      => true,
+                        'required'    => true,
                         'maxlength'   => 255,
                         'placeholder' => 'nam@example.com',
                         'message  '   => $message ?? '',
@@ -52,7 +53,7 @@
                     @include('guest.components.form-input-horizontal', [
                         'name'        => 'subject',
                         'value'       => old('subject') ?? '',
-                        'unique'      => true,
+                        'required'    => true,
                         'maxlength'   => 255,
                         'placeholder' => 'Subject',
                         'message  '   => $message ?? '',
@@ -61,7 +62,7 @@
                     @include('guest.components.form-textarea-horizontal', [
                         'name'        => 'body',
                         'value'       => old('body') ?? '',
-                        'unique'      => true,
+                        'required'    => true,
                         'maxlength'   => 255,
                         'placeholder' => 'Your Message',
                         'message  '   => $message ?? '',

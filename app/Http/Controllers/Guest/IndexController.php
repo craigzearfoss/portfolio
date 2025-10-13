@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Http\Requests\MessageStoreRequest;
-use App\Http\Requests\System\UpdateUsersRequest;
+use App\Http\Requests\System\StoreUsersRequest;
 use App\Mail\ForgotUsername;
 use App\Mail\ResetPassword;
 use App\Mail\VerifyEmail;
@@ -26,18 +26,23 @@ class IndexController extends BaseGuestController
     /**
      * Update the new password.
      *
-     * @param UpdateUsersRequest $updateUserRequest
+     * @param Request $request
      * @return RedirectResponse|View
      */
-    public function login(UpdateUsersRequest $updateUserRequest): RedirectResponse|View
+    public function login(Request $request): RedirectResponse|View
     {
-        if ($updateUserRequest->isMethod('post')) {
+        if (isUser()) {
+            // user is already logged in
+            return redirect()->route('user.dashboard');
+        }
 
-            $inputs = $updateUserRequest->all();
+        if ($request->isMethod('post')) {
+
+            $inputs = $request->all();
             $username = $inputs['username'] ?? '';
 
-            $updateUserRequest->validate([
-                'username' => ['required', 'username'],
+            $request->validate([
+                'username' => ['required'],
                 'password' => ['required'],
             ]);
 
@@ -46,28 +51,25 @@ class IndexController extends BaseGuestController
                 'password' => $inputs['password'],
             ];
 
-            if (Auth::guard('web')->attempt($data)) {die('ddd');
+            if (Auth::guard('web')->attempt($data)) {
                 return redirect()->route('user.dashboard');
             } else {
-                $title = 'Login';
-                return view('guest.login', compact('title'))->withErrors('Invalid login credentials. Please try again.');
+                return view('guest.login')->withErrors('Invalid login credentials. Please try again.');
             }
 
         } else {
 
-            $title = 'Login';
-            return view('guest.login', compact('title'));
+            return view('guest.login');
         }
     }
 
     public function logout(): RedirectResponse
     {
         Auth::guard('web')->logout();
-
-        return redirect()->route('guest.homepage')->with('error', 'User logout successful.');
+        return redirect()->route('guest.homepage')->with('success', 'User logout successful.');
     }
 
-    public function forgot_password(Request $request): RedirectResponse|View
+    public function forgot_password(Request $request): RedirectResponse | View
     {
         if ($request->isMethod('post')) {
 
@@ -76,9 +78,8 @@ class IndexController extends BaseGuestController
             ]);
 
             $email = $request->email ?? '';
-            $user = User::where('email', $email)->where('status', 1)->first();
-            if (!$user) {
-                return view('guest.reset-password')->withErrors('User with provided email does not exist.');
+            if (!$user = User::where('email', $email)->where('status', 1)->first()) {
+                return view('guest.forgot-password')->withErrors('User with provided email does not exist.');
             }
 
             $user->token = hash('sha256', time());
@@ -87,8 +88,8 @@ class IndexController extends BaseGuestController
             $pResetLink = route('guest.reset-password', ['token' => $user->token, 'email' => urlencode($email)]);
             $subject = "Reset Password from " . config('app.name');
             $info = [
-                'user' => $user->name,
-                'email' => $user->email,
+                'user'       => $user->name,
+                'email'      => $user->email,
                 'pResetLink' => $pResetLink
             ];
 
@@ -99,8 +100,7 @@ class IndexController extends BaseGuestController
 
         } else {
 
-            $title = 'Forgot Password';
-            return view('guest.forgot-password', compact('title'));
+            return view('guest.forgot-password');
         }
     }
 
@@ -134,19 +134,16 @@ class IndexController extends BaseGuestController
 
         } else {
 
-            $title = 'Forgot User Name';
-            return view('guest.forgot-username', compact('title'));
+            return view('guest.forgot-username');
         }
     }
 
-    public function reset_password($token, $email): RedirectResponse|View
+    public function reset_password($token, $email): RedirectResponse |View
     {
-        $user = User::where('email', $email)->where('token', $token)->first();
-        if (!$user) {
+        if (!$user = User::where('email', $email)->where('token', $token)->first()) {
             return redirect()->route('guest.login')->with('error', 'Your reset password token is expired. Please try again.');
         } else {
-            $title = 'Reset Password';
-            return view('guest.reset-password', compact('token', 'email', 'title'));
+            return view('guest.reset-password', compact('token', 'email'));
         }
     }
 
@@ -157,8 +154,7 @@ class IndexController extends BaseGuestController
             'confirm_password' => ['required', 'same:password']
         ]);
 
-        $user = User::where('email', $email)->where('token', $token)->first();
-        if (!$user) {
+        if (!$user = User::where('email', $email)->where('token', $token)->first()) {
             return redirect()->back()->with('error', 'Your reset password token is expired. Please try again.');
         }
 
@@ -178,14 +174,14 @@ class IndexController extends BaseGuestController
     {
         if ($request->isMethod('post') && config('app.open_enrollment')) {
 
-            $request->validate((new UserStoreRequest())->rules());
+            $request->validate((new StoreUsersRequest())->rules());
 
             $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
+            $user->name     = $request->name;
+            $user->email    = $request->email;
             $user->password = Hash::make($request->password);
-            $user->token = hash('sha256', time());
-            $user->status = 0;
+            $user->token    = hash('sha256', time());
+            $user->status   = 0;
             $user->disabled = 1;
 
             $user->save();
@@ -208,8 +204,7 @@ class IndexController extends BaseGuestController
 
         } else {
 
-            $title = 'Register';
-            return view('guest.register', compact('title'));
+            return view('guest.register');
         }
     }
 

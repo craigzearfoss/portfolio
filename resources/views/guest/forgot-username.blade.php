@@ -1,57 +1,58 @@
-@extends('guest.layouts.empty', [
-    'title' => 'Forgot User Name',
-    'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('guest.homepage') ],
-        [ 'name' => 'Forgot User Name' ],
-    ],
+@extends('guest.layouts.default', [
+    'pageTitle'   => 'Forgot User Name',
+    'title'       => '',
+    'breadcrumbs' => [],
     'buttons' => [],
-    'errorMessages'=> $errors->any() ?? [],
+    'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])
 
 @section('content')
 
-    <div class="is-fullwidth has-text-centered m4-4 pt-4">
-        <h2 class="title">Forgot User Name</h2>
-    </div>
+    <div class="edit-container card form-container p-4 is-6 container" style="max-width: 30em;">
 
-    <div class="columns has-text-centered mt-4">
+        <div class="is-size-4 has-text-centered">
+            Forgot user name
+        </div>
 
-        <div class="card column is-7">
+        <p class="has-text-centered">
+            Enter your email address to receive an email with your user name.
+        </p>
 
-            <p>Enter your email address to receive an email with your user name.</p>
+       <form action="{{ route('guest.forgot-username-submit') }}" method="POST">
+            @csrf
+            @method('PUT')
 
-            <form action="{{ route('guest.forgot-username-submit') }}" method="POST">
-                @csrf
-                @method('PUT')
+            @include('admin.components.form-hidden', [
+                'name'  => 'referer',
+                'value' => Request::header('referer')
+            ])
 
-                <div class="column">
+            <div class="column">
 
-                    @include('guest.components.form-input', [
-                        'type'        => 'email',
-                        'name'        => 'email',
-                        'placeholder' => 'Email',
-                        'value'       => '',
-                        'required'    => true,
-                        'maxlength'   => 255,
-                        'message'     => $message ?? '',
+                @include('guest.components.form-input', [
+                    'type'        => 'email',
+                    'name'        => 'email',
+                    'placeholder' => 'Email',
+                    'value'       => '',
+                    'required'    => true,
+                    'maxlength'   => 255,
+                    'message'     => $message ?? '',
+                ])
+
+                <div class="has-text-centered pt-4">
+
+                    @include('guest.components.form-button-submit', [
+                        'label'      => 'Submit',
+                        'cancel_url' => referer('guest.homepage')
                     ])
-
-                    <div class="has-text-centered pt-4">
-
-                        @include('guest.components.form-button-submit', [
-                            'label'      => 'Submit',
-                            'cancel_url' => route('guest.homepage')
-                        ])
-
-                    </div>
 
                 </div>
 
-            </form>
+            </div>
 
-        </div>
+        </form>
 
     </div>
 

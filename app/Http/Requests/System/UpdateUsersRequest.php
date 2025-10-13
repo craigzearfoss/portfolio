@@ -17,12 +17,12 @@ class UpdateUsersRequest extends FormRequest
     public function authorize(): bool
     {
         $this->checkDemoMode();
-
+echo 'e';
         // admins can update any user
         if (isAdmin()) {
             return true;
         }
-
+echo 'g;'; die;
         if (Auth::guard('web')->check()) {
             // users can only update themselves
             if ($this->user->id === Auth::guard('web')->user()->id) {

@@ -5,41 +5,50 @@ namespace App\Http\Controllers\User;
 use App\Http\Requests\System\UpdateUsersRequest;
 use App\Models\System\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class ProfileController extends BaseUserController
 {
     /**
      * Display the current user.
+     *
+     * @return View
      */
     public function show(): View
     {
         $user = Auth::user();
-
         $title = $user->name;
+
         return view('user.profile.show', compact('user', 'title'));
     }
 
     /**
      * Show the form for editing the current user.
+     *
+     * @return View
      */
     public function edit(): View
     {
         $user = Auth::user();
-
-        $title = 'Edit My Profile';
-        return view('user.profile.edit', compact('user', 'title'));
+        return view('user.profile.edit', compact('user'));
     }
 
     /**
      * Update the current user in storage.
+     *
+     * @param UpdateUsersRequest $updateUsersRequest
+     * @return RedirectResponse
      */
-    public function update(UpdateUsersRequest $updateUserRequest): RedirectResponse
+    public function update(UpdateUsersRequest $updateUsersRequest): RedirectResponse
     {
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
 
-        $user->update($updateUserRequest->validated());
+        $user->update($updateUsersRequest->validated());
 
         return redirect()->route('user.show')
             ->with('success', 'Profile updated successfully.');
@@ -47,6 +56,9 @@ class ProfileController extends BaseUserController
 
     /**
      * Display the change password page.
+     *
+     * @param User $user
+     * @return View
      */
     public function change_password(User $user): View
     {
@@ -55,12 +67,16 @@ class ProfileController extends BaseUserController
 
     /**
      * Update the new password.
+     *
+     * @param Request $request
+     * @param User $user
+     * @return RedirectResponse|View
      */
-    public function change_password_submit(UpdateUsersRequest $updateUserRequest, User $user): RedirectResponse|View
+    public function change_password_submit(Request $request, User $user): RedirectResponse|View
     {
-        $user = Auth::user();
+        $user = Auth::guard('web')->user();
 
-        $user->update($updateUserRequest->validated());
+        $user->update($request->validated());
 
         return redirect()->route('user.show', $user)
             ->with('success', 'User password updated successfully.');

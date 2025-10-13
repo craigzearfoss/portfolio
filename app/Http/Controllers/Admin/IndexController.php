@@ -37,7 +37,7 @@ class IndexController extends BaseAdminController
 
         if ($request->isMethod('post')) {
 
-            $inputs= $request->all();
+            $inputs = $request->all();
             $username = $inputs['username'] ?? '';
 
             $request->validate([
@@ -68,7 +68,6 @@ class IndexController extends BaseAdminController
     }
 
     public function forgot_password(Request $request): RedirectResponse | View
-
     {
         if ($request->isMethod('post')) {
 
@@ -77,8 +76,7 @@ class IndexController extends BaseAdminController
             ]);
 
             $email = $request->email ?? '';
-            $admin = Admin::where('email', $email)->first();
-            if (!$admin) {
+            if (!$admin = Admin::where('email', $email)->first()) {
                 return view('admin.forgot-password')->withErrors('Admin with provided email does not exist.');
             }
 
@@ -88,8 +86,8 @@ class IndexController extends BaseAdminController
             $pResetLink = route('admin.reset-password', ['token' => $admin->token , 'email' => urlencode($email)]);
             $subject = "Reset Password from " . config('app.name');
             $info = [
-                'user' => $admin->username,
-                'email' => $email,
+                'user'       => $admin->username,
+                'email'      => $email,
                 'pResetLink' => $pResetLink
             ];
 
@@ -106,8 +104,7 @@ class IndexController extends BaseAdminController
 
     public function reset_password($token, $email): RedirectResponse | View
     {
-        $admin = Admin::where('email', $email)->where('token', $token)->first();
-        if (!$admin) {
+        if (!$admin = Admin::where('email', $email)->where('token', $token)->first()) {
             return redirect()->route('admin.login')->with('error', 'Your reset password token is expired. Please try again.');
         } else {
             return view('admin.reset-password', compact('token', 'email'));
@@ -121,8 +118,7 @@ class IndexController extends BaseAdminController
             'confirm_password' => ['required', 'same:password']
         ]);
 
-        $admin = Admin::where('email', $email)->where('token', $token)->first();
-        if (!$admin) {
+        if (!$admin = Admin::where('email', $email)->where('token', $token)->first()) {
             return redirect()->back()->with('error', 'Your reset password token is expired. Please try again.');
         }
 
@@ -134,63 +130,7 @@ class IndexController extends BaseAdminController
         $admin->token = null;
         $admin->update();
 
-        return redirect()->route('admin.login')->with('success', 'Your password has been changed. You can login
-        with your new password.');
-    }
-
-    /**
-     * Display the current admin.
-     */
-    public function profile(): View
-    {
-        $admin = Auth::guard('admin')->user();
-
-        $title = $admin->username;
-        return view('admin.profile.show', compact('admin', 'title'));
-    }
-
-    /**
-     * Show the form for editing the current admin.
-     */
-    public function profile_edit(): View
-    {
-        $admin = Auth::guard('admin')->user();
-
-        $title = 'Edit My Profile';
-        return view('admin.profile.edit', compact('admin', 'title'));
-    }
-
-    /**
-     * Update the current user in storage.
-     */
-    public function profile_update(Request $request): RedirectResponse
-    {
-        $admin = Auth::guard('admin')->user();
-
-        $request->validate([
-            'username' => ['string', 'min:6', 'max:200', 'unique:admins,username,'.$admin->id],
-            'email'    => ['email', 'max:255', 'unique:admins,email,'.$admin->id],
-        ]);
-
-        $admin->username = $request->username;
-        $admin->email    = $request->email;
-        $admin->save();
-
-        return redirect()->route('admin.profile.show')
-            ->with('success', 'Profile updated successfully.');
-    }
-
-    /**
-     * Remove the specified message from storage.
-     *
-     * @param Message $message
-     * @return RedirectResponse
-     */
-    public function destroy(Message $message): RedirectResponse
-    {
-        $message->delete();
-
-        return redirect(referer('admin.system.message.index'))
-            ->with('success', 'Message deleted successfully.');
+        return redirect()->route('admin.login')
+            ->with('success', 'Your password has been changed. You can login with your new password.');
     }
 }

@@ -81,7 +81,7 @@ Route::prefix('admin/system')->middleware('admin')->name('admin.system.')->group
     Route::resource('admin-team', AdminSystemAdminTeamController::class)->parameter('admin-team', 'admin_team');
     Route::resource('database', AdminSystemDatabaseController::class);
 
-    Route::get('menu/{envType}', [AdminSystemAdminMenuItemController::class, 'index'])->name('menu-item.index');
+    Route::get('menu/{envType?}', [AdminSystemAdminMenuItemController::class, 'index'])->name('menu-item.index');
     //Route::put('menu/{envType}', [AdminProfileController::class, 'change_password_submit'])->name('menu-item.update');
 
     Route::resource('message', AdminMessageController::class);

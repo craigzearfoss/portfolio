@@ -1,6 +1,7 @@
 @extends('guest.layouts.default', [
-    'title'    => 'About Us',
-    'subtitle' => null,
+    'pageTitle'   => 'About Us',
+    'title'       => '',
+    'subtitle'    => null,
     'breadcrumbs' => [
         [ 'name' => 'Home', 'href' => route('guest.homepage')],
         [ 'name' => 'About Us']

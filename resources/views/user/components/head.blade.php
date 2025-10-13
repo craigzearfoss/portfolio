@@ -3,7 +3,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ asset('images/site/favicon.ico') }}">
-    <title>{{ !empty($title) ? $title . ' - ' : ''  }}{{ config('app.name') }}</title>
+    <title>
+        {{ !empty($pageTitle)
+                ? ($pageTitle . ' - ')
+                : (!empty($title) ? $title . ' - ' : '')
+        }}
+        {{ config('app.name') }}
+    </title>
 
     <!-- Bulma is included -->
     <link rel="stylesheet" href="{{ asset('assets/bulma/css/main.min.css') }}">

@@ -192,7 +192,7 @@ return new class extends Migration
                 [
                     'parent_id' => null,
                     'database_id' => $database->id,
-                    'name' => 'menu',
+                    'name' => 'menu-item',
                     'table' => 'menu_items',
                     'title' => 'Menu',
                     'plural' => 'Menus',

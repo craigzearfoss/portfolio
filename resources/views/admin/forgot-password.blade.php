@@ -1,9 +1,7 @@
 @extends('admin.layouts.default', [
-    'title' => '',
-    'breadcrumbs' => [
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Forgot Password' ],
-    ],
+    'pageTitle'   => 'Forgot Password',
+    'title'       => '',
+    'breadcrumbs' => [],
     'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -36,7 +34,6 @@
                 @include('admin.components.form-input', [
                     'type'        => 'email',
                     'name'        => 'email',
-                    'label'       => 'Email',
                     'placeholder' => 'Email',
                     'value'       => '',
                     'required'    => true,
@@ -47,8 +44,8 @@
                 <div class="has-text-centered pt-4">
 
                     @include('admin.components.form-button-submit', [
-                        'label'      => 'Save',
-                        'cancel_url' => Request::header('referer') ?? route('admin.index')
+                        'label'      => 'Submit',
+                        'cancel_url' => referer('admin.index')
                     ])
 
                 </div>

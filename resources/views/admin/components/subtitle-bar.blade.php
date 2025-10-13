@@ -5,7 +5,7 @@
             <div class="level-left">
                 <div class="level-item">
                     <h1 class="title is-size-4">
-                        {{ $title ?? '' }}
+                        {!! $title ?? '' !!}
                     </h1>
                     @if(!empty($selectList))
                         <span class="ml-2">

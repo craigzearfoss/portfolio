@@ -15,12 +15,12 @@
 
             <h1 class="title">{{ config('app.name') }} Admin</h1>
 
-            <a class="is-size-6" href="{{ route('admin.login') }}">
-                Admin Login
+            <a class="is-size-6" href="{{ route('user.login') }}">
+                User Login
             </a>
             |
             <a class="is-size-6" href="{{ route('admin.login') }}">
-                User Login
+                Admin Login
             </a>
 
         </div>

@@ -1,5 +1,19 @@
 @extends('admin.layouts.default', [
-    'title' => ucfirst($envType) .  ' Menu',
+    'pageTitle' => ucfirst($envType) . ' Menu',
+    'title'     => view('admin.components.form-select-nolabel', [
+                    'name'  => '',
+                    'id'    => 'env_type',
+                    'value' => route('admin.system.menu-item.index', $envType),
+                    'list'  => [
+                                    route('admin.system.menu-item.index', 'admin') => 'Admin',
+                                    route('admin.system.menu-item.index', 'user')  => 'User',
+                                    route('admin.system.menu-item.index', 'guest') => 'Guest',
+                               ],
+
+                    'class' => 'subtitle is-bold',
+                    'style' => 'display: inline-block; font-weight: 700;',
+                    'onchange' => "window.location.href = document.getElementById('env_type').value"
+                ]) . ' Menu',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('guest.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

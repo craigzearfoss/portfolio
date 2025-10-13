@@ -214,9 +214,10 @@ if (! function_exists('dateRangeDetails')) {
      * Returns an array of details about a date range.
      *
      * @param string $startDate
-     * @param string | null $endDate
+     * @param string|null $endDate
      * @param bool $shortFormat
      * @return array
+     * @throws Exception
      */
     function dateRangeDetails(string $startDate, ?string $endDate = null, bool $shortFormat = true): array
     {
@@ -368,7 +369,10 @@ if (! function_exists('reservedKeywords')) {
      * If an ownerId is specified then it will make sure the slug is unique for that owner.
      * TODO: Come up with a nicer way of append characters to slug when needed to make it unique.
      *
-     * @return array
+     * @param string $name
+     * @param string|null $table
+     * @param int|null $ownerId
+     * @return string
      */
     function uniqueSlug(string $name, ?string $table = null, ?int $ownerId = null): string
     {
@@ -411,5 +415,12 @@ if (! function_exists('reservedKeywords')) {
         }
 
         return $slug;
+    }
+}
+
+if (! function_exists('themedRoute')) {
+    function themedRoute(string $route, array $parameters = []): string
+    {
+
     }
 }

@@ -19,7 +19,7 @@ class MenuItemController extends BaseAdminController
      * @param string $envType
      * @return View
      */
-    public function index(string $envType): View
+    public function index(string | null $envType = 'admin'): View
     {
         if (!in_array($envType, PermissionService::ENV_TYPES)) {
 

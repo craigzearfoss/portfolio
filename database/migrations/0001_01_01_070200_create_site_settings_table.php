@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\System\SiteSetting;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -33,6 +34,17 @@ return new class extends Migration
             $table->string('value')->nullable();
             $table->timestamps();
         });
+
+        $data = [
+            [
+                'id'              => 1,
+                'name'            => 'theme',
+                'setting_type_id' =>  5,
+                'value'           => 'craigzearfoss',
+            ],
+        ];
+
+        SiteSetting::insert($data);
     }
 
     /**

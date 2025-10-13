@@ -1,5 +1,6 @@
-@extends('guest.layouts.empty', [
-    'title' => 'Register',
+@extends('guest.layouts.default', [
+    'pageTitle'   => 'Register',
+    'title'       => '',
     'breadcrumbs' => [
         [ 'name' => 'Home', 'href' => route('guest.homepage') ],
         [ 'name' => 'Register' ],
@@ -18,7 +19,9 @@
 
     <div class="columns has-text-centered mt-4">
 
-        <div class="card column is-7">
+        <div class="column is-3"></div>
+
+        <div class="card column is-6">
 
             @if (!config('app.open_enrollment'))
 
@@ -101,6 +104,8 @@
             @endif
 
         </div>
+
+        <div class="column is-3"></div>
 
     </div>
 
