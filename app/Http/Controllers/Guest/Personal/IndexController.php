@@ -13,6 +13,6 @@ class IndexController extends BaseGuestController
     {
         $personals = Resource::bySequence( 'personal', PermissionService::ENV_GUEST);
 
-        return view('guest.personal.index', compact('personals'));
+        return view(themedTemplate('guest.personal.index'), compact('personals'));
     }
 }

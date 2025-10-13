@@ -29,7 +29,7 @@ class OperatingSystemController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view('guest.dictionary.operating-system.index', compact('operatingSystems'))
+        return view(themedTemplate('guest.dictionary.operating-system.index'), compact('operatingSystems'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class OperatingSystemController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.dictionary.operating-system.show', compact('operatingSystem'));
+        return view(themedTemplate('guest.dictionary.operating-system.show'), compact('operatingSystem'));
     }
 }

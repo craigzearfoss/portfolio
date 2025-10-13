@@ -29,7 +29,7 @@ class CategoryController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view('guest.dictionary.category.index', compact('categories'))
+        return view(themedTemplate('guest.dictionary.category.index'), compact('categories'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class CategoryController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.dictionary.category.show', compact('category'));
+        return view(themedTemplate('guest.dictionary.category.show'), compact('category'));
     }
 }

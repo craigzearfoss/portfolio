@@ -29,7 +29,7 @@ class LibraryController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view('guest.dictionary.library.index', compact('libraries'))
+        return view(themedTemplate('guest.dictionary.library.index'), compact('libraries'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class LibraryController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.dictionary.library.show', compact('library'));
+        return view(themedTemplate('guest.dictionary.library.show'), compact('library'));
     }
 }

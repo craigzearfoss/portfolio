@@ -24,7 +24,7 @@ class ProfileController extends BaseAdminController
         $admin = Auth::guard('admin')->user();
         $title = $admin->name;
 
-        return view('admin.profile.show', compact('admin', 'title'));
+        return view(themedTemplate('admin.profile.show'), compact('admin', 'title'));
     }
 
     /**
@@ -35,7 +35,7 @@ class ProfileController extends BaseAdminController
     public function edit(): View
     {
         $admin = Auth::guard('admin')->user();
-        return view('admin.profile.edit', compact('admin'));
+        return view(themedTemplate('admin.profile.edit'), compact('admin'));
     }
 
     /**
@@ -62,7 +62,7 @@ class ProfileController extends BaseAdminController
      */
     public function change_password(Admin $admin): View
     {
-        return view('admin.profile.change-password', compact('admin'));
+        return view(themedTemplate('admin.profile.change-password'), compact('admin'));
     }
 
     /**

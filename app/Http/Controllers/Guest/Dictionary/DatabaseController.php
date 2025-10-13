@@ -29,7 +29,7 @@ class DatabaseController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view('guest.dictionary.database.index', compact('databases'))
+        return view(themedTemplate('guest.dictionary.database.index'), compact('databases'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class DatabaseController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.dictionary.database.show', compact('database'));
+        return view(themedTemplate('guest.dictionary.database.show'), compact('database'));
     }
 }

@@ -12,12 +12,12 @@ class IndexController extends BaseUserController
         if (Auth::guard('web')->check()) {
             return view('user.dashboard');
         } else {
-            return view('guest.index');
+            return view(themedTemplate('guest.index'));
         }
     }
 
     public function dashboard()
     {
-        return view('user.dashboard');
+        return view(themedTemplate('user.dashboard'));
     }
 }

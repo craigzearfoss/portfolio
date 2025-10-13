@@ -28,8 +28,7 @@ class RecipeController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        $title = 'Recipes';
-        return view('guest.personal.recipe.index', compact('recipes', 'title'))
+        return view(themedTemplate('guest.personal.recipe.index'), compact('recipes'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +44,6 @@ class RecipeController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.personal.recipe.show', compact('recipe'));
+        return view(themedTemplate('guest.personal.recipe.show'), compact('recipe'));
     }
 }

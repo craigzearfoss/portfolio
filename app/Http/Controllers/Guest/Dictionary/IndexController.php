@@ -22,7 +22,7 @@ class IndexController extends BaseGuestController
             ->orderBy('resources.plural', 'asc')
             ->get();
 
-        return view('guest.dictionary.index', compact('words'))
+        return view(themedTemplate('guest.dictionary.index'), compact('words'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 }

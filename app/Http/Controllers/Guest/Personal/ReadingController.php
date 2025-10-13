@@ -28,8 +28,7 @@ class ReadingController extends BaseGuestController
             ->orderBy('title', 'asc')->orderBy('author', 'asc')
             ->paginate($perPage);
 
-        $title = 'Readings';
-        return view('guest.personal.reading.index', compact('readings', 'title'))
+        return view(themedTemplate('guest.personal.reading.index'), compact('readings'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +44,6 @@ class ReadingController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.personal.reading.show', compact('reading'));
+        return view(themedTemplate('guest.personal.reading.show'), compact('reading'));
     }
 }

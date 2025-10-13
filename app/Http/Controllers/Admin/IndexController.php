@@ -17,15 +17,15 @@ class IndexController extends BaseAdminController
     public function index(): View
     {
         if (Auth::guard('admin')->check()) {
-            return view('admin.dashboard');
+            return view(themedTemplate('admin.dashboard'));
         } else {
-            return view('admin.index');
+            return view(themedTemplate('admin.index'));
         }
     }
 
     public function dashboard(): View
     {
-        return view('admin.dashboard');
+        return view(themedTemplate('admin.dashboard'));
     }
 
     public function login(Request $request): RedirectResponse | View
@@ -53,11 +53,12 @@ class IndexController extends BaseAdminController
             if (Auth::guard('admin')->attempt($data)) {
                 return redirect()->route('admin.dashboard');
             } else {
-                return view('admin.login')->withErrors('Invalid login credentials. Please try again.');
+                return view(themedTemplate('admin.login'))
+                    ->withErrors('Invalid login credentials. Please try again.');
             }
         } else {
 
-            return view('admin.login');
+            return view(themedTemplate('admin.login'));
         }
     }
 
@@ -77,13 +78,17 @@ class IndexController extends BaseAdminController
 
             $email = $request->email ?? '';
             if (!$admin = Admin::where('email', $email)->first()) {
-                return view('admin.forgot-password')->withErrors('Admin with provided email does not exist.');
+                return view(themedTemplate('admin.forgot-password'))
+                    ->withErrors('Admin with provided email does not exist.');
             }
 
             $admin->token = hash('sha256', time());
             $admin->update();
 
-            $pResetLink = route('admin.reset-password', ['token' => $admin->token , 'email' => urlencode($email)]);
+            $pResetLink = route(
+                'admin.reset-password',
+                ['token' => $admin->token , 'email' => urlencode($email)]
+            );
             $subject = "Reset Password from " . config('app.name');
             $info = [
                 'user'       => $admin->username,
@@ -98,16 +103,17 @@ class IndexController extends BaseAdminController
 
         } else {
 
-            return view('admin.forgot-password');
+            return view(themedTemplate('admin.forgot-password'));
         }
     }
 
     public function reset_password($token, $email): RedirectResponse | View
     {
         if (!$admin = Admin::where('email', $email)->where('token', $token)->first()) {
-            return redirect()->route('admin.login')->with('error', 'Your reset password token is expired. Please try again.');
+            return redirect()->route('admin.login')
+                ->with('error', 'Your reset password token is expired. Please try again.');
         } else {
-            return view('admin.reset-password', compact('token', 'email'));
+            return view(themedTemplate('admin.reset-password'), compact('token', 'email'));
         }
     }
 

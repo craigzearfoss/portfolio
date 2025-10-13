@@ -29,7 +29,7 @@ class LanguageController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view('guest.dictionary.language.index', compact('languages'))
+        return view(themedTemplate('guest.dictionary.language.index'), compact('languages'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class LanguageController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.dictionary.language.show', compact('language'));
+        return view(themedTemplate('guest.dictionary.language.show'), compact('language'));
     }
 }

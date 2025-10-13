@@ -24,7 +24,7 @@ class ProfileController extends BaseUserController
         $user = Auth::user();
         $title = $user->name;
 
-        return view('user.profile.show', compact('user', 'title'));
+        return view(themedTemplate('user.profile.show'), compact('user', 'title'));
     }
 
     /**
@@ -35,7 +35,7 @@ class ProfileController extends BaseUserController
     public function edit(): View
     {
         $user = Auth::user();
-        return view('user.profile.edit', compact('user'));
+        return view(themedTemplate('user.profile.edit'), compact('user'));
     }
 
     /**
@@ -62,7 +62,7 @@ class ProfileController extends BaseUserController
      */
     public function change_password(User $user): View
     {
-        return view('user.profile.change-password', compact('user'));
+        return view(themedTemplate('user.profile.change-password'), compact('user'));
     }
 
     /**

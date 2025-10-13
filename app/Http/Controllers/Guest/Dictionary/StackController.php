@@ -29,7 +29,7 @@ class StackController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view('guest.dictionary.stack.index', compact('stacks'))
+        return view(themedTemplate('guest.dictionary.stack.index'), compact('stacks'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class StackController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.dictionary.stack.show', compact('stack'));
+        return view(themedTemplate('guest.dictionary.stack.show'), compact('stack'));
     }
 }

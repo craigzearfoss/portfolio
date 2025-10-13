@@ -29,7 +29,7 @@ class FrameworkController extends BaseGuestController
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 
-        return view('guest.dictionary.framework.index', compact('frameworks'))
+        return view(themedTemplate('guest.dictionary.framework.index'), compact('frameworks'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -45,6 +45,6 @@ class FrameworkController extends BaseGuestController
             throw new ModelNotFoundException();
         }
 
-        return view('guest.dictionary.framework.show', compact('framework'));
+        return view(themedTemplate('guest.dictionary.framework.show'), compact('framework'));
     }
 }
