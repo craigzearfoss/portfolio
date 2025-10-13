@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Validation\Concerns\ValidatesAttributes;
 
-class caseInsensitiveIn implements ValidationRule
+class CaseInsensitiveIn implements ValidationRule
 {
     use ValidatesAttributes;
 
