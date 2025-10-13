@@ -45,12 +45,12 @@ class AdminGroupController extends BaseAdminController
     /**
      * Store a newly created admin group in storage.
      *
-     * @param StoreAdminGroupsRequest $storeAdminGroupRequest
+     * @param StoreAdminGroupsRequest $storeAdminGroupsRequest
      * @return RedirectResponse
      */
-    public function store(StoreAdminGroupsRequest $storeAdminGroupRequest): RedirectResponse
+    public function store(StoreAdminGroupsRequest $storeAdminGroupsRequest): RedirectResponse
     {
-        $adminGroup = AdminGroup::create($storeAdminGroupRequest->validated());
+        $adminGroup = AdminGroup::create($storeAdminGroupsRequest->validated());
 
         return redirect(referer('admin.system.admin-group.index'))
             ->with('success', $adminGroup->name . ' added successfully.');
@@ -85,13 +85,13 @@ class AdminGroupController extends BaseAdminController
     /**
      * Update the specified admin group in storage.
      *
-     * @param UpdateAdminGroupsRequest $updateAdminGroupRequest
+     * @param UpdateAdminGroupsRequest $updateAdminGroupsRequest
      * @param AdminGroup $adminGroup
      * @return RedirectResponse
      */
-    public function update(UpdateAdminGroupsRequest $updateAdminGroupRequest, AdminGroup $adminGroup): RedirectResponse
+    public function update(UpdateAdminGroupsRequest $updateAdminGroupsRequest, AdminGroup $adminGroup): RedirectResponse
     {
-        $adminGroup->update($updateAdminGroupRequest->validated());
+        $adminGroup->update($updateAdminGroupsRequest->validated());
 
         return redirect(referer('admin.system.admin-group.index'))
             ->with('success', $adminGroup->name . ' updated successfully.');

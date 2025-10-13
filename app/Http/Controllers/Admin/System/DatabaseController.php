@@ -44,12 +44,12 @@ class DatabaseController extends BaseAdminController
     /**
      * Store a newly created database in storage.
      *
-     * @param StoreDatabasesRequest $storeDatabaseRequest
+     * @param StoreDatabasesRequest $storeDatabasesRequest
      * @return RedirectResponse
      */
-    public function store(StoreDatabasesRequest $storeDatabaseRequest): RedirectResponse
+    public function store(StoreDatabasesRequest $storeDatabasesRequest): RedirectResponse
     {
-        $database = Database::create($storeDatabaseRequest->validated());
+        $database = Database::create($storeDatabasesRequest->validated());
 
         return redirect(referer('admin.system.database.index'))
             ->with('success', $database->name . ' database added successfully.');
@@ -80,13 +80,13 @@ class DatabaseController extends BaseAdminController
     /**
      * Update the specified database in storage.
      *
-     * @param UpdateDatabasesRequest $updateDatabaseRequest
+     * @param UpdateDatabasesRequest $updateDatabasesRequest
      * @param Database $database
      * @return RedirectResponse
      */
-    public function update(UpdateDatabasesRequest $updateDatabaseRequest, Database $database): RedirectResponse
+    public function update(UpdateDatabasesRequest $updateDatabasesRequest, Database $database): RedirectResponse
     {
-        $database->update($updateDatabaseRequest->validated());
+        $database->update($updateDatabasesRequest->validated());
 
         return redirect(referer('admin.system.database.index'))
             ->with('success', $database->name . ' database updated successfully.');

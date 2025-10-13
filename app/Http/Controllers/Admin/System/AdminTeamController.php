@@ -45,12 +45,12 @@ class AdminTeamController extends BaseAdminController
     /**
      * Store a newly created admin team in storage.
      *
-     * @param StoreAdminTeamsRequest $storeAdminTeamRequest
+     * @param StoreAdminTeamsRequest $storeAdminTeamsRequest
      * @return RedirectResponse
      */
-    public function store(StoreAdminTeamsRequest $storeAdminTeamRequest): RedirectResponse
+    public function store(StoreAdminTeamsRequest $storeAdminTeamsRequest): RedirectResponse
     {
-        $adminTeam = AdminTeam::create($storeAdminTeamRequest->validated());
+        $adminTeam = AdminTeam::create($storeAdminTeamsRequest->validated());
 
         return redirect(referer('admin.system.admin-team.index'))
             ->with('success', $adminTeam->name . ' added successfully.');
@@ -85,13 +85,13 @@ class AdminTeamController extends BaseAdminController
     /**
      * Update the specified admin team in storage.
      *
-     * @param UpdateAdminTeamsRequest $updateAdminTeamRequest
+     * @param UpdateAdminTeamsRequest $updateAdminTeamsRequest
      * @param AdminTeam $adminTeam
      * @return RedirectResponse
      */
-    public function update(UpdateAdminTeamsRequest $updateAdminTeamRequest, AdminTeam $adminTeam): RedirectResponse
+    public function update(UpdateAdminTeamsRequest $updateAdminTeamsRequest, AdminTeam $adminTeam): RedirectResponse
     {
-        $adminTeam->update($updateAdminTeamRequest->validated());
+        $adminTeam->update($updateAdminTeamsRequest->validated());
 
         return redirect(referer('admin.system.admin-team.index'))
             ->with('success', $adminTeam->name . ' updated successfully.');

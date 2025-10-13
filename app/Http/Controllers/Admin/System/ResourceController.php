@@ -44,12 +44,12 @@ class ResourceController extends BaseAdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreResourcesRequest $storeResourceRequest
+     * @param StoreResourcesRequest $storeResourcesRequest
      * @return RedirectResponse
      */
-    public function store(StoreResourcesRequest $storeResourceRequest): RedirectResponse
+    public function store(StoreResourcesRequest $storeResourcesRequest): RedirectResponse
     {
-        $resource = Resource::create($storeResourceRequest->validated());
+        $resource = Resource::create($storeResourcesRequest->validated());
 
         return redirect(referer('admin.system.resource.index'))
             ->with('success', $resource->name . ' resource added successfully.');
@@ -80,13 +80,13 @@ class ResourceController extends BaseAdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateResourcesRequest $updateResourceRequest
+     * @param UpdateResourcesRequest $updateResourcesRequest
      * @param Resource $resource
      * @return RedirectResponse
      */
-    public function update(UpdateResourcesRequest $updateResourceRequest, Resource $resource): RedirectResponse
+    public function update(UpdateResourcesRequest $updateResourcesRequest, Resource $resource): RedirectResponse
     {
-        $resource->update($updateResourceRequest->validated());
+        $resource->update($updateResourcesRequest->validated());
 
         return redirect(referer('admin.system.resource.index'))
             ->with('success', $resource->name . ' resource updated successfully.');

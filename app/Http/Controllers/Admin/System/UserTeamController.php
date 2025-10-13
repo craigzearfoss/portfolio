@@ -41,12 +41,12 @@ class UserTeamController extends BaseAdminController
     /**
      * Store a newly created user team in storage.
      *
-     * @param StoreUserTeamsRequest $storeUserTeamRequest
+     * @param StoreUserTeamsRequest $storeUserTeamsRequest
      * @return RedirectResponse
      */
-    public function store(StoreUserTeamsRequest $storeUserTeamRequest): RedirectResponse
+    public function store(StoreUserTeamsRequest $storeUserTeamsRequest): RedirectResponse
     {
-        $userTeam = UserTeam::create($storeUserTeamRequest->validated());
+        $userTeam = UserTeam::create($storeUserTeamsRequest->validated());
 
         return redirect(referer('admin.system.user-team.index'))
             ->with('success', $userTeam->name . ' added successfully.');
@@ -81,13 +81,13 @@ class UserTeamController extends BaseAdminController
     /**
      * Update the specified user team in storage.
      *
-     * @param UpdateUserTeamsRequest $updateUserTeamRequest
+     * @param UpdateUserTeamsRequest $updateUserTeamsRequest
      * @param UserTeam $userTeam
      * @return RedirectResponse
      */
-    public function update(UpdateUserTeamsRequest $updateUserTeamRequest, UserTeam $userTeam): RedirectResponse
+    public function update(UpdateUserTeamsRequest $updateUserTeamsRequest, UserTeam $userTeam): RedirectResponse
     {
-        $userTeam->update($updateUserTeamRequest->validated());
+        $userTeam->update($updateUserTeamsRequest->validated());
 
         return redirect(referer('admin.system.user-team.index'))
             ->with('success', $userTeam->name . ' updated successfully.');

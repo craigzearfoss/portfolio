@@ -46,18 +46,18 @@ class AdminController extends BaseAdminController
     /**
      * Store a newly created admin in storage.
      *
-     * @param StoreAdminsRequest $storeAdminRequest
+     * @param StoreAdminsRequest $storeAdminsRequest
      * @return RedirectResponse
      */
-    public function store(StoreAdminsRequest $storeAdminRequest): RedirectResponse
+    public function store(StoreAdminsRequest $storeAdminsRequest): RedirectResponse
     {
-        $storeAdminRequest->validate($storeAdminRequest->rules());
+        $storeAdminsRequest->validate($storeAdminsRequest->rules());
 
         $admin = new Admin();
-        $admin->username = $storeAdminRequest->username;
-        $admin->email = $storeAdminRequest->email;
-        $admin->password = Hash::make($storeAdminRequest->password);
-        $admin->disabled = $storeAdminRequest->disabled;
+        $admin->username = $storeAdminsRequest->username;
+        $admin->email = $storeAdminsRequest->email;
+        $admin->password = Hash::make($storeAdminsRequest->password);
+        $admin->disabled = $storeAdminsRequest->disabled;
 
         $admin->save();
 
@@ -95,13 +95,13 @@ class AdminController extends BaseAdminController
     /**
      * Update the specified admin in storage.
      *
-     * @param UpdateAdminsRequest $updateAdminRequest
+     * @param UpdateAdminsRequest $updateAdminsRequest
      * @param Admin $admin
      * @return RedirectResponse
      */
-    public function update(UpdateAdminsRequest $updateAdminRequest, Admin $admin): RedirectResponse
+    public function update(UpdateAdminsRequest $updateAdminsRequest, Admin $admin): RedirectResponse
     {
-        $admin->update($updateAdminRequest->validated());
+        $admin->update($updateAdminsRequest->validated());
 
         return redirect(referer('admin.system.admin.index'))
             ->with('success', $admin->username . ' updated successfully.');

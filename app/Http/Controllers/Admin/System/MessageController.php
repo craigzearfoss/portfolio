@@ -44,12 +44,12 @@ class MessageController extends BaseAdminController
     /**
      * Store a newly created message in storage.
      *
-     * @param StoreMessagesRequest $storeMessageRequest
+     * @param StoreMessagesRequest $storeMessagesRequest
      * @return RedirectResponse
      */
-    public function store(StoreMessagesRequest $storeMessageRequest): RedirectResponse
+    public function store(StoreMessagesRequest $storeMessagesRequest): RedirectResponse
     {
-        $message = Message::create($storeMessageRequest->validated());
+        $message = Message::create($storeMessagesRequest->validated());
 
         return redirect(referer('admin.system.message.index'))
             ->with('success', 'Message added successfully.');
@@ -80,13 +80,13 @@ class MessageController extends BaseAdminController
     /**
      * Update the specified message in storage.
      *
-     * @param UpdateMessagesRequest $updateMessageRequest
+     * @param UpdateMessagesRequest $updateMessagesRequest
      * @param Message $message
      * @return RedirectResponse
      */
-    public function update(UpdateMessagesRequest $updateMessageRequest, Message $message): RedirectResponse
+    public function update(UpdateMessagesRequest $updateMessagesRequest, Message $message): RedirectResponse
     {
-        $message->update($updateMessageRequest->validated());
+        $message->update($updateMessagesRequest->validated());
 
         return redirect(referer('admin.system.message.index'))
             ->with('success', 'Message updated successfully.');
