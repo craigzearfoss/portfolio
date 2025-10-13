@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Dictionary\StoreFrameworkRequest;
-use App\Http\Requests\Dictionary\UpdateFrameworkRequest;
+use App\Http\Requests\Dictionary\StoreFrameworksRequest;
+use App\Http\Requests\Dictionary\UpdateFrameworksRequest;
 use App\Models\Dictionary\Framework;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,16 +51,16 @@ class FrameworkController extends BaseAdminController
     /**
      * Store a newly created framework in storage.
      *
-     * @param StoreFrameworkRequest $storeFrameworkStoreRequest
+     * @param StoreFrameworksRequest $storeFrameworksRequest
      * @return RedirectResponse
      */
-    public function store(StoreFrameworkRequest $storeFrameworkStoreRequest): RedirectResponse
+    public function store(StoreFrameworksRequest $storeFrameworksRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add frameworks.');
         }
 
-        $framework = Framework::create($storeFrameworkStoreRequest->validated());
+        $framework = Framework::create($storeFrameworksRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $framework->name . ' added successfully.');
@@ -98,17 +98,17 @@ class FrameworkController extends BaseAdminController
     /**
      * Update the specified framework in storage.
      *
-     * @param UpdateFrameworkRequest $updateFrameworkRequest
+     * @param UpdateFrameworksRequest $updateFrameworksRequest
      * @param Framework $framework
      * @return RedirectResponse
      */
-    public function update(UpdateFrameworkRequest $updateFrameworkRequest, Framework $framework): RedirectResponse
+    public function update(UpdateFrameworksRequest $updateFrameworksRequest, Framework $framework): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update frameworks.');
         }
 
-        $framework->update($updateFrameworkRequest->validated());
+        $framework->update($updateFrameworksRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $framework->name . ' updated successfully.');

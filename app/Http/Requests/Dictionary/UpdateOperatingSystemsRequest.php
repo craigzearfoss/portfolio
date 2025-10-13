@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class UpdateOperatingSystemRequest extends FormRequest
+class UpdateOperatingSystemsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

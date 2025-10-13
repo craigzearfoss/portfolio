@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class StoreStackRequest extends FormRequest
+class StoreStacksRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

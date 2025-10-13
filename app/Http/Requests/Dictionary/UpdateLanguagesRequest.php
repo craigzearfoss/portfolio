@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class UpdateLanguageRequest extends FormRequest
+class UpdateLanguagesRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

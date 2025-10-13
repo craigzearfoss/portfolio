@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Dictionary\StoreStackRequest;
-use App\Http\Requests\Dictionary\UpdateStackRequest;
+use App\Http\Requests\Dictionary\StoreStacksRequest;
+use App\Http\Requests\Dictionary\UpdateStacksRequest;
 use App\Models\Dictionary\Stack;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,16 +51,16 @@ class StackController extends BaseAdminController
     /**
      * Store a newly created stack in storage.
      *
-     * @param StoreStackRequest $storeStackRequest
+     * @param StoreStacksRequest $storeStacksRequest
      * @return RedirectResponse
      */
-    public function store(StoreStackRequest $storeStackRequest): RedirectResponse
+    public function store(StoreStacksRequest $storeStacksRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add stacks.');
         }
 
-        $stack = Stack::create($storeStackRequest->validated());
+        $stack = Stack::create($storeStacksRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $stack->name . ' added successfully.');
@@ -95,17 +95,17 @@ class StackController extends BaseAdminController
     /**
      * Update the specified stack in storage.
      *
-     * @param UpdateStackRequest $updateStackUpdateRequest
+     * @param UpdateStacksRequest $updateStacksRequest
      * @param Stack $stack
      * @return RedirectResponse
      */
-    public function update(UpdateStackRequest $updateStackUpdateRequest, Stack $stack): RedirectResponse
+    public function update(UpdateStacksRequest $updateStacksRequest, Stack $stack): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update stacks.');
         }
 
-        $stack->update($updateStackUpdateRequest->validated());
+        $stack->update($updateStacksRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $stack->name . ' updated successfully.');

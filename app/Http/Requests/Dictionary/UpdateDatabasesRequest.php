@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class UpdateDatabaseRequest extends FormRequest
+class UpdateDatabasesRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

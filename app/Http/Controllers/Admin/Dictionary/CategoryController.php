@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Dictionary;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Dictionary\StoreCategoryRequest;
-use App\Http\Requests\Dictionary\UpdateCategoryRequest;
+use App\Http\Requests\Dictionary\StoreCategoriesRequest;
+use App\Http\Requests\Dictionary\UpdateCategoriesRequest;
 use App\Models\Dictionary\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,16 +51,16 @@ class CategoryController extends BaseAdminController
     /**
      * Store a newly created category in storage.
      *
-     * @param StoreCategoryRequest $storeCategoryRequest
+     * @param StoreCategoriesRequest $storeCategoriesRequest
      * @return RedirectResponse
      */
-    public function store(StoreCategoryRequest $storeCategoryRequest): RedirectResponse
+    public function store(StoreCategoriesRequest $storeCategoriesRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add categories.');
         }
 
-        $category = Category::create($storeCategoryRequest->validated());
+        $category = Category::create($storeCategoriesRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $category->name . ' added successfully.');
@@ -95,17 +95,17 @@ class CategoryController extends BaseAdminController
     /**
      * Update the specified category in storage.
      *
-     * @param UpdateCategoryRequest $updateCategoryRequest
+     * @param UpdateCategoriesRequest $updateCategoriesRequest
      * @param Category $category
      * @return RedirectResponse
      */
-    public function update(UpdateCategoryRequest $updateCategoryRequest, Category $category): RedirectResponse
+    public function update(UpdateCategoriesRequest $updateCategoriesRequest, Category $category): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update categories.');
         }
 
-        $category->update($updateCategoryRequest->validated());
+        $category->update($updateCategoriesRequest->validated());
 
         return redirect(referer('admin.dictionary.index'))
             ->with('success', $category->name . ' updated successfully.');
