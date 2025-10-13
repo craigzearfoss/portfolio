@@ -5,7 +5,7 @@ namespace App\Http\Requests\Career;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCommunicationRequest extends FormRequest
+class StoreCommunicationsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

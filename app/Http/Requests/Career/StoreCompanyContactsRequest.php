@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class StoreCompanyContactRequest extends FormRequest
+class StoreCompanyContactsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -63,8 +63,8 @@ class StoreCompanyContactRequest extends FormRequest
             }
 
             $rules = empty($this->company_id)
-                ? (new StoreCompanyRequest())->rules()
-                : (new StoreContactRequest())->rules();;
+                ? (new StoreCompaniesRequest())->rules()
+                : (new StoreContactsRequest())->rules();;
         }
 
         return $rules;

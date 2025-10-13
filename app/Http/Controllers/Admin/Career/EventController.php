@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Controllers\BaseController;
-use App\Http\Requests\Career\StoreEventRequest;
-use App\Http\Requests\Career\UpdateEventRequest;
+use App\Http\Requests\Career\StoreEventsRequest;
+use App\Http\Requests\Career\UpdateEventsRequest;
 use App\Models\Career\Event;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -45,12 +44,12 @@ class EventController extends BaseAdminController
     /**
      * Store a newly created event in storage.
      *
-     * @param StoreEventRequest $storeEventRequest
+     * @param StoreEventsRequest $storeEventsRequest
      * @return RedirectResponse
      */
-    public function store(StoreEventRequest $storeEventRequest): RedirectResponse
+    public function store(StoreEventsRequest $storeEventsRequest): RedirectResponse
     {
-        $event = Event::create($storeEventRequest->validated());
+        $event = Event::create($storeEventsRequest->validated());
 
         return redirect(referer('admin.career.event.index'))
             ->with('success', 'Event added successfully.');
@@ -81,13 +80,13 @@ class EventController extends BaseAdminController
     /**
      * Update the specified event in storage.
      *
-     * @param UpdateEventRequest $updateEventRequest
+     * @param UpdateEventsRequest $updateEventsRequest
      * @param Event $event
      * @return RedirectResponse
      */
-    public function update(UpdateEventRequest $updateEventRequest, Event $event): RedirectResponse
+    public function update(UpdateEventsRequest $updateEventsRequest, Event $event): RedirectResponse
     {
-        $event->update($updateEventRequest->validated());
+        $event->update($updateEventsRequest->validated());
 
         return redirect(referer('admin.career.event.index'))
             ->with('success', 'Event updated successfully.');

@@ -5,7 +5,7 @@ namespace App\Http\Requests\Career;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateNoteRequest extends FormRequest
+class UpdateNotesRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

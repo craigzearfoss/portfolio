@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Controllers\BaseController;
 use App\Models\System\Resource;
 use App\Services\PermissionService;
 

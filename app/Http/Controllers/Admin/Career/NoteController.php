@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Career\StoreNoteRequest;
-use App\Http\Requests\Career\UpdateNoteRequest;
+use App\Http\Requests\Career\StoreNotesRequest;
+use App\Http\Requests\Career\UpdateNotesRequest;
 use App\Models\Career\Note;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,12 +44,12 @@ class NoteController extends BaseAdminController
     /**
      * Store a newly created note in storage.
      *
-     * @param StoreNoteRequest $storeNoteRequest
+     * @param StoreNotesRequest $storeNotesRequest
      * @return RedirectResponse
      */
-    public function store(StoreNoteRequest $storeNoteRequest): RedirectResponse
+    public function store(StoreNotesRequest $storeNotesRequest): RedirectResponse
     {
-        $note = Note::create($storeNoteRequest->validated());
+        $note = Note::create($storeNotesRequest->validated());
 
         return redirect(referer('admin.career.note.index'))
             ->with('success', 'Note added successfully.');
@@ -80,13 +80,13 @@ class NoteController extends BaseAdminController
     /**
      * Update the specified note in storage.
      *
-     * @param UpdateNoteRequest $updateNoteRequest
+     * @param UpdateNotesRequest $updateNotesRequest
      * @param Note $note
      * @return RedirectResponse
      */
-    public function update(UpdateNoteRequest $updateNoteRequest, Note $note): RedirectResponse
+    public function update(UpdateNotesRequest $updateNotesRequest, Note $note): RedirectResponse
     {
-        $note->update($updateNoteRequest->validated());
+        $note->update($updateNotesRequest->validated());
 
         return redirect(referer('admin.career.note.index'))
             ->with('success', 'Note updated successfully.');

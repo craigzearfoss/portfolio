@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Controllers\BaseController;
-use App\Http\Requests\Career\UpdateApplicationRequest;
-use App\Http\Requests\Career\StoreCoverLetterRequest;
-use App\Http\Requests\Career\UpdateCoverLetterRequest;
+use App\Http\Requests\Career\UpdateApplicationsRequest;
+use App\Http\Requests\Career\StoreCoverLettersRequest;
+use App\Http\Requests\Career\UpdateCoverLettersRequest;
 use App\Models\Career\CoverLetter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -48,12 +47,12 @@ class CoverLetterController extends BaseAdminController
     /**
      * Store a newly created cover letter in storage.
      *
-     * @param StoreCoverLetterRequest $storeCoverLetterRequest
+     * @param StoreCoverLettersRequest $storeCoverLettersRequest
      * @return RedirectResponse
      */
-    public function store(StoreCoverLetterRequest $storeCoverLetterRequest): RedirectResponse
+    public function store(StoreCoverLettersRequest $storeCoverLettersRequest): RedirectResponse
     {
-        $coverLetter = CoverLetter::create($storeCoverLetterRequest->validated());
+        $coverLetter = CoverLetter::create($storeCoverLettersRequest->validated());
 
         return redirect(referer('admin.career.cover-letter.index'))
             ->with('success', 'Cover Letter added successfully.');
@@ -84,14 +83,14 @@ class CoverLetterController extends BaseAdminController
     /**
      * Update the specified cover letter in storage.
      *
-     * @param UpdateApplicationRequest $updateApplicationRequest
+     * @param UpdateApplicationsRequest $updateApplicationsRequest
      * @param CoverLetter $coverLetter
      * @return RedirectResponse
      */
-    public function update(UpdateApplicationRequest $updateApplicationRequest,
-                           CoverLetter              $coverLetter): RedirectResponse
+    public function update(UpdateApplicationsRequest $updateApplicationsRequest,
+                           CoverLetter               $coverLetter): RedirectResponse
     {
-        $coverLetter->update($updateApplicationRequest->validated());
+        $coverLetter->update($updateApplicationsRequest->validated());
 
         return redirect(referer('admin.career.cover-letter.index'))
             ->with('success', 'Cover letter updated successfully.');

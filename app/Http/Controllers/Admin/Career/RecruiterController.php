@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Career\StoreRecruiterRequest;
-use App\Http\Requests\Career\UpdateRecruiterRequest;
+use App\Http\Requests\Career\StoreRecruitersRequest;
+use App\Http\Requests\Career\UpdateRecruitersRequest;
 use App\Models\Career\Recruiter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -41,12 +41,12 @@ class RecruiterController extends BaseAdminController
     /**
      * Store a newly created recruiter in storage.
      *
-     * @param StoreRecruiterRequest $recruiterStoreRequest
+     * @param StoreRecruitersRequest $storeRecruitersRequest
      * @return RedirectResponse
      */
-    public function store(StoreRecruiterRequest $recruiterStoreRequest): RedirectResponse
+    public function store(StoreRecruitersRequest $storeRecruitersRequest): RedirectResponse
     {
-        $recruiter = Recruiter::create($recruiterStoreRequest->validated());
+        $recruiter = Recruiter::create($storeRecruitersRequest->validated());
 
         return redirect(referer('admin.career.recruiter.index'))
             ->with('success', $recruiter->name . ' added successfully.');
@@ -77,13 +77,13 @@ class RecruiterController extends BaseAdminController
     /**
      * Update the specified recruiter in storage.
      *
-     * @param UpdateRecruiterRequest $updateRecruiterRequest
+     * @param UpdateRecruitersRequest $updateRecruitersRequest
      * @param Recruiter $recruiter
      * @return RedirectResponse
      */
-    public function update(UpdateRecruiterRequest $updateRecruiterRequest, Recruiter $recruiter): RedirectResponse
+    public function update(UpdateRecruitersRequest $updateRecruitersRequest, Recruiter $recruiter): RedirectResponse
     {
-        $recruiter->update($updateRecruiterRequest->validated());
+        $recruiter->update($updateRecruitersRequest->validated());
 
         return redirect(referer('admin.career.recruiter.index'))
             ->with('success', $recruiter->name . ' updated successfully.');

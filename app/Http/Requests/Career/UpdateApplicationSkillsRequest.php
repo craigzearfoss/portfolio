@@ -6,7 +6,7 @@ use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateApplicationSkillRequest extends FormRequest
+class UpdateApplicationSkillsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 

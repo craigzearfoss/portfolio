@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Career\StoreReferenceRequest;
-use App\Http\Requests\Career\UpdateReferenceRequest;
+use App\Http\Requests\Career\StoreReferencesRequest;
+use App\Http\Requests\Career\UpdateReferencesRequest;
 use App\Models\Career\Reference;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,12 +46,12 @@ class ReferenceController extends BaseAdminController
     /**
      * Store a newly created reference in storage.
      *
-     * @param StoreReferenceRequest $referenceStoreRequest
+     * @param StoreReferencesRequest $storeReferencesRequest
      * @return RedirectResponse
      */
-    public function store(StoreReferenceRequest $storeReferenceRequest): RedirectResponse
+    public function store(StoreReferencesRequest $storeReferencesRequest): RedirectResponse
     {
-        $reference = Reference::create($storeReferenceRequest->validated());
+        $reference = Reference::create($storeReferencesRequest->validated());
 
         return redirect(referer('admin.career.reference.index'))
             ->with('success', $reference->name . ' added successfully.');
@@ -82,13 +82,13 @@ class ReferenceController extends BaseAdminController
     /**
      * Update the specified reference in storage.
      *
-     * @param UpdateReferenceRequest $updateReferenceUpdateRequest
+     * @param UpdateReferencesRequest $updateReferencesUpdateRequest
      * @param Reference $reference
      * @return RedirectResponse
      */
-    public function update(UpdateReferenceRequest $updateReferenceUpdateRequest, Reference $reference): RedirectResponse
+    public function update(UpdateReferencesRequest $updateReferencesUpdateRequest, Reference $reference): RedirectResponse
     {
-        $reference->update($updateReferenceUpdateRequest->validated());
+        $reference->update($updateReferencesUpdateRequest->validated());
 
         return redirect(referer('admin.career.reference.index'))
             ->with('success', $reference->name . ' updated successfully.');

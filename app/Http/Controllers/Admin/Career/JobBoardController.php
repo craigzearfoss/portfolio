@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Career\StoreJobBoardRequest;
-use App\Http\Requests\Career\UpdateJobBoardRequest;
+use App\Http\Requests\Career\StoreJobBoardsRequest;
+use App\Http\Requests\Career\UpdateJobBoardsRequest;
 use App\Models\Career\JobBoard;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -51,16 +51,16 @@ class JobBoardController extends BaseAdminController
     /**
      * Store a newly created job board in storage.
      *
-     * @param StoreJobBoardRequest $jobBoardStoreRequest
+     * @param StoreJobBoardsRequest $storeJobBoardsRequest
      * @return RedirectResponse
      */
-    public function store(StoreJobBoardRequest $jobBoardStoreRequest): RedirectResponse
+    public function store(StoreJobBoardsRequest $storeJobBoardsRequest): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can add job boards.');
         }
 
-        $jobBoard =JobBoard::create($jobBoardStoreRequest->validated());
+        $jobBoard =JobBoard::create($storeJobBoardsRequest->validated());
 
         return redirect(referer('admin.career.job-board.index'))
             ->with('success', $jobBoard->name . ' added successfully.');
@@ -96,17 +96,17 @@ class JobBoardController extends BaseAdminController
     /**
      * Update the specified job board in storage.
      *
-     * @param UpdateJobBoardRequest $updateJobBoardRequest
+     * @param UpdateJobBoardsRequest $updateJobBoardsRequest
      * @param JobBoard $jobBoard
      * @return RedirectResponse
      */
-    public function update(UpdateJobBoardRequest $updateJobBoardRequest, JobBoard $jobBoard): RedirectResponse
+    public function update(UpdateJobBoardsRequest $updateJobBoardsRequest, JobBoard $jobBoard): RedirectResponse
     {
         if (!Auth::guard('admin')->user()->root) {
             abort(403, 'Only admins with root access can update job boards.');
         }
 
-        $jobBoard->update($updateJobBoardRequest->validated());
+        $jobBoard->update($updateJobBoardsRequest->validated());
 
         return redirect(referer('admin.career.job-board.index'))
             ->with('success', $jobBoard->name . ' updated successfully.');

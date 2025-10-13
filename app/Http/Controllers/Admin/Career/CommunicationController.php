@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Career\StoreCommunicationRequest;
-use App\Http\Requests\Career\UpdateCommunicationRequest;
+use App\Http\Requests\Career\StoreCommunicationsRequest;
+use App\Http\Requests\Career\UpdateCommunicationsRequest;
 use App\Models\Career\Communication;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,12 +44,12 @@ class CommunicationController extends BaseAdminController
     /**
      * Store a newly created communication in storage.
      *
-     * @param StoreCommunicationRequest $storeCommunicationRequest
+     * @param StoreCommunicationsRequest $storeCommunicationsRequest
      * @return RedirectResponse
      */
-    public function store(StoreCommunicationRequest $storeCommunicationRequest): RedirectResponse
+    public function store(StoreCommunicationsRequest $storeCommunicationsRequest): RedirectResponse
     {
-        $communication = Communication::create($storeCommunicationRequest->validated());
+        $communication = Communication::create($storeCommunicationsRequest->validated());
 
         return redirect(referer('admin.career.communication.index'))
             ->with('success', 'Communication added successfully.');
@@ -80,14 +80,14 @@ class CommunicationController extends BaseAdminController
     /**
      * Update the specified communication in storage.
      *
-     * @param UpdateCommunicationRequest $updateCommunicationRequest
+     * @param UpdateCommunicationsRequest $updateCommunicationsRequest
      * @param Communication $communication
      * @return RedirectResponse
      */
-    public function update(UpdateCommunicationRequest $updateCommunicationRequest,
-                           Communication              $communication): RedirectResponse
+    public function update(UpdateCommunicationsRequest $updateCommunicationsRequest,
+                           Communication               $communication): RedirectResponse
     {
-        $communication->update($updateCommunicationRequest->validated());
+        $communication->update($updateCommunicationsRequest->validated());
 
         return redirect(referer('admin.career.communication.index'))
             ->with('success', 'Communication updated successfully.');

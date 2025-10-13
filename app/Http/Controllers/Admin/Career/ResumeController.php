@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Career\StoreResumeRequest;
-use App\Http\Requests\Career\UpdateResumeRequest;
+use App\Http\Requests\Career\StoreResumesRequest;
+use App\Http\Requests\Career\UpdateResumesRequest;
 use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -47,12 +47,12 @@ class ResumeController extends BaseAdminController
     /**
      * Store a newly created resume in storage.
      *
-     * @param StoreResumeRequest $storeResumeRequest
+     * @param StoreResumesRequest $storeResumesRequest
      * @return RedirectResponse
      */
-    public function store(StoreResumeRequest $storeResumeRequest): RedirectResponse
+    public function store(StoreResumesRequest $storeResumesRequest): RedirectResponse
     {
-        $resume = Resume::create($storeResumeRequest->validated());
+        $resume = Resume::create($storeResumesRequest->validated());
 
         return redirect(referer('admin.career.resume.index'))
             ->with('success', $resume->name . ' resume added successfully.');
@@ -83,13 +83,13 @@ class ResumeController extends BaseAdminController
     /**
      * Update the specified resume in storage.
      *
-     * @param UpdateResumeRequest $updateResumeRequest
+     * @param UpdateResumesRequest $updateResumesRequest
      * @param Resume $resume
      * @return RedirectResponse
      */
-    public function update(UpdateResumeRequest $updateResumeRequest, Resume $resume): RedirectResponse
+    public function update(UpdateResumesRequest $updateResumesRequest, Resume $resume): RedirectResponse
     {
-        $resume->update($updateResumeRequest->validated());
+        $resume->update($updateResumesRequest->validated());
 
         return redirect(referer('admin.career.resume.index'))
             ->with('success', $resume->name . ' resume updated successfully.');

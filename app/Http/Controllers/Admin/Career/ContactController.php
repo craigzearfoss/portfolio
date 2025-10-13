@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Career\StoreCompanyContactRequest;
-use App\Http\Requests\Career\StoreContactRequest;
-use App\Http\Requests\Career\UpdateContactRequest;
+use App\Http\Requests\Career\StoreCompanyContactsRequest;
+use App\Http\Requests\Career\StoreContactsRequest;
+use App\Http\Requests\Career\UpdateContactsRequest;
 use App\Models\Career\Company;
 use App\Models\Career\Contact;
 use Illuminate\Http\RedirectResponse;
@@ -48,12 +48,12 @@ class ContactController extends BaseAdminController
     /**
      * Store a newly created contact in storage.
      *
-     * @param StoreContactRequest $storeContactStoreRequest
+     * @param StoreContactsRequest $storeContactsRequest
      * @return RedirectResponse
      */
-    public function store(StoreContactRequest $storeContactStoreRequest): RedirectResponse
+    public function store(StoreContactsRequest $storeContactsRequest): RedirectResponse
     {
-        $contact = Contact::create($storeContactStoreRequest->validated());
+        $contact = Contact::create($storeContactsRequest->validated());
 
         return redirect(referer('admin.career.contact.index'))
             ->with('success', $contact->name . ' added successfully.');
@@ -84,13 +84,13 @@ class ContactController extends BaseAdminController
     /**
      * Update the specified contact in storage.
      *
-     * @param UpdateContactRequest $updateContactRequest
+     * @param UpdateContactsRequest $updateContactsRequest
      * @param Contact $contact
      * @return RedirectResponse
      */
-    public function update(UpdateContactRequest $updateContactRequest, Contact $contact): RedirectResponse
+    public function update(UpdateContactsRequest $updateContactsRequest, Contact $contact): RedirectResponse
     {
-        $contact->update($updateContactRequest->validated());
+        $contact->update($updateContactsRequest->validated());
 
         return redirect(referer('admin.career.application.index'))
             ->with('success', $contact->name . ' updated successfully.');
@@ -125,14 +125,14 @@ class ContactController extends BaseAdminController
      * Attach a company to the contact.
      *
      * @param int $contactId
-     * @param StoreCompanyContactRequest $storeCompanyContactRequest
+     * @param StoreCompanyContactsRequest $storeCompanyContactsRequest
      * @return RedirectResponse
      */
-    public function attachCompany(int $contactId, StoreCompanyContactRequest $storeCompanyContactRequest): RedirectResponse
+    public function attachCompany(int $contactId, StoreCompanyContactsRequest $storeCompanyContactsRequest): RedirectResponse
     {
         $contact = Contact::find($contactId);
 
-        $data = $storeCompanyContactRequest->validated();
+        $data = $storeCompanyContactsRequest->validated();
 
         if (!empty($data['company_id'])) {
 

@@ -6,7 +6,7 @@ use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreContactRequest extends FormRequest
+class StoreContactsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
