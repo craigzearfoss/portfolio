@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * The tag used to identify the core database.
+     * The tag used to identify the system database.
      *
      * @var string
      */
-    protected $database_tag = 'core_db';
+    protected $database_tag = 'system_db';
 
     /**
-     * The id of the admin who owns the core resources.
+     * The id of the admin who owns the system resources.
      * The admin must have root permissions.
      *
      * @var int

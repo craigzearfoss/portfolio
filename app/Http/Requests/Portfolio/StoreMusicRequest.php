@@ -44,7 +44,7 @@ class StoreMusicRequest extends FormRequest
         $maxYear = intval(date("Y")) + 1;
 
         return [
-            'owner_id'       => ['required','integer', 'exists:core_db.admins,id'],
+            'owner_id'       => ['required','integer', 'exists:system_db.admins,id'],
             'name'           => ['required', 'string', 'max:255', 'unique:portfolio_db.music,name'],
             'artist'         => ['string', 'max:255', 'nullable'],
             'slug'           => [

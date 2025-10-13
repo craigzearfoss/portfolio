@@ -13,7 +13,7 @@ class Admin extends Authenticatable
 {
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
-    protected $connection = 'core_db';
+    protected $connection = 'system_db';
 
     protected $table = 'admins';
 
@@ -67,7 +67,7 @@ class Admin extends Authenticatable
      */
     public function country(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(Country::class, 'country_id');
+        return $this->setConnection('system_db')->belongsTo(Country::class, 'country_id');
     }
 
     /**
@@ -75,6 +75,6 @@ class Admin extends Authenticatable
      */
     public function state(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(State::class, 'state_id');
+        return $this->setConnection('system_db')->belongsTo(State::class, 'state_id');
     }
 }

@@ -26,7 +26,7 @@ class UpdateSiteSettingsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['filled', 'string', 'max:255', 'unique:core_db.site_settings,name,'.$this->site_setting->id],
+            'name'        => ['filled', 'string', 'max:255', 'unique:system_db.site_settings,name,'.$this->site_setting->id],
             'value'       => ['nullable'],
             'description' => ['nullable'],
         ];

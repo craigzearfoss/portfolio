@@ -38,7 +38,7 @@ class UpdateCompanyRequest extends FormRequest
         }
 
         return [
-            'owner_id'        => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
             'name'            => [
                 'filled',
                 'string',
@@ -63,9 +63,9 @@ class UpdateCompanyRequest extends FormRequest
             'street'          => ['string', 'max:255', 'nullable'],
             'street2'         => ['string', 'max:255', 'nullable'],
             'city'            => ['string', 'max:100', 'nullable'],
-            'state_id'        => ['integer', 'exists:core_db.states,id', 'nullable'],
+            'state_id'        => ['integer', 'exists:system_db.states,id', 'nullable'],
             'zip'             => ['string', 'max:20', 'nullable'],
-            'country_id'      => ['integer', 'exists:core_db.countries,id', 'nullable'],
+            'country_id'      => ['integer', 'exists:system_db.countries,id', 'nullable'],
             'latitude'        => ['numeric:strict', 'nullable'],
             'longitude'       => ['numeric:strict', 'nullable'],
             'phone'           => ['string', 'max:50', 'nullable'],

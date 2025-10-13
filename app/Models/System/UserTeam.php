@@ -15,7 +15,7 @@ class UserTeam extends Model
     /** @use HasFactory<\Database\Factories\UserTeamFactory> */
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
-    protected $connection = 'core_db';
+    protected $connection = 'system_db';
 
     protected $table = 'user_teams';
 

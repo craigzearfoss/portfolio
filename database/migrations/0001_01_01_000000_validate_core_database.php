@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
-    protected $database_tag = 'core_db';
+    protected $database_tag = 'system_db';
 
     /**
      * Run the migrations.
@@ -16,7 +16,7 @@ return new class extends Migration
 
         if (empty($dbName)) {
             throw new \Exception('app.'.$this->database_tag.' not defined in config\app.php file '
-                . ' or CORE_DB_DATABASE not defined in .env file.'
+                . ' or system_db_DATABASE not defined in .env file.'
             );
         }
 

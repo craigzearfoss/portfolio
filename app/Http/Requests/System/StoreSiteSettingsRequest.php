@@ -27,7 +27,7 @@ class StoreSiteSettingsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['required', 'string', 'max:255', 'unique:core_db.site_settings,name'],
+            'name'        => ['required', 'string', 'max:255', 'unique:system_db.site_settings,name'],
             'value'       => ['nullable'],
             'description' => ['nullable'],
         ];

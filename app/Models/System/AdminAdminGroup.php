@@ -10,7 +10,7 @@ class AdminAdminGroup extends Model
     /** @use HasFactory<\Database\Factories\AdminAdminGroupFactory> */
     use HasFactory;
 
-    protected $connection = 'core_db';
+    protected $connection = 'system_db';
 
     protected $table = 'admin_admin_groups';
 

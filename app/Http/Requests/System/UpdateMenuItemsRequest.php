@@ -32,8 +32,8 @@ class UpdateMenuItemsRequest extends FormRequest
                 Rule::in(MenuItem::whereNot('id', $this->id)->get('id')->pluck('id')->toArray()),
                 'nullable'
             ],
-            'database_id' => ['integer', 'exists:core_db.databases,id', 'nullable'],
-            'resource_id' => ['integer', 'exists:core_db.resources,id', 'nullable'],
+            'database_id' => ['integer', 'exists:system_db.databases,id', 'nullable'],
+            'resource_id' => ['integer', 'exists:system_db.resources,id', 'nullable'],
             'name'        => ['string', 'max:255'],
             'route'       => ['string', 'max:255', 'nullable'],
             'icon'        => ['string', 'max:50', 'nullable'],

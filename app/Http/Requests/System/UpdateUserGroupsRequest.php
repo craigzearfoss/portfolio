@@ -32,26 +32,26 @@ class UpdateUserGroupsRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'core_db.user_groups', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'system_db.user_groups', $this->owner_id)
             ]);
         }
 
         return [
-            'owner_id'      => ['filled', 'integer', 'exists:core_db.admins,id'],
-            'admin_team_id' => ['filled', 'integer', 'exists:core_db.user_teams,id'],
+            'owner_id'      => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'admin_team_id' => ['filled', 'integer', 'exists:system_db.user_teams,id'],
             'name'          => [
                 'filled',
                 'string',
                 'min:3',
                 'max:200',
-                Rule::unique('core_db.user_groups')->where(function ($query) {
+                Rule::unique('system_db.user_groups')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('id', '<>', $this->user_group->id)
                         ->where('name', $this->name);
                 })
             ],
-            'slug'          => ['filled', 'string', 'min:20', 'max:220', 'unique:core_db.user_groups,slug,'.$this->user_group->id],
-            'abbreviation'  => ['string', 'max:20', 'unique:core_db.user_groups.abbreviation,'.$this->user_group->id, 'nullable'],
+            'slug'          => ['filled', 'string', 'min:20', 'max:220', 'unique:system_db.user_groups,slug,'.$this->user_group->id],
+            'abbreviation'  => ['string', 'max:20', 'unique:system_db.user_groups.abbreviation,'.$this->user_group->id, 'nullable'],
             'description'   => ['nullable'],
             'disabled'      => ['integer', 'between:0,1'],
         ];

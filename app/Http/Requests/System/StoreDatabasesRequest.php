@@ -25,7 +25,7 @@ class StoreDatabasesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id' => ['integer', 'exists:core_db.admins,id'],
+            'owner_id' => ['integer', 'exists:system_db.admins,id'],
             'name'     => ['required', 'string', 'max:50', 'unique:databases,name'],
             'database' => ['required', 'string', 'max:50', 'unique:databases,database'],
             'tag'      => ['required', 'string', 'max:50', 'unique:databases,tag'],

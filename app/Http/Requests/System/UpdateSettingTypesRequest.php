@@ -22,7 +22,7 @@ class UpdateSettingTypesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['filled', 'string', 'max:255', 'unique:core_db.setting_types,name,'.$this->setting_type->id],
+            'name'        => ['filled', 'string', 'max:255', 'unique:system_db.setting_types,name,'.$this->setting_type->id],
             'value'       => ['nullable'],
             'description' => ['nullable'],
         ];

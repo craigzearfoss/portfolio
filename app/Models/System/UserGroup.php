@@ -15,7 +15,7 @@ class UserGroup extends Model
     /** @use HasFactory<\Database\Factories\UserGroupFactory> */
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
-    protected $connection = 'core_db';
+    protected $connection = 'system_db';
 
     protected $table = 'user_groups';
 
@@ -53,6 +53,6 @@ class UserGroup extends Model
      */
     public function team(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(UserTeam::class, 'user_team_id');
+        return $this->setConnection('system_db')->belongsTo(UserTeam::class, 'user_team_id');
     }
 }

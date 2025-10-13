@@ -11,7 +11,7 @@ class ResourceSetting extends Model
 {
     use SearchableModelTrait;
 
-    protected $connection = 'core_db';
+    protected $connection = 'system_db';
 
     protected $table = 'resource_settings';
 

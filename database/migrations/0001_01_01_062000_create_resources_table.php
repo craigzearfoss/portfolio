@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * The tag used to identify the core database.
+     * The tag used to identify the system database.
      *
      * @var string
      */
-    protected $database_tag = 'core_db';
+    protected $database_tag = 'system_db';
 
     /**
-     * The id of the admin who owns the core resources.
+     * The id of the admin who owns the system resources.
      * The admin must have root permissions.
      *
      * @var int
@@ -53,7 +53,7 @@ return new class extends Migration
             $table->unique(['database_id', 'table'], 'database_id_table_unique');
         });
 
-        if (!$database = Database::where('tag', 'db'/*$this->database_tag*/)->first()) {
+        if (!$database = Database::where('tag', $this->database_tag)->first()) {
 
             throw new \Exception('Database tag \'' . $this->database_tag . '\'not found.');
 

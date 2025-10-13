@@ -10,7 +10,7 @@ class AdminAdminTeam extends Model
     /** @use HasFactory<\Database\Factories\AdminAdminTeamFactory> */
     use HasFactory;
 
-    protected $connection = 'core_db';
+    protected $connection = 'system_db';
 
     protected $table = 'admin_admin_teams';
 

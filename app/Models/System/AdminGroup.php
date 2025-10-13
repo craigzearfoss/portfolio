@@ -15,7 +15,7 @@ class AdminGroup extends Model
     /** @use HasFactory<\Database\Factories\AdminGroupFactory> */
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
-    protected $connection = 'core_db';
+    protected $connection = 'system_db';
 
     protected $table = 'admin_groups';
 
@@ -60,6 +60,6 @@ class AdminGroup extends Model
      */
     public function team(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(AdminTeam::class, 'admin_team_id');
+        return $this->setConnection('system_db')->belongsTo(AdminTeam::class, 'admin_team_id');
     }
 }

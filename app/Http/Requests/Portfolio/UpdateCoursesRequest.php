@@ -38,7 +38,7 @@ class UpdateCoursesRequest extends FormRequest
         }
 
         return [
-            'owner_id'        => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
             'name' => [
                 'filled',
                 'string',

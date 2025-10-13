@@ -30,7 +30,7 @@ class UpdateJobCoworkersRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'        => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
             'job_id'          => ['filled', 'integer', 'exists:portfolio_db.jobs,id'],
             'name'            => [
                 'filled',

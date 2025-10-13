@@ -29,7 +29,7 @@ class StoreJobTasksRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'        => ['required', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'        => ['required', 'integer', 'exists:system_db.admins,id'],
             'job_id'          => ['required', 'integer', 'exists:portfolio_db.jobs,id'],
             'summary'         => ['required','string', 'max:500'],
             'notes'           => ['nullable'],

@@ -30,7 +30,7 @@ class StoreNoteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'       => ['required', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'       => ['required', 'integer', 'exists:system_db.admins,id'],
             'application_id' => ['required', 'integer', 'exists:career_db.applications,id'],
             'subject'        => ['required', 'string', 'max:255'],
             'body'           => ['nullable'],

@@ -11,7 +11,7 @@ class Message extends Model
     /** @use HasFactory<\Database\Factories\MessageFactory> */
     use HasFactory, SoftDeletes;
 
-    protected $connection = 'core_db';
+    protected $connection = 'system_db';
 
     protected $table = 'messages';
 

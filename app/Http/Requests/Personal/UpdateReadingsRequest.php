@@ -40,7 +40,7 @@ class UpdateReadingRequest extends FormRequest
         }
 
         return [
-            'owner_id'         => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'         => ['filled', 'integer', 'exists:system_db.admins,id'],
             'title'            => ['filled', 'string', 'max:255', 'unique:personal_db.readings,name,'.$this->reading->id],
             'author'           => ['string', 'max:255', 'nullable'],
             'slug'             => [

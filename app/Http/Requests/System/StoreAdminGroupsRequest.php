@@ -32,25 +32,25 @@ class StoreAdminGroupsRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'core_db.admin_groups', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'system_db.admin_groups', $this->owner_id)
             ]);
         }
 
         return [
-            'owner_id '     => ['required', 'integer', 'exists:core_db.admins,id'],
-            'admin_team_id' => ['required', 'integer', 'exists:core_db.admin_teams,id'],
+            'owner_id '     => ['required', 'integer', 'exists:system_db.admins,id'],
+            'admin_team_id' => ['required', 'integer', 'exists:system_db.admin_teams,id'],
             'name'          => [
                 'required',
                 'string',
                 'min:3',
                 'max:200',
-                Rule::unique('core_db.admin_groups')->where(function ($query) {
+                Rule::unique('system_db.admin_groups')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
             ],
-            'slug'          => ['required', 'string', 'min:20', 'max:220', 'unique:core_db.admin_groups,slug'],
-            'abbreviation'  => ['string', 'max:20', 'unique:core_db.admin_groups,slug', 'nullable'],
+            'slug'          => ['required', 'string', 'min:20', 'max:220', 'unique:system_db.admin_groups,slug'],
+            'abbreviation'  => ['string', 'max:20', 'unique:system_db.admin_groups,slug', 'nullable'],
             'description'   => ['nullable'],
             'disabled'      => ['integer', 'between:0,1'],
         ];

@@ -15,7 +15,7 @@ class AdminTeam extends Model
     /** @use HasFactory<\Database\Factories\AdminTeamFactory> */
     use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
-    protected $connection = 'core_db';
+    protected $connection = 'system_db';
 
     protected $table = 'admin_teams';
 

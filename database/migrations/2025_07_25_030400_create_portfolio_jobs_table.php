@@ -32,7 +32,7 @@ return new class extends Migration
         if (!$database = Database::where('tag', $this->database_tag)->first()) {
             throw new \Exception(
                 'Database with tag `' . $this->database_tag . '` not found in '
-                . config('app.core_db') . '.databases table.'
+                . config('app.system_db') . '.databases table.'
             );
         }
 

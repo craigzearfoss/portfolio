@@ -27,8 +27,8 @@ class StoreResourcesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'    => ['required', 'integer', 'exists:core_db.admins,id'],
-            'database_id' => ['required', 'integer', 'exists:core_db.databases,id'],
+            'owner_id'    => ['required', 'integer', 'exists:system_db.admins,id'],
+            'database_id' => ['required', 'integer', 'exists:system_db.databases,id'],
             'name'        => [
                 'required',
                 'string',

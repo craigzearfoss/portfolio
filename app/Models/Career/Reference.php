@@ -96,7 +96,7 @@ class Reference extends Model
      */
     public function company(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(Company::class, 'company_id');
+        return $this->setConnection('system_db')->belongsTo(Company::class, 'company_id');
     }
 
     /**
@@ -104,7 +104,7 @@ class Reference extends Model
     */
     public function country(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(Country::class, 'country_id');
+        return $this->setConnection('system_db')->belongsTo(Country::class, 'country_id');
     }
 
     /**
@@ -112,7 +112,7 @@ class Reference extends Model
      */
     public function state(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(State::class, 'state_id');
+        return $this->setConnection('system_db')->belongsTo(State::class, 'state_id');
     }
 
     /**

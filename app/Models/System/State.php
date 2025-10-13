@@ -16,7 +16,7 @@ class State extends Model
 {
     use SearchableModelTrait;
 
-    protected $connection = 'core_db';
+    protected $connection = 'system_db';
 
     protected $table = 'states';
 
@@ -78,7 +78,7 @@ class State extends Model
      */
     public function country(): BelongsTo
     {
-        return $this->setConnection('core_db')->belongsTo(Country::class)
+        return $this->setConnection('system_db')->belongsTo(Country::class)
             ->orderBy('name', 'asc');
     }
 

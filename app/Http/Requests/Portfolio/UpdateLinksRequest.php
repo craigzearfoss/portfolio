@@ -38,7 +38,7 @@ class UpdateLinksRequest extends FormRequest
         }
 
         return [
-            'owner_id'     => ['integer', 'exists:core_db.admins,id'],
+            'owner_id'     => ['integer', 'exists:system_db.admins,id'],
             'name'         => [
                 'string',
                 'filled',

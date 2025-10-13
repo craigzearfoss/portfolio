@@ -44,7 +44,7 @@ class UpdateMusicRequest extends FormRequest
         $maxYear = intval(date("Y")) + 1;
 
         return [
-            'owner_id'       => ['filled', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
             'name'           => ['filled', 'string', 'max:255', 'unique:portfolio_db.music,name,'.$this->music->id],
             'artist'         => ['string', 'max:255', 'nullable'],
             'slug'           => [

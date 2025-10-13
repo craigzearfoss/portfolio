@@ -32,24 +32,24 @@ class StoreUserTeamsRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'core_db.user_teams', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'system_db.user_teams', $this->owner_id)
             ]);
         }
 
         return [
-            'owner_id'     => ['required', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'     => ['required', 'integer', 'exists:system_db.admins,id'],
             'name'         => [
                 'required',
                 'string',
                 'min:3',
                 'max:200',
-                Rule::unique('core_db.user_teams')->where(function ($query) {
+                Rule::unique('system_db.user_teams')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
             ],
-            'slug'         => ['required', 'string', 'min:20', 'max:220', 'unique:core_db.user_teams,slug'],
-            'abbreviation' => ['string', 'max:20', 'unique:core_db.user_teams,slug', 'nullable'],
+            'slug'         => ['required', 'string', 'min:20', 'max:220', 'unique:system_db.user_teams,slug'],
+            'abbreviation' => ['string', 'max:20', 'unique:system_db.user_teams,slug', 'nullable'],
             'description'  => ['nullable'],
             'disabled'     => ['integer', 'between:0,1'],
         ];

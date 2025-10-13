@@ -40,7 +40,7 @@ class StoreReadingRequest extends FormRequest
         }
 
         return [
-            'owner_id'         => ['required', 'integer', 'exists:core_db.admins,id'],
+            'owner_id'         => ['required', 'integer', 'exists:system_db.admins,id'],
             'title'            => ['required', 'string', 'max:255', 'unique:personal_db.readings,name'],
             'author'           => ['string', 'max:255', 'nullable'],
             'slug'             => [

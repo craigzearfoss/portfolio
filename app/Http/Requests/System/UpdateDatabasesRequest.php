@@ -25,7 +25,7 @@ class UpdateDatabasesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'    => ['integer', 'exists:core_db.admins,id'],
+            'owner_id'    => ['integer', 'exists:system_db.admins,id'],
             'name'        => ['string', 'filled', 'max:50', 'unique:databases,name,'.$this->databases->id],
             'database'    => ['string', 'filled', 'max:50', 'unique:databases,database,'.$this->databases->id],
             'tag'         => ['string', 'filled', 'max:50', 'unique:databases,tag,'.$this->databases->id],

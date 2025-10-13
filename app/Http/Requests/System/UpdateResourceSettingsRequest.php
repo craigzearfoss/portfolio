@@ -30,19 +30,19 @@ class UpdateResourceSettingsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'        => ['filled', 'integer', 'exists:core_db.admins,id'],
-            'resource_id'     => ['filled', 'integer', 'exists:core_db.resources,id'],
+            'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'resource_id'     => ['filled', 'integer', 'exists:system_db.resources,id'],
             'name'            => [
                 'required',
                 'string',
                 'min:3',
                 'max:200',
-                Rule::unique('core_db.user_teams')->where(function ($query) {
+                Rule::unique('system_db.user_teams')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
             ],
-            'setting_type_id' => ['filled', 'integer', 'exists:core_db.setting_types,id'],
+            'setting_type_id' => ['filled', 'integer', 'exists:system_db.setting_types,id'],
             'value'           => ['nullable'],
             'description'     => ['nullable'],
         ];
