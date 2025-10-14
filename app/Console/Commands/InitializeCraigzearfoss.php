@@ -99,11 +99,88 @@ class InitializeCraigzearfoss extends Command
         return $data;
     }
 
+    protected function insertCareerCompanies(): void
+    {
+        echo "Inserting into Career\\Company ...\n";
+        Link::insert($this->addTimeStampsAndOwners([
+        ]));
+    }
+
+    protected function insertCareerContacts(): void
+    {
+        echo "Inserting into Career\\Contact ...\n";
+        Link::insert($this->addTimeStampsAndOwners([
+        ]));
+    }
+
+    protected function insertCareerReferences(): void
+    {
+        echo "Inserting into Career\\Reference ...\n";
+        Link::insert($this->addTimeStampsAndOwners([
+        ]));
+    }
+
+    protected function insertCareerResumes(): void
+    {
+        echo "Inserting into Career\\Resume ...\n";
+        Link::insert($this->addTimeStampsAndOwners([
+        ]));
+    }
+
+    protected function insertCareerApplications(): void
+    {
+        echo "Inserting into Career\\Application ...\n";
+        Link::insert($this->addTimeStampsAndOwners([
+        ]));
+    }
+
+    protected function insertCareerCoverLetters(): void
+    {
+        echo "Inserting into Career\\CoverLetter ...\n";
+        Link::insert($this->addTimeStampsAndOwners([
+        ]));
+    }
+
+    protected function insertCareerCommunications(): void
+    {
+        echo "Inserting into Career\\Communication ...\n";
+        Link::insert($this->addTimeStampsAndOwners([
+        ]));
+    }
+
+    protected function insertCareerEvents(): void
+    {
+        echo "Inserting into Career\\Event ...\n";
+        Link::insert($this->addTimeStampsAndOwners([
+        ]));
+    }
+
+    protected function insertCareerNotes(): void
+    {
+        echo "Inserting into Career\\Note ...\n";
+        Link::insert($this->addTimeStampsAndOwners([
+        ]));
+    }
+
+    protected function insertCareerApplicationSkill(): void
+    {
+        echo "Inserting into Career\\ApplicationSkill ...\n";
+        Link::insert($this->addTimeStampsAndOwners([
+        ]));
+    }
+
+    protected function insertCareerCompanyContact(): void
+    {
+        echo "Inserting into Career\\CompanyContact ...\n";
+        Link::insert($this->addTimeStampsAndOwners([
+        ]));
+    }
+
     protected function insertPersonalReadings(): void
     {
-        echo "\nInserting into Portfolio\\Reading...\n";
-        $i = Reading::max('id') + 1;
-        Reading::insert($this->addTimeStampsAndOwners([
+        echo "Inserting into Portfolio\\Reading ...\n";
+
+        $data = [
             [ 'title' => 'A Christmas Carol', 'author' => 'Charles Dickens', 'slug' => 'a-christmas-carol-by-charles-dickens', 'publication_year' => 1843, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/A_Christmas_Carol', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 0, 'wishlist' => 1, 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Charles_Dickens-A_Christmas_Carol-Cloth-First_Edition_1843.jpg/250px-Charles_Dickens-A_Christmas_Carol-Cloth-First_Edition_1843.jpg' ],
             [ 'title' => 'A Confederacy of Dunces', 'author' => 'John Kennedy Toole', 'slug' => 'a-confederacy-of-dunces-by-john-kennedy-toole', 'publication_year' => 1980, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/A_Confederacy_of_Dunces', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 0, 'wishlist' => 1, 'image' => 'https://upload.wikimedia.org/wikipedia/en/thumb/6/67/Confederacy_of_dunces_cover.jpg/250px-Confederacy_of_dunces_cover.jpg' ],
             [ 'title' => 'A Farewell to Arms', 'author' => 'Ernest Hemingway', 'slug' => 'a-farewell-to-arms-by-ernest-hemingway', 'publication_year' => 1929, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/A_Farewell_to_Arms', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 0, 'wishlist' => 1, 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/A_Farewell_to_Arms_%281929%29_cover.jpg/250px-A_Farewell_to_Arms_%281929%29_cover.jpg' ],
@@ -444,31 +521,42 @@ class InitializeCraigzearfoss extends Command
             [ 'title' => 'The Complete Sherlock Holmes', 'author' => 'Arthur Conan Doyle', 'slug' => 'the-complete-sherlock-holmes-by-arthur-conan-doyle', 'publication_year' => 1930, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/Complete-Sherlock-Holmes-Fifty-Six-Adventures/dp/B000N770O4/', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://m.media-amazon.com/images/I/91tbNbLrr0L._SY342_.jpg' ],
             [ 'title' => 'Hex', 'author' => 'Arthur H. Lewis', 'slug' => 'hex-by-arthur-h-lewis', 'publication_year' => 1969, 'link_name' => 'Goodreads', 'link' => 'https://www.goodreads.com/book/show/1938225.Hex', 'fiction' => 0, 'nonfiction' => 1, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1387705354i/1938225.jpg' ],
             //[ 'title' => '', 'author' => null, 'slug' => '', 'publication_year' => null, 'link_name' => null, 'link' => null, 'fiction' => 0, 'nonfiction' => 0, 'paper' => 0, 'audio' => 0, 'wishlist' => 0, 'image' => null ],
-        ]));
+        ];
+
+        if (!empty($data)) {
+            Reading::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertPersonalRecipes(): void
     {
-        echo "\nInserting into Portfolio\\Recipe...\n";
+        echo "Inserting into Portfolio\\Recipe ...\n";
+
         $this->ids = [];
         $maxId = Recipe::max('id');
         for ($i=1; $i<6; $i++) {
             $this->ids[$i] = ++$maxId;
         }
-        Recipe::insert($this->addTimeStampsAndOwners([
+
+        $data = [
             [ 'id' => $this->ids[1], 'name' => 'Nestlé Toll House Chocolate Chip Cookies', 'slug' => 'nestle-toll-house-cookies',     'source' => 'www.nestle.com',                'author' => 'Ruth Wakefield', 'main' => 0, 'side' => 0, 'dessert' => 1, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 0, 'dinner' => 0, 'snack'  => 1, 'link' => 'https://www.nestle.com/stories/timeless-discovery-toll-house-chocolate-chip-cookie-recipe' ],
             [ 'id' => $this->ids[2], 'name' => 'Seed Crackers',                            'slug' => 'seed-crackers',                 'source' => 'Facebook',                      'author' => null,             'main' => 0, 'side' => 0, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 0, 'dinner' => 0, 'snack'  => 1, 'link' => null ],
             [ 'id' => $this->ids[3], 'name' => 'Vegan Sloppy Joes',                        'slug' => 'vegan-sloppy-joes',             'source' => 'Facebook',                      'author' => null,             'main' => 1, 'side' => 0, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 0, 'snack'  => 0, 'link' => null ],
             [ 'id' => $this->ids[4], 'name' => 'Miso Soup',                                'slug' => 'miso-soup',                     'source' => 'Facebook',                      'author' => null,             'main' => 0, 'side' => 1, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 0, 'snack'  => 0, 'link' => null ],
             [ 'id' => $this->ids[5], 'name' => 'John Cope\'s Baked Corn Supreme',          'slug' => 'john-copes-baked-corn-supreme', 'source' => 'John Cope\'s Dried Sweet Corn', 'author' => null,             'main' => 0, 'side' => 1, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 1, 'snack'  => 0, 'link' => null ],
             //[ 'id' => 1, 'name' => '',                                         'slug' => '',                              'source' => null,                            'author' => null,             'main' => 0, 'side' => 0, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 1, 'snack'  => 0, 'link' => null ],
-        ]));
+        ];
+
+        if (!empty($data)) {
+            Recipe::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertPersonalRecipeIngredients(): void
     {
-        echo "\nInserting into Personal\\RecipeIngredient...\n";
-        RecipeIngredient::insert($this->addTimeStampsAndOwners([
+        echo "Inserting into Personal\\RecipeIngredient ...\n";
+
+        $data = [
             [ 'ingredient_id' => 263, 'recipe_id' => $this->ids[1], 'amount' => '2 1/4', 'unit_id' => 6,  'qualifier' => null,                                                              'public' => 1 ],
             [ 'ingredient_id' => 35,  'recipe_id' => $this->ids[1], 'amount' => '1',     'unit_id' => 4,  'qualifier' => null,                                                              'public' => 1 ],
             [ 'ingredient_id' => 566, 'recipe_id' => $this->ids[1], 'amount' => '1',     'unit_id' => 4,  'qualifier' => null,                                                              'public' => 1 ],
@@ -516,14 +604,19 @@ class InitializeCraigzearfoss extends Command
             [ 'ingredient_id' => 599, 'recipe_id' => $this->ids[5], 'amount' => '1 1/2', 'unit_id' => 5,  'qualifier' => null,                                                              'public' => 1 ],
             [ 'ingredient_id' => 247, 'recipe_id' => $this->ids[5], 'amount' => '2',     'unit_id' => 1,  'qualifier' => null,                                                              'public' => 1 ],
             //[ 'ingredient_id' => 1,   'recipe_id' => 1, 'amount' => null,    'unit_id' => 1,  'qualifier' => null,                                                              'public' => 1 ],
-        ]));
+        ];
+
+        if (!empty($data)) {
+            RecipeIngredient::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
 
     protected function insertPersonalRecipeSteps(): void
     {
-        echo "\nInserting into Personal\\RecipeStep...\n";
-        RecipeStep::insert($this->addTimeStampsAndOwners([
+        echo "Inserting into Personal\\RecipeStep ...\n";
+
+        $data = [
             [ 'recipe_id' => $this->ids[1],  'step' => 1,  'description' => 'Preheat oven to 375° F.' ],
             [ 'recipe_id' => $this->ids[1],  'step' => 2,  'description' => 'Combine flour, baking soda and salt in small bowl. Beat butter, granulated sugar, brown sugar and vanilla extract in large mixer bowl until creamy. Add eggs, one at a time, beating well after each addition. Gradually beat in flour mixture. Stir in morsels and nuts. Drop by rounded tablespoon onto ungreased baking sheets.' ],
             [ 'recipe_id' => $this->ids[1],  'step' => 3,  'description' => 'Bake for 9 to 11 minutes or until golden brown. Cool on baking sheets for 2 minutes; remove to wire racks to cool completely.' ],
@@ -541,15 +634,19 @@ class InitializeCraigzearfoss extends Command
             [ 'recipe_id' => $this->ids[5],  'step' => 3,  'description'   => 'Add 2 1/2 cups of cold milk, 2 Tbsp. melted butter or margarine, 1 tsp. salt (optional), 1 1/2 Tbsp. sugar, and 2 well beaten eggs. Mix thoroughly' ],
             [ 'recipe_id' => $this->ids[5],  'step' => 4,  'description'   => 'Bake in buttered 1.5 or 2 quart casserole dish for 40 to 50 minutes.' ],
             //[ 'id' => 1,  'recipe_id' => 1,  'step' => 1,  'description'   => '' ],
-        ]));
+        ];
+
+        if (!empty($data)) {
+            RecipeStep::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertPortfolioArt(): void
     {
-        echo "\nInserting into Portfolio\\Art...\n";
-        Art::insert($this->addTimeStampsAndOwners([
+        echo "Inserting into Portfolio\\Art ...\n";
+
+        $data = [
             [
-                'id'             => 1,
                 'name'           => 'former painting from Cat\'s Cradle',
                 'artist'         => 'Laird Dixon',
                 'slug'           => 'former-painting-from-cats-cradle-by-laird-dixon',
@@ -562,7 +659,6 @@ class InitializeCraigzearfoss extends Command
                 'public'         => 1,
             ],
             [
-                'id'             => 2,
                 'name'           => 'Sleazefest! cover art',
                 'artist'         => 'Devlin Thompson',
                 'slug'           => 'sleazefest-cover-art-devlin-thompson',
@@ -575,7 +671,6 @@ class InitializeCraigzearfoss extends Command
                 'public'         => 1,
             ],
             [
-                'id'             => 3,
                 'name'           => 'Sleazefest! back cover art',
                 'artist'         => 'Devlin Thompson',
                 'slug'           => 'sleazefest-back-cover-art-devlin-thompson',
@@ -588,7 +683,6 @@ class InitializeCraigzearfoss extends Command
                 'public'         => 1,
             ],
             [
-                'id'             => 4,
                 'name'           => 'Sleazefest! VHS cover art',
                 'artist'         => 'Devlin Thompson',
                 'slug'           => 'sleazefest-vhs-cover-art-devlin-thompson',
@@ -601,7 +695,6 @@ class InitializeCraigzearfoss extends Command
                 'public'         => 1,
             ],
             [
-                'id'             => 5,
                 'name'           => 'Sleazefest! VHS back cover art',
                 'artist'         => 'Devlin Thompson',
                 'slug'           => 'sleazefest-vhs-back-cover-art-devlin-thompson',
@@ -614,7 +707,6 @@ class InitializeCraigzearfoss extends Command
                 'public'         => 1,
             ],
             [
-                'id'             => 6,
                 'name'           => 'Knife',
                 'artist'         => 'Dexter Romweber',
                 'slug'           => 'knife-dexter-romweber',
@@ -626,22 +718,31 @@ class InitializeCraigzearfoss extends Command
                 'description'    => '',
                 'public'         => 1,
             ],
-        ]));
+        ];
+
+        if (!empty($data)) {
+            Art::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertPortfolioAudios(): void
     {
-        echo "\nInserting into Portfolio\\Audio...\n";
-        Audio::insert($this->addTimeStampsAndOwners([
-        ]));
+        echo "Inserting into Portfolio\\Audio ...\n";
+
+        $data = [
+        ];
+
+        if (!empty($data)) {
+            Audio::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertPortfolioCertifications(): void
     {
-        echo "\nInserting into Portfolio\\Certification...\n";
-        Certification::insert($this->addTimeStampsAndOwners([
+        echo "Inserting into Portfolio\\Certification ...\n";
+
+        $data = [
             [
-                'id'              => 1,
                 'name'            => 'Google Cybersecurity',
                 'slug'            => 'google-cybersecurity',
                 'featured'        => 1,
@@ -655,13 +756,18 @@ class InitializeCraigzearfoss extends Command
                 'link_name'       => 'Coursera verification',
                 'description'     => 'Includes the following courses:<ul><li>Foundations of Cybersecurity</li><li>Play It Safe: Manage Security Risks</li><li>Connect and Protect: Networks and Network Security</li><li>Tools of the Trade: Linux and SQL</li><li>Assets, Threats, Vulnerabilities</li><li>Sound the Alarm: Detection and Response</li><li>Automate Cybersecurity Tasks with Python</li><li>Put It to Work: Prepare for Cybersecurity Jobs</li></ul>',
             ]
-        ]));
+        ];
+
+        if (!empty($data)) {
+            Certification::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertPortfolioCourses(): void
     {
-        echo "\nInserting into Portfolio\\Course...\n";
-        Course::insert($this->addTimeStampsAndOwners([
+        echo "Inserting into Portfolio\\Course ...\n";
+
+        $data = [
             [
                 'id'              => 1,
                 'name'            => 'AWS Cloud Practitioner Essentials: Cloud Concepts',
@@ -1728,13 +1834,18 @@ class InitializeCraigzearfoss extends Command
                 'link'            => null,
                 'link_name'       => null,
             ],
-        ]));
+        ];
+
+        if (!empty($data)) {
+            Course::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertPortfolioJobs(): void
     {
-        echo "\nInserting into Portfolio\\Job...\n";
-        Job::insert($this->addTimeStampsAndOwners([
+        echo "Inserting into Portfolio\\Job ...\n";
+
+        $data = [
             [
                 'id' => 1,
                 'company'     => 'Idaho National Laboratory',
@@ -1868,64 +1979,34 @@ class InitializeCraigzearfoss extends Command
                 'thumbnail'   => 'images/admin/2/portfolio/job/ibm_logo.png',
                 'public'      => 1,
             ],
-        ]));
+        ];
+
+        if (!empty($data)) {
+            Job::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertPortfolioLinks(): void
     {
-        echo "\nInserting into Portfolio\\Link...\n";
-        Link::insert($this->addTimeStampsAndOwners([
-            [
-                'id'           => 1,
-                'name'         => 'LinkedIn',
-                'slug'         => 'linkedin',
-                'featured'     => 1,
-                'summary'      => null,
-                'url'          => 'https://www.linkedin.com/in/craig-zearfoss/',
-                'description'  => '',
-                'public'       => 1,
-                'sequence'     => 0,
-            ],
-            [
-                'id'           => 2,
-                'name'         => 'GitHub',
-                'slug'         => 'github',
-                'featured'     => 1,
-                'summary'      => null,
-                'url'          => 'https://github.com/craigzearfoss',
-                'description'  => '',
-                'public'       => 1,
-                'sequence'     => 1,
-            ],
-            [
-                'id'           => 3,
-                'name'         => 'Facebook',
-                'slug'         => 'facebook',
-                'featured'     => 1,
-                'summary'      => null,
-                'url'          => 'https://www.facebook.com/craig.zearfoss',
-                'description'  => '',
-                'public'       => 1,
-                'sequence'     => 2,
-            ],
-            [
-                'id'           => 4,
-                'name'         => 'Craig Zearfoss Collection, 1988-2008',
-                'slug'         => 'craig-zearfoss-collection-1988-2008',
-                'featured'     => 1,
-                'summary'      => null,
-                'url'          => 'https://finding-aids.lib.unc.edu/catalog/20509',
-                'description'  => 'A publicly available collection of live video recordings, audio recordings, posters, photographs, and papers affiliated with the Triangle\'s indie rock music scene from 1988 to 2008.',
-                'public'       => 1,
-                'sequence'     => 3,
-            ],
-        ]));
+        echo "Inserting into Portfolio\\Link ...\n";
+
+        $data = [
+            [ 'name' => 'LinkedIn',                             'slug' => 'linkedin',                            'featured' => 1, 'summary' => null, 'url' => 'https://www.linkedin.com/in/craig-zearfoss/',    'public' => 1, 'sequence' => 0, 'description' => null ],
+            [ 'name' => 'GitHub',                               'slug' => 'github',                              'featured' => 1, 'summary' => null, 'url' => 'https://github.com/craigzearfoss',               'public' => 1, 'sequence' => 1, 'description' => null ],
+            [ 'name' => 'Facebook',                             'slug' => 'facebook',                            'featured' => 1, 'summary' => null, 'url' => 'https://www.facebook.com/craig.zearfoss',        'public' => 1, 'sequence' => 2, 'description' => null ],
+            [ 'name' => 'Craig Zearfoss Collection, 1988-2008', 'slug' => 'craig-zearfoss-collection-1988-2008', 'featured' => 1, 'summary' => null, 'url' => 'https://finding-aids.lib.unc.edu/catalog/20509', 'public' => 1, 'sequence' => 3, 'description' => 'A publicly available collection of live video recordings, audio recordings, posters, photographs, and papers affiliated with the Triangle\'s indie rock music scene from 1988 to 2008.' ],
+        ];
+
+        if (!empty($data)) {
+            Link::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertPortfolioMusic(): void
     {
-        echo "\nInserting into Portfolio\\Music...\n";
-        Music::insert($this->addTimeStampsAndOwners([
+        echo "Inserting into Portfolio\\Music ...\n";
+
+        $data = [
             [
                 'id'             => 1,
                 'parent_id'      => null,
@@ -2718,13 +2799,18 @@ class InitializeCraigzearfoss extends Command
                 'sequence'       => 1,
                 'public'         => 1,
             ],
-        ]));
+        ];
+
+        if (!empty($data)) {
+            Music::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertPortfolioProjects(): void
     {
-        echo "\nInserting into Portfolio\\Project...\n";
-        Project::insert($this->addTimeStampsAndOwners([
+        echo "Inserting into Portfolio\\Project ...\n";
+
+        $data = [
             [
                 'id'               => 1,
                 'name'             => 'Multi-guard Framework',
@@ -2821,20 +2907,30 @@ class InitializeCraigzearfoss extends Command
                 'description'      => 'Python script to monitor internet speeds using cli speedtest.',
                 'sequence'         => 5,
             ],
-        ]));
+        ];
+
+        if (!empty($data)) {
+            Project::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertPortfolioPublications(): void
     {
-        echo "\nInserting into Portfolio\\Publication...\n";
-        Publication::insert($this->addTimeStampsAndOwners([
-        ]));
+        echo "Inserting into Portfolio\\Publication ...\n";
+
+        $data = [
+        ];
+
+        if (!empty($data)) {
+            Publication::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertPortfolioSkills(): void
     {
-        echo "\nInserting into Portfolio\\Skill...\n";
-        Skill::insert($this->addTimeStampsAndOwners([
+        echo "Inserting into Portfolio\\Skill ...\n";
+
+        $data = [
             [ 'id' => 1,  'name' => 'Laravel',           'slug' => 'laravel-12',        'version' => '12', 'dictionary_category_id' => 11,  'featured' => 1, 'level' => 10, 'years' => 20,  'start_year' => null, 'public' => 1 ],
             [ 'id' => 2,  'name' => 'CodeIgniter',       'slug' => 'codeigniter-4',     'version' => '4',  'dictionary_category_id' => 11,  'featured' => 1, 'level' => 10, 'years' => 20,  'start_year' => null, 'public' => 1 ],
             [ 'id' => 3,  'name' => 'CakePHP',           'slug' => 'cakephp',           'version' => null, 'dictionary_category_id' => 11,  'featured' => 0, 'level' => 3,  'years' => 20,  'start_year' => null, 'public' => 1 ],
@@ -2874,13 +2970,18 @@ class InitializeCraigzearfoss extends Command
             [ 'id' => 37, 'name' => 'RDF',               'slug' => 'rdf',               'version' => null, 'dictionary_category_id' => 12,  'featured' => 0, 'level' => 7,  'years' => 20,  'start_year' => null, 'public' => 1 ],
             [ 'id' => 38, 'name' => 'Docker',            'slug' => 'docker',            'version' => null, 'dictionary_category_id' => 19,  'featured' => 0, 'level' => 4,  'years' => 20,  'start_year' => null, 'public' => 1 ],
             //[ 'id' => 1,  'name' => '',                  'slug' => '',                  'version' => null, 'dictionary_category_id' => 1,   'featured' => 0, 'level' => 5,  'years' => null, 'start_year' => null, 'public' => 1 ],
-        ]));
+        ];
+
+        if (!empty($data)) {
+            Skill::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertPortfolioVideos(): void
     {
-        echo "\nInserting into Portfolio\\Video...\n";
-        Video::insert($this->addTimeStampsAndOwners([
+        echo "Inserting into Portfolio\\Video ...\n";
+
+        $data = [
             [
                 'id'               => 1,
                 'name'             => 'Live Around Town - episode 1',
@@ -3616,36 +3717,51 @@ class InitializeCraigzearfoss extends Command
                 'description'      => '',
                 'public'           => 1,
             ],
-        ]));
+        ];
+
+        if (!empty($data)) {
+            Video::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertSystemAdminAdminGroups(): void
     {
-        echo "\nInserting into System\\AdminAdminGroup...\n";
-        AdminAdminGroup::insert([
+        echo "Inserting into System\\AdminAdminGroup ...\n";
+
+        $data = [
             [
                 'admin_id'       => $this->adminId,
                 'admin_group_id' => $this->groupId,
             ]
-        ]);
+        ];
+
+        if (!empty($data)) {
+            AdminAdminGroup::insert($this->addTimeStampsAndOwners($data));
+        }
     }
     protected function insertSystemAdminAdminTeams(): void
     {
-        echo "\nInserting into System\\AdminAdminTeam...\n";
-        AdminAdminTeam::insert([
+        echo "Inserting into System\\AdminAdminTeam ...\n";
+
+        $data = [
             [
                 'admin_id'       => $this->adminId,
                 'admin_team_id'  => $this->teamId,
             ]
-        ]);
+        ];
+
+        if (!empty($data)) {
+            AdminAdminTeam::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertSystemAdmins(): void
     {
-        echo "\nInserting into System\\Admin...\n";
-        Admin::insert([
+        echo "Inserting into System\\Admin ...\n";
+
+        $data = [
             'id'                => $this->adminId,
-            //'team_id'           => $this->teamId,
+            'team_id'           => $this->teamId,
             'username'          => 'craigzearfoss',
             'name'              => 'Craig Zearfoss',
             'email'             => 'caigzearfoss@gmail.com',
@@ -3654,6 +3770,10 @@ class InitializeCraigzearfoss extends Command
             'status'            => 1,
             'token'             => '',
             'root'              => 1,
-        ]);
+        ];
+
+        if (!empty($data)) {
+            Admin::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 }
