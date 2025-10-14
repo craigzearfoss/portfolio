@@ -58,88 +58,8 @@ return new class extends Migration
             $table->index('artist');
         });
 
+        /*
         $data = [
-            [
-                'id'             => 1,
-                'name'           => 'former painting from Cat\'s Cradle',
-                'artist'         => 'Laird Dixon',
-                'slug'           => 'former-painting-from-cats-cradle-by-laird-dixon',
-                'featured'       => 1,
-                'summary'        => null,
-                'year'           => 1992,
-                'image_url'      => 'https://previews.dropbox.com/p/thumb/ACygnBaiFphCEFohhNuV35KzY7Fh4-vi3dqZuV1st1a0Sa4mG07-pTU4cC3UUi8o0XKRmlj5hVcxw2zdJEPThvRRe_F0lsr2x21bIiRZJKbGpOOjRCd06N4wDBGDWW0kkgxLsQz5gc7BvA4_Z5t1PpSit4Js-4Zk_WBcg3vPNcU9mZKEwAv8K6pnRuGx_hkbTNdmZeuyZuqKRMCtJsDoX9SHVLKX6UYUx_pAjD6HPUbg6GgRGxXGZDteRrK4eBmI33Wj3nttYHDTarEFQDszMOdADI18A-quMdhV0yetlQyJt-Yn60gnx27ltmyBJkGi9Y9kgHezE3x3y8i8OwUGX09x/p.png?is_prewarmed=true',
-                'notes'          => null,
-                'description'    => '',
-                'public'         => 1,
-            ],
-            [
-                'id'             => 2,
-                'name'           => 'Sleazefest! cover art',
-                'artist'         => 'Devlin Thompson',
-                'slug'           => 'sleazefest-cover-art-devlin-thompson',
-                'featured'       => 1,
-                'summary'        => null,
-                'year'           => 1994,
-                'image_url'      => 'https://previews.dropbox.com/p/thumb/ACzQo_zV6sefn5roUiYMZCWZb__zRxKL2WfH8bMwSVyhBUb6gqt6yuh_zXRVh2hpcNs-ytNPFKw-9VQUko9CD1bMQ6bljn0ZRn50Uhl2eLonTLtiYYHraI4ff_teDzBSzW0Sfo8AubGZRzOIDZ24B-1hPBvRuH47ivohXuHHo5HnxFJmjuCUTfEvBR4ho9rQFFU-z1KXM-d6PGTjpAc4Vhf-Pno2BI3oWDYJRCAiuZCwA-DefXQJXdCgEqRjk4rwBhjAz82xZPnzno8KoPT16gf9Xyg7O8sa-IcX7uM7nOkBrz0bi5TqPEs_Z5E6O4YS-cQklT2aeT7aLP0riRZE49Q9/p.jpeg?is_prewarmed=true',
-                'notes'          => null,
-                'description'    => '',
-                'public'         => 1,
-            ],
-            [
-                'id'             => 3,
-                'name'           => 'Sleazefest! back cover art',
-                'artist'         => 'Devlin Thompson',
-                'slug'           => 'sleazefest-back-cover-art-devlin-thompson',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 1994,
-                'image_url'      => 'https://previews.dropbox.com/p/thumb/ACzyF6XVUlSO34Gch4u4A87fFRlqwCN0Xr2P6O2JjBhkqqpTeB-xafXqzg4YsjLmNOOK9HJ1LVtg6t9Tbi6TtKZ_MJ2s8wInefNHuDzWpeMMuXGoi2N04hXgG8CeDKgYUtSI9wTSROtuEuDj3xQR7mRPtIsdn2A07qpOycqoH5iZ98tSIed8YOnKOYr3jNO2s22DY2whkjNf09qQikJZoefk92viuf_rTCn2PS8KiX0_OGwjUzo8qhOj6Y6dfzWHR6YRqHbpkeKC-yJDl86dPmf7Jcuz8S67ep4D2NOOGKTIfzpyFlKZaP_2dCIPZNAvvtY/p.png',
-                'notes'          => null,
-                'description'    => '',
-                'public'         => 1,
-            ],
-            [
-                'id'             => 4,
-                'name'           => 'Sleazefest! VHS cover art',
-                'artist'         => 'Devlin Thompson',
-                'slug'           => 'sleazefest-vhs-cover-art-devlin-thompson',
-                'featured'       => 1,
-                'summary'        => null,
-                'year'           => 1994,
-                'image_url'      => 'https://previews.dropbox.com/p/thumb/ACzQo_zV6sefn5roUiYMZCWZb__zRxKL2WfH8bMwSVyhBUb6gqt6yuh_zXRVh2hpcNs-ytNPFKw-9VQUko9CD1bMQ6bljn0ZRn50Uhl2eLonTLtiYYHraI4ff_teDzBSzW0Sfo8AubGZRzOIDZ24B-1hPBvRuH47ivohXuHHo5HnxFJmjuCUTfEvBR4ho9rQFFU-z1KXM-d6PGTjpAc4Vhf-Pno2BI3oWDYJRCAiuZCwA-DefXQJXdCgEqRjk4rwBhjAz82xZPnzno8KoPT16gf9Xyg7O8sa-IcX7uM7nOkBrz0bi5TqPEs_Z5E6O4YS-cQklT2aeT7aLP0riRZE49Q9/p.jpeg?is_prewarmed=true',
-                'notes'          => null,
-                'description'    => '',
-                'public'         => 1,
-            ],
-            [
-                'id'             => 5,
-                'name'           => 'Sleazefest! VHS back cover art',
-                'artist'         => 'Devlin Thompson',
-                'slug'           => 'sleazefest-vhs-back-cover-art-devlin-thompson',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 1994,
-                'image_url'      => 'https://previews.dropbox.com/p/thumb/ACzefzZk9ckCnCKMjN7gcH5wKdmAWVdEZlCyarmAQGkFNvEx0i-56udCzC1LNRxDRIVWXDpeyfu_b8pODnOVTGZMxIyEHF2X-PQZ76OsFedkGFHOX4pKx2kmHd3lpj-cfgd_kNEQxYKIboYajLP0TS1-Z0vvF6OuGbQQdM40xaxkxBdKDokdfDZc7xlyUA5qx9F0zlseZaMXBTv6YxM4ovjC2DYw3CLsEoMZSnaOkV77YOgG2nx8ZRxchleRJcGU-PN2NtAnmW89jruvZpUgyV5oUC44HKacBukhtbsp-iZ5AjOVuy1BzeZRe0PPudm22A0p48CXuYMfDlOr8Sx1ciTb/p.jpeg?is_prewarmed=true',
-                'notes'          => null,
-                'description'    => '',
-                'public'         => 1,
-            ],
-            [
-                'id'             => 6,
-                'name'           => 'Knife',
-                'artist'         => 'Dexter Romweber',
-                'slug'           => 'knife-dexter-romweber',
-                'featured'       => 1,
-                'summary'        => null,
-                'year'           => 1998,
-                'image_url'      => 'https://previews.dropbox.com/p/thumb/ACxdHcpXj2erKRER4sMta1eVL8i7kXmfbwu3f7rQftSXwQ9kWauEkfrECVbN77B6AgYlFK8fYAGKZYCKPnQLpa4jsu7fOGvj0wWchOa4y1fdJxuzRbLaIug-Ovprw7krb7tgxP7ZLJhm3cbND9CTQJi6gNqmRnsATpOioSxFCf5Wlmzqe8N7ZzbkA9fd3V6k9BULj-SRC3lUokpHCWNqNahmmxKXygENnQCwp_d4D0QInsiBf8OrpRBx7uxlK4zcWoCib_wXagMxRkPYDUOlPzX866X7iv4xDEub5sjoUuY-Is2Aa07nXgZA9aKZkOXzL5d44moZzmXI_DjjsKhChLhD/p.png?is_prewarmed=true',
-                'notes'          => null,
-                'description'    => '',
-                'public'         => 1,
-            ],
-
-
-            /*
             [
                 'id'             => 1,
                 'name'           => '',
@@ -152,8 +72,7 @@ return new class extends Migration
                 'notes'          => null,
                 'description'    => '',
                 'public'         => 1,
-            ],
-            */
+            ]
         ];
 
         // add timestamps and owner_ids
@@ -164,6 +83,7 @@ return new class extends Migration
         }
 
         Art::insert($data);
+        */
     }
 
     /**

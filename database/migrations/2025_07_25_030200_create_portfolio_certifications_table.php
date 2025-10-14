@@ -59,21 +59,22 @@ return new class extends Migration
             $table->unique(['owner_id', 'slug'], 'owner_id_slug_unique');
         });
 
+        /*
         $data = [
             [
                 'id'              => 1,
-                'name'            => 'Google Cybersecurity',
-                'slug'            => 'google-cybersecurity',
+                'name'            => '',
+                'slug'            => '',
                 'featured'        => 1,
                 'summary'         => null,
-                'organization'    => 'Google',
+                'organization'    => null,
                 'academy_id'      => 3,
-                'year'            => 2023,
-                'received'        => '2023-07-11',
-                'certificate_url' => 'images/admin/2/portfolio/certification/HGL8U7MSRWFL.png',
-                'link'            => 'https://coursera.org/verify/professional-cert/HGL8U7MSRWFL',
-                'link_name'       => 'Coursera verification',
-                'description'     => 'Includes the following courses:<ul><li>Foundations of Cybersecurity</li><li>Play It Safe: Manage Security Risks</li><li>Connect and Protect: Networks and Network Security</li><li>Tools of the Trade: Linux and SQL</li><li>Assets, Threats, Vulnerabilities</li><li>Sound the Alarm: Detection and Response</li><li>Automate Cybersecurity Tasks with Python</li><li>Put It to Work: Prepare for Cybersecurity Jobs</li></ul>',
+                'year'            => null,
+                'received'        => null,
+                'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
+                'description'     => null,
             ]
         ];
 
@@ -85,6 +86,7 @@ return new class extends Migration
         }
 
         Certification::insert($data);
+        */
     }
 
     /**

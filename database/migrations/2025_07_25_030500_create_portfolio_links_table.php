@@ -54,55 +54,10 @@ return new class extends Migration
             $table->unique(['owner_id', 'slug'], 'owner_id_slug_unique');
         });
 
+        /*
         $data = [
             [
                 'id'           => 1,
-                'name'         => 'LinkedIn',
-                'slug'         => 'linkedin',
-                'featured'     => 1,
-                'summary'      => null,
-                'url'          => 'https://www.linkedin.com/in/craig-zearfoss/',
-                'description'  => '',
-                'public'       => 1,
-                'sequence'     => 0,
-            ],
-            [
-                'id'           => 2,
-                'name'         => 'GitHub',
-                'slug'         => 'github',
-                'featured'     => 1,
-                'summary'      => null,
-                'url'          => 'https://github.com/craigzearfoss',
-                'description'  => '',
-                'public'       => 1,
-                'sequence'     => 1,
-            ],
-            [
-                'id'           => 3,
-                'name'         => 'Facebook',
-                'slug'         => 'facebook',
-                'featured'     => 1,
-                'summary'      => null,
-                'url'          => 'https://www.facebook.com/craig.zearfoss',
-                'description'  => '',
-                'public'       => 1,
-                'sequence'     => 2,
-            ],
-            [
-                'id'           => 4,
-                'name'         => 'Craig Zearfoss Collection, 1988-2008',
-                'slug'         => 'craig-zearfoss-collection-1988-2008',
-                'featured'     => 1,
-                'summary'      => null,
-                'url'          => 'https://finding-aids.lib.unc.edu/catalog/20509',
-                'description'  => 'A publicly available collection of live video recordings, audio recordings, posters, photographs, and papers affiliated with the Triangle\'s indie rock music scene from 1988 to 2008.',
-                'public'       => 1,
-                'sequence'     => 3,
-            ],
-
-            /*
-            [
-                'id'           => #,
                 'name'         => '',
                 'slug'         => '',
                 'featured'     => 0,
@@ -112,7 +67,6 @@ return new class extends Migration
                 'public'       => 1,
                 'sequence'     => 3,
             ],
-            */
         ];
 
         // add timestamps and owner_ids
@@ -123,6 +77,7 @@ return new class extends Migration
         }
 
         Link::insert($data);
+        */
     }
 
     /**
