@@ -50,6 +50,7 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->tinyInteger('demo')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
@@ -371,6 +372,22 @@ return new class extends Migration
             ],
         ];
 
+        /*
+        $data = [
+            [
+                'job_id'         => 1,
+                'name'           => '',
+                'job_title'      => '',
+                'level_id'       => 1,
+                'work_phone'     => null,
+                'personal_phone' => null,
+                'work_email'     => null,
+                'personal_email' => null,
+                'link'           => null,
+                'link_name'      => null,
+            ],
+        ];
+
         // add timestamps and owner_ids
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
@@ -379,6 +396,7 @@ return new class extends Migration
         }
 
         JobCoworker::insert($data);
+        */
     }
 
     /**

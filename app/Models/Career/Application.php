@@ -6,6 +6,7 @@ use App\Models\Scopes\AccessGlobalScope;
 use App\Models\System\Country;
 use App\Models\System\Owner;
 use App\Models\System\State;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 class Application extends Model
 {
     /** @use HasFactory<\Database\Factories\Career\ApplicationFactory> */
-    use HasFactory, SoftDeletes;
+    use SearchableModelTrait, HasFactory, SoftDeletes;
 
     protected $connection = 'career_db';
 
@@ -79,7 +80,19 @@ class Application extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'company_id', 'role', 'job_board_id', 'resume_id', 'rating', 'active',
+        'post_date', 'apply_date', 'close_date', 'compensation_min', 'compensation_max', 'compensation_unit_id',
+        'job_duration_type_id', 'job_employment_type_id', 'job_location_type_id', 'street', 'street2', 'city',
+        'state_id', 'zip', 'country_id', 'bonus', 'w2', 'relocation', 'benefits', 'vacation', 'health', 'phone',
+        'phone_label', 'alt_phone', 'alt_phone_label', 'email', 'email_label', 'alt_email', 'alt_email_label',
+        'public', 'readonly', 'root', 'disabled', 'demo'];
+    const SEARCH_ORDER_BY = ['role', 'asc'];
 
     protected static function booted()
     {

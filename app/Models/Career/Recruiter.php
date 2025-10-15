@@ -68,8 +68,9 @@ class Recruiter extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'name', 'local', 'regional', 'national', 'international', 'city', 'state_id', 'zip',
-        'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_COLUMNS = ['id', 'name', 'local', 'regional', 'national', 'international', 'street', 'street2',
+        'city', 'state_id', 'zip', 'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'public', 'readonly',
+        'root', 'disabled'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

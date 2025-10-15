@@ -24,20 +24,12 @@ return new class extends Migration
             $table->string('name', 50)->unique();
             $table->string('abbreviation', 20)->unique();
             $table->string('system', 10)->nullable();
-            $table->string('link', 500)->nullable();
-            $table->string('link_name')->nullable();
             $table->text('description')->nullable();
             $table->string('image', 500)->nullable();
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(1);
-            $table->tinyInteger('readonly')->default(0);
-            $table->tinyInteger('root')->default(1);
-            $table->tinyInteger('disabled')->default(0);
-            $table->timestamps();
-            $table->softDeletes();
         });
 
         $data = [

@@ -36,6 +36,17 @@
             'value' => $admin->name
         ])
 
+        @include('admin.components.show-row-link', [
+            'name'   => 'team',
+            'label'  => $admin->team->name,
+            'href'   => route('admin.system.admin-team.show', $admin->team->id)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'teams',
+            'value' => implode(',', $admin->teams->pluck('name')->toArray())
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'title',
             'value' => $admin->title

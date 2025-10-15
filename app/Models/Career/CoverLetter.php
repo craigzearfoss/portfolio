@@ -4,6 +4,7 @@ namespace App\Models\Career;
 
 use App\Models\Scopes\AccessGlobalScope;
 use App\Models\System\Owner;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CoverLetter extends Model
 {
     /** @use HasFactory<\Database\Factories\Career\CoverLetterFactory> */
-    use HasFactory, SoftDeletes;
+    use SearchableModelTrait, HasFactory, SoftDeletes;
 
     protected $connection = 'career_db';
 
@@ -42,7 +43,15 @@ class CoverLetter extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'date', 'content', 'cover_letter_url', 'link',
+        'link_name', 'public', 'readonly', 'root', 'disabled', 'demo'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {

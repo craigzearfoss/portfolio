@@ -15,13 +15,6 @@ return new class extends Migration
     protected $database_tag = 'career_db';
 
     /**
-     * The id of the admin who owns the career application resource.
-     *
-     * @var int
-     */
-    protected $ownerId = 2;
-
-    /**
      * Run the migrations.
      */
     public function up(): void
@@ -78,90 +71,15 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->tinyInteger('demo')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
 
         $data = [
-            [
-                'id'                     => 1,
-                'company_id'             => 46,
-                'role'                   => 'Full-Stack Software Engineer – PHP',
-                'active'                 => 1,
-                'post_date'              => '2025-09-22',
-                'apply_date'             => '2025-09-22',
-                'compensation_min'       => 125000,
-                'compensation_max'       => 140000,
-                'compensation_unit_id'   => 2,     // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
-                'job_duration_type_id'   => 1,     // 1-Permanent, 2-Temporary, 3-Intermittent
-                'job_employment_type_id' => 1,     // 1-Full-time, 2-Part-time, 5-Contract
-                'job_location_type_id'   => 3,     // 1-On-site, 2-Hybrid, 3-Remote
-                'city'                   => null,
-                'state_id'               => null,
-                'country_id'             => 237,
-                'w2'                     => 0,
-                'relocation'             => 0,
-                'benefits'               => 0,
-                'vacation'               => 0,
-                'health'                 => 0,
-                'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
-                'link'                   => 'https://www.linkedin.com/jobs/view/4303651950',
-                'link_name'              => 'LinkedIn',
-            ],
-            [
-                'id'                     => 2,
-                'company_id'             => 47,
-                'role'                   => 'Senior Software Engineer - Full-Stack Developer',
-                'active'                 => 1,
-                'post_date'              => '2025-09-22',
-                'apply_date'             => '2025-09-22',
-                'compensation_min'       => null,
-                'compensation_max'       => null,
-                'compensation_unit'      => null,  // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
-                'job_duration_type_id'   => 1,     // 1-Permanent, 2-Temporary, 3-Intermittent
-                'job_employment_type_id' => 1,     // 1-Full-time, 2-Part-time, 5-Contract
-                'job_location_type_id'   => 3,     // 1-On-site, 2-Hybrid, 3-Remote
-                'city'                   => 'Nashville',
-                'state_id'               => 48,
-                'country_id'             => 237,
-                'w2'                     => 0,
-                'relocation'             => 0,
-                'benefits'               => 0,
-                'vacation'               => 0,
-                'health'                 => 0,
-                'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
-                'link'                   => 'https://www.indeed.com/viewjob?jk=fcf10d24947f906b&from=shareddesktop_copy',
-                'link_name'              => 'Indeed',
-            ],
-            [
-                'id'                     => 3,
-                'company_id'             => 48,
-                'role'                   => 'Staff Software Engineer (Fullstack - React/Laravel)',
-                'active'                 => 1,
-                'post_date'              => '2025-09-22',
-                'apply_date'             => '2025-09-22',
-                'compensation_min'       => 101653,
-                'compensation_max'       => 151015,
-                'compensation_unit'      => 2,     // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
-                'job_duration_type_id'   => 1,     // 1-Permanent, 2-Temporary, 3-Intermittent
-                'job_employment_type_id' => 1,     // 1-Full-time, 2-Part-time, 5-Contract
-                'job_location_type_id'   => 3,     // 1-On-site, 2-Hybrid, 3-Remote
-                'city'                   => 'Woodstock',
-                'state_id'               => 33,
-                'country_id'             => 237,
-                'w2'                     => 0,
-                'relocation'             => 0,
-                'benefits'               => 0,
-                'vacation'               => 0,
-                'health'                 => 0,
-                'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
-                'link'                   => 'https://www.indeed.com/viewjob?jk=fcf10d24947f906b&from=shareddesktop_copy',
-                'link_name'              => 'Indeed',
-            ],
             /*
             [
-                'id'                     => 1,
-                'company_id'             => 1,
+                'company_id'             => null,
                 'role'                   => '',
                 'active'                 => 1,
                 'post_date'              => null,
@@ -187,11 +105,10 @@ return new class extends Migration
             */
         ];
 
-        // add timestamps and owner_ids
+        // add timestamps
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
-            $data[$i]['owner_id']   = $this->ownerId;
         }
 
         Application::insert($data);

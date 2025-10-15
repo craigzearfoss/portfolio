@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Portfolio\Job;
+use App\Models\System\Admin;
 use App\Models\System\Database;
 use App\Models\System\Resource;
 use App\Models\System\ResourceSetting;
@@ -77,6 +78,7 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->tinyInteger('demo')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
@@ -86,7 +88,7 @@ return new class extends Migration
         /*
         $data = [
             [
-                'id'          => 0,
+                'owner_id'    => null,
                 'company'     => '',
                 'role'        => '',
                 'slug'        => '',
@@ -106,26 +108,14 @@ return new class extends Migration
             ],
         ];
 
-        // add timestamps and owner_ids
+        // add timestamps
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
-            $data[$i]['owner_id']   = $this->ownerId;
         }
 
         Job::insert($data);
         */
-
-        // add an entry for the default template into the resource_settings table
-        ResourceSetting::insert([
-            [
-                'owner_id'        => $this->ownerId,
-                'resource_id'     => $jobResource->id,
-                'name'            => 'template',
-                'setting_type_id' => 5,
-                'value'           => 'default',
-            ]
-        ]);
     }
 
     /**

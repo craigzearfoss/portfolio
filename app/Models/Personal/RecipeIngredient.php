@@ -4,13 +4,14 @@ namespace App\Models\Personal;
 
 use App\Models\Scopes\AccessGlobalScope;
 use App\Models\System\Owner;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RecipeIngredient extends Model
 {
-    use SoftDeletes;
+    use SearchableModelTrait, SoftDeletes;
 
     protected $connection = 'personal_db';
 
@@ -38,7 +39,15 @@ class RecipeIngredient extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'recipe_id', 'ingredient_id', 'amount', 'unit_id', 'qualifier',
+        'public', 'readonly', 'root', 'disabled', 'demo'];
+    const SEARCH_ORDER_BY = ['recipe_id', 'asc'];
 
     protected static function booted()
     {

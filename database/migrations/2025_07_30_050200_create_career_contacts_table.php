@@ -15,13 +15,6 @@ return new class extends Migration
     protected $database_tag = 'career_db';
 
     /**
-     * The id of the admin who owns the career contact resource.
-     *
-     * @var int
-     */
-    protected $ownerId = 2;
-
-    /**
      * Run the migrations.
      */
     public function up(): void
@@ -62,6 +55,7 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->tinyInteger('demo')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
@@ -69,40 +63,28 @@ return new class extends Migration
             $table->unique(['owner_id', 'slug'], 'owner_id_slug_unique');
         });
 
+        /*
         $data = [
-            [ 'id' => 1,  'name' => 'Chad Vasquez',     'slug' => 'chad-vasquez',     'phone' => null,	            'phone_label' => null,   'email' => 'Chad.Vasquez@CyberCoders.com',         'email_label' => 'work' ],
-            [ 'id' => 2,  'name' => 'Lyman Ambrose',    'slug' => 'lyman-ambrose',    'phone' => null,	            'phone_label' => null,   'email' => 'lyman.ambrose@mondo.com',              'email_label' => 'work' ],
-            [ 'id' => 3,  'name' => 'Miles Biegert',    'slug' => 'miles-biegert',    'phone' => null,             'phone_label' => null,   'email' => 'milesb@infinity-cs.com',               'email_label' => 'work' ],
-            [ 'id' => 4,  'name' => 'Jolly Nibu',       'slug' => 'jolly-nibu',       'phone' => null,	            'phone_label' => null,   'email' => 'jolly.nibu@artech.com',                'email_label' => 'work' ],
-            [ 'id' => 5,  'name' => 'Connor Sullivan',  'slug' => 'connor-sullivan',  'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null,  ],
-            [ 'id' => 6,  'name' => 'Jordan Luehmann',  'slug' => 'jordan-luehmann',  'phone' => null,	            'phone_label' => null,   'email' => 'jluehmann@horizontal.com',             'email_label' => 'work' ],
-            [ 'id' => 7,  'name' => 'Steve Allen',      'slug' => 'steve-allen',      'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => 8,  'name' => 'Victor Fung',      'slug' => 'victor-fung',      'phone' => null,             'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => 9,  'name' => 'Jessica Chandler', 'slug' => 'jessica-chandler', 'phone' => null,             'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => 10, 'name' => 'Donna Morgan',     'slug' => 'donna-morgan',     'phone' => null,             'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => 11, 'name' => 'Kirsten Carlson',  'slug' => 'kirsten-carlson',  'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => 12, 'name' => 'Kyle Nussberger',  'slug' => 'kyle-nussberger',  'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => 13, 'name' => 'Andrew Jones',     'slug' => 'andrew-jones',     'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => 14, 'name' => 'Dylan Rogelstad',  'slug' => 'dylan-rogelstad',  'phone' => null,	            'phone_label' => null,   'email' => 'dylan.rogelstad@mail.cybercoders.com', 'email_label' => 'work' ],
-            [ 'id' => 15, 'name' => 'Larry Kraynak',    'slug' => 'larry-kraynak',    'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => 16, 'name' => 'Tim Lesnick',      'slug' => 'tim-lesnick',      'phone' => null,             'phone_label' => null,   'email' => 'tlesnick@trovasearch.com',             'email_label' => 'work' ],
-            [ 'id' => 17, 'name' => 'Ciara Monahan',    'slug' => 'ciara-monahan',    'phone' => null,             'phone_label' => null,   'email' => 'Ciara.Monahan@insightglobal.com',      'email_label' => 'work' ],
-            [ 'id' => 18, 'name' => 'Rob Neylon',       'slug' => 'rob-neylon',       'phone' => null,	            'phone_label' => null,   'email' => 'rob@yscouts.com',                      'email_label' => 'work' ],
-            [ 'id' => 19, 'name' => 'Billy Bisson',     'slug' => 'billy-bisson',     'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => 20, 'name' => 'Kelsey Higgins',   'slug' => 'kelsey-higgins',   'phone' => '(774) 283-1614', 'phone_label' => 'work', 'email' => 'kelsey.higgins@klaviyo.com',           'email_label' => 'work' ],
-            [ 'id' => 21, 'name' => 'Britney Coleman',  'slug' => 'britney-coleman',  'phone' => null,	            'phone_label' => null,   'email' => 'coleman@lendflow.io',                  'email_label' => 'work' ],
-            [ 'id' => 22, 'name' => 'Dan Chaffee',      'slug' => 'dan-chaffee',      'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
-            [ 'id' => 23, 'name' => 'Kara Caldwell',    'slug' => 'kara-caldwell',    'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [
+                'id'          => 1,
+                'owner_id'    => null,
+                'name'        => '',
+                'slug'        => '',
+                'phone'       => null,
+                'phone_label' => null,
+                'email'       => null,
+                'email_label' => null
+            ],
         ];
 
-        // add timestamps and owner_ids
+        // add timestamps
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
-            $data[$i]['owner_id']   = $this->ownerId;
         }
 
         Contact::insert($data);
+        */
     }
 
     /**

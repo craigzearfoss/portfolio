@@ -15,13 +15,6 @@ return new class extends Migration
     protected $database_tag = 'portfolio_db';
 
     /**
-     * The id of the admin who owns the portfolio art resource.
-     *
-     * @var int
-     */
-    protected $ownerId = 2;
-
-    /**
      * Run the migrations.
      */
     public function up(): void
@@ -49,6 +42,7 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->tinyInteger('demo')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
@@ -61,7 +55,7 @@ return new class extends Migration
         /*
         $data = [
             [
-                'id'             => 1,
+                'owner_id'       => null,
                 'name'           => '',
                 'artist'         => '',
                 'slug'           => '',
@@ -75,11 +69,10 @@ return new class extends Migration
             ]
         ];
 
-        // add timestamps and owner_ids
+        // add timestamps
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
-            $data[$i]['owner_id']   = $this->ownerId;
         }
 
         Art::insert($data);

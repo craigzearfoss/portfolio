@@ -51,7 +51,7 @@ class JobBoard extends Model
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'name', 'primary', 'local', 'regional', 'national', 'international', 'public',
-        'readonly', 'root', 'disabled'];
+        'link', 'link_name', 'readonly', 'root', 'disabled'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

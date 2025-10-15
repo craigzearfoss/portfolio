@@ -73,6 +73,7 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->tinyInteger('demo')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
@@ -80,11 +81,11 @@ return new class extends Migration
             $table->unique(['owner_id', 'slug'], 'owner_id_slug_unique');
         });
 
+        /*
         $data = [
-
-            /*
             [
-                'id'             => 11,
+                'id'             => 1,
+                'owner_id        => null
                 'title'          => '',
                 'slug'           => '',
                 'parent_id       => null,
@@ -113,17 +114,16 @@ return new class extends Migration
                 'description'    => '',
                 'public'         => 1,
             ],
-            */
         ];
 
-        // add timestamps and owner_ids
+        // add timestamps
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
-            $data[$i]['owner_id']   = $this->ownerId;
         }
 
         Publication::insert($data);
+        */
     }
 
     /**

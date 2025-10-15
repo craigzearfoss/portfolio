@@ -15,13 +15,6 @@ return new class extends Migration
     protected $database_tag = 'personal_db';
 
     /**
-     * The id of the admin who owns the personal ingredient resource.
-     *
-     * @var int
-     */
-    protected $ownerId = 2;
-
-    /**
      * Run the migrations.
      */
     public function up(): void

@@ -45,12 +45,14 @@ class Resume extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'primary', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'primary', 'content', 'public', 'readonly', 'root', 'disabled',
+        'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()

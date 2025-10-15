@@ -14,12 +14,12 @@ return new class extends Migration
     protected $database_tag = 'career_db';
 
     /**
-     * The id of the admin who owns the career database resources.
+     * The id of the admin who owns the career database and resources.
      * The admin must have root permissions.
      *
      * @var int
      */
-    protected $ownerId = 1;
+    protected $rootAdminId = 1;
 
     /**
      * Run the migrations.
@@ -65,7 +65,7 @@ return new class extends Migration
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
-            $data[$i]['owner_id']   = $this->ownerId;
+            $data[$i]['owner_id']   = $this->rootAdminId;
         }
 
         Database::insert($data);
@@ -302,7 +302,7 @@ return new class extends Migration
             for($i=0; $i<count($data);$i++) {
                 $data[$i]['created_at'] = now();
                 $data[$i]['updated_at'] = now();
-                $data[$i]['owner_id']   = $this->ownerId;
+                $data[$i]['owner_id']   = $this->rootAdminId;
             }
 
             Resource::insert($data);

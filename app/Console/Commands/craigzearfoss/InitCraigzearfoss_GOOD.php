@@ -1,7 +1,18 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\craigzearfoss;
 
+use App\Models\Career\Application;
+use App\Models\Career\ApplicationSkill;
+use App\Models\Career\Communication;
+use App\Models\Career\Company;
+use App\Models\Career\CompanyContact;
+use App\Models\Career\Contact;
+use App\Models\Career\CoverLetter;
+use App\Models\Career\Event;
+use App\Models\Career\Note;
+use App\Models\Career\Reference;
+use App\Models\Career\Resume;
 use App\Models\Personal\Reading;
 use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeIngredient;
@@ -20,17 +31,23 @@ use App\Models\Portfolio\Video;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use App\Models\System\AdminAdminTeam;
+use App\Models\System\Database;
+use App\Models\System\Resource;
+use App\Models\System\ResourceSetting;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use function Laravel\Prompts\text;
 
-class InitializeCraigzearfoss extends Command
+class InitCraigzearfossGOOD extends Command
 {
     protected $adminId = null;
     protected $groupId = null;
     protected $teamId = null;
 
     protected $ids = [];
+    protected $companyIds = [];
+    protected $contactIds = [];
 
     /**
      * The name and signature of the console command.
@@ -44,7 +61,7 @@ class InitializeCraigzearfoss extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the database with initial data';
+    protected $description = 'This will populate the database with initial data for user craigzearfoss';
 
     /**
      * Execute the console command.
@@ -59,21 +76,42 @@ class InitializeCraigzearfoss extends Command
         $this->groupId = DB:: connection('system_db')->table('admin_groups')
             ->where('name', 'Default Admin Group')->first()->id;
 
+        echo PHP_EOL . 'adminId: ' . $this->adminId . PHP_EOL;
+        echo 'teamId: ' . $this->teamId . PHP_EOL;
+        echo 'groupId: ' . $this->groupId . PHP_EOL;
+        $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+
+        // portfolio
         $this->insertSystemAdmins();
         $this->insertSystemAdminAdminTeams();
         $this->insertSystemAdminAdminGroups();
         $this->insertPortfolioArt();
-        //$this->insertPortfolioAudios();
+        $this->insertPortfolioAudios();
         $this->insertPortfolioCertifications();
         $this->insertPortfolioCourses();
         $this->insertPortfolioJobs();
         $this->insertPortfolioLinks();
         $this->insertPortfolioMusic();
         $this->insertPortfolioProjects();
-        //$this->insertPortfolioPublications();
+        $this->insertPortfolioPublications();
         $this->insertPortfolioSkills();
         $this->insertPortfolioVideos();
 
+        // career
+        $this->insertCareerCompanies();
+        $this->insertCareerContacts();
+        $this->insertCareerReferences();
+        $this->insertCareerResumes();
+        $this->insertCareerApplications();
+        $this->insertCareerCoverLetters();
+        $this->insertCareerCommunications();
+        $this->insertCareerEvents();
+        $this->insertCareerNotes();
+        $this->insertCareerApplicationSkill();
+        $this->insertCareerCompanyContact();
+        $this->insertCareerReferences();
+
+        // personal
         $this->insertPersonalReadings();
         $this->insertPersonalRecipes();
         $this->insertPersonalRecipeIngredients();
@@ -99,81 +137,396 @@ class InitializeCraigzearfoss extends Command
         return $data;
     }
 
+    protected function insertCareerApplications(): void
+    {
+        echo "Inserting into Career\\Application ...\n";
+
+        $data = [
+            [
+                'company_id'             => 46,
+                'role'                   => 'Full-Stack Software Engineer – PHP',
+                'active'                 => 1,
+                'post_date'              => '2025-09-22',
+                'apply_date'             => null,
+                'compensation_min'       => 125000,
+                'compensation_max'       => 140000,
+                'compensation_unit_id'   => 2,     // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
+                'job_duration_type_id'   => 1,     // 1-Permanent, 2-Temporary, 3-Intermittent
+                'job_employment_type_id' => 1,     // 1-Full-time, 2-Part-time, 5-Contract
+                'job_location_type_id'   => 3,     // 1-On-site, 2-Hybrid, 3-Remote
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => 237,
+                'w2'                     => 0,
+                'relocation'             => 0,
+                'benefits'               => 0,
+                'vacation'               => 0,
+                'health'                 => 0,
+                'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
+                'link'                   => 'https://www.linkedin.com/jobs/view/4303651950',
+                'link_name'              => 'LinkedIn',
+            ],
+            [
+                'company_id'             => 47,
+                'role'                   => 'Senior Software Engineer - Full-Stack Developer',
+                'active'                 => 1,
+                'post_date'              => '2025-09-22',
+                'apply_date'             => null,
+                'compensation_min'       => null,
+                'compensation_max'       => null,
+                'compensation_unit'      => null,  // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
+                'job_duration_type_id'   => 1,     // 1-Permanent, 2-Temporary, 3-Intermittent
+                'job_employment_type_id' => 1,     // 1-Full-time, 2-Part-time, 5-Contract
+                'job_location_type_id'   => 3,     // 1-On-site, 2-Hybrid, 3-Remote
+                'city'                   => 'Nashville',
+                'state_id'               => 48,
+                'country_id'             => 237,
+                'w2'                     => 0,
+                'relocation'             => 0,
+                'benefits'               => 0,
+                'vacation'               => 0,
+                'health'                 => 0,
+                'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
+                'link'                   => 'https://www.indeed.com/viewjob?jk=fcf10d24947f906b&from=shareddesktop_copy',
+                'link_name'              => 'Indeed',
+            ],
+            [
+                'company_id'             => 48,
+                'role'                   => 'Staff Software Engineer (Fullstack - React/Laravel)',
+                'active'                 => 1,
+                'post_date'              => '2025-09-22',
+                'apply_date'             => null,
+                'compensation_min'       => 101653,
+                'compensation_max'       => 151015,
+                'compensation_unit'      => 2,     // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
+                'job_duration_type_id'   => 1,     // 1-Permanent, 2-Temporary, 3-Intermittent
+                'job_employment_type_id' => 1,     // 1-Full-time, 2-Part-time, 5-Contract
+                'job_location_type_id'   => 3,     // 1-On-site, 2-Hybrid, 3-Remote
+                'city'                   => 'Woodstock',
+                'state_id'               => 33,
+                'country_id'             => 237,
+                'w2'                     => 0,
+                'relocation'             => 0,
+                'benefits'               => 0,
+                'vacation'               => 0,
+                'health'                 => 0,
+                'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
+                'link'                   => 'https://www.indeed.com/viewjob?jk=fcf10d24947f906b&from=shareddesktop_copy',
+                'link_name'              => 'Indeed',
+            ],
+        ];
+
+        if (!empty($data)) {
+            Application::insert($this->addTimeStampsAndOwners($data));
+        }
+    }
+
     protected function insertCareerCompanies(): void
     {
         echo "Inserting into Career\\Company ...\n";
-        Link::insert($this->addTimeStampsAndOwners([
-        ]));
+
+        $this->companyIds = [];
+        $maxId = Recipe::max('id');
+        for ($i=1; $i<86; $i++) {
+            $this->companyIds[$i] = ++$maxId;
+        }
+
+        $data = [
+            [ 'id' => $this->companyIds[1],   'name' => 'CyberCoders',                      'slug' => 'cybercoders',                     'industry_id' => 11, 'link' => 'https://www.cybercoders.com/',                     'link_name' => null,                       'city' => null,                'state_id'    => 10,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[2],   'name' => 'Mondo',                            'slug' => 'mondo',                           'industry_id' => 11, 'link' => 'https://mondo.com/',                               'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[3],   'name' => 'Randstad',                         'slug' => 'randstad',                        'industry_id' => 11, 'link' => 'https://www.randstadusa.com/',                     'link_name' => null,                       'city' => null,                'state_id'    => 24,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[4],   'name' => 'Infinity Consulting Solutions',    'slug' => 'infinity-consulting-solutions',   'industry_id' => 11, 'link' => null,                                               'link_name' => null,                       'city' => null,                'state_id'    => 24,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[5],   'name' => 'LinkUp',                           'slug' => 'linkup',                          'industry_id' => 11, 'link' => 'https://www.linkup.com/',                          'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[6],   'name' => 'Artech',                           'slug' => 'artech',                          'industry_id' => 11, 'link' => 'https://artech.com/',                              'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[7],   'name' => 'Payzer',                           'slug' => 'payzer',                          'industry_id' => 4,  'link' => 'https://www.wexfsm.com/about/',                    'link_name' => null,                       'city' => null,                'state_id'    => 34,   'country_id' => 237, ],
+            [ 'id' => $this->companyIds[8],   'name' => 'Horizontal Talent',                'slug' => 'horizontal-talent',               'industry_id' => 11, 'link' => 'https://www.horizontaltalent.com/',                'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[9],   'name' => 'Robert Half',                      'slug' => 'robert-half',                     'industry_id' => 11, 'link' => 'https://www.roberthalf.com/us/en',                 'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[10],  'name' => 'BI Worldwide',                     'slug' => 'bi-worldwide',                    'industry_id' => 11, 'link' => 'https://www.biworldwide.com/',                     'link_name' => null,                       'city' => null,                'state_id'    => 24,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[11],  'name' => 'Illuminate Education',             'slug' => 'illuminate-education',            'industry_id' => 11, 'link' => 'https://www.illuminateed.com/',                    'link_name' => null,                       'city' => null,                'state_id'    => 24,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[12],  'name' => 'Trova',                            'slug' => 'trova',                           'industry_id' => 11, 'link' => 'https://www.trovasearch.com/',                     'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[13],  'name' => 'Disney Studios',                   'slug' => 'disney-studios',                  'industry_id' => 11, 'link' => 'https://www.disneystudios.com/',                   'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[14],  'name' => 'Y Scouts',                         'slug' => 'y-scouts',                        'industry_id' => 11, 'link' => 'https://yscouts.com/',                             'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[15],  'name' => 'TalentFish',                       'slug' => 'talentfish',                      'industry_id' => 11, 'link' => 'https://talentfish.com/',                          'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[16],  'name' => 'Travelnet Solutions',              'slug' => 'travelnet-solutions',             'industry_id' => 11, 'link' => 'https://tnsinc.com/',                              'link_name' => null,                       'city' => null,                'state_id'    => 24,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[17],  'name' => 'University of Minnesota',          'slug' => 'university-of-minnesota',         'industry_id' => 11, 'link' => 'https://twin-cities.umn.edu/',                     'link_name' => null,                       'city' => null,                'state_id'    => 24,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[18],  'name' => 'Thomas Arts',                      'slug' => 'thomas-arts',                     'industry_id' => 11, 'link' => 'https://www.thomasarts.com/',                      'link_name' => null,                       'city' => null,                'state_id'    => 24,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[19],  'name' => 'Next Ethos Group',                 'slug' => 'next-ethos-group',                'industry_id' => 11, 'link' => 'https://www.linkedin.com/in/steve-zoltan-722649209/', 'link_name' => null,                    'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[20],  'name' => 'CSS Staffing',                     'slug' => 'css-staffing',                    'industry_id' => 11, 'link' => 'https://cssstaffing.com/',                         'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[21],  'name' => 'Klaviyo',                          'slug' => 'klaviyo',                         'industry_id' => 11, 'link' => 'https://www.klaviyo.com/',                         'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[22],  'name' => 'LendFlow',                         'slug' => 'lendflow',                        'industry_id' => 11, 'link' => 'https://www.lendflow.com/',                        'link_name' => null,                       'city' => null,                'state_id'    => 44,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[23],  'name' => 'Nagios',                           'slug' => 'nagios',                          'industry_id' => 11, 'link' => 'https://www.nagios.org/',                          'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[24],  'name' => 'Guardian RFID',                    'slug' => 'guardian-rfid',                   'industry_id' => 11, 'link' => 'https://guardianrfid.com/',                        'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[25],  'name' => 'Burnout Brands',                   'slug' => 'burnout-brands',                  'industry_id' => 11, 'link' => 'https://www.linkedin.com/company/burnout-brands/', 'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[26],  'name' => 'Quility Insurance Holdings LLC',   'slug' => 'quility-insurance-holdings-llc',  'industry_id' => 11, 'link' => 'https://quility.com/',                             'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[27],  'name' => 'Divelement Web Services, LLC',     'slug' => 'divelement-web-services-llc',     'industry_id' => 11, 'link' => 'https://divelement.io/',                           'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[28],  'name' => 'Givelify',                         'slug' => 'giverlify',                       'industry_id' => 11, 'link' => 'https://www.givelify.com/',                        'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[29],  'name' => 'Ingenious',                        'slug' => 'Ingenious',                       'industry_id' => 10, 'link' => 'https://ingenious.agency/',                        'link_name' => null,                       'city' => null,                'state_id'    => 6,    'country_id' => 237  ],
+            [ 'id' => $this->companyIds[30],  'name' => 'Advocates for Human Potential, Inc.', 'slug' => 'advocates-for-human-potential-inc', 'industry_id' => 11, 'link' => 'https://ahpnet.com/',                         'link_name' => null,                       'city' => null,                'state_id'    => 22,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[31],  'name' => 'Qualibar Inc',                     'slug' => 'qualibar-inc',                    'industry_id' => 11, 'link' => 'https://qualibar.com/',                            'link_name' => null,                       'city' => null,                'state_id'    => 11,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[32],  'name' => 'MembersFirst',                     'slug' => 'membersfirst',                    'industry_id' => 11, 'link' => 'https://www.membersfirst.com/',                    'link_name' => null,                       'city' => null,                'state_id'    => 22,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[33],  'name' => 'Vultr',                            'slug' => 'vultr',                           'industry_id' => 11, 'link' => 'https://www.vultr.com/',                           'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[34],  'name' => 'Inseego',                          'slug' => 'inseego',                         'industry_id' => 11, 'link' => 'https://inseego.com/',                             'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[35],  'name' => 'iClassPro, Inc',                   'slug' => 'iclasspro-inc',                   'industry_id' => 11, 'link' => 'https://www.iclasspro.com/',                       'link_name' => null,                       'city' => null,                'state_id'    => 44,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[36],  'name' => 'Avolution',                        'slug' => 'avolution',                       'industry_id' => 11, 'link' => 'https://www.avolutionsoftware.com/',               'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[37],  'name' => 'McGraw Hill',                      'slug' => 'McGraw Hill',                     'industry_id' => 11, 'link' => 'https://www.mheducation.com/',                     'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[38],  'name' => 'Sumas Edge Corporation',           'slug' => 'sumas-edge-corporation',          'industry_id' => 11, 'link' => 'https://sumasedge.com/',                           'link_name' => null,                       'city' => null,                'state_id'    => 31,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[39],  'name' => 'Airbnb',                           'slug' => 'aifbnb',                          'industry_id' => 11, 'link' => 'https://www.airbnb.com/',                          'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[40],  'name' => 'Wikimedia Foundation',             'slug' => 'wikimedia-foundation',            'industry_id' => 11, 'link' => 'https://wikimediafoundation.org/',                 'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[41],  'name' => 'Harbor Compliance',                'slug' => 'harbor-compliance',               'industry_id' => 11, 'link' => 'https://www.harborcompliance.com/',                'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[42],  'name' => 'Agital',                           'slug' => 'agital',                          'industry_id' => 11, 'link' => 'https://gofishdigital.com/services/social-commerce/live-shopping/', 'link_name' => null,      'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[43],  'name' => 'Sharp Source IT',                  'slug' => 'sharp-source-it',                 'industry_id' => 11, 'link' => 'https://sharpsourceit.com/',                       'link_name' => null,                       'city' => null,                'state_id'    => 11,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[44],  'name' => 'SPECTRAFORCE Technologies Inc',    'slug' => 'spectraforce-technologies-inc',   'industry_id' => 11, 'link' => 'https://spectraforce.com/',                        'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[45],  'name' => 'Ovia Health',                      'slug' => 'ovia-health',                     'industry_id' => 11, 'link' => 'https://www.oviahealth.com/',                      'link_name' => null,                       'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[46],  'name' => 'JOBS by allUP',                    'slug' => 'jobs-by-allup',                   'industry_id' => 11, 'link' => 'https://www.allup.world/',                         'link_name'   => 'LinkedIn website',       'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[47],  'name' => 'iostudio',                         'slug' => 'iostudio',                        'industry_id' => 29, 'link' => 'https://iostudio.com/',                            'link_name'   => 'iostudio website',       'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[48],  'name' => 'Black Airplane',                   'slug' => 'black-airplane',                  'industry_id' => 11, 'link' => 'https://blackairplane.com/',                       'link_name'   => 'Black Airplane website', 'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[49],  'name' => 'Pacifica Media',                   'slug' => 'pacifica-media',                  'industry_id' => 11, 'link' => 'https://pacificamedia.com/',                       'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[50],  'name' => 'Parsetek Inc',                     'slug' => 'parsetek-inc',                    'industry_id' => 11, 'link' => 'http://www.parsetek.com/',                         'link_name'   => null,                     'city' => 'Chantilly',         'state_id'    => 47,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[51],  'name' => 'Pixels.com',                       'slug' => 'pixels-com',                      'industry_id' => 11, 'link' => 'https://pixels.com/',                              'link_name'   => null,                     'city' => 'Santa Monica',      'state_id'    => 5,    'country_id' => 237  ],
+            [ 'id' => $this->companyIds[52],  'name' => 'Premier Staffing Partners',        'slug' => 'premier-staffing-partners',       'industry_id' => 11, 'link' => 'https://www.premierstaffingpartners.com/',         'link_name'   => null,                     'city' => 'Knoxville',         'state_id'    => 43,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[53],  'name' => 'Printful',                         'slug' => 'printful',                        'industry_id' => 11, 'link' => 'https://www.printful.com/',                        'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[54],  'name' => 'Reliable Software Resources Inc',  'slug' => 'reliable-software-resources-inc', 'industry_id' => 11, 'link' => 'https://www.rsrit.com/',                           'link_name'   => null,                     'city' => 'Bridgewater',       'state_id'    => 31,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[55],  'name' => 'Ringside Talent',                  'slug' => 'ringside-talent',                 'industry_id' => 11, 'link' => 'https://ringsidetalent.com/',                      'link_name'   => null,                     'city' => 'Columbus',          'state_id'    => 36,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[56],  'name' => 'RIT Solutions',                    'slug' => 'rit-solutions',                   'industry_id' => 11, 'link' => 'https://ritsolinc.jobs.net/',                      'link_name'   => null,                     'city' => 'Washington',        'state_id'    => 9,    'country_id' => 237  ],
+            [ 'id' => $this->companyIds[57],  'name' => 'RowsOne',                          'slug' => 'rowsone',                         'industry_id' => 11, 'link' => 'https://www.rowshr.com/',                          'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[58],  'name' => 'Search Solutions, LLC',            'slug' => 'search-solutions-llc',            'industry_id' => 11, 'link' => 'https://www.thesearchsolutions.com/',              'link_name'   => null,                     'city' => 'Thousand Oaks',     'state_id'    => 5,    'country_id' => 237  ],
+            [ 'id' => $this->companyIds[59],  'name' => 'ServiceNow',                       'slug' => 'servicenow',                      'industry_id' => 11, 'link' => 'https://www.servicenow.com/',                      'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[60],  'name' => 'SolidProfessor',                   'slug' => 'solidprofessor',                  'industry_id' => 11, 'link' => 'https://solidprofessor.com/',                      'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[61],  'name' => 'Sun West Mortgage',                'slug' => 'sun-west-mortgage',               'industry_id' => 11, 'link' => 'https://www.swmc.com/',                            'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[62],  'name' => 'Symplicity Corporation',           'slug' => 'symplicity-corporation',          'industry_id' => 11, 'link' => 'https://www.symplicity.com/',                      'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[63],  'name' => 'Think Agency, Inc',                'slug' => 'think-agency-inc',                'industry_id' => 11, 'link' => 'https://thinkagency.com/',                         'link_name'   => null,                     'city' => 'Altamonte Springs', 'state_id'    => 10,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[64],  'name' => 'Total Expert',                     'slug' => 'total-expert',                    'industry_id' => 11, 'link' => 'https://www.totalexpert.com/',                     'link_name'   => null,                     'city' => 'St. Louis Park',    'state_id'    => 24,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[65],  'name' => 'Tukios',                           'slug' => 'tukios',                          'industry_id' => 11, 'link' => 'https://www.tukios.com/',                          'link_name'   => null,                     'city' => 'Ogden',             'state_id'    => 45,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[66],  'name' => 'Usked LLC',                        'slug' => 'usked LLC',                       'industry_id' => 11, 'link' => 'http://usked.com/',                                'link_name'   => null,                     'city' => 'Washington',        'state_id'    => 9,    'country_id' => 237  ],
+            [ 'id' => $this->companyIds[67],  'name' => 'ValoreMVP',                        'slug' => 'valoremvp',                       'industry_id' => 11, 'link' => 'https://valoremvp.com/',                           'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[68],  'name' => 'Vanta',                            'slug' => 'vanta',                           'industry_id' => 11, 'link' => 'https://www.vanta.com/',                           'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[69],  'name' => 'Velocity Tech Inc',                'slug' => 'velocity-tech-inc',               'industry_id' => 11, 'link' => 'https://velocitytechinc.com/',                     'link_name'   => null,                     'city' => 'Bedford',           'state_id'    => 44,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[70],  'name' => 'Veracity Software Inc',            'slug' => 'veracity-software-inc',           'industry_id' => 11, 'link' => 'https://veracity-us.com/',                         'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[71],  'name' => 'Vernovis',                         'slug' => 'vernovis',                        'industry_id' => 11, 'link' => 'https://vernovis.com/',                            'link_name'   => null,                     'city' => 'Mason',             'state_id'    => 36,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[72],  'name' => 'VetsEZ',                           'slug' => 'vetsez',                          'industry_id' => 11, 'link' => 'https://vetsez.com/',                              'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[73],  'name' => 'Victory',                          'slug' => 'victory',                         'industry_id' => 11, 'link' => 'https://victorycto.com/',                          'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[74],  'name' => 'Vozzi',                            'slug' => 'vozzi',                           'industry_id' => 11, 'link' => 'https://site.getvozzi.com/',                       'link_name'   => null,                     'city' => 'Salt Lake City',    'state_id'    => 45,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[75],  'name' => 'Web Connectivity LLC',             'slug' => 'web-connectivity-llc',            'industry_id' => 11, 'link' => 'https://www.webconnectivity.com/',                 'link_name'   => null,                     'city' => 'Indianapolis',      'state_id'    => 15,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[76],  'name' => 'WebOrigo',                         'slug' => 'webOrigo',                        'industry_id' => 11, 'link' => 'https://weborigo.com/',                            'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => null ],
+            [ 'id' => $this->companyIds[77],  'name' => 'Zywave',                           'slug' => 'zywave',                          'industry_id' => 11, 'link' => 'https://www.zywave.com/',                          'link_name'   => null,                     'city' => 'Milwaukee',         'state_id'    => 50,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[78],  'name' => 'Lumion',                           'slug' => 'lumion',                          'industry_id' => 11, 'link' => 'https://lumion.com/',                              'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[79],  'name' => 'Regal Cloud',                      'slug' => 'regal-cloud',                     'industry_id' => 11, 'link' => 'https://www.regal-cloud.com/',                     'link_name'   => null,                     'city' => 'Austin',            'state_id'    => 44,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[80],  'name' => 'Tyler Technologies, Inc',          'slug' => 'tyler-technologies-inc',          'industry_id' => 11, 'link' => 'https://www.tylertech.com/',                       'link_name'   => null,                     'city' => 'Plano',             'state_id'    => 44,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[81],  'name' => 'IntertiaJS',                       'slug' => 'intertiajs',                      'industry_id' => 11, 'link' => 'https://inertiajs.com/',                           'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[82],  'name' => 'Crossing Hurdles',                 'slug' => 'crossing-hurdles',                'industry_id' => 11, 'link' => 'https://www.linkedin.com/company/crossinghurdles/','link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => 237  ],
+            [ 'id' => $this->companyIds[83],  'name' => 'USALCO',                           'slug' => 'usalco',                          'industry_id' => 11, 'link' => 'https://www.usalco.com/',                          'link_name'   => null,                     'city' => 'Baltimore',         'state_id'    => 21,   'country_id' => 237  ],
+            [ 'id' => $this->companyIds[84],  'name' => 'Idaho National Laboratory',        'slug' => 'idaho-national-laboratory',       'industry_id' => 11, 'link' => 'https://inl.gov/',                                 'link_name'   => null,                     'city' => 'Idaho Falls',       'state_id'    => 13,   'country_id' => 237  ],
+            //[ 'id' => 1,   'name' => '',                                 'slug' => '',                                'industry_id' => 11, 'link' => null,                                               'link_name'   => null,                     'city' => null,                'state_id'    => null, 'country_id' => null ],
+        ];
+
+        if (!empty($data)) {
+            Company::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertCareerContacts(): void
     {
         echo "Inserting into Career\\Contact ...\n";
-        Link::insert($this->addTimeStampsAndOwners([
-        ]));
+
+        $this->contactIds = [];
+        $maxId = Recipe::max('id');
+        for ($i=1; $i<24; $i++) {
+            $this->contactIds[$i] = ++$maxId;
+        }
+
+        $data = [
+            [ 'id' => $this->contactIds[1],   'name' => 'Chad Vasquez',     'slug' => 'chad-vasquez',     'phone' => null,	            'phone_label' => null,   'email' => 'Chad.Vasquez@CyberCoders.com',         'email_label' => 'work' ],
+            [ 'id' => $this->contactIds[2],   'name' => 'Lyman Ambrose',    'slug' => 'lyman-ambrose',    'phone' => null,	            'phone_label' => null,   'email' => 'lyman.ambrose@mondo.com',              'email_label' => 'work' ],
+            [ 'id' => $this->contactIds[3],   'name' => 'Miles Biegert',    'slug' => 'miles-biegert',    'phone' => null,             'phone_label' => null,   'email' => 'milesb@infinity-cs.com',               'email_label' => 'work'  ],
+            [ 'id' => $this->contactIds[4],   'name' => 'Jolly Nibu',       'slug' => 'jolly-nibu',       'phone' => null,	            'phone_label' => null,   'email' => 'jolly.nibu@artech.com',                'email_label' => 'work' ],
+            [ 'id' => $this->contactIds[5],   'name' => 'Connor Sullivan',  'slug' => 'connor-sullivan',  'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null,  ],
+            [ 'id' => $this->contactIds[6],   'name' => 'Jordan Luehmann',  'slug' => 'jordan-luehmann',  'phone' => null,	            'phone_label' => null,   'email' => 'jluehmann@horizontal.com',             'email_label' => 'work' ],
+            [ 'id' => $this->contactIds[7],   'name' => 'Steve Allen',      'slug' => 'steve-allen',      'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactIds[8],   'name' => 'Victor Fung',      'slug' => 'victor-fung',      'phone' => null,             'phone_label' => null,   'email' => null,                                   'email_label' => null    ],
+            [ 'id' => $this->contactIds[9],   'name' => 'Jessica Chandler', 'slug' => 'jessica-chandler', 'phone' => null,             'phone_label' => null,   'email' => null,                                   'email_label' => null    ],
+            [ 'id' => $this->contactIds[10],  'name' => 'Donna Morgan',     'slug' => 'donna-morgan',     'phone' => null,             'phone_label' => null,   'email' => null,                                   'email_label' => null    ],
+            [ 'id' => $this->contactIds[11],  'name' => 'Kirsten Carlson',  'slug' => 'kirsten-carlson',  'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactIds[12],  'name' => 'Kyle Nussberger',  'slug' => 'kyle-nussberger',  'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactIds[13],  'name' => 'Andrew Jones',     'slug' => 'andrew-jones',     'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactIds[14],  'name' => 'Dylan Rogelstad',  'slug' => 'dylan-rogelstad',  'phone' => null,	            'phone_label' => null,   'email' => 'dylan.rogelstad@mail.cybercoders.com', 'email_label' => 'work' ],
+            [ 'id' => $this->contactIds[15],  'name' => 'Larry Kraynak',    'slug' => 'larry-kraynak',    'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactIds[16],  'name' => 'Tim Lesnick',      'slug' => 'tim-lesnick',      'phone' => null,             'phone_label' => null,   'email' => 'tlesnick@trovasearch.com',             'email_label' => 'work'  ],
+            [ 'id' => $this->contactIds[17],  'name' => 'Ciara Monahan',    'slug' => 'ciara-monahan',    'phone' => null,             'phone_label' => null,   'email' => 'Ciara.Monahan@insightglobal.com',      'email_label' => 'work'  ],
+            [ 'id' => $this->contactIds[18],  'name' => 'Rob Neylon',       'slug' => 'rob-neylon',       'phone' => null,	            'phone_label' => null,   'email' => 'rob@yscouts.com',                      'email_label' => 'work' ],
+            [ 'id' => $this->contactIds[19],  'name' => 'Billy Bisson',     'slug' => 'billy-bisson',     'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactIds[20],  'name' => 'Kelsey Higgins',   'slug' => 'kelsey-higgins',   'phone' => '(774) 283-1614', 'phone_label' => 'work', 'email' => 'kelsey.higgins@klaviyo.com',           'email_label' => 'work'  ],
+            [ 'id' => $this->contactIds[21],  'name' => 'Britney Coleman',  'slug' => 'britney-coleman',  'phone' => null,	            'phone_label' => null,   'email' => 'coleman@lendflow.io',                  'email_label' => 'work' ],
+            [ 'id' => $this->contactIds[22],  'name' => 'Dan Chaffee',      'slug' => 'dan-chaffee',      'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            [ 'id' => $this->contactIds[23],  'name' => 'Kara Caldwell',    'slug' => 'kara-caldwell',    'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+            //[ 'id' => 1,   'name' => '',                 'slug' => '',                 'phone' => null,	            'phone_label' => null,   'email' => null,                                   'email_label' => null   ],
+        ];
+
+        if (!empty($data)) {
+            Contact::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertCareerReferences(): void
     {
         echo "Inserting into Career\\Reference ...\n";
-        Link::insert($this->addTimeStampsAndOwners([
-        ]));
+
+        $data = [
+            [ 'name' => 'Kevin Hemsley',         'slug' => 'kevin-hemsley',         'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null,                      'street2' => null,  'city' => 'Rigby',         'state_id' => 13,   'zip' => null,         'country_id' => 237, 'phone' => '(208) 526-0507', 'phone_label' => 'work',   'alt_phone' => '(208) 317-3644', 'alt_phone_label' => 'mobile', 'email' => 'kevin.hemsley@inl.gov',          'email_label' => 'work', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => null,         'link' => 'https://www.linkedin.com/in/kevin-hemsley-a30740132/' ],
+            [ 'name' => 'Paul Davis',            'slug' => 'paul-davis',            'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null,                      'street2' => null,  'city' => null,            'state_id' => null, 'zip' => null,         'country_id' => 237, 'phone' => '(913) 608-5399', 'phone_label' => null,     'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'paul.davis@inl.gov',             'email_label' => 'work', 'alt_email' => 'prtdavis2@yahoo.com', 'alt_email_label' => 'home',  'birthday' => null,         'link' => null, ],
+            [ 'name' => 'Alen Kahen',            'slug' => 'alen-kahen',            'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null,                      'street2' => null,  'city' => null,            'state_id' => 33,   'zip' => null,         'country_id' => 237, 'phone' => '(917) 685-6003', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'akahen@live.com',                'email_label' => 'home', 'alt_email' => 'alen.kahen@inl.com',  'alt_email_label' => 'work',  'birthday' => null,         'link' => null, ],
+            [ 'name' => 'Nancy Gomez Dominguez', 'slug' => 'nancy-gomez-dominguez', 'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null,                      'street2' => null,  'city' => null,            'state_id' => null, 'zip' => null,         'country_id' => 237, 'phone' => '(603) 779-2707', 'phone_label' => 'mobile', 'alt_phone' => '(208) 526-4280', 'alt_phone_label' => 'work',   'email' => 'nancy.gomezdominguez@inl.gov',   'email_label' => 'work', 'alt_email' => 'ngd.00@outlook.com',  'alt_email_label' => 'home',  'birthday' => null,         'link' => null, ],
+            [ 'name' => 'Barbara Zearfoss',      'slug' => 'barbara-zearfoss',      'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '2678 Sunset Lane',        'street2' => null,  'city' => 'York',          'state_id' => 39,   'zip' => '17408-9567', 'country_id' => 237, 'phone' => '(717) 764-1215', 'phone_label' => 'home',   'alt_phone' => '(717) 891-1207', 'alt_phone_label' => 'mobile', 'email' => 'BZearfoss@aol.com',              'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1942-08-20', 'link' => null, ],
+            [ 'name' => 'Mark Zearfoss',         'slug' => 'mark-zearfoss',         'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '380 Richardson Rd.',      'street2' => null,  'city' => 'York',          'state_id' => 39,   'zip' => '17404',      'country_id' => 237, 'phone' => '(717) 792-7795', 'phone_label' => 'home',   'alt_phone' => '(717) 332-1415', 'alt_phone_label' => 'mobile', 'email' => 'zearfoss@verizon.net',           'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1962-07-19', 'link' => null, ],
+            [ 'name' => 'Doug Zearfoss',         'slug' => 'doug-zearfoss',         'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '9652 Rolling Rock Way',   'street2' => null,  'city' => 'Reno',          'state_id' => 29,   'zip' => '89521',      'country_id' => 237, 'phone' => '(775) 852-1264', 'phone_label' => 'home',   'alt_phone' => '(775) 762-0775', 'alt_phone_label' => 'mobile', 'email' => 'DZearfoss@aol.com',              'email_label' => 'home', 'alt_email' => 'dzearfoss@eigwc.com', 'alt_email_label' => 'work',  'birthday' => '1965-11-25', 'link' => null, ],
+            [ 'name' => 'Gary Zearfoss',         'slug' => 'gary-zearfoss',         'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '2678 Sunset Lane',        'street2' => null,  'city' => 'York',          'state_id' => 39,   'zip' => '17408-9567', 'country_id' => 237, 'phone' => '(717) 764-1215', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => null,                             'email_label' => null,   'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1941-09-11', 'link' => null, ],
+            [ 'name' => 'Maria Arvanitis',       'slug' => 'maria-arvanitis',       'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '9079 Golden Pond Lane N', 'street2' => null,  'city' => 'Monticello',    'state_id' => 24,   'zip' => '55362',      'country_id' => 237, 'phone' => '(763) 777-2216', 'phone_label' => 'mobile', 'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'mariaelaine29@yahoo.com',        'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => '1980-07-30', 'link' => null, ],
+            [ 'name' => 'Barbara Smith',         'slug' => 'barbara-smith',         'friend' => 1, 'family' => 0, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => '2041 Warwick Place',      'street2' => null,  'city' => 'New Braunfels', 'state_id' => 44,   'zip' => '78130',      'country_id' => 237, 'phone' => '(830) 221-8713', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'refugeechildrendream@yahoo.com', 'email_label' => 'home', 'alt_email' => null,                  'alt_email_label' => null,    'birthday'  => null,        'link' => null, ],
+        ];
+
+        if (!empty($data)) {
+            Reference::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertCareerResumes(): void
     {
         echo "Inserting into Career\\Resume ...\n";
-        Link::insert($this->addTimeStampsAndOwners([
-        ]));
-    }
 
-    protected function insertCareerApplications(): void
-    {
-        echo "Inserting into Career\\Application ...\n";
-        Link::insert($this->addTimeStampsAndOwners([
-        ]));
+        $data = [
+            [ 'name' => 'PHP/MySQL Web Developer',                  'date' => '2015-03-19', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/9avg6ve67wnoooxm3jwbx/resume.doc?rlkey=vzkdjqkuxw59nghmcf8d6v2xa&st=kjkb0kxj&dl=0',                                            'pdf_url'  => null,                                                                                                                       'public'   => 0 ],
+            [ 'name' => 'Senior Web Developer',                     'date' => '2016-11-24', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/n313k7vveguisq3n9wbxf/craigzearfoss.docx?rlkey=3hms59ts6nwy0iqlyyh3bsw7e&st=695lhlbu&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/o7x78isovwo8220144mjz/craigzearfoss.pdf?rlkey=cbg59sg0jdr38qawkuzhtexu3&st=py7h358e&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Senior Full Stack Developer',              'date' => '2018-12-05', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/v83yu6f23pjtg37xs86er/craigzearfoss.docx?rlkey=m0d5vu31abn31kqmrrvirphk7&st=eaqvpj67&dl=0',                                    'pdf_url'  => null,                                                                                                                       'public'   => 0 ],
+            [ 'name' => 'Senior Software Engineer',                 'date' => '2019-07-28', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/aq4rjtcy8lgr4p3fzk2tu/craigzearfoss.docx?rlkey=axj2g2r0blnn3fj0hgnr4zbxe&st=1wbcx7yl&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/3y0gbw5j1oticsvvquc10/craigzearfoss.pdf?rlkey=4mkpm023j61c7wojr10a605na&st=ckevybmz&dl=0' , 'public'   => 0 ],
+            [ 'name' => 'Senior Software Engineer',                 'date' => '2020-03-21', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/3pw6ni7jy3ltmfston3ck/craigzearfoss.docx?rlkey=2xrhukvic3x7y1ycsdujyxp11&st=9jdigq2y&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/u38vtuha8j2wp8h86opim/craigzearfoss.pdf?rlkey=uiaz2lfssza7n4eeqil2yvmsr&st=vzze8s4t&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Senior Software Engineer',                 'date' => '2022-01-13', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/zdivxb8u518v58a9k2swt/craigzearfoss-extended.docx?rlkey=6tjsnn33gmoct7k3kndxquoh8&st=fy0eootp&dl=0',                           'pdf_url'  => 'https://www.dropbox.com/scl/fi/n55xem02slgzhobszsczd/craigzearfoss.docx?rlkey=0wlntvs93fkc38fsdnqmruqd4&st=eh4jrkzo&dl=0', 'public'   => 0 ],
+            [ 'name' => '',                                         'date' => '2023-01-07', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/kczg2cht4jof2ookdrlor/craigzearfoss.docx?rlkey=fx2er17eq8a7gebkq0s4xkrp2&st=xhfr1ab1&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/dw5n5nwybw01i2axjwt3j/craigzearfoss.pdf?rlkey=y1gp5cuykyns4s4m1zk7ldh4o&st=dytodp4m&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Senior Software Engineer',                 'date' => '2025-06-09', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/p91cze7mplhvqoxyipq4b/craigzearfoss.docx?rlkey=d8df5ops5irfni98hp2pfkhys&st=v77425zc&dl=0',                                    'pdf_url'  => null,                                                                                                                       'public'   => 0 ],
+            [ 'name' => 'Senior Software Engineer',                 'date' => '2025-06-16', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/eiqyia4ez7stq6pbbiukn/craigzearfoss.docx?rlkey=cpebqb9nkw20pb73yek8g8fyt&st=ggbhhl8f&dl=0',                                    'pdf_url'  => null,                                                                                                                       'public'   => 0 ],
+            [ 'name' => 'Senior Software Engineer [condensed]',     'date' => '2025-06-22', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/uv8egj3schs5gixqdflcz/craigzearfoss.docx?rlkey=bwwjtdveev6zc08gkrv6sc07x&st=ay3bkv0u&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/e3rdmwiqwxg7uf443dki6/craigzearfoss.pdf?rlkey=9ltwy0ozz4nigp43h2he41vyw&st=kqsv3eg7&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Senior Software Engineer [streamlined]',   'date' => '2025-06-29', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/keqkxhobp6165za6u1nsq/craigzearfoss.docx?rlkey=tkb3q4xeug3jzef68w4spoux1&st=h0zwcdmh&dl=0',                                    'pdf_url'  => null,                                                                                                                       'public'   => 0 ],
+            [ 'name' => 'Senior Full Stack Developer [prettified]', 'date' => '2025-07-07', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/37eb5w83od7p2kd1xrn5c/craigzearfoss.docx?rlkey=pnkdwj465jifxahahcnou1e44&st=gesg99x6&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/f8dwiprt5z64npnm3vcj4/craigzearfoss.pdf?rlkey=c424qxaxysdv2c4n80oium6on&st=ftooahy9&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Senior PHP Developer [prettified]',        'date' => '2025-07-07', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/7abbsyqyksq666k4s6kt5/craigzearfoss.docx?rlkey=5yrwlx62iu7x3vkn7rhxofgz5&st=tqb1qqqd&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/9wyp4vz3sx59n18e97qg5/craigzearfoss.pdf?rlkey=sh1gp0x99opsy5hbtl3wpojj3&st=apn7djgj&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Front-end Developer [prettified]',         'date' => '2025-07-07', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/d9oox29eju592bl3n8dnv/craigzearfoss.docx?rlkey=5zo2txdbiwdnf5ke0k9vgci90&st=3b8qs7rh&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/dk3dc2wrzgo8idx1nr1dh/craigzearfoss.pdf?rlkey=sdu6h9zz5o37sfpfowip431o1&st=vjuux6f3&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Front-end Developer [prettified]',         'date' => '2025-07-22', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/ufli4yrqgm4lxxs04ye9f/craigzearfoss.docx?rlkey=irkim5uy3onev4vqjagk2rqsg&st=dwoslofe&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/ng4s9j5vtsi8mij8mtii5/craigzearfoss.pdf?rlkey=pfcarlb0c48inmfacmkp4awx6&st=1tizg3mi&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Senior Full Stack Developer [prettified]', 'date' => '2025-07-22', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/ps9dthkbuybfggnszsb4i/craigzearfoss.docx?rlkey=r4fk6ngm8uo43e0e8htc3kxux&st=iz6xdu53&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/e3oqy77h3xdqhkmyu6j1n/craigzearfoss.pdf?rlkey=pb1uemaaqxsgbm4qlw2bzneds&st=4m5pgd76&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Senior PHP Developer [prettified]',        'date' => '2025-07-22', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/xu90c7e5tqukk9j4b2c80/craigzearfoss.docx?rlkey=t247wae4z5i4a7j4qix68f6pl&st=iv9stw8u&dl=0',                                    'pdf_url'  => 'https://www.dropbox.com/scl/fi/gju304enbljza2335iy74/craigzearfoss.pdf?rlkey=4dgkal9vo2pxazb7af33sbans&st=kk5de6vn&dl=0',  'public'   => 0 ],
+            [ 'name' => 'Senior Software Engineer [prettified]',    'date' => '2025-08-07', 'primary' => 1, 'doc_url' => 'https://www.dropbox.com/scl/fi/j7v3olr0dzg35j48p40sn/Craig-Zearfoss_full-stack-developer_20250807.docx?rlkey=b8188h0z70fh7an91wm6jv9nv&st=xearhvb7&dl=0',     'pdf_url'  => null,                                                                                                                       'public'   => 1 ],
+            [ 'name' => 'Full Stack Developer [prettified]',        'date' => '2025-08-07', 'primary' => 1, 'doc_url' => 'https://www.dropbox.com/scl/fi/er3u1zc1342ovlcqq56wk/Craig-Zearfoss_senior-software-engineer_20250807.docx?rlkey=yjuhqc9v2l6voemsm0uu4ily2&st=e0ce63v7&dl=0', 'pdf_url'  => null,                                                                                                                       'public'   => 1 ],
+            //[ 'name' => '',                                         'date' => null,         'primary' => 0, 'doc_url' => null,                                                                                                                                                          'pdf_url'  => null,                                                                                                                       'public'   => 1 ],
+        ];
+
+        if (!empty($data)) {
+            Resume::insert($this->addTimeStampsAndOwners($data));
+        }
+
+        // add resume template to resource_settings table
+        $careerDatabaseId = Database::where('name', config('app.career_db'))->first()->id;
+        $resumeResourceId = Resource::where('database_id', $careerDatabaseId)->where('table', 'resumes')->first()->id;
+
+        ResourceSetting::insert([
+            [
+                'owner_id'        => $this->adminId,
+                'resource_id'     => $resumeResourceId,
+                'name'            => 'template',
+                'setting_type_id' => 5,     //string
+                'value'           => 'default',
+            ]
+        ]);
     }
 
     protected function insertCareerCoverLetters(): void
     {
         echo "Inserting into Career\\CoverLetter ...\n";
-        Link::insert($this->addTimeStampsAndOwners([
-        ]));
+
+        $data = [
+
+        ];
+
+        if (!empty($data)) {
+            CoverLetter::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertCareerCommunications(): void
     {
         echo "Inserting into Career\\Communication ...\n";
-        Link::insert($this->addTimeStampsAndOwners([
-        ]));
+
+        $data = [
+
+        ];
+
+        if (!empty($data)) {
+            Communication::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertCareerEvents(): void
     {
         echo "Inserting into Career\\Event ...\n";
-        Link::insert($this->addTimeStampsAndOwners([
-        ]));
+
+        $data = [
+
+        ];
+
+        if (!empty($data)) {
+            Event::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertCareerNotes(): void
     {
         echo "Inserting into Career\\Note ...\n";
-        Link::insert($this->addTimeStampsAndOwners([
-        ]));
+
+        $data = [
+
+        ];
+
+        if (!empty($data)) {
+            Note::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertCareerApplicationSkill(): void
     {
         echo "Inserting into Career\\ApplicationSkill ...\n";
-        Link::insert($this->addTimeStampsAndOwners([
-        ]));
+
+        $data = [
+
+        ];
+
+        if (!empty($data)) {
+            ApplicationSkill::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertCareerCompanyContact(): void
     {
         echo "Inserting into Career\\CompanyContact ...\n";
-        Link::insert($this->addTimeStampsAndOwners([
-        ]));
+
+        $data = [
+            [ 'company_id' => $this->companyIds[1],  'contact_id' => $this->contactIds[1],  'active' => 1 ],
+            [ 'company_id' => $this->companyIds[2],  'contact_id' => $this->contactIds[2],  'active' => 1 ],
+            [ 'company_id' => $this->companyIds[4],  'contact_id' => $this->contactIds[3],  'active' => 1 ],
+            [ 'company_id' => $this->companyIds[6],  'contact_id' => $this->contactIds[4],  'active' => 1 ],
+            [ 'company_id' => $this->companyIds[7],  'contact_id' => $this->contactIds[5],  'active' => 1 ],
+            [ 'company_id' => $this->companyIds[8],  'contact_id' => $this->contactIds[6],  'active' => 1 ],
+            [ 'company_id' => $this->companyIds[9],  'contact_id' => $this->contactIds[10], 'active' => 1 ],
+            [ 'company_id' => $this->companyIds[9],  'contact_id' => $this->contactIds[11], 'active' => 1 ],
+            [ 'company_id' => $this->companyIds[9],  'contact_id' => $this->contactIds[12], 'active' => 1 ],
+            [ 'company_id' => $this->companyIds[9],  'contact_id' => $this->contactIds[13], 'active' => 1 ],
+            [ 'company_id' => $this->companyIds[2],  'contact_id' => $this->contactIds[14], 'active' => 1 ],
+            [ 'company_id' => $this->companyIds[12], 'contact_id' => $this->contactIds[16], 'active' => 1 ],
+            [ 'company_id' => $this->companyIds[13], 'contact_id' => $this->contactIds[17], 'active' => 1 ],
+            [ 'company_id' => $this->companyIds[14], 'contact_id' => $this->contactIds[8],  'active' => 1 ],
+            [ 'company_id' => $this->companyIds[15], 'contact_id' => $this->contactIds[19], 'active' => 1 ],
+            [ 'company_id' => $this->companyIds[21], 'contact_id' => $this->contactIds[20], 'active' => 1 ],
+            [ 'company_id' => $this->companyIds[22], 'contact_id' => $this->contactIds[21], 'active' => 1 ],
+            [ 'company_id' => $this->companyIds[23], 'contact_id' => $this->contactIds[23], 'active' => 1 ],
+        ];
+
+        if (!empty($data)) {
+            CompanyContact::insert($this->addTimeStampsAndOwners($data));
+        }
     }
 
     protected function insertPersonalReadings(): void
@@ -653,7 +1006,7 @@ class InitializeCraigzearfoss extends Command
                 'featured'       => 1,
                 'summary'        => null,
                 'year'           => 1992,
-                'image_url'      => 'https://previews.dropbox.com/p/thumb/ACygnBaiFphCEFohhNuV35KzY7Fh4-vi3dqZuV1st1a0Sa4mG07-pTU4cC3UUi8o0XKRmlj5hVcxw2zdJEPThvRRe_F0lsr2x21bIiRZJKbGpOOjRCd06N4wDBGDWW0kkgxLsQz5gc7BvA4_Z5t1PpSit4Js-4Zk_WBcg3vPNcU9mZKEwAv8K6pnRuGx_hkbTNdmZeuyZuqKRMCtJsDoX9SHVLKX6UYUx_pAjD6HPUbg6GgRGxXGZDteRrK4eBmI33Wj3nttYHDTarEFQDszMOdADI18A-quMdhV0yetlQyJt-Yn60gnx27ltmyBJkGi9Y9kgHezE3x3y8i8OwUGX09x/p.png?is_prewarmed=true',
+                'image_url' => 'https://previews.dropbox.com/p/thumb/ACygnBaiFphCEFohhNuV35KzY7Fh4-vi3dqZuV1st1a0Sa4mG07-pTU4cC3UUi8o0XKRmlj5hVcxw2zdJEPThvRRe_F0lsr2x21bIiRZJKbGpOOjRCd06N4wDBGDWW0kkgxLsQz5gc7BvA4_Z5t1PpSit4Js-4Zk_WBcg3vPNcU9mZKEwAv8K6pnRuGx_hkbTNdmZeuyZuqKRMCtJsDoX9SHVLKX6UYUx_pAjD6HPUbg6GgRGxXGZDteRrK4eBmI33Wj3nttYHDTarEFQDszMOdADI18A-quMdhV0yetlQyJt-Yn60gnx27ltmyBJkGi9Y9kgHezE3x3y8i8OwUGX09x/p.png?is_prewarmed=true',
                 'notes'          => null,
                 'description'    => '',
                 'public'         => 1,
@@ -665,7 +1018,7 @@ class InitializeCraigzearfoss extends Command
                 'featured'       => 1,
                 'summary'        => null,
                 'year'           => 1994,
-                'image_url'      => 'https://previews.dropbox.com/p/thumb/ACzQo_zV6sefn5roUiYMZCWZb__zRxKL2WfH8bMwSVyhBUb6gqt6yuh_zXRVh2hpcNs-ytNPFKw-9VQUko9CD1bMQ6bljn0ZRn50Uhl2eLonTLtiYYHraI4ff_teDzBSzW0Sfo8AubGZRzOIDZ24B-1hPBvRuH47ivohXuHHo5HnxFJmjuCUTfEvBR4ho9rQFFU-z1KXM-d6PGTjpAc4Vhf-Pno2BI3oWDYJRCAiuZCwA-DefXQJXdCgEqRjk4rwBhjAz82xZPnzno8KoPT16gf9Xyg7O8sa-IcX7uM7nOkBrz0bi5TqPEs_Z5E6O4YS-cQklT2aeT7aLP0riRZE49Q9/p.jpeg?is_prewarmed=true',
+                'image_url' => 'https://previews.dropbox.com/p/thumb/ACzQo_zV6sefn5roUiYMZCWZb__zRxKL2WfH8bMwSVyhBUb6gqt6yuh_zXRVh2hpcNs-ytNPFKw-9VQUko9CD1bMQ6bljn0ZRn50Uhl2eLonTLtiYYHraI4ff_teDzBSzW0Sfo8AubGZRzOIDZ24B-1hPBvRuH47ivohXuHHo5HnxFJmjuCUTfEvBR4ho9rQFFU-z1KXM-d6PGTjpAc4Vhf-Pno2BI3oWDYJRCAiuZCwA-DefXQJXdCgEqRjk4rwBhjAz82xZPnzno8KoPT16gf9Xyg7O8sa-IcX7uM7nOkBrz0bi5TqPEs_Z5E6O4YS-cQklT2aeT7aLP0riRZE49Q9/p.jpeg?is_prewarmed=true',
                 'notes'          => null,
                 'description'    => '',
                 'public'         => 1,
@@ -677,7 +1030,7 @@ class InitializeCraigzearfoss extends Command
                 'featured'       => 0,
                 'summary'        => null,
                 'year'           => 1994,
-                'image_url'      => 'https://previews.dropbox.com/p/thumb/ACzyF6XVUlSO34Gch4u4A87fFRlqwCN0Xr2P6O2JjBhkqqpTeB-xafXqzg4YsjLmNOOK9HJ1LVtg6t9Tbi6TtKZ_MJ2s8wInefNHuDzWpeMMuXGoi2N04hXgG8CeDKgYUtSI9wTSROtuEuDj3xQR7mRPtIsdn2A07qpOycqoH5iZ98tSIed8YOnKOYr3jNO2s22DY2whkjNf09qQikJZoefk92viuf_rTCn2PS8KiX0_OGwjUzo8qhOj6Y6dfzWHR6YRqHbpkeKC-yJDl86dPmf7Jcuz8S67ep4D2NOOGKTIfzpyFlKZaP_2dCIPZNAvvtY/p.png',
+                'image_url' => 'https://previews.dropbox.com/p/thumb/ACzyF6XVUlSO34Gch4u4A87fFRlqwCN0Xr2P6O2JjBhkqqpTeB-xafXqzg4YsjLmNOOK9HJ1LVtg6t9Tbi6TtKZ_MJ2s8wInefNHuDzWpeMMuXGoi2N04hXgG8CeDKgYUtSI9wTSROtuEuDj3xQR7mRPtIsdn2A07qpOycqoH5iZ98tSIed8YOnKOYr3jNO2s22DY2whkjNf09qQikJZoefk92viuf_rTCn2PS8KiX0_OGwjUzo8qhOj6Y6dfzWHR6YRqHbpkeKC-yJDl86dPmf7Jcuz8S67ep4D2NOOGKTIfzpyFlKZaP_2dCIPZNAvvtY/p.png',
                 'notes'          => null,
                 'description'    => '',
                 'public'         => 1,
@@ -689,7 +1042,7 @@ class InitializeCraigzearfoss extends Command
                 'featured'       => 1,
                 'summary'        => null,
                 'year'           => 1994,
-                'image_url'      => 'https://previews.dropbox.com/p/thumb/ACzQo_zV6sefn5roUiYMZCWZb__zRxKL2WfH8bMwSVyhBUb6gqt6yuh_zXRVh2hpcNs-ytNPFKw-9VQUko9CD1bMQ6bljn0ZRn50Uhl2eLonTLtiYYHraI4ff_teDzBSzW0Sfo8AubGZRzOIDZ24B-1hPBvRuH47ivohXuHHo5HnxFJmjuCUTfEvBR4ho9rQFFU-z1KXM-d6PGTjpAc4Vhf-Pno2BI3oWDYJRCAiuZCwA-DefXQJXdCgEqRjk4rwBhjAz82xZPnzno8KoPT16gf9Xyg7O8sa-IcX7uM7nOkBrz0bi5TqPEs_Z5E6O4YS-cQklT2aeT7aLP0riRZE49Q9/p.jpeg?is_prewarmed=true',
+                'image_url' => 'https://previews.dropbox.com/p/thumb/ACzQo_zV6sefn5roUiYMZCWZb__zRxKL2WfH8bMwSVyhBUb6gqt6yuh_zXRVh2hpcNs-ytNPFKw-9VQUko9CD1bMQ6bljn0ZRn50Uhl2eLonTLtiYYHraI4ff_teDzBSzW0Sfo8AubGZRzOIDZ24B-1hPBvRuH47ivohXuHHo5HnxFJmjuCUTfEvBR4ho9rQFFU-z1KXM-d6PGTjpAc4Vhf-Pno2BI3oWDYJRCAiuZCwA-DefXQJXdCgEqRjk4rwBhjAz82xZPnzno8KoPT16gf9Xyg7O8sa-IcX7uM7nOkBrz0bi5TqPEs_Z5E6O4YS-cQklT2aeT7aLP0riRZE49Q9/p.jpeg?is_prewarmed=true',
                 'notes'          => null,
                 'description'    => '',
                 'public'         => 1,
@@ -701,7 +1054,7 @@ class InitializeCraigzearfoss extends Command
                 'featured'       => 0,
                 'summary'        => null,
                 'year'           => 1994,
-                'image_url'      => 'https://previews.dropbox.com/p/thumb/ACzefzZk9ckCnCKMjN7gcH5wKdmAWVdEZlCyarmAQGkFNvEx0i-56udCzC1LNRxDRIVWXDpeyfu_b8pODnOVTGZMxIyEHF2X-PQZ76OsFedkGFHOX4pKx2kmHd3lpj-cfgd_kNEQxYKIboYajLP0TS1-Z0vvF6OuGbQQdM40xaxkxBdKDokdfDZc7xlyUA5qx9F0zlseZaMXBTv6YxM4ovjC2DYw3CLsEoMZSnaOkV77YOgG2nx8ZRxchleRJcGU-PN2NtAnmW89jruvZpUgyV5oUC44HKacBukhtbsp-iZ5AjOVuy1BzeZRe0PPudm22A0p48CXuYMfDlOr8Sx1ciTb/p.jpeg?is_prewarmed=true',
+                'image_url' => 'https://previews.dropbox.com/p/thumb/ACzefzZk9ckCnCKMjN7gcH5wKdmAWVdEZlCyarmAQGkFNvEx0i-56udCzC1LNRxDRIVWXDpeyfu_b8pODnOVTGZMxIyEHF2X-PQZ76OsFedkGFHOX4pKx2kmHd3lpj-cfgd_kNEQxYKIboYajLP0TS1-Z0vvF6OuGbQQdM40xaxkxBdKDokdfDZc7xlyUA5qx9F0zlseZaMXBTv6YxM4ovjC2DYw3CLsEoMZSnaOkV77YOgG2nx8ZRxchleRJcGU-PN2NtAnmW89jruvZpUgyV5oUC44HKacBukhtbsp-iZ5AjOVuy1BzeZRe0PPudm22A0p48CXuYMfDlOr8Sx1ciTb/p.jpeg?is_prewarmed=true',
                 'notes'          => null,
                 'description'    => '',
                 'public'         => 1,
@@ -713,7 +1066,7 @@ class InitializeCraigzearfoss extends Command
                 'featured'       => 1,
                 'summary'        => null,
                 'year'           => 1998,
-                'image_url'      => 'https://previews.dropbox.com/p/thumb/ACxdHcpXj2erKRER4sMta1eVL8i7kXmfbwu3f7rQftSXwQ9kWauEkfrECVbN77B6AgYlFK8fYAGKZYCKPnQLpa4jsu7fOGvj0wWchOa4y1fdJxuzRbLaIug-Ovprw7krb7tgxP7ZLJhm3cbND9CTQJi6gNqmRnsATpOioSxFCf5Wlmzqe8N7ZzbkA9fd3V6k9BULj-SRC3lUokpHCWNqNahmmxKXygENnQCwp_d4D0QInsiBf8OrpRBx7uxlK4zcWoCib_wXagMxRkPYDUOlPzX866X7iv4xDEub5sjoUuY-Is2Aa07nXgZA9aKZkOXzL5d44moZzmXI_DjjsKhChLhD/p.png?is_prewarmed=true',
+                'image_url' => 'https://previews.dropbox.com/p/thumb/ACxdHcpXj2erKRER4sMta1eVL8i7kXmfbwu3f7rQftSXwQ9kWauEkfrECVbN77B6AgYlFK8fYAGKZYCKPnQLpa4jsu7fOGvj0wWchOa4y1fdJxuzRbLaIug-Ovprw7krb7tgxP7ZLJhm3cbND9CTQJi6gNqmRnsATpOioSxFCf5Wlmzqe8N7ZzbkA9fd3V6k9BULj-SRC3lUokpHCWNqNahmmxKXygENnQCwp_d4D0QInsiBf8OrpRBx7uxlK4zcWoCib_wXagMxRkPYDUOlPzX866X7iv4xDEub5sjoUuY-Is2Aa07nXgZA9aKZkOXzL5d44moZzmXI_DjjsKhChLhD/p.png?is_prewarmed=true',
                 'notes'          => null,
                 'description'    => '',
                 'public'         => 1,
@@ -730,6 +1083,7 @@ class InitializeCraigzearfoss extends Command
         echo "Inserting into Portfolio\\Audio ...\n";
 
         $data = [
+
         ];
 
         if (!empty($data)) {
@@ -743,12 +1097,12 @@ class InitializeCraigzearfoss extends Command
 
         $data = [
             [
-                'name'            => 'Google Cybersecurity',
-                'slug'            => 'google-cybersecurity',
+                'name' => 'Google Cybersecurity',
+                'slug' => 'google-cybersecurity',
                 'featured'        => 1,
                 'summary'         => null,
                 'organization'    => 'Google',
-                'academy_id'      => 3,
+                'academy_id' => 3,
                 'year'            => 2023,
                 'received'        => '2023-07-11',
                 'certificate_url' => 'images/admin/2/portfolio/certification/HGL8U7MSRWFL.png',
@@ -770,14 +1124,14 @@ class InitializeCraigzearfoss extends Command
         $data = [
             [
                 'id'              => 1,
-                'name'            => 'AWS Cloud Practitioner Essentials: Cloud Concepts',
-                'slug'            => 'aws-cloud-practitioner-essentials-cloud-concepts',
+                'name' => 'AWS Cloud Practitioner Essentials: Cloud Concepts',
+                'slug' => 'aws-cloud-practitioner-essentials-cloud-concepts',
                 'completed'       => 1,
                 'completion_date' => '2019-04-25',
                 'year'            => 2019,
                 'duration_hours'  => 0.5,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Cloud%20Practitioner%20Essentials%20-%20Cloud%20Concepts.png',
                 'link'            => null,
@@ -785,14 +1139,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 2,
-                'name'            => 'AWS Cloud Practitioner Essentials: Core Services',
-                'slug'            => 'aws-cloud-practitioner-eEssentials-core-services',
+                'name' => 'AWS Cloud Practitioner Essentials: Core Services',
+                'slug' => 'aws-cloud-practitioner-eEssentials-core-services',
                 'completed'       => 1,
                 'completion_date' => '2019-05-01',
                 'year'            => 2019,
                 'duration_hours'  => 3.0,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Cloud%20Practitioner%20Essentials%20-%20Core%20Services.png',
                 'link'            => null,
@@ -800,14 +1154,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 3,
-                'name'            => 'AWS Cloud Practitioner Essentials: Course Introduction',
-                'slug'            => 'aws-cloud-practitioner-essentials-course-introduction',
+                'name' => 'AWS Cloud Practitioner Essentials: Course Introduction',
+                'slug' => 'aws-cloud-practitioner-essentials-course-introduction',
                 'completed'       => 1,
                 'completion_date' => '2019-04-25',
                 'year'            => 2019,
                 'duration_hours'  => 0.08333,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Cloud%20Practitioner%20Essentials%20-%20Course%20Introduction.png',
                 'link'            => null,
@@ -815,14 +1169,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 4,
-                'name'            => 'AWS Compute Services Overview',
-                'slug'            => 'aws-compute-services-overview',
+                'name' => 'AWS Compute Services Overview',
+                'slug' => 'aws-compute-services-overview',
                 'completed'       => 1,
                 'completion_date' => '2019-05-14',
                 'year'            => 2019,
                 'duration_hours'  => 0.08333,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Compute%20Services%20Overview.png',
                 'link'            => null,
@@ -830,14 +1184,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 5,
-                'name'            => 'AWS Database Services Overview',
-                'slug'            => 'aws-database-services-overview',
+                'name' => 'AWS Database Services Overview',
+                'slug' => 'aws-database-services-overview',
                 'completed'       => 1,
                 'completion_date' => '2019-05-08',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Database%20Services%20Overview.png',
                 'link'            => null,
@@ -845,14 +1199,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 6,
-                'name'            => 'AWS Shared Responsibility Model',
-                'slug'            => 'aws-shared-responsibility-model',
+                'name' => 'AWS Shared Responsibility Model',
+                'slug' => 'aws-shared-responsibility-model',
                 'completed'       => 1,
                 'completion_date' => '2019-06-12',
                 'year'            => 2019,
                 'duration_hours'  => 0.08333,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20AWS%20Shared%20Responsibility%20Model.png',
                 'link'            => null,
@@ -860,14 +1214,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 7,
-                'name'            => 'Introduction to AWS Auto Scaling',
-                'slug'            => 'introduction-to-aws-auto-scaling',
+                'name' => 'Introduction to AWS Auto Scaling',
+                'slug' => 'introduction-to-aws-auto-scaling',
                 'completed'       => 1,
                 'completion_date' => '2019-05-06',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Auto%20Scaling.png',
                 'link'            => null,
@@ -875,14 +1229,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 8,
-                'name'            => 'Introduction to AWS Backup',
-                'slug'            => 'introduction-to-aws-backup',
+                'name' => 'Introduction to AWS Backup',
+                'slug' => 'introduction-to-aws-backup',
                 'completed'       => 1,
                 'completion_date' => '2019-05-13',
                 'year'            => 2019,
                 'duration_hours'  => 0.33333,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Backup.png',
                 'link'            => null,
@@ -890,14 +1244,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 9,
-                'name'            => 'Introduction to AWS Device Farm',
-                'slug'            => 'introduction-to-aws-device-farm',
+                'name' => 'Introduction to AWS Device Farm',
+                'slug' => 'introduction-to-aws-device-farm',
                 'completed'       => 1,
                 'completion_date' => '2019-06-12',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Device%20Farm.png',
                 'link'            => null,
@@ -905,14 +1259,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 10,
-                'name'            => 'Introduction to AWS Fargate',
-                'slug'            => 'introduction-to-aws-fargate',
+                'name' => 'Introduction to AWS Fargate',
+                'slug' => 'introduction-to-aws-fargate',
                 'completed'       => 1,
                 'completion_date' => '2019-05-14',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Fargate.png',
                 'link'            => null,
@@ -920,14 +1274,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 11,
-                'name'            => 'Introduction to AWS Import/Export',
-                'slug'            => 'introduction-to-aws-import-export',
+                'name' => 'Introduction to AWS Import/Export',
+                'slug' => 'introduction-to-aws-import-export',
                 'completed'       => 1,
                 'completion_date' => '2019-05-13',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Import-Export.png',
                 'link'            => null,
@@ -935,14 +1289,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 12,
-                'name'            => 'Introduction to AWS Snowball',
-                'slug'            => 'introduction-to-aws-snowball',
+                'name' => 'Introduction to AWS Snowball',
+                'slug' => 'introduction-to-aws-snowball',
                 'completed'       => 1,
                 'completion_date' => '2019-05-13',
                 'year'            => 2019,
                 'duration_hours'  => 0.08333,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Snowball.png',
                 'link'            => null,
@@ -950,14 +1304,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 13,
-                'name'            => 'Introduction to AWS Snowballmobile',
-                'slug'            => 'introduction-to-aws-snowballmobile',
+                'name' => 'Introduction to AWS Snowballmobile',
+                'slug' => 'introduction-to-aws-snowballmobile',
                 'completed'       => 1,
                 'completion_date' => '2019-05-13',
                 'year'            => 2019,
                 'duration_hours'  => 0.08333,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Snowmobile.png',
                 'link'            => null,
@@ -965,14 +1319,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 14,
-                'name'            => 'Introduction to AWS Storage Gateway',
-                'slug'            => 'introduction-to-aws-storage-gateway',
+                'name' => 'Introduction to AWS Storage Gateway',
+                'slug' => 'introduction-to-aws-storage-gateway',
                 'completed'       => 1,
                 'completion_date' => '2019-05-13',
                 'year'            => 2019,
                 'duration_hours'  => 0.08333,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Storage%20Gateway.png',
                 'link'            => null,
@@ -980,14 +1334,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 15,
-                'name'            => 'Introduction to Amazon Aurora',
-                'slug'            => 'introduction-to-amazon-aurora',
+                'name' => 'Introduction to Amazon Aurora',
+                'slug' => 'introduction-to-amazon-aurora',
                 'completed'       => 1,
                 'completion_date' => '2019-05-09',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Aurora.png',
                 'link'            => null,
@@ -995,14 +1349,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 16,
-                'name'            => 'Introduction the EC2 Systems Manager',
-                'slug'            => 'introduction-the-ec2-systems-manager',
+                'name' => 'Introduction the EC2 Systems Manager',
+                'slug' => 'introduction-the-ec2-systems-manager',
                 'completed'       => 1,
                 'completion_date' => '2019-07-14',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20EC2%20Systems%20Manager.png',
                 'link'            => null,
@@ -1010,14 +1364,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 17,
-                'name'            => 'Introduction to ElastiCache',
-                'slug'            => 'introduction-to-elasticache',
+                'name' => 'Introduction to ElastiCache',
+                'slug' => 'introduction-to-elasticache',
                 'completed'       => 1,
                 'completion_date' => '2019-05-10',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20ElastiCache.png',
                 'link'            => null,
@@ -1025,14 +1379,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 18,
-                'name'            => 'Introduction to Amazon Elastic Block Store (EBS)',
-                'slug'            => 'introduction-to-amazon-elastic-block-store-(ebs)',
+                'name' => 'Introduction to Amazon Elastic Block Store (EBS)',
+                'slug' => 'introduction-to-amazon-elastic-block-store-(ebs)',
                 'completed'       => 1,
                 'completion_date' => '2019-05-10',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20Block%20Storage%20-%20EBS.png',
                 'link'            => null,
@@ -1040,14 +1394,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 19,
-                'name'            => 'Introduction to Amazon Elastic Compute Cloud (EC2)',
-                'slug'            => 'introduction-to-amazon-elastic-compute-cloud-(ec2)',
+                'name' => 'Introduction to Amazon Elastic Compute Cloud (EC2)',
+                'slug' => 'introduction-to-amazon-elastic-compute-cloud-(ec2)',
                 'completed'       => 1,
                 'completion_date' => '2019-05-06',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20Compute%20Cloud%20-%20EC2.png',
                 'link'            => null,
@@ -1055,14 +1409,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 20,
-                'name'            => 'Introduction to Amazon Elastic File System (EFS)',
-                'slug'            => 'introduction-to-amazon-elastic-file-system-(efs)',
+                'name' => 'Introduction to Amazon Elastic File System (EFS)',
+                'slug' => 'introduction-to-amazon-elastic-file-system-(efs)',
                 'completed'       => 1,
                 'completion_date' => '2019-05-10',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20File%20System%20-%20EFS.png',
                 'link'            => null,
@@ -1070,14 +1424,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 21,
-                'name'            => 'Introduction to Amazon Elastic Load Balancer - Classic',
-                'slug'            => 'introduction-to-amazon-elastic-load-balancer-classic',
+                'name' => 'Introduction to Amazon Elastic Load Balancer - Classic',
+                'slug' => 'introduction-to-amazon-elastic-load-balancer-classic',
                 'completed'       => 1,
                 'completion_date' => '2019-06-12',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Elastic%20Load%20Balancer%20-%20Classic.png',
                 'link'            => null,
@@ -1085,14 +1439,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 22,
-                'name'            => 'Introduction to Amazon FSx for Lustre',
-                'slug'            => 'introduction-to-amazon-fsx-for-lustre',
+                'name' => 'Introduction to Amazon FSx for Lustre',
+                'slug' => 'introduction-to-amazon-fsx-for-lustre',
                 'completed'       => 1,
                 'completion_date' => '2019-05-13',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20FSx%20for%20Lustre.png',
                 'link'            => null,
@@ -1100,14 +1454,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 23,
-                'name'            => 'Introduction to Amazon FSx for Windows File Server',
-                'slug'            => 'introduction-to-amazon-fsx-for-windows-file-server',
+                'name' => 'Introduction to Amazon FSx for Windows File Server',
+                'slug' => 'introduction-to-amazon-fsx-for-windows-file-server',
                 'completed'       => 1,
                 'completion_date' => '2019-05-10',
                 'year'            => 2019,
                 'duration_hours'  => 0.33333,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20FSx%20for%20Windows%20File%20Server.png',
                 'link'            => null,
@@ -1115,14 +1469,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 24,
-                'name'            => 'Introduction to Amazon Glacier',
-                'slug'            => 'introduction-to-amazon-glacier',
+                'name' => 'Introduction to Amazon Glacier',
+                'slug' => 'introduction-to-amazon-glacier',
                 'completed'       => 1,
                 'completion_date' => '2019-05-13',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Glacier.png',
                 'link'            => null,
@@ -1130,14 +1484,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 25,
-                'name'            => 'Introduction to Amazon Redshift',
-                'slug'            => 'introduction-to-amazon-redshift',
+                'name' => 'Introduction to Amazon Redshift',
+                'slug' => 'introduction-to-amazon-redshift',
                 'completed'       => 1,
                 'completion_date' => '2019-05-10',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Redshift.png',
                 'link'            => null,
@@ -1145,14 +1499,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 26,
-                'name'            => 'Introduction to Amazon Relational Database Service (RDS)',
-                'slug'            => 'introduction-to-amazon-relational-database-service-(rds)',
+                'name' => 'Introduction to Amazon Relational Database Service (RDS)',
+                'slug' => 'introduction-to-amazon-relational-database-service-(rds)',
                 'completed'       => 1,
                 'completion_date' => '2019-05-08',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Relational%20Database%20Service%20-%20RDS.png',
                 'link'            => null,
@@ -1160,14 +1514,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 27,
-                'name'            => 'Introduction to Amazon S3',
-                'slug'            => 'introduction-to-amazon-s3',
+                'name' => 'Introduction to Amazon S3',
+                'slug' => 'introduction-to-amazon-s3',
                 'completed'       => 1,
                 'completion_date' => '2019-05-06',
                 'year'            => 2019,
                 'duration_hours'  => 0.25,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20S3.png',
                 'link'            => null,
@@ -1175,14 +1529,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 28,
-                'name'            => 'Introduction to Amazon Simple Storage Service (S3)',
-                'slug'            => 'introduction-to-amazon-simple-storage-service-(s3)',
+                'name' => 'Introduction to Amazon Simple Storage Service (S3)',
+                'slug' => 'introduction-to-amazon-simple-storage-service-(s3)',
                 'completed'       => 1,
                 'completion_date' => '2019-05-10',
                 'year'            => 2019,
                 'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Simple%20Storage%20Service%20-%20S3.png',
                 'link'            => null,
@@ -1190,14 +1544,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 29,
-                'name'            => 'PostgreSQL Fundamentals',
-                'slug'            => 'postgresql-fundamentals',
+                'name' => 'PostgreSQL Fundamentals',
+                'slug' => 'postgresql-fundamentals',
                 'completed'       => 1,
                 'completion_date' => '2019-05-08',
                 'year'            => 2019,
                 'duration_hours'  => 0.33333,
-                'academy_id'      => 9,
-                'instructor'      => '',
+                'academy_id' => 9,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20PostgreSQL%20Fundamentals.png',
                 'link'            => null,
@@ -1205,14 +1559,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 30,
-                'name'            => 'Foundations of Cybersecurity',
-                'slug'            => 'foundations-of-cybersecurity',
+                'name' => 'Foundations of Cybersecurity',
+                'slug' => 'foundations-of-cybersecurity',
                 'completed'       => 1,
                 'completion_date' => '2023-06-14',
                 'year'            => 2023,
                 'duration_hours'  => 10,
-                'academy_id'      => 2,
-                'instructor'      => '',
+                'academy_id' => 2,
+                'instructor' => '',
                 'sponsor'         => 'Google',
                 'certificate_url' => 'images/admin/portfolio/2/course/RS62SKVP89SG.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/RS62SKVP89SG',
@@ -1220,14 +1574,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 31,
-                'name'            => 'Play It Safer: Manage Security Risks',
-                'slug'            => 'play-it-safer-manage-security-risks',
+                'name' => 'Play It Safer: Manage Security Risks',
+                'slug' => 'play-it-safer-manage-security-risks',
                 'completed'       => 1,
                 'completion_date' => '2023-06-17',
                 'year'            => 2023,
                 'duration_hours'  => 9,
-                'academy_id'      => 2,
-                'instructor'      => '',
+                'academy_id' => 2,
+                'instructor' => '',
                 'sponsor'         => 'Google',
                 'certificate_url' => 'images/admin/portfolio/2/course/52BCA2UWTHPE.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/52BCA2UWTHPE',
@@ -1235,14 +1589,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 32,
-                'name'            => 'Connect and Protect: Networks and Network Security',
-                'slug'            => 'connect-and-protect-networks-and-network-security',
+                'name' => 'Connect and Protect: Networks and Network Security',
+                'slug' => 'connect-and-protect-networks-and-network-security',
                 'completed'       => 1,
                 'completion_date' => '2023-06-25',
                 'year'            => 2023,
                 'duration_hours'  => 11,
-                'academy_id'      => 2,
-                'instructor'      => '',
+                'academy_id' => 2,
+                'instructor' => '',
                 'sponsor'         => 'Google',
                 'certificate_url' => 'images/admin/portfolio/2/course/MUUFRJW2JK7G.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/MUUFRJW2JK7G',
@@ -1250,14 +1604,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 33,
-                'name'            => 'Tools of the Trade: Linux and SQL',
-                'slug'            => 'tools-of-the-Trade-linux-and-sql',
+                'name' => 'Tools of the Trade: Linux and SQL',
+                'slug' => 'tools-of-the-Trade-linux-and-sql',
                 'completed'       => 1,
                 'completion_date' => '2023-06-29',
                 'year'            => 2023,
                 'duration_hours'  => 23,
-                'academy_id'      => 2,
-                'instructor'      => '',
+                'academy_id' => 2,
+                'instructor' => '',
                 'sponsor'         => 'Google',
                 'certificate_url' => 'images/admin/portfolio/2/course/KFJC8C2ZLQPU.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/KFJC8C2ZLQPU',
@@ -1265,14 +1619,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 34,
-                'name'            => 'Assets, Threats, and Vulnerabilities',
-                'slug'            => 'assets-threats-and-vulnerabilities',
+                'name' => 'Assets, Threats, and Vulnerabilities',
+                'slug' => 'assets-threats-and-vulnerabilities',
                 'completed'       => 1,
                 'completion_date' => '2023-07-03',
                 'year'            => 2023,
                 'duration_hours'  => 19,
-                'academy_id'      => 2,
-                'instructor'      => '',
+                'academy_id' => 2,
+                'instructor' => '',
                 'sponsor'         => 'Google',
                 'certificate_url' => 'images/admin/portfolio/2/course/DWKGKVVLFE9F.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/DWKGKVVLFE9F',
@@ -1280,14 +1634,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 35,
-                'name'            => 'Sound the Alarm: Detection and Response',
-                'slug'            => 'sound-the-alarm-detection-and-response',
+                'name' => 'Sound the Alarm: Detection and Response',
+                'slug' => 'sound-the-alarm-detection-and-response',
                 'completed'       => 1,
                 'completion_date' => '2023-07-06',
                 'year'            => 2023,
                 'duration_hours'  => 18,
-                'academy_id'      => 2,
-                'instructor'      => '',
+                'academy_id' => 2,
+                'instructor' => '',
                 'sponsor'         => 'Google',
                 'certificate_url' => 'images/admin/portfolio/2/course/LK8958ER9X7D.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/LK8958ER9X7D',
@@ -1295,14 +1649,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 36,
-                'name'            => 'Automate Cybersecurity Tasks with Python',
-                'slug'            => 'automate-cybersecurity-tasks-with-python',
+                'name' => 'Automate Cybersecurity Tasks with Python',
+                'slug' => 'automate-cybersecurity-tasks-with-python',
                 'completed'       => 1,
                 'completion_date' => '2023-07-09',
                 'year'            => 2023,
                 'duration_hours'  => null,
-                'academy_id'      => 2,
-                'instructor'      => '',
+                'academy_id' => 2,
+                'instructor' => '',
                 'sponsor'         => 'Google',
                 'certificate_url' => 'images/admin/portfolio/2/course/64K4C9WZSJQ.png',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/64K4C9WZSJQ',
@@ -1310,14 +1664,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 37,
-                'name'            => 'JavaScript Foundations',
-                'slug'            => 'javascript-foundations',
+                'name' => 'JavaScript Foundations',
+                'slug' => 'javascript-foundations',
                 'completed'       => 1,
                 'completion_date' => '2015-09-22',
                 'year'            => 2015,
                 'duration_hours'  => null,
-                'academy_id'      => 3,
-                'instructor'      => '',
+                'academy_id' => 3,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'images/admin/portfolio/2/course/javascript-foundations.png',
                 'link'            => null,
@@ -1325,14 +1679,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 38,
-                'name'            => 'Responsive Web Design',
-                'slug'            => 'responsive-web-design',
+                'name' => 'Responsive Web Design',
+                'slug' => 'responsive-web-design',
                 'completed'       => 1,
                 'completion_date' => '2015-09-17',
                 'year'            => 2015,
                 'duration_hours'  => null,
-                'academy_id'      => 3,
-                'instructor'      => '',
+                'academy_id' => 3,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'images/admin/portfolio/2/course/responsive-web-design.png',
                 'link'            => null,
@@ -1340,14 +1694,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 39,
-                'name'            => 'University M042: New Features and Tools in MongoDB 4.2',
-                'slug'            => 'university-m042-new-features-and-tools-in-mongodb-4-2',
+                'name' => 'University M042: New Features and Tools in MongoDB 4.2',
+                'slug' => 'university-m042-new-features-and-tools-in-mongodb-4-2',
                 'completed'       => 1,
                 'completion_date' => '2019-06-18',
                 'year'            => 2019,
                 'duration_hours'  => 0,
-                'academy_id'      => 5,
-                'instructor'      => '',
+                'academy_id' => 5,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBz9qkj8zq9r.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-ddc8ff8d-66fe-5f98-9677-854db66c6cf9-certificate.pdf',
@@ -1355,14 +1709,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 40,
-                'name'            => 'M310: MongoDB Security',
-                'slug'            => 'm310-mongodb-security',
+                'name' => 'M310: MongoDB Security',
+                'slug' => 'm310-mongodb-security',
                 'completed'       => 1,
                 'completion_date' => '2019-06-03',
                 'year'            => 2019,
                 'duration_hours'  => 0,
-                'academy_id'      => 5,
-                'instructor'      => '',
+                'academy_id' => 5,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBh4n25xp9f3.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-cb169d9d-f28b-5cfc-98ae-6849d44e9e45-certificate.pdf',
@@ -1371,14 +1725,14 @@ class InitializeCraigzearfoss extends Command
 
             [
                 'id'              => 41,
-                'name'            => 'M312: Diagnostics and Debugging',
-                'slug'            => 'm312-diagnostics-and-debugging',
+                'name' => 'M312: Diagnostics and Debugging',
+                'slug' => 'm312-diagnostics-and-debugging',
                 'completed'       => 1,
                 'completion_date' => '2019-06-03',
                 'year'            => 2019,
                 'duration_hours'  => 0,
-                'academy_id'      => 5,
-                'instructor'      => '',
+                'academy_id' => 5,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'images/admin/portfolio/2/course/MDB4llntcxgsw.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-28e6dfda-043f-5c82-a2ad-ff1aa0b4091f-certificate.pdf',
@@ -1386,14 +1740,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 42,
-                'name'            => 'M201: MongoDB Performance',
-                'slug'            => 'm201-mongodb-performance',
+                'name' => 'M201: MongoDB Performance',
+                'slug' => 'm201-mongodb-performance',
                 'completed'       => 1,
                 'completion_date' => '2019-04-24',
                 'year'            => 2019,
                 'duration_hours'  => 0,
-                'academy_id'      => 5,
-                'instructor'      => '',
+                'academy_id' => 5,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'images/admin/portfolio/2/course/MDB5u800z5l3u.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-f04e21f1-2b5f-588f-a921-14605013fb42-certificate.pdf',
@@ -1401,14 +1755,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 43,
-                'name'            => 'M121: The MongoDB Aggregation Framework',
-                'slug'            => 'm121-the-mongodb-aggregation-framework',
+                'name' => 'M121: The MongoDB Aggregation Framework',
+                'slug' => 'm121-the-mongodb-aggregation-framework',
                 'completed'       => 1,
                 'completion_date' => '2019-04-21',
                 'year'            => 2019,
                 'duration_hours'  => 0,
-                'academy_id'      => 5,
-                'instructor'      => '',
+                'academy_id' => 5,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBz9qkj8zq9r.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-ddc8ff8d-66fe-5f98-9677-854db66c6cf9-certificate.pdf',
@@ -1416,14 +1770,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 44,
-                'name'            => 'M220JS: MongoDB for JavaScript Developers',
-                'slug'            => 'm220js-mongodb-for-javaScript-developers',
+                'name' => 'M220JS: MongoDB for JavaScript Developers',
+                'slug' => 'm220js-mongodb-for-javaScript-developers',
                 'completed'       => 1,
                 'completion_date' => '2019-03-30',
                 'year'            => 2019,
                 'duration_hours'  => 0,
-                'academy_id'      => 5,
-                'instructor'      => '',
+                'academy_id' => 5,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBvcjb83odqk.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-5fc17da8-4f83-5c1d-9e13-18c046833329-certificate.pdf',
@@ -1431,14 +1785,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 45,
-                'name'            => 'M103: Basic Cluster Administration',
-                'slug'            => 'm103-basic-cluster-administration',
+                'name' => 'M103: Basic Cluster Administration',
+                'slug' => 'm103-basic-cluster-administration',
                 'completed'       => 1,
                 'completion_date' => '2019-03-12',
                 'year'            => 2019,
                 'duration_hours'  => 0,
-                'academy_id'      => 5,
-                'instructor'      => '',
+                'academy_id' => 5,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'images/admin/portfolio/2/course/MDBzmzrrpzzin.pdf',
                 'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-b3ac9b75-0c7b-51ea-8cd0-b250bf0a2bcc-certificate.pdf',
@@ -1446,14 +1800,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 46,
-                'name'            => 'M001: MongoDB Basics ',
-                'slug'            => 'm001-mongodb-basics',
+                'name' => 'M001: MongoDB Basics ',
+                'slug' => 'm001-mongodb-basics',
                 'completed'       => 1,
                 'completion_date' => '2019-03-12',
                 'year'            => 2019,
                 'duration_hours'  => 0,
-                'academy_id'      => 5,
-                'instructor'      => '',
+                'academy_id' => 5,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'images/admin/portfolio/2/course/MDB0elknbkm6j.pdf',
                 'link'            => 'learn.mongodb.com/learn/certificates/university-m001-mongob-basics?userId=63744623-417f-5e55-8d5c-c09650679c4d&id=2dc804a7-34d3-5ed1-b3de-750819bdb3c4',
@@ -1461,14 +1815,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 47,
-                'name'            => 'Learn CSS Animations',
-                'slug'            => 'learn-css-animations',
+                'name' => 'Learn CSS Animations',
+                'slug' => 'learn-css-animations',
                 'completed'       => 1,
                 'completion_date' => '2020-06-17',
                 'year'            => 2020,
                 'duration_hours'  => 0,
-                'academy_id'      => 6,
-                'instructor'      => '',
+                'academy_id' => 6,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Learn%20CSS%20Animations.png',
                 'link'            => null,
@@ -1476,14 +1830,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 48,
-                'name'            => 'Build Tic Tac Toe with React Hooks',
-                'slug'            => 'build-tic-tac-toe-with-react-hooks',
+                'name' => 'Build Tic Tac Toe with React Hooks',
+                'slug' => 'build-tic-tac-toe-with-react-hooks',
                 'completed'       => 1,
                 'completion_date' => '2020-06-07',
                 'year'            => 2020,
                 'duration_hours'  => 0,
-                'academy_id'      => 6,
-                'instructor'      => '',
+                'academy_id' => 6,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Build%20Tic%20Tac%20Toe%20with%20React%20Hooks.png',
                 'link'            => null,
@@ -1491,14 +1845,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 49,
-                'name'            => 'Build a movie search app in React',
-                'slug'            => 'build-a-movie-search-app-in-react',
+                'name' => 'Build a movie search app in React',
+                'slug' => 'build-a-movie-search-app-in-react',
                 'completed'       => 1,
                 'completion_date' => '2020-06-02',
                 'year'            => 2020,
                 'duration_hours'  => 0,
-                'academy_id'      => 6,
-                'instructor'      => '',
+                'academy_id' => 6,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Build%20a%20movie%20search%20app%20in%20React.png',
                 'link'            => null,
@@ -1506,14 +1860,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 50,
-                'name'            => 'Learn React Hooks In One Hour',
-                'slug'            => 'learn-react-hooks-in-one-hour',
+                'name' => 'Learn React Hooks In One Hour',
+                'slug' => 'learn-react-hooks-in-one-hour',
                 'completed'       => 1,
                 'completion_date' => '2020-02-17',
                 'year'            => 2020,
                 'duration_hours'  => 0,
-                'academy_id'      => 6,
-                'instructor'      => '',
+                'academy_id' => 6,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/Scrimba%20-%20Learn%20React%20Hooks%20In%20One%20Hour.png',
                 'link'            => null,
@@ -1521,14 +1875,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 51,
-                'name'            => 'Introduction to ES6',
-                'slug'            => 'introduction-to-eS6',
+                'name' => 'Introduction to ES6',
+                'slug' => 'introduction-to-eS6',
                 'completed'       => 1,
                 'completion_date' => '2019-03-09',
                 'year'            => 2020,
                 'duration_hours'  => 0,
-                'academy_id'      => 7,
-                'instructor'      => '',
+                'academy_id' => 7,
+                'instructor' => '',
                 'sponsor'         => '',
                 'certificate_url' => 'images/admin/portfolio/2/course/sitepoint-introduction-to-es6.png',
                 'link'            => null,  // not found https://www.sitepoint.com/premium/cert/77e357ad4e843374
@@ -1536,14 +1890,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 52,
-                'name'            => 'AWS Certified Cloud Practitioner online course',
-                'slug'            => 'aws-certified-cloud-practitioner-online-course',
+                'name' => 'AWS Certified Cloud Practitioner online course',
+                'slug' => 'aws-certified-cloud-practitioner-online-course',
                 'completed'       => 1,
                 'completion_date' => '2019-05-01',
                 'year'            => 2019,
                 'duration_hours'  => 9,
-                'academy_id'      => 8,
-                'instructor'      => 'Alan Rodrigues',
+                'academy_id' => 8,
+                'instructor' => 'Alan Rodrigues',
                 'sponsor'         => '',
                 'certificate_url' => 'https://ude.my/UC-KBO1JBPE',
                 'link'            => null,
@@ -1551,14 +1905,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 53,
-                'name'            => 'Apple Mac Basics - The Complete Course for Beginners',
-                'slug'            => 'apple-mac-basics-the-complete-course-for-beginners',
+                'name' => 'Apple Mac Basics - The Complete Course for Beginners',
+                'slug' => 'apple-mac-basics-the-complete-course-for-beginners',
                 'completed'       => 1,
                 'completion_date' => '2023-07-30',
                 'year'            => 2023,
                 'duration_hours'  => 3,
-                'academy_id'      => 8,
-                'instructor'      => '',
+                'academy_id' => 8,
+                'instructor' => '',
                 'sponsor'         => 'Colin Marks',
                 'certificate_url' => 'https://ude.my/UC-07ca111c-1cac-48f5-9838-4c277d7d4485',
                 'link'            => null,
@@ -1566,14 +1920,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 54,
-                'name'            => 'CodeIgniter 4 - Beginner to Expert',
-                'slug'            => 'codeigniter-4-beginner-to-expert',
+                'name' => 'CodeIgniter 4 - Beginner to Expert',
+                'slug' => 'codeigniter-4-beginner-to-expert',
                 'completed'       => 1,
                 'completion_date' => '2021-06-01',
                 'year'            => 2021,
                 'duration_hours'  => 2.5,
-                'academy_id'      => 8,
-                'instructor'      => 'David Navarro Lõpez',
+                'academy_id' => 8,
+                'instructor' => 'David Navarro Lõpez',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-02e72577-9ba3-420e-ae5a-9bd0744e5410',
                 'link'            => null,
@@ -1581,14 +1935,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 55,
-                'name'            => 'CodeIgniter 4: Build a Compete Web Application from Scratch',
-                'slug'            => 'codeigniter-4-build-a-compete-web-application-from-scratch',
+                'name' => 'CodeIgniter 4: Build a Compete Web Application from Scratch',
+                'slug' => 'codeigniter-4-build-a-compete-web-application-from-scratch',
                 'completed'       => 1,
                 'completion_date' => null,
                 'year'            => 2000,
                 'duration_hours'  => 10,
-                'academy_id'      => 8,
-                'instructor'      => 'Dave Hollingworth',
+                'academy_id' => 8,
+                'instructor' => 'Dave Hollingworth',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-242b0dd4-0281-459c-bf98-54171bf64b05',
                 'link'            => null,
@@ -1596,14 +1950,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 56,
-                'name'            => 'Docker for the Absolute Beginner - Hands On - DevOps',
-                'slug'            => 'docker-for-the-absolute-beginner-hands-on-devops',
+                'name' => 'Docker for the Absolute Beginner - Hands On - DevOps',
+                'slug' => 'docker-for-the-absolute-beginner-hands-on-devops',
                 'completed'       => 1,
                 'completion_date' => '2020-03-24',
                 'year'            => 2020,
                 'duration_hours'  => 4.5,
-                'academy_id'      => 8,
-                'instructor'      => 'Mumshad Mannambeth',
+                'academy_id' => 8,
+                'instructor' => 'Mumshad Mannambeth',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-374a4848-1715-4b4f-8cc2-eca24dbf74d0',
                 'link'            => null,
@@ -1611,14 +1965,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 57,
-                'name'            => 'How to Get a Job in Web Development',
-                'slug'            => 'how-to-get-a-job-in-web-development',
+                'name' => 'How to Get a Job in Web Development',
+                'slug' => 'how-to-get-a-job-in-web-development',
                 'completed'       => 1,
                 'completion_date' => '2020-04-12',
                 'year'            => 2020,
                 'duration_hours'  => 2,
-                'academy_id'      => 8,
-                'instructor'      => 'RealTough Candy',
+                'academy_id' => 8,
+                'instructor' => 'RealTough Candy',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-a381561e-e6e3-48ec-884b-589070ef3962',
                 'link'            => null,
@@ -1626,14 +1980,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 58,
-                'name'            => 'How to easily Manage Your WordPress Website',
-                'slug'            => 'how-to-easily-manage-your-wordpress-website',
+                'name' => 'How to easily Manage Your WordPress Website',
+                'slug' => 'how-to-easily-manage-your-wordpress-website',
                 'completed'       => 1,
                 'completion_date' => '2016-02-16',
                 'year'            => 2016,
                 'duration_hours'  => 0,
-                'academy_id'      => 8,
-                'instructor'      => 'Erin Flynn',
+                'academy_id' => 8,
+                'instructor' => 'Erin Flynn',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-INJ6D45T',
                 'link'            => null,
@@ -1641,14 +1995,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 59,
-                'name'            => 'IP Addressing and Subnetting',
-                'slug'            => 'ip-addressing-and-subnetting',
+                'name' => 'IP Addressing and Subnetting',
+                'slug' => 'ip-addressing-and-subnetting',
                 'completed'       => 1,
                 'completion_date' => '2016-06-16',
                 'year'            => 2016,
                 'duration_hours'  => 3.5,
-                'academy_id'      => 8,
-                'instructor'      => 'sikandar Shaik',
+                'academy_id' => 8,
+                'instructor' => 'sikandar Shaik',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-YUC36HUA',
                 'link'            => null,
@@ -1656,14 +2010,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 60,
-                'name'            => 'Introduction to AWS EC2',
-                'slug'            => 'introduction-to-aws-ec2',
+                'name' => 'Introduction to AWS EC2',
+                'slug' => 'introduction-to-aws-ec2',
                 'completed'       => 1,
                 'completion_date' => '2016-02-12',
                 'year'            => 2016,
                 'duration_hours'  => 0,
-                'academy_id'      => 8,
-                'instructor'      => 'Infinite Skills',
+                'academy_id' => 8,
+                'instructor' => 'Infinite Skills',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-Z8I0FZNQ',
                 'link'            => null,
@@ -1671,14 +2025,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 61,
-                'name'            => 'Learn Angular JS for Beginners',
-                'slug'            => 'learn-angular-js-for-beginners',
+                'name' => 'Learn Angular JS for Beginners',
+                'slug' => 'learn-angular-js-for-beginners',
                 'completed'       => 1,
                 'completion_date' => '2015-12-29',
                 'year'            => 2015,
                 'duration_hours'  => 0,
-                'academy_id'      => 8,
-                'instructor'      => 'EDUMobile Academy',
+                'academy_id' => 8,
+                'instructor' => 'EDUMobile Academy',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-R1F91C9Z',
                 'link'            => null,
@@ -1686,14 +2040,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 62,
-                'name'            => 'Learn Linux the Easy Way',
-                'slug'            => 'learn-linux-the-easy-way',
+                'name' => 'Learn Linux the Easy Way',
+                'slug' => 'learn-linux-the-easy-way',
                 'completed'       => 1,
                 'completion_date' => '2021-07-07',
                 'year'            => 2021,
                 'duration_hours'  => 4.5,
-                'academy_id'      => 8,
-                'instructor'      => 'Muhammed Navas',
+                'academy_id' => 8,
+                'instructor' => 'Muhammed Navas',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-ff3519ca-b81c-4e00-ab52-60ccf6028d06',
                 'link'            => null,
@@ -1701,14 +2055,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 63,
-                'name'            => 'Learn Python Programming From Scratch',
-                'slug'            => 'learn-python-programming-from-scratch',
+                'name' => 'Learn Python Programming From Scratch',
+                'slug' => 'learn-python-programming-from-scratch',
                 'completed'       => 1,
                 'completion_date' => '2020-04-25',
                 'year'            => 2020,
                 'duration_hours'  => 6.5,
-                'academy_id'      => 8,
-                'instructor'      => 'Eduonix Learning Solution',
+                'academy_id' => 8,
+                'instructor' => 'Eduonix Learning Solution',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-72f079ac-e4de-47d9-ae85-f24f5d630159',
                 'link'            => null,
@@ -1716,14 +2070,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 64,
-                'name'            => 'Learn and Understand AngularJS',
-                'slug'            => 'learn-and-understand-angularjs',
+                'name' => 'Learn and Understand AngularJS',
+                'slug' => 'learn-and-understand-angularjs',
                 'completed'       => 1,
                 'completion_date' => '2020-04-28',
                 'year'            => 2020,
                 'duration_hours'  => 0,
-                'academy_id'      => 8,
-                'instructor'      => 'Anthony Alicea',
+                'academy_id' => 8,
+                'instructor' => 'Anthony Alicea',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-f61996b5-c4c9-4551-bb10-29aaa7c5bcde',
                 'link'            => null,
@@ -1731,14 +2085,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 65,
-                'name'            => 'Linux Command Line Basics',
-                'slug'            => 'linux-command-line-basics',
+                'name' => 'Linux Command Line Basics',
+                'slug' => 'linux-command-line-basics',
                 'completed'       => 1,
                 'completion_date' => '2019-03-19',
                 'year'            => 2000,
                 'duration_hours'  => 5,
-                'academy_id'      => 8,
-                'instructor'      => 'Ahmed Alkbaray',
+                'academy_id' => 8,
+                'instructor' => 'Ahmed Alkbaray',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-BQ55MYKN',
                 'link'            => null,
@@ -1746,14 +2100,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 66,
-                'name'            => 'Master Microsoft Outlook - Outlook from Beginner to Advanced',
-                'slug'            => 'master-microsoft-outlook-outlook-from-bBeginner-to-advanced',
+                'name' => 'Master Microsoft Outlook - Outlook from Beginner to Advanced',
+                'slug' => 'master-microsoft-outlook-outlook-from-bBeginner-to-advanced',
                 'completed'       => 1,
                 'completion_date' => '2021-07-07',
                 'year'            => 2021,
                 'duration_hours'  => 14.5,
-                'academy_id'      => 8,
-                'instructor'      => 'Kirt Kershaw',
+                'academy_id' => 8,
+                'instructor' => 'Kirt Kershaw',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-6b64edb0-2cad-4fc6-935a-207b64b743d5',
                 'link'            => null,
@@ -1761,14 +2115,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 67,
-                'name'            => 'Mastering Microsoft Teams (2020)',
-                'slug'            => 'mastering-microsoft-teams-(2020)',
+                'name' => 'Mastering Microsoft Teams (2020)',
+                'slug' => 'mastering-microsoft-teams-(2020)',
                 'completed'       => 1,
                 'completion_date' => '2021-07-21',
                 'year'            => 2021,
                 'duration_hours'  => 5.5,
-                'academy_id'      => 8,
-                'instructor'      => 'Chip Reaves',
+                'academy_id' => 8,
+                'instructor' => 'Chip Reaves',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-38ce2a2e-daeb-420e-aa4b-f70966e9756d',
                 'link'            => null,
@@ -1776,14 +2130,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 68,
-                'name'            => 'Node, SQL & PosgreSQL - Mastering Backend Web Development',
-                'slug'            => 'node-sql-and-posgresql-mastering-backend-web-development',
+                'name' => 'Node, SQL & PosgreSQL - Mastering Backend Web Development',
+                'slug' => 'node-sql-and-posgresql-mastering-backend-web-development',
                 'completed'       => 1,
                 'completion_date' => '2019-05-11',
                 'year'            => 2019,
                 'duration_hours'  => 5,
-                'academy_id'      => 8,
-                'instructor'      => 'David Joseph Katz',
+                'academy_id' => 8,
+                'instructor' => 'David Joseph Katz',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-O8SY9NGJ',
                 'link'            => null,
@@ -1791,14 +2145,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 69,
-                'name'            => 'Web Hosting Fundamentals',
-                'slug'            => 'web-hosting-fundamentals',
+                'name' => 'Web Hosting Fundamentals',
+                'slug' => 'web-hosting-fundamentals',
                 'completed'       => 1,
                 'completion_date' => '2014-05-02',
                 'year'            => 2014,
                 'duration_hours'  => 0,
-                'academy_id'      => 8,
-                'instructor'      => 'Diego Cárdenas',
+                'academy_id' => 8,
+                'instructor' => 'Diego Cárdenas',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-85DMHWQJ',
                 'link'            => null,
@@ -1806,14 +2160,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 70,
-                'name'            => 'What are Geographic Information Systems - or What is GIS',
-                'slug'            => 'what-are-geographic-information-systems-or-what-is-gis',
+                'name' => 'What are Geographic Information Systems - or What is GIS',
+                'slug' => 'what-are-geographic-information-systems-or-what-is-gis',
                 'completed'       => 1,
                 'completion_date' => '2019-04-25',
                 'year'            => 2019,
                 'duration_hours'  => 2,
-                'academy_id'      => 8,
-                'instructor'      => 'Diego Cárdenas',
+                'academy_id' => 8,
+                'instructor' => 'Diego Cárdenas',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-XU9T4JHQ',
                 'link'            => null,
@@ -1821,14 +2175,14 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'              => 71,
-                'name'            => 'Laravel 11/12 - Multi-Guard Authentication System A-Z',
-                'slug'            => 'laravel-11-12-multi-guard-authentication-system-a-z',
+                'name' => 'Laravel 11/12 - Multi-Guard Authentication System A-Z',
+                'slug' => 'laravel-11-12-multi-guard-authentication-system-a-z',
                 'completed'       => 1,
                 'completion_date' => '2025-07-25',
                 'year'            => 2025,
                 'duration_hours'  => 6.5,
-                'academy_id'      => 2,
-                'instructor'      => 'Mustapha Jibril Muhammad',
+                'academy_id' => 2,
+                'instructor' => 'Mustapha Jibril Muhammad',
                 'sponsor'         => '',
                 'certificate_url' => 'http://ude.my/UC-50b102c5-21aa-40af-84f9-f9e63fd416cb',
                 'link'            => null,
@@ -1849,7 +2203,7 @@ class InitializeCraigzearfoss extends Command
             [
                 'id' => 1,
                 'company'     => 'Idaho National Laboratory',
-                'slug'        => 'idaho-national-laboratory-(senior-software-developer)',
+                'slug' => 'idaho-national-laboratory-(senior-software-developer)',
                 'role'        => 'Senior Software Developer',
                 'featured'    => 0,
                 'summary'     => 'Modernized and added new features to a ticketing system for monitoring cyber threats.',
@@ -1859,17 +2213,17 @@ class InitializeCraigzearfoss extends Command
                 'end_year'    => null,
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 3,
-                'city'        => 'Idaho Falls',
+                'city' => null, 'Idaho Falls',
                 'state_id'    => 13,
                 'country_id'  => 237,
                 'thumbnail'   => 'images/admin/2/portfolio/job/idaho_national_laboratory_logo.png',
-                'public'      => 1,
+                'public' => 1,
             ],
             [
-                'id'          => 2,
+                'id' => 2,
                 'company'     => '3M',
                 'role'        => 'Senior Software Engineer',
-                'slug'        => '3m-(senior-software-developer)',
+                'slug' => '3m-(senior-software-developer)',
                 'featured'    => 0,
                 'summary'     => 'Used a rules-based engine to validate 3M product data in an Elasticsearch database.',
                 'start_month' => 7,
@@ -1878,17 +2232,17 @@ class InitializeCraigzearfoss extends Command
                 'end_year'    => 2021,
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
-                'city'        => 'Maplewood',
+                'city' => null, 'Maplewood',
                 'state_id'    => 24,
                 'country_id'  => 237,
                 'thumbnail'   => 'images/admin/2/portfolio/job/3m_logo.png',
-                'public'      => 1,
+                'public' => 1,
             ],
             [
-                'id'          => 3,
+                'id' => 3,
                 'company'     => 'Questar Assessment Inc.',
                 'role'        => 'Senior Software Engineer',
-                'slug'        => 'questar-assessment-inc-(senior-software-engineer)',
+                'slug' => 'questar-assessment-inc-(senior-software-engineer)',
                 'featured'    => 0,
                 'summary'     => 'Modernized and added new features to an online exam authoring and delivery system used for state-wide exams.',
                 'start_month' => 9,
@@ -1897,17 +2251,17 @@ class InitializeCraigzearfoss extends Command
                 'end_year'    => 2019,
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
-                'city'        => 'Apple Valley',
+                'city' => null, 'Apple Valley',
                 'state_id'    => 24,
                 'country_id'  => 237,
                 'thumbnail'   => 'images/admin/2/portfolio/job/questar_logo.png',
-                'public'      => 1,
+                'public' => 1,
             ],
             [
-                'id'          => 4,
+                'id' => 4,
                 'company'     => 'Junta LLC',
                 'role'        => 'Senior Web Developer',
-                'slug'        => 'junta-llc-(senior-web-developer)',
+                'slug' => 'junta-llc-(senior-web-developer)',
                 'featured'    => 0,
                 'summary'     => 'Created and maintained high traffic multimedia websites.',
                 'start_month' => 2,
@@ -1916,17 +2270,17 @@ class InitializeCraigzearfoss extends Command
                 'end_year'    => 2016,
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
-                'city'        => 'Miami Beach',
+                'city' => null, 'Miami Beach',
                 'state_id'    => 10,
                 'country_id'  => 237,
                 'thumbnail'   => 'images/admin/2/portfolio/job/junta_logo.png',
-                'public'      => 1,
+                'public' => 1,
             ],
             [
-                'id'          => 5,
+                'id' => 5,
                 'company'     => 'Presens Technologies Ltd.',
                 'role'        => 'PHP Web Developer',
-                'slug'        => 'presens-technologies-ltd-(php-web-developer)',
+                'slug' => 'presens-technologies-ltd-(php-web-developer)',
                 'featured'    => 0,
                 'summary'     => 'Designed and implemented web-based leadership assessments.',
                 'start_month' => 11,
@@ -1935,17 +2289,17 @@ class InitializeCraigzearfoss extends Command
                 'end_year'    => 2009,
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
-                'city'        => 'Winston-Salem',
+                'city' => null, 'Winston-Salem',
                 'state_id'    => 34,
                 'country_id'  => 237,
                 'thumbnail'   => null,
-                'public'      => 1,
+                'public' => 1,
             ],
             [
-                'id'          => 6,
+                'id' => 6,
                 'company'     => 'Offut Systems',
                 'role'        => 'PHP Developer',
-                'slug'        => 'offut-systems-(php-developer)',
+                'slug' => 'offut-systems-(php-developer)',
                 'featured'    => 0,
                 'summary'     => 'Converted a Linux-based real estate application to Windows for remote agents.',
                 'start_month' => 4,
@@ -1954,17 +2308,17 @@ class InitializeCraigzearfoss extends Command
                 'end_year'    => 2006,
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
-                'city'        => 'Greensboro',
+                'city' => null, 'Greensboro',
                 'state_id'    => 34,
                 'country_id'  => 237,
                 'thumbnail'   => null,
-                'public'      => 1,
+                'public' => 1,
             ],
             [
-                'id'          => 7,
+                'id' => 7,
                 'company'     => 'IBM Desktop Systems / Lenovo',
                 'role' => 'Software Programmer/Analyst',
-                'slug'        => 'ibm-desktop-system-lenovo-(software-programmer-analyst)',
+                'slug' => 'ibm-desktop-system-lenovo-(software-programmer-analyst)',
                 'featured'    => 0,
                 'summary'     => 'Responsible for integrating vendor software for installation on OEM computer systems.',
                 'start_month' => 9,
@@ -1973,11 +2327,11 @@ class InitializeCraigzearfoss extends Command
                 'end_year'    => 2006,
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
-                'city'        => 'Durham',
+                'city' => null, 'Durham',
                 'state_id'    => 34,
                 'country_id'  => 237,
                 'thumbnail'   => 'images/admin/2/portfolio/job/ibm_logo.png',
-                'public'      => 1,
+                'public' => 1,
             ],
         ];
 
@@ -2009,7 +2363,7 @@ class InitializeCraigzearfoss extends Command
         $data = [
             [
                 'id'             => 1,
-                'parent_id'      => null,
+                'parent_id' => null,
                 'name'           => 'I\'m As Mad As Faust',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'im-as-mad-as-faust-by-zeb-frisbee',
@@ -2021,9 +2375,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1994,
                 'embed'          => null,
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://www.discogs.com/release/2931147-Zen-Frisbee-Im-As-Mad-As-Faust',
-                'link_name'      => 'Discogs',
+                'link_name' => 'Discogs',
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 0,
@@ -2031,7 +2385,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 2,
-                'parent_id'      => null,
+                'parent_id' => null,
                 'name'           => 'Haunted',
                 'artist'         => 'Family Dollar Pharaohs',
                 'slug'           => 'haunted-by-family-dollar-pharaohs',
@@ -2043,9 +2397,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0001',
                 'year'           => 1995,
                 'embed'          => null,
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://www.discogs.com/release/3266399-Family-Dollar-Pharaohs-Haunted',
-                'link_name'      => 'Discogs',
+                'link_name' => 'Discogs',
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/n54HD-J69ubJn1AThIihnRnxR590dlPK0dqtYuVpuI4/rs:fit/g:sm/q:90/h:239/w:240/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTMyNjYz/OTktMTQxNTg5NzM2/NC04NzIzLmpwZWc.jpeg',
                 'sequence'       => 2,
@@ -2053,7 +2407,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 3,
-                'parent_id'      => null,
+                'parent_id' => null,
                 'name'           => 'Sleazefest!',
                 'artist'         => 'various artists',
                 'slug'           => 'sleazefest-by-various-artists',
@@ -2065,9 +2419,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => null,
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => null,
-                'link_name'      => 'Discogs',
+                'link_name' => 'Discogs',
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2075,7 +2429,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 4,
-                'parent_id'      => 1,
+                'parent_id' => 1,
                 'name'           => 'Marsha Don\'t Play with the Fire',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'marsha-dont-play-with-the-fire-by-zen-frisbee',
@@ -2087,9 +2441,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/yWyBMnc6qAQ?si=MYe09RDl7FsIZUHK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/yWyBMnc6qAQ?si=MYe09RDl7FsIZUHK',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
@@ -2097,7 +2451,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 5,
-                'parent_id'      => 1,
+                'parent_id' => 1,
                 'name'           => 'Ren Ren',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'ren-ren-by-zen-frisbee',
@@ -2109,9 +2463,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/691sRCxbPQ8?si=YUM5hQ_cw3yqu1iw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/691sRCxbPQ8?si=YUM5hQ_cw3yqu1iw',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
@@ -2119,7 +2473,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 6,
-                'parent_id'      => 1,
+                'parent_id' => 1,
                 'name'           => 'Crazy Steven',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'crazy-steven-by-zen-frisbee',
@@ -2131,9 +2485,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/ATsvjw5Oqjc?si=vecEhRyQyr7XNmnf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/ATsvjw5Oqjc?si=vecEhRyQyr7XNmnf',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
@@ -2141,7 +2495,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 7,
-                'parent_id'      => 1,
+                'parent_id' => 1,
                 'name'           => 'Thunderhead',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'thunderhead-by-zen-frisbee',
@@ -2153,9 +2507,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/StMWPGz29F4?si=Qdm_FvGsXLz54IP6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/StMWPGz29F4?si=Qdm_FvGsXLz54IP6',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
@@ -2163,7 +2517,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 8,
-                'parent_id'      => 1,
+                'parent_id' => 1,
                 'name'           => 'Dolphin',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'dolphin-by-zen-frisbee',
@@ -2175,9 +2529,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/4hniPw9fs1o?si=WYdge1_-jo_Q8kIS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/4hniPw9fs1o?si=WYdge1_-jo_Q8kIS',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
@@ -2185,7 +2539,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 9,
-                'parent_id'      => 1,
+                'parent_id' => 1,
                 'name'           => 'Lunch as Laird\'s',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'lunch-at-lairds-by-zen-frisbee',
@@ -2197,9 +2551,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/XGETpz5ruKA?si=pY0MEIWHcV1GHuT3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/XGETpz5ruKA?si=pY0MEIWHcV1GHuT3',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
@@ -2207,7 +2561,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 10,
-                'parent_id'      => 1,
+                'parent_id' => 1,
                 'name'           => 'Brava Theme',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'brava-theme-by-zen-frisbee',
@@ -2219,9 +2573,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Wf7Reo3KiqE?si=FQZr2FpHnlP7edMu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/Wf7Reo3KiqE?si=FQZr2FpHnlP7edMu',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
@@ -2229,7 +2583,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 11,
-                'parent_id'      => 1,
+                'parent_id' => 1,
                 'name'           => 'Fraidy Cat',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'fraidy-cat-by-zen-frisbee',
@@ -2241,9 +2595,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Bu9iMLMtCkc?si=1kUfqM7t89AzblrH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/Bu9iMLMtCkc?si=1kUfqM7t89AzblrH',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
@@ -2251,7 +2605,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 12,
-                'parent_id'      => 1,
+                'parent_id' => 1,
                 'name'           => 'Return to Point Break',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'return-to-point-break-by-zen-frisbee',
@@ -2263,9 +2617,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/qTLUSQ3VfGI?si=pClDzIb_wTUG--mw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/qTLUSQ3VfGI?si=pClDzIb_wTUG--mw',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
@@ -2273,7 +2627,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 13,
-                'parent_id'      => 1,
+                'parent_id' => 1,
                 'name'           => 'Moss',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'moss-by-zen-frisbee',
@@ -2285,9 +2639,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/SNaltXYnYwc?si=KPaG7pu3hTGBfF82" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/SNaltXYnYwc?si=KPaG7pu3hTGBfF82',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
@@ -2295,7 +2649,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 14,
-                'parent_id'      => 1,
+                'parent_id' => 1,
                 'name'           => 'King Dooji\'s Fair',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'king-doojis-fair-by-zen-frisbee',
@@ -2307,9 +2661,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/JVGyitVCWas?si=g42PgvyDb83UhL9X" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/JVGyitVCWas?si=g42PgvyDb83UhL9X',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
@@ -2317,7 +2671,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 15,
-                'parent_id'      => 1,
+                'parent_id' => 1,
                 'name'           => 'Fight the Pipe',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'fight-the-pipe-by-zen-frisbee',
@@ -2329,9 +2683,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2S2dU5KZXTE?si=3-GYq4CsyAM9huJo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/2S2dU5KZXTE?si=3-GYq4CsyAM9huJo',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
@@ -2339,7 +2693,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 16,
-                'parent_id'      => 1,
+                'parent_id' => 1,
                 'name'           => 'Cruisin\' with Randy Travis',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'cruisin-with-randy-travis-by-zen-frisbee',
@@ -2351,9 +2705,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/zSit6AEshzo?si=5WM7BXYoeoR43pdx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/zSit6AEshzo?si=5WM7BXYoeoR43pdx',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
@@ -2361,7 +2715,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 17,
-                'parent_id'      => 1,
+                'parent_id' => 1,
                 'name'           => 'Clothes',
                 'artist'         => 'Zen Frisbee',
                 'slug'           => 'clothes-by-zen-frisbee',
@@ -2373,9 +2727,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => '0000',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/b4awDhvhWGA?si=IhxBuk4IeGXM1UA1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/b4awDhvhWGA?si=IhxBuk4IeGXM1UA1',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://m.media-amazon.com/images/I/51D+8bnuVPL.jpg',
                 'sequence'       => 1,
@@ -2383,7 +2737,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 18,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'Hang Up',
                 'artist'         => 'The Strychnines',
                 'slug'           => 'hang-up-by-the-strychnines',
@@ -2395,9 +2749,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/MLlyEjyNTuU?si=vawUukocsiqQXHWp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/MLlyEjyNTuU?si=vawUukocsiqQXHWp',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2405,7 +2759,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 19,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'Hitch',
                 'artist'         => 'Chrome Daddy Disco',
                 'slug'           => 'hitch-by-chrome-daddy-disco',
@@ -2417,9 +2771,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/mS9hMnIZfao?si=kjOhF9JxsiHXXf99" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/mS9hMnIZfao?si=kjOhF9JxsiHXXf99',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2427,7 +2781,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 20,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'I Got Your Number',
                 'artist'         => 'The Woggles',
                 'slug'           => 'i-got-your-number-by-the-woggles',
@@ -2439,9 +2793,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/nqO0uXsHOBQ?si=25L-lgPntTTEq6RI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/nqO0uXsHOBQ?si=25L-lgPntTTEq6RI',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2449,7 +2803,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 21,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'My Baby Likes to Boogaloo',
                 'artist'         => 'The Woggles',
                 'slug'           => 'my-baby-likes-to-boogaloo-by-the-woggles',
@@ -2461,9 +2815,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/B5mztpDyyjE?si=EPq3FRdViiWRCjRK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/B5mztpDyyjE?si=EPq3FRdViiWRCjRK',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2471,7 +2825,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 22,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'Boo Boo the Cat',
                 'artist'         => 'Hasil Adkins',
                 'slug'           => 'boo-boo-the-cat-by-hasil-adkins',
@@ -2483,9 +2837,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/Yty2lfPEIdE?si=JZMQZEcCvQftGJci" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/Yty2lfPEIdE?si=JZMQZEcCvQftGJci',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2493,7 +2847,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 23,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'Head on the Wall',
                 'artist'         => 'Hasil Adkins',
                 'slug'           => 'head-on-the-wall-by-hasil-adkins',
@@ -2505,9 +2859,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/c4TGMNyl-RQ?si=uZjTdLmM20BgA_8A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/c4TGMNyl-RQ?si=uZjTdLmM20BgA_8A',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2515,7 +2869,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 24,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'Class with a Capital K',
                 'artist'         => 'Hillbilly Frankenstein',
                 'slug'           => 'class-with-a-capital-k-by-hillbilly-frankenstein',
@@ -2527,9 +2881,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/gP1HI4U_pLg?si=0UmUHzpAUmCILqHs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/gP1HI4U_pLg?si=0UmUHzpAUmCILqHs',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2537,7 +2891,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 25,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'High Class to Trailer Trash',
                 'artist'         => 'Hillbilly Frankenstein',
                 'slug'           => 'high-class-to-trailer-trash-by-hillbilly-frankenstein',
@@ -2549,9 +2903,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/9AcR8qMFB40?si=15Ov-kYQ-Gn_ybfF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/9AcR8qMFB40?si=15Ov-kYQ-Gn_ybfF',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2559,7 +2913,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 26,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'intermission',
                 'artist'         => null,
                 'slug'           => 'sleazefest-intermission',
@@ -2571,9 +2925,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/nEjFweo68H0?si=HfAVt-w-xppDGoVR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/nEjFweo68H0?si=HfAVt-w-xppDGoVR',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2581,7 +2935,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 27,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'Red Roses',
                 'artist'         => 'The Subsonics',
                 'slug'           => 'red-roses-by-the-subsonics',
@@ -2593,9 +2947,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/hNFLMTur044?si=hi5fuDW_3C7tUkpD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/hNFLMTur044?si=hi5fuDW_3C7tUkpD',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2603,7 +2957,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 28,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'Shady Side of the Street',
                 'artist'         => 'The Subsonics',
                 'slug'           => 'shady-side-of-the-street-by-the-subsonics',
@@ -2615,9 +2969,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/e-CxbCmvsqY?si=Ow6Q3mnkqkAfOJ2f" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/e-CxbCmvsqY?si=Ow6Q3mnkqkAfOJ2f',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2625,7 +2979,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 29,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'I Made You a Clown',
                 'artist'         => 'The Subsonics',
                 'slug'           => 'i-made-you-a-clown-by-the-subsonics',
@@ -2637,9 +2991,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/oYGnWRri_tQ?si=zio1zx0naYP3GK3o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/oYGnWRri_tQ?si=zio1zx0naYP3GK3o',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2647,7 +3001,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 30,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'You\'re Never Gonna Be Alone',
                 'artist'         => 'Dexter Romweber',
                 'slug'           => 'youre-never-gonna-be-alone-by-dexter-romweber',
@@ -2659,9 +3013,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/CY_WY36dIoQ?si=IhCzAe0Y0bCu2GY5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/CY_WY36dIoQ?si=IhCzAe0Y0bCu2GY5',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2669,7 +3023,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 31,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'Hurricane\'s A-Coming',
                 'artist'         => 'Dexter Romweber',
                 'slug'           => 'hurricanes-a-coming-by-dexter-romweber',
@@ -2681,9 +3035,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/zUBsrF2KKhs?si=Vjx1iJlJIlPv7P8r" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/zUBsrF2KKhs?si=Vjx1iJlJIlPv7P8r',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2691,7 +3045,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 32,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'Vamp Camp / Patina in \'Em',
                 'artist'         => 'Family Dollar Pharoahs',
                 'slug'           => 'vamp-camp-patina-in-em-by-family-dollar-pharoahs',
@@ -2703,9 +3057,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/-DiaHTnsu78?si=mG6wWva6zhRuSdif" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/-DiaHTnsu78?si=mG6wWva6zhRuSdif',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2713,7 +3067,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 33,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'Shake It Some More',
                 'artist'         => 'Santo\'s Helpers',
                 'slug'           => 'shake-it-some-more-by-santos-helpers',
@@ -2725,9 +3079,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/UuYsesGSwG0?si=uUICq5W7Hwmd-NKK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/UuYsesGSwG0?si=uUICq5W7Hwmd-NKK',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2735,7 +3089,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 34,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'Mudbuggy',
                 'artist'         => 'Southern Culture on the Skids',
                 'slug'           => 'mudbuggy-by-southern-culture-on-the-skids',
@@ -2747,9 +3101,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/XfaiAIIgbVQ?si=YF-islwTXyT0HJwm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/XfaiAIIgbVQ?si=YF-islwTXyT0HJwm',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2757,7 +3111,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 35,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'Hubcap Hunch',
                 'artist'         => 'Southern Culture on the Skids with Hasil Adkins',
                 'slug'           => 'hubcap-hunch-by-southern-culture-on-the-skids-with-hasil-adkins',
@@ -2769,9 +3123,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/V3tJ0dgPNn4?si=COUKONOn3Ckigzo_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/V3tJ0dgPNn4?si=COUKONOn3Ckigzo_',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2779,7 +3133,7 @@ class InitializeCraigzearfoss extends Command
             ],
             [
                 'id'             => 36,
-                'parent_id'      => 3,
+                'parent_id' => 3,
                 'name'           => 'Leaves in Autumn',
                 'artist'         => 'Hasil Adkins',
                 'slug'           => 'leaves-in-autumn-by-hasil-adkins',
@@ -2791,9 +3145,9 @@ class InitializeCraigzearfoss extends Command
                 'catalog_number' => 'SLZ001',
                 'year'           => 1995,
                 'embed'          => '<iframe width="560" height="315" src="https://www.youtube.com/embed/n9ISqUsuvzY?si=YZCTIF1_G0X4-Jo2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
-                'audio_url'      => null,
+                'audio_url' => null,
                 'link'           => 'https://youtu.be/n9ISqUsuvzY?si=YZCTIF1_G0X4-Jo2',
-                'link_name'      => null,
+                'link_name' => null,
                 'description'    => '',
                 'image'          => 'https://i.discogs.com/8KjgbOU-HmWuHZXzcp3h9tzf8x-1fDRF7s0OXuPLLT8/rs:fit/g:sm/q:90/h:592/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTM1NzE5/NDAtMTMzNTc0Nzk3/My5qcGVn.jpeg',
                 'sequence'       => 1,
@@ -2824,7 +3178,7 @@ class InitializeCraigzearfoss extends Command
                 'repository_name'  => 'craigzearfoss/laravel-multi-guard',
                 'link'             => null,
                 'link_name'        => null,
-                'description'      => 'Laravel 12 framework for a multi-guard website.',
+                'description' => 'Laravel 12 framework for a multi-guard website.',
                 'sequence'         => 0,
             ],
             [
@@ -2840,7 +3194,7 @@ class InitializeCraigzearfoss extends Command
                 'repository_name'  => 'craigzearfoss/portfolio',
                 'link'             => null,
                 'link_name'        => null,
-                'description'      => 'Laravel 12 website for a personal portfolio.',
+                'description' => 'Laravel 12 website for a personal portfolio.',
                 'sequence'         => 1,
             ],
             [
@@ -2856,7 +3210,7 @@ class InitializeCraigzearfoss extends Command
                 'repository_name'  => 'craigzearfoss/laravel-12-helper-functions',
                 'link'             => null,
                 'link_name'        => null,
-                'description'      => 'Useful helper functions for a Laravel 12 project.',
+                'description' => 'Useful helper functions for a Laravel 12 project.',
                 'sequence'         => 2,
             ],
             [
@@ -2872,7 +3226,7 @@ class InitializeCraigzearfoss extends Command
                 'repository_name'  => 'craigzearfoss/laravel-12-SearchableModelTrait',
                 'link'             => null,
                 'link_name'        => null,
-                'description'      => 'Adds standardized search and listOptions functions to models.',
+                'description' => 'Adds standardized search and listOptions functions to models.',
                 'sequence'         => 3,
             ],
             [
@@ -2888,7 +3242,7 @@ class InitializeCraigzearfoss extends Command
                 'repository_name'  => 'craigzearfoss/addressable-trait',
                 'link'             => null,
                 'link_name'        => null,
-                'description'      => 'Add geocode and address functionality to a Laravel 5.1 model.',
+                'description' => 'Add geocode and address functionality to a Laravel 5.1 model.',
                 'sequence'         => 4,
             ],
             [
@@ -2904,7 +3258,7 @@ class InitializeCraigzearfoss extends Command
                 'repository_name'  => 'craigzearfoss/speedmon',
                 'link'             => null,
                 'link_name'        => null,
-                'description'      => 'Python script to monitor internet speeds using cli speedtest.',
+                'description' => 'Python script to monitor internet speeds using cli speedtest.',
                 'sequence'         => 5,
             ],
         ];
@@ -3001,7 +3355,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/vGobMdqmulI?si=AvM5y69Pgkv_6FKD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/vGobMdqmulI?si=84OJZ8hM2P2BhKHk',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
             ],
             [
                 'id'               => 2,
@@ -3021,7 +3375,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/DCfjWDD4HMw?si=JRxmqHcYMP8zLfqK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/DCfjWDD4HMw?si=ozn-YOXDbDQVLaCH',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3042,7 +3396,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/QpoHRSwvC6I?si=6qRTz4e8mwB9Bh8V" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/QpoHRSwvC6I?si=yqoYiulhq2Mm-82W',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3063,7 +3417,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/PJ_rOzaCMTE?si=yIoLIlXwRUPVInb3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/PJ_rOzaCMTE?si=Rq4J13VnMIR25gIs',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3084,7 +3438,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/iOSVHuAXYlU?si=jv990XSee1DJBoDS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/iOSVHuAXYlU?si=dnGV-wUAUPKVOlk3',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3104,7 +3458,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/CxHwQM74eno?si=Bm_62bBD2RO1zTYd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/CxHwQM74eno?si=Bm_62bBD2RO1zTYd',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3125,7 +3479,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/QtmqTI1YK2M?si=JyhqD3-IeHgZW7nG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/QtmqTI1YK2M?si=JyhqD3-IeHgZW7nG',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3146,7 +3500,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/7yDv19IU9EY?si=giCY3E8ESHCW0PBZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/7yDv19IU9EY?si=giCY3E8ESHCW0PBZ',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3167,7 +3521,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/EFUzw85z8hU?si=VCNpyJPI8qgEFZvw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/EFUzw85z8hU?si=KxJ6WE0TNO_Ow0Bg',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3188,7 +3542,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/NjiOGW_wkIY?si=mLqG3hPcqm6lpEx2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/NjiOGW_wkIY?si=DLblWHZD8gGyENWC',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
 
@@ -3210,7 +3564,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/1sp_U2ROdn8?si=c3bObeeIa30b5_It" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/1sp_U2ROdn8?si=_P3nIBuPfbjPVb4l',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3231,7 +3585,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/BVLFp-Pe2m0?si=AdYE6hQ2Rd4B5bGa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/BVLFp-Pe2m0?si=AdYE6hQ2Rd4B5bGa',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3252,7 +3606,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/CWDu6Vou2mo?si=H0gTFXyScmYisuTI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/CWDu6Vou2mo?si=H0gTFXyScmYisuTI',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3273,7 +3627,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/QpW8PIWGs5I?si=JwX9hpWJmpv1Q5lO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/QpW8PIWGs5I?si=JwX9hpWJmpv1Q5lO',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3294,7 +3648,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/gibuGcpZF7A?si=sSZRfKFgVvlSyd4a" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/gibuGcpZF7A?si=sSZRfKFgVvlSyd4a',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3315,7 +3669,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/OCpQf5siO0M?si=-qyn6Bo4ukul_MsV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/OCpQf5siO0M?si=EgcxNKHmUCug74ZH',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3336,7 +3690,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/tacQld_hcGg?si=cOCdBlDT3B_Whdpi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/tacQld_hcGg?si=cOCdBlDT3B_Whdpi',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3357,7 +3711,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/2E-2ZvvMYV8?si=1vsUbToX709hmCjz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/2E-2ZvvMYV8?si=1vsUbToX709hmCjz',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3378,7 +3732,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => 'https://youtu.be/VTVv3Mk8OtI?si=-vsYSlR34IAubT92',
                 'link'             => 'https://youtu.be/VTVv3Mk8OtI?si=-vsYSlR34IAubT92',
                 'link_name'        => 'YouTube',
-                'description'      => 'Performing I\' Not the One to Choose',
+                'description' => 'Performing I\' Not the One to Choose',
                 'public'           => 1,
             ],
             [
@@ -3399,7 +3753,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/H0hg22giaDM?si=3ojMppZcK8E2R384" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/H0hg22giaDM?si=3ojMppZcK8E2R384',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3420,7 +3774,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/v8oteqf-nW8?si=BvxEnbk1DnrLyYAI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/v8oteqf-nW8?si=BvxEnbk1DnrLyYAI',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3441,7 +3795,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/wHp9bObySSk?si=50KhLnbPlOI28iw7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/wHp9bObySSk?si=50KhLnbPlOI28iw7',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3462,7 +3816,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/LUcldiQPy7A?si=1DhP8BycELWb2lN-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/LUcldiQPy7A?si=1DhP8BycELWb2lN-',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3483,7 +3837,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/YFGyGs61D9U?si=iXrbYUmiIQxU4cIa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/YFGyGs61D9U?si=bnES-w4eTwyY7mCy',
                 'link_name'        => 'YouTube',
-                'description'      => 'Performing Not Half of Us.',
+                'description' => 'Performing Not Half of Us.',
                 'public'           => 1,
             ],
             [
@@ -3504,7 +3858,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/C1N8np3OOGM?si=bftOeUZ5pOlA--9J" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/C1N8np3OOGM?si=bftOeUZ5pOlA--9J',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3525,7 +3879,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/CL5pVZoIGkU?si=O-C--dbGqVWEa0uv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/CL5pVZoIGkU?si=O-C--dbGqVWEa0uv',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3546,7 +3900,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/a4Jm6FokBso?si=dQqMupWCigGDN9-W" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/a4Jm6FokBso?si=dQqMupWCigGDN9-W',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3567,7 +3921,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/BcP-0LC8nUQ?si=OxgDpCmkNaQhcudZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/BcP-0LC8nUQ?si=OxgDpCmkNaQhcudZ',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3588,7 +3942,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/J7EBVGJOuGM?si=sdQoP9hCzwI97RYH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/J7EBVGJOuGM?si=sdQoP9hCzwI97RYH',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3609,7 +3963,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '',
                 'link'             => '',
                 'link_name'        => '',
-                'description'      => 'Performing Never Be Straight',
+                'description' => 'Performing Never Be Straight',
                 'public'           => 1,
             ],
             [
@@ -3630,7 +3984,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/co6BuJKbUcc?si=90y73q0D_nvNmlfu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/co6BuJKbUcc?si=90y73q0D_nvNmlfu',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3651,7 +4005,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/mI04UiU_smI?si=aF_z7B5rpbUcUpmg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/mI04UiU_smI?si=aF_z7B5rpbUcUpmg',
                 'link_name'        => 'YouTube',
-                'description'      => 'Performing Brazil',
+                'description' => 'Performing Brazil',
                 'public'           => 1,
             ],
             [
@@ -3672,7 +4026,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/zQcKf3Bk6mA?si=M0R6jZVEo9eo-aPF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/zQcKf3Bk6mA?si=M0R6jZVEo9eo-aPF',
                 'link_name'        => 'YouTube',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
             [
@@ -3693,7 +4047,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/kggOFqg5zYg?si=vJSWXsQ3qvi8pBYR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/kggOFqg5zYg?si=vJSWXsQ3qvi8pBYR',
                 'link_name'        => 'YouTube',
-                'description'      => 'Conceived, written, and directed by Jason Arkles, this play won accolades as one of the top ten theatrical productions of the year, featuring his puppetry as well as the music by music director Curtis Eller along with the Dreadful Quartet.',
+                'description' => 'Conceived, written, and directed by Jason Arkles, this play won accolades as one of the top ten theatrical productions of the year, featuring his puppetry as well as the music by music director Curtis Eller along with the Dreadful Quartet.',
                 'public'           => 1,
             ],
             [
@@ -3714,7 +4068,7 @@ class InitializeCraigzearfoss extends Command
                 'embed'            => '',
                 'link'             => '',
                 'link_name'        => '',
-                'description'      => '',
+                'description' => '',
                 'public'           => 1,
             ],
         ];

@@ -4,6 +4,7 @@ namespace App\Models\Career;
 
 use App\Models\Scopes\AccessGlobalScope;
 use App\Models\System\Owner;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Event extends Model
 {
     /** @use HasFactory<\Database\Factories\Career\NoteFactory> */
-    use HasFactory, SoftDeletes;
+    use SearchableModelTrait, HasFactory, SoftDeletes;
 
     protected $connection = 'career_db';
 
@@ -36,7 +37,15 @@ class Event extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'name', 'date', 'time', 'location', 'public',
+        'readonly', 'root', 'disabled', 'demo'];
+    const SEARCH_ORDER_BY = ['subject', 'asc'];
 
     protected static function booted()
     {

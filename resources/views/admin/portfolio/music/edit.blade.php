@@ -5,7 +5,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Music',           'href' => route('admin.portfolio.music.index') ],
-        [ 'name' => $music->name ],
+        [ 'name' => 'Music: ' . $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '') ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.music.index') ],

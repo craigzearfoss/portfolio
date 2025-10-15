@@ -49,6 +49,7 @@ class JobCoworker extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
 
     const LEVELS = [
@@ -61,7 +62,7 @@ class JobCoworker extends Model
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'owner_id', 'job_id', 'name', 'job_title', 'level_id', 'work_phone', 'personal_phone',
-        'work_email', 'personal_email', 'public', 'readonly', 'root', 'disabled'];
+        'work_email', 'personal_email', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()

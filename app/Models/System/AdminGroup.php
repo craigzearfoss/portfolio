@@ -2,7 +2,6 @@
 
 namespace App\Models\System;
 
-use App\Models\Scopes\AccessGlobalScope;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,21 +30,19 @@ class AdminGroup extends Model
         'slug',
         'abbreviation',
         'description',
+        'public',
+        'readonly',
+        'root',
         'disabled',
+        'demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'admin_team_id', 'name', 'abbreviation'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'admin_team_id', 'name', 'abbreviation', 'public', 'readonly', 'root',
+        'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
-
-    protected static function booted()
-    {
-        parent::booted();
-
-        static::addGlobalScope(new AccessGlobalScope());
-    }
 
     /**
      * Get the owner of the admin group.

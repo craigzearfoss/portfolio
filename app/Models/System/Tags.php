@@ -28,16 +28,12 @@ class Tags extends Model
         'model_item_id',
         'category_id',
         'dictionary_term_id',
-        'level',
-        'start_year',
-        'end_year',
-        'years',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['owner_id', 'name', 'resource_id', 'model_class', 'model_item_id', 'dictionary_category_id',
-        'dictionary_term_id', 'level', 'start_year', 'end_year', 'years'];
+    const SEARCH_COLUMNS = ['owner_id', 'name', 'resource_id', 'model_class', 'model_item_id', 'category_id',
+        'dictionary_term_id'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 }

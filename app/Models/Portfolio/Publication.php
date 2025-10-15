@@ -71,6 +71,7 @@ class Publication extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
 
     /**
@@ -78,7 +79,8 @@ class Publication extends Model
      */
     const SEARCH_COLUMNS = ['id', 'owner_id', 'title', 'parent_id', 'featured', 'publication_name', 'publisher',
         'date', 'year', 'credit', 'freelance', 'fiction', 'nonfiction', 'technical', 'research', 'poetry', 'online',
-        'novel', 'book', 'textbook', 'story', 'article', 'paper', 'pamphlet'];
+        'novel', 'book', 'textbook', 'story', 'article', 'paper', 'pamphlet', 'public', 'readonly', 'root', 'disabled',
+        'demo'];
     const SEARCH_ORDER_BY = ['title', 'asc'];
 
     protected static function booted()

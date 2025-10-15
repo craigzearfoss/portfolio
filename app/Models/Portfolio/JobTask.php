@@ -4,6 +4,7 @@ namespace App\Models\Portfolio;
 
 use App\Models\Scopes\AccessGlobalScope;
 use App\Models\System\Owner;
+use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +14,7 @@ use Illuminate\Notifications\Notifiable;
 class JobTask extends Model
 {
     /** @use HasFactory<\Database\Factories\Portfolio\JobTaskFactory> */
-    use HasFactory, Notifiable, SoftDeletes;
+    use SearchableModelTrait, HasFactory, Notifiable, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 
@@ -42,7 +43,14 @@ class JobTask extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
+
+    /**
+     * SearchableModelTrait variables.
+     */
+    const SEARCH_COLUMNS = ['owner_id', 'job_id', 'job_title', 'public', 'readonly', 'root', 'disabled', 'demo'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
     {

@@ -1,4 +1,6 @@
-
+p {
+    margin-bottom: 1em !important;
+}
 .field .field-body .control span.text-field {
     display: inline-block !important;
     margin-top: 0.4em !important;

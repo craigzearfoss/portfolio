@@ -30,13 +30,19 @@ class UserTeam extends Model
         'abbreviation',
         'slug',
         'description',
+        'public',
+        'readonly',
+        'root',
         'disabled',
+        'demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'abbreviation'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'abbreviation', 'public', 'readonly', 'root', 'disabled',
+        'demo',
+    ];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

@@ -48,13 +48,14 @@ class Project extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'year', 'language', 'language_version',
-        'repository_name', 'public', 'readonly', 'root', 'disabled'];
+        'repository_name', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()

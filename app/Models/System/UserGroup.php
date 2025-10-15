@@ -31,13 +31,18 @@ class UserGroup extends Model
         'slug',
         'abbreviation',
         'description',
+        'public',
+        'readonly',
+        'root',
         'disabled',
+        'demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'user_team_id', 'name', 'abbreviation'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'user_team_id', 'name', 'abbreviation', 'public', 'readonly',
+        'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

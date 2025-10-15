@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('admin_admin_teams', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('admin_admin_team', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\System\Admin::class);
             $table->foreignIdFor( \App\Models\System\AdminTeam::class);
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('admin_admin_teams');
+        Schema::connection($this->database_tag)->dropIfExists('admin_admin_team');
     }
 };

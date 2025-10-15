@@ -34,7 +34,7 @@ class State extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'name', 'code', 'country_id'];
+    const SEARCH_COLUMNS = ['id', 'code', 'name', 'country_id'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

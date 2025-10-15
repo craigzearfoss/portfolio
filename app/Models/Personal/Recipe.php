@@ -55,6 +55,7 @@ class Recipe extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
 
     /**
@@ -81,8 +82,9 @@ class Recipe extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'author', 'main', 'side', 'dessert', 'appetizer',
-        'beverage', 'breakfast', 'lunch', 'dinner', 'snack', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'author', 'prep_time','total_time', 'main', 'side',
+        'dessert', 'appetizer', 'beverage', 'breakfast', 'lunch', 'dinner', 'snack', 'public', 'readonly', 'root',
+        'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()

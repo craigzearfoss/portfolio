@@ -63,6 +63,7 @@ class Contact extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
 
     const TITLES = [
@@ -75,8 +76,9 @@ class Contact extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'city', 'state_id', 'zip', 'country_id',
-        'phone', 'alt_phone', 'email', 'alt_email', 'birthday', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'title', 'job_title', 'street', 'street2', 'city', 'state_id',
+        'zip', 'country_id', 'phone', 'alt_phone', 'email', 'alt_email', 'birthday', 'link', 'link_name', 'public',
+        'readonly', 'root','disabled','demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()

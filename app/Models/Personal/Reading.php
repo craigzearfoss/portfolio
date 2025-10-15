@@ -48,14 +48,15 @@ class Reading extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'owner_id', 'title', 'author', 'featured', 'publication_year', 'fiction',
-        'nonfiction', 'paper', 'audio', 'wishlist', 'public', 'readonly', 'root', 'disabled'];
-    const SEARCH_ORDER_BY = ['name', 'asc'];
+        'nonfiction', 'paper', 'audio', 'wishlist', 'public', 'readonly', 'root', 'disabled', 'demo'];
+    const SEARCH_ORDER_BY = ['title', 'asc'];
 
     protected static function booted()
     {

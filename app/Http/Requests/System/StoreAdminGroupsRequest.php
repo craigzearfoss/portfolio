@@ -52,7 +52,11 @@ class StoreAdminGroupsRequest extends FormRequest
             'slug'          => ['required', 'string', 'min:20', 'max:220', 'unique:system_db.admin_groups,slug'],
             'abbreviation'  => ['string', 'max:20', 'unique:system_db.admin_groups,slug', 'nullable'],
             'description'   => ['nullable'],
+            'public'        => ['integer', 'between:0,1'],
+            'readonly'      => ['integer', 'between:0,1'],
+            'root'          => ['integer', 'between:0,1'],
             'disabled'      => ['integer', 'between:0,1'],
+            'demo'          => ['integer', 'between:0,1'],
         ];
     }
 

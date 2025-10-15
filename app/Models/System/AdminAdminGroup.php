@@ -12,7 +12,7 @@ class AdminAdminGroup extends Model
 
     protected $connection = 'system_db';
 
-    protected $table = 'admin_admin_groups';
+    protected $table = 'admin_admin_group';
 
     /**
      * The attributes that are mass assignable.

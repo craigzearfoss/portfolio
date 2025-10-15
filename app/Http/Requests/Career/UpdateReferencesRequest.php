@@ -97,6 +97,7 @@ class UpdateReferencesRequest extends FormRequest
             'readonly'        => ['integer', 'between:0,1'],
             'root'            => ['integer', 'between:0,1'],
             'disabled'        => ['integer', 'between:0,1'],
+            'demo'            => ['integer', 'between:0,1'],
         ];
     }
 

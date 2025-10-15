@@ -15,13 +15,6 @@ return new class extends Migration
     protected $database_tag = 'personal_db';
 
     /**
-     * The id of the admin who owns the personal recipe resource.
-     *
-     * @var int
-     */
-    protected $ownerId = 2;
-
-    /**
      * Run the migrations.
      */
     public function up(): void
@@ -59,6 +52,7 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->tinyInteger('demo')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
@@ -89,7 +83,7 @@ return new class extends Migration
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
-            $data[$i]['owner_id']   = $this->ownerId;
+            $data[$i]['owner_id']   = null;
         }
 
         Recipe::insert($data);

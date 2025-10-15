@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('admin_admin_groups', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('admin_admin_group', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor( \App\Models\System\Admin::class);
             $table->foreignIdFor( \App\Models\System\AdminGroup::class);
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('admin_admin_groups');
+        Schema::connection($this->database_tag)->dropIfExists('admin_admin_group');
     }
 };

@@ -52,13 +52,15 @@ class Course extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'year', 'completed', 'completion_date',
-        'duration_hours', 'academy_id', 'school', 'instructor', 'sponsor', 'public', 'readonly', 'root', 'disabled'];
+        'duration_hours', 'academy_id', 'school', 'instructor', 'sponsor', 'public', 'readonly', 'root', 'disabled',
+        'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()

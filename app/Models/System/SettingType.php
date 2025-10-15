@@ -26,6 +26,6 @@ class SettingType extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'name', 'description'];
+    const SEARCH_COLUMNS = ['id', 'name'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 }

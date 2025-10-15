@@ -1,10 +1,10 @@
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Music: ' . $music->name,
+    'title' => 'Music: ' . $music->name . (!empty($music->artist) ? ' - ' . $music->artist : ''),
     'breadcrumbs' => [
         [ 'name' => 'Home',      'href' => route('guest.homepage') ],
         [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
         [ 'name' => 'Music',     'href' => route('guest.portfolio.music.index') ],
-        [ 'name' => $music->name ],
+        [ 'name' => $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '') ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.portfolio.music.index') ],
@@ -34,7 +34,7 @@
                 'value' => !empty($music->parent)
                     ? view('guest.components.link', [
                             'name' => $music->parent['name'],
-                            'href' => route('guest.portfolio.music.show', $music->parent)
+                            'href' => route('guest.portfolio.music.show', $music->parent->slug)
                         ])
                     : ''
             ])
@@ -59,7 +59,7 @@
                             <li>
                                 @include('guest.components.link', [
                                     'name' => $child['name'],
-                                    'href' => route('guest.portfolio.music.show', $child)
+                                    'href' => route('guest.portfolio.music.show', $child->slug)
                                 ])
                             </li>
                         @endforeach
@@ -99,8 +99,7 @@
         ])
 
         @include('guest.components.show-row', [
-            'name'  => 'release_date',
-            'label' => 'release date',
+            'name'  => 'release date',
             'value' => longDate($music->release_date)
         ])
 

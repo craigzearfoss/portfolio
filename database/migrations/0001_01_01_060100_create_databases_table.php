@@ -20,7 +20,7 @@ return new class extends Migration
      *
      * @var int
      */
-    protected $ownerId = 1;
+    protected $rootAdminId = 1;
 
     /**
      * Run the migrations.
@@ -72,7 +72,7 @@ return new class extends Migration
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
-            $data[$i]['owner_id']   = $this->ownerId;
+            $data[$i]['owner_id']   = $this->rootAdminId;
         }
 
         Database::insert($data);

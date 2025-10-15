@@ -15,14 +15,6 @@ return new class extends Migration
     protected $database_tag = 'portfolio_db';
 
     /**
-     * The id of the admin who owns the portfolio database resources.
-     * The admin must have root permissions.
-     *
-     * @var int
-     */
-    protected $ownerId = 1;
-
-    /**
      * Run the migrations.
      */
     public function up(): void

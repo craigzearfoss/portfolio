@@ -29,25 +29,9 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        /*
         $data = [
-            [ 'company_id' => 1,  'contact_id' => 1,  'active' => 1 ],
-            [ 'company_id' => 2,  'contact_id' => 2,  'active' => 1 ],
-            [ 'company_id' => 4,  'contact_id' => 3,  'active' => 1 ],
-            [ 'company_id' => 6,  'contact_id' => 4,  'active' => 1 ],
-            [ 'company_id' => 7,  'contact_id' => 5,  'active' => 1 ],
-            [ 'company_id' => 8,  'contact_id' => 6,  'active' => 1 ],
-            [ 'company_id' => 9,  'contact_id' => 10, 'active' => 1 ],
-            [ 'company_id' => 9,  'contact_id' => 11, 'active' => 1 ],
-            [ 'company_id' => 9,  'contact_id' => 12, 'active' => 1 ],
-            [ 'company_id' => 9,  'contact_id' => 13, 'active' => 1 ],
-            [ 'company_id' => 2,  'contact_id' => 14, 'active' => 1 ],
-            [ 'company_id' => 12, 'contact_id' => 16, 'active' => 1 ],
-            [ 'company_id' => 13, 'contact_id' => 17, 'active' => 1 ],
-            [ 'company_id' => 14, 'contact_id' => 8,  'active' => 1 ],
-            [ 'company_id' => 15, 'contact_id' => 19, 'active' => 1 ],
-            [ 'company_id' => 21, 'contact_id' => 20, 'active' => 1 ],
-            [ 'company_id' => 22, 'contact_id' => 21, 'active' => 1 ],
-            [ 'company_id' => 23, 'contact_id' => 23, 'active' => 1 ],
+            [ 'company_id' => null,  'contact_id' => null,  'active' => 1 ],
         ];
 
         // add timestamps
@@ -57,7 +41,7 @@ return new class extends Migration
         }
 
         CompanyContact::insert($data);
-
+        */
     }
 
     /**

@@ -14,13 +14,6 @@ return new class extends Migration
     protected $database_tag = 'career_db';
 
     /**
-     * The id of the admin who owns the career cover-letter resource.
-     *
-     * @var int
-     */
-    protected $ownerId = 2;
-
-    /**
      * Run the migrations.
      */
     public function up(): void
@@ -51,7 +44,7 @@ return new class extends Migration
         /*
         $data = [
             [
-                'id'               => 1,
+                'owner_id'         => null,
                 'date'             => '',
                 'cover_letter_url' => '',
             ]
@@ -61,7 +54,7 @@ return new class extends Migration
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
-            $data[$i]['owner_id']   = $this->ownerId;
+            $data[$i]['owner_id']   = $null;
         }
 
         CoverLetter::insert($data);

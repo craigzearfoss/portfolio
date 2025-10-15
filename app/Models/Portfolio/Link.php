@@ -44,12 +44,13 @@ class Link extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()

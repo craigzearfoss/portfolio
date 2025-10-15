@@ -40,10 +40,11 @@ return new class extends Migration
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(0);
+            $table->tinyInteger('public')->default(1);
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->tinyInteger('demo')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -118,6 +119,15 @@ return new class extends Migration
 
         ];
 
+        /*
+        $data = [
+            [
+                'job_id'   => 1,
+                'summary'  => '',
+                'sequence' => 0,
+            ],
+        ];
+
         // add timestamps and owner_ids
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
@@ -126,6 +136,7 @@ return new class extends Migration
         }
 
         JobTask::insert($data);
+        */
     }
 
     /**

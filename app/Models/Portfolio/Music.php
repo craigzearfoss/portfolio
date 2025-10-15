@@ -54,14 +54,14 @@ class Music extends Model
         'readonly',
         'root',
         'disabled',
-        'admin_id',
+        'demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'owner_id', 'parent_id', 'name', 'artist', 'featured', 'collection', 'track', 'label',
-        'catalog_number', 'year', 'release_date', 'public', 'readonly', 'root', 'disabled'];
+        'catalog_number', 'year', 'release_date', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()

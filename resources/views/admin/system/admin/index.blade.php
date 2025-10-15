@@ -25,8 +25,8 @@
             <tr>
                 <th style="white-space: nowrap;">user name</th>
                 <th>name</th>
+                <th>team</th>
                 <th>email</th>
-                <th>phone</th>
                 <th>status</th>
                 <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
@@ -38,8 +38,8 @@
             <tr>
                 <th style="white-space: nowrap;">user name</th>
                 <th>name</th>
+                <th>team</th>
                 <th>email</th>
-                <th>phone</th>
                 <th>status</th>
                 <th class="has-text-centered">root</th>
                 <th class="has-text-centered">disabled</th>
@@ -55,14 +55,14 @@
                     <td data-field="username">
                         {{ $admin->username }}
                     </td>
-                    <td data-field="name">
+                    <td data-field="admin_team_id">
                         {{ $admin->name }}
+                    </td>
+                    <td data-field="name">
+                        {{ $admin->team->name }}
                     </td>
                     <td data-field="email">
                         {{ $admin->email }}
-                    </td>
-                    <td data-field="phone">
-                        {{ $admin->phone }}
                     </td>
                     <td data-field="phone">
                         {{ \App\Models\System\User::statusName($admin->status) }}

@@ -46,13 +46,14 @@ class Art extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'artist', 'featured', 'year', 'public', 'readonly', 'root',
-        'disabled'];
+        'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()

@@ -41,8 +41,9 @@ class Owner extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'username', 'name', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email',
-        'status', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_COLUMNS = ['id', 'admin_team_id', 'username', 'name', 'title', 'street', 'street2', 'city',
+        'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root', 'disabled',
+        'demo'];
     const SEARCH_ORDER_BY = ['username', 'asc'];
 
     /**

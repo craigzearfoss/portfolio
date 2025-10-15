@@ -35,13 +35,14 @@ class MenuItem extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'parent_id', 'database_id', 'resource_id', 'route', 'name', 'icon', 'guest', 'user',
-        'admin', 'level', 'sequence', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_COLUMNS = ['id', 'parent_id', 'database_id', 'resource_id', 'name', 'icon', 'route', 'guest', 'user',
+        'admin', 'level', 'sequence', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

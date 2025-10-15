@@ -63,13 +63,15 @@ class Video extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'parent_id', 'featured', 'full_episode', 'clip', 'public_access',
-        'source_recording', 'date', 'year', 'company', 'credit', 'location', 'public', 'readonly', 'root', 'disabled'];
+        'source_recording', 'date', 'year', 'company', 'credit', 'location', 'public', 'readonly', 'root', 'disabled',
+        'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()

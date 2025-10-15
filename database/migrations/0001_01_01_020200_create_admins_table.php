@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\System\Admin;
+use App\Models\System\AdminTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +18,7 @@ return new class extends Migration
     {
         Schema::connection($this->database_tag)->create('admins', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor( \App\Models\System\AdminTeam::class);
             $table->string('username', 200)->unique();
             $table->string('name')->nullable(); // note that name is not required for admins
             $table->string('title', 100)->nullable();
@@ -47,6 +49,7 @@ return new class extends Migration
             $table->tinyInteger('readonly')->default(0);
             $table->tinyInteger('root')->default(0);
             $table->tinyInteger('disabled')->default(0);
+            $table->tinyInteger('demo')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -54,6 +57,7 @@ return new class extends Migration
         $data = [
             [
                 'id'                => 1,
+                'admin_team_id'     => 1,
                 'username'          => 'root',
                 'name'              => 'Root Admin',
                 'email'             => 'root@gmail.com',
@@ -65,6 +69,7 @@ return new class extends Migration
             ],
             [
                 'id'                => 2,
+                'admin_team_id'     => 1,
                 'username'          => 'admin',
                 'name'              => 'Default Admin',
                 'email'             => 'admin@gmail.com',
@@ -76,6 +81,7 @@ return new class extends Migration
             ],
             [
                 'id'                => 3,
+                'admin_team_id'     => 1,
                 'username'          => 'demo-admin',
                 'name'              => 'Demo Admin',
                 'email'             => 'demo@gmail.com',
@@ -100,6 +106,13 @@ return new class extends Migration
         }
 
         Admin::insert($data);
+
+        // add owner (admin) for the Default Admin Team
+        Schema::connection($this->database_tag)->table('admin_teams', function (Blueprint $table) {
+            $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id')->after('id');
+        });
+
+        AdminTeam::where('name', 'Default Admin Team')->update(['owner_id' => 2]);
     }
 
     /**

@@ -29,6 +29,7 @@ class StoreAdminsRequest extends FormRequest
     public function rules(): array
     {
         $ruleArray = [
+            'admin_team_id'    => ['required', 'integer', 'exists:system_db.admin_teams,id'],
             'username'         => [
                 'required',
                 'string',
@@ -66,6 +67,7 @@ class StoreAdminsRequest extends FormRequest
             'readonly'         => ['integer', 'between:0,1'],
             'root'             => ['integer', 'between:0,1'],
             'disabled'         => ['integer', 'between:0,1'],
+            'demo'             => ['integer', 'between:0,1'],
         ];
 
         if (Auth::guard('admin')->user()->root) {

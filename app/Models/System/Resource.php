@@ -43,13 +43,14 @@ class Resource extends Model
         'readonly',
         'root',
         'disabled',
+        'demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'owner_id', 'database_id', 'name', 'parent_id', 'table', 'title', 'plural', 'guest',
-        'user', 'admin', 'public', 'readonly', 'root', 'disabled'];
+        'user', 'admin', 'icon', 'level', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
