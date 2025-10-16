@@ -1,5 +1,5 @@
 @php
-$menuItems = (new \App\Services\MenuService())->getLeftMenu(\App\Services\PermissionService::ENV_GUEST);
+$menuItems = (new \App\Services\MenuService())->getLeftMenu(\App\Services\PermissionService::ENV_GUEST);// dd($menuItems);
 @endphp
 
 <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
