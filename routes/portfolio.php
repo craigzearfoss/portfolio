@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('guest.')->group(function () {
 
-    Route::get('/resume', [GuestPortfolioJobController::class, 'show'])->name('show');
+    Route::get('/resume', [GuestPortfolioJobController::class, 'resume'])->name('resume');
 
     // resources
     Route::prefix('portfolio')->name('portfolio.')->group(function () {

@@ -222,13 +222,13 @@ class InitPortfolio extends Command
                 'featured'        => 1,
                 'summary'         => null,
                 'organization'    => 'Google',
-                'academy_id' => 3,
+                'academy_id'      => 3,
                 'year'            => 2023,
                 'received'        => '2023-07-11',
-                'certificate_url' => 'images/admin/2/portfolio/certification/HGL8U7MSRWFL.png',
+                'certificate_url' => '/images/admin/2/portfolio/certification/HGL8U7MSRWFL.png',
                 'link'            => 'https://coursera.org/verify/professional-cert/HGL8U7MSRWFL',
                 'link_name'       => 'Coursera verification',
-                'description'     => 'Includes the following courses:<ul><li>Foundations of Cybersecurity</li><li>Play It Safe: Manage Security Risks</li><li>Connect and Protect: Networks and Network Security</li><li>Tools of the Trade: Linux and SQL</li><li>Assets, Threats, Vulnerabilities</li><li>Sound the Alarm: Detection and Response</li><li>Automate Cybersecurity Tasks with Python</li><li>Put It to Work: Prepare for Cybersecurity Jobs</li></ul>',
+                'description'     => '<p class="menu-label">Includes the following courses:</p><ul class="menu-list"><li>Foundations of Cybersecurity</li><li>Play It Safe: Manage Security Risks</li><li>Connect and Protect: Networks and Network Security</li><li>Tools of the Trade: Linux and SQL</li><li>Assets, Threats, Vulnerabilities</li><li>Sound the Alarm: Detection and Response</li><li>Automate Cybersecurity Tasks with Python</li><li>Put It to Work: Prepare for Cybersecurity Jobs</li></ul>',
             ]
         ];
 
@@ -1464,7 +1464,7 @@ class InitPortfolio extends Command
             [ 'name' => 'LinkedIn',                             'slug' => 'linkedin',                            'featured' => 1, 'summary' => null, 'url' => 'https://www.linkedin.com/in/craig-zearfoss/',    'public' => 1, 'sequence' => 0, 'description' => null ],
             [ 'name' => 'GitHub',                               'slug' => 'github',                              'featured' => 1, 'summary' => null, 'url' => 'https://github.com/craigzearfoss',               'public' => 1, 'sequence' => 1, 'description' => null ],
             [ 'name' => 'Facebook',                             'slug' => 'facebook',                            'featured' => 1, 'summary' => null, 'url' => 'https://www.facebook.com/craig.zearfoss',        'public' => 1, 'sequence' => 2, 'description' => null ],
-            [ 'name' => 'Craig Zearfoss Collection, 1988-2008', 'slug' => 'craig-zearfoss-collection-1988-2008', 'featured' => 1, 'summary' => null, 'url' => 'https://finding-aids.lib.unc.edu/catalog/20509', 'public' => 1, 'sequence' => 3, 'description' => 'A publicly available collection of live video recordings, audio recordings, posters, photographs, and papers affiliated with the Triangle\'s indie rock music scene from 1988 to 2008.' ],
+            [ 'name' => 'Craig Zearfoss Collection, 1988-2008', 'slug' => 'craig-zearfoss-collection-1988-2008', 'featured' => 1, 'summary' => null, 'url' => 'https://finding-aids.lib.unc.edu/catalog/20509', 'public' => 1, 'sequence' => 3, 'description' => '<p>A publicly available collection of live video recordings I made from 1994 to 2002. The collection also includes audio recordings, posters, photographs, and papers affiliated with the Triangle\'s indie rock music scene from 1988 to 2008.</p>' ],
         ];
 
         if (!empty($data)) {

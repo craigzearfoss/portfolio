@@ -50,57 +50,57 @@
             'target' => '_blank'
         ])
 
-        @if(!empty($video->link))
+        @if(!empty($project->link))
             @include('guest.components.show-row-link', [
-                'name'   => $video->link_name,
-                'href'   => $video->link,
+                'name'   => $project->link_name,
+                'href'   => $project->link,
                 'target' => '_blank'
             ])
         @endif
 
         @include('guest.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($video->description ?? '')
+            'value' => nl2br($project->description ?? '')
         ])
 
-        @if(!empty($video->image))
+        @if(!empty($project->image))
 
             @include('guest.components.show-row-image', [
                 'name'     => 'image',
-                'src'      => $video->image,
-                'alt'      => $video->name . ', ' . $video->artist,
+                'src'      => $project->image,
+                'alt'      => $project->name . ', ' . $project->artist,
                 'width'    => '300px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($video->name . '-by-' . $video->artist, $video->image)
+                'filename' => getFileSlug($project->name . '-by-' . $project->artist, $project->image)
             ])
 
-            @if(!empty($video->image_credit))
+            @if(!empty($project->image_credit))
                 @include('guest.components.show-row', [
                     'name'  => 'image credit',
-                    'value' => $video->image_credit
+                    'value' => $project->image_credit
                 ])
             @endif
 
-            @if(!empty($video->image_source))
+            @if(!empty($project->image_source))
                 @include('guest.components.show-row', [
                     'name'  => 'image source',
-                    'value' => $video->image_source
+                    'value' => $project->image_source
                 ])
             @endif
 
         @endif
 
-        @if(!empty($video->thumbnail))
+        @if(!empty($project->thumbnail))
 
             @include('guest.components.show-row-image', [
                 'name'     => 'thumbnail',
-                'src'      => $video->thumbnail,
-                'alt'      => $video->name . ', ' . $video->artist,
+                'src'      => $project->thumbnail,
+                'alt'      => $project->name . ', ' . $project->artist,
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($video->name . '-by-' . $video->artist, $video->thumbnail)
+                'filename' => getFileSlug($project->name . '-by-' . $project->artist, $project->thumbnail)
             ])
 
         @endif

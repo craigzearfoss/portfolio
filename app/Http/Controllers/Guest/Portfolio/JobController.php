@@ -9,7 +9,7 @@ use Illuminate\View\View;
 
 class JobController extends BaseGuestController
 {
-    public function show(Request $request): View
+    public function resume(Request $request): View
     {
         $jobs = Job::where('public', 1)
             ->where('disabled', 0)

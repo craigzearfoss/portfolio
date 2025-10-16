@@ -9,8 +9,8 @@
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.system.message.edit', $message) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Library', 'href' => route('admin.system.message.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'href' => referer('admin.dictionary.index') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Message', 'href' => route('admin.system.message.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'href' => referer('admin.message.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -69,6 +69,11 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
             'checked' => $message->disabled
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'demo',
+            'checked' => $message->demo
         ])
 
         @include('admin.components.show-row', [

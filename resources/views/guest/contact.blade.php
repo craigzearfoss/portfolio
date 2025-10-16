@@ -7,7 +7,8 @@
         [ 'name' => 'Contact Us']
     ],
     'buttons' => [],
-    'errorMessages' => $errors->messages()  ?? [],
+    'errorMessages' => !empty($errors->get('GLOBAL'))
+        ? [$errors->get('GLOBAL')] : ['Please fix the indicated problems before submitting.'],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])

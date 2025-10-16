@@ -66,19 +66,19 @@
 
         @endif
 
-        @if(!empty($certification->image_credit))
-            @include('guest.components.show-row', [
-                'name'  => 'image credit',
-                'value' => $certification->image_credit
+        @if(!empty($certification->link))
+            @include('guest.components.show-row-link', [
+                'name'   => 'link',
+                'href'   => $certification->link,
+                'label'  => $certification->link_name,
+                'target' => '_blank'
             ])
         @endif
 
-        @if(!empty($certification->image_source))
-            @include('guest.components.show-row', [
-                'name'  => 'image source',
-                'value' => $certification->image_source
-            ])
-        @endif
+        @include('guest.components.show-row', [
+            'name'  => 'description',
+            'value' => $certification->description
+        ])
 
         @if(!empty($certification->image))
 

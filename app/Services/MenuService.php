@@ -31,15 +31,26 @@ class MenuService
 
         // Create the array of menu items.
         $menu = [];
+
+        // should we have a resume link?
+        if ($resumeMenuItem = $this->getResumeMenutItem($envType, $currentRouteName)) {
+            $menu[] = $resumeMenuItem;
+        }
+
         $currentDatabaseName = null;
-        $i = -1;
+        $i = 0;
         foreach (Resource::bySequence(null, $envType) as $resource) {
-            if ($resource->database['name'] !== $currentDatabaseName) {
-                $currentDatabaseName = $resource->database['name'];
-                $i++;
-                $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName);
+
+            // note that we skip some emu items
+            if (!in_array($resource->database['name'], ['job'])){
+
+                if ($resource->database['name'] !== $currentDatabaseName) {
+                    $currentDatabaseName = $resource->database['name'];
+                    $i++;
+                    $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName);
+                }
+                $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName);
             }
-            $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName);
         }
 
         if (isAdmin()) {
@@ -140,8 +151,15 @@ class MenuService
 
         // Create the array of menu items.
         $menu = [];
+
+        // should we have a resume link?
+        if ($resumeMenuItem = $this->getResumeMenutItem($envType, $currentRouteName)) {
+            $menu[] = $resumeMenuItem;
+        }
+
         $currentDatabaseName = null;
-        $i = -1;
+
+        $i = 0;
         foreach (Resource::bySequence(null, $envType) as $resource) {
             if ($resource->database['name'] !== $currentDatabaseName) {
                 $currentDatabaseName = $resource->database['name'];
@@ -378,6 +396,40 @@ class MenuService
         $menuItem->db_title          = $data['db_title'] ?? null;
         $menuItem->db_plural         = $data['db_plural'] ?? null;
         $menuItem->children          = $data['children'] ?? [];
+
+        return $menuItem;
+    }
+
+    public function getResumeMenutItem($envType, $currentRouteName = null): stdClass | bool
+    {
+        if (Resource::where('name', 'job')->where($envType, 1)->where('public', 1)->count() == 0) {
+            return false;
+        }
+
+        $resumeRoute = route('guest.resume');
+
+        $menuItem = new stdClass();
+        $menuItem->id       = null;
+        $menuItem->name     = 'Resume';
+        $menuItem->database = null;
+        $menuItem->table    = null;
+        $menuItem->tag      = null;
+        $menuItem->title    = 'Resume';
+        $menuItem->plural   = 'Resumes';
+        $menuItem->route    = $resumeRoute;
+        $menuItem->link     = $resumeRoute;
+        $menuItem->active   = $resumeRoute == $currentRouteName;
+        $menuItem->guest    = $envType == 'guest' ? 1 : 0;
+        $menuItem->user     = $envType == 'user' ? 1 : 0;
+        $menuItem->admin    = $envType == 'admin' ? 1 : 0;
+        $menuItem->icon     = null;
+        $menuItem->sequence = 0;
+        $menuItem->public   = 1;
+        $menuItem->readonly = 0;
+        $menuItem->root     = 0;
+        $menuItem->disabled = 0;
+        $menuItem->admin_id = null;
+        $menuItem->children = [];
 
         return $menuItem;
     }
