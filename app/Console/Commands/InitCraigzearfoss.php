@@ -5,14 +5,10 @@ namespace App\Console\Commands;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use App\Models\System\AdminAdminTeam;
-use App\Models\System\Database;
-use App\Models\System\Resource;
-use App\Models\System\ResourceSetting;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Process;
 use function Laravel\Prompts\text;
 
 class InitCraigzearfoss extends Command
