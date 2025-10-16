@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\craigzearfoss;
 
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Process;
 use function Laravel\Prompts\text;
 
-class InitCraigzearfoss extends Command
+class InitSystem extends Command
 {
     protected $adminId = null;
     protected $groupId = null;
@@ -30,7 +30,7 @@ class InitCraigzearfoss extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-craigzearfoss {--silent}';
+    protected $signature = 'app:init-craigzearfoss-system {--silent}';
 
     /**
      * The console command description.
@@ -59,17 +59,10 @@ class InitCraigzearfoss extends Command
             $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
-        echo PHP_EOL .'Importing System data for craigzearfoss ...' . PHP_EOL;
-        Artisan::call('app:init-craigzearfoss-system --silent');
-
-        echo PHP_EOL .'Importing Portfolio data for craigzearfoss ...' . PHP_EOL;
-        Artisan::call('app:init-craigzearfoss-portfolio --silent');
-
-        echo PHP_EOL .'Importing Career data for craigzearfoss  ...' . PHP_EOL;
-        Artisan::call('app:init-craigzearfoss-career --silent');
-
-        echo PHP_EOL .'Importing Personal data for craigzearfoss  ...' . PHP_EOL;
-        Artisan::call('app:init-craigzearfoss-personal --silent');
+        // system
+        $this->insertSystemAdmins();
+        $this->insertSystemAdminAdminTeams();
+        $this->insertSystemAdminAdminGroups();
     }
 
     protected function addTimeStamps($data) {

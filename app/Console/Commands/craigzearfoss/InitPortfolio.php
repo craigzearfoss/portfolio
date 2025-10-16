@@ -20,7 +20,7 @@ use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
 use function Laravel\Prompts\text;
 
-class InitCraigzearfossPortfolio extends Command
+class InitPortfolio extends Command
 {
     protected $adminId = null;
     protected $groupId = null;
@@ -36,14 +36,14 @@ class InitCraigzearfossPortfolio extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-craigzearfoss-portfolio';
+    protected $signature = 'app:init-craigzearfoss-portfolio {--silent}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the database with initial data for user craigzearfoss';
+    protected $description = 'This will populate the portfolio database with initial data for user craigzearfoss';
 
     /**
      * Execute the console command.
@@ -72,10 +72,12 @@ class InitCraigzearfossPortfolio extends Command
             die;
         }
 
-        echo PHP_EOL . 'adminId: ' . $this->adminId . PHP_EOL;
-        echo 'teamId: ' . $this->teamId . PHP_EOL;
-        echo 'groupId: ' . $this->groupId . PHP_EOL;
-        $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+        if (!$this->option('silent')) {
+            echo PHP_EOL . 'adminId: ' . $this->adminId . PHP_EOL;
+            echo 'teamId: ' . $this->teamId . PHP_EOL;
+            echo 'groupId: ' . $this->groupId . PHP_EOL;
+            $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+        }
 
         // portfolio
         $this->insertPortfolioArt();

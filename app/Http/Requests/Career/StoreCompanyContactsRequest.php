@@ -50,7 +50,7 @@ class StoreCompanyContactsRequest extends FormRequest
             // generate the slug
             if (!empty($this['name'])) {
                 $this->merge([
-                    'slug' => uniqueSlug($this['name'], 'career_db.companies ', $this->owner_id)
+                    'slug' => uniqueSlug($this['name'], 'career_db.companies', $this->owner_id)
                 ]);
             }
 
