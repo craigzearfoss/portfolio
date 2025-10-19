@@ -38,6 +38,13 @@ return new class extends Migration
                 'slug'         => 'default-user-team',
                 'abbreviation' => 'DUT',
             ],
+            [
+                'id'           => 2,
+                'owner_id'     => 3,
+                'name'         => 'Demo User Team',
+                'slug'         => 'demo-user-team',
+                'abbreviation' => 'DEUT',
+            ],
         ];
 
         // add timestamps

@@ -31,6 +31,11 @@ return new class extends Migration
                 'admin_id'      => 2,
                 'admin_team_id' => 1,
             ],
+            [
+                'id'            => 3,
+                'admin_id'      => 3,
+                'admin_team_id' => 2,
+            ],
         ];
 
         AdminAdminTeam::insert($data);

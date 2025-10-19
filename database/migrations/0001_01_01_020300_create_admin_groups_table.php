@@ -40,6 +40,14 @@ return new class extends Migration
                 'slug'          => 'default-admin-group',
                 'abbreviation'  => 'DAG',
             ],
+            [
+                'id'            => 2,
+                'owner_id'      => 3,
+                'admin_team_id' => 2,
+                'name'          => 'Demo Admin Group',
+                'slug'          => 'demo-admin-group',
+                'abbreviation'  => 'DEAG',
+            ],
         ];
 
         // add timestamps

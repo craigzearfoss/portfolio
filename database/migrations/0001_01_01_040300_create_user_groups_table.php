@@ -33,12 +33,20 @@ return new class extends Migration
 
         $data = [
             [
-                'owner_id'     => 2,
                 'id'           => 1,
+                'owner_id'     => 2,
                 'user_team_id' => 1,
                 'name'         => 'Default User Group',
                 'slug'         => 'default-user-group',
                 'abbreviation' => 'DUG',
+            ],
+            [
+                'id'           => 2,
+                'owner_id'     => 3,
+                'user_team_id' => 2,
+                'name'         => 'Demo User Group',
+                'slug'         => 'demo-user-group',
+                'abbreviation' => 'DEUG',
             ],
         ];
 

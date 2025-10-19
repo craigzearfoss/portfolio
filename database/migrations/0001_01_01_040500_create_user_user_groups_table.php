@@ -29,7 +29,7 @@ return new class extends Migration
             [
                 'id'            => 2,
                 'user_id'       => 2,
-                'user_group_id' => 1,
+                'user_group_id' => 2,
             ],
         ];
 

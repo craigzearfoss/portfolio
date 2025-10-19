@@ -37,6 +37,12 @@ return new class extends Migration
                 'slug'         => 'default-admin-team',
                 'abbreviation' => 'DAT',
             ],
+            [
+                'id'           => 2,
+                'name'         => 'Demo Admin Team',
+                'slug'         => 'demo-admin-team',
+                'abbreviation' => 'DEAT',
+            ],
         ];
 
         // add timestamps

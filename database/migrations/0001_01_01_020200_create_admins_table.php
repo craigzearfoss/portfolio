@@ -107,12 +107,14 @@ return new class extends Migration
 
         Admin::insert($data);
 
-        // add owner (admin) for the Default Admin Team
+        // add owner_id (admin) column to the admin_teams table
         Schema::connection($this->database_tag)->table('admin_teams', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id')->after('id');
         });
 
+        // add owners to the admin teams
         AdminTeam::where('name', 'Default Admin Team')->update(['owner_id' => 2]);
+        AdminTeam::where('name', 'Demo Admin Team')->update(['owner_id' => 3]);
     }
 
     /**

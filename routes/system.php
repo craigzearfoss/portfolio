@@ -18,17 +18,14 @@ use App\Http\Controllers\User\IndexController as UserIndexController;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/about', [GuestIndexController::class, 'about'])->name('about');
-Route::get('/contact', [GuestIndexController::class, 'contact'])->name('contact');
-Route::post('/contact/store', [GuestIndexController::class, 'storeMessage'])->name('contact.storeMessage');
-Route::get('/privacy-policy', [GuestIndexController::class, 'privacy_policy'])->name('privacy-policy');
-Route::get('/terms-and-conditions', [GuestIndexController::class, 'terms_and_conditions'])->name('terms-and-conditions');
+Route::name('guest.')->group(function () {
+
+});
 
 Route::name('guest.')->middleware('guest')->group(function () {
 
     Route::get('/', [GuestIndexController::class, 'index'])->name('homepage');
 
-    Route::get('/{admin:username}', [GuestIndexController::class, 'index'])->name('user.index');
     Route::get('/forgot-password', [GuestIndexController::class, 'forgot_password'])->name('forgot-password');
     Route::post('/forgot-password', [GuestIndexController::class, 'forgot_password'])->name('forgot-password-submit');
     Route::get('/forgot-username', [GuestIndexController::class, 'forgot_username'])->name('forgot-username');
@@ -40,6 +37,15 @@ Route::name('guest.')->middleware('guest')->group(function () {
     Route::get('/reset-password/{token}/{email}', [GuestIndexController::class, 'reset_password'])->name('reset-password');
     Route::post('/reset-password/{token}/{email}', [GuestIndexController::class, 'reset_password_submit'])->name('reset-password-submit');
     Route::get('/verify-email/{token}/{email}', [GuestIndexController::class, 'email_verification'])->name('email-verification');
+
+    Route::get('/about', [GuestIndexController::class, 'about'])->name('about');
+    Route::get('/contact', [GuestIndexController::class, 'contact'])->name('contact');
+    Route::post('/contact/store', [GuestIndexController::class, 'storeMessage'])->name('contact.storeMessage');
+    Route::get('/privacy-policy', [GuestIndexController::class, 'privacy_policy'])->name('privacy-policy');
+    Route::get('/terms-and-conditions', [GuestIndexController::class, 'terms_and_conditions'])->name('terms-and-conditions');
+
+    // the following route must be last
+    Route::get('/{admin:username}', [GuestIndexController::class, 'index'])->name('user.index');
 });
 
 Route::middleware('web')->name('user.')->group(function () {
