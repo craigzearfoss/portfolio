@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\craigzearfoss;
+namespace App\Console\Commands\CraigZearfoss;
 
 use App\Models\Career\Application;
 use App\Models\Career\ApplicationSkill;
@@ -24,7 +24,7 @@ class InitCareer extends Command
     protected $groupId = null;
     protected $teamId = null;
 
-    protected $applicationId = [];
+    protected $recipeId = [];
     protected $companyId = [];
     protected $contactId = [];
 
@@ -33,14 +33,14 @@ class InitCareer extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-craigzearfoss-career {--silent}';
+    protected $signature = 'app:init-craig-zearfoss-career {--silent}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the career database with initial data for user craigzearfoss';
+    protected $description = 'This will populate the career database with initial data for admin craig-zearfoss';
 
     /**
      * Execute the console command.
@@ -48,8 +48,8 @@ class InitCareer extends Command
     public function handle()
     {
         // get the admin
-        if (!$admin = Admin::where('username', 'craigzearfoss')->first()) {
-            echo PHP_EOL . 'Admin `craigzearfoss` not found.' . PHP_EOL . PHP_EOL;
+        if (!$admin = Admin::where('username', 'craig-zearfoss')->first()) {
+            echo PHP_EOL . 'Admin `craig-zearfoss` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
 
@@ -57,14 +57,14 @@ class InitCareer extends Command
 
         // verify that the admin is a member of an admin team
         if (!$this->teamId = $admin->admin_team_id) {
-            echo PHP_EOL . 'Admin `craigzearfoss` is not on any admin teams.' . PHP_EOL;
+            echo PHP_EOL . 'Admin `craig-zearfoss` is not on any admin teams.' . PHP_EOL;
             echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
             die;
         }
 
         // verify that the admin belongs to at least one admin group
         if (!$this->groupId = AdminAdminGroup::where('admin_id', $this->adminId)->first()->admin_group_id ?? null) {
-            echo PHP_EOL . 'Admin `craigzearfoss` does not belong to any admin groups.' . PHP_EOL;
+            echo PHP_EOL . 'Admin `craig-zearfoss` does not belong to any admin groups.' . PHP_EOL;
             echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -207,7 +207,6 @@ class InitCareer extends Command
         echo "Inserting into Career\\ApplicationSkill ...\n";
 
         $data = [
-
         ];
 
         if (!empty($data)) {
@@ -396,7 +395,6 @@ class InitCareer extends Command
         echo "Inserting into Career\\Communication ...\n";
 
         $data = [
-
         ];
 
         if (!empty($data)) {
@@ -409,7 +407,6 @@ class InitCareer extends Command
         echo "Inserting into Career\\CoverLetter ...\n";
 
         $data = [
-
         ];
 
         if (!empty($data)) {
@@ -422,7 +419,6 @@ class InitCareer extends Command
         echo "Inserting into Career\\Event ...\n";
 
         $data = [
-
         ];
 
         if (!empty($data)) {
@@ -435,7 +431,6 @@ class InitCareer extends Command
         echo "Inserting into Career\\Note ...\n";
 
         $data = [
-
         ];
 
         if (!empty($data)) {

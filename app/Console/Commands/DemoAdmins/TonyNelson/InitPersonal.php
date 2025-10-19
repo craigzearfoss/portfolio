@@ -6,6 +6,12 @@ use Illuminate\Console\Command;
 
 class InitPersonal extends Command
 {
+    protected $adminId = null;
+    protected $groupId = null;
+    protected $teamId = null;
+
+    protected $recipeId = [];
+
     /**
      * The name and signature of the console command.
      *
@@ -18,7 +24,7 @@ class InitPersonal extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the personal database with initial data for user tonynelson.';
+    protected $description = 'This will populate the personal database with initial data for admin tony-nelson.';
 
     /**
      * Execute the console command.

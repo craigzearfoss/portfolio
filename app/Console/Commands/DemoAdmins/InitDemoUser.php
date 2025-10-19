@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\text;
 
-class InitJREwing extends Command
+class InitDemoUser extends Command
 {
     protected $adminId = null;
     protected $groupId = null;
@@ -19,14 +19,15 @@ class InitJREwing extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-j-r-ewing {--silent}';
+    protected $signature = 'app:init-demo-admin {--silent}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the databases with initial data for admin j-r-ewing';
+    protected $description = 'This will populate the databases with initial data for admin demo-admin';
+
 
     /**
      * Execute the console command.
@@ -35,7 +36,7 @@ class InitJREwing extends Command
     {
         $commandSubdirectory = base_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'Console'
             . DIRECTORY_SEPARATOR . 'Commands' . DIRECTORY_SEPARATOR
-            . 'DemoAdmins' . DIRECTORY_SEPARATOR . 'JREwing' . DIRECTORY_SEPARATOR;
+            . 'DemoAdmins' . DIRECTORY_SEPARATOR . 'DwightSchrute' . DIRECTORY_SEPARATOR;
 
         $this->adminId = Admin::max('id') + 1;
 
@@ -52,24 +53,25 @@ class InitJREwing extends Command
             $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
-        if (file_exists($commandSubdirectory . 'initSystem.php')) {
-            echo PHP_EOL .'Importing System data for j-r-ewing ...' . PHP_EOL;
-            Artisan::call('app:init-j-r-ewing-system --silent');
-        }
+        // demo-admin is added in the initial database migration
+        //if (file_exists($commandSubdirectory . 'initSystem.php')) {
+        //    echo PHP_EOL .'Importing System data for demo-admin ...' . PHP_EOL;
+        //    Artisan::call('app:init-demo-admin-system --silent');
+        //}
 
         if (file_exists($commandSubdirectory . 'initPortfolio.php')) {
-            echo PHP_EOL . 'Importing Portfolio data for j-r-ewing ...' . PHP_EOL;
-            Artisan::call('app:init-j-r-ewing-portfolio --silent');
+            echo PHP_EOL . 'Importing Portfolio data for demo-admin ...' . PHP_EOL;
+            Artisan::call('app:init-demo-admin-portfolio --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initCareer.php')) {
-            echo PHP_EOL . 'Importing Career data for j-r-ewing  ...' . PHP_EOL;
-            Artisan::call('app:init-j-r-ewing-career --silent');
+            echo PHP_EOL . 'Importing Career data for demo-admin  ...' . PHP_EOL;
+            Artisan::call('app:init-demo-admin-career --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initPersonal.php')) {
-            echo PHP_EOL . 'Importing Personal data for j-r-ewing  ...' . PHP_EOL;
-            Artisan::call('app:init-j-r-ewing-personal --silent');
+            echo PHP_EOL . 'Importing Personal data for demo-admin  ...' . PHP_EOL;
+            Artisan::call('app:init-demo-admin-personal --silent');
         }
     }
 }

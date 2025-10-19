@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\craigzearfoss;
+namespace App\Console\Commands\CraigZearfoss;
 
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
@@ -16,23 +16,19 @@ class InitSystem extends Command
     protected $groupId = null;
     protected $teamId = null;
 
-    protected $ids = [];
-    protected $companyIds = [];
-    protected $contactIds = [];
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:init-craigzearfoss-system {--silent}';
+    protected $signature = 'app:init-craig-zearfoss-system {--silent}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the system database with initial data for user craigzearfoss';
+    protected $description = 'This will populate the system database with initial data for admin craig-zearfoss';
 
     /**
      * Execute the console command.
@@ -118,7 +114,7 @@ class InitSystem extends Command
             [
                 'id'                => $this->adminId,
                 'admin_team_id'     => $this->teamId,
-                'username'          => 'craigzearfoss',
+                'username'          => 'craig-zearfoss',
                 'name'              => 'Craig Zearfoss',
                 'email'             => 'caigzearfoss@gmail.com',
                 'email_verified_at' => now(),

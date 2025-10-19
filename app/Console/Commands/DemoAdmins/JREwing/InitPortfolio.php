@@ -22,6 +22,12 @@ use function Laravel\Prompts\text;
 
 class InitPortfolio extends Command
 {
+    protected $adminId = null;
+    protected $groupId = null;
+    protected $teamId = null;
+
+    protected $jobId = [];
+
     /**
      * The name and signature of the console command.
      *
@@ -34,7 +40,7 @@ class InitPortfolio extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the portfolio database with initial data for user jrewing.';
+    protected $description = 'This will populate the portfolio database with initial data for admin jrewing.';
 
     /**
      * Execute the console command.
@@ -42,8 +48,8 @@ class InitPortfolio extends Command
     public function handle()
     {
         // get the admin
-        if (!$admin = Admin::where('username', 'jrewing')->first()) {
-            echo PHP_EOL . 'Admin `jrewing` not found.' . PHP_EOL . PHP_EOL;
+        if (!$admin = Admin::where('username', 'j-r-ewing')->first()) {
+            echo PHP_EOL . 'Admin `j-r-ewing` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
 
@@ -51,14 +57,14 @@ class InitPortfolio extends Command
 
         // verify that the admin is a member of an admin team
         if (!$this->teamId = $admin->admin_team_id) {
-            echo PHP_EOL . 'Admin `jrewing` is not on any admin teams.' . PHP_EOL;
+            echo PHP_EOL . 'Admin `j-r-ewing` is not on any admin teams.' . PHP_EOL;
             echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
             die;
         }
 
         // verify that the admin belongs to at least one admin group
         if (!$this->groupId = AdminAdminGroup::where('admin_id', $this->adminId)->first()->admin_group_id ?? null) {
-            echo PHP_EOL . 'Admin `jrewing` does not belong to any admin groups.' . PHP_EOL;
+            echo PHP_EOL . 'Admin `j-r-ewing` does not belong to any admin groups.' . PHP_EOL;
             echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
             die;
         }

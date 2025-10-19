@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\craigzearfoss;
+namespace App\Console\Commands\CraigZearfoss;
 
 use App\Models\Personal\Reading;
 use App\Models\Personal\Recipe;
@@ -24,14 +24,14 @@ class InitPersonal extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-craigzearfoss-personal {--silent}';
+    protected $signature = 'app:init-craig-zearfoss-personal {--silent}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the personal database with initial data for user craigzearfoss';
+    protected $description = 'This will populate the personal database with initial data for admin craig-zearfoss';
 
     /**
      * Execute the console command.
@@ -39,8 +39,8 @@ class InitPersonal extends Command
     public function handle()
     {
         // get the admin
-        if (!$admin = Admin::where('username', 'craigzearfoss')->first()) {
-            echo PHP_EOL . 'Admin `craigzearfoss` not found.' . PHP_EOL . PHP_EOL;
+        if (!$admin = Admin::where('username', 'craig-zearfoss')->first()) {
+            echo PHP_EOL . 'Admin `craig-zearfoss` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
 
@@ -48,14 +48,14 @@ class InitPersonal extends Command
 
         // verify that the admin is a member of an admin team
         if (!$this->teamId = $admin->admin_team_id) {
-            echo PHP_EOL . 'Admin `craigzearfoss` is not on any admin teams.' . PHP_EOL;
+            echo PHP_EOL . 'Admin `craig-zearfoss` is not on any admin teams.' . PHP_EOL;
             echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
             die;
         }
 
         // verify that the admin belongs to at least one admin group
         if (!$this->groupId = AdminAdminGroup::where('admin_id', $this->adminId)->first()->admin_group_id ?? null) {
-            echo PHP_EOL . 'Admin `craigzearfoss` does not belong to any admin groups.' . PHP_EOL;
+            echo PHP_EOL . 'Admin `craig-zearfoss` does not belong to any admin groups.' . PHP_EOL;
             echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
             die;
         }

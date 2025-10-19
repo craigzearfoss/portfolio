@@ -13,6 +13,12 @@ use function Laravel\Prompts\text;
 
 class InitPersonal extends Command
 {
+    protected $adminId = null;
+    protected $groupId = null;
+    protected $teamId = null;
+
+    protected $recipeId = [];
+
     /**
      * The name and signature of the console command.
      *
@@ -25,7 +31,7 @@ class InitPersonal extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the personal database with initial data for user dwightschrute.';
+    protected $description = 'This will populate the personal database with initial data for admin dwight-schrute.';
 
     /**
      * Execute the console command.
@@ -33,8 +39,8 @@ class InitPersonal extends Command
     public function handle()
     {
         // get the admin
-        if (!$admin = Admin::where('username', 'dwightschrute')->first()) {
-            echo PHP_EOL . 'Admin `dwightschrute` not found.' . PHP_EOL . PHP_EOL;
+        if (!$admin = Admin::where('username', 'dwight-schrute')->first()) {
+            echo PHP_EOL . 'Admin `dwight-schrute` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
 
@@ -42,14 +48,14 @@ class InitPersonal extends Command
 
         // verify that the admin is a member of an admin team
         if (!$this->teamId = $admin->admin_team_id) {
-            echo PHP_EOL . 'Admin `dwightschrute` is not on any admin teams.' . PHP_EOL;
+            echo PHP_EOL . 'Admin `dwight-schrute` is not on any admin teams.' . PHP_EOL;
             echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
             die;
         }
 
         // verify that the admin belongs to at least one admin group
         if (!$this->groupId = AdminAdminGroup::where('admin_id', $this->adminId)->first()->admin_group_id ?? null) {
-            echo PHP_EOL . 'Admin `dwightschrute` does not belong to any admin groups.' . PHP_EOL;
+            echo PHP_EOL . 'Admin `dwight-schrute` does not belong to any admin groups.' . PHP_EOL;
             echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
             die;
         }

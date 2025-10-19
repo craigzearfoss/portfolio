@@ -14,10 +14,6 @@ class InitJedClampett extends Command
     protected $groupId = null;
     protected $teamId = null;
 
-    protected $ids = [];
-    protected $companyIds = [];
-    protected $contactIds = [];
-
     /**
      * The name and signature of the console command.
      *
@@ -30,7 +26,7 @@ class InitJedClampett extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the system database with initial data for user jedclampett';
+    protected $description = 'This will populate the databases with initial data for admin jed-clampett';
 
     /**
      * Execute the console command.
@@ -57,22 +53,22 @@ class InitJedClampett extends Command
         }
 
         if (file_exists($commandSubdirectory . 'initSystem.php')) {
-            echo PHP_EOL .'Importing System data for jedclampett ...' . PHP_EOL;
+            echo PHP_EOL .'Importing System data for jed-clampett ...' . PHP_EOL;
             Artisan::call('app:init-jed-clampett-system --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initPortfolio.php')) {
-            echo PHP_EOL . 'Importing Portfolio data for jedclampett ...' . PHP_EOL;
+            echo PHP_EOL . 'Importing Portfolio data for jed-clampett ...' . PHP_EOL;
             Artisan::call('app:init-jed-clampett-portfolio --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initCareer.php')) {
-            echo PHP_EOL . 'Importing Career data for jedclampett  ...' . PHP_EOL;
+            echo PHP_EOL . 'Importing Career data for jed-clampett  ...' . PHP_EOL;
             Artisan::call('app:init-jedc-lampett-career --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initPersonal.php')) {
-            echo PHP_EOL . 'Importing Personal data for jedclampett  ...' . PHP_EOL;
+            echo PHP_EOL . 'Importing Personal data for jed-clampett  ...' . PHP_EOL;
             Artisan::call('app:init-jed-clampett-personal --silent');
         }
     }

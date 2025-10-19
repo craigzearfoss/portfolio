@@ -6,6 +6,14 @@ use Illuminate\Console\Command;
 
 class InitCareer extends Command
 {
+    protected $adminId = null;
+    protected $groupId = null;
+    protected $teamId = null;
+
+    protected $applicationId = [];
+    protected $companyId = [];
+    protected $contactId = [];
+
     /**
      * The name and signature of the console command.
      *
@@ -18,7 +26,7 @@ class InitCareer extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the career database with initial data for user sammalone.';
+    protected $description = 'This will populate the career database with initial data for admin sam-malone.';
 
     /**
      * Execute the console command.

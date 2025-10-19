@@ -20,6 +20,14 @@ use function Laravel\Prompts\text;
 
 class InitCareer extends Command
 {
+    protected $adminId = null;
+    protected $groupId = null;
+    protected $teamId = null;
+
+    protected $applicationId = [];
+    protected $companyId = [];
+    protected $contactId = [];
+
     /**
      * The name and signature of the console command.
      *
@@ -32,7 +40,7 @@ class InitCareer extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the career database with initial data for user alexreiger.';
+    protected $description = 'This will populate the career database with initial data for admin alex-reiger.';
 
     /**
      * Execute the console command.
@@ -40,8 +48,8 @@ class InitCareer extends Command
     public function handle()
     {
         // get the admin
-        if (!$admin = Admin::where('username', 'alexreiger')->first()) {
-            echo PHP_EOL . 'Admin `alexreiger` not found.' . PHP_EOL . PHP_EOL;
+        if (!$admin = Admin::where('username', 'alex-reiger')->first()) {
+            echo PHP_EOL . 'Admin `alex-reiger` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
 
@@ -49,14 +57,14 @@ class InitCareer extends Command
 
         // verify that the admin is a member of an admin team
         if (!$this->teamId = $admin->admin_team_id) {
-            echo PHP_EOL . 'Admin `alexreiger` is not on any admin teams.' . PHP_EOL;
+            echo PHP_EOL . 'Admin `alex-reiger` is not on any admin teams.' . PHP_EOL;
             echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
             die;
         }
 
         // verify that the admin belongs to at least one admin group
         if (!$this->groupId = AdminAdminGroup::where('admin_id', $this->adminId)->first()->admin_group_id ?? null) {
-            echo PHP_EOL . 'Admin `alexreiger` does not belong to any admin groups.' . PHP_EOL;
+            echo PHP_EOL . 'Admin `alex-reiger` does not belong to any admin groups.' . PHP_EOL;
             echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
             die;
         }

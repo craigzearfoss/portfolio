@@ -14,10 +14,6 @@ class InitDwightSchrute extends Command
     protected $groupId = null;
     protected $teamId = null;
 
-    protected $ids = [];
-    protected $companyIds = [];
-    protected $contactIds = [];
-
     /**
      * The name and signature of the console command.
      *
@@ -30,7 +26,7 @@ class InitDwightSchrute extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the system database with initial data for user dwightschrute';
+    protected $description = 'This will populate the databases with initial data for admin dwight-schrute';
 
     /**
      * Execute the console command.
@@ -57,22 +53,22 @@ class InitDwightSchrute extends Command
         }
 
         if (file_exists($commandSubdirectory . 'initSystem.php')) {
-            echo PHP_EOL .'Importing System data for dwightschrute ...' . PHP_EOL;
+            echo PHP_EOL .'Importing System data for dwight-schrute ...' . PHP_EOL;
             Artisan::call('app:init-dwight-schrute-system --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initPortfolio.php')) {
-            echo PHP_EOL . 'Importing Portfolio data for dwightschrute ...' . PHP_EOL;
+            echo PHP_EOL . 'Importing Portfolio data for dwight-schrute ...' . PHP_EOL;
             Artisan::call('app:init-dwight-schrute-portfolio --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initCareer.php')) {
-            echo PHP_EOL . 'Importing Career data for dwightschrute  ...' . PHP_EOL;
+            echo PHP_EOL . 'Importing Career data for dwight-schrute  ...' . PHP_EOL;
             Artisan::call('app:init-dwight-schrute-career --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initPersonal.php')) {
-            echo PHP_EOL . 'Importing Personal data for dwightschrute  ...' . PHP_EOL;
+            echo PHP_EOL . 'Importing Personal data for dwight-schrute  ...' . PHP_EOL;
             Artisan::call('app:init-dwight-schrute-personal --silent');
         }
     }

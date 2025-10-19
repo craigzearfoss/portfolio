@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\DemoAdmins\JedClampett;
+namespace App\Console\Commands\DemoAdmins\DemoAdmin;
 
 use Illuminate\Console\Command;
 
@@ -19,14 +19,19 @@ class InitCareer extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-jed-clampett-career {--silent}';
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'app:init-demo-admin-career {--silent}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the career database with initial data for admin jed-clampett.';
+    protected $description = 'This will populate the career database with initial data for admin demo-admin.';
 
     /**
      * Execute the console command.

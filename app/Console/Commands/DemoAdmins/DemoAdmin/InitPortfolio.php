@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\DemoAdmins\JedClampett;
+namespace App\Console\Commands\DemoAdmins\DemoAdmin;
 
 use Illuminate\Console\Command;
 
@@ -17,14 +17,14 @@ class InitPortfolio extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-jed-clampett-portfolio {--silent}';
+    protected $signature = 'app:init-demo-admin-portfolio {--silent}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the portfolio database with initial data for admin jed-clampett.';
+    protected $description = 'This will populate the portfolio database with initial data for admin demo-admin.';
 
     /**
      * Execute the console command.

@@ -6,6 +6,10 @@ use Illuminate\Console\Command;
 
 class InitSystem extends Command
 {
+    protected $adminId = null;
+    protected $groupId = null;
+    protected $teamId = null;
+
     /**
      * The name and signature of the console command.
      *
@@ -18,7 +22,7 @@ class InitSystem extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the system database with initial data for user jedclampett.';
+    protected $description = 'This will populate the system database with initial data for admin jed-clampett.';
 
     /**
      * Execute the console command.

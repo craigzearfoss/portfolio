@@ -14,10 +14,6 @@ class InitLaverneDeFazio extends Command
     protected $groupId = null;
     protected $teamId = null;
 
-    protected $ids = [];
-    protected $companyIds = [];
-    protected $contactIds = [];
-
     /**
      * The name and signature of the console command.
      *
@@ -30,7 +26,7 @@ class InitLaverneDeFazio extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the system database with initial data for user lavernedefazio';
+    protected $description = 'This will populate the databases with initial data for admin laverne-de-fazio';
 
     /**
      * Execute the console command.
@@ -57,22 +53,22 @@ class InitLaverneDeFazio extends Command
         }
 
         if (file_exists($commandSubdirectory . 'initSystem.php')) {
-            echo PHP_EOL .'Importing System data for lavernedefazio ...' . PHP_EOL;
+            echo PHP_EOL .'Importing System data for laverne-de-fazio ...' . PHP_EOL;
             Artisan::call('app:init-laverne-de-fazio-system --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initPortfolio.php')) {
-            echo PHP_EOL . 'Importing Portfolio data for lavernedefazio ...' . PHP_EOL;
+            echo PHP_EOL . 'Importing Portfolio data for laverne-de-fazio ...' . PHP_EOL;
             Artisan::call('app:init-laverne-de-fazio-portfolio --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initCareer.php')) {
-            echo PHP_EOL . 'Importing Career data for lavernedefazio  ...' . PHP_EOL;
+            echo PHP_EOL . 'Importing Career data for laverne-de-fazio  ...' . PHP_EOL;
             Artisan::call('app:init-laverne-de-fazio-career --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initPersonal.php')) {
-            echo PHP_EOL . 'Importing Personal data for lavernedefazio  ...' . PHP_EOL;
+            echo PHP_EOL . 'Importing Personal data for laverne-de-fazio  ...' . PHP_EOL;
             Artisan::call('app:init-laverne-de-fazio-personal --silent');
         }
     }

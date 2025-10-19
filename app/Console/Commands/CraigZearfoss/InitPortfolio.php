@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\craigzearfoss;
+namespace App\Console\Commands\CraigZearfoss;
 
 use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Audio;
@@ -26,24 +26,22 @@ class InitPortfolio extends Command
     protected $groupId = null;
     protected $teamId = null;
 
-    protected $ids = [];
-    protected $companyIds = [];
-    protected $contactIds = [];
     protected $jobId = [];
+    protected $ids = [];
 
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:init-craigzearfoss-portfolio {--silent}';
+    protected $signature = 'app:init-craig-zearfoss-portfolio {--silent}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the portfolio database with initial data for user craigzearfoss';
+    protected $description = 'This will populate the portfolio database with initial data for admin craig-zearfoss';
 
     /**
      * Execute the console command.
@@ -51,8 +49,8 @@ class InitPortfolio extends Command
     public function handle()
     {
         // get the admin
-        if (!$admin = Admin::where('username', 'craigzearfoss')->first()) {
-            echo PHP_EOL . 'Admin `craigzearfoss` not found.' . PHP_EOL . PHP_EOL;
+        if (!$admin = Admin::where('username', 'craig-zearfoss')->first()) {
+            echo PHP_EOL . 'Admin `craig-zearfoss` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
 
@@ -60,14 +58,14 @@ class InitPortfolio extends Command
 
         // verify that the admin is a member of an admin team
         if (!$this->teamId = $admin->admin_team_id) {
-            echo PHP_EOL . 'Admin `craigzearfoss` is not on any admin teams.' . PHP_EOL;
+            echo PHP_EOL . 'Admin `craig-zearfoss` is not on any admin teams.' . PHP_EOL;
             echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
             die;
         }
 
         // verify that the admin belongs to at least one admin group
         if (!$this->groupId = AdminAdminGroup::where('admin_id', $this->adminId)->first()->admin_group_id ?? null) {
-            echo PHP_EOL . 'Admin `craigzearfoss` does not belong to any admin groups.' . PHP_EOL;
+            echo PHP_EOL . 'Admin `craig-zearfoss` does not belong to any admin groups.' . PHP_EOL;
             echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
             die;
         }
@@ -1271,7 +1269,7 @@ class InitPortfolio extends Command
                 'city'                   => 'Idaho Falls',
                 'state_id'               => 13,
                 'country_id'             => 237,
-                'thumbnail'              => 'images/admin/2/portfolio/job/idaho_national_laboratory_logo.png',
+                'thumbnail'              => '/images/admin/2/portfolio/job/idaho_national_laboratory_logo.png',
                 'public'                 => 1,
             ],
             [
@@ -1290,7 +1288,7 @@ class InitPortfolio extends Command
                 'city'                   => 'Maplewood',
                 'state_id'               => 24,
                 'country_id'             => 237,
-                'thumbnail'              => 'images/admin/2/portfolio/job/3m_logo.png',
+                'thumbnail'              => '/images/admin/2/portfolio/job/3m_logo.png',
                 'public' => 1,
             ],
             [
@@ -1309,7 +1307,7 @@ class InitPortfolio extends Command
                 'city'                   => 'Apple Valley',
                 'state_id'               => 24,
                 'country_id'             => 237,
-                'thumbnail'              => 'images/admin/2/portfolio/job/questar_logo.png',
+                'thumbnail'              => '/images/admin/2/portfolio/job/questar_logo.png',
                 'public'                 => 1,
             ],
             [
@@ -1328,7 +1326,7 @@ class InitPortfolio extends Command
                 'city'                   => 'Miami Beach',
                 'state_id'               => 10,
                 'country_id'             => 237,
-                'thumbnail'              => 'images/admin/2/portfolio/job/junta_logo.png',
+                'thumbnail'              => '/images/admin/2/portfolio/job/junta_logo.png',
                 'public'                 => 1,
             ],
             [
@@ -1385,7 +1383,7 @@ class InitPortfolio extends Command
                 'city'                   => 'Durham',
                 'state_id'               => 34,
                 'country_id'             => 237,
-                'thumbnail'              => 'images/admin/2/portfolio/job/ibm_logo.png',
+                'thumbnail'              => '/images/admin/2/portfolio/job/ibm_logo.png',
                 'public'                 => 1,
             ],
         ];

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('title');
             $table->string('author')->nullable();
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->tinyInteger('featured')->default(0);
             $table->string('summary')->nullable();
             $table->integer('publication_year')->nullable();

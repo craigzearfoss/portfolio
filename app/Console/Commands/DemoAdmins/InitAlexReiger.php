@@ -14,10 +14,6 @@ class InitAlexReiger extends Command
     protected $groupId = null;
     protected $teamId = null;
 
-    protected $ids = [];
-    protected $companyIds = [];
-    protected $contactIds = [];
-
     /**
      * The name and signature of the console command.
      *
@@ -30,7 +26,7 @@ class InitAlexReiger extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the system database with initial data for user alexreiger';
+    protected $description = 'This will populate the databases with initial data for admin alex-reiger';
 
     /**
      * Execute the console command.
@@ -57,22 +53,22 @@ class InitAlexReiger extends Command
         }
 
         if (file_exists($commandSubdirectory . 'initSystem.php')) {
-            echo PHP_EOL .'Importing System data for alexreiger ...' . PHP_EOL;
+            echo PHP_EOL .'Importing System data for alex-reiger ...' . PHP_EOL;
             Artisan::call('app:init-alex-reiger-system --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initPortfolio.php')) {
-            echo PHP_EOL . 'Importing Portfolio data for alexreiger ...' . PHP_EOL;
+            echo PHP_EOL . 'Importing Portfolio data for alex-reiger ...' . PHP_EOL;
             Artisan::call('app:init-alex-reiger-portfolio --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initCareer.php')) {
-            echo PHP_EOL . 'Importing Career data for alexreiger  ...' . PHP_EOL;
+            echo PHP_EOL . 'Importing Career data for alex-reiger  ...' . PHP_EOL;
             Artisan::call('app:init-alex-reiger-career --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initPersonal.php')) {
-            echo PHP_EOL . 'Importing Personal data for alexreiger  ...' . PHP_EOL;
+            echo PHP_EOL . 'Importing Personal data for alex-reiger  ...' . PHP_EOL;
             Artisan::call('app:init-alex-reiger-personal --silent');
         }
     }

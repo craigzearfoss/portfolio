@@ -6,6 +6,12 @@ use Illuminate\Console\Command;
 
 class InitPortfolio extends Command
 {
+    protected $adminId = null;
+    protected $groupId = null;
+    protected $teamId = null;
+
+    protected $jobId = [];
+
     /**
      * The name and signature of the console command.
      *
@@ -18,7 +24,7 @@ class InitPortfolio extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the portfolio database with initial data for user fredflintstone.';
+    protected $description = 'This will populate the portfolio database with initial data for admin fred-flintstone.';
 
     /**
      * Execute the console command.

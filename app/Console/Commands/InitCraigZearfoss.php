@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use function Laravel\Prompts\text;
 
-class InitCraigzearfoss extends Command
+class InitCraigZearfoss extends Command
 {
     protected $adminId = null;
     protected $groupId = null;
@@ -26,14 +26,14 @@ class InitCraigzearfoss extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-craigzearfoss {--silent}';
+    protected $signature = 'app:init-craig-zearfoss {--silent}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the system database with initial data for user craigzearfoss';
+    protected $description = 'This will populate the databases with initial data for admin craig-zearfoss';
 
     /**
      * Execute the console command.
@@ -55,16 +55,16 @@ class InitCraigzearfoss extends Command
             $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
-        echo PHP_EOL .'Importing System data for craigzearfoss ...' . PHP_EOL;
-        Artisan::call('app:init-craigzearfoss-system --silent');
+        echo PHP_EOL .'Importing System data for craig-zearfoss ...' . PHP_EOL;
+        Artisan::call('app:init-craig-zearfoss-system --silent');
 
-        echo PHP_EOL .'Importing Portfolio data for craigzearfoss ...' . PHP_EOL;
-        Artisan::call('app:init-craigzearfoss-portfolio --silent');
+        echo PHP_EOL .'Importing Portfolio data for craig-zearfoss ...' . PHP_EOL;
+        Artisan::call('app:init-craig-zearfoss-portfolio --silent');
 
         echo PHP_EOL .'Importing Career data for craigzearfoss  ...' . PHP_EOL;
-        Artisan::call('app:init-craigzearfoss-career --silent');
+        Artisan::call('app:init-craig-zearfoss-career --silent');
 
-        echo PHP_EOL .'Importing Personal data for craigzearfoss  ...' . PHP_EOL;
-        Artisan::call('app:init-craigzearfoss-personal --silent');
+        echo PHP_EOL .'Importing Personal data for craig-zearfoss  ...' . PHP_EOL;
+        Artisan::call('app:init-craig-zearfoss-personal --silent');
     }
 }

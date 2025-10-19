@@ -12,6 +12,10 @@ use function Laravel\Prompts\text;
 
 class InitSystem extends Command
 {
+    protected $adminId = null;
+    protected $groupId = null;
+    protected $teamId = null;
+
     /**
      * The name and signature of the console command.
      *
@@ -24,7 +28,7 @@ class InitSystem extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the system database with initial data for user lavernedefazio.';
+    protected $description = 'This will populate the system database with initial data for admin laverne-de-fazio.';
 
     /**
      * Execute the console command.
@@ -110,7 +114,7 @@ class InitSystem extends Command
             [
                 'id'                => $this->adminId,
                 'admin_team_id'     => $this->teamId,
-                'username'          => 'lavernedefazio',
+                'username'          => 'laverne-de-fazio',
                 'name'              => 'Laverne DeFazio',
                 'email'             => 'ldefazio@defazio.com',
                 'email_verified_at' => now(),
