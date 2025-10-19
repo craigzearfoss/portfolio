@@ -34,6 +34,7 @@ class UpdateDatabasesRequest extends FormRequest
             'guest'       => ['integer', 'between:0,1'],
             'user'        => ['integer', 'between:0,1'],
             'admin'       => ['integer', 'between:0,1'],
+            'global'      => ['integer', 'between:0,1'],
             'icon'        => ['string', 'max:50', 'nullable'],
             'sequence'    => ['integer', 'min:0'],
             'public'      => ['integer', 'between:0,1'],

@@ -1,9 +1,10 @@
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Recipe: ' . $recipe->name,
+    'title' => $title ?? $admin->name . ' recipes',
     'breadcrumbs' => [
-        [ 'name' => 'Home',     'href' => route('guest.homepage') ],
-        [ 'name' => 'Personal', 'href' => route('guest.personal.index') ],
-        [ 'name' => $recipe->name ],
+        [ 'name' => 'Home',       'href' => route('guest.homepage') ],
+        [ 'name' => $admin->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.user.portfolio.index', $admin) ],
+        [ 'name' => 'Recipes' ],
     ],
     'buttons' => [],
     'errorMessages' => $errors->messages()  ?? [],
@@ -41,7 +42,7 @@
                     <td>
                         @include('guest.components.link', [
                             'name'  => $recipe->name,
-                            'href'  => route('guest.personal.recipe.show', $recipe->slug),
+                            'href'  => route('guest.user.personal.recipe.show', [$admin, $recipe->slug]),
                             'class' => $recipe->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

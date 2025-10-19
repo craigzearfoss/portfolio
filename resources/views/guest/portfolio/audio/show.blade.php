@@ -1,13 +1,14 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Audio: ' . $audio->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',      'href' => route('guest.homepage') ],
-        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
-        [ 'name' => 'Audio ',    'href' => route('guest.portfolio.audio.index') ],
+        [ 'name' => 'Home',              'href' => route('guest.homepage') ],
+        [ 'name' => $audio->owner->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => 'Portfolio',         'href' => route('guest.user.portfolio.index', $admin) ],
+        [ 'name' => 'Audio',             'href' => route('guest.user.portfolio.audio.index', $admin) ],
         [ 'name' => $audio->name ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.personal.audio.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.user.portfolio.audio.index', $admin) ],
     ],
     'errors'  => $errors->messages()  ?? [],
     'success' => session('success') ?? null,
@@ -28,15 +29,17 @@
             'value' => $audio->slug
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'parent',
-            'value' => !empty($audio->parent)
-                ? view('admin.components.link', [
-                        'name' => $audio->parent['name'],
-                        'href' => route('admin.portfolio.audio.show', $audio->parent)
-                    ])
-                : ''
-        ])
+        @if(!empty($audio->parent))
+            @include('guest.components.show-row', [
+                'name'  => 'parent',
+                'value' => !empty($audio->parent)
+                    ? view('guest.components.link', [
+                            'name' => $audio->parent['name'],
+                            'href' => route('guest.user.portfolio.audio.show', [$admin, $audio->parent->slug])
+                        ])
+                    : ''
+            ])
+        @endif
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'featured',
@@ -47,6 +50,24 @@
             'name'  => 'summary',
             'value' => $audio->summary
         ])
+
+        @if(!empty($audio->children))
+            <div class="columns">
+                <div class="column is-2"><strong>children</strong>:</div>
+                <div class="column is-10 pl-0">
+                    <ol>
+                        @foreach($audio->children as $child)
+                            <li>
+                                @include('guest.components.link', [
+                                    'name' => $child['name'],
+                                    'href' => route('guest.user.portfolio.audio.show', [$admin, $child->slug])
+                                ])
+                            </li>
+                        @endforeach
+                    </ol>
+                </div>
+            </div>
+        @endif
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'full episode',

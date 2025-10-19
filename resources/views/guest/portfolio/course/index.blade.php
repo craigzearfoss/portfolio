@@ -1,8 +1,9 @@
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Courses',
+    'title' => $title ?? $admin->name . ' courses',
     'breadcrumbs' => [
-        [ 'name' => 'Home',      'href' => route('guest.homepage') ],
-        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
+        [ 'name' => 'Home',       'href' => route('guest.homepage') ],
+        [ 'name' => $admin->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.user.portfolio.index', $admin) ],
         [ 'name' => 'Courses' ],
     ],
     'buttons' => [],
@@ -43,7 +44,7 @@
                     <td>
                         @include('guest.components.link', [
                             'name'  => $course->name,
-                            'href'  => route('guest.portfolio.course.show', $course->slug),
+                            'href'  => route('guest.user.portfolio.course.show', [$admin, $course->slug]),
                             'class' => $course->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

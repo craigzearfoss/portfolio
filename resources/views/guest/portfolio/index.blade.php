@@ -1,8 +1,9 @@
 @extends('guest.layouts.default', [
-    'title' => 'Portfolio',
+    'title' => $title ?? $admin->name . ' portfolio',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('guest.homepage') ],
-        [ 'name' => 'Portfolio']
+        [ 'name' => 'Home',       'href' => route('guest.homepage') ],
+        [ 'name' => $admin->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => $title ?? 'Portfolio' ],
     ],
     'buttons' => [],
     'errorMessages' => $errors->messages()  ?? [],
@@ -23,11 +24,13 @@
                     @foreach ($portfolios as $portfolio)
 
                         <li>
-                            @include('guest.components.link', [
-                                'name'  => $portfolio->plural,
-                                'href'  => route('guest.portfolio.'.$portfolio->name.'.index'),
-                                'class' => 'list-item',
-                            ])
+                            @if($portfolio->name != 'job')
+                                @include('guest.components.link', [
+                                    'name'  => $portfolio->plural,
+                                    'href'  => route('guest.user.portfolio.'.$portfolio->name.'.index', $admin),
+                                    'class' => 'list-item',
+                                ])
+                            @endif
                         </li>
 
                     @endforeach

@@ -104,6 +104,11 @@
             'checked' => $resource->admin
         ])
 
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'global',
+            'checked' => $resource->global
+        ])
+
         @include('admin.components.show-row-icon', [
             'name' => 'icon',
             'icon' => $resource->icon

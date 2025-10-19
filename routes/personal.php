@@ -12,17 +12,26 @@ use App\Http\Controllers\Guest\Personal\ReadingController as GuestPersonalReadin
 use App\Http\Controllers\Guest\Personal\RecipeController as GuestPersonalRecipeController;
 use Illuminate\Support\Facades\Route;
 
-Route::name('guest.')->group(function () {
+Route::name('guest.')->middleware('guest')->group(function () {
 
     // resources
     Route::prefix('personal')->name('personal.')->group(function () {
         Route::get('/', [GuestPersonalIndexController::class, 'index'])->name('index');
-        Route::get('/reading', [GuestPersonalReadingController::class, 'index'])->name('reading.index');
-        Route::get('/reading/{slug}', [GuestPersonalReadingController::class, 'show'])->name('reading.show');
-        Route::get('/recipe', [GuestPersonalRecipeController::class, 'index'])->name('recipe.index');
-        Route::get('/recipe/{slug}', [GuestPersonalRecipeController::class, 'show'])->name('recipe.show');
     });
 });
+
+Route::name('guest.')->group(function () {
+
+     Route::get('/{admin:username}/personal', [GuestPersonalIndexController::class, 'index'])->name('user.personal.index');
+
+    Route::get('/{admin:username}/personal/reading', [GuestPersonalReadingController::class, 'index'])->name('user.personal.reading.index');
+    Route::get('/{admin:username}/personal/reading/{slug}', [GuestPersonalReadingController::class, 'show'])->name('user.personal.reading.show');
+
+    Route::get('/{admin:username}/personal/recipe', [GuestPersonalRecipeController::class, 'index'])->name('user.personal.recipe.index');
+    Route::get('/{admin:username}/personal/recipe/{slug}', [GuestPersonalRecipeController::class, 'show'])->name('user.personal.recipe.show');
+});
+
+
 
 Route::prefix('admin/personal')->middleware('admin')->name('admin.personal.')->group(function () {
     Route::get('/', [AdminPersonalIndexController::class, 'index'])->name('index');

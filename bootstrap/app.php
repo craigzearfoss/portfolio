@@ -7,15 +7,12 @@ use Illuminate\Foundation\Configuration\Middleware;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: [
-            __DIR__.'/../routes/web.php',
             __DIR__.'/../routes/system.php',
+            __DIR__.'/../routes/web.php',
             __DIR__.'/../routes/dictionary.php',
             __DIR__.'/../routes/portfolio.php',
             __DIR__.'/../routes/career.php',
             __DIR__.'/../routes/personal.php',
-//            __DIR__.'/../routes/front.php',
-//            __DIR__.'/../routes/user.php',
-//            __DIR__.'/../routes/admin.php',
         ],
         api: [
             __DIR__.'/../routes/api.php',
@@ -27,7 +24,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'admin' => App\Http\Middleware\Admin::class,
-            'auth' => App\Http\Middleware\User::class,
+            'user'  => App\Http\Middleware\User::class,
+            'guest' => App\Http\Middleware\Guest::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

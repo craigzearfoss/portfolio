@@ -1,5 +1,8 @@
 @php
-    $menuItems = (new \App\Services\MenuService())->getTopMenu(\App\Services\PermissionService::ENV_GUEST);
+    $menuItems = (new \App\Services\MenuService())->getTopMenu(
+        \App\Services\PermissionService::ENV_GUEST,
+        $admin ?? null
+    );
 @endphp
 <nav id="navbar-main" class="navbar is-fixed-top">
     <div class="navbar-brand">
@@ -8,9 +11,26 @@
         </a>
         <div class="navbar-item has-control">
             <div class="control">
-                <?php /*
-                <input placeholder="Search everywhere..." class="input">
-                */ ?>
+
+                @if(\App\Models\System\Admin::where('public', 1)->count() > 1)
+
+                    @include('admin.components.form-select-nolabel', [
+                        'value'    => $admin->username ?? '',
+                        'list'     => \App\Models\System\Admin::listOptions([
+                                                'public' => 1,
+                                            ],
+                                            'username',
+                                            'name',
+                                            true,
+                                            false,
+                                            ['name', 'asc'
+                                        ]),
+                        'style'    => 'font-size: 1.2em; font-weight: 700',
+                        'onchange' => "document.location.href='/'+this.value;"
+                    ])
+
+                @endif
+
             </div>
         </div>
     </div>

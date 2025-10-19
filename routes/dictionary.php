@@ -22,7 +22,7 @@ use App\Http\Controllers\Admin\Dictionary\StackController as AdminStackControlle
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('dictionary')->name('guest.dictionary.')->group(function () {
+Route::prefix('dictionary')->middleware('guest')->name('guest.dictionary.')->group(function () {
     Route::get('/', [FrontIndexController::class, 'index'])->name('index');
     Route::get('/category', [FrontCategoryController::class, 'index'])->name('category.index');
     Route::get('/category/{slug}', [FrontCategoryController::class, 'show'])->name('category.show');

@@ -1,8 +1,9 @@
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Skills',
+    'title' => $title ?? $admin->name . ' skills',
     'breadcrumbs' => [
-        [ 'name' => 'Home',      'href' => route('guest.homepage') ],
-        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
+        [ 'name' => 'Home',       'href' => route('guest.homepage') ],
+        [ 'name' => $admin->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.user.portfolio.index', $admin) ],
         [ 'name' => 'Skills' ],
     ],
     'buttons' => [],
@@ -42,8 +43,8 @@
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => $skill->name . (!empty($skill->version) ? ' ' . $skill->version : ''),
-                            'href'  => route('guest.portfolio.skill.show', $skill->slug),
+                            'name'  => $skill->name,
+                            'href'  => route('guest.user.portfolio.skill.show', [$admin, $skill->slug]),
                             'class' => $skill->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
@@ -64,7 +65,7 @@
             @empty
 
                 <tr>
-                    <td colspan="2">There are no links.</td>
+                    <td colspan="4">There are no links.</td>
                 </tr>
 
             @endforelse

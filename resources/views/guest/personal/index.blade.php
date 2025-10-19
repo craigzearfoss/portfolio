@@ -1,8 +1,9 @@
 @extends('guest.layouts.default', [
-    'title' => 'Personal',
+    'title' => $title ?? $admin->name . ' personal',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('guest.homepage') ],
-        [ 'name' => 'Personal']
+        [ 'name' => 'Home',       'href' => route('guest.homepage') ],
+        [ 'name' => $admin->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => $title ?? 'Personal' ],
     ],
     'buttons' => [],
     'errorMessages' => $errors->messages()  ?? [],
@@ -25,7 +26,7 @@
                         <li>
                             @include('guest.components.link', [
                                 'name'  => $personal->plural,
-                                'href'  => route('guest.personal.'.$personal->name.'.index'),
+                                'href'  => route('guest.user.personal.'.$personal->name.'.index', $admin),
                                 'class' => 'list-item',
                             ])
                         </li>

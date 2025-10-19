@@ -1,5 +1,8 @@
 @php
-    $menuItems = (new \App\Services\MenuService())->getTopMenu(\App\Services\PermissionService::ENV_ADMIN);
+    $menuItems = (new \App\Services\MenuService())->getTopMenu(
+        \App\Services\PermissionService::ENV_GUEST,
+        $admin ?? null
+    );
 @endphp
 <nav id="navbar-main" class="navbar is-fixed-top">
     <div class="navbar-brand">

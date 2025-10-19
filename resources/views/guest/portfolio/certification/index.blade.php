@@ -1,8 +1,9 @@
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Certifications',
+    'title' => $title ?? $admin->name . ' certifications',
     'breadcrumbs' => [
-        [ 'name' => 'Home',      'href' => route('guest.homepage') ],
-        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
+        [ 'name' => 'Home',       'href' => route('guest.homepage') ],
+        [ 'name' => $admin->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.user.portfolio.index', $admin) ],
         [ 'name' => 'Certifications' ],
     ],
     'buttons' => [],
@@ -47,7 +48,7 @@
                     <td>
                         @include('guest.components.link', [
                             'name'  => $certification->name,
-                            'href'  => route('guest.portfolio.certification.show', $certification->slug),
+                            'href'  => route('guest.user.portfolio.certification.show', [$certification->owner->username, $certification->slug]),
                             'class' => $certification->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
@@ -79,7 +80,7 @@
             @empty
 
                 <tr>
-                    <td colspan="5">There are no certifications.</td>
+                    <td colspan="6">There are no certifications.</td>
                 </tr>
 
             @endforelse

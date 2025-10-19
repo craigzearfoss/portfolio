@@ -4,8 +4,8 @@
 <div class="field">
     <div class="control">
         <label class="label">
-                @if(empty($nohidden))
-            <input type="hidden" name="{{ $name ?? 'name' }}" value="{{ $unchecked_value ?? '0' }}">
+            @if(empty($nohidden))
+                <input type="hidden" name="{{ $name ?? 'name' }}" value="{{ $unchecked_value ?? '0' }}">
             @endif
             <input
                 type="checkbox"

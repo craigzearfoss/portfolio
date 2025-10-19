@@ -30,6 +30,7 @@ class Database extends Model
         'guest',
         'user',
         'admin',
+        'global',   // the database has no owner
         'icon',
         'sequence',
         'public',

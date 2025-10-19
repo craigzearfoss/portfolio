@@ -1,12 +1,45 @@
 @php
-$menuItems = (new \App\Services\MenuService())->getLeftMenu(\App\Services\PermissionService::ENV_GUEST);// dd($menuItems);
+$menuItems = (new \App\Services\MenuService())->getLeftMenu(
+    \App\Services\PermissionService::ENV_GUEST,
+     $admin ?? null
+ );
 @endphp
 
 <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
     <div class="aside-tools">
         <div class="aside-tools-label">
 
-            <a class="has-text-primary" href="{{ route('guest.homepage') }}"><strong>{{ config('app.name') }}</strong></a>
+
+            @if(!empty($admin))
+
+                @include('admin.components.link', [
+                    'name'  => $admin->name,
+                    'href'  => route('guest.user.index', $admin),
+                    'style' => 'font-size: 1.2em; font-weight: 700',
+                ])
+
+                <?php /*
+                @include('admin.components.form-select-nolabel', [
+                    'value'    => $admin->username ?? '',
+                    'list'     => \App\Models\System\Admin::listOptions([
+                                            'public' => 1,
+                                        ],
+                                        'username',
+                                        'name',
+                                        \App\Models\System\Admin::where('public', 1)->count() > 1,
+                                        false,
+                                        ['name', 'asc'
+                                    ]),
+                    'style'    => 'font-size: 1.2em; font-weight: 700',
+                    'onchange' => "document.location.href='/'+this.value;"
+                ])
+                */ ?>
+
+            @else
+
+                <a class="has-text-primary" href="{{ route('guest.homepage') }}"><strong>{{ config('app.name') }}</strong></a>
+
+            @endif
 
         </div>
     </div>

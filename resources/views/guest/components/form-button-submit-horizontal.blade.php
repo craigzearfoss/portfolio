@@ -4,10 +4,10 @@
     <div class="field-body">
         <div class="field">
 
-        <a
-            href="{{ $cancel_url ?? route('guest.homepage') }}"
-            class="button is-small is-dark"
-        ><i class="fa-solid fa-close"></i> Cancel</a>
+            <a
+                href="{{ $cancel_url ?? route('guest.homepage') }}"
+                class="button is-small is-dark"
+            ><i class="fa-solid fa-close"></i> Cancel</a>
 
             <button
                 type="{{ $type ?? 'submit' }}"

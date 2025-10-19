@@ -125,6 +125,14 @@
                                 'message'         => $message ?? '',
                             ])
 
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'global',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('global') ?? $resource->global,
+                                'message'         => $message ?? '',
+                            ])
+
                         </div>
 
                     </div>

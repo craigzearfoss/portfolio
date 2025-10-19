@@ -1,10 +1,11 @@
 @php @endphp
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Audio',
+    'title' => $title ?? $admin->name . ' audio',
     'breadcrumbs' => [
-        [ 'name' => 'Home',      'href' => route('guest.homepage')],
-        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
-        [ 'name' => 'Audio' ]
+        [ 'name' => 'Home',       'href' => route('guest.homepage') ],
+        [ 'name' => $admin->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.user.portfolio.index', $admin) ],
+        [ 'name' => 'Audio' ],
     ],
     'buttons' => [],
     'errors'  => $errors->messages()  ?? [],
@@ -41,7 +42,7 @@
                     <td data-field="name">
                         @include('guest.components.link', [
                             'name'  => $audio->name,
-                            'href'  => route('guest.portfolio.audio.show', $audio->slug),
+                            'href'  => route('guest.user.portfolio.audio.show', [$admin, $audio->slug]),
                             'class' => $audio->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

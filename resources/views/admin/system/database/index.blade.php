@@ -32,6 +32,7 @@
                 <th class="has-text-centered">guest</th>
                 <th class="has-text-centered">user</th>
                 <th class="has-text-centered">admin</th>
+                <th class="has-text-centered">global</th>
                 <th>sequence</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
@@ -52,6 +53,7 @@
                 <th class="has-text-centered">guest</th>
                 <th class="has-text-centered">user</th>
                 <th class="has-text-centered">admin</th>
+                <th class="has-text-centered">global</th>
                 <th>sequence</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
@@ -98,6 +100,9 @@
                     <td data-field="admin" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $database->admin ])
                     </td>
+                    <td data-field="admin" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $database->global ])
+                    </td>
                     <td data-field="sequence">
                         {{ $database->sequence }}
                     </td>
@@ -130,7 +135,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '13' : '12' }}">There are no databases.</td>
+                    <td colspan="{{ isRootAdmin() ? '14' : '12' }}">There are no databases.</td>
                 </tr>
 
             @endforelse

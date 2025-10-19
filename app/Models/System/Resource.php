@@ -36,6 +36,7 @@ class Resource extends Model
         'guest',
         'user',
         'admin',
+        'global',   // the resource has no owner
         'icon',
         'level',
         'sequence',

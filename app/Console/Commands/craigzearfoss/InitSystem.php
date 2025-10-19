@@ -123,6 +123,7 @@ class InitSystem extends Command
                 'email'             => 'caigzearfoss@gmail.com',
                 'email_verified_at' => now(),
                 'password'          => Hash::make('changeme'),
+                'public'            => 1,
                 'status'            => 1,
                 'token'             => '',
                 'root'              => 1,

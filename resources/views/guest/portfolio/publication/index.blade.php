@@ -1,10 +1,11 @@
 @php @endphp
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Publications',
+    'title' => $title ?? $admin->name . ' publications',
     'breadcrumbs' => [
-        [ 'name' => 'Home',      'href' => route('guest.homepage')],
-        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
-        [ 'name' => 'Publications' ]
+        [ 'name' => 'Home',       'href' => route('guest.homepage') ],
+        [ 'name' => $admin->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.user.portfolio.index', $admin) ],
+        [ 'name' => 'publications' ],
     ],
     'buttons' => [],
     'errors'  => $errors->messages()  ?? [],
@@ -42,8 +43,8 @@
                 <tr data-id="{{ $publication->id }}">
                     <td data-field="title">
                         @include('guest.components.link', [
-                            'name'  => $publication->title,
-                            'href'  => route('guest.portfolio.publication.show', $publication->slug),
+                            'name'  => $publication->name,
+                            'href'  => route('guest.user.portfolio.publication.show', [$admin, $publication->slug]),
                             'class' => $publication->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

@@ -38,6 +38,7 @@ return new class extends Migration
             $table->tinyInteger('guest')->default(0);
             $table->tinyInteger('user')->default(0);
             $table->tinyInteger('admin')->default(0);
+            $table->tinyInteger('global')->default(0);
             $table->string('icon', 50)->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
@@ -62,6 +63,7 @@ return new class extends Migration
                 'guest'    => 0,
                 'user'     => 0,
                 'admin'    => 1,
+                'global'   => 0,
                 'sequence' => 10000,
                 'public'   => 1,
                 'disabled' => 0,

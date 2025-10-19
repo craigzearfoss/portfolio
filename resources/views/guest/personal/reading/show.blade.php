@@ -1,13 +1,14 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Reading: ' . $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : ''),
     'breadcrumbs' => [
-        [ 'name' => 'Home',     'href' => route('guest.homepage') ],
-        [ 'name' => 'Personal', 'href' => route('guest.personal.index') ],
-        [ 'name' => 'Readings', 'href' => route('guest.personal.reading.index') ],
-        [ 'name' => $reading->title ],
+        [ 'name' => 'Home',                'href' => route('guest.homepage') ],
+        [ 'name' => $reading->owner->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => 'Personal',            'href' => route('guest.user.personal.index', $admin) ],
+        [ 'name' => 'Readings',            'href' => route('guest.user.personal.reading.index', $admin) ],
+        [ 'name' => $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : '') ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.personal.reading.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.user.personal.reading.index', $reading->owner) ],
     ],
     'errorMessages' => $errors->messages()  ?? [],
     'success' => session('success') ?? null,

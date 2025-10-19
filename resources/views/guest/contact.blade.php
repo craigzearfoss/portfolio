@@ -25,7 +25,7 @@
 
         @else
 
-            <form action="{{ route('guest.contact.storeMessage') }}" method="POST">
+            <form action="{{ route('contact.storeMessage') }}" method="POST">
                 @csrf
 
                 <div class="column is-6">

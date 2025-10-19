@@ -73,6 +73,11 @@
             'checked' => $database->admin
         ])
 
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'global',
+            'checked' => $database->global
+        ])
+
         @include('admin.components.show-row-icon', [
             'name' => 'icon',
             'icon' => $database->icon

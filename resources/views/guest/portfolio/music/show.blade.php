@@ -1,13 +1,14 @@
 @extends('guest.layouts.default', [
     'title' => 'Music: ' . $music->name . (!empty($music->artist) ? ' - ' . $music->artist : ''),
     'breadcrumbs' => [
-        [ 'name' => 'Home',      'href' => route('guest.homepage') ],
-        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
-        [ 'name' => 'Music',     'href' => route('guest.portfolio.music.index') ],
+        [ 'name' => 'Home',              'href' => route('guest.homepage') ],
+        [ 'name' => $music->owner->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => 'Portfolio',         'href' => route('guest.user.portfolio.index', $admin) ],
+        [ 'name' => 'Music',             'href' => route('guest.user.portfolio.music.index', $admin) ],
         [ 'name' => $music->name . (!empty($music->artist) ? ' - ' . $music->artist : '') ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.portfolio.music.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.user.portfolio.music.index', $admin) ],
     ],
     'errors'  => $errors->messages()  ?? [],
     'success' => session('success') ?? null,
@@ -28,13 +29,13 @@
             'value' => $music->artist
         ])
 
-        @if(!empty($music->parent))
+        @if(!empty($music->parent_id))
             @include('guest.components.show-row', [
                 'name'  => 'parent',
                 'value' => !empty($music->parent)
                     ? view('guest.components.link', [
                             'name' => $music->parent['name'],
-                            'href' => route('guest.portfolio.music.show', $music->parent->slug)
+                            'href' => route('guest.user.portfolio.music.show', [$admin, $music->parent->slug])
                         ])
                     : ''
             ])
@@ -59,7 +60,7 @@
                             <li>
                                 @include('guest.components.link', [
                                     'name' => $child['name'],
-                                    'href' => route('guest.portfolio.music.show', $child->slug)
+                                    'href' => route('guest.user.portfolio.music.show', [$admin, $child->slug])
                                 ])
                             </li>
                         @endforeach

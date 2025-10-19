@@ -13,7 +13,7 @@ $download = isset($download) ? boolval($download) : false;
         @endif
     >
         @if(!empty($icon))<i class="fa-solid {{ $icon }}"></i> @endif
-        {{ $name ?? $href ?? '#name#' }}
+        {!! $name ?? $href ?? '#name#' !!}
     </a>
 
     @if ($download && !empty($href))

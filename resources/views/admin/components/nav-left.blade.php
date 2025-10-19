@@ -1,5 +1,8 @@
 @php
-$menuItems = (new \App\Services\MenuService())->getLeftMenu(\App\Services\PermissionService::ENV_ADMIN);
+$menuItems = (new \App\Services\MenuService())->getLeftMenu(
+    \App\Services\PermissionService::ENV_GUEST,
+     $admin ?? null
+ );
 @endphp
 
 <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">

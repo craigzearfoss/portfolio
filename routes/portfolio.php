@@ -30,34 +30,43 @@ use App\Http\Controllers\Guest\Portfolio\SkillController as GuestPortfolioSkillC
 use App\Http\Controllers\Guest\Portfolio\VideoController as GuestPortfolioVideoController;
 use Illuminate\Support\Facades\Route;
 
-Route::name('guest.')->group(function () {
+Route::name('guest.')->middleware('guest')->group(function () {
 
-    Route::get('/resume', [GuestPortfolioJobController::class, 'resume'])->name('resume');
+    Route::get('/{admin:username}', [GuestPortfolioIndexController::class, 'index'])->name('user.index');
 
-    // resources
-    Route::prefix('portfolio')->name('portfolio.')->group(function () {
-        Route::get('/', [GuestPortfolioIndexController::class, 'index'])->name('index');
-        Route::get('/art', [GuestPortfolioArtController::class, 'index'])->name('art.index');
-        Route::get('/art/{slug}', [GuestPortfolioArtController::class, 'show'])->name('art.show');
-        Route::get('/audio', [GuestPortfolioAudioController::class, 'index'])->name('audio.index');
-        Route::get('/audio/{slug}', [GuestPortfolioAudioController::class, 'show'])->name('audio.show');
-        Route::get('/certification', [GuestPortfolioCertificationController::class, 'index'])->name('certification.index');
-        Route::get('/certification/{slug}', [GuestPortfolioCertificationController::class, 'show'])->name('certification.show');
-        Route::get('/course', [GuestPortfolioCourseController::class, 'index'])->name('course.index');
-        Route::get('/course/{slug}', [GuestPortfolioCourseController::class, 'show'])->name('course.show');
-        Route::get('/link', [GuestPortfolioLinkController::class, 'index'])->name('link.index');
-        Route::get('/link/{slug}', [GuestPortfolioLinkController::class, 'show'])->name('link.show');
-        Route::get('/music', [GuestPortfolioMusicController::class, 'index'])->name('music.index');
-        Route::get('/music/{slug}', [GuestPortfolioMusicController::class, 'show'])->name('music.show');
-        Route::get('/project', [GuestPortfolioProjectController::class, 'index'])->name('project.index');
-        Route::get('/project/{slug}', [GuestPortfolioProjectController::class, 'show'])->name('project.show');
-        Route::get('/publication', [GuestPortfolioPublicationController::class, 'index'])->name('publication.index');
-        Route::get('/publication/{slug}', [GuestPortfolioPublicationController::class, 'show'])->name('publication.show');
-        Route::get('/skill', [GuestPortfolioSkillController::class, 'index'])->name('skill.index');
-        Route::get('/skill/{slug}', [GuestPortfolioSkillController::class, 'show'])->name('skill.show');
-        Route::get('/video', [GuestPortfolioVideoController::class, 'index'])->name('video.index');
-        Route::get('/video/{slug}', [GuestPortfolioVideoController::class, 'show'])->name('video.show');
-    });
+    Route::get('/{admin:username}/resume', [GuestPortfolioJobController::class, 'resume'])->name('user.resume');
+
+    Route::get('/{admin:username}/portfolio', [GuestPortfolioIndexController::class, 'index'])->name('user.portfolio.index');
+
+    Route::get('/{admin:username}/portfolio/art', [GuestPortfolioArtController::class, 'index'])->name('user.portfolio.art.index');
+    Route::get('/{admin:username}/portfolio/art/{slug}', [GuestPortfolioArtController::class, 'show'])->name('user.portfolio.art.show');
+
+    Route::get('/{admin:username}/portfolio/audio', [GuestPortfolioAudioController::class, 'index'])->name('user.portfolio.audio.index');
+    Route::get('/{admin:username}/portfolio/audio/{slug}', [GuestPortfolioAudioController::class, 'show'])->name('user.portfolio.audio.show');
+
+    Route::get('/{admin:username}/portfolio/certification', [GuestPortfolioCertificationController::class, 'index'])->name('user.portfolio.certification.index');
+    Route::get('/{admin:username}/portfolio/certification/{slug}', [GuestPortfolioCertificationController::class, 'show'])->name('user.portfolio.certification.show');
+
+    Route::get('/{admin:username}/portfolio/course', [GuestPortfolioCourseController::class, 'index'])->name('user.portfolio.course.index');
+    Route::get('/{admin:username}/portfolio/course/{slug}', [GuestPortfolioCourseController::class, 'show'])->name('user.portfolio.course.show');
+
+    Route::get('/{admin:username}/portfolio/link', [GuestPortfolioLinkController::class, 'index'])->name('user.portfolio.link.index');
+    Route::get('/{admin:username}/portfolio/link/{slug}', [GuestPortfolioLinkController::class, 'show'])->name('user.portfolio.link.show');
+
+    Route::get('/{admin:username}/portfolio/music', [GuestPortfolioMusicController::class, 'index'])->name('user.portfolio.music.index');
+    Route::get('/{admin:username}/portfolio/music/{slug}', [GuestPortfolioMusicController::class, 'show'])->name('user.portfolio.music.show');
+
+    Route::get('/{admin:username}/portfolio/project', [GuestPortfolioProjectController::class, 'index'])->name('user.portfolio.project.index');
+    Route::get('/{admin:username}/portfolio/project/{slug}', [GuestPortfolioProjectController::class, 'show'])->name('user.portfolio.project.show');
+
+    Route::get('/{admin:username}/portfolio/publication', [GuestPortfolioPublicationController::class, 'index'])->name('user.portfolio.publication.index');
+    Route::get('/{admin:username}portfolio//publication/{slug}', [GuestPortfolioPublicationController::class, 'show'])->name('user.portfolio.publication.show');
+
+    Route::get('/{admin:username}/portfolio/skill', [GuestPortfolioSkillController::class, 'index'])->name('user.portfolio.skill.index');
+    Route::get('/{admin:username}/portfolio/skill/{slug}', [GuestPortfolioSkillController::class, 'show'])->name('user.portfolio.skill.show');
+
+    Route::get('/{admin:username}/portfolio/video', [GuestPortfolioVideoController::class, 'index'])->name('user.portfolio.video.index');
+    Route::get('/{admin:username}/portfolio/video/{slug}', [GuestPortfolioVideoController::class, 'show'])->name('user.portfolio.video.show');
 });
 
 Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')->group(function () {

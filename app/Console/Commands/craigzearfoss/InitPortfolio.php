@@ -1488,7 +1488,7 @@ class InitPortfolio extends Command
                 'parent_id'      => null,
                 'name'           => 'I\'m As Mad As Faust',
                 'artist'         => 'Zen Frisbee',
-                'slug'           => 'im-as-mad-as-faust-by-zeb-frisbee',
+                'slug'           => 'im-as-mad-as-faust-by-zen-frisbee',
                 'featured'       => 1,
                 'summary'        => null,
                 'collection'     => 1,

@@ -1,13 +1,14 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Certification: ' . $certification->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',           'href' => route('guest.homepage') ],
-        [ 'name' => 'Portfolio',      'href' => route('guest.portfolio.index') ],
-        [ 'name' => 'Certifications', 'href' => route('guest.portfolio.certification.index') ],
+        [ 'name' => 'Home',                      'href' => route('guest.homepage') ],
+        [ 'name' => $certification->owner->name, 'href' => route('guest.user.index', $certification->owner)],
+        [ 'name' => 'Portfolio',                 'href' => route('guest.user.portfolio.index', $certification->owner) ],
+        [ 'name' => 'Certifications',            'href' => route('guest.user.portfolio.certification.index', $certification->owner) ],
         [ 'name' => $certification->name ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.portfolio.certification.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.user.portfolio.certification.index', $certification->owner) ],
     ],
     'errorMessages' => $errors->messages()  ?? [],
     'success' => session('success') ?? null,

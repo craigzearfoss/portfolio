@@ -1,13 +1,14 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Publication: ' . $publication->title,
     'breadcrumbs' => [
-        [ 'name' => 'Home',         'href' => route('guest.homepage') ],
-        [ 'name' => 'Portfolio',    'href' => route('guest.portfolio.index') ],
-        [ 'name' => 'Publications', 'href' => route('guest.portfolio.publication.index') ],
-        [ 'name' => $publication->title ],
+        [ 'name' => 'Home',                    'href' => route('guest.homepage') ],
+        [ 'name' => $publication->owner->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => 'Portfolio',               'href' => route('guest.user.portfolio.index', $admin) ],
+        [ 'name' => 'Publications',            'href' => route('guest.user.portfolio.publication.index', $admin) ],
+        [ 'name' => $publication->name ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.personal.publication.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.user.portfolio.publication.index', $admin) ],
     ],
     'errors'  => $errors->messages()  ?? [],
     'success' => session('success') ?? null,
@@ -29,7 +30,7 @@
                 'value' => !empty($publication->parent)
                     ? view('guest.components.link', [
                             'name' => $publication->parent['title'],
-                            'href' => route('guest.portfolio.publication.show', $publication->parent->slug)
+                            'href' => route('guest.user.portfolio.publication.show', $admin, $publication->parent->slug)
                         ])
                     : ''
             ])
@@ -44,6 +45,24 @@
             'name'  => 'summary',
             'value' => $publication->summary
         ])
+
+        @if(!empty($publication->children))
+            <div class="columns">
+                <div class="column is-2"><strong>children</strong>:</div>
+                <div class="column is-10 pl-0">
+                    <ol>
+                        @foreach($publication->children as $child)
+                            <li>
+                                @include('guest.components.link', [
+                                    'name' => $child['name'],
+                                    'href' => route('guest.user.portfolio.publication.show', [$admin, $child->slug])
+                                ])
+                            </li>
+                        @endforeach
+                    </ol>
+                </div>
+            </div>
+        @endif
 
         @include('guest.components.show-row', [
             'name'  => 'publication name',

@@ -31,6 +31,7 @@
                 <th class="has-text-centered">guest</th>
                 <th class="has-text-centered">user</th>
                 <th class="has-text-centered">admin</th>
+                <th class="has-text-centered">global</th>
                 <th class="has-text-centered">sequence</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
@@ -51,6 +52,7 @@
                 <th class="has-text-centered">guest</th>
                 <th class="has-text-centered">user</th>
                 <th class="has-text-centered">admin</th>
+                <th class="has-text-centered">global</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -93,6 +95,9 @@
                     <td data-field="admin" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $resource->admin ])
                     </td>
+                    <td data-field="admin" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $resource->globale ])
+                    </td>
                     <td data-field="sequence">
                         {{ $resource->sequence }}
                     </td>
@@ -125,7 +130,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '12' : '11' }}>There are no messages.</td>
+                    <td colspan="{{ isRootAdmin() ? '13' : '12' }}>There are no messages.</td>
                 </tr>
 
             @endforelse

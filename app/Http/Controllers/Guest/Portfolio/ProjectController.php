@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guest\Portfolio;
 
 use App\Http\Controllers\Guest\BaseGuestController;
 use App\Models\Portfolio\Project;
+use App\Models\System\Admin;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -16,34 +17,37 @@ class ProjectController extends BaseGuestController
     /**
      * Display a listing of projects.
      *
+     * @param Admin $admin
      * @param Request $request
      * @return View
      */
-    public function index(Request $request): View
+    public function index(Admin $admin, Request $request): View
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $projects = Project::where('public', 1)
+        $projects = Project::where('owner_id', $admin->id)
+            ->where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence', 'asc')
             ->paginate($perPage);
 
-        return view(themedTemplate('guest.portfolio.project.index'), compact('projects'))
+        return view(themedTemplate('guest.portfolio.project.index'), compact('projects', 'admin'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Display the specified project.
      *
+     * @param Admin $admin
      * @param string $slug
      * @return View
      */
-    public function show(string $slug): View
+    public function show(Admin $admin, string $slug): View
     {
-        if (!$project = Project::where('slug', $slug)->first()) {
+        if (!$project = Project::where('owner_id', $admin->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
-        return view(themedTemplate('guest.portfolio.project.show'), compact('project'));
+        return view(themedTemplate('guest.portfolio.project.show'), compact('project', 'admin'));
     }
 }

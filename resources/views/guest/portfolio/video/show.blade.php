@@ -1,13 +1,14 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Video: ' . $video->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',      'href' => route('guest.homepage') ],
-        [ 'name' => 'Portfolio', 'href' => route('guest.portfolio.index') ],
-        [ 'name' => 'Video',     'href' => route('guest.portfolio.video.index') ],
+        [ 'name' => 'Home',              'href' => route('guest.homepage') ],
+        [ 'name' => $video->owner->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => 'Portfolio',         'href' => route('guest.user.portfolio.index', $admin) ],
+        [ 'name' => 'Videos',            'href' => route('guest.user.portfolio.video.index', $admin) ],
         [ 'name' => $video->name ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.personal.video.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.user.portfolio.video.index', $admin) ],
     ],
     'errorMessages' => $errors->messages()  ?? [],
     'success' => session('success') ?? null,
@@ -29,7 +30,7 @@
                 'value' => !empty($video->parent)
                     ? view('guest.components.link', [
                             'name' => $video->parent['name'],
-                            'href' => route('guest.portfolio.video.show', $video->parent->slug)
+                            'href' => route('guest.user.portfolio.video.show', [$admin, $video->parent->slug])
                         ])
                     : ''
             ])
@@ -44,6 +45,24 @@
             'name'  => 'summary',
             'value' => $video->summary
         ])
+
+        @if(!empty($video->children))
+            <div class="columns">
+                <div class="column is-2"><strong>children</strong>:</div>
+                <div class="column is-10 pl-0">
+                    <ol>
+                        @foreach($video->children as $child)
+                            <li>
+                                @include('guest.components.link', [
+                                    'name' => $child['name'],
+                                    'href' => route('guest.user.portfolio.video.show', [$admin, $child->slug])
+                                ])
+                            </li>
+                        @endforeach
+                    </ol>
+                </div>
+            </div>
+        @endif
 
         @include('guest.components.show-row-checkbox', [
             'name'    => 'full episode',

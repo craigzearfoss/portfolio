@@ -1,13 +1,14 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Recipe: ' . $recipe->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',     'href' => route('guest.homepage') ],
-        [ 'name' => 'Personal', 'href' => route('guest.personal.index') ],
-        [ 'name' => 'Recipes',  'href' => route('guest.personal.recipe.index') ],
+        [ 'name' => 'Home',               'href' => route('guest.homepage') ],
+        [ 'name' => $recipe->owner->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => 'Personal',           'href' => route('guest.user.personal.index', $admin) ],
+        [ 'name' => 'Recipes',            'href' => route('guest.user.personal.recipe.index', $admin) ],
         [ 'name' => $recipe->name ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.personal.reading.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.user.personal.recipe.index', $admin) ],
     ],
     'errorMessages' => $errors->messages()  ?? [],
     'success' => session('success') ?? null,
