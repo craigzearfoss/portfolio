@@ -40,7 +40,7 @@ class InitCareer extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the personal database with initial data for user craigzearfoss';
+    protected $description = 'This will populate the career database with initial data for user craigzearfoss';
 
     /**
      * Execute the console command.
