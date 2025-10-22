@@ -14,9 +14,12 @@
         <div class="is-size-4 has-text-centered">
             Admin Login
         </div>
-        <div class="p-2 has-text-centered">
-            Log in as the demo admin with the<br>User Name and Password shown below.
-        </div>
+
+        @if(!empty(config('app.demo')) && !empty(config('app.demo_admin_username')) && !empty(config('app.demo_admin_password')))
+            <div class="p-2 has-text-centered">
+                Log in as the demo admin with the<br>User Name and Password shown below.
+            </div>
+        @endif
 
         <form action="{{ route('admin.login-submit') }}" method="POST">
             @csrf
@@ -29,7 +32,7 @@
             @include('admin.components.form-input', [
                 'name'        => 'username',
                 'label'       => 'User Name',
-                'value'       => old('username') ?? config('app.demo_admin_username'),
+                'value'       => old('username') ?? (!empty(config('app.demo')) ? config('app.demo_admin_username') : ''),
                 'placeholder' => 'User Name',
                 'required'    => true,
                 'maxlength'   => 255,
@@ -40,7 +43,7 @@
                 //'type'        => 'password',
                 'name'        => 'password',
                 'label'       => 'Password',
-                'value'       => old('password') ?? config('app.demo_admin_password'),
+                'value'       => old('password') ?? (!empty(config('app.demo')) ? config('app.demo_admin_password') : ''),
                 'placeholder' => 'Password',
                 'required'    => true,
                 'maxlength'   => 255,
