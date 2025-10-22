@@ -29,8 +29,8 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('publications', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->string('title')->unique();
-            $table->string('slug')->unique();
+            $table->string('title');
+            $table->string('slug');
             $table->foreignIdFor(\App\Models\Portfolio\Publication::class, 'parent_id')->nullable();
             $table->tinyInteger('featured')->default(0);
             $table->string('summary')->nullable();

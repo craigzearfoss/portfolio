@@ -450,7 +450,7 @@ class InitPersonal extends Command
         echo "Inserting into Personal\\Recipe ...\n";
 
         $this->recipeId = [];
-        $maxId = Recipe::max('id');
+        $maxId = Recipe::withoutGlobalScope(AccessGlobalScope::class)->max('id');
         for ($i=1; $i<=7; $i++) {
             $this->recipeId[$i] = ++$maxId;
         }

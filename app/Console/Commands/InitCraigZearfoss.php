@@ -40,7 +40,7 @@ class InitCraigZearfoss extends Command
      */
     public function handle()
     {
-        $this->adminId = Admin::max('id') + 1;
+        $this->adminId = Admin::withoutGlobalScope(AccessGlobalScope::class)->max('id') + 1;
 
         $this->teamId = DB:: connection('system_db')->table('admin_teams')
             ->where('name', 'Default Admin Team')->first()->id;

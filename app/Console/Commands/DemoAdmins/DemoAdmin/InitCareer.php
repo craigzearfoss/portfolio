@@ -13,6 +13,7 @@ use App\Models\Career\Event;
 use App\Models\Career\Note;
 use App\Models\Career\Reference;
 use App\Models\Career\Resume;
+use App\Models\Scopes\AccessGlobalScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
@@ -104,12 +105,12 @@ class InitCareer extends Command
         return $data;
     }
 
-    protected function addTimeStampsAndOwners($data) {
+    protected function addDemoTimeStampsAndOwners($data) {
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
             $data[$i]['owner_id']   = $this->adminId;
-        }
+            $data[$i]['demo'    ]   = 1;        }
 
         return $data;
     }
@@ -119,7 +120,7 @@ class InitCareer extends Command
         echo "Inserting into Career\\Application ...\n";
 
         $this->applicationId = [];
-        $maxId = Contact::max('id');
+        $maxId = Contact::withoutGlobalScope(AccessGlobalScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->applicationId[$i] = ++$maxId;
         }
@@ -203,7 +204,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Application::insert($this->addTimeStampsAndOwners($data));
+            Application::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -215,7 +216,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            ApplicationSkill::insert($this->addTimeStampsAndOwners($data));
+            ApplicationSkill::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -225,7 +226,7 @@ class InitCareer extends Command
 
 
         $this->companyId = [];
-        $maxId = Company::max('id');
+        $maxId = Company::withoutGlobalScope(AccessGlobalScope::class)->max('id');
         for ($i=1; $i<=84; $i++) {
             $this->companyId[$i] = ++$maxId;
         }
@@ -319,7 +320,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Company::insert($this->addTimeStampsAndOwners($data));
+            Company::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -358,7 +359,7 @@ class InitCareer extends Command
         echo "Inserting into Career\\Contact ...\n";
 
         $this->contactId = [];
-        $maxId = Contact::max('id');
+        $maxId = Contact::withoutGlobalScope(AccessGlobalScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->contactId[$i] = ++$maxId;
         }
@@ -391,7 +392,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Contact::insert($this->addTimeStampsAndOwners($data));
+            Contact::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -403,7 +404,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Communication::insert($this->addTimeStampsAndOwners($data));
+            Communication::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -415,7 +416,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            COverLetter::insert($this->addTimeStampsAndOwners($data));
+            COverLetter::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -427,7 +428,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Event::insert($this->addTimeStampsAndOwners($data));
+            Event::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -439,7 +440,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Note::insert($this->addTimeStampsAndOwners($data));
+            Note::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -461,7 +462,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Reference::insert($this->addTimeStampsAndOwners($data));
+            Reference::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -493,7 +494,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Resume::insert($this->addTimeStampsAndOwners($data));
+            Resume::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 }

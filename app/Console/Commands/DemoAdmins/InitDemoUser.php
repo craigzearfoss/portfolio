@@ -36,9 +36,9 @@ class InitDemoUser extends Command
     {
         $commandSubdirectory = base_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'Console'
             . DIRECTORY_SEPARATOR . 'Commands' . DIRECTORY_SEPARATOR
-            . 'DemoAdmins' . DIRECTORY_SEPARATOR . 'DwightSchrute' . DIRECTORY_SEPARATOR;
+            . 'DemoAdmins' . DIRECTORY_SEPARATOR . 'DemoAdmin' . DIRECTORY_SEPARATOR;
 
-        $this->adminId = Admin::max('id') + 1;
+        $this->adminId = Admin::withoutGlobalScope(AccessGlobalScope::class)->max('id') + 1;
 
         $this->teamId = DB:: connection('system_db')->table('admin_teams')
             ->where('name', 'Demo Admin Team')->first()->id;

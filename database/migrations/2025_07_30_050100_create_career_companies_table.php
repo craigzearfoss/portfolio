@@ -23,8 +23,8 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('companies', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
+            $table->string('name');
+            $table->string('slug');
             $table->foreignIdFor(Industry::class);
             $table->string('street')->nullable();
             $table->string('street2')->nullable();

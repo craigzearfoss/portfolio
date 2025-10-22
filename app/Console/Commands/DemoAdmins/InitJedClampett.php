@@ -37,7 +37,7 @@ class InitJedClampett extends Command
             . DIRECTORY_SEPARATOR . 'Commands' . DIRECTORY_SEPARATOR
             . 'DemoAdmins' . DIRECTORY_SEPARATOR . 'JedClampett' . DIRECTORY_SEPARATOR;
 
-        $this->adminId = Admin::max('id') + 1;
+        $this->adminId = Admin::withoutGlobalScope(AccessGlobalScope::class)->max('id') + 1;
 
         $this->teamId = DB:: connection('system_db')->table('admin_teams')
             ->where('name', 'Demo Admin Team')->first()->id;
@@ -64,7 +64,7 @@ class InitJedClampett extends Command
 
         if (file_exists($commandSubdirectory . 'initCareer.php')) {
             echo PHP_EOL . 'Importing Career data for jed-clampett  ...' . PHP_EOL;
-            Artisan::call('app:init-jedc-lampett-career --silent');
+            Artisan::call('app:init-jed-lampett-career --silent');
         }
 
         if (file_exists($commandSubdirectory . 'initPersonal.php')) {
