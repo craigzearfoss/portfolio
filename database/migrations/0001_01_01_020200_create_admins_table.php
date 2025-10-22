@@ -86,7 +86,7 @@ return new class extends Migration
                 'name'              => 'Demo Admin',
                 'email'             => 'demo@gmail.com',
                 'email_verified_at' => now(),
-                'password'          => Hash::make('changeme'),
+                'password'          => Hash::make('Shpadoinkle!'),
                 'status'            => 1,
                 'token'             => '',
                 'root'              => 0,

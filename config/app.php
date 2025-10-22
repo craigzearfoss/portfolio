@@ -28,6 +28,8 @@ return [
     'open_enrollment'       => env('APP_OPEN_ENROLLMENT', '0'),
     'owner'                 => env('APP_OWNER', ''),
     'demo'                  => env('APP_DEMO', '0'),
+    'demo_admin_username'   => env('APP_DEMO_ADMIN_USERNAME', ''),
+    'demo_admin_password'   => env('APP_DEMO_ADMIN_PASSWORD', ''),
     'readonly'              => env('APP_READONLY', '0'),
     'contactable'           => env('APP_CONTACTABLE', '0'),
     'theme'                 => env('APP_THEME', null),
