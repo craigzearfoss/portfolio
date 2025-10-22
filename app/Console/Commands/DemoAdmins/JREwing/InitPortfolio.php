@@ -40,7 +40,7 @@ class InitPortfolio extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the portfolio database with initial data for admin jrewing.';
+    protected $description = 'This will populate the portfolio database with initial data for admin j-r-ewing.';
 
     /**
      * Execute the console command.

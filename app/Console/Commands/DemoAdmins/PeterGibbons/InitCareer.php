@@ -40,7 +40,7 @@ class InitCareer extends Command
      *
      * @var string
      */
-    protected $description = 'This will populate the career database with initial data for admin petergibbons.';
+    protected $description = 'This will populate the career database with initial data for admin peter-gibbons.';
 
     /**
      * Execute the console command.
@@ -48,8 +48,8 @@ class InitCareer extends Command
     public function handle()
     {
         // get the admin
-        if (!$admin = Admin::where('username', 'petergibbons')->first()) {
-            echo PHP_EOL . 'Admin `petergibbons` not found.' . PHP_EOL . PHP_EOL;
+        if (!$admin = Admin::where('username', 'peter-gibbons')->first()) {
+            echo PHP_EOL . 'Admin `peter-gibbons` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
 
@@ -57,14 +57,14 @@ class InitCareer extends Command
 
         // verify that the admin is a member of an admin team
         if (!$this->teamId = $admin->admin_team_id) {
-            echo PHP_EOL . 'Admin `petergibbons` is not on any admin teams.' . PHP_EOL;
+            echo PHP_EOL . 'Admin `peter-gibbons` is not on any admin teams.' . PHP_EOL;
             echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
             die;
         }
 
         // verify that the admin belongs to at least one admin group
         if (!$this->groupId = AdminAdminGroup::where('admin_id', $this->adminId)->first()->admin_group_id ?? null) {
-            echo PHP_EOL . 'Admin `petergibbons` does not belong to any admin groups.' . PHP_EOL;
+            echo PHP_EOL . 'Admin `peter-gibbons` does not belong to any admin groups.' . PHP_EOL;
             echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
             die;
         }

@@ -49,7 +49,7 @@ class InitPortfolio extends Command
     {
         // get the admin
         if (!$admin = Admin::where('username', 'alex-reiger')->first()) {
-            echo PHP_EOL . 'Admin `alexreiger` not found.' . PHP_EOL . PHP_EOL;
+            echo PHP_EOL . 'Admin `alex-reiger` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
 

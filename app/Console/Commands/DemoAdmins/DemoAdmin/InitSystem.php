@@ -29,6 +29,6 @@ class InitSystem extends Command
      */
     public function handle()
     {
-        //
+        // The Demo Admin was added in the initial migration.
     }
 }
