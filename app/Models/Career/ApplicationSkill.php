@@ -2,7 +2,7 @@
 
 namespace App\Models\Career;
 
-use App\Models\Scopes\AccessGlobalScope;
+use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;

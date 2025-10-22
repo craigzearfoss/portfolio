@@ -38,7 +38,7 @@ class InitDemoUser extends Command
             . DIRECTORY_SEPARATOR . 'Commands' . DIRECTORY_SEPARATOR
             . 'DemoAdmins' . DIRECTORY_SEPARATOR . 'DemoAdmin' . DIRECTORY_SEPARATOR;
 
-        $this->adminId = Admin::withoutGlobalScope(AccessGlobalScope::class)->max('id') + 1;
+        $this->adminId = Admin::withoutGlobalScope(AdminGlobalScope::class)->max('id') + 1;
 
         $this->teamId = DB:: connection('system_db')->table('admin_teams')
             ->where('name', 'Demo Admin Team')->first()->id;

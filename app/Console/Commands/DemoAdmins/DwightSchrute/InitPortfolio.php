@@ -164,7 +164,7 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\Job ...\n";
 
         $this->jobId = [];
-        $maxId = Job::withoutGlobalScope(AccessGlobalScope::class)->max('id');
+        $maxId = Job::withoutGlobalScope(AdminGlobalScope::class)->max('id');
         for ($i=1; $i<=7; $i++) {
             $this->jobId[$i] = ++$maxId;
         }
@@ -253,7 +253,7 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\Music ...\n";
 
         $id = [];
-        $maxId = Music::withoutGlobalScope(AccessGlobalScope::class)->max('id');
+        $maxId = Music::withoutGlobalScope(AdminGlobalScope::class)->max('id');
         for ($i=1; $i<=36; $i++) {
             $id[$i] = ++$maxId;
         }

@@ -13,7 +13,7 @@ use App\Models\Career\Event;
 use App\Models\Career\Note;
 use App\Models\Career\Reference;
 use App\Models\Career\Resume;
-use App\Models\Scopes\AccessGlobalScope;
+use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
@@ -120,7 +120,7 @@ class InitCareer extends Command
         echo "Inserting into Career\\Application ...\n";
 
         $this->applicationId = [];
-        $maxId = Contact::withoutGlobalScope(AccessGlobalScope::class)->max('id');
+        $maxId = Contact::withoutGlobalScope(AdminGlobalScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->applicationId[$i] = ++$maxId;
         }
@@ -226,7 +226,7 @@ class InitCareer extends Command
 
 
         $this->companyId = [];
-        $maxId = Company::withoutGlobalScope(AccessGlobalScope::class)->max('id');
+        $maxId = Company::withoutGlobalScope(AdminGlobalScope::class)->max('id');
         for ($i=1; $i<=84; $i++) {
             $this->companyId[$i] = ++$maxId;
         }
@@ -359,7 +359,7 @@ class InitCareer extends Command
         echo "Inserting into Career\\Contact ...\n";
 
         $this->contactId = [];
-        $maxId = Contact::withoutGlobalScope(AccessGlobalScope::class)->max('id');
+        $maxId = Contact::withoutGlobalScope(AdminGlobalScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->contactId[$i] = ++$maxId;
         }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Facades\Auth;
 
-class AccessGlobalScope implements Scope
+class AdminGlobalScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
