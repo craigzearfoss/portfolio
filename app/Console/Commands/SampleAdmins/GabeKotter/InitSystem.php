@@ -125,7 +125,7 @@ class InitSystem extends Command
                 'admin_team_id'     => $this->teamId,
                 'username'          => 'gabe-kotter',
                 'name'              => 'Gabe Kotter',
-                'email'             => 'mrkotter@new-utrecht-hs.edu',
+                'email'             => 'mrkotter@james-buchanan.edu',
                 'email_verified_at' => now(),
                 'password'          => Hash::make($password),
                 'public'            => 1,
