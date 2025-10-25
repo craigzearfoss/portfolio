@@ -46,7 +46,7 @@ class ProfileController extends BaseUserController
      */
     public function update(UpdateUsersRequest $updateUsersRequest): RedirectResponse
     {
-        $user = Auth::guard('web')->user();
+        $user = Auth::guard('user')->user();
 
         $user->update($updateUsersRequest->validated());
 
@@ -74,7 +74,7 @@ class ProfileController extends BaseUserController
      */
     public function change_password_submit(Request $request, User $user): RedirectResponse|View
     {
-        $user = Auth::guard('web')->user();
+        $user = Auth::guard('user')->user();
 
         $user->update($request->validated());
 

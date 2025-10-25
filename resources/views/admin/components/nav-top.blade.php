@@ -1,6 +1,6 @@
 @php
     $menuItems = (new \App\Services\MenuService())->getTopMenu(
-        \App\Services\PermissionService::ENV_GUEST,
+        \App\Services\PermissionService::ENV_ADMIN,
         $admin ?? null
     );
 @endphp

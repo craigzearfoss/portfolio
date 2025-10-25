@@ -23,7 +23,7 @@ class ArtController extends BaseGuestController
      * @return View
      */
     public function index(Admin $admin, Request $request): View
-    {
+    {dd([$admin, $request]);
         $perPage = $request->query('per_page', $this->perPage);
 
         $arts = Art::where('owner_id', $admin->id)

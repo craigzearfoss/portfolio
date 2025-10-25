@@ -6,6 +6,7 @@ use App\Models\Personal\Reading;
 use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeIngredient;
 use App\Models\Personal\RecipeStep;
+use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
@@ -13,6 +14,8 @@ use function Laravel\Prompts\text;
 
 class InitPersonal extends Command
 {
+    protected $demo = 0;
+
     protected $adminId = null;
     protected $groupId = null;
     protected $teamId = null;
@@ -83,11 +86,12 @@ class InitPersonal extends Command
         return $data;
     }
 
-    protected function addTimeStampsAndOwners($data) {
+    protected function addDemoTimeStampsAndOwners($data) {
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
             $data[$i]['owner_id']   = $this->adminId;
+            $data[$i]['demo']       = $this->demo;
         }
 
         return $data;
@@ -441,7 +445,7 @@ class InitPersonal extends Command
         ];
 
         if (!empty($data)) {
-            Reading::insert($this->addTimeStampsAndOwners($data));
+            Reading::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -465,7 +469,7 @@ class InitPersonal extends Command
         ];
 
         if (!empty($data)) {
-            Recipe::insert($this->addTimeStampsAndOwners($data));
+            Recipe::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -524,7 +528,7 @@ class InitPersonal extends Command
         ];
 
         if (!empty($data)) {
-            RecipeIngredient::insert($this->addTimeStampsAndOwners($data));
+            RecipeIngredient::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -553,7 +557,7 @@ class InitPersonal extends Command
         ];
 
         if (!empty($data)) {
-            RecipeStep::insert($this->addTimeStampsAndOwners($data));
+            RecipeStep::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 }

@@ -12,16 +12,16 @@
             </div>
             <div class="level-right">
                 <div class="level-item">
-                    <a href="{{ route('guest.about') }}">About</a>
+                    <a href="{{ route('system.about') }}">About</a>
                     <span class="mx-2"> | </span>
-                    <a href="{{ route('guest.terms-and-conditions') }}">Terms & Conditions</a>
+                    <a href="{{ route('system.terms-and-conditions') }}">Terms & Conditions</a>
                     <span class="mx-2"> | </span>
-                    <a href="{{ route('guest.privacy-policy') }}">Privacy policy</a>
+                    <a href="{{ route('system.privacy-policy') }}">Privacy policy</a>
                     <span class="mx-2"> | </span>
-                    <a href="{{ route('guest.contact') }}">Contact</a>
+                    <a href="{{ route('system.contact') }}">Contact</a>
                     @if(!isUser())
                         <span class="mx-2"> | </span>
-                        <a href="{{ route('guest.register') }}">Register</a>
+                        <a href="route('system.register')">Register</a>
                     @endif
                 </div>
             </div>

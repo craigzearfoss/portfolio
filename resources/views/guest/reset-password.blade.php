@@ -1,7 +1,7 @@
 @extends('guest.layouts.empty', [
     'title' => 'Set New Password',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('guest.homepage')],
+        [ 'name' => 'Home', 'href' => route('system.homepage')],
     ],
     'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],
@@ -24,7 +24,7 @@
 
                 <h4>We are not currently accepting new users.</h4>
                 <p class="p-4">
-                    <a class="btn btn-sm btn-solid" href="{{ route('guest.homepage') }}"><i
+                    <a class="btn btn-sm btn-solid" href="{{ route('system.homepage') }}"><i
                             class="fa fa-house"></i> Home</a>
                 </p>
 
@@ -59,7 +59,7 @@
 
                     <div class="mt-3 is-fullwidth has-text-centered">
                         <span>Already have an account?</span>
-                        <a class="text-primary-600 hover:underline" href="{{ route('guest.login') }}">Login</a>
+                        <a class="text-primary-600 hover:underline" href="{{ route('system.login') }}">Login</a>
                     </div>
 
                 </form>

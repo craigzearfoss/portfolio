@@ -1,7 +1,7 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Publication: ' . $publication->title,
     'breadcrumbs' => [
-        [ 'name' => 'Home',                    'href' => route('guest.homepage') ],
+        [ 'name' => 'Home',                    'href' => route('system.homepage') ],
         [ 'name' => $publication->owner->name, 'href' => route('guest.user.index', $admin)],
         [ 'name' => 'Portfolio',               'href' => route('guest.user.portfolio.index', $admin) ],
         [ 'name' => 'Publications',            'href' => route('guest.user.portfolio.publication.index', $admin) ],

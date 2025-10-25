@@ -5,7 +5,7 @@
         <div class="field">
 
             <a
-                href="{{ $cancel_url ?? route('guest.homepage') }}"
+                href="{{ $cancel_url ?? route('system.homepage') }}"
                 class="button is-small is-dark"
             ><i class="fa-solid fa-close"></i> Cancel</a>
 

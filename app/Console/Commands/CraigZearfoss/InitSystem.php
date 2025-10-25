@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\CraigZearfoss;
 
+use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use App\Models\System\AdminAdminTeam;
@@ -12,6 +13,8 @@ use function Laravel\Prompts\text;
 
 class InitSystem extends Command
 {
+    protected $demo = 0;
+
     protected $adminId = null;
     protected $groupId = null;
     protected $teamId = null;
@@ -65,11 +68,12 @@ class InitSystem extends Command
         return $data;
     }
 
-    protected function addTimeStampsAndOwners($data) {
+    protected function addDemoTimeStampsAndOwners($data) {
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
             $data[$i]['owner_id']   = $this->adminId;
+            $data[$i]['demo']       = $this->demo;
         }
 
         return $data;

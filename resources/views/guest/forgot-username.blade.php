@@ -2,7 +2,7 @@
     'pageTitle'   => 'Forgot User Name',
     'title'       => '',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('guest.homepage')],
+        [ 'name' => 'Home', 'href' => route('system.homepage')],
     ],
     'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],
@@ -22,7 +22,7 @@
             Enter your email address to receive an email with your user name.
         </p>
 
-       <form action="{{ route('guest.forgot-username-submit') }}" method="POST">
+       <form action="{{ route('system.forgot-username-submit') }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -47,7 +47,7 @@
 
                     @include('guest.components.form-button-submit', [
                         'label'      => 'Submit',
-                        'cancel_url' => referer('guest.homepage')
+                        'cancel_url' => referer('system.homepage')
                     ])
 
                 </div>

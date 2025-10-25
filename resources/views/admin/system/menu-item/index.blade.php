@@ -15,7 +15,7 @@
                     'onchange' => "window.location.href = document.getElementById('env_type').value"
                 ]) . ' Menu',
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('guest.homepage') ],
+        [ 'name' => 'Home',            'href' => route('system.homepage') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => ucfirst($envType) .  ' Menu' ],

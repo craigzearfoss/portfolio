@@ -13,6 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
             __DIR__.'/../routes/portfolio.php',
             __DIR__.'/../routes/career.php',
             __DIR__.'/../routes/personal.php',
+            __DIR__.'/../routes/guest.php',
         ],
         api: [
             __DIR__.'/../routes/api.php',

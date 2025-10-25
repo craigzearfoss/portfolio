@@ -1,0 +1,256 @@
+<?php
+
+namespace App\Console\Commands\SampleAdmins\SamMalone;
+
+use App\Models\Personal\Reading;
+use App\Models\Personal\Recipe;
+use App\Models\Personal\RecipeIngredient;
+use App\Models\Personal\RecipeStep;
+use App\Models\Scopes\AdminGlobalScope;
+use App\Models\System\Admin;
+use App\Models\System\AdminAdminGroup;
+use Illuminate\Console\Command;
+use function Laravel\Prompts\text;
+
+class InitPersonal extends Command
+{
+    protected $demo = 1;
+
+    protected $adminId = null;
+    protected $groupId = null;
+    protected $teamId = null;
+
+    protected $recipeId = [];
+
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'app:init-sam-malone-personal {--silent}';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'This will populate the personal database with initial data for admin sam-malone.';
+
+    /**
+     * Execute the console command.
+     */
+    public function handle()
+    {
+        // get the admin
+        if (!$admin = Admin::where('username', 'sam-malone')->first()) {
+            echo PHP_EOL . 'Admin `sam-malone` not found.' . PHP_EOL . PHP_EOL;
+            die;
+        }
+
+        $this->adminId = $admin->id;
+
+        // verify that the admin is a member of an admin team
+        if (!$this->teamId = $admin->admin_team_id) {
+            echo PHP_EOL . 'Admin `sam-malone` is not on any admin teams.' . PHP_EOL;
+            echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
+            die;
+        }
+
+        // verify that the admin belongs to at least one admin group
+        if (!$this->groupId = AdminAdminGroup::where('admin_id', $this->adminId)->first()->admin_group_id ?? null) {
+            echo PHP_EOL . 'Admin `sam-malone` does not belong to any admin groups.' . PHP_EOL;
+            echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
+            die;
+        }
+
+        if (!$this->option('silent')) {
+            echo PHP_EOL . 'adminId: ' . $this->adminId . PHP_EOL;
+            echo 'teamId: ' . $this->teamId . PHP_EOL;
+            echo 'groupId: ' . $this->groupId . PHP_EOL;
+            $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+        }
+
+        // personal
+        $this->insertPersonalReadings();
+        $this->insertPersonalRecipes();
+        $this->insertPersonalRecipeIngredients();
+        $this->insertPersonalRecipeSteps();
+    }
+
+    protected function addTimeStamps($data) {
+        for($i=0; $i<count($data);$i++) {
+            $data[$i]['created_at'] = now();
+            $data[$i]['updated_at'] = now();
+        }
+
+        return $data;
+    }
+
+    protected function addDemoTimeStampsAndOwners($data) {
+        for($i=0; $i<count($data);$i++) {
+            $data[$i]['created_at'] = now();
+            $data[$i]['updated_at'] = now();
+            $data[$i]['owner_id']   = $this->adminId;
+            $data[$i]['demo']       = $this->demo;
+        }
+
+        return $data;
+    }
+
+    protected function insertPersonalReadings(): void
+    {
+        echo "Inserting into Personal\\Reading ...\n";
+
+        $data = [
+            [ 'title' => 'The Lovely Bones', 'author' => 'Alice Sebold', 'slug' => 'the-lovely-bones-by-alice-sebold', 'publication_year' => 2002, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/The_Lovely_Bones', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'The Lyre of Orpheus (Cornish Trilogy)', 'author' => 'Robertson Davies', 'slug' => 'the-lyre-of-orpheus-(cornish-trilogy)-by-robertson-davies', 'publication_year' => 1988, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/The_Lyre_of_Orpheus_(novel)', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'What a Carve Up!', 'author' => 'Jonathan Coe', 'slug' => 'what-a-carve-up-by-jonathan-coe', 'publication_year' => 1994, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/What_a_Carve_Up!_(novel)', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 0, 'wishlist' => 1, 'image' => null   ],
+            [ 'title' => 'What\'s Bred in the Bones (Cornish Trilogy)', 'author' => 'Robertson Davies', 'slug' => 'whats-bred-in-the-bones-(cornish-trilogy)-by-robertson-davies', 'publication_year' => 1985, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/What%27s_Bred_in_the_Bone', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'White Nights', 'author' => 'Fyodor Dostoyevksy', 'slug' => 'white-nights-by-fyodor-dostoyevksy', 'publication_year' => 1848, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/White_Nights_(short_story)', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'Rikki-Tikki-Tavi', 'author' => 'Rudyard Kipling', 'slug' => 'rikki-tikki-tavi-by-rudyard-kipling', 'publication_year' => 1894, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Rikki-Tikki-Tavi', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 1, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'The Return of Tarzan', 'author' => 'Edgar Rice Burroughs', 'slug' => 'the-return-of-tarzan-by-edgar-rice-burroughs', 'publication_year' => 1913, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/The_Return_of_Tarzan', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 1, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'Tarzan of the Apes', 'author' => 'Edgar Rice Burroughs', 'slug' => 'tarzan-of-the-apes-by-edgar-rice-burroughs', 'publication_year' => 1912, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Tarzan_of_the_Apes', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 1, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'Confessions of a Dangerous Mind: An Unauthorized Autobiography', 'author' => 'Chuck Barris', 'slug' => 'confessions-of-a-dangerous-mind-an-unauthorized-autobiography-by-chuck-barris', 'publication_year' => 2002, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/Confessions-Dangerous-Mind-Unauthorized-Autobiography/dp/0786888083/', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 1, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'The Stranger', 'author' => 'Albert Camus', 'slug' => 'the-stranger-by-albert-camus', 'publication_year' => 1942, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/The_Stranger_(Camus_novel)', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 1, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'The Sun Also Rises', 'author' => 'Ernest Hemingway', 'slug' => 'the-sun-also-rises-by-ernest-hemingway', 'publication_year' => 1926, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/The_Sun_Also_Rises', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'The Thief of Always', 'author' => 'Clive Barker', 'slug' => 'the-thief-of-always-by-clive-barker', 'publication_year' => 1992, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/The_Thief_of_Always', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'The Twelve Caesars', 'author' => 'Suetonius', 'slug' => 'the-twelve-caesars-by-suetonius', 'publication_year' => 121, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/The_Twelve_Caesars', 'fiction' => 0, 'nonfiction' => 1, 'paper' => 1, 'audio' => 1, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'The 100-Year-Old Man Who Climbed Out the Window and Disappeared', 'author' => 'Jonas Jonasson', 'slug' => 'the-100-year-old-man-who-climbed-out-the-window-and-disappeared-by-jonas-jonasson', 'publication_year' => 2012, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/100-Year-Old-Man-Climbed-Window-Disappeared/dp/1401324649/', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'Winnie the Pooh', 'author' => 'A. A. Milne', 'slug' => 'winnie-the-pooh-by-a-a-milne', 'publication_year' => 1926, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Winnie-the-Pooh_(book)', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 1, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'Women in Love', 'author' => 'D. H. Lawrence', 'slug' => 'women-in-love-by-d-h-lawrence', 'publication_year' => 1920, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Women_in_Love', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 0, 'wishlist' => 1, 'image' => null   ],
+            [ 'title' => 'World of Wonders (The Deptford Trilogy)', 'author' => 'Robertson Davies', 'slug' => 'world-of-wonders-(the-deptford-trilogy)-by-robertson-davies', 'publication_year' => 1975, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/World_of_Wonders_(novel)', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'Wuthering Heights', 'author' => 'Emily Brontë', 'slug' => 'wuthering-heights-by-emily-brontë', 'publication_year' => 1847, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Wuthering_Heights', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'Zen and the Art of Motorcycle Maintenance', 'author' => 'Robert Pirsig', 'slug' => 'zen-and-the-art-of-motorcycle-maintenance-by-robert-pirsig', 'publication_year' => 1974, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Zen_and_the_Art_of_Motorcycle_Maintenance', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 0, 'wishlist' => 1, 'image' => null   ],
+            [ 'title' => 'Ken\' Guide to the Bible', 'author' => 'Ken Smith, B.A.', 'slug' => 'kens-guide-to-the-bible-by-ken-smith-ba', 'publication_year' => 1995, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/Kens-Guide-Bible-Ken-Smith/dp/0922233179/', 'fiction' => 0, 'nonfiction' => 1, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'The Curious Charms of Arthur Pepper', 'author' => 'Phaedra Patrick', 'slug' => 'the-curious-charms-of-arthur-pepper-by-phaedra-patrick', 'publication_year' => 2016, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/Curious-Charms-Arthur-Pepper-ebook/dp/B016UEUIF6/', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'Unforgivable Blackness: The Rise and Fall of Jack Johnson', 'author' => 'Geoffrey C. Ward', 'slug' => 'unforgivable-blackness-the-rise-and-fall-of-jack-johnson-by-geoffrey-c-ward', 'publication_year' => 2004, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/Unforgivable-Blackness-Rise-Fall-Johnson/dp/0375415327/', 'fiction' => 0, 'nonfiction' => 1, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => '500 Nations', 'author' => 'Alvin M. Joseph Jr.', 'slug' => '500-nations-by-alvin-m-joseph-jr', 'publication_year' => 1994, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/500-Nations-Illustrated-History-American/dp/0679429301/', 'fiction' => 0, 'nonfiction' => 1, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'I May Be Wrong but I Doubt It', 'author' => 'Charles Barkley', 'slug' => 'i-may-be-wrong-but i-doubt-it-by-charles-barkley', 'publication_year' => 2002, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/May-Be-Wrong-but-Doubt/dp/037550883X/', 'fiction' => 0, 'nonfiction' => 1, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'Second Wind: The Memoirs of an Opinionated Man', 'author' => 'Bill Russell', 'slug' => 'second-wind-the-memoirs-of-an-opinionated-man-by-bill-russell', 'publication_year' => 1979, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/Second-Wind-Memoirs-Opinionated-Man/dp/0394503856/', 'fiction' => 0, 'nonfiction' => 1, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'Rosey, An Autobiography: The Gentle Giant', 'author' => 'Rosey Grier', 'slug' => 'rosey-an-autobiography-the-gentle-giant-by-rosey-grier', 'publication_year' => 1986, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/Rosey-autobiography-gentle-giant-Grier/dp/0892744065/', 'fiction' => 0, 'nonfiction' => 1, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'Gentlemen Prefer Blondes', 'author' => 'Anita Loos', 'slug' => 'gentlemen-prefer-blondes-by-anita-loos', 'publication_year' => 1925, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Gentlemen_Prefer_Blondes_(novel)', 'fiction' => 0, 'nonfiction' => 1, 'paper' => 0, 'audio' => 1, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'Demon Copperhead', 'author' => 'Barbara Kingsolver', 'slug' => 'demon-copperhead-by-barbara-kingsolver', 'publication_year' => 2022, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Demon_Copperhead', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 1, 'wishlist' => 0, 'image' => null   ],
+            [ 'title' => 'The Complete Sherlock Holmes', 'author' => 'Arthur Conan Doyle', 'slug' => 'the-complete-sherlock-holmes-by-arthur-conan-doyle', 'publication_year' => 1930, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/Complete-Sherlock-Holmes-Fifty-Six-Adventures/dp/B000N770O4/', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://m.media-amazon.com/images/I/91tbNbLrr0L._SY342_.jpg' ],
+            [ 'title' => 'Hex', 'author' => 'Arthur H. Lewis', 'slug' => 'hex-by-arthur-h-lewis', 'publication_year' => 1969, 'link_name' => 'Goodreads', 'link' => 'https://www.goodreads.com/book/show/1938225.Hex', 'fiction' => 0, 'nonfiction' => 1, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1387705354i/1938225.jpg' ],
+            [ 'title' => 'Picture This', 'author' => 'Joseph Heller', 'slug' => 'picture-this-by-joseph-heller', 'publication_year' => 1988, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Picture_This_(novel)', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://upload.wikimedia.org/wikipedia/en/thumb/6/63/JosephHeller_PictureThis.jpg/250px-JosephHeller_PictureThis.jpg' ],
+            [ 'title' => 'The Adventures of Pinocchio: The Tale of a Puppet', 'author' => 'Carlo Collodi', 'slug' => 'the-adventures-of-pinocchio-the-tale-of-a-puppet-by-carlo-collodi', 'publication_year' => 1881, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/The_Adventures_of_Pinocchio', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 1, 'wishlist' => 0, 'image' => 'https://cdn10.bigcommerce.com/s-g9n04qy/products/1104498/images/1134721/71-Q0e1T--L__42976.1753237957.500.500.jpg?c=2' ],
+            [ 'title' => 'Poor Folk', 'author' => 'Fyodor Dostoyevksy', 'slug' => 'poor-folk-by-fyodor-dostoyevksy', 'publication_year' => 1846, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Poor_Folk', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://upload.wikimedia.org/wikipedia/en/f/f5/PoorFolk.JPG' ],
+            [ 'title' => 'Portrait of the Artist, As an Old Man', 'author' => 'Joseph Heller', 'slug' => 'portrait-of-the-artist-as-an-old-man-by-joseph-heller', 'publication_year' => 2000, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Portrait_of_an_Artist,_as_an_Old_Man', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://upload.wikimedia.org/wikipedia/en/thumb/2/25/PortraitArtistOldMan.JPG/250px-PortraitArtistOldMan.JPG' ],
+            [ 'title' => 'Pride and Prejudice', 'author' => 'Jane Austen', 'slug' => 'pride-and-prejudice-by-jane-austen', 'publication_year' => 1813, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Pride_and_Prejudice', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 1, 'wishlist' => 0, 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/PrideAndPrejudiceTitlePage.jpg/250px-PrideAndPrejudiceTitlePage.jpg' ],
+            [ 'title' => 'Ragtime', 'author' => 'E. L. Doctorow', 'slug' => 'ragtime-by-e-l-doctorow', 'publication_year' => 1975, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Ragtime_(novel)', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/RagtimeDoctrorowHardcover.jpg/250px-RagtimeDoctrorowHardcover.jpg' ],
+        ];
+
+        if (!empty($data)) {
+            Reading::insert($this->addDemoTimeStampsAndOwners($data));
+        }
+    }
+
+    protected function insertPersonalRecipes(): void
+    {
+        echo "Inserting into Personal\\Recipe ...\n";
+
+        $this->recipeId = [];
+        $maxId = Recipe::withoutGlobalScope(AdminGlobalScope::class)->max('id');
+        for ($i=1; $i<=7; $i++) {
+            $this->recipeId[$i] = ++$maxId;
+        }
+
+        $data = [
+            [ 'id' => $this->recipeId[1], 'name' => 'Nestlé Toll House Chocolate Chip Cookies', 'slug' => 'nestle-toll-house-cookies',     'source' => 'www.nestle.com',                'author' => 'Ruth Wakefield', 'main' => 0, 'side' => 0, 'dessert' => 1, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 0, 'dinner' => 0, 'snack'  => 1, 'link' => 'https://www.nestle.com/stories/timeless-discovery-toll-house-chocolate-chip-cookie-recipe' ],
+            [ 'id' => $this->recipeId[2], 'name' => 'Seed Crackers',                            'slug' => 'seed-crackers',                 'source' => 'Facebook',                      'author' => null,             'main' => 0, 'side' => 0, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 0, 'dinner' => 0, 'snack'  => 1, 'link' => null ],
+            [ 'id' => $this->recipeId[3], 'name' => 'Vegan Sloppy Joes',                        'slug' => 'vegan-sloppy-joes',             'source' => 'Facebook',                      'author' => null,             'main' => 1, 'side' => 0, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 0, 'snack'  => 0, 'link' => null ],
+            [ 'id' => $this->recipeId[4], 'name' => 'Miso Soup',                                'slug' => 'miso-soup',                     'source' => 'Facebook',                      'author' => null,             'main' => 0, 'side' => 1, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 0, 'snack'  => 0, 'link' => null ],
+            [ 'id' => $this->recipeId[5], 'name' => 'John Cope\'s Baked Corn Supreme',          'slug' => 'john-copes-baked-corn-supreme', 'source' => 'John Cope\'s Dried Sweet Corn', 'author' => null,             'main' => 0, 'side' => 1, 'dessert' => 0, 'appetizer' => 0, 'beverage' => 0, 'breakfast' => 0, 'lunch' => 1, 'dinner' => 1, 'snack'  => 0, 'link' => null ],
+        ];
+
+        if (!empty($data)) {
+            Recipe::insert($this->addDemoTimeStampsAndOwners($data));
+        }
+    }
+
+    protected function insertPersonalRecipeIngredients(): void
+    {
+        echo "Inserting into Personal\\RecipeIngredient ...\n";
+
+        $data = [
+            [ 'ingredient_id' => 263, 'recipe_id' => $this->recipeId[1], 'amount' => '2 1/4', 'unit_id' => 6,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 35,  'recipe_id' => $this->recipeId[1], 'amount' => '1',     'unit_id' => 4,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 566, 'recipe_id' => $this->recipeId[1], 'amount' => '1',     'unit_id' => 4,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 105, 'recipe_id' => $this->recipeId[1], 'amount' => '1',     'unit_id' => 6,  'qualifier' => '2 sticks, softened',                                              'public' => 1 ],
+            [ 'ingredient_id' => 599, 'recipe_id' => $this->recipeId[1], 'amount' => '3/4',   'unit_id' => 6,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 601, 'recipe_id' => $this->recipeId[1], 'amount' => '3/4',   'unit_id' => 6,  'qualifier' => 'packed',                                                          'public' => 1 ],
+            [ 'ingredient_id' => 654, 'recipe_id' => $this->recipeId[1], 'amount' => '1',     'unit_id' => 4,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 247, 'recipe_id' => $this->recipeId[1], 'amount' => '2',     'unit_id' => 1,  'qualifier' => 'large',                                                           'public' => 1 ],
+            [ 'ingredient_id' => 174, 'recipe_id' => $this->recipeId[1], 'amount' => '2',     'unit_id' => 6,  'qualifier' => '(12-oz. pkg.) Nestlé Toll House Semi-Sweet Chocolate Morsels',    'public' => 1 ],
+            [ 'ingredient_id' => 665, 'recipe_id' => $this->recipeId[1], 'amount' => '1',     'unit_id' => 6,  'qualifier' => 'chopped (if omitting, add 1-2 tablespoons of all-purpose flour)', 'public' => 1 ],
+            [ 'ingredient_id' => 545, 'recipe_id' => $this->recipeId[2], 'amount' => '1/2',   'unit_id' => 6,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 606, 'recipe_id' => $this->recipeId[2], 'amount' => '1/6',   'unit_id' => 6,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 587, 'recipe_id' => $this->recipeId[2], 'amount' => '1/4',   'unit_id' => 6,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 261, 'recipe_id' => $this->recipeId[2], 'amount' => '3/8',   'unit_id' => 6,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 566, 'recipe_id' => $this->recipeId[2], 'amount' => '1/2',   'unit_id' => 4,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 282, 'recipe_id' => $this->recipeId[2], 'amount' => '1/4',   'unit_id' => 4,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 389, 'recipe_id' => $this->recipeId[2], 'amount' => '1/2',   'unit_id' => 4,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 278, 'recipe_id' => $this->recipeId[2], 'amount' => '1/2',   'unit_id' => 4,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 480, 'recipe_id' => $this->recipeId[2], 'amount' => '1',     'unit_id' => 3,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 561, 'recipe_id' => $this->recipeId[3], 'amount' => '1',     'unit_id' => 4,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 398, 'recipe_id' => $this->recipeId[3], 'amount' => '1',     'unit_id' => 5,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 420, 'recipe_id' => $this->recipeId[3], 'amount' => '1/4',   'unit_id' => 1,  'qualifier' => 'medium, minced',                                                  'public' => 1 ],
+            [ 'ingredient_id' => 276, 'recipe_id' => $this->recipeId[3], 'amount' => '1',     'unit_id' => 1,  'qualifier' => 'clove, minced (~1/2 Tbsp.)',                                      'public' => 1 ],
+            [ 'ingredient_id' => 473, 'recipe_id' => $this->recipeId[3], 'amount' => '1/4',   'unit_id' => 1,  'qualifier' => 'medium, diced',                                                   'public' => 1 ],
+            [ 'ingredient_id' => 568, 'recipe_id' => $this->recipeId[3], 'amount' => '1',     'unit_id' => 3,  'qualifier' => 'to taste',                                                        'public' => 1 ],
+            [ 'ingredient_id' => 496, 'recipe_id' => $this->recipeId[3], 'amount' => '1',     'unit_id' => 3,  'qualifier' => 'to taste',                                                        'public' => 1 ],
+            [ 'ingredient_id' => 639, 'recipe_id' => $this->recipeId[3], 'amount' => '1/2',   'unit_id' => 1,  'qualifier' => '15 oz. can',                                                      'public' => 1 ],
+            [ 'ingredient_id' => 601, 'recipe_id' => $this->recipeId[3], 'amount' => '1',     'unit_id' => 5,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 668, 'recipe_id' => $this->recipeId[3], 'amount' => '1',     'unit_id' => 5,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 170, 'recipe_id' => $this->recipeId[3], 'amount' => '1/4',   'unit_id' => 4,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 217, 'recipe_id' => $this->recipeId[4], 'amount' => '1/2',   'unit_id' => 4,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 430, 'recipe_id' => $this->recipeId[3], 'amount' => '1',     'unit_id' => 2,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 666, 'recipe_id' => $this->recipeId[3], 'amount' => '1',     'unit_id' => 6,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 321, 'recipe_id' => $this->recipeId[3], 'amount' => '1/2',   'unit_id' => 6,  'qualifier' => 'or red lentils',                                                  'public' => 1 ],
+            [ 'ingredient_id' => 656, 'recipe_id' => $this->recipeId[4], 'amount' => '2',     'unit_id' => 6,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 354, 'recipe_id' => $this->recipeId[4], 'amount' => '2',     'unit_id' => 5,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 629, 'recipe_id' => $this->recipeId[4], 'amount' => '1/3',   'unit_id' => 6,  'qualifier' => 'cubed',                                                           'public' => 1 ],
+            [ 'ingredient_id' => 413, 'recipe_id' => $this->recipeId[4], 'amount' => '1/4',   'unit_id' => 6,  'qualifier' => 'chopped',                                                         'public' => 1 ],
+            [ 'ingredient_id' => 387, 'recipe_id' => $this->recipeId[4], 'amount' => '1',     'unit_id' => 1,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 739, 'recipe_id' => $this->recipeId[4], 'amount' => '1/4',   'unit_id' => 6,  'qualifier' => 'chopped (or other sturdy green)',                                 'public' => 1 ],
+            [ 'ingredient_id' => 195, 'recipe_id' => $this->recipeId[5], 'amount' => '3.75',  'unit_id' => 11, 'qualifier' => '1 package of John Cope\'s Sweet Corn',                            'public' => 1 ],
+            [ 'ingredient_id' => 347, 'recipe_id' => $this->recipeId[5], 'amount' => '2 1/2', 'unit_id' => 6,  'qualifier' => 'cold',                                                            'public' => 1 ],
+            [ 'ingredient_id' => 105, 'recipe_id' => $this->recipeId[5], 'amount' => '2',     'unit_id' => 5,  'qualifier' => 'melted',                                                          'public' => 1 ],
+            [ 'ingredient_id' => 566, 'recipe_id' => $this->recipeId[5], 'amount' => '1',     'unit_id' => 4,  'qualifier' => 'optional',                                                        'public' => 1 ],
+            [ 'ingredient_id' => 599, 'recipe_id' => $this->recipeId[5], 'amount' => '1 1/2', 'unit_id' => 5,  'qualifier' => null,                                                              'public' => 1 ],
+            [ 'ingredient_id' => 247, 'recipe_id' => $this->recipeId[5], 'amount' => '2',     'unit_id' => 1,  'qualifier' => null,                                                              'public' => 1 ],
+        ];
+
+        if (!empty($data)) {
+            RecipeIngredient::insert($this->addDemoTimeStampsAndOwners($data));
+        }
+    }
+
+    protected function insertPersonalRecipeSteps(): void
+    {
+        echo "Inserting into Personal\\RecipeStep ...\n";
+
+        $data = [
+            [ 'recipe_id' => $this->recipeId[1],  'step' => 1,  'description' => 'Preheat oven to 375° F.' ],
+            [ 'recipe_id' => $this->recipeId[1],  'step' => 2,  'description' => 'Combine flour, baking soda and salt in small bowl. Beat butter, granulated sugar, brown sugar and vanilla extract in large mixer bowl until creamy. Add eggs, one at a time, beating well after each addition. Gradually beat in flour mixture. Stir in morsels and nuts. Drop by rounded tablespoon onto ungreased baking sheets.' ],
+            [ 'recipe_id' => $this->recipeId[1],  'step' => 3,  'description' => 'Bake for 9 to 11 minutes or until golden brown. Cool on baking sheets for 2 minutes; remove to wire racks to cool completely.' ],
+            [ 'recipe_id' => $this->recipeId[2],  'step' => 1,  'description' => 'Preheat oven to 380° F.' ],
+            [ 'recipe_id' => $this->recipeId[2],  'step' => 2,  'description' => 'Mix the ingredients in a large bowl and add 3/4 cups of boiling water. Let this sit for a few minutes.' ],
+            [ 'recipe_id' => $this->recipeId[2],  'step' => 3,  'description' => 'Spread out on parchment paper on a baking sheet to the thickness of a cracker.' ],
+            [ 'recipe_id' => $this->recipeId[2],  'step' => 4,  'description' => 'Bake for around 40 minutes until slightly browned and crispy.' ],
+            [ 'recipe_id' => $this->recipeId[3],  'step' => 1,  'description' => 'Put water (or broth) and lentils into a small sauce pan.' ],
+            [ 'recipe_id' => $this->recipeId[3],  'step' => 2,  'description' => 'Bring to a low boil, then reduce heat and simmer for 18 to 22 minutes or until tender for green lentils. (For red lentils simmer for 7 to 10 minutes.)' ],
+            [ 'recipe_id' => $this->recipeId[3],  'step' => 3,  'description' => 'Sauté onion, garlic, and green pepper over medium hear for 4 to 5 minutes.)' ],
+            [ 'recipe_id' => $this->recipeId[3],  'step' => 4,  'description'   => 'Combine all ingredients and lentils over medium low heat for 5 to 10 minutes.)' ],
+            [ 'recipe_id' => $this->recipeId[4],  'step' => 1,  'description'   => 'Mix all of ingredients in a pot and heat over medium heat.' ],
+            [ 'recipe_id' => $this->recipeId[5],  'step' => 1,  'description'   => 'Preheat oven to 375° F.' ],
+            [ 'recipe_id' => $this->recipeId[5],  'step' => 2,  'description'   => 'Grind the contents of a 3.75 oz package of John Cope\'s Dried Sweet Corn in a blender or food processor.' ],
+            [ 'recipe_id' => $this->recipeId[5],  'step' => 3,  'description'   => 'Add 2 1/2 cups of cold milk, 2 Tbsp. melted butter or margarine, 1 tsp. salt (optional), 1 1/2 Tbsp. sugar, and 2 well beaten eggs. Mix thoroughly' ],
+            [ 'recipe_id' => $this->recipeId[5],  'step' => 4,  'description'   => 'Bake in buttered 1.5 or 2 quart casserole dish for 40 to 50 minutes.' ],
+        ];
+
+        if (!empty($data)) {
+            RecipeStep::insert($this->addDemoTimeStampsAndOwners($data));
+        }
+    }
+}

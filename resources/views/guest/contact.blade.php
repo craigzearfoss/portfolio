@@ -3,7 +3,7 @@
     'title'       => '',
     'subtitle'    => null,
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('guest.homepage')],
+        [ 'name' => 'Home', 'href' => route('system.homepage')],
         [ 'name' => 'Contact Us']
     ],
     'buttons' => [],
@@ -25,7 +25,7 @@
 
         @else
 
-            <form action="{{ route('guest.contact.storeMessage') }}" method="POST">
+            <form action="{{ route('system.contact.storeMessage') }}" method="POST">
                 @csrf
 
                 <div class="column is-6">
@@ -69,7 +69,7 @@
 
                     @include('guest.components.form-button-submit-horizontal', [
                         'label'      => 'Submit',
-                        'cancel_url' => route('guest.homepage')
+                        'cancel_url' => route('system.homepage')
                     ])
 
                 </div>

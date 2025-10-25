@@ -24,8 +24,8 @@
                                         <img class="avatar-img avatar-circle" src="{{ asset('images/users/avatars/0-thumb.png') }}" loading="lazy">
                                     </span>
                                     <!-- <img src="{{ asset('images/others/Laravel.png') }}" alt="Laravel Logo" class="mx-auto mb-8" style="width: 200px;"> -->
-                                    <h3 class="mb-2">Welcome on board, {{ Auth::guard('web')->user()->name }}!</h3>
-                                    <p class="text-base"> {{ Auth::guard('web')->user()->email }} </p>
+                                    <h3 class="mb-2">Welcome on board, {{ Auth::guard('user')->user()->name }}!</h3>
+                                    <p class="text-base"> {{ Auth::guard('user')->user()->email }} </p>
                                     </div>
                                 </div>
                             </div>

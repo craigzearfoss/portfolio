@@ -51,7 +51,7 @@ class IndexController extends BaseGuestController
                 'password' => $inputs['password'],
             ];
 
-            if (Auth::guard('web')->attempt($data)) {
+            if (Auth::guard('user')->attempt($data)) {
                 return redirect()->route('user.dashboard');
             } else {
                 return view(themedTemplate('guest.login'))
@@ -66,8 +66,8 @@ class IndexController extends BaseGuestController
 
     public function logout(): RedirectResponse
     {
-        Auth::guard('web')->logout();
-        return redirect()->route('guest.homepage')->with('success', 'User logout successful.');
+        Auth::guard('user')->logout();
+        return redirect()->route('system.homepage')->with('success', 'User logout successful.');
     }
 
     public function forgot_password(Request $request): RedirectResponse | View
@@ -253,7 +253,7 @@ class IndexController extends BaseGuestController
     {
         $message = Message::create($messageStoreRequest->validated());
 
-        return redirect(route('guest.homepage'))
+        return redirect(route('system.homepage'))
             ->with('success', 'Your message has been sent. Thank you!.');
     }
 

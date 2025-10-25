@@ -2,7 +2,7 @@
     'pageTitle'   => 'Forgot Password',
     'title'       => '',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('guest.homepage')],
+        [ 'name' => 'Home', 'href' => route('system.homepage')],
     ],
     'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],
@@ -22,7 +22,7 @@
             Enter your email address to receive a password reset link.
         </p>
 
-        <form action="{{ route('guest.forgot-password-submit') }}" method="POST">
+        <form action="{{ route('system.forgot-password-submit') }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -48,7 +48,7 @@
 
                     @include('guest.components.form-button-submit', [
                         'label'      => 'Submit',
-                        'cancel_url' => referer('guest.homepage')
+                        'cancel_url' => referer('system.homepage')
                     ])
 
                 </div>

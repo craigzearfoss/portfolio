@@ -1,7 +1,7 @@
 @extends('guest.layouts.default', [
     'title' => $framework->name . ' language',
     'breadcrumbs' => [
-        [ 'name' => 'Home',       'href' => route('guest.homepage') ],
+        [ 'name' => 'Home',       'href' => route('system.homepage') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Frameworks', 'href' => route('guest.dictionary.framework.index') ],
         [ 'name' => $framework->name ],

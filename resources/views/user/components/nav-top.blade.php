@@ -1,3 +1,9 @@
+@php
+    $menuItems = (new \App\Services\MenuService())->getTopMenu(
+        \App\Services\PermissionService::ENV_USER,
+        $admin ?? null
+    );
+@endphp
 <nav id="navbar-main" class="navbar is-fixed-top">
     <div class="navbar-brand">
         <a class="navbar-item is-hidden-desktop jb-aside-mobile-toggle">
@@ -91,7 +97,7 @@
     <div class="side-nav-header">
         <div class="logo px-6">
 
-            @if (Auth::guard('web'))
+            @if (Auth::guard('user'))
                 <a href="{{ route('user.dashboard') }}">
                     <h4 style="margin: 10px 0; color: #222;">{{ config('app.name') }} Admin</h4>
                 </a>

@@ -1,12 +1,14 @@
 @php
-$menuItems = (new \App\Services\MenuService())->getLeftMenu(\App\Services\PermissionService::ENV_USER);
+    $menuItems = (new \App\Services\MenuService())->getLeftMenu(
+        \App\Services\PermissionService::ENV_USER,
+        $admin ?? null
+    );
 @endphp
-
 <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
     <div class="aside-tools">
         <div class="aside-tools-label">
 
-            <a class="has-text-primary" href="{{ route('guest.homepage') }}"><strong>{{ config('app.name') }}</strong></a>
+            <a class="has-text-primary" href="{{ route('system.homepage') }}"><strong>{{ config('app.name') }}</strong></a>
 
         </div>
     </div>

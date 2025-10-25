@@ -37,7 +37,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
             @else
 
-                <a class="has-text-primary" href="{{ route('guest.homepage') }}"><strong>{{ config('app.name') }}</strong></a>
+                <a class="has-text-primary" href="{{ route('system.homepage') }}"><strong>{{ config('app.name') }}</strong></a>
 
             @endif
 

@@ -1,7 +1,7 @@
 @extends('guest.layouts.default', [
     'title' => $operatingSystem->name . ' operating system',
     'breadcrumbs' => [
-        [ 'name' => 'Home',              'href' => route('guest.homepage') ],
+        [ 'name' => 'Home',              'href' => route('system.homepage') ],
         [ 'name' => 'Dictionary',        'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Operating Systems', 'href' => route('guest.dictionary.operating-system.index') ],
         [ 'name' => $operatingSystem->name ],

@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => config('app.name') . ' Admin Dashboard',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('guest.homepage') ],
+        [ 'name' => 'Home', 'href' => route('system.homepage') ],
         [ 'name' => 'Admin Dashboard' ],
     ],
     'buttons' => [],

@@ -1,7 +1,7 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Reading: ' . $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : ''),
     'breadcrumbs' => [
-        [ 'name' => 'Home',                'href' => route('guest.homepage') ],
+        [ 'name' => 'Home',                'href' => route('system.homepage') ],
         [ 'name' => $reading->owner->name, 'href' => route('guest.user.index', $admin)],
         [ 'name' => 'Personal',            'href' => route('guest.user.personal.index', $admin) ],
         [ 'name' => 'Readings',            'href' => route('guest.user.personal.reading.index', $admin) ],

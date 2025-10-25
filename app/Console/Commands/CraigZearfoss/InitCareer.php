@@ -13,6 +13,7 @@ use App\Models\Career\Event;
 use App\Models\Career\Note;
 use App\Models\Career\Reference;
 use App\Models\Career\Resume;
+use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
@@ -20,6 +21,8 @@ use function Laravel\Prompts\text;
 
 class InitCareer extends Command
 {
+    protected $demo = 0;
+
     protected $adminId = null;
     protected $groupId = null;
     protected $teamId = null;
@@ -99,11 +102,12 @@ class InitCareer extends Command
         return $data;
     }
 
-    protected function addTimeStampsAndOwners($data) {
+    protected function addDemoTimeStampsAndOwners($data) {
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
             $data[$i]['owner_id']   = $this->adminId;
+            $data[$i]['demo']       = $this->demo;
         }
 
         return $data;
@@ -198,7 +202,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Application::insert($this->addTimeStampsAndOwners($data));
+            Application::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -210,7 +214,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            ApplicationSkill::insert($this->addTimeStampsAndOwners($data));
+            ApplicationSkill::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -314,7 +318,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Company::insert($this->addTimeStampsAndOwners($data));
+            Company::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -386,7 +390,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Contact::insert($this->addTimeStampsAndOwners($data));
+            Contact::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -398,7 +402,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Communication::insert($this->addTimeStampsAndOwners($data));
+            Communication::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -410,7 +414,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            COverLetter::insert($this->addTimeStampsAndOwners($data));
+            CoverLetter::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -422,7 +426,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Event::insert($this->addTimeStampsAndOwners($data));
+            Event::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -434,7 +438,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Note::insert($this->addTimeStampsAndOwners($data));
+            Note::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -456,7 +460,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Reference::insert($this->addTimeStampsAndOwners($data));
+            Reference::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -488,7 +492,7 @@ class InitCareer extends Command
         ];
 
         if (!empty($data)) {
-            Resume::insert($this->addTimeStampsAndOwners($data));
+            Resume::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 }

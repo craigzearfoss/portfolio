@@ -1,7 +1,7 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Certification: ' . $certification->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',                      'href' => route('guest.homepage') ],
+        [ 'name' => 'Home',                      'href' => route('system.homepage') ],
         [ 'name' => $certification->owner->name, 'href' => route('guest.user.index', $certification->owner)],
         [ 'name' => 'Portfolio',                 'href' => route('guest.user.portfolio.index', $certification->owner) ],
         [ 'name' => 'Certifications',            'href' => route('guest.user.portfolio.certification.index', $certification->owner) ],

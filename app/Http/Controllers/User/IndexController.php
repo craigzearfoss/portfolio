@@ -9,7 +9,7 @@ class IndexController extends BaseUserController
 {
     public function index(): View
     {
-        if (Auth::guard('web')->check()) {
+        if (Auth::guard('user')->check()) {
             return view('user.dashboard');
         } else {
             return view(themedTemplate('guest.index'));

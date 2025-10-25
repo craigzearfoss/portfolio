@@ -65,7 +65,7 @@ class IndexController extends BaseAdminController
     public function logout(): RedirectResponse
     {
         Auth::guard('admin')->logout();
-        return redirect()->route('guest.homepage')->with('success', 'Admin logout successful.');
+        return redirect()->route('system.homepage')->with('success', 'Admin logout successful.');
     }
 
     public function forgot_password(Request $request): RedirectResponse | View

@@ -48,7 +48,7 @@
                                                 @csrf
 
                                                 @include('user.components.form-hidden', [
-                                                    'name'  => old('admin_id') ?? Auth::guard('web')->user()->id,
+                                                    'name'  => old('admin_id') ?? Auth::guard('user')->user()->id,
                                                     'value' => '0',
                                                 ])
 

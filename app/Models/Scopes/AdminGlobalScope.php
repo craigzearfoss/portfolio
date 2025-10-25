@@ -16,7 +16,7 @@ class AdminGlobalScope implements Scope
             if (!isRootAdmin()) {
                 $builder->where($model->getTable().'.owner_id', $admin->id);
             }
-        } elseif ($admin = Auth::guard('web')->user()) {
+        } elseif ($admin = Auth::guard('user')->user()) {
             // this is a user
             $builder->where('public', 1)->where('disabled', 0);
         } else {

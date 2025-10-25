@@ -15,6 +15,7 @@ use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Publication;
 use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
+use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
@@ -22,6 +23,8 @@ use function Laravel\Prompts\text;
 
 class InitPortfolio extends Command
 {
+    protected $demo = 0;
+
     protected $adminId = null;
     protected $groupId = null;
     protected $teamId = null;
@@ -102,11 +105,12 @@ class InitPortfolio extends Command
         return $data;
     }
 
-    protected function addTimeStampsAndOwners($data) {
+    protected function addDemoTimeStampsAndOwners($data) {
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
             $data[$i]['owner_id']   = $this->adminId;
+            $data[$i]['demo']       = $this->demo;
         }
 
         return $data;
@@ -192,7 +196,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Art::insert($this->addTimeStampsAndOwners($data));
+            Art::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -205,7 +209,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Audio::insert($this->addTimeStampsAndOwners($data));
+            Audio::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -231,7 +235,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Certification::insert($this->addTimeStampsAndOwners($data));
+            Certification::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -1238,7 +1242,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Course::insert($this->addTimeStampsAndOwners($data));
+            Course::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -1389,7 +1393,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Job::insert($this->addTimeStampsAndOwners($data));
+            Job::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -1426,7 +1430,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            JobCoworker::insert($this->addTimeStampsAndOwners($data));
+            JobCoworker::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -1450,7 +1454,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            JobTask::insert($this->addTimeStampsAndOwners($data));
+            JobTask::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -1466,7 +1470,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Link::insert($this->addTimeStampsAndOwners($data));
+            Link::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -2276,7 +2280,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Music::insert($this->addTimeStampsAndOwners($data));
+            Music::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -2378,7 +2382,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Project::insert($this->addTimeStampsAndOwners($data));
+            Project::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -2391,7 +2395,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Publication::insert($this->addTimeStampsAndOwners($data));
+            Publication::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -2442,7 +2446,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Skill::insert($this->addTimeStampsAndOwners($data));
+            Skill::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 
@@ -3154,7 +3158,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Video::insert($this->addTimeStampsAndOwners($data));
+            Video::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 }

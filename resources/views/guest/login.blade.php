@@ -15,12 +15,12 @@
             User Login
         </div>
 
-        <form action="{{ route('guest.login-submit') }}" method="POST">
+        <form action="{{ route('system.login-submit') }}" method="POST">
             @csrf
 
             @include('user.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('guest.homepage')
+                'value' => referer('system.homepage')
             ])
 
             @include('guest.components.form-input', [
@@ -45,15 +45,15 @@
             ])
 
             <div class="has-text-centered my-3">
-                <a class="text-primary-600 hover:underline" href="{{ route('guest.forgot-password') }}">Forgot Password?</a>
+                <a class="text-primary-600 hover:underline" href="{{ route('system.forgot-password') }}">Forgot Password?</a>
                 |
-                <a class="text-primary-600 hover:underline" href="{{ route('guest.forgot-username') }}">Forgot User Name?</a>
+                <a class="text-primary-600 hover:underline" href="{{ route('system.forgot-username') }}">Forgot User Name?</a>
             </div>
 
             <div class="has-text-centered">
                 @include('guest.components.form-button-submit', [
                     'label'      => 'Login',
-                    'cancel_url' => referer('guest.homepage')
+                    'cancel_url' => referer('system.homepage')
                 ])
             </div>
 

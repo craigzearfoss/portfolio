@@ -122,7 +122,7 @@ class PermissionService
     {
         if (Auth::guard('admin')->user()) {
             return self::ENV_ADMIN;
-        } elseif (Auth::guard('web')->user()) {
+        } elseif (Auth::guard('user')->user()) {
             return self::ENV_USER;
         } else {
             return self::ENV_GUEST;

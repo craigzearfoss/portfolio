@@ -5,6 +5,16 @@
 
 <body>
 
+@if(isDemo())
+    <div class="top-pinned-message has-background-info has-text-white-bis">
+        Demo Site
+    </div>
+@elseif((bool) config('app.readonly'))
+    <div class="top-pinned-message has-background-grey-light has-text-grey-dark">
+        Site is Read-only
+    </div>
+@endif
+
 <div id="app">
 
     @include('guest.components.nav-top')

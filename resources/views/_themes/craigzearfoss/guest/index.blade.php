@@ -16,11 +16,11 @@ HELLO WORLD
             <h1 class="title">{{ config('app.name') }}</h1>
 
             <div class="has-text-centered">
-                <a class="is-size-6" href="{{ route('guest.login') }}">
+                <a class="is-size-6" href="{{ route('system.login') }}">
                     User Login
                 </a>
                 |
-                <a class="is-size-6" href="{{ route('guest.login') }}">
+                <a class="is-size-6" href="{{ route('system.login') }}">
                     Admin Login
                 </a>
             </div>
