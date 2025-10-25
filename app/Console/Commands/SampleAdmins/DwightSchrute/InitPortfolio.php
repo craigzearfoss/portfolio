@@ -109,7 +109,7 @@ class InitPortfolio extends Command
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
             $data[$i]['owner_id']   = $this->adminId;
-            $data[$i]['demo']       = 1;
+            $data[$i]['demo']       = $this->demo;
         }
 
         return $data;
@@ -120,6 +120,20 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            /*
+            [
+                'name'           => '',
+                'artist'         => null,
+                'slug'           => '',
+                'featured'       => 0,
+                'summary'        => null,
+                'year'           => 2025,
+                'image_url'      => null,
+                'notes'          => null,
+                'description'    => 0,
+                'public'         => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -132,6 +146,29 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\Audio ...\n";
 
         $data = [
+            /*
+            [
+                'owner_id'          => $this->adminId,
+                'name'              => '',
+                'slug'              => '',
+                'parent_id'         => null,
+                'featured'          => 0,
+                'summary'           => null,
+                'full_episode'      => 0,
+                'clip'              => 1,
+                'podcast'           => 0,
+                'source_recording'  => 0,
+                'date'              => '0000-00-00',
+                'year'              => null,
+                'company'           => null,
+                'credit'            => null,
+                'show'              => 0,
+                'location'          => null,
+                'embed'             => null,
+                'audio_url'         => null,
+                'public'            => 1,
+            ]
+            */
         ];
 
         if (!empty($data)) {
@@ -144,6 +181,21 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\Certification ...\n";
 
         $data = [
+            /*
+            [
+                'name'            => '',
+                'slug'            => '',
+                'featured'        => 0,
+                'summary'         => null,
+                'organization'    => null,
+                'academy_id'      => 3,
+                'year'            => 2023,
+                'received'        => '0000-00-00',
+                'certificate_url' => null,
+                'description'     => null,
+                'public'          => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -156,6 +208,21 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            /*
+            [
+                'name'            => '',
+                'slug'            => '',
+                'completed'       => 1,
+                'completion_date' => '0000-00-00',
+                'year'            => 2025,
+                'duration_hours'  => 8,
+                'academy_id'      => 9,
+                'instructor'      => null,
+                'sponsor'         => null,
+                'certificate_url' => null,
+                'public'          => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -190,9 +257,7 @@ class InitPortfolio extends Command
                 'city'                   => 'Scranton',
                 'state_id'               => 39,
                 'country_id'             => 237,
-                'thumbnail'              => null,
                 'public'                 => 1,
-                'demo'                   => 1,
             ],
         ];
 
@@ -206,21 +271,21 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1], 'name' => 'Jim Halpert',     'job_title' => 'Assistant Manager',                'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Michael Scott',   'job_title' => 'Regional Manager',                 'level_id' => 2, 'work_phone' => '(208) 555-0507', 'personal_phone' => '(208) 555-5399', 'work_email' => 'slate@inl.slate.com',     'personal_email' => null,                   'link' => null, 'link_name' => null, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Ryan Howard',     'job_title' => 'Sales Representative',             'level_id' => 3, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Pam Beesly',      'job_title' => 'Receptionist',                     'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Angela Martin',   'job_title' => 'Accountant',                       'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Oscar Martinez',  'job_title' => 'Salesman',                         'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Kevin Malone',    'job_title' => 'Salesman',                         'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Stanley Hudson',  'job_title' => 'Salesman',                         'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Phyllis Lapin',   'job_title' => 'Saleswoman',                       'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Andy Bernard',    'job_title' => 'Salesman',                         'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Karen Filippelli','job_title' => 'Salesmanwoman',                    'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Kelly Kapoor',    'job_title' => 'Customer Service Representative',  'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Meridith Palmer', 'job_title' => 'Supply Relations Representative',  'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Creed Bratton',   'job_title' => 'Quality Assurance Representative', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Darryl Philbin',  'job_title' => 'Warehouse Foreman',                'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null, 'demo' => 1 ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Jim Halpert',     'job_title' => 'Assistant Manager',                'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Michael Scott',   'job_title' => 'Regional Manager',                 'level_id' => 2, 'work_phone' => '(208) 555-0507', 'personal_phone' => '(208) 555-5399', 'work_email' => 'slate@inl.slate.com',     'personal_email' => null,                   'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Ryan Howard',     'job_title' => 'Sales Representative',             'level_id' => 3, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Pam Beesly',      'job_title' => 'Receptionist',                     'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Angela Martin',   'job_title' => 'Accountant',                       'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Oscar Martinez',  'job_title' => 'Salesman',                         'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Kevin Malone',    'job_title' => 'Salesman',                         'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Stanley Hudson',  'job_title' => 'Salesman',                         'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Phyllis Lapin',   'job_title' => 'Saleswoman',                       'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Andy Bernard',    'job_title' => 'Salesman',                         'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Karen Filippelli','job_title' => 'Salesmanwoman',                    'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Kelly Kapoor',    'job_title' => 'Customer Service Representative',  'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Meridith Palmer', 'job_title' => 'Supply Relations Representative',  'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Creed Bratton',   'job_title' => 'Quality Assurance Representative', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Darryl Philbin',  'job_title' => 'Warehouse Foreman',                'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
         ];
 
         if (!empty($data)) {
@@ -233,6 +298,14 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\JobTask ...\n";
 
         $data = [
+            /*
+            [
+                'job_id'   => $this->jobId[1],
+                'summary'  => 'Upgraded to modern PHP and Vue.js frameworks.',
+                'sequence' => 0,
+                'public'   => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -245,6 +318,18 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            /*
+            [
+                'name'        => '',
+                'slug'        => '',
+                'featured'    => 1,
+                'summary'     => null,
+                'url'         => null,
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -263,6 +348,24 @@ class InitPortfolio extends Command
         }
 
         $data = [
+            /*
+            [
+                'name'           => '',
+                'artist'         => null,
+                'slug'           => 'im-as-mad-as-faust-by-zen-frisbee',
+                'featured'       => 1,
+                'summary'        => null,
+                'collection'     => 0,
+                'track'          => 1,
+                'label'          => null,
+                'catalog_number' => null,
+                'year'           => 2012,
+                'embed'          => null,
+                'audio_url'      => null,
+                'description'    => null,
+                'public'         => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -275,6 +378,21 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\Project ...\n";
 
         $data = [
+            /*
+            [
+                'name'             => '',
+                'slug'             => '',
+                'featured'         => 0,
+                'summary'          => null,
+                'year'             => 2016,
+                'language'         => null,
+                'language_version' => null,
+                'repository_url'   => null,
+                'repository_name'  => null,
+                'description'      => null,
+                'public'           => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -287,6 +405,38 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\Publication ...\n";
 
         $data = [
+            /*
+            [
+                'title'             => '',
+                'slug'              => '',
+                'parent_id'         => null,
+                'featured'          => 1,
+                'summary'           => null,
+                'publication_name'  => null,
+                'publisher'         => null,
+                'date'              => '0000-00-00',
+                'year'              => 2025,
+                'credit'            => null,
+                'freelance'         => 0,
+                'fiction'           => 0,
+                'nonfiction'        => 0,
+                'technical'         => 0,
+                'research'          => 0,
+                'poetry'            => 0,
+                'online'            => 0,
+                'novel'             => 0,
+                'book'              => 0,
+                'textbook'          => 0,
+                'story'             => 0,
+                'article'           => 0,
+                'paper'             => 0,
+                'pamphlet'          => 0,
+                'publication_url'   => null,
+                'notes'             => null,
+                'description'       => null,
+                'public'            => 1,
+            ]
+            */
         ];
 
         if (!empty($data)) {
@@ -299,6 +449,19 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\Skill ...\n";
 
         $data = [
+            /*
+            [
+                'name'                   => '',
+                'slug'                   => '',
+                'version'                => null,
+                'dictionary_category_id' => null,
+                'featured'               => 1,
+                'level'                  => 5,
+                'years'                  => 5,
+                'start_year'             => 2020,
+                'public'                 => 1
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -311,6 +474,28 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\Video ...\n";
 
         $data = [
+            /*
+            [
+                'name'             => '',
+                'slug'             => '',
+                'featured'         => 1,
+                'summary'          => null,
+                'full_episode'     => 0,
+                'clip'             => 1,
+                'public_access'    => 0,
+                'source_recording' => 0,
+                'year'             => 2020,
+                'company'          => null,
+                'credit'           => null,
+                'show'             => null,
+                'location'         => null,
+                'embed'            => null,
+                'link'             => null,
+                'link_name'        => null,
+                'description'      => null,
+                'public'           => 1,
+            ],
+            */
         ];
 
         if (!empty($data)) {

@@ -107,7 +107,7 @@ class InitCareer extends Command
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
             $data[$i]['owner_id']   = $this->adminId;
-            $data[$i]['demo']       = 1;
+            $data[$i]['demo']       = $this->demo;
         }
 
         return $data;
@@ -124,6 +124,33 @@ class InitCareer extends Command
         }
 
         $data = [
+            /*
+            [
+                'id'                     => $this->applicationId[1],
+                'company_id'             => $this->companyId[1],
+                'role'                   => '',
+                'active'                 => 1,
+                'post_date'              => '0000-00-00',
+                'apply_date'             => null,
+                'compensation_min'       => 100000,
+                'compensation_max'       => 150000,
+                'compensation_unit_id'   => 2,     // 1-hour, 2-year, 3-month, 4-week, 5-day, 6-project
+                'job_duration_type_id'   => 1,     // 1-Permanent, 2-Temporary, 3-Intermittent
+                'job_employment_type_id' => 1,     // 1-Full-time, 2-Part-time, 5-Contract
+                'job_location_type_id'   => 3,     // 1-On-site, 2-Hybrid, 3-Remote
+                'city'                   => null,
+                'state_id'               => null,
+                'country_id'             => 237,
+                'w2'                     => 0,
+                'relocation'             => 0,
+                'benefits'               => 0,
+                'vacation'               => 0,
+                'health'                 => 0,
+                'job_board_id'           => 8,     // 1-Dice, 2-Indeed, 6-Larajobs, 8-LinkedId, 9-Monster, 10-SimpyHired, 11-ZipRecrueter
+                'link'                   => null,
+                'link_name'              => null,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -136,6 +163,18 @@ class InitCareer extends Command
         echo "Inserting into Career\\ApplicationSkill ...\n";
 
         $data = [
+            /*
+            [
+                'application_id'         => $this->applicationId[1],
+                'name'                   => '',
+                'level'                  => 5,
+                'dictionary_category_id' => null,
+                'dictionary_id_term_id'  => null,
+                'start_year'             => 2020,
+                'end_year'               => 2055,
+                'years'                  => 5,
+            ]
+            */
         ];
 
         if (!empty($data)) {
@@ -154,6 +193,17 @@ class InitCareer extends Command
         }
 
         $data = [
+            /*
+            [
+                'id'          => $this->companyId[1],
+                'name'        => '',
+                'slug'        => '',
+                'industry_id' => 11,
+                'city'        => null,
+                'state_id'    => 5,
+                'country_id'  => 237
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -165,8 +215,14 @@ class InitCareer extends Command
     {
         echo "Inserting into Career\\CommpanyContact ...\n";
 
-        $data = [
-        ];
+        $data = [];
+        for ($i=0; $i<=count($this->contactId); $i++) {
+            $data[] = [
+                'contact_id' => $this->contactId[$i],
+                'company_id' => $this->companyId[rand_int(1, count($this->companyId + 1))],
+                'active'     => 1,
+            ];
+        }
 
         if (!empty($data)) {
             CompanyContact::insert($this->addTimeStamps($data));
@@ -184,6 +240,17 @@ class InitCareer extends Command
         }
 
         $data = [
+            /*
+            [
+                'id'          => $this->contactId[1],
+                'name'        => '',
+                'slug'        => '',
+                'phone'       => null,
+                'phone_label' => null,
+                'email'       => null,
+                'email_label' => null,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -196,6 +263,15 @@ class InitCareer extends Command
         echo "Inserting into Career\\Communication ...\n";
 
         $data = [
+            /*
+            [
+                'application_id' => $this->applicationId[1],
+                'subject'        => '',
+                'date'           => '0000-00-00',
+                'time'           => '00:00:00',
+                'body'           => null,
+            ]
+            */
         ];
 
         if (!empty($data)) {
@@ -208,6 +284,14 @@ class InitCareer extends Command
         echo "Inserting into Career\\CoverLetter ...\n";
 
         $data = [
+            /*
+            [
+                'application_id' => $this->applicationId[1],
+                'date'           => '0000-00-00',
+                'content'        => null,
+                'description'    => null,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -220,6 +304,16 @@ class InitCareer extends Command
         echo "Inserting into Career\\Event ...\n";
 
         $data = [
+            /*
+            [
+                'application_id' => $this->applicationId[1],
+                'subject'        => '',
+                'date'           => '0000-00-00',
+                'time'           => '00:00:00',
+                'location'       => null,
+                'description'    => null,
+            ]
+            */
         ];
 
         if (!empty($data)) {
@@ -232,6 +326,15 @@ class InitCareer extends Command
         echo "Inserting into Career\\Note ...\n";
 
         $data = [
+            /*
+            [
+                'application_id' => $this->applicationId[1],
+                'subject'        => '',
+                'date'           => '0000-00-00',
+                'time'           => '00:00:00',
+                'body'           => null,
+            ]
+            */
         ];
 
         if (!empty($data)) {
@@ -244,11 +347,35 @@ class InitCareer extends Command
         echo "Inserting into Career\\Reference ...\n";
 
         $data = [
-            [ 'name' => 'Barney Rubble',    'slug' => 'barney-rubble',    'friend' => 1, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(208) 555-0507', 'phone_label' => 'work',   'alt_phone' => '(208) 555-3644', 'alt_phone_label' => 'mobile', 'email' => 'barney.rubble@slate.com', 'email_label' => 'work', 'alt_email' => 'brubble29@bedrock.com',   'alt_email_label' => null,       'birthday' => null,         'link' => null, 'demo' => 1 ],
-            [ 'name' => 'Nate Slate',       'slug' => 'nate-slate',       'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(913) 555-5399', 'phone_label' => null,     'alt_phone' => null,             'alt_phone_label' => null,     'email' => 'slate@slate.com',         'email_label' => 'work', 'alt_email' => null,                      'alt_email_label' => 'home',     'birthday' => null,         'link' => null, 'demo' => 1 ],
-            [ 'name' => 'Joe Rockhead',     'slug' => 'joe-rockhead',     'friend' => 1, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(917) 555-6003', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => null,                      'email_label' => 'home', 'alt_email' => 'rockehead@bedrock.com',   'alt_email_label' => 'personal', 'birthday' => null,         'link' => null, 'demo' => 1 ],
-            [ 'name' => 'Betty Rubble',     'slug' => 'betty-rubble',     'friend' => 1, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(603) 555-2707', 'phone_label' => 'mobile', 'alt_phone' => '(208) 555-4280', 'alt_phone_label' => 'work',   'email' => null,                      'email_label' => 'work', 'alt_email' => 'wilmaf@bedrock.com',      'alt_email_label' => 'home',     'birthday' => null,         'link' => null, 'demo' => 1 ],
-            [ 'name' => 'Wilma Flintstone', 'slug' => 'wilma-flintstone', 'friend' => 0, 'family' => 1, 'coworker' => 0, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(717) 555-1215', 'phone_label' => 'home',   'alt_phone' => '(717) 555-1207', 'alt_phone_label' => 'mobile', 'email' => null,                      'email_label' => 'home', 'alt_email' => 'bettyrubble@bedrock.com', 'alt_email_label' => null,       'birthday' => '1942-08-20', 'link' => null, 'demo' => 1 ],
+            /*
+            [
+                'name'            => '',
+                'slug'            => '',
+                'friend'          => 0,
+                'family'          => 0,
+                'coworker'        => 1,
+                'supervisor'      => 0,
+                'subordinate'     => 0,
+                'professional'    => 0,
+                'other'           => 0,
+                'company_id'      => null,
+                'street'          => null,
+                'street2'         => null,
+                'city'            => null,
+                'state_id'        => null,
+                'zip'             => null,
+                'country_id'      => null,
+                'phone'           => null,
+                'phone_label'     => null,
+                'alt_phone'       => null,
+                'alt_phone_label' => null,
+                'email'           => null,
+                'email_label'     => null,
+                'alt_email'       => null,
+                'alt_email_label' => null,
+                'birthday'        => null
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -261,6 +388,16 @@ class InitCareer extends Command
         echo "Inserting into Career\\Resume ...\n";
 
         $data = [
+            /*
+            [
+                'name'        => '',
+                'date'        => '0000-00-00',
+                'primary'     => 0,
+                'year'        => 2025,
+                'content'     => null,
+                'description' => null,
+            ]
+            */
         ];
 
         if (!empty($data)) {

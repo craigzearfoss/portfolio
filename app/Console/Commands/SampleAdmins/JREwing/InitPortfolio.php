@@ -131,7 +131,6 @@ class InitPortfolio extends Command
                 'notes'          => null,
                 'description'    => '<p>I purchased this unique painting from Chapel Hill, NC artist Laird Dixon shortly after the release of his band Zen Frisbee\'s debut 1994 CD I\'m As Mad As Faust.</p>',
                 'public'         => 1,
-                'demo'           => 1,
             ],
             [
                 'name'           => 'Sleazefest! CD cover art',
@@ -144,7 +143,6 @@ class InitPortfolio extends Command
                 'notes'          => null,
                 'description'    => '<p>I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 CD Sleazefest - Two Nights or Bands, Bar-BQ & Beer.</p>',
                 'public'         => 1,
-                'demo'           => 1,
             ],
             [
                 'name'           => 'Sleazefest! VHS cover art',
@@ -157,7 +155,6 @@ class InitPortfolio extends Command
                 'notes'          => null,
                 'description'    => '<p>I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 VHS release of Sleazefest - Two Nights or Bands, Bar-BQ & Beer.</p>',
                 'public'         => 1,
-                'demo'           => 1,
             ],
             [
                 'name'           => 'microphone / knife',
@@ -170,7 +167,6 @@ class InitPortfolio extends Command
                 'notes'          => null,
                 'description'    => '<p>This was one of the many works of Chapel Hill, NC rock and roll legend Dexter Romweber, who was posthumously inducted into the North Carolina Musicians Hall of Fame in 2025. He used to stay at my apartment quite frequently because he was best friends with my roommate record producer Dave Schmitt. I\'ll always treasure it.</p>',
                 'public'         => 1,
-                'demo'           => 1,
             ],
         ];
 
@@ -232,7 +228,7 @@ class InitPortfolio extends Command
                 'link'            => 'https://coursera.org/verify/professional-cert/HGL8U7MSRWFL',
                 'link_name'       => 'Coursera verification',
                 'description'     => '<p class="menu-label">Includes the following courses:</p><ul class="menu-list"><li>Foundations of Cybersecurity</li><li>Play It Safe: Manage Security Risks</li><li>Connect and Protect: Networks and Network Security</li><li>Tools of the Trade: Linux and SQL</li><li>Assets, Threats, Vulnerabilities</li><li>Sound the Alarm: Detection and Response</li><li>Automate Cybersecurity Tasks with Python</li><li>Put It to Work: Prepare for Cybersecurity Jobs</li></ul>',
-                'demo'            => 1,
+                'public'          => 1,
             ]
         ];
 
@@ -259,7 +255,7 @@ class InitPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Backup.png',
                 'link'            => null,
                 'link_name'       => null,
-                'demo'            => 1,
+                'public'          => 1,
             ],
             [
                 'name'            => 'Introduction to Amazon Redshift',
@@ -274,7 +270,7 @@ class InitPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Redshift.png',
                 'link'            => null,
                 'link_name'       => null,
-                'demo'            => 1,
+                'public'          => 1,
             ],
             [
                 'name'            => 'Introduction to Amazon Relational Database Service (RDS)',
@@ -289,7 +285,7 @@ class InitPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Relational%20Database%20Service%20-%20RDS.png',
                 'link'            => null,
                 'link_name'       => null,
-                'demo'            => 1,
+                'public'          => 1,
             ],
             [
                 'name'            => 'Introduction to Amazon S3',
@@ -304,7 +300,7 @@ class InitPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20S3.png',
                 'link'            => null,
                 'link_name'       => null,
-                'demo'            => 1,
+                'public'          => 1,
             ],
             [
                 'name'            => 'Introduction to Amazon Simple Storage Service (S3)',
@@ -319,7 +315,7 @@ class InitPortfolio extends Command
                 'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Simple%20Storage%20Service%20-%20S3.png',
                 'link'            => null,
                 'link_name'       => null,
-                'demo'            => 1,
+                'public'          => 1,
             ],
         ];
 
@@ -369,8 +365,8 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1], 'name' => 'Barney Rubble', 'job_title' => 'Quarry worker', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => 'https://www.linkedin.com/in/barney-rubble-a39540132/', 'link_name' => 'LinkedIn' ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Nate Slate',    'job_title' => 'Founder',       'level_id' => 2, 'work_phone' => '(208) 555-0507', 'personal_phone' => '(208) 555-5399', 'work_email' => 'slate@inl.slate.com',     'personal_email' => null,                   'link' => null,                                                   'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Barney Rubble', 'job_title' => 'Quarry worker', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => 'https://www.linkedin.com/in/barney-rubble-a39540132/', 'link_name' => 'LinkedIn', 'public' => 1 ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Nate Slate',    'job_title' => 'Founder',       'level_id' => 2, 'work_phone' => '(208) 555-0507', 'personal_phone' => '(208) 555-5399', 'work_email' => 'slate@inl.slate.com',     'personal_email' => null,                   'link' => null,                                                   'link_name' => null,       'public' => 1 ],
         ];
 
         if (!empty($data)) {
@@ -383,9 +379,9 @@ class InitPortfolio extends Command
         echo "Inserting into Portfolio\\JobTask ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1], 'summary' => 'Provided direct support to employees during implementation of HR services, policies and programs.', 'sequence' => 0, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'summary' => 'Responsible for Employee safety, welfare, wellness and health reporting.',                          'sequence' => 1, 'demo' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'summary' => 'Did a lot of heavy lifting.',                                                                       'sequence' => 2, 'demo' => 1 ],
+            [ 'job_id' => $this->jobId[1], 'summary' => 'Provided direct support to employees during implementation of HR services, policies and programs.', 'sequence' => 0, 'public' => 1 ],
+            [ 'job_id' => $this->jobId[1], 'summary' => 'Responsible for Employee safety, welfare, wellness and health reporting.',                          'sequence' => 1, 'public' => 1 ],
+            [ 'job_id' => $this->jobId[1], 'summary' => 'Did a lot of heavy lifting.',                                                                       'sequence' => 2, 'public' => 1 ],
         ];
 
         if (!empty($data)) {
@@ -449,7 +445,6 @@ class InitPortfolio extends Command
                 'image'          => null,
                 'sequence'       => 0,
                 'public'         => 1,
-                'demo'           => 1,
             ],
         ];
 

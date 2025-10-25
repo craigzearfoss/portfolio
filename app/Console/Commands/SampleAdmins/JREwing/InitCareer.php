@@ -14,7 +14,10 @@ use App\Models\Career\Note;
 use App\Models\Career\Reference;
 use App\Models\Career\Resume;
 use App\Models\Scopes\AdminGlobalScope;
+use App\Models\System\Admin;
+use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
+use function Laravel\Prompts\text;
 
 class InitCareer extends Command
 {

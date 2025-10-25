@@ -114,6 +114,11 @@ class InitSystem extends Command
     {
         echo "Inserting into System\\Admin ...\n";
 
+        // generate a random password
+        $bytes = random_bytes(ceil(16 / 2));
+        $randomString = bin2hex($bytes);
+        $password = substr($randomString, 0, 16);
+
         $data = [
             [
                 'id'                => $this->adminId,
@@ -122,12 +127,11 @@ class InitSystem extends Command
                 'name'              => 'Laverne DeFazio',
                 'email'             => 'ldefazio@shotz.com',
                 'email_verified_at' => now(),
-                'password'          => Hash::make('changeme'),
+                'password'          => Hash::make($password),
                 'public'            => 1,
                 'status'            => 1,
                 'token'             => '',
                 'root'              => 1,
-                'demo'              => $this->demo,
             ]
         ];
 

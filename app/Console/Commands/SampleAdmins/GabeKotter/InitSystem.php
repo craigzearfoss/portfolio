@@ -1,9 +1,15 @@
 <?php
 
-namespace App\Console\Commands\SampleAdmins\TonyNelson;
+namespace App\Console\Commands\SampleAdmins\GabeKotter;
 
 use App\Models\Scopes\AdminGlobalScope;
+use App\Models\System\Admin;
+use App\Models\System\AdminAdminGroup;
+use App\Models\System\AdminAdminTeam;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use function Laravel\Prompts\text;
 
 class InitSystem extends Command
 {
@@ -18,20 +24,119 @@ class InitSystem extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-tony-nelson-system {--silent}';
+    protected $signature = 'app:init-gabe-kotter-system {--silent}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the system database with initial data for admin tony-nelson.';
+    protected $description = 'This will populate the system database with initial data for admin gabe-kotter.';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        //
+        $this->adminId = Admin::withoutGlobalScope(AdminGlobalScope::class)->max('id') + 1;
+
+        $this->teamId = DB:: connection('system_db')->table('admin_teams')
+            ->where('name', 'Demo Admin Team')->first()->id;
+
+        $this->groupId = DB:: connection('system_db')->table('admin_groups')
+            ->where('name', 'Demo Admin Group')->first()->id;
+
+        if (!$this->option('silent')) {
+            echo PHP_EOL . 'adminId: ' . $this->adminId . PHP_EOL;
+            echo 'teamId: ' . $this->teamId . PHP_EOL;
+            echo 'groupId: ' . $this->groupId . PHP_EOL;
+            $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+        }
+
+        // system
+        $this->insertSystemAdmins();
+        $this->insertSystemAdminAdminTeams();
+        $this->insertSystemAdminAdminGroups();
+    }
+
+    protected function addTimeStamps($data) {
+        for($i=0; $i<count($data);$i++) {
+            $data[$i]['created_at'] = now();
+            $data[$i]['updated_at'] = now();
+        }
+
+        return $data;
+    }
+
+    protected function addDemoAndTimeStamps($data) {
+        for($i=0; $i<count($data);$i++) {
+            $data[$i]['created_at'] = now();
+            $data[$i]['updated_at'] = now();
+            $data[$i]['owner_id']   = $this->adminId;
+            $data[$i]['demo']       = $this->demo;
+        }
+
+        return $data;
+    }
+
+    protected function insertSystemAdminAdminGroups(): void
+    {
+        echo "Inserting into System\\AdminAdminGroup ...\n";
+
+        $data = [
+            [
+                'admin_id'       => $this->adminId,
+                'admin_group_id' => $this->groupId,
+            ]
+        ];
+
+        if (!empty($data)) {
+            AdminAdminGroup::insert($data);
+        }
+    }
+    protected function insertSystemAdminAdminTeams(): void
+    {
+        echo "Inserting into System\\AdminAdminTeam ...\n";
+
+        $data = [
+            [
+                'admin_id'       => $this->adminId,
+                'admin_team_id'  => $this->teamId,
+            ]
+        ];
+
+        if (!empty($data)) {
+            AdminAdminTeam::insert($data);
+        }
+    }
+
+    protected function insertSystemAdmins(): void
+    {
+        echo "Inserting into System\\Admin ...\n";
+
+        // generate a random password
+        $bytes = random_bytes(ceil(16 / 2));
+        $randomString = bin2hex($bytes);
+        $password = substr($randomString, 0, 16);
+
+        $data = [
+            [
+                'id'                => $this->adminId,
+                'admin_team_id'     => $this->teamId,
+                'username'          => 'gabe-kotter',
+                'name'              => 'Gabe Kotter',
+                'email'             => 'mrkotter@new-utrecht-hs.edu',
+                'email_verified_at' => now(),
+                'password'          => Hash::make($password),
+                'public'            => 1,
+                'status'            => 1,
+                'token'             => '',
+                'root'              => 1,
+            ]
+        ];
+
+        if (!empty($data)) {
+            Admin::insert($this->addDemoAndTimeStamps($data));
+        }
     }
 }

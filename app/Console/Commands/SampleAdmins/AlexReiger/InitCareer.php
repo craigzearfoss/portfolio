@@ -161,6 +161,18 @@ class InitCareer extends Command
         echo "Inserting into Career\\ApplicationSkill ...\n";
 
         $data = [
+            /*
+            [
+                'application_id'         => $this->applicationId[1],
+                'name'                   => '',
+                'level'                  => 5,
+                'dictionary_category_id' => null,
+                'dictionary_id_term_id'  => null,
+                'start_year'             => 2020,
+                'end_year'               => 2055,
+                'years'                  => 5,
+            ]
+            */
         ];
 
         if (!empty($data)) {
@@ -179,7 +191,17 @@ class InitCareer extends Command
         }
 
         $data = [
-            [ 'id' => $this->companyId[1],  'name' => 'Empire Records',                       'slug' => 'empire-records',                       'industry_id' => 11, 'city' => 'Thousand Oaks',     'state_id'    => 5,    'country_id' => 237  ],
+            /*
+            [
+                'id'          => $this->companyId[1],
+                'name'        => '',
+                'slug'        => '',
+                'industry_id' => 11,
+                'city'        => null,
+                'state_id'    => 5,
+                'country_id'  => 237
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -191,8 +213,14 @@ class InitCareer extends Command
     {
         echo "Inserting into Career\\CommpanyContact ...\n";
 
-        $data = [
-        ];
+        $data = [];
+        for ($i=0; $i<=count($this->contactId); $i++) {
+            $data[] = [
+                'contact_id' => $this->contactId[$i],
+                'company_id' => $this->companyId[rand_int(1, count($this->companyId + 1))],
+                'active'     => 1,
+            ];
+        }
 
         if (!empty($data)) {
             CompanyContact::insert($this->addTimeStamps($data));
@@ -210,6 +238,17 @@ class InitCareer extends Command
         }
 
         $data = [
+            /*
+            [
+                'id'          => $this->contactId[1],
+                'name'        => '',
+                'slug'        => '',
+                'phone'       => null,
+                'phone_label' => null,
+                'email'       => null,
+                'email_label' => null,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -222,6 +261,15 @@ class InitCareer extends Command
         echo "Inserting into Career\\Communication ...\n";
 
         $data = [
+            /*
+            [
+                'application_id' => $this->applicationId[1],
+                'subject'        => '',
+                'date'           => '0000-00-00',
+                'time'           => '00:00:00',
+                'body'           => null,
+            ]
+            */
         ];
 
         if (!empty($data)) {
@@ -237,7 +285,13 @@ class InitCareer extends Command
             [ 'application_id' => $this->applicationId[1], 'date' => '2025-07-27', 'content' => 'Alex Reiger<br>New York, NY<br>214-555-0174<p>July 27, 2025</p><p>Dear Hiring Manager,</p><p>I am very excited to apply for the Driver position at Empire Records. With over six years of experience in the hospitality and driving industries, I am confident that I can proudly serve and benefit this company. Throughout my work history, I\'ve proven my ability to provide exceptional customer service while maintaining efficiency.</p><p>I studied hospitality management at Grand Pearl University, where I earned my bachelor\'s degree. Upon graduation, I qualified for a position as an Assistant Manager at Red Box Cabins and quickly received a promotion to General Manager. I worked in this position for two years and was responsible for supervising the hotel\'s daily operations and providing guests with exceptional experiences.</p><p>I eventually wanted more variety in my work and applied for a position as a Limousine Driver with All-Star Limos. In this position, I picked up passengers, drove them to their destinations safely and maintained a clean vehicle every shift.</p><p>I appreciate your time and consideration. I\'m looking forward to applying my experience and enthusiasm to providing clients with a safe and enjoyable driving experience. The combination of my hospitality experience, driving experience and possession of a commercial driver\'s license can help me exceed my expected job duties and contribute positively to Empire Record\' mission. I eagerly anticipate your phone call in which we can further discuss my qualifications and how I can use my talents to benefit Empire Record\' clients.</p><p>Thank you for your consideration,</p><p>Alex Reiger</p>' ],
             /*
             [ 'application_id' => $this->applicationId[1], 'date' => '0000-00-00', null ]
-             */
+            [
+                'application_id' => $this->applicationId[1],
+                'date'           => '0000-00-00',
+                'content'        => null,
+                'description'    => null,
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -250,6 +304,16 @@ class InitCareer extends Command
         echo "Inserting into Career\\Event ...\n";
 
         $data = [
+            /*
+            [
+                'application_id' => $this->applicationId[1],
+                'subject'        => '',
+                'date'           => '0000-00-00',
+                'time'           => '00:00:00',
+                'location'       => null,
+                'description'    => null,
+            ]
+            */
         ];
 
         if (!empty($data)) {
@@ -262,6 +326,15 @@ class InitCareer extends Command
         echo "Inserting into Career\\Note ...\n";
 
         $data = [
+            /*
+            [
+                'application_id' => $this->applicationId[1],
+                'subject'        => '',
+                'date'           => '0000-00-00',
+                'time'           => '00:00:00',
+                'body'           => null,
+            ]
+            */
         ];
 
         if (!empty($data)) {
@@ -274,12 +347,35 @@ class InitCareer extends Command
         echo "Inserting into Career\\Reference ...\n";
 
         $data = [
-            [ 'name' => 'Tony Banta',     'slug' => 'tony-banta',     'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(208) 555-0507', 'phone_label' => 'work',   'alt_phone' => '(208) 555-3644', 'alt_phone_label' => 'mobile', 'email' => null, 'email_label' => null, 'alt_email' => null, 'alt_email_label' => null, 'birthday' => null, 'link' => null, 'demo' => 1 ],
-            [ 'name' => 'Louie De Palma', 'slug' => 'louie-de-palma', 'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(913) 555-5399', 'phone_label' => null,     'alt_phone' => null,             'alt_phone_label' => null,     'email' => null, 'email_label' => null, 'alt_email' => null, 'alt_email_label' => null, 'birthday' => null, 'link' => null, 'demo' => 1 ],
-            [ 'name' => 'Elaine Nardo',   'slug' => 'elaine-oconnor', 'friend' => 1, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(917) 555-6003', 'phone_label' => 'home',   'alt_phone' => null,             'alt_phone_label' => null,     'email' => null, 'email_label' => null, 'alt_email' => null, 'alt_email_label' => null, 'birthday' => null, 'link' => null, 'demo' => 1 ],
-            [ 'name' => 'Laktka Gravas',  'slug' => 'latka-gravas',   'friend' => 1, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(603) 555-2707', 'phone_label' => 'mobile', 'alt_phone' => '(208) 555-4280', 'alt_phone_label' => 'work',   'email' => null, 'email_label' => null, 'alt_email' => null, 'alt_email_label' => null, 'birthday' => null, 'link' => null, 'demo' => 1 ],
-            [ 'name' => 'Bobby Wheeler',  'slug' => 'bobby-wheeler',  'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(717) 555-1215', 'phone_label' => 'home',   'alt_phone' => '(717) 555-1207', 'alt_phone_label' => 'mobile', 'email' => null, 'email_label' => null, 'alt_email' => null, 'alt_email_label' => null, 'birthday' => null, 'link' => null, 'demo' => 1 ],
-            [ 'name' => 'Jim Ignatowski', 'slug' => 'jim-ignatowski', 'friend' => 0, 'family' => 0, 'coworker' => 1, 'supervisor' => 0, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => null, 'street' => null, 'street2' => null,  'city' => 'Bedrock', 'state_id' => null, 'zip' => null, 'country_id' => null, 'phone' => '(717) 555-1215', 'phone_label' => 'home',   'alt_phone' => '(717) 555-1207', 'alt_phone_label' => 'mobile', 'email' => null, 'email_label' => null, 'alt_email' => null, 'alt_email_label' => null, 'birthday' => null, 'link' => null, 'demo' => 1 ],
+            /*
+            [
+                'name'            => '',
+                'slug'            => '',
+                'friend'          => 0,
+                'family'          => 0,
+                'coworker'        => 1,
+                'supervisor'      => 0,
+                'subordinate'     => 0,
+                'professional'    => 0,
+                'other'           => 0,
+                'company_id'      => null,
+                'street'          => null,
+                'street2'         => null,
+                'city'            => null,
+                'state_id'        => null,
+                'zip'             => null,
+                'country_id'      => null,
+                'phone'           => null,
+                'phone_label'     => null,
+                'alt_phone'       => null,
+                'alt_phone_label' => null,
+                'email'           => null,
+                'email_label'     => null,
+                'alt_email'       => null,
+                'alt_email_label' => null,
+                'birthday'        => null
+            ],
+            */
         ];
 
         if (!empty($data)) {
@@ -292,6 +388,16 @@ class InitCareer extends Command
         echo "Inserting into Career\\Resume ...\n";
 
         $data = [
+            /*
+            [
+                'name'        => '',
+                'date'        => '0000-00-00',
+                'primary'     => 0,
+                'year'        => 2025,
+                'content'     => null,
+                'description' => null,
+            ]
+            */
         ];
 
         if (!empty($data)) {

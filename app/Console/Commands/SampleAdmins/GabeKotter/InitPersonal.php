@@ -91,7 +91,7 @@ class InitPersonal extends Command
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
             $data[$i]['owner_id']   = $this->adminId;
-            $data[$i]['demo']       = 1;
+            $data[$i]['demo']       = $this->demo;
         }
 
         return $data;

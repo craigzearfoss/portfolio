@@ -68,11 +68,12 @@ class InitSystem extends Command
         return $data;
     }
 
-    protected function addDemoTimeStampsAndOwners($data) {
+    protected function addDemoAndTimeStamps($data) {
         for($i=0; $i<count($data);$i++) {
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
             $data[$i]['owner_id']   = $this->adminId;
+            $data[$i]['demo']       = $this->demo;
         }
 
         return $data;
@@ -113,6 +114,11 @@ class InitSystem extends Command
     {
         echo "Inserting into System\\Admin ...\n";
 
+        // generate a random password
+        $bytes = random_bytes(ceil(16 / 2));
+        $randomString = bin2hex($bytes);
+        $password = substr($randomString, 0, 16);
+
         $data = [
             [
                 'id'                => $this->adminId,
@@ -121,17 +127,16 @@ class InitSystem extends Command
                 'name'              => 'Frank Reynolds',
                 'email'             => 'frank@paddys-pub.com',
                 'email_verified_at' => now(),
-                'password'          => Hash::make('changeme'),
+                'password'          => Hash::make($password),
                 'public'            => 1,
                 'status'            => 1,
                 'token'             => '',
                 'root'              => 1,
-                'demo'              => $this->demo,
             ]
         ];
 
         if (!empty($data)) {
-            Admin::insert($this->addTimeStamps($data));
+            Admin::insert($this->addDemoAndTimeStamps($data));
         }
     }
 }
