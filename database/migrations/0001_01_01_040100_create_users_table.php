@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('username', 200)->unique();
             $table->string('name');
             $table->string('title', 100)->nullable();
+            $table->string('role', 100)->nullable();
+            $table->string('employer', 100)->nullable();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();
@@ -32,6 +34,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
+            $table->text('bio')->nullable();
             $table->text('description')->nullable();
             $table->string('image', 500)->nullable();
             $table->string('image_credit')->nullable();

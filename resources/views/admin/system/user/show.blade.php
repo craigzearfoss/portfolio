@@ -42,6 +42,16 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'role',
+            'value' => $user->role
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'employer',
+            'value' => $user->employer
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
                            'street'    => $user->street ?? null,
@@ -88,6 +98,11 @@
         @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => $user->description
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'bio',
+            'value' => $user->bio
         ])
 
         @include('admin.components.show-row-image', [

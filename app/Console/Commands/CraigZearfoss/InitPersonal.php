@@ -99,7 +99,7 @@ class InitPersonal extends Command
 
     protected function insertPersonalReadings(): void
     {
-        echo "Inserting into Personal\\Reading ...\n";
+        echo self::USERNAME . ": Inserting into Personal\\Reading ...\n";
 
         $data = [
             [ 'title' => 'A Christmas Carol', 'author' => 'Charles Dickens', 'slug' => 'a-christmas-carol-by-charles-dickens', 'publication_year' => 1843, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/A_Christmas_Carol', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 0, 'wishlist' => 1, 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Charles_Dickens-A_Christmas_Carol-Cloth-First_Edition_1843.jpg/250px-Charles_Dickens-A_Christmas_Carol-Cloth-First_Edition_1843.jpg' ],
@@ -451,7 +451,7 @@ class InitPersonal extends Command
 
     protected function insertPersonalRecipes(): void
     {
-        echo "Inserting into Personal\\Recipe ...\n";
+        echo self::USERNAME . ": Inserting into Personal\\Recipe ...\n";
 
         $this->recipeId = [];
         $maxId = Recipe::withoutGlobalScope(AdminGlobalScope::class)->max('id');
@@ -475,7 +475,7 @@ class InitPersonal extends Command
 
     protected function insertPersonalRecipeIngredients(): void
     {
-        echo "Inserting into Personal\\RecipeIngredient ...\n";
+        echo self::USERNAME . ": Inserting into Personal\\RecipeIngredient ...\n";
 
         $data = [
             [ 'ingredient_id' => 263, 'recipe_id' => $this->recipeId[1], 'amount' => '2 1/4', 'unit_id' => 6,  'qualifier' => null,                                                              'public' => 1 ],
@@ -534,7 +534,7 @@ class InitPersonal extends Command
 
     protected function insertPersonalRecipeSteps(): void
     {
-        echo "Inserting into Personal\\RecipeStep ...\n";
+        echo self::USERNAME . ": Inserting into Personal\\RecipeStep ...\n";
 
         $data = [
             [ 'recipe_id' => $this->recipeId[1],  'step' => 1,  'description' => 'Preheat oven to 375° F.' ],

@@ -115,7 +115,7 @@ class InitCareer extends Command
 
     protected function insertCareerApplications(): void
     {
-        echo "Inserting into Career\\Application ...\n";
+        echo self::USERNAME . ": Inserting into Career\\Application ...\n";
 
         $this->applicationId = [];
         $maxId = Contact::withoutGlobalScope(AdminGlobalScope::class)->max('id');
@@ -208,7 +208,7 @@ class InitCareer extends Command
 
     protected function insertCareerApplicationSkill(): void
     {
-        echo "Inserting into Career\\ApplicationSkill ...\n";
+        echo self::USERNAME . ": Inserting into Career\\ApplicationSkill ...\n";
 
         $data = [
         ];
@@ -220,7 +220,7 @@ class InitCareer extends Command
 
     protected function insertCareerCompanies(): void
     {
-        echo "Inserting into Career\\Commpany ...\n";
+        echo self::USERNAME . ": Inserting into Career\\Company ...\n";
 
 
         $this->companyId = [];
@@ -324,7 +324,7 @@ class InitCareer extends Command
 
     protected function insertCareerCompanyContacts(): void
     {
-        echo "Inserting into Career\\CommpanyContact ...\n";
+        echo self::USERNAME . ": Inserting into Career\\CompanyContact ...\n";
 
         $data = [
             [ 'company_id' => $this->companyId[1],  'contact_id' => $this->contactId[1],  'active' => 1 ],
@@ -354,7 +354,7 @@ class InitCareer extends Command
 
     protected function insertCareerContacts(): void
     {
-        echo "Inserting into Career\\Contact ...\n";
+        echo self::USERNAME . ": Inserting into Career\\Contact ...\n";
 
         $this->contactId = [];
         $maxId = Contact::withoutGlobalScope(AdminGlobalScope::class)->max('id');
@@ -396,7 +396,7 @@ class InitCareer extends Command
 
     protected function insertCareerCommunications(): void
     {
-        echo "Inserting into Career\\Communication ...\n";
+        echo self::USERNAME . ": Inserting into Career\\Communication ...\n";
 
         $data = [
         ];
@@ -408,7 +408,7 @@ class InitCareer extends Command
 
     protected function insertCareerCoverLetters(): void
     {
-        echo "Inserting into Career\\CoverLetter ...\n";
+        echo self::USERNAME . ": Inserting into Career\\CoverLetter ...\n";
 
         $data = [
         ];
@@ -420,7 +420,7 @@ class InitCareer extends Command
 
     protected function insertCareerEvents(): void
     {
-        echo "Inserting into Career\\Event ...\n";
+        echo self::USERNAME . ": Inserting into Career\\Event ...\n";
 
         $data = [
         ];
@@ -432,7 +432,7 @@ class InitCareer extends Command
 
     protected function insertCareerNotes(): void
     {
-        echo "Inserting into Career\\Note ...\n";
+        echo self::USERNAME . ": Inserting into Career\\Note ...\n";
 
         $data = [
         ];
@@ -444,7 +444,7 @@ class InitCareer extends Command
 
     protected function insertCareerReferences(): void
     {
-        echo "Inserting into Career\\Reference ...\n";
+        echo self::USERNAME . ": Inserting into Career\\Reference ...\n";
 
         $data = [
             [ 'name' => 'Kevin Hemsley',         'slug' => 'kevin-hemsley',         'friend' => 0, 'family' => 0, 'coworker' => 0, 'supervisor' => 1, 'subordinate' => 0, 'professional' => 0, 'other' => 0, 'company_id' => 85,   'street' => null,                      'street2' => null,  'city' => 'Rigby',         'state_id' => 13,   'zip' => null,         'country_id' => 237, 'phone' => '(208) 526-0507', 'phone_label' => 'work',   'alt_phone' => '(208) 317-3644', 'alt_phone_label' => 'mobile', 'email' => 'kevin.hemsley@inl.gov',          'email_label' => 'work', 'alt_email' => null,                  'alt_email_label' => null,    'birthday' => null,         'link' => 'https://www.linkedin.com/in/kevin-hemsley-a30740132/' ],
@@ -466,7 +466,7 @@ class InitCareer extends Command
 
     protected function insertCareerResumes(): void
     {
-        echo "Inserting into Career\\Resume ...\n";
+        echo self::USERNAME . ": Inserting into Career\\Resume ...\n";
 
         $data = [
             [ 'name' => 'PHP/MySQL Web Developer',                  'date' => '2015-03-19', 'primary' => 0, 'doc_url' => 'https://www.dropbox.com/scl/fi/9avg6ve67wnoooxm3jwbx/resume.doc?rlkey=vzkdjqkuxw59nghmcf8d6v2xa&st=kjkb0kxj&dl=0',                                            'pdf_url'  => null,                                                                                                                       'public'   => 0 ],

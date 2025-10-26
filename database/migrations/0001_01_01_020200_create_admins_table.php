@@ -4,6 +4,7 @@ use App\Models\System\Admin;
 use App\Models\System\AdminTeam;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
@@ -22,6 +23,8 @@ return new class extends Migration
             $table->string('username', 200)->unique();
             $table->string('name')->nullable(); // note that name is not required for admins
             $table->string('title', 100)->nullable();
+            $table->string('role', 100)->nullable();
+            $table->string('employer', 100)->nullable();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();
@@ -35,6 +38,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
+            $table->text('bio')->nullable();
             $table->text('description')->nullable();
             $table->string('image', 500)->nullable();
             $table->string('image_credit')->nullable();
@@ -115,6 +119,57 @@ return new class extends Migration
         // add owners to the admin teams
         AdminTeam::where('name', 'Default Admin Team')->update(['owner_id' => 2]);
         AdminTeam::where('name', 'Demo Admin Team')->update(['owner_id' => 3]);
+
+        // copy profile and thumbnail images
+        $DS = DIRECTORY_SEPARATOR;
+        $rootSourcePath = base_path() . $DS . 'source_files' . $DS . 'admin';
+        $rootDestinationPath =  base_path() . $DS . 'public' . $DS . 'images' . $DS . 'admin';
+
+        foreach([1=>'root', 2=>'admin', 3=>'demo-admin'] as $adminId => $username) {
+
+            echo PHP_EOL . '  Copying files from ' . $rootSourcePath . $DS . $username . ' ... ' . PHP_EOL;
+
+            // make sure the destination directory exists for images
+            if (!File::exists($rootDestinationPath . $DS .$adminId)) {
+                File::makeDirectory($rootDestinationPath . $DS .$adminId, 755, true);
+            }
+
+            $image = null;
+            $thumbnail = null;
+
+            foreach (scandir($rootSourcePath . $DS . $username) as $sourceFile) {
+
+                if ($sourceFile == '.' || $sourceFile == '..') continue;
+
+                echo '      - ' . $sourceFile . ' ...' . PHP_EOL;
+
+                if (File::name('profile')) {
+                    $image = "/images/admin/{$adminId}/profile." . File::extension($sourceFile);
+                } elseif (File::name('thumbnail')) {
+                    $thumbnail = "/images/admin/{$adminId}/thumbnail." . File::extension($sourceFile);
+                }
+
+                File::copy(
+                    $rootSourcePath . $DS . $username . $DS . $sourceFile,
+                    $rootDestinationPath . $DS . $adminId . $DS . $sourceFile
+                );
+            }
+
+            Admin::where('id', $adminId)->update([
+                'image'     => $image,
+                'thumbnail' => $thumbnail,
+            ]);
+
+
+            $destinationFilesDirectory = 'public' . $DS . 'images' . $DS . 'admin' . $DS . $adminId . $DS;
+        }
+
+        $sourceFilesDirectory = 'source_files' . $DS . 'admin' . $DS . $username . $DS;
+        $destinationFilesDirectory = 'public' . $DS . 'images' . $DS . 'admin' . $DS . $adminId . $DS;
+
+        $sourceFilesPath = base_path() . $DS . $sourceFilesDirectory;
+        $destinationPath = base_path() . $DS . $destinationFilesDirectory;
+
     }
 
     /**

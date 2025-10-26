@@ -47,6 +47,12 @@ class StoreApplicationSkillsRequest extends FormRequest
             'start_year'             => ['integer', 'between:1980,'.date("Y"), 'nullable'],
             'end_year'               => ['integer', 'between:1980,'.date("Y"), 'gt:start_year', 'nullable'],
             'years'                  => ['integer', 'min:0', 'nullable'],
+            'sequence'               => ['integer', 'min:0'],
+            'public'                 => ['integer', 'between:0,1'],
+            'readonly'               => ['integer', 'between:0,1'],
+            'root'                   => ['integer', 'between:0,1'],
+            'disabled'               => ['integer', 'between:0,1'],
+            'demo'                   => ['integer', 'between:0,1'],
         ];
     }
 

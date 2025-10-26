@@ -33,13 +33,20 @@ class ApplicationSkill extends Model
         'start_year',
         'end_year',
         'years',
+        'sequence',
+        'public',
+        'readonly',
+        'root',
+        'disabled',
+        'demo',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['owner_id', 'name', 'resource_id', 'model_class', 'model_item_id', 'dictionary_category_id',
-        'dictionary_term_id', 'level', 'start_year', 'end_year', 'years'];
+        'dictionary_term_id', 'level', 'start_year', 'end_year', 'years', 'public', 'readonly', 'root', 'disabled',
+        'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

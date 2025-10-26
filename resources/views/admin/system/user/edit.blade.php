@@ -27,12 +27,20 @@
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => Request::header('referer')
+                'value' => referer('admin.system.user.index')
             ])
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
                 'value' => $user->id
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'team_id',
+                'label'   => 'team',
+                'value'   => old('team_id') ?? $user->team['id'] ?? $user->team_id,
+                'list'    => \App\Models\System\UserTeam::listOptions(),
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -55,18 +63,24 @@
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'team_id',
-                'label'   => 'team',
-                'value'   => old('team_id') ?? $user->team['id'] ?? $user->team_id,
-                'list'    => \App\Models\System\UserTeam::listOptions(),
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
                 'name'    => 'title',
                 'value'   => old('title') ?? $user->title,
                 'list'    => \App\Models\System\User::titleListOptions([], true, true),
                 'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'role',
+                'value'     => old('role') ?? $user->role,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'employer',
+                'value'     => old('employer') ?? $user->employer,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -115,6 +129,18 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'latitude',
+                'value'     => old('latitude') ?? $user->latitude,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'longitude',
+                'value'     => old('longitude') ?? $user->longitude,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'phone',
                 'value'     => old('phone') ?? $user->phone,
                 'maxlength' => 50,
@@ -132,10 +158,32 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'website',
-                'value'     => old('website') ?? $user->website,
+                'name'      => 'link',
+                'value'     => old('link') ?? $user->link,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'link_name',
+                'label'     => 'link name',
+                'value'     => old('link_name') ?? $user->link_name,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'bio',
+                'id'      => 'inputEditor',
+                'value'   => old('bio') ?? $user->bio,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'description',
+                'id'      => 'inputEditor',
+                'value'   => old('description') ?? $user->description,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
@@ -175,43 +223,57 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'public',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('public') ?? $user->public,
-                'message'         => $message ?? '',
-            ])
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                </div>
+                <div class="field-body">
+                    <div class="field">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'readonly',
-                'label'           => 'read-only',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('readonly') ?? $user->readonly,
-                'message'         => $message ?? '',
-            ])
+                        <div class="checkbox-container card form-container p-4">
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'root',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('root') ?? $user->root,
-                'disabled'        => !Auth::guard('admin')->user()->root,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'public',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('public') ?? $user->public,
+                                'message'         => $message ?? '',
+                            ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'disabled',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? $user->disabled,
-                'message'         => $message ?? '',
-            ])
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'readonly',
+                                'label'           => 'read-only',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('readonly') ?? $user->readonly,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'root',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('root') ?? $user->root,
+                                'disabled'        => !isRootAdmin(),
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'disabled',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('disabled') ?? $user->disabled,
+                                'message'         => $message ?? '',
+                            ])
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => Request::header('referer') ?? route('admin.system.user.index')
+                'cancel_url' => referer('admin.system.user.index')
             ])
 
         </form>

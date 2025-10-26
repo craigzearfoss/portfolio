@@ -48,6 +48,20 @@
                     'message'   => $message ?? '',
                 ])
 
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'role',
+                    'value'     => old('role') ?? '',
+                    'maxlength' => 100,
+                    'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-input-horizontal', [
+                    'name'      => 'employer',
+                    'value'     => old('employer') ?? '',
+                    'maxlength' => 100,
+                    'message'   => $message ?? '',
+                ])
+
                 @include('admin.components.form-select-horizontal', [
                     'name'    => 'team_id',
                     'label'   => 'team',

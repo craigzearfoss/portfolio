@@ -37,7 +37,7 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'team',
+            'name'   => 'current team',
             'label'  => $admin->team->name,
             'href'   => route('admin.system.admin-team.show', $admin->team->id)
         ])
@@ -50,6 +50,16 @@
         @include('admin.components.show-row', [
             'name'  => 'title',
             'value' => $admin->title
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'role',
+            'value' => $admin->role
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'employer',
+            'value' => $admin->employer
         ])
 
         @include('admin.components.show-row', [
@@ -94,6 +104,11 @@
             'label'  => $admin->link,
             'href'   => $admin->link_name,
             'target' => '_blank'
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'bio',
+            'value' => $admin->bio
         ])
 
         @include('admin.components.show-row', [
@@ -159,6 +174,11 @@
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
             'checked' => $admin->disabled
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'demo',
+            'checked' => $admin->demo
         ])
 
         @include('admin.components.show-row', [

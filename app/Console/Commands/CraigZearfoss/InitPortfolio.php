@@ -118,7 +118,7 @@ class InitPortfolio extends Command
 
     protected function insertPortfolioArt(): void
     {
-        echo "Inserting into Portfolio\\Art ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
             [
@@ -202,7 +202,7 @@ class InitPortfolio extends Command
 
     protected function insertPortfolioAudios(): void
     {
-        echo "Inserting into Portfolio\\Audio ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\Audio ...\n";
 
         $data = [
 
@@ -215,7 +215,7 @@ class InitPortfolio extends Command
 
     protected function insertPortfolioCertifications(): void
     {
-        echo "Inserting into Portfolio\\Certification ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\Certification ...\n";
 
         $data = [
             [
@@ -241,7 +241,7 @@ class InitPortfolio extends Command
 
     protected function insertPortfolioCourses(): void
     {
-        echo "Inserting into Portfolio\\Course ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
             [
@@ -1248,7 +1248,7 @@ class InitPortfolio extends Command
 
     protected function insertPortfolioJobs(): void
     {
-        echo "Inserting into Portfolio\\Job ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\Job ...\n";
 
         $this->jobId = [];
         $maxId = Job::withoutGlobalScope(AdminGlobalScope::class)->max('id');
@@ -1399,7 +1399,7 @@ class InitPortfolio extends Command
 
     protected function insertPortfolioJobCoworkers(): void
     {
-        echo "Inserting into Portfolio\\JobCoworker ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
             [ 'job_id' => $this->jobId[1], 'name' => 'Kevin Hemsley',         'job_title' => 'Project Manager, National and Homeland Security Directorate', 'level_id' => 2, 'work_phone' => '(208) 526-0507', 'personal_phone' => '(208) 317-3644', 'work_email' => 'kevin.hemsley@inl.gov', 'personal_email' => null,                         'link' => 'https://www.linkedin.com/in/kevin-hemsley-a30740132/',       'link_name' => 'LinkedIn' ],
@@ -1436,7 +1436,7 @@ class InitPortfolio extends Command
 
     protected function insertPortfolioJobTasks(): void
     {
-        echo "Inserting into Portfolio\\JobTask ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\JobTask ...\n";
 
         $data = [
             [ 'job_id' => $this->jobId[1], 'summary' => 'Upgraded to modern PHP and Vue.js frameworks.',                                                           'sequence' => 0 ],
@@ -1460,7 +1460,7 @@ class InitPortfolio extends Command
 
     protected function insertPortfolioLinks(): void
     {
-        echo "Inserting into Portfolio\\Link ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
             [ 'name' => 'LinkedIn',                             'slug' => 'linkedin',                            'featured' => 1, 'summary' => null, 'url' => 'https://www.linkedin.com/in/craig-zearfoss/',    'public' => 1, 'sequence' => 0, 'description' => null ],
@@ -1476,7 +1476,7 @@ class InitPortfolio extends Command
 
     protected function insertPortfolioMusic(): void
     {
-        echo "Inserting into Portfolio\\Music ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
         $id = [];
         $maxId = Music::withoutGlobalScope(AdminGlobalScope::class)->max('id');
@@ -2286,7 +2286,7 @@ class InitPortfolio extends Command
 
     protected function insertPortfolioProjects(): void
     {
-        echo "Inserting into Portfolio\\Project ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\Project ...\n";
 
         $data = [
             [
@@ -2388,7 +2388,7 @@ class InitPortfolio extends Command
 
     protected function insertPortfolioPublications(): void
     {
-        echo "Inserting into Portfolio\\Publication ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\Publication ...\n";
 
         $data = [
 
@@ -2401,7 +2401,7 @@ class InitPortfolio extends Command
 
     protected function insertPortfolioSkills(): void
     {
-        echo "Inserting into Portfolio\\Skill ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
             [ 'name' => 'Laravel',           'slug' => 'laravel-12',        'version' => '12', 'dictionary_category_id' => 11,  'featured' => 1, 'level' => 10, 'years' => 20,  'start_year' => null, 'public' => 1 ],
@@ -2452,7 +2452,7 @@ class InitPortfolio extends Command
 
     protected function insertPortfolioVideos(): void
     {
-        echo "Inserting into Portfolio\\Video ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\Video ...\n";
 
         $data = [
             [

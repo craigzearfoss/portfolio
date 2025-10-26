@@ -81,7 +81,7 @@ class InitSystem extends Command
 
     protected function insertSystemAdminAdminGroups(): void
     {
-        echo "Inserting into System\\AdminAdminGroup ...\n";
+        echo self::USERNAME . ": Inserting into System\\AdminAdminGroup ...\n";
 
         $data = [
             [
@@ -96,7 +96,7 @@ class InitSystem extends Command
     }
     protected function insertSystemAdminAdminTeams(): void
     {
-        echo "Inserting into System\\AdminAdminTeam ...\n";
+        echo self::USERNAME . ": Inserting into System\\AdminAdminTeam ...\n";
 
         $data = [
             [
@@ -112,7 +112,7 @@ class InitSystem extends Command
 
     protected function insertSystemAdmins(): void
     {
-        echo "Inserting into System\\Admin ...\n";
+        echo self::USERNAME . ": Inserting into System\\Admin ...\n";
 
         $data = [
             [

@@ -68,6 +68,20 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'role',
+                'value'     => old('role') ?? $admin->role,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'employer',
+                'value'     => old('employer') ?? $admin->employer,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'street',
                 'value'     => old('street') ?? $admin->street,
                 'maxlength' => 255,
@@ -135,6 +149,7 @@
                 'name'      => 'email',
                 'value'     => old('email') ?? $admin->email,
                 'required'  => true,
+                'disabled'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -152,6 +167,13 @@
                 'value'     => old('link_name') ?? $admin->link_name,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'bio',
+                'id'      => 'inputEditor',
+                'value'   => old('bio') ?? $admin->bio,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
@@ -230,6 +252,14 @@
                                 'value'           => 1,
                                 'unchecked_value' => 0,
                                 'checked'         => old('disabled') ?? $admin->disabled,
+                                'message'         => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'demo',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('demo') ?? $admin->demo,
                                 'message'         => $message ?? '',
                             ])
 
