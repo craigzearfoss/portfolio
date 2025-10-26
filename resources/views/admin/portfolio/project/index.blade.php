@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => 'Projects',
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.homepage') ],
+        [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Projects' ],

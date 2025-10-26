@@ -1,14 +1,14 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Reading: ' . $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : ''),
     'breadcrumbs' => [
-        [ 'name' => 'Home',                'href' => route('system.homepage') ],
-        [ 'name' => $reading->owner->name, 'href' => route('guest.user.index', $admin)],
-        [ 'name' => 'Personal',            'href' => route('guest.user.personal.index', $admin) ],
-        [ 'name' => 'Readings',            'href' => route('guest.user.personal.reading.index', $admin) ],
+        [ 'name' => 'Home',                'href' => route('system.index') ],
+        [ 'name' => $reading->owner->name, 'href' => route('guest.admin.index', $admin)],
+        [ 'name' => 'Personal',            'href' => route('guest.admin.personal.index', $admin) ],
+        [ 'name' => 'Readings',            'href' => route('guest.admin.personal.reading.index', $admin) ],
         [ 'name' => $reading->title . (!empty($reading->author) ? ' by ' . $reading->author : '') ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.user.personal.reading.index', $reading->owner) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.personal.reading.index', $reading->owner) ],
     ],
     'errorMessages' => $errors->messages()  ?? [],
     'success' => session('success') ?? null,

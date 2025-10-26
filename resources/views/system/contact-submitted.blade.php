@@ -2,7 +2,7 @@
     'title'    => 'Contact',
     'subtitle' => null,
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('system.homepage')],
+        [ 'name' => 'Home', 'href' => route('system.index')],
     ],
     'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],
@@ -19,7 +19,7 @@
         <div class="column is-8">
 
             <div class="has-text-centered">
-                <a class="is-size-6" href="{{ route("system.homepage") }}">
+                <a class="is-size-6" href="{{ route("system.index") }}">
                     Home
                 </a>
             </div>

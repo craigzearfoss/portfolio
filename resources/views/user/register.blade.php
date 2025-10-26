@@ -1,8 +1,9 @@
-@extends('guest.layouts.default', [
+@extends('user.layouts.default', [
     'pageTitle'   => 'Register',
     'title'       => '',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('system.homepage')],
+        [ 'name' => 'Home', 'href' => route('system.index') ],
+        [ 'name' => 'Register' ],
     ],
     'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],
@@ -26,7 +27,7 @@
 
                 <h4>We are not currently accepting new users.</h4>
                 <p class="p-4">
-                    <a class="btn btn-sm btn-solid" href="{{ route('system.homepage') }}"><i
+                    <a class="btn btn-sm btn-solid" href="{{ route('system.index') }}"><i
                             class="fa fa-house"></i> Home</a>
                 </p>
 
@@ -35,7 +36,7 @@
                 <form action="{{ route('system.register-submit') }}" method="POST">
                     @csrf
 
-                    @include('guest.components.form-input-horizontal', [
+                    @include('user.components.form-input-horizontal', [
                         'name'      => 'username',
                         'label'     => 'User Name',
                         'value'     => old('username'),
@@ -49,7 +50,7 @@
                         <i>User name can contain letters, numbers, underscores, and dashes.</i>
                     </p>
 
-                    @include('guest.components.form-input-horizontal', [
+                    @include('user.components.form-input-horizontal', [
                         'name'      => 'name',
                         'label'     => 'Name',
                         'value'     => old('name'),
@@ -59,7 +60,7 @@
                         'message'   => $message ?? '',
                     ])
 
-                    @include('guest.components.form-input-horizontal', [
+                    @include('user.components.form-input-horizontal', [
                         'type'      => 'email',
                         'name'      => 'email',
                         'label'     => 'Email',
@@ -69,7 +70,7 @@
                         'message'   => $message ?? '',
                     ])
 
-                    @include('guest.components.form-input-horizontal', [
+                    @include('user.components.form-input-horizontal', [
                         'type'      => 'password',
                         'name'      => 'password',
                         'label'     => 'Password',
@@ -79,7 +80,7 @@
                         'message'   => $message ?? '',
                     ])
 
-                    @include('guest.components.form-input-horizontal', [
+                    @include('user.components.form-input-horizontal', [
                         'type'      => 'password',
                         'name'      => 'confirm_password',
                         'label'     => 'Confirm Password',
@@ -89,13 +90,14 @@
                         'message'   => $message ?? '',
                     ])
 
-                    @include('guest.components.form-button-submit-horizontal', [
+                    @include('user.components.form-button-submit-horizontal', [
                         'label' => 'Submit',
                     ])
 
                     <div class="mt-3 is-fullwidth has-text-centered">
                         <span>Already have an account?</span>
-                        <a class="text-primary-600 hover:underline" href="{{ route('system.login') }}">Login</a>
+                        <a class="text-primary-600 hover:underline" href="{{ route('user.login') }}">User Login</a>
+                        <a class="text-primary-600 hover:underline" href="{{ route('admin.login') }}">Admin Login</a>
                     </div>
 
                 </form>

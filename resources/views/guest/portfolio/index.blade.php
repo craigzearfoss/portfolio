@@ -1,9 +1,8 @@
 @extends('guest.layouts.default', [
-    'title' => $title ?? $admin->name . ' portfolio',
+    'title' => $title ?? 'Portfolios',
     'breadcrumbs' => [
-        [ 'name' => 'Home',       'href' => route('system.homepage') ],
-        [ 'name' => $admin->name, 'href' => route('guest.user.index', $admin)],
-        [ 'name' => $title ?? 'Portfolio' ],
+        [ 'name' => 'Home',       'href' => route('system.index') ],
+        [ 'name' => $title ?? 'Portfolios' ],
     ],
     'buttons' => [],
     'errorMessages' => $errors->messages()  ?? [],
@@ -17,26 +16,21 @@
 
         <div class="card-body p-4">
 
-            <div class="list is-hoverable">
+            <div class="container">
+                <div class="content">
+                    <p>
+                        Portfolios folders contain work and job-related items and accomplishments. They include:
+                    </p>
+                    <ul class="menu-list" style="max-width: 20em;">
 
-                <ul class="menu-list" style="max-width: 20em;">
+                        @foreach ($portfolios as $portfolio)
 
-                    @foreach ($portfolios as $portfolio)
+                            <li>{{ $portfolio->plural }}</li>
 
-                        <li>
-                            @if($portfolio->name != 'job')
-                                @include('guest.components.link', [
-                                    'name'  => $portfolio->plural,
-                                    'href'  => route('guest.user.portfolio.'.$portfolio->name.'.index', $admin),
-                                    'class' => 'list-item',
-                                ])
-                            @endif
-                        </li>
+                        @endforeach
 
-                    @endforeach
-
-                </ul>
-
+                    </ul>
+                </div>
             </div>
 
         </div>

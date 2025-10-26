@@ -14,7 +14,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
                 @include('admin.components.link', [
                     'name'  => $admin->name,
-                    'href'  => route('guest.user.index', $admin),
+                    'href'  => route('guest.admin.index', $admin),
                     'style' => 'font-size: 1.2em; font-weight: 700',
                 ])
 
@@ -31,13 +31,13 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
                                         ['name', 'asc'
                                     ]),
                     'style'    => 'font-size: 1.2em; font-weight: 700',
-                    'onchange' => "document.location.href='/'+this.value;"
+                    'onchange' => "document.location.href='/'+this.value+'/profile';"
                 ])
                 */ ?>
 
             @else
 
-                <a class="has-text-primary" href="{{ route('system.homepage') }}"><strong>{{ config('app.name') }}</strong></a>
+                <a class="has-text-primary" href="{{ route('system.index') }}"><strong>{{ config('app.name') }}</strong></a>
 
             @endif
 

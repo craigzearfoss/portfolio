@@ -1,14 +1,14 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Audio: ' . $audio->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',              'href' => route('system.homepage') ],
-        [ 'name' => $audio->owner->name, 'href' => route('guest.user.index', $admin)],
-        [ 'name' => 'Portfolio',         'href' => route('guest.user.portfolio.index', $admin) ],
-        [ 'name' => 'Audio',             'href' => route('guest.user.portfolio.audio.index', $admin) ],
+        [ 'name' => 'Home',              'href' => route('system.index') ],
+        [ 'name' => $audio->owner->name, 'href' => route('guest.admin.index', $admin)],
+        [ 'name' => 'Portfolio',         'href' => route('guest.admin.portfolio.index', $admin) ],
+        [ 'name' => 'Audio',             'href' => route('guest.admin.portfolio.audio.index', $admin) ],
         [ 'name' => $audio->name ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.user.portfolio.audio.index', $admin) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.audio.index', $admin) ],
     ],
     'errors'  => $errors->messages()  ?? [],
     'success' => session('success') ?? null,
@@ -35,7 +35,7 @@
                 'value' => !empty($audio->parent)
                     ? view('guest.components.link', [
                             'name' => $audio->parent['name'],
-                            'href' => route('guest.user.portfolio.audio.show', [$admin, $audio->parent->slug])
+                            'href' => route('guest.admin.portfolio.audio.show', [$admin, $audio->parent->slug])
                         ])
                     : ''
             ])
@@ -60,7 +60,7 @@
                             <li>
                                 @include('guest.components.link', [
                                     'name' => $child['name'],
-                                    'href' => route('guest.user.portfolio.audio.show', [$admin, $child->slug])
+                                    'href' => route('guest.admin.portfolio.audio.show', [$admin, $child->slug])
                                 ])
                             </li>
                         @endforeach

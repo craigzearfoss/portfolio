@@ -1,8 +1,8 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? $admin->name . ' resume',
     'breadcrumbs' => [
-        [ 'name' => 'Home',       'href' => route('system.homepage') ],
-        [ 'name' => $admin->name, 'href' => route('guest.user.index', $admin)],
+        [ 'name' => 'Home',       'href' => route('system.index') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.index', $admin)],
         [ 'name' => $title ?? 'Resume' ],
     ],
     'buttons' => [],

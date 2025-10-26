@@ -1,7 +1,7 @@
 @extends('guest.layouts.default', [
     'title' => 'Dictionary',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('system.homepage')],
+        [ 'name' => 'Home', 'href' => route('system.index')],
         [ 'name' => 'Dictionary']
     ],
     'selectList' => View::make('guest.components.form-select', [

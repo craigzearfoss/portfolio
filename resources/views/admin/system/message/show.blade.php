@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => 'Message',
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.homepage') ],
+        [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Messages',        'href' => route('admin.system.message.index') ],

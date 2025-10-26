@@ -10,14 +10,7 @@ use App\Http\Controllers\Admin\Personal\UnitController as AdminPortfolioUnitCont
 use App\Http\Controllers\Guest\Personal\IndexController as GuestPersonalIndexController;
 use Illuminate\Support\Facades\Route;
 
-Route::name('guest.')->middleware('guest')->group(function () {
-
-    // resources
-    Route::prefix('personal')->name('personal.')->group(function () {
-        Route::get('/', [GuestPersonalIndexController::class, 'index'])->name('index');
-    });
-});
-
+Route::get('personal', [GuestPersonalIndexController::class, 'index'])->name('guest.personal.index');
 
 Route::prefix('admin/personal')->middleware('admin')->name('admin.personal.')->group(function () {
     Route::get('/', [AdminPersonalIndexController::class, 'index'])->name('index');

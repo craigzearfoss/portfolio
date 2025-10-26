@@ -25,7 +25,8 @@ class Guest
         }
 
         // inject the current admin into blade templates
-        if ($adminId = $request->cookie('guest_admin_id')) {
+        $adminId = $request->cookie('guest_admin_id');
+        if (!empty($adminId)) {
             View::share('admin', Admin::find(intval($adminId)));
         } else {
             View::share('admin', null);

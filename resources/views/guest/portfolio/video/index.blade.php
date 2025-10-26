@@ -2,9 +2,9 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? $admin->name . ' videos',
     'breadcrumbs' => [
-        [ 'name' => 'Home',       'href' => route('system.homepage') ],
-        [ 'name' => $admin->name, 'href' => route('guest.user.index', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.user.portfolio.index', $admin) ],
+        [ 'name' => 'Home',       'href' => route('system.index') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.index', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.index', $admin) ],
         [ 'name' => 'Videos' ],
     ],
     'buttons' => [],
@@ -44,7 +44,7 @@
                     <td data-field="name">
                         @include('guest.components.link', [
                             'name'  => $video->name,
-                            'href'  => route('guest.user.portfolio.video.show', [$admin, $video->slug]),
+                            'href'  => route('guest.admin.portfolio.video.show', [$admin, $video->slug]),
                             'class' => $video->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

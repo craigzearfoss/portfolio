@@ -2,9 +2,9 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? $admin->name . ' readings',
     'breadcrumbs' => [
-        [ 'name' => 'Home',       'href' => route('system.homepage') ],
-        [ 'name' => $admin->name, 'href' => route('guest.user.index', $admin)],
-        [ 'name' => 'Personal',   'href' => route('guest.user.personal.index', $admin) ],
+        [ 'name' => 'Home',       'href' => route('system.index') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.index', $admin)],
+        [ 'name' => 'Personal',   'href' => route('guest.admin.personal.index', $admin) ],
         [ 'name' => 'Readings' ],
     ],
     'buttons' => [],
@@ -65,7 +65,7 @@
                     <td>
                         @include('guest.components.link', [
                             'name'  => $reading->title,
-                            'href'  => route('guest.user.personal.reading.show', [$admin, $reading->slug]),
+                            'href'  => route('guest.admin.personal.reading.show', [$admin, $reading->slug]),
                             'class' => $reading->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

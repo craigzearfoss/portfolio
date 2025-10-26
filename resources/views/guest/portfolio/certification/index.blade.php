@@ -1,9 +1,9 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? $admin->name . ' certifications',
     'breadcrumbs' => [
-        [ 'name' => 'Home',       'href' => route('system.homepage') ],
-        [ 'name' => $admin->name, 'href' => route('guest.user.index', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.user.portfolio.index', $admin) ],
+        [ 'name' => 'Home',       'href' => route('system.index') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.index', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.index', $admin) ],
         [ 'name' => 'Certifications' ],
     ],
     'buttons' => [],
@@ -48,7 +48,7 @@
                     <td>
                         @include('guest.components.link', [
                             'name'  => $certification->name,
-                            'href'  => route('guest.user.portfolio.certification.show', [$certification->owner->username, $certification->slug]),
+                            'href'  => route('guest.admin.portfolio.certification.show', [$certification->owner->username, $certification->slug]),
                             'class' => $certification->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

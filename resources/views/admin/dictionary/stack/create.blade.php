@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => 'Add New Stack',
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.homepage') ],
+        [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Stacks',          'href' => route('admin.dictionary.stack.index') ],

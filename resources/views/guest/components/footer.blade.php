@@ -21,7 +21,7 @@
                     <a href="{{ route('system.contact') }}">Contact</a>
                     @if(!isUser())
                         <span class="mx-2"> | </span>
-                        <a href="route('system.register')">Register</a>
+                        <a href="{{ route('user.register') }}">Register</a>
                     @endif
                 </div>
             </div>

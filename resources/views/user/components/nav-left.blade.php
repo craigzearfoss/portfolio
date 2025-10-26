@@ -8,7 +8,7 @@
     <div class="aside-tools">
         <div class="aside-tools-label">
 
-            <a class="has-text-primary" href="{{ route('system.homepage') }}"><strong>{{ config('app.name') }}</strong></a>
+            <a class="has-text-primary" href="{{ route('system.index') }}"><strong>{{ config('app.name') }}</strong></a>
 
         </div>
     </div>

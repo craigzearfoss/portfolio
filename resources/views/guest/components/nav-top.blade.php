@@ -15,7 +15,7 @@
                 @if(\App\Models\System\Admin::where('public', 1)->count() > 1)
 
                     @include('admin.components.form-select-nolabel', [
-                        'value'    => $admin->username ?? '',
+                        'value'    => !empty($admin->username) ? $admin->username : '',
                         'list'     => \App\Models\System\Admin::listOptions([
                                                 'public' => 1,
                                             ],
@@ -26,7 +26,7 @@
                                             ['name', 'asc'
                                         ]),
                         'style'    => 'font-size: 1.2em; font-weight: 700',
-                        'onchange' => "document.location.href='/'+this.value;"
+                        'onchange' => "document.location.href='/'+this.value+'/profile';"
                     ])
 
                 @endif

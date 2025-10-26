@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title' =>'Add New Communication',
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.homepage') ],
+        [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Communications',  'href' => route('admin.career.communication.index') ],

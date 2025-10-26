@@ -22,7 +22,7 @@ class ReadingController extends BaseGuestController
      * @return View
      */
     public function index(Admin $admin, Request $request): View
-    {
+    {die('ddwtf');
         $perPage = $request->query('per_page', $this->perPage);
 
         $readings = Reading::where('owner_id', $admin->id)

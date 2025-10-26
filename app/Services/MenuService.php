@@ -86,7 +86,8 @@ class MenuService
                         $i++;
                         $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName);
                     }
-                    $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName);
+
+                    $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName, $admin);
                 }
             }
         }
@@ -153,7 +154,7 @@ class MenuService
         } else {
 
             $menu[] = $this->menuItem(
-                [ 'name' => 'user-login', 'title'=> 'User Login', 'route' => 'guest.login' ],
+                [ 'name' => 'user-login', 'title'=> 'User Login', 'route' => 'user.login' ],
                 $currentRouteName
             );
 
@@ -208,6 +209,7 @@ class MenuService
                     $i++;
                     $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName, $admin);
                 }
+
                 $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName, $admin);
             }
         }
@@ -304,7 +306,7 @@ class MenuService
         } else {
 
             $menu[] = $this->menuItem(
-                [ 'title'=> 'User Login', 'route' => 'guest.login' ],
+                [ 'title'=> 'User Login', 'route' => 'user.login' ],
                 $currentRouteName
             );
 
@@ -388,17 +390,34 @@ class MenuService
     public function resourceItem(Resource $resource, string $envType, string $currentRouteName, $admin = null): stdClass
     {
         if (!empty($resource->global)) {
+
             $route = $envType.'.'.$resource->database['name'].'.'.$resource['name'].'.index';
             $link = $envType == PermissionService::ENV_GUEST
                 ? (Route::has($route) ? Route($route, $admin) : null)
+
                 : (Route::has($route) ? Route($route) : null);
         } else {
+
+            if ($envType == PermissionService::ENV_GUEST) {
+                if (!empty($admin)) {
+                    $route = $envType.'.user.'.$resource->database['name'].'.'.$resource['name'].'.index';
+                    $link = Route::has($route) ? Route($route, $admin) : null;
+                } else {
+                    $route = $envType.$resource->database['name'].'.'.$resource['name'].'.index';
+                    $link = Route::has($route) ? Route($route) : null;
+                }
+            } else {
+                $route = $envType.'.'.$resource->database['name'].'.'.$resource['name'].'.index';;
+                $link = Route::has($route) ? Route($route) : null;
+            }
+            /*
             $route = $envType == PermissionService::ENV_GUEST
                 ? $envType.'.user.'.$resource->database['name'].'.'.$resource['name'].'.index'
                 : $envType.'.'.$resource->database['name'].'.'.$resource['name'].'.index';
             $link = $envType == PermissionService::ENV_GUEST
                 ? (Route::has($route) ? Route($route, $admin) : null)
                 : (Route::has($route) ? Route($route) : null);
+            */
         }
 
         $menuItem = new stdClass();
@@ -484,7 +503,7 @@ class MenuService
 
         $username = $admin->username ?? 'craigzearfoss';
 
-        $resumeRoute = '//@TODO'; //route('guest.user.resume', $username);
+        $resumeRoute = '//@TODO'; //route('guest.admin.resume', $username);
 
         $menuItem = new stdClass();
         $menuItem->id       = null;
@@ -525,7 +544,7 @@ class MenuService
     public function adminMenuItem(Admin $thisAdmin, string $envType, string $currentRouteName, $admin = null): stdClass
     {
         if ($envType == PermissionService::ENV_GUEST) {
-            $route = $envType.'.user.index';
+            $route = $envType.'.guest.index';
             $link  = $route;
         } else {
             $route = $envType.'.admin.index';

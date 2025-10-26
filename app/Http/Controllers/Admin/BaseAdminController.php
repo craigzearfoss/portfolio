@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\BaseCoreController;
+use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 
-class BaseAdminController extends BaseCoreController
+class BaseAdminController extends BaseController
 {
 }

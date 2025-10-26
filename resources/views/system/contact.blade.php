@@ -3,12 +3,13 @@
     'title'       => '',
     'subtitle'    => null,
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('system.homepage')],
+        [ 'name' => 'Home', 'href' => route('system.index')],
         [ 'name' => 'Contact Us']
     ],
     'buttons' => [],
-    'errorMessages' => !empty($errors->get('GLOBAL'))
-        ? [$errors->get('GLOBAL')] : ['Please fix the indicated problems before submitting.'],
+    'errorMessages' => $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
+        : [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])
@@ -69,7 +70,7 @@
 
                     @include('guest.components.form-button-submit-horizontal', [
                         'label'      => 'Submit',
-                        'cancel_url' => route('system.homepage')
+                        'cancel_url' => route('system.index')
                     ])
 
                 </div>

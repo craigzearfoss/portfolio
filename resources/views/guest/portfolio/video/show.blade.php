@@ -1,14 +1,14 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Video: ' . $video->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',              'href' => route('system.homepage') ],
-        [ 'name' => $video->owner->name, 'href' => route('guest.user.index', $admin)],
-        [ 'name' => 'Portfolio',         'href' => route('guest.user.portfolio.index', $admin) ],
-        [ 'name' => 'Videos',            'href' => route('guest.user.portfolio.video.index', $admin) ],
+        [ 'name' => 'Home',              'href' => route('system.index') ],
+        [ 'name' => $video->owner->name, 'href' => route('guest.admin.index', $admin)],
+        [ 'name' => 'Portfolio',         'href' => route('guest.admin.portfolio.index', $admin) ],
+        [ 'name' => 'Videos',            'href' => route('guest.admin.portfolio.video.index', $admin) ],
         [ 'name' => $video->name ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.user.portfolio.video.index', $admin) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.video.index', $admin) ],
     ],
     'errorMessages' => $errors->messages()  ?? [],
     'success' => session('success') ?? null,
@@ -30,7 +30,7 @@
                 'value' => !empty($video->parent)
                     ? view('guest.components.link', [
                             'name' => $video->parent['name'],
-                            'href' => route('guest.user.portfolio.video.show', [$admin, $video->parent->slug])
+                            'href' => route('guest.admin.portfolio.video.show', [$admin, $video->parent->slug])
                         ])
                     : ''
             ])
@@ -55,7 +55,7 @@
                             <li>
                                 @include('guest.components.link', [
                                     'name' => $child['name'],
-                                    'href' => route('guest.user.portfolio.video.show', [$admin, $child->slug])
+                                    'href' => route('guest.admin.portfolio.video.show', [$admin, $child->slug])
                                 ])
                             </li>
                         @endforeach

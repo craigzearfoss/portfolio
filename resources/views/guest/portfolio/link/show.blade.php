@@ -1,14 +1,14 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Link: ' . $link->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',             'href' => route('system.homepage') ],
-        [ 'name' => $link->owner->name, 'href' => route('guest.user.index', $admin)],
-        [ 'name' => 'Portfolio',        'href' => route('guest.user.portfolio.index', $admin) ],
-        [ 'name' => 'Links',            'href' => route('guest.user.portfolio.link.index', $admin) ],
+        [ 'name' => 'Home',             'href' => route('system.index') ],
+        [ 'name' => $link->owner->name, 'href' => route('guest.admin.index', $admin)],
+        [ 'name' => 'Portfolio',        'href' => route('guest.admin.portfolio.index', $admin) ],
+        [ 'name' => 'Links',            'href' => route('guest.admin.portfolio.link.index', $admin) ],
         [ 'name' => $link->name ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.user.portfolio.link.index', $admin) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.link.index', $admin) ],
     ],
     'errorMessages' => $errors->messages()  ?? [],
     'success' => session('success') ?? null,

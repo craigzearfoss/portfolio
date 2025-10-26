@@ -6,7 +6,7 @@ use App\Services\PermissionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
-class BaseCoreController extends Controller
+class BaseController extends Controller
 {
     protected $permissionService;
 

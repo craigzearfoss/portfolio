@@ -1,8 +1,9 @@
-@extends('guest.layouts.default', [
+@extends('user.layouts.default', [
     'pageTitle'   => 'Forgot Password',
     'title'       => '',
     'breadcrumbs' => [
-        [ 'name' => 'Home', 'href' => route('system.homepage')],
+        [ 'name' => 'Home', 'href' => route('system.index') ],
+        [ 'name' => 'Forgot Password' ],
     ],
     'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],
@@ -33,7 +34,7 @@
 
             <div class="column">
 
-                @include('guest.components.form-input', [
+                @include('user.components.form-input', [
                     'type'        => 'email',
                     'name'        => 'email',
                     'label'       => null,
@@ -46,9 +47,9 @@
 
                 <div class="has-text-centered pt-4">
 
-                    @include('guest.components.form-button-submit', [
+                    @include('user.components.form-button-submit', [
                         'label'      => 'Submit',
-                        'cancel_url' => referer('system.homepage')
+                        'cancel_url' => referer('system.index')
                     ])
 
                 </div>

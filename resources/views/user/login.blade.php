@@ -1,4 +1,4 @@
-@extends('guest.layouts.empty', [
+@extends('user.layouts.empty', [
     'title' => 'Login',
     'breadcrumbs' => [],
     'buttons' => [],
@@ -15,15 +15,15 @@
             User Login
         </div>
 
-        <form action="{{ route('system.login-submit') }}" method="POST">
+        <form action="{{ route('user.login-submit') }}" method="POST">
             @csrf
 
             @include('user.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('system.homepage')
+                'value' => referer('system.index')
             ])
 
-            @include('guest.components.form-input', [
+            @include('user.components.form-input', [
                 'name'        => 'username',
                 'label'       => 'User Name',
                 'value'       => old('username'),
@@ -33,7 +33,7 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('guest.components.form-input', [
+            @include('user.components.form-input', [
                 'type'        => 'password',
                 'name'        => 'password',
                 'label'       => 'Password',
@@ -51,9 +51,9 @@
             </div>
 
             <div class="has-text-centered">
-                @include('guest.components.form-button-submit', [
+                @include('user.components.form-button-submit', [
                     'label'      => 'Login',
-                    'cancel_url' => referer('system.homepage')
+                    'cancel_url' => referer('system.index')
                 ])
             </div>
 

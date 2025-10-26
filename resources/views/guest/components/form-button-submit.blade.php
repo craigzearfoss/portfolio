@@ -1,5 +1,5 @@
 <a
-    href="{{ $cancel_url ?? route('system.homepage') }}"
+    href="{{ $cancel_url ?? route('system.index') }}"
     class="button is-small is-dark"
 ><i class="fa-solid fa-close"></i> Cancel</a>
 

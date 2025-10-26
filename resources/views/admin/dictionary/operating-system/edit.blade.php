@@ -1,7 +1,7 @@
 @extends('admin.layouts.default', [
     'title' => $operatingSystem->name . ' (operating system)',
     'breadcrumbs' => [
-        [ 'name' => 'Home',              'href' => route('system.homepage') ],
+        [ 'name' => 'Home',              'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',        'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Operating Systems', 'href' => route('admin.dictionary.operating-system.index') ],

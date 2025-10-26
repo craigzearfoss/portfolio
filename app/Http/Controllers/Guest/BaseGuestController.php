@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Guest;
 
-use App\Http\Controllers\BaseCoreController;
-use App\Models\System\Admin;
+use App\Http\Controllers\BaseController;
 use App\Services\PermissionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 
-class BaseGuestController extends BaseCoreController
+class BaseGuestController extends BaseController
 {
     protected $permissionService;
 
