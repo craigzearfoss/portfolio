@@ -74,7 +74,7 @@ return new class extends Migration
             [
                 'id'                => 2,
                 'admin_team_id'     => 1,
-                'username'          => 'admin',
+                'username'          => 'default-admin',
                 'name'              => 'Default Admin',
                 'email'             => 'admin@gmail.com',
                 'email_verified_at' => now(),

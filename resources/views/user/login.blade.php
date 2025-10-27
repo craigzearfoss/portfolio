@@ -45,9 +45,9 @@
             ])
 
             <div class="has-text-centered my-3">
-                <a class="text-primary-600 hover:underline" href="{{ route('system.forgot-password') }}">Forgot Password?</a>
+                <a class="text-primary-600 hover:underline" href="{{ route('user.forgot-password') }}">Forgot Password?</a>
                 |
-                <a class="text-primary-600 hover:underline" href="{{ route('system.forgot-username') }}">Forgot User Name?</a>
+                <a class="text-primary-600 hover:underline" href="{{ route('user.forgot-username') }}">Forgot User Name?</a>
             </div>
 
             <div class="has-text-centered">

@@ -3,8 +3,9 @@
     'title' => $title ?? $admin->name . ' audio',
     'breadcrumbs' => [
         [ 'name' => 'Home',       'href' => route('system.index') ],
+        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
         [ 'name' => $admin->name, 'href' => route('guest.admin.index', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.index', $admin) ],
+        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.show', $admin) ],
         [ 'name' => 'Audio' ],
     ],
     'buttons' => [],

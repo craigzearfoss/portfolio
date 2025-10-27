@@ -33,7 +33,7 @@
 
             @else
 
-                <form action="{{ route('system.register-submit') }}" method="POST">
+                <form action="{{ route('user.register-submit') }}" method="POST">
                     @csrf
 
                     @include('user.components.form-input-horizontal', [

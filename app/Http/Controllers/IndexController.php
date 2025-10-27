@@ -11,10 +11,17 @@ use Illuminate\View\View;
 
 class IndexController extends BaseSystemController
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $perPage = $request->query('per_page', $this->perPage);
+
         $admin = null;
-        return view(themedTemplate('system.index'), compact('admin'));
+        $admins = \App\Models\System\Admin::where('public', 1)
+            ->where('disabled', 0)
+            ->orderBy('username', 'asc')->paginate($perPage);
+
+        return view('system.index', compact('admin', 'admins'))
+            ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     public function about(): View

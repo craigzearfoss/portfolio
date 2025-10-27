@@ -1,10 +1,11 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Certification: ' . $certification->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',                      'href' => route('system.index') ],
-        [ 'name' => $certification->owner->name, 'href' => route('guest.admin.index', $certification->owner)],
-        [ 'name' => 'Portfolio',                 'href' => route('guest.admin.portfolio.index', $certification->owner) ],
-        [ 'name' => 'Certifications',            'href' => route('guest.admin.portfolio.certification.index', $certification->owner) ],
+        [ 'name' => 'Home',           'href' => route('system.index') ],
+        [ 'name' => 'Users',          'href' => route('guest.admin.index') ],
+        [ 'name' => $admin->name,     'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',      'href' => route('guest.admin.portfolio.show', $certification->owner) ],
+        [ 'name' => 'Certifications', 'href' => route('guest.admin.portfolio.certification.index', $certification->owner) ],
         [ 'name' => $certification->name ],
     ],
     'buttons' => [

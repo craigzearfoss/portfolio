@@ -2,7 +2,8 @@
     'title' => $title ?? $admin->name . ' resume',
     'breadcrumbs' => [
         [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.index', $admin)],
+        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
         [ 'name' => $title ?? 'Resume' ],
     ],
     'buttons' => [],

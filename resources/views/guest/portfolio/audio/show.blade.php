@@ -1,10 +1,11 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Audio: ' . $audio->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',              'href' => route('system.index') ],
-        [ 'name' => $audio->owner->name, 'href' => route('guest.admin.index', $admin)],
-        [ 'name' => 'Portfolio',         'href' => route('guest.admin.portfolio.index', $admin) ],
-        [ 'name' => 'Audio',             'href' => route('guest.admin.portfolio.audio.index', $admin) ],
+        [ 'name' => 'Home',       'href' => route('system.index') ],
+        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.show', $admin) ],
+        [ 'name' => 'Audio',      'href' => route('guest.admin.portfolio.audio.index', $admin) ],
         [ 'name' => $audio->name ],
     ],
     'buttons' => [

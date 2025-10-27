@@ -60,10 +60,12 @@ class Database extends Model
      */
     public function resources(): HasMany
     {
-        return $this->hasMany(Resource::class);
+        return $this->hasMany(Resource::class)->orderBy('name', 'asc');
     }
 
-    public static function getResources(string | null $dbName = null, array $params = []):  array
+    public static function getResources(string | null $dbName = null,
+                                        array $filters = [],
+                                        array $orderBy = ['seq', 'asc']):  array
     {
         $query = Database::select( 'resources.*', 'databases.id as database_id', 'databases.name as database_name'
             , 'databases.database as database_database'
@@ -75,10 +77,10 @@ class Database extends Model
             $query->where('databases.name', $dbName);
         }
 
-        if (isset($params['public'])) $query->where('resources.public', boolval($params['public']) ? 1 : 0);
-        if (isset($params['readonly'])) $query->where('resources.readonly', boolval($params['readonly']) ? 1 : 0);
-        if (isset($params['root'])) $query->where('resources.root', boolval($params['root']) ? 1 : 0);
-        if (isset($params['disabled'])) $query->where('resources.disabled', boolval($params['disabled']) ? 1 : 0);
+        if (isset($filters['public'])) $query->where('resources.public', boolval($filters['public']) ? 1 : 0);
+        if (isset($filters['readonly'])) $query->where('resources.readonly', boolval($filters['readonly']) ? 1 : 0);
+        if (isset($filters['root'])) $query->where('resources.root', boolval($filters['root']) ? 1 : 0);
+        if (isset($filters['disabled'])) $query->where('resources.disabled', boolval($filters['disabled']) ? 1 : 0);
 
         return $query->get()->toArray();
     }

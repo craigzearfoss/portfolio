@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
             __DIR__.'/../routes/portfolio.php',
             __DIR__.'/../routes/career.php',
             __DIR__.'/../routes/personal.php',
-            __DIR__.'/../routes/guest.php',
+            __DIR__.'/../routes/guest.php',   // this must be last because of the admin username in the paths
         ],
         api: [
             __DIR__.'/../routes/api.php',

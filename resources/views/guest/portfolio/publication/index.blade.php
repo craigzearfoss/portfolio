@@ -3,9 +3,10 @@
     'title' => $title ?? $admin->name . ' publications',
     'breadcrumbs' => [
         [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.index', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.index', $admin) ],
-        [ 'name' => 'publications' ],
+        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.show', $admin) ],
+        [ 'name' => 'Publications' ],
     ],
     'buttons' => [],
     'errors'  => $errors->messages()  ?? [],

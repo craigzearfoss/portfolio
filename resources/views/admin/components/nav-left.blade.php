@@ -9,7 +9,34 @@
     <div class="aside-tools">
         <div class="aside-tools-label">
 
-            <a class="has-text-primary" href="{{ route('admin.dashboard') }}"><strong>{{ config('app.name') }}</strong></a>
+            @if(isAdmin())
+
+                @include('admin.components.link', [
+                    'name'  => 'Home',
+                    'href'  => route('system.index'),
+                    'class' => 'has-text-primary',
+                    'style' => 'font-size: 1.2em; font-weight: 700',
+                ])
+
+                /
+
+                @include('admin.components.link', [
+                    'name'  => 'Admin',
+                    'href'  => route('admin.index'),
+                    'class' => 'has-text-primary',
+                    'style' => 'font-size: 1.2em; font-weight: 700',
+                ])
+
+            @else
+
+                @include('admin.components.link', [
+                    'name'  => 'Home',
+                    'href'  => route('system.index'),
+                    'class' => 'has-text-primary',
+                    'style' => 'font-size: 1.2em; font-weight: 700',
+                ])
+
+            @endif
 
         </div>
     </div>

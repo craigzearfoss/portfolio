@@ -2,8 +2,9 @@
     'title' => $title ?? $admin->name . ' skills',
     'breadcrumbs' => [
         [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => $admin->name, 'href' => route('guest.admin.index', $admin)],
-        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.index', $admin) ],
+        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.show', $admin) ],
         [ 'name' => 'Skills' ],
     ],
     'buttons' => [],
@@ -65,7 +66,7 @@
             @empty
 
                 <tr>
-                    <td colspan="4">There are no links.</td>
+                    <td colspan="4">There are no skills.</td>
                 </tr>
 
             @endforelse

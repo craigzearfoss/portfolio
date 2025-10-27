@@ -1,10 +1,14 @@
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Personal Stuff',
+    'title' => $title ?? $admin->name . ' portfolio',
     'breadcrumbs' => [
         [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => $title ?? 'Personal Stuff' ],
+        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio' ],
     ],
-    'buttons' => [],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.index', $admin) ],
+    ],
     'errorMessages' => $errors->messages()  ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
@@ -12,32 +16,35 @@
 
 @section('content')
 
+
     <div class="card m-4">
 
         <div class="card-body p-4">
 
             <div class="container">
                 <div class="content">
-
                     <p>
-                        Personal folders contain items of personal interest and non career-related accomplishments. They include:
+                        Portfolio folders contain work and job-related items and accomplishments. They include:
                     </p>
 
+
+                    <?php /*
                     <ul class="menu-list" style="max-width: 20em;">
 
-                        @foreach ($personals as $personal)
+                        @foreach ($portfolios as $portfolio)
 
-                            <li>{{ $personal->plural }}</li>
+                            <li>{{ $portfolio->plural }}</li>
 
                         @endforeach
 
                     </ul>
-
+                    */ ?>
                 </div>
             </div>
 
         </div>
 
-</div>
+    </div>
+
 
 @endsection

@@ -35,16 +35,8 @@ class MenuService
         // Create the array of menu items.
         $menu = [];
 
-/*
-        if (empty($admin)) {
-            foreach (Admin::orderBy('name', 'asc')->get() as $thisAdmin) {
-                $menu[] = $this->adminMenuItem($thisAdmin, $envType, $currentRouteName, $admin):
-            }
-        }
-*/
-
         // add admin-specific items
-        if ($envType == PermissionService::ENV_ADMIN) {
+        if (($envType == PermissionService::ENV_ADMIN) || (($envType == PermissionService::ENV_GUEST) && !empty($admin))) {
 
             // should we have a resume link?
             if ($resumeMenuItem = $this->getResumeMenuItem($envType, $currentRouteName, $admin)) {
@@ -66,30 +58,6 @@ class MenuService
                     $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName, $admin);
                 }
             }
-
-        } elseif ($envType == PermissionService::ENV_GUEST) {
-
-            // should we have a resume link?
-            if ($resumeMenuItem = $this->getResumeMenuItem($envType, $currentRouteName)) {
-                $menu[] = $resumeMenuItem;
-            }
-
-            $currentDatabaseName = null;
-            $i = 0;
-            foreach (Resource::bySequence(null, $envType) as $resource) {
-
-                // note that we skip some menu items
-                if (!in_array($resource->database['name'], ['job'])) {
-
-                    if ($resource->database['name'] !== $currentDatabaseName) {
-                        $currentDatabaseName = $resource->database['name'];
-                        $i++;
-                        $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName);
-                    }
-
-                    $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName, $admin);
-                }
-            }
         }
 
         if (isAdmin()) {
@@ -99,10 +67,12 @@ class MenuService
                 $currentRouteName
             );
 
-            $menu[] = $this->menuItem(
-                [ 'title' => 'User Dashboard', 'route'    => 'user.dashboard' ],
-                $currentRouteName
-            );
+            if (isUser()) {
+                $menu[] = $this->menuItem(
+                    ['title' => 'User Dashboard', 'route' => 'user.dashboard'],
+                    $currentRouteName
+                );
+            }
 
             $menu[] = $this->menuItem(
                 [ 'title' => 'My Profile', 'route'    => 'admin.profile.show' ],
@@ -193,7 +163,7 @@ class MenuService
         $menu = [];
 
         // add admin-specific items
-        if ($envType == PermissionService::ENV_ADMIN) {
+        if (($envType == PermissionService::ENV_ADMIN) || (($envType == PermissionService::ENV_GUEST) && !empty($admin))) {
 
             // should we have a resume link?
             if ($resumeMenuItem = $this->getResumeMenuItem($envType, $currentRouteName, $admin)) {
@@ -344,12 +314,15 @@ class MenuService
                     break;
                 case PermissionService::ENV_GUEST  :
                 default:
+                    if (empty($admin)) {
+                        $route = $envType . '.' . $database['name'] . '.index';
+                        $link = Route::has($route) ? Route($route) : null;
+                    } else {
+                        $route = $envType . '.admin.' . $database['name'] . '.show';
+                        $link = Route::has($route) ? Route($route, $admin->username) : null;
+                    }
                     break;
             }
-            $route = $envType.'.user.'.$database['name'].'.index';
-
-            $link =  $envType == PermissionService::ENV_GUEST;
-                //? $route; //Route::has($route) ? Route($route, $admin) : null;
         }
 
         $menuItem = new stdClass();
@@ -392,32 +365,17 @@ class MenuService
         if (!empty($resource->global)) {
 
             $route = $envType.'.'.$resource->database['name'].'.'.$resource['name'].'.index';
-            $link = $envType == PermissionService::ENV_GUEST
-                ? (Route::has($route) ? Route($route, $admin) : null)
+            $link = Route::has($route) ? Route($route) : null;
 
-                : (Route::has($route) ? Route($route) : null);
         } else {
 
             if ($envType == PermissionService::ENV_GUEST) {
-                if (!empty($admin)) {
-                    $route = $envType.'.user.'.$resource->database['name'].'.'.$resource['name'].'.index';
-                    $link = Route::has($route) ? Route($route, $admin) : null;
-                } else {
-                    $route = $envType.$resource->database['name'].'.'.$resource['name'].'.index';
-                    $link = Route::has($route) ? Route($route) : null;
-                }
+                $route = $envType.'.admin.'.$resource->database['name'].'.'.$resource['name'].'.index';
+                $link = Route::has($route) ? Route($route, $admin->username) : null;
             } else {
                 $route = $envType.'.'.$resource->database['name'].'.'.$resource['name'].'.index';;
                 $link = Route::has($route) ? Route($route) : null;
             }
-            /*
-            $route = $envType == PermissionService::ENV_GUEST
-                ? $envType.'.user.'.$resource->database['name'].'.'.$resource['name'].'.index'
-                : $envType.'.'.$resource->database['name'].'.'.$resource['name'].'.index';
-            $link = $envType == PermissionService::ENV_GUEST
-                ? (Route::has($route) ? Route($route, $admin) : null)
-                : (Route::has($route) ? Route($route) : null);
-            */
         }
 
         $menuItem = new stdClass();
@@ -493,17 +451,19 @@ class MenuService
         return $menuItem;
     }
 
-    public function getResumeMenuItem($envType, $currentRouteName = null, $admin = null): stdClass | bool
+    public function getResumeMenuItem(string $envType, string|null $currentRouteName = null, $admin): stdClass|null
     {
+        if (empty($admin)) {
+            return null;
+        }
+
         if (Resource::withoutGlobalScope(AdminGlobalScope::class)
             ->where('name', 'job')->where($envType, 1)->where('public', 1)->count() == 0
         ) {
             return false;
         }
 
-        $username = $admin->username ?? 'craigzearfoss';
-
-        $resumeRoute = '//@TODO'; //route('guest.admin.resume', $username);
+        $resumeRoute = route('guest.admin.resume', $admin);
 
         $menuItem = new stdClass();
         $menuItem->id       = null;
@@ -527,41 +487,6 @@ class MenuService
         $menuItem->disabled = 0;
         $menuItem->admin_id = null;
         $menuItem->children = [];
-
-        return $menuItem;
-    }
-
-
-    /**
-     * Returns the menu item an admin.
-     * *
-     * @param Admin $thisAdmin
-     * @param string $envType
-     * @param string $currentRouteName
-     * @param $admin
-     * @return stdClass
-     */
-    public function adminMenuItem(Admin $thisAdmin, string $envType, string $currentRouteName, $admin = null): stdClass
-    {
-        if ($envType == PermissionService::ENV_GUEST) {
-            $route = $envType.'.guest.index';
-            $link  = $route;
-        } else {
-            $route = $envType.'.admin.index';
-            $link  = $route;
-        }
-
-        $menuItem = new stdClass();
-        $menuItem->id       = $thisAdmin->id ?? null;
-        $menuItem->name     = $thisAdmin->name ?? null;
-        $menuItem->username = $thisAdmin->username ?? null;
-        $menuItem->public   = $thisAdmin->public ?? 0;
-        $menuItem->readonly = $thisAdmin->readonly ?? 0;
-        $menuItem->root     = $thisAdmin->root ?? 0;
-        $menuItem->disabled = $thisAdmin->disabled ?? 0;
-        $menuItem->demo     = $thisAdmin->disabled ?? 0;
-        $menuItem->route    = $route;
-        $menuItem->link     = $link;
 
         return $menuItem;
     }

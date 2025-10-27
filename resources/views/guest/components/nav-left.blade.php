@@ -9,39 +9,59 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
     <div class="aside-tools">
         <div class="aside-tools-label">
 
-
-            @if(!empty($admin))
+            @if(isAdmin())
 
                 @include('admin.components.link', [
-                    'name'  => $admin->name,
-                    'href'  => route('guest.admin.index', $admin),
+                    'name'  => 'Home',
+                    'href'  => route('system.index'),
+                    'class' => 'has-text-primary',
                     'style' => 'font-size: 1.2em; font-weight: 700',
                 ])
 
-                <?php /*
-                @include('admin.components.form-select-nolabel', [
-                    'value'    => $admin->username ?? '',
-                    'list'     => \App\Models\System\Admin::listOptions([
-                                            'public' => 1,
-                                        ],
-                                        'username',
-                                        'name',
-                                        \App\Models\System\Admin::where('public', 1)->count() > 1,
-                                        false,
-                                        ['name', 'asc'
-                                    ]),
-                    'style'    => 'font-size: 1.2em; font-weight: 700',
-                    'onchange' => "document.location.href='/'+this.value+'/profile';"
+                /
+
+                @include('admin.components.link', [
+                    'name'  => 'Admin',
+                    'href'  => route('admin.index'),
+                    'class' => 'has-text-primary',
+                    'style' => 'font-size: 1.2em; font-weight: 700',
                 ])
-                */ ?>
 
             @else
 
-                <a class="has-text-primary" href="{{ route('system.index') }}"><strong>{{ config('app.name') }}</strong></a>
+                @include('admin.components.link', [
+                    'name'  => 'Home',
+                    'href'  => route('system.index'),
+                    'class' => 'has-text-primary',
+                    'style' => 'font-size: 1.2em; font-weight: 700',
+                ])
 
             @endif
 
         </div>
+    </div>
+
+    <div class="control ml-2 mt-2">
+
+        @if(\App\Models\System\Admin::where('public', 1)->count() > 1)
+
+            @include('admin.components.form-select-nolabel', [
+                'value'    => !empty($admin->username) ? $admin->username : '',
+                'list'     => \App\Models\System\Admin::listOptions([
+                                        'public' => 1,
+                                    ],
+                                    'username',
+                                    'name',
+                                    true,
+                                    false,
+                                    ['name', 'asc'
+                                ]),
+                'style'    => 'font-size: 1.2em; font-weight: 700',
+                'onchange' => "document.location.href='/'+this.value+'/profile';"
+            ])
+
+        @endif
+
     </div>
 
     @foreach ($menuItems as $menuItem)

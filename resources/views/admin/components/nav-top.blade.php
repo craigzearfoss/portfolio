@@ -10,11 +10,21 @@
             <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
         </a>
         <div class="navbar-item has-control">
-            <div class="control">
-                <?php /*
-                <input placeholder="Search everywhere..." class="input">
-                */ ?>
-            </div>
+
+            <span class="mr-4 has-text-primary" style=" font-size: 1.5em; font-weight: 800;">
+                {{ config('app.name') }}
+            </span>
+
+            @if(isDemo())
+                <span class="ml-4 p-2 pr-4 pl-4 has-background-info has-text-white-bis" style="font-weight: 700;">
+                    Demo Mode
+                </span>
+            @elseif(boolval(config('app.readonly')))
+                <span class="ml-4 p-2 pr-4 pl-4 has-background-info has-text-white-bis" style="font-weight: 700;">
+                    Site is Read-only
+                </span>
+            @endif
+
         </div>
     </div>
     <div class="navbar-brand is-right">

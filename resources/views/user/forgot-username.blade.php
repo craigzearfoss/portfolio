@@ -23,7 +23,7 @@
             Enter your email address to receive an email with your user name.
         </p>
 
-       <form action="{{ route('system.forgot-username-submit') }}" method="POST">
+       <form action="{{ route('user.forgot-username-submit') }}" method="POST">
             @csrf
             @method('PUT')
 

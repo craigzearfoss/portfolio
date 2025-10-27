@@ -23,7 +23,7 @@
             Enter your email address to receive a password reset link.
         </p>
 
-        <form action="{{ route('system.forgot-password-submit') }}" method="POST">
+        <form action="{{ route('user.forgot-password-submit') }}" method="POST">
             @csrf
             @method('PUT')
 

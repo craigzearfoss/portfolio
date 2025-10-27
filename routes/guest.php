@@ -4,7 +4,7 @@ use App\Http\Controllers\Guest\Personal\IndexController as GuestPersonalIndexCon
 use App\Http\Controllers\Guest\Personal\ReadingController as GuestPersonalReadingController;
 use App\Http\Controllers\Guest\Personal\RecipeController as GuestPersonalRecipeController;
 
-use App\Http\Controllers\Guest\IndexController as GuestIndexController;
+use App\Http\Controllers\Guest\System\AdminController as GuestAdminController;
 use App\Http\Controllers\Guest\Portfolio\ArtController as GuestPortfolioArtController;
 use App\Http\Controllers\Guest\Portfolio\AudioController as GuestPortfolioAudioController;
 use App\Http\Controllers\Guest\Portfolio\CertificationController as GuestPortfolioCertificationController;
@@ -20,17 +20,18 @@ use App\Http\Controllers\Guest\Portfolio\VideoController as GuestPortfolioVideoC
 
 use Illuminate\Support\Facades\Route;
 
-Route::name('guest.')->middleware('guest')->group(function () {
+Route::get('/{admin:username}/profile', [GuestAdminController::class, 'show'])->name('guest.admin.show');
 
-    Route::get('/{admin:username}/personal', [GuestPersonalIndexController::class, 'index'])->name('admin.personal.index');
+Route::name('guest.')->group(function () {
+
+    Route::get('/{admin:username}/personal', [GuestPersonalIndexController::class, 'index'])->name('admin.personal.show');
     Route::get('/{admin:username}/personal/reading', [GuestPersonalReadingController::class, 'index'])->name('admin.personal.reading.index');
     Route::get('/{admin:username}/personal/reading/{slug}', [GuestPersonalReadingController::class, 'show'])->name('admin.personal.reading.show');
     Route::get('/{admin:username}/personal/recipe', [GuestPersonalRecipeController::class, 'index'])->name('admin.personal.recipe.index');
     Route::get('/{admin:username}/personal/recipe/{slug}', [GuestPersonalRecipeController::class, 'show'])->name('admin.personal.recipe.show');
 
-    Route::get('/{admin:username}/profile', [GuestIndexController::class, 'profile'])->name('admin.profile');
     Route::get('/{admin:username}/resume', [GuestPortfolioJobController::class, 'resume'])->name('admin.resume');
-    Route::get('/{admin:username}/portfolio', [GuestPortfolioIndexController::class, 'index'])->name('admin.portfolio.index');
+    Route::get('/{admin:username}/portfolio', [GuestPortfolioIndexController::class, 'index'])->name('admin.portfolio.show');
     Route::get('/{admin:username}/portfolio/art', [GuestPortfolioArtController::class, 'index'])->name('admin.portfolio.art.index');
     Route::get('/{admin:username}/portfolio/art/{slug}', [GuestPortfolioArtController::class, 'show'])->name('admin.portfolio.art.show');
     Route::get('/{admin:username}/portfolio/audio', [GuestPortfolioAudioController::class, 'index'])->name('admin.portfolio.audio.index');
@@ -51,4 +52,5 @@ Route::name('guest.')->middleware('guest')->group(function () {
     Route::get('/{admin:username}/portfolio/skill/{slug}', [GuestPortfolioSkillController::class, 'show'])->name('admin.portfolio.skill.show');
     Route::get('/{admin:username}/portfolio/video', [GuestPortfolioVideoController::class, 'index'])->name('admin.portfolio.video.index');
     Route::get('/{admin:username}/portfolio/video/{slug}', [GuestPortfolioVideoController::class, 'show'])->name('admin.portfolio.video.show');
+
 });

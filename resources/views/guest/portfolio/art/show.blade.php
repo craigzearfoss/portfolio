@@ -1,10 +1,11 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Art: ' . $art->name . (!empty($art->artist) ? ' by ' . $art->artist : ''),
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => $art->owner->name, 'href' => route('guest.admin.index', $admin)],
-        [ 'name' => 'Portfolio',       'href' => route('guest.admin.portfolio.index', $admin) ],
-        [ 'name' => 'Art',             'href' => route('guest.admin.portfolio.art.index', $admin) ],
+        [ 'name' => 'Home',       'href' => route('system.index') ],
+        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.show', $admin) ],
+        [ 'name' => 'Art',        'href' => route('guest.admin.portfolio.art.index', $admin) ],
         [ 'name' => $art->name ],
     ],
     'buttons' => [
@@ -17,7 +18,7 @@
 
 @section('content')
 
-    <div class="show-container card p-4">
+    <div class="show-container p-4">
 
         @include('guest.components.show-row', [
             'name'  => 'name',

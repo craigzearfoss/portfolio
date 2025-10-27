@@ -30,7 +30,6 @@ Route::name('system.')->group(function () {
 
 Route::name('guest.')->group(function () {
     Route::get('/users', [GuestSystemAdminController::class, 'index'])->name('admin.index');
-    Route::get('/{admin:username}/profile', [GuestSystemAdminController::class, 'show'])->name('admin.show');
 });
 
 Route::name('user.')->group(function () {

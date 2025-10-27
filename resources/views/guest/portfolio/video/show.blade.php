@@ -1,10 +1,11 @@
 @extends('guest.layouts.default', [
     'title' => $title ?? 'Video: ' . $video->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',              'href' => route('system.index') ],
-        [ 'name' => $video->owner->name, 'href' => route('guest.admin.index', $admin)],
-        [ 'name' => 'Portfolio',         'href' => route('guest.admin.portfolio.index', $admin) ],
-        [ 'name' => 'Videos',            'href' => route('guest.admin.portfolio.video.index', $admin) ],
+        [ 'name' => 'Home',       'href' => route('system.index') ],
+        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.show', $admin) ],
+        [ 'name' => 'Videos',     'href' => route('guest.admin.portfolio.video.index', $admin) ],
         [ 'name' => $video->name ],
     ],
     'buttons' => [
