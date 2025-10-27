@@ -20,7 +20,7 @@ use App\Http\Controllers\Guest\Portfolio\VideoController as GuestPortfolioVideoC
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/{admin:username}/profile', [GuestAdminController::class, 'show'])->name('guest.admin.show');
+Route::get('/{admin:username}', [GuestAdminController::class, 'show'])->name('guest.admin.show');
 
 Route::name('guest.')->group(function () {
 
