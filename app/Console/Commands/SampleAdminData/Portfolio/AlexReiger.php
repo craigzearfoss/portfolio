@@ -222,6 +222,8 @@ class AlexReiger extends Command
                 'city'                   => 'New York',
                 'state_id'               => 33,
                 'country_id'             => 237,
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
         ];
@@ -325,7 +327,7 @@ class AlexReiger extends Command
         ];
 
         if (!empty($data)) {
-            Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Music::insert($this->addDemoTimeStampsAndOwners($data));
         }
     }
 

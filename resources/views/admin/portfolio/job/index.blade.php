@@ -61,6 +61,7 @@
                     <th>owner</th>
                 @endif
                 <th>company</th>
+                <th>logo</th>
                 <th>role</th>
                 <th class="has-text-centered">featured</th>
                 <th>start date</th>
@@ -77,6 +78,7 @@
                     <th>owner</th>
                 @endif
                 <th>company</th>
+                <ht>logo</th>
                 <th>role</th>
                 <th class="has-text-centered">featured</th>
                 <th>start date</th>
@@ -99,6 +101,13 @@
                     @endif
                     <td data-field="company">
                         {{ $job->company }}
+                    </td>
+                    <td data-field="logo_small">
+                        @include('admin.components.image', [
+                            'src'   => $job->logo_small,
+                            'alt'   => $job->name,
+                            'width' => '48px',
+                        ])
                     </td>
                     <td data-field="role">
                         {{ $job->role }}
@@ -160,7 +169,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '9' : '8' }}">There are no jobs.</td>
+                    <td colspan="{{ isRootAdmin() ? '10' : '9' }}">There are no jobs.</td>
                 </tr>
 
             @endforelse

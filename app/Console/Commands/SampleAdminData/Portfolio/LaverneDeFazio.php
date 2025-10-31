@@ -222,6 +222,8 @@ class LaverneDeFazio extends Command
                 'city'                   => 'Milwaukee',
                 'state_id'               => 50,
                 'country_id'             => 237,
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
         ];

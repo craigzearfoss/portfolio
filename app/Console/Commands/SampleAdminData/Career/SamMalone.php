@@ -166,7 +166,9 @@ class SamMalone extends Command
                 'industry_id' => 11,
                 'city'        => null,
                 'state_id'    => 5,
-                'country_id'  => 237
+                'country_id'  => 237,
+                'logo'        => null,
+                'logo_small'  => null,
             ],
             */
         ];

@@ -26,11 +26,10 @@
 
                 <div class=" is-align-items-flex-start" style="display: inline-block; width: 56px; margin-right: 0.5em;">
                     @include('admin.components.image', [
-                    'src'   => $job->thumbnail,
-                    'alt'   => $job->name,
-                    'width' => '48px',
-                ])
-
+                        'src'   => $job->logo_small,
+                        'alt'   => $job->name,
+                        'width' => '48px',
+                    ])
                 </div>
 
                 <div style="display: inline-block;">

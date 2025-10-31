@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\CraigZearfoss;
+namespace App\Console\Commands\CraigZearfossData;
 
 use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Audio;
@@ -21,30 +21,30 @@ use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
 use function Laravel\Prompts\text;
 
-class InitPortfolio extends Command
+class AddPortfolio extends Command
 {
+    const USERNAME = 'craig-zearfoss';
+
     protected $demo = 0;
+    protected $silent = 0;
 
     protected $adminId = null;
-    protected $groupId = null;
-    protected $teamId = null;
 
     protected $jobId = [];
-    protected $ids = [];
 
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:init-craig-zearfoss-portfolio {--silent}';
+    protected $signature = 'add-' . self::USERNAME . '-portfolio {--demo=0} {--silent}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the portfolio database with initial data for admin craig-zearfoss';
+    protected $description = 'This will populate the portfolio database with initial data for admin ' . self::USERNAME . '.';
 
     /**
      * Execute the console command.
@@ -52,31 +52,15 @@ class InitPortfolio extends Command
     public function handle()
     {
         // get the admin
-        if (!$admin = Admin::where('username', 'craig-zearfoss')->first()) {
-            echo PHP_EOL . 'Admin `craig-zearfoss` not found.' . PHP_EOL . PHP_EOL;
+        if (!$admin = Admin::where('username', self::USERNAME)->first()) {
+            echo PHP_EOL . 'Admin `' .self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
 
         $this->adminId = $admin->id;
 
-        // verify that the admin is a member of an admin team
-        if (!$this->teamId = $admin->admin_team_id) {
-            echo PHP_EOL . 'Admin `craig-zearfoss` is not on any admin teams.' . PHP_EOL;
-            echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
-            die;
-        }
-
-        // verify that the admin belongs to at least one admin group
-        if (!$this->groupId = AdminAdminGroup::where('admin_id', $this->adminId)->first()->admin_group_id ?? null) {
-            echo PHP_EOL . 'Admin `craig-zearfoss` does not belong to any admin groups.' . PHP_EOL;
-            echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
-            die;
-        }
-
-        if (!$this->option('silent')) {
+        if (!$this->silent) {
             echo PHP_EOL . 'adminId: ' . $this->adminId . PHP_EOL;
-            echo 'teamId: ' . $this->teamId . PHP_EOL;
-            echo 'groupId: ' . $this->groupId . PHP_EOL;
             $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
@@ -94,26 +78,6 @@ class InitPortfolio extends Command
         $this->insertPortfolioPublications();
         $this->insertPortfolioSkills();
         $this->insertPortfolioVideos();
-    }
-
-    protected function addTimeStamps($data) {
-        for($i=0; $i<count($data);$i++) {
-            $data[$i]['created_at'] = now();
-            $data[$i]['updated_at'] = now();
-        }
-
-        return $data;
-    }
-
-    protected function addDemoTimeStampsAndOwners($data) {
-        for($i=0; $i<count($data);$i++) {
-            $data[$i]['created_at'] = now();
-            $data[$i]['updated_at'] = now();
-            $data[$i]['owner_id']   = $this->adminId;
-            $data[$i]['demo']       = $this->demo;
-        }
-
-        return $data;
     }
 
     protected function insertPortfolioArt(): void
@@ -196,7 +160,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Art::insert($this->addDemoTimeStampsAndOwners($data));
+            Art::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -205,11 +169,33 @@ class InitPortfolio extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Audio ...\n";
 
         $data = [
-
+            /*
+            [
+                'owner_id'          => $this->adminId,
+                'name'              => '',
+                'slug'              => '',
+                'parent_id'         => null,
+                'featured'          => 0,
+                'summary'           => null,
+                'full_episode'      => 0,
+                'clip'              => 1,
+                'podcast'           => 0,
+                'source_recording'  => 0,
+                'date'              => '0000-00-00',
+                'year'              => null,
+                'company'           => null,
+                'credit'            => null,
+                'show'              => 0,
+                'location'          => null,
+                'embed'             => null,
+                'audio_url'         => null,
+                'public'            => 1,
+            ]
+            */
         ];
 
         if (!empty($data)) {
-            Audio::insert($this->addDemoTimeStampsAndOwners($data));
+            Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -235,7 +221,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Certification::insert($this->addDemoTimeStampsAndOwners($data));
+            Certification::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -1242,7 +1228,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Course::insert($this->addDemoTimeStampsAndOwners($data));
+            Course::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -1274,6 +1260,8 @@ class InitPortfolio extends Command
                 'state_id'               => 13,
                 'country_id'             => 237,
                 'thumbnail'              => '/images/admin/2/portfolio/job/idaho_national_laboratory_logo.png',
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
             [
@@ -1293,6 +1281,8 @@ class InitPortfolio extends Command
                 'state_id'               => 24,
                 'country_id'             => 237,
                 'thumbnail'              => '/images/admin/2/portfolio/job/3m_logo.png',
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public' => 1,
             ],
             [
@@ -1312,6 +1302,8 @@ class InitPortfolio extends Command
                 'state_id'               => 24,
                 'country_id'             => 237,
                 'thumbnail'              => '/images/admin/2/portfolio/job/questar_logo.png',
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
             [
@@ -1331,6 +1323,8 @@ class InitPortfolio extends Command
                 'state_id'               => 10,
                 'country_id'             => 237,
                 'thumbnail'              => '/images/admin/2/portfolio/job/junta_logo.png',
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
             [
@@ -1350,6 +1344,8 @@ class InitPortfolio extends Command
                 'state_id'               => 34,
                 'country_id'             => 237,
                 'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
             [
@@ -1369,6 +1365,8 @@ class InitPortfolio extends Command
                 'state_id'               => 34,
                 'country_id'             => 237,
                 'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
             [
@@ -1388,12 +1386,14 @@ class InitPortfolio extends Command
                 'state_id'               => 34,
                 'country_id'             => 237,
                 'thumbnail'              => '/images/admin/2/portfolio/job/ibm_logo.png',
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
         ];
 
         if (!empty($data)) {
-            Job::insert($this->addDemoTimeStampsAndOwners($data));
+            Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -1430,7 +1430,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            JobCoworker::insert($this->addDemoTimeStampsAndOwners($data));
+            JobCoworker::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -1454,7 +1454,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            JobTask::insert($this->addDemoTimeStampsAndOwners($data));
+            JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -1470,7 +1470,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Link::insert($this->addDemoTimeStampsAndOwners($data));
+            Link::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -2280,7 +2280,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Music::insert($this->addDemoTimeStampsAndOwners($data));
+            Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -2382,7 +2382,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Project::insert($this->addDemoTimeStampsAndOwners($data));
+            Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -2395,7 +2395,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Publication::insert($this->addDemoTimeStampsAndOwners($data));
+            Publication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -2446,7 +2446,7 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Skill::insert($this->addDemoTimeStampsAndOwners($data));
+            Skill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -3158,7 +3158,43 @@ class InitPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Video::insert($this->addDemoTimeStampsAndOwners($data));
+            Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
+    }
+
+    /**
+     * Adds timestamps, owner_id, and additional fields to each row in a data array.
+     *
+     * @param array $data
+     * @param bool $timestamps
+     * @param int|null $ownerId
+     * @param array $extraColumns
+     * @return array
+     */
+    protected function additionalColumns(array    $data,
+                                         bool     $timestamps = true,
+                                         int|null $ownerId = null,
+                                         array    $extraColumns = []): array
+    {
+        for ($i = 0; $i < count($data); $i++) {
+
+            // timestamps
+            if ($timestamps) {
+                $data[$i]['created_at'] = now();
+                $data[$i]['updated_at'] = now();
+            }
+
+            // owner_id
+            if (!empty($ownerId)) {
+                $data[$i]['owner_id'] = $ownerId;
+            }
+
+            // extra columns
+            foreach ($extraColumns as $name => $value) {
+                $data[$i][$name] = $value;
+            }
+        }
+
+        return $data;
     }
 }

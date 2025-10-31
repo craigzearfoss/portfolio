@@ -28,7 +28,7 @@ class AlexReiger extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-' . self::USERNAME . '-personal {--demo=1} {--silent}';
+    protected $signature = 'app:init-' . self::USERNAME . '-personal {--demo=0} {--silent}';
 
     /**
      * The console command description.

@@ -316,6 +316,8 @@ class JREwing extends Command
                 'city'                   => 'Bedrock',
                 'state_id'               => null,
                 'country_id'             => null,
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
         ];

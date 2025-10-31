@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\CraigZearfoss;
+namespace App\Console\Commands\CraigZearfossData;
 
 use App\Models\Personal\Reading;
 use App\Models\Personal\Recipe;
@@ -12,13 +12,14 @@ use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
 use function Laravel\Prompts\text;
 
-class InitPersonal extends Command
+class AddPersonal extends Command
 {
+    const USERNAME = 'craig-zearfoss';
+
     protected $demo = 0;
+    protected $silent = 0;
 
     protected $adminId = null;
-    protected $groupId = null;
-    protected $teamId = null;
 
     protected $recipeId = [];
 
@@ -27,14 +28,14 @@ class InitPersonal extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-craig-zearfoss-personal {--silent}';
+    protected $signature = 'add-' . self::USERNAME . '-personal {--demo=0} {--silent}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the personal database with initial data for admin craig-zearfoss';
+    protected $description = 'This will populate the personal database with initial data for admin ' . self::USERNAME . '.';
 
     /**
      * Execute the console command.
@@ -42,31 +43,15 @@ class InitPersonal extends Command
     public function handle()
     {
         // get the admin
-        if (!$admin = Admin::where('username', 'craig-zearfoss')->first()) {
-            echo PHP_EOL . 'Admin `craig-zearfoss` not found.' . PHP_EOL . PHP_EOL;
+        if (!$admin = Admin::where('username', self::USERNAME)->first()) {
+            echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
 
         $this->adminId = $admin->id;
 
-        // verify that the admin is a member of an admin team
-        if (!$this->teamId = $admin->admin_team_id) {
-            echo PHP_EOL . 'Admin `craig-zearfoss` is not on any admin teams.' . PHP_EOL;
-            echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
-            die;
-        }
-
-        // verify that the admin belongs to at least one admin group
-        if (!$this->groupId = AdminAdminGroup::where('admin_id', $this->adminId)->first()->admin_group_id ?? null) {
-            echo PHP_EOL . 'Admin `craig-zearfoss` does not belong to any admin groups.' . PHP_EOL;
-            echo 'Please fix before running this script.' . PHP_EOL . PHP_EOL;
-            die;
-        }
-
-        if (!$this->option('silent')) {
+        if (!$this->silent) {
             echo PHP_EOL . 'adminId: ' . $this->adminId . PHP_EOL;
-            echo 'teamId: ' . $this->teamId . PHP_EOL;
-            echo 'groupId: ' . $this->groupId . PHP_EOL;
             $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
@@ -75,26 +60,6 @@ class InitPersonal extends Command
         $this->insertPersonalRecipes();
         $this->insertPersonalRecipeIngredients();
         $this->insertPersonalRecipeSteps();
-    }
-
-    protected function addTimeStamps($data) {
-        for($i=0; $i<count($data);$i++) {
-            $data[$i]['created_at'] = now();
-            $data[$i]['updated_at'] = now();
-        }
-
-        return $data;
-    }
-
-    protected function addDemoTimeStampsAndOwners($data) {
-        for($i=0; $i<count($data);$i++) {
-            $data[$i]['created_at'] = now();
-            $data[$i]['updated_at'] = now();
-            $data[$i]['owner_id']   = $this->adminId;
-            $data[$i]['demo']       = $this->demo;
-        }
-
-        return $data;
     }
 
     protected function insertPersonalReadings(): void
@@ -125,7 +90,7 @@ class InitPersonal extends Command
             [ 'title' => 'An Indigenous Peoples\' History of the United States: Revisioning American History', 'author' => 'Roxanne Dunbar-Ortiz', 'slug' => 'an-indigenous-peoples-history-of-the-united-states-revisioning-american-history-by-roxanne-dunbar-ortiz', 'publication_year' => 2014, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/An_Indigenous_Peoples%27_History_of_the_United_States', 'fiction' => 0, 'nonfiction' => 1, 'paper' => 0, 'audio' => 1, 'wishlist' => 0, 'image' => 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Indigenouspeopleshistorycover.jpg/250px-Indigenouspeopleshistorycover.jpg' ],
             [ 'title' => 'Animal Farm', 'author' => 'George Orwell', 'slug' => 'animal-farm-by-george-orwell', 'publication_year' => 1945, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Animal_Farm', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Animal_Farm_-_1st_edition.jpg/250px-Animal_Farm_-_1st_edition.jpg' ],
             [ 'title' => 'Anna Karenina', 'author' => 'Leo Tolstoy', 'slug' => 'anna-karenina-by-leo-tolstoy', 'publication_year' => 1878, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Anna_Karenina', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/AnnaKareninaTitle.jpg/250px-AnnaKareninaTitle.jpg' ],
-            [ 'title' => 'Anne of Green Gables', 'author' => 'Rachel McAdams', 'slug' => 'anne-of-green-gables-by-rachel-mcadams', 'publication_year' => 1908, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Anne_of_Green_Gables', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 0, 'wishlist' => 1, 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Montgomery_Anne_of_Green_Gables.jpg/250px-Montgomery_Anne_of_Green_Gables.jpg' ],
+            [ 'title' => 'Anne of Green Gables', 'author' => 'Rachel McAdams', 'slug' => 'anne-of-green-gables-by-rachel-mcadams', 'publication_year' => 1908, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Anne_of_Green_Gables', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Montgomery_Anne_of_Green_Gables.jpg/250px-Montgomery_Anne_of_Green_Gables.jpg' ],
             [ 'title' => 'Another Country', 'author' => 'James Baldwin', 'slug' => 'another-country-by-james-baldwin', 'publication_year' => 1962, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Another_Country_(novel)', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://upload.wikimedia.org/wikipedia/en/thumb/5/5a/AnotherCountry.JPG/250px-AnotherCountry.JPG' ],
             [ 'title' => 'Around the World in 80 Days', 'author' => 'Jules Verne', 'slug' => 'around-the-world-in-80-days-by-jules-verne', 'publication_year' => 1872, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Around_the_World_in_Eighty_Days', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 1, 'wishlist' => 0, 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Verne_Tour_du_Monde.jpg/250px-Verne_Tour_du_Monde.jpg' ],
             [ 'title' => 'As I Lay Dying', 'author' => 'William Faulkner', 'slug' => 'as-i-lay-dying-by-william-faulkner', 'publication_year' => 1930, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/As_I_Lay_Dying', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/As_I_Lay_Dying_%281930_1st_ed_jacket_cover%29.jpg/250px-As_I_Lay_Dying_%281930_1st_ed_jacket_cover%29.jpg' ],
@@ -441,11 +406,13 @@ class InitPersonal extends Command
             [ 'title' => 'A Lost Heritage: Living Pennsylvania Dutch', 'author' => 'Howard Anderson', 'slug' => 'a-lost-heritage-living-pennsylvania-dutch-by-howard-anderson', 'publication_year' => 1988, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/Lost-Heritage-Living-Pennsylvania-Dutch/dp/B0032Y4Q0G', 'fiction' => 0, 'nonfiction' => 1, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://m.media-amazon.com/images/I/91YeFLczIxL._SY342_.jpg' ],
             [ 'title' => 'The Complete Sherlock Holmes', 'author' => 'Arthur Conan Doyle', 'slug' => 'the-complete-sherlock-holmes-by-arthur-conan-doyle', 'publication_year' => 1930, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/Complete-Sherlock-Holmes-Fifty-Six-Adventures/dp/B000N770O4/', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://m.media-amazon.com/images/I/91tbNbLrr0L._SY342_.jpg' ],
             [ 'title' => 'Hex', 'author' => 'Arthur H. Lewis', 'slug' => 'hex-by-arthur-h-lewis', 'publication_year' => 1969, 'link_name' => 'Goodreads', 'link' => 'https://www.goodreads.com/book/show/1938225.Hex', 'fiction' => 0, 'nonfiction' => 1, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1387705354i/1938225.jpg' ],
+            [ 'title' => 'My Girlfriend Comes to the City and Beats Me Up', 'author' => 'Stephen Elliott', 'slug' => 'my-girlfriend-comes-to-the-city-and=beats-me-up-by-stephen-elliott', 'publication_year' => 2006, 'link_name' => 'Goodreads', 'link' => 'https://www.goodreads.com/book/show/277762.My_Girlfriend_Comes_to_the_City_and_Beats_Me_Up', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1386923770i/277762.jpg' ],
+            [ 'title' => 'Dirk Gently\'s Holistic Detective Agency', 'author' => 'Douglas Adams', 'slug' => 'dirk-gently\'s-holistic-detective-agency-by-douglas-adams', 'publication_year' => 1991, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/Dirk-Gentlys-Holistic-Detective-Agency/dp/0671746723', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://m.media-amazon.com/images/I/61rv1QxI5UL._SL1007_.jpg' ],
             //[ 'title' => '', 'author' => null, 'slug' => '', 'publication_year' => null, 'link_name' => null, 'link' => null, 'fiction' => 0, 'nonfiction' => 0, 'paper' => 0, 'audio' => 0, 'wishlist' => 0, 'image' => null ],
         ];
 
         if (!empty($data)) {
-            Reading::insert($this->addDemoTimeStampsAndOwners($data));
+            Reading::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -469,7 +436,7 @@ class InitPersonal extends Command
         ];
 
         if (!empty($data)) {
-            Recipe::insert($this->addDemoTimeStampsAndOwners($data));
+            Recipe::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -528,7 +495,7 @@ class InitPersonal extends Command
         ];
 
         if (!empty($data)) {
-            RecipeIngredient::insert($this->addDemoTimeStampsAndOwners($data));
+            RecipeIngredient::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -557,7 +524,43 @@ class InitPersonal extends Command
         ];
 
         if (!empty($data)) {
-            RecipeStep::insert($this->addDemoTimeStampsAndOwners($data));
+            RecipeStep::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
+    }
+
+    /**
+     * Adds timestamps, owner_id, and additional fields to each row in a data array.
+     *
+     * @param array $data
+     * @param bool $timestamps
+     * @param int|null $ownerId
+     * @param array $extraColumns
+     * @return array
+     */
+    protected function additionalColumns(array    $data,
+                                         bool     $timestamps = true,
+                                         int|null $ownerId = null,
+                                         array    $extraColumns = []): array
+    {
+        for ($i = 0; $i < count($data); $i++) {
+
+            // timestamps
+            if ($timestamps) {
+                $data[$i]['created_at'] = now();
+                $data[$i]['updated_at'] = now();
+            }
+
+            // owner_id
+            if (!empty($ownerId)) {
+                $data[$i]['owner_id'] = $ownerId;
+            }
+
+            // extra columns
+            foreach ($extraColumns as $name => $value) {
+                $data[$i][$name] = $value;
+            }
+        }
+
+        return $data;
     }
 }

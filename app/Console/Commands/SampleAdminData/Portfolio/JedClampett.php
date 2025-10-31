@@ -223,6 +223,8 @@ class JedClampett extends Command
                 'city'                   => null,
                 'state_id'               => 33,
                 'country_id'             => 237,
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
             */

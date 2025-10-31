@@ -1259,6 +1259,8 @@ class DemoAdmin extends Command
                 'state_id'               => 13,
                 'country_id'             => 237,
                 'thumbnail'              => '/images/admin/2/portfolio/job/idaho_national_laboratory_logo.png',
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
             [
@@ -1278,7 +1280,9 @@ class DemoAdmin extends Command
                 'state_id'               => 24,
                 'country_id'             => 237,
                 'thumbnail'              => '/images/admin/2/portfolio/job/3m_logo.png',
-                'public' => 1,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'public'                 => 1,
             ],
             [
                 'id'                     => $this->jobId[3],
@@ -1297,6 +1301,8 @@ class DemoAdmin extends Command
                 'state_id'               => 24,
                 'country_id'             => 237,
                 'thumbnail'              => '/images/admin/2/portfolio/job/questar_logo.png',
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
             [
@@ -1316,6 +1322,8 @@ class DemoAdmin extends Command
                 'state_id'               => 10,
                 'country_id'             => 237,
                 'thumbnail'              => '/images/admin/2/portfolio/job/junta_logo.png',
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
             [
@@ -1335,6 +1343,8 @@ class DemoAdmin extends Command
                 'state_id'               => 34,
                 'country_id'             => 237,
                 'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
             [
@@ -1354,6 +1364,8 @@ class DemoAdmin extends Command
                 'state_id'               => 34,
                 'country_id'             => 237,
                 'thumbnail'              => null,
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
             [
@@ -1373,6 +1385,8 @@ class DemoAdmin extends Command
                 'state_id'               => 34,
                 'country_id'             => 237,
                 'thumbnail'              => '/images/admin/2/portfolio/job/ibm_logo.png',
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
         ];
@@ -3068,7 +3082,7 @@ class DemoAdmin extends Command
                 'embed'            => '',
                 'link'             => '',
                 'link_name'        => '',
-                'description' => 'Performing Never Be Straight',
+                'description'      => 'Performing Never Be Straight',
                 'public'           => 1,
             ],
             [
@@ -3108,7 +3122,7 @@ class DemoAdmin extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/mI04UiU_smI?si=aF_z7B5rpbUcUpmg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/mI04UiU_smI?si=aF_z7B5rpbUcUpmg',
                 'link_name'        => 'YouTube',
-                'description' => 'Performing Brazil',
+                'description'      => 'Performing Brazil',
                 'public'           => 1,
             ],
             [

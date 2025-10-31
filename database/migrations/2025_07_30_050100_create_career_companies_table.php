@@ -49,6 +49,8 @@ return new class extends Migration
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
+            $table->string('logo', 500)->nullable();
+            $table->string('logo_small', 500)->nullable();
             $table->integer('sequence')->default(0);
             $table->tinyInteger('public')->default(0);
             $table->tinyInteger('readonly')->default(0);

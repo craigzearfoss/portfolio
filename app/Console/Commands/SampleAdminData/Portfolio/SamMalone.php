@@ -222,6 +222,8 @@ class SamMalone extends Command
                 'city'                   => null,
                 'state_id'               => 33,
                 'country_id'             => 237,
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
             */
@@ -360,7 +362,7 @@ class SamMalone extends Command
         ];
 
         if (!empty($data)) {
-            Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 

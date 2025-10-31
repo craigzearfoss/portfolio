@@ -222,6 +222,8 @@ class PeterGibbons extends Command
                 'city'                   => 'Austin',
                 'state_id'               => 44,
                 'country_id'             => 237,
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
         ];

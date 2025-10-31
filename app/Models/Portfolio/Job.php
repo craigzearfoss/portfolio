@@ -63,6 +63,8 @@ class Job extends Model
         'image_credit',
         'image_source',
         'thumbnail',
+        'logo',
+        'logo_small',
         'sequence',
         'public',
         'readonly',

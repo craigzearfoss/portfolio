@@ -222,6 +222,8 @@ class DwightSchrute extends Command
                 'city'                   => 'Scranton',
                 'state_id'               => 39,
                 'country_id'             => 237,
+                'logo'                   => null,
+                'logo_small'             => null,
                 'public'                 => 1,
             ],
         ];

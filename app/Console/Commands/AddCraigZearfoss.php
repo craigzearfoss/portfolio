@@ -14,23 +14,21 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use function Laravel\Prompts\text;
 
-class InitSampleAdmin extends Command
+class AddCraigZearfoss extends Command
 {
+    const USERNAME = 'craig-zearfoss';
+
     protected $adminId = null;
     protected $demo = 1;
     protected $silent = 0;
+    protected $password = '';
+
+    protected $ids = [];
+    protected $companyIds = [];
+    protected $contactIds = [];
 
     const USER_DATA = [
-        'alex-reiger'      => [ 'name' => 'Alex Reiger',      'email' => 'areiger29@taxinyc.com',       'role' => 'Taxi Driver',              'employer' => 'Sunshine Cab Company'          ],
-        'dwight-schrute'   => [ 'name' => 'Dwight Schrute',   'email' => 'dwight@dunder-mifflin.com',   'role' => 'Salesman',                 'employer' => 'Dunder-Mifflin Paper Company'  ],
-        'frank-reynolds'   => [ 'name' => 'Frank Reynolds',   'email' => 'frank@paddys-pub.com',        'role' => 'Co-owner of Paddy\'s Pub', 'employer' => 'Paddy\'s Pub'                  ],
-        'fred-flintstone'  => [ 'name' => 'Fred Flintstone',  'email' => 'fatfred@bedrock.com',         'role' => 'Crane Operator',           'employer' => 'Slate Rock and Gravel Company' ],
-        'gabe-kotter'      => [ 'name' => 'Gabe Kotter',      'email' => 'mrkotter@james-buchanan.edu', 'role' => 'English Teacher',          'employer' => 'James Buchanan High School'    ],
-        'jed-clampett'     => [ 'name' => 'Jed Clampett',     'email' => 'jed@clampett-oil.com',        'role' => 'Family Patriarch',         'employer' => 'O.K. Oil Company'              ],
-        'j-jr-ewing'       => [ 'name' => 'J.R. Ewing',       'email' => 'jr@ewing-oil.com',            'role' => 'President of Ewing Oil',   'employer' => 'Ewing Oil'                     ],
-        'laverne-de-fazio' => [ 'name' => 'Laverne De Fazio', 'email' => 'ldefazio@shotz.com',          'role' => 'Bottle Capper',            'employer' => 'Shotz Brewery'                 ],
-        'peter-gibbons'    => [ 'name' => 'Peter Gibbons',    'email' => 'peter.gibbons@initech.com',   'role' => 'Software Engineer',        'employer' => 'Initech'                       ],
-        'sam-malone'       => [ 'name' => 'Sam Malone',       'email' => 'vic-ferrari@cheers.com',      'role' => 'Bartender',                'employer' => 'Cheers, Boston, MA'            ],
+        'craig-zearfoss' => [ 'name' => 'Craig Zearfoss', 'email' => 'craigzearfoss@yahoo.com', 'role' => 'Senior Software Developer', 'employer' => 'Idaho National Laboratory' ],
     ];
 
     /**
@@ -38,60 +36,61 @@ class InitSampleAdmin extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-sample-admin {username} {--team_id=} {--group_id=} {--demo=1} {--silent}';
+    protected $signature = 'add-craig-zearfoss {--team_id=} {--password=} {--group_id=} {--demo=1}  {--silent}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the databases with initial data for a sample admin.';
+    protected $description = 'This will populate the databases with initial data for admin ' . self::USERNAME . '.';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $username     = $this->argument('username');
+        $username = self::USERNAME;
         $adminTeamId  = $this->option('team_id');
         $adminGroupId = $this->option('group_id');
         $this->demo   = $this->option('demo');
         $this->silent = $this->option('silent');
 
-        if ($username == '*') {
-            $usernames = array_keys(self::USER_DATA);
-        } else {
-            $usernames = explode(',',  $username);
+        while (strlen($this->password) < 8) {
+            $this->password = text(PHP_EOL . 'Enter a password for the user (at least 8 characters)');
         }
 
-        // verify that there is a definition for the specified user
-        $undefinedUsernames = [];
-        foreach ($usernames as $username) {
-            if (!array_key_exists($username, self::USER_DATA)) {
-                $undefinedUsernames[] = $username;
-            }
+        $this->insertAdmin($username, $adminTeamId, $adminGroupId);
+
+        $adminId = Admin::withoutGlobalScope(AdminGlobalScope::class)->max('id') + 1;
+
+        $teamId = DB:: connection('system_db')->table('admin_teams')
+            ->where('name', 'Default Admin Team')->first()->id;
+
+        $groupId = DB:: connection('system_db')->table('admin_groups')
+            ->where('name', 'Default Admin Group')->first()->id;
+
+        if (!$this->option('silent')) {
+            echo PHP_EOL . 'adminId: ' . $this->adminId . PHP_EOL;
+            echo 'teamId: ' . $teamId . PHP_EOL;
+            echo 'groupId: ' . $groupId . PHP_EOL;
+            $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
-        if (!empty($undefinedUsernames)) {
-            if (count($undefinedUsernames) == 1) {
-                $this->error("Username {$undefinedUsernames[0]} not defined.");
+        echo PHP_EOL .'Importing Portfolio data for craig-zearfoss ...' . PHP_EOL;
+        Artisan::call('add-craig-zearfoss-portfolio --silent');
 
-            } else {
-                $this->error('These usernames are not defined: ' . implode(', ', $undefinedUsernames));
-            }
-            die;
-        }
+        echo PHP_EOL .'Importing Career data for craigzearfoss  ...' . PHP_EOL;
+        Artisan::call('add-craig-zearfoss-career --silent');
 
-        foreach ($usernames as $username) {
-            $this->insertAdmin($username, $adminTeamId, $adminGroupId);
-        }
+        echo PHP_EOL .'Importing Personal data for craig-zearfoss  ...' . PHP_EOL;
+        Artisan::call('add-craig-zearfoss-personal --silent');
     }
 
     protected function insertAdmin($username, $adminTeamId = null, $adminGroupId = null)
     {
         $DS = DIRECTORY_SEPARATOR;
-        $sampleAdminDataDirectory = base_path().$DS.'app'.$DS.'Console'.$DS.'Commands'.$DS.'SampleAdminData';
-
+        $sampleAdminDataDirectory = base_path().$DS.'app'.$DS.'Console'.$DS.'Commands'.$DS.'CraigZearfossData';
 
         $errors = [];
 
@@ -101,9 +100,9 @@ class InitSampleAdmin extends Command
         // get/validate the team id (Every admin must belong to a team.)
         if (!empty($adminTeamId)) $adminTeamId = intval($adminTeamId);
         if (empty($adminTeamId)) {
-            // default to the Demo Admin Team
+            // default to the Default Admin Team
             $adminTeamId = DB::connection('system_db')->table('admin_teams')
-                ->where('name', 'Demo Admin Team')->first()->id;
+                ->where('name', 'Default Admin Team')->first()->id;
         } else {
             // verify the specified team exists
             if (DB::connection('system_db')->table('admin_teams')
@@ -118,9 +117,9 @@ class InitSampleAdmin extends Command
             // get/validate the group id (Every admin must belong to a group.)
             if (!empty($adminGroupId)) $adminGroupId = intval($adminGroupId);
             if (empty($adminGroupId)) {
-                // default to the Demo Admin Group
+                // default to the Default Admin Group
                 $adminGroupId = DB:: connection('system_db')->table('admin_groups')
-                    ->where('name', 'Demo Admin Group')->first()->id;
+                    ->where('name', 'Default Admin Group')->first()->id;
             } else {
                 // verify the specified group exists
                 if (!$group = DB::connection('system_db')->table('admin_groups')
@@ -152,11 +151,9 @@ class InitSampleAdmin extends Command
         /* Import into the system database.                                            */
         /* Note that the demo-admin is added in the initial migration.                 */
         /* --------------------------------------------------------------------------- */
-        if ($username != 'demo-admin') {
-            $this->insertSystemAdmin($username, $adminId, $adminTeamId);
-            $this->insertSystemAdminAdminTeams($username, $adminId, $adminTeamId);
-            $this->insertSystemAdminAdminGroups($username, $adminId, $adminGroupId);
-        }
+        $this->insertSystemAdmin($username, $adminId, $adminTeamId);
+        $this->insertSystemAdminAdminTeams($username, $adminId, $adminTeamId);
+        $this->insertSystemAdminAdminGroups($username, $adminId, $adminGroupId);
 
         // get the name of the init files
         $initFile = ucfirst(Str::camel($username)) . '.php';
@@ -365,11 +362,6 @@ class InitSampleAdmin extends Command
                 : strtolower(str_replace('-', '.', $username)) . '@dummy.com';
         }
 
-        // generate a random password
-        $bytes = random_bytes(ceil(16 / 2));
-        $randomString = bin2hex($bytes);
-        $password = substr($randomString, 0, 16);
-
         $data = [
             [
                 'id'                => $adminId,
@@ -380,7 +372,7 @@ class InitSampleAdmin extends Command
                 'role'              => self::USER_DATA[$username]['role'] ?? null,
                 'employer'          => self::USER_DATA[$username]['employer'] ?? null,
                 'email_verified_at' => now(),
-                'password'          => Hash::make($password),
+                'password'          => Hash::make($this->password),
                 'public'            => 1,
                 'status'            => 1,
                 'token'             => '',
