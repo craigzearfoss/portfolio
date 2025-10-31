@@ -81,6 +81,7 @@ class UpdateContactsRequest extends FormRequest
             'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],
             'description'     => ['nullable'],
+            'disclaimer'      => ['string', 'max:500', 'nullable'],
             'image'           => ['string', 'max:500', 'nullable'],
             'image_credit'    => ['string', 'max:255', 'nullable'],
             'image_source'    => ['string', 'max:255', 'nullable'],

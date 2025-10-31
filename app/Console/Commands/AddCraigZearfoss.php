@@ -381,7 +381,7 @@ class AddCraigZearfoss extends Command
         ];
 
         if (!empty($data)) {
-            Admin::insert($this->additionalColumns($data, true, null, ['demo' => $this->demo]));
+            Admin::insert($this->additionalColumns($data, true, null, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 }

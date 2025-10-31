@@ -104,6 +104,13 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'        => 'disclaimer',
+                'value'       => old('disclaimer') ?? $coverLetter->disclaimer,
+                'maxlength'   => 500,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'type'    => 'number',
                 'name'    => 'sequence',
                 'value'   => old('sequence') ?? $coverLetter->sequence,

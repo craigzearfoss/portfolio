@@ -54,6 +54,7 @@ class Contact extends Model
         'link',
         'link_name',
         'description',
+        'disclaimer',
         'image',
         'image_credit',
         'image_source',

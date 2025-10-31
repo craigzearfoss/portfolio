@@ -27,6 +27,7 @@ class RecipeStep extends Model
         'recipe_id',
         'step',
         'description',
+        'disclaimer',
         'image',
         'image_credit',
         'image_source',

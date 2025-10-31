@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignIdFor( \App\Models\Personal\Recipe::class);
             $table->integer('step')->default(1);
             $table->text('description')->nullable();
+            $table->string('disclaimer', 500)->nullable();
             $table->string('image', 500)->nullable();
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();

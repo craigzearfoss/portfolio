@@ -110,6 +110,13 @@
                 'message' => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'name'        => 'disclaimer',
+                'value'       => old('disclaimer') ?? $link->disclaimer,
+                'maxlength'   => 500,
+                'message'     => $message ?? '',
+            ])
+
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'image',
                 'value'     => old('image') ?? $link->image,

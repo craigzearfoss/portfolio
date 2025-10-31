@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('link_name')->nullable();
             $table->text('notes')->nullable();
             $table->text('description')->nullable();
+            $table->string('disclaimer', 500)->nullable();
             $table->string('image', 500)->nullable();
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();

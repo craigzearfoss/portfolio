@@ -160,7 +160,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Art::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Art::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -195,7 +195,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -221,7 +221,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Certification::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Certification::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -1228,7 +1228,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Course::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Course::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -1393,7 +1393,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -1430,7 +1430,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            JobCoworker::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            JobCoworker::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -1454,7 +1454,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -1470,7 +1470,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Link::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Link::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -2280,7 +2280,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -2382,7 +2382,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -2395,7 +2395,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Publication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Publication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -2446,7 +2446,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Skill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Skill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -3158,7 +3158,7 @@ class AddPortfolio extends Command
         ];
 
         if (!empty($data)) {
-            Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -3169,12 +3169,14 @@ class AddPortfolio extends Command
      * @param bool $timestamps
      * @param int|null $ownerId
      * @param array $extraColumns
+     * @param bool $addDisclaimer
      * @return array
      */
     protected function additionalColumns(array    $data,
                                          bool     $timestamps = true,
                                          int|null $ownerId = null,
-                                         array    $extraColumns = []): array
+                                         array    $extraColumns = [],
+                                         bool     $addDisclaimer = false): array
     {
         for ($i = 0; $i < count($data); $i++) {
 
@@ -3192,6 +3194,10 @@ class AddPortfolio extends Command
             // extra columns
             foreach ($extraColumns as $name => $value) {
                 $data[$i][$name] = $value;
+            }
+
+            if ($addDisclaimer) {
+                $data[$i]['disclaimer'] = 'This is only for site demo purposes and I do not have any ownership or relationship to it.';
             }
         }
 

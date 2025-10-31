@@ -40,6 +40,7 @@ class StoreRecipeStepsRequest extends FormRequest
             ],
             'step'         => ['integer', 'min:1'],
             'description'  => ['nullable'],
+            'disclaimer'   => ['string', 'max:500', 'nullable'],
             'image'        => ['string', 'max:500', 'nullable'],
             'image_credit' => ['string', 'max:255', 'nullable'],
             'image_source' => ['string', 'max:255', 'nullable'],

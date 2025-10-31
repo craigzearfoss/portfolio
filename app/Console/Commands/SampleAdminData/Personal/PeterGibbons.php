@@ -171,7 +171,7 @@ class PeterGibbons extends Command
         ];
 
         if (!empty($data)) {
-            Reading::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Reading::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -194,7 +194,7 @@ class PeterGibbons extends Command
         ];
 
         if (!empty($data)) {
-            Recipe::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Recipe::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -252,7 +252,7 @@ class PeterGibbons extends Command
         ];
 
         if (!empty($data)) {
-            RecipeIngredient::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            RecipeIngredient::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -280,7 +280,7 @@ class PeterGibbons extends Command
         ];
 
         if (!empty($data)) {
-            RecipeStep::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            RecipeStep::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -291,12 +291,14 @@ class PeterGibbons extends Command
      * @param bool $timestamps
      * @param int|null $ownerId
      * @param array $extraColumns
+     * @param bool $addDisclaimer
      * @return array
      */
     protected function additionalColumns(array    $data,
                                          bool     $timestamps = true,
                                          int|null $ownerId = null,
-                                         array    $extraColumns = []): array
+                                         array    $extraColumns = [],
+                                         bool     $addDisclaimer = false): array
     {
         for ($i = 0; $i < count($data); $i++) {
 
@@ -314,6 +316,12 @@ class PeterGibbons extends Command
             // extra columns
             foreach ($extraColumns as $name => $value) {
                 $data[$i][$name] = $value;
+            }
+
+            if ($addDisclaimer) {
+                foreach ($extraColumns as $name => $value) {
+                    $data[$i]['disclaimer'] = 'This is only for site demo purposes and I do not have any ownership or relationship to it.';
+                }
             }
         }
 

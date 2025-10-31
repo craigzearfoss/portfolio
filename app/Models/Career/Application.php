@@ -71,6 +71,7 @@ class Application extends Model
         'alt_email_label',
         'link',
         'description',
+        'disclaimer',
         'image',
         'image_credit',
         'image_source',

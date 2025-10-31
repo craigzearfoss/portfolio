@@ -117,7 +117,7 @@ class AlexReiger extends Command
         ];
 
         if (!empty($data)) {
-            Application::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Application::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -141,7 +141,7 @@ class AlexReiger extends Command
         ];
 
         if (!empty($data)) {
-            ApplicationSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            ApplicationSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -172,7 +172,7 @@ class AlexReiger extends Command
         ];
 
         if (!empty($data)) {
-            Company::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Company::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -222,7 +222,7 @@ class AlexReiger extends Command
         ];
 
         if (!empty($data)) {
-            Contact::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Contact::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -243,7 +243,7 @@ class AlexReiger extends Command
         ];
 
         if (!empty($data)) {
-            Communication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Communication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -268,7 +268,7 @@ class AlexReiger extends Command
         ];
 
         if (!empty($data)) {
-            CoverLetter::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            CoverLetter::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -290,7 +290,7 @@ class AlexReiger extends Command
         ];
 
         if (!empty($data)) {
-            Event::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Event::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -311,7 +311,7 @@ class AlexReiger extends Command
         ];
 
         if (!empty($data)) {
-            Note::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Note::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -352,7 +352,7 @@ class AlexReiger extends Command
         ];
 
         if (!empty($data)) {
-            Reference::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Reference::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -374,7 +374,7 @@ class AlexReiger extends Command
         ];
 
         if (!empty($data)) {
-            Resume::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
+            Resume::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
@@ -385,12 +385,14 @@ class AlexReiger extends Command
      * @param bool $timestamps
      * @param int|null $ownerId
      * @param array $extraColumns
+     * @param bool $addDisclaimer
      * @return array
      */
     protected function additionalColumns(array    $data,
                                          bool     $timestamps = true,
                                          int|null $ownerId = null,
-                                         array    $extraColumns = []): array
+                                         array    $extraColumns = [],
+                                         bool     $addDisclaimer = false): array
     {
         for ($i = 0; $i < count($data); $i++) {
 
@@ -408,6 +410,12 @@ class AlexReiger extends Command
             // extra columns
             foreach ($extraColumns as $name => $value) {
                 $data[$i][$name] = $value;
+            }
+
+            if ($addDisclaimer) {
+                foreach ($extraColumns as $name => $value) {
+                    $data[$i]['disclaimer'] = 'This is only for site demo purposes and I do not have any ownership or relationship to it.';
+                }
             }
         }
 
