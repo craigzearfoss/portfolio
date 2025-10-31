@@ -31,6 +31,16 @@ class InitSampleAdmin extends Command
         'laverne-de-fazio' => [ 'name' => 'Laverne De Fazio', 'email' => 'ldefazio@shotz.com',          'role' => 'Bottle Capper',            'employer' => 'Shotz Brewery'                 ],
         'peter-gibbons'    => [ 'name' => 'Peter Gibbons',    'email' => 'peter.gibbons@initech.com',   'role' => 'Software Engineer',        'employer' => 'Initech'                       ],
         'sam-malone'       => [ 'name' => 'Sam Malone',       'email' => 'vic-ferrari@cheers.com',      'role' => 'Bartender',                'employer' => 'Cheers, Boston, MA'            ],
+        'jonas-grumby'     => [ 'name' => 'Jonas Grumby',     'email' => 'skipper@ssminnow.com',        'role' => 'Boat Captain',             'employer' => 'SS Minnow'                     ],
+        'herman-munster'   => [ 'name' => 'Herman Munster',   'email' => 'herman@gggfh.com',            'role' => 'Boxer',                    'employer' => 'Gateman, Goodbury and Graves Funeral Home' ],
+        'darrin-stevens'   => [ 'name' => 'Darrin Stevens',   'email' => 'dtate@mcmannandtate.com',     'role' => 'Ad Executive',             'employer' => 'McMann & Tate'                 ],
+        'ricky-ricardo'    => [ 'name' => 'Ricky Ricardo',    'email' => 'ricky@desilu.com',            'role' => 'Band Leader',              'employer' => 'Tropicana'                     ],
+        'mike-brady'       => [ 'name' => 'Mike Brady',       'email' => 'mbrady@architects-r-us.net',  'role' => 'Architect',                'employer' => 'Genric Architecture Firm'      ],
+        'dwayne-schneider' => [ 'name' => 'Dwayne Schneider', 'email' => 'schneider@handyman.com',      'role' => 'Building Superintendent',  'employer' => 'self-employed'                 ],
+        'hikaru-sulu'      => [ 'name' => 'Hikaru Sulu',      'email' => 'sulu@starfleet.gov',          'role' => 'Helmsman',                 'employer' => 'USS Enterprise'                ],
+        'les-nessman'      => [ 'name' => 'Les Nessman',      'email' => 'nessman@wkrp.com',            'role' => 'News Director',            'employer' => 'WKRP Radio'                    ],
+        'bo-darville'      => [ 'name' => 'Bo Darville',      'email' => 'bandit@wkrp.com',             'role' => 'Daredevil Driver',         'employer' => 'Big and Little Enos Burdett'   ],
+        'dan-fielding'     => [ 'name' => 'Dan Fielding',     'email' => 'dan.fielding@manhaatan-court.gov',  'role' => 'Assistant District Attorney', 'employer' => 'Manhattan Criminal Court'   ],
     ];
 
     /**
