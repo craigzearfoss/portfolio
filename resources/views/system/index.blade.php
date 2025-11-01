@@ -61,13 +61,13 @@
             @forelse ($admins as $thisAdmin)
 
                 <tr data-id="{{ $thisAdmin->id }}">
-                    <td data-field="thumbnail" style="width: 32px;">
+                    <td data-field="thumbnail" style="width: 40px;">
                         @if(!empty($thisAdmin->thumbnail))
                             @include('guest.components.link', [
                                 'name' => view('guest.components.image', [
                                                 'src'      => $thisAdmin->thumbnail,
                                                 'alt'      => 'profile image',
-                                                'width'    => '30px',
+                                                'width'    => '40px',
                                                 'filename' => $thisAdmin->thumbnail
                                             ]),
                                 'href' => route('guest.admin.show', $thisAdmin),

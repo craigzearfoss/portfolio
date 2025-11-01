@@ -59,7 +59,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Portfolio\JobLocationType::class, 'job_location_type_id');
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
-            $table->string('city', 100);
+            $table->string('city', 100)->nullable();
             $table->integer('state_id')->nullable();
             $table->string('zip', 20)->nullable();
             $table->integer('country_id')->nullable();

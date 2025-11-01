@@ -276,9 +276,9 @@ class InitSampleAdmin extends Command
 
                 echo '      - ' . $sourceFile . ' ...' . PHP_EOL;
 
-                if (File::name('profile')) {
+                if (File::name($sourceFile) === 'profile') {
                     $image = "/images/admin/{$adminId}/profile." . File::extension($sourceFile);
-                } elseif (File::name('thumbnail')) {
+                } elseif (File::name($sourceFile) === 'thumbnail') {
                     $thumbnail = "/images/admin/{$adminId}/thumbnail." . File::extension($sourceFile);
                 }
 
@@ -288,7 +288,7 @@ class InitSampleAdmin extends Command
                 );
             }
 
-            Admin::where('id', $adminId)->update([
+            Admin::find($adminId)->update([
                 'image'     => $image,
                 'thumbnail' => $thumbnail,
             ]);

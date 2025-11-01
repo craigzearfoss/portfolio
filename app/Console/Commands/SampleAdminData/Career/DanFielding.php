@@ -19,7 +19,7 @@ use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
 use function Laravel\Prompts\text;
 
-class BoDarville extends Command
+class DanFielding extends Command
 {
     const USERNAME = 'dan-fielding';
 
