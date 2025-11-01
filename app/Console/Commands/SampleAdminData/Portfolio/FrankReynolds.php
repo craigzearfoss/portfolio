@@ -240,6 +240,50 @@ class FrankReynolds extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
+            [
+                'job_id'         => $this->jobId[1],
+                'name'           => 'Charlie Kelly',
+                'job_title'      => 'Co-owner and Janitor',
+                'level_id'       => 3,
+                'work_phone'     => null,
+                'personal_phone' => null,
+                'work_email'     => null,
+                'personal_email' => null,
+                'public'         => 1,
+            ],
+            [
+                'job_id'         => $this->jobId[1],
+                'name'           => 'Dennis Reynolds',
+                'job_title'      => 'Co-owner and Main Bartender',
+                'level_id'       => 3,
+                'work_phone'     => null,
+                'personal_phone' => null,
+                'work_email'     => null,
+                'personal_email' => null,
+                'public'         => 1,
+            ],
+            [
+                'job_id'         => $this->jobId[1],
+                'name'           => 'Ronald "Mac" McDonald',
+                'job_title'      => 'Co-owner and Self-proclaimed Bouncer',
+                'level_id'       => 3,
+                'work_phone'     => null,
+                'personal_phone' => null,
+                'work_email'     => null,
+                'personal_email' => null,
+                'public'         => 1,
+            ],
+            [
+                'job_id'         => $this->jobId[1],
+                'name'           => 'Deandra Reynolds',
+                'job_title'      => 'Waitress / Bartender',
+                'level_id'       => 3,
+                'work_phone'     => null,
+                'personal_phone' => null,
+                'work_email'     => null,
+                'personal_email' => null,
+                'public'         => 1,
+            ],
             /*
             [
                 'job_id'         => $this->jobId[1],

@@ -89,6 +89,7 @@ class RickyRicardo extends Command
         }
 
         $data = [
+            /*
             [
                 'id'                     => $this->applicationId[1],
                 'company_id'             => $this->companyId[1],
@@ -114,6 +115,7 @@ class RickyRicardo extends Command
                 'link'                   => 'https://www.linkedin.com/jobs/view/4303651950',
                 'link_name'              => 'LinkedIn',
             ],
+            */
         ];
 
         if (!empty($data)) {

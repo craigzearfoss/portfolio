@@ -19,9 +19,9 @@ use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
 use function Laravel\Prompts\text;
 
-class DarrinStevens extends Command
+class DarrinStephens extends Command
 {
-    const USERNAME = 'darrin-stevens';
+    const USERNAME = 'darrin-stephens';
 
     protected $demo = 1;
     protected $silent = 0;
@@ -89,6 +89,7 @@ class DarrinStevens extends Command
         }
 
         $data = [
+            /*
             [
                 'id'                     => $this->applicationId[1],
                 'company_id'             => $this->companyId[1],
@@ -114,6 +115,7 @@ class DarrinStevens extends Command
                 'link'                   => 'https://www.linkedin.com/jobs/view/4303651950',
                 'link_name'              => 'LinkedIn',
             ],
+            */
         ];
 
         if (!empty($data)) {

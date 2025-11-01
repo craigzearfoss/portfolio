@@ -240,6 +240,17 @@ class GabeKotter extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
+            [
+                'job_id'         => $this->jobId[1],
+                'name'           => 'Michael Woodman',
+                'job_title'      => 'Principal',
+                'level_id'       => 2,
+                'work_phone'     => null,
+                'personal_phone' => null,
+                'work_email'     => null,
+                'personal_email' => null,
+                'public'         => 1,
+            ],
             /*
             [
                 'job_id'         => $this->jobId[1],

@@ -208,17 +208,17 @@ class DanFielding extends Command
         $data = [
             [
                 'id'                     => $this->jobId[1],
-                'company'                => 'Sunshine Cab Company',
-                'slug'                   => 'sunshine-cab-company-(taxi-driver)',
-                'role'                   => 'Taxi Driver',
+                'company'                => 'Manhattan Criminal Court',
+                'slug'                   => 'manhattan-criminal-court-(assistant-district-attorney)',
+                'role'                   => 'Assistant District Attorney',
                 'featured'               => 0,
-                'summary'                => 'Picked up riders and drove them places for a fee.',
-                'start_month'            => 9,
-                'start_year'             => 1978,
+                'summary'                => 'Prosecuted small time criminal and civil offenses.',
+                'start_month'            => 1,
+                'start_year'             => 1984,
                 'end_month'              => 5,
-                'end_year'               => 1982,
+                'end_year'               => 1992,
                 'job_employment_type_id' => 1,
-                'job_location_type_id'   => 3,
+                'job_location_type_id'   => 1,
                 'city'                   => 'New York',
                 'state_id'               => 33,
                 'country_id'             => 237,
@@ -238,12 +238,11 @@ class DanFielding extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1], 'name' => 'Tony Banta',     'job_title' => 'Taxi Driver', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Louie De Palma', 'job_title' => 'Dispatcher',  'level_id' => 2, 'work_phone' => '(208) 555-0507', 'personal_phone' => '(208) 555-5399', 'work_email' => 'slate@inl.slate.com',     'personal_email' => null,                   'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Elaine Nardo',   'job_title' => 'Taxi Driver', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Laktka Gravas',  'job_title' => 'Mechanic',    'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Bobby Wheeler',  'job_title' => 'Taxi Driver', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Jim Ignatowski', 'job_title' => 'Taxi Driver', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Harold T. Stone',     'job_title' => 'Judge',           'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,             'work_email' => null,                      'personal_email' => null,                   'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Nostradamus Shannon', 'job_title' => 'Bailiff',         'level_id' => 2, 'work_phone' => null,             'personal_phone' => null,             'work_email' => null,                      'personal_email' => null,                   'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Christine Sullivan',  'job_title' => 'Public Defender', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,             'work_email' => null,                      'personal_email' => null,                   'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Rosalind Russell',    'job_title' => 'Bailiff',         'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,             'work_email' => null,                      'personal_email' => null,                   'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Macintosh Robinson',  'job_title' => 'Court Clerk',     'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,             'work_email' => null,                      'personal_email' => null,                   'link' => null, 'link_name' => null ],
         ];
 
         if (!empty($data)) {

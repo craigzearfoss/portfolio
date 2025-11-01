@@ -238,12 +238,8 @@ class HermanMunster extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1], 'name' => 'Tony Banta',     'job_title' => 'Taxi Driver', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Louie De Palma', 'job_title' => 'Dispatcher',  'level_id' => 2, 'work_phone' => '(208) 555-0507', 'personal_phone' => '(208) 555-5399', 'work_email' => 'slate@inl.slate.com',     'personal_email' => null,                   'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Elaine Nardo',   'job_title' => 'Taxi Driver', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Laktka Gravas',  'job_title' => 'Mechanic',    'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Bobby Wheeler',  'job_title' => 'Taxi Driver', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Jim Ignatowski', 'job_title' => 'Taxi Driver', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Mr. Gates',       'job_title' => 'Boss',        'level_id' => 2, 'work_phone' => null,             'personal_phone' => null,             'work_email' => null,                      'personal_email' => null,                   'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Clyde Thornton,', 'job_title' => 'Worker',      'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,             'work_email' => null,                      'personal_email' => null,                   'link' => null, 'link_name' => null ],
         ];
 
         if (!empty($data)) {

@@ -240,6 +240,28 @@ class FredFlintstone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
+            [
+                'job_id'         => $this->jobId[1],
+                'name'           => 'Barney Rubble',
+                'job_title'      => 'Quarry Worker',
+                'level_id'       => 1,
+                'work_phone'     => null,
+                'personal_phone' => null,
+                'work_email'     => null,
+                'personal_email' => null,
+                'public'         => 1,
+            ],
+            [
+                'job_id'         => $this->jobId[1],
+                'name'           => 'Nate Slate',
+                'job_title'      => 'Owner and Founder',
+                'level_id'       => 2,
+                'work_phone'     => null,
+                'personal_phone' => null,
+                'work_email'     => null,
+                'personal_email' => null,
+                'public'         => 1,
+            ],
             /*
             [
                 'job_id'         => $this->jobId[1],

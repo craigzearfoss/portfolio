@@ -240,6 +240,28 @@ class JedClampett extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
+            [
+                'job_id'         => $this->jobId[1],
+                'name'           => 'Milburn Drysdale',
+                'job_title'      => 'Banker',
+                'level_id'       => 3,
+                'work_phone'     => null,
+                'personal_phone' => null,
+                'work_email'     => null,
+                'personal_email' => null,
+                'public'         => 1,
+            ],
+            [
+                'job_id'         => $this->jobId[1],
+                'name'           => 'Jane Hathaway',
+                'job_title'      => 'Bank Secretary',
+                'level_id'       => 3,
+                'work_phone'     => null,
+                'personal_phone' => null,
+                'work_email'     => null,
+                'personal_email' => null,
+                'public'         => 1,
+            ],
             /*
             [
                 'job_id'         => $this->jobId[1],

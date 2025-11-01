@@ -208,19 +208,19 @@ class BoDarville extends Command
         $data = [
             [
                 'id'                     => $this->jobId[1],
-                'company'                => 'Sunshine Cab Company',
-                'slug'                   => 'sunshine-cab-company-(taxi-driver)',
-                'role'                   => 'Taxi Driver',
+                'company'                => 'Big and Little Enos Burdett',
+                'slug'                   => 'big-and-little-enos-burdett-(bootlegger)',
+                'role'                   => 'Bootlegger',
                 'featured'               => 0,
-                'summary'                => 'Picked up riders and drove them places for a fee.',
-                'start_month'            => 9,
-                'start_year'             => 1978,
-                'end_month'              => 5,
-                'end_year'               => 1982,
-                'job_employment_type_id' => 1,
-                'job_location_type_id'   => 3,
-                'city'                   => 'New York',
-                'state_id'               => 33,
+                'summary'                => 'Transported 400 cases of Coors beer from Texarkana to Atlanta.',
+                'start_month'            => null,
+                'start_year'             => 1977,
+                'end_month'              => null,
+                'end_year'               => 1977,
+                'job_employment_type_id' => 5,
+                'job_location_type_id'   => 1,
+                'city'                   => null,
+                'state_id'               => null,
                 'country_id'             => 237,
                 'logo'                   => null,
                 'logo_small'             => null,
@@ -238,12 +238,7 @@ class BoDarville extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobCoworker ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1], 'name' => 'Tony Banta',     'job_title' => 'Taxi Driver', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Louie De Palma', 'job_title' => 'Dispatcher',  'level_id' => 2, 'work_phone' => '(208) 555-0507', 'personal_phone' => '(208) 555-5399', 'work_email' => 'slate@inl.slate.com',     'personal_email' => null,                   'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Elaine Nardo',   'job_title' => 'Taxi Driver', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Laktka Gravas',  'job_title' => 'Mechanic',    'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Bobby Wheeler',  'job_title' => 'Taxi Driver', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
-            [ 'job_id' => $this->jobId[1], 'name' => 'Jim Ignatowski', 'job_title' => 'Taxi Driver', 'level_id' => 1, 'work_phone' => null,             'personal_phone' => '(208) 555-3644', 'work_email' => 'barney.rubble@slate.com', 'personal_email' => 'barneybc@bedrock.com', 'link' => null, 'link_name' => null ],
+            [ 'job_id' => $this->jobId[1], 'name' => 'Cledus Snow',    'job_title' => 'Bootlegger',  'level_id' => 1, 'work_phone' => null,             'personal_phone' => null,             'work_email' => null,                      'personal_email' => null,                  'link' => null, 'link_name' => null ],
         ];
 
         if (!empty($data)) {

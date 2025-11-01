@@ -12,9 +12,9 @@ use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
 use function Laravel\Prompts\text;
 
-class DarrinStevens extends Command
+class DarrinStephens extends Command
 {
-    const USERNAME = 'darrin-stevens';
+    const USERNAME = 'darrin-stephens';
 
     protected $demo = 1;
     protected $silent = 0;
