@@ -1267,7 +1267,7 @@ class DemoAdmin extends Command
                 'id'                     => $this->jobId[2],
                 'company'                => 'Hooper\'s Store',
                 'role'                   => 'Produce Manager',
-                'slug'                   => 'hoopers-store-(produce manager)',
+                'slug'                   => 'hoopers-store-(produce-manager)',
                 'featured'               => 0,
                 'summary'                => 'Oversaw he daily operations of produce department, ensuring a fresh and appealing selection of fruits and vegetables for customers.',
                 'start_month'            => 7,

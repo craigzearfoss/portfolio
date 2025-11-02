@@ -212,7 +212,7 @@ class LaverneDeFazio extends Command
                 'slug'                   => 'shotz-brewery-(bottle-capper)',
                 'role'                   => 'Bottle Capper',
                 'featured'               => 0,
-                'summary'                => null,
+                'summary'                => 'Assembly line worker applying bottle caps to beer bottles.',
                 'start_month'            => 1,
                 'start_year'             => 1976,
                 'end_month'              => 5,

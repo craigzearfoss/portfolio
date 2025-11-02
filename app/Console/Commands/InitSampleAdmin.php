@@ -34,7 +34,7 @@ class InitSampleAdmin extends Command
         'jonas-grumby'     => [ 'name' => 'Jonas Grumby',     'email' => 'skipper@ssminnow.com',        'role' => 'Boat Captain',             'employer' => 'SS Minnow Island Charter'      ],
         'herman-munster'   => [ 'name' => 'Herman Munster',   'email' => 'herman@gggfh.com',            'role' => 'Boxer',                    'employer' => 'Gateman, Goodbury and Graves Funeral Home' ],
         'darrin-stephens'  => [ 'name' => 'Darrin Stephens',  'email' => 'dstephens@mcmannandtate.com', 'role' => 'Ad Executive',             'employer' => 'McMann & Tate'                 ],
-        'ricky-ricardo'    => [ 'name' => 'Ricky Ricardo',    'email' => 'ricky@desilu.com',            'role' => 'Band Leader',              'employer' => 'Tropicana'                     ],
+        'ricky-ricardo'    => [ 'name' => 'Ricky Ricardo',    'email' => 'ricky@desilu.com',            'role' => 'Bandleader',               'employer' => 'Tropicana'                     ],
         'mike-brady'       => [ 'name' => 'Mike Brady',       'email' => 'mbrady@architects-r-us.net',  'role' => 'Architect',                'employer' => 'Genric Architecture Firm'      ],
         'dwayne-schneider' => [ 'name' => 'Dwayne Schneider', 'email' => 'schneider@handyman.com',      'role' => 'Building Superintendent',  'employer' => 'self-employed'                 ],
         'hikaru-sulu'      => [ 'name' => 'Hikaru Sulu',      'email' => 'sulu@starfleet.gov',          'role' => 'Helmsman',                 'employer' => 'USS Enterprise'                ],

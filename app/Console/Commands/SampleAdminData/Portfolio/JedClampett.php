@@ -206,6 +206,26 @@ class JedClampett extends Command
         }
 
         $data = [
+            [
+                'id'                     => $this->jobId[1],
+                'company'                => 'O.K. Oil Company',
+                'slug'                   => 'ok-oil-company-(family-patriarch)',
+                'role'                   => 'Family Patriarch',
+                'featured'               => 0,
+                'summary'                => 'Founded a fossil fuel company when discovered oil while shooting at some food.',
+                'start_month'            => 9,
+                'start_year'             => 1962,
+                'end_month'              => 3,
+                'end_year'               => 1971,
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 3,
+                'city'                   => 'Beverly Hills',
+                'state_id'               => 5,
+                'country_id'             => 237,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'public'                 => 1,
+            ],
             /*
             [
                 'id'                     => $this->jobId[1],

@@ -205,6 +205,26 @@ class SamMalone extends Command
         }
 
         $data = [
+            [
+                'id'                     => $this->jobId[1],
+                'company'                => 'Cheers',
+                'slug'                   => 'cheers-(bartender)',
+                'role'                   => 'Bartender',
+                'featured'               => 0,
+                'summary'                => 'Head bartender and drink slinger for a neighborhood Boston bar.',
+                'start_month'            => 9,
+                'start_year'             => 1982,
+                'end_month'              => 5,
+                'end_year'               => 1993,
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 3,
+                'city'                   => 'Boston',
+                'state_id'               => 22,
+                'country_id'             => 237,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'public'                 => 1,
+            ],
             /*
             [
                 'id'                     => $this->jobId[1],

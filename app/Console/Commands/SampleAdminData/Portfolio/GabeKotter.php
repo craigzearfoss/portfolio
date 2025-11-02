@@ -206,6 +206,26 @@ class GabeKotter extends Command
         }
 
         $data = [
+            [
+                'id'                     => $this->jobId[1],
+                'company'                => 'James Buchanan High School',
+                'slug'                   => 'james-buchanan-high-school-(english-teacher)',
+                'role'                   => 'English Teacher',
+                'featured'               => 0,
+                'summary'                => 'Teach English to under-achieving wise-cracking high school student sweat hogs.',
+                'start_month'            => 9,
+                'start_year'             => 1975,
+                'end_month'              => 5,
+                'end_year'               => 1979,
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 3,
+                'city'                   => 'Brooklyn',
+                'state_id'               => 33,
+                'country_id'             => 237,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'public'                 => 1,
+            ],
             /*
             [
                 'id'                     => $this->jobId[1],

@@ -206,6 +206,26 @@ class FrankReynolds extends Command
         }
 
         $data = [
+            [
+                'id'                     => $this->jobId[1],
+                'company'                => 'Paddy\s Pub',
+                'slug'                   => 'Co-owner',
+                'role'                   => 'paddys-pub-(co-owner)',
+                'featured'               => 0,
+                'summary'                => 'Manipulate other people and run illegal operations and diabolical schemes.',
+                'start_month'            => null,
+                'start_year'             => 2006,
+                'end_month'              => null,
+                'end_year'               => null,
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 3,
+                'city'                   => 'Philadelphia',
+                'state_id'               => 39,
+                'country_id'             => 237,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'public'                 => 1,
+            ],
             /*
             [
                 'id'                     => $this->jobId[1],

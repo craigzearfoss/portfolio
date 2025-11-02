@@ -19,6 +19,7 @@ use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
 class AlexReiger extends Command
@@ -215,8 +216,8 @@ class AlexReiger extends Command
                 'summary'                => 'Picked up riders and drove them places for a fee.',
                 'start_month'            => 9,
                 'start_year'             => 1978,
-                'end_month'              => 5,
-                'end_year'               => 1982,
+                'end_month'              => 6,
+                'end_year'               => 1983,
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 3,
                 'city'                   => 'New York',
@@ -503,5 +504,58 @@ class AlexReiger extends Command
         }
 
         return $data;
+    }
+
+
+    /**
+     * Copies all files from the source_files directory to the public/images directory.
+     *
+     * @param string $resourceType
+     * @param int $resourceId
+     * @return void
+     */
+    protected function copySourceFiles(string $resourceType, int $resourceId): void
+    {
+        // get the source and destination paths
+        $DS = DIRECTORY_SEPARATOR;
+        $sourcePath = base_path() . $DS . 'source_files' . $DS . 'admin' . $DS . $username ;
+        $destinationPath =  base_path() . $DS . 'public' . $DS . 'images' . $DS . 'admin' . $DS . $adminId;
+
+        // make sure the destination directory exists for images
+        if (!File::exists($destinationPath)) {
+            File::makeDirectory($destinationPath, 755, true);
+        }
+
+        $image = null;
+        $thumbnail = null;
+
+        // copy over images
+        if (File::isDirectory($sourcePath)) {
+
+            echo PHP_EOL . '  Copying files from ' . $sourcePath . ' ... ' . PHP_EOL;
+
+            foreach (scandir($sourcePath) as $sourceFile) {
+
+                if ($sourceFile == '.' || $sourceFile == '..') continue;
+
+                echo '      - ' . $sourceFile . ' ...' . PHP_EOL;
+
+                if (File::name($sourceFile) === 'profile') {
+                    $image = "/images/admin/{$adminId}/profile." . File::extension($sourceFile);
+                } elseif (File::name($sourceFile) === 'thumbnail') {
+                    $thumbnail = "/images/admin/{$adminId}/thumbnail." . File::extension($sourceFile);
+                }
+
+                File::copy(
+                    $sourcePath . $DS . $sourceFile,
+                    $destinationPath . $DS . $sourceFile
+                );
+            }
+
+            Admin::find($adminId)->update([
+                'image'     => $image,
+                'thumbnail' => $thumbnail,
+            ]);
+        }
     }
 }

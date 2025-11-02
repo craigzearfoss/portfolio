@@ -206,6 +206,26 @@ class FredFlintstone extends Command
         }
 
         $data = [
+            [
+                'id'                     => $this->jobId[1],
+                'company'                => 'Slate Rock and Gravel Company',
+                'slug'                   => 'slate-rock-and-gravel-company-(crane-operator)',
+                'role'                   => 'Crane Operator',
+                'featured'               => 0,
+                'summary'                => 'Operate a dinosaur crane to lift boulders and big rocks.',
+                'start_month'            => 9,
+                'start_year'             => 1960,
+                'end_month'              => 4,
+                'end_year'               => 1966,
+                'job_employment_type_id' => 1,
+                'job_location_type_id'   => 3,
+                'city'                   => 'Bedrock',
+                'state_id'               => 5,
+                'country_id'             => 237,
+                'logo'                   => null,
+                'logo_small'             => null,
+                'public'                 => 1,
+            ],
             /*
             [
                 'id'                     => $this->jobId[1],

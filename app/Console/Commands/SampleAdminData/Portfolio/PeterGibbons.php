@@ -209,10 +209,10 @@ class PeterGibbons extends Command
             [
                 'id'                     => $this->jobId[1],
                 'company'                => 'Initech',
-                'slug'                   => 'initech-(programmer)',
-                'role'                   => 'Programmer',
+                'slug'                   => 'initech-(software-engineer)',
+                'role'                   => 'Software Engineer',
                 'featured'               => 0,
-                'summary'                => null,
+                'summary'                => 'Frustrated and unmotivated programmer who finds my job meaningless and unfulfilling.',
                 'start_month'            => 2,
                 'start_year'             => 1999,
                 'end_month'              => null,

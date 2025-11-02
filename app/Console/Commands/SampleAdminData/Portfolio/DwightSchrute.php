@@ -212,7 +212,7 @@ class DwightSchrute extends Command
                 'slug'                   => 'dunder-mifflin-paper-company-(salesman)',
                 'role'                   => 'Salesman',
                 'featured'               => 0,
-                'summary'                => null,
+                'summary'                => 'Act superior to other individuals, crave authority over co-workers, and relish any minor task.',
                 'start_month'            => 3,
                 'start_year'             => 2005,
                 'end_month'              => 5,
