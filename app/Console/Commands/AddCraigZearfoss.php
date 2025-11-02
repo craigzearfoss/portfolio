@@ -36,7 +36,7 @@ class AddCraigZearfoss extends Command
      *
      * @var string
      */
-    protected $signature = 'add-craig-zearfoss {--team_id=} {--password=} {--group_id=} {--demo=1}  {--silent}';
+    protected $signature = 'app:add-craig-zearfoss {--team_id=} {--password=} {--group_id=} {--demo=1}  {--silent}';
 
     /**
      * The console command description.
@@ -78,13 +78,13 @@ class AddCraigZearfoss extends Command
         }
 
         echo PHP_EOL .'Importing Portfolio data for craig-zearfoss ...' . PHP_EOL;
-        Artisan::call('add-craig-zearfoss-portfolio --silent');
+        Artisan::call('app:add-craig-zearfoss-portfolio --silent');
 
         echo PHP_EOL .'Importing Career data for craigzearfoss  ...' . PHP_EOL;
-        Artisan::call('add-craig-zearfoss-career --silent');
+        Artisan::call('app:add-craig-zearfoss-career --silent');
 
         echo PHP_EOL .'Importing Personal data for craig-zearfoss  ...' . PHP_EOL;
-        Artisan::call('add-craig-zearfoss-personal --silent');
+        Artisan::call('app:add-craig-zearfoss-personal --silent');
     }
 
     protected function insertAdmin($username, $adminTeamId = null, $adminGroupId = null)
@@ -166,7 +166,7 @@ class AddCraigZearfoss extends Command
             echo PHP_EOL . "Skipping {$initPortfolioFile}. File not found." . PHP_EOL;
         } else {
             echo PHP_EOL . "Importing Portfolio data for {$username} ..." . PHP_EOL;
-            Artisan::call('app:init-' . $username . '-portfolio --demo=' . $this->demo . ' --silent');
+            Artisan::call('app:add-' . $username . '-portfolio --demo=' . $this->demo . ' --silent');
         }
 
         $this->copySourceFiles($username, $adminId);
@@ -179,7 +179,7 @@ class AddCraigZearfoss extends Command
             echo PHP_EOL . "Skipping {$initCareerFile}. File not found." . PHP_EOL;
         } else {
             echo PHP_EOL . "Importing Career data for {$username} ..." . PHP_EOL;
-            Artisan::call('app:init-' . $username . '-career --demo=' . $this->demo . ' --silent');
+            Artisan::call('app:add-' . $username . '-career --demo=' . $this->demo . ' --silent');
         }
 
         /* --------------------------------------------------------------------------- */
@@ -190,7 +190,7 @@ class AddCraigZearfoss extends Command
             echo PHP_EOL . "Skipping {$initPersonalFile}. File not found." . PHP_EOL;
         } else {
             echo PHP_EOL . "Importing Personal data for {$username} ..." . PHP_EOL;
-            Artisan::call('app:init-' . $username . '-personal --demo=' . $this->demo . ' --silent');
+            Artisan::call('app:add-' . $username . '-personal --demo=' . $this->demo . ' --silent');
         }
     }
 

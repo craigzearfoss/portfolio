@@ -17,7 +17,6 @@ use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
-use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
@@ -225,7 +224,7 @@ class HikaruSulu extends Command
                 'id'                     => $this->jobId[1],
                 'company'                => 'USS Enterprise',
                 'slug'                   => 'uss-enterprise-(helmsman)',
-                'role'                   => 'Helmsman Driver',
+                'role'                   => 'Helmsman',
                 'featured'               => 0,
                 'summary'                => 'Served as the physicist and helmsman aboard the USS Enterprise under Captain James T. Kirk.',
                 'start_month'            => 9,
@@ -553,6 +552,7 @@ class HikaruSulu extends Command
      *
      * @param string $resource
      * @return void
+     * @throws \Exception
      */
     protected function copySourceFiles(string $resource): void
     {
@@ -640,7 +640,5 @@ class HikaruSulu extends Command
 
             }
         }
-
-        return;
     }
 }

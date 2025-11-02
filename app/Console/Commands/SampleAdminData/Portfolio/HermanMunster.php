@@ -17,7 +17,6 @@ use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
-use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
@@ -548,6 +547,7 @@ class HermanMunster extends Command
      *
      * @param string $resource
      * @return void
+     * @throws \Exception
      */
     protected function copySourceFiles(string $resource): void
     {
@@ -635,7 +635,5 @@ class HermanMunster extends Command
 
             }
         }
-
-        return;
     }
 }

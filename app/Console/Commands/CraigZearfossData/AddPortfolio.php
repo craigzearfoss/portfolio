@@ -17,8 +17,8 @@ use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
-use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
 class AddPortfolio extends Command
@@ -39,7 +39,7 @@ class AddPortfolio extends Command
      *
      * @var string
      */
-    protected $signature = 'add-' . self::USERNAME . '-portfolio {--demo=0} {--silent}';
+    protected $signature = 'app:add-' . self::USERNAME . '-portfolio {--demo=0} {--silent}';
 
     /**
      * The console command description.
@@ -3204,5 +3204,100 @@ class AddPortfolio extends Command
         }
 
         return $data;
+    }
+
+    /**
+     * Copies files from the source_files directory to the public/images directory.
+     *
+     * @param string $resource
+     * @return void
+     * @throws \Exception
+     */
+    protected function copySourceFiles(string $resource): void
+    {
+        switch ($resource) {
+            case 'art'           : $model = new Art(); break;
+            case 'audio'         : $model = new Audio(); break;
+            case 'certification' : $model = new Certification(); break;
+            case 'course'        : $model = new Course(); break;
+            case 'job'           : $model = new Job(); break;
+            case 'job-coworker'  : $model = new JobCoworker(); break;
+            case 'job-task'      : $model = new JobTask(); break;
+            case 'link'          : $model = new Link(); break;
+            case 'music'         : $model = new Music(); break;
+            case 'project'       : $model = new Project(); break;
+            case 'publication'   : $model = new Publication(); break;
+            case 'skill'         : $model = new Skill(); break;
+            case 'video'         : $model = new Video(); break;
+            default:
+                throw new \Exception("Unknown resource {$resource}");
+        }
+
+        // get the source and destination paths
+        $DS = DIRECTORY_SEPARATOR;
+        $baseSourcePath = base_path() . $DS . 'source_files' . $DS . self::DATABASE . $DS .$resource . $DS;
+        $baseDestinationPath =  base_path() . $DS . 'public' . $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS;
+
+        // make sure the destination directory exists for images
+        if (!File::exists($baseDestinationPath)) {
+            File::makeDirectory($baseDestinationPath, 755, true);
+        }
+
+        // copy over images
+        if (File::isDirectory($baseSourcePath)) {
+
+            foreach (scandir($baseSourcePath) as $slug) {
+
+                if ($slug == '.' || $slug == '..') continue;
+
+                $sourcePath = $baseSourcePath . $slug . $DS;
+                if (File::isDirectory($sourcePath)) {
+
+                    $rows = $model->where('slug', $slug)->where('owner_id', $this->adminId)->get();
+
+                    if (!empty($rows)) {
+
+                        foreach (scandir($sourcePath) as $image) {
+
+                            if ($image == '.' || $image == '..') continue;
+
+                            if (File::isFile($sourcePath . $DS . $image)) {
+
+                                foreach ($rows as $row) {
+
+                                    $imageName   = File::name($image);
+                                    $sourceImage = $sourcePath . $image;
+                                    $destImage   = $baseDestinationPath . $row->id . $DS . $image;
+
+                                    echo '  Copying ' . $sourceImage . ' ... ' . PHP_EOL;
+
+                                    // make sure the destination directory exists for images
+                                    if (!File:: exists(dirname($destImage))) {
+                                        File::makeDirectory(dirname($destImage), 755, true);
+                                    }
+
+                                    // copy the file
+                                    File::copy($sourceImage, $destImage);
+
+                                    // update corresponding column in database table
+                                    if (in_array($imageName, ['logo', 'logo_small']) && in_array($resource, ['job'])) {
+                                        // logo file
+                                        $row->update([
+                                            $imageName => $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS . $row->id . $DS . $image
+                                        ]);
+                                    } elseif (in_array($imageName, ['image', 'thumbnail'])) {
+                                        // logo or thumbnail file
+                                        $row->update([
+                                            $imageName => $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS . $row->id . $DS . $image
+                                        ]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
     }
 }

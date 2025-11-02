@@ -6,6 +6,8 @@ use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use App\Models\System\AdminAdminTeam;
+use App\Models\System\AdminGroup;
+use App\Models\System\AdminTeam;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +23,7 @@ class InitSampleAdmin extends Command
     protected $silent = 0;
 
     const USER_DATA = [
+        'demo-admin'       => [ 'name' => 'Demo Admin',       'email' => 'admin@gmail.com',             'role' => 'Site Administrator',       'employer' => null                            ],
         'alex-reiger'      => [ 'name' => 'Alex Reiger',      'email' => 'areiger29@taxinyc.com',       'role' => 'Taxi Driver',              'employer' => 'Sunshine Cab Company'          ],
         'dwight-schrute'   => [ 'name' => 'Dwight Schrute',   'email' => 'dwight@dunder-mifflin.com',   'role' => 'Salesman',                 'employer' => 'Dunder-Mifflin Paper Company'  ],
         'frank-reynolds'   => [ 'name' => 'Frank Reynolds',   'email' => 'frank@paddys-pub.com',        'role' => 'Co-owner of Paddy\'s Pub', 'employer' => 'Paddy\'s Pub'                  ],
@@ -100,44 +103,53 @@ class InitSampleAdmin extends Command
     protected function insertAdmin($username, $adminTeamId = null, $adminGroupId = null)
     {
         $DS = DIRECTORY_SEPARATOR;
-        $sampleAdminDataDirectory = base_path().$DS.'app'.$DS.'Console'.$DS.'Commands'.$DS.'SampleAdminData';
+        $sampleAdminDataDirectory = base_path() . $DS . 'app' . $DS . 'Console' . $DS . 'Commands' . $DS . 'SampleAdminData';
 
         $errors = [];
 
-        // get the next available admin id
-        $adminId = Admin::withoutGlobalScope(AdminGlobalScope::class)->max('id') + 1;
+        if ($username = 'demo-admin') {
 
-        // get/validate the team id (Every admin must belong to a team.)
-        if (!empty($adminTeamId)) $adminTeamId = intval($adminTeamId);
-        if (empty($adminTeamId)) {
-            // default to the Demo Admin Team
-            $adminTeamId = DB::connection('system_db')->table('admin_teams')
-                ->where('name', 'Demo Admin Team')->first()->id;
+            $adminId = Admin::withoutGlobalScope(AdminGlobalScope::class)->where('username', $username)->first()->id;
+            $adminTeamId = AdminTeam::withoutGlobalScope(AdminGlobalScope::class)->where('name', 'Demo Admin Team')->first()->id;
+            $adminGroupId = AdminGroup::withoutGlobalScope(AdminGlobalScope::class)->where('name', 'Demo Admin Group')->first()->id;
+
         } else {
-            // verify the specified team exists
-            if (DB::connection('system_db')->table('admin_teams')
-                    ->where('id', $adminTeamId)->count() == 0
-            ) {
-                $errors[] = "Admin team id `{$adminTeamId}` does not exist.";
-            }
-        }
 
-        if (empty($errors)) {
+            // get the next available admin id
+            $adminId = Admin::withoutGlobalScope(AdminGlobalScope::class)->max('id') + 1;
 
-            // get/validate the group id (Every admin must belong to a group.)
-            if (!empty($adminGroupId)) $adminGroupId = intval($adminGroupId);
-            if (empty($adminGroupId)) {
-                // default to the Demo Admin Group
-                $adminGroupId = DB:: connection('system_db')->table('admin_groups')
-                    ->where('name', 'Demo Admin Group')->first()->id;
+            // get/validate the team id (Every admin must belong to a team.)
+            if (!empty($adminTeamId)) $adminTeamId = intval($adminTeamId);
+            if (empty($adminTeamId)) {
+                // default to the Demo Admin Team
+                $adminTeamId = DB::connection('system_db')->table('admin_teams')
+                    ->where('name', 'Demo Admin Team')->first()->id;
             } else {
-                // verify the specified group exists
-                if (!$group = DB::connection('system_db')->table('admin_groups')
-                    ->where('id', $adminGroupId)->first()
+                // verify the specified team exists
+                if (DB::connection('system_db')->table('admin_teams')
+                        ->where('id', $adminTeamId)->count() == 0
                 ) {
-                    $errors[] = "Admin group id `{$adminGroupId}` does not exist.";
-                } elseif ($group->admin_team_id != $adminTeamId) {
-                    $errors[] = "Admin group id `{$adminGroupId}` does not belong to the admin team `{$adminTeamId}`.";
+                    $errors[] = "Admin team id `{$adminTeamId}` does not exist.";
+                }
+            }
+
+            if (empty($errors)) {
+
+                // get/validate the group id (Every admin must belong to a group.)
+                if (!empty($adminGroupId)) $adminGroupId = intval($adminGroupId);
+                if (empty($adminGroupId)) {
+                    // default to the Demo Admin Group
+                    $adminGroupId = DB:: connection('system_db')->table('admin_groups')
+                        ->where('name', 'Demo Admin Group')->first()->id;
+                } else {
+                    // verify the specified group exists
+                    if (!$group = DB::connection('system_db')->table('admin_groups')
+                        ->where('id', $adminGroupId)->first()
+                    ) {
+                        $errors[] = "Admin group id `{$adminGroupId}` does not exist.";
+                    } elseif ($group->admin_team_id != $adminTeamId) {
+                        $errors[] = "Admin group id `{$adminGroupId}` does not belong to the admin team `{$adminTeamId}`.";
+                    }
                 }
             }
         }
