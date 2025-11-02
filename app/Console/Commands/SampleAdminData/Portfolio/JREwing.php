@@ -19,10 +19,13 @@ use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
 class JREwing extends Command
 {
+    const DATABASE = 'portfolio';
+
     const USERNAME = 'j-r-ewing';
 
     protected $demo = 1;
@@ -85,59 +88,28 @@ class JREwing extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            /*
             [
-                'name'           => 'unnamed acrylic painting',
-                'artist'         => 'Laird Dixon',
-                'slug'           => 'former-painting-from-cats-cradle-by-laird-dixon',
-                'featured'       => 1,
+                'name'           => '',
+                'artist'         => null,
+                'slug'           => '',
+                'featured'       => 0,
                 'summary'        => null,
-                'year'           => 1992,
-                'image_url'      => '/images/admin/2/portfolio/art/i0bx431e.png',
+                'year'           => 2025,
+                'image_url'      => null,
                 'notes'          => null,
-                'description'    => '<p>I purchased this unique painting from Chapel Hill, NC artist Laird Dixon shortly after the release of his band Zen Frisbee\'s debut 1994 CD I\'m As Mad As Faust.</p>',
+                'description'    => 0,
                 'public'         => 1,
             ],
-            [
-                'name'           => 'Sleazefest! CD cover art',
-                'artist'         => 'Devlin Thompson',
-                'slug'           => 'sleazefest-cover-art-devlin-thompson',
-                'featured'       => 1,
-                'summary'        => null,
-                'year'           => 1994,
-                'image_url'      => '/images/admin/2/portfolio/art/RQ8up49q.png',
-                'notes'          => null,
-                'description'    => '<p>I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 CD Sleazefest - Two Nights or Bands, Bar-BQ & Beer.</p>',
-                'public'         => 1,
-            ],
-            [
-                'name'           => 'Sleazefest! VHS cover art',
-                'artist'         => 'Devlin Thompson',
-                'slug'           => 'sleazefest-vhs-cover-art-devlin-thompson',
-                'featured'       => 1,
-                'summary'        => null,
-                'year'           => 1994,
-                'image_url'      => '/images/admin/2/portfolio/art/_bWI1YXL.jpeg',
-                'notes'          => null,
-                'description'    => '<p>I commissioned this original art from Athens, GA artist and Bizarro-Wuxtry model employee Devlin Thompson for the cover art of the 1994 VHS release of Sleazefest - Two Nights or Bands, Bar-BQ & Beer.</p>',
-                'public'         => 1,
-            ],
-            [
-                'name'           => 'microphone / knife',
-                'artist'         => 'Dexter Romweber',
-                'slug'           => 'microphone-knife-dexter-romweber',
-                'featured'       => 1,
-                'summary'        => null,
-                'year'           => 1998,
-                'image_url'      => '/images/admin/2/portfolio/art/gFCGgnub.png',
-                'notes'          => null,
-                'description'    => '<p>This was one of the many works of Chapel Hill, NC rock and roll legend Dexter Romweber, who was posthumously inducted into the North Carolina Musicians Hall of Fame in 2025. He used to stay at my apartment quite frequently because he was best friends with my roommate record producer Dave Schmitt. I\'ll always treasure it.</p>',
-                'public'         => 1,
-            ],
+            */
         ];
 
         if (!empty($data)) {
             Art::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy art images/files
+        $this->copySourceFiles('art');
     }
 
     protected function insertPortfolioAudios(): void
@@ -173,6 +145,9 @@ class JREwing extends Command
         if (!empty($data)) {
             Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy audio images/files
+        $this->copySourceFiles('audio');
     }
 
     protected function insertPortfolioCertifications(): void
@@ -180,26 +155,29 @@ class JREwing extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Certification ...\n";
 
         $data = [
+            /*
             [
-                'name' => 'Google Cybersecurity',
-                'slug' => 'google-cybersecurity',
-                'featured'        => 1,
+                'name'            => '',
+                'slug'            => '',
+                'featured'        => 0,
                 'summary'         => null,
-                'organization'    => 'Google',
+                'organization'    => null,
                 'academy_id'      => 3,
                 'year'            => 2023,
-                'received'        => '2023-07-11',
-                'certificate_url' => '/images/admin/2/portfolio/certification/HGL8U7MSRWFL.png',
-                'link'            => 'https://coursera.org/verify/professional-cert/HGL8U7MSRWFL',
-                'link_name'       => 'Coursera verification',
-                'description'     => '<p class="menu-label">Includes the following courses:</p><ul class="menu-list"><li>Foundations of Cybersecurity</li><li>Play It Safe: Manage Security Risks</li><li>Connect and Protect: Networks and Network Security</li><li>Tools of the Trade: Linux and SQL</li><li>Assets, Threats, Vulnerabilities</li><li>Sound the Alarm: Detection and Response</li><li>Automate Cybersecurity Tasks with Python</li><li>Put It to Work: Prepare for Cybersecurity Jobs</li></ul>',
+                'received'        => '0000-00-00',
+                'certificate_url' => null,
+                'description'     => null,
                 'public'          => 1,
-            ]
+            ],
+            */
         ];
 
         if (!empty($data)) {
             Certification::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy certification images/files
+        $this->copySourceFiles('certification');
     }
 
     protected function insertPortfolioCourses(): void
@@ -207,86 +185,29 @@ class JREwing extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            /*
             [
-                'name'            => 'Introduction to AWS Backup',
-                'slug'            => 'introduction-to-aws-backup',
+                'name'            => '',
+                'slug'            => '',
                 'completed'       => 1,
-                'completion_date' => '2019-05-13',
-                'year'            => 2019,
-                'duration_hours'  => 0.33333,
+                'completion_date' => '0000-00-00',
+                'year'            => 2025,
+                'duration_hours'  => 8,
                 'academy_id'      => 9,
                 'instructor'      => null,
                 'sponsor'         => null,
-                'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20AWS%20Backup.png',
-                'link'            => null,
-                'link_name'       => null,
+                'certificate_url' => null,
                 'public'          => 1,
             ],
-            [
-                'name'            => 'Introduction to Amazon Redshift',
-                'slug'            => 'introduction-to-amazon-redshift',
-                'completed'       => 1,
-                'completion_date' => '2019-05-10',
-                'year'            => 2019,
-                'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => null,
-                'sponsor'         => null,
-                'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Redshift.png',
-                'link'            => null,
-                'link_name'       => null,
-                'public'          => 1,
-            ],
-            [
-                'name'            => 'Introduction to Amazon Relational Database Service (RDS)',
-                'slug'            => 'introduction-to-amazon-relational-database-service-(rds)',
-                'completed'       => 1,
-                'completion_date' => '2019-05-08',
-                'year'            => 2019,
-                'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => null,
-                'sponsor'         => null,
-                'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Relational%20Database%20Service%20-%20RDS.png',
-                'link'            => null,
-                'link_name'       => null,
-                'public'          => 1,
-            ],
-            [
-                'name'            => 'Introduction to Amazon S3',
-                'slug'            => 'introduction-to-amazon-s3',
-                'completed'       => 1,
-                'completion_date' => '2019-05-06',
-                'year'            => 2019,
-                'duration_hours'  => 0.25,
-                'academy_id'      => 9,
-                'instructor'      => null,
-                'sponsor'         => null,
-                'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20S3.png',
-                'link'            => null,
-                'link_name'       => null,
-                'public'          => 1,
-            ],
-            [
-                'name'            => 'Introduction to Amazon Simple Storage Service (S3)',
-                'slug'            => 'introduction-to-amazon-simple-storage-service-(s3)',
-                'completed'       => 1,
-                'completion_date' => '2019-05-10',
-                'year'            => 2019,
-                'duration_hours'  => 0.16667,
-                'academy_id'      => 9,
-                'instructor'      => null,
-                'sponsor'         => null,
-                'certificate_url' => 'https://raw.githubusercontent.com/craigzearfoss/certificates/refs/heads/master/AWS%20-%20Introduction%20to%20Amazon%20Simple%20Storage%20Service%20-%20S3.png',
-                'link'            => null,
-                'link_name'       => null,
-                'public'          => 1,
-            ],
+            */
         ];
 
         if (!empty($data)) {
             Course::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy course images/files
+        $this->copySourceFiles('course');
     }
 
     protected function insertPortfolioJobs(): void
@@ -312,7 +233,7 @@ class JREwing extends Command
                 'end_month'              => 3,
                 'end_year'               => 1991,
                 'job_employment_type_id' => 1,
-                'job_location_type_id'   => 3,
+                'job_location_type_id'   => 1,
                 'city'                   => 'Dallas',
                 'state_id'               => 44,
                 'country_id'             => 237,
@@ -325,6 +246,9 @@ class JREwing extends Command
         if (!empty($data)) {
             Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy job images/files
+        $this->copySourceFiles('portfolio', 'job');
     }
 
     protected function insertPortfolioJobCoworkers(): void
@@ -353,6 +277,9 @@ class JREwing extends Command
         if (!empty($data)) {
             JobCoworker::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy job coworker images/files
+        $this->copySourceFiles('job-coworker');
     }
 
     protected function insertPortfolioJobTasks(): void
@@ -360,9 +287,6 @@ class JREwing extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobTask ...\n";
 
         $data = [
-            [ 'job_id' => $this->jobId[1], 'summary' => 'Provided direct support to employees during implementation of HR services, policies and programs.', 'sequence' => 0, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'summary' => 'Responsible for Employee safety, welfare, wellness and health reporting.',                          'sequence' => 1, 'public' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'summary' => 'Did a lot of heavy lifting.',                                                                       'sequence' => 2, 'public' => 1 ],
             /*
             [
                 'job_id'   => $this->jobId[1],
@@ -376,6 +300,9 @@ class JREwing extends Command
         if (!empty($data)) {
             JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy job task images/files
+        $this->copySourceFiles('job-task');
     }
 
     protected function insertPortfolioLinks(): void
@@ -400,6 +327,9 @@ class JREwing extends Command
         if (!empty($data)) {
             Link::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy link images/files
+        $this->copySourceFiles('link');
     }
 
     protected function insertPortfolioMusic(): void
@@ -413,33 +343,32 @@ class JREwing extends Command
         }
 
         $data = [
+            /*
             [
-                'id'             => $id[1],
-                'parent_id'      => null,
-                'name'           => 'Flintstones Theme song',
-                'artist'         => 'Hannah Barbera',
-                'slug'           => 'flintstones-theme-song-by-hannah-barbera',
+                'name'           => '',
+                'artist'         => null,
+                'slug'           => 'im-as-mad-as-faust-by-zen-frisbee',
                 'featured'       => 1,
                 'summary'        => null,
-                'collection'     => 1,
-                'track'          => 0,
-                'label'          => 'Flavor-Contra Records',
+                'collection'     => 0,
+                'track'          => 1,
+                'label'          => null,
                 'catalog_number' => null,
-                'year'           => 2009,
+                'year'           => 2012,
                 'embed'          => null,
                 'audio_url'      => null,
-                'link'           => 'https://youtu.be/2s13X66BFd8?si=iMtlUW0zokBxtj_k',
-                'link_name'      => 'YouTube',
-                'description'    => '<p>The Flintstones theme song.</p>',
-                'image'          => null,
-                'sequence'       => 0,
+                'description'    => null,
                 'public'         => 1,
             ],
+            */
         ];
 
         if (!empty($data)) {
             Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy music images/files
+        $this->copySourceFiles('music');
     }
 
     protected function insertPortfolioProjects(): void
@@ -467,6 +396,9 @@ class JREwing extends Command
         if (!empty($data)) {
             Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy project images/files
+        $this->copySourceFiles('project');
     }
 
     protected function insertPortfolioPublications(): void
@@ -511,6 +443,9 @@ class JREwing extends Command
         if (!empty($data)) {
             Publication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy publication images/files
+        $this->copySourceFiles('publication');
     }
 
     protected function insertPortfolioSkills(): void
@@ -536,6 +471,9 @@ class JREwing extends Command
         if (!empty($data)) {
             Skill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy skill images/files
+        $this->copySourceFiles('skill');
     }
 
     protected function insertPortfolioVideos(): void
@@ -570,6 +508,9 @@ class JREwing extends Command
         if (!empty($data)) {
             Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy job images/files
+        $this->copySourceFiles('video');
     }
 
     /**
@@ -614,5 +555,101 @@ class JREwing extends Command
         }
 
         return $data;
+    }
+
+    /**
+     * Copies files from the source_files directory to the public/images directory.
+     *
+     * @param string $resource
+     * @return void
+     */
+    protected function copySourceFiles(string $resource): void
+    {
+        switch ($resource) {
+            case 'art'           : $model = new Art(); break;
+            case 'audio'         : $model = new Audio(); break;
+            case 'certification' : $model = new Certification(); break;
+            case 'course'        : $model = new Course(); break;
+            case 'job'           : $model = new Job(); break;
+            case 'job-coworker'  : $model = new JobCoworker(); break;
+            case 'job-task'      : $model = new JobTask(); break;
+            case 'link'          : $model = new Link(); break;
+            case 'music'         : $model = new Music(); break;
+            case 'project'       : $model = new Project(); break;
+            case 'publication'   : $model = new Publication(); break;
+            case 'skill'         : $model = new Skill(); break;
+            case 'video'         : $model = new Video(); break;
+            default:
+                throw new \Exception("Unknown resource {$resource}");
+        }
+
+        // get the source and destination paths
+        $DS = DIRECTORY_SEPARATOR;
+        $baseSourcePath = base_path() . $DS . 'source_files' . $DS . self::DATABASE . $DS .$resource . $DS;
+        $baseDestinationPath =  base_path() . $DS . 'public' . $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS;
+
+        // make sure the destination directory exists for images
+        if (!File::exists($baseDestinationPath)) {
+            File::makeDirectory($baseDestinationPath, 755, true);
+        }
+
+        // copy over images
+        if (File::isDirectory($baseSourcePath)) {
+
+            foreach (scandir($baseSourcePath) as $slug) {
+
+                if ($slug == '.' || $slug == '..') continue;
+
+                $sourcePath = $baseSourcePath . $slug . $DS;
+                if (File::isDirectory($sourcePath)) {
+
+                    $rows = $model->where('slug', $slug)->where('owner_id', $this->adminId)->get();
+
+                    if (!empty($rows)) {
+
+                        foreach (scandir($sourcePath) as $image) {
+
+                            if ($image == '.' || $image == '..') continue;
+
+                            if (File::isFile($sourcePath . $DS . $image)) {
+
+                                foreach ($rows as $row) {
+
+                                    $imageName   = File::name($image);
+                                    $sourceImage = $sourcePath . $image;
+                                    $destImage   = $baseDestinationPath . $row->id . $DS . $image;
+
+                                    echo '  Copying ' . $sourceImage . ' ... ' . PHP_EOL;
+
+                                    // make sure the destination directory exists for images
+                                    if (!File:: exists(dirname($destImage))) {
+                                        File::makeDirectory(dirname($destImage), 755, true);
+                                    }
+
+                                    // copy the file
+                                    File::copy($sourceImage, $destImage);
+
+                                    // update corresponding column in database table
+                                    if (in_array($imageName, ['logo', 'logo_small']) && in_array($resource, ['job'])) {
+                                        // logo file
+                                        $row->update([
+                                            $imageName => $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS . $row->id . $DS . $image
+                                        ]);
+                                    } elseif (in_array($imageName, ['image', 'thumbnail'])) {
+                                        // logo or thumbnail file
+                                        $row->update([
+                                            $imageName => $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS . $row->id . $DS . $image
+                                        ]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        return;
     }
 }

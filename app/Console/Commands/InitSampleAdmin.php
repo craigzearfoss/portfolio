@@ -27,7 +27,7 @@ class InitSampleAdmin extends Command
         'fred-flintstone'  => [ 'name' => 'Fred Flintstone',  'email' => 'fatfred@bedrock.com',         'role' => 'Crane Operator',           'employer' => 'Slate Rock and Gravel Company' ],
         'gabe-kotter'      => [ 'name' => 'Gabe Kotter',      'email' => 'mrkotter@james-buchanan.edu', 'role' => 'English Teacher',          'employer' => 'James Buchanan High School'    ],
         'jed-clampett'     => [ 'name' => 'Jed Clampett',     'email' => 'jed@clampett-oil.com',        'role' => 'Family Patriarch',         'employer' => 'O.K. Oil Company'              ],
-        'j-jr-ewing'       => [ 'name' => 'J.R. Ewing',       'email' => 'jr@ewing-oil.com',            'role' => 'President of Ewing Oil',   'employer' => 'Ewing Oil'                     ],
+        'j-r-ewing'        => [ 'name' => 'J.R. Ewing',       'email' => 'jr@ewing-oil.com',            'role' => 'President of Ewing Oil',   'employer' => 'Ewing Oil'                     ],
         'laverne-de-fazio' => [ 'name' => 'Laverne De Fazio', 'email' => 'ldefazio@shotz.com',          'role' => 'Bottle Capper',            'employer' => 'Shotz Brewery'                 ],
         'peter-gibbons'    => [ 'name' => 'Peter Gibbons',    'email' => 'peter.gibbons@initech.com',   'role' => 'Software Engineer',        'employer' => 'Initech'                       ],
         'sam-malone'       => [ 'name' => 'Sam Malone',       'email' => 'vic-ferrari@cheers.com',      'role' => 'Bartender',                'employer' => 'Cheers, Boston, MA'            ],
@@ -102,7 +102,6 @@ class InitSampleAdmin extends Command
         $DS = DIRECTORY_SEPARATOR;
         $sampleAdminDataDirectory = base_path().$DS.'app'.$DS.'Console'.$DS.'Commands'.$DS.'SampleAdminData';
 
-
         $errors = [];
 
         // get the next available admin id
@@ -168,6 +167,9 @@ class InitSampleAdmin extends Command
             $this->insertSystemAdminAdminGroups($username, $adminId, $adminGroupId);
         }
 
+        // copy admin source fils
+        $this->copyAdminSourceFiles($username, $adminId);
+
         // get the name of the init files
         $initFile = ucfirst(Str::camel($username)) . '.php';
 
@@ -181,8 +183,6 @@ class InitSampleAdmin extends Command
             echo PHP_EOL . "Importing Portfolio data for {$username} ..." . PHP_EOL;
             Artisan::call('app:init-' . $username . '-portfolio --demo=' . $this->demo . ' --silent');
         }
-
-        $this->copySourceFiles($username, $adminId);
 
         /* --------------------------------------------------------------------------- */
         /* Import into the portfolio database.                                         */
@@ -244,13 +244,13 @@ class InitSampleAdmin extends Command
     }
 
     /**
-     * Copies all files from the source_files directory to the public/images directory.
+     * Copies admin source files from the source_files directory to the public/images directory.
      *
      * @param string $username
      * @param int $adminId
      * @return void
      */
-    protected function copySourceFiles(string $username, int $adminId): void
+    protected function copyAdminSourceFiles(string $username, int $adminId): void
     {
         // get the source and destination paths
         $DS = DIRECTORY_SEPARATOR;
@@ -268,19 +268,17 @@ class InitSampleAdmin extends Command
         // copy over images
         if (File::isDirectory($sourcePath)) {
 
-            echo PHP_EOL . '  Copying files from ' . $sourcePath . ' ... ' . PHP_EOL;
-
             foreach (scandir($sourcePath) as $sourceFile) {
 
                 if ($sourceFile == '.' || $sourceFile == '..') continue;
-
-                echo '      - ' . $sourceFile . ' ...' . PHP_EOL;
 
                 if (File::name($sourceFile) === 'profile') {
                     $image = "/images/admin/{$adminId}/profile." . File::extension($sourceFile);
                 } elseif (File::name($sourceFile) === 'thumbnail') {
                     $thumbnail = "/images/admin/{$adminId}/thumbnail." . File::extension($sourceFile);
                 }
+
+                echo '  Copying files ' . $sourcePath . $DS . $sourceFile . ' ... ' . PHP_EOL;
 
                 File::copy(
                     $sourcePath . $DS . $sourceFile,

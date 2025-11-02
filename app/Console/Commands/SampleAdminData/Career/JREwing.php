@@ -21,6 +21,8 @@ use function Laravel\Prompts\text;
 
 class JREwing extends Command
 {
+    const DATABASE = 'career';
+
     const USERNAME = 'j-r-ewing';
 
     protected $demo = 1;

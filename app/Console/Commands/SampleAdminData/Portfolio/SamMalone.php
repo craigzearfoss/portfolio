@@ -11,6 +11,7 @@ use App\Models\Portfolio\JobCoworker;
 use App\Models\Portfolio\JobTask;
 use App\Models\Portfolio\Link;
 use App\Models\Portfolio\Music;
+use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Publication;
 use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
@@ -18,10 +19,13 @@ use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
 class SamMalone extends Command
 {
+    const DATABASE = 'portfolio';
+
     const USERNAME = 'sam-malone';
 
     protected $demo = 1;
@@ -103,6 +107,9 @@ class SamMalone extends Command
         if (!empty($data)) {
             Art::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy art images/files
+        $this->copySourceFiles('art');
     }
 
     protected function insertPortfolioAudios(): void
@@ -138,6 +145,9 @@ class SamMalone extends Command
         if (!empty($data)) {
             Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy audio images/files
+        $this->copySourceFiles('audio');
     }
 
     protected function insertPortfolioCertifications(): void
@@ -165,6 +175,9 @@ class SamMalone extends Command
         if (!empty($data)) {
             Certification::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy certification images/files
+        $this->copySourceFiles('certification');
     }
 
     protected function insertPortfolioCourses(): void
@@ -192,6 +205,9 @@ class SamMalone extends Command
         if (!empty($data)) {
             Course::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy course images/files
+        $this->copySourceFiles('course');
     }
 
     protected function insertPortfolioJobs(): void
@@ -217,7 +233,7 @@ class SamMalone extends Command
                 'end_month'              => 5,
                 'end_year'               => 1993,
                 'job_employment_type_id' => 1,
-                'job_location_type_id'   => 3,
+                'job_location_type_id'   => 1,
                 'city'                   => 'Boston',
                 'state_id'               => 22,
                 'country_id'             => 237,
@@ -252,6 +268,9 @@ class SamMalone extends Command
         if (!empty($data)) {
             Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy job images/files
+        $this->copySourceFiles('job');
     }
 
     protected function insertPortfolioJobCoworkers(): void
@@ -332,6 +351,9 @@ class SamMalone extends Command
         if (!empty($data)) {
             JobCoworker::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy job coworker images/files
+        $this->copySourceFiles('job-coworker');
     }
 
     protected function insertPortfolioJobTasks(): void
@@ -352,6 +374,9 @@ class SamMalone extends Command
         if (!empty($data)) {
             JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy job task images/files
+        $this->copySourceFiles('job-task');
     }
 
     protected function insertPortfolioLinks(): void
@@ -376,6 +401,9 @@ class SamMalone extends Command
         if (!empty($data)) {
             Link::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy link images/files
+        $this->copySourceFiles('link');
     }
 
     protected function insertPortfolioMusic(): void
@@ -412,6 +440,9 @@ class SamMalone extends Command
         if (!empty($data)) {
             Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy music images/files
+        $this->copySourceFiles('music');
     }
 
     protected function insertPortfolioProjects(): void
@@ -439,6 +470,9 @@ class SamMalone extends Command
         if (!empty($data)) {
             Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy project images/files
+        $this->copySourceFiles('project');
     }
 
     protected function insertPortfolioPublications(): void
@@ -483,6 +517,9 @@ class SamMalone extends Command
         if (!empty($data)) {
             Publication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy publication images/files
+        $this->copySourceFiles('publication');
     }
 
     protected function insertPortfolioSkills(): void
@@ -508,6 +545,9 @@ class SamMalone extends Command
         if (!empty($data)) {
             Skill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy skill images/files
+        $this->copySourceFiles('skill');
     }
 
     protected function insertPortfolioVideos(): void
@@ -542,6 +582,9 @@ class SamMalone extends Command
         if (!empty($data)) {
             Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy job images/files
+        $this->copySourceFiles('video');
     }
 
     /**
@@ -586,5 +629,101 @@ class SamMalone extends Command
         }
 
         return $data;
+    }
+
+    /**
+     * Copies files from the source_files directory to the public/images directory.
+     *
+     * @param string $resource
+     * @return void
+     */
+    protected function copySourceFiles(string $resource): void
+    {
+        switch ($resource) {
+            case 'art'           : $model = new Art(); break;
+            case 'audio'         : $model = new Audio(); break;
+            case 'certification' : $model = new Certification(); break;
+            case 'course'        : $model = new Course(); break;
+            case 'job'           : $model = new Job(); break;
+            case 'job-coworker'  : $model = new JobCoworker(); break;
+            case 'job-task'      : $model = new JobTask(); break;
+            case 'link'          : $model = new Link(); break;
+            case 'music'         : $model = new Music(); break;
+            case 'project'       : $model = new Project(); break;
+            case 'publication'   : $model = new Publication(); break;
+            case 'skill'         : $model = new Skill(); break;
+            case 'video'         : $model = new Video(); break;
+            default:
+                throw new \Exception("Unknown resource {$resource}");
+        }
+
+        // get the source and destination paths
+        $DS = DIRECTORY_SEPARATOR;
+        $baseSourcePath = base_path() . $DS . 'source_files' . $DS . self::DATABASE . $DS .$resource . $DS;
+        $baseDestinationPath =  base_path() . $DS . 'public' . $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS;
+
+        // make sure the destination directory exists for images
+        if (!File::exists($baseDestinationPath)) {
+            File::makeDirectory($baseDestinationPath, 755, true);
+        }
+
+        // copy over images
+        if (File::isDirectory($baseSourcePath)) {
+
+            foreach (scandir($baseSourcePath) as $slug) {
+
+                if ($slug == '.' || $slug == '..') continue;
+
+                $sourcePath = $baseSourcePath . $slug . $DS;
+                if (File::isDirectory($sourcePath)) {
+
+                    $rows = $model->where('slug', $slug)->where('owner_id', $this->adminId)->get();
+
+                    if (!empty($rows)) {
+
+                        foreach (scandir($sourcePath) as $image) {
+
+                            if ($image == '.' || $image == '..') continue;
+
+                            if (File::isFile($sourcePath . $DS . $image)) {
+
+                                foreach ($rows as $row) {
+
+                                    $imageName   = File::name($image);
+                                    $sourceImage = $sourcePath . $image;
+                                    $destImage   = $baseDestinationPath . $row->id . $DS . $image;
+
+                                    echo '  Copying ' . $sourceImage . ' ... ' . PHP_EOL;
+
+                                    // make sure the destination directory exists for images
+                                    if (!File:: exists(dirname($destImage))) {
+                                        File::makeDirectory(dirname($destImage), 755, true);
+                                    }
+
+                                    // copy the file
+                                    File::copy($sourceImage, $destImage);
+
+                                    // update corresponding column in database table
+                                    if (in_array($imageName, ['logo', 'logo_small']) && in_array($resource, ['job'])) {
+                                        // logo file
+                                        $row->update([
+                                            $imageName => $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS . $row->id . $DS . $image
+                                        ]);
+                                    } elseif (in_array($imageName, ['image', 'thumbnail'])) {
+                                        // logo or thumbnail file
+                                        $row->update([
+                                            $imageName => $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS . $row->id . $DS . $image
+                                        ]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        return;
     }
 }

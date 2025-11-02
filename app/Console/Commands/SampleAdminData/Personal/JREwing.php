@@ -14,6 +14,8 @@ use function Laravel\Prompts\text;
 
 class JREwing extends Command
 {
+    const DATABASE = 'personal';
+
     const USERNAME = 'j-r-ewing';
 
     protected $demo = 1;

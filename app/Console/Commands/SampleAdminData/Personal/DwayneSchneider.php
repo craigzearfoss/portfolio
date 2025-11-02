@@ -14,6 +14,8 @@ use function Laravel\Prompts\text;
 
 class DwayneSchneider extends Command
 {
+    const DATABASE = 'personal';
+
     const USERNAME = 'dwayne-schneider';
 
     protected $demo = 1;
@@ -28,7 +30,7 @@ class DwayneSchneider extends Command
      *
      * @var string
      */
-    protected $signature = 'app:init-' . self::USERNAME . '-personal {--demo=0} {--silent}';
+    protected $signature = 'app:init-' . self::USERNAME . '-personal {--demo=1} {--silent}';
 
     /**
      * The console command description.

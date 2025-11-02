@@ -14,6 +14,8 @@ use function Laravel\Prompts\text;
 
 class GabeKotter extends Command
 {
+    const DATABASE = 'personal';
+
     const USERNAME = 'gabe-kotter';
 
     protected $demo = 1;

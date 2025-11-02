@@ -23,6 +23,8 @@ use function Laravel\Prompts\text;
 
 class AddPortfolio extends Command
 {
+    const DATABASE = 'portfolio';
+
     const USERNAME = 'craig-zearfoss';
 
     protected $demo = 0;

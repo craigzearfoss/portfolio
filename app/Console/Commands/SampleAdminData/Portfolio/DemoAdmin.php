@@ -19,10 +19,13 @@ use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
 class DemoAdmin extends Command
 {
+    const DATABASE = 'portfolio';
+
     const USERNAME = 'demo-admin';
 
     protected $demo = 1;
@@ -1394,6 +1397,9 @@ class DemoAdmin extends Command
         if (!empty($data)) {
             Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy job images/files
+        $this->copySourceFiles('portfolio', 'job');
     }
 
     protected function insertPortfolioJobCoworkers(): void
@@ -3234,5 +3240,69 @@ class DemoAdmin extends Command
         }
 
         return $data;
+    }
+
+    /**
+     * Copies files from the source_files directory to the public/images directory.
+     * @TODO: Currently this only copies portfolio.jobs files/images.
+     *
+     * @param string $database
+     * @param string $resource
+     * @return void
+     */
+    protected function copySourceFiles(string $database, string $resource): void
+    {
+        // get the source and destination paths
+        $DS = DIRECTORY_SEPARATOR;
+        $baseSourcePath = base_path() . $DS . 'source_files' . $DS . $database . $DS .$resource . $DS;
+        $baseDestinationPath =  base_path() . $DS . 'public' . $DS . 'images' . $DS . $database . $DS . $resource . $DS;
+
+        // make sure the destination directory exists for images
+        if (!File::exists($baseDestinationPath)) {
+            File::makeDirectory($baseDestinationPath, 755, true);
+        }
+
+        // copy over images
+        if (File::isDirectory($baseSourcePath)) {
+
+            echo PHP_EOL . '  Copying files from ' . $baseSourcePath . ' ... ' . PHP_EOL;
+
+            foreach (scandir($baseSourcePath) as $slug) {
+                if ($slug == '.' || $slug == '..') continue;
+                $sourcePath = $baseSourcePath . $slug . $DS;
+                if (File::isDirectory($sourcePath)) {
+
+                    // @TODO: We need to make this generic. It only works for the protfolio.jobs table now.
+                    if (($database == 'portfolio') && ($resource == 'job')) {
+                        if ($job = Job::where('slug', $slug)->first()) {
+                            foreach (scandir($sourcePath) as $image) {
+                                if ($image == '.' || $image == '..') continue;
+                                if (File::isFile($sourcePath . $DS . $image)) {
+
+                                    $sourceImage = $sourcePath . $image;
+                                    $destImage = $baseDestinationPath . $job->id . $DS . $image;
+
+                                    echo '  Copying ' . $sourceImage . ' ... ' .  PHP_EOL;
+
+                                    // make sure the destination directory exists for images
+                                    if (!File:: exists(dirname($destImage))) {
+                                        File::makeDirectory(dirname($destImage), 755, true);
+                                    }
+
+                                    File::copy($sourceImage, $destImage);
+
+                                    $job->update([
+                                        'logo_small' => $DS.'images'.$DS.$database.$DS.$resource.$DS.$job->id.$DS.$image
+                                    ]);
+                                }
+                            }
+                        }
+                    } else {
+                        echo '**** Copying files is only implemented for the `portfolio`.`jobs` table.' . PHP_EOL;
+                    }
+                }
+
+            }
+        }
     }
 }

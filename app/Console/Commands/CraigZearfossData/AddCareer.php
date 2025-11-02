@@ -21,6 +21,8 @@ use function Laravel\Prompts\text;
 
 class AddCareer extends Command
 {
+    const DATABASE = 'career';
+
     const USERNAME = 'craig-zearfoss';
 
     protected $demo = 0;
