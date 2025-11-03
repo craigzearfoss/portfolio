@@ -61,36 +61,12 @@ class AddCraigZearfoss extends Command
         }
 
         $this->insertAdmin($username, $adminTeamId, $adminGroupId);
-
-        $adminId = Admin::withoutGlobalScope(AdminGlobalScope::class)->max('id') + 1;
-
-        $teamId = DB:: connection('system_db')->table('admin_teams')
-            ->where('name', 'Default Admin Team')->first()->id;
-
-        $groupId = DB:: connection('system_db')->table('admin_groups')
-            ->where('name', 'Default Admin Group')->first()->id;
-
-        if (!$this->option('silent')) {
-            echo PHP_EOL . 'username: ' . self::USERNAME . PHP_EOL;
-            echo 'admin_id: ' . $this->adminId . PHP_EOL;
-            echo 'demo: ' . $this->demo . PHP_EOL;
-            $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
-        }
-
-        echo PHP_EOL .'Importing Portfolio data for craig-zearfoss ...' . PHP_EOL;
-        Artisan::call('app:add-craig-zearfoss-portfolio --silent');
-
-        echo PHP_EOL .'Importing Career data for craigzearfoss  ...' . PHP_EOL;
-        Artisan::call('app:add-craig-zearfoss-career --silent');
-
-        echo PHP_EOL .'Importing Personal data for craig-zearfoss  ...' . PHP_EOL;
-        Artisan::call('app:add-craig-zearfoss-personal --silent');
     }
 
     protected function insertAdmin($username, $adminTeamId = null, $adminGroupId = null)
     {
         $DS = DIRECTORY_SEPARATOR;
-        $sampleAdminDataDirectory = base_path().$DS.'app'.$DS.'Console'.$DS.'Commands'.$DS.'CraigZearfossData';
+        $adminDataDirectory = base_path().$DS.'app'.$DS.'Console'.$DS.'Commands'.$DS.'CraigZearfossData';
 
         $errors = [];
 
@@ -155,13 +131,16 @@ class AddCraigZearfoss extends Command
         $this->insertSystemAdminAdminTeams($username, $adminId, $adminTeamId);
         $this->insertSystemAdminAdminGroups($username, $adminId, $adminGroupId);
 
+        // copy admin source fils
+        $this->copyAdminSourceFiles($username, $adminId);
+
         // get the name of the init files
         $initFile = ucfirst(Str::camel($username)) . '.php';
 
         /* --------------------------------------------------------------------------- */
         /* Import into the portfolio database.                                         */
         /* --------------------------------------------------------------------------- */
-        $initPortfolioFile = $sampleAdminDataDirectory.$DS.'Portfolio'.$DS.$initFile;
+        $initPortfolioFile = $adminDataDirectory.$DS.'AddPortfolio.php';
         if (!file_exists($initPortfolioFile)) {
             echo PHP_EOL . "Skipping {$initPortfolioFile}. File not found." . PHP_EOL;
         } else {
@@ -169,12 +148,10 @@ class AddCraigZearfoss extends Command
             Artisan::call('app:add-' . $username . '-portfolio --demo=' . $this->demo . ' --silent');
         }
 
-        $this->copySourceFiles($username, $adminId);
-
         /* --------------------------------------------------------------------------- */
-        /* Import into the portfolio database.                                         */
+        /* Import into the career database.                                            */
         /* --------------------------------------------------------------------------- */
-        $initCareerFile = $sampleAdminDataDirectory.$DS.'Career'.$DS.$initFile;
+        $initCareerFile = $adminDataDirectory.$DS.'AddCareer.php';
         if (!file_exists($initCareerFile)) {
             echo PHP_EOL . "Skipping {$initCareerFile}. File not found." . PHP_EOL;
         } else {
@@ -185,7 +162,7 @@ class AddCraigZearfoss extends Command
         /* --------------------------------------------------------------------------- */
         /* Import into the personal database.                                          */
         /* --------------------------------------------------------------------------- */
-        $initPersonalFile = $sampleAdminDataDirectory.$DS.'Personal'.$DS.$initFile;
+        $initPersonalFile = $adminDataDirectory.$DS.'AddPersonal.php';
         if (!file_exists($initPersonalFile)) {
             echo PHP_EOL . "Skipping {$initPersonalFile}. File not found." . PHP_EOL;
         } else {
@@ -231,13 +208,13 @@ class AddCraigZearfoss extends Command
     }
 
     /**
-     * Copies all files from the source_files directory to the public/images directory.
+     * Copies admin source files from the source_files directory to the public/images directory.
      *
      * @param string $username
      * @param int $adminId
      * @return void
      */
-    protected function copySourceFiles(string $username, int $adminId): void
+    protected function copyAdminSourceFiles(string $username, int $adminId): void
     {
         // get the source and destination paths
         $DS = DIRECTORY_SEPARATOR;
@@ -255,19 +232,17 @@ class AddCraigZearfoss extends Command
         // copy over images
         if (File::isDirectory($sourcePath)) {
 
-            echo PHP_EOL . '  Copying files from ' . $sourcePath . ' ... ' . PHP_EOL;
-
             foreach (scandir($sourcePath) as $sourceFile) {
 
                 if ($sourceFile == '.' || $sourceFile == '..') continue;
 
-                echo '      - ' . $sourceFile . ' ...' . PHP_EOL;
-
-                if (File::name('profile')) {
+                if (File::name($sourceFile) === 'profile') {
                     $image = "/images/admin/{$adminId}/profile." . File::extension($sourceFile);
-                } elseif (File::name('thumbnail')) {
+                } elseif (File::name($sourceFile) === 'thumbnail') {
                     $thumbnail = "/images/admin/{$adminId}/thumbnail." . File::extension($sourceFile);
                 }
+
+                echo '  Copying files ' . $sourcePath . $DS . $sourceFile . ' ... ' . PHP_EOL;
 
                 File::copy(
                     $sourcePath . $DS . $sourceFile,
@@ -275,7 +250,7 @@ class AddCraigZearfoss extends Command
                 );
             }
 
-            Admin::where('id', $adminId)->update([
+            Admin::find($adminId)->update([
                 'image'     => $image,
                 'thumbnail' => $thumbnail,
             ]);

@@ -165,6 +165,9 @@ class AddPortfolio extends Command
         if (!empty($data)) {
             Art::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy art images/files
+        $this->copySourceFiles('art');
     }
 
     protected function insertPortfolioAudios(): void
@@ -200,6 +203,9 @@ class AddPortfolio extends Command
         if (!empty($data)) {
             Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy audio images/files
+        $this->copySourceFiles('audio');
     }
 
     protected function insertPortfolioCertifications(): void
@@ -220,12 +226,15 @@ class AddPortfolio extends Command
                 'link'            => 'https://coursera.org/verify/professional-cert/HGL8U7MSRWFL',
                 'link_name'       => 'Coursera verification',
                 'description'     => '<p class="menu-label">Includes the following courses:</p><ul class="menu-list"><li>Foundations of Cybersecurity</li><li>Play It Safe: Manage Security Risks</li><li>Connect and Protect: Networks and Network Security</li><li>Tools of the Trade: Linux and SQL</li><li>Assets, Threats, Vulnerabilities</li><li>Sound the Alarm: Detection and Response</li><li>Automate Cybersecurity Tasks with Python</li><li>Put It to Work: Prepare for Cybersecurity Jobs</li></ul>',
-            ]
+            ],
         ];
 
         if (!empty($data)) {
             Certification::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy certification images/files
+        $this->copySourceFiles('certification');
     }
 
     protected function insertPortfolioCourses(): void
@@ -649,9 +658,9 @@ class AddPortfolio extends Command
                 'academy_id'      => 2,
                 'instructor'      => null,
                 'sponsor'         => 'Google',
-                'certificate_url' => 'images/admin/portfolio/2/course/RS62SKVP89SG.png',
-                'link'            => 'https://www.coursera.org/account/accomplishments/verify/RS62SKVP89SG',
-                'link_name'       => 'Coursera verification',
+                'certificate_url' => 'https://www.coursera.org/account/accomplishments/verify/RS62SKVP89SG',
+                'link'            => null,
+                'link_name'       => null,
             ],
             [
                 'name'            => 'Play It Safer: Manage Security Risks',
@@ -663,9 +672,9 @@ class AddPortfolio extends Command
                 'academy_id'      => 2,
                 'instructor'      => null,
                 'sponsor'         => 'Google',
-                'certificate_url' => 'images/admin/portfolio/2/course/52BCA2UWTHPE.png',
-                'link'            => 'https://www.coursera.org/account/accomplishments/verify/52BCA2UWTHPE',
-                'link_name'       => 'Coursera verification',
+                'certificate_url' => 'https://www.coursera.org/account/accomplishments/verify/52BCA2UWTHPE',
+                'link'            => null,
+                'link_name'       => null,
             ],
             [
                 'name'            => 'Connect and Protect: Networks and Network Security',
@@ -677,13 +686,13 @@ class AddPortfolio extends Command
                 'academy_id'      => 2,
                 'instructor'      => null,
                 'sponsor'         => 'Google',
-                'certificate_url' => 'images/admin/portfolio/2/course/MUUFRJW2JK7G.png',
-                'link'            => 'https://www.coursera.org/account/accomplishments/verify/MUUFRJW2JK7G',
-                'link_name'       => 'Coursera verification',
+                'certificate_url' => 'https://www.coursera.org/account/accomplishments/verify/MUUFRJW2JK7G',
+                'link'            => null,
+                'link_name'       => null,
             ],
             [
                 'name'            => 'Tools of the Trade: Linux and SQL',
-                'slug'            => 'tools-of-the-Trade-linux-and-sql',
+                'slug'            => 'tools-of-the-trade-linux-and-sql',
                 'completed'       => 1,
                 'completion_date' => '2023-06-29',
                 'year'            => 2023,
@@ -691,9 +700,9 @@ class AddPortfolio extends Command
                 'academy_id'      => 2,
                 'instructor'      => null,
                 'sponsor'         => 'Google',
-                'certificate_url' => 'images/admin/portfolio/2/course/KFJC8C2ZLQPU.png',
-                'link'            => 'https://www.coursera.org/account/accomplishments/verify/KFJC8C2ZLQPU',
-                'link_name'       => 'Coursera verification',
+                'certificate_url' => 'https://www.coursera.org/account/accomplishments/verify/KFJC8C2ZLQPU',
+                'link'            => null,
+                'link_name'       => null,
             ],
             [
                 'name'            => 'Assets, Threats, and Vulnerabilities',
@@ -705,11 +714,11 @@ class AddPortfolio extends Command
                 'academy_id'      => 2,
                 'instructor'      => null,
                 'sponsor'         => 'Google',
-                'certificate_url' => 'images/admin/portfolio/2/course/DWKGKVVLFE9F.png',
-                'link'            => 'https://www.coursera.org/account/accomplishments/verify/DWKGKVVLFE9F',
-                'link_name'       => 'Coursera verification',
+                'certificate_url' => 'https://www.coursera.org/account/accomplishments/verify/DWKGKVVLFE9F',
+                'link'            => null,
+                'link_name'       => null,
             ],
-            [
+            [   //@TODO: The didn't download
                 'name'            => 'Sound the Alarm: Detection and Response',
                 'slug'            => 'sound-the-alarm-detection-and-response',
                 'completed'       => 1,
@@ -719,9 +728,9 @@ class AddPortfolio extends Command
                 'academy_id'      => 2,
                 'instructor'      => null,
                 'sponsor'         => 'Google',
-                'certificate_url' => 'images/admin/portfolio/2/course/LK8958ER9X7D.png',
-                'link'            => 'https://www.coursera.org/account/accomplishments/verify/LK8958ER9X7D',
-                'link_name'       => 'Coursera verification',
+                'certificate_url' => 'https://www.coursera.org/account/accomplishments/verify/LK8958ER9X7D',
+                'link'            => null,
+                'link_name'       => null,
             ],
             [
                 'name'            => 'Automate Cybersecurity Tasks with Python',
@@ -733,7 +742,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 2,
                 'instructor'      => null,
                 'sponsor'         => 'Google',
-                'certificate_url' => 'images/admin/portfolio/2/course/64K4C9WZSJQ.png',
+                'certificate_url' => 'https://www.coursera.org/account/accomplishments/verify/64K4C9WZSJQ',
                 'link'            => 'https://www.coursera.org/account/accomplishments/verify/64K4C9WZSJQ',
                 'link_name'       => 'Coursera verification',
             ],
@@ -775,9 +784,9 @@ class AddPortfolio extends Command
                 'academy_id'      => 5,
                 'instructor'      => null,
                 'sponsor'         => null,
-                'certificate_url' => 'images/admin/portfolio/2/course/MDBz9qkj8zq9r.pdf',
-                'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-ddc8ff8d-66fe-5f98-9677-854db66c6cf9-certificate.pdf',
-                'link_name'       => 'MongoDB certificate link',
+                'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-ddc8ff8d-66fe-5f98-9677-854db66c6cf9-certificate.pdf',
+                'link'            => null,
+                'link_name'       => null,
             ],
             [
                 'name'            => 'M310: MongoDB Security',
@@ -789,9 +798,9 @@ class AddPortfolio extends Command
                 'academy_id'      => 5,
                 'instructor'      => null,
                 'sponsor'         => null,
-                'certificate_url' => 'images/admin/portfolio/2/course/MDBh4n25xp9f3.pdf',
-                'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-cb169d9d-f28b-5cfc-98ae-6849d44e9e45-certificate.pdf',
-                'link_name'       => 'MongoDB certificate link',
+                'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-cb169d9d-f28b-5cfc-98ae-6849d44e9e45-certificate.pdf',
+                'link'            => null,
+                'link_name'       => null,
             ],
 
             [
@@ -804,9 +813,9 @@ class AddPortfolio extends Command
                 'academy_id'      => 5,
                 'instructor'      => null,
                 'sponsor'         => null,
-                'certificate_url' => 'images/admin/portfolio/2/course/MDB4llntcxgsw.pdf',
-                'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-28e6dfda-043f-5c82-a2ad-ff1aa0b4091f-certificate.pdf',
-                'link_name'       => 'MongoDB certificate link',
+                'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-28e6dfda-043f-5c82-a2ad-ff1aa0b4091f-certificate.pdf',
+                'link'            => null,
+                'link_name'       => null,
             ],
             [
                 'name'            => 'M201: MongoDB Performance',
@@ -818,9 +827,9 @@ class AddPortfolio extends Command
                 'academy_id'      => 5,
                 'instructor'      => null,
                 'sponsor'         => null,
-                'certificate_url' => 'images/admin/portfolio/2/course/MDB5u800z5l3u.pdf',
-                'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-f04e21f1-2b5f-588f-a921-14605013fb42-certificate.pdf',
-                'link_name'       => 'MongoDB certificate link',
+                'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-f04e21f1-2b5f-588f-a921-14605013fb42-certificate.pdf',
+                'link'            => null,
+                'link_name'       => null,
             ],
             [
                 'name'            => 'M121: The MongoDB Aggregation Framework',
@@ -832,9 +841,9 @@ class AddPortfolio extends Command
                 'academy_id'      => 5,
                 'instructor'      => null,
                 'sponsor'         => null,
-                'certificate_url' => 'images/admin/portfolio/2/course/MDBz9qkj8zq9r.pdf',
-                'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-ddc8ff8d-66fe-5f98-9677-854db66c6cf9-certificate.pdf',
-                'link_name'       => 'MongoDB certificate link',
+                'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-21b801e0-1ed1-5c6e-ba1a-a88245a9d7a1-certificate.pdf',
+                'link'            => null,
+                'link_name'       => null,
             ],
             [
                 'name'            => 'M220JS: MongoDB for JavaScript Developers',
@@ -846,9 +855,9 @@ class AddPortfolio extends Command
                 'academy_id'      => 5,
                 'instructor'      => null,
                 'sponsor'         => null,
-                'certificate_url' => 'images/admin/portfolio/2/course/MDBvcjb83odqk.pdf',
-                'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-5fc17da8-4f83-5c1d-9e13-18c046833329-certificate.pdf',
-                'link_name'       => 'MongoDB certificate link',
+                'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-5fc17da8-4f83-5c1d-9e13-18c046833329-certificate.pdf',
+                'link'            => null,
+                'link_name'       => null,
             ],
             [
                 'name'            => 'M103: Basic Cluster Administration',
@@ -860,9 +869,9 @@ class AddPortfolio extends Command
                 'academy_id'      => 5,
                 'instructor'      => null,
                 'sponsor'         => null,
-                'certificate_url' => 'images/admin/portfolio/2/course/MDBzmzrrpzzin.pdf',
-                'link'            => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-b3ac9b75-0c7b-51ea-8cd0-b250bf0a2bcc-certificate.pdf',
-                'link_name'       => 'MongoDB certificate link',
+                'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-b3ac9b75-0c7b-51ea-8cd0-b250bf0a2bcc-certificate.pdf',
+                'link'            => null,
+                'link_name'       => null,
             ],
             [
                 'name'            => 'M001: MongoDB Basics ',
@@ -874,9 +883,9 @@ class AddPortfolio extends Command
                 'academy_id'      => 5,
                 'instructor'      => null,
                 'sponsor'         => null,
-                'certificate_url' => 'images/admin/portfolio/2/course/MDB0elknbkm6j.pdf',
-                'link'            => 'learn.mongodb.com/learn/certificates/university-m001-mongob-basics?userId=63744623-417f-5e55-8d5c-c09650679c4d&id=2dc804a7-34d3-5ed1-b3de-750819bdb3c4',
-                'link_name'       => 'MongoDB certificate link',
+                'certificate_url' => 'https://ti-user-certificates.s3.amazonaws.com/ae62dcd7-abdc-4e90-a570-83eccba49043/63744623-417f-5e55-8d5c-c09650679c4d-craig-zearfoss-2dc804a7-34d3-5ed1-b3de-750819bdb3c4-certificate.pdf',
+                'link'            => null,
+                'link_name'       => null,
             ],
             [
                 'name'            => 'Learn CSS Animations',
@@ -972,7 +981,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'Colin Marks',
                 'sponsor'         => null,
-                'certificate_url' => 'https://ude.my/UC-07ca111c-1cac-48f5-9838-4c277d7d4485',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-07ca111c-1cac-48f5-9838-4c277d7d4485/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -986,7 +995,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'David Navarro Lõpez',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-02e72577-9ba3-420e-ae5a-9bd0744e5410',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-02e72577-9ba3-420e-ae5a-9bd0744e5410/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1014,7 +1023,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'Mumshad Mannambeth',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-374a4848-1715-4b4f-8cc2-eca24dbf74d0',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-374a4848-1715-4b4f-8cc2-eca24dbf74d0/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1028,7 +1037,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'RealTough Candy',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-a381561e-e6e3-48ec-884b-589070ef3962',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-a381561e-e6e3-48ec-884b-589070ef3962/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1042,7 +1051,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'Erin Flynn',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-INJ6D45T',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-INJ6D45T/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1056,7 +1065,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'sikandar Shaik',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-YUC36HUA',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-YUC36HUA/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1070,7 +1079,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'Infinite Skills',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-Z8I0FZNQ',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-Z8I0FZNQ/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1084,7 +1093,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'EDUMobile Academy',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-R1F91C9Z',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-R1F91C9Z/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1098,7 +1107,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'Muhammed Navas',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-ff3519ca-b81c-4e00-ab52-60ccf6028d06',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-ff3519ca-b81c-4e00-ab52-60ccf6028d06/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1112,7 +1121,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'Eduonix Learning Solution',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-72f079ac-e4de-47d9-ae85-f24f5d630159',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-72f079ac-e4de-47d9-ae85-f24f5d630159/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1126,7 +1135,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'Anthony Alicea',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-f61996b5-c4c9-4551-bb10-29aaa7c5bcde',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-f61996b5-c4c9-4551-bb10-29aaa7c5bcde/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1140,13 +1149,13 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'Ahmed Alkbaray',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-BQ55MYKN',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-BQ55MYKN/',
                 'link'            => null,
                 'link_name'       => null,
             ],
             [
                 'name'            => 'Master Microsoft Outlook - Outlook from Beginner to Advanced',
-                'slug'            => 'master-microsoft-outlook-outlook-from-bBeginner-to-advanced',
+                'slug'            => 'master-microsoft-outlook-outlook-from-beginner-to-advanced',
                 'completed'       => 1,
                 'completion_date' => '2021-07-07',
                 'year'            => 2021,
@@ -1154,7 +1163,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'Kirt Kershaw',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-6b64edb0-2cad-4fc6-935a-207b64b743d5',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-6b64edb0-2cad-4fc6-935a-207b64b743d5/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1168,7 +1177,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'Chip Reaves',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-38ce2a2e-daeb-420e-aa4b-f70966e9756d',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-38ce2a2e-daeb-420e-aa4b-f70966e9756d/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1182,7 +1191,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'David Joseph Katz',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-O8SY9NGJ',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-O8SY9NGJ/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1196,7 +1205,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'Diego Cárdenas',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-85DMHWQJ',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-85DMHWQJ/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1210,7 +1219,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 8,
                 'instructor'      => 'Diego Cárdenas',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-XU9T4JHQ',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-XU9T4JHQ/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1224,7 +1233,7 @@ class AddPortfolio extends Command
                 'academy_id'      => 2,
                 'instructor'      => 'Mustapha Jibril Muhammad',
                 'sponsor'         => null,
-                'certificate_url' => 'http://ude.my/UC-50b102c5-21aa-40af-84f9-f9e63fd416cb',
+                'certificate_url' => 'https://www.udemy.com/certificate/UC-50b102c5-21aa-40af-84f9-f9e63fd416cb/',
                 'link'            => null,
                 'link_name'       => null,
             ],
@@ -1233,6 +1242,9 @@ class AddPortfolio extends Command
         if (!empty($data)) {
             Course::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy course images/files
+        $this->copySourceFiles('course');
     }
 
     protected function insertPortfolioJobs(): void
@@ -1398,6 +1410,9 @@ class AddPortfolio extends Command
         if (!empty($data)) {
             Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy job images/files
+        $this->copySourceFiles('job');
     }
 
     protected function insertPortfolioJobCoworkers(): void
@@ -1435,6 +1450,9 @@ class AddPortfolio extends Command
         if (!empty($data)) {
             JobCoworker::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy job coworker images/files
+        $this->copySourceFiles('job-coworker');
     }
 
     protected function insertPortfolioJobTasks(): void
@@ -1459,6 +1477,9 @@ class AddPortfolio extends Command
         if (!empty($data)) {
             JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy job task images/files
+        $this->copySourceFiles('job-task');
     }
 
     protected function insertPortfolioLinks(): void
@@ -1475,6 +1496,9 @@ class AddPortfolio extends Command
         if (!empty($data)) {
             Link::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy link images/files
+        $this->copySourceFiles('link');
     }
 
     protected function insertPortfolioMusic(): void
@@ -2285,6 +2309,9 @@ class AddPortfolio extends Command
         if (!empty($data)) {
             Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy music images/files
+        $this->copySourceFiles('music');
     }
 
     protected function insertPortfolioProjects(): void
@@ -2387,6 +2414,9 @@ class AddPortfolio extends Command
         if (!empty($data)) {
             Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy project images/files
+        $this->copySourceFiles('project');
     }
 
     protected function insertPortfolioPublications(): void
@@ -2400,6 +2430,9 @@ class AddPortfolio extends Command
         if (!empty($data)) {
             Publication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy publication images/files
+        $this->copySourceFiles('publication');
     }
 
     protected function insertPortfolioSkills(): void
@@ -2451,6 +2484,9 @@ class AddPortfolio extends Command
         if (!empty($data)) {
             Skill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy skill images/files
+        $this->copySourceFiles('skill');
     }
 
     protected function insertPortfolioVideos(): void
@@ -3055,7 +3091,7 @@ class AddPortfolio extends Command
                 'embed'            => '',
                 'link'             => '',
                 'link_name'        => '',
-                'description' => 'Performing Never Be Straight',
+                'description'      => 'Performing Never Be Straight',
                 'public'           => 1,
             ],
             [
@@ -3095,7 +3131,7 @@ class AddPortfolio extends Command
                 'embed'            => '<iframe width="560" height="315" src="https://www.youtube.com/embed/mI04UiU_smI?si=aF_z7B5rpbUcUpmg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
                 'link'             => 'https://youtu.be/mI04UiU_smI?si=aF_z7B5rpbUcUpmg',
                 'link_name'        => 'YouTube',
-                'description' => 'Performing Brazil',
+                'description'      => 'Performing Brazil',
                 'public'           => 1,
             ],
             [
@@ -3163,6 +3199,9 @@ class AddPortfolio extends Command
         if (!empty($data)) {
             Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+
+        // copy job images/files
+        $this->copySourceFiles('video');
     }
 
     /**
@@ -3200,7 +3239,9 @@ class AddPortfolio extends Command
             }
 
             if ($addDisclaimer) {
-                $data[$i]['disclaimer'] = 'This is only for site demo purposes and I do not have any ownership or relationship to it.';
+                foreach ($extraColumns as $name => $value) {
+                    $data[$i]['disclaimer'] = 'This is only for site demo purposes and I do not have any ownership or relationship to it.';
+                }
             }
         }
 
@@ -3290,6 +3331,10 @@ class AddPortfolio extends Command
                                         // logo or thumbnail file
                                         $row->update([
                                             $imageName => $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS . $row->id . $DS . $image
+                                        ]);
+                                    } else {
+                                        $row->update([
+                                            'image' => $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS . $row->id . $DS . $image
                                         ]);
                                     }
                                 }

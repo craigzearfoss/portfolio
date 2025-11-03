@@ -63,7 +63,7 @@ class AddCareer extends Command
 
         if (!$this->silent) {
             echo PHP_EOL . 'username: ' . self::USERNAME . PHP_EOL;
-            echo 'demo: ' . $this->demo . PHP_EOL;
+            echo  'demo: ' . $this->demo . PHP_EOL;
             $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
@@ -333,7 +333,7 @@ class AddCareer extends Command
         ];
 
         if (!empty($data)) {
-            CompanyContact::insert($this->additionalColumns($data, true));
+            CompanyContact::insert($this->additionalColumns($data));
         }
     }
 

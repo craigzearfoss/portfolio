@@ -197,7 +197,7 @@ class InitSampleAdmin extends Command
         }
 
         /* --------------------------------------------------------------------------- */
-        /* Import into the portfolio database.                                         */
+        /* Import into the career database.                                            */
         /* --------------------------------------------------------------------------- */
         $initCareerFile = $sampleAdminDataDirectory.$DS.'Career'.$DS.$initFile;
         if (!file_exists($initCareerFile)) {
