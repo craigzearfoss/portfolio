@@ -29,6 +29,18 @@
 
                 <div class="show-container p-4">
 
+                    <div class="columns">
+                        <span class="column is-12 has-text-centered">
+                            @include('guest.components.link', [
+                                'name'   => 'Resume',
+                                'href'   => route('guest.admin.resume', $admin),
+                                'class'  => 'button is-primary is-small px-1 py-0',
+                                'target' => '_blank',
+                                'title'  => 'Resume',
+                            ])
+                        </span>
+                    </div>
+
                     @include('guest.components.show-row', [
                         'name'  => 'role',
                         'value' => $admin->role ?? ''

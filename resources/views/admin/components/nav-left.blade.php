@@ -1,8 +1,8 @@
 @php
-    $menuItems = (new \App\Services\MenuService())->getLeftMenu(
-        \App\Services\PermissionService::ENV_ADMIN,
-         $admin ?? null
-     );
+$menuItems = (new \App\Services\MenuService())->getLeftMenu(
+    \App\Services\PermissionService::ENV_ADMIN,
+    $admin ?? null
+);
 @endphp
 
 <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
@@ -53,24 +53,30 @@
                 </a>
             </p>
 
-            <ul class="menu-list pl-2">
-                @foreach ($menuItem->children as $menuSubItem)
-                    <li>
-                        <a @if (!empty($menuSubItem->link))href="{{ $menuSubItem->link }}"  @endif
-                            class="{{ $menuSubItem->active ? 'is-active' : '' }}"
-                        >
-                            <div class="menu-item">
-                                <span class="text-xl">
-                                    <i class="fa-solid {{ !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle' }}"></i>
-                                </span>
-                                <span class="menu-item-label">
-                                    {{ !empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title }}
-                                </span>
-                            </div>
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
+            @if(!empty($menuItem->children))
+
+                <ul class="menu-list pl-2">
+
+                    @foreach ($menuItem->children as $menuSubItem)
+                        <li>
+                            <a @if (!empty($menuSubItem->link))href="{{ $menuSubItem->link }}"  @endif
+                                class="{{ $menuSubItem->active ? 'is-active' : '' }}"
+                            >
+                                <div class="menu-item">
+                                    <span class="text-xl">
+                                        <i class="fa-solid {{ !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle' }}"></i>
+                                    </span>
+                                    <span class="menu-item-label">
+                                        {{ !empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title }}
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
+
+                </ul>
+
+            @endif
 
         </ul>
     @endforeach

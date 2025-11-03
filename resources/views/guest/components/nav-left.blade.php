@@ -1,8 +1,8 @@
 @php
 $menuItems = (new \App\Services\MenuService())->getLeftMenu(
     \App\Services\PermissionService::ENV_GUEST,
-     $admin ?? null
- );
+    $admin ?? null
+);
 @endphp
 
 <aside class="aside is-placed-left is-expanded" style="overflow-y: auto;">
@@ -57,7 +57,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
                                     ['name', 'asc'
                                 ]),
                 'style'    => 'font-size: 1.2em; font-weight: 700',
-                'onchange' => "document.location.href='/'+this.value+'/profile';"
+                'onchange' => "document.location.href='/'+this.value;"
             ])
 
         @endif
@@ -76,24 +76,30 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
                 </a>
             </p>
 
-            <ul class="menu-list pl-2">
-                @foreach ($menuItem->children as $menuSubItem)
-                    <li>
-                        <a @if (!empty($menuSubItem->link))href="{{ $menuSubItem->link }}"  @endif
-                            class="{{ $menuSubItem->active ? 'is-active' : '' }}"
-                        >
-                            <div class="menu-item">
-                                <span class="text-xl">
-                                    <i class="fa-solid {{ !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle' }}"></i>
-                                </span>
-                                <span class="menu-item-label">
-                                    {{ !empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title }}
-                                </span>
-                            </div>
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
+            @if(!empty($menuItem->children))
+
+                <ul class="menu-list pl-2">
+
+                    @foreach ($menuItem->children as $menuSubItem)
+                        <li @if(($menuItem->name == 'portfolio') && in_array($menuSubItem->name, ['job'])) style="display: none !important" @endif>
+                            <a @if (!empty($menuSubItem->link))href="{{ $menuSubItem->link }}"  @endif
+                                class="{{ $menuSubItem->active ? 'is-active' : '' }}"
+                            >
+                                <div class="menu-item">
+                                    <span class="text-xl">
+                                        <i class="fa-solid {{ !empty($menuSubItem->icon) ? $menuSubItem->icon : 'fa-circle' }}"></i>
+                                    </span>
+                                    <span class="menu-item-label">
+                                        {{ !empty($menuSubItem->plural) ? $menuSubItem->plural : $menuSubItem->title }}
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
+
+                </ul>
+
+            @endif
 
         </ul>
     @endforeach
