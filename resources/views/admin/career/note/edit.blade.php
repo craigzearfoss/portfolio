@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => 'Edit Note',
+    'title' => $title ?? 'Edit Note',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

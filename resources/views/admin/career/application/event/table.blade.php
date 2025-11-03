@@ -14,7 +14,7 @@ $events = $events ?? [];
 
         <tr>
             <td>
-                {{ $event['name'] }}
+                {!! $event['name'] !!}
             </td>
             <td>
                 {{ longDate($event->date) }}
@@ -23,7 +23,7 @@ $events = $events ?? [];
                 {{ $event->time }}
             </td>
             <td>
-                {{ $event->location }}
+                {!! $event->location !!}
             </td>
         </tr>
 

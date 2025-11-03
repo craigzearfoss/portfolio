@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => 'Cover Letter: ' . $coverLetter->name,
+    'title' => !rmpty($title) ? $title : 'Cover Letter: ' . $coverLetter->name,
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

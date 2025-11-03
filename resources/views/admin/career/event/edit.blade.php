@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => 'Edit Event',
+    'title' => $title ?? 'Edit Event',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

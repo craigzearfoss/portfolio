@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add New Company',
+    'title' => $title ?? 'Add New Company',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
@@ -57,7 +57,8 @@
                 'name'    => 'industry_id',
                 'label'   => 'industry',
                 'value'   => old('industry_id') ?? 0,
-                'list'    => \App\Models\Career\Industry::listOptions([], true, false, true),
+                'required'  => true,
+                'list'    => \App\Models\Career\Industry::listOptions([], 'id', 'name', true, false, ['name', 'asc']),
                 'message' => $message ?? '',
             ])
 

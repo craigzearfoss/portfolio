@@ -24,6 +24,7 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
+                <th>application</th>
                 <th>name</th>
                 <th>date</th>
                 <th>time</th>
@@ -39,6 +40,7 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
+                <th>application</th>
                 <th>name</th>
                 <th>date</th>
                 <th>time</th>
@@ -59,6 +61,9 @@
                             {{ $event->owner['username'] ?? '' }}
                         </td>
                     @endif
+                    <td data-field="application_id" style="white-space: nowrap;">
+                        {{ $event->application->name ?? '' }}
+                    </td>
                     <td data-field="name" style="white-space: nowrap;">
                         {{ $event->name }}
                     </td>

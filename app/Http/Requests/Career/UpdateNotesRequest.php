@@ -52,4 +52,13 @@ class UpdateNotesRequest extends FormRequest
             'application_id.exists' => 'The specified application does not exist.',
         ];
     }
+
+    public function prepareForValidation()
+    {
+        if (!empty($this->time)) {
+            $this->merge([
+                'time' => $this->time . ':00',
+            ]);
+        }
+    }
 }

@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add New Communication',
+    'title' => $title ?? 'Add New Communication',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

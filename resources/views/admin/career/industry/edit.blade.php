@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => 'Industry: ' . $industry->name,
+    'title' => !empty($title) ? $title : 'Industry: ' . $industry->name,
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

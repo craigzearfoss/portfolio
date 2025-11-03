@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => 'Application: ' . $application->name,
+    'title' => !empty($title) ? $title : 'Application: ' . $application->name,
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
@@ -52,11 +52,12 @@
             @endif
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'company_id',
-                'label'   => 'company',
-                'value'   => old('company_id') ?? $application->company_id,
-                'list'    => \App\Models\Career\Company::listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
+                'name'     => 'company_id',
+                'label'    => 'company',
+                'value'    => old('company_id') ?? $application->company_id,
+                'required' => true,
+                'list'     => \App\Models\Career\Company::listOptions([], 'id', 'name', true),
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -144,27 +145,30 @@
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'job_duration_id',
-                'label'   => 'duration type',
-                'value'   => old('job_duration_id') ?? $application->job_duration_id,
-                'list'    => \App\Models\Career\JobDurationType::listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
+                'name'     => 'job_duration_type_id',
+                'label'    => 'duration type',
+                'value'    => old('job_duration_type_id') ?? $application->job_duration_type_id,
+                'required' => true,
+                'list'     => \App\Models\Career\JobDurationType::listOptions([], 'id', 'name', true),
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'job_employment_type_id',
-                'label'   => 'employment type',
-                'value'   => old('job_employment_type_id') ?? $application->job_employment_type_id,
-                'list'    => \App\Models\Career\JobEmploymentType::listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
+                'name'     => 'job_employment_type_id',
+                'label'    => 'employment type',
+                'value'    => old('job_employment_type_id') ?? $application->job_employment_type_id,
+                'required' => true,
+                'list'     => \App\Models\Career\JobEmploymentType::listOptions([], 'id', 'name', true),
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'job_location_type_id',
-                'label'   => 'location type',
-                'value'   => old('job_location_type_id') ?? $application->job_location_type_id,
-                'list'    => \App\Models\Career\JobLocationType::listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
+                'name'     => 'job_location_type_id',
+                'label'    => 'location type',
+                'value'    => old('job_location_type_id') ?? $application->job_location_type_id,
+                'required' => true,
+                'list'     => \App\Models\Career\JobLocationType::listOptions([], 'id', 'name', true),
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

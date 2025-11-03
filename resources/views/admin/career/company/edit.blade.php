@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => 'Company: ' . $company->name,
+    'title' => !empty($title) ? $title ? 'Company: ' . $company->name,
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
@@ -65,11 +65,12 @@
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'industry_id',
-                'label'   => 'industry',
-                'value'   => old('industry_id') ?? $company->industry_id,
-                'list'    => \App\Models\Career\Industry::listOptions([], 'id', 'name', true, true),
-                'message' => $message ?? '',
+                'name'     => 'industry_id',
+                'label'    => 'industry',
+                'value'    => old('industry_id') ?? $company->industry_id,
+                'required' => true,
+                'list'     => \App\Models\Career\Industry::listOptions([], 'id', 'name', true, true),
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

@@ -13,10 +13,10 @@ $communications = $communications ?? [];
 
         <tr>
             <td>
-                {{ $communication['subject'] }}
+                {!! $communication['subject'] !!}
             </td>
             <td>
-                {{ longDate($communication->date) }}
+                {!! longDate($communication->date) !!}
             </td>
             <td>
                 {{ $communication->time }}

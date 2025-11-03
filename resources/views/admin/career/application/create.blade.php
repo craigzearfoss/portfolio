@@ -1,4 +1,20 @@
 @extends('admin.layouts.default', [
+    'title' => $title ?? 'Add New Application',
+    'breadcrumbs' => [
+        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+        [ 'name' => 'Applications',    'href' => route('admin.career.application.index') ],
+        [ 'name' => 'Add' ],
+    ],
+    'buttons' => [
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.application.index') ],
+    ],
+    'errorMessages' => $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
+        : [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
 ])
 
 @section('content')
@@ -131,28 +147,30 @@
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'job_duration_id',
+                'name'    => 'job_duration_type_id',
                 'label'   => 'duration type',
-                'value'   => old('job_duration_id') ?? '',
+                'value'   => old('job_duration_type_id') ?? '',
                 'required'  => true,
                 'list'    => \App\Models\Career\JobDurationType::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'job_employment_type_id',
-                'label'   => 'employment type',
-                'value'   => old('job_employment_type_id') ?? '',
-                'list'    => \App\Models\Career\JobEmploymentType::listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
+                'name'     => 'job_employment_type_id',
+                'label'    => 'employment type',
+                'value'    => old('job_employment_type_id') ?? '',
+                'required' => true,
+                'list'     => \App\Models\Career\JobEmploymentType::listOptions([], 'id', 'name', true),
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'job_location_type_id',
-                'label'   => 'location type',
-                'value'   => old('job_location_type_id') ?? '',
-                'list'    => \App\Models\Career\JobLocationType::listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
+                'name'     => 'job_location_type_id',
+                'label'    => 'location type',
+                'value'    => old('job_location_type_id') ?? '',
+                'required' => true,
+                'list'     => \App\Models\Career\JobLocationType::listOptions([], 'id', 'name', true),
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
