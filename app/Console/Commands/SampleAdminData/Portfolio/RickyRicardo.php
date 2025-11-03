@@ -62,7 +62,8 @@ class RickyRicardo extends Command
         $this->adminId = $admin->id;
 
         if (!$this->silent) {
-            echo PHP_EOL . 'adminId: ' . $this->adminId . PHP_EOL;
+            echo PHP_EOL . 'username: ' . self::USERNAME . PHP_EOL;
+            echo  'demo: ' . $this->demo . PHP_EOL;
             $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
 

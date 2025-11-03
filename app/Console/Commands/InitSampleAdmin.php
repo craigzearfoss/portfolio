@@ -107,7 +107,7 @@ class InitSampleAdmin extends Command
 
         $errors = [];
 
-        if ($username = 'demo-admin') {
+        if ($username == 'demo-admin') {
 
             $adminId = Admin::withoutGlobalScope(AdminGlobalScope::class)->where('username', $username)->first()->id;
             $adminTeamId = AdminTeam::withoutGlobalScope(AdminGlobalScope::class)->where('name', 'Demo Admin Team')->first()->id;

@@ -68,6 +68,8 @@ return new class extends Migration
                 'email_verified_at' => now(),
                 'password'          => Hash::make('changeme'),
                 'status'            => 1,
+                'image'             => '/images/admin/1/profile.png',
+                'thumbnail'         => '/images/admin/1/thumbnail.png',
                 'token'             => '',
                 'root'              => 1,
             ],
@@ -79,6 +81,8 @@ return new class extends Migration
                 'email'             => 'admin@gmail.com',
                 'email_verified_at' => now(),
                 'password'          => Hash::make('changeme'),
+                'image'             => '/images/admin/2/profile.png',
+                'thumbnail'         => '/images/admin/2/thumbnail.png',
                 'status'            => 1,
                 'token'             => '',
                 'root'              => 0,
@@ -91,6 +95,8 @@ return new class extends Migration
                 'email'             => 'demo@gmail.com',
                 'email_verified_at' => now(),
                 'password'          => Hash::make('Shpadoinkle!'),
+                'image'             => '/images/admin/3/profile.png',
+                'thumbnail'         => '/images/admin/3/thumbnail.png',
                 'status'            => 1,
                 'token'             => '',
                 'root'              => 0,
@@ -125,23 +131,20 @@ return new class extends Migration
         $rootSourcePath = base_path() . $DS . 'source_files' . $DS . 'admin';
         $rootDestinationPath =  base_path() . $DS . 'public' . $DS . 'images' . $DS . 'admin';
 
-        foreach([1=>'root', 2=>'admin', 3=>'demo-admin'] as $adminId => $username) {
+        echo PHP_EOL;
 
-            echo PHP_EOL . '  Copying files from ' . $rootSourcePath . $DS . $username . ' ... ' . PHP_EOL;
+        foreach([1=>'root', 2=>'admin', 3=>'demo-admin'] as $adminId => $username) {
 
             // make sure the destination directory exists for images
             if (!File::exists($rootDestinationPath . $DS .$adminId)) {
                 File::makeDirectory($rootDestinationPath . $DS .$adminId, 755, true);
             }
 
-            $image = null;
-            $thumbnail = null;
-
             foreach (scandir($rootSourcePath . $DS . $username) as $sourceFile) {
 
                 if ($sourceFile == '.' || $sourceFile == '..') continue;
 
-                echo '      - ' . $sourceFile . ' ...' . PHP_EOL;
+                echo '  Copying  ' . $rootSourcePath . $DS . $username . $DS . $sourceFile . ' ... ' . PHP_EOL;
 
                 if (File::name('profile')) {
                     $image = "/images/admin/{$adminId}/profile." . File::extension($sourceFile);
@@ -154,22 +157,7 @@ return new class extends Migration
                     $rootDestinationPath . $DS . $adminId . $DS . $sourceFile
                 );
             }
-
-            Admin::where('id', $adminId)->update([
-                'image'     => $image,
-                'thumbnail' => $thumbnail,
-            ]);
-
-
-            $destinationFilesDirectory = 'public' . $DS . 'images' . $DS . 'admin' . $DS . $adminId . $DS;
         }
-
-        $sourceFilesDirectory = 'source_files' . $DS . 'admin' . $DS . $username . $DS;
-        $destinationFilesDirectory = 'public' . $DS . 'images' . $DS . 'admin' . $DS . $adminId . $DS;
-
-        $sourceFilesPath = base_path() . $DS . $sourceFilesDirectory;
-        $destinationPath = base_path() . $DS . $destinationFilesDirectory;
-
     }
 
     /**

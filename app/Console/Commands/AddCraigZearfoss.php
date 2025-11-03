@@ -71,9 +71,9 @@ class AddCraigZearfoss extends Command
             ->where('name', 'Default Admin Group')->first()->id;
 
         if (!$this->option('silent')) {
-            echo PHP_EOL . 'adminId: ' . $this->adminId . PHP_EOL;
-            echo 'teamId: ' . $teamId . PHP_EOL;
-            echo 'groupId: ' . $groupId . PHP_EOL;
+            echo PHP_EOL . 'username: ' . self::USERNAME . PHP_EOL;
+            echo 'admin_id: ' . $this->adminId . PHP_EOL;
+            echo 'demo: ' . $this->demo . PHP_EOL;
             $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
 
