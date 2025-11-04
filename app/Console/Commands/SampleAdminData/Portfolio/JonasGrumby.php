@@ -235,7 +235,7 @@ class JonasGrumby extends Command
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
                 'city'                   => 'Honolulu',
-                'state_id'               => 22,
+                'state_id'               => 12,
                 'country_id'             => 237,
                 'logo'                   => null,
                 'logo_small'             => null,
