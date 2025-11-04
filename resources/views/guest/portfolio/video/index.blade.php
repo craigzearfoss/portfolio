@@ -63,7 +63,7 @@
             @empty
 
                 <tr>
-                    <td colspan="4">There is no video.</td>
+                    <td colspan="4">There are no videos.</td>
                 </tr>
 
             @endforelse

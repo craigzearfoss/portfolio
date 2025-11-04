@@ -70,13 +70,24 @@ class FredFlintstone extends Command
         echo self::USERNAME . ": Inserting into Personal\\Reading ...\n";
 
         $data = [
-            [ 'title' => 'The Reincarnation of Peter Proud', 'author' => 'Max Ehrlich', 'slug' => 'the-reincarnation-of-peter-proud-by-max-ehrlich', 'publication_year' => 1974, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/The_Reincarnation_of_Peter_Proud_(novel)', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://upload.wikimedia.org/wikipedia/en/thumb/2/2c/The_Reincarnation_of_Peter_Proud_%28novel%29.jpg/250px-The_Reincarnation_of_Peter_Proud_%28novel%29.jpg' ],
-            [ 'title' => 'A Connecticut Yankee in King Arthur\'s Court', 'author' => 'Mark Twain', 'slug' => 'a-connecticut-yankee-in-king-arthurs-court-by-mark-twain', 'publication_year' => 1889, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/A_Connecticut_Yankee_in_King_Arthur%27s_Court', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 0, 'audio' => 1, 'wishlist' => 0, 'image' => 'https://mpd-biblio-covers.imgix.net/9781466806528.jpg' ],
-            [ 'title' => 'A Lost Heritage: Living Pennsylvania Dutch', 'author' => 'Howard Anderson', 'slug' => 'a-lost-heritage-living-pennsylvania-dutch-by-howard-anderson', 'publication_year' => 1988, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/Lost-Heritage-Living-Pennsylvania-Dutch/dp/B0032Y4Q0G', 'fiction' => 0, 'nonfiction' => 1, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => 'https://m.media-amazon.com/images/I/91YeFLczIxL._SY342_.jpg' ],
-            [ 'title' => 'A Dream About Lightning Bugs', 'author' => 'Ben Folds', 'slug' => 'a-dream-about-lightning-bugs-by-ben-folds', 'publication_year' => 2020, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/Dream-About-Lightning-Bugs-Lessons/dp/1984817299/', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
-            [ 'title' => 'Rabbit, Run', 'author' => 'John Updike', 'slug' => 'rabbit-run-by-john-updike', 'publication_year' => 1960, 'link_name' => 'Wikipedia', 'link' => 'https://en.wikipedia.org/wiki/Rabbit, Run', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
-            [ 'title' => 'Dad Is Fat', 'author' => 'Jim Gaffigan', 'slug' => 'dad-is-fat-by-jim-gaffigan', 'publication_year' => 2013, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/DAD-FAT-Jim-Gaffigan/dp/B00ERQX3E8/', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
-            [ 'title' => 'Another Now', 'author' => 'Yanis Varoufakis', 'slug' => 'another-now-by-yanis-varoufakis', 'publication_year' => 2021, 'link_name' => 'Amazon', 'link' => 'https://www.amazon.com/Another-Now-Yanis-Varoufakis/dp/1612199577/', 'fiction' => 1, 'nonfiction' => 0, 'paper' => 1, 'audio' => 0, 'wishlist' => 0, 'image' => null   ],
+            /*
+            [
+                'title'            => '',
+                'author'           => '',
+                'slug'             => '',
+                'publication_year' => 2025,
+                'fiction'          => 0,
+                'nonfiction'       => 1,
+                'paper'            => 1,
+                'audio'            => 0,
+                'wishlist'         => 0,
+                'link'             => null,
+                'link_name'        => null,
+                'image'            => null,
+                'public'           => 1
+            ],
+            */
+
         ];
 
         if (!empty($data)) {

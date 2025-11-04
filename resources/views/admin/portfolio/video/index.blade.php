@@ -111,7 +111,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '7' : '6' }}">There is no video.</td>
+                    <td colspan="{{ isRootAdmin() ? '7' : '6' }}">There are no videos.</td>
                 </tr>
 
             @endforelse
