@@ -1,14 +1,14 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add New Certification',
+    'title' =>'Add New Certificate',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Certifications',  'href' => route('admin.portfolio.certification.index') ],
+        [ 'name' => 'Certificates',  'href' => route('admin.portfolio.certificate.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.certification.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.certificate.index') ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
@@ -21,12 +21,12 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.certification.store') }}" method="POST">
+        <form action="{{ route('admin.portfolio.certificate.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.portfolio.certification.index')
+                'value' => referer('admin.portfolio.certificate.index')
             ])
 
             @if(isRootAdmin())
@@ -238,8 +238,8 @@
             </div>
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add Certification',
-                'cancel_url' => referer('admin.portfolio.certification.index')
+                'label'      => 'Add Certificate',
+                'cancel_url' => referer('admin.portfolio.certificate.index')
             ])
 
         </form>

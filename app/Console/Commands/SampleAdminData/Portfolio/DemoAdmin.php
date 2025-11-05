@@ -4,7 +4,7 @@ namespace App\Console\Commands\SampleAdminData\Portfolio;
 
 use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Audio;
-use App\Models\Portfolio\Certification;
+use App\Models\Portfolio\Certificate;
 use App\Models\Portfolio\Course;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
@@ -70,7 +70,7 @@ class DemoAdmin extends Command
         // portfolio
         $this->insertPortfolioArt();
         $this->insertPortfolioAudios();
-        $this->insertPortfolioCertifications();
+        $this->insertPortfolioCertificates();
         $this->insertPortfolioCourses();
         $this->insertPortfolioJobs();
         $this->insertPortfolioJobCoworkers();
@@ -208,9 +208,9 @@ class DemoAdmin extends Command
         $this->copySourceFiles('audio');
     }
 
-    protected function insertPortfolioCertifications(): void
+    protected function insertPortfolioCertificates(): void
     {
-        echo self::USERNAME . ": Inserting into Portfolio\\Certification ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\Certificate ...\n";
 
         $data = [
             [
@@ -222,7 +222,7 @@ class DemoAdmin extends Command
                 'academy_id'      => 3,
                 'year'            => 2023,
                 'received'        => '2023-07-11',
-                'certificate_url' => '/images/admin/2/portfolio/certification/HGL8U7MSRWFL.png',
+                'certificate_url' => '/images/admin/2/portfolio/certificate/HGL8U7MSRWFL.png',
                 'link'            => 'https://coursera.org/verify/professional-cert/HGL8U7MSRWFL',
                 'link_name'       => 'Coursera verification',
                 'description'     => '<p class="menu-label">Includes the following courses:</p><ul class="menu-list"><li>Foundations of Cybersecurity</li><li>Play It Safe: Manage Security Risks</li><li>Connect and Protect: Networks and Network Security</li><li>Tools of the Trade: Linux and SQL</li><li>Assets, Threats, Vulnerabilities</li><li>Sound the Alarm: Detection and Response</li><li>Automate Cybersecurity Tasks with Python</li><li>Put It to Work: Prepare for Cybersecurity Jobs</li></ul>',
@@ -230,11 +230,11 @@ class DemoAdmin extends Command
         ];
 
         if (!empty($data)) {
-            Certification::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            Certificate::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
 
-        // copy certification images/files
-        $this->copySourceFiles('certification');
+        // copy certificate images/files
+        $this->copySourceFiles('certificate');
     }
 
     protected function insertPortfolioCourses(): void
@@ -2537,7 +2537,7 @@ class DemoAdmin extends Command
         switch ($resource) {
             case 'art'           : $model = new Art(); break;
             case 'audio'         : $model = new Audio(); break;
-            case 'certification' : $model = new Certification(); break;
+            case 'certificate' : $model = new Certificate(); break;
             case 'course'        : $model = new Course(); break;
             case 'job'           : $model = new Job(); break;
             case 'job-coworker'  : $model = new JobCoworker(); break;

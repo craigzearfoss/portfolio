@@ -48,7 +48,7 @@ return new class extends Migration
             [ 'id' => 3,  'full_name' => 'approach',          'name' => 'approach',         'slug' => 'approach',         'abbreviation' => null, 'definition' => '' ],
             [ 'id' => 4,  'full_name' => 'architecture',      'name' => 'architecture',     'slug' => 'architecture',     'abbreviation' => null, 'definition' => 'The set of structures needed to reason about a software system and the discipline of creating such structures and systems.' ],
             [ 'id' => 5,  'full_name' => 'business',          'name' => 'business',         'slug' => 'business',         'abbreviation' => null, 'definition' => '' ],
-            [ 'id' => 6,  'full_name' => 'certification',     'name' => 'certification',    'slug' => 'certification',    'abbreviation' => null, 'definition' => '' ],
+            [ 'id' => 6,  'full_name' => 'certificate',     'name' => 'certificate',    'slug' => 'certificate',    'abbreviation' => null, 'definition' => '' ],
             [ 'id' => 7,  'full_name' => 'concept',           'name' => 'concept',          'slug' => 'concept',          'abbreviation' => null, 'definition' => '' ],
             [ 'id' => 8,  'full_name' => 'database',          'name' => 'database',         'slug' => 'database',         'abbreviation' => null, 'definition' => '' ],
             [ 'id' => 9,  'full_name' => 'field of study',    'name' => 'field of study',   'slug' => 'field-of-study',   'abbreviation' => null, 'definition' => '' ],

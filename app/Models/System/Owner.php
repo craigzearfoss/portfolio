@@ -16,7 +16,7 @@ use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeIngredient;
 use App\Models\Personal\RecipeStep;
 use App\Models\Portfolio\Art;
-use App\Models\Portfolio\Certification;
+use App\Models\Portfolio\Certificate;
 use App\Models\Portfolio\Course;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
@@ -79,11 +79,11 @@ class Owner extends Model
     }
 
     /**
-     * Get the certifications owners.
+     * Get the certificates owners.
      */
-    public function certifications(): HasMany
+    public function certificates(): HasMany
     {
-        return $this->hasMany(Certification::class);
+        return $this->hasMany(Certificate::class);
     }
 
     /**

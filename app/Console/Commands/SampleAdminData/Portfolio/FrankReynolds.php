@@ -4,7 +4,7 @@ namespace App\Console\Commands\SampleAdminData\Portfolio;
 
 use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Audio;
-use App\Models\Portfolio\Certification;
+use App\Models\Portfolio\Certificate;
 use App\Models\Portfolio\Course;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
@@ -70,7 +70,7 @@ class FrankReynolds extends Command
         // portfolio
         $this->insertPortfolioArt();
         $this->insertPortfolioAudios();
-        $this->insertPortfolioCertifications();
+        $this->insertPortfolioCertificates();
         $this->insertPortfolioCourses();
         $this->insertPortfolioJobs();
         $this->insertPortfolioJobCoworkers();
@@ -150,9 +150,9 @@ class FrankReynolds extends Command
         $this->copySourceFiles('audio');
     }
 
-    protected function insertPortfolioCertifications(): void
+    protected function insertPortfolioCertificates(): void
     {
-        echo self::USERNAME . ": Inserting into Portfolio\\Certification ...\n";
+        echo self::USERNAME . ": Inserting into Portfolio\\Certificate ...\n";
 
         $data = [
             /*
@@ -173,11 +173,11 @@ class FrankReynolds extends Command
         ];
 
         if (!empty($data)) {
-            Certification::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            Certificate::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
 
-        // copy certification images/files
-        $this->copySourceFiles('certification');
+        // copy certificate images/files
+        $this->copySourceFiles('certificate');
     }
 
     protected function insertPortfolioCourses(): void
@@ -676,7 +676,7 @@ class FrankReynolds extends Command
         switch ($resource) {
             case 'art'           : $model = new Art(); break;
             case 'audio'         : $model = new Audio(); break;
-            case 'certification' : $model = new Certification(); break;
+            case 'certificate' : $model = new Certificate(); break;
             case 'course'        : $model = new Course(); break;
             case 'job'           : $model = new Job(); break;
             case 'job-coworker'  : $model = new JobCoworker(); break;

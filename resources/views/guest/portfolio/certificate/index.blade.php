@@ -1,11 +1,11 @@
 @extends('guest.layouts.default', [
-    'title' => $title ?? $admin->name . ' certifications',
+    'title' => $title ?? $admin->name . ' certificates',
     'breadcrumbs' => [
         [ 'name' => 'Home',       'href' => route('system.index') ],
         [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
         [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
         [ 'name' => 'Portfolio',  'href' => route('guest.admin.portfolio.show', $admin) ],
-        [ 'name' => 'Certifications' ],
+        [ 'name' => 'Certificates' ],
     ],
     'buttons' => [],
     'errorMessages' => $errors->messages()  ?? [],
@@ -43,45 +43,45 @@
             */ ?>
             <tbody>
 
-            @forelse ($certifications as $certification)
+            @forelse ($certificates as $certificate)
 
                 <tr>
                     <td>
                         @include('guest.components.link', [
-                            'name'  => $certification->name,
-                            'href'  => route('guest.admin.portfolio.certification.show', [$certification->owner->username, $certification->slug]),
-                            'class' => $certification->featured ? 'has-text-weight-bold' : ''
+                            'name'  => $certificate->name,
+                            'href'  => route('guest.admin.portfolio.certificate.show', [$certificate->owner->username, $certificate->slug]),
+                            'class' => $certificate->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>
                     <td>
-                        @if(!empty($certification->academy['link']))
-                            {{ $certification->academy['name'] }}
+                        @if(!empty($certificate->academy['link']))
+                            {{ $certificate->academy['name'] }}
                         @else
                             @include('guest.components.link', [
-                                'name'   => $certification->academy['name'],
-                                'href'   => $certification->academy['link'],
+                                'name'   => $certificate->academy['name'],
+                                'href'   => $certificate->academy['link'],
                                 'target' => '_blank',
                             ])
                         @endif
                     </td>
                     <td class="has-text-centered">
-                        {{ $certification->organization }}
+                        {{ $certificate->organization }}
                     </td>
                     <td class="has-text-centered">
-                        {{ $certification->year }}
+                        {{ $certificate->year }}
                     </td>
                     <td class="has-text-centered">
-                        {{ shortDate($certification->received) }}
+                        {{ shortDate($certificate->received) }}
                     </td>
                     <td class="has-text-centered">
-                        {{ shortDate($certification->expiration) }}
+                        {{ shortDate($certificate->expiration) }}
                     </td>
                 </tr>
 
             @empty
 
                 <tr>
-                    <td colspan="6">There are no certifications.</td>
+                    <td colspan="6">There are no certificates.</td>
                 </tr>
 
             @endforelse
@@ -89,7 +89,7 @@
             </tbody>
         </table>
 
-        {!! $certifications->links('vendor.pagination.bulma') !!}
+        {!! $certificates->links('vendor.pagination.bulma') !!}
 
     </div>
 

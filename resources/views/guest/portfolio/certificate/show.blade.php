@@ -1,15 +1,15 @@
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Certification: ' . $certification->name,
+    'title' => $title ?? 'Certificate: ' . $certificate->name,
     'breadcrumbs' => [
         [ 'name' => 'Home',           'href' => route('system.index') ],
         [ 'name' => 'Users',          'href' => route('guest.admin.index') ],
         [ 'name' => $admin->name,     'href' => route('guest.admin.show', $admin)],
-        [ 'name' => 'Portfolio',      'href' => route('guest.admin.portfolio.show', $certification->owner) ],
-        [ 'name' => 'Certifications', 'href' => route('guest.admin.portfolio.certification.index', $certification->owner) ],
-        [ 'name' => $certification->name ],
+        [ 'name' => 'Portfolio',      'href' => route('guest.admin.portfolio.show', $certificate->owner) ],
+        [ 'name' => 'Certificates', 'href' => route('guest.admin.portfolio.certificate.index', $certificate->owner) ],
+        [ 'name' => $certificate->name ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.certification.index', $certification->owner) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.certificate.index', $certificate->owner) ],
     ],
     'errorMessages' => $errors->messages()  ?? [],
     'success' => session('success') ?? null,
@@ -22,100 +22,100 @@
 
         @include('guest.components.show-row', [
             'name'  => 'name',
-            'value' => $certification->name
+            'value' => $certificate->name
         ])
 
         @include('guest.components.show-row-checkbox', [
             'name'    => 'featured',
-            'checked' => $certification->featured
+            'checked' => $certificate->featured
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'summary',
-            'value' => $certification->summary
+            'value' => $certificate->summary
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'organization',
-            'value' => $certification->organization
+            'value' => $certificate->organization
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'year',
-            'value' => $certification->year
+            'value' => $certificate->year
         ])
 
         @include('guest.components.show-row', [
             'name'  => 'academy',
             'value' => view('guest.components.show-row', [
-                            'name'   => $certification->academy['name'],
-                            'href'   => $certification->academy['link'],
+                            'name'   => $certificate->academy['name'],
+                            'href'   => $certificate->academy['link'],
                             'target' => '_blank',
                         ]),
             'raw'   => true
         ])
 
-        @if(!empty($certification->certificate_url))
+        @if(!empty($certificate->certificate_url))
 
             @include('guest.components.show-row-image', [
                 'name'     => 'certificate url',
-                'src'      => imageUrl($certification->certificate_url),
+                'src'      => imageUrl($certificate->certificate_url),
                 'width'    => '300px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($certification->name, $certification->certificate_url)
+                'filename' => getFileSlug($certificate->name, $certificate->certificate_url)
             ])
 
         @endif
 
-        @if(!empty($certification->link))
+        @if(!empty($certificate->link))
             @include('guest.components.show-row-link', [
                 'name'   => 'link',
-                'href'   => $certification->link,
-                'label'  => $certification->link_name,
+                'href'   => $certificate->link,
+                'label'  => $certificate->link_name,
                 'target' => '_blank'
             ])
         @endif
 
         @include('guest.components.show-row', [
             'name'  => 'description',
-            'value' => $certification->description
+            'value' => $certificate->description
         ])
 
-        @if(!empty($certification->image))
+        @if(!empty($certificate->image))
 
             @include('guest.components.show-row-image', [
                 'name'     => 'image',
-                'src'      => $certification->image,
-                'alt'      => $certification->name . ', ' . $certification->artist,
+                'src'      => $certificate->image,
+                'alt'      => $certificate->name . ', ' . $certificate->artist,
                 'width'    => '300px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($certification->name . '-by-' . $certification->artist, $certification->image)
+                'filename' => getFileSlug($certificate->name . '-by-' . $certificate->artist, $certificate->image)
             ])
 
             @include('guest.components.show-row', [
                 'name'  => 'image credit',
-                'value' => $certification->image_credit
+                'value' => $certificate->image_credit
             ])
 
             @include('guest.components.show-row', [
                 'name'  => 'image source',
-                'value' => $certification->image_source
+                'value' => $certificate->image_source
             ])
 
         @endif
 
-        @if(!empty($certification->thumbnail))
+        @if(!empty($certificate->thumbnail))
 
             @include('guest.components.show-row-image', [
                 'name'     => 'thumbnail',
-                'src'      => $certification->thumbnail,
-                'alt'      => $certification->name . ', ' . $certification->artist,
+                'src'      => $certificate->thumbnail,
+                'alt'      => $certificate->name . ', ' . $certificate->artist,
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($certification->name . '-by-' . $certification->artist, $certification->thumbnail)
+                'filename' => getFileSlug($certificate->name . '-by-' . $certificate->artist, $certificate->thumbnail)
             ])
 
         @endif

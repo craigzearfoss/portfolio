@@ -7,7 +7,7 @@ use App\Http\Controllers\Guest\Personal\RecipeController as GuestPersonalRecipeC
 use App\Http\Controllers\Guest\System\AdminController as GuestAdminController;
 use App\Http\Controllers\Guest\Portfolio\ArtController as GuestPortfolioArtController;
 use App\Http\Controllers\Guest\Portfolio\AudioController as GuestPortfolioAudioController;
-use App\Http\Controllers\Guest\Portfolio\CertificationController as GuestPortfolioCertificationController;
+use App\Http\Controllers\Guest\Portfolio\CertificateController as GuestPortfolioCertificateController;
 use App\Http\Controllers\Guest\Portfolio\CourseController as GuestPortfolioCourseController;
 use App\Http\Controllers\Guest\Portfolio\JobController as GuestPortfolioJobController;
 use App\Http\Controllers\Guest\Portfolio\LinkController as GuestPortfolioLinkController;
@@ -36,8 +36,8 @@ Route::name('guest.')->group(function () {
     Route::get('/{admin:username}/portfolio/art/{slug}', [GuestPortfolioArtController::class, 'show'])->name('admin.portfolio.art.show');
     Route::get('/{admin:username}/portfolio/audio', [GuestPortfolioAudioController::class, 'index'])->name('admin.portfolio.audio.index');
     Route::get('/{admin:username}/portfolio/audio/{slug}', [GuestPortfolioAudioController::class, 'show'])->name('admin.portfolio.audio.show');
-    Route::get('/{admin:username}/portfolio/certification', [GuestPortfolioCertificationController::class, 'index'])->name('admin.portfolio.certification.index');
-    Route::get('/{admin:username}/portfolio/certification/{slug}', [GuestPortfolioCertificationController::class, 'show'])->name('admin.portfolio.certification.show');
+    Route::get('/{admin:username}/portfolio/certificate', [GuestPortfolioCertificateController::class, 'index'])->name('admin.portfolio.certificate.index');
+    Route::get('/{admin:username}/portfolio/certificate/{slug}', [GuestPortfolioCertificateController::class, 'show'])->name('admin.portfolio.certificate.show');
     Route::get('/{admin:username}/portfolio/course', [GuestPortfolioCourseController::class, 'index'])->name('admin.portfolio.course.index');
     Route::get('/{admin:username}/portfolio/course/{slug}', [GuestPortfolioCourseController::class, 'show'])->name('admin.portfolio.course.show');
     Route::get('/{admin:username}/portfolio/link', [GuestPortfolioLinkController::class, 'index'])->name('admin.portfolio.link.index');

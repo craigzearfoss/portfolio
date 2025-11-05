@@ -114,10 +114,10 @@ return new class extends Migration
             ],
             [
                 'id'        => 9,
-                'name'      => 'AWS Training and Certification',
-                'slug'      => 'aws-training-and-certification',
+                'name'      => 'AWS Training and Certificate',
+                'slug'      => 'aws-training-and-certificate',
                 'link'      => 'https://aws.amazon.com/training/',
-                'link_name' => 'AWS Training and Certification',
+                'link_name' => 'AWS Training and Certificate',
                 'sequence'  => 7,
                 'public'    => 1,
             ],

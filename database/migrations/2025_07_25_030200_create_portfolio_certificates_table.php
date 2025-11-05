@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Portfolio\Certification;
+use App\Models\Portfolio\Certificate;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +19,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('certifications', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('certificates', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('name');
@@ -79,7 +79,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Certification::insert($data);
+        Certificate::insert($data);
         */
     }
 
@@ -88,6 +88,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('certifications');
+        Schema::connection($this->database_tag)->dropIfExists('certificates');
     }
 };

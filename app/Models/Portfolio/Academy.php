@@ -2,7 +2,7 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Portfolio\Certification;
+use App\Models\Portfolio\Certificate;
 use App\Models\Portfolio\Course;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -45,11 +45,11 @@ class Academy extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the certifications for the academy.
+     * Get the certificates for the academy.
      */
-    public function certifications(): HasMany
+    public function certificates(): HasMany
     {
-        return $this->hasMany(Certification::class);
+        return $this->hasMany(Certificate::class);
     }
 
     /**

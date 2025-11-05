@@ -36,9 +36,9 @@ class TestSeeder extends Seeder
                 ->create();
         }
 
-        echo 'Portfolio/Certification' . PHP_EOL;
+        echo 'Portfolio/Certificate' . PHP_EOL;
         foreach ($adminIds as $adminId) {
-            \App\Models\Portfolio\Certification::factory()
+            \App\Models\Portfolio\Certificate::factory()
                 ->count(random_int(0, 10))
                 ->set('admin_id', $adminId)
                 ->sequence(fn($sequence) => [

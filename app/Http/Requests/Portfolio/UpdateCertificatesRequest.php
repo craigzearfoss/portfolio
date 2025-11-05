@@ -6,7 +6,7 @@ use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateCertificationsRequest extends FormRequest
+class UpdateCertificatesRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -33,7 +33,7 @@ class UpdateCertificationsRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.certifications', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.certificates', $this->owner_id)
             ]);
         }
 
@@ -42,9 +42,9 @@ class UpdateCertificationsRequest extends FormRequest
             'name'            => ['string',
                 'filled',
                 'max:255',
-                Rule::unique('portfolio_db.certifications')->where(function ($query) {
+                Rule::unique('portfolio_db.certificates')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->certification->id)
+                        ->where('id', '<>', $this->certificate->id)
                         ->where('name', $this->name);
                 })
             ],
@@ -52,9 +52,9 @@ class UpdateCertificationsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.certifications')->where(function ($query) {
+                Rule::unique('portfolio_db.certificates')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->certification->id)
+                        ->where('id', '<>', $this->certificate->id)
                         ->where('slug', $this->slug);
                 })
             ],
@@ -87,9 +87,9 @@ class UpdateCertificationsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.filled'   => 'Please select an owner for the certification.',
+            'owner_id.filled'   => 'Please select an owner for the certificate.',
             'owner_id.exists'   => 'The specified owner does not exist.',
-            'academy_id.filled' => 'Please select an academy for the certification.',
+            'academy_id.filled' => 'Please select an academy for the certificate.',
             'academy_id.exists' => 'The specified academy does not exist.',
         ];
     }

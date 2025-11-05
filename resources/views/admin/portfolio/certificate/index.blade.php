@@ -1,13 +1,13 @@
 @extends('admin.layouts.default', [
-    'title' => 'Certifications',
+    'title' => 'Certificates',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Certifications' ],
+        [ 'name' => 'Certificates' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Certification', 'href' => route('admin.portfolio.certification.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Certificate', 'href' => route('admin.portfolio.certificate.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -55,60 +55,60 @@
             */ ?>
             <tbody>
 
-            @forelse ($certifications as $certification)
+            @forelse ($certificates as $certificate)
 
-                <tr data-id="{{ $certification->id }}">
+                <tr data-id="{{ $certificate->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $certification->owner['username'] ?? '' }}
+                            {{ $certificate->owner['username'] ?? '' }}
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ $certification->name }}
+                        {{ $certificate->name }}
                     </td>
                     <td data-field="feature" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $certification->feature ])
+                        @include('admin.components.checkmark', [ 'checked' => $certificate->feature ])
                     </td>
                     <td data-field="academy.name">
-                        @if (!empty($certification->academy))
+                        @if (!empty($certificate->academy))
                             @include('admin.components.link', [
-                                'name'   => $certification->academy['name'],
-                                'href'   => route('admin.portfolio.academy.show', $certification->academy),
+                                'name'   => $certificate->academy['name'],
+                                'href'   => route('admin.portfolio.academy.show', $certificate->academy),
                             ])
                         @endif
                     </td>
                     <td data-field="year">
-                        {{ $certification->year }}
+                        {{ $certificate->year }}
                     </td>
                     <td data-field="received">
-                        {{ shortDate($certification->received) }}
+                        {{ shortDate($certificate->received) }}
                     </td>
                     <td data-field="expiration">
-                        {{ shortDate($certification->expiration) }}
+                        {{ shortDate($certificate->expiration) }}
                     </td>
                     <td data-field="public" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $certification->public ])
+                        @include('admin.components.checkmark', [ 'checked' => $certificate->public ])
                     </td>
                     <td data-field="disabled" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $certification->disabled ])
+                        @include('admin.components.checkmark', [ 'checked' => $certificate->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
-                        <form action="{{ route('admin.portfolio.certification.destroy', $certification->id) }}" method="POST">
+                        <form action="{{ route('admin.portfolio.certificate.destroy', $certificate->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.portfolio.certification.show', $certification->id) }}">
+                               href="{{ route('admin.portfolio.certificate.show', $certificate->id) }}">
                                 <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.portfolio.certification.edit', $certification->id) }}">
+                               href="{{ route('admin.portfolio.certificate.edit', $certificate->id) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
-                            @if (!empty($certification->link))
-                                <a title="{{ !empty($certification->link_name) ? $certification->link_name : 'link' }}"
+                            @if (!empty($certificate->link))
+                                <a title="{{ !empty($certificate->link_name) ? $certificate->link_name : 'link' }}"
                                    class="button is-small px-1 py-0"
-                                   href="{{ $certification->link }}"
+                                   href="{{ $certificate->link }}"
                                    target="_blank"
                                 >
                                     <i class="fa-solid fa-external-link"></i>{{-- link --}}
@@ -131,7 +131,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '10' : '9' }}">There are no certifications.</td>
+                    <td colspan="{{ isRootAdmin() ? '10' : '9' }}">There are no certificates.</td>
                 </tr>
 
             @endforelse
@@ -139,7 +139,7 @@
             </tbody>
         </table>
 
-        {!! $certifications->links('vendor.pagination.bulma') !!}
+        {!! $certificates->links('vendor.pagination.bulma') !!}
 
     </div>
 
