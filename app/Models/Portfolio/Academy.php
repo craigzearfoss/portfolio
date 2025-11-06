@@ -31,6 +31,8 @@ class Academy extends Model
         'image_credit',
         'image_source',
         'thumbnail',
+        'logo',
+        'logo_small',
         'sequence',
         'public',
         'readonly',
@@ -41,7 +43,7 @@ class Academy extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'name', 'primary', 'local', 'regional', 'national', 'international', 'public'];
+    const SEARCH_COLUMNS = ['id', 'name', 'slug'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

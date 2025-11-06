@@ -1,16 +1,16 @@
 @extends('admin.layouts.default', [
-    'title' => 'Job: ' . $job->name,
+    'title' => 'School: ' . $school->name,
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => $job->name ],
+        [ 'name' => 'Schools',         'href' => route('admin.portfolio.school.index') ],
+        [ 'name' => $school->name ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.job.edit', $job) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Job',   'href' => route('admin.portfolio.job.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.job-task.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.school.edit', $school) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New School',   'href' => route('admin.portfolio.school.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.school-task.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -23,198 +23,181 @@
 
         @include('admin.components.show-row', [
             'name'  => 'id',
-            'value' => $job->id
-        ])
-
-        @if(isRootAdmin())
-            @include('admin.components.show-row', [
-                'name'  => 'owner',
-                'value' => $job->owner['username'] ?? ''
-            ])
-        @endif
-
-        @include('admin.components.show-row', [
-            'name'  => 'company',
-            'value' => $job->company
+            'value' => $school->id
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'role',
-            'value' => $job->role
+            'name'  => 'name',
+            'value' => $school->name
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'slug',
-            'value' => $job->slug
+            'name'  => 'enrollment',
+            'value' => $school->enrollment
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'founded',
+            'value' => $school->founded
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'featured',
-            'checked' => $job->featured
+            'checked' => $school->featured
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $job->summary
+            'value' => $school->summary
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'start',
-            'value' => (!empty($job->start_month) ? date('F', mktime(0, 0, 0, $job->start_month, 10)) : '') . ' ' . $job->start_year
+            'value' => (!empty($school->start_month) ? date('F', mktime(0, 0, 0, $school->start_month, 10)) : '') . ' ' . $school->start_year
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'end',
-            'value' => (!empty($job->end_month) ? date('F', mktime(0, 0, 0, $job->end_month, 10)) : '') . ' ' . $job->end_year
+            'value' => (!empty($school->end_month) ? date('F', mktime(0, 0, 0, $school->end_month, 10)) : '') . ' ' . $school->end_year
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'employment type',
-            'value' => $job->employmentType['name'] ?? ''
+            'value' => $school->employmentType['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'employment location',
-            'value' => $job->locationType['name'] ?? ''
+            'value' => $school->locationType['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'    => $job->street ?? null,
-                           'street2'   => $job->street2 ?? null,
-                           'city'      => $job->city ?? null,
-                           'state'     => $job->state['code'] ?? null,
-                           'zip'       => $job->zip ?? null,
-                           'country'   => $job->country['iso_alpha3'] ?? null,
+                           'street'    => $school->street ?? null,
+                           'street2'   => $school->street2 ?? null,
+                           'city'      => $school->city ?? null,
+                           'state'     => $school->state['code'] ?? null,
+                           'zip'       => $school->zip ?? null,
+                           'country'   => $school->country['iso_alpha3'] ?? null,
                        ])
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'latitude',
-            'value' => $job->latitude
+            'value' => $school->latitude
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'longitude',
-            'value' => $job->longitude
-        ])
-
-        @include('admin.portfolio.job.coworker.panel', [
-            'coworkers' => $job->coworkers ?? [],
-            'job'  => $job
-        ])
-
-        @include('admin.portfolio.job.task.panel', [
-            'tasks' => $job->tasks ?? [],
-            'job'   => $job
+            'value' => $school->longitude
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $job->notes
+            'value' => $school->notes
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'href'   => $job->link,
+            'href'   => $school->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'   => 'link name',
-            'value'  => $job->link_name,
+            'value'  => $school->link_name,
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($job->description ?? '')
+            'value' => nl2br($school->description ?? '')
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'image',
-            'src'      => $job->image,
-            'alt'      => $job->name,
+            'src'      => $school->image,
+            'alt'      => $school->name,
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($job->name, $job->image)
+            'filename' => getFileSlug($school->name, $school->image)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image_credit',
-            'value' => $job->image_credit
+            'value' => $school->image_credit
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image_source',
-            'value' => $job->image_source
+            'value' => $school->image_source
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
-            'src'      => $job->thumbnail,
-            'alt'      => $job->name,
+            'src'      => $school->thumbnail,
+            'alt'      => $school->name,
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($job->name, $job->thumbnail)
+            'filename' => getFileSlug($school->name, $school->thumbnail)
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'logo',
-            'src'      => $job->logo,
+            'src'      => $school->logo,
             'alt'      => 'logo',
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($job->name, $job->logo)
+            'filename' => getFileSlug($school->name, $school->logo)
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'logo small',
-            'src'      => $job->logo_small,
+            'src'      => $school->logo_small,
             'alt'      => 'logo',
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($job->name, $job->logo_small)
+            'filename' => getFileSlug($school->name, $school->logo_small)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'sequence',
-            'value' => $job->sequence
+            'value' => $school->sequence
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'public',
-            'checked' => $job->public
+            'checked' => $school->public
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'readonly',
             'label'   => 'read-only',
-            'checked' => $job->readonly
+            'checked' => $school->readonly
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'root',
-            'checked' => $job->root
+            'checked' => $school->root
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
-            'checked' => $job->disabled
+            'checked' => $school->disabled
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'created at',
-            'value' => longDateTime($job->created_at)
+            'value' => longDateTime($school->created_at)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'updated at',
-            'value' => longDateTime($job->updated_at)
+            'value' => longDateTime($school->updated_at)
         ])
 
     </div>

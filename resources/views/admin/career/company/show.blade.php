@@ -141,6 +141,26 @@
             'filename' => getFileSlug($company->name, $company->thumbnail)
         ])
 
+        @include('admin.components.show-row-image', [
+            'name'     => 'logo',
+            'src'      => $company->logo,
+            'alt'      => 'logo',
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($company->name, $company->logo)
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'     => 'logo small',
+            'src'      => $company->logo_small,
+            'alt'      => 'logo',
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($company->name, $company->logo_small)
+        ])
+
         @include('admin.components.show-row', [
             'name'    => 'sequence',
             'checked' => $company->sequence

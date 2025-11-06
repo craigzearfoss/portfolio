@@ -82,6 +82,26 @@
             'filename' => getFileSlug($academy->name, $academy->thumbnail)
         ])
 
+        @include('admin.components.show-row-image', [
+            'name'     => 'logo',
+            'src'      => $academy->logo,
+            'alt'      => 'logo',
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($academy->name, $academy->logo)
+        ])
+
+        @include('admin.components.show-row-image', [
+            'name'     => 'logo small',
+            'src'      => $academy->logo_small,
+            'alt'      => 'logo',
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($academy->name, $academy->logo_small)
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'sequence',
             'value' => $academy->sequence

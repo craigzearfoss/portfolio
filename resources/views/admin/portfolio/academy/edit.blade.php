@@ -95,6 +95,20 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'      => 'logo',
+                'value'     => old('logo') ?? $academy->logo,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'      => 'logo_small',
+                'value'     => old('logo_small') ?? $academy->logo_small,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'number',
                 'name'    => 'sequence',

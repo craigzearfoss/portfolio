@@ -7,6 +7,7 @@ use App\Models\Career\Contact;
 use App\Models\Career\Recruiter;
 use App\Models\Career\Reference;
 use App\Models\Portfolio\Job;
+use App\Models\Portfolio\School;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -37,7 +38,7 @@ class Country extends Model
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
-     * Get the admins for the state.
+     * Get the admins for the country.
      */
     public function admins(): HasMany
     {
@@ -46,7 +47,7 @@ class Country extends Model
     }
 
     /**
-     * Get the admins for the state.
+     * Get the admins for the country.
      */
     public function companies(): HasMany
     {
@@ -55,7 +56,7 @@ class Country extends Model
     }
 
     /**
-     * Get the contacts for the state.
+     * Get the contacts for the country.
      */
     public function contacts(): HasMany
     {
@@ -64,7 +65,7 @@ class Country extends Model
     }
 
     /**
-     * Get the applications for the state.
+     * Get the applications for the country.
      */
     public function jobs(): HasMany
     {
@@ -73,7 +74,7 @@ class Country extends Model
     }
 
     /**
-     * Get the recruiters for the state.
+     * Get the recruiters for the country.
      */
     public function recruiters(): HasMany
     {
@@ -82,7 +83,7 @@ class Country extends Model
     }
 
     /**
-     * Get the references for the state.
+     * Get the references for the country.
      */
     public function references(): HasMany
     {
@@ -91,7 +92,16 @@ class Country extends Model
     }
 
     /**
-     * Get the users for the state.
+     * Get the schools for the country.
+     */
+    public function schools(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(School::class)
+            ->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get the users for the country.
      */
     public function users(): HasMany
     {

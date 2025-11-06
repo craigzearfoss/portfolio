@@ -9,6 +9,7 @@ use App\Http\Controllers\Guest\Portfolio\ArtController as GuestPortfolioArtContr
 use App\Http\Controllers\Guest\Portfolio\AudioController as GuestPortfolioAudioController;
 use App\Http\Controllers\Guest\Portfolio\CertificateController as GuestPortfolioCertificateController;
 use App\Http\Controllers\Guest\Portfolio\CourseController as GuestPortfolioCourseController;
+use App\Http\Controllers\Guest\Portfolio\EducationController as GuestPortfolioEducationController;
 use App\Http\Controllers\Guest\Portfolio\JobController as GuestPortfolioJobController;
 use App\Http\Controllers\Guest\Portfolio\LinkController as GuestPortfolioLinkController;
 use App\Http\Controllers\Guest\Portfolio\MusicController as GuestPortfolioMusicController;
@@ -40,6 +41,8 @@ Route::name('guest.')->group(function () {
     Route::get('/{admin:username}/portfolio/certificate/{slug}', [GuestPortfolioCertificateController::class, 'show'])->name('admin.portfolio.certificate.show');
     Route::get('/{admin:username}/portfolio/course', [GuestPortfolioCourseController::class, 'index'])->name('admin.portfolio.course.index');
     Route::get('/{admin:username}/portfolio/course/{slug}', [GuestPortfolioCourseController::class, 'show'])->name('admin.portfolio.course.show');
+    Route::get('/{admin:username}/portfolio/education', [GuestPortfolioEducationController::class, 'index'])->name('admin.portfolio.education.index');
+    Route::get('/{admin:username}/portfolio/education/{slug}', [GuestPortfolioEducationController::class, 'show'])->name('admin.portfolio.education.show');
     Route::get('/{admin:username}/portfolio/link', [GuestPortfolioLinkController::class, 'index'])->name('admin.portfolio.link.index');
     Route::get('/{admin:username}/portfolio/link/{slug}', [GuestPortfolioLinkController::class, 'show'])->name('admin.portfolio.link.show');
     Route::get('/{admin:username}/portfolio/music', [GuestPortfolioMusicController::class, 'index'])->name('admin.portfolio.music.index');

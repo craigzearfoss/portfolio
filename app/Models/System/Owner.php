@@ -47,7 +47,7 @@ class Owner extends Model
     const SEARCH_ORDER_BY = ['username', 'asc'];
 
     /**
-     * Get the admin groups owners.
+     * Get the owner's system admin groups.
      */
     public function adminGroups(): HasMany
     {
@@ -55,7 +55,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the admin teams owners.
+     * Get the owner's system admin teams.
      */
     public function adminTeams(): HasMany
     {
@@ -63,7 +63,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the applications owners.
+     * Get the owner's career applications.
      */
     public function applications(): HasMany
     {
@@ -71,7 +71,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the art owners.
+     * Get the owner's portfolio art.
      */
     public function art(): HasMany
     {
@@ -79,7 +79,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the certificates owners.
+     * Get the owner's portfolio certificates.
      */
     public function certificates(): HasMany
     {
@@ -87,7 +87,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the communications owners.
+     * Get the owner's career communications.
      */
     public function communications(): HasMany
     {
@@ -95,7 +95,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the companies owners.
+     * Get the owner's career companies.
      */
     public function companies(): HasMany
     {
@@ -103,7 +103,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the contacts owners.
+     * Get the owner's career contacts.
      */
     public function contacts(): HasMany
     {
@@ -111,7 +111,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the courses owners.
+     * Get the owner's portfolio courses.
      */
     public function courses(): HasMany
     {
@@ -119,7 +119,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the cover letters owners.
+     * Get the owner's career cover letters.
      */
     public function coverLetters(): HasMany
     {
@@ -127,7 +127,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the databases owners.
+     * Get the owner's system databases.
      */
     public function databases(): HasMany
     {
@@ -135,7 +135,15 @@ class Owner extends Model
     }
 
     /**
-     * Get the events owners.
+     * Get the owner's portfolio educations.
+     */
+    public function educations(): HasMany
+    {
+        return $this->hasMany(Education::class);
+    }
+
+    /**
+     * Get the owner's career events.
      */
     public function events(): HasMany
     {
@@ -143,7 +151,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the career jobs owners.
+     * Get the owner's career jobs.
      */
     public function jobs(): HasMany
     {
@@ -151,7 +159,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the career job coworkers owners.
+     * Get the owner's career job coworkers.
      */
     public function jobCoworkers(): HasMany
     {
@@ -159,7 +167,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the career job tasks owners.
+     * Get the owner's career job tasks.
      */
     public function jobTasks(): HasMany
     {
@@ -167,7 +175,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the links owners.
+     * Get the owner's portfolio links.
      */
     public function links(): HasMany
     {
@@ -175,7 +183,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the music owners.
+     * Get the owner's portfolio music.
      */
     public function music(): HasMany
     {
@@ -183,7 +191,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the notes owners.
+     * Get the owner's career notes.
      */
     public function notes(): HasMany
     {
@@ -191,7 +199,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the projects owners.
+     * Get the owner's portfolio projects.
      */
     public function projects(): HasMany
     {
@@ -199,7 +207,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the readings owners.
+     * Get the owner's personal readings.
      */
     public function readings(): HasMany
     {
@@ -207,7 +215,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the readings owners.
+     * Get the owner's personal recipes.
      */
     public function recipes(): HasMany
     {
@@ -215,7 +223,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the reading ingredients owners.
+     * Get the owner's recipe ingredients.
      */
     public function recipeIngredients(): HasMany
     {
@@ -223,7 +231,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the reading steps owners.
+     * Get the owner's recipe steps.
      */
     public function recipeSteps(): HasMany
     {
@@ -231,7 +239,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the references owners.
+     * Get the owner's portfolio references.
      */
     public function references(): HasMany
     {
@@ -239,7 +247,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the resources owners.
+     * Get the owner's system resources.
      */
     public function resources(): HasMany
     {
@@ -247,7 +255,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the resumes owners.
+     * Get the owner's portfolio resumes.
      */
     public function resumes(): HasMany
     {
@@ -255,7 +263,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the career skills owners.
+     * Get the owner's portfolio skills.
      */
     public function skills(): HasMany
     {
@@ -263,7 +271,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the user groups owners.
+     * Get the owner's user groups.
      */
     public function userGroups(): HasMany
     {
@@ -271,7 +279,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the user teams owners.
+     * Get the owner's user teams.
      */
     public function userTeams(): HasMany
     {
@@ -279,7 +287,7 @@ class Owner extends Model
     }
 
     /**
-     * Get the videos owners.
+     * Get the owner's  portfolio videos.
      */
     public function videos(): HasMany
     {

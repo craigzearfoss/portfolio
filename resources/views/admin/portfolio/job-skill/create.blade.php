@@ -3,9 +3,9 @@
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => 'Skills',           'href' => route('admin.portfolio.job-skill.index') ],
+        [ 'name' => 'Skills',          'href' => route('admin.portfolio.job-skill.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [

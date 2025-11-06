@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-class StoreAcademiesRequest extends FormRequest
+class StoreSchoolsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
 
@@ -29,13 +29,24 @@ class StoreAcademiesRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'portfolio_db.academies')
+                'slug' => uniqueSlug($this['name'], 'portfolio_db.schools')
             ]);
         }
 
         return [
-            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.academies,name'],
-            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.academies,slug'],
+            'name'         => ['required', 'string', 'max:255', 'unique:portfolio_db.schools,name'],
+            'slug'         => ['required', 'string', 'max:255', 'unique:portfolio_db.schools,slug'],
+            'enrollment'   => ['integer', 'min:0', 'nullable'],
+            'founded'      => ['integer', 'min:0', 'nullable'],
+            'street'       => ['string', 'max:255', 'nullable'],
+            'street2'      => ['string', 'max:255', 'nullable'],
+            'city'         => ['string', 'max:100', 'nullable'],
+            'state_id'     => ['integer', 'exists:system_db.states,id', 'nullable'],
+            'zip'          => ['string', 'max:20', 'nullable'],
+            'country_id'   => ['integer', 'exists:system_db.countries,id', 'nullable'],
+            'latitude'     => ['numeric:strict', 'nullable'],
+            'longitude'    => ['numeric:strict', 'nullable'],
+            'notes'        => ['nullable'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],

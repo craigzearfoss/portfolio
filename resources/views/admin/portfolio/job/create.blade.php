@@ -3,7 +3,7 @@
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index') ],
         [ 'name' => 'Add' ],
     ],
@@ -157,12 +157,6 @@
                                     [], 'id', 'name', true
                                 ),
                 'message'  => $message ?? '',
-            ])
-
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? '',
-                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [

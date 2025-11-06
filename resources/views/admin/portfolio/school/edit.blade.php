@@ -1,15 +1,14 @@
 @extends('admin.layouts.default', [
-    'title' => 'Job Task Edit',
+    'title' => 'School: ' . $school->name,
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => 'Tasks',           'href' => route('admin.portfolio.job-task.index') ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => 'Schools',         'href' => route('admin.portfolio.school.index') ],
+        [ 'name' => $school->name ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-task.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.school-task.index') ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
@@ -22,62 +21,109 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.job-task.update', $jobTask) }}" method="POST">
+        <form action="{{ route('admin.portfolio.school.update', $school) }}" method="POST">
             @csrf
             @method('PUT')
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.portfolio.job-task.index')
+                'value' => referer('admin.portfolio.school-task.index')
             ])
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $jobTask->id
+                'value' => $school->id
             ])
 
-            @if(isRootAdmin())
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $jobTask->owner_id,
-                    'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
-                    'message'  => $message ?? '',
-                ])
-            @else
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => $jobTask->owner_id
-                ])
-            @endif
-
-            @include('admin.components.form-select-horizontal', [
-                'name'      => 'job_id',
-                'label'     => 'job',
-                'value'     => old('job_id') ?? $jobTask->job_id,
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'name',
+                'value'     => old('name') ?? $school->name,
                 'required'  => true,
-                'list'      => \App\Models\Portfolio\Job::listOptions([], 'id', 'name', true),
+                'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'summary',
-                'value'     => old('summary') ?? $jobTask->summary,
-                'required'  => true,
-                'maxlength' => 500,
+                'type'        => 'number',
+                'name'        => 'enrollment',
+                'value'       => old('enrollment') ?? $school->enrollment,
+                'min'         => 0,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'        => 'founded',
+                'name'        => 'founded',
+                'value'       => old('founded') ?? $school->founded,
+                'min'         => 0,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'street',
+                'value'     => old('street') ?? $school->street,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'street2',
+                'value'     => old('street2') ?? $school->street2,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'city',
+                'value'     => old('city') ?? $school->city,
+                'maxlength' => 100,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'state_id',
+                'label'   => 'state',
+                'value'   => old('state_id') ?? $school->state_id,
+                'list'    => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'zip',
+                'value'     => old('city') ?? $school->zip,
+                'maxlength' => 20,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'country_id',
+                'label'   => 'country',
+                'value'   => old('country_id') ?? $school->country_id,
+                'list'    => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'latitude',
+                'value'     => old('latitude') ?? $school->latitude,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'longitude',
+                'value'     => old('longitude') ?? $school->longitude,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'notes',
-                'value'   => old('notes') ?? $jobTask->notes,
+                'value'   => old('notes') ?? $school->notes,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
-                'value'     => old('link') ?? $jobTask->link,
+                'value'     => old('link') ?? $school->link,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
@@ -85,7 +131,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link_name',
                 'label'     => 'link name',
-                'value'     => old('link_name') ?? $jobTask->link_name,
+                'value'     => old('link_name') ?? $school->link_name,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -93,20 +139,20 @@
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
-                'value'   => old('description') ?? $jobTask->description,
+                'value'   => old('description') ?? $school->description,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? $obTask->disclaimer,
+                'value'       => old('disclaimer') ?? $school->disclaimer,
                 'maxlength'   => 500,
                 'message'     => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'image',
-                'value'     => old('image') ?? $jobTask->image,
+                'value'     => old('image') ?? $school->image,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
@@ -114,7 +160,7 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_credit',
                 'label'     => 'image credit',
-                'value'     => old('image_credit') ?? $jobTask->image_credit,
+                'value'     => old('image_credit') ?? $school->image_credit,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -122,14 +168,28 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'image_source',
                 'label'     => 'image source',
-                'value'     => old('image_source') ?? $jobTask->image_source,
+                'value'     => old('image_source') ?? $school->image_source,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
-                'value'     => old('thumbnail') ?? $jobTask->thumbnail,
+                'value'     => old('thumbnail') ?? $school->thumbnail,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'      => 'logo',
+                'value'     => old('logo') ?? $school->logo,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'      => 'logo_small',
+                'value'     => old('logo_small') ?? $school->logo_small,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
@@ -137,7 +197,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'        => 'number',
                 'name'        => 'sequence',
-                'value'       => old('sequence') ?? $jobTask->sequence,
+                'value'       => old('sequence') ?? $school->sequence,
                 'min'         => 0,
                 'message'     => $message ?? '',
             ])
@@ -154,7 +214,7 @@
                                 'name'            => 'public',
                                 'value'           => 1,
                                 'unchecked_value' => 0,
-                                'checked'         => old('public') ?? $jobTask->public,
+                                'checked'         => old('public') ?? $school->public,
                                 'message'         => $message ?? '',
                             ])
 
@@ -163,7 +223,7 @@
                                 'label'           => 'read-only',
                                 'value'           => 1,
                                 'unchecked_value' => 0,
-                                'checked'         => old('readonly') ?? $jobTask->readonly,
+                                'checked'         => old('readonly') ?? $school->readonly,
                                 'message'         => $message ?? '',
                             ])
 
@@ -171,7 +231,7 @@
                                 'name'            => 'root',
                                 'value'           => 1,
                                 'unchecked_value' => 0,
-                                'checked'         => old('root') ?? $jobTask->root,
+                                'checked'         => old('root') ?? $school->root,
                                 'disabled'        => !isRootAdmin(),
                                 'message'         => $message ?? '',
                             ])
@@ -180,7 +240,7 @@
                                 'name'            => 'disabled',
                                 'value'           => 1,
                                 'unchecked_value' => 0,
-                                'checked'         => old('disabled') ?? $jobTask->disabled,
+                                'checked'         => old('disabled') ?? $school->disabled,
                                 'message'         => $message ?? '',
                             ])
 
@@ -192,7 +252,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => referer('admin.portfolio.job-task.index')
+                'cancel_url' => referer('admin.portfolio.school-task.index')
             ])
 
         </form>

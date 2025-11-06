@@ -7,6 +7,7 @@ use App\Models\Career\Contact;
 use App\Models\Career\Recruiter;
 use App\Models\Career\Reference;
 use App\Models\Portfolio\Job;
+use App\Models\Portfolio\School;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -110,6 +111,15 @@ class State extends Model
     }
 
     /**
+     * Get the schools for the state.
+     */
+    public function schools(): HasMany
+    {
+        return $this->setConnection('career_db')->hasMany(School::class)
+            ->orderBy('name', 'asc');
+    }
+
+    /**
      * Get the users for the state.
      */
     public function users(): HasMany
@@ -117,6 +127,7 @@ class State extends Model
         return $this->setConnection('career_db')->hasMany(User::class)
             ->orderBy('name', 'asc');
     }
+
     /**
      * Returns the state name given the state code or the code passed in if not found.
      *

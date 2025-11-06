@@ -4,7 +4,7 @@
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Certificates',  'href' => route('admin.portfolio.certificate.index') ],
+        [ 'name' => 'Certificates',    'href' => route('admin.portfolio.certificate.index') ],
         [ 'name' => $certificate->name ],
     ],
     'buttons' => [
