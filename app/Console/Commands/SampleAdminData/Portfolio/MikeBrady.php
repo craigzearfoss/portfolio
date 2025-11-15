@@ -88,18 +88,22 @@ class MikeBrady extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'Two Sisters (On the Terrace)', 'artist' => 'Pierre-Auguste Renoir', 'slug' => 'two-sisters-(on-the-terrace)-by-pierre-auguste-renoir', 'year' => 1881, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Pierre-Auguste_Renoir/paintings-wm/renoir004.jpg',                                         'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Eye See',                      'artist' => 'Ron Liberti',           'slug' => 'eye-see-by-ron-liberti',                                'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1463154142676-UYGQKNP4RKVF4T0N2UD5/eyesee.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +189,13 @@ class MikeBrady extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'Intro to Model Context Protocol (MCP)',                  'slug' => 'intro-to-model-context-protocol-(mcp)',                  'completed' => 1, 'completion_date' => '2021-27-01', 'year' => 2021, 'duration_hours' => 0.6,  'academy_id' => 6, 'instructor' => 'Maham Codes',          'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/intro-to-model-context-protocol-mcp-c0sake4uir',                    'link_name' => null, 'public' => 1, 'summary' => 'Learn how to power up your AI apps with Model Context Protocol (MCP), a new way to connect AI models to real-world tools and data.' ],
+            [ 'name' => 'Laravel From Scratch',                                   'slug' => 'laravel-from-scratch',                                   'completed' => 1, 'completion_date' => '2016-08-28', 'year' => 2016, 'duration_hours' => 13.5, 'academy_id' => 8, 'instructor' => 'Brad Traversy',        'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-from-scratch/',                                    'link_name' => null, 'public' => 1, 'summary' => 'Build and deploy a real-world job listing application and learn all of the fundamentals of the Laravel framework' ],
+            [ 'name' => 'Learn JavaScript',                                       'slug' => 'learn-javascript',                                       'completed' => 1, 'completion_date' => '2019-12-07', 'year' => 2019, 'duration_hours' => 9.4,  'academy_id' => 6, 'instructor' => 'Per Borgen',           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-javascript-c0v',                                              'link_name' => null, 'public' => 1, 'summary' => 'Learn the basics of JavaScript by solving 140+ interactive coding challenges. Along the way you will build a game, a browser extension, and even a mobile app!' ],
+            [ 'name' => 'Relational to Document Model',                           'slug' => 'relational-to-document-model',                           'completed' => 1, 'completion_date' => '2015-09-05', 'year' => 2015, 'duration_hours' => 1.3,  'academy_id' => 5, 'instructor' => null,                   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://learn.mongodb.com/courses/relational-to-document-model',                        'link_name' => null, 'public' => 1, 'summary' => 'Learn to convert SQL or relational models to MongoDB\'s document model, design data relationships, and enforce schema validation.' ],
+            [ 'name' => 'Master JavaScript Animations with Greensock',            'slug' => 'master-javascript-animations-with-greensock',            'completed' => 1, 'completion_date' => '2014-10-22', 'year' => 2014, 'duration_hours' => 2.5,  'academy_id' => 8, 'instructor' => 'Enzo Ustariz',         'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/master-javascript-animations-with-greensock/',             'link_name' => null, 'public' => 1, 'summary' => 'Upgrade your Front-End Skills' ],
+            [ 'name' => 'Amazon Elastic Container Service (AWS ECS)',             'slug' => 'amazon-elastic-container-service-(aws-ecs)',             'completed' => 1, 'completion_date' => '2018-21-05', 'year' => 2018, 'duration_hours' => 1.3,  'academy_id' => 4, 'instructor' => 'Sanjeev Thiyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/amazon-elastic-container-service-aws-ecs/',               'link_name' => null, 'public' => 1, 'summary' => 'Amazon Elastic Container Service (Amazon ECS) is a highly scalable and fast container management service. ECS is responsible for managing the lifecycle of a container, starting from creating/running till it gets torn down.' ],
+            [ 'name' => 'Build Responsive Real-World Websites with HTML and CSS', 'slug' => 'build-responsive-real-world-websites-with-html-and-css', 'completed' => 1, 'completion_date' => '2019-22-10', 'year' => 2019, 'duration_hours' => 37.5, 'academy_id' => 8, 'instructor' => 'Jonas Schmedtmann',    'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/design-and-develop-a-killer-website-with-html5-and-css3/', 'link_name' => null, 'public' => 1, 'summary' => 'Learn modern HTML5, CSS3 and web design by building a stunning website for your portfolio! Includes flexbox and CSS Grid' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +208,10 @@ class MikeBrady extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +251,8 @@ class MikeBrady extends Command
                 'city'                   => 'Studio City',
                 'state_id'               => 5,
                 'country_id'             => 237,
+                'latitude'               => 34.1483989,
+                'longitude'              => -118.3961877,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

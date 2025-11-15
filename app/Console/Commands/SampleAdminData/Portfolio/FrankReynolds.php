@@ -88,18 +88,24 @@ class FrankReynolds extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'Napoleon Crossing the Alps on 20th May 1800', 'artist' => 'Jacques-Louis David',         'slug' => 'napoleon-crossing-the-alps-on-20th-may-1800-by-jacques-louis-david', 'year' => 1803, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Jacques-Louis_David/paintings-wm/davidjl006.jpg',        'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Kiss',                                    'artist' => 'Gustav Klimt',                'slug' => 'the-kiss-by-gustav-klimt',                                           'year' => 1907, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Gustav_Klimt/paintings-wm/klimt001.jpg',                 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Irises',                                      'artist' => 'Vincent van Gogh',            'slug' => 'irises-by-vincent-van-gogh',                                         'year' => 1889, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh002.jpg',              'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Girl with a Pearl Earring',               'artist' => 'Johannes Vermeer, van Delft', 'slug' => 'the-girl-with-a-pearl-earring-by-johannes-vermeer-van-delft',        'year' => 1665, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Johannes_van_Delft_Vermeer/paintings-wm/vermeer005.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +191,8 @@ class FrankReynolds extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'AWS IAM',                     'slug' => 'aws-iam',                    'completed' => 1, 'completion_date' => '2019-13-07', 'year' => 2019, 'duration_hours' => 2,    'academy_id' => 4, 'instructor' => 'Amin Mansouri',     'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-iam',                    'link_name' => null, 'public' => 1, 'summary' => 'Unlock the power of AWS Identity and Access Management (IAM) with our comprehensive IAM Mastery course.' ],
+            [ 'name' => 'The complete VUE JS course',  'slug' => 'the-complete-vue-js-course', 'completed' => 1, 'completion_date' => '2019-02-02', 'year' => 2019, 'duration_hours' => 41,   'academy_id' => 8, 'instructor' => 'Coding Revolution', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/the-complete-vue-js-course/', 'link_name' => null, 'public' => 1, 'summary' => 'Build beautiful web apps using VUE JS, version 3. Pinia and Firebase included' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +205,10 @@ class FrankReynolds extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +248,8 @@ class FrankReynolds extends Command
                 'city'                   => 'Philadelphia',
                 'state_id'               => 39,
                 'country_id'             => 237,
+                'latitude'               => 39.9527237,
+                'longitude'              => -75.1635262,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,
@@ -257,6 +270,8 @@ class FrankReynolds extends Command
                 'city'                   => 'New York',
                 'state_id'               => 33,
                 'country_id'             => 237,
+                'latitude'               => 40.7127281,
+                'longitude'              => -74.0060152,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,
@@ -278,6 +293,8 @@ class FrankReynolds extends Command
                 'city'                   => null,
                 'state_id'               => 33,
                 'country_id'             => 237,
+                'latitude'               => null,
+                'longitude'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

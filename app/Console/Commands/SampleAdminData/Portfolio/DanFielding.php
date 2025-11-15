@@ -88,18 +88,28 @@ class DanFielding extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'untitled',                   'artist' => 'Kevin Dixon',       'slug' => 'untitled-by-kevin-dixon',                   'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                                                                                           'link_name' => null,              'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => '(untitled)',                 'artist' => 'Wes Freed',         'slug' => '(untitled-4)-by-wes-freed',                 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://img.broadtime.com/418467274739:500.png',                                                                                                               'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => '(untitled)',                 'artist' => 'Wes Freed',         'slug' => '(untitled-2)-by-wes-freed',                 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://bloximages.newyork1.vip.townnews.com/roanoke.com/content/tncms/assets/v3/editorial/1/57/157797a6-b406-551a-a0d8-824a63bedb88/5d473512aa116.image.jpg', 'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Postage Due',                'artist' => 'Kevin Dixon',       'slug' => 'postage-due-by-kevin-dixon',                'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                                                                                           'link_name' => null,              'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Primavera',                  'artist' => 'Sandro Botticelli', 'slug' => 'primavera-by-sandro-botticelli',            'year' => 1482, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Alessandro_Filippepi_Botticelli/paintings-wm/botticelli002.jpg',                                                       'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => '(untitled)',                 'artist' => 'Wes Freed',         'slug' => '(untitled-8)-by-wes-freed',                 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://i.pinimg.com/736x/4e/72/ce/4e72cee3880dee1ef216e72ddff4b76c.jpg',                                                                                      'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Check Book Blues',           'artist' => 'Ron Liberti',       'slug' => 'check-book-blues-by-ron-liberti',           'year' => 2010, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1463251795854-2KQSYXO1K69YY7145JVH/bigcheckbook.jpg?format=750w',                       'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Home Is Where the Chair Is', 'artist' => 'Ron Liberti',       'slug' => 'home-is-where-the-chair-is-by-ron-liberti', 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1464470818168-5NEY2A6XXM4MJYG0AH1A/homechair.jpg?format=750w',                          'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +195,19 @@ class DanFielding extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'Relational to Document Model',                                 'slug' => 'relational-to-document-model',                                  'completed' => 1, 'completion_date' => '2015-09-05', 'year' => 2015, 'duration_hours' => 1.3,  'academy_id' => 5, 'instructor' => null,                     'sponsor' => null, 'certificate_url' => null, 'link' => 'https://learn.mongodb.com/courses/relational-to-document-model',                                  'link_name' => null, 'public' => 1, 'summary' => 'Learn to convert SQL or relational models to MongoDB\'s document model, design data relationships, and enforce schema validation.' ],
+            [ 'name' => 'Build a Support Agent with Vercel AI SDK',                     'slug' => 'build-a-support-agent-with-vercel-ai-sdk',                      'completed' => 1, 'completion_date' => '2018-27-03', 'year' => 2018, 'duration_hours' => 2.0,  'academy_id' => 6, 'instructor' => 'Mayo Oshin',             'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/build-a-support-agent-with-vercel-ai-sdk-c0lk05ahir',                         'link_name' => null, 'public' => 1, 'summary' => 'Use the popular Vercel AI SDK to create and ship a customer support agent that makes autonomous decisions to either answer questions based on your support docs or search the web in real time.' ],
+            [ 'name' => 'Node.js, Express, MongoDB & More: The Complete Bootcamp',      'slug' => 'node-js-express-mongodb-and-more-the-complete-bootcamp',        'completed' => 1, 'completion_date' => '2023-25-01', 'year' => 2023, 'duration_hours' => 42,   'academy_id' => 8, 'instructor' => 'Jonas Schmedtmann',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/nodejs-express-mongodb-bootcamp/',                                   'link_name' => null, 'public' => 1, 'summary' => 'Master Node by building a real-world RESTful API and web app (with authentication, Node.js security, payments & more)' ],
+            [ 'name' => 'Complete Vue.js 3 Course: Vuejs 3, Vite, TailwindCSS, Pinia',  'slug' => 'complete-vue.js-3-course:-vuejs-3,-vite,-tailwindcss,-pinia',   'completed' => 1, 'completion_date' => '2024-10-10', 'year' => 2024, 'duration_hours' => 16.5, 'academy_id' => 8, 'instructor' => 'OnlyKiosk Tech',         'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/complete-vuejs-3-course/',                                           'link_name' => null, 'public' => 1, 'summary' => 'Vue3, TailwindCSS, VueX, Vue Router, Composition API, Pinia, and Vite; A Step-by-Step Guide to Building Vue Programs' ],
+            [ 'name' => 'AWS Certified Developer - Associate',                          'slug' => 'aws-certified-developer-associate',                             'completed' => 1, 'completion_date' => '2019-04-08', 'year' => 2019, 'duration_hours' => 32,   'academy_id' => 4, 'instructor' => 'Sanjeev Thiyagarajan',   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-certified-developer-associate',                                 'link_name' => null, 'public' => 1, 'summary' => 'The AWS Developer Associate certification course is designed to thoroughly prepare you for developing and maintaining applications on the Amazon Web Services platform.' ],
+            [ 'name' => 'MongoDB PHP Developer Path',                                   'slug' => 'mongodb-php-developer-path',                                    'completed' => 1, 'completion_date' => '2017-06-01', 'year' => 2017, 'duration_hours' => 20,   'academy_id' => 5, 'instructor' => null,                     'sponsor' => null, 'certificate_url' => null, 'link' => 'https://learn.mongodb.com/learning-paths/mongodb-php-developer-path',                             'link_name' => null, 'public' => 1,'summary' => 'This learning path contains a series of units to teach you MongoDB skills. In this path, you’ll learn the basics of building modern applications with PHP, using MongoDB as your database.' ],
+            [ 'name' => 'PCAP – Python Certification Course',                           'slug' => 'pcap-python-certification-course',                              'completed' => 1, 'completion_date' => '2017-10-02', 'year' => 2017, 'duration_hours' => 1.3,  'academy_id' => 4, 'instructor' => 'Lydia Halie',            'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/certified-associate-in-python-programming/',                        'link_name' => null, 'public' => 1, 'summary' => 'Python offers a certification known as PCAP (Certified Associate in Python Programming) that gives its holders confidence in their programming skills.' ],
+            [ 'name' => 'The Complete Full-Stack Web Development Bootcamp',             'slug' => 'the-complete-full-stack-web-development-bootcamp',              'completed' => 1, 'completion_date' => '2021-06-28', 'year' => 2021, 'duration_hours' => 61,   'academy_id' => 8, 'instructor' => 'Dr. Angela Wu',          'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/the-complete-web-development-bootcamp/',                             'link_name' => null, 'public' => 1, 'summary' => 'Become a Full-Stack Web Developer with just ONE course. HTML, CSS, Javascript, Node, React, PostgreSQL, Web3 and Dapps' ],
+            [ 'name' => 'The AI Engineer Path',                                         'slug' => 'the-ai-engineer-path',                                          'completed' => 1, 'completion_date' => '2016-10-02', 'year' => 2016, 'duration_hours' => 10.3, 'academy_id' => 6, 'instructor' => 'Per Borgen',             'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/the-ai-engineer-path-c02v',                                                   'link_name' => null, 'public' => 1, 'summary' => 'Build apps powered by generative AI - an essential 2025 skill for product teams at startups, agencies, and large corporations.' ],
+            [ 'name' => 'Laravel 12 & Vue 3 fullstack Mastery: Build 2 portfolio apps', 'slug' => 'laravel-12-and-vue-3-fullstack-mastery-build-2-portfolio-apps', 'completed' => 1, 'completion_date' => '2023-07-17', 'year' => 2023, 'duration_hours' => 35.5, 'academy_id' => 8, 'instructor' => 'Eding Muhamad Saprudin', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-vuejs-fullstack-web-development/',                           'link_name' => null, 'public' => 1, 'summary' => 'From zero to job-ready: build two stunning full-stack single page applications that will get you hired' ],
+            [ 'name' => 'AI Engineer Agentic Track: The Complete Agent & MCP Course',   'slug' => 'ai-engineer-agentic-track-the-complete-agent-&-mcp-course',     'completed' => 1, 'completion_date' => '2013-05-07', 'year' => 2013, 'duration_hours' => 17,   'academy_id' => 8, 'instructor' => 'Ed Donner',              'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/the-complete-agentic-ai-engineering-course/',                        'link_name' => null, 'public' => 1, 'summary' => 'Master AI Agents in 30 days: build 8 real-world projects with OpenAI Agents SDK, CrewAI, LangGraph, AutoGen and MCP.' ],
+            [ 'name' => 'Vue JS 3 For Modern Web Development - Beginner to Advanced',   'slug' => 'vue-js-3-for-modern-web-development-beginner-to-advanced',      'completed' => 1, 'completion_date' => '2024-11-11', 'year' => 2024, 'duration_hours' => 9,    'academy_id' => 8, 'instructor' => 'Ivan Lourenço Gomes',    'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/vue-js-v3-super-fast-course-from-zero-to-advanced-web-development/', 'link_name' => null, 'public' => 1, 'summary' => 'Front End Development with Vue3: Options API, Composition API, Pinia, Vuex, Vue Router, Vite, Vue CLI and More Vue.js!' ],
+            [ 'name' => 'Amazon Elastic Container Service (AWS ECS)',                   'slug' => 'amazon-elastic-container-service-(aws-ecs)',                    'completed' => 1, 'completion_date' => '2018-21-05', 'year' => 2018, 'duration_hours' => 1.3,  'academy_id' => 4, 'instructor' => 'Sanjeev Thiyagarajan',   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/amazon-elastic-container-service-aws-ecs/',                         'link_name' => null, 'public' => 1, 'summary' => 'Amazon Elastic Container Service (Amazon ECS) is a highly scalable and fast container management service. ECS is responsible for managing the lifecycle of a container, starting from creating/running till it gets torn down.' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +220,10 @@ class DanFielding extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +263,8 @@ class DanFielding extends Command
                 'city'                   => 'New York',
                 'state_id'               => 33,
                 'country_id'             => 237,
+                'latitude'               => 40.7127281,
+                'longitude'              => -74.0060152,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

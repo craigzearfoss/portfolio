@@ -88,18 +88,22 @@ class JREwing extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'Sgt. Pepper\'s Lonely Hearts Club Band', 'artist' => 'Peter Blake',             'slug' => 'sgt-peppers-lonely-hearts-club-band-by-peter-blake', 'year' => 1967, 'featured' => 0, 'public' => 1, 'image_url' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/article-2123734-003A1F8A00000258-74_964x911.jpg','link_name' => null,         'link' => null,                        'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Lady of Shalott',                    'artist' => 'John William Waterhouse', 'slug' => 'the-lady-of-shalott-by-john-william-waterhouse',     'year' => 1888, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/John_William_Waterhouse/paintings-wm/waterhouse001.jpg',             'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +189,11 @@ class JREwing extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'AWS Solutions Architect Associate Certification (SAA-C03)', 'slug' => 'aws-solutions-architect-associate-certification-(saa-c03)', 'completed' => 1, 'completion_date' => '2018-22-06', 'year' => 2018, 'duration_hours' => 48,   'academy_id' => 4, 'instructor' => 'Michael Forrester and Sanjeev Thyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-saa/',                                'link_name' => null, 'public' => 1, 'summary' => 'Welcome to the AWS Solutions Architect Associate course, your gateway to becoming a certified AWS Solutions Architect!' ],
+            [ 'name' => 'The Complete JavaScript Course 2025: From Zero to Expert!', 'slug' => 'the-complete-javascript-course-202-from-zero-to-expert',    'completed' => 1, 'completion_date' => '2019-07-31', 'year' => 2019, 'duration_hours' => 71,   'academy_id' => 8, 'instructor' => 'Jonas Schmedtmann',                         'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/the-complete-javascript-course/',          'link_name' => null, 'public' => 1, 'summary' => 'The modern JavaScript course for everyone! Master JavaScript with projects, challenges and theory. Many courses in one!' ],
+            [ 'name' => 'Fundamentals of Data Transformation',                       'slug' => 'fundamentals-of-data-transformation',                       'completed' => 1, 'completion_date' => '2019-12-03', 'year' => 2019, 'duration_hours' => 0.9,  'academy_id' => 5, 'instructor' => null,                                        'sponsor' => null, 'certificate_url' => null, 'link' => 'https://learn.mongodb.com/courses/fundamentals-of-data-transformation', 'link_name' => null, 'public' => 1, 'summary' => 'Learn how to build aggregation pipelines to process, transform, and analyze data efficiently in MongoDB.' ],
+            [ 'name' => 'Intro to SQL',                                              'slug' => 'intro-to-sql',                                              'completed' => 1, 'completion_date' => '2021-23-07', 'year' => 2021, 'duration_hours' => 3.8,  'academy_id' => 6, 'instructor' => 'Gregor Thomson',                            'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/intro-to-sql-c0aviq0aha',                           'link_name' => null, 'public' => 1, 'summary' => 'Discover how to build efficient, data-driven applications using SQL, the essential database language.' ],
+            [ 'name' => 'The Complete ReactJs Course - Basics to Advanced',          'slug' => 'the-complete-reactjs-course-basics-to-advanced',            'completed' => 1, 'completion_date' => '2025-03-25', 'year' => 2025, 'duration_hours' => 3.5,  'academy_id' => 8, 'instructor' => 'Qaifi Khan and Mavludin Abdulkadirov',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/react-js-basics-to-advanced/',             'link_name' => null, 'public' => 1, 'summary' => 'Learn React JS from scratch with hands-on practice assignments and projects.' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +206,10 @@ class JREwing extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +249,8 @@ class JREwing extends Command
                 'city'                   => 'Dallas',
                 'state_id'               => 44,
                 'country_id'             => 237,
+                'latitude'               => 32.7762719,
+                'longitude'              => -96.7968559,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

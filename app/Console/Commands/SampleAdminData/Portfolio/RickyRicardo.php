@@ -88,18 +88,28 @@ class RickyRicardo extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'Hot Dog',                                        'artist' => 'Kevin Dixon',                       'slug' => 'hot-dog-by-kevin-dixon',                                             'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                                                               'link_name' => null,              'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Behind Ronnie\'s Eyes',                          'artist' => 'Ron Liberti',                       'slug' => 'behind-ronnies-eyes-by-ron-liberti',                                 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1464469419024-0EKWJV7J9TZLXPELXE3P/ronnie.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => '(untitled)',                                     'artist' => 'Wes Freed',                         'slug' => '(untitled-9)-by-wes-freed',                                          'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://i.etsystatic.com/15852134/r/il/10f3d8/1289225578/il_fullxfull.1289225578_dlkt.jpg',                                        'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Night Cafe in the Place Lamartine in Arles', 'artist' => 'Vincent van Gogh',                  'slug' => 'the-night-cafe-in-the-place-lamartine-in-arles-by-vincent-van-gogh', 'year' => 1888, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh150.jpg',                                                'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Hunters in the Snow (Winter)',               'artist' => 'Pieter Bruegel the Elder',          'slug' => 'the-hunters-in-the-snow-(winter)-by-pieter-bruegel-the-elder',       'year' => 1565, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Pieter_the_Elder_Bruegel/paintings-wm/bruegel001.jpg',                                     'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Astronomer',                                 'artist' => 'Johannes Vermeer, van Delft',       'slug' => 'the-astronomer-by-johannes-vermeer-van-delft',                       'year' => 1668, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Johannes_van_Delft_Vermeer/paintings-wm/vermeer020.jpg',                                   'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Impression, Sunrise (Soleil Levant)',            'artist' => 'Claude Monet',                      'slug' => 'impression-sunrise-(soleil-levant)-by-claude-monet',                 'year' => 1872, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet150.jpg',                                             'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Sleeping Venus',                             'artist' => 'Giorgio da Castelfranco Giorgione', 'slug' => 'the-sleeping-venus-by-giorgio-da-castelfranco-giorgione',            'year' => 1508, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Giorgio_da_Castelfranco_Giorgione/paintings-wm/giorgione003.jpg',                          'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +195,15 @@ class RickyRicardo extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'The Ultimate React Course 2025: React, Next.js, Redux & More', 'slug' => 'the-ultimate-react-course-2025-react-next-js-redux-and-more',  'completed' => 1, 'completion_date' => '2019-08-22', 'year' => 2019, 'duration_hours' => 84,   'academy_id' => 8, 'instructor' => 'Jonas Schmedtmann',        'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/the-ultimate-react-course/',                           'link_name' => null, 'public' => 1, 'summary' => 'Master modern React from beginner to advanced! Next.js, Context API, React Query, Redux, Tailwind, advanced patterns' ],
+            [ 'name' => 'ILT: MDB200: MongoDB Optimization and Performance',            'slug' => 'ilt-mdb200-mongodb-optimization-and-performance',              'completed' => 1, 'completion_date' => '2021-07-05', 'year' => 2021, 'duration_hours' => 24,   'academy_id' => 5, 'instructor' => null,                       'sponsor' => null, 'certificate_url' => null, 'link' => 'https://learn.mongodb.com/courses/ilt-mdb200-mongodb-optimization-and-performance', 'link_name' => null, 'public' => 1, 'summary' => 'Gain a solid foundation in indexing concepts and practical techniques, learn how to profile database operations to uncover performance issues, and explore how to analyze logs and metrics effectively.' ],
+            [ 'name' => 'PCAP – Python Certification Course',                           'slug' => 'pcap-python-certification-course',                             'completed' => 1, 'completion_date' => '2017-10-02', 'year' => 2017, 'duration_hours' => 1.3,  'academy_id' => 4, 'instructor' => 'Lydia Halie',              'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/certified-associate-in-python-programming/',          'link_name' => null, 'public' => 1, 'summary' => 'Python offers a certification known as PCAP (Certified Associate in Python Programming) that gives its holders confidence in their programming skills.' ],
+            [ 'name' => 'Learn Vue',                                                    'slug' => 'learn-vue',                                                    'completed' => 1, 'completion_date' => '2017-28-04', 'year' => 2017, 'duration_hours' => 1.5,  'academy_id' => 6, 'instructor' => 'Rachel Johnson',           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-vue-c0jrrpaasr',                                          'link_name' => null, 'public' => 1, 'summary' => 'Learn Vue as you build real projects, dive into its core features, and create dynamic, reusable, and reactive apps with ease.' ],
+            [ 'name' => 'React Interview Questions',                                    'slug' => 'react-interview-questions',                                    'completed' => 1, 'completion_date' => '2018-09-04', 'year' => 2018, 'duration_hours' => 0.7,  'academy_id' => 6, 'instructor' => 'Cassidy Williams',         'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/react-interview-questions-c01t',                                'link_name' => null, 'public' => 1, 'summary' => 'Learn to ace a React Interview with a Principal Developer Experience Engineer as your guide! In 40 minutes, you’ll cover topics such as the Virtual DOM, JSX, Props, Context, Refs, Effects, the Lifecycle and more! By then end, you’ll be ready to tackle your technical interview with style.' ],
+            [ 'name' => 'Learn TypeScript',                                             'slug' => 'learn-typescript',                                             'completed' => 1, 'completion_date' => '2018-06-02', 'year' => 2018, 'duration_hours' => 4.2,  'academy_id' => 6, 'instructor' => 'Bob Ziroll',               'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-typescript-c03c',                                         'link_name' => null, 'public' => 1, 'summary' => 'This course introduces you to the essential building blocks of TypeScript through a hands-on approach. You\'ll explore the fundamentals of TypeScript, TS in React and TS in Express, plus build a TS-based project.' ],
+            [ 'name' => 'Learn Game Development with JavaScript',                       'slug' => 'learn-game-development-with-javascript',                       'completed' => 1, 'completion_date' => '2023-09-01', 'year' => 2023, 'duration_hours' => 3,    'academy_id' => 8, 'instructor' => 'Frank Dvorak',             'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/learn-game-development-with-javascript/',              'link_name' => null, 'public' => 1, 'summary' => 'Make your own animated 2D games' ],
+            [ 'name' => 'Build Websites with Figma, HTML, and CSS',                     'slug' => 'build-websites-with-figma-html-and-css',                       'completed' => 1, 'completion_date' => '2015-26-01', 'year' => 2015, 'duration_hours' => 3.6,  'academy_id' => 6, 'instructor' => 'Gary Simon',               'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/build-websites-with-figma-html-and-css-c02f',                   'link_name' => null, 'public' => 1, 'summary' => 'Practice making high-quality mockups a reality in the browser with five stunning projects created by a UI expert and coded by you.' ],
+            [ 'name' => 'Docker & Kubernetes: The Practical Guide [2025 Edition]',      'slug' => 'docker-and-kubernetes-the-practical-guide-[2025-edition]',     'completed' => 1, 'completion_date' => '2017-11-25', 'year' => 2017, 'duration_hours' => 23.5, 'academy_id' => 8, 'instructor' => 'Maximilian Schwarzmüller', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/docker-kubernetes-the-practical-guide/',               'link_name' => null, 'public' => 1, 'summary' => 'Learn Docker, Docker Compose, Multi-Container Projects, Deployment and all about Kubernetes from the ground up!' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +216,10 @@ class RickyRicardo extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +259,8 @@ class RickyRicardo extends Command
                 'city'                   => 'New York',
                 'state_id'               => 33,
                 'country_id'             => 237,
+                'latitude'               => 40.7127281,
+                'longitude'              => -74.0060152,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

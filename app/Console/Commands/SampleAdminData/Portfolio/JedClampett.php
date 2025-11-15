@@ -88,18 +88,25 @@ class JedClampett extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'Marilyn Diptych',                                'artist' => 'Andy Warhol',      'slug' => 'marilyn-diptych-by-andy-warhol',                                     'year' => 1962, 'featured' => 0, 'public' => 1, 'image_url' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/2014_45_andy_warhol_mark_lawson-1024x768.jpg', 'link_name' => null,         'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Main Street',                                    'artist' => 'Kevin Dixon',      'slug' => 'main-street-by-kevin-dixon',                                         'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                                       'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Shepherds of Arcadia (Et In Arcadia Ego)',   'artist' => 'Nicolas Poussin',  'slug' => 'the-shepherds-of-arcadia-(et-in-arcadia-ego)-by-nicolas-poussin',    'year' => 1638, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Nicolas_Poussin/paintings-wm/poussin002.jpg',                      'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Night Cafe in the Place Lamartine in Arles', 'artist' => 'Vincent van Gogh', 'slug' => 'the-night-cafe-in-the-place-lamartine-in-arles-by-vincent-van-gogh', 'year' => 1888, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh150.jpg',                        'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Wheat Field with Cypresses',                     'artist' => 'Vincent van Gogh', 'slug' => 'wheat-field-with-cypresses-by-vincent-van-gogh',                     'year' => 1889, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh045.jpg',                        'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +192,16 @@ class JedClampett extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'AWS Solutions Architect Associate Certification (SAA-C03)',    'slug' => 'aws-solutions-architect-associate-certification-(saa-c03)',    'completed' => 1, 'completion_date' => '2018-22-06', 'year' => 2018, 'duration_hours' => 48,   'academy_id' => 4, 'instructor' => 'Michael Forrester and Sanjeev Thyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-saa/',                                            'link_name' => null, 'public' => 1, 'summary' => 'Welcome to the AWS Solutions Architect Associate course, your gateway to becoming a certified AWS Solutions Architect!' ],
+            [ 'name' => 'Complete Vue.js 3 Course: Vuejs 3, Vite, TailwindCSS, Pinia',  'slug' => 'complete-vue.js-3-course:-vuejs-3,-vite,-tailwindcss,-pinia',  'completed' => 1, 'completion_date' => '2024-10-10', 'year' => 2024, 'duration_hours' => 16.5, 'academy_id' => 8, 'instructor' => 'OnlyKiosk Tech',                            'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/complete-vuejs-3-course/',                             'link_name' => null, 'public' => 1, 'summary' => 'Vue3, TailwindCSS, VueX, Vue Router, Composition API, Pinia, and Vite; A Step-by-Step Guide to Building Vue Programs' ],
+            [ 'name' => 'AWS IAM',                                                      'slug' => 'aws-iam',                                                      'completed' => 1, 'completion_date' => '2019-13-07', 'year' => 2019, 'duration_hours' => 2,    'academy_id' => 4, 'instructor' => 'Amin Mansouri',                             'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-iam',                                             'link_name' => null, 'public' => 1, 'summary' => 'Unlock the power of AWS Identity and Access Management (IAM) with our comprehensive IAM Mastery course.' ],
+            [ 'name' => 'Intro to Supabase',                                            'slug' => 'intro-to-supabase',                                            'completed' => 1, 'completion_date' => '2025-31-05', 'year' => 2025, 'duration_hours' => 4.8,  'academy_id' => 6, 'instructor' => 'Jonathan Hill',                             'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/intro-to-supabase-c0abltfqed',                                  'link_name' => null, 'public' => 1, 'summary' => 'Master Supabase essentials by building a real-world React.js Sales Dashboard App with authentication, real-time data operations, and secure user management.' ],
+            [ 'name' => 'Command Line Basics',                                          'slug' => 'command-line-basics',                                          'completed' => 1, 'completion_date' => '2018-21-03', 'year' => 2018, 'duration_hours' => 1.8,  'academy_id' => 6, 'instructor' => 'Ajo Borgvold',                              'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/command-line-basics-c08b87ogl0',                                'link_name' => null, 'public' => 1, 'summary' => 'Get to grips with the essential CLI skills you need to navigate files, automate tasks, and simplify your workflow.' ],
+            [ 'name' => 'FastAPI - The Complete Course 2026 (Beginner + Advanced)',     'slug' => 'fastapi-the-complete-course-2026-(beginner-plus-advanced)',    'completed' => 1, 'completion_date' => '2024-02-18', 'year' => 2024, 'duration_hours' => 21.5, 'academy_id' => 8, 'instructor' => 'Eric Roby and Chad Darby',                  'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/fastapi-the-complete-course/',                         'link_name' => null, 'public' => 1, 'summary' => 'Dive in and learn FastAPI from scratch! Learn FastAPI, RESTful APIs using Python, SQLAlchemy, OAuth, JWT and way more!' ],
+            [ 'name' => 'Laravel & PHP Mastery: Build 5 Real-World Projects',           'slug' => 'laravel-and-php-mastery-build-5-real-world-projects',          'completed' => 1, 'completion_date' => '2018-06-26', 'year' => 2018, 'duration_hours' => 30.5, 'academy_id' => 8, 'instructor' => 'Piotr Jura',                                'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-beginner-fundamentals/',                       'link_name' => null, 'public' => 1, 'summary' => 'Master Laravel, PHP & full-stack skills by building 5 production-ready apps!' ],
+            [ 'name' => 'JavaScript Interview Challenges',                              'slug' => 'javascript-interview-challenges',                              'completed' => 1, 'completion_date' => '2017-08-03', 'year' => 2017, 'duration_hours' => 2.3,  'academy_id' => 6, 'instructor' => 'Treasure Porth',                            'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/javascript-interview-challenges-c02c',                          'link_name' => null, 'public' => 1, 'summary' => 'Your essential tech interview preparation pack! Practice solving problems and honing the skills you need to succeed in a frontend coding interview.' ],
+            [ 'name' => 'React.js AI Chatbot built with ChatGPT, Gemini and DeepSeek',  'slug' => 'react-js-ai-chatbot-built-with-chatgpt-gemini-and-deepseek',   'completed' => 1, 'completion_date' => '2018-12-06', 'year' => 2018, 'duration_hours' => 13.5, 'academy_id' => 8, 'instructor' => 'Anton Voroniuk and Dmytro Vasyliev',        'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/reactjs-ai-chatbot-built-with-chatgpt-and-gemini-ai/', 'link_name' => null, 'public' => 1, 'summary' => 'React Project: Build a Real-Time AI Chatbot with ChatGPT, Gemini, DeepSeek, Claude & Grok API' ],
+            [ 'name' => '[NEW] Ultimate AWS Certified Cloud Practitioner CLF-C02 2025', 'slug' => '[new]-ultimate-aws-certified-cloud-practitioner-clf-c02-2025', 'completed' => 1, 'completion_date' => '2014-08-10', 'year' => 2014, 'duration_hours' => 14.5, 'academy_id' => 8, 'instructor' => 'Stephane Maarek',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-certified-cloud-practitioner-new/',                'link_name' => null, 'public' => 1, 'summary' => 'Full Practice Exam included + explanations | Learn Cloud Computing | Pass the AWS Cloud Practitioner CLF-C02 exam!' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +214,10 @@ class JedClampett extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +257,8 @@ class JedClampett extends Command
                 'city'                   => 'Beverly Hills',
                 'state_id'               => 5,
                 'country_id'             => 237,
+                'latitude'               => 34.0696501,
+                'longitude'              => -118.3963062,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,
@@ -258,6 +280,8 @@ class JedClampett extends Command
                 'city'                   => null,
                 'state_id'               => 33,
                 'country_id'             => 237,
+                'latitude'               => null,
+                'longitude'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

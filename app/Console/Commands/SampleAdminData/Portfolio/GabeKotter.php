@@ -88,18 +88,25 @@ class GabeKotter extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'Dance at the Moulin de la Galette',  'artist' => 'Pierre-Auguste Renoir',  'slug' => 'dance-at-the-moulin-de-la-galette-by-pierre-auguste-renoir', 'year' => 1876, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Pierre-Auguste_Renoir/paintings-wm/renoir061.jpg',                                              'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Hands Up',                           'artist' => 'Ron Liberti',            'slug' => 'hands-up-by-ron-liberti',                                    'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1679254976779-P7HOW9DDTRTKFQFGV2JD/Hands+up%21.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Boulevard des Capucines',            'artist' => 'Claude Monet',           'slug' => 'boulevard-des-capucines-by-claude-monet',                    'year' => 1873, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet195.jpg',                                                  'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Liberty Leading the People',         'artist' => 'Eugene Delacroix',       'slug' => 'liberty-leading-the-people-by-eugene-delacroix',             'year' => 1830, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Delacroix/paintings-wm/delacroix-005.jpg',                                                      'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Polar Sea (The Sea of Ice)',     'artist' => 'Caspar David Friedrich', 'slug' => 'the-polar-sea-(the-sea-of-ice)-by-caspar-david-friedrich',   'year' => 1823, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Caspar_David_Friedrich/paintings-wm/friedrich003.jpg',                                          'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +192,11 @@ class GabeKotter extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'AWS Cloud Practitioner (CLF-C02)',                             'slug' => 'aws-cloud-practitioner-(clf-c02)',                     'completed' => 1, 'completion_date' => '2016-21-03', 'year' => 2016, 'duration_hours' => 15,   'academy_id' => 4, 'instructor' => 'Michael Forrester and Sanjeev Thyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-cloud-practitioner-clf-c02',        'link_name' => null, 'public' => 1, 'summary' => 'Transform your career with our comprehensive AWS Cloud Practitioner course, unlocking endless possibilities in cloud computing' ],
+            [ 'name' => 'The Complete Full-Stack Web Development Bootcamp',             'slug' => 'the-complete-full-stack-web-development-bootcamp',     'completed' => 1, 'completion_date' => '2021-06-28', 'year' => 2021, 'duration_hours' => 61,   'academy_id' => 8, 'instructor' => 'Dr. Angela Wu',                             'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/the-complete-web-development-bootcamp/', 'link_name' => null, 'public' => 1, 'summary' => 'Become a Full-Stack Web Developer with just ONE course. HTML, CSS, Javascript, Node, React, PostgreSQL, Web3 and Dapps' ],
+            [ 'name' => 'The AI Engineer Path',                                         'slug' => 'the-ai-engineer-path',                                 'completed' => 1, 'completion_date' => '2016-10-02', 'year' => 2016, 'duration_hours' => 10.3, 'academy_id' => 6, 'instructor' => 'Per Borgen',                                'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/the-ai-engineer-path-c02v',                       'link_name' => null, 'public' => 1, 'summary' => 'Build apps powered by generative AI - an essential 2025 skill for product teams at startups, agencies, and large corporations.' ],
+            [ 'name' => 'React Interview Questions',                                    'slug' => 'react-interview-questions',                            'completed' => 1, 'completion_date' => '2018-09-04', 'year' => 2018, 'duration_hours' => 0.7,  'academy_id' => 6, 'instructor' => 'Cassidy Williams',                          'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/react-interview-questions-c01t',                  'link_name' => null, 'public' => 1, 'summary' => 'Learn to ace a React Interview with a Principal Developer Experience Engineer as your guide! In 40 minutes, you’ll cover topics such as the Virtual DOM, JSX, Props, Context, Refs, Effects, the Lifecycle and more! By then end, you’ll be ready to tackle your technical interview with style.' ],
+            [ 'name' => 'React JS- Complete Guide for Frontend Web Development',        'slug' => 'react-js-complete-guide-for-frontend-web-development', 'completed' => 1, 'completion_date' => '2019-01-03', 'year' => 2019, 'duration_hours' => 22,   'academy_id' => 8, 'instructor' => 'Qaifi Khan and Mavludin Abdulkadirov',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/react-js-basics-to-advanced/',           'link_name' => null, 'public' => 1, 'summary' => 'Learn React JS from scratch with hands-on practice assignments and projects.' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +209,10 @@ class GabeKotter extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +252,8 @@ class GabeKotter extends Command
                 'city'                   => 'Brooklyn',
                 'state_id'               => 33,
                 'country_id'             => 237,
+                'latitude'               => 40.6526006,
+                'longitude'              => -73.9497211,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,
@@ -258,6 +275,8 @@ class GabeKotter extends Command
                 'city'                   => null,
                 'state_id'               => 33,
                 'country_id'             => 237,
+                'latitude'               => null,
+                'longitude'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

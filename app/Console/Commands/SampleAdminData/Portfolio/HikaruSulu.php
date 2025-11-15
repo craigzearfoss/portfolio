@@ -88,18 +88,26 @@ class HikaruSulu extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'Hands Up',                               'artist' => 'Ron Liberti',              'slug' => 'hands-up-by-ron-liberti',                                      'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1679254976779-P7HOW9DDTRTKFQFGV2JD/Hands+up%21.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Inside Out',                             'artist' => 'Ron Liberti',              'slug' => 'inside-out-by-ron-liberti',                                    'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1464447723872-J7GVW0O5Y1WJYDBIV76Q/InsideOut.JPG?format=750w',   'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Sgt. Pepper\'s Lonely Hearts Club Band', 'artist' => 'Peter Blake',              'slug' => 'sgt-peppers-lonely-hearts-club-band-by-peter-blake',           'year' => 1967, 'featured' => 0, 'public' => 1, 'image_url' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/article-2123734-003A1F8A00000258-74_964x911.jpg',                           'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Hunters in the Snow (Winter)',       'artist' => 'Pieter Bruegel the Elder', 'slug' => 'the-hunters-in-the-snow-(winter)-by-pieter-bruegel-the-elder', 'year' => 1565, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Pieter_the_Elder_Bruegel/paintings-wm/bruegel001.jpg',                                          'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Postage Due',                            'artist' => 'Kevin Dixon',              'slug' => 'postage-due-by-kevin-dixon',                                   'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                                                                    'link_name' => null,              'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => '(untitled)',                             'artist' => 'Wes Freed',                'slug' => '(untitled-5)-by-wes-freed',                                    'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://thumbs.worthpoint.com/zoom/images1/1/0417/06/gram-parsons-print-wes-freed-signed_1_e334cde6d4fbabfe1d37cd78656667c9.jpg',       'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +193,7 @@ class HikaruSulu extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'PCAP – Python Certification Course', 'slug' => 'pcap-python-certification-course', 'completed' => 1, 'completion_date' => '2017-10-02', 'year' => 2017, 'duration_hours' => 1.3,  'academy_id' => 4, 'instructor' => 'Lydia Halie', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/certified-associate-in-python-programming/', 'link_name' => null, 'public' => 1, 'summary' => 'Python offers a certification known as PCAP (Certified Associate in Python Programming) that gives its holders confidence in their programming skills.' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +206,10 @@ class HikaruSulu extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +249,8 @@ class HikaruSulu extends Command
                 'city'                   => 'San Francisco',
                 'state_id'               => 5,
                 'country_id'             => 237,
+                'latitude'               => 37.7792588,
+                'longitude'              => -122.4193286,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

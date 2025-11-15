@@ -88,18 +88,28 @@ class LesNessman extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'Post Glass Houses…Not!',                             'artist' => 'Ron Liberti',              'slug' => 'post-glass-houses-not-by-ron-liberti',                                          'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1674831285050-4DZD1L3DN4CGGM1ZFO61/image-asset.jpeg?format=1500w',              'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Boulevard des Capucines',                            'artist' => 'Claude Monet',             'slug' => 'boulevard-des-capucines-by-claude-monet',                                       'year' => 1873, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet195.jpg',                                                                 'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => '(untitled)',                                         'artist' => 'Wes Freed',                'slug' => '(untitled-5)-by-wes-freed',                                                     'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://thumbs.worthpoint.com/zoom/images1/1/0417/06/gram-parsons-print-wes-freed-signed_1_e334cde6d4fbabfe1d37cd78656667c9.jpg',                      'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Jean de Dinteville, Georges de Selve (Ambassadors)', 'artist' => 'Hans Holbein the Younger', 'slug' => 'jean-de-dinteville-georges-de-selve-(ambassadors)-by-hans-holbein-the-younger', 'year' => 1533, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Hans_the_Younger_Holbein/paintings-wm/holbein026.jpg',                                                         'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Breezing Up (A Fair Wind)',                          'artist' => 'Winslow Homer',            'slug' => 'breezing-up-(a-fair-wind)-by-winslow-homer',                                    'year' => 1873, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Winslow_Homer/paintings-wm/homer062.jpg',                                                                      'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Pipe Lite',                                          'artist' => 'Ron Liberti',              'slug' => 'pipe-lite-by-ron-liberti',                                                      'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1700155997410-QNQVSCXLRF5P4BW9XW7A/Pipe+Lite+%231+Test+Print+.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Skiff (La Yole)',                                'artist' => 'Pierre-Auguste Renoir',    'slug' => 'the-skiff-(la-yole)-by-pierre-auguste-renoir',                                  'year' => 1875, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Pierre-Auguste_Renoir/paintings-wm/renoir190.jpg',                                                             'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Edelweiss',                                          'artist' => 'Kevin Dixon',              'slug' => 'edelweiss-by-kevin-dixon',                                                      'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                                                                                   'link_name' => null,              'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +195,16 @@ class LesNessman extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'Learn Tailwind CSS',                                        'slug' => 'learn-tailwind-css',                                        'completed' => 1, 'completion_date' => '2018-07-02', 'year' => 2018, 'duration_hours' => 2.2,  'academy_id' => 6, 'instructor' => 'Rachel Johnson',                            'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-tailwind-css-c010',                                       'link_name' => null, 'public' => 1, 'summary' => 'The ultimate hands-on journey with Tailwind CSS! Learn the essentials of Tailwind and then flex your new skills with five real-world projects.' ],
+            [ 'name' => 'Fundamentals of Data Transformation',                       'slug' => 'fundamentals-of-data-transformation',                       'completed' => 1, 'completion_date' => '2019-12-03', 'year' => 2019, 'duration_hours' => 0.9,  'academy_id' => 5, 'instructor' => null,                                        'sponsor' => null, 'certificate_url' => null, 'link' => 'https://learn.mongodb.com/courses/fundamentals-of-data-transformation',             'link_name' => null, 'public' => 1, 'summary' => 'Learn how to build aggregation pipelines to process, transform, and analyze data efficiently in MongoDB.' ],
+            [ 'name' => 'AWS Solutions Architect Associate Certification (SAA-C03)', 'slug' => 'aws-solutions-architect-associate-certification-(saa-c03)', 'completed' => 1, 'completion_date' => '2018-22-06', 'year' => 2018, 'duration_hours' => 48,   'academy_id' => 4, 'instructor' => 'Michael Forrester and Sanjeev Thyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-saa/',                                            'link_name' => null, 'public' => 1, 'summary' => 'Welcome to the AWS Solutions Architect Associate course, your gateway to becoming a certified AWS Solutions Architect!' ],
+            [ 'name' => 'JavaScript Interview Challenges',                           'slug' => 'javascript-interview-challenges',                           'completed' => 1, 'completion_date' => '2017-08-03', 'year' => 2017, 'duration_hours' => 2.3,  'academy_id' => 6, 'instructor' => 'Treasure Porth',                            'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/javascript-interview-challenges-c02c',                          'link_name' => null, 'public' => 1, 'summary' => 'Your essential tech interview preparation pack! Practice solving problems and honing the skills you need to succeed in a frontend coding interview.' ],
+            [ 'name' => 'ILT: MDB200: MongoDB Optimization and Performance',         'slug' => 'ilt-mdb200-mongodb-optimization-and-performance',           'completed' => 1, 'completion_date' => '2021-07-05', 'year' => 2021, 'duration_hours' => 24,   'academy_id' => 5, 'instructor' => null,                                        'sponsor' => null, 'certificate_url' => null, 'link' => 'https://learn.mongodb.com/courses/ilt-mdb200-mongodb-optimization-and-performance', 'link_name' => null, 'public' => 1, 'summary' => 'Gain a solid foundation in indexing concepts and practical techniques, learn how to profile database operations to uncover performance issues, and explore how to analyze logs and metrics effectively.' ],
+            [ 'name' => 'Intro to Supabase',                                         'slug' => 'intro-to-supabase',                                         'completed' => 1, 'completion_date' => '2025-31-05', 'year' => 2025, 'duration_hours' => 4.8,  'academy_id' => 6, 'instructor' => 'Jonathan Hill',                             'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/intro-to-supabase-c0abltfqed',                                  'link_name' => null, 'public' => 1, 'summary' => 'Master Supabase essentials by building a real-world React.js Sales Dashboard App with authentication, real-time data operations, and secure user management.' ],
+            [ 'name' => 'Intro to Model Context Protocol (MCP)',                     'slug' => 'intro-to-model-context-protocol-(mcp)',                     'completed' => 1, 'completion_date' => '2021-27-01', 'year' => 2021, 'duration_hours' => 0.6,  'academy_id' => 6, 'instructor' => 'Maham Codes',                               'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/intro-to-model-context-protocol-mcp-c0sake4uir',                'link_name' => null, 'public' => 1, 'summary' => 'Learn how to power up your AI apps with Model Context Protocol (MCP), a new way to connect AI models to real-world tools and data.' ],
+            [ 'name' => '30 Days of Angular: Build 30 Projects with Angular',        'slug' => '30-days-of-angular-build-30-projects-with-angular',         'completed' => 1, 'completion_date' => '2016-04-28', 'year' => 2016, 'duration_hours' => 27,   'academy_id' => 8, 'instructor' => 'Andrew Tyranowski',                         'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/30-days-of-angular/',                                  'link_name' => null, 'public' => 1, 'summary' => 'Master Angular by building interactive web applications' ],
+            [ 'name' => 'Ultimate AWS Certified Solutions Architect Associate 2025', 'slug' => 'ultimate-aws-certified-solutions-architect-associate-2025', 'completed' => 1, 'completion_date' => '2013-07-09', 'year' => 2013, 'duration_hours' => 27,   'academy_id' => 8, 'instructor' => 'Stephane Maarek',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c03/', 'link_name' => null, 'public' => 1, 'summary' => 'Full Practice Exam | Learn Cloud Computing | Pass the AWS Certified Solutions Architect Associate Certification SAA-C03!' ],
+            [ 'name' => 'Figma UI UX Design Essentials',                             'slug' => 'figma-ui-ux-design-essentials',                             'completed' => 1, 'completion_date' => '2023-01-27', 'year' => 2023, 'duration_hours' => 9.5,  'academy_id' => 8, 'instructor' => 'Daniel Walter Scott',                       'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/figma-ux-ui-design-user-experience-tutorial-course/',  'link_name' => null, 'public' => 1, 'summary' => 'Use Figma to get a job in UI Design, User Interface, User Experience design, UX Design & Web Design' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +217,10 @@ class LesNessman extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +260,8 @@ class LesNessman extends Command
                 'city'                   => 'Cincinnati',
                 'state_id'               => 36,
                 'country_id'             => 237,
+                'latitude'               => 39.1014537,
+                'longitude'              => -84.5124602,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

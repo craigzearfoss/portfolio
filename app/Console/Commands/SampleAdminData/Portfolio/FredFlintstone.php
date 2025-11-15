@@ -88,18 +88,28 @@ class FredFlintstone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'There Is a God',                       'artist' => 'Kevin Dixon',           'slug' => 'there-is-a-god-by-kevin-dixon',                       'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                                       'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Mona Lisa (La Gioconda)',              'artist' => 'Leonardo da Vinci',     'slug' => 'mona-lisa-(la-gioconda)-by-leonardo-da-vinci',        'year' => 1503, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/da_Vinci_Leonardo/paintings-wm/leonardo004.jpg',                   'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Portrait of Adele Bloch-Bauer',        'artist' => 'Gustav Klimt',          'slug' => 'portrait-of-adele-bloch-bauer-by-gustav-klimt',       'year' => 1907, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Gustav_Klimt/paintings-wm/klimt016.jpg',                           'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Marilyn Diptych',                      'artist' => 'Andy Warhol',           'slug' => 'marilyn-diptych-by-andy-warhol',                      'year' => 1962, 'featured' => 0, 'public' => 1, 'image_url' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/2014_45_andy_warhol_mark_lawson-1024x768.jpg', 'link_name' => null,         'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Portrait of Doctor Gachet',            'artist' => 'Vincent van Gogh',      'slug' => 'portrait-of-doctor-gachet-by-vincent-van-gogh',       'year' => 1890, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh129.jpg',                        'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Swing',                            'artist' => 'Jean-Honore Fragonard', 'slug' => 'the-swing-by-jean-honore-fragonard',                  'year' => 1767, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Jean-Honore_Fragonard/paintings-wm/fragonard002.jpg',              'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Annunciation',                     'artist' => 'Leonardo da Vinci',     'slug' => 'the-annunciation-by-leonardo-da-vinci',               'year' => 1472, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/da_Vinci_Leonardo/paintings-wm/leonardo001.jpg',                   'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Water Lily Pond, (Symphony in Green)', 'artist' => 'Claude Monet',          'slug' => 'water-lily-pond-(symphony-in-green)-by-claude-monet', 'year' => 1899, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet018.jpg',                     'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +195,14 @@ class FredFlintstone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => '[NEW] Ultimate AWS Certified AI Practitioner AIF-C01',         'slug' => '[new]-ultimate-aws-certified-ai-practitioner-aif-c01',         'completed' => 1, 'completion_date' => '2017-05-29', 'year' => 2017, 'duration_hours' => 10,   'academy_id' => 8, 'instructor' => 'Stephane Maarek',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-ai-practitioner-certified/',                                     'link_name' => null, 'public' => 1, 'summary' => 'Practice Exam included + explanations | Learn Artificial Intelligence | Pass the AWS AI Practitioner AIF-C01 exam!' ],
+            [ 'name' => 'Laravel From Scratch',                                         'slug' => 'laravel-from-scratch',                                         'completed' => 1, 'completion_date' => '2016-08-28', 'year' => 2016, 'duration_hours' => 13.5, 'academy_id' => 8, 'instructor' => 'Brad Traversy',        'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-from-scratch/',                                              'link_name' => null, 'public' => 1, 'summary' => 'Build and deploy a real-world job listing application and learn all of the fundamentals of the Laravel framework' ],
+            [ 'name' => 'Ultimate AWS Certified Solutions Architect Associate 2025',    'slug' => 'ultimate-aws-certified-solutions-architect-associate-2025',    'completed' => 1, 'completion_date' => '2013-07-09', 'year' => 2013, 'duration_hours' => 27,   'academy_id' => 8, 'instructor' => 'Stephane Maarek',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-certified-solutions-architect-associate-saa-c03/',               'link_name' => null, 'public' => 1, 'summary' => 'Full Practice Exam | Learn Cloud Computing | Pass the AWS Certified Solutions Architect Associate Certification SAA-C03!' ],
+            [ 'name' => 'Vue JS 3 For Modern Web Development - Beginner to Advanced',   'slug' => 'vue-js-3-for-modern-web-development-beginner-to-advanced',     'completed' => 1, 'completion_date' => '2024-11-11', 'year' => 2024, 'duration_hours' => 9,    'academy_id' => 8, 'instructor' => 'Ivan Lourenço Gomes',  'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/vue-js-v3-super-fast-course-from-zero-to-advanced-web-development/', 'link_name' => null, 'public' => 1, 'summary' => 'Front End Development with Vue3: Options API, Composition API, Pinia, Vuex, Vue Router, Vite, Vue CLI and More Vue.js!' ],
+            [ 'name' => 'Learn Vue',                                                    'slug' => 'learn-vue',                                                    'completed' => 1, 'completion_date' => '2017-28-04', 'year' => 2017, 'duration_hours' => 1.5,  'academy_id' => 6, 'instructor' => 'Rachel Johnson',       'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-vue-c0jrrpaasr',                                                        'link_name' => null, 'public' => 1, 'summary' => 'Learn Vue as you build real projects, dive into its core features, and create dynamic, reusable, and reactive apps with ease.' ],
+            [ 'name' => '[NEW] Ultimate AWS Certified Cloud Practitioner CLF-C02 2025', 'slug' => '[new]-ultimate-aws-certified-cloud-practitioner-clf-c02-2025', 'completed' => 1, 'completion_date' => '2014-08-10', 'year' => 2014, 'duration_hours' => 14.5, 'academy_id' => 8, 'instructor' => 'Stephane Maarek',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-certified-cloud-practitioner-new/',                              'link_name' => null, 'public' => 1, 'summary' => 'Full Practice Exam included + explanations | Learn Cloud Computing | Pass the AWS Cloud Practitioner CLF-C02 exam!' ],
+            [ 'name' => 'Amazon Elastic Container Service (AWS ECS)',                   'slug' => 'amazon-elastic-container-service-(aws-ecs)',                   'completed' => 1, 'completion_date' => '2018-21-05', 'year' => 2018, 'duration_hours' => 1.3,  'academy_id' => 4, 'instructor' => 'Sanjeev Thiyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/amazon-elastic-container-service-aws-ecs/',                         'link_name' => null, 'public' => 1, 'summary' => 'Amazon Elastic Container Service (Amazon ECS) is a highly scalable and fast container management service. ECS is responsible for managing the lifecycle of a container, starting from creating/running till it gets torn down.' ],
+            [ 'name' => 'AWS Networking Fundamentals',                                  'slug' => 'aws-networking-fundamentals',                                  'completed' => 1, 'completion_date' => '2023-15-09', 'year' => 2023, 'duration_hours' => 3,    'academy_id' => 4, 'instructor' => 'Sanjeev Thiyagarajan', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-networking-fundamentals',                                       'link_name' => null, 'public' => 1, 'summary' => 'Lay the groundwork for seamless cloud operations with AWS Networking Fundamentals.' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +215,10 @@ class FredFlintstone extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +258,8 @@ class FredFlintstone extends Command
                 'city'                   => 'Bedrock',
                 'state_id'               => 5,
                 'country_id'             => 237,
+                'latitude'               => 38.9886848,
+                'longitude'              => -121.548541,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,
@@ -258,6 +281,8 @@ class FredFlintstone extends Command
                 'city'                   => null,
                 'state_id'               => 33,
                 'country_id'             => 237,
+                'latitude'               => null,
+                'longitude'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

@@ -88,18 +88,21 @@ class DwightSchrute extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'Starry Night', 'artist' => 'Vincent van Gogh', 'slug' => 'starry-night-by-vincent-van-gogh', 'year' => 1889, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh001.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/', 'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +188,10 @@ class DwightSchrute extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'Learn Game Development with JavaScript',        'slug' => 'learn-game-development-with-javascript',       'completed' => 1, 'completion_date' => '2023-09-01', 'year' => 2023, 'duration_hours' => 3,    'academy_id' => 8, 'instructor' => 'Frank Dvorak', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/learn-game-development-with-javascript/', 'link_name' => null, 'public' => 1, 'summary' => 'Make your own animated 2D games' ],
+            [ 'name' => 'React Challenges',                              'slug' => 'react-challenges',                             'completed' => 1, 'completion_date' => '2017-15-09', 'year' => 2017, 'duration_hours' => 9.8,  'academy_id' => 6, 'instructor' => 'Daniel Rose',  'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/react-challenges-c02n',                            'link_name' => null, 'public' => 1, 'summary' => 'Transform your coding skills and unlock your success through real-world problem-solving across 40 immersive challenges.' ],
+            [ 'name' => 'The Frontend Developer Career Path',            'slug' => 'the-frontend-developer-career-path',           'completed' => 1, 'completion_date' => '2019-21-07', 'year' => 2019, 'duration_hours' => 81.6, 'academy_id' => 6, 'instructor' => 'Per Borgen',   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/frontend-path-c0j',                                'link_name' => null, 'public' => 1, 'summary' => 'Launch your career as a frontend developer with this immersive path. Created in collaboration with Mozilla MDN, ensuring that you\'ll learn the latest best practices for modern web development, and stand out from other job applicants.' ],
+            [ 'name' => 'Vue.js 3 Masterclass: Build 7 Real-World Apps', 'slug' => 'vue.js-3-masterclass-build-7-real-world-apps', 'completed' => 1, 'completion_date' => '2017-09-09', 'year' => 2017, 'duration_hours' => 15.5, 'academy_id' => 8, 'instructor' => 'Piotr Jura',   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/vue-in-action/',                          'link_name' => null, 'public' => 1, 'summary' => 'Master Vue 3 & the Composition API by building 7 production-ready apps and launching your frontend developer career!' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +204,10 @@ class DwightSchrute extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +247,8 @@ class DwightSchrute extends Command
                 'city'                   => 'Scranton',
                 'state_id'               => 39,
                 'country_id'             => 237,
+                'latitude'               => 41.4086874,
+                'longitude'              => -75.6621294,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

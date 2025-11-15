@@ -88,18 +88,25 @@ class DarrinStephens extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'The Scream',                       'artist' => 'Edvard Munch',           'slug' => 'the-scream-by-edvard-munch',                                 'year' => 1893, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Edvard-Munch/paintings-wm/munch004.jpg',               'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Wanderer Above a Sea of Mist', 'artist' => 'Caspar David Friedrich', 'slug' => 'the-wanderer-above-a-sea-of-mist-by-caspar-david-friedrich', 'year' => 1818, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Caspar_David_Friedrich/paintings-wm/friedrich016.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Nude Descending a Staircase II',   'artist' => 'Marcel Duchamp',         'slug' => 'nude-descending-a-staircase-ii-by-marcel-duchamp',           'year' => 1912, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Marcel-Duchamp/paintings-wm/duchamp-001.jpg',          'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'American Gothic',                  'artist' => 'Grant Wood',             'slug' => 'american-gothic-by-grant-wood',                              'year' => 1930, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Grant-Wood/paintings-wm/grant-wood-001.jpg',           'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'There Is a God',                   'artist' => 'Kevin Dixon',            'slug' => 'there-is-a-god-by-kevin-dixon',                              'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                           'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +192,10 @@ class DarrinStephens extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'Laravel & PHP Mastery: Build 5 Real-World Projects', 'slug' => 'laravel-and-php-mastery-build-5-real-world-projects', 'completed' => 1, 'completion_date' => '2018-06-26', 'year' => 2018, 'duration_hours' => 30.5, 'academy_id' => 8, 'instructor' => 'Piotr Jura',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-beginner-fundamentals/', 'link_name' => null, 'public' => 1, 'summary' => 'Master Laravel, PHP & full-stack skills by building 5 production-ready apps!' ],
+            [ 'name' => 'The Complete ReactJs Course - Basics to Advanced',   'slug' => 'the-complete-reactjs-course-basics-to-advanced',      'completed' => 1, 'completion_date' => '2025-03-25', 'year' => 2025, 'duration_hours' => 3.5,  'academy_id' => 8, 'instructor' => 'Qaifi Khan and Mavludin Abdulkadirov', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/react-js-basics-to-advanced/',   'link_name' => null, 'public' => 1, 'summary' => 'Learn React JS from scratch with hands-on practice assignments and projects.' ],
+            [ 'name' => 'Vue.js 3 Masterclass: Build 7 Real-World Apps',      'slug' => 'vue.js-3-masterclass-build-7-real-world-apps',        'completed' => 1, 'completion_date' => '2017-09-09', 'year' => 2017, 'duration_hours' => 15.5, 'academy_id' => 8, 'instructor' => 'Piotr Jura',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/vue-in-action/',                 'link_name' => null, 'public' => 1, 'summary' => 'Master Vue 3 & the Composition API by building 7 production-ready apps and launching your frontend developer career!' ],
+            [ 'name' => 'Learn React',                                        'slug' => 'learn-react',                                         'completed' => 1, 'completion_date' => '2019-18-02', 'year' => 2019, 'duration_hours' => 15.1, 'academy_id' => 6, 'instructor' => 'Bob Ziroll',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-react-c0e',                         'link_name' => null, 'public' => 1, 'summary' => 'Welcome to the ultimate React 101 course! Designed with MDN Web Docs, it\'s the perfect place to learn modern React basics interactively. You’ll tackle 170+ coding challenges and build six projects, gaining confidence to create real-world applications.' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +208,10 @@ class DarrinStephens extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +251,8 @@ class DarrinStephens extends Command
                 'city'                   => 'Jefferson',
                 'state_id'               => 33,
                 'country_id'             => 237,
+                'latitude'               => 44.059311,
+                'longitude'              => -75.9995742,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,
@@ -295,6 +311,26 @@ class DarrinStephens extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Dick York Wikipedia page',
+                'slug'        => 'dick-york-wikipedia-page',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Dick_York',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Darrin Stephens: TV\'s Original Mad Man',
+                'slug'        => 'darrin-stephens-tvs-original-mad-man',
+                'featured'    => 1,
+                'summary'     => null,
+                'url'         => 'https://www.stoneward.com/blog/2015/07/darrin-stephens-tvs-original-mad-man/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',

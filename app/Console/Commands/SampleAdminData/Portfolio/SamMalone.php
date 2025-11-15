@@ -88,18 +88,25 @@ class SamMalone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'M-Maybe',                     'artist' => 'Roy Lichtenstein',                  'slug' => 'm-maybe-by-roy-lichtenstein',                             'year' => 1965, 'featured' => 0, 'public' => 1, 'image_url' => 'https://www.dailyartmagazine.com/wp-content/uploads/2021/05/CZOnngqWwAEswhO.jpg',                                                        'link_name' => null,              'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Summer Sissy',                'artist' => 'Ron Liberti',                       'slug' => 'summer-sissy-by-ron-liberti',                             'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1661292044799-N2HGQXCCF98VWL7RKI5L/image-asset.jpeg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/',  'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Sleeping Venus',          'artist' => 'Giorgio da Castelfranco Giorgione', 'slug' => 'the-sleeping-venus-by-giorgio-da-castelfranco-giorgione', 'year' => 1508, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Giorgio_da_Castelfranco_Giorgione/paintings-wm/giorgione003.jpg',                                'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Lady Godiva',                 'artist' => 'John Collier',                      'slug' => 'lady-godiva-by-john-collier',                             'year' => 1898, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/John_Collier/paintings-wm/collier004.jpg',                                                       'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'A Bar at the Folies-Bergere', 'artist' => 'Edouard Manet',                     'slug' => 'a-bar-at-the-folies-bergere-by-edouard-manet',            'year' => 1881, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Edouard_Manet/paintings-wm/manet015.jpg',                                                        'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +192,12 @@ class SamMalone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'MongoDB PHP Developer Path',                    'slug' => 'mongodb-php-developer-path',                    'completed' => 1, 'completion_date' => '2017-06-01', 'year' => 2017, 'duration_hours' => 20,   'academy_id' => 5, 'instructor' => null,                                  'sponsor' => null, 'certificate_url' => null, 'link' => 'https://learn.mongodb.com/learning-paths/mongodb-php-developer-path',     'link_name' => null, 'public' => 1, 'summary' => 'This learning path contains a series of units to teach you MongoDB skills. In this path, you’ll learn the basics of building modern applications with PHP, using MongoDB as your database.' ],
+            [ 'name' => 'The AI Engineer Path',                          'slug' => 'the-ai-engineer-path',                          'completed' => 1, 'completion_date' => '2016-10-02', 'year' => 2016, 'duration_hours' => 10.3, 'academy_id' => 6, 'instructor' => 'Per Borgen',                          'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/the-ai-engineer-path-c02v',                           'link_name' => null, 'public' => 1, 'summary' => 'Build apps powered by generative AI - an essential 2025 skill for product teams at startups, agencies, and large corporations.' ],
+            [ 'name' => 'Learn TypeScript',                              'slug' => 'learn-typescript',                              'completed' => 1, 'completion_date' => '2018-06-02', 'year' => 2018, 'duration_hours' => 4.2,  'academy_id' => 6, 'instructor' => 'Bob Ziroll',                          'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-typescript-c03c',                               'link_name' => null, 'public' => 1, 'summary' => 'This course introduces you to the essential building blocks of TypeScript through a hands-on approach. You\'ll explore the fundamentals of TypeScript, TS in React and TS in Express, plus build a TS-based project.' ],
+            [ 'name' => 'The Complete Front-End Web Development Course', 'slug' => 'the-complete-front-end-web-development-course', 'completed' => 1, 'completion_date' => '2023-12-02', 'year' => 2023, 'duration_hours' => 17,   'academy_id' => 8, 'instructor' => 'Joseph Delgadillo and Nick Germaine', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/front-end-web-development/',                 'link_name' => null, 'public' => 1, 'summary' => 'Get started as a front-end web developer using HTML, CSS, JavaScript, jQuery, and Bootstrap!' ],
+            [ 'name' => 'Designing Scalable Frontend Systems',           'slug' => 'designing-scalable-frontend-systems',           'completed' => 1, 'completion_date' => '2023-01-15', 'year' => 2023, 'duration_hours' => 2,    'academy_id' => 8, 'instructor' => 'Manoj Satishkumar',                   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/designing-scalable-frontend-systems/',       'link_name' => null, 'public' => 1, 'summary' => 'Attend your next frontend system design interview round with confidence' ],
+            [ 'name' => 'Amazon Elastic Container Service (AWS ECS)',    'slug' => 'amazon-elastic-container-service-(aws-ecs)',    'completed' => 1, 'completion_date' => '2018-21-05', 'year' => 2018, 'duration_hours' => 1.3,  'academy_id' => 4, 'instructor' => 'Sanjeev Thiyagarajan',                'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/amazon-elastic-container-service-aws-ecs/', 'link_name' => null, 'public' => 1, 'summary' => 'Amazon Elastic Container Service (Amazon ECS) is a highly scalable and fast container management service. ECS is responsible for managing the lifecycle of a container, starting from creating/running till it gets torn down.' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +210,10 @@ class SamMalone extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +253,8 @@ class SamMalone extends Command
                 'city'                   => 'Boston',
                 'state_id'               => 22,
                 'country_id'             => 237,
+                'latitude'               => 42.3554334,
+                'longitude'              => -71.060511,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

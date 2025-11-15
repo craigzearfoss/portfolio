@@ -88,18 +88,21 @@ class JonasGrumby extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'Nude Descending to the Center of the Earth', 'artist' => 'Kevin Dixon', 'slug' => 'nude-descending-to-the-center-of-the-earth-by-kevin-dixon', 'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null, 'link_name' => null, 'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +188,14 @@ class JonasGrumby extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'Node.js, Express, MongoDB & More: The Complete Bootcamp', 'slug' => 'node-js-express-mongodb-and-more-the-complete-bootcamp', 'completed' => 1, 'completion_date' => '2023-25-01', 'year' => 2023, 'duration_hours' => 42,   'academy_id' => 8, 'instructor' => 'Jonas Schmedtmann', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/nodejs-express-mongodb-bootcamp/',            'link_name' => null, 'public' => 1, 'summary' => 'Master Node by building a real-world RESTful API and web app (with authentication, Node.js security, payments & more)' ],
+            [ 'name' => 'The Frontend Developer Career Path',                      'slug' => 'the-frontend-developer-career-path',                     'completed' => 1, 'completion_date' => '2019-21-07', 'year' => 2019, 'duration_hours' => 81.6, 'academy_id' => 6, 'instructor' => 'Per Borgen',        'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/frontend-path-c0j',                                    'link_name' => null, 'public' => 1, 'summary' => 'Launch your career as a frontend developer with this immersive path. Created in collaboration with Mozilla MDN, ensuring that you\'ll learn the latest best practices for modern web development, and stand out from other job applicants.' ],
+            [ 'name' => 'Advanced React',                                          'slug' => 'advanced-react',                                         'completed' => 1, 'completion_date' => '2023-11-06', 'year' => 2023, 'duration_hours' => 13.2, 'academy_id' => 6, 'instructor' => 'Bob Ziroll',        'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/advanced-react-c02h',                                  'link_name' => null, 'public' => 1, 'summary' => 'The best learning experience paired with a world-class instructor. This massive course aims to turn you into hireable React developer as fast as possible.' ],
+            [ 'name' => '100 Days of Code™: The Complete Python Pro Bootcamp',     'slug' => '100-days-of-code-the-complete-python-pro-bootcamp',      'completed' => 1, 'completion_date' => '2023-04-16', 'year' => 2023, 'duration_hours' => 52,   'academy_id' => 8, 'instructor' => 'Dr. Angela Wu',     'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/100-days-of-code/',                           'link_name' => null, 'public' => 1, 'summary' => 'Master Python by building 100 projects in 100 days. Learn data science, automation, build websites, games and apps!' ],
+            [ 'name' => 'Intro to Claude AI',                                      'slug' => 'intro-to-claude-ai',                                     'completed' => 1, 'completion_date' => '2022-13-09', 'year' => 2022, 'duration_hours' => 0.8,  'academy_id' => 6, 'instructor' => 'Shant Dashjian',    'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/claude-ai-c09gsmkso3',                                 'link_name' => null, 'public' => 1, 'summary' => 'Discover how to harness the power of Claude, Anthropic\'s cutting-edge AI language model.' ],
+            [ 'name' => 'The Complete Full-Stack Web Development Bootcamp',        'slug' => 'the-complete-full-stack-web-development-bootcamp',       'completed' => 1, 'completion_date' => '2021-06-28', 'year' => 2021, 'duration_hours' => 61,   'academy_id' => 8, 'instructor' => 'Dr. Angela Wu',     'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/the-complete-web-development-bootcamp/',      'link_name' => null, 'public' => 1, 'summary' => 'Become a Full-Stack Web Developer with just ONE course. HTML, CSS, Javascript, Node, React, PostgreSQL, Web3 and Dapps' ],
+            [ 'name' => 'Designing Scalable Frontend Systems',                     'slug' => 'designing-scalable-frontend-systems',                    'completed' => 1, 'completion_date' => '2023-01-15', 'year' => 2023, 'duration_hours' => 2,    'academy_id' => 8, 'instructor' => 'Manoj Satishkumar', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/designing-scalable-frontend-systems/',        'link_name' => null, 'public' => 1, 'summary' => 'Attend your next frontend system design interview round with confidence' ],
+            [ 'name' => 'PCAP – Python Certification Course',                      'slug' => 'pcap-python-certification-course',                       'completed' => 1, 'completion_date' => '2017-10-02', 'year' => 2017, 'duration_hours' => 1.3,  'academy_id' => 4, 'instructor' => 'Lydia Halie',       'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/certified-associate-in-python-programming/', 'link_name' => null, 'public' => 1, 'summary' => 'Python offers a certification known as PCAP (Certified Associate in Python Programming) that gives its holders confidence in their programming skills.' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +208,10 @@ class JonasGrumby extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +251,8 @@ class JonasGrumby extends Command
                 'city'                   => 'Honolulu',
                 'state_id'               => 12,
                 'country_id'             => 237,
+                'latitude'               => 21.304547,
+                'longitude'              => -157.855676,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

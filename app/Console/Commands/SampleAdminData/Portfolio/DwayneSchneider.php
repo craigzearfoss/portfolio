@@ -88,18 +88,23 @@ class DwayneSchneider extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'Paris Street; Rainy Weather', 'artist' => 'Gustave Caillebotte', 'slug' => 'paris-street-rainy weather-by-gustave-caillebotte', 'year' => 1877, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Gustave_Caillebotte/paintings-wm/caillebotte016.jpg',                                                          'link_name' => 'Top of Art',      'link' => 'https://www.topofart.com/',      'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Pipe Lite',                   'artist' => 'Ron Liberti',         'slug' => 'pipe-lite-by-ron-liberti',                          'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://images.squarespace-cdn.com/content/v1/57263ec81d07c02f9c27edc7/1700155997410-QNQVSCXLRF5P4BW9XW7A/Pipe+Lite+%231+Test+Print+.jpg?format=750w', 'link_name' => 'Ron Liberti Art', 'link' => 'https://www.ronlibertiart.com/', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => '(untitled)',                  'artist' => 'Wes Freed',           'slug' => '(untitled-8)-by-wes freed',                         'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://i.pinimg.com/736x/4e/72/ce/4e72cee3880dee1ef216e72ddff4b76c.jpg',                                                                              'link_name' => null,              'link' => null,                             'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +190,9 @@ class DwayneSchneider extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'Learn Node.js',                                                'slug' => 'learn-node-js',                                                 'completed' => 1, 'completion_date' => '2019-19-01', 'year' => 2019, 'duration_hours' => 3.5,  'academy_id' => 6, 'instructor' => 'Tom Chant',                'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-nodejs-c00ho9qqh6',                           'link_name' => null, 'public' => 1, 'summary' => 'Discover how to craft fast, efficient backends with Node.js, the go-to runtime for modern web developers. From APIs to fullstack apps, see how Node.js makes backend development smooth, scalable, and fun.' ],
+            [ 'name' => 'Next.js 15 & React - The Complete Guide',                      'slug' => 'next-js-15-and-react-the-complete-guide',                       'completed' => 1, 'completion_date' => '2023-03-19', 'year' => 2023, 'duration_hours' => 40,   'academy_id' => 8, 'instructor' => 'Maximilian Schwarzmüller', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/nextjs-react-the-complete-guide/',         'link_name' => null, 'public' => 1, 'summary' => 'Learn NextJS 15 from the ground up and build fullstack ReactJS + NextJS apps with the App Router or Pages Router!' ],
+            [ 'name' => 'Laravel 12 & Vue 3 fullstack Mastery: Build 2 portfolio apps', 'slug' => 'laravel-12-and-vue-3-fullstack-mastery-build-2-portfolio-apps', 'completed' => 1, 'completion_date' => '2023-07-17', 'year' => 2023, 'duration_hours' => 35.5, 'academy_id' => 8, 'instructor' => 'Eding Muhamad Saprudin',   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-vuejs-fullstack-web-development/', 'link_name' => null, 'public' => 1, 'summary' => 'From zero to job-ready: build two stunning full-stack single page applications that will get you hired' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +205,10 @@ class DwayneSchneider extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +248,8 @@ class DwayneSchneider extends Command
                 'city'                   => 'Logansport',
                 'state_id'               => 15,
                 'country_id'             => 237,
+                'latitude'               => 40.7542375,
+                'longitude'              => -86.3625191,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

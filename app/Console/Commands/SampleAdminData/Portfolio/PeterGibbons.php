@@ -88,18 +88,26 @@ class PeterGibbons extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'Hot Dog',                                         'artist' => 'Kevin Dixon',      'slug' => 'hot-dog-by-kevin-dixon',                                           'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                                                              'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Woman with a Parasol - Madame Monet and Her Son', 'artist' => 'Claude Monet',     'slug' => 'woman-with-a-parasol-madame-monet-and-her-son-by-claude-monet',    'year' => 1875, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet177.jpg',                                            'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Manifest Destiny',                                'artist' => 'Kevin Dixon',      'slug' => 'manifest-destiny-by-kevin-dixon',                                  'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                                                              'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => '(untitled)',                                      'artist' => 'Wes Freed',        'slug' => '(untitled-5)-by-wes-freed',                                        'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => 'https://thumbs.worthpoint.com/zoom/images1/1/0417/06/gram-parsons-print-wes-freed-signed_1_e334cde6d4fbabfe1d37cd78656667c9.jpg', 'link_name' => null,         'link' => null,                              'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Vase with Irises Against a Yellow Background',    'artist' => 'Vincent van Gogh', 'slug' => 'vase-with-irises-against-a-yellow-background-by-vincent-van-gogh', 'year' => 1890, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh108.jpg',                                               'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Self Portrait',                                   'artist' => 'Vincent van Gogh', 'slug' => 'self-portrait-by-vincent-van-gogh',                                'year' => 1889, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh058.jpg',                                               'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +193,13 @@ class PeterGibbons extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'JavaScript Deep Dive',                                    'slug' => 'javascript-deep-dive',                                    'completed' => 1, 'completion_date' => '2016-24-08', 'year' => 2016, 'duration_hours' => 14.1, 'academy_id' => 6, 'instructor' => 'Reed Barger',     'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/javascript-deep-dive-c0a',                              'link_name' => null, 'public' => 1, 'summary' => 'This course will teach you advanced JavaScript from the ground up. It features a systematic walk-through of the most important concepts of the language, and teaches you to build a Google Keep clone and a Hacker News clone in vanilla JavaScript.' ],
+            [ 'name' => 'Learn TypeScript',                                        'slug' => 'learn-typescript',                                        'completed' => 1, 'completion_date' => '2018-06-02', 'year' => 2018, 'duration_hours' => 4.2,  'academy_id' => 6, 'instructor' => 'Bob Ziroll',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-typescript-c03c',                                 'link_name' => null, 'public' => 1, 'summary' => 'This course introduces you to the essential building blocks of TypeScript through a hands-on approach. You\'ll explore the fundamentals of TypeScript, TS in React and TS in Express, plus build a TS-based project.' ],
+            [ 'name' => 'Master JavaScript Animations with Greensock',             'slug' => 'master-javascript-animations-with-greensock',             'completed' => 1, 'completion_date' => '2014-10-22', 'year' => 2014, 'duration_hours' => 2.5,  'academy_id' => 8, 'instructor' => 'Enzo Ustariz',    'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/master-javascript-animations-with-greensock/', 'link_name' => null, 'public' => 1, 'summary' => 'Upgrade your Front-End Skills' ],
+            [ 'name' => 'Vue JS - The Complete Guide [2025]',                      'slug' => 'vue-js-the-complete-guide-[2025]',                        'completed' => 1, 'completion_date' => '2017-03-23', 'year' => 2017, 'duration_hours' => 11,   'academy_id' => 8, 'instructor' => 'Bhrugen Patel',   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/vue-js-the-complete-guide-2025/',              'link_name' => null, 'public' => 1, 'summary' => 'Master Vue.js from Scratch: Learn Fundamentals, Router, Pinia & Firebase to Build Real-World Projects!' ],
+            [ 'name' => '[NEW] Ultimate AWS Certified AI Practitioner AIF-C01',    'slug' => '[new]-ultimate-aws-certified-ai-practitioner-aif-c01',    'completed' => 1, 'completion_date' => '2017-05-29', 'year' => 2017, 'duration_hours' => 10,   'academy_id' => 8, 'instructor' => 'Stephane Maarek', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-ai-practitioner-certified/',               'link_name' => null, 'public' => 1, 'summary' => 'Practice Exam included + explanations | Learn Artificial Intelligence | Pass the AWS AI Practitioner AIF-C01 exam!' ],
+            [ 'name' => 'The Frontend Developer Career Path',                      'slug' => 'the-frontend-developer-career-path',                      'completed' => 1, 'completion_date' => '2019-21-07', 'year' => 2019, 'duration_hours' => 81.6, 'academy_id' => 6, 'instructor' => 'Per Borgen',      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/frontend-path-c0j',                                     'link_name' => null, 'public' => 1, 'summary' => 'Launch your career as a frontend developer with this immersive path. Created in collaboration with Mozilla MDN, ensuring that you\'ll learn the latest best practices for modern web development, and stand out from other job applicants.' ],
+            [ 'name' => 'Ultimate AWS Certified Developer Associate 2025 DVA-C02', 'slug' => 'ultimate-aws-certified-developer-associate-2025-dva-c02', 'completed' => 1, 'completion_date' => '2023-02-06', 'year' => 2023, 'duration_hours' => 32,   'academy_id' => 8, 'instructor' => 'Stephane Maarek', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/aws-certified-developer-associate-dva-c01/',   'link_name' => null, 'public' => 1, 'summary' => 'Full Practice Exam with Explanations included! PASS the Amazon Web Services Certified Developer Certification DVA-C02' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +212,10 @@ class PeterGibbons extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +255,8 @@ class PeterGibbons extends Command
                 'city'                   => 'Austin',
                 'state_id'               => 44,
                 'country_id'             => 237,
+                'latitude'               => 30.2711286,
+                'longitude'              => -97.7436995,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

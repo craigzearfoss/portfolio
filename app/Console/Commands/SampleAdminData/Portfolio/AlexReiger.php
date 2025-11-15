@@ -88,18 +88,24 @@ class AlexReiger extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'Blossoming Almond Tree',                       'artist' => 'Vincent van Gogh',    'slug' => 'blossoming-almond-tree-by-vincent-van-gogh',                       'year' => 1890, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh103.jpg',       'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Oath of the Horatii',                      'artist' => 'Jacques-Louis David', 'slug' => 'the-oath-of-the-horatii-by-jacques-louis-david',                   'year' => 1784, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Jacques-Louis_David/paintings-wm/davidjl002.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Vase with Irises Against a Yellow Background', 'artist' => 'Vincent van Gogh',    'slug' => 'vase-with-irises-against-a-yellow-background-by-vincent-van-gogh', 'year' => 1890, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh108.jpg',       'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Overkill',                                     'artist' => 'Kevin Dixon',         'slug' => 'overkill-by-kevin-dixon',                                          'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                      'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +191,11 @@ class AlexReiger extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'Build Websites with Figma, HTML, and CSS',              'slug' => 'build-websites-with-figma-html-and-css',               'completed' => 1, 'completion_date' => '2015-26-01', 'year' => 2015, 'duration_hours' => 3.6, 'academy_id' => 6, 'instructor' => 'Gary Simon',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/build-websites-with-figma-html-and-css-c02f', 'link_name' => null, 'public' => 1, 'summary' => 'Practice making high-quality mockups a reality in the browser with five stunning projects created by a UI expert and coded by you.' ],
+            [ 'name' => 'React Challenges',                                      'slug' => 'react-challenges',                                     'completed' => 1, 'completion_date' => '2017-15-09', 'year' => 2017, 'duration_hours' => 9.8, 'academy_id' => 6, 'instructor' => 'Daniel Rose',                          'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/react-challenges-c02n',                       'link_name' => null, 'public' => 1, 'summary' => 'Transform your coding skills and unlock your success through real-world problem-solving across 40 immersive challenges.' ],
+            [ 'name' => 'Learn Express.js',                                      'slug' => 'learn-express.js',                                     'completed' => 1, 'completion_date' => '2019-12-04', 'year' => 2019, 'duration_hours' => 3.9, 'academy_id' => 6, 'instructor' => 'Tom Chant',                            'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-expressjs-c062las154',                  'link_name' => null, 'public' => 1, 'summary' => 'Explore how to build clean, powerful backends and simplify server-side development with Express.js—Node’s most popular framework.' ],
+            [ 'name' => 'React JS- Complete Guide for Frontend Web Development', 'slug' => 'react-js-complete-guide-for-frontend-web-development', 'completed' => 1, 'completion_date' => '2019-01-03', 'year' => 2019, 'duration_hours' => 22,  'academy_id' => 8, 'instructor' => 'Qaifi Khan and Mavludin Abdulkadirov', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/react-js-basics-to-advanced/',       'link_name' => null, 'public' => 1, 'summary' => 'Learn React JS from scratch with hands-on practice assignments and projects.' ],
+            [ 'name' => 'Intro to Supabase',                                     'slug' => 'intro-to-supabase',                                    'completed' => 1, 'completion_date' => '2025-31-05', 'year' => 2025, 'duration_hours' => 4.8, 'academy_id' => 6, 'instructor' => 'Jonathan Hill',                        'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/intro-to-supabase-c0abltfqed',                'link_name' => null, 'public' => 1, 'summary' => 'Master Supabase essentials by building a real-world React.js Sales Dashboard App with authentication, real-time data operations, and secure user management.' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +208,10 @@ class AlexReiger extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +251,8 @@ class AlexReiger extends Command
                 'city'                   => 'New York',
                 'state_id'               => 33,
                 'country_id'             => 237,
+                'latitude'               => 40.7127281,
+                'longitude'              => -74.0060152,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,
@@ -257,6 +273,8 @@ class AlexReiger extends Command
                 'city'                   => 'Manhattan',
                 'state_id'               => 33,
                 'country_id'             => 237,
+                'latitude'               => 40.7896239,
+                'longitude'              => -73.9598939,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,
@@ -274,9 +292,11 @@ class AlexReiger extends Command
                 'end_year'               => 2010,
                 'job_employment_type_id' => 1,
                 'job_location_type_id'   => 1,
-                'city'                   => 'Manhattan',
-                'state_id'               => 33,
+                'city'                   => 'Los Angeles',
+                'state_id'               => 5,
                 'country_id'             => 237,
+                'latitude'               => 34.0536909,
+                'longitude'              => -118.242766,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,
@@ -340,6 +360,46 @@ class AlexReiger extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Taxi (TV series Wikipedia page)',
+                'slug'        => 'taxi-(tv-series-wikipedia=page)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Taxi_(TV_series)',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Judd Hirsch: Alex Reiger IMDB page',
+                'slug'        => 'judd-hirsch-alex-reiger-imdb-page',
+                'featured'    => 01,
+                'summary'     => null,
+                'url'         => 'https://www.imdb.com/title/tt0077089/characters/nm0002139/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Alex Reiger Charactour page',
+                'slug'        => 'alex-reiger-charactour-page',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.charactour.com/hub/characters/view/Alex-Reiger.Taxi',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Judd Hirsch Wikipedia page',
+                'slug'        => 'judd-hirsch-wikipedia-page',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Judd_Hirsch',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',

@@ -90,16 +90,18 @@ class BoDarville extends Command
         $data = [
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -197,7 +199,10 @@ class BoDarville extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +242,8 @@ class BoDarville extends Command
                 'city'                   => 'Atlanta',
                 'state_id'               => 11,
                 'country_id'             => 237,
+                'latitude'               => 33.7544657,
+                'longitude'              => -84.3898151,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,
@@ -295,6 +302,36 @@ class BoDarville extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Smokey and the Bandit IMDB page',
+                'slug'        => 'smokey-and-the-bandit-imdb-page',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.imdb.com/title/tt0076729/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Smokey and the Bandit Rotten Tomatoes page',
+                'slug'        => 'smokey-and-the-bandit-rotten-tomatoes-page',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.rottentomatoes.com/m/smokey_and_the_bandit',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Bo Darville Charactour page',
+                'slug'        => 'bo-darville-charactour-page',
+                'featured'    => 1,
+                'summary'     => null,
+                'url'         => 'https://www.charactour.com/hub/characters/view/Bo-Darville.Smokey-and-the-Bandit',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',

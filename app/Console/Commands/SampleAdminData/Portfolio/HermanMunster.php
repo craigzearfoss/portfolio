@@ -88,18 +88,23 @@ class HermanMunster extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'Water Lily Pond, (Symphony in Green)', 'artist' => 'Claude Monet',                  'slug' => 'water-lily-pond-(symphony-in-green)-by-claude-monet',   'year' => 1899, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Claude_Oscar_Monet/paintings-wm/monet018.jpg',             'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Grande Odalisque',                 'artist' => 'Jean Auguste Dominique Ingres', 'slug' => 'the-grande-odalisque-by-jean-auguste-dominique-ingres', 'year' => 1814, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Jean_Auguste_Dominique_Ingres/paintings-wm/ingres026.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Birthday Card',                        'artist' => 'Kevin Dixon',                   'slug' => 'birthday-card-by-kevin-dixon',                          'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                               'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +190,16 @@ class HermanMunster extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'Learn React',                                                  'slug' => 'learn-react',                                                  'completed' => 1, 'completion_date' => '2019-18-02', 'year' => 2019, 'duration_hours' => 15.1, 'academy_id' => 6, 'instructor' => 'Bob Ziroll',             'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-react-c0e',                                               'link_name' => null, 'public' => 1, 'summary' => 'Welcome to the ultimate React 101 course! Designed with MDN Web Docs, it\'s the perfect place to learn modern React basics interactively. You’ll tackle 170+ coding challenges and build six projects, gaining confidence to create real-world applications.' ],
+            [ 'name' => 'Intro to Vite',                                                'slug' => 'intro-to-vite',                                                'completed' => 1, 'completion_date' => '2014-12-06', 'year' => 2014, 'duration_hours' => 0.6,  'academy_id' => 6, 'instructor' => 'Shant Dashjian',         'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/intro-to-vite-c03p6pbbdq',                                      'link_name' => null, 'public' => 1, 'summary' => 'Become a lightning-fast developer with Vite—the speed-focussed build tool that makes working with modern frameworks smooth, efficient, and enjoyable.' ],
+            [ 'name' => 'Laravel From Scratch',                                         'slug' => 'laravel-from-scratch',                                         'completed' => 1, 'completion_date' => '2016-08-28', 'year' => 2016, 'duration_hours' => 13.5, 'academy_id' => 8, 'instructor' => 'Brad Traversy',          'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-from-scratch/',                                'link_name' => null, 'public' => 1, 'summary' => 'Build and deploy a real-world job listing application and learn all of the fundamentals of the Laravel framework' ],
+            [ 'name' => 'JavaScript Interview Challenges',                              'slug' => 'javascript-interview-challenges',                              'completed' => 1, 'completion_date' => '2017-08-03', 'year' => 2017, 'duration_hours' => 2.3,  'academy_id' => 6, 'instructor' => 'Treasure Porth',         'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/javascript-interview-challenges-c02c',                          'link_name' => null, 'public' => 1, 'summary' => 'Your essential tech interview preparation pack! Practice solving problems and honing the skills you need to succeed in a frontend coding interview.' ],
+            [ 'name' => 'Learn Game Development with JavaScript',                       'slug' => 'learn-game-development-with-javascript',                       'completed' => 1, 'completion_date' => '2023-09-01', 'year' => 2023, 'duration_hours' => 3,    'academy_id' => 8, 'instructor' => 'Frank Dvorak',           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/learn-game-development-with-javascript/',              'link_name' => null, 'public' => 1, 'summary' => 'Make your own animated 2D games' ],
+            [ 'name' => 'Master JavaScript Animations with Greensock',                  'slug' => 'master-javascript-animations-with-greensock',                  'completed' => 1, 'completion_date' => '2014-10-22', 'year' => 2014, 'duration_hours' => 2.5,  'academy_id' => 8, 'instructor' => 'Enzo Ustariz',           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/master-javascript-animations-with-greensock/',         'link_name' => null, 'public' => 1, 'summary' => 'Upgrade your Front-End Skills' ],
+            [ 'name' => 'Modern React with Redux',                                      'slug' => 'modern-react-with-redux',                                      'completed' => 1, 'completion_date' => '2023-04-04', 'year' => 2023, 'duration_hours' => 75.5, 'academy_id' => 8, 'instructor' => 'Stephen Grider',         'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/react-redux/',                                         'link_name' => null, 'public' => 1, 'summary' => 'Master React and Redux. Apply modern design patterns to build apps with React Router, TailwindCSS, Context, and Hooks!' ],
+            [ 'name' => 'Laravel 12 & Vue 3 fullstack Mastery: Build 2 portfolio apps', 'slug' => 'laravel-12-and-vue-3-fullstack-mastery-build-2-portfolio-apps','completed' => 1, 'completion_date' => '2023-07-17', 'year' => 2023, 'duration_hours' => 35.5, 'academy_id' => 8, 'instructor' => 'Eding Muhamad Saprudin', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/laravel-vuejs-fullstack-web-development/',             'link_name' => null, 'public' => 1, 'summary' => 'From zero to job-ready: build two stunning full-stack single page applications that will get you hired' ],
+            [ 'name' => 'Complete Vue.js 3 Course: Vuejs 3, Vite, TailwindCSS, Pinia',  'slug' => 'complete-vue.js-3-course:-vuejs-3,-vite,-tailwindcss,-pinia',  'completed' => 1, 'completion_date' => '2024-10-10', 'year' => 2024, 'duration_hours' => 16.5, 'academy_id' => 8, 'instructor' => 'OnlyKiosk Tech',         'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/complete-vuejs-3-course/',                             'link_name' => null, 'public' => 1, 'summary' => 'Vue3, TailwindCSS, VueX, Vue Router, Composition API, Pinia, and Vite; A Step-by-Step Guide to Building Vue Programs' ],
+            [ 'name' => 'ILT: MDB200: MongoDB Optimization and Performance',            'slug' => 'ilt-mdb200-mongodb-optimization-and-performance',              'completed' => 1, 'completion_date' => '2021-07-05', 'year' => 2021, 'duration_hours' => 24,   'academy_id' => 5, 'instructor' => null,                     'sponsor' => null, 'certificate_url' => null, 'link' => 'https://learn.mongodb.com/courses/ilt-mdb200-mongodb-optimization-and-performance', 'link_name' => null, 'public' => 1, 'summary' => 'Gain a solid foundation in indexing concepts and practical techniques, learn how to profile database operations to uncover performance issues, and explore how to analyze logs and metrics effectively.' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +212,10 @@ class HermanMunster extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +255,8 @@ class HermanMunster extends Command
                 'city'                   => 'Mockingbird Heights',
                 'state_id'               => 44,
                 'country_id'             => 237,
+                'latitude'               => null,
+                'longitude'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,

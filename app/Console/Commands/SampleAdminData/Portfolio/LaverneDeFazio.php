@@ -88,18 +88,26 @@ class LaverneDeFazio extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Art ...\n";
 
         $data = [
+            [ 'name' => 'The Swing',                             'artist' => 'Jean-Honore Fragonard',             'slug' => 'the-swing-by-jean-honore-fragonard',                        'year' => 1767, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Jean-Honore_Fragonard/paintings-wm/fragonard002.jpg',              'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Different Stripes For Different Types', 'artist' => 'Kevin Dixon',                       'slug' => 'different-stripes-for-different-types-by-kevin-dixon',      'year' => null, 'featured' => 0, 'public' => 1, 'image_url' => null,                                                                                                       'link_name' => null,         'link' => 'https://www.facebook.com/kdixon', 'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'American Gothic',                       'artist' => 'Grant Wood',                        'slug' => 'american-gothic-by-grant-wood',                             'year' => 1930, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Grant-Wood/paintings-wm/grant-wood-001.jpg',                       'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'The Supper at Emmaus',                  'artist' => 'Michelangelo Merisi da Caravaggio', 'slug' => 'the-supper-at-emmaus-by-michelangelo-merisi-da-caravaggio', 'year' => 1601, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Michelangelo_Merisi_da_Caravaggio/paintings-wm/caravaggio011.jpg', 'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Two Tahitian Women',                    'artist' => 'Paul Gauguin',                      'slug' => 'two-tahitian-women-by-paul-gauguin',                        'year' => 1899, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Paul_Gauguin/paintings-wm/gauguin018.jpg',                         'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
+            [ 'name' => 'Self Portrait',                         'artist' => 'Vincent van Gogh',                  'slug' => 'self-portrait-by-vincent-van-gogh',                         'year' => 1889, 'featured' => 0, 'public' => 1, 'image_url' => 'https://cdn.topofart.com/images/artists/Vincent_van_Gogh/paintings-wm/gogh058.jpg',                        'link_name' => 'Top of Art', 'link' => 'https://www.topofart.com/',       'notes' => null, 'description' => null, 'summary' => null ],
             /*
             [
-                'name'           => '',
-                'artist'         => null,
-                'slug'           => '',
-                'featured'       => 0,
-                'summary'        => null,
-                'year'           => 2025,
-                'image_url'      => null,
-                'notes'          => null,
-                'description'    => 0,
-                'public'         => 1,
+                'name'        => '',
+                'artist'      => null,
+                'slug'        => '',
+                'year'        => 2025,
+                'featured'    => 0,
+                'public'      => 1,
+                'image_url'   => null,
+                'link_name'   => null,
+                'link'        => null,
+                'notes'       => null,
+                'description' => null,
+                'summary'     => null,
             ],
             */
         ];
@@ -185,6 +193,14 @@ class LaverneDeFazio extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
+            [ 'name' => 'The Complete Full-Stack Web Development Bootcamp',   'slug' => 'the-complete-full-stack-web-development-bootcamp',  'completed' => 1, 'completion_date' => '2021-06-28', 'year' => 2021, 'duration_hours' => 61,   'academy_id' => 8, 'instructor' => 'Dr. Angela Wu',                       'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/the-complete-web-development-bootcamp/',               'link_name' => null, 'public' => 1, 'summary' => 'Become a Full-Stack Web Developer with just ONE course. HTML, CSS, Javascript, Node, React, PostgreSQL, Web3 and Dapps' ],
+            [ 'name' => '30 Days of Angular: Build 30 Projects with Angular', 'slug' => '30-days-of-angular-build-30-projects-with-angular', 'completed' => 1, 'completion_date' => '2016-04-28', 'year' => 2016, 'duration_hours' => 27,   'academy_id' => 8, 'instructor' => 'Andrew Tyranowski',                   'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/30-days-of-angular/',                                  'link_name' => null, 'public' => 1, 'summary' => 'Master Angular by building interactive web applications' ],
+            [ 'name' => 'The Complete Front-End Web Development Course',      'slug' => 'the-complete-front-end-web-development-course',     'completed' => 1, 'completion_date' => '2023-12-02', 'year' => 2023, 'duration_hours' => 17,   'academy_id' => 8, 'instructor' => 'Joseph Delgadillo and Nick Germaine', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/front-end-web-development/',                           'link_name' => null, 'public' => 1, 'summary' => 'Get started as a front-end web developer using HTML, CSS, JavaScript, jQuery, and Bootstrap!' ],
+            [ 'name' => 'ILT: MDB200: MongoDB Optimization and Performance',  'slug' => 'ilt-mdb200-mongodb-optimization-and-performance',   'completed' => 1, 'completion_date' => '2021-07-05', 'year' => 2021, 'duration_hours' => 24,   'academy_id' => 5, 'instructor' => null,                                  'sponsor' => null, 'certificate_url' => null, 'link' => 'https://learn.mongodb.com/courses/ilt-mdb200-mongodb-optimization-and-performance', 'link_name' => null, 'public' => 1, 'summary' => 'Gain a solid foundation in indexing concepts and practical techniques, learn how to profile database operations to uncover performance issues, and explore how to analyze logs and metrics effectively.' ],
+            [ 'name' => 'Data Structures and Algorithms',                     'slug' => 'data-structures-and-algorithms',                    'completed' => 1, 'completion_date' => '2017-16-02', 'year' => 2017, 'duration_hours' => 2.5,  'academy_id' => 6, 'instructor' => 'Shant Dashjian',                      'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/data-structures-and-algorithms-c0shn6ckdm',                     'link_name' => null, 'public' => 1, 'summary' => 'Build a solid foundation in data structures and algorithms, the key to writing efficient code and acing technical interview challenges. You\'ll learn Big O, recursion, sorting, searching, and core data structures like stacks, queues, trees, and graphs, all with tons of challenges.' ],
+            [ 'name' => 'Learn Express.js',                                   'slug' => 'learn-express.js',                                  'completed' => 1, 'completion_date' => '2019-12-04', 'year' => 2019, 'duration_hours' => 3.9,  'academy_id' => 6, 'instructor' => 'Tom Chant',                           'sponsor' => null, 'certificate_url' => null, 'link' => 'https://scrimba.com/learn-expressjs-c062las154',                                    'link_name' => null, 'public' => 1, 'summary' => 'Explore how to build clean, powerful backends and simplify server-side development with Express.js—Node\'s most popular framework.' ],
+            [ 'name' => 'The Vue 3 Bootcamp - The Complete Developer Guide',  'slug' => 'the-vue-3-bootcamp-the-complete-developer-guide',   'completed' => 1, 'completion_date' => '2022-05-15', 'year' => 2022, 'duration_hours' => 17.5, 'academy_id' => 8, 'instructor' => 'Laith Harb',                          'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/the-vue-3-bootcamp-the-complete-developer-guide/',     'link_name' => null, 'public' => 1, 'summary' => 'Learn to built frontend Vue 3 applications using Pinia, TypeScript, Supabase and the Composition API' ],
+            [ 'name' => 'AWS Certified Developer - Associate',                'slug' => 'aws-certified-developer-associate',                 'completed' => 1, 'completion_date' => '2019-04-08', 'year' => 2019, 'duration_hours' => 32,   'academy_id' => 4, 'instructor' => 'Sanjeev Thiyagarajan',                'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-certified-developer-associate',                   'link_name' => null, 'public' => 1, 'summary' => 'The AWS Developer Associate certification course is designed to thoroughly prepare you for developing and maintaining applications on the Amazon Web Services platform.' ],
             /*
             [
                 'name'            => '',
@@ -197,7 +213,10 @@ class LaverneDeFazio extends Command
                 'instructor'      => null,
                 'sponsor'         => null,
                 'certificate_url' => null,
+                'link'            => null,
+                'link_name'       => null,
                 'public'          => 1,
+                'summary'         => null,
             ],
             */
         ];
@@ -237,6 +256,8 @@ class LaverneDeFazio extends Command
                 'city'                   => 'Milwaukee',
                 'state_id'               => 50,
                 'country_id'             => 237,
+                'latitude'               => 43.0386475,
+                'longitude'              => -87.9090751,
                 'logo'                   => null,
                 'logo_small'             => null,
                 'public'                 => 1,
