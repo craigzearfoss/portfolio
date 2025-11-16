@@ -34,8 +34,23 @@
         @endif
 
         @include('admin.components.show-row', [
-            'name'  => 'name',
-            'value' => $education->name
+            'name'  => 'degree_type_id',
+            'value' => $education->degreeType->name ?? ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'major',
+            'value' => $education->major ?? ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'minor',
+            'value' => $education->minor ?? ''
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'school_id',
+            'value' => $education->school->name ?? ''
         ])
 
         @include('admin.components.show-row', [
@@ -43,53 +58,29 @@
             'value' => $education->slug
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'enrollment',
+            'value' => (!empty($education->enrollment_month) ? date('F', mktime(0, 0, 0, $education->enrollment_month, 10)) : '') . ' ' . $education->enrollment_year
+        ])
+
         @include('admin.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $education->featured
+            'name'    => 'graduated',
+            'checked' => $education->graduated
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'enrollment',
+            'value' => (!empty($education->graduation_month) ? date('F', mktime(0, 0, 0, $education->graduation_month, 10)) : '') . ' ' . $education->graduation_year
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'currently enrolled',
+            'checked' => $education->currently_enrolled
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
             'value' => $education->summary
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'organization',
-            'value' => $education->organization
-        ])
-
-        @include('admin.components.show-row', [
-            'name' => 'academy',
-            'value' => view('admin.components.link', [
-                'name' => $education->academy['name'] ?? '',
-                'href' => !empty($education->academy)
-                                ? route('admin.portfolio.academy.show', $education->academy)
-                                : ''
-                            ])
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'year',
-            'value' => $education->year
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'received',
-            'value' => longDate($education->received)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'expiration',
-            'value' => longDate($education->expiration)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'education url',
-            'src'      => imageUrl($education->education_url),
-            'width'    => '300px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug($education->name, $education->education_url)
         ])
 
         @include('admin.components.show-row', [

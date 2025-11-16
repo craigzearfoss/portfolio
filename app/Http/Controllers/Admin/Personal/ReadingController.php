@@ -20,13 +20,15 @@ class ReadingController extends BaseAdminController
      *
      * @param Request $request
      * @return View
+     * @throws \Exception
      */
     public function index(Request $request): View
     {
         $perPage = $request->query('per_page', $this->perPage);
 
         //$readings = Reading::orderBy('title', 'asc')->paginate($perPage);
-        $readings = Reading::searchBuilder($request->all(), ['title', 'asc'])->paginate($perPage);
+        $readings = Reading::searchBuilder($request->all(), ['title', 'asc'])->paginate($perPage)
+            ->appends(request()->except('page'));;
 
         return view('admin.personal.reading.index', compact('readings'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

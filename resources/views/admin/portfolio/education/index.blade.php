@@ -24,14 +24,14 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
-                <th>name</th>
-                <th class="has-text-centered">featured</th>
-                <th>academy</th>
-                <th>year</th>
-                <th>received</th>
-                <th>expiration</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
+                <th>degree<br>type</th>
+                <th>major</th>
+                <th>minor</th>
+                <th>school</th>
+                <th>enrollment<br>date</th>
+                <th>graduated</th>
+                <th>graduation<br>date</th>
+                <th>currently<br>enrolled</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -41,14 +41,14 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
-                <th>name</th>
-                <th class="has-text-centered">featured</th>
-                <th>academy</th>
-                <th>year</th>
-                <th>received</th>
-                <th>expiration</th>
-                <th class="has-text-centered">public</th>
-                <th class="has-text-centered">disabled</th>
+                <th>degree<br>type</th>
+                <th>major</th>
+                <th>minor</th>
+                <th>school</th>
+                <th>enrollment<br>date</th>
+                <th>graduated</th>
+                <th>graduation<br>date</th>
+                <th>currently<br>enrolled</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -63,34 +63,29 @@
                             {{ $education->owner['username'] ?? '' }}
                         </td>
                     @endif
-                    <td data-field="name">
-                        {{ $education->name }}
+                    <td data-field="degreeType.name">
+                        {{ $education->degreeType->name }}
                     </td>
-                    <td data-field="feature" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $education->feature ])
+                    <td data-field="major">
+                        {{ $education->major }}
                     </td>
-                    <td data-field="academy.name">
-                        @if (!empty($education->academy))
-                            @include('admin.components.link', [
-                                'name'   => $education->academy['name'],
-                                'href'   => route('admin.portfolio.academy.show', $education->academy),
-                            ])
-                        @endif
+                    <td data-field="minor">
+                        {{ $education->minor }}
                     </td>
-                    <td data-field="year">
-                        {{ $education->year }}
+                    <td data-field="school.name">
+                        {{ $education->school->name }}
                     </td>
-                    <td data-field="received">
-                        {{ shortDate($education->received) }}
+                    <td data-field="enrollment_month|enrollment_year">
+                        {{ $education->enrollment_year }}
                     </td>
-                    <td data-field="expiration">
-                        {{ shortDate($education->expiration) }}
+                    <td data-field="graduated" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $education->graduated ])
                     </td>
-                    <td data-field="public" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $education->public ])
+                    <td data-field="graduation_month|graduation_year">
+                        {{ $education->graduation_year }}
                     </td>
-                    <td data-field="disabled" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $education->disabled ])
+                    <td data-field="currently_enrolled" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $education->currently_enrolled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.education.destroy', $education->id) }}" method="POST">
@@ -131,7 +126,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '10' : '9' }}">There are no educations.</td>
+                    <td colspan="{{ isRootAdmin() ? '10' : '9' }}">There is no education.</td>
                 </tr>
 
             @endforelse

@@ -16,16 +16,28 @@
 
 @section('content')
 
+    <div class="search-container card p-2">
+        <form id="searchForm" action="{{ route('admin.portfolio.school.index') }}" method="get">
+            <div class="control">
+                @include('admin.components.form-select', [
+                    'name'     => 'state_id',
+                    'label'    => 'state',
+                    'value'    => Request::get('state_id'),
+                    'list'     => \App\Models\System\State::listOptions([], 'id', 'name', true, false, ['name', 'asc']),
+                    'onchange' => "document.getElementById('searchForm').submit()"
+                ])
+            </div>
+        </form>
+    </div>
+
     <div class="card p-4">
 
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
                 <th>name</th>
-                <th>city</th>
+                <th>logo</th>
                 <th>state</th>
-                <th>enrollment</th>
-                <th>founded</th>
                 <th>actions</th>
             </tr>
             </thead>
@@ -33,10 +45,8 @@
             <tfoot>
             <tr>
                 <th>name</th>
-                <th>city</th>
+                <th>logo</th>
                 <th>state</th>
-                <th>enrollment</th>
-                <th>founded</th>
                 <th>actions</th>
             </tr>
             </tfoot>
@@ -57,16 +67,7 @@
                         ])
                     </td>
                     <td data-field="city">
-                        {{ $school->city ?? '' }}
-                    </td>
-                    <td data-field="city">
                         {{ $school->state['name'] ?? '' }}
-                    </td>
-                    <td data-field="enrollment">
-                        {{ $school->enrollment ?? '' }}
-                    </td>
-                    <td data-field="founded">
-                        {{ $school->founded ?? '' }}
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.school.destroy', $school->id) }}" method="POST">
@@ -80,7 +81,6 @@
                                href="{{ route('admin.portfolio.school.edit', $school) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
-
 
                             @if (!empty($school->link))
                                 <a title="{{ !empty($school->link_name) ? $school->link_name : 'link' }}"
@@ -108,7 +108,7 @@
             @empty
 
                 <tr>
-                    <td colspan="6">There are no schools.</td>
+                    <td colspan="4">There are no schools.</td>
                 </tr>
 
             @endforelse

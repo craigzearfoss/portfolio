@@ -75,7 +75,7 @@ class Reference extends Model
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'friend', 'family', 'coworker', 'supervisor', 'subordinate',
-        'professional', 'other', 'company_id', 'street', 'street2','city', 'state_id', 'zip', 'country_id', 'phone',
+        'professional', 'other', 'company_id', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone',
         'alt_phone', 'email', 'alt_email', 'birthday', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 

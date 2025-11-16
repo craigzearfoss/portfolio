@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Portfolio;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Portfolio\StoreSchoolsRequest;
+use App\Http\Requests\Portfolio\UpdateSchoolsRequest;
 use App\Models\Portfolio\School;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,12 +20,15 @@ class SchoolController extends Controller
      *
      * @param Request $request
      * @return View
+     * @throws \Exception
      */
     public function index(Request $request): View
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $schools = School::orderBy('name', 'asc')->paginate($perPage);
+        //$schools = School::orderBy('name', 'asc')->paginate($perPage);
+        $schools = School::searchBuilder($request->all(), ['name', 'asc'])->paginate($perPage)
+            ->appends(request()->except('page'));
 
         return view('admin.portfolio.school.index', compact('schools'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);

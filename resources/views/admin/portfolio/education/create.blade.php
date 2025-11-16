@@ -4,7 +4,7 @@
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Educations',    'href' => route('admin.portfolio.education.index') ],
+        [ 'name' => 'Educations',      'href' => route('admin.portfolio.education.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
@@ -45,71 +45,122 @@
                 ])
             @endif
 
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'degree_type_id',
+                'label'    => 'degree type',
+                'value'    => old('degree_type_id') ?? '',
+                'required' => true,
+                'list'     => \App\Models\Portfolio\DegreeType::listOptions([], 'id', 'name', true, false, ['name', 'asc']),
+                'message'  => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'name',
-                'value'     => old('name') ?? '',
+                'name'      => 'major',
+                'value'     => old('major') ?? '',
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'featured',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('featured') ?? 0,
-                'message'         => $message ?? '',
-            ])
-
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'summary',
-                'value'     => old('name') ?? '',
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'organization',
-                'value'     => old('organization') ?? '',
+                'name'      => 'minor',
+                'value'     => old('minor') ?? '',
+                'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'      => 'academy',
-                'value'     => old('academy_id') ?? 0,
-                'list'      => \App\Models\Portfolio\Academy::listOptions([], 'id', 'name', true),
+                'name'      => 'school_id',
+                'label'     => 'school',
+                'value'     => old('school_id') ?? '',
+                'list'      => \App\Models\Portfolio\School::listOptions([], 'id', 'name', true),
                 'required'  => true,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'year',
-                'value'     => old('year') ?? date('Y'),
-                'min'       => 1980,
-                'max'       => 2050,
-                'message'   => $message ?? '',
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">enrollment date</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+
+                            @include('admin.components.form-select', [
+                                'name'      => 'enrollment_month',
+                                'label'     => '',
+                                'value'     => old('enrollment_month') ?? '',
+                                'list'      => months(true),
+                                'message'   => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-input', [
+                                'type'      => 'number',
+                                'name'      => 'enrollment_year',
+                                'label'     => '',
+                                'value'     => old('enrollment_year') ?? '',
+                                'min'       => 1980,
+                                'max'       => date("Y"),
+                                'message'   => $message ?? '',
+                            ])
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'graduated',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('graduated') ?? 0,
+                'message'         => $message ?? '',
+            ])
+
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">enrollment date</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+
+                            @include('admin.components.form-select', [
+                                'name'      => 'graduation_month',
+                                'label'     => '',
+                                'value'     => old('graduation_month') ?? '',
+                                'list'      => months(true),
+                                'message'   => $message ?? '',
+                            ])
+
+                            @include('admin.components.form-input', [
+                                'type'      => 'number',
+                                'name'      => 'graduation_year',
+                                'label'     => '',
+                                'value'     => old('graduation_year') ?? '',
+                                'min'       => 1980,
+                                'max'       => date("Y"),
+                                'message'   => $message ?? '',
+                            ])
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'currently_enrolled',
+                'label'           => 'currently enrolled',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('currently_enrolled') ?? '',
+                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'type'      => 'date',
-                'name'      => 'received',
-                'value'     => old('received') ?? null,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'date',
-                'name'      => 'expiration',
-                'value'     => old('expiration') ?? null,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'education_url',
-                'label'     => 'education url',
-                'value'     => old('education_url') ?? '',
+                'name'      => 'summary',
+                'value'     => old('summary') ?? '',
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])

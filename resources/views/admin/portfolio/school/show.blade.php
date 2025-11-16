@@ -32,6 +32,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'slug',
+            'value' => $school->slug
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'enrollment',
             'value' => $school->enrollment
         ])
@@ -39,36 +44,6 @@
         @include('admin.components.show-row', [
             'name'  => 'founded',
             'value' => $school->founded
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $school->featured
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'summary',
-            'value' => $school->summary
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'start',
-            'value' => (!empty($school->start_month) ? date('F', mktime(0, 0, 0, $school->start_month, 10)) : '') . ' ' . $school->start_year
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'end',
-            'value' => (!empty($school->end_month) ? date('F', mktime(0, 0, 0, $school->end_month, 10)) : '') . ' ' . $school->end_year
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'employment type',
-            'value' => $school->employmentType['name'] ?? ''
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'employment location',
-            'value' => $school->locationType['name'] ?? ''
         ])
 
         @include('admin.components.show-row', [
