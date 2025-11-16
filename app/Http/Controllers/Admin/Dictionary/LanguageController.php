@@ -41,7 +41,7 @@ class LanguageController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add languages.');
         }
 
@@ -56,7 +56,7 @@ class LanguageController extends BaseAdminController
      */
     public function store(StoreLanguagesRequest $storeLanguagesRequest): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add languages.');
         }
 
@@ -85,7 +85,7 @@ class LanguageController extends BaseAdminController
      */
     public function edit(Language $language): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit languages.');
         }
 
@@ -101,7 +101,7 @@ class LanguageController extends BaseAdminController
      */
     public function update(UpdateLanguagesRequest $updateLanguagesRequest, Language $language): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update languages.');
         }
 
@@ -119,7 +119,7 @@ class LanguageController extends BaseAdminController
      */
     public function destroy(Language $language): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete languages.');
         }
 

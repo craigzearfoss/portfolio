@@ -41,7 +41,7 @@ class StackController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add stacks.');
         }
 
@@ -56,7 +56,7 @@ class StackController extends BaseAdminController
      */
     public function store(StoreStacksRequest $storeStacksRequest): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add stacks.');
         }
 
@@ -85,7 +85,7 @@ class StackController extends BaseAdminController
      */
     public function edit(Stack $stack): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit stacks.');
         }
 
@@ -101,7 +101,7 @@ class StackController extends BaseAdminController
      */
     public function update(UpdateStacksRequest $updateStacksRequest, Stack $stack): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update stacks.');
         }
 
@@ -119,7 +119,7 @@ class StackController extends BaseAdminController
      */
     public function destroy(Stack $stack): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete stacks.');
         }
 

@@ -93,8 +93,8 @@ class MenuService
 
             if (isRootAdmin()) {
 
-                for ($i=0; $i<count($menu); $i++) {
-                    if (property_exists($menu[$i],'tag') && ($menu[$i]->tag === 'db')) {
+                foreach ($menu as $i=>$menuItem) {
+                    if (property_exists($menuItem,'tag') && ($menuItem->tag === 'db')) {
 
                         $menu[$i]->children[] = $this->menuItem(
                             [ 'title' => 'Databases', 'route' => 'admin.system.database.index', 'icon' => 'fa-database' ],
@@ -243,10 +243,10 @@ class MenuService
                 $currentRouteName
             );
 
-            if (Auth::guard('admin')->user()->root) {
+            if (isRootAdmin()) {
 
-                for ($i=0; $i<count($menu); $i++) {
-                    if (property_exists($menu[$i],'tag') && ($menu[$i]->tag === 'db')) {
+                foreach ($menu as $i=>$menuItem) {
+                    if (property_exists($menuItem,'tag') && ($menuItem->tag === 'db')) {
 
                         $menu[$i]->children[] = $this->menuItem(
                             [ 'title' => 'Databases', 'route'    => 'admin.system.database.index', 'icon' => 'fa-database' ],

@@ -41,7 +41,7 @@ class AcademyController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add academies.');
         }
 
@@ -56,7 +56,7 @@ class AcademyController extends BaseAdminController
      */
     public function store(StoreAcademiesRequest $storeAcademiesRequest): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add academies.');
         }
 
@@ -85,7 +85,7 @@ class AcademyController extends BaseAdminController
      */
     public function edit(Academy $academy): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit academies.');
         }
 
@@ -101,7 +101,7 @@ class AcademyController extends BaseAdminController
      */
     public function update(UpdateAcademiesRequest $updateAcademiesRequest, Academy $academy): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update academies.');
         }
 
@@ -119,7 +119,7 @@ class AcademyController extends BaseAdminController
      */
     public function destroy(Academy $academy): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete academies.');
         }
 

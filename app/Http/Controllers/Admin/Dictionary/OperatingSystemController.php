@@ -41,7 +41,7 @@ class OperatingSystemController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add operating systems.');
         }
 
@@ -56,7 +56,7 @@ class OperatingSystemController extends BaseAdminController
      */
     public function store(StoreOperatingSystemsRequest $storeOperatingSystemsRequest): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add operating systems.');
         }
 
@@ -85,7 +85,7 @@ class OperatingSystemController extends BaseAdminController
      */
     public function edit(OperatingSystem $operatingSystem): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit operating systems.');
         }
 
@@ -102,7 +102,7 @@ class OperatingSystemController extends BaseAdminController
     public function update(UpdateOperatingSystemsRequest $updateOperatingSystemsRequest,
                            OperatingSystem               $operatingSystem): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update operating systems.');
         }
 
@@ -120,7 +120,7 @@ class OperatingSystemController extends BaseAdminController
      */
     public function destroy(OperatingSystem $operatingSystem): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete operating systems.');
         }
 

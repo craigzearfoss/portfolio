@@ -37,7 +37,7 @@ return new class extends Migration
             $table->string('publication_name')->nullable();
             $table->string('publisher')->nullable();
             $table->date('date')->nullable();
-            $table->year('year')->nullable();
+            $table->integer('year')->nullable();
             $table->string('credit')->nullable();
             $table->tinyInteger('fiction')->default(0);
             $table->tinyInteger('nonfiction')->default(0);

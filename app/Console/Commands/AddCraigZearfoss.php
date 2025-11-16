@@ -351,7 +351,7 @@ class AddCraigZearfoss extends Command
                 'public'            => 1,
                 'status'            => 1,
                 'token'             => '',
-                'root'              => 1,
+                'root'              => 0,
             ]
         ];
 

@@ -1449,8 +1449,8 @@ class DemoAdmin extends Command
             [
                 'id'                     => $this->jobId[1],
                 'company'                => 'Wayne Enterprises',
-                'slug'                   => 'wayne-enterprises-(senior-software-developer)',
                 'role'                   => 'Senior Software Developer',
+                'slug'                   => 'wayne-enterprises-(senior-software-developer)',
                 'featured'               => 0,
                 'summary'                => 'Modernized and added new features to a ticketing system for monitoring cyber threats.',
                 'start_month'            => 5,
@@ -1582,7 +1582,7 @@ class DemoAdmin extends Command
                 'thumbnail'              => null,
                 'logo'                   => null,
                 'logo_small'             => null,
-                'public'                 => 1,0
+                'public'                 => 1,
             ],
             [
                 'id'                     => $this->jobId[7],

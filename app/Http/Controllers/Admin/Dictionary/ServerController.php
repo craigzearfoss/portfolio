@@ -41,7 +41,7 @@ class ServerController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add servers.');
         }
 
@@ -56,7 +56,7 @@ class ServerController extends BaseAdminController
      */
     public function store(StoreServersRequest $storeServersRequest): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add servers.');
         }
 
@@ -85,7 +85,7 @@ class ServerController extends BaseAdminController
      */
     public function edit(Server $server): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit servers.');
         }
 
@@ -101,7 +101,7 @@ class ServerController extends BaseAdminController
      */
     public function update(UpdateServersRequest $updateServersRequest, Server $server): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update servers.');
         }
 
@@ -119,7 +119,7 @@ class ServerController extends BaseAdminController
      */
     public function destroy(Server $server): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete servers.');
         }
 

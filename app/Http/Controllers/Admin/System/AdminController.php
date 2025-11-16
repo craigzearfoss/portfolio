@@ -85,7 +85,7 @@ class AdminController extends BaseAdminController
     public function edit(Admin $admin): View
     {
         // Note that any admin can edit themselves but only root admins can edit other admins.
-        if (!Auth::guard('admin')->user()->root && ($admin->id !== Auth::guard('admin')->user()->id)) {
+        if (!isRootAdmin() && ($admin->id !== Auth::guard('admin')->user()->id)) {
             abort(403);
         }
 
@@ -116,7 +116,7 @@ class AdminController extends BaseAdminController
     public function destroy(Admin $admin): RedirectResponse
     {
         // Note that only root admins can delete other admins, but they cannot delete themselves.
-        if (Auth::guard('admin')->user()->root && ($admin->id !== Auth::guard('admin')->user()->id)) {
+        if (isRootAdmin() && ($admin->id !== Auth::guard('admin')->user()->id)) {
             $admin->delete();
         } else {
             abort(403);

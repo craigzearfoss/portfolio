@@ -10,10 +10,11 @@ use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class School extends Model
 {
-    use SearchableModelTrait;
+    use SearchableModelTrait, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 

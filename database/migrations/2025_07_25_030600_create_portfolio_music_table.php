@@ -32,7 +32,7 @@ return new class extends Migration
             $table->tinyInteger('track')->default(1);
             $table->string('label')->nullable();
             $table->string('catalog_number', 50)->nullable();
-            $table->year('year')->nullable();
+            $table->integer('year')->nullable();
             $table->date('release_date')->nullable();
             $table->text('embed')->nullable();
             $table->string('audio_url')->nullable();

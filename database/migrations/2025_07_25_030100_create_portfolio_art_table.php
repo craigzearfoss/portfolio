@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('slug');
             $table->tinyInteger('featured')->default(0);
             $table->string('summary')->nullable();
-            $table->year('year')->nullable();
+            $table->integer('year')->nullable();
             $table->string('image_url', 500)->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();

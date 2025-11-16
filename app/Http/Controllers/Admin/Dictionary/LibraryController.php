@@ -41,7 +41,7 @@ class LibraryController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add libraries.');
         }
 
@@ -56,7 +56,7 @@ class LibraryController extends BaseAdminController
      */
     public function store(StoreLibrariesRequest $storeLibrariesRequest): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add libraries.');
         }
 
@@ -85,7 +85,7 @@ class LibraryController extends BaseAdminController
      */
     public function edit(Library $library): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit libraries.');
         }
 
@@ -101,7 +101,7 @@ class LibraryController extends BaseAdminController
      */
     public function update(UpdateLibrariesRequest $updateLibrariesRequest, Library $library): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update libraries.');
         }
 
@@ -119,7 +119,7 @@ class LibraryController extends BaseAdminController
      */
     public function destroy(Library $library): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete libraries.');
         }
 

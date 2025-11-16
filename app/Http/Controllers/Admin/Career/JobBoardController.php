@@ -41,7 +41,7 @@ class JobBoardController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add job boards.');
         }
 
@@ -56,7 +56,7 @@ class JobBoardController extends BaseAdminController
      */
     public function store(StoreJobBoardsRequest $storeJobBoardsRequest): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add job boards.');
         }
 
@@ -86,7 +86,7 @@ class JobBoardController extends BaseAdminController
      */
     public function edit(JobBoard $jobBoard, Request $request): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit job boards.');
         }
 
@@ -102,7 +102,7 @@ class JobBoardController extends BaseAdminController
      */
     public function update(UpdateJobBoardsRequest $updateJobBoardsRequest, JobBoard $jobBoard): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update job boards.');
         }
 
@@ -120,7 +120,7 @@ class JobBoardController extends BaseAdminController
      */
     public function destroy(JobBoard $jobBoard): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete job boards.');
         }
 

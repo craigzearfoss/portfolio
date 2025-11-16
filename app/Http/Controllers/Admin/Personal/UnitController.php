@@ -39,7 +39,7 @@ class UnitController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add units.');
         }
         return view('admin.personal.unit.create');
@@ -53,7 +53,7 @@ class UnitController extends BaseAdminController
      */
     public function store(StoreUnitsRequest $storeUnitsRequest): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add units.');
         }
 
@@ -82,7 +82,7 @@ class UnitController extends BaseAdminController
      */
     public function edit(Unit $unit): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit units.');
         }
 
@@ -98,7 +98,7 @@ class UnitController extends BaseAdminController
      */
     public function update(UpdateUnitsRequest $updateUnitsRequest, Unit $unit): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update units.');
         }
 
@@ -116,7 +116,7 @@ class UnitController extends BaseAdminController
      */
     public function destroy(Unit $unit): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete units.');
         }
 

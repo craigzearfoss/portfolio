@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('summary')->nullable();
             $table->string('organization')->nullable();
             $table->foreignIdFor( \App\Models\Portfolio\Academy::class)->default(1);
-            $table->year('year')->nullable();
+            $table->integer('year')->nullable();
             $table->date('received')->nullable();
             $table->date('expiration')->nullable();
             $table->string('certificate_url', 500)->nullable();

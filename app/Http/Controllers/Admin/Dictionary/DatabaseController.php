@@ -41,7 +41,7 @@ class DatabaseController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add databases.');
         }
 
@@ -56,7 +56,7 @@ class DatabaseController extends BaseAdminController
      */
     public function store(StoreDatabasesRequest $storeDatabasesRequest): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add databases.');
         }
 
@@ -85,7 +85,7 @@ class DatabaseController extends BaseAdminController
      */
     public function edit(Database $database): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit databases.');
         }
 
@@ -101,7 +101,7 @@ class DatabaseController extends BaseAdminController
      */
     public function update(UpdateDatabasesRequest $updateDatabasesRequest, Database $database): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update databases.');
         }
 
@@ -120,7 +120,7 @@ class DatabaseController extends BaseAdminController
      */
     public function destroy(Database $database, Request $request): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete databases.');
         }
 

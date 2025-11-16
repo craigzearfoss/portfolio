@@ -191,7 +191,7 @@ class FrankReynolds extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Course ...\n";
 
         $data = [
-            [ 'name' => 'AWS IAM',                     'slug' => 'aws-iam',                    'completed' => 1, 'completion_date' => '2019-13-07', 'year' => 2019, 'duration_hours' => 2,    'academy_id' => 4, 'instructor' => 'Amin Mansouri',     'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-iam',                    'link_name' => null, 'public' => 1, 'summary' => 'Unlock the power of AWS Identity and Access Management (IAM) with our comprehensive IAM Mastery course.' ],
+            [ 'name' => 'AWS IAM',                     'slug' => 'aws-iam',                    'completed' => 1, 'completion_date' => '2019-07-13', 'year' => 2019, 'duration_hours' => 2,    'academy_id' => 4, 'instructor' => 'Amin Mansouri',     'sponsor' => null, 'certificate_url' => null, 'link' => 'https://kodekloud.com/courses/aws-iam',                    'link_name' => null, 'public' => 1, 'summary' => 'Unlock the power of AWS Identity and Access Management (IAM) with our comprehensive IAM Mastery course.' ],
             [ 'name' => 'The complete VUE JS course',  'slug' => 'the-complete-vue-js-course', 'completed' => 1, 'completion_date' => '2019-02-02', 'year' => 2019, 'duration_hours' => 41,   'academy_id' => 8, 'instructor' => 'Coding Revolution', 'sponsor' => null, 'certificate_url' => null, 'link' => 'https://www.udemy.com/course/the-complete-vue-js-course/', 'link_name' => null, 'public' => 1, 'summary' => 'Build beautiful web apps using VUE JS, version 3. Pinia and Firebase included' ],
             /*
             [

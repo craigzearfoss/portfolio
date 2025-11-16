@@ -54,7 +54,7 @@ class IndustryController extends BaseAdminController
      */
     public function store(StoreIndustriesRequest $storeIndustriesRequest): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add industries.');
         }
 
@@ -83,7 +83,7 @@ class IndustryController extends BaseAdminController
      */
     public function edit(Industry $industry): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit industries.');
         }
 
@@ -99,7 +99,7 @@ class IndustryController extends BaseAdminController
      */
     public function update(UpdateIndustriesRequest $updateIndustriesRequest, Industry $industry): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update industries.');
         }
 
@@ -117,7 +117,7 @@ class IndustryController extends BaseAdminController
      */
     public function destroy(Industry $industry): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete industries.');
         }
 

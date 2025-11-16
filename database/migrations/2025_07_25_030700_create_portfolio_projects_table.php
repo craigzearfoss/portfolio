@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('slug');
             $table->tinyInteger('featured')->default(0);
             $table->string('summary')->nullable();
-            $table->year('year')->nullable();
+            $table->integer('year')->nullable();
             $table->string('language', 50)->nullable();
             $table->string('language_version', 20)->nullable();
             $table->string('repository_url')->nullable();

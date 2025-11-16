@@ -1,14 +1,14 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add New Art',
+    'title' =>'Add New Certification',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Art',             'href' => route('admin.portfolio.art.index') ],
+        [ 'name' => 'Certifications',       'href' => route('admin.portfolio.certification.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.art.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.certification.index') ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
@@ -21,29 +21,13 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.art.store') }}" method="POST">
+        <form action="{{ route('admin.portfolio.certification.store') }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.portfolio.art.index')
+                'value' => referer('admin.portfolio.certification.index')
             ])
-
-            @if(isRootAdmin())
-                @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
-                    'value'    => old('owner_id') ?? '',
-                    'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
-                    'message'  => $message ?? '',
-                ])
-            @else
-                @include('admin.components.form-hidden', [
-                    'name'  => 'owner_id',
-                    'value' => Auth::guard('admin')->user()->id
-                ])
-            @endif
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
@@ -51,43 +35,6 @@
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'artist',
-                'value'     => old('artist') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'featured',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('featured') ?? 1,
-                'message'         => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'summary',
-                'value'     => old('name') ?? '',
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'year',
-                'value'     => old('year') ?? '',
-                'min'       => -2000,
-                'max'       => date("Y"),
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'notes',
-                'value'   => old('notes') ?? '',
-                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -110,13 +57,6 @@
                 'id'      => 'inputEditor',
                 'value'   => old('description') ?? '',
                 'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? '',
-                'maxlength'   => 500,
-                'message'     => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
@@ -149,6 +89,20 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'      => 'logo',
+                'value'     => old('logo') ?? '',
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'      => 'logo_small',
+                'value'     => old('logo_small') ?? '',
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'number',
                 'name'    => 'sequence',
@@ -165,7 +119,7 @@
 
                         <div class="checkbox-container card form-container p-4">
 
-                            @include('admin.components.form-checkbox', [
+                            @include('admin.components.form-checkbox-horizontal', [
                                 'name'            => 'public',
                                 'value'           => 1,
                                 'unchecked_value' => 0,
@@ -173,7 +127,7 @@
                                 'message'         => $message ?? '',
                             ])
 
-                            @include('admin.components.form-checkbox', [
+                            @include('admin.components.form-checkbox-horizontal', [
                                 'name'            => 'readonly',
                                 'label'           => 'read-only',
                                 'value'           => 1,
@@ -182,18 +136,17 @@
                                 'message'         => $message ?? '',
                             ])
 
-                            @if(isRootAdmin())
-                                @include('admin.components.form-checkbox', [
+                            @if (isRootAdmin())
+                                @include('admin.components.form-checkbox-horizontal', [
                                     'name'            => 'root',
                                     'value'           => 1,
                                     'unchecked_value' => 0,
                                     'checked'         => old('root') ?? 0,
-                                    'disabled'        => 0,
                                     'message'         => $message ?? '',
                                 ])
                             @endif
 
-                            @include('admin.components.form-checkbox', [
+                            @include('admin.components.form-checkbox-horizontal', [
                                 'name'            => 'disabled',
                                 'value'           => 1,
                                 'unchecked_value' => 0,
@@ -208,8 +161,8 @@
             </div>
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add Art',
-                'cancel_url' => referer('admin.portfolio.art.index')
+                'label'      => 'Add Certification',
+                'cancel_url' => referer('admin.portfolio.certification.index')
             ])
 
         </form>

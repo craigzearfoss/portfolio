@@ -41,7 +41,7 @@ class FrameworkController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add frameworks.');
         }
 
@@ -56,7 +56,7 @@ class FrameworkController extends BaseAdminController
      */
     public function store(StoreFrameworksRequest $storeFrameworksRequest): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add frameworks.');
         }
 
@@ -86,7 +86,7 @@ class FrameworkController extends BaseAdminController
      */
     public function edit(Framework $framework, Request $request): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit frameworks.');
         }
 
@@ -104,7 +104,7 @@ class FrameworkController extends BaseAdminController
      */
     public function update(UpdateFrameworksRequest $updateFrameworksRequest, Framework $framework): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update frameworks.');
         }
 
@@ -123,7 +123,7 @@ class FrameworkController extends BaseAdminController
      */
     public function destroy(Framework $framework, Request $request): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete frameworks.');
         }
 

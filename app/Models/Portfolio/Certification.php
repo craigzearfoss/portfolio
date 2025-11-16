@@ -55,6 +55,6 @@ class Certification extends Model
      */
     public function certificationType(): BelongsTo
     {
-        return $this->belongsTo(DegreeType::class, 'degree_type_id');
+        return $this->belongsTo(CertificationType::class, 'certification_type_id');
     }
 }

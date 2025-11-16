@@ -32,7 +32,7 @@ return new class extends Migration
             $table->tinyInteger('podcast')->default(0);
             $table->tinyInteger('source_recording')->default(0);
             $table->date('date')->nullable();
-            $table->year('year')->nullable();
+            $table->integer('year')->nullable();
             $table->string('company')->nullable();
             $table->string('credit')->nullable();
             $table->string('show')->nullable();

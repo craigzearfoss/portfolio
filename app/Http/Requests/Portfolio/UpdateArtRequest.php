@@ -57,7 +57,7 @@ class UpdateArtRequest extends FormRequest
             ],
             'featured'     => ['integer', 'between:0,1'],
             'summary'      => ['string', 'max:500', 'nullable'],
-            'year'         => ['integer', 'between:1900,'.date("Y"), 'nullable'],
+            'year'         => ['integer', 'between:-2000,'.date("Y"), 'nullable'],
             'image_url'    => ['string', 'max:255', 'nullable'],
             'notes'        => ['nullable'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],

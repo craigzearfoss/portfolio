@@ -41,7 +41,7 @@ class CategoryController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add categories.');
         }
 
@@ -56,7 +56,7 @@ class CategoryController extends BaseAdminController
      */
     public function store(StoreCategoriesRequest $storeCategoriesRequest): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add categories.');
         }
 
@@ -85,7 +85,7 @@ class CategoryController extends BaseAdminController
      */
     public function edit(Category $category): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit categories.');
         }
 
@@ -101,7 +101,7 @@ class CategoryController extends BaseAdminController
      */
     public function update(UpdateCategoriesRequest $updateCategoriesRequest, Category $category): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update categories.');
         }
 
@@ -119,7 +119,7 @@ class CategoryController extends BaseAdminController
      */
     public function destroy(Category $category): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete categories.');
         }
 

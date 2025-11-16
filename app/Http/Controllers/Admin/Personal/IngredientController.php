@@ -39,7 +39,7 @@ class IngredientController extends BaseAdminController
      */
     public function create(): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add ingredients.');
         }
 
@@ -54,7 +54,7 @@ class IngredientController extends BaseAdminController
      */
     public function store(StoreIngredientsRequest $storeIngredientsRequest): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can add ingredients.');
         }
 
@@ -83,7 +83,7 @@ class IngredientController extends BaseAdminController
      */
     public function edit(Ingredient $ingredient): View
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit ingredients.');
         }
 
@@ -99,7 +99,7 @@ class IngredientController extends BaseAdminController
      */
     public function update(UpdateIngredientsRequest $updateIngredientsRequest, Ingredient $ingredient): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update ingredients.');
         }
 
@@ -117,7 +117,7 @@ class IngredientController extends BaseAdminController
      */
     public function destroy(Ingredient $ingredient): RedirectResponse
     {
-        if (!Auth::guard('admin')->user()->root) {
+        if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete ingredients.');
         }
 
