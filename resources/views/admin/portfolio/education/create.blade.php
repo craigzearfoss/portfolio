@@ -65,7 +65,6 @@
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'minor',
                 'value'     => old('minor') ?? '',
-                'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -120,7 +119,7 @@
 
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label">enrollment date</label>
+                    <label class="label">graduation date</label>
                 </div>
                 <div class="field-body">
                     <div class="field">

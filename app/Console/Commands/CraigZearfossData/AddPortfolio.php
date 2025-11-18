@@ -6,6 +6,7 @@ use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Audio;
 use App\Models\Portfolio\Certificate;
 use App\Models\Portfolio\Course;
+use App\Models\Portfolio\Education;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
 use App\Models\Portfolio\JobTask;
@@ -72,6 +73,7 @@ class AddPortfolio extends Command
         $this->insertPortfolioAudios();
         $this->insertPortfolioCertificates();
         $this->insertPortfolioCourses();
+        $this->insertPortfolioEducations();
         $this->insertPortfolioJobs();
         $this->insertPortfolioJobCoworkers();
         $this->insertPortfolioJobTasks();
@@ -242,8 +244,8 @@ class AddPortfolio extends Command
 
         $data = [
             [
-                'name' => 'Google Cybersecurity',
-                'slug' => 'google-cybersecurity',
+                'name'            => 'Google Cybersecurity',
+                'slug'            => 'google-cybersecurity',
                 'featured'        => 1,
                 'summary'         => null,
                 'organization'    => 'Google',
@@ -1432,6 +1434,74 @@ class AddPortfolio extends Command
 
         // copy course images/files
         $this->copySourceFiles('course');
+    }
+
+    protected function insertPortfolioEducations(): void
+    {
+        echo self::USERNAME . ": Inserting into Portfolio\\Education ...\n";
+
+        $data = [
+            [
+                'degree_type_id'     => 5,
+                'major'              => 'Mechanical Engineering',
+                'minor'              => null,
+                'school_id'          => 1678,
+                'slug'               => 'bachelor-in-mechanical-engineering-from-pennsylvania-state-university-university-park-main-campus',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 1982,
+                'graduated'          => 1,
+                'graduation_month'   => 1,
+                'graduation_year'    => 1988,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
+            [
+                'degree_type_id'     => 5,
+                'major'              => 'Computer Science',
+                'minor'              => null,
+                'school_id'          => 1678,
+                'slug'               => 'bachelor-in-computer-science-from-pennsylvania-state-university-university-park-main-campus',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 1989,
+                'graduated'          => 1,
+                'graduation_month'   => 1,
+                'graduation_year'    => 1992,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
+            /*
+            [
+                'degree_type_id'     => 1,
+                'major'              => '',
+                'minor'              => null,
+                'school_id'          => 1,
+                'slug'               => '',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 2000,
+                'graduated'          => 1,
+                'graduation_month'   => 6,
+                'graduation_year'    => 2024,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
+            */
+        ];
+
+        if (!empty($data)) {
+            Education::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+        }
+
+        // copy education images/files
+        $this->copySourceFiles('education');
     }
 
     protected function insertPortfolioJobs(): void
@@ -3461,8 +3531,9 @@ class AddPortfolio extends Command
         switch ($resource) {
             case 'art'           : $model = new Art(); break;
             case 'audio'         : $model = new Audio(); break;
-            case 'certificate' : $model = new Certificate(); break;
+            case 'certificate'   : $model = new Certificate(); break;
             case 'course'        : $model = new Course(); break;
+            case 'education'     : $model = new Job(); break;
             case 'job'           : $model = new Job(); break;
             case 'job-coworker'  : $model = new JobCoworker(); break;
             case 'job-task'      : $model = new JobTask(); break;

@@ -6,6 +6,7 @@ use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Audio;
 use App\Models\Portfolio\Certificate;
 use App\Models\Portfolio\Course;
+use App\Models\Portfolio\Education;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
 use App\Models\Portfolio\JobTask;
@@ -72,6 +73,7 @@ class DanFielding extends Command
         $this->insertPortfolioAudios();
         $this->insertPortfolioCertificates();
         $this->insertPortfolioCourses();
+        $this->insertPortfolioEducations();
         $this->insertPortfolioJobs();
         $this->insertPortfolioJobCoworkers();
         $this->insertPortfolioJobTasks();
@@ -234,6 +236,40 @@ class DanFielding extends Command
 
         // copy course images/files
         $this->copySourceFiles('course');
+    }
+
+    protected function insertPortfolioEducations(): void
+    {
+        echo self::USERNAME . ": Inserting into Portfolio\\Education ...\n";
+
+        $data = [
+            /*
+            [
+                'degree_type_id'     => 1,
+                'major'              => '',
+                'minor'              => null,
+                'school_id'          => 1,
+                'slug'               => '',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 2000,
+                'graduated'          => 1,
+                'graduation_month'   => 6,
+                'graduation_year'    => 2024,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
+            */
+        ];
+
+        if (!empty($data)) {
+            Education::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+        }
+
+        // copy education images/files
+        $this->copySourceFiles('education');
     }
 
     protected function insertPortfolioJobs(): void
