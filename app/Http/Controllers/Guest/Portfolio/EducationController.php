@@ -27,7 +27,7 @@ class EducationController extends Controller
         $educations = Education::where('owner_id', $admin->id)
             ->where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('name', 'asc')
+            ->orderBy('graduation_year', 'desc')
             ->paginate($perPage);
 
         return view(themedTemplate('guest.portfolio.education.index'), compact('educations', 'admin'))
@@ -38,12 +38,12 @@ class EducationController extends Controller
      * Display the specified education.
      *
      * @param Admin $admin
-     * @param string $slug
+     * @param int $id
      * @return View
      */
-    public function show(Admin $admin, string $slug): View
+    public function show(Admin $admin, int $id): View
     {
-        if (!$education = Education::where('owner_id', $admin->id)->where('slug', $slug)->first()) {
+        if (!$education = Education::where('owner_id', $admin->id)->where('id', $id)->first()) {
             throw new ModelNotFoundException();
         }
 

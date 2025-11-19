@@ -42,7 +42,7 @@ Route::name('guest.')->group(function () {
     Route::get('/{admin:username}/portfolio/course', [GuestPortfolioCourseController::class, 'index'])->name('admin.portfolio.course.index');
     Route::get('/{admin:username}/portfolio/course/{slug}', [GuestPortfolioCourseController::class, 'show'])->name('admin.portfolio.course.show');
     Route::get('/{admin:username}/portfolio/education', [GuestPortfolioEducationController::class, 'index'])->name('admin.portfolio.education.index');
-    Route::get('/{admin:username}/portfolio/education/{slug}', [GuestPortfolioEducationController::class, 'show'])->name('admin.portfolio.education.show');
+    Route::get('/{admin:username}/portfolio/education/{id}', [GuestPortfolioEducationController::class, 'show'])->name('admin.portfolio.education.show');
     Route::get('/{admin:username}/portfolio/link', [GuestPortfolioLinkController::class, 'index'])->name('admin.portfolio.link.index');
     Route::get('/{admin:username}/portfolio/link/{slug}', [GuestPortfolioLinkController::class, 'show'])->name('admin.portfolio.link.show');
     Route::get('/{admin:username}/portfolio/music', [GuestPortfolioMusicController::class, 'index'])->name('admin.portfolio.music.index');

@@ -1,10 +1,9 @@
-@extends('admin.layouts.default', [
-    'title' => 'Educations',
+@extends('admin.layouts.ds',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Educations' ],
+        [ 'name' => 'Education' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Education', 'href' => route('admin.portfolio.education.create') ],

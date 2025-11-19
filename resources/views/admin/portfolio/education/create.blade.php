@@ -4,7 +4,7 @@
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Educations',      'href' => route('admin.portfolio.education.index') ],
+        [ 'name' => 'Education',       'href' => route('admin.portfolio.education.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [

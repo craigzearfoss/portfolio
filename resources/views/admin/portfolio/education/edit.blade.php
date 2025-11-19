@@ -1,11 +1,11 @@
 @extends('admin.layouts.default', [
-    'title' => 'Education: ' . $education->name,
+    'title' => 'Education: ' . $education->degreeType->name . ' ' . $education->major,
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Educations',      'href' => route('admin.portfolio.education.index') ],
-        [ 'name' => $education->name ],
+        [ 'name' => 'Education',       'href' => route('admin.portfolio.education.index') ],
+        [ 'name' => $education->degreeType->name . ' ' . $education->major ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.education.index') ],
