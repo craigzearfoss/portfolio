@@ -2830,8 +2830,9 @@ class DemoAdmin extends Command
         switch ($resource) {
             case 'art'           : $model = new Art(); break;
             case 'audio'         : $model = new Audio(); break;
-            case 'certificate' : $model = new Certificate(); break;
+            case 'certificate'   : $model = new Certificate(); break;
             case 'course'        : $model = new Course(); break;
+            case 'education'     : $model = new Education(); break;
             case 'job'           : $model = new Job(); break;
             case 'job-coworker'  : $model = new JobCoworker(); break;
             case 'job-task'      : $model = new JobTask(); break;

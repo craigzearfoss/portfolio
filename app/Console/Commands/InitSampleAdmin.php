@@ -71,7 +71,7 @@ class InitSampleAdmin extends Command
         $this->demo   = $this->option('demo');
         $this->silent = $this->option('silent');
 
-        if ($username == '*') {
+        if (($username == '*') || (strtolower($username) === 'all')) {
             $usernames = array_keys(self::USER_DATA);
         } else {
             $usernames = explode(',',  $username);
