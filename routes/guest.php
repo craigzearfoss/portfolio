@@ -32,6 +32,7 @@ Route::name('guest.')->group(function () {
     Route::get('/{admin:username}/personal/recipe/{slug}', [GuestPersonalRecipeController::class, 'show'])->name('admin.personal.recipe.show');
 
     Route::get('/{admin:username}/resume', [GuestPortfolioJobController::class, 'resume'])->name('admin.resume');
+    Route::get('/{admin:username}/portfolio', [GuestPortfolioIndexController::class, 'index'])->name('admin.portfolio.show');
     Route::get('/{admin:username}/portfolio/art', [GuestPortfolioArtController::class, 'index'])->name('admin.portfolio.art.index');
     Route::get('/{admin:username}/portfolio/art/{slug}', [GuestPortfolioArtController::class, 'show'])->name('admin.portfolio.art.show');
     Route::get('/{admin:username}/portfolio/audio', [GuestPortfolioAudioController::class, 'index'])->name('admin.portfolio.audio.index');
