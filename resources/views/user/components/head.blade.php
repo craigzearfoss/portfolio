@@ -4,11 +4,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ asset('images/site/favicon.ico') }}">
     <title>
-        {{ !empty($pageTitle)
-                ? ($pageTitle . ' - ')
-                : (!empty($title) ? $title . ' - ' : '')
-        }}
-        {{ config('app.name') }}
+        @php
+            $pageTitle = !empty($pageTitle)
+                ? $pageTitle
+                : (!empty($title) ? $title : '')
+        @endphp
+        @if(!empty($pageTitle) && ($pageTitle !== config('app.name')))
+            {{$pageTitle}} -
+        @endif
+        {{ config('app.name') }} user area
     </title>
 
     <!-- Bulma is included -->
