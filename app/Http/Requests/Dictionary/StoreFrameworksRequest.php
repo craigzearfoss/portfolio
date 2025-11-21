@@ -38,7 +38,7 @@ class StoreFrameworksRequest extends FormRequest
             'name'         => ['required', 'string', 'max:255', 'unique:dictionary_db.frameworks,name'],
             'slug'         => ['required', 'string', 'max:255', 'unique:dictionary_db.frameworks,slug'],
             'abbreviation' => ['string', 'max:20', 'nullable'],
-            'definition'   => ['string', 'max:255', 'nullable'],
+            'definition'   => ['string', 'max:500', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
             'proprietary'  => ['integer', 'between:0,1'],
             'compiled'     => ['integer', 'between:0,1'],

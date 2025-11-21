@@ -38,7 +38,7 @@ class UpdateCategoriesRequest extends FormRequest
             'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.categories,name,'.$this->category->id],
             'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.categories,slug,'.$this->category->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
-            'definition'   => ['string', 'max:255', 'nullable'],
+            'definition'   => ['string', 'max:500', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
             'proprietary'  => ['integer', 'between:0,1'],
             'compiled'     => ['integer', 'between:0,1'],

@@ -38,7 +38,7 @@ class StoreDatabasesRequest extends FormRequest
             'name'         => ['required', 'string', 'max:255', 'unique:dictionary_db.databases,name'],
             'slug'         => ['required', 'string', 'max:255', 'unique:dictionary_db.databases,slug'],
             'abbreviation' => ['string', 'max:20', 'nullable'],
-            'definition'   => ['string', 'max:255', 'nullable'],
+            'definition'   => ['string', 'max:500', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
             'proprietary'  => ['integer', 'between:0,1'],
             'compiled'     => ['integer', 'between:0,1'],

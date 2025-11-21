@@ -38,7 +38,7 @@ class UpdateOperatingSystemsRequest extends FormRequest
             'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.operating_systems,name,'.$this->operating_system->id],
             'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.operating_systems,slug,'.$this->operating_system->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
-            'definition'   => ['string', 'max:255', 'nullable'],
+            'definition'   => ['string', 'max:500', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
             'proprietary'  => ['integer', 'between:0,1'],
             'compiled'     => ['integer', 'between:0,1'],

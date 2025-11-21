@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();
-            $table->string('definition')->nullable();
+            $table->string('definition', 500)->nullable();
             $table->tinyInteger('open_source')->default(0);
             $table->tinyInteger('proprietary')->default(0);
             $table->tinyInteger('compiled')->default(0);

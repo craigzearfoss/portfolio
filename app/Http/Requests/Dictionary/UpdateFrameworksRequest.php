@@ -38,7 +38,7 @@ class UpdateFrameworksRequest extends FormRequest
             'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.frameworks,name,'.$this->framework->id],
             'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.frameworks,slug,'.$this->framework->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
-            'definition'   => ['string', 'max:255', 'nullable'],
+            'definition'   => ['string', 'max:500', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
             'proprietary'  => ['integer', 'between:0,1'],
             'compiled'     => ['integer', 'between:0,1'],

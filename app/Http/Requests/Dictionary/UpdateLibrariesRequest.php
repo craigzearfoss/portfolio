@@ -38,7 +38,7 @@ class UpdateLibrariesRequest extends FormRequest
             'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.libraries,name,'.$this->library->id],
             'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.libraries,slug,'.$this->library->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
-            'definition'   => ['string', 'max:255', 'nullable'],
+            'definition'   => ['string', 'max:500', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
             'proprietary'  => ['integer', 'between:0,1'],
             'compiled'     => ['integer', 'between:0,1'],

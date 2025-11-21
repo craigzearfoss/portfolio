@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name', 100)->unique();
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();
-            $table->string('definition')->nullable();
+            $table->string('definition', 500)->nullable();
             $table->tinyInteger('open_source')->default(0);
             $table->tinyInteger('proprietary')->default(0);
             $table->tinyInteger('compiled')->default(0);
@@ -78,6 +78,7 @@ return new class extends Migration
             [ 'id' => 35, 'full_name' => 'Vitess',                   'name' => 'Vitess',             'slug' => 'vitess',                   'abbreviation' => null,        'open_source' => 0, 'proprietary' => 0, 'owner' => null,               'link' => 'https://vitess.io/',                                            'wikipedia' => null,                                                               'definition' => 'A MySQL compatible database with extended scalability and built-in sharding.' ],
             [ 'id' => 36, 'full_name' => 'Presto',                   'name' => 'Presto',             'slug' => 'prestos',                  'abbreviation' => null,        'open_source' => 0, 'proprietary' => 0, 'owner' => null,               'link' => 'https://prestodb.io/',                                          'wikipedia' => 'https://en.wikipedia.org/wiki/Presto_(SQL_query_engine)',          'definition' => 'A distributed query engine for big data using the SQL query language.' ],
             [ 'id' => 37, 'full_name' => 'other',                    'name' => 'other',              'slug' => 'other',                    'abbreviation' => null,        'open_source' => 0, 'proprietary' => 0, 'owner' => null,               'link' => null,                                                            'wikipedia' => null,                                                               'definition' => '' ],
+            [ 'id' => 38, 'full_name' => 'Neo4j',                    'name' => 'Neo4j',              'slug' => 'neo4j',                    'abbreviation' => null,        'open_source' => 0, 'proprietary' => 0, 'owner' => null,               'link' => 'https://neo4j.com/',                                            'wikipedia' => 'https://en.wikipedia.org/wiki/Neo4j',                              'definition' => 'A native graph database and analytics platform that stores data as interconnected nodes and relationships, making it ideal for applications that require a deep understanding of connections, like fraud detection, recommendation engines, and knowledge graphs.' ],
         ];
 
         // add timestamps

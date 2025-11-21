@@ -38,7 +38,7 @@ class UpdateStacksRequest extends FormRequest
             'name'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.stacks,name,'.$this->stack->id],
             'slug'         => ['filled', 'string', 'max:255', 'unique:dictionary_db.stacks,slug,'.$this->stack->id],
             'abbreviation' => ['string', 'max:20', 'nullable'],
-            'definition'   => ['string', 'max:255', 'nullable'],
+            'definition'   => ['string', 'max:500', 'nullable'],
             'open_source'  => ['integer', 'between:0,1'],
             'proprietary'  => ['integer', 'between:0,1'],
             'compiled'     => ['integer', 'between:0,1'],
