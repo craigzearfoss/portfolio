@@ -30,3 +30,4 @@
     <script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
 
 </head>
+@include('guest.components.google-tag')

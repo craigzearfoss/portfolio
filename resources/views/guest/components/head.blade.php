@@ -35,3 +35,4 @@
     <script src="{{ asset('assets/development-only/main.js') }}"></script>
 
 </head>
+@include('guest.components.google-tag')

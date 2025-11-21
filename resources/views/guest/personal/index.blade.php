@@ -1,8 +1,10 @@
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Personal Stuff',
+    'title' => $title ?? 'Personal',
     'breadcrumbs' => [
         [ 'name' => 'Home',       'href' => route('system.index') ],
-        [ 'name' => $title ?? 'Personal Stuff' ],
+        [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
+        [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
+        [ 'name' => $title ?? 'Personal' ],
     ],
     'buttons' => [],
     'errorMessages' => $errors->messages()  ?? [],
@@ -19,15 +21,23 @@
             <div class="container">
                 <div class="content">
 
-                    <p>
-                        Personal folders contain items of personal interest and non career-related accomplishments. They include:
-                    </p>
+                    <h3 class="title">
+                        {{ $admin->name }} Personal
+                    </h3>
 
-                    <ul class="menu-list" style="max-width: 20em;">
+                    <ul class="menu-list ml-4 mb-2">
 
-                        @foreach ($personals as $personal)
+                        @foreach ($personalResources as $resource)
 
-                            <li>{{ $personal->plural }}</li>
+                            @if(empty($resource['global']) && Route::has('guest.admin.personal.'.$resource['name'].'.index'))
+                                <li>
+                                    @include('guest.components.link', [
+                                        'name'  => $resource['plural'],
+                                        'href'  => route('guest.admin.personal.'.$resource['name'].'.index', $admin),
+                                        'class' => 'pt-1 pb-1',
+                                    ])
+                                </li>
+                            @endif
 
                         @endforeach
 

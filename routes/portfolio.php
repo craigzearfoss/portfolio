@@ -22,8 +22,6 @@ use App\Http\Controllers\Admin\Portfolio\VideoController as AdminPortfolioVideoC
 use App\Http\Controllers\Guest\Portfolio\IndexController as GuestPortfolioIndexController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('portfolio', [GuestPortfolioIndexController::class, 'index'])->name('guest.portfolio.index');
-
 Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')->group(function () {
     Route::get('/', [AdminPortfolioIndexController::class, 'index'])->name('index');
     Route::resource('academy', AdminPortfolioAcademyController::class);

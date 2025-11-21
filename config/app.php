@@ -33,6 +33,7 @@ return [
     'readonly'              => env('APP_READONLY', '0'),
     'contactable'           => env('APP_CONTACTABLE', '0'),
     'theme'                 => env('APP_THEME', null),
+    'google_tag'            => env('GOOGLE_TAG', ''),
 
     /*
     |--------------------------------------------------------------------------

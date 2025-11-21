@@ -4,7 +4,7 @@
         [ 'name' => 'Home',       'href' => route('system.index') ],
         [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
         [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
-        [ 'name' => $title ?? 'Portfolios' ],
+        [ 'name' => $title ?? 'Portfolio' ],
     ],
     'buttons' => [],
     'errorMessages' => $errors->messages()  ?? [],
@@ -21,15 +21,23 @@
             <div class="container">
                 <div class="content">
 
-                    <p>
-                        Portfolio folders contain work and job-related items and accomplishments. They include:
-                    </p>
+                    <h3 class="title">
+                        {{ $admin->name }} Portfolio
+                    </h3>
 
-                    <ul class="menu-list" style="max-width: 20em;">
+                    <ul class="menu-list ml-4 mb-2">
 
-                        @foreach ($portfolios as $portfolio)
+                        @foreach ($portfolioResources as $resource)
 
-                            <li>{{ $portfolio->plural }}</li>
+                            @if(empty($resource['global']) && Route::has('guest.admin.portfolio.'.$resource['name'].'.index'))
+                                <li>
+                                    @include('guest.components.link', [
+                                        'name'  => $resource['plural'],
+                                        'href'  => route('guest.admin.portfolio.'.$resource['name'].'.index', $admin),
+                                        'class' => 'pt-1 pb-1',
+                                    ])
+                                </li>
+                            @endif
 
                         @endforeach
 

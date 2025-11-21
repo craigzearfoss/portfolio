@@ -1,0 +1,71 @@
+@extends('guest.layouts.default', [
+    'pageTitle'   => 'About Us',
+    'title'       => '',
+    'subtitle'    => null,
+    'breadcrumbs' => [
+        [ 'name' => 'Home', 'href' => route('system.index')],
+        [ 'name' => 'About Us']
+    ],
+    'buttons' => [],
+    'errorMessages'=> $errors->messages() ?? [],
+    'success' => session('success') ?? null,
+    'error'   => session('error') ?? null,
+])
+
+@section('content')
+
+    <div class="card p-4">
+
+        <h2 class="title">About Us</h2>
+
+        <div class="tabs-wrapper">
+            <div class="tabs">
+                <ul>
+                    <li class="is-active">
+                        <a>Pictures</a>
+                    </li>
+                    <li>
+                        <a>Music</a>
+                    </li>
+                    <li>
+                        <a>Videos</a>
+                    </li>
+                    <li>
+                        <a>Documents</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tabs-content">
+                <ul>
+                    <li class="is-active">
+                        <h1>Pictures</h1>
+                    </li>
+                    <li>
+                        <h1>Music</h1>
+                    </li>
+                    <li>
+                        <h1>Videos</h1>
+                    </li>
+                    <li>
+                        <h1>Documents</h1>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div>
+            <p class="pb-3">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse rhoncus ac mi ac sagittis. Etiam id nisi libero. Nullam et est non nibh convallis faucibus. Integer scelerisque, orci in sollicitudin laoreet, augue sem pellentesque dolor, at maximus ipsum justo vel erat. Integer hendrerit nisl turpis, sit amet pharetra purus efficitur eget. Nulla sagittis dui in pulvinar pulvinar. Pellentesque sed tempus orci. Mauris vel luctus eros, in porttitor nulla. Phasellus volutpat enim eu orci ultricies mollis.
+            </p>
+            <p class="pb-3">
+                Donec id aliquet mi. Sed elementum ex vel ipsum porttitor, in efficitur velit congue. Pellentesque eget erat nisi. Aliquam porttitor enim id felis pharetra tristique vitae non sem. Suspendisse potenti. Quisque at lacus accumsan tellus iaculis cursus. Suspendisse ornare ante mi. Nullam vel nibh nec justo ultricies dapibus ut nec libero. Aenean sed diam mauris. Phasellus fermentum lacinia ipsum eu tincidunt. Fusce at dignissim lectus, id faucibus nunc.
+            </p>
+            <p class="pb-3">
+                Suspendisse vitae posuere tortor. Donec iaculis sodales urna, et rutrum lacus convallis eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis vitae lectus in orci pretium blandit. Aliquam sed vehicula elit. In hac habitasse platea dictumst. Donec tincidunt tempus magna at semper. Vivamus quis turpis scelerisque, sagittis augue vel, ullamcorper metus. In hac habitasse platea dictumst. Curabitur vitae varius nunc, a maximus nunc.
+            </p>
+        </div>
+
+    </div>
+
+@endsection
