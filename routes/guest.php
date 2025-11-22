@@ -10,7 +10,6 @@ use App\Http\Controllers\Guest\Portfolio\AudioController as GuestPortfolioAudioC
 use App\Http\Controllers\Guest\Portfolio\CertificateController as GuestPortfolioCertificateController;
 use App\Http\Controllers\Guest\Portfolio\CourseController as GuestPortfolioCourseController;
 use App\Http\Controllers\Guest\Portfolio\EducationController as GuestPortfolioEducationController;
-use App\Http\Controllers\Guest\Portfolio\JobController as GuestPortfolioJobController;
 use App\Http\Controllers\Guest\Portfolio\LinkController as GuestPortfolioLinkController;
 use App\Http\Controllers\Guest\Portfolio\MusicController as GuestPortfolioMusicController;
 use App\Http\Controllers\Guest\Portfolio\IndexController as GuestPortfolioIndexController;
@@ -32,7 +31,6 @@ Route::name('guest.')->group(function () {
     Route::get('/{admin:username}/personal/recipe', [GuestPersonalRecipeController::class, 'index'])->name('admin.personal.recipe.index');
     Route::get('/{admin:username}/personal/recipe/{slug}', [GuestPersonalRecipeController::class, 'show'])->name('admin.personal.recipe.show');
 
-    //Route::get('/{admin:username}/resume', [GuestPortfolioJobController::class, 'resume'])->name('admin.resume');
     Route::get('/{admin:username}/resume', [GuestPortfolioResumeController::class, 'index'])->name('admin.resume');
     Route::get('/{admin:username}/portfolio', [GuestPortfolioIndexController::class, 'index'])->name('admin.portfolio.show');
     Route::get('/{admin:username}/portfolio/art', [GuestPortfolioArtController::class, 'index'])->name('admin.portfolio.art.index');
