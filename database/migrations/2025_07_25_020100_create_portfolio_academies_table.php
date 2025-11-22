@@ -49,8 +49,6 @@ return new class extends Migration
                 'link'      => null,
                 'link_name' => null,
                 'sequence'  => 0,
-                'public'    => 1,
-                'root'      => 1,
             ],
             [
                 'id'        => 2,
@@ -59,8 +57,6 @@ return new class extends Migration
                 'link'      => 'https://www.coursera.org/',
                 'link_name' => 'Coursera',
                 'sequence'  => 0,
-                'public'    => 1,
-                'root'      => 1,
             ],
             [
                 'id'        => 3,
@@ -69,8 +65,6 @@ return new class extends Migration
                 'link'      => 'https://thegymnasium.com/',
                 'link_name' => 'Gymnasium',
                 'sequence'  => 1,
-                'public'    => 1,
-                'root'      => 1,
             ],
             [
                 'id'        => 4,
@@ -79,8 +73,6 @@ return new class extends Migration
                 'link'      => 'https://kodekloud.com/',
                 'link_name' => 'KodeKloud',
                 'sequence'  => 2,
-                'public'    => 1,
-                'root'      => 1,
             ],
             [
                 'id'        => 5,
@@ -89,8 +81,6 @@ return new class extends Migration
                 'link'      => 'https://learn.mongodb.com/',
                 'link_name' => 'MongoDB University',
                 'sequence'  => 3,
-                'public'    => 1,
-                'root'      => 1,
             ],
             [
                 'id'        => 6,
@@ -99,8 +89,6 @@ return new class extends Migration
                 'link'      => 'https://scrimba.com/',
                 'link_name' => 'Scrimba',
                 'sequence'  => 4,
-                'public'    => 1,
-                'root'      => 1,
             ],
             [
                 'id'        => 7,
@@ -109,8 +97,6 @@ return new class extends Migration
                 'link'      => 'https://www.sitepoint.com/',
                 'link_name' => 'SitePoint',
                 'sequence'  => 5,
-                'public'    => 1,
-                'root'      => 1,
             ],
             [
                 'id'        => 8,
@@ -119,8 +105,6 @@ return new class extends Migration
                 'link'      => 'https://www.udemy.com/',
                 'link_name' => 'Udemy',
                 'sequence'  => 6,
-                'public'    => 1,
-                'root'      => 1,
             ],
             [
                 'id'        => 9,
@@ -129,13 +113,13 @@ return new class extends Migration
                 'link'      => 'https://aws.amazon.com/training/',
                 'link_name' => 'AWS Training and Certificate',
                 'sequence'  => 7,
-                'public'    => 1,
-                'root'      => 1,
             ],
         ];
 
         // add timestamps
         for($i=0; $i<count($data);$i++) {
+            $data[$i]['public'] = 1;
+            $data[$i]['root'] = 1;
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
         }

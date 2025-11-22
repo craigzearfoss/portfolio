@@ -143,13 +143,6 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? $school->disclaimer,
-                'maxlength'   => 500,
-                'message'     => $message ?? '',
-            ])
-
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'image',
                 'value'     => old('image') ?? $school->image,

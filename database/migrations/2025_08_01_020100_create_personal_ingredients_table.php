@@ -865,6 +865,8 @@ return new class extends Migration
 
         // add timestamps
         for($i=0; $i<count($data);$i++) {
+            $data[$i]['public'] = 1;
+            $data[$i]['root'] = 1;
             $data[$i]['created_at'] = now();
             $data[$i]['updated_at'] = now();
         }
