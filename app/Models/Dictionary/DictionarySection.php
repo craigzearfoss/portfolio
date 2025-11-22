@@ -109,8 +109,7 @@ class DictionarySection extends Model
         int | null $perPage = null,
     ): array|LengthAwarePaginator
     {
-        //@TODO: We should be able to get this from the config.
-        $dictionaryDB = 'dictionary';
+        $dictionaryDB = config('app.dictionary_db');
 
         if (!empty($slug)) {
 
