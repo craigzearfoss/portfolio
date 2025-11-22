@@ -168,7 +168,7 @@ class Job extends Model
             }
         }
 
-        $resumePath = 'guest.portfolio.job.resume.templates.' . $template;
+        $resumePath = 'guest.portfolio.resume.templates.' . $template;
 
         return $resumePath;
     }

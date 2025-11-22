@@ -90,4 +90,62 @@
 
     </div>
 
+    <div class="resume-container card p-4">
+
+        <h2 class="title is-5 mb-1">Education</h2>
+
+        @foreach($educations as $i=>$education)
+
+            <div class="list-item-content mb-3 border-bottom is-flex pl-4"
+                 @if($i > 0)
+                     style="border-top:#eee 1px inset; padding-top: 0.4em"
+                @endif
+            >
+                <div style="display: inline-block;">
+
+                    <div class="list-item-description pt-1">
+                        {{ $education->degreeType->name }} in {{ $education->major }}
+                        -
+                        {{ (months()[$education->graduation_month] ?? '') }}, {{ $education->graduation_year }}
+                    </div>
+
+                    <div class="list-item-description pt-1">
+                        {{ $education->school->name ?? '' }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        @endforeach
+
+    </div>
+
+    <div class="resume-container card p-4">
+
+        <h2 class="title is-5 mb-1">Certifications</h2>
+
+        @foreach($certificates as $i=>$certificate)
+
+            <div class="list-item-content mb-3 border-bottom is-flex pl-4"
+                 @if($i > 0)
+                     style="border-top:#eee 1px inset; padding-top: 0.4em"
+                @endif
+            >
+                <div style="display: inline-block;">
+
+                    <div class="list-item-description pt-1">
+                        {{ $certificate->name }}
+                        -
+                        {{ longDate($certificate->received) }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        @endforeach
+
+    </div>
+
 @endsection

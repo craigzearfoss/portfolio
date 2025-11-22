@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Http\Controllers\Guest\Portfolio;
+
+use App\Http\Controllers\Controller;
+use App\Models\Portfolio\Certificate;
+use App\Models\Portfolio\Education;
+use App\Models\Portfolio\Job;
+use App\Models\System\Admin;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+
+class ResumeController extends Controller
+{
+    /**
+     * @param Admin $admin
+     * @param Request $request
+     * @return View
+     */
+    public function index(Admin $admin, Request $request): View
+    {
+        $jobs = Job::where('owner_id', $admin->id)
+            ->where('public', 1)
+            ->where('disabled', 0)
+            ->orderBy('start_year', 'desc')
+            ->orderBy('start_month', 'desc')
+            ->get();
+
+        $educations = Education::where('owner_id', $admin->id)
+            ->where('public', 1)
+            ->where('disabled', 0)
+            ->orderBy('graduation_year', 'desc')->orderBy('graduation_month', 'desc')
+            ->orderBy('enrollment_year', 'desc')->orderBy('enrollment_month', 'desc')
+            ->get();
+
+        $certificates = Certificate::where('owner_id', $admin->id)
+            ->where('public', 1)
+            ->where('disabled', 0)
+            ->orderBy('received', 'desc')
+            ->get();
+
+        return view(
+            Job::resumeTemplate(),
+            compact('jobs', 'educations', 'admin', 'certificates')
+        );
+    }
+}
