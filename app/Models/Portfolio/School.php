@@ -57,11 +57,9 @@ class School extends Model
 
     /**
      * SearchableModelTrait variables.
-     * @TODO: Listing all of the fields causes an exception.
      */
-    //const SEARCH_COLUMNS = ['id', 'name', 'slug', 'enrollment', 'founded', 'street', 'street2', 'city', 'state_id',
-    //    'zip', 'country_id'];
-    const SEARCH_COLUMNS = ['id', 'name', 'slug', 'state_id','zip', 'country_id'];
+    const SEARCH_COLUMNS = ['id', 'name', 'slug', 'enrollment', 'founded', 'street', 'street2', 'city', 'state_id',
+        'zip', 'country_id'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**

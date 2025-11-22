@@ -5,7 +5,8 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Languages',       'href' => route('admin.dictionary.language.index') ],
-        [ 'name' => $language->name ],
+        [ 'name' => $language->name,   'href' => route('admin.dictionary.language.show', $language->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ],

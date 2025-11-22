@@ -5,7 +5,8 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Libraries',       'href' => route('admin.dictionary.library.index') ],
-        [ 'name' => $library->name ],
+        [ 'name' => $library->name,    'href' => route('admin.dictionary.library.show', $library->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ],

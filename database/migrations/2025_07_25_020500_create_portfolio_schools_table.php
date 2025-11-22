@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->integer('enrollment')->nullable();
             $table->integer('founded')->nullable();
+            $table->string('street')->nullable();
             $table->string('street2')->nullable();
             $table->string('city', 100)->nullable();
             $table->integer('state_id')->nullable();

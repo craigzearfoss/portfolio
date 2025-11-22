@@ -5,7 +5,8 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Job Boards',      'href' => route('admin.career.job-board.index') ],
-        [ 'name' => $jobBoard->name ],
+        [ 'name' => $jobBoard->name,   'href' => route('admin.career.job-board.show', $jobBoard->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.job-board.index') ],

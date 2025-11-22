@@ -1,11 +1,12 @@
 @extends('admin.layouts.default', [
     'title' => 'Publication: ' . $publication->title,
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Publications',    'href' => route('admin.portfolio.publication.index') ],
-        [ 'name' => $publication->title ],
+        [ 'name' => 'Home',             'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',        'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Publications',     'href' => route('admin.portfolio.publication.index') ],
+        [ 'name' => $publication->name, 'href' => route('admin.portfolio.publication.show', $publication->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.publication.index') ],

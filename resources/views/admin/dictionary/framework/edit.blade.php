@@ -5,7 +5,8 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Frameworks',      'href' => route('admin.dictionary.framework.index') ],
-        [ 'name' => $framework->name ],
+        [ 'name' => $framework->name,  'href' => route('admin.dictionary.framework.show', $framework->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ],

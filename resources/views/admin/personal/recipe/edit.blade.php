@@ -5,7 +5,8 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
-        [ 'name' => $recipe->name ],
+        [ 'name' => $recipe->name,     'href' => route('admin.personal.recipe.show', $recipe->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.personal.recipe.index') ],

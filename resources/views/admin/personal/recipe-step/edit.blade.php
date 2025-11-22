@@ -1,12 +1,13 @@
 @extends('admin.layouts.default', [
     'title' => $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step,
     'breadcrumbs' => [
-        [ 'name' => 'Home',                      'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard',           'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',                  'href' => route('admin.personal.index') ],
-        [ 'name' => 'Recipes',                   'href' => route('admin.personal.recipe.index') ],
-        [ 'name' => $recipeStep->recipe['name'], 'href' => route('admin.personal.recipe.show', $recipeStep->recipe) ],
-        [ 'name' => 'Edit Step ' . $recipeStep->step ],
+        [ 'name' => 'Home',                       'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',            'href' => route('admin.dashboard') ],
+        [ 'name' => 'Personal',                   'href' => route('admin.personal.index') ],
+        [ 'name' => 'Recipes',                    'href' => route('admin.personal.recipe.index') ],
+        [ 'name' => $recipeStep->recipe['name'],  'href' => route('admin.personal.recipe.show', $recipeStep->recipe) ],
+        [ 'name' => 'Step ' . $recipeStep->step , 'href' => route('admin.personal.recipe-step.show', $recipeStep->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.personal.recipe-step.index') ],

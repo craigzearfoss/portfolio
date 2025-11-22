@@ -2,12 +2,13 @@ EDIT
 @extends('admin.layouts.default', [
     'title' => 'Recipe Ingredient: ' . $recipeIngredient->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
-        [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
-        [ 'name' => 'Ingredients',     'href' => route('admin.personal.recipe-ingredient.index') ],
-        [ 'name' => $recipeIngredient->name ],
+        [ 'name' => 'Home',                  'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',       'href' => route('admin.dashboard') ],
+        [ 'name' => 'Personal',              'href' => route('admin.personal.index') ],
+        [ 'name' => 'Recipes',               'href' => route('admin.personal.recipe.index') ],
+        [ 'name' => 'Ingredients',           'href' => route('admin.personal.recipe-ingredient.index') ],
+        [ 'name' => $recipeIngredient->name, 'href' => route('admin.personal.recipe-ingredient.show', $recipeIngredient->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.personal.recipe-ingredient.index') ],

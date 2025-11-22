@@ -1,11 +1,12 @@
 @extends('admin.layouts.default', [
     'title' => 'Certificate: ' . $certificate->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Certificates',    'href' => route('admin.portfolio.certificate.index') ],
-        [ 'name' => $certificate->name ],
+        [ 'name' => 'Home',             'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',        'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Certificates',     'href' => route('admin.portfolio.certificate.index') ],
+        [ 'name' => $certificate->name, 'href' => route('admin.portfolio.certificate.show', $certificate->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.certificate.index') ],

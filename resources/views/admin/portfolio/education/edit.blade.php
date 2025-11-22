@@ -5,7 +5,8 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Education',       'href' => route('admin.portfolio.education.index') ],
-        [ 'name' => $education->degreeType->name . ' ' . $education->major ],
+        [ 'name' => $education->degreeType->name . ' ' . $education->major, 'href' => route('admin.portfolio.education.show', $course->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.education.index') ],

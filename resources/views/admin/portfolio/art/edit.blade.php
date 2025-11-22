@@ -5,7 +5,8 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Art',             'href' => route('admin.portfolio.art.index') ],
-        [ 'name' => $art->name ],
+        [ 'name' => $art->name,        'href' => route('admin.portfolio.art.show', $art->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.art.index') ],

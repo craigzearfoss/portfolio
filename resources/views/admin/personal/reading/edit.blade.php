@@ -5,7 +5,8 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Readings',        'href' => route('admin.personal.reading.index') ],
-        [ 'name' => $reading->title ],
+        [ 'name' => $reading->title,   'href' => route('admin.personal.reading.show', $reading->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.personal.reading.index') ],

@@ -166,7 +166,7 @@ class BoDarville extends Command
         ];
 
         if (!empty($data)) {
-            RecipeIngredient::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            RecipeIngredient::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
         }
 
         // copy recipe-ingrenient images/files
@@ -197,7 +197,7 @@ class BoDarville extends Command
         ];
 
         if (!empty($data)) {
-            RecipeStep::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            RecipeStep::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
         }
 
         // copy recipe step images/files

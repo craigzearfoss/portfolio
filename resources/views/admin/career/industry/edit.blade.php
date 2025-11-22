@@ -5,7 +5,8 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Industries',      'href' => route('admin.career.industry.index') ],
-        [ 'name' => $industry->name ],
+        [ 'name' => $industry->name,   'href' => route('admin.career.industry.show', $industry->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.industry.index') ],

@@ -5,7 +5,7 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Academies',       'href' => route('admin.portfolio.academy.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => $academy->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.portfolio.academy.edit', $academy) ],

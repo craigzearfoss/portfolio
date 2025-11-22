@@ -5,7 +5,8 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Contacts',        'href' => route('admin.career.contact.index') ],
-        [ 'name' => $contact->name ],
+        [ 'name' => $contact->name,    'href' => route('admin.career.contact.show', $contact->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.contact.index') ],

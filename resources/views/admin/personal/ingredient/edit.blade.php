@@ -5,7 +5,8 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Ingredients',     'href' => route('admin.personal.ingredient.index') ],
-        [ 'name' => $ingredient->name ],
+        [ 'name' => $ingredient->name, 'href' => route('admin.personal.ingredient.show', $ingredient->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.personal.ingredient.index') ],

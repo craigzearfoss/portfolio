@@ -5,7 +5,8 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Audio',           'href' => route('admin.portfolio.audio.index') ],
-        [ 'name' => $audio->name ],
+        [ 'name' => $audio->name,      'href' => route('admin.portfolio.audio.show', $audio->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.audio.index') ],

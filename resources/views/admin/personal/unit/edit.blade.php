@@ -5,7 +5,8 @@
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Units',           'href' => route('admin.personal.unit.index') ],
-        [ 'name' => $unit->name ],
+        [ 'name' => $unit->name,       'href' => route('admin.personal.unit.show', $unit->id) ],
+        [ 'name' => 'Edit' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.personal.unit.index') ],
