@@ -156,6 +156,11 @@
             'value' => nl2br($publication->description ?? '')
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'disclaimer',
+            'value' => view('admin.components.disclaimer', [ 'value' => $publication->disclaimer ?? '' ])
+        ])
+
         @if(!empty($publication->image))
 
             @include('admin.components.show-row-image', [

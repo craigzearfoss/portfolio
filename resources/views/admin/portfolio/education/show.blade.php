@@ -104,6 +104,11 @@
             'value' => nl2br($education->description ?? '')
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'disclaimer',
+            'value' => view('admin.components.disclaimer', [ 'value' => $education->disclaimer ?? '' ])
+        ])
+
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => imageUrl($education->image),

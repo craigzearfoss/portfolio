@@ -154,6 +154,11 @@
             'value' => nl2br($music->description ?? '')
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'disclaimer',
+            'value' => view('admin.components.disclaimer', [ 'value' => $music->disclaimer ?? '' ])
+        ])
+
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $music->image,

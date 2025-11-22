@@ -111,6 +111,11 @@
             'value' => nl2br($contact->description ?? '')
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'disclaimer',
+            'value' => view('admin.components.disclaimer', [ 'value' => $contact->disclaimer ?? '' ])
+        ])
+
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $contact->image,

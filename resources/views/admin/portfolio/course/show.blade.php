@@ -129,6 +129,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'disclaimer',
+            'value' => view('admin.components.disclaimer', [ 'value' => $description->disclaimer ?? '' ])
+        ])
+
+        @include('admin.components.show-row', [
             'name'     => 'image',
             'src'      => imageUrl($course->image),
             'alt'      => $course->name,

@@ -36,9 +36,9 @@
         @include('admin.components.show-row', [
             'name'    => 'application',
             'value'   => view('admin.components.link', [
-                'name' => $coverLetter->name ?? '',
-                'href' => route('admin.career.application.show', $coverLetter->application),
-            ]),
+                             'name' => $coverLetter->name ?? '',
+                             'href' => route('admin.career.application.show', $coverLetter->application),
+                         ]),
             'message' => $message ?? '',
         ])
 
@@ -72,6 +72,11 @@
         @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => nl2br($coverLetter->description ?? '')
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'disclaimer',
+            'value' => view('admin.components.disclaimer', [ 'value' => $coverLetter->disclaimer ?? '' ])
         ])
 
         @include('admin.components.show-row-image', [
