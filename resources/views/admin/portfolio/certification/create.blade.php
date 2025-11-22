@@ -38,6 +38,37 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'abbreviation',
+                'label'     => 'abbreviation',
+                'value'     => old('abbreviation') ?? '',
+                'maxlength' => 50,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'     => 'certification_type_id',
+                'label'    => 'certification type',
+                'value'    => old('certification_type_id') ?? '',
+                'required' => true,
+                'list'     => \App\Models\Portfolio\CertificationType::listOptions([], 'id', 'name', true),
+                'message'  => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'organization',
+                'label'     => 'organization',
+                'value'     => old('organization') ?? '',
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? '',
                 'maxlength' => 500,

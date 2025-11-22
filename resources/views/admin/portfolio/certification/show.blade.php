@@ -4,8 +4,8 @@
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Certifications',       'href' => route('admin.portfolio.certification.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => 'Certifications',  'href' => route('admin.portfolio.certification.index') ],
+        [ 'name' => $certification->name ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.portfolio.certification.edit', $certification) ],
@@ -62,7 +62,7 @@
             'target' => '_blank'
         ])
 
-        @include('admin.components.show-row-link', [
+        @include('admin.components.show-row', [
             'name'   => 'link name',
             'value'  => $certification->link_name,
         ])

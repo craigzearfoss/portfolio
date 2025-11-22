@@ -97,7 +97,7 @@
 
                             @csrf
                             @method('DELETE')
-                            <button title="delete" type="submit" class="button is-small px-1 py-0">
+                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
                                 <i class="fa-solid fa-trash"></i>{{--  Delete--}}
                             </button>
                         </form>

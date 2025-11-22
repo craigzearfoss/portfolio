@@ -10,7 +10,7 @@
     } else {
         $style = '';
     }
-    $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'website', 'wikipedia']);
+    $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'postings_url', 'website', 'wikipedia']);
 @endphp
 <div class="field">
     @if($label !== '-')<label class="label">{{ $label }}</label> @endif
@@ -45,7 +45,7 @@
         @if (in_array($name, ['password', 'confirm_password']))
             <span class="icon is-small is-left"><i class="fas fa-key"></i></span>
         @endif
-        @if (in_array($name, ['link', 'website', 'wikipedia']))
+        @if (in_array($name, ['link', 'postings_url', 'website', 'wikipedia']))
             <span class="icon is-small is-left"><i class="fas fa-link"></i></span>
         @endif
 

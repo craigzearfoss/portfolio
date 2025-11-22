@@ -50,6 +50,7 @@ return new class extends Migration
                 'link_name' => null,
                 'sequence'  => 0,
                 'public'    => 1,
+                'root'      => 1,
             ],
             [
                 'id'        => 2,
@@ -59,6 +60,7 @@ return new class extends Migration
                 'link_name' => 'Coursera',
                 'sequence'  => 0,
                 'public'    => 1,
+                'root'      => 1,
             ],
             [
                 'id'        => 3,
@@ -68,6 +70,7 @@ return new class extends Migration
                 'link_name' => 'Gymnasium',
                 'sequence'  => 1,
                 'public'    => 1,
+                'root'      => 1,
             ],
             [
                 'id'        => 4,
@@ -77,6 +80,7 @@ return new class extends Migration
                 'link_name' => 'KodeKloud',
                 'sequence'  => 2,
                 'public'    => 1,
+                'root'      => 1,
             ],
             [
                 'id'        => 5,
@@ -86,6 +90,7 @@ return new class extends Migration
                 'link_name' => 'MongoDB University',
                 'sequence'  => 3,
                 'public'    => 1,
+                'root'      => 1,
             ],
             [
                 'id'        => 6,
@@ -95,6 +100,7 @@ return new class extends Migration
                 'link_name' => 'Scrimba',
                 'sequence'  => 4,
                 'public'    => 1,
+                'root'      => 1,
             ],
             [
                 'id'        => 7,
@@ -104,6 +110,7 @@ return new class extends Migration
                 'link_name' => 'SitePoint',
                 'sequence'  => 5,
                 'public'    => 1,
+                'root'      => 1,
             ],
             [
                 'id'        => 8,
@@ -113,6 +120,7 @@ return new class extends Migration
                 'link_name' => 'Udemy',
                 'sequence'  => 6,
                 'public'    => 1,
+                'root'      => 1,
             ],
             [
                 'id'        => 9,
@@ -122,6 +130,7 @@ return new class extends Migration
                 'link_name' => 'AWS Training and Certificate',
                 'sequence'  => 7,
                 'public'    => 1,
+                'root'      => 1,
             ],
         ];
 

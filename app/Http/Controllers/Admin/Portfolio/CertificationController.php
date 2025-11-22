@@ -122,7 +122,7 @@ class CertificationController extends Controller
 
         $certification->delete();
 
-        return redirect(str_replace(config('app.url'), '', 'admin.portfolio.certification.index'))
+        return redirect(route('admin.portfolio.certification.index'))
             ->with('success', $certification->name . ' deleted successfully.');
     }
 }

@@ -27,9 +27,11 @@ class Certification extends Model
         'name',
         'slug',
         'abbreviation',
-        'certification_id',
+        'certification_type_id',
         'organization',
         'notes',
+        'link',
+        'link_name',
         'description',
         'image',
         'image_credit',
@@ -45,10 +47,9 @@ class Certification extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'degree_type_id', 'major', 'minor', 'school_id', 'currently_enrolled',
-        'completed', 'start_month', 'start_year', 'end_month', 'end_year', 'public', 'readonly', 'root', 'disabled',
-        'demo'];
-    const SEARCH_ORDER_BY = ['major', 'asc'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'abbreviation', 'certification_type_id', 'organization',
+        'public', 'readonly', 'root', 'disabled', 'demo'];
+    const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
      * Get the degree type of the education.

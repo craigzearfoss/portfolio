@@ -11,3 +11,17 @@ function downloadFile(url, filename) {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    // Prompt to confirm with a delete button is clicked.
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            if (confirm('Are you sure you want to delete?')) {
+                button.form.submit();
+            }
+        });
+    });
+
+});

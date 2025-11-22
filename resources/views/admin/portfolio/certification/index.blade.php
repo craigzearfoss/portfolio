@@ -23,6 +23,7 @@
             <tr>
                 <th>name</th>
                 <th>abbreviation</th>
+                <th>type</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -33,6 +34,7 @@
             <tr>
                 <th>name</th>
                 <th>abbreviation</th>
+                <th>type</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -49,6 +51,9 @@
                     </td>
                     <td data-field="abbreviation">
                         {{ $certification->abbreviation }}
+                    </td>
+                    <td data-field="abbreviation">
+                        {{ $certification->certificationType->name }}
                     </td>
                     <td data-field="public" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $certification->public ])
@@ -85,7 +90,7 @@
 
                             @csrf
                             @method('DELETE')
-                            <button title="delete" type="submit" class="button is-small px-1 py-0">
+                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
                                 <i class="fa-solid fa-trash"></i>{{-- delete --}}
                             </button>
                         </form>
@@ -95,7 +100,7 @@
             @empty
 
                 <tr>
-                    <td colspan="5">There are no certifications.</td>
+                    <td colspan="6">There are no certifications.</td>
                 </tr>
 
             @endforelse

@@ -28,7 +28,7 @@ class AcademyController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $academies = Academy::orderBy('name', 'asc')->paginate($perPage);
+        $academies = Academy::where('name', '!=', 'other')->orderBy('name', 'asc')->paginate($perPage);
 
         return view('admin.portfolio.academy.index', compact('academies'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
@@ -125,7 +125,7 @@ class AcademyController extends BaseAdminController
 
         $academy->delete();
 
-        return redirect(str_replace(config('app.url'), '', 'admin.portfolio.academy.index'))
+        return redirect(route('admin.portfolio.academy.index'))
             ->with('success', $academy->name . ' deleted successfully.');
     }
 }
