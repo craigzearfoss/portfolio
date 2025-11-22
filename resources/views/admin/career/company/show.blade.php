@@ -95,6 +95,11 @@
             'value' => $company->alt_email
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $company->notes
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $company->link,

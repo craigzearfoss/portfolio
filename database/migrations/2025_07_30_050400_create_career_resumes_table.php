@@ -28,6 +28,7 @@ return new class extends Migration
             $table->text('content')->nullable();
             $table->string('doc_url')->nullable();
             $table->string('pdf_url')->nullable();
+            $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();

@@ -98,6 +98,12 @@
                     'message'   => $message ?? '',
                 ])
 
+                @include('admin.components.form-textarea-horizontal', [
+                    'name'    => 'notes',
+                    'value'   => old('notes') ?? $resume->notes,
+                    'message' => $message ?? '',
+                ])
+
                 @include('admin.components.form-input-horizontal', [
                     'name'    => 'link',
                     'value'   => old('link') ?? $resume->link,

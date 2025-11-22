@@ -86,6 +86,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $resume->notes
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'link name',
             'value' => $resume->link_name,
         ])

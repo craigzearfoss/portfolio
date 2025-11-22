@@ -96,6 +96,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $contact->notes
+        ])
+
+        @include('admin.components.show-row', [
             'name'   => 'link',
             'value'    => $contact->link,
         ])

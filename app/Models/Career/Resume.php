@@ -33,6 +33,7 @@ class Resume extends Model
         'content',
         'doc_url',
         'pdf_url',
+        'notes',
         'link',
         'link_name',
         'description',

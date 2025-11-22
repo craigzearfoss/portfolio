@@ -219,6 +219,11 @@
             'value' => $application->alt_email
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $application->notes
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $application->link,

@@ -191,6 +191,12 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-textarea-horizontal', [
+                'name'    => 'notes',
+                'value'   => old('notes') ?? $contact->notes,
+                'message' => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $contact->link,

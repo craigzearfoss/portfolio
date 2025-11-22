@@ -31,6 +31,7 @@ class CoverLetter extends Model
         'date',
         'content',
         'cover_letter_url',
+        'notes',
         'link',
         'link_name',
         'description',

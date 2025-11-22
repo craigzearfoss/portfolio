@@ -58,6 +58,11 @@
             'target' => '_blank'
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $coverLetter->notes
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $coverLetter->link,

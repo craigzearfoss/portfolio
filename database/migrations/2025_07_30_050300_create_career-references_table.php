@@ -49,6 +49,7 @@ return new class extends Migration
             $table->string('alt_email', 255)->nullable();
             $table->string('alt_email_label', 255)->nullable();
             $table->date('birthday')->nullable();
+            $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
             $table->text('description')->nullable();

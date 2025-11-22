@@ -50,6 +50,7 @@ class Company extends Model
         'email_label',
         'alt_email',
         'alt_email_label',
+        'notes',
         'link',
         'link_name',
         'description',

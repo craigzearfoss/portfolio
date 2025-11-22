@@ -100,6 +100,11 @@
             'value' => longDate($reference->birthday)
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => $reference->notes
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'href'   => $reference->link,
