@@ -46,7 +46,6 @@ class Job extends Model
         'end_year',
         'job_employment_type_id',
         'job_location_type_id',
-        'notes',
         'street',
         'street2',
         'city',
