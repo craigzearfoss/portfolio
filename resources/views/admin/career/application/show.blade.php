@@ -328,7 +328,7 @@
     ])
 
     @include('admin.career.application.note.panel', [
-        'notes' => $application->notes ?? [],
+        'notes' => $application->application_notes ?? [],
         'links' => [
             'add' => route('admin.career.note.create', ['application_id' => $application->id])
         ]

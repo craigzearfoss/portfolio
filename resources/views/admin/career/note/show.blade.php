@@ -1,11 +1,13 @@
 @extends('admin.layouts.default', [
     'title' => 'Note',
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Notes',           'href' => route('admin.career.note.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => 'Home',                    'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',                  'href' => route('admin.career.index') ],
+        [ 'name' => 'Applications',            'href' => route('admin.career.application.index') ],
+        [ 'name' => $note->application->name,  'href' => route('admin.career.application.show', $note->application->id) ],
+        [ 'name' => 'Notes',                   'href' => route('admin.career.communication.index', ['application_id' => $note->application->id]) ],
+        [ 'name' => 'Note' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.note.edit', $note) ],

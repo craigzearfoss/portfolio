@@ -6,7 +6,10 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreApplicationsRequest;
 use App\Http\Requests\Career\UpdateApplicationsRequest;
 use App\Models\Career\Application;
+use App\Models\Career\Communication;
 use App\Models\Career\CoverLetter;
+use App\Models\Career\Event;
+use App\Models\Career\Note;
 use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -74,7 +77,6 @@ class ApplicationController extends BaseAdminController
         if (empty($application->coverLetter)) {
             $application = $this->createCoverLetter($application);
         }
-
         return view('admin.career.application.show', compact('application'));
     }
 

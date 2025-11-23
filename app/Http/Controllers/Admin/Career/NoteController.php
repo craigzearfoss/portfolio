@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Career;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreNotesRequest;
 use App\Http\Requests\Career\UpdateNotesRequest;
+use App\Models\Career\Application;
 use App\Models\Career\Note;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -25,20 +26,33 @@ class NoteController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $notes = Note::latest()->paginate($perPage);
+        $applicationId = $request->application_id;
+        if (!empty($applicationId)) {
+            $application = Application::find($applicationId);
+            $communications = Note::where('application_id', $applicationId)->latest()->paginate($perPage);
+        } else {
+            $application = null;
+            $communications = Note::latest()->paginate($perPage);
+        }
 
-        return view('admin.career.note.index', compact('notes'))
+        return view('admin.career.note.index', compact('notes', 'application'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Show the form for creating a new note.
      *
+     * @param Request $request
      * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.career.note.create');
+        $applicationId = $request->application_id;
+        $application = !empty($applicationId)
+            ? Application::find($applicationId)
+            : null;
+
+        return view('admin.career.note.create', compact('application'));
     }
 
     /**

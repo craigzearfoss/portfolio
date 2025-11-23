@@ -1,11 +1,13 @@
 @extends('admin.layouts.default', [
     'title' => $title ?? 'Create Event',
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Events',          'href' => route('admin.career.event.index') ],
-        [ 'name' => 'Add' ],
+        [ 'name' => 'Home',                    'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',                  'href' => route('admin.career.index') ],
+        [ 'name' => 'Applications',            'href' => route('admin.career.application.index') ],
+        [ 'name' => $event->application->name, 'href' => route('admin.career.application.show', $event->application->id) ],
+        [ 'name' => 'Events',                  'href' => route('admin.career.communication.index', ['application_id' => $event->application->id]) ],
+        [ 'name' => 'Create ']
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.event.index') ],
@@ -48,7 +50,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'application_id',
                 'label'   => 'application',
-                'value'   => old('application_id') ?? '',
+                'value'   => old('application_id') ?? $application->id ?? '',
                 'list'    => \App\Models\Career\Application::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])

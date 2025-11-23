@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Career;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreCommunicationsRequest;
 use App\Http\Requests\Career\UpdateCommunicationsRequest;
+use App\Models\Career\Application;
 use App\Models\Career\Communication;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -25,20 +26,33 @@ class CommunicationController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $communications = Communication::latest()->paginate($perPage);
+        $applicationId = $request->application_id;
+        if (!empty($applicationId)) {
+            $application = Application::find($applicationId);
+            $communications = Communication::where('application_id', $applicationId)->latest()->paginate($perPage);
+        } else {
+            $application = null;
+            $communications = Communication::latest()->paginate($perPage);
+        }
 
-        return view('admin.career.communication.index', compact('communications'))
+        return view('admin.career.communication.index', compact('communications', 'application'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Show the form for creating a new communication.
      *
+     * @param Request $request
      * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.career.communication.create');
+        $applicationId = $request->application_id;
+        $application = !empty($applicationId)
+            ? Application::find($applicationId)
+            : null;
+
+        return view('admin.career.communication.create', compact('application'));
     }
 
     /**

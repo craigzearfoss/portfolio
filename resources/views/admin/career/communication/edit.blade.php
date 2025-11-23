@@ -1,11 +1,13 @@
 @extends('admin.layouts.default', [
     'title' => $title ?? 'Edit Communication',
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Communications',  'href' => route('admin.career.communication.index') ],
-        [ 'name' => 'Edit' ],
+        [ 'name' => 'Home',                            'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',                 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',                          'href' => route('admin.career.index') ],
+        [ 'name' => 'Applications',                    'href' => route('admin.career.application.index') ],
+        [ 'name' => $communication->application->name, 'href' => route('admin.career.application.show', $communication->application->id) ],
+        [ 'name' => 'Communications',                  'href' => route('admin.career.communication.index', ['application_id' => $communication->application->id]) ],
+        [ 'name' => 'Communication' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.communication.index') ],

@@ -1,11 +1,13 @@
 @extends('admin.layouts.default', [
     'title' => 'Communication',
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Communications',  'href' => route('admin.career.communication.index') ],
-        [ 'name' => 'Show' ],
+        [ 'name' => 'Home',                            'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',                 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',                          'href' => route('admin.career.index') ],
+        [ 'name' => 'Applications',                    'href' => route('admin.career.application.index') ],
+        [ 'name' => $communication->application->name, 'href' => route('admin.career.application.show', $communication->application->id) ],
+        [ 'name' => 'Communications',                  'href' => route('admin.career.communication.index', ['application_id' => $communication->application->id]) ],
+        [ 'name' => 'Communication' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',         'href' => route('admin.career.communication.edit', $communication) ],
@@ -66,8 +68,8 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'    => 'sequence',
-            'checked' => $communication->sequence
+            'name'  => 'sequence',
+            'value' => $communication->sequence
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -76,9 +78,9 @@
         ])
 
         @include('admin.components.show-row-checkbox', [
-            'name'     => 'readonly',
-            'readonly' => 'read-only',
-            'checked'  => $communication->readonly
+            'name'    => 'readonly',
+            'label'   => 'read-only',
+            'checked' => $communication->readonly
         ])
 
         @include('admin.components.show-row-checkbox', [

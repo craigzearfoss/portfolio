@@ -228,7 +228,7 @@ class Application extends Model
     /**
      * Get the notes for the application.
      */
-    public function notes(): HasMany
+    public function application_notes(): HasMany
     {
         return $this->hasMany(Note::class, 'application_id')
             ->orderBy('created_at', 'desc');

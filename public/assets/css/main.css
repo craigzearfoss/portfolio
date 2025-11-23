@@ -148,3 +148,7 @@ p {
 .tabs-content li.is-active {
     display: block;
 }
+
+table tbody tr td p {
+    margin-bottom: 0 !important;
+}

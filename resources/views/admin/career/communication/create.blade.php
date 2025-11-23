@@ -1,11 +1,13 @@
 @extends('admin.layouts.default', [
     'title' => $title ?? 'Add New Communication',
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Communications',  'href' => route('admin.career.communication.index') ],
-        [ 'name' => 'Add' ],
+        [ 'name' => 'Home',                            'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',                 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',                          'href' => route('admin.career.index') ],
+        [ 'name' => 'Applications',                    'href' => route('admin.career.application.index') ],
+        [ 'name' => $communication->application->name, 'href' => route('admin.career.application.show', $communication->application->id) ],
+        [ 'name' => 'Communications',                  'href' => route('admin.career.communication.index', ['application_id' => $communication->application->id]) ],
+        [ 'name' => 'Create ']
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.communication.index') ],
@@ -48,7 +50,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'application_id',
                 'label'   => 'application',
-                'value'   => old('application_id') ?? '',
+                'value'   => old('application_id') ?? $application->id ?? '',
                 'list'    => \App\Models\Career\Application::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])

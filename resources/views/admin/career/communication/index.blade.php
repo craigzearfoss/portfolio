@@ -1,11 +1,13 @@
 @extends('admin.layouts.default', [
     'title' => 'Communications',
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Communications' ]
-    ],
+        [ 'name' => 'Home',                            'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',                 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',                          'href' => route('admin.career.index') ],
+        [ 'name' => 'Applications',                    'href' => route('admin.career.application.index') ],
+        [ 'name' => $communication->application->name, 'href' => route('admin.career.application.show', $communication->application->id) ],
+        [ 'name' => 'Communications' ],
+     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.communication.create') ],
     ],
@@ -24,6 +26,9 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
+                @if(empty($application))
+                    <th>application</th>
+                @endif
                 <th>subject</th>
                 <th>date</th>
                 <th>time</th>
@@ -35,6 +40,9 @@
             <tr>
                 @if(isRootAdmin())
                     <th>owner</th>
+                @endif
+                @if(empty($application))
+                    <th>application</th>
                 @endif
                 <th>subject</th>
                 <th>date</th>
@@ -51,6 +59,14 @@
                     @if(isRootAdmin())
                         <td data-field="owner.username">
                             {{ $communication->owner['username'] ?? '' }}
+                        </td>
+                    @endif
+                    @if(empty($application))
+                        <td data-field="application_id">
+                            @include('admin.components.link', [
+                                'name' => $communication->application->name,
+                                'href' => route('admin.career.application.show', $communication->application->id)
+                            ])
                         </td>
                     @endif
                     <td data-field="subject" style="white-space: nowrap;">
@@ -87,6 +103,10 @@
             @empty
 
                 <tr>
+                    @php
+                    $colspan = isRootAdmin() ? '5' : '4';
+                    if (!empty($application)) $colspan = $colspan++;
+                    @endphp
                     <td colspan="{{ isRootAdmin() ? '5' : '4' }}">There are no communications.</td>
                 </tr>
 

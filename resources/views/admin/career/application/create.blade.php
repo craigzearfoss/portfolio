@@ -65,7 +65,7 @@
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'job_board_id',
                 'label'   => 'job board',
-                'value'   => old('job_board_id') ?? 1,
+                'value'   => old('job_board_id') ?? '',
                 'list'    => \App\Models\Career\JobBoard::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])
@@ -139,9 +139,9 @@
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'compensation_unit',
+                'name'    => 'compensation_unit_id',
                 'label'   => 'compensation unit',
-                'value'   => old('compensation_unit') ?? '',
+                'value'   => old('compensation_unit_id') ?? '',
                 'list'    => \App\Models\Career\CompensationUnit::listOptions([], 'id', 'name', true),
                 'message' => $message ?? '',
             ])

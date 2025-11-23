@@ -1,10 +1,12 @@
 @extends('admin.layouts.default', [
     'title' => 'Notes',
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Notes' ]
+        [ 'name' => 'Home',                    'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',                  'href' => route('admin.career.index') ],
+        [ 'name' => 'Applications' ,           'href' => route('admin.career.application.index') ],
+        [ 'name' => $event->application->name, 'href' => route('admin.career.application.show', $note->application->id) ],
+        [ 'name' => 'Notes',                   'href' => route('admin.career.communication.index', ['application_id' => $note->application->id]) ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Note', 'href' => route('admin.career.note.create') ],
@@ -24,6 +26,9 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
+                @if(empty($application))
+                    <th>application</th>
+                @endif
                 <th>subject</th>
                 <th>created at</th>
                 <th>actions</th>
@@ -34,6 +39,9 @@
             <tr>
                 @if(isRootAdmin())
                     <th>owner</th>
+                @endif
+                @if(empty($application))
+                    <th>application</th>
                 @endif
                 <th>subject</th>
                 <th>created at</th>
@@ -49,6 +57,14 @@
                     @if(isRootAdmin())
                         <td data-field="owner.username">
                             {{ $note->owner['username'] ?? '' }}
+                        </td>
+                    @endif
+                    @if(empty($application))
+                        <td data-field="application_id">
+                            @include('admin.components.link', [
+                                'name' => $note->application->name,
+                                'href' => route('admin.career.application.show', $note->application->id)
+                            ])
                         </td>
                     @endif
                     <td data-field="subject" style="white-space: nowrap;">
@@ -82,7 +98,11 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '4' : '3' }}">There are no notes.</td>
+                    @php
+                    $colspan = isRootAdmin() ? '4' : '3';
+                    if (!empty($application)) $colspan = $colspan++;
+                    @endphp
+                    <td colspan="{{ $colspan }}">There are no notes.</td>
                 </tr>
 
             @endforelse
