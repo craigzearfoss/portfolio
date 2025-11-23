@@ -45,7 +45,7 @@
                     <td data-field="name">
                         @include('guest.components.link', [
                             'name'  => $project->name,
-                            'href'  => route('guest.admin.portfolio.project.show', [$project->owner->username, $project->slug]),
+                            'href'  => route('guest.admin.portfolio.project.show', [$project->owner->label, $project->slug]),
                             'class' => $project->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

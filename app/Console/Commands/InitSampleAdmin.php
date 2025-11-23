@@ -396,6 +396,7 @@ class InitSampleAdmin extends Command
                 'admin_team_id'     => $adminTeamId,
                 'username'          => $username,
                 'name'              => $Name,
+                'label'             => self::USER_DATA[$username]['label'] ?? null,
                 'email'             => $EmailAddress,
                 'role'              => self::USER_DATA[$username]['role'] ?? null,
                 'employer'          => self::USER_DATA[$username]['employer'] ?? null,

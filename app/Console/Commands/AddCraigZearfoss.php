@@ -62,9 +62,25 @@ class AddCraigZearfoss extends Command
         $this->demo   = $this->option('demo');
         $this->silent = $this->option('silent');
 
-        while (strlen($this->password) < 8) {
-            $this->password = text(PHP_EOL . 'Enter a password for the user (at least 8 characters)');
+        $passwordGood= false;
+        $confirmPassword = null;
+        while (!$passwordGood) {
+
+            while (strlen($this->password) < 8) {
+                $this->password = text(PHP_EOL . 'Enter a password for the user (at least 8 characters).');
+            }
+
+            $confirmPassword = text(PHP_EOL . 'Confirm the password.');
+
+            if ($confirmPassword === $this->password) {
+                $passwordGood = true;
+            } else {
+                echo 'Passwords do not match.';
+                $this->password = null;
+                $confirmPassword = null;
+            }
         }
+
 
         $this->insertAdmin($username, $adminTeamId, $adminGroupId);
     }
@@ -348,6 +364,7 @@ class AddCraigZearfoss extends Command
                 'id'                => $adminId,
                 'admin_team_id'     => $adminTeamId,
                 'username'          => $username,
+                'label'             => self::USER_DATA[$username]['label'] ?? null,
                 'name'              => $Name,
                 'email'             => $EmailAddress,
                 'role'              => self::USER_DATA[$username]['role'] ?? null,

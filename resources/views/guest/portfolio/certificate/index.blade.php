@@ -49,7 +49,7 @@
                     <td>
                         @include('guest.components.link', [
                             'name'  => $certificate->name,
-                            'href'  => route('guest.admin.portfolio.certificate.show', [$certificate->owner->username, $certificate->slug]),
+                            'href'  => route('guest.admin.portfolio.certificate.show', [$certificate->owner->label, $certificate->slug]),
                             'class' => $certificate->featured ? 'has-text-weight-bold' : ''
                         ])
                     </td>

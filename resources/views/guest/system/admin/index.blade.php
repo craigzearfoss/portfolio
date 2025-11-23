@@ -58,7 +58,7 @@
                     </td>
                     <td data-field="name">
                         @include('guest.components.link', [
-                            'name' => !empty($admin->name) ? $admin->name : $admin->username,
+                            'name' => !empty($admin->name) ? $admin->name : $admin->label,
                             'href' => route('guest.admin.show', $admin),
                         ])
                     </td>
