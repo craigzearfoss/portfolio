@@ -28,7 +28,13 @@ class AddCraigZearfoss extends Command
     protected $contactIds = [];
 
     const USER_DATA = [
-        'craig-zearfoss' => [ 'name' => 'Craig Zearfoss', 'email' => 'craigzearfoss@yahoo.com', 'role' => 'Senior Software Developer', 'employer' => 'Idaho National Laboratory' ],
+        'craig-zearfoss' => [
+            'name'       => 'Craig Zearfoss',
+            'label'      => 'Craig Zearfoss',
+            'email'      => 'craigzearfoss@yahoo.com',
+            'role'       => 'Senior Software Developer',
+            'employer'   => 'Idaho National Laboratory'
+        ],
     ];
 
     /**

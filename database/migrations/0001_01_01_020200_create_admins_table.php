@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignIdFor( \App\Models\System\AdminTeam::class);
             $table->string('username', 200)->unique();
             $table->string('name')->nullable(); // note that name is not required for admins
+            $table->string('label', 200)->unique();
             $table->string('title', 100)->nullable();
             $table->string('role', 100)->nullable();
             $table->string('employer', 100)->nullable();
@@ -64,7 +65,8 @@ return new class extends Migration
                 'admin_team_id'     => 1,
                 'username'          => 'root',
                 'name'              => 'Root Admin',
-                'email'             => 'root@gmail.com',
+                'label'             => 'root-admin',
+                'email'             => 'root@sample.com',
                 'email_verified_at' => now(),
                 'password'          => Hash::make('changeme'),
                 'status'            => 1,
@@ -78,7 +80,8 @@ return new class extends Migration
                 'admin_team_id'     => 1,
                 'username'          => 'default-admin',
                 'name'              => 'Default Admin',
-                'email'             => 'admin@gmail.com',
+                'label'             => 'default-admin',
+                'email'             => 'default-admin@sampli.com',
                 'email_verified_at' => now(),
                 'password'          => Hash::make('changeme'),
                 'image'             => '/images/admin/2/profile.png',
@@ -92,7 +95,8 @@ return new class extends Migration
                 'admin_team_id'     => 1,
                 'username'          => 'demo-admin',
                 'name'              => 'Demo Admin',
-                'email'             => 'demo@gmail.com',
+                'label'             => 'demo-admin',
+                'email'             => 'demo-admin@sample.com',
                 'email_verified_at' => now(),
                 'password'          => Hash::make('Shpadoinkle!'),
                 'image'             => '/images/admin/3/profile.png',

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('username', 200)->unique();
             $table->string('name');
+            $table->string('label', 200)->unique();
             $table->string('title', 100)->nullable();
             $table->string('role', 100)->nullable();
             $table->string('employer', 100)->nullable();
@@ -74,7 +75,8 @@ return new class extends Migration
                 'id'                => 1,
                 'username'          => 'sample-user',
                 'name'              => 'Sample User',
-                'email'             => 'user@gmail.com',
+                'label'             => 'sample-user',
+                'email'             => 'sample-user@gsample.com',
                 'email_verified_at' => now(),
                 'password'          => Hash::make(uniqid()),
                 'status'            => 1,
@@ -84,7 +86,8 @@ return new class extends Migration
                 'id'                => 2,
                 'username'          => 'demo-user',
                 'name'              => 'Demo User',
-                'email'             => 'demo-user@gmail.com',
+                'label'             => 'demo-user',
+                'email'             => 'demo-user@sample.com',
                 'email_verified_at' => now(),
                 'password'          => Hash::make(uniqid()),
                 'status'            => 1,

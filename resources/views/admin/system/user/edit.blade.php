@@ -62,6 +62,16 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'label',
+                'label'     => 'label (displayed in url)',
+                'value'     => old('label') ??  $user->label,
+                'minlength' => 6,
+                'maxlength' => 200,
+                'required'  => true,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-select-horizontal', [
                 'name'    => 'title',
                 'value'   => old('title') ?? $user->title,

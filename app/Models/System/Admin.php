@@ -27,6 +27,7 @@ class Admin extends Authenticatable
     protected $fillable = [
         'admin_team_id',
         'username',
+        'label',
         'name',
         'title',
         'role',

@@ -51,6 +51,16 @@
                         'message'   => $message ?? '',
                     ])
 
+                    @include('admin.components.form-input-horizontal', [
+                        'name'      => 'label',
+                        'label'     => 'label (displayed in url)',
+                        'value'     => old('label') ??  '',
+                        'minlength' => 6,
+                        'maxlength' => 200,
+                        'required'  => true,
+                        'message'   => $message ?? '',
+                    ])
+
                     @include('admin.components.form-select-horizontal', [
                         'name'    => 'team_id',
                         'label'   => 'team',
