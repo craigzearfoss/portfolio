@@ -40,6 +40,11 @@ class IndexController extends BaseAdminController
             $inputs = $request->all();
             $username = $inputs['username'] ?? '';
 
+            if ($username == config('app.demo_admin_username') && !config('app.demo_admin_enabled')) {
+                return view(themedTemplate('admin.login'))
+                    ->withErrors('demo-admin has been disabled.');
+            }
+
             $request->validate([
                 'username' => ['required'],
                 'password' => ['required'],
