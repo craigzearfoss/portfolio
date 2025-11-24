@@ -222,7 +222,7 @@ class Application extends Model
             ? ' [applied: ' . $this->apply_date . ']'
             : (!empty($this->post_date) ? ' [applied: ' . $this->apply_date . ']' : '');
 
-        return $company . ' - ' . $role . $date;
+        return $company . ' - ' . $role /* . $date */;
     }
 
     /**
