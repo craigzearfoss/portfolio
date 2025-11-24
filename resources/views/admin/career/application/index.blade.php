@@ -24,25 +24,32 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
+                <th>name</th>
+                <?php /*
                 <th>company</th>
                 <th>role</th>
+                */ ?>
                 <th>active</th>
                 <th>rating</th>
+                <?php /*
                 <th>posted</th>
+                */ ?>
                 <th>applied</th>
-                <th>duration</th>
                 <th>compensation</th>
+                <?php /*
+                <th>duration</th>
+                */ ?>
                 <th class="has-text-centered">employment<br>type</th>
                 <th class="has-text-centered">location<br>type</th>
                 <th>location</th>
+                    <?php /*
                 <th class="has-text-centered">w2</th>
-                <?php /*
                 <th class="has-text-centered">relo</th>
                 <th class="has-text-centered">ben</th>
                 <th class="has-text-centered">vac</th>
                 <th class="has-text-centered">health</th>
-                */ ?>
                 <th>source</th>
+                */ ?>
                 <th>actions</th>
             </tr>
             </thead>
@@ -52,14 +59,15 @@
                 @if(isRootAdmin())
                     <th>owner</th>
                 @endif
+                <th>name</th>
                 <th>company</th>
                 <th>role</th>
                 <th>active</th>
                 <th>rating</th>
                 <th>posted</th>
                 <th>applied</th>
-                <th>duration</th>
                 <th>compensation</th>
+                <th>duration</th>
                 <th class="has-text-centered">employment<br>type</th>
                 <th class="has-text-centered">location<br>type</th>
                 <th>location</th>
@@ -83,6 +91,10 @@
                             {{ $application->owner['username'] ?? '' }}
                         </td>
                     @endif
+                    <td data-field="name">
+                        {{$application->name}}
+                    </td>
+                    <?php /*
                     <td data-field="company.name" style="white-space: nowrap;">
                         @if(!empty($application->company))
                             @include('admin.components.link', [
@@ -94,20 +106,20 @@
                     <td data-field="role">
                         {{ $application->role }}
                     </td>
+                    */ ?>
                     <td data-field="active" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->active ])
                     </td>
                     <td data-field="rating" class="has-text-centered ">
                         @include('admin.components.star-ratings', [ 'rating' => $application->rating ])
                     </td>
+                    <?php /*
                     <td data-field="post_date" style="white-space: nowrap;">
                         {{ !empty($application->post_date) ? date('M j', strtotime($application->post_date)) : '' }}
                     </td>
+                    */ ?>
                     <td data-field="apply_date" style="white-space: nowrap;">
                         {{ !empty($application->apply_date) ? date('M j', strtotime($application->apply_date)) : '' }}
-                    </td>
-                    <td data-field="job_duration_id">
-                        {{ $application->durationType['name'] }}
                     </td>
                     <td data-field="compensation" style="white-space: nowrap;">
                         {!!
@@ -119,6 +131,11 @@
                             ])
                         !!}
                     </td>
+                    <?php /*
+                    <td data-field="job_duration_id">
+                        {{ $application->durationType['name'] }}
+                    </td>
+                    */ ?>
                     <td data-field="job_employment_type_id" class="has-text-centered" >
                         {{ $application->employmentType['name'] ?? '' }}
                     </td>
@@ -133,10 +150,10 @@
                             ])
                         !!}
                     </td>
+                    <?php /*
                     <td data-field="w2" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->w2 ])
                     </td>
-                    <?php /*
                     <td data-field="relocation" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->relocation ])
                     </td>
@@ -149,10 +166,10 @@
                     <td data-field="health" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $application->health ])
                     </td>
-                    */ ?>
                     <td data-field="job_board_id">
                         {{ $application->jobBoard['name'] ?? '' }}
                     </td>
+                    */ ?>
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.application.destroy', $application->id) }}" method="POST">
 
@@ -192,7 +209,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '15' : '14' }}">There are no applications.</td>
+                    <td colspan="{{ isRootAdmin() ? '14' : '13' }}">There are no applications.</td>
                 </tr>
 
             @endforelse

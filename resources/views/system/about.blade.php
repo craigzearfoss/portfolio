@@ -86,6 +86,12 @@
                     <li>Create an API.</li>
                     <li>Make the pages more dynamic.</li>
                     <li>Enhance search capabilities.</li>
+                    <li>Hide Create/Edit/Delete buttons if the user does not have the proper permissions.</li>
+                    <li>Add a Current Admins/Users pages for root admins using the sessions table.</li>
+                    <li>Allow admins/users to be logged off with the requires_login column.</li>
+                    <li>Create a way to log out all users and/or admins, probably through a console command.</li>
+                    <li>Completely implement responsive design for mobile.</li>
+                    <li>Work of the site styles to make it look pretty. Possibly implement light and dark themes.</li>
                     <li>Create a one-click method to bookmark job application webpages and import the job description text.</li>
                     <li>Stress test the site to verify it's performance.</li>
                 </ul>
