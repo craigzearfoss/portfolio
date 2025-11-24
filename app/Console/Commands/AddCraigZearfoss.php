@@ -30,7 +30,7 @@ class AddCraigZearfoss extends Command
     const USER_DATA = [
         'craig-zearfoss' => [
             'name'       => 'Craig Zearfoss',
-            'label'      => 'Craig Zearfoss',
+            'label'      => 'craig-zearfoss',
             'email'      => 'craigzearfoss@yahoo.com',
             'role'       => 'Senior Software Developer',
             'employer'   => 'Idaho National Laboratory'
