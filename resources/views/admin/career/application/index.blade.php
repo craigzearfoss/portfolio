@@ -136,7 +136,7 @@
                         {{ $application->durationType['name'] }}
                     </td>
                     */ ?>
-                    <td data-field="job_employment_type_id" class="has-text-centered" >
+                    <td data-field="job_employment_type_id" class="has-text-centered" style="white-space: nowrap;">
                         {{ $application->employmentType['name'] ?? '' }}
                     </td>
                     <td data-field="job_location_type_id" class="has-text-centered">
