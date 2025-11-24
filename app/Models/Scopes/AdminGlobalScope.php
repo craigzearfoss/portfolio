@@ -6,21 +6,25 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 class AdminGlobalScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
-        if ($admin = Auth::guard('admin')->user()) {
-            // this is an admin
-            if (!isRootAdmin()) {
+        $routeName = Route::currentRouteName();
+
+        if (explode('.', $routeName)[0] == 'admin') {
+
+            // this is an admin route
+            if (isRootAdmin()) {
+                $admin = Auth::guard('admin')->user();
                 $builder->where($model->getTable().'.owner_id', $admin->id);
             }
-        } elseif ($admin = Auth::guard('user')->user()) {
-            // this is a user
-            $builder->where('public', 1)->where('disabled', 0);
+
         } else {
-            // this is a guest
+
+            // this is a user or guest route
             $builder->where('public', 1)->where('disabled', 0);
         }
     }
