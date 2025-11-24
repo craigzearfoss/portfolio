@@ -25,11 +25,11 @@ return new class extends Migration
             $table->integer('end_year')->nullable();
             $table->integer('years')->default(0);
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(0);
-            $table->tinyInteger('readonly')->default(0);
-            $table->tinyInteger('root')->default(0);
-            $table->tinyInteger('disabled')->default(0);
-            $table->tinyInteger('demo')->default(0);
+            $table->boolean('public')->default(false);
+            $table->boolean('readonly')->default(false);
+            $table->boolean('root')->default(false);
+            $table->boolean('disabled')->default(false);
+            $table->boolean('demo')->default(false);
 
             $table->unique(['owner_id', 'name'], 'owner_id_name_unique');
         });

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('version', 20)->nullable();
-            $table->tinyInteger('featured')->default(0);
+            $table->boolean('featured')->default(false);
             $table->string('summary')->nullable();
             $table->tinyInteger('level')->default(1);
             $table->foreignIdFor(\App\Models\Dictionary\Category::class, 'dictionary_category_id')->nullable();
@@ -42,11 +42,11 @@ return new class extends Migration
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(0);
-            $table->tinyInteger('readonly')->default(0);
-            $table->tinyInteger('root')->default(0);
-            $table->tinyInteger('disabled')->default(0);
-            $table->tinyInteger('demo')->default(0);
+            $table->boolean('public')->default(false);
+            $table->boolean('readonly')->default(false);
+            $table->boolean('root')->default(false);
+            $table->boolean('disabled')->default(false);
+            $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

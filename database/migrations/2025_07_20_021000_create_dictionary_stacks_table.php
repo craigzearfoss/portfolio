@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();
             $table->string('definition', 500)->nullable();
-            $table->tinyInteger('open_source')->default(0);
-            $table->tinyInteger('proprietary')->default(0);
-            $table->tinyInteger('compiled')->default(0);
+            $table->boolean('open_source')->default(false);
+            $table->boolean('proprietary')->default(false);
+            $table->boolean('compiled')->default(false);
             $table->string('owner', 100)->nullable();
             $table->string('wikipedia', 500)->nullable();
             $table->string('link', 500)->nullable();
@@ -34,10 +34,10 @@ return new class extends Migration
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(1);
-            $table->tinyInteger('readonly')->default(0);
-            $table->tinyInteger('root')->default(0);
-            $table->tinyInteger('disabled')->default(0);
+            $table->boolean('public')->default(true);
+            $table->boolean('readonly')->default(false);
+            $table->boolean('root')->default(false);
+            $table->boolean('disabled')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

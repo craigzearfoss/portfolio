@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('name');
             $table->date('date')->nullable();
-            $table->tinyInteger('primary')->default(0);
+            $table->boolean('primary')->default(false);
             $table->text('content')->nullable();
             $table->string('doc_url')->nullable();
             $table->string('pdf_url')->nullable();
@@ -38,11 +38,11 @@ return new class extends Migration
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(0);
-            $table->tinyInteger('readonly')->default(0);
-            $table->tinyInteger('root')->default(0);
-            $table->tinyInteger('disabled')->default(0);
-            $table->tinyInteger('demo')->default(0);
+            $table->boolean('public')->default(false);
+            $table->boolean('readonly')->default(false);
+            $table->boolean('root')->default(false);
+            $table->boolean('disabled')->default(false);
+            $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

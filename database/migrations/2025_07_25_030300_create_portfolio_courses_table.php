@@ -24,10 +24,10 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('name');
             $table->string('slug');
-            $table->tinyInteger('featured')->default(0);
+            $table->boolean('featured')->default(false);
             $table->string('summary')->nullable();
             $table->integer('year')->nullable();
-            $table->tinyInteger('completed')->default(0);
+            $table->boolean('completed')->default(false);
             $table->date('completion_date')->nullable();
             $table->float('duration_hours')->nullable();
             $table->foreignIdFor( \App\Models\Portfolio\Academy::class)->nullable();
@@ -45,11 +45,11 @@ return new class extends Migration
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(1);
-            $table->tinyInteger('readonly')->default(0);
-            $table->tinyInteger('root')->default(0);
-            $table->tinyInteger('disabled')->default(0);
-            $table->tinyInteger('demo')->default(0);
+            $table->boolean('public')->default(true);
+            $table->boolean('readonly')->default(false);
+            $table->boolean('root')->default(false);
+            $table->boolean('disabled')->default(false);
+            $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

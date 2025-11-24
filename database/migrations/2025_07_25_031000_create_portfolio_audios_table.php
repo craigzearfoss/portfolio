@@ -25,12 +25,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->foreignIdFor(\App\Models\Portfolio\Audio::class, 'parent_id')->nullable();
-            $table->tinyInteger('featured')->default(0);
+            $table->boolean('featured')->default(false);
             $table->string('summary')->nullable();
-            $table->tinyInteger('full_episode')->default(0);
-            $table->tinyInteger('clip')->default(0);
-            $table->tinyInteger('podcast')->default(0);
-            $table->tinyInteger('source_recording')->default(0);
+            $table->boolean('full_episode')->default(false);
+            $table->boolean('clip')->default(false);
+            $table->boolean('podcast')->default(false);
+            $table->boolean('source_recording')->default(false);
             $table->date('date')->nullable();
             $table->integer('year')->nullable();
             $table->string('company')->nullable();
@@ -55,11 +55,11 @@ return new class extends Migration
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(1);
-            $table->tinyInteger('readonly')->default(0);
-            $table->tinyInteger('root')->default(0);
-            $table->tinyInteger('disabled')->default(0);
-            $table->tinyInteger('demo')->default(0);
+            $table->boolean('public')->default(true);
+            $table->boolean('readonly')->default(false);
+            $table->boolean('root')->default(false);
+            $table->boolean('disabled')->default(false);
+            $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

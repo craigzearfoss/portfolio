@@ -25,14 +25,14 @@ return new class extends Migration
             $table->string('title');
             $table->string('author')->nullable();
             $table->string('slug');
-            $table->tinyInteger('featured')->default(0);
+            $table->boolean('featured')->default(false);
             $table->string('summary')->nullable();
             $table->integer('publication_year')->nullable();
-            $table->tinyInteger('fiction')->default(0);
-            $table->tinyInteger('nonfiction')->default(0);
-            $table->tinyInteger('paper')->default(1);
-            $table->tinyInteger('audio')->default(0);
-            $table->tinyInteger('wishlist')->default(0);
+            $table->boolean('fiction')->default(false);
+            $table->boolean('nonfiction')->default(false);
+            $table->boolean('paper')->default(true);
+            $table->boolean('audio')->default(false);
+            $table->boolean('wishlist')->default(false);
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
@@ -43,11 +43,11 @@ return new class extends Migration
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(1);
-            $table->tinyInteger('readonly')->default(0);
-            $table->tinyInteger('root')->default(0);
-            $table->tinyInteger('disabled')->default(0);
-            $table->tinyInteger('demo')->default(0);
+            $table->boolean('public')->default(true);
+            $table->boolean('readonly')->default(false);
+            $table->boolean('root')->default(false);
+            $table->boolean('disabled')->default(false);
+            $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

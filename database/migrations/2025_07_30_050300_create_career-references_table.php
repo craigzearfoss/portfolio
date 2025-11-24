@@ -24,13 +24,13 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('name');
             $table->string('slug');
-            $table->tinyInteger('friend')->default(0);
-            $table->tinyInteger('family')->default(0);
-            $table->tinyInteger('coworker')->default(0);
-            $table->tinyInteger('supervisor')->default(0);
-            $table->tinyInteger('subordinate')->default(0);
-            $table->tinyInteger('professional')->default(0);
-            $table->tinyInteger('other')->default(0);
+            $table->boolean('friend')->default(false);
+            $table->boolean('family')->default(false);
+            $table->boolean('coworker')->default(false);
+            $table->boolean('supervisor')->default(false);
+            $table->boolean('subordinate')->default(false);
+            $table->boolean('professional')->default(false);
+            $table->boolean('other')->default(false);
             $table->foreignIdFor(\App\Models\Career\Company::class, 'company_id')->nullable();
             $table->string('street')->nullable();
             $table->string('street2')->nullable();
@@ -59,11 +59,11 @@ return new class extends Migration
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(0);
-            $table->tinyInteger('readonly')->default(0);
-            $table->tinyInteger('root')->default(0);
-            $table->tinyInteger('disabled')->default(0);
-            $table->tinyInteger('demo')->default(0);
+            $table->boolean('public')->default(false);
+            $table->boolean('readonly')->default(false);
+            $table->boolean('root')->default(false);
+            $table->boolean('disabled')->default(false);
+            $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

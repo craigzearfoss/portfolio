@@ -36,10 +36,10 @@ return new class extends Migration
             $table->string('slug');
             $table->integer('enrollment_month')->nullable();
             $table->integer('enrollment_year')->nullable();
-            $table->tinyInteger('graduated')->default(0);
+            $table->boolean('graduated')->default(false);
             $table->integer('graduation_month')->nullable();
             $table->integer('graduation_year')->nullable();
-            $table->tinyInteger('currently_enrolled')->default(0);
+            $table->boolean('currently_enrolled')->default(false);
             $table->string('summary')->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
@@ -51,11 +51,11 @@ return new class extends Migration
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
             $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(1);
-            $table->tinyInteger('readonly')->default(0);
-            $table->tinyInteger('root')->default(0);
-            $table->tinyInteger('disabled')->default(0);
-            $table->tinyInteger('demo')->default(0);
+            $table->boolean('public')->default(true);
+            $table->boolean('readonly')->default(false);
+            $table->boolean('root')->default(false);
+            $table->boolean('disabled')->default(false);
+            $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

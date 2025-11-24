@@ -24,7 +24,7 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('company_contact', function (Blueprint $table) {
             $table->foreignId('contact_id')->constrained()->onDelete('cascade');
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
-            $table->tinyInteger('active')->default(1);
+            $table->boolean('active')->default(true);
             $table->primary(['company_id', 'contact_id']);
             $table->timestamps();
         });
