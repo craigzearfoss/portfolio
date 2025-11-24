@@ -1,14 +1,21 @@
+@php
+    $breadcrumbs = [
+       [ 'name' => 'Home',                    'href' => route('system.index') ],
+       [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+       [ 'name' => 'Career',                  'href' => route('admin.career.index') ],
+    ];
+    if (!empty($application)) {
+        $breadcrumbs[] = [ 'name' => 'Applications',     'href' => route('admin.career.application.index') ];
+        $breadcrumbs[] = [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ];
+        $breadcrumbs[] = [ 'name' => 'Events',           'href' => route('admin.career.note.index', ['application_id' => $application->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Events', 'href' => route('admin.career.note.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Create '];
+@endphp
 @extends('admin.layouts.default', [
     'title' => $title ?? 'Create Note',
-    'breadcrumbs' => [
-        [ 'name' => 'Home',                   'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard',        'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',                 'href' => route('admin.career.index') ],
-        [ 'name' => 'Applications',           'href' => route('admin.career.application.index') ],
-        [ 'name' => $note->application->name, 'href' => route('admin.career.application.show', $note->application->id) ],
-        [ 'name' => 'Notes',                  'href' => route('admin.career.communication.index', ['application_id' => $note->application->id]) ],
-        [ 'name' => 'Create ']
-    ],
+    'breadcrumbs' => $breadcrumb,
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.note.index') ],
     ],

@@ -29,10 +29,10 @@ class EventController extends BaseAdminController
         $applicationId = $request->application_id;
         if (!empty($applicationId)) {
             $application = Application::find($applicationId);
-            $communications = Event::where('application_id', $applicationId)->latest()->paginate($perPage);
+            $events = Event::where('application_id', $applicationId)->latest()->paginate($perPage);
         } else {
             $application = null;
-            $communications = Event::latest()->paginate($perPage);
+            $events = Event::latest()->paginate($perPage);
         }
 
         return view('admin.career.event.index', compact('events', 'application'))

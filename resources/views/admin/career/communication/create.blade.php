@@ -1,14 +1,21 @@
+@php
+    $breadcrumbs = [
+       [ 'name' => 'Home',                    'href' => route('system.index') ],
+       [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+       [ 'name' => 'Career',                  'href' => route('admin.career.index') ],
+    ];
+    if (!empty($application)) {
+        $breadcrumbs[] = [ 'name' => 'Applications',     'href' => route('admin.career.application.index') ];
+        $breadcrumbs[] = [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ];
+        $breadcrumbs[] = [ 'name' => 'Communications',   'href' => route('admin.career.communication.index', ['application_id' => $application->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Communications', 'href' => route('admin.career.communication.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Create '];
+@endphp
 @extends('admin.layouts.default', [
     'title' => $title ?? 'Add New Communication',
-    'breadcrumbs' => [
-        [ 'name' => 'Home',                            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard',                 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',                          'href' => route('admin.career.index') ],
-        [ 'name' => 'Applications',                    'href' => route('admin.career.application.index') ],
-        [ 'name' => $communication->application->name, 'href' => route('admin.career.application.show', $communication->application->id) ],
-        [ 'name' => 'Communications',                  'href' => route('admin.career.communication.index', ['application_id' => $communication->application->id]) ],
-        [ 'name' => 'Create ']
-    ],
+    'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.communication.index') ],
     ],
