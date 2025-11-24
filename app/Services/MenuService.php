@@ -463,7 +463,12 @@ class MenuService
             return false;
         }
 
-        $resumeRoute = route('guest.admin.resume', $admin);
+        try {
+            $resumeRoute = route('guest.admin.resume', $admin);
+        } catch (\Throwable $th) {
+            return null;
+        }
+
 
         $menuItem = new stdClass();
         $menuItem->id       = null;

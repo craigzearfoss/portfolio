@@ -7,6 +7,7 @@ use App\Models\System\Admin;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 /**
@@ -69,14 +70,24 @@ class ProfileController extends BaseAdminController
      * Update the new password.
      *
      * @param Request $request
-     * @param Admin $admin
      * @return RedirectResponse|View
      */
-    public function change_password_submit(Request $request, Admin $admin): RedirectResponse|View
+    public function change_password_submit(Request $request): RedirectResponse|View
     {
+        $request->validate([
+            'password' => ['required'],
+            'confirm_password' => ['required', 'same:password']
+        ]);
+
         $admin = Auth::guard('admin')->user();
 
-        $admin->update($request->validated());
+        if (Hash::check($request->password, $admin->password)) {
+            return redirect()->back()->with('error', ' You cannot use your old password again.');
+        }
+
+        $admin->password = Hash::make($request->password);
+        $admin->token = null;
+        $admin->update();
 
         return redirect(referer('admin.portfolio.show'))
             ->with('success', 'User password updated successfully.');
