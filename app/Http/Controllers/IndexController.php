@@ -20,7 +20,7 @@ class IndexController extends BaseSystemController
             ->where('disabled', 0)
             ->orderBy('username', 'asc')->paginate($perPage);
 
-        return view('system.index', compact('admin', 'admins'))
+        return view(themedTemplate('system.index'), compact('admin', 'admins'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

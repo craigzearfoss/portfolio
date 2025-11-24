@@ -1,6 +1,6 @@
 @php /* for url '/' */ @endphp
 @extends('guest.layouts.default', [
-    'title'   => config('app.name'),
+    'title'   => config('app.name') . ' Demo Site',
     'breadcrumbs' => [],
     'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],
@@ -14,7 +14,7 @@
 
         <div class="column has-text-centered">
 
-            <h1 class="title">Welcome to {{ config('app.name') }}</h1>
+            <h1 class="title">Welcome to {{ config('app.name') }} Demo Site</h1>
 
             <div class="is-flex is-align-items-center is-justify-content-center mb-4">
                 <div class="box has-text-left" style="max-width: 40em;">
