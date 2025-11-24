@@ -15,7 +15,7 @@
 @endphp
 @extends('admin.layouts.default', [
     'title' => $title ?? 'Create Note',
-    'breadcrumbs' => $breadcrumb,
+    'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.note.index') ],
     ],

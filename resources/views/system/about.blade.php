@@ -75,7 +75,7 @@
 
         <div class="is-flex is-align-items-center is-justify-content-center mb-4">
             <div class="box" style="max-width: 40em;">
-                <h2 class="subtitle">To-do List</h2>
+                <h2 class="subtitle">To-do List (in no particular order)</h2>
                 <ul style="list-style-type: circle;">
                     <li>Verify add/edit/delete functionality works for all current resources.</li>
                     <li>Create database backup and import scripts.</li>
@@ -90,6 +90,9 @@
                     <li>Add a Current Admins/Users pages for root admins using the sessions table.</li>
                     <li>Allow admins/users to be logged off with the requires_login column.</li>
                     <li>Create a way to log out all users and/or admins, probably through a console command.</li>
+                    <li>Add type-ahead to select lists.</li>
+                    <li>Create downloadable reports.</li>
+                    <li>Implement tables with AG Grid.</li>
                     <li>Completely implement responsive design for mobile.</li>
                     <li>Work of the site styles to make it look pretty. Possibly implement light and dark themes.</li>
                     <li>Create a one-click method to bookmark job application webpages and import the job description text.</li>
