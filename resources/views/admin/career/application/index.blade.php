@@ -39,8 +39,8 @@
                 <?php /*
                 <th>duration</th>
                 */ ?>
-                <th class="has-text-centered">employment<br>type</th>
-                <th class="has-text-centered">location<br>type</th>
+                <th class="has-text-centered">type</th>
+                <th class="has-text-centered">location</th>
                 <th>location</th>
                     <?php /*
                 <th class="has-text-centered">w2</th>
