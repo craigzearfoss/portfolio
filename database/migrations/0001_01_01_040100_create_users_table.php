@@ -44,13 +44,14 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('token')->nullable();
-            $table->tinyInteger('status')->default(0)->comment('0-pending, 1-active');
-            $table->integer('sequence')->default(0);
-            $table->tinyInteger('public')->default(0);
-            $table->tinyInteger('readonly')->default(0);
-            $table->tinyInteger('root')->default(0);
-            $table->tinyInteger('disabled')->default(0);
-            $table->tinyInteger('demo')->default(0);
+            $table->boolean('requires_relogin')->default(false);
+            $table->boolean('status')->default(false)->comment('0-pending, 1-active');
+            $table->integer('sequence')->default(false);
+            $table->boolean('public')->default(false);
+            $table->boolean('readonly')->default(false);
+            $table->boolean('root')->default(false);
+            $table->boolean('disabled')->default(false);
+            $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -64,6 +65,7 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
+            $table->foreignId('admin_id')->nullable()->index();
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');

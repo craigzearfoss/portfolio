@@ -72,6 +72,7 @@ class StoreAdminsRequest extends FormRequest
             'confirm_password' => ['string', 'same:password'],
             'remember_token'   => ['string', 'max:200', 'nullable'],
             'token'            => ['string', 'max:255', 'nullable'],
+            'requires_relogin' => ['integer', 'between:0,1'],
             'status'           => ['integer', 'between:0,1'],
             'sequence'         => ['integer', 'min:0'],
             'public'           => ['integer', 'between:0,1'],

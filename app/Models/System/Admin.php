@@ -53,6 +53,7 @@ class Admin extends Authenticatable
         'password',
         'remember_token',
         'token',
+        'requires_relogin',
         'status',
         'sequence',
         'public',
