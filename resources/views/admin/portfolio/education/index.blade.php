@@ -1,4 +1,4 @@
-@extends('admin.layouts.ds',
+@extends('admin.layouts.ds', [
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
