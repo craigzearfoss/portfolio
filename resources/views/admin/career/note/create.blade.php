@@ -7,9 +7,9 @@
     if (!empty($application)) {
         $breadcrumbs[] = [ 'name' => 'Applications',     'href' => route('admin.career.application.index') ];
         $breadcrumbs[] = [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ];
-        $breadcrumbs[] = [ 'name' => 'Events',           'href' => route('admin.career.note.index', ['application_id' => $application->id]) ];
+        $breadcrumbs[] = [ 'name' => 'Notes',           'href' => route('admin.career.note.index', ['application_id' => $application->id]) ];
     } else {
-        $breadcrumbs[] = [ 'name' => 'Events', 'href' => route('admin.career.note.index') ];
+        $breadcrumbs[] = [ 'name' => 'Notes', 'href' => route('admin.career.note.index') ];
     }
     $breadcrumbs[] = [ 'name' => 'Create '];
 @endphp
