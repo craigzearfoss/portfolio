@@ -304,13 +304,6 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? $application->link,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
                 'name'      => 'phone',
                 'value'     => old('phone') ?? $application->phone,
                 'maxlength' => 50,
