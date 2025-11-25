@@ -29,10 +29,10 @@ class NoteController extends BaseAdminController
         $applicationId = $request->application_id;
         if (!empty($applicationId)) {
             $application = Application::find($applicationId);
-            $communications = Note::where('application_id', $applicationId)->latest()->paginate($perPage);
+            $notes = Note::where('application_id', $applicationId)->latest()->paginate($perPage);
         } else {
             $application = null;
-            $communications = Note::latest()->paginate($perPage);
+            $notes = Note::latest()->paginate($perPage);
         }
 
         return view('admin.career.note.index', compact('notes', 'application'))
