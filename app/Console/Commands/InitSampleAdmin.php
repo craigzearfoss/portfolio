@@ -23,7 +23,7 @@ class InitSampleAdmin extends Command
     protected $silent = 0;
 
     const USER_DATA = [
-        'demo-admin'       => [ 'name' => 'Demo Admin',       'label' => 'demo-admin',       'email' => 'admin@gmail.com',             'role' => 'Site Administrator',       'employer' => null                            ],
+        'demo'             => [ 'name' => 'Demo Admin',       'label' => 'demo-admin',       'email' => 'admin@gmail.com',             'role' => 'Site Administrator',       'employer' => null                            ],
         'alex-reiger'      => [ 'name' => 'Alex Reiger',      'label' => 'alex-reiger',      'email' => 'areiger29@taxinyc.com',       'role' => 'Taxi Driver',              'employer' => 'Sunshine Cab Company'          ],
         'dwight-schrute'   => [ 'name' => 'Dwight Schrute',   'label' => 'dwight-schrute',   'email' => 'dwight@dunder-mifflin.com',   'role' => 'Salesman',                 'employer' => 'Dunder-Mifflin Paper Company'  ],
         'frank-reynolds'   => [ 'name' => 'Frank Reynolds',   'label' => 'frank-reynolds',   'email' => 'frank@paddys-pub.com',        'role' => 'Co-owner of Paddy\'s Pub', 'employer' => 'Paddy\'s Pub'                  ],
@@ -107,7 +107,7 @@ class InitSampleAdmin extends Command
 
         $errors = [];
 
-        if ($username == 'demo-admin') {
+        if ($username == 'demo') {
 
             $adminId = Admin::withoutGlobalScope(AdminGlobalScope::class)->where('username', $username)->first()->id;
             $adminTeamId = AdminTeam::withoutGlobalScope(AdminGlobalScope::class)->where('name', 'Demo Admin Team')->first()->id;
@@ -171,9 +171,9 @@ class InitSampleAdmin extends Command
 
         /* --------------------------------------------------------------------------- */
         /* Import into the system database.                                            */
-        /* Note that the demo-admin is added in the initial migration.                 */
+        /* Note that the demo admin was added in the initial migration.                */
         /* --------------------------------------------------------------------------- */
-        if ($username != 'demo-admin') {
+        if ($username != 'demo') {
             $this->insertSystemAdmin($username, $adminId, $adminTeamId);
             $this->insertSystemAdminAdminTeams($username, $adminId, $adminTeamId);
             $this->insertSystemAdminAdminGroups($username, $adminId, $adminGroupId);
@@ -359,31 +359,12 @@ class InitSampleAdmin extends Command
      * @param string $username
      * @param int $adminId
      * @param int $adminTeamId
-     * @param string|null $Name
-     * @param string|null $EmailAddress
      * @return void
      * @throws \Random\RandomException
      */
-    protected function insertSystemAdmin(string      $username,
-                                         int         $adminId,
-                                         int         $adminTeamId,
-                                         string|null $Name = null,
-                                         string|null $EmailAddress = null
-    ): void
+    protected function insertSystemAdmin(string $username, int $adminId, int $adminTeamId): void
     {
         echo $username . ": Inserting into System\\Admin ...\n";
-
-        if (empty($Name)) {
-            $Name = !empty(self::USER_DATA[$username]['name'])
-                ? self::USER_DATA[$username]['name']
-                : ucwords(str_replace('-', ' ', $username));
-        }
-
-        if (empty($EmailAddress)) {
-            $EmailAddress = !empty(self::USER_DATA[$username]['email'])
-                ? self::USER_DATA[$username]['email']
-                : strtolower(str_replace('-', '.', $username)) . '@dummy.com';
-        }
 
         // generate a random password
         $bytes = random_bytes(ceil(16 / 2));
@@ -395,9 +376,9 @@ class InitSampleAdmin extends Command
                 'id'                => $adminId,
                 'admin_team_id'     => $adminTeamId,
                 'username'          => $username,
-                'name'              => $Name,
+                'name'              => self::USER_DATA[$username]['name'] ?? null,
                 'label'             => self::USER_DATA[$username]['label'] ?? null,
-                'email'             => $EmailAddress,
+                'email'             => self::USER_DATA[$username]['email'] ?? null,
                 'role'              => self::USER_DATA[$username]['role'] ?? null,
                 'employer'          => self::USER_DATA[$username]['employer'] ?? null,
                 'email_verified_at' => now(),

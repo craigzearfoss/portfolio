@@ -54,8 +54,6 @@ return new class extends Migration
             $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->index('name_idx');
         });
 
         Schema::connection($this->database_tag)->create('password_reset_tokens', function (Blueprint $table) {

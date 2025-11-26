@@ -16,7 +16,7 @@ class AddPersonal extends Command
 {
     const DATABASE = 'personal';
 
-    const USERNAME = 'craig-zearfoss';
+    const USERNAME = 'czearfoss';
 
     protected $demo = 0;
     protected $silent = 0;

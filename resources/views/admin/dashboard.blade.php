@@ -12,16 +12,16 @@
 
 @section('content')
 
-    <div class="card p-8 my-4 container" style="width: 50em;">
+    <div class="container has-text-centered" style="width: 50em;">
 
-        <h1 class="p-4">Welcome to {{ config('app.name') }} Admin!</h1>
+        <h2 class="title p-4">Welcome to {{ config('app.name') }} Admin!</h2>
 
     </div>
 
     <div class="card p-4">
 
         <h4 class="title is-size-4 mb-2">Users</h4>
-        @include('guest.components.admins-table', ['admins' => $admins])
+        @include('admin.components.admins-table', ['admins' => $admins])
 
     </div>
 

@@ -43,6 +43,7 @@ class UpdateUsersRequest extends FormRequest
         $this->checkDemoMode();
 
         return [
+            /* USER USERNAMES CANNOT BE CHANGED
             'username' => [
                 'filled',
                 'string',
@@ -52,6 +53,7 @@ class UpdateUsersRequest extends FormRequest
                 'unique:users,username,'.$this->user->id,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
+            */
             'name'              => ['filled', 'string', 'min:6', 'max:255'],
             'label'             => [
                 'filled',

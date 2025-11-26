@@ -23,8 +23,8 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->foreignIdFor(\App\Models\Portfolio\Video::class, 'parent_id')->nullable();
-            $table->string('name');
-            $table->string('artist')->nullable();
+            $table->string('name')->index('name_idx');
+            $table->string('artist')->nullable()->index('artist_idx');
             $table->string('slug');
             $table->boolean('featured')->default(false);
             $table->string('summary')->nullable();
@@ -53,9 +53,6 @@ return new class extends Migration
             $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->index('name_idx');
-            $table->index('artist_idx');
 
             $table->unique(['owner_id', 'name', 'artist'], 'owner_id_name_artist_unique');
             $table->unique(['owner_id', 'slug'], 'owner_id_slug_unique');

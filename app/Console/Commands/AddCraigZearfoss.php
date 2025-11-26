@@ -16,76 +16,94 @@ use function Laravel\Prompts\text;
 
 class AddCraigZearfoss extends Command
 {
-    const USERNAME = 'craig-zearfoss';
+    /**
+     * @var string username
+     */
+    protected $username = 'czearfoss';
+
+    /**
+     * @var string password
+     */
+    protected $password = null;
+
+    /**
+     * @var string name
+     */
+    protected $adminName = 'Craig Zearfoss';
+
+    /**
+     * @var string label
+     */
+    protected $label = 'craig-zearfoss';
+
+    /**
+     * @var string email
+     */
+    protected $email = 'craigzearfoss@gmail.com';
+
+    /**
+     * @var string role
+     */
+    protected $role = 'Senior Software Developer';
+
+    /**
+     * @var string email
+     */
+    protected $employer = 'Idaho National Laboratory';
 
     protected $adminId = null;
     protected $demo = 1;
     protected $silent = 0;
-    protected $password = '';
 
     protected $ids = [];
     protected $companyIds = [];
     protected $contactIds = [];
-
-    const USER_DATA = [
-        'craig-zearfoss' => [
-            'name'       => 'Craig Zearfoss',
-            'label'      => 'craig-zearfoss',
-            'email'      => 'craigzearfoss@yahoo.com',
-            'role'       => 'Senior Software Developer',
-            'employer'   => 'Idaho National Laboratory'
-        ],
-    ];
 
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:add-craig-zearfoss {--team_id=} {--password=} {--group_id=} {--demo=1}  {--silent}';
+    protected $signature = 'app:add-czearfoss {--team_id=} {--password=} {--group_id=} {--demo=1}  {--silent}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This will populate the databases with initial data for admin ' . self::USERNAME . '.';
+    protected $description = 'This will populate the databases with initial data for admin czearfoss.';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $username = self::USERNAME;
         $adminTeamId  = $this->option('team_id');
         $adminGroupId = $this->option('group_id');
         $this->demo   = $this->option('demo');
         $this->silent = $this->option('silent');
 
         $passwordGood= false;
-        $confirmPassword = null;
         while (!$passwordGood) {
 
             while (strlen($this->password) < 8) {
-                $this->password = text(PHP_EOL . 'Enter a password for the user (at least 8 characters).');
+                $this->password = text('Enter a password for the '. $this->username . ' (at least 8 characters).');
             }
 
-            $confirmPassword = text(PHP_EOL . 'Confirm the password.');
+            $confirmPassword = text('Confirm the password.');
 
             if ($confirmPassword === $this->password) {
                 $passwordGood = true;
             } else {
                 echo 'Passwords do not match.';
                 $this->password = null;
-                $confirmPassword = null;
             }
         }
 
-
-        $this->insertAdmin($username, $adminTeamId, $adminGroupId);
+        $this->insertAdmin($adminTeamId, $adminGroupId);
     }
 
-    protected function insertAdmin($username, $adminTeamId = null, $adminGroupId = null)
+    protected function insertAdmin($adminTeamId = null, $adminGroupId = null)
     {
         $DS = DIRECTORY_SEPARATOR;
         $adminDataDirectory = base_path().$DS.'app'.$DS.'Console'.$DS.'Commands'.$DS.'CraigZearfossData';
@@ -136,7 +154,13 @@ class AddCraigZearfoss extends Command
         }
 
         if (!$this->silent) {
-            echo PHP_EOL . 'username: ' . $username . PHP_EOL;
+            echo PHP_EOL . 'username: ' . $this->username . PHP_EOL;
+            echo 'password: ' . $this->password . PHP_EOL;
+            echo 'name:     ' . $this->adminName . PHP_EOL;
+            echo 'label:    ' . $this->label . PHP_EOL;
+            echo 'email:    ' . $this->email . PHP_EOL;
+            echo 'role:     ' . $this->role . PHP_EOL;
+            echo 'employer: ' . $this->label . PHP_EOL;
             echo 'admin_id: ' . $adminId . PHP_EOL;
             echo 'team_id:  ' . $adminTeamId . PHP_EOL;
             echo 'group_id: ' . $adminGroupId . PHP_EOL;
@@ -149,15 +173,15 @@ class AddCraigZearfoss extends Command
         /* Import into the system database.                                            */
         /* Note that the demo-admin is added in the initial migration.                 */
         /* --------------------------------------------------------------------------- */
-        $this->insertSystemAdmin($username, $adminId, $adminTeamId);
-        $this->insertSystemAdminAdminTeams($username, $adminId, $adminTeamId);
-        $this->insertSystemAdminAdminGroups($username, $adminId, $adminGroupId);
+        $this->insertSystemAdmin($adminId, $adminTeamId);
+        $this->insertSystemAdminAdminTeams($adminId, $adminTeamId);
+        $this->insertSystemAdminAdminGroups($adminId, $adminGroupId);
 
         // copy admin source fils
-        $this->copyAdminSourceFiles($username, $adminId);
+        $this->copyAdminSourceFiles($adminId);
 
         // get the name of the init files
-        $initFile = ucfirst(Str::camel($username)) . '.php';
+        $initFile = ucfirst(Str::camel($this->username)) . '.php';
 
         /* --------------------------------------------------------------------------- */
         /* Import into the portfolio database.                                         */
@@ -166,8 +190,8 @@ class AddCraigZearfoss extends Command
         if (!file_exists($initPortfolioFile)) {
             echo PHP_EOL . "Skipping {$initPortfolioFile}. File not found." . PHP_EOL;
         } else {
-            echo PHP_EOL . "Importing Portfolio data for {$username} ..." . PHP_EOL;
-            Artisan::call('app:add-' . $username . '-portfolio --demo=' . $this->demo . ' --silent');
+            echo PHP_EOL . "Importing Portfolio data for {$this->username} ..." . PHP_EOL;
+            Artisan::call('app:add-' . $this->username . '-portfolio --demo=' . $this->demo . ' --silent');
         }
 
         /* --------------------------------------------------------------------------- */
@@ -177,8 +201,8 @@ class AddCraigZearfoss extends Command
         if (!file_exists($initCareerFile)) {
             echo PHP_EOL . "Skipping {$initCareerFile}. File not found." . PHP_EOL;
         } else {
-            echo PHP_EOL . "Importing Career data for {$username} ..." . PHP_EOL;
-            Artisan::call('app:add-' . $username . '-career --demo=' . $this->demo . ' --silent');
+            echo PHP_EOL . "Importing Career data for {$this->username} ..." . PHP_EOL;
+            Artisan::call('app:add-' . $this->username . '-career --demo=' . $this->demo . ' --silent');
         }
 
         /* --------------------------------------------------------------------------- */
@@ -188,8 +212,8 @@ class AddCraigZearfoss extends Command
         if (!file_exists($initPersonalFile)) {
             echo PHP_EOL . "Skipping {$initPersonalFile}. File not found." . PHP_EOL;
         } else {
-            echo PHP_EOL . "Importing Personal data for {$username} ..." . PHP_EOL;
-            Artisan::call('app:add-' . $username . '-personal --demo=' . $this->demo . ' --silent');
+            echo PHP_EOL . "Importing Personal data for {$this->username} ..." . PHP_EOL;
+            Artisan::call('app:add-' . $this->username . '-personal --demo=' . $this->demo . ' --silent');
         }
     }
 
@@ -232,15 +256,14 @@ class AddCraigZearfoss extends Command
     /**
      * Copies admin source files from the source_files directory to the public/images directory.
      *
-     * @param string $username
      * @param int $adminId
      * @return void
      */
-    protected function copyAdminSourceFiles(string $username, int $adminId): void
+    protected function copyAdminSourceFiles(int $adminId): void
     {
         // get the source and destination paths
         $DS = DIRECTORY_SEPARATOR;
-        $sourcePath = base_path() . $DS . 'source_files' . $DS . 'admin' . $DS . $username ;
+        $sourcePath = base_path() . $DS . 'source_files' . $DS . 'admin' . $DS . $this->username ;
         $destinationPath =  base_path() . $DS . 'public' . $DS . 'images' . $DS . 'admin' . $DS . $adminId;
 
         // make sure the destination directory exists for images
@@ -282,14 +305,13 @@ class AddCraigZearfoss extends Command
     /**
      * Add an admin to an admin group.
      *
-     * @param string $username
      * @param int $adminId
      * @param int $adminGroupId
      * @return void
      */
-    protected function insertSystemAdminAdminGroups(string $username, int $adminId, int $adminGroupId): void
+    protected function insertSystemAdminAdminGroups($adminId, int $adminGroupId): void
     {
-        echo $username. ": Inserting into System\\AdminAdminGroup ...\n";
+        echo $this->username. ": Inserting into System\\AdminAdminGroup ...\n";
 
         $data = [
             [
@@ -306,14 +328,13 @@ class AddCraigZearfoss extends Command
     /**
      * Add an admin to an admin team.
      *
-     * @param string $username
      * @param int $adminId
      * @param int $adminTeamId
      * @return void
      */
-    protected function insertSystemAdminAdminTeams(string $username, int $adminId, int $adminTeamId): void
+    protected function insertSystemAdminAdminTeams(int $adminId, int $adminTeamId): void
     {
-        echo $username . ": Inserting into System\\AdminAdminTeam ...\n";
+        echo $this->username . ": Inserting into System\\AdminAdminTeam ...\n";
 
         $data = [
             [
@@ -330,47 +351,27 @@ class AddCraigZearfoss extends Command
     /**
      * Insert an admin into the system admins table
      *
-     * @param string $username
      * @param int $adminId
      * @param int $adminTeamId
-     * @param string|null $Name
-     * @param string|null $EmailAddress
      * @return void
      * @throws \Random\RandomException
      */
-    protected function insertSystemAdmin(string      $username,
-                                         int         $adminId,
-                                         int         $adminTeamId,
-                                         string|null $Name = null,
-                                         string|null $EmailAddress = null
-    ): void
+    protected function insertSystemAdmin(int $adminId, int $adminTeamId): void
     {
-        echo $username . ": Inserting into System\\Admin ...\n";
-
-        if (empty($Name)) {
-            $Name = !empty(self::USER_DATA[$username]['name'])
-                ? self::USER_DATA[$username]['name']
-                : ucwords(str_replace('-', ' ', $username));
-        }
-
-        if (empty($EmailAddress)) {
-            $EmailAddress = !empty(self::USER_DATA[$username]['email'])
-                ? self::USER_DATA[$username]['email']
-                : strtolower(str_replace('-', '.', $username)) . '@dummy.com';
-        }
+        echo $this->username . ": Inserting into System\\Admin ...\n";
 
         $data = [
             [
                 'id'                => $adminId,
                 'admin_team_id'     => $adminTeamId,
-                'username'          => $username,
-                'label'             => self::USER_DATA[$username]['label'] ?? null,
-                'name'              => $Name,
-                'email'             => $EmailAddress,
-                'role'              => self::USER_DATA[$username]['role'] ?? null,
-                'employer'          => self::USER_DATA[$username]['employer'] ?? null,
-                'email_verified_at' => now(),
+                'username'          => $this->username,
                 'password'          => Hash::make($this->password),
+                'name'              => $this->adminName,
+                'label'             => $this->label,
+                'email'             => $this->email,
+                'role'              => $this->role,
+                'employer'          => $this->employer,
+                'email_verified_at' => now(),
                 'public'            => 1,
                 'status'            => 1,
                 'token'             => '',

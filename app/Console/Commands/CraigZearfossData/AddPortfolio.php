@@ -26,7 +26,7 @@ class AddPortfolio extends Command
 {
     const DATABASE = 'portfolio';
 
-    const USERNAME = 'craig-zearfoss';
+    const USERNAME = 'czearfoss';
 
     protected $demo = 0;
     protected $silent = 0;

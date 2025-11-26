@@ -29,7 +29,7 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('publications', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->string('title');
+            $table->string('title')->index('title_idx');
             $table->string('slug');
             $table->foreignIdFor(\App\Models\Portfolio\Publication::class, 'parent_id')->nullable();
             $table->boolean('featured')->default(false);
@@ -77,9 +77,6 @@ return new class extends Migration
             $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->index('title_idx');
-            $table->index('slug_idx');
 
             $table->unique(['owner_id', 'title'], 'owner_id_title_unique');
             $table->unique(['owner_id', 'slug'], 'owner_id_slug_unique');

@@ -22,8 +22,8 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('readings', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->string('title');
-            $table->string('author')->nullable();
+            $table->string('title')->index('title_idx');
+            $table->string('author')->nullable()->index('author_idx');
             $table->string('slug');
             $table->boolean('featured')->default(false);
             $table->string('summary')->nullable();
@@ -50,9 +50,6 @@ return new class extends Migration
             $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->index('title_idx');
-            $table->index('author_idx');
 
             $table->unique(['owner_id', 'title', 'author'], 'owner_id_title_author_unique');
             $table->unique(['owner_id', 'slug'], 'owner_id_slug_unique');

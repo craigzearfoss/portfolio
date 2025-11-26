@@ -17,15 +17,13 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor( \App\Models\System\Owner::class);
             $table->foreignIdFor( \App\Models\Portfolio\Job::class)->nullable();
-            $table->string('name', 100);
+            $table->string('name', 100)->index('name_idx');
             $table->tinyInteger('level')->default(1);
             $table->foreignIdFor(\App\Models\Dictionary\Category::class, 'dictionary_category_id')->nullable();
             $table->integer('dictionary_term_id')->nullable();
             $table->integer('start_year')->nullable();
             $table->integer('end_year')->nullable();
             $table->integer('years')->default(0);
-
-            $table->index('name_idx');
 
             $table->unique(['owner_id', 'name'], 'owner_id_name_unique');
         });

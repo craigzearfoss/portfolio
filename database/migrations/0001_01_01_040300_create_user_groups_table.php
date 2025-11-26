@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->foreignIdFor( \App\Models\System\UserTeam::class);
-            $table->string('name', 100);
+            $table->string('name', 100)->index('name_idx');
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();
             $table->text('description')->nullable();
@@ -29,8 +29,6 @@ return new class extends Migration
             $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->index('name_idx');
         });
 
         $data = [

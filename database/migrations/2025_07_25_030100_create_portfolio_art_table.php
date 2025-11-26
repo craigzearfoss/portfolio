@@ -22,8 +22,8 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('art', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->string('name');
-            $table->string('artist')->nullable();
+            $table->string('name')->index('name_idx');
+            $table->string('artist')->nullable()->index('artist_idx');
             $table->string('slug');
             $table->boolean('featured')->default(false);
             $table->string('summary')->nullable();
@@ -46,9 +46,6 @@ return new class extends Migration
             $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->index('name_idx');
-            $table->index('artist_idx');
 
             $table->unique(['owner_id', 'slug'], 'owner_id_slug_unique');
         });

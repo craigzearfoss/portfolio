@@ -30,7 +30,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->foreignIdFor( \App\Models\Portfolio\Job::class);
-            $table->string('name');
+            $table->string('name')->index('name_idx');
             $table->string('job_title', 100)->nullable();
             $table->integer('level_id')->default(1);  // 1-coworker, 2-superior, 3-subordinate
             $table->string('work_phone', 20)->nullable();
@@ -54,8 +54,6 @@ return new class extends Migration
             $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->index('name_idx');
 
             $table->unique(['owner_id', 'name'], 'owner_id_name_unique');
         });

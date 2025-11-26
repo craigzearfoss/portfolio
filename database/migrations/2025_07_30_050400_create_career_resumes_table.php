@@ -22,7 +22,7 @@ return new class extends Migration
         Schema::connection($this->database_tag)->create('resumes', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
-            $table->string('name');
+            $table->string('name')->index('name_idx');
             $table->date('date')->nullable();
             $table->boolean('primary')->default(false);
             $table->text('content')->nullable();
@@ -43,8 +43,6 @@ return new class extends Migration
             $table->boolean('root')->default(false);
             $table->boolean('disabled')->default(false);
             $table->boolean('demo')->default(false);
-
-            $table->index('name_idx');
 
             $table->timestamps();
             $table->softDeletes();

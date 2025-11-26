@@ -36,6 +36,7 @@ class UpdateAdminsRequest extends FormRequest
 
         $ruleArray = [
             'admin_team_id'    => ['required', 'integer', 'exists:system_db.admin_teams,id'],
+            /* ADMIN USERNAMES CANNOT BE CHANGED
             'username'         => [
                 'filled',
                 'string',
@@ -44,6 +45,7 @@ class UpdateAdminsRequest extends FormRequest
                 'unique:admins,username,'.$this->admin->id,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
+            */
             'name'             => ['required', 'string', 'min:6', 'max:255'],
             'label'            => [
                 'filled',

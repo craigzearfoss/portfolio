@@ -23,7 +23,7 @@ class AddCareer extends Command
 {
     const DATABASE = 'career';
 
-    const USERNAME = 'craig-zearfoss';
+    const USERNAME = 'czearfoss';
 
     protected $demo = 0;
     protected $silent = 0;

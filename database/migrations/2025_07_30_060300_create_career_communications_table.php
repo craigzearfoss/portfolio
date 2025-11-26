@@ -23,7 +23,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->foreignId('application_id', Application::class);
-            $table->string('subject');
+            $table->string('subject')->index('subject_idx');
             $table->date('date')->nullable();
             $table->time('time')->nullable();
             $table->text('body')->nullable();
@@ -35,8 +35,6 @@ return new class extends Migration
             $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->index('subject_idx');
         });
 
         /*

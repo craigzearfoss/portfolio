@@ -44,7 +44,7 @@
                 <td data-field="name">
                     @include('guest.components.link', [
                         'name' => !empty($admin->name) ? $admin->name : $admin->label,
-                        'href' => route('guest.admin.show', $admin),
+                        'href' => route('admin.system.admin.show', $admin),
                     ])
                 </td>
                 <td data-field="role">
