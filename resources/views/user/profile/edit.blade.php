@@ -111,6 +111,7 @@
                                                 ])
 
                                                 @include('user.components.form-input', [
+                                                    'type'      => 'tel',
                                                     'name'      => 'phone',
                                                     'value'     => old('phone') ?? $user->phone,
                                                     'maxlength' => 50,

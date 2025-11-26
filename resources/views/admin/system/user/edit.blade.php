@@ -151,6 +151,7 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'type'      => 'tel',
                 'name'      => 'phone',
                 'value'     => old('phone') ?? $user->phone,
                 'maxlength' => 50,

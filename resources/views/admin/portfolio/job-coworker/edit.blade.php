@@ -86,6 +86,7 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'type'      => 'tel',
                 'name'      => 'work_phone',
                 'label'     => 'work phone',
                 'value'     => old('work_phone') ?? $jobCoworker->work_phone,
@@ -94,6 +95,7 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'type'      => 'tel',
                 'name'      => 'personal_phone',
                 'label'     => 'personal phone',
                 'value'     => old('personal_phone') ?? $jobCoworker->personal_phone,

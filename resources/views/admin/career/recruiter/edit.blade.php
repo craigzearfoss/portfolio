@@ -155,6 +155,7 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'type'      => 'tel',
                 'name'      => 'phone',
                 'value'     => old('phone') ?? $recruiter->phone,
                 'maxlength' => 50,
@@ -170,6 +171,7 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'type'      => 'tel',
                 'name'      => 'alt_phone',
                 'label'     => 'alt phone',
                 'value'     => old('alt_phone') ?? $recruiter->alt_phone,
