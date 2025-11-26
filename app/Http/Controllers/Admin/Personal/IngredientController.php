@@ -60,8 +60,8 @@ class IngredientController extends BaseAdminController
 
         $ingredient = Ingredient::create($storeIngredientsRequest->validated());
 
-        return redirect(referer('admin.personal.ingredient.index'))
-            ->with('success', $ingredient->name . ' added successfully.');
+        return redirect()->route('admin.personal.ingredient.show', $ingredient)
+            ->with('success', $ingredient->name . ' successfully added.');
     }
 
     /**

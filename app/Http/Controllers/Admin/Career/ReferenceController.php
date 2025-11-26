@@ -53,8 +53,8 @@ class ReferenceController extends BaseAdminController
     {
         $reference = Reference::create($storeReferencesRequest->validated());
 
-        return redirect(referer('admin.career.reference.index'))
-            ->with('success', $reference->name . ' added successfully.');
+        return redirect()->route('admin.career.reference.show', $reference)
+            ->with('success', $reference->name . ' successfully added.');
     }
 
     /**

@@ -67,7 +67,7 @@ class IndexController extends BaseUserController
                 return redirect()->route('user.dashboard');
             } else {
                 return view(themedTemplate('user.login'))
-                    ->withErrors('Invalid login credentials. Please try again.');
+                    ->withErrors('Incorrect login information. Double-check the username and password and try signing in again.');
             }
 
         } else {

@@ -51,8 +51,8 @@ class ResourceController extends BaseAdminController
     {
         $resource = Resource::create($storeResourcesRequest->validated());
 
-        return redirect(referer('admin.system.resource.index'))
-            ->with('success', $resource->name . ' resource added successfully.');
+        return redirect()->route('admin.system.resource.show', $resource)
+            ->with('success', $resource->name . ' resource successfully added.');
     }
 
     /**

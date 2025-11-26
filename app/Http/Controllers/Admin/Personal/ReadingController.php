@@ -54,8 +54,8 @@ class ReadingController extends BaseAdminController
     {
         $reading = Reading::create($storeReadingsRequest->validated());
 
-        return redirect(referer('admin.personal.reading.index'))
-            ->with('success', $reading->title . ' added successfully.');
+        return redirect()->route('admin.personal.reading.show', $reading)
+            ->with('success', $reading->title . ' successfully added.');
     }
 
     /**

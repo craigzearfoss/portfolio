@@ -62,8 +62,8 @@ class StackController extends BaseAdminController
 
         $stack = Stack::create($storeStacksRequest->validated());
 
-        return redirect(referer('admin.dictionary.index'))
-            ->with('success', $stack->name . ' added successfully.');
+        return redirect()->route('admin.dictionary.stack.show', $stack)
+            ->with('success', $stack->name . ' successfully added.');
     }
 
     /**

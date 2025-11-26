@@ -33,7 +33,7 @@ class UpdateApplicationsRequest extends FormRequest
             'owner_id'               => ['filled', 'integer', 'exists:system_db.admins,id'],
             'company_id'             => ['filled', 'integer', 'exists:career_db.companies,id'],
             'role'                   => ['filled', 'string', 'max:255'],
-            'job_board_id'           => ['filled', 'integer', 'exists:career_db.job_boards,id', 'nullable'],
+            'job_board_id'           => ['integer', 'exists:career_db.job_boards,id', 'nullable'],
             'resume_id'              => ['integer', 'exists:career_db.resumes,id', 'nullable'],
             'rating'                 => ['integer', 'between:1,5'],
             'active'                 => ['integer', 'between:0,1'],

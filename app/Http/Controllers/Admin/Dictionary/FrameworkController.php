@@ -62,8 +62,8 @@ class FrameworkController extends BaseAdminController
 
         $framework = Framework::create($storeFrameworksRequest->validated());
 
-        return redirect(referer('admin.dictionary.index'))
-            ->with('success', $framework->name . ' added successfully.');
+        return redirect()->route('admin.dictionary.framework.show', $framework)
+            ->with('success', $framework->name . ' successfully added.');
     }
 
     /**

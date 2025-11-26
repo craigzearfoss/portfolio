@@ -53,8 +53,8 @@ class PublicationController extends BaseAdminController
     {
         $publication = Publication::create($storePublicationsRequest->validated());
 
-        return redirect(referer('admin.portfolio.publication.index'))
-            ->with('success', $publication->title . ' added successfully.');
+        return redirect()->route('admin.portfolio.publication.show', $publication)
+            ->with('success', $publication->title . ' successfully added.');
     }
 
     /**

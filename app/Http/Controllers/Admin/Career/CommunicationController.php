@@ -65,8 +65,8 @@ class CommunicationController extends BaseAdminController
     {
         $communication = Communication::create($storeCommunicationsRequest->validated());
 
-        return redirect(referer('admin.career.communication.index'))
-            ->with('success', 'Communication added successfully.');
+        return redirect()->route('admin.career.communication.show', $communication)
+            ->with('success', 'Communication successfully added.');
     }
 
     /**

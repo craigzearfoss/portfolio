@@ -52,8 +52,8 @@ class AdminGroupController extends BaseAdminController
     {
         $adminGroup = AdminGroup::create($storeAdminGroupsRequest->validated());
 
-        return redirect(referer('admin.system.admin-group.index'))
-            ->with('success', $adminGroup->name . ' added successfully.');
+        return redirect()->route('admin.system.admin-group.show', $adminGroup)
+            ->with('success', $adminGroup->name . ' successfully added.');
     }
 
     /**

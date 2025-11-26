@@ -62,8 +62,8 @@ class LibraryController extends BaseAdminController
 
         $library = Library::create($storeLibrariesRequest->validated());
 
-        return redirect(referer('admin.dictionary.index'))
-            ->with('success', $library->name . ' added successfully.');
+        return redirect()->route('admin.dictionary.library.show', $library)
+            ->with('success', $library->name . ' successfully added.');
     }
 
     /**

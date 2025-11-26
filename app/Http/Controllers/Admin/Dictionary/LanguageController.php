@@ -62,8 +62,8 @@ class LanguageController extends BaseAdminController
 
         $language = Language::create($storeLanguagesRequest->validated());
 
-        return redirect(referer('admin.dictionary.index'))
-            ->with('success', $language->name . ' added successfully.');
+        return redirect()->route('admin.dictionary.language.show', $language)
+            ->with('success', $language->name . ' successfully added.');
     }
 
     /**

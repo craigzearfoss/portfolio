@@ -48,8 +48,8 @@ class RecruiterController extends BaseAdminController
     {
         $recruiter = Recruiter::create($storeRecruitersRequest->validated());
 
-        return redirect(referer('admin.career.recruiter.index'))
-            ->with('success', $recruiter->name . ' added successfully.');
+        return redirect()->route('admin.career.recruiter.show', $recruiter)
+            ->with('success', $recruiter->name . ' successfully added.');
     }
 
     /**

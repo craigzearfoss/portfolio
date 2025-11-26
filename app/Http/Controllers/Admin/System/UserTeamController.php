@@ -48,8 +48,8 @@ class UserTeamController extends BaseAdminController
     {
         $userTeam = UserTeam::create($storeUserTeamsRequest->validated());
 
-        return redirect(referer('admin.system.user-team.index'))
-            ->with('success', $userTeam->name . ' added successfully.');
+        return redirect()->route('admin.system.user-team.show', $userTeam)
+            ->with('success', $userTeam->name . ' successfully added.');
     }
 
     /**

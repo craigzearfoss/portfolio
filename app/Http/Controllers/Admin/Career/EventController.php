@@ -65,8 +65,8 @@ class EventController extends BaseAdminController
     {
         $event = Event::create($storeEventsRequest->validated());
 
-        return redirect(referer('admin.career.event.index'))
-            ->with('success', 'Event added successfully.');
+        return redirect()->route('admin.career.event.show', $event)
+            ->with('success', 'Event successfully added.');
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Http\Requests\Career\StoreApplicationsRequest;
 use App\Http\Requests\Career\UpdateApplicationsRequest;
 use App\Models\Career\Application;
 use App\Models\Career\Communication;
+use App\Models\Career\Company;
 use App\Models\Career\CoverLetter;
 use App\Models\Career\Event;
 use App\Models\Career\Note;
@@ -39,11 +40,19 @@ class ApplicationController extends BaseAdminController
     /**
      * Show the form for creating a new application.
      *
+     * @param Request $request
      * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.career.application.create');
+        if ($companyId = $request->query('company_id')) {
+            if (!Company::find($companyId)) {
+                return view('admin.career.application.create')
+                    ->withErrors(['GLOBAL' => "Company $companyId not found."]);
+            }
+        };
+
+        return view('admin.career.application.create', compact('companyId'));
     }
 
     /**
@@ -62,8 +71,8 @@ class ApplicationController extends BaseAdminController
             'application_id' => $application->id,
         ]);
 
-        return redirect(referer('admin.career.application.index'))
-            ->with('success', 'Application added successfully.');
+        return redirect()->route('admin.career.application.show', $application)
+            ->with('success', 'Application successfully added.');
     }
 
     /**

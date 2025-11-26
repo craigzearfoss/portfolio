@@ -53,8 +53,8 @@ class VideoController extends BaseAdminController
     {
         $video = Video::create($storeVideosRequest->validated());
 
-        return redirect(referer('admin.portfolio.video.index'))
-            ->with('success', $video->name . ' added successfully.');
+        return redirect()->route('admin.portfolio.video.show', $video)
+            ->with('success', $video->name . ' successfully added.');
     }
 
     /**

@@ -51,8 +51,8 @@ class DatabaseController extends BaseAdminController
     {
         $database = Database::create($storeDatabasesRequest->validated());
 
-        return redirect(referer('admin.system.database.index'))
-            ->with('success', $database->name . ' database added successfully.');
+        return redirect()->route('admin.system.database.show', $database)
+            ->with('success', $database->name . ' database successfully added.');
     }
 
     /**

@@ -62,8 +62,8 @@ class ServerController extends BaseAdminController
 
         $server = Server::create($storeServersRequest->validated());
 
-        return redirect(referer('admin.dictionary.index'))
-            ->with('success', $server->name . ' added successfully.');
+        return redirect()->route('admin.dictionary.server.show', $server)
+            ->with('success', $server->name . ' successfully added.');
     }
 
     /**

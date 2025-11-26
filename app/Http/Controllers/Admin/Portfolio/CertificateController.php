@@ -53,8 +53,8 @@ class CertificateController extends BaseAdminController
     {
         $certificate = Certificate::create($storeCertificatesRequest->validated());
 
-        return redirect(referer('admin.portfolio.certificate.index'))
-            ->with('success', $certificate->name . ' certificate added successfully.');
+        return redirect()->route('admin.portfolio.certificate.show', $certificate)
+            ->with('success', $certificate->name . ' certificate successfully added.');
     }
 
     /**

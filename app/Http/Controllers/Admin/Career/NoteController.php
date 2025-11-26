@@ -65,8 +65,8 @@ class NoteController extends BaseAdminController
     {
         $note = Note::create($storeNotesRequest->validated());
 
-        return redirect(referer('admin.career.note.index'))
-            ->with('success', 'Note added successfully.');
+        return redirect()->route('admin.career.note.show', $note)
+            ->with('success', 'Note successfully added.');
     }
 
     /**

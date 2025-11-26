@@ -59,8 +59,13 @@ class CompanyController extends BaseAdminController
     {
         $company = Company::create($storeCompaniesRequest->validated());
 
-        return redirect(referer('admin.career.company.index'))
-            ->with('success', $company->name . ' added successfully.');
+        $message = $company->name . ' successfully added.';
+        if (!empty($storeCompaniesRequest->query('new_application'))) {
+            return redirect()->route('admin.career.application.create', ['company_id' => $company->id])
+                    ->with('success', $message);
+        } else {
+            return redirect()->route('admin.career.company.show', $company)->with('success', $message);
+        }
     }
 
     /**

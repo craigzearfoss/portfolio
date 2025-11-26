@@ -51,8 +51,8 @@ class MessageController extends BaseAdminController
     {
         $message = Message::create($storeMessagesRequest->validated());
 
-        return redirect(referer('admin.system.message.index'))
-            ->with('success', 'Message added successfully.');
+        return redirect()->route('admin.system.message.show', $message)
+            ->with('success', 'Message successfully added.');
     }
 
     /**

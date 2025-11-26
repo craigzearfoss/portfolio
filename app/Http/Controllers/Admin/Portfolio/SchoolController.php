@@ -62,8 +62,8 @@ class SchoolController extends Controller
 
         $school = School::create($storeSchoolsRequest->validated());
 
-        return redirect(referer('admin.portfolio.school.index'))
-            ->with('success', $school->name . ' added successfully.');
+        return redirect()->route('admin.portfolio.school.show', $school)
+            ->with('success', $school->name . ' successfully added.');
     }
 
     /**

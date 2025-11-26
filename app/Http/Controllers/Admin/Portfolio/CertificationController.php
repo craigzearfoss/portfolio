@@ -59,8 +59,8 @@ class CertificationController extends Controller
 
         $certification = Certification::create($storeCertificationsRequest->validated());
 
-        return redirect(referer('admin.portfolio.certification.index'))
-            ->with('success', $certification->name . ' added successfully.');
+        return redirect()->route('admin.portfolio.certification.show', $certification)
+            ->with('success', $certification->name . ' successfully added.');
     }
 
     /**

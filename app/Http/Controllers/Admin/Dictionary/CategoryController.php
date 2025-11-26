@@ -62,8 +62,8 @@ class CategoryController extends BaseAdminController
 
         $category = Category::create($storeCategoriesRequest->validated());
 
-        return redirect(referer('admin.dictionary.index'))
-            ->with('success', $category->name . ' added successfully.');
+        return redirect()->route('admin.dictionary.category.show', $category)
+            ->with('success', $category->name . ' successfully added.');
     }
 
     /**

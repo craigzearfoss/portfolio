@@ -59,8 +59,8 @@ class JobSkillController extends Controller
     {
         $jobSkill = JobSkill::create($storeJobSkillsRequest->validated());
 
-        return redirect(referer('admin.portfolio.job-skill.index'))
-            ->with('success', $jobSkill->name . ' added successfully.');
+        return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
+            ->with('success', $jobSkill->name . ' successfully added.');
     }
 
     /**

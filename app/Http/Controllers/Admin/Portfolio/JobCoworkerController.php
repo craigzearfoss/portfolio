@@ -63,8 +63,8 @@ class JobCoworkerController extends BaseAdminController
     {
         $jobCoworker = JobCoworker::create($storeJobCoworkersRequest->validated());
 
-        return redirect(referer('admin.portfolio.job-coworker.index'))
-            ->with('success', $jobCoworker->name . ' added successfully.');
+        return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
+            ->with('success', $jobCoworker->name . ' successfully added.');
     }
 
     /**

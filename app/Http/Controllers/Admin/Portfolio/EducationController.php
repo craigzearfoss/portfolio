@@ -51,8 +51,8 @@ class EducationController extends Controller
     {
         $education = Education::create($storeEducationsRequest->validated());
 
-        return redirect(referer('admin.portfolio.education.index'))
-            ->with('success', $education->name . ' education added successfully.');
+        return redirect()->route('admin.portfolio.education.show', $education)
+            ->with('success', $education->name . ' education successfully added.');
     }
 
     /**

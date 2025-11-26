@@ -61,8 +61,8 @@ class AdminController extends BaseAdminController
 
         $admin->save();
 
-        return redirect(referer('admin.system.admin.index'))
-            ->with('success', 'Admin ' . $admin->username . ' added successfully.');
+        return redirect()->route('admin.system.admin.show', $admin)
+            ->with('success', 'Admin ' . $admin->username . ' successfully added.');
     }
 
     /**

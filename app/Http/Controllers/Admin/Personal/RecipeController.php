@@ -51,8 +51,8 @@ class RecipeController extends BaseAdminController
     {
         $recipe = Recipe::create($storeRecipesRequest->validated());
 
-        return redirect(referer('admin.personal.recipe.index'))
-            ->with('success', $recipe->name . ' added successfully.');
+        return redirect()->route('admin.personal.recipe.show', $recipe)
+            ->with('success', $recipe->name . ' successfully added.');
     }
 
     /**

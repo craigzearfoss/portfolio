@@ -53,8 +53,8 @@ class LinkController extends BaseAdminController
     {
         $link = Link::create($storeLinksRequest->validated());
 
-        return redirect(referer('admin.portfolio.link.index'))
-            ->with('success', $link->name . ' link added successfully.');
+        return redirect()->route('admin.portfolio.link.show', $link)
+            ->with('success', $link->name . ' link successfully added.');
     }
 
     /**

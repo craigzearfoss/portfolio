@@ -49,8 +49,8 @@ class UserController extends BaseAdminController
     {
         $user = User::create($storeUsersRequest->validated());
 
-        return redirect(referer('admin.system.user.index'))
-            ->with('success', $user->username . ' added successfully. User will need to verify email.');
+        return redirect()->route('admin.system.user.show', $user)
+            ->with('success', $user->username . ' successfully added. User will need to verify email.');
     }
 
     /**

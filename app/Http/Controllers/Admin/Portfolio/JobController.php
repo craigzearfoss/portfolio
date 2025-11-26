@@ -55,8 +55,8 @@ class JobController extends BaseAdminController
     {
         $job = Job::create($storeJobsRequest->validated());
 
-        return redirect(referer('admin.portfolio.job.index'))
-            ->with('success', $job->company . ' job added successfully.');
+        return redirect()->route('admin.portfolio.job.show', $job)
+            ->with('success', $job->company . ' job successfully added.');
     }
 
     /**

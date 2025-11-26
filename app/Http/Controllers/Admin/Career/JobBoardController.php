@@ -62,8 +62,8 @@ class JobBoardController extends BaseAdminController
 
         $jobBoard =JobBoard::create($storeJobBoardsRequest->validated());
 
-        return redirect(referer('admin.career.job-board.index'))
-            ->with('success', $jobBoard->name . ' added successfully.');
+        return redirect()->route('admin.career.job-board.show', $jobBoard)
+            ->with('success', $jobBoard->name . ' successfully added.');
     }
 
     /**
