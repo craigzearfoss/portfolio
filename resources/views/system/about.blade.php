@@ -76,30 +76,39 @@
         <div class="is-flex is-align-items-center is-justify-content-center mb-4">
             <div class="box" style="max-width: 40em;">
                 <h2 class="subtitle">To-do List (in no particular order)</h2>
-                <ul style="list-style-type: circle;">
-                    <li>Verify add/edit/delete functionality works for all current resources.</li>
-                    <li>Create database backup and import scripts.</li>
-                    <li>Add captcha to contact, request account, and login pages.</li>
-                    <li>Add file upload functionality.</li>
-                    <li>Make the menus dynamic, probably using Vue.js</li>
-                    <li>Implement skill tags for applications.</li>
-                    <li>Add validation to "label" field for admins and users tables.</li>
-                    <li>Create an API.</li>
-                    <li>Make the pages more dynamic.</li>
-                    <li>Enhance search capabilities.</li>
-                    <li>Hide Create/Edit/Delete buttons if the user does not have the proper permissions.</li>
-                    <li>Add a Current Admins/Users pages for root admins using the sessions table.</li>
-                    <li>Allow admins/users to be logged off with the requires_login column.</li>
-                    <li>Create a way to log out all users and/or admins, probably through a console command.</li>
-                    <li>Add type-ahead to select lists.</li>
-                    <li>Create downloadable reports.</li>
-                    <li>Implement tables with AG Grid.</li>
-                    <li>Completely implement responsive design for mobile.</li>
-                    <li>Work of the site styles to make it look pretty. Possibly implement light and dark themes.</li>
-                    <li>Create a one-click method to bookmark job application webpages and import the job description text.</li>
-                    <li>Stress test the site to verify it's performance.</li>
-                    <li>Add billing (only if I feel the site is marketable)</li>
-                </ul>
+                <div class="content">
+
+                    <ul style="list-style-type: circle;">
+                        <li>Verify add/edit/delete functionality works for all current resources.</li>
+                        <li>Create database backup and import scripts.</li>
+                        <li>Add captcha to contact, request account, and login pages.</li>
+                        <li>Add multi factor authentication</li>
+                        <li>Create a deploy script</li>
+                        <li>Add file upload functionality.</li>
+                        <li>Make the menus dynamic, probably using Vue.js</li>
+                        <li>Implement skill tags for applications.</li>
+                        <li>Add validation to "label" field for admins and users tables.</li>
+                        <li>Create an API.</li>
+                        <li>Make the pages more dynamic.</li>
+                        <li>Add geo positioning trait for addresses</li>
+                        <li>Enhance search capabilities.</li>
+                        <li>On demo admin homepage add text stating that data cannot be updated in demo mode.</li>
+                        <li>Hide Create/Edit/Delete buttons if the user does not have the proper permissions. Do this by creating canRead(), canUpdate(), canCreate(), canDelete() helper functions.</li>
+                        <li>Cache user/admin permissions</li>
+                        <li>Add disclaimer box to layout templates</li>
+                        <li>Add a Current Admins/Users pages for root admins using the sessions table.</li>
+                        <li>Allow admins/users to be logged off with the requires_login column.</li>
+                        <li>Create a way to log out all users and/or admins, probably through a console command.</li>
+                        <li>Add type-ahead to select lists.</li>
+                        <li>Create downloadable reports.</li>
+                        <li>Implement tables with AG Grid.</li>
+                        <li>Completely implement responsive design for mobile.</li>
+                        <li>Work of the site styles to make it look pretty. Possibly implement light and dark themes.</li>
+                        <li>Create a one-click method to bookmark job application webpages and import the job description text.</li>
+                        <li>Stress test the site to verify it's performance.</li>
+                        <li>Add billing (only if I feel the site is marketable)</li>
+                    </ul>
+                </div>
 
             </div>
         </div>
