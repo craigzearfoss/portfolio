@@ -47,10 +47,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['owner_id', 'slug'], 'owner_id_slug_unique');
+            $table->index('name_idx');
+            $table->index('artist_idx');
 
-            $table->index('name');
-            $table->index('artist');
+            $table->unique(['owner_id', 'slug'], 'owner_id_slug_unique');
         });
 
         /*

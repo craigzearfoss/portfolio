@@ -25,6 +25,8 @@ return new class extends Migration
             $table->integer('end_year')->nullable();
             $table->integer('years')->default(0);
 
+            $table->index('name_idx');
+
             $table->unique(['owner_id', 'name'], 'owner_id_name_unique');
         });
     }

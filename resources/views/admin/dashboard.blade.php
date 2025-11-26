@@ -18,4 +18,11 @@
 
     </div>
 
+    <div class="card p-4">
+
+        <h4 class="title is-size-4 mb-2">Users</h4>
+        @include('guest.components.admins-table', ['admins' => $admins])
+
+    </div>
+
 @endsection

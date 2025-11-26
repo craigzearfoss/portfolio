@@ -38,7 +38,7 @@ class StoreAdminsRequest extends FormRequest
                 'unique:admins,username',
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
-            'name'             => ['string', 'max:255', 'nullable'],
+            'name'             => ['required', 'string', 'min:6', 'max:255'],
             'label'            => [
                 'required',
                 'string',

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor( \App\Models\System\AdminTeam::class);
             $table->string('username', 200)->unique();
-            $table->string('name')->nullable(); // note that name is not required for admins
+            $table->string('name');
             $table->string('label', 200)->unique();
             $table->string('title', 100)->nullable();
             $table->string('role', 100)->nullable();
@@ -58,6 +58,8 @@ return new class extends Migration
             $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('name_idx');
         });
 
         $data = [

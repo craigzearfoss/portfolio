@@ -85,6 +85,9 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->index('company_idx');
+            $table->index('role_idx');
+
             $table->unique(['owner_id', 'slug'], 'owner_id_slug_unique');
         });
 

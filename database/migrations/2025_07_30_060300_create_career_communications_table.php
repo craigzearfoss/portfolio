@@ -35,6 +35,8 @@ return new class extends Migration
             $table->boolean('demo')->default(false);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('subject_idx');
         });
 
         /*

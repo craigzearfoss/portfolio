@@ -14,18 +14,39 @@ use Illuminate\View\View;
 
 class IndexController extends BaseAdminController
 {
-    public function index(): View
+    /**
+     * @param Request $request
+     * @return View
+     */
+    public function index(Request $request): View
     {
+        $perPage = $request->query('per_page', $this->perPage);
+
         if (Auth::guard('admin')->check()) {
-            return view(themedTemplate('admin.dashboard'));
+
+            $admins = \App\Models\System\Admin::where('disabled', 0)
+                ->orderBy('username', 'asc')->paginate($perPage);
+
+            return view(themedTemplate('admin.dashboard'), compact('admins'));
+
         } else {
+
             return view(themedTemplate('admin.index'));
         }
     }
 
-    public function dashboard(): View
+    /**
+     * @param Request $request
+     * @return View
+     */
+    public function dashboard(Request $request): View
     {
-        return view(themedTemplate('admin.dashboard'));
+        $perPage = $request->query('per_page', $this->perPage);
+
+        $admins = \App\Models\System\Admin::where('disabled', 0)
+            ->orderBy('username', 'asc')->paginate($perPage);
+
+        return view(themedTemplate('admin.dashboard'), compact('admins'));
     }
 
     public function login(Request $request): RedirectResponse | View

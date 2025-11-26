@@ -54,6 +54,9 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->index('name_idx');
+            $table->index('artist_idx');
+
             $table->unique(['owner_id', 'name', 'artist'], 'owner_id_name_artist_unique');
             $table->unique(['owner_id', 'slug'], 'owner_id_slug_unique');
         });

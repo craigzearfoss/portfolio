@@ -31,6 +31,8 @@ return new class extends Migration
             $table->boolean('disabled')->default(false);
             $table->boolean('demo')->default(false);
 
+            $table->index('name_idx');
+
             $table->unique(['owner_id', 'name'], 'owner_id_name_unique');
         });
     }

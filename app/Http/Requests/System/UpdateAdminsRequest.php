@@ -44,7 +44,7 @@ class UpdateAdminsRequest extends FormRequest
                 'unique:admins,username,'.$this->admin->id,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
-            'name'             => ['string', 'max:255', 'nullable'],
+            'name'             => ['required', 'string', 'min:6', 'max:255'],
             'label'            => [
                 'filled',
                 'string',

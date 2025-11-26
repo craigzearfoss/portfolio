@@ -43,6 +43,9 @@ return new class extends Migration
             $table->boolean('root')->default(false);
             $table->boolean('disabled')->default(false);
             $table->boolean('demo')->default(false);
+
+            $table->index('name_idx');
+
             $table->timestamps();
             $table->softDeletes();
         });

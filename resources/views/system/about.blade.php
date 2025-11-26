@@ -83,6 +83,7 @@
                     <li>Add file upload functionality.</li>
                     <li>Make the menus dynamic, probably using Vue.js</li>
                     <li>Implement skill tags for applications.</li>
+                    <li>Add validation to "label" field for admins and users tables.</li>
                     <li>Create an API.</li>
                     <li>Make the pages more dynamic.</li>
                     <li>Enhance search capabilities.</li>
@@ -97,6 +98,7 @@
                     <li>Work of the site styles to make it look pretty. Possibly implement light and dark themes.</li>
                     <li>Create a one-click method to bookmark job application webpages and import the job description text.</li>
                     <li>Stress test the site to verify it's performance.</li>
+                    <li>Add billing (only if I feel the site is marketable)</li>
                 </ul>
 
             </div>

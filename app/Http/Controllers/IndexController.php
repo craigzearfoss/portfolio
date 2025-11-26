@@ -18,7 +18,7 @@ class IndexController extends BaseSystemController
         $admin = null;
         $admins = \App\Models\System\Admin::where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('username', 'asc')->paginate($perPage);
+            ->orderBy('name', 'asc')->paginate($perPage);
 
         return view(themedTemplate('system.index'), compact('admin', 'admins'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
