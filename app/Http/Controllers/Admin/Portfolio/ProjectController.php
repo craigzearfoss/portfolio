@@ -90,8 +90,8 @@ class ProjectController extends BaseAdminController
     {
         $project->update($updateProjectsRequest->validated());
 
-        return redirect(referer('admin.portfolio.project.index'))
-            ->with('success', $project->name . ' project updated successfully.');
+        return redirect()->route('admin.portfolio.project.show', $project)
+            ->with('success', $project->name . ' project successfully updated.');
     }
 
     /**

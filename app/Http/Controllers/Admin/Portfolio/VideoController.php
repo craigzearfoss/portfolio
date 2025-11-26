@@ -90,8 +90,8 @@ class VideoController extends BaseAdminController
     {
         $video->update($updateVideosRequest->validated());
 
-        return redirect(referer('admin.portfolio.video.index'))
-            ->with('success', $video->name . ' updated successfully.');
+        return redirect()->route('admin.portfolio.video.show', $video)
+            ->with('success', $video->name . ' successfully updated.');
     }
 
     /**

@@ -101,8 +101,8 @@ class JobCoworkerController extends BaseAdminController
     {
         $jobCoworker->update($updateJobCoworkerRequest->validated());
 
-        return redirect(referer('admin.portfolio.job-coworker.index'))
-            ->with('success', $jobCoworker->name . ' updated successfully.');
+        return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
+            ->with('success', $jobCoworker->name . ' successfully updated.');
     }
 
     /**

@@ -88,8 +88,8 @@ class MessageController extends BaseAdminController
     {
         $message->update($updateMessagesRequest->validated());
 
-        return redirect(referer('admin.system.message.index'))
-            ->with('success', 'Message updated successfully.');
+        return redirect()->route('admin.system.message.index')
+            ->with('success', 'Message successfully updated.');
     }
 
     /**

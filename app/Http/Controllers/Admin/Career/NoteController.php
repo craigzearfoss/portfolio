@@ -102,8 +102,8 @@ class NoteController extends BaseAdminController
     {
         $note->update($updateNotesRequest->validated());
 
-        return redirect(referer('admin.career.note.index'))
-            ->with('success', 'Note updated successfully.');
+        return redirect()->route('admin.career.note.show', $note)
+            ->with('success', 'Note successfully updated.');
     }
 
     /**

@@ -102,8 +102,8 @@ class EventController extends BaseAdminController
     {
         $event->update($updateEventsRequest->validated());
 
-        return redirect(referer('admin.career.event.index'))
-            ->with('success', 'Event updated successfully.');
+        return redirect()->route('admin.career.event.show', $event)
+            ->with('success', 'Event successfully updated.');
     }
 
     /**

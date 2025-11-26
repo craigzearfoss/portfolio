@@ -74,7 +74,7 @@ class MenuItemController extends BaseAdminController
     {
         $menuItem = MenuItem::create($storeMenuItemsRequest->validated());
 
-        return redirect()->route('admin.system.menu-item.show', $menuItem)
+        return redirect()->route('admin.system.menu-item.index')
             ->with('success', $menuItem->name . ' menu item successfully added.');
     }
 
@@ -111,8 +111,8 @@ class MenuItemController extends BaseAdminController
     {
         $menuItem->update($updateMenuItemsRequest->validated());
 
-        return redirect(referer('admin.system.menu-item.index'))
-            ->with('success', $menuItem->name . ' menu item updated successfully.');
+        return redirect()->route('admin.system.menu-item.index')
+            ->with('success', $menuItem->name . ' menu item successfully updated.');
     }
 
     /**

@@ -91,8 +91,8 @@ class ReadingController extends BaseAdminController
     {
         $reading->update($updateReadingsRequest->validated());
 
-        return redirect(referer('admin.personal.reading.index'))
-            ->with('success', $reading->title . ' updated successfully.');
+        return redirect()->route('admin.personal.reading.show', $reading)
+            ->with('success', $reading->title . ' successfully updated.');
     }
 
     /**

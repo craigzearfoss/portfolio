@@ -89,8 +89,8 @@ class EducationController extends Controller
     {
         $education->update($updateEducationsRequest->validated());
 
-        return redirect(referer('admin.portfolio.education.index'))
-            ->with('success', $education->name . ' education updated successfully.');
+        return redirect()->route('admin.portfolio.education.show', $education)
+            ->with('success', $education->name . ' education successfully updated.');
     }
 
     /**

@@ -97,8 +97,8 @@ class JobSkillController extends Controller
     {
         $jobSkill->update($updateJobSkillRequest->validated());
 
-        return redirect(referer('admin.portfolio.job-skill.index'))
-            ->with('success', $jobSkill->name . ' updated successfully.');
+        return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
+            ->with('success', $jobSkill->name . ' successfully updated.');
     }
 
     /**

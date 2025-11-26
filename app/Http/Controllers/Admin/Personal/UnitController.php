@@ -104,8 +104,8 @@ class UnitController extends BaseAdminController
 
         $unit->update($updateUnitsRequest->validated());
 
-        return redirect(referer('admin.personal.unit.index'))
-            ->with('success', $unit->name . ' updated successfully.');
+        return redirect()->route('admin.personal.unit.show', $unit)
+            ->with('success', $unit->name . ' successfully updated.');
     }
 
     /**

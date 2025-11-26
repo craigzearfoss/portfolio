@@ -90,8 +90,8 @@ class ReferenceController extends BaseAdminController
     {
         $reference->update($updateReferencesUpdateRequest->validated());
 
-        return redirect(referer('admin.career.reference.index'))
-            ->with('success', $reference->name . ' updated successfully.');
+        return redirect()->route('admin.career.reference.show', $reference)
+            ->with('success', $reference->name . ' successfully updated.');
     }
 
     /**

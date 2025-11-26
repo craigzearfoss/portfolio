@@ -97,8 +97,8 @@ class ArtController extends BaseAdminController
     {
         $art->update($updateArtRequest->validated());
 
-        return redirect(referer('admin.portfolio.art.index'))
-            ->with('success', $art->name . ' updated successfully.');
+        return redirect()->route('admin.portfolio.art.show', $art)
+            ->with('success', $art->name . ' successfully updated.');
     }
 
     /**

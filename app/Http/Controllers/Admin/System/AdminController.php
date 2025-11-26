@@ -103,8 +103,8 @@ class AdminController extends BaseAdminController
     {
         $admin->update($updateAdminsRequest->validated());
 
-        return redirect(referer('admin.system.admin.index'))
-            ->with('success', $admin->username . ' updated successfully.');
+        return redirect()->route('admin.system.admin.show', $admin)
+            ->with('success', $admin->username . ' successfully updated.');
     }
 
     /**

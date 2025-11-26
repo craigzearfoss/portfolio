@@ -110,8 +110,8 @@ class FrameworkController extends BaseAdminController
 
         $framework->update($updateFrameworksRequest->validated());
 
-        return redirect(referer('admin.dictionary.index'))
-            ->with('success', $framework->name . ' updated successfully.');
+        return redirect()->route('admin.dictionary.framework.show', $framework)
+            ->with('success', $framework->name . ' successfully updated.');
     }
 
     /**

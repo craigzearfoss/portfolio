@@ -51,8 +51,8 @@ class ProfileController extends BaseAdminController
 
         $admin->update($updateAdminsRequest->validated());
 
-        return redirect(referer('admin.portfolio.show'))
-            ->with('success', 'Profile updated successfully.');
+        return redirect()->route('admin.profile.show', $admin)
+            ->with('success', 'Profile successfully updated.');
     }
 
     /**
@@ -90,6 +90,6 @@ class ProfileController extends BaseAdminController
         $admin->update();
 
         return redirect(referer('admin.portfolio.show'))
-            ->with('success', 'User password updated successfully.');
+            ->with('success', 'User password successfully updated.');
     }
 }

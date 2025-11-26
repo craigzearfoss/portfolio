@@ -90,8 +90,8 @@ class LinkController extends BaseAdminController
     {
         $link->update($updateLinksRequest->validated());
 
-        return redirect(referer('admin.portfolio.link.index'))
-            ->with('success', $link->name . ' link updated successfully.');
+        return redirect()->route('admin.portfolio.link.show', $link)
+            ->with('success', $link->name . ' link successfully updated.');
     }
 
     /**

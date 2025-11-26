@@ -93,8 +93,8 @@ class AdminGroupController extends BaseAdminController
     {
         $adminGroup->update($updateAdminGroupsRequest->validated());
 
-        return redirect(referer('admin.system.admin-group.index'))
-            ->with('success', $adminGroup->name . ' updated successfully.');
+        return redirect()->route('admin.system.admin-group.show', $adminGroup)
+            ->with('success', $adminGroup->name . ' successfully updated.');
     }
 
     /**

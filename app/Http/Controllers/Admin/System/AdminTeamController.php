@@ -93,8 +93,8 @@ class AdminTeamController extends BaseAdminController
     {
         $adminTeam->update($updateAdminTeamsRequest->validated());
 
-        return redirect(referer('admin.system.admin-team.index'))
-            ->with('success', $adminTeam->name . ' updated successfully.');
+        return redirect()->route('admin.system.admin-team.show', $adminTeam)
+            ->with('success', $adminTeam->name . ' successfully updated.');
     }
 
     /**

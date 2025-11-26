@@ -108,8 +108,8 @@ class OperatingSystemController extends BaseAdminController
 
         $operatingSystem->update($updateOperatingSystemsRequest->validated());
 
-        return redirect(referer('admin.dictionary.index'))
-            ->with('success', $operatingSystem->name . ' updated successfully.');
+        return redirect()->route('admin.dictionary.operating-system.show', $operatingSystem)
+            ->with('success', $operatingSystem->name . ' successfully updated.');
     }
 
     /**

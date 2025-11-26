@@ -92,8 +92,8 @@ class CoverLetterController extends BaseAdminController
     {
         $coverLetter->update($updateApplicationsRequest->validated());
 
-        return redirect(referer('admin.career.cover-letter.index'))
-            ->with('success', 'Cover letter updated successfully.');
+        return redirect()->route('admin.career.cover-letter.show', $coverLetter)
+            ->with('success', 'Cover letter successfully updated.');
     }
 
     /**

@@ -90,8 +90,8 @@ class CourseController extends BaseAdminController
     {
         $course->update($updateCourseUpdateRequest->validated());
 
-        return redirect(referer('admin.portfolio.course.index'))
-            ->with('success', $course->name . ' updated successfully.');
+        return redirect()->route('admin.portfolio.course.show', $course)
+            ->with('success', $course->name . ' successfully updated.');
     }
 
     /**

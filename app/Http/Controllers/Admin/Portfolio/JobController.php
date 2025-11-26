@@ -93,8 +93,8 @@ class JobController extends BaseAdminController
     {
         $job->update($updateJobsRequest->validated());
 
-        return redirect(referer('admin.portfolio.job.index'))
-            ->with('success', $job->company . ' job updated successfully.');
+        return redirect()->route('admin.portfolio.job.show', $job)
+            ->with('success', $job->company . ' job successfully updated.');
     }
 
     /**

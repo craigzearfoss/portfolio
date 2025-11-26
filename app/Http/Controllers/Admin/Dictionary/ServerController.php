@@ -107,8 +107,8 @@ class ServerController extends BaseAdminController
 
         $server->update($updateServersRequest->validated());
 
-        return redirect(referer('admin.dictionary.index'))
-            ->with('success', $server->name . ' updated successfully.');
+        return redirect()->route('admin.dictionary.server.show', $server)
+            ->with('success', $server->name . ' successfully updated.');
     }
 
     /**

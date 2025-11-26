@@ -104,8 +104,8 @@ class CertificationController extends Controller
 
         $certification->update($updateCertificationsRequest->validated());
 
-        return redirect(referer('admin.portfolio.certification.index'))
-            ->with('success', $certification->name . ' updated successfully.');
+        return redirect()->route('admin.portfolio.certification.show', $certification)
+            ->with('success', $certification->name . ' successfully updated.');
     }
 
     /**

@@ -108,8 +108,8 @@ class JobBoardController extends BaseAdminController
 
         $jobBoard->update($updateJobBoardsRequest->validated());
 
-        return redirect(referer('admin.career.job-board.index'))
-            ->with('success', $jobBoard->name . ' updated successfully.');
+        return redirect()->route('admin.career.job-board.show', $jobBoard)
+            ->with('success', $jobBoard->name . ' successfully updated.');
     }
 
     /**

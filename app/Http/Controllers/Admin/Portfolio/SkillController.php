@@ -89,8 +89,8 @@ class SkillController extends BaseAdminController
     {
         $skill->update($updateSkillsRequest->validated());
 
-        return redirect(referer('admin.portfolio.skill.index'))
-            ->with('success', $skill->name . ' updated successfully.');
+        return redirect()->route('admin.portfolio.skill.show', $skill)
+            ->with('success', $skill->name . ' successfully updated.');
     }
 
     /**

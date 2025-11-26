@@ -90,8 +90,8 @@ class MusicController extends BaseAdminController
     {
         $music->update($updateMusicRequest->validated());
 
-        return redirect(referer('admin.portfolio.music.index'))
-            ->with('success', $music->name . ' updated successfully.');
+        return redirect()->route('admin.portfolio.music.show', $music)
+            ->with('success', $music->name . ' successfully updated.');
     }
 
     /**

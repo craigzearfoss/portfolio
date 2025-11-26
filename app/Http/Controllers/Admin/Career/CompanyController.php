@@ -101,8 +101,8 @@ class CompanyController extends BaseAdminController
     {
         $company->update($updateCompaniesRequest->validated());
 
-        return redirect(referer('admin.career.company.index'))
-            ->with('success', $company->name . ' updated successfully.');
+        return redirect()->route('admin.career.company.show', $company)
+            ->with('success', $company->name . ' successfully updated.');
     }
 
     /**

@@ -91,8 +91,8 @@ class ResumeController extends BaseAdminController
     {
         $resume->update($updateResumesRequest->validated());
 
-        return redirect(referer('admin.career.resume.index'))
-            ->with('success', $resume->name . ' resume updated successfully.');
+        return redirect()->route('admin.career.resume.show', $resume)
+            ->with('success', $resume->name . ' resume successfully updated.');
     }
 
     /**

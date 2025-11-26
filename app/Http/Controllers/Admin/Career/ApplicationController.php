@@ -112,8 +112,8 @@ class ApplicationController extends BaseAdminController
     {
         $application->update($updateApplicationsRequest->validated());
 
-        return redirect(referer('admin.career.application.index'))
-            ->with('success', 'Application updated successfully.');
+        return redirect()->route('admin.career.application.show', $application)
+            ->with('success', 'Application successfully updated.');
     }
 
     /**
@@ -166,8 +166,8 @@ class ApplicationController extends BaseAdminController
     {
         $application->update($updateApplicationsRequest->validated());
 
-        return redirect(referer('admin.career.application.index'))
-            ->with('success', 'Application updated successfully.');
+        return redirect()->route('admin.career.application.show', $application)
+            ->with('success', 'Application successfully updated.');
     }
 
     /**

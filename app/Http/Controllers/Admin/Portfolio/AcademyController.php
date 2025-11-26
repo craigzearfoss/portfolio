@@ -107,8 +107,8 @@ class AcademyController extends BaseAdminController
 
         $academy->update($updateAcademiesRequest->validated());
 
-        return redirect(referer('admin.portfolio.academy.index'))
-            ->with('success', $academy->name . ' updated successfully.');
+        return redirect()->route('admin.portfolio.academy.show', $academy)
+            ->with('success', $academy->name . ' successfully updated.');
     }
 
     /**

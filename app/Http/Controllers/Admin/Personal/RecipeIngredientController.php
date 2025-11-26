@@ -93,8 +93,8 @@ class RecipeIngredientController extends BaseAdminController
     {
         $recipeIngredient->update($updateRecipeIngredientsRequest->validated());
 
-        return redirect(referer('admin.personal.recipe-ingredient.index'))
-            ->with('success', 'Recipe ingredient updated successfully.');
+        return redirect()->route('admin.personal.recipe-ingredient.show', $recipeIngredient)
+            ->with('success', 'Recipe ingredient successfully updated.');
     }
 
     /**

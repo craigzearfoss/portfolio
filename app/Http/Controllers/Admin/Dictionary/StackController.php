@@ -107,8 +107,8 @@ class StackController extends BaseAdminController
 
         $stack->update($updateStacksRequest->validated());
 
-        return redirect(referer('admin.dictionary.index'))
-            ->with('success', $stack->name . ' updated successfully.');
+        return redirect()->route('admin.dictionary.stack.show', $stack)
+            ->with('success', $stack->name . ' successfully updated.');
     }
 
     /**

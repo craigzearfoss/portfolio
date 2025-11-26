@@ -90,8 +90,8 @@ class PublicationController extends BaseAdminController
     {
         $publication->update($updatePublicationsRequest->validated());
 
-        return redirect(referer('admin.portfolio.publication.index'))
-            ->with('success', $publication->title . ' updated successfully.');
+        return redirect()->route('admin.portfolio.publication.show', $publication)
+            ->with('success', $publication->title . ' successfully updated.');
     }
 
     /**

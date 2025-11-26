@@ -99,8 +99,8 @@ class RecipeStepController extends BaseAdminController
     {
         $recipeStep->update($updateRecipeStepsRequest->validated());
 
-        return redirect(referer('admin.personal.recipe-step.index'))
-            ->with('success', 'Recipe step updated successfully.');
+        return redirect()->route('admin.personal.recipe-step.show', $recipeStep)
+            ->with('success', 'Recipe step successfully updated.');
     }
 
     /**

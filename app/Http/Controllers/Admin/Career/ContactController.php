@@ -92,8 +92,8 @@ class ContactController extends BaseAdminController
     {
         $contact->update($updateContactsRequest->validated());
 
-        return redirect(referer('admin.career.application.index'))
-            ->with('success', $contact->name . ' updated successfully.');
+        return redirect()->route('admin.career.application.show', $contact)
+            ->with('success', $contact->name . ' successfully updated.');
     }
 
     /**

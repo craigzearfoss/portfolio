@@ -91,8 +91,8 @@ class CertificateController extends BaseAdminController
     {
         $certificate->update($updateCertificatesRequest->validated());
 
-        return redirect(referer('admin.portfolio.certificate.index'))
-            ->with('success', $certificate->name . ' certificate updated successfully.');
+        return redirect()->route('admin.portfolio.certificate.show', $certificate)
+            ->with('success', $certificate->name . ' certificate successfully updated.');
     }
 
     /**

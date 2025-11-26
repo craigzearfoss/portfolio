@@ -89,8 +89,8 @@ class UserTeamController extends BaseAdminController
     {
         $userTeam->update($updateUserTeamsRequest->validated());
 
-        return redirect(referer('admin.system.user-team.index'))
-            ->with('success', $userTeam->name . ' updated successfully.');
+        return redirect()->route('admin.system.user-team.show', $userTeam)
+            ->with('success', $userTeam->name . ' successfully updated.');
     }
 
     /**

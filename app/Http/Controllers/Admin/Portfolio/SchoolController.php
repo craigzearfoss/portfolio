@@ -107,8 +107,8 @@ class SchoolController extends Controller
 
         $school->update($updateSchoolsRequest->validated());
 
-        return redirect(referer('admin.portfolio.school.index'))
-            ->with('success', $school->name . ' updated successfully.');
+        return redirect()->route('admin.portfolio.school.show', $school)
+            ->with('success', $school->name . ' successfully updated.');
     }
 
     /**

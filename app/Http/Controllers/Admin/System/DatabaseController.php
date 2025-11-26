@@ -88,8 +88,8 @@ class DatabaseController extends BaseAdminController
     {
         $database->update($updateDatabasesRequest->validated());
 
-        return redirect(referer('admin.system.database.index'))
-            ->with('success', $database->name . ' database updated successfully.');
+        return redirect()->route('admin.system.database.show', $database)
+            ->with('success', $database->name . ' database successfully updated.');
     }
 
     /**

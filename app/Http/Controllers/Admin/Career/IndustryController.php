@@ -105,8 +105,8 @@ class IndustryController extends BaseAdminController
 
         $industry->update($updateIndustriesRequest->validated());
 
-        return redirect(referer('admin.career.industry.index'))
-            ->with('success', $industry->name . ' updated successfully.');
+        return redirect()->route('admin.career.industry.show', $industry)
+            ->with('success', $industry->name . ' successfully updated.');
     }
 
     /**

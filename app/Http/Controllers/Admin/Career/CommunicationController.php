@@ -103,8 +103,8 @@ class CommunicationController extends BaseAdminController
     {
         $communication->update($updateCommunicationsRequest->validated());
 
-        return redirect(referer('admin.career.communication.index'))
-            ->with('success', 'Communication updated successfully.');
+        return redirect()->route('admin.career.communication.show', $communication)
+            ->with('success', 'Communication successfully updated.');
     }
 
     /**

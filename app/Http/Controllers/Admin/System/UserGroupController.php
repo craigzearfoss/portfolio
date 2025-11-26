@@ -93,8 +93,8 @@ class UserGroupController extends BaseAdminController
     {
         $userGroup->update($updateUserGroupRequest->validated());
 
-        return redirect(referer('admin.system.user-group.index'))
-            ->with('success', $userGroup->name . ' updated successfully.');
+        return redirect()->route('admin.system.user-group.show', $userGroup)
+            ->with('success', $userGroup->name . ' successfully updated.');
     }
 
     /**

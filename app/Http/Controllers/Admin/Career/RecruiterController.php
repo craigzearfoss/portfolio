@@ -85,8 +85,8 @@ class RecruiterController extends BaseAdminController
     {
         $recruiter->update($updateRecruitersRequest->validated());
 
-        return redirect(referer('admin.career.recruiter.index'))
-            ->with('success', $recruiter->name . ' updated successfully.');
+        return redirect()->route('admin.career.recruiter.show', $recruiter)
+            ->with('success', $recruiter->name . ' successfully updated.');
     }
 
     /**

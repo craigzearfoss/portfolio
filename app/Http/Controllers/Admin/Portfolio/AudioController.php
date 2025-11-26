@@ -90,8 +90,8 @@ class AudioController extends BaseAdminController
     {
         $audio->update($updateAudiosRequest->validated());
 
-        return redirect(referer('admin.portfolio.audio.index'))
-            ->with('success', $audio->name . ' updated successfully.');
+        return redirect()->route('admin.portfolio.audio.show', $audio)
+            ->with('success', $audio->name . ' successfully updated.');
     }
 
     /**
