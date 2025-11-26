@@ -21,7 +21,9 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.company.store') }}" method="POST">
+        <form action="{{ route('admin.career.company.store',
+                 !empty(request()->query('new_application')) ? [ 'new_application' => 1 ] : []
+            ) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
