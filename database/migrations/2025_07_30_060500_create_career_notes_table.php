@@ -24,12 +24,12 @@ return new class extends Migration
             $table->foreignId('application_id', \App\Models\Career\Application::class);
             $table->string('subject')->index('subject_idx');
             $table->text('body')->nullable();
-            $table->integer('sequence')->default(0);
             $table->boolean('public')->default(false);
             $table->boolean('readonly')->default(false);
             $table->boolean('root')->default(false);
             $table->boolean('disabled')->default(false);
             $table->boolean('demo')->default(false);
+            $table->integer('sequence')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

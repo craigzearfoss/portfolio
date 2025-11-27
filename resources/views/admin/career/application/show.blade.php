@@ -63,6 +63,7 @@
                     'class' => 'button is-primary is-small px-1 py-0'
                 ])
             ])
+
             @include('admin.components.show-row', [
                 'name'  => 'cover letter date',
                 'value' => longDate($application->coverLetter['date'])

@@ -23,8 +23,9 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th style="white-space: nowrap;">user name</th>
                 <th>name</th>
+                <th style="white-space: nowrap;">user name</th>
+                <th>label</th>
                 <th>team</th>
                 <th>email</th>
                 <th>status</th>
@@ -36,8 +37,9 @@
             <?php /*
             <tfoot>
             <tr>
-                <th style="white-space: nowrap;">user name</th>
                 <th>name</th>
+                <th style="white-space: nowrap;">user name</th>
+                <th>label</th>
                 <th>team</th>
                 <th>email</th>
                 <th>status</th>
@@ -52,14 +54,20 @@
             @forelse ($admins as $admin)
 
                 <tr data-id="{{ $admin->id }}">
+                    <td data-field="name">
+                        {{ $admin->name }}
+                    </td>
                     <td data-field="username">
                         {{ $admin->username }}
                     </td>
-                    <td data-field="admin_team_id">
-                        {{ $admin->name }}
+                    <td data-field="label">
+                        {{ $admin->label }}
                     </td>
-                    <td data-field="name">
-                        {{ $admin->team->name }}
+                    <td data-field="admin_team_id">
+                        @include('admin.components.link', [
+                            'name' => $admin->team->name,
+                            'href' => route('admin.system.admin-team.show', $admin->team->id)
+                        ])
                     </td>
                     <td data-field="email">
                         {{ $admin->email }}
@@ -112,7 +120,7 @@
             @empty
 
                 <tr>
-                    <td colspan="8">There are no admins.</td>
+                    <td colspan="9">There are no admins.</td>
                 </tr>
 
             @endforelse

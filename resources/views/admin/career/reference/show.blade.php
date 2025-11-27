@@ -56,12 +56,13 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                'street'    => $reference->street ?? null,
-                'street2'   => $company->street2 ?? null,
-                'city'      => $reference->city ?? null,
-                'state'     => $reference->state['code'] ?? null,
-                'zip'       => $reference->zip ?? null,
-                'country'   => $reference->country['iso_alpha3'] ?? null,
+                'street'          => $reference->street ?? null,
+                'street2'         => $reference->street2 ?? null,
+                'city'            => $reference->city ?? null,
+                'state'           => $reference->state['code'] ?? null,
+                'zip'             => $reference->zip ?? null,
+                'country'         => $reference->country['iso_alpha3'] ?? null,
+                'streetSeparator' => '<br>',
             ])
         ])
 
@@ -97,7 +98,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'birthday',
-            'value' => longDate($reference->birthday)
+            'value' => longDate($reference->birthday),
         ])
 
         @include('admin.components.show-row', [
@@ -111,9 +112,10 @@
             'target' => '_blank'
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link name',
-            'value'    => $reference->link_name,
+        @include('admin.components.show-row', [
+            'name'  => 'link_name',
+            'label' => 'link name',
+            'value' => $reference->link_name,
         ])
 
         @include('admin.components.show-row', [
@@ -157,8 +159,8 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'    => 'sequence',
-            'checked' => $reference->sequence
+            'name'  => 'sequence',
+            'value' => $reference->sequence
         ])
 
         @include('admin.components.show-row-checkbox', [

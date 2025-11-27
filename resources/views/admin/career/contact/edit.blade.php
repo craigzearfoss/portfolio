@@ -194,6 +194,13 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'type'    => 'date',
+                'name'    => 'birthday',
+                'value'   => old('birthday') ?? $contact->birthday,
+                'message' => $message ?? '',
+            ])
+
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'notes',
                 'value'   => old('notes') ?? $contact->notes,

@@ -64,10 +64,11 @@ class UpdateAdminsRequest extends FormRequest
             'state_id'         => ['integer', 'exists:system_db.states,id', 'nullable'],
             'zip'              => ['string', 'max:20', 'nullable'],
             'country_id'       => ['integer', 'exists:system_db.countries,id', 'nullable'],
-            'latitude'         => ['numeric:strict', 'nullable'],
-            'longitude'        => ['numeric:strict', 'nullable'],
+            'latitude'         => [Rule::numeric(), 'nullable'],
+            'longitude'        => [Rule::numeric(), 'nullable'],
             'phone'            => ['string', 'max:50', 'nullable'],
             'email'            => ['filled', 'email', 'max:255', 'unique:admins,email,'.$this->admin->id,],
+            'birthday'         => ['date', 'nullable'],
             'link'             => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'        => ['string', 'max:255', 'nullable'],
             'bio'              => ['nullable'],
@@ -82,12 +83,12 @@ class UpdateAdminsRequest extends FormRequest
             'token'            => ['string', 'max:255', 'nullable'],
             'requires_relogin' => ['integer', 'between:0,1'],
             'status'           => ['integer', 'between:0,1'],
-            'sequence'         => ['integer', 'min:0'],
             'public'           => ['integer', 'between:0,1'],
             'readonly'         => ['integer', 'between:0,1'],
             'root'             => ['integer', 'between:0,1'],
             'disabled'         => ['integer', 'between:0,1'],
             'demo'             => ['integer', 'between:0,1'],
+            'sequence'         => ['integer', 'min:0'],
         ];
 
         if (Auth::guard('admin')->user()->root) {

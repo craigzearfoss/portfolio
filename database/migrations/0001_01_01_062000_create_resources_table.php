@@ -48,6 +48,8 @@ return new class extends Migration
             $table->boolean('readonly')->default(false);
             $table->boolean('root')->default(true);
             $table->boolean('disabled')->default(false);
+            $table->boolean('demo')->default(false);
+            $table->integer('sequence')->default(false);
             $table->timestamps();
 
             $table->unique(['database_id', 'name'], 'database_id_name_unique');
@@ -211,6 +213,25 @@ return new class extends Migration
                     'icon'        => 'fa-envelope',
                     'level'       => 2,
                     'sequence'    => $database->sequence + 80,
+                    'public'      => 0,
+                    'readonly'    => 0,
+                    'root'        => 0,
+                    'disabled'    => 0,
+                ],
+                [
+                    'parent_id'   => null,
+                    'database_id' => $database->id,
+                    'name'        => 'session',
+                    'table'       => 'sessions',
+                    'title'       => 'Session',
+                    'plural'      => 'Sessions',
+                    'guest'       => 0,
+                    'user'        => 0,
+                    'admin'       => 1,
+                    'global'      => 0,
+                    'icon'        => 'fa-list',
+                    'level'       => 2,
+                    'sequence'    => $database->sequence + 90,
                     'public'      => 0,
                     'readonly'    => 0,
                     'root'        => 0,

@@ -36,12 +36,12 @@ class StoreCommunicationsRequest extends FormRequest
             'date'           => ['date_format:Y-m-d', 'nullable'],
             'time'           => ['date_format:H:i:s', 'nullable'],
             'body'           => ['nullable'],
-            'sequence'       => ['integer', 'min:0'],
             'public'         => ['integer', 'between:0,1'],
             'readonly'       => ['integer', 'between:0,1'],
             'root'           => ['integer', 'between:0,1'],
             'disabled'       => ['integer', 'between:0,1'],
             'demo'           => ['integer', 'between:0,1'],
+            'sequence'       => ['integer', 'min:0'],
         ];
     }
 

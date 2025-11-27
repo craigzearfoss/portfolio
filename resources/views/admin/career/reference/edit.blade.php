@@ -138,124 +138,54 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'street',
-                'value'     => old('street') ?? $reference->street,
-                'maxlength' => 255,
+            @include('admin.components.form-location-horizontal', [
+                'street'     => old('street') ?? $reference->street,
+                'street2'    => old('street') ?? $reference->street2,
+                'city'       => old('city') ?? $reference->city,
+                'state_id'   => old('state_id') ?? $reference->state_id,
+                'states'     =>  \App\Models\System\State::listOptions([], 'id', 'name', true),
+                'zip'        => old('zip') ?? $reference->zip,
+                'country_id' => old('country_id') ?? $reference->country_id,
+                'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                'message'    => $message ?? '',
+            ])
+
+            @include('admin.components.form-coordinates-horizontal', [
+                'latitude'  => old('latitude') ?? $reference->latitude,
+                'longitude' => old('longitude') ?? $reference->longitude,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'street2',
-                'value'     => old('street2') ?? $reference->street2,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-phone-horizontal', [
+                'phone' => $reference->phone,
+                'label' => $reference->phone_label,
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'city',
-                'value'     => old('city') ?? $reference->city,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-phone-horizontal', [
+                'phone'   => $reference->alt_phone,
+                'label'   => $reference->alt_phone_label,
+                'alt'     => true,
+                'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'state_id',
-                'label'   => 'state',
-                'value'   => old('state_id') ?? $reference->state_id,
-                'list'    => \App\Models\System\State::listOptions([], 'id', 'name', true),
+            @include('admin.components.form-email-horizontal', [
+                'email'   => old('email') ?? $reference->email,
+                'label'   => old('email_label') ?? $reference->email_label,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-email-horizontal', [
+                'email'   => old('alt_email') ?? $reference->alt_email,
+                'label'   => old('alt_email_table') ?? $reference->alt_email_label,
+                'alt'     => true,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'zip',
-                'value'     => old('zip') ?? $reference->zip,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'country_id',
-                'label'   => 'country',
-                'value'   => old('country_id') ?? $reference->country_id,
-                'list'    => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                'type'    => 'date',
+                'name'    => 'birthday',
+                'value'   => old('birthday') ?? $reference->birthday,
                 'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'latitude',
-                'value'     => old('latitude') ?? $reference->latitude,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'longitude',
-                'value'     => old('longitude') ?? $reference->longitude,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'tel',
-                'name'      => 'phone',
-                'value'     => old('phone') ?? $reference->phone,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'phone_label',
-                'label'     => 'phone label',
-                'value'     => old('phone_label') ?? $reference->phone_label,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'tel',
-                'name'      => 'alt_phone',
-                'label'     => 'alt phone',
-                'value'     => old('alt_phone') ?? $reference->alt_phone,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_phone_label',
-                'label'     => 'alt phone label',
-                'value'     => old('alt_phone_label') ?? $reference->alt_phone_label,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'email',
-                'value'     => old('email') ?? $reference->email,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'email_label',
-                'label'     => 'email label',
-                'value'     => old('email_label') ?? $reference->email_label,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_email',
-                'label'     => 'alt email',
-                'value'     => old('alt_email') ?? $reference->alt_email,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_email_label',
-                'label'     => 'alt email label',
-                'value'     => old('alt_email_label') ?? $reference->alt_email_label,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
@@ -264,18 +194,9 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? $reference->link,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link_name',
-                'label'     => 'link name',
-                'value'     => old('link_name') ?? $reference->link_name,
-                'maxlength' => 255,
+            @include('admin.components.form-link-horizontal', [
+                'link' => old('link') ?? $reference->link,
+                'name' => old('link_name') ?? $reference->link_name,
                 'message'   => $message ?? '',
             ])
 
@@ -293,40 +214,17 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image',
-                'value'   => old('image') ?? $reference->image,
+            @include('admin.components.form-image-horizontal', [
+                'image'   => old('image') ?? $reference->image,
+                'credit'  => old('image_credit') ?? $reference->image_credit,
+                'source'  => old('image_source') ?? $reference->image_source,
                 'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'image_credit',
-                'label'     => 'image credit',
-                'value'     => old('image_credit') ?? $reference->image_credit,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'image_source',
-                'label'     => 'image source',
-                'value'     => old('image_source') ?? $reference->image_source,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'    => 'thumbnail',
                 'value'   => old('thumbnail') ?? $reference->thumbnail,
                 'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('sequence') ?? $reference->sequence,
-                'min'         => 0,
-                'message'     => $message ?? '',
             ])
 
             <div class="field is-horizontal">
@@ -370,6 +268,20 @@
                                 'checked'         => old('disabled') ?? $reference->disabled,
                                 'message'         => $message ?? '',
                             ])
+
+                            <div style="display: inline-block; width: 20em;">
+                                <label class="label" style="display: inline-block !important;">sequence</label>
+                                <span class="control ">
+                                    <input class="input"
+                                           style="margin-top: -4px;"
+                                           type="number"
+                                           id="inputSequence"
+                                           name="sequence"
+                                           min="0"
+                                           value="{{ old('sequence') ?? $reference->sequence }}"
+                                    >
+                                </span>
+                            </div>
 
                         </div>
 

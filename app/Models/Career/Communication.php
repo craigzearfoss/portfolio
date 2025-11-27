@@ -31,12 +31,12 @@ class Communication extends Model
         'date',
         'time',
         'body',
-        'sequence',
         'public',
         'readonly',
         'root',
         'disabled',
         'demo',
+        'sequence',
     ];
 
     /**

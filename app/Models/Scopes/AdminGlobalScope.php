@@ -18,8 +18,12 @@ class AdminGlobalScope implements Scope
 
             // this is an admin route
             if (!isRootAdmin()) {
-                $admin = Auth::guard('admin')->user();
-                $builder->where($model->getTable().'.owner_id', $admin->id);
+                if (!$admin = Auth::guard('admin')->user()) {
+                    // admin is probably logged out
+                    return false;
+                } else {
+                    $builder->where($model->getTable() . '.owner_id', $admin->id);
+                }
             }
 
         } else {

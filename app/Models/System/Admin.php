@@ -42,6 +42,7 @@ class Admin extends Authenticatable
         'longitude',
         'phone',
         'email',
+        'birthday',
         'link',
         'link_name',
         'bio',
@@ -55,12 +56,12 @@ class Admin extends Authenticatable
         'token',
         'requires_relogin',
         'status',
-        'sequence',
         'public',
         'readonly',
         'root',
         'disabled',
         'demo',
+        'sequence',
     ];
 
     /**

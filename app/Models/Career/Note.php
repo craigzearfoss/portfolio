@@ -29,12 +29,12 @@ class Note extends Model
         'application_id',
         'subject',
         'body',
-        'sequence',
         'public',
         'readonly',
         'root',
         'disabled',
         'demo',
+        'sequence',
     ];
 
     /**

@@ -33,11 +33,12 @@ class Academy extends Model
         'thumbnail',
         'logo',
         'logo_small',
-        'sequence',
         'public',
         'readonly',
         'root',
+        'demo',
         'disabled',
+        'sequence',
     ];
 
     /**

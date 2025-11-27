@@ -48,11 +48,12 @@ class School extends Model
         'thumbnail',
         'logo',
         'logo_small',
-        'sequence',
         'public',
         'readonly',
         'root',
         'disabled',
+        'demo',
+        'sequence',
     ];
 
     /**

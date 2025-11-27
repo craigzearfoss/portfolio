@@ -36,12 +36,12 @@ class StoreDatabasesRequest extends FormRequest
             'admin'    => ['integer', 'between:0,1'],
             'global'   => ['integer', 'between:0,1'],
             'icon'     => ['string', 'max:50', 'nullable'],
-            'sequence' => ['integer', 'min:0'],
             'public'   => ['integer', 'between:0,1'],
             'readonly' => ['integer', 'between:0,1'],
             'root'     => ['integer', 'between:0,1'],
             'disabled' => ['integer', 'between:0,1'],
             'demo'     => ['integer', 'between:0,1'],
+            'sequence' => ['integer', 'min:0'],
         ];
     }
 

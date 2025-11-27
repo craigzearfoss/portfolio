@@ -26,12 +26,12 @@ class Message extends Model
         'email',
         'subject',
         'body',
-        'sequence',
         'public',
         'readonly',
         'root',
         'disabled',
         'demo',
+        'sequence',
     ];
 
     /**

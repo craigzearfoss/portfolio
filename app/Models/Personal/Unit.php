@@ -34,10 +34,6 @@ class Unit extends Model
         'image_source',
         'thumbnail',
         'sequence',
-        'public',
-        'readonly',
-        'root',
-        'disabled',
     ];
 
     /**

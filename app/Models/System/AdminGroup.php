@@ -35,6 +35,7 @@ class AdminGroup extends Model
         'root',
         'disabled',
         'demo',
+        'sequence',
     ];
 
     /**

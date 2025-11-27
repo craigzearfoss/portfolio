@@ -37,18 +37,6 @@ class UpdateIndustriesRequest extends FormRequest
             'name'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,name,'.$this->industry->id],
             'slug'         => ['filled', 'string', 'max:50', 'unique:career_db.industries,slug,'.$this->industry->id],
             'abbreviation' => ['filled', 'string', 'max:20', 'unique:career_db.industries,abbreviation,'.$this->industry->id],
-            'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
-            'link_name'    => ['string', 'max:255', 'nullable'],
-            'description'  => ['nullable'],
-            'image'        => ['string', 'max:500', 'nullable'],
-            'image_credit' => ['string', 'max:255', 'nullable'],
-            'image_source' => ['string', 'max:255', 'nullable'],
-            'thumbnail'    => ['string', 'max:500', 'nullable'],
-            'sequence'     => ['integer', 'min:0'],
-            'public'       => ['integer', 'between:0,1'],
-            'readonly'     => ['integer', 'between:0,1'],
-            'root'         => ['integer', 'between:0,1'],
-            'disabled'     => ['integer', 'between:0,1'],
         ];
     }
 }

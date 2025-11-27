@@ -19,12 +19,12 @@ return new class extends Migration
             $table->string('email');
             $table->string('subject', 500);
             $table->text('body');
-            $table->integer('sequence')->default(false);
             $table->boolean('public')->default(false);
             $table->boolean('readonly')->default(false);
             $table->boolean('root')->default(false);
             $table->boolean('disabled')->default(false);
             $table->boolean('demo')->default(false);
+            $table->integer('sequence')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

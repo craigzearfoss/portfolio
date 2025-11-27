@@ -44,8 +44,8 @@ class StoreSchoolsRequest extends FormRequest
             'state_id'     => ['integer', 'exists:system_db.states,id', 'nullable'],
             'zip'          => ['string', 'max:20', 'nullable'],
             'country_id'   => ['integer', 'exists:system_db.countries,id', 'nullable'],
-            'latitude'     => ['numeric:strict', 'nullable'],
-            'longitude'    => ['numeric:strict', 'nullable'],
+            'latitude'     => [Rule::numeric(), 'nullable'],
+            'longitude'    => [Rule::numeric(), 'nullable'],
             'notes'        => ['nullable'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
@@ -56,11 +56,12 @@ class StoreSchoolsRequest extends FormRequest
             'thumbnail'    => ['string', 'max:500', 'nullable'],
             'logo'         => ['string', 'max:500', 'nullable'],
             'logo_small'   => ['string', 'max:500', 'nullable'],
-            'sequence'     => ['integer', 'min:0'],
             'public'       => ['integer', 'between:0,1'],
             'readonly'     => ['integer', 'between:0,1'],
             'root'         => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],
+            'demo'         => ['integer', 'between:0,1'],
+            'sequence'     => ['integer', 'min:0'],
         ];
     }
 

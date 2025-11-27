@@ -175,7 +175,7 @@ if (! function_exists('formatLocation')) {
         }
 
         if (!empty($country)) {
-            $location .= (!empty($location) ? ', ' : '') . $country;
+            $location .= (!empty($location) ? $separator : '') . $country;
         }
 
         return $location;

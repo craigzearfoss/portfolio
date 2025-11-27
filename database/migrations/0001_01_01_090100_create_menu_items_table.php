@@ -30,11 +30,12 @@ return new class extends Migration
             $table->boolean('user')->default(false);
             $table->boolean('admin')->default(false);
             $table->integer('level')->default(0);
-            $table->integer('sequence')->default(0);
             $table->boolean('public')->default(true);
             $table->boolean('readonly')->default(false);
             $table->boolean('root')->default(true);
             $table->boolean('disabled')->default(false);
+            $table->boolean('demo')->default(false);
+            $table->integer('sequence')->default(0);
             $table->timestamps();
         });
 

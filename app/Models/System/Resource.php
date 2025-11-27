@@ -39,12 +39,12 @@ class Resource extends Model
         'global',   // the resource has no owner
         'icon',
         'level',
-        'sequence',
         'public',
         'readonly',
         'root',
         'disabled',
         'demo',
+        'sequence',
     ];
 
     /**

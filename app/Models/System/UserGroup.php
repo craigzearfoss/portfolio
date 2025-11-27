@@ -36,6 +36,7 @@ class UserGroup extends Model
         'root',
         'disabled',
         'demo',
+        'sequence',
     ];
 
     /**

@@ -140,6 +140,7 @@ return new class extends Migration
             $table->string('phone', 20)->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->date('birthday')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
             $table->text('bio')->nullable();
@@ -153,12 +154,12 @@ return new class extends Migration
             $table->string('token')->nullable();
             $table->boolean('requires_relogin')->default(false);
             $table->boolean('status')->default(false)->comment('0-pending, 1-active');
-            $table->integer('sequence')->default(false);
             $table->boolean('public')->default(false);
             $table->boolean('readonly')->default(false);
             $table->boolean('root')->default(false);
             $table->boolean('disabled')->default(false);
             $table->boolean('demo')->default(false);
+            $table->integer('sequence')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -184,7 +185,7 @@ return new class extends Migration
                 'admin_team_id'     => 1,
                 'username'          => $this->defaultUsername,
                 'name'              => $this->defaultName,
-                'label'             => $this->defaultUsername,
+                'label'             => $this->defaultLabel,
                 'email'             => 'default-admin@sample.com',
                 'email_verified_at' => now(),
                 'password'          => Hash::make($this->defaultPassword),

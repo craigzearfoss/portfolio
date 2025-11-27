@@ -47,11 +47,12 @@ class StoreCertificationsRequest extends FormRequest
             'thumbnail'             => ['string', 'max:500', 'nullable'],
             'logo'                  => ['string', 'max:500', 'nullable'],
             'logo_small'            => ['string', 'max:500', 'nullable'],
-            'sequence'              => ['integer', 'min:0'],
             'public'                => ['integer', 'between:0,1'],
             'readonly'              => ['integer', 'between:0,1'],
             'root'                  => ['integer', 'between:0,1'],
             'disabled'              => ['integer', 'between:0,1'],
+            'demo'                  => ['integer', 'between:0,1'],
+            'sequence'              => ['integer', 'min:0'],
         ];
     }
 }

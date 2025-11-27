@@ -24,11 +24,11 @@ class DictionarySection extends Model
         'table',
         'model',
         'icon',
-        'sequence',
         'public',
         'readonly',
         'root',
         'disabled',
+        'sequence',
     ];
 
     /*

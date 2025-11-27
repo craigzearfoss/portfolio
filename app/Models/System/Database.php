@@ -32,12 +32,12 @@ class Database extends Model
         'admin',
         'global',   // the database has no owner
         'icon',
-        'sequence',
         'public',
         'readonly',
         'root',
         'disabled',
         'demo',
+        'sequence',
     ];
 
     /**

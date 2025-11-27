@@ -166,6 +166,13 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'type'    => 'date',
+                'name'    => 'birthday',
+                'value'   => old('birthday') ?? $admin->birthday,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'link',
                 'value'     => old('link') ?? $admin->link,
                 'maxlength' => 500,

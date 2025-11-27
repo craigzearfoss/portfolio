@@ -2,7 +2,7 @@
     $name    = !empty($name)  ? $name : '#name#';
     $id      = !empty($id) ? $id : ('input' . (!empty($name)  ? ucfirst(trim($name, '#')) : 'Name'));
     $type    = !empty($type) ? $type : 'text';
-    $label   = !empty($label) ? $label : (!empty($name) ? $name : '#label#');
+    $label   = !empty($label) ? $label : (!empty($name) ? $name : '');
     $value   = $value ?? '';
     $class   = !empty($class) ? $class : '';
     if (!empty($style)) {
@@ -10,9 +10,14 @@
     } else {
         $style = '';
     }
-    $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link',
-        'postings_url', 'website', 'wikipedia', 'phone', 'alt_phone', 'home_phone', 'personal_phone', 'work_phone',
-        'mobile_phone', 'cell_phone', 'email', 'alt_email', 'work_email', 'personal_email']);
+    $hasIcon = in_array($name, [
+        'username',
+        'password', 'confirm_password',
+        'link', 'postings_url', 'website', 'wikipedia',
+        'phone', 'alt_phone', 'home_phone', 'personal_phone', 'work_phone', 'mobile_phone', 'cell_phone',
+        'email', 'alt_email', 'work_email', 'personal_email',
+        'birthday'
+    ]);
 @endphp
 <div class="field is-horizontal">
     <div class="field-label">
@@ -42,9 +47,6 @@
                        @if (!empty($width))width="{{ $width }}" @endif
                 >
 
-                @if ($type === 'email')
-                    <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
-                @endif
                 @if ($name === 'username')
                     <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
                 @endif
@@ -59,6 +61,9 @@
                 @endif
                 @if (in_array($name, ['email', 'alt_email', 'work_email', 'personal_email']))
                     <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
+                @endif
+                @if (in_array($name, ['birthday']))
+                    <span class="icon is-small is-left"><i class="fas fa-birthday-cake"></i></span>
                 @endif
 
             </div>

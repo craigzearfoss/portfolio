@@ -28,12 +28,12 @@ return new class extends Migration
             $table->time('time')->nullable();
             $table->string('location')->nullable();
             $table->text('description')->nullable();
-            $table->integer('sequence')->default(0);
             $table->boolean('public')->default(false);
             $table->boolean('readonly')->default(false);
             $table->boolean('root')->default(false);
             $table->boolean('disabled')->default(false);
             $table->boolean('demo')->default(false);
+            $table->integer('sequence')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -33,12 +33,12 @@ class ApplicationSkill extends Model
         'start_year',
         'end_year',
         'years',
-        'sequence',
         'public',
         'readonly',
         'root',
         'disabled',
         'demo',
+        'sequence',
     ];
 
     /**

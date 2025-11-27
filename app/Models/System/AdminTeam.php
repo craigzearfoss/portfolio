@@ -36,6 +36,7 @@ class AdminTeam extends Model
         'root',
         'disabled',
         'demo',
+        'sequence',
     ];
 
     /**

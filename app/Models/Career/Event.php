@@ -32,12 +32,12 @@ class Event extends Model
         'time',
         'location',
         'description',
-        'sequence',
         'public',
         'readonly',
         'root',
         'disabled',
         'demo',
+        'sequence',
     ];
 
     /**

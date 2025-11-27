@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => 'Admin: ' . $admin->username,
+    'title' => 'Admin: ' . $admin->name,
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
@@ -97,6 +97,11 @@
         @include('admin.components.show-row', [
             'name'  => 'email verified at',
             'value' => longDateTime($admin->email_verified_at)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'birthday',
+            'value' => longDate($admin->birthday),
         ])
 
         @include('admin.components.show-row-link', [

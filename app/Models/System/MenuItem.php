@@ -30,12 +30,12 @@ class MenuItem extends Model
         'user',
         'admin',
         'level',
-        'sequence',
         'public',
         'readonly',
         'root',
         'disabled',
         'demo',
+        'sequence',
     ];
 
     /**

@@ -96,6 +96,13 @@
                     'message'   => $message ?? '',
                 ])
 
+                @include('admin.components.form-input-horizontal', [
+                    'type'    => 'date',
+                    'name'    => 'birthday',
+                    'value'   => old('birthday') ?? '',
+                    'message' => $message ?? '',
+                ])
+
                 @include('admin.components.form-file-upload-horizontal', [
                     'name'      => 'image',
                     'value'     => old('image') ?? '',

@@ -35,6 +35,7 @@ class UserTeam extends Model
         'root',
         'disabled',
         'demo',
+        'sequence',
     ];
 
     /**

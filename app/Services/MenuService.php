@@ -319,7 +319,7 @@ class MenuService
                         $link = Route::has($route) ? Route($route) : null;
                     } else {
                         $route = $envType . '.admin.' . $database['name'] . '.show';
-                        $link = Route::has($route) ? Route($route, $admin->username) : null;
+                        $link = Route::has($route) ? Route($route, $admin->label) : null;
                     }
                     break;
             }
@@ -371,7 +371,7 @@ class MenuService
 
             if ($envType == PermissionService::ENV_GUEST) {
                 $route = $envType.'.admin.'.$resource->database['name'].'.'.$resource['name'].'.index';
-                $link = Route::has($route) ? Route($route, $admin->username) : null;
+                $link = Route::has($route) ? Route($route, $admin->label) : null;
             } else {
                 $route = $envType.'.'.$resource->database['name'].'.'.$resource['name'].'.index';;
                 $link = Route::has($route) ? Route($route) : null;

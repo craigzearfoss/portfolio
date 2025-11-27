@@ -88,6 +88,11 @@
             'value' => longDateTime($user->email_verified_at)
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'birthday',
+            'value' => longDate($user->birthday),
+        ])
+
         @include('admin.components.show-row-link', [
             'name'   => 'link',
             'label'  => $user->link,

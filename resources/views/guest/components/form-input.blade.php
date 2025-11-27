@@ -9,7 +9,14 @@
     } else {
         $style = '';
     }
-    $hasIcon = ($type === 'email') || in_array($name, ['username', 'password', 'confirm_password', 'link', 'postings_url', 'website', 'wikipedia']);
+    $hasIcon = in_array($name, [
+        'username',
+        'password', 'confirm_password',
+        'link', 'postings_url', 'website', 'wikipedia',
+        'phone', 'alt_phone', 'home_phone', 'personal_phone', 'work_phone', 'mobile_phone', 'cell_phone',
+        'email', 'alt_email', 'work_email', 'personal_email',
+        'birthday'
+    ]);
 @endphp
 <div class="field">
     @if(isset($label) && ($label === '') )
@@ -38,9 +45,6 @@
                @if (!empty($width))width="{{ $width }}" @endif
         >
 
-        @if ($type === 'email')
-            <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
-        @endif
         @if ($name === 'username')
             <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
         @endif
@@ -49,6 +53,15 @@
         @endif
         @if (in_array($name, ['link', 'postings_url', 'website', 'wikipedia']))
             <span class="icon is-small is-left"><i class="fas fa-link"></i></span>
+        @endif
+        @if (in_array($name, ['phone', 'alt_phone', 'home_phone', 'personal_phone', 'work_phone', 'mobile_phone', 'cell_phone']))
+            <span class="icon is-small is-left"><i class="fas fa-phone"></i></span>
+        @endif
+        @if (in_array($name, ['email', 'alt_email', 'work_email', 'personal_email']))
+            <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
+        @endif
+        @if (in_array($name, ['birthday']))
+            <span class="icon is-small is-left"><i class="fas fa-birthday-cake"></i></span>
         @endif
 
     </div>

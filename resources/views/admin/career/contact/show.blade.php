@@ -96,6 +96,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'birthday',
+            'value' => longDate($contact->birthday),
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'notes',
             'value' => $contact->notes
         ])

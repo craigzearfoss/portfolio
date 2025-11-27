@@ -34,12 +34,12 @@ class StoreNotesRequest extends FormRequest
             'application_id' => ['required', 'integer', 'exists:career_db.applications,id'],
             'subject'        => ['required', 'string', 'max:255'],
             'body'           => ['nullable'],
-            'sequence'       => ['integer', 'min:0'],
             'public'         => ['integer', 'between:0,1'],
             'readonly'       => ['integer', 'between:0,1'],
             'root'           => ['integer', 'between:0,1'],
             'disabled'       => ['integer', 'between:0,1'],
             'demo'           => ['integer', 'between:0,1'],
+            'sequence'       => ['integer', 'min:0'],
         ];
     }
 

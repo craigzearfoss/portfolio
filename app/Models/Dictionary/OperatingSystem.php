@@ -38,11 +38,11 @@ class OperatingSystem extends Model
         'image_credit',
         'image_source',
         'thumbnail',
-        'sequence',
         'public',
         'readonly',
         'root',
         'disabled',
+        'sequence',
     ];
 
     /**

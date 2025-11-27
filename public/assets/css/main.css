@@ -7,6 +7,9 @@ p {
     margin-left: 0.5em !important
 }
 
+div.field.is-horizontal div.field-label label.label {
+    min-width: 10em;
+}
 /* show-container */
 .show-container .columns .column {
     padding: 0.1em  0.5em 0.1em 0.5em;
@@ -70,11 +73,34 @@ p {
 .edit-container input[name="version"] {
     width: 10em   ;
 }
-.edit-container input[name="alt_phone"],
-.edit-container input[name="phone"] {
+
+.edit-container input[name="latitude"], .edit-container input[name="longitude"] {
+    width: 12em;
+}
+
+.edit-container input[name="phone"], .edit-container input[name="phone_label"],
+.edit-container input[name="alt_phone"], .edit-container input[name="alt_phone_label"],
+.edit-container input[name="link_name"], .edit-container input[name="image_credit"] {
+    width: 16em;
+}
+
+.edit-container input[name="email"], .edit-container input[name="email_label"],
+.edit-container input[name="alt_email"], .edit-container input[name="alt_email_label"],
+.edit-container input[name="city"] {
     width: 20em;
 }
 
+.edit-container input[name="birthday"] {
+    width: 12em;
+}
+
+.edit-container input[name="link"], .edit-container input[name="image_source"] {
+    width: 40em;
+}
+
+.edit-container input[name="disclaimer"] {
+    width: 50em;
+}
 
 /* checkbox-container */
 .checkbox-container {

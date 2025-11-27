@@ -72,8 +72,8 @@ class StoreReferencesRequest extends FormRequest
             'state_id'        => ['integer', 'exists:system_db.states,id', 'nullable'],
             'zip'             => ['string', 'max:20', 'nullable'],
             'country_id'      => ['integer', 'exists:system_db.countries,id', 'nullable'],
-            'latitude'        => ['numeric:strict', 'nullable'],
-            'longitude'       => ['numeric:strict', 'nullable'],
+            'latitude'        => [Rule::numeric(), 'nullable'],
+            'longitude'       => [Rule::numeric(), 'nullable'],
             'phone'           => ['string', 'max:50', 'nullable'],
             'phone_label'     => ['string', 'max:255', 'nullable'],
             'alt_phone'       => ['string', 'max:50', 'nullable'],
@@ -92,12 +92,12 @@ class StoreReferencesRequest extends FormRequest
             'image_credit'    => ['string', 'max:255', 'nullable'],
             'image_source'    => ['string', 'max:255', 'nullable'],
             'thumbnail'       => ['string', 'max:500', 'nullable'],
-            'sequence'        => ['integer', 'min:0'],
             'public'          => ['integer', 'between:0,1'],
             'readonly'        => ['integer', 'between:0,1'],
             'root'            => ['integer', 'between:0,1'],
             'disabled'        => ['integer', 'between:0,1'],
             'demo'            => ['integer', 'between:0,1'],
+            'sequence'        => ['integer', 'min:0'],
         ];
     }
 

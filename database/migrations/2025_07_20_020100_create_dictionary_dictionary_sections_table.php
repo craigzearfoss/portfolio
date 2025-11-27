@@ -22,11 +22,11 @@ return new class extends Migration
             $table->string('table', 100)->unique();
             $table->string('model', 100)->unique();
             $table->string('icon', 50)->nullable();
-            $table->integer('sequence')->default(0);
             $table->boolean('public')->default(true);
             $table->boolean('readonly')->default(false);
             $table->boolean('root')->default(false);
             $table->boolean('disabled')->default(false);
+            $table->integer('sequence')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

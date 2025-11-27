@@ -3,7 +3,7 @@
     <div class="control {{ !empty($hasIcon) ? 'has-icons-left' : '' }}">
         <div class="file has-name">
             <label class="file-label">
-                <input class="file-input" type="file" name="resume">
+                <input class="file-input" type="file" name="{{ $name }}">
                 <span class="file-cta">
                     <span class="file-icon">
                         <i class="fas fa-upload"></i>

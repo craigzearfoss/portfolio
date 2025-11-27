@@ -40,11 +40,12 @@ return new class extends Migration
             $table->boolean('admin')->default(false);
             $table->boolean('global')->default(false);
             $table->string('icon', 50)->nullable();
-            $table->integer('sequence')->default(false);
             $table->boolean('public')->default(true);
             $table->boolean('readonly')->default(false);
             $table->boolean('root')->default(true);
             $table->boolean('disabled')->default(false);
+            $table->boolean('demo')->default(false);
+            $table->integer('sequence')->default(false);
             $table->timestamps();
         });
 
