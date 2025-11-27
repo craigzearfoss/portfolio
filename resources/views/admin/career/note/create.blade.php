@@ -89,7 +89,7 @@
                 <div class="field-label is-normal">
                 </div>
                 <div class="field-body">
-                    <div class="field">
+                    <div class="field" style="flex-grow: 0;">
 
                         <div class="checkbox-container card form-container p-4">
 

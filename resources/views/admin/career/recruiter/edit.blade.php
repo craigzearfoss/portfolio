@@ -56,7 +56,7 @@
                 <div class="field-label is-normal">
                 </div>
                 <div class="field-body">
-                    <div class="field">
+                    <div class="field" style="flex-grow: 0;">
 
                         <div class="checkbox-container card form-container p-4">
 
@@ -98,138 +98,53 @@
                 </div>
             </div>
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'street',
-                'value'     => old('street') ?? $recruiter->street,
-                'maxlength' => 255,
+            @include('admin.components.form-location-horizontal', [
+                'street'     => old('street') ?? $recruiter->street,
+                'street2'    => old('street') ?? $recruiter->street2,
+                'city'       => old('city') ?? $recruiter->city,
+                'state_id'   => old('state_id') ?? $recruiter->state_id,
+                'states'     =>  \App\Models\System\State::listOptions([], 'id', 'name', true),
+                'zip'        => old('zip') ?? $recruiter->zip,
+                'country_id' => old('country_id') ?? $recruiter->country_id,
+                'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                'message'    => $message ?? '',
+            ])
+
+            @include('admin.components.form-coordinates-horizontal', [
+                'latitude'  => old('latitude') ?? $recruiter->latitude,
+                'longitude' => old('longitude') ?? $recruiter->longitude,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'street2',
-                'value'     => old('street2') ?? $recruiter->street2,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'city',
-                'value'     => old('city') ?? $recruiter->city,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'state_id',
-                'label'   => 'state',
-                'value'   => old('state_id') ?? $recruiter->state_id,
-                'list'    => \App\Models\System\State::listOptions([], 'id', 'name', true),
+            @include('admin.components.form-phone-horizontal', [
+                'phone' => old('phone') ?? $recruiter->phone,
+                'label' => old('phone_label') ?? $recruiter->phone_label,
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'zip',
-                'value'     => old('zip') ?? $recruiter->zip,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'country_id',
-                'label'   => 'country',
-                'value'   => old('country_id') ?? $recruiter->country_id,
-                'list'    => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+            @include('admin.components.form-phone-horizontal', [
+                'phone'   => old('alt_phone') ?? $recruiter->alt_phone,
+                'label'   => old('alt_phone_label') ?? $recruiter->alt_phone_label,
+                'alt'     => true,
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'latitude',
-                'value'     => old('latitude') ?? $recruiter->latitude,
-                'message'   => $message ?? '',
+            @include('admin.components.form-email-horizontal', [
+                'email'   => old('email') ?? $recruiter->email,
+                'label'   => old('email_label') ?? $recruiter->email_label,
+                'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'longitude',
-                'value'     => old('longitude') ?? $recruiter->longitude,
-                'message'   => $message ?? '',
+            @include('admin.components.form-email-horizontal', [
+                'email'   => old('alt_email') ?? $recruiter->alt_email,
+                'label'   => old('alt_email_table') ?? $recruiter->alt_email_label,
+                'alt'     => true,
+                'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'tel',
-                'name'      => 'phone',
-                'value'     => old('phone') ?? $recruiter->phone,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'phone_label',
-                'label'     => 'phone label',
-                'value'     => old('phone_label') ?? $recruiter->phone_label,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'tel',
-                'name'      => 'alt_phone',
-                'label'     => 'alt phone',
-                'value'     => old('alt_phone') ?? $recruiter->alt_phone,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_phone_label',
-                'label'     => 'alt phone label',
-                'value'     => old('alt_phone_label') ?? $recruiter->alt_phone_label,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'email',
-                'value'     => old('email') ?? $recruiter->email,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'email_label',
-                'label'     => 'email label',
-                'value'     => old('email_label') ?? $recruiter->email_label,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_email',
-                'label'     => 'alt email',
-                'value'     => old('alt_email') ?? $recruiter->alt_email,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_email_label',
-                'label'     => 'alt email label',
-                'value'     => old('alt_email_label') ?? $recruiter->alt_email_label,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? $recruiter->link,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link_name',
-                'label'     => 'link name',
-                'value'     => old('link_name') ?? $recruiter->link_name,
-                'maxlength' => 255,
+            @include('admin.components.form-link-horizontal', [
+                'link' => old('link') ?? $recruiter->link,
+                'name' => old('link_name') ?? $recruiter->link_name,
                 'message'   => $message ?? '',
             ])
 
@@ -240,26 +155,11 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image',
-                'value'   => old('image') ?? $recruiter->image,
+            @include('admin.components.form-image-horizontal', [
+                'image'   => old('image') ?? $recruiter->image,
+                'credit'  => old('image_credit') ?? $recruiter->image_credit,
+                'source'  => old('image_source') ?? $recruiter->image_source,
                 'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'image_credit',
-                'label'     => 'image credit',
-                'value'     => old('image_credit') ?? $recruiter->image_credit,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'image_source',
-                'label'     => 'image source',
-                'value'     => old('image_source') ?? $recruiter->image_source,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
@@ -280,7 +180,7 @@
                 <div class="field-label is-normal">
                 </div>
                 <div class="field-body">
-                    <div class="field">
+                    <div class="field" style="flex-grow: 0;">
 
                         <div class="checkbox-container card form-container p-4">
 
@@ -317,6 +217,28 @@
                                 'checked'         => old('disabled') ?? $recruiter->disabled,
                                 'message'         => $message ?? '',
                             ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'demo',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('demo') ?? $recruiter->demo,
+                                'message'         => $message ?? '',
+                            ])
+
+                            <div style="display: inline-block; width: 10em;">
+                                <label class="label" style="display: inline-block !important;">sequence</label>
+                                <span class="control ">
+                                    <input class="input"
+                                           style="margin-top: -4px;"
+                                           type="number"
+                                           id="inputSequence"
+                                           name="sequence"
+                                           min="0"
+                                           value="{{ old('sequence') ?? $recruiter->sequence }}"
+                                    >
+                                </span>
+                            </div>
 
                         </div>
 

@@ -75,13 +75,13 @@ div.field.is-horizontal div.field-label label.label {
 }
 
 .edit-container input[name="latitude"], .edit-container input[name="longitude"] {
-    width: 12em;
+    width: 8em;
 }
 
 .edit-container input[name="phone"], .edit-container input[name="phone_label"],
 .edit-container input[name="alt_phone"], .edit-container input[name="alt_phone_label"],
 .edit-container input[name="link_name"], .edit-container input[name="image_credit"] {
-    width: 16em;
+    width: 20em;
 }
 
 .edit-container input[name="email"], .edit-container input[name="email_label"],

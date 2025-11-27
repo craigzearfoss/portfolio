@@ -56,7 +56,7 @@
                 <div class="field-label is-normal">
                 </div>
                 <div class="field-body">
-                    <div class="field">
+                    <div class="field" style="flex-grow: 0;">
 
                         <div class="checkbox-container card form-container p-4">
 
@@ -98,18 +98,9 @@
                 </div>
             </div>
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? $jobBoard->link,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link_name',
-                'label'     => 'link name',
-                'value'     => old('link_name') ?? $jobBoard->link_name,
-                'maxlength' => 255,
+            @include('admin.components.form-link-horizontal', [
+                'link' => old('link') ?? $jobBoard->link,
+                'name' => old('link_name') ?? $jobBoard->link_name,
                 'message'   => $message ?? '',
             ])
 
@@ -120,27 +111,11 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'      => 'image',
-                'value'     => old('image') ?? $jobBoard->image,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'image_credit',
-                'label'     => 'image credit',
-                'value'     => old('image_credit') ?? $jobBoard->image_credit,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'image_source',
-                'label'     => 'image source',
-                'value'     => old('image_source') ?? $jobBoard->image_source,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-image-horizontal', [
+                'image'   => old('image') ?? $jobBoard->image,
+                'credit'  => old('image_credit') ?? $jobBoard->image_credit,
+                'source'  => old('image_source') ?? $jobBoard->image_source,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
@@ -162,7 +137,7 @@
                 <div class="field-label is-normal">
                 </div>
                 <div class="field-body">
-                    <div class="field">
+                    <div class="field" style="flex-grow: 0;">
 
                         <div class="checkbox-container card form-container p-4">
 
@@ -199,6 +174,28 @@
                                 'checked'         => old('disabled') ?? $jobBoard->disabled,
                                 'message'         => $message ?? '',
                             ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'demo',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('demo') ?? $jobBoard->demo,
+                                'message'         => $message ?? '',
+                            ])
+
+                            <div style="display: inline-block; width: 10em;">
+                                <label class="label" style="display: inline-block !important;">sequence</label>
+                                <span class="control ">
+                                    <input class="input"
+                                           style="margin-top: -4px;"
+                                           type="number"
+                                           id="inputSequence"
+                                           name="sequence"
+                                           min="0"
+                                           value="{{ old('sequence') ?? $jobBoard->sequence }}"
+                                    >
+                                </span>
+                            </div>
 
                         </div>
 

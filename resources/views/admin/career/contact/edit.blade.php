@@ -69,129 +69,53 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'    => 'job_title',
-                'label'   => 'title',
+                'label'   => ' job title',
                 'value'   => old('job_title') ?? $contact->job_title,
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'street',
-                'value'     => old('street') ?? $contact->street,
-                'maxlength' => 255,
+            @include('admin.components.form-location-horizontal', [
+                'street'     => old('street') ?? $contact->street,
+                'street2'    => old('street') ?? $contact->street2,
+                'city'       => old('city') ?? $contact->city,
+                'state_id'   => old('state_id') ?? $contact->state_id,
+                'states'     =>  \App\Models\System\State::listOptions([], 'id', 'name', true),
+                'zip'        => old('zip') ?? $contact->zip,
+                'country_id' => old('country_id') ?? $contact->country_id,
+                'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                'message'    => $message ?? '',
+            ])
+
+            @include('admin.components.form-coordinates-horizontal', [
+                'latitude'  => old('latitude') ?? $contact->latitude,
+                'longitude' => old('longitude') ?? $contact->longitude,
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'street2',
-                'value'     => old('street2') ?? $contact->street2,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'city',
-                'value'     => old('city') ?? $contact->city,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'state_id',
-                'label'   => 'state',
-                'value'   => old('state_id') ?? $contact->state_id,
-                'list'    => \App\Models\System\State::listOptions([], 'id', 'name', true),
+            @include('admin.components.form-phone-horizontal', [
+                'phone' => old('phone') ?? $contact->phone,
+                'label' => old('phone_label') ?? $contact->phone_label,
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'zip',
-                'value'     => old('zip') ?? $contact->zip,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'country_id',
-                'label'   => 'country',
-                'value'   => old('country_id') ?? $contact->country_id,
-                'list'    => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+            @include('admin.components.form-phone-horizontal', [
+                'phone'   => old('alt_phone') ?? $contact->alt_phone,
+                'label'   => old('alt_phone_label') ?? $contact->alt_phone_label,
+                'alt'     => true,
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'latitude',
-                'value'     => old('latitude') ?? $contact->latitude,
-                'message'   => $message ?? '',
+            @include('admin.components.form-email-horizontal', [
+                'email'   => old('email') ?? $contact->email,
+                'label'   => old('email_label') ?? $contact->email_label,
+                'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'longitude',
-                'value'     => old('longitude') ?? $contact->longitude,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'tel',
-                'name'      => 'phone',
-                'value'     => old('phone') ?? $contact->phone,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'phone_label',
-                'label'     => 'phone label',
-                'value'     => old('phone_label') ?? $contact->phone_label,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'tel',
-                'name'      => 'alt_phone',
-                'label'     => 'alt phone',
-                'value'     => old('alt_phone') ?? $contact->alt_phone,
-                'maxlength' => 50,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_phone_label',
-                'label'     => 'alt phone label',
-                'value'     => old('alt_phone_label') ?? $contact->alt_phone_label,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'email',
-                'value'     => old('email') ?? $contact->email,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'email_label',
-                'label'     => 'email label',
-                'value'     => old('email_label') ?? $contact->email_label,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_email',
-                'label'     => 'alt email',
-                'value'     => old('alt_email') ?? $contact->alt_email,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'alt_email_label',
-                'label'     => 'alt email label',
-                'value'     => old('alt_email_label') ?? $contact->alt_email_label,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-email-horizontal', [
+                'email'   => old('alt_email') ?? $contact->alt_email,
+                'label'   => old('alt_email_table') ?? $contact->alt_email_label,
+                'alt'     => true,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -207,18 +131,9 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? $contact->link,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link_name',
-                'label'     => 'link name',
-                'value'     => old('link_name') ?? $contact->link_name,
-                'maxlength' => 255,
+            @include('admin.components.form-link-horizontal', [
+                'link' => old('link') ?? $contact->link,
+                'name' => old('link_name') ?? $contact->link_name,
                 'message'   => $message ?? '',
             ])
 
@@ -236,26 +151,11 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'    => 'image',
-                'value'   => old('image') ?? $contact->image,
+            @include('admin.components.form-image-horizontal', [
+                'image'   => old('image') ?? $contact->image,
+                'credit'  => old('image_credit') ?? $contact->image_credit,
+                'source'  => old('image_source') ?? $contact->image_source,
                 'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'image_credit',
-                'label'     => 'image credit',
-                'value'     => old('image_credit') ?? $contact->image_credit,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'image_source',
-                'label'     => 'image source',
-                'value'     => old('image_source') ?? $contact->image_source,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
@@ -264,19 +164,11 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('sequence') ?? $contact->sequence,
-                'min'         => 0,
-                'message'     => $message ?? '',
-            ])
-
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
                 </div>
                 <div class="field-body">
-                    <div class="field">
+                    <div class="field" style="flex-grow: 0;">
 
                         <div class="checkbox-container card form-container p-4">
 
@@ -313,6 +205,20 @@
                                 'checked'         => old('disabled') ?? $contact->disabled,
                                 'message'         => $message ?? '',
                             ])
+
+                            <div style="display: inline-block; width: 10em;">
+                                <label class="label" style="display: inline-block !important;">sequence</label>
+                                <span class="control ">
+                                    <input class="input"
+                                           style="margin-top: -4px;"
+                                           type="number"
+                                           id="inputSequence"
+                                           name="sequence"
+                                           min="0"
+                                           value="{{ old('sequence') ?? $contact->sequence }}"
+                                    >
+                                </span>
+                            </div>
 
                         </div>
 

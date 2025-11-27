@@ -88,19 +88,10 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? $coverLetter->link,
-                'maxlength' => 255,
+            @include('admin.components.form-link-horizontal', [
+                'link' => old('link') ?? $coverLetter->link,
+                'name' => old('link_name') ?? $coverLetter->link_name,
                 'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'     => 'link_name',
-                'label'    => 'link name',
-                'value'    => old('link_name') ?? $coverLetter->link_name,
-                'maxlength' => 255,
-                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
@@ -117,19 +108,11 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'    => 'number',
-                'name'    => 'sequence',
-                'value'   => old('sequence') ?? $coverLetter->sequence,
-                'min'     => 0,
-                'message' => $message ?? '',
-            ])
-
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
                 </div>
                 <div class="field-body">
-                    <div class="field">
+                    <div class="field" style="flex-grow: 0;">
 
                         <div class="checkbox-container card form-container p-4">
 
@@ -166,6 +149,20 @@
                                 'checked'         => old('disabled') ?? $coverLetter->disabled,
                                 'message'         => $message ?? '',
                             ])
+
+                            <div style="display: inline-block; width: 10em;">
+                                <label class="label" style="display: inline-block !important;">sequence</label>
+                                <span class="control ">
+                                    <input class="input"
+                                           style="margin-top: -4px;"
+                                           type="number"
+                                           id="inputSequence"
+                                           name="sequence"
+                                           min="0"
+                                           value="{{ old('sequence') ?? $coverLetter->sequence }}"
+                                    >
+                                </span>
+                            </div>
 
                         </div>
 

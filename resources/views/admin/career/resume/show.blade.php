@@ -50,14 +50,14 @@
             'value' => $resume->name
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'date',
-            'value' => longDate($resume->date)
-        ])
-
         @include('admin.components.show-row-checkbox', [
             'name'    => 'primary',
             'checked' => $resume->primary
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'date',
+            'value' => longDate($resume->date)
         ])
 
         @include('admin.components.show-row', [

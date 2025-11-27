@@ -125,7 +125,7 @@
                 <div class="field-label is-normal">
                 </div>
                 <div class="field-body">
-                    <div class="field">
+                    <div class="field" style="flex-grow: 0;">
 
                         <div class="checkbox-container card form-container p-4">
 
@@ -162,6 +162,28 @@
                                 'checked'         => old('disabled') ?? $event->disabled,
                                 'message'         => $message ?? '',
                             ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'demo',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('demo') ?? $event->demo,
+                                'message'         => $message ?? '',
+                            ])
+
+                            <div style="display: inline-block; width: 10em;">
+                                <label class="label" style="display: inline-block !important;">sequence</label>
+                                <span class="control ">
+                                    <input class="input"
+                                           style="margin-top: -4px;"
+                                           type="number"
+                                           id="inputSequence"
+                                           name="sequence"
+                                           min="0"
+                                           value="{{ old('sequence') ?? $event->sequence }}"
+                                    >
+                                </span>
+                            </div>
 
                         </div>
 

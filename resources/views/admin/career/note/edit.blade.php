@@ -76,19 +76,11 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'    => 'number',
-                'name'    => 'sequence',
-                'value'   => old('sequence') ?? $note->sequence,
-                'min'     => 0,
-                'message' => $message ?? '',
-            ])
-
             <div class="field is-horizontal">
                 <div class="field-label is-normal">
                 </div>
                 <div class="field-body">
-                    <div class="field">
+                    <div class="field" style="flex-grow: 0;">
 
                         <div class="checkbox-container card form-container p-4">
 
@@ -125,6 +117,28 @@
                                 'checked'         => old('disabled') ?? $note->disabled,
                                 'message'         => $message ?? '',
                             ])
+
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'demo',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('demo') ?? $note->demo,
+                                'message'         => $message ?? '',
+                            ])
+
+                            <div style="display: inline-block; width: 10em;">
+                                <label class="label" style="display: inline-block !important;">sequence</label>
+                                <span class="control ">
+                                    <input class="input"
+                                           style="margin-top: -4px;"
+                                           type="number"
+                                           id="inputSequence"
+                                           name="sequence"
+                                           min="0"
+                                           value="{{ old('sequence') ?? $note->sequence }}"
+                                    >
+                                </span>
+                            </div>
 
                         </div>
 

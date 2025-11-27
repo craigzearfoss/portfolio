@@ -232,7 +232,7 @@
                 <div class="field-label is-normal">
                 </div>
                 <div class="field-body">
-                    <div class="field">
+                    <div class="field" style="flex-grow: 0;">
 
                         <div class="checkbox-container card form-container p-4">
 
@@ -270,7 +270,15 @@
                                 'message'         => $message ?? '',
                             ])
 
-                            <div style="display: inline-block; width: 20em;">
+                            @include('admin.components.form-checkbox', [
+                                'name'            => 'demo',
+                                'value'           => 1,
+                                'unchecked_value' => 0,
+                                'checked'         => old('demo') ?? $reference->demo,
+                                'message'         => $message ?? '',
+                            ])
+
+                            <div style="display: inline-block; width: 10em;">
                                 <label class="label" style="display: inline-block !important;">sequence</label>
                                 <span class="control ">
                                     <input class="input"
