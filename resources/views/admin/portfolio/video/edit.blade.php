@@ -196,18 +196,9 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? $video->link,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link_name',
-                'label'     => 'link name',
-                'value'     => old('link_name') ?? $video->link_name,
-                'maxlength' => 255,
+            @include('admin.components.form-link-horizontal', [
+                'link' => old('link') ?? $video->link,
+                'name' => old('link_name') ?? $video->link_name,
                 'message'   => $message ?? '',
             ])
 
@@ -225,27 +216,11 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'      => 'image',
-                'value'     => old('image') ?? $video->image,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'image_credit',
-                'label'     => 'image credit',
-                'value'     => old('image_credit') ?? $video->image_credit,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'image_source',
-                'label'     => 'image source',
-                'value'     => old('image_source') ?? $video->image_source,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-image-horizontal', [
+                'image'   => old('image') ?? $video->image,
+                'credit'  => old('image_credit') ?? $video->image_credit,
+                'source'  => old('image_source') ?? $video->image_source,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [

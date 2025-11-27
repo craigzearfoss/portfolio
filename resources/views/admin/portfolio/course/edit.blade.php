@@ -150,18 +150,9 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? $course->link,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link_name',
-                'label'     => 'link name',
-                'value'     => old('link_name') ?? $course->link_name,
-                'maxlength' => 255,
+            @include('admin.components.form-link-horizontal', [
+                'link' => old('link') ?? $course->link,
+                'name' => old('link_name') ?? $course->link_name,
                 'message'   => $message ?? '',
             ])
 
@@ -179,27 +170,11 @@
                 'message'     => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'      => 'image',
-                'value'     => old('image') ?? $course->image,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'image_credit',
-                'label'     => 'image credit',
-                'value'     => old('image_credit') ?? $course->image_credit,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'image_source',
-                'label'     => 'image source',
-                'value'     => old('image_source') ?? $course->image_source,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-image-horizontal', [
+                'image'   => old('image') ?? $course->image,
+                'credit'  => old('image_credit') ?? $course->image_credit,
+                'source'  => old('image_source') ?? $course->image_source,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
