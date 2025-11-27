@@ -157,13 +157,14 @@
             ])
 
             @include('admin.components.form-phone-horizontal', [
-                'phone' => $reference->phone,
-                'label' => $reference->phone_label,
+                'phone' => old('phone') ?? $reference->phone,
+                'label' => old('phone_label') ?? $reference->phone_label,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-phone-horizontal', [
-                'phone'   => $reference->alt_phone,
-                'label'   => $reference->alt_phone_label,
+                'phone'   => old('alt_phone') ?? $reference->alt_phone,
+                'label'   => old('alt_phone_label') ?? $reference->alt_phone_label,
                 'alt'     => true,
                 'message' => $message ?? '',
             ])
