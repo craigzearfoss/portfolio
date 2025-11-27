@@ -2,7 +2,6 @@
 
 namespace App\Models\System;
 
-use App\Http\Requests\ResourceStoreRequest;
 use App\Models\System\ResourceSetting;
 use App\Services\PermissionService;
 use App\Traits\SearchableModelTrait;

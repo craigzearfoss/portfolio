@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\System\IndexController as AdminSystemIndexControl
 use App\Http\Controllers\Admin\System\MenuItemController as AdminSystemAdminMenuItemController;
 use App\Http\Controllers\Admin\System\MessageController as AdminMessageController;
 use App\Http\Controllers\Admin\System\ResourceController as AdminSystemResourceController;
+use App\Http\Controllers\Admin\System\SessionController as AdminSystemSessionController;
 use App\Http\Controllers\Admin\System\UserController as AdminSystemUserController;
 use App\Http\Controllers\Admin\System\UserGroupController as AdminSystemUserGroupController;
 use App\Http\Controllers\Admin\System\UserTeamController as AdminSystemUserTeamController;
@@ -96,6 +97,8 @@ Route::prefix('admin/system')->middleware('admin')->name('admin.system.')->group
     //Route::put('menu/{envType}', [AdminProfileController::class, 'change_password_submit'])->name('menu-item.update');
 
     Route::resource('message', AdminMessageController::class);
+
+    Route::resource('session', AdminSystemSessionController::class);
 
     Route::resource('admin', AdminSystemAdminController::class);
     Route::resource('admin-group', AdminSystemAdminGroupController::class)->parameter('admin-group', 'admin_group');
