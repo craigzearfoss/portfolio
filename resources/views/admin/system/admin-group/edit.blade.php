@@ -82,12 +82,14 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'disabled',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? $adminGroup->disabled,
-                'message'         => $message ?? '',
+            @include('admin.components.form-settings-horizontal', [
+                'public'   => $adminGroup->public,
+                'readonly' => $adminGroup->readonly,
+                'root'     => $adminGroup->root,
+                'disabled' => $adminGroup->disabled,
+                'demo'     => $adminGroup->demo,
+                'sequence' => $adminGroup->sequence,
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

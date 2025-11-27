@@ -121,18 +121,9 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? $operatingSystem->link,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link_name',
-                'label'     => 'link name',
-                'value'     => old('link_name') ?? $operatingSystem->link_name,
-                'maxlength' => 255,
+            @include('admin.components.form-link-horizontal', [
+                'link' => old('link') ?? $operatingSystem->link,
+                'name' => old('link_name') ?? $operatingSystem->link_name,
                 'message'   => $message ?? '',
             ])
 
@@ -143,27 +134,11 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'name'      => 'image',
-                'value'     => old('image') ?? $operatingSystem->image,
-                'maxlength' => 500,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'image_credit',
-                'label'     => 'image credit',
-                'value'     => old('image_credit') ?? $operatingSystem->image_credit,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'image_source',
-                'label'     => 'image source',
-                'value'     => old('image_source') ?? $operatingSystem->image_source,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-image-horizontal', [
+                'image'   => old('image') ?? $operatingSystem->image,
+                'credit'  => old('image_credit') ?? $operatingSystem->image_credit,
+                'source'  => old('image_source') ?? $operatingSystem->image_source,
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
@@ -173,61 +148,15 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('sequence') ?? $operatingSystem->sequence,
-                'min'         => 0,
-                'message'     => $message ?? '',
+            @include('admin.components.form-settings-horizontal', [
+                'public'   => $operatingSystem->public,
+                'readonly' => $operatingSystem->readonly,
+                'root'     => $operatingSystem->root,
+                'disabled' => $operatingSystem->disabled,
+                'demo'     => $operatingSystem->demo,
+                'sequence' => $operatingSystem->sequence,
+                'message'  => $message ?? '',
             ])
-
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field">
-
-                        <div class="checkbox-container card form-container p-4">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'public',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('public') ?? $operatingSystem->public,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'readonly',
-                                'label'           => 'read-only',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('readonly') ?? $operatingSystem->readonly,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'root',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('root') ?? $operatingSystem->root,
-                                'disabled'        => !isRootAdmin(),
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'disabled',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('disabled') ?? $operatingSystem->disabled,
-                                'message'         => $message ?? '',
-                            ])
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',

@@ -90,75 +90,15 @@
                 'message' => $message ?? '',
             ])
 
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field" style="flex-grow: 0;">
-
-                        <div class="checkbox-container card form-container p-4">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'public',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('public') ?? $communication->public,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'readonly',
-                                'label'           => 'read-only',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('readonly') ?? $communication->readonly,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'root',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('root') ?? $communication->root,
-                                'disabled'        => !isRootAdmin(),
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'disabled',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('disabled') ?? $communication->disabled,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'demo',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('demo') ?? $communication->demo,
-                                'message'         => $message ?? '',
-                            ])
-
-                            <div style="display: inline-block; width: 10em;">
-                                <label class="label" style="display: inline-block !important;">sequence</label>
-                                <span class="control ">
-                                    <input class="input"
-                                           style="margin-top: -4px;"
-                                           type="number"
-                                           id="inputSequence"
-                                           name="sequence"
-                                           min="0"
-                                           value="{{ old('sequence') ?? $communication->sequence }}"
-                                    >
-                                </span>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            @include('admin.components.form-settings-horizontal', [
+                'public'   => $communication->public,
+                'readonly' => $communication->readonly,
+                'root'     => $communication->root,
+                'disabled' => $communication->disabled,
+                'demo'     => $communication->demo,
+                'sequence' => $communication->sequence,
+                'message'  => $message ?? '',
+            ])
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',

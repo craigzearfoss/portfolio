@@ -43,7 +43,6 @@ return new class extends Migration
             $table->boolean('global')->default(false);
             $table->string('icon', 50)->nullable();
             $table->integer('level')->default(1);
-            $table->integer('sequence')->default(0);
             $table->boolean('public')->default(true);
             $table->boolean('readonly')->default(false);
             $table->boolean('root')->default(true);

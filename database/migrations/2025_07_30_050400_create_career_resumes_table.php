@@ -43,7 +43,6 @@ return new class extends Migration
             $table->boolean('disabled')->default(false);
             $table->boolean('demo')->default(false);
             $table->integer('sequence')->default(0);
-            $table->boolean('demo')->default(false);
 
             $table->timestamps();
             $table->softDeletes();

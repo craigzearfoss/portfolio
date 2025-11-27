@@ -141,61 +141,15 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'    => 'number',
-                'name'    => 'sequence',
-                'value'   => old('sequence') ?? $certification->sequence,
-                'min'     => 0,
-                'message' => $message ?? '',
+            @include('admin.components.form-settings-horizontal', [
+                'public'   => $certification->public,
+                'readonly' => $certification->readonly,
+                'root'     => $certification->root,
+                'disabled' => $certification->disabled,
+                'demo'     => $certification->demo,
+                'sequence' => $certification->sequence,
+                'message'  => $message ?? '',
             ])
-
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field">
-
-                        <div class="checkbox-container card form-container p-4 checkbox-container">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'public',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('public') ?? $certification->public,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'readonly',
-                                'label'           => 'read-only',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('readonly') ?? $certification->readonly,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'root',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('root') ?? $certification->root,
-                                'disabled'        => !isRootAdmin(),
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'disabled',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('disabled') ?? $certification->disabled,
-                                'message'         => $message ?? '',
-                            ])
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',

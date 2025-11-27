@@ -121,75 +121,15 @@
                 'message' => $message ?? '',
             ])
 
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field" style="flex-grow: 0;">
-
-                        <div class="checkbox-container card form-container p-4">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'public',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('public') ?? $event->public,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'readonly',
-                                'label'           => 'read-only',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('readonly') ?? $event->readonly,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'root',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('root') ?? $event->root,
-                                'disabled'        => !isRootAdmin(),
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'disabled',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('disabled') ?? $event->disabled,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'demo',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('demo') ?? $event->demo,
-                                'message'         => $message ?? '',
-                            ])
-
-                            <div style="display: inline-block; width: 10em;">
-                                <label class="label" style="display: inline-block !important;">sequence</label>
-                                <span class="control ">
-                                    <input class="input"
-                                           style="margin-top: -4px;"
-                                           type="number"
-                                           id="inputSequence"
-                                           name="sequence"
-                                           min="0"
-                                           value="{{ old('sequence') ?? $event->sequence }}"
-                                    >
-                                </span>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            @include('admin.components.form-settings-horizontal', [
+                'public'   => $event->public,
+                'readonly' => $event->readonly,
+                'root'     => $event->root,
+                'disabled' => $event->disabled,
+                'demo'     => $event->demo,
+                'sequence' => $event->sequence,
+                'message'  => $message ?? '',
+            ])
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',

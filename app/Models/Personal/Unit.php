@@ -39,7 +39,7 @@ class Unit extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'name', 'abbreviation', 'system', 'public', 'readonly', 'root', 'disabled'];
+    const SEARCH_COLUMNS = ['id', 'name', 'abbreviation', 'system'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     /**
