@@ -51,7 +51,9 @@ div.field.is-horizontal div.field-label label.label {
 .edit-container input[name="sequence"],
 .edit-container input[name="total_time"],
 .edit-container input[name="year"],
-.edit-container input[name="years"] {
+.edit-container input[name="year"],
+.edit-container input[name="start_year"],
+.edit-container input[name="end_year"] {
     width: 5em   ;
 }
 .edit-container input[name="duration_hours"],
@@ -80,12 +82,14 @@ div.field.is-horizontal div.field-label label.label {
 
 .edit-container input[name="phone"], .edit-container input[name="phone_label"],
 .edit-container input[name="alt_phone"], .edit-container input[name="alt_phone_label"],
+.edit-container input[name="work_phone"], .edit-container input[name="personal_phone"],
 .edit-container input[name="link_name"], .edit-container input[name="image_credit"] {
     width: 20em;
 }
 
 .edit-container input[name="email"], .edit-container input[name="email_label"],
 .edit-container input[name="alt_email"], .edit-container input[name="alt_email_label"],
+.edit-container input[name="work_email"], .edit-container input[name="personal_email"],
 .edit-container input[name="city"] {
     width: 20em;
 }

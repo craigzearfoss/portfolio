@@ -91,59 +91,21 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'street',
-                'value'     => old('street') ?? $admin->street,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-location-horizontal', [
+                'street'     => old('street') ?? $admin->street,
+                'street2'    => old('street2') ?? $admin->street2,
+                'city'       => old('city') ?? $admin->city,
+                'state_id'   => old('state_id') ?? $admin->state_id,
+                'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                'zip'        => old('zip') ?? $admin->zip,
+                'country_id' => old('country_id') ?? $admin->country_id,
+                'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                'message'    => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'street2',
-                'value'     => old('street2') ?? $admin->street2,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'city',
-                'value'     => old('city') ?? $admin->city,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'state_id',
-                'label'   => 'state',
-                'value'   => old('state_id') ?? $admin->state_id,
-                'list'    => \App\Models\System\State::listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'zip',
-                'value'     => old('zip') ?? $admin->zip,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'country_id',
-                'label'   => 'country',
-                'value'   => old('country_id') ?? $admin->country_id,
-                'list'    => \App\Models\System\Country::listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'latitude',
-                'value'     => old('latitude') ?? $admin->latitude,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'longitude',
-                'value'     => old('longitude') ?? $admin->longitude,
+            @include('admin.components.form-coordinates-horizontal', [
+                'latitude'  => old('latitude') ?? $job->latitude,
+                'longitude' => old('longitude') ?? $job->longitude,
                 'message'   => $message ?? '',
             ])
 

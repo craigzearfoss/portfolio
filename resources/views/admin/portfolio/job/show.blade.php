@@ -100,16 +100,6 @@
             'value' => $job->longitude
         ])
 
-        @include('admin.portfolio.job.coworker.panel', [
-            'coworkers' => $job->coworkers ?? [],
-            'job'  => $job
-        ])
-
-        @include('admin.portfolio.job.task.panel', [
-            'tasks' => $job->tasks ?? [],
-            'job'   => $job
-        ])
-
         @include('admin.components.show-row', [
             'name'  => 'notes',
             'value' => $job->notes
@@ -221,6 +211,17 @@
             'name'  => 'updated at',
             'value' => longDateTime($job->updated_at)
         ])
+
+        @include('admin.portfolio.job.coworker.panel', [
+            'coworkers' => $job->coworkers ?? [],
+            'job'  => $job
+        ])
+
+        @include('admin.portfolio.job.task.panel', [
+            'tasks' => $job->tasks ?? [],
+            'job'   => $job
+        ])
+
 
     </div>
 

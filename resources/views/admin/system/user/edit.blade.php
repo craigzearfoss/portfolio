@@ -19,7 +19,7 @@
 
 @section('content')
 
-    <div class="card form-container p-4">
+    <div class="edit-container card form-container p-4">
 
         <form action="{{ route('admin.system.user.update', $user->id) }}" method="POST">
             @csrf
@@ -93,60 +93,21 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'street',
-                'value'     => old('street') ?? $user->street,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
+            @include('admin.components.form-location-horizontal', [
+                'street'     => old('street') ?? $user->street,
+                'street2'    => old('street2') ?? $user->street2,
+                'city'       => old('city') ?? $user->city,
+                'state_id'   => old('state_id') ?? $user->state_id,
+                'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                'zip'        => old('zip') ?? $user->zip,
+                'country_id' => old('country_id') ?? $user->country_id,
+                'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                'message'    => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'street2',
-                'value'     => old('street2') ?? $user->street2,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'city',
-                'value'     => old('city') ?? $user->city,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'state_id',
-                'label'   => 'state',
-                'value'   => old('state') ?? $user->state_id,
-                'list'    => \App\Models\System\State::listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'zip',
-                'value'     => old('zip') ?? $user->zip,
-                'maxlength' => 20,
-
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'country_id',
-                'label'   => 'country',
-                'value'   => old('country_id') ?? $user->country_id,
-                'list'    => \App\Models\System\Country::listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'latitude',
-                'value'     => old('latitude') ?? $user->latitude,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'longitude',
-                'value'     => old('longitude') ?? $user->longitude,
+            @include('admin.components.form-coordinates-horizontal', [
+                'latitude'  => old('latitude') ?? $user->latitude,
+                'longitude' => old('longitude') ?? $user->longitude,
                 'message'   => $message ?? '',
             ])
 

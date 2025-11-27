@@ -165,69 +165,21 @@
                 'message'  => $message ?? '',
             ])
 
-            @include('admin.portfolio.job.coworker.panel', [
-                'coworkers' => $job->coworkers ?? [],
-                'job'  => $job
+            @include('admin.components.form-location-horizontal', [
+                'street'     => old('street') ?? $job->street,
+                'street2'    => old('street2') ?? $job->street2,
+                'city'       => old('city') ?? $job->city,
+                'state_id'   => old('state_id') ?? $job->state_id,
+                'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                'zip'        => old('zip') ?? $job->zip,
+                'country_id' => old('country_id') ?? $job->country_id,
+                'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                'message'    => $message ?? '',
             ])
 
-            @include('admin.portfolio.job.task.panel', [
-                'tasks' => $job->tasks ?? [],
-                'job'   => $job
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'street',
-                'value'     => old('street') ?? $job->street,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'street2',
-                'value'     => old('street2') ?? $job->street2,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'city',
-                'value'     => old('city') ?? $job->city,
-                'maxlength' => 100,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'state_id',
-                'label'   => 'state',
-                'value'   => old('state_id') ?? $job->state_id,
-                'list'    => \App\Models\System\State::listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'zip',
-                'value'     => old('city') ?? $job->zip,
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'country_id',
-                'label'   => 'country',
-                'value'   => old('country_id') ?? $job->country_id,
-                'list'    => \App\Models\System\Country::listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'latitude',
-                'value'     => old('latitude') ?? $job->latitude,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'longitude',
-                'value'     => old('longitude') ?? $job->longitude,
+            @include('admin.components.form-coordinates-horizontal', [
+                'latitude'  => old('latitude') ?? $job->latitude,
+                'longitude' => old('longitude') ?? $job->longitude,
                 'message'   => $message ?? '',
             ])
 

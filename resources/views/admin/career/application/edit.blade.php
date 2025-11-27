@@ -174,10 +174,10 @@
 
             @include('admin.components.form-location-horizontal', [
                 'street'     => old('street') ?? $application->street,
-                'street2'    => old('street') ?? $application->street2,
+                'street2'    => old('street2') ?? $application->street2,
                 'city'       => old('city') ?? $application->city,
                 'state_id'   => old('state_id') ?? $application->state_id,
-                'states'     =>  \App\Models\System\State::listOptions([], 'id', 'name', true),
+                'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
                 'zip'        => old('zip') ?? $application->zip,
                 'country_id' => old('country_id') ?? $application->country_id,
                 'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),

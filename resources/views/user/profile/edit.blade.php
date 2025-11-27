@@ -68,46 +68,16 @@
                                                     'message' => $message ?? '',
                                                 ])
 
-                                                @include('user.components.form-input', [
-                                                    'name'      => 'street',
-                                                    'value'     => old('street') ?? $user->street,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('user.components.form-input', [
-                                                    'name'      => 'street2',
-                                                    'value'     => old('street2') ?? $user->street2,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('user.components.form-input', [
-                                                    'name'      => 'city',
-                                                    'value'     => old('city') ?? $user->city,
-                                                    'maxlength' => 255,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('user.components.form-select', [
-                                                    'name'    => 'state',
-                                                    'value'   => old('state') ?? $user->state_id,
-                                                    'list'    => \App\Models\System\State::listOptions([], 'id', 'name', true),
-                                                    'message' => $message ?? '',
-                                                ])
-
-                                                @include('user.components.form-input', [
-                                                    'name'      => 'zip',
-                                                    'value'     => old('zip') ?? $user->zip,
-                                                    'maxlength' => 20,
-                                                    'message'   => $message ?? '',
-                                                ])
-
-                                                @include('user.components.form-select', [
-                                                    'name'    => 'country',
-                                                    'value'   => old('country') ?? $user->country_id,
-                                                    'list'    => \App\Models\System\Country::listOptions(),
-                                                    'message' => $message ?? '',
+                                                @include('user.components.form-location-horizontal', [
+                                                    'street'     => old('street') ?? $user->street,
+                                                    'street2'    => old('street2') ?? $user->street2,
+                                                    'city'       => old('city') ?? $user->city,
+                                                    'state_id'   => old('state_id') ?? $user->state_id,
+                                                    'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                                                    'zip'        => old('zip') ?? $user->zip,
+                                                    'country_id' => old('country_id') ?? $user->country_id,
+                                                    'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                                                    'message'    => $message ?? '',
                                                 ])
 
                                                 @include('user.components.form-input', [

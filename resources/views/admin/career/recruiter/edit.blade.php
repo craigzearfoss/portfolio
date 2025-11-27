@@ -100,10 +100,10 @@
 
             @include('admin.components.form-location-horizontal', [
                 'street'     => old('street') ?? $recruiter->street,
-                'street2'    => old('street') ?? $recruiter->street2,
+                'street2'    => old('street2') ?? $recruiter->street2,
                 'city'       => old('city') ?? $recruiter->city,
                 'state_id'   => old('state_id') ?? $recruiter->state_id,
-                'states'     =>  \App\Models\System\State::listOptions([], 'id', 'name', true),
+                'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
                 'zip'        => old('zip') ?? $recruiter->zip,
                 'country_id' => old('country_id') ?? $recruiter->country_id,
                 'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),

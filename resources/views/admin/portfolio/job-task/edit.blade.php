@@ -90,7 +90,7 @@
 
             @include('admin.components.form-input-horizontal', [
                 'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? $obTask->disclaimer,
+                'value'       => old('disclaimer') ?? $jobTask->disclaimer,
                 'maxlength'   => 500,
                 'message'     => $message ?? '',
             ])
