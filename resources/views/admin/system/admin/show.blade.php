@@ -186,6 +186,11 @@
             'checked' => $admin->demo
         ])
 
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'requires re-login',
+            'checked' => $admin->requires_relogin
+        ])
+
         @include('admin.components.show-row', [
             'name'  => 'created at',
             'value' => longDateTime($admin->created_at)

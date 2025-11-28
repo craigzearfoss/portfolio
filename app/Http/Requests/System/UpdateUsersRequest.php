@@ -62,7 +62,7 @@ class UpdateUsersRequest extends FormRequest
                 'filled',
                 'min:6',
                 'max:200',
-                'unique:users,display_name,'.$this->user->id,
+                'unique:users,label,'.$this->user->id,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
             'title'             => ['string', 'max:100', 'nullable'],

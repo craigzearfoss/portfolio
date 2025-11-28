@@ -35,6 +35,11 @@ class UpdateAdminsRequest extends FormRequest
     {
         $this->checkDemoMode();
 
+        // if the account is disabled then force current session to logout
+        if (!empty($this['disabled'])) {
+            $this->merge(['requires_relogin' => 1]);
+        }
+
         $ruleArray = [
             'admin_team_id'    => ['required', 'integer', 'exists:system_db.admin_teams,id'],
             /* ADMIN USERNAMES CANNOT BE CHANGED
@@ -53,7 +58,7 @@ class UpdateAdminsRequest extends FormRequest
                 'string',
                 'min:6',
                 'max:200',
-                'unique:admins,display_name,'.$this->admin->id,
+                'unique:admins,label,'.$this->admin->id,
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
             'title'            => ['string', 'max:100', 'nullable'],
@@ -108,8 +113,9 @@ class UpdateAdminsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'state_id.exists'   => 'The specified state does not exist.',
-            'country_id.exists' => 'The specified country does not exist.',
+            'admin_team_id.required' => 'A team must be selected.',
+            'state_id.exists'        => 'The specified state does not exist.',
+            'country_id.exists'      => 'The specified country does not exist.',
         ];
     }
 }

@@ -43,7 +43,7 @@ class StoreUsersRequest extends FormRequest
                 'string',
                 'min:6',
                 'max:200',
-                'unique:users,display_name',
+                'unique:users,label',
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
             'title'             => ['string', 'max:100', 'nullable'],

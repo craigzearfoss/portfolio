@@ -73,9 +73,9 @@
                 ])
 
                 @include('admin.components.form-select-horizontal', [
-                    'name'    => 'team_id',
+                    'name'    => 'admin_team_id',
                     'label'   => 'team',
-                    'value'   => old('team_id') ?? '',
+                    'value'   => old('admin_team_id') ?? '',
                     'list'    => \App\Models\System\AdminTeam::listOptions([], true),
                     'message' => $message ?? '',
                 ])

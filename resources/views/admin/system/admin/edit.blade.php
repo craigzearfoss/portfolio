@@ -36,9 +36,9 @@
             ])
 
             @include('admin.components.form-select-horizontal', [
-                'name'    => 'team_id',
+                'name'    => 'admin_team_id',
                 'label'   => 'team',
-                'value'   => old('team_id') ?? $admin->team['id'] ?? $admin->team_id,
+                'value'   => old('admin_team_id') ?? $admin->team['id'] ?? $admin->team_id,
                 'list'    => \App\Models\System\AdminTeam::listOptions(),
                 'message' => $message ?? '',
             ])
@@ -104,8 +104,8 @@
             ])
 
             @include('admin.components.form-coordinates-horizontal', [
-                'latitude'  => old('latitude') ?? $job->latitude,
-                'longitude' => old('longitude') ?? $job->longitude,
+                'latitude'  => old('latitude') ?? $admin->latitude,
+                'longitude' => old('longitude') ?? $admin->longitude,
                 'message'   => $message ?? '',
             ])
 
@@ -176,6 +176,15 @@
                 'demo'     => $admin->demo,
                 'sequence' => $admin->sequence,
                 'message'  => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox-horizontal', [
+                'name'            => 'requires_relogin',
+                'label'           => 'requires re-login',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('requires_relogin') ?? $admin->requires_relogin,
+                'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
