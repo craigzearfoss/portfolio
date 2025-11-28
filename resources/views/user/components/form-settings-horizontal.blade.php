@@ -14,7 +14,7 @@ if (!empty($style)) {
 
             <div class="checkbox-container card form-container p-4">
 
-                @include('admin.components.form-checkbox', [
+                @include('user.components.form-checkbox', [
                     'name'            => 'public',
                     'value'           => 1,
                     'unchecked_value' => 0,
@@ -22,7 +22,7 @@ if (!empty($style)) {
                     'message'         => $message ?? '',
                 ])
 
-                @include('admin.components.form-checkbox', [
+                @include('user.components.form-checkbox', [
                     'name'            => 'readonly',
                     'label'           => 'read-only',
                     'value'           => 1,
@@ -31,7 +31,7 @@ if (!empty($style)) {
                     'message'         => $message ?? '',
                 ])
 
-                @include('admin.components.form-checkbox', [
+                @include('user.components.form-checkbox', [
                     'name'            => 'root',
                     'value'           => 1,
                     'unchecked_value' => 0,
@@ -40,7 +40,7 @@ if (!empty($style)) {
                     'message'         => $message ?? '',
                 ])
 
-                @include('admin.components.form-checkbox', [
+                @include('user.components.form-checkbox', [
                     'name'            => 'disabled',
                     'value'           => 1,
                     'unchecked_value' => 0,
@@ -48,7 +48,7 @@ if (!empty($style)) {
                     'message'         => $message ?? '',
                 ])
 
-                @include('admin.components.form-checkbox', [
+                @include('user.components.form-checkbox', [
                     'name'            => 'demo',
                     'value'           => 1,
                     'unchecked_value' => 0,
