@@ -89,7 +89,7 @@
             'width' => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($academy->name, $academy->logo)
+            'filename' => getFileSlug($academy->name . '-logo', $academy->logo)
         ])
 
         @include('admin.components.show-row-image', [
@@ -99,7 +99,7 @@
             'width' => '100px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($academy->name, $academy->logo_small)
+            'filename' => getFileSlug($academy->name . '-logo-sm', $academy->logo_small)
         ])
 
         @include('admin.components.show-row', [

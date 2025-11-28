@@ -163,7 +163,7 @@
             'width' => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($job->name, $job->logo)
+            'filename' => getFileSlug($job->name . '-logo', $job->logo)
         ])
 
         @include('admin.components.show-row-image', [
@@ -173,7 +173,7 @@
             'width' => '100px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($job->name, $job->logo_small)
+            'filename' => getFileSlug($job->name . '-logo-sm', $job->logo_small)
         ])
 
         @include('admin.components.show-row', [

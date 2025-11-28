@@ -126,7 +126,7 @@
             'width' => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($school->name, $school->logo)
+            'filename' => getFileSlug($school->name . '-logo', $school->logo)
         ])
 
         @include('admin.components.show-row-image', [
@@ -136,7 +136,7 @@
             'width' => '100px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($school->name, $school->logo_small)
+            'filename' => getFileSlug($school->name . '-logo-sm', $school->logo_small)
         ])
 
         @include('admin.components.show-row', [

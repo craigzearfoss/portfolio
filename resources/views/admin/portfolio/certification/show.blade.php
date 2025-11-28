@@ -109,7 +109,7 @@
             'width' => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($certification->name, $certification->logo)
+            'filename' => getFileSlug($certification->name . '-logo', $certification->logo)
         ])
 
         @include('admin.components.show-row-image', [
@@ -119,7 +119,7 @@
             'width' => '100px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($certification->name, $certification->logo_small)
+            'filename' => getFileSlug($certification->name . '-logo-sm', $certification->logo_small)
         ])
 
         @include('admin.components.show-row', [

@@ -158,7 +158,7 @@
             'width' => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($company->name, $company->logo)
+            'filename' => getFileSlug($company->name . '-logo', $company->logo)
         ])
 
         @include('admin.components.show-row-image', [
@@ -168,7 +168,7 @@
             'width' => '100px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($company->name, $company->logo_small)
+            'filename' => getFileSlug($company->name . '-logo-sm', $company->logo_small)
         ])
 
         @include('admin.components.show-row', [
