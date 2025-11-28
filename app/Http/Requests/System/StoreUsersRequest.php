@@ -5,6 +5,7 @@ namespace App\Http\Requests\System;
 use App\Rules\CaseInsensitiveNotIn;
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreUsersRequest extends FormRequest
 {

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Career;
 
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRecruitersRequest extends FormRequest
 {
