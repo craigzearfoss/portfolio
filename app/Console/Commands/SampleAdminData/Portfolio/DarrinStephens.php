@@ -231,6 +231,23 @@ class DarrinStephens extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Education ...\n";
 
         $data = [
+            [
+                'degree_type_id'     => 5,
+                'major'              => 'Advertising',
+                'minor'              => null,
+                'school_id'          => 552,
+                'slug'               => 'bachelor-in-advertising-from-canisius-college',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 1965,
+                'graduated'          => 1,
+                'graduation_month'   => 6,
+                'graduation_year'    => 1969,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
             /*
             [
                 'degree_type_id'     => 1,

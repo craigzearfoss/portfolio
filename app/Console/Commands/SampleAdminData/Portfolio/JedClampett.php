@@ -237,6 +237,23 @@ class JedClampett extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Education ...\n";
 
         $data = [
+            [
+                'degree_type_id'     => 3,
+                'major'              => 'Petroleum Production',
+                'minor'              => null,
+                'school_id'          => 500,
+                'slug'               => 'vocational-in-petroleum-production-from-truman-state-university',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 1955,
+                'graduated'          => 1,
+                'graduation_month'   => 6,
+                'graduation_year'    => 1957,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
             /*
             [
                 'degree_type_id'     => 1,

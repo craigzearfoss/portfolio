@@ -229,6 +229,23 @@ class JREwing extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Education ...\n";
 
         $data = [
+            [
+                'degree_type_id'     => 5,
+                'major'              => 'Finance',
+                'minor'              => 'Poultry Sciences',
+                'school_id'          => 1766,
+                'slug'               => 'batchelor-in-finance-from-texas-a-and-m-university-(college-station)',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 1978,
+                'graduated'          => 1,
+                'graduation_month'   => 6,
+                'graduation_year'    => 1974,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
             /*
             [
                 'degree_type_id'     => 1,

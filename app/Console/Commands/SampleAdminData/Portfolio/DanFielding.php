@@ -243,6 +243,40 @@ class DanFielding extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Education ...\n";
 
         $data = [
+            [
+                'degree_type_id'     => 5,
+                'major'              => 'Business Administration',
+                'minor'              => null,
+                'school_id'          => 676,
+                'slug'               => 'bachelor-in-business-administration-from-syracuse-university',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 1973,
+                'graduated'          => 1,
+                'graduation_month'   => 6,
+                'graduation_year'    => 1978,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
+            [
+                'degree_type_id'     => 6,
+                'major'              => 'Criminal Justice',
+                'minor'              => null,
+                'school_id'          => 571,
+                'slug'               => 'master-in-criminal-justice-from-columbia-university',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 1978,
+                'graduated'          => 1,
+                'graduation_month'   => 6,
+                'graduation_year'    => 1980,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
             /*
             [
                 'degree_type_id'     => 1,

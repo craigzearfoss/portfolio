@@ -227,6 +227,23 @@ class DwightSchrute extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Education ...\n";
 
         $data = [
+            [
+                'degree_type_id'     => 5,
+                'major'              => 'Business Administration',
+                'minor'              => null,
+                'school_id'          => 1654,
+                'slug'               => 'bachelor-in-business-administration-from-muhlenberg-college',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 1997,
+                'graduated'          => 1,
+                'graduation_month'   => 1,
+                'graduation_year'    => 2002,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
             /*
             [
                 'degree_type_id'     => 1,

@@ -228,6 +228,40 @@ class FrankReynolds extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Education ...\n";
 
         $data = [
+            [
+                'degree_type_id'     => 5,
+                'major'              => 'International Business',
+                'minor'              => null,
+                'school_id'          => 527,
+                'slug'               => 'bachelor-in-international-business-from-montclair-state-university',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 1969,
+                'graduated'          => 1,
+                'graduation_month'   => 6,
+                'graduation_year'    => 1973,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
+            [
+                'degree_type_id'     => 6,
+                'major'              => 'Human Resource Management',
+                'minor'              => null,
+                'school_id'          => 567,
+                'slug'               => 'master-in-human-resource-management-from-colgate-university',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 2000,
+                'graduated'          => 1,
+                'graduation_month'   => 6,
+                'graduation_year'    => 2024,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
             /*
             [
                 'degree_type_id'     => 1,

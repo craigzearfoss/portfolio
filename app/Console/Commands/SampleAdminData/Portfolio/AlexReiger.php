@@ -231,6 +231,23 @@ class AlexReiger extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Education ...\n";
 
         $data = [
+            [
+                'degree_type_id'     => 4,
+                'major'              => 'Urban Planning',
+                'minor'              => null,
+                'school_id'          => 556,
+                'slug'               => 'associate-in-urban-planning-from-city-college-(city-university-of-new-york)',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 1972,
+                'graduated'          => 1,
+                'graduation_month'   => 6,
+                'graduation_year'    => 1975,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
             /*
             [
                 'degree_type_id'     => 1,

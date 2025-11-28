@@ -232,6 +232,40 @@ class GabeKotter extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Education ...\n";
 
         $data = [
+            [
+                'degree_type_id'     => 5,
+                'major'              => '',
+                'minor'              => null,
+                'school_id'          => 557,
+                'slug'               => 'bachelor-in-marketing-from-college-of-staten-island-(city-university-of-new-york)',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 1972,
+                'graduated'          => 1,
+                'graduation_month'   => 6,
+                'graduation_year'    => 1977,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
+            [
+                'degree_type_id'     => 6,
+                'major'              => 'Education',
+                'minor'              => null,
+                'school_id'          => 686,
+                'slug'               => 'master-in-education-from-vassar-college',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 1977,
+                'graduated'          => 1,
+                'graduation_month'   => 6,
+                'graduation_year'    => 1979,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
             /*
             [
                 'degree_type_id'     => 1,

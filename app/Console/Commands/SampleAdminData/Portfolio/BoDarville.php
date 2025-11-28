@@ -222,6 +222,23 @@ class BoDarville extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Education ...\n";
 
         $data = [
+            [
+                'degree_type_id'     => 4,
+                'major'              => 'Popular Culture',
+                'minor'              => null,
+                'school_id'          => 195,
+                'slug'               => 'associate-in-popular-culture-from-savannah-college-of-art-and-design',
+                'enrollment_month'   => 8,
+                'enrollment_year'    => 1971,
+                'graduated'          => 1,
+                'graduation_month'   => 1,
+                'graduation_year'    => 1975,
+                'currently_enrolled' => 0,
+                'summary'            => null,
+                'link'               => null,
+                'link_name'          => null,
+                'description'        => null,
+            ],
             /*
             [
                 'degree_type_id'     => 1,
