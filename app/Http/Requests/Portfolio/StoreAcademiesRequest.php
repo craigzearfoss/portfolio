@@ -49,7 +49,7 @@ class StoreAcademiesRequest extends FormRequest
             'readonly'     => ['integer', 'between:0,1'],
             'root'         => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],
-            'sequence'     => ['integer', 'min:0'],
+            'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
     }
 }

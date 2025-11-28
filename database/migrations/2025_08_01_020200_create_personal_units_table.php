@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
-            $table->integer('sequence')->default(0);
+            $table->integer('sequence')->default(false);
         });
 
         $data = [

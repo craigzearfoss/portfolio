@@ -262,7 +262,7 @@
                 'root'     => old('root') ?? '',
                 'disabled' => old('disabled') ?? '',
                 'demo'     => old('demo') ?? '',
-                'sequence' => old('sequence') ?? '',
+                'sequence' => old('sequence') ?? 0,
                 'message'  => $message ?? '',
             ])
 

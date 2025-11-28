@@ -34,7 +34,7 @@ class StoreUnitsRequest extends FormRequest
             'image_credit' => ['string', 'max:255', 'nullable'],
             'image_source' => ['string', 'max:255', 'nullable'],
             'thumbnail'    => ['string', 'max:500', 'nullable'],
-            'sequence'     => ['integer', 'min:0'],
+            'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
     }
 }

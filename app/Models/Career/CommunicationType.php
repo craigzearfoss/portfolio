@@ -13,7 +13,7 @@ class CommunicationType extends Model
 
     protected $connection = 'career_db';
 
-    protected $table = 'job_duration_types';
+    protected $table = 'communication_types';
 
     /**
      * The attributes that are mass assignable.
@@ -22,13 +22,14 @@ class CommunicationType extends Model
      */
     protected $fillable = [
         'name',
+        'sequence',
     ];
 
     /**
      * SearchableModelTrait variables.
      */
     const SEARCH_COLUMNS = ['id', 'name'];
-    const SEARCH_ORDER_BY = ['name', 'id'];
+    const SEARCH_ORDER_BY = ['sequence', 'asc'];
 
     /**
      * Get the applications for the job schedule.

@@ -48,7 +48,7 @@ class StoreCoverLettersRequest extends FormRequest
             'root'             => ['integer', 'between:0,1'],
             'disabled'         => ['integer', 'between:0,1'],
             'demo'             => ['integer', 'between:0,1'],
-            'sequence'         => ['integer', 'min:0'],
+            'sequence'         => ['integer', 'min:0', 'nullable'],
         ];
     }
 

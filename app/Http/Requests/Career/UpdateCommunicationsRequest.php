@@ -30,28 +30,30 @@ class UpdateCommunicationsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'owner_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
-            'application_id' => ['filled', 'integer', 'exists:career_db.applications,id'],
-            'subject'        => ['filled', 'string', 'max:255'],
-            'date'           => ['date_format:Y-m-d', 'nullable'],
-            'time'           => ['date_format:H:i:s', 'nullable'],
-            'body'           => ['nullable'],
-            'public'         => ['integer', 'between:0,1'],
-            'readonly'       => ['integer', 'between:0,1'],
-            'root'           => ['integer', 'between:0,1'],
-            'disabled'       => ['integer', 'between:0,1'],
-            'demo'           => ['integer', 'between:0,1'],
-            'sequence'       => ['integer', 'min:0'],
+            'owner_id'              => ['filled', 'integer', 'exists:system_db.admins,id'],
+            'application_id'        => ['filled', 'integer', 'exists:career_db.applications,id'],
+            'communication_type_id' => ['filled', 'integer', 'exists:career_db.communication_types,id'],
+            'subject'               => ['filled', 'string', 'max:255'],
+            'date'                  => ['date_format:Y-m-d', 'nullable'],
+            'time'                  => ['date_format:H:i:s', 'nullable'],
+            'body'                  => ['nullable'],
+            'public'                => ['integer', 'between:0,1'],
+            'readonly'              => ['integer', 'between:0,1'],
+            'root'                  => ['integer', 'between:0,1'],
+            'disabled'              => ['integer', 'between:0,1'],
+            'demo'                  => ['integer', 'between:0,1'],
+            'sequence'              => ['integer', 'min:0', 'nullable'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'owner_id.filled'       => 'Please select an owner for the communication.',
-            'owner_id.exists'       => 'The specified owner does not exist.',
-            'application_id.filled' => 'Please select an application for the communication.',
-            'application_id.exists' => 'The specified application does not exist.',
+            'owner_id.filled'              => 'Please select an owner for the communication.',
+            'owner_id.exists'              => 'The specified owner does not exist.',
+            'application_id.filled'        => 'Please select an application for the communication.',
+            'application_id.exists'        => 'The specified application does not exist.',
+            'communication_type_id.filled' => 'Please select the type of communication.',
         ];
     }
 

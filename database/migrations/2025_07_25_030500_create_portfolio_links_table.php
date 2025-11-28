@@ -41,7 +41,7 @@ return new class extends Migration
             $table->boolean('root')->default(false);
             $table->boolean('disabled')->default(false);
             $table->boolean('demo')->default(false);
-            $table->integer('sequence')->default(0);
+            $table->integer('sequence')->default(false);
             $table->softDeletes();
             $table->timestamps();
 
