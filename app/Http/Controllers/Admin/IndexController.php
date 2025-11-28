@@ -15,6 +15,8 @@ use Illuminate\View\View;
 class IndexController extends BaseAdminController
 {
     /**
+     * Display the admin index page.
+     *
      * @param Request $request
      * @return View
      */
@@ -36,6 +38,8 @@ class IndexController extends BaseAdminController
     }
 
     /**
+     * Display the admin dashboard.
+     *
      * @param Request $request
      * @return View
      */
@@ -49,7 +53,13 @@ class IndexController extends BaseAdminController
         return view(themedTemplate('admin.dashboard'), compact('admins'));
     }
 
-    public function login(Request $request): RedirectResponse | View
+    /**
+     * Login an admin.
+     *
+     * @param Request $request
+     * @return RedirectResponse|View
+     */
+    public function login(Request $request): RedirectResponse|View
     {
         if (isAdmin()) {
             // admin is already logged in
@@ -63,7 +73,7 @@ class IndexController extends BaseAdminController
 
             if ($username == config('app.demo_admin_username') && !config('app.demo_admin_enabled')) {
                 return view(themedTemplate('admin.login'))
-                    ->withErrors('demo-admin has been disabled.');
+                    ->withErrors('Demo Admin has been disabled.');
             }
 
             $request->validate([
@@ -77,24 +87,42 @@ class IndexController extends BaseAdminController
             ];
 
             if (Auth::guard('admin')->attempt($data)) {
-                return redirect()->route('admin.dashboard');
+                $admin = Auth::guard('admin')->user();
+                if ($admin->disabled) {
+                    return view(themedTemplate('admin.login'))
+                        ->withErrors($admin->username . ' account has been disabled.');
+                } else {
+                    return redirect()->route('admin.dashboard');
+                }
             } else {
                 return view(themedTemplate('admin.login'))
                     ->withErrors('Invalid login credentials. Please try again.');
             }
+
         } else {
 
             return view(themedTemplate('admin.login'));
         }
     }
 
+    /**
+     * Logout an admin.
+     *
+     * @return RedirectResponse
+     */
     public function logout(): RedirectResponse
     {
         Auth::guard('admin')->logout();
         return redirect()->route('system.index')->with('success', 'Admin logout successful.');
     }
 
-    public function forgot_password(Request $request): RedirectResponse | View
+    /**
+     * Display the forgot admin password page.
+     *
+     * @param Request $request
+     * @return RedirectResponse|View
+     */
+    public function forgot_password(Request $request): RedirectResponse|View
     {
         if ($request->isMethod('post')) {
 
@@ -133,6 +161,13 @@ class IndexController extends BaseAdminController
         }
     }
 
+    /**
+     * Display the reset admin password play.
+     *
+     * @param $token
+     * @param $email
+     * @return RedirectResponse|View
+     */
     public function reset_password($token, $email): RedirectResponse | View
     {
         if (!$admin = Admin::where('email', $email)->where('token', $token)->first()) {
@@ -143,6 +178,14 @@ class IndexController extends BaseAdminController
         }
     }
 
+    /**
+     * Submit the reset admin password.
+     *
+     * @param Request $request
+     * @param $token
+     * @param $email
+     * @return RedirectResponse
+     */
     public function reset_password_submit(Request $request, $token, $email): RedirectResponse
     {
         $request->validate([

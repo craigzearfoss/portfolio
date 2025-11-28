@@ -16,7 +16,13 @@ use Illuminate\View\View;
 
 class IndexController extends BaseUserController
 {
-    public function index(): View
+    /**
+     * Display the user index page.
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function index(Request $request): View
     {
         if (Auth::guard('user')->check()) {
             return view('user.dashboard');
@@ -25,13 +31,19 @@ class IndexController extends BaseUserController
         }
     }
 
-    public function dashboard()
+    /**
+     * Display the admin dashboard.
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function dashboard(Request $request): View
     {
         return view(themedTemplate('user.dashboard'));
     }
 
     /**
-     * Update the new password.
+     * Login a user.
      *
      * @param Request $request
      * @return RedirectResponse|View
@@ -50,7 +62,7 @@ class IndexController extends BaseUserController
 
             if ($username == config('app.demo_user_username') && !config('app.demo_user_enabled')) {
                 return view(themedTemplate('user.login'))
-                    ->withErrors('demo-user has been disabled.');
+                    ->withErrors(Demo User has been disabled.');
             }
 
             $request->validate([
@@ -64,7 +76,13 @@ class IndexController extends BaseUserController
             ];
 
             if (Auth::guard('user')->attempt($data)) {
-                return redirect()->route('user.dashboard');
+                $user = Auth::guard('user')->user();
+                if ($user->disabled) {
+                    return view(themedTemplate('user.login'))
+                        ->withErrors($user->username . ' account has been disabled.');
+                } else {
+                    return redirect()->route('user.dashboard');
+                }
             } else {
                 return view(themedTemplate('user.login'))
                     ->withErrors('Incorrect login information. Double-check the username and password and try signing in again.');
@@ -76,12 +94,23 @@ class IndexController extends BaseUserController
         }
     }
 
+    /**
+     * Logout a user.
+     *
+     * @return RedirectResponse
+     */
     public function logout(): RedirectResponse
     {
         Auth::guard('user')->logout();
         return redirect()->route('system.index')->with('success', 'User logout successful.');
     }
 
+    /**
+     * Display the forgot user password page.
+     *
+     * @param Request $request
+     * @return RedirectResponse|View
+     */
     public function forgot_password(Request $request): RedirectResponse | View
     {
         if ($request->isMethod('post')) {
@@ -121,6 +150,12 @@ class IndexController extends BaseUserController
         }
     }
 
+    /**
+     * Display the forgot username page for a user.
+     *
+     * @param Request $request
+     * @return RedirectResponse|View
+     */
     public function forgot_username(Request $request): RedirectResponse|View
     {
         if ($request->isMethod('post')) {
@@ -156,6 +191,13 @@ class IndexController extends BaseUserController
         }
     }
 
+    /**
+     * Display the reset user password play.
+     *
+     * @param $token
+     * @param $email
+     * @return RedirectResponse|View
+     */
     public function reset_password($token, $email): RedirectResponse |View
     {
         if (!$user = User::where('email', $email)->where('token', $token)->first()) {
@@ -166,6 +208,14 @@ class IndexController extends BaseUserController
         }
     }
 
+    /**
+     * Submit the reset user password.
+     *
+     * @param Request $request
+     * @param $token
+     * @param $email
+     * @return RedirectResponse
+     */
     public function reset_password_submit(Request $request, $token, $email): RedirectResponse
     {
         $request->validate([
