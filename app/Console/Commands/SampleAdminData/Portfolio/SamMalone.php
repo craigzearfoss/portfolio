@@ -443,7 +443,7 @@ class SamMalone extends Command
                 'slug'        => 'wikipedia-(ted-danson)',
                 'featured'    => 0,
                 'summary'     => null,
-                'url'         => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Ted_Danson',
                 'description' => null,
                 'sequence'    => 0,
                 'public'      => 1,
