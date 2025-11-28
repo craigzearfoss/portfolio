@@ -377,11 +377,41 @@ class JREwing extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Wikipedia (Larry Hagman)',
+                'slug'        => 'Wikipedia (Larry Hagman)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Larry_Hagman',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Wikipedia',
+                'slug'        => 'Wikipedia',
+                'featured'    => 1,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/J._R._Ewing',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Wikipedia (Dallas TV show)',
+                'slug'        => 'wikipedia-(dallas-tv-show)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Dallas_(TV_series)',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',
                 'slug'        => '',
-                'featured'    => 1,
+                'featured'    => 0,
                 'summary'     => null,
                 'url'         => null,
                 'description' => null,

@@ -369,11 +369,41 @@ class HermanMunster extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Wikipedia (Fred Gwynne)',
+                'slug'        => 'wikipedia-(fred-gwynne)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Fred_Gwynne',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Wikipedia (The Munsters TV show)',
+                'slug'        => 'wikipedia-(the-munsters-tv-show)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/The_Munsters',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'IMDb (The Munsters TV show)',
+                'slug'        => 'imdb-(the-munsters-tv-show)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.imdb.com/title/tt0057773/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',
                 'slug'        => '',
-                'featured'    => 1,
+                'featured'    => 0,
                 'summary'     => null,
                 'url'         => null,
                 'description' => null,

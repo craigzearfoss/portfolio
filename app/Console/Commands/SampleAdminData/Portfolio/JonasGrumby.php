@@ -364,6 +364,36 @@ class JonasGrumby extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Wikipedia (Alan Hale Jr.)',
+                'slug'        => 'wikipedia-(alan-hale-jr)',
+                'featured'    => 1,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Alan_Hale_Jr.',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Wikipedia (Gilligan\'s Island TV show)',
+                'slug'        => 'wikipedia-(gilligans-island-tv-show)',
+                'featured'    => 1,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Gilligan%27s_Island',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Recording The Gilligan\'s Island Theme Song Was As Slapstick As The Show Itself',
+                'slug'        => 'recording-the-gilligans-island-theme-song-was-as-slapstick-as-the-show-ttself',
+                'featured'    => 1,
+                'summary'     => null,
+                'url'         => 'https://www.slashfilm.com/1524509/gilligans-island-theme-song-slapstick-recording-story/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',

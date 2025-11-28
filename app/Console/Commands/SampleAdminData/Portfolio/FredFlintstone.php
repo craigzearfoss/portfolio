@@ -412,11 +412,51 @@ class FredFlintstone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'IMDb (Alan Reed)',
+                'slug'        => 'imdb-(alan-reed)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.imdb.com/name/nm0715284/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Wikipedia',
+                'slug'        => 'wikipedia',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Fred_Flintstone',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'IMDb',
+                'slug'        => 'imdb',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.imdb.com/title/tt0109813/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Getty Images',
+                'slug'        => 'getty-images',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.gettyimages.com/photos/fred-flintstone-images',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',
                 'slug'        => '',
-                'featured'    => 1,
+                'featured'    => 0,
                 'summary'     => null,
                 'url'         => null,
                 'description' => null,

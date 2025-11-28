@@ -438,11 +438,31 @@ class SamMalone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Wikipedia (Ted Danson)',
+                'slug'        => 'wikipedia-(ted-danson)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => null,
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Wikipedia (Cheers TV show)',
+                'slug'        => 'wikipedia-(cheers-tv-show)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Cheers',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',
                 'slug'        => '',
-                'featured'    => 1,
+                'featured'    => 0,
                 'summary'     => null,
                 'url'         => null,
                 'description' => null,

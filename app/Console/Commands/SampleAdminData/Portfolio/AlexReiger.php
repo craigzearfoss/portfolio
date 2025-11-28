@@ -426,7 +426,7 @@ class AlexReiger extends Command
             [
                 'name'        => 'Judd Hirsch: Alex Reiger IMDB page',
                 'slug'        => 'judd-hirsch-alex-reiger-imdb-page',
-                'featured'    => 01,
+                'featured'    => 0,
                 'summary'     => null,
                 'url'         => 'https://www.imdb.com/title/tt0077089/characters/nm0002139/',
                 'description' => null,
@@ -457,7 +457,7 @@ class AlexReiger extends Command
             [
                 'name'        => '',
                 'slug'        => '',
-                'featured'    => 1,
+                'featured'    => 0,
                 'summary'     => null,
                 'url'         => null,
                 'description' => null,

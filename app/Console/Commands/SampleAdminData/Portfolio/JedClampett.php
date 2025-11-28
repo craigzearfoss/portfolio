@@ -428,11 +428,51 @@ class JedClampett extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Wikipedia (Buddy Ebsen)',
+                'slug'        => 'wikipedia-(buddy-ebsen)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Buddy_Ebsen',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'IMDb (Buddy Ebsen: Jed Clampet)',
+                'slug'        => 'imdb-(buddy-ebsen-jed-clampet)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.imdb.com/title/tt0055662/characters/nm0001171/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Getty Images',
+                'slug'        => 'getty-images',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.gettyimages.com/photos/jed-clampett',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Wikipedia (The Beverly Hillbillies TV show)',
+                'slug'        => 'wikipedia-(the-beverly-hillbillies-tv-show)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/The_Beverly_Hillbillies',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',
                 'slug'        => '',
-                'featured'    => 1,
+                'featured'    => 0,
                 'summary'     => null,
                 'url'         => null,
                 'description' => null,

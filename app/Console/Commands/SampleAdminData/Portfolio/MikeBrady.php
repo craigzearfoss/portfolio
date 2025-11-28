@@ -359,11 +359,41 @@ class MikeBrady extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Wikipedia (Robert Reed)',
+                'slug'        => 'wikipedia-(robert-rReed)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Robert_Reed',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Wikipedia (The Brady Bunch TV show)',
+                'slug'        => 'wikipedia-(the-brady-bunch-tv-show)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/The_Brady_Bunch',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'IMDb (The Brady Bunch TV show)',
+                'slug'        => 'imdb-(the-brady-bunch-tv-show)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.imdb.com/title/tt0063878/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',
                 'slug'        => '',
-                'featured'    => 1,
+                'featured'    => 0,
                 'summary'     => null,
                 'url'         => null,
                 'description' => null,

@@ -362,11 +362,41 @@ class LesNessman extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Wikipedia',
+                'slug'        => 'wikipedia',
+                'featured'    => 1,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Les_Nessman',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'IMDb (Richard Sanders: Les Nessman)',
+                'slug'        => 'imdb-(richard-sanders-les-nessman)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.imdb.com/title/tt0742671/characters/nm0761687/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Wikipedia (WKRP in Cincinnati TV show)',
+                'slug'        => 'wikipedia-(wkrp-in-cincinnati-tv-show)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/WKRP_in_Cincinnati',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',
                 'slug'        => '',
-                'featured'    => 1,
+                'featured'    => 0,
                 'summary'     => null,
                 'url'         => null,
                 'description' => null,

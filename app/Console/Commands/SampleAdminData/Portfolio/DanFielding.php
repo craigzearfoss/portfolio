@@ -397,11 +397,41 @@ class DanFielding extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Wikipedia (John Larroquette)',
+                'slug'        => 'wikipedia-(john-larroquette)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/John_Larroquette',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'IMDb (Night Court TV show)',
+                'slug'        => 'imdb-(night-court-tv-show)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.imdb.com/title/tt0086770/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Rotten Tomatoes (Night Court TV show)',
+                'slug'        => 'rotten-tomatoes-(night-court-tv-show)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.rottentomatoes.com/tv/night_court',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',
                 'slug'        => '',
-                'featured'    => 1,
+                'featured'    => 0,
                 'summary'     => null,
                 'url'         => null,
                 'description' => null,

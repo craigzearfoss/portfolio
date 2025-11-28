@@ -429,11 +429,51 @@ class GabeKotter extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Wikipedia (Gabe Kaplan)',
+                'slug'        => 'wikipedia-(gabe-kaplan)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Gabe_Kaplan',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Wikipedia (Welcome Back, Kotter TV show)',
+                'slug'        => 'wikipedia-(welcome-back-kotter-tv-show)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Welcome_Back,_Kotter',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'IMDb (Welcome Back, Kotter TV show)',
+                'slug'        => 'imdb-(welcome-back-kotter-tv-show)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.imdb.com/title/tt0072582/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Rotten Tomatoes (Welcome Back, Kotter: Season 1)',
+                'slug'        => 'rotten-tomatoes-(welcome-back-kotter-season-1)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.rottentomatoes.com/tv/welcome_back_kotter/s01',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',
                 'slug'        => '',
-                'featured'    => 1,
+                'featured'    => 0,
                 'summary'     => null,
                 'url'         => null,
                 'description' => null,

@@ -368,11 +368,41 @@ class PeterGibbons extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Wikipedia (Ron Livingston)',
+                'slug'        => 'wikipedia-(ron-livingston)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Ron_Livingston',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Wikipedia (Office Space movie)',
+                'slug'        => 'wikipedia-(Office-space-movie)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Office_Space',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Rotten Tomatoes (Office Space movie)',
+                'slug'        => 'rotten-tomatoes-(office-space-movie)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.rottentomatoes.com/m/office_space',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',
                 'slug'        => '',
-                'featured'    => 1,
+                'featured'    => 0,
                 'summary'     => null,
                 'url'         => null,
                 'description' => null,

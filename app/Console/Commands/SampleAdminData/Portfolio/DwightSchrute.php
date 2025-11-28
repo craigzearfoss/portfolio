@@ -374,6 +374,36 @@ class DwightSchrute extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Wikipedia (Rainn Wilson)',
+                'slug'        => 'wikipedia-(rainn-wilson)',
+                'featured'    => 1,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Rainn_Wilson',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'IMDb (The Office TV show)',
+                'slug'        => 'imdb-(the-office-tv-show)',
+                'featured'    => 1,
+                'summary'     => null,
+                'url'         => 'https://www.imdb.com/title/tt0386676/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'LinkedIn (Dunder-Mifflin)',
+                'slug'        => 'linkedin-(dunder-mifflin)',
+                'featured'    => 1,
+                'summary'     => null,
+                'url'         => 'https://www.linkedin.com/company/dunder-mifflin-scranton/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',

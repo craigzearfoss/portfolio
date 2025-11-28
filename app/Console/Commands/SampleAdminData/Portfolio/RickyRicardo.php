@@ -367,11 +367,51 @@ class RickyRicardo extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Wikipedia (Desi Arnaz)',
+                'slug'        => 'Wikipedia (Desi Arnaz)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Desi_Arnaz',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Wikipedia (I Love Lucy TV show)',
+                'slug'        => 'Wikipedia (I Love Lucy TV show)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/I_Love_Lucy',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'IMDb (I Love Lucy TV show)',
+                'slug'        => 'IMDb (I Love Lucy TV show)',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://www.imdb.com/title/tt0043208/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Lucy Desi Museum',
+                'slug'        => 'Lucy Desi Museum',
+                'featured'    => 0,
+                'summary'     => null,
+                'url'         => 'https://lucydesi.com/i-love-lucy-history/',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',
                 'slug'        => '',
-                'featured'    => 1,
+                'featured'    => 0,
                 'summary'     => null,
                 'url'         => null,
                 'description' => null,

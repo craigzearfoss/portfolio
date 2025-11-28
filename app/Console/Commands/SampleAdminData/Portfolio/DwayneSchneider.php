@@ -374,6 +374,26 @@ class DwayneSchneider extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Link ...\n";
 
         $data = [
+            [
+                'name'        => 'Wikipedia (Pat Harrington Jr.)',
+                'slug'        => 'wikipedia-(pat-harrington-jr)',
+                'featured'    => 1,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/Pat_Harrington_Jr.',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
+            [
+                'name'        => 'Wikipedia (One Day at a Time TV show)',
+                'slug'        => 'wikipedia-(one-day-at-a-time-tv-show)',
+                'featured'    => 1,
+                'summary'     => null,
+                'url'         => 'https://en.wikipedia.org/wiki/One_Day_at_a_Time_(2017_TV_series)',
+                'description' => null,
+                'sequence'    => 0,
+                'public'      => 1,
+            ],
             /*
             [
                 'name'        => '',
