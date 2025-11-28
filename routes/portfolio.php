@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Portfolio\AcademyController as AdminPortfolioAcademyController;
 use App\Http\Controllers\Admin\Portfolio\ArtController as AdminPortfolioArtController;
 use App\Http\Controllers\Admin\Portfolio\AudioController as AdminPortfolioAudioController;
+use App\Http\Controllers\Admin\Portfolio\AwardController as AdminPortfolioAwardController;
 use App\Http\Controllers\Admin\Portfolio\CertificateController as AdminPortfolioCertificateController;
 use App\Http\Controllers\Admin\Portfolio\CertificationController as AdminPortfolioCertificationController;
 use App\Http\Controllers\Admin\Portfolio\CourseController as AdminPortfolioCourseController;
@@ -14,12 +15,12 @@ use App\Http\Controllers\Admin\Portfolio\JobTaskController as AdminPortfolioJobT
 use App\Http\Controllers\Admin\Portfolio\JobSkillController as AdminPortfolioJobSkillController;
 use App\Http\Controllers\Admin\Portfolio\LinkController as AdminPortfolioLinkController;
 use App\Http\Controllers\Admin\Portfolio\MusicController as AdminPortfolioMusicController;
+use App\Http\Controllers\Admin\Portfolio\PhotographyController as AdminPortfolioPhotographyController;
 use App\Http\Controllers\Admin\Portfolio\ProjectController as AdminPortfolioProjectController;
 use App\Http\Controllers\Admin\Portfolio\PublicationController as AdminPortfolioPublicationController;
 use App\Http\Controllers\Admin\Portfolio\SchoolController as AdminPortfolioSchoolController;
 use App\Http\Controllers\Admin\Portfolio\SkillController as AdminPortfolioSkillController;
 use App\Http\Controllers\Admin\Portfolio\VideoController as AdminPortfolioVideoController;
-use App\Http\Controllers\Guest\Portfolio\IndexController as GuestPortfolioIndexController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')->group(function () {
@@ -37,6 +38,7 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
     Route::resource('job-task', AdminPortfolioJobTaskController::class);
     Route::resource('link', AdminPortfolioLinkController::class);
     Route::resource('music', AdminPortfolioMusicController::class);
+    Route::resource('photography', AdminPortfolioPhotographyController::class);
     Route::resource('project', AdminPortfolioProjectController::class);
     Route::resource('publication', AdminPortfolioPublicationController::class);
     Route::resource('school', AdminPortfolioSchoolController::class);

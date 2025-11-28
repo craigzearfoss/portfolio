@@ -126,7 +126,7 @@ class ApplicationController extends BaseAdminController
     {
         $application->delete();
 
-        return redirect(referer('admin.dictionary.database.index'))
+        return redirect(referer('admin.portfolio.application.index'))
             ->with('success', 'Application deleted successfully.');
     }
 

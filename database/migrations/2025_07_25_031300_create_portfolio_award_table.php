@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Portfolio\Art;
+use App\Models\Portfolio\Award;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,20 +15,27 @@ return new class extends Migration
     protected $database_tag = 'portfolio_db';
 
     /**
+     * The id of the admin who owns the portfolio publication resource.
+     *
+     * @var int
+     */
+    protected $ownerId = 2;
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::connection($this->database_tag)->create('art', function (Blueprint $table) {
+        Schema::connection($this->database_tag)->create('awards', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('name')->index('name_idx');
-            $table->string('artist')->nullable()->index('artist_idx');
             $table->string('slug');
             $table->boolean('featured')->default(false);
             $table->string('summary')->nullable();
+            $table->date('date_received')->nullable();
             $table->integer('year')->nullable();
-            $table->string('image_url', 500)->nullable();
+            $table->string('organization')->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
@@ -55,12 +62,12 @@ return new class extends Migration
             [
                 'owner_id'       => null,
                 'name'           => '',
-                'artist'         => '',
                 'slug'           => '',
                 'featured'       => 0,
                 'summary'        => null,
+                'date_received'  => null,
                 'year'           => null,
-                'image_url'      => null,
+                'organization'   => null,
                 'notes'          => null,
                 'description'    => '',
                 'public'         => 1,
@@ -73,7 +80,7 @@ return new class extends Migration
             $data[$i]['updated_at'] = now();
         }
 
-        Art::insert($data);
+        Education::insert($data);
         */
     }
 
@@ -82,6 +89,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::connection($this->database_tag)->dropIfExists('art');
+        Schema::connection($this->database_tag)->dropIfExists('awards');
     }
 };

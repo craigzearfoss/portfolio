@@ -79,6 +79,15 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'class',
+                'value'     => old('class') ?? $resource->class,
+                'unique'    => true,
+                'maxlength' => 255,
+                'disabled'  => true,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'title',
                 'value'     => old('title') ?? $resource->title,
                 'required'  => true,
@@ -91,6 +100,16 @@
                 'value'     => old('plural') ?? $resource->plural,
                 'maxlength' => 50,
                 'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-checkbox', [
+                'name'            => 'has_owner',
+                'label'           => 'has owner',
+                'value'           => 1,
+                'unchecked_value' => 0,
+                'checked'         => old('has_owner') ?? $resource->has_owner,
+                'disabled'        => true,
+                'message'         => $message ?? '',
             ])
 
             <div class="field is-horizontal">

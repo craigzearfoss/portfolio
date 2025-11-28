@@ -49,8 +49,10 @@ class StoreResourcesRequest extends FormRequest
                         ->where('table', $this->table);
                 })
             ],
-            'title'       => ['required', 'string', 'required', 'max:50'],
-            'plural'      => ['required', 'string', 'required', 'max:50'],
+            'class'       => ['required', 'string', 'max:255'],
+            'title'       => ['required', 'string', 'max:50'],
+            'plural'      => ['required', 'string', 'max:50'],
+            'has_owner'   => ['integer', 'between:0,1'],
             'guest'       => ['integer', 'between:0,1'],
             'user'        => ['integer', 'between:0,1'],
             'admin'       => ['integer', 'between:0,1'],

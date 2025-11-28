@@ -5,19 +5,17 @@ namespace App\Models\Portfolio;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Art extends Model
+class Award extends Model
 {
-    /** @use HasFactory<\Database\Factories\Portfolio\ArtFactory> */
-    use SearchableModelTrait, HasFactory, SoftDeletes;
+    use SearchableModelTrait, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 
-    protected $table = 'art';
+    protected $table = 'awards';
 
     /**
      * The attributes that are mass assignable.
@@ -27,12 +25,12 @@ class Art extends Model
     protected $fillable = [
         'owner_id',
         'name',
-        'artist',
         'slug',
         'featured',
         'summary',
+        'date_received',
         'year',
-        'image_url',
+        'organization',
         'notes',
         'link',
         'link_name',
@@ -53,8 +51,8 @@ class Art extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'artist', 'featured', 'year', 'public', 'readonly', 'root',
-        'disabled', 'demo'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'date_received', 'year', 'organization', 'public',
+        'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()
@@ -65,7 +63,7 @@ class Art extends Model
     }
 
     /**
-     * Get the owner of the art.
+     * Get the owner of the photograph.
      */
     public function owner(): BelongsTo
     {

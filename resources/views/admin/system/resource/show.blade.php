@@ -80,6 +80,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'class',
+            'value' => $resource->class
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'title',
             'value' => $resource->title
         ])
@@ -87,6 +92,11 @@
         @include('admin.components.show-row', [
             'name'  => 'plural',
             'value' => $resource->plural
+        ])
+
+        @include('admin.components.show-row-checkbox', [
+            'name'    => 'has owner',
+            'checked' => $resource->has_owner
         ])
 
         @include('admin.components.show-row-checkbox', [

@@ -7,12 +7,14 @@ use App\Http\Controllers\Guest\Personal\RecipeController as GuestPersonalRecipeC
 use App\Http\Controllers\Guest\System\AdminController as GuestAdminController;
 use App\Http\Controllers\Guest\Portfolio\ArtController as GuestPortfolioArtController;
 use App\Http\Controllers\Guest\Portfolio\AudioController as GuestPortfolioAudioController;
+use App\Http\Controllers\Guest\Portfolio\AwardController as GuestPortfolioAwardController;
 use App\Http\Controllers\Guest\Portfolio\CertificateController as GuestPortfolioCertificateController;
 use App\Http\Controllers\Guest\Portfolio\CourseController as GuestPortfolioCourseController;
 use App\Http\Controllers\Guest\Portfolio\EducationController as GuestPortfolioEducationController;
 use App\Http\Controllers\Guest\Portfolio\LinkController as GuestPortfolioLinkController;
 use App\Http\Controllers\Guest\Portfolio\MusicController as GuestPortfolioMusicController;
 use App\Http\Controllers\Guest\Portfolio\IndexController as GuestPortfolioIndexController;
+use App\Http\Controllers\Guest\Portfolio\PhotographyController as GuestPortfolioPhotographyController;
 use App\Http\Controllers\Guest\Portfolio\ProjectController as GuestPortfolioProjectController;
 use App\Http\Controllers\Guest\Portfolio\PublicationController as GuestPortfolioPublicationController;
 use App\Http\Controllers\Guest\Portfolio\ResumeController as GuestPortfolioResumeController;
@@ -37,6 +39,9 @@ Route::name('guest.')->group(function () {
     Route::get('/{admin:label}/portfolio/art/{slug}', [GuestPortfolioArtController::class, 'show'])->name('admin.portfolio.art.show');
     Route::get('/{admin:label}/portfolio/audio', [GuestPortfolioAudioController::class, 'index'])->name('admin.portfolio.audio.index');
     Route::get('/{admin:label}/portfolio/audio/{slug}', [GuestPortfolioAudioController::class, 'show'])->name('admin.portfolio.audio.show');
+
+    Route::get('/{admin:label}/portfolio/award', [GuestPortfolioAwardController::class, 'index'])->name('admin.portfolio.award.index');
+    Route::get('/{admin:label}/portfolio/award/{slug}', [GuestPortfolioAwardController::class, 'show'])->name('admin.portfolio.award.show');
     Route::get('/{admin:label}/portfolio/certificate', [GuestPortfolioCertificateController::class, 'index'])->name('admin.portfolio.certificate.index');
     Route::get('/{admin:label}/portfolio/certificate/{slug}', [GuestPortfolioCertificateController::class, 'show'])->name('admin.portfolio.certificate.show');
     Route::get('/{admin:label}/portfolio/course', [GuestPortfolioCourseController::class, 'index'])->name('admin.portfolio.course.index');
@@ -47,6 +52,8 @@ Route::name('guest.')->group(function () {
     Route::get('/{admin:label}/portfolio/link/{slug}', [GuestPortfolioLinkController::class, 'show'])->name('admin.portfolio.link.show');
     Route::get('/{admin:label}/portfolio/music', [GuestPortfolioMusicController::class, 'index'])->name('admin.portfolio.music.index');
     Route::get('/{admin:label}/portfolio/music/{slug}', [GuestPortfolioMusicController::class, 'show'])->name('admin.portfolio.music.show');
+    Route::get('/{admin:label}/portfolio/photography', [GuestPortfolioPhotographyController::class, 'index'])->name('admin.portfolio.photography.index');
+    Route::get('/{admin:label}/portfolio/photography/{slug}', [GuestPortfolioPhotographyController::class, 'show'])->name('admin.portfolio.photography.show');
     Route::get('/{admin:label}/portfolio/project', [GuestPortfolioProjectController::class, 'index'])->name('admin.portfolio.project.index');
     Route::get('/{admin:label}/portfolio/project/{slug}', [GuestPortfolioProjectController::class, 'show'])->name('admin.portfolio.project.show');
     Route::get('/{admin:label}/portfolio/publication', [GuestPortfolioPublicationController::class, 'index'])->name('admin.portfolio.publication.index');

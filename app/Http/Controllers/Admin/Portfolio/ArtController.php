@@ -111,7 +111,7 @@ class ArtController extends BaseAdminController
     {
         $art->delete();
 
-        return redirect(referer('admin.dictionary.database.index'))
+        return redirect(referer('admin.portfolio.art.index'))
             ->with('success', $art->name . ' deleted successfully.');
     }
 }

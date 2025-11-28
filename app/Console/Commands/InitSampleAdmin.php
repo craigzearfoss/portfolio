@@ -21,6 +21,7 @@ class InitSampleAdmin extends Command
     protected $adminId = null;
     protected $demo = 1;
     protected $silent = 0;
+    protected $processAll = false;
 
     const USER_DATA = [
         'demo'             => [ 'name' => 'Demo Admin',       'label' => 'demo-admin',       'email' => 'admin@gmail.com',             'role' => 'Site Administrator',       'employer' => null                            ],
@@ -72,6 +73,7 @@ class InitSampleAdmin extends Command
         $this->silent = $this->option('silent');
 
         if (($username == '*') || (strtolower($username) === 'all')) {
+            $this->processAll = true;
             $usernames = array_keys(self::USER_DATA);
         } else {
             $usernames = explode(',',  $username);
@@ -160,14 +162,21 @@ class InitSampleAdmin extends Command
         }
 
         if (!$this->silent) {
-            echo PHP_EOL . 'username: ' . $username . PHP_EOL;
-            echo 'admin_id: ' . $adminId . PHP_EOL;
-            echo 'team_id:  ' . $adminTeamId . PHP_EOL;
-            echo 'group_id: ' . $adminGroupId . PHP_EOL;
-            echo 'demo:     ' . $this->demo . PHP_EOL;
+            if ($this->processAll) {
+                echo PHP_EOL . 'Import all sample admins.' . PHP_EOL;
+            } else {
+                echo PHP_EOL . 'username: ' . $username . PHP_EOL;
+                echo 'admin_id: ' . $adminId . PHP_EOL;
+                echo 'team_id:  ' . $adminTeamId . PHP_EOL;
+                echo 'group_id: ' . $adminGroupId . PHP_EOL;
+                echo 'demo:     ' . $this->demo . PHP_EOL;
+            }
 
             $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
         }
+
+        // we only prompt for the first user
+        $this->silent = true;
 
         /* --------------------------------------------------------------------------- */
         /* Import into the system database.                                            */
