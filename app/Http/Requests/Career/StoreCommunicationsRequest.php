@@ -29,6 +29,12 @@ class StoreCommunicationsRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (!empty($this->time) && (substr_count($this->time, ':') === 3)) {
+            // remove milliseconds part of time
+            $lastPos = strrpos($this->time, ':');
+            $this->merge(['time' => substr($this->time, 0, $lastPos)]);
+        }
+
         return [
             'owner_id'              => ['required', 'integer', 'exists:system_db.admins,id'],
             'application_id'        => ['required', 'integer', 'exists:career_db.applications,id'],
