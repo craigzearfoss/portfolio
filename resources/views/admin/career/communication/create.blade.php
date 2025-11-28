@@ -62,6 +62,14 @@
                 'message' => $message ?? '',
             ])
 
+            @include('admin.components.form-select-horizontal', [
+                'name'    => 'communication_type_id',
+                'label'   => 'type',
+                'value'   => old('communication_type_id') ?? '',
+                'list'    => \App\Models\Career\CommunicationType::listOptions([], 'id', 'name', true),
+                'message' => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'subject',
                 'value'     => old('subject') ?? '',

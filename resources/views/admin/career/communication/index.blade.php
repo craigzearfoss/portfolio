@@ -37,6 +37,7 @@
                 @if(empty($application))
                     <th>application</th>
                 @endif
+                <th>type</th>
                 <th>subject</th>
                 <th>date</th>
                 <th>time</th>
@@ -52,6 +53,7 @@
                 @if(empty($application))
                     <th>application</th>
                 @endif
+                <th>type</th>
                 <th>subject</th>
                 <th>date</th>
                 <th>time</th>
@@ -77,6 +79,9 @@
                             ])
                         </td>
                     @endif
+                    <td data-field="communication_type_id" style="white-space: nowrap;">
+                        {{ $communication->communicationType->name }}
+                    </td>
                     <td data-field="subject" style="white-space: nowrap;">
                         {{ $communication->subject }}
                     </td>
@@ -112,10 +117,10 @@
 
                 <tr>
                     @php
-                    $colspan = isRootAdmin() ? '5' : '4';
+                    $colspan = isRootAdmin() ? '6' : '5';
                     if (!empty($application)) $colspan = $colspan++;
                     @endphp
-                    <td colspan="{{ isRootAdmin() ? '5' : '4' }}">There are no communications.</td>
+                    <td colspan="{{ $colspan }}">There are no communications.</td>
                 </tr>
 
             @endforelse

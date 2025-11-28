@@ -48,6 +48,11 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'type',
+            'value' => $communication->communicationType->name
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'subject',
             'value' => $communication->subject
         ])

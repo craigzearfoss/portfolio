@@ -2,6 +2,7 @@
 
 namespace App\Models\Career;
 
+use App\Models\Career\CommunicationType;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
@@ -27,6 +28,7 @@ class Communication extends Model
     protected $fillable = [
         'owner_id',
         'application_id',
+        'communication_type_id',
         'subject',
         'date',
         'time',
@@ -69,4 +71,14 @@ class Communication extends Model
         return $this->setConnection('career_db')->belongsTo(Application::class, 'application_id')
             ->orderBy('post_date', 'desc');
     }
+
+    /**
+     * Get the communication type that owns the communication.
+     */
+    public function communicationType(): BelongsTo
+    {
+        return $this->setConnection('career_db')->belongsTo(CommunicationType::class)
+            ->orderBy('sequence', 'asc');
+    }
+
 }

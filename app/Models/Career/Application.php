@@ -184,7 +184,7 @@ class Application extends Model
     }
 
     /**
-     * Get the job board who owns the application.
+     * Get the job board that owns the application.
      */
     public function jobBoard(): BelongsTo
     {
