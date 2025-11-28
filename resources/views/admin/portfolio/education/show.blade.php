@@ -111,8 +111,8 @@
 
         @include('admin.components.show-row-image', [
             'name'     => 'image',
-            'src'      => imageUrl($education->image),
-            'alt'      => $education->name,
+            'src'      => $education->image,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -131,12 +131,12 @@
 
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
-            'src'      => imageUrl($education->thumbnail),
-            'alt'      => $education->name,
+            'src'      => $education->thumbnail,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($education->name, $education->thumbnail)
+            'filename' => getFileSlug($education->name . '-thumb', $education->thumbnail)
         ])
 
         @include('admin.components.show-row', [

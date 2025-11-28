@@ -120,8 +120,8 @@
 
         @include('admin.components.show-row-image', [
             'name'     => 'image',
-            'src'      => imageUrl($certificate->image),
-            'alt'      => $certificate->name,
+            'src'      => $certificate->image,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -140,12 +140,12 @@
 
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
-            'src'      => imageUrl($certificate->thumbnail),
-            'alt'      => $certificate->name,
+            'src'      => $certificate->thumbnail,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($certificate->name, $certificate->thumbnail)
+            'filename' => getFileSlug($certificate->name . '-thumb', $certificate->thumbnail)
         ])
 
         @include('admin.components.show-row', [

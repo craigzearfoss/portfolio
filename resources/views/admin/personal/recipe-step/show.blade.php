@@ -60,7 +60,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $recipeStep->image,
-            'alt'      => $recipeStep->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -80,11 +80,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $recipeStep->thumbnail,
-            'alt'      => $recipeStep->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($recipeStep->name, $recipeStep->thumbnail)
+            'filename' => getFileSlug($recipeStep->name . '-thumb', $recipeStep->thumbnail)
         ])
 
         @include('admin.components.show-row', [

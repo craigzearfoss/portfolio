@@ -114,7 +114,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $skill->image,
-            'alt'      => $skill->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -134,11 +134,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $skill->thumbnail,
-            'alt'      => $skill->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($skill->name, $skill->thumbnail)
+            'filename' => getFileSlug($skill->name . '-thumb', $skill->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -152,7 +152,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $video->image,
-            'alt'      => $video->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -161,7 +161,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $video->image_credit
+            'value' => $skill->image_credit
         ])
 
         @include('admin.components.show-row', [
@@ -172,11 +172,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $video->thumbnail,
-            'alt'      => $video->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($video->name, $video->thumbnail)
+            'filename' => getFileSlug($video->name . '-thumb', $video->thumbnail)
         ])
 
         @include('admin.components.show-row', [

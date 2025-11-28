@@ -96,7 +96,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $language->image,
-            'alt'      => $language->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -110,17 +110,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' =>$language->image_source
+            'value' => $language->image_source
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $language->thumbnail,
-            'alt'      => $language->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($language->name, $language->thumbnail)
+            'filename' => getFileSlug($language->name . '-thumb', $language->thumbnail)
         ])
 
         @include('admin.components.show-row', [

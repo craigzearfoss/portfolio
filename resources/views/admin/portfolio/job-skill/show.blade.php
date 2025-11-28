@@ -76,7 +76,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $jobSkill->image,
-            'alt'      => $jobSkill->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -96,11 +96,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $jobSkill->thumbnail,
-            'alt'      => $jobSkill->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($jobSkill->name, $jobSkill->thumbnail)
+            'filename' => getFileSlug($jobSkill->name . '-thumb', $jobSkill->thumbnail)
         ])
 
         @include('admin.components.show-row', [

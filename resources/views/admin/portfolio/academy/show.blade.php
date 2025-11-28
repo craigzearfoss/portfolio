@@ -55,7 +55,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $academy->image,
-            'alt'      => $academy->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -75,28 +75,28 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $academy->thumbnail,
-            'alt'      => $academy->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($academy->name, $academy->thumbnail)
+            'filename' => getFileSlug($academy->name . '-thumb', $academy->thumbnail)
         ])
 
         @include('admin.components.show-row-image', [
-            'name'     => 'logo',
-            'src'      => $academy->logo,
-            'alt'      => 'logo',
-            'width'    => '300px',
+            'name'  => 'logo',
+            'src'   => $academy->logo,
+            'alt'   => 'logo',
+            'width' => '300px',
             'download' => true,
             'external' => true,
             'filename' => getFileSlug($academy->name, $academy->logo)
         ])
 
         @include('admin.components.show-row-image', [
-            'name'     => 'logo small',
-            'src'      => $academy->logo_small,
-            'alt'      => 'logo',
-            'width'    => '300px',
+            'name'  => 'logo small',
+            'src'   => $academy->logo_small,
+            'alt'   => 'logo small',
+            'width' => '100px',
             'download' => true,
             'external' => true,
             'filename' => getFileSlug($academy->name, $academy->logo_small)

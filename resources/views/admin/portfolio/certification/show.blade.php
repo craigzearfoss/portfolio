@@ -75,7 +75,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $certification->image,
-            'alt'      => $certification->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -95,28 +95,28 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $certification->thumbnail,
-            'alt'      => $certification->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($certification->name, $certification->thumbnail)
+            'filename' => getFileSlug($certification->name . '-thumb', $certification->thumbnail)
         ])
 
         @include('admin.components.show-row-image', [
-            'name'     => 'logo',
-            'src'      => $certification->logo,
-            'alt'      => 'logo',
-            'width'    => '300px',
+            'name'  => 'logo',
+            'src'   => $certification->logo,
+            'alt'   => 'logo',
+            'width' => '300px',
             'download' => true,
             'external' => true,
             'filename' => getFileSlug($certification->name, $certification->logo)
         ])
 
         @include('admin.components.show-row-image', [
-            'name'     => 'logo small',
-            'src'      => $certification->logo_small,
-            'alt'      => 'logo',
-            'width'    => '300px',
+            'name'  => 'logo small',
+            'src'   => $certification->logo_small,
+            'alt'   => 'logo small',
+            'width' => '100px',
             'download' => true,
             'external' => true,
             'filename' => getFileSlug($certification->name, $certification->logo_small)

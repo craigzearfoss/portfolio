@@ -129,7 +129,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $contact->image,
-            'alt'      => $contact->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -149,11 +149,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $contact->thumbnail,
-            'alt'      => $contact->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($contact->name, $contact->thumbnail)
+            'filename' => getFileSlug($contact->name . '-thumb', $contact->thumbnail)
         ])
 
         @include('admin.components.show-row', [

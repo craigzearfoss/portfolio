@@ -100,7 +100,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $art->image,
-            'alt'      => $art->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -108,23 +108,23 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_credit',
+            'name'  => 'image credit',
             'value' => $art->image_credit
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_source',
+            'name'  => 'image source',
             'value' => $art->image_source
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $art->thumbnail,
-            'alt'   => $art->name,
-            'width'     => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $art->thumbnail,
+            'alt'      => 'thumbnail',
+            'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($art->name, $art->thumbnail)
+            'filename' => getFileSlug($art->name . '-thumb', $art->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -106,7 +106,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $jobCoworker->image,
-            'alt'      => $jobCoworker->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -126,11 +126,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $jobCoworker->thumbnail,
-            'alt'      => $jobCoworker->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($jobCoworker->name, $jobCoworker->thumbnail)
+            'filename' => getFileSlug($jobCoworker->name . '-thumb', $jobCoworker->thumbnail)
         ])
 
         @include('admin.components.show-row', [

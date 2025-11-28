@@ -129,7 +129,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $job->image,
-            'alt'      => $job->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -137,40 +137,40 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_credit',
+            'name'  => 'image credit',
             'value' => $job->image_credit
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_source',
+            'name'  => 'image source',
             'value' => $job->image_source
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $job->thumbnail,
-            'alt'      => $job->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($job->name, $job->thumbnail)
+            'filename' => getFileSlug($job->name . '-thumb', $job->thumbnail)
         ])
 
         @include('admin.components.show-row-image', [
-            'name'     => 'logo',
-            'src'      => $job->logo,
-            'alt'      => 'logo',
-            'width'    => '300px',
+            'name'  => 'logo',
+            'src'   => $job->logo,
+            'alt'   => 'logo',
+            'width' => '300px',
             'download' => true,
             'external' => true,
             'filename' => getFileSlug($job->name, $job->logo)
         ])
 
         @include('admin.components.show-row-image', [
-            'name'     => 'logo small',
-            'src'      => $job->logo_small,
-            'alt'      => 'logo',
-            'width'    => '300px',
+            'name'  => 'logo small',
+            'src'   => $job->logo_small,
+            'alt'   => 'logo small',
+            'width' => '100px',
             'download' => true,
             'external' => true,
             'filename' => getFileSlug($job->name, $job->logo_small)

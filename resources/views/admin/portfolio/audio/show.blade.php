@@ -152,7 +152,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $audio->image,
-            'alt'      => $audio->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -172,11 +172,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $audio->thumbnail,
-            'alt'      => $audio->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($audio->name, $audio->thumbnail)
+            'filename' => getFileSlug($audio->name . '-thumb', $audio->thumbnail)
         ])
 
         @include('admin.components.show-row', [

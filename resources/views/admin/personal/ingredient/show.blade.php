@@ -56,7 +56,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $ingredient->image,
-            'alt'      => $ingredient->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -76,11 +76,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $ingredient->thumbnail,
-            'alt'      => $ingredient->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($ingredient->name, $ingredient->thumbnail)
+            'filename' => getFileSlug($ingredient->name . '-thumb', $ingredient->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -67,7 +67,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $recipeIngredient->image,
-            'alt'      => $recipeIngredient->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -87,11 +87,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $recipeIngredient->thumbnail,
-            'alt'      => $recipeIngredient->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($recipeIngredient->name, $recipeIngredient->image)
+            'filename' => getFileSlug($recipeIngredient->name . '-thumb', $recipeIngredient->thumbnail)
         ])
 
         @include('admin.components.show-row', [

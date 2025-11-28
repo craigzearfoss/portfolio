@@ -133,10 +133,10 @@
             'value' => view('admin.components.disclaimer', [ 'value' => $description->disclaimer ?? '' ])
         ])
 
-        @include('admin.components.show-row', [
+        @include('admin.components.show-row-image', [
             'name'     => 'image',
-            'src'      => imageUrl($course->image),
-            'alt'      => $course->name,
+            'src'      => $course->image,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -155,12 +155,12 @@
 
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
-            'src'      => imageUrl($course->thumbnail),
-            'alt'      => $course->name,
+            'src'      => $course->thumbnail,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($course->name, $course->thumbail)
+            'filename' => getFileSlug($course->name . '-thumb', $course->thumbnail)
         ])
 
         @include('admin.components.show-row', [

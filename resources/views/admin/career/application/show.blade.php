@@ -249,7 +249,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $application->image,
-            'alt'      => $application->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -269,11 +269,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $application->thumbnail,
-            'alt'      => $application->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($application->name, $application->thumbnail)
+            'filename' => getFileSlug($application->name . '-thumb', $application->thumbnail)
         ])
 
         @include('admin.components.show-row', [

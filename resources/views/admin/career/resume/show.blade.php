@@ -111,13 +111,16 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $resume->image,
-            'alt'   => $resume->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $resume->image,
+            'alt'      => 'image',
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($resume->name, $resume->image)
         ])
 
-        @include('admin.components.show-row-image', [
+        @include('admin.components.show-row', [
             'name'  => 'image credit',
             'value' => $resume->image_credit
         ])
@@ -128,10 +131,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $resume->thumbnail,
-            'alt'   => $resume->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $resume->thumbnail,
+            'alt'      => 'thumbnail',
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($resume->name . '-thumb', $resume->thumbnail)
         ])
 
         @include('admin.components.show-row', [

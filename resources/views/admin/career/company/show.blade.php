@@ -124,7 +124,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $company->image,
-            'alt'      => $company->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -144,28 +144,28 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $company->thumbnail,
-            'alt'      => $company->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($company->name, $company->thumbnail)
+            'filename' => getFileSlug($company->name . '-thumb', $company->thumbnail)
         ])
 
         @include('admin.components.show-row-image', [
-            'name'     => 'logo',
-            'src'      => $company->logo,
-            'alt'      => 'logo',
-            'width'    => '300px',
+            'name'  => 'logo',
+            'src'   => $company->logo,
+            'alt'   => 'logo',
+            'width' => '300px',
             'download' => true,
             'external' => true,
             'filename' => getFileSlug($company->name, $company->logo)
         ])
 
         @include('admin.components.show-row-image', [
-            'name'     => 'logo small',
-            'src'      => $company->logo_small,
-            'alt'      => 'logo',
-            'width'    => '300px',
+            'name'  => 'logo small',
+            'src'   => $company->logo_small,
+            'alt'   => 'logo small',
+            'width' => '100px',
             'download' => true,
             'external' => true,
             'filename' => getFileSlug($company->name, $company->logo_small)

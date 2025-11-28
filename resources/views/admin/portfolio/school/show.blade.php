@@ -92,7 +92,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $school->image,
-            'alt'      => $school->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -100,40 +100,40 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_credit',
+            'name'  => 'image credit',
             'value' => $school->image_credit
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'image_source',
+            'name'  => 'image source',
             'value' => $school->image_source
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $school->thumbnail,
-            'alt'      => $school->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($school->name, $school->thumbnail)
+            'filename' => getFileSlug($school->name . '-thumb', $school->thumbnail)
         ])
 
         @include('admin.components.show-row-image', [
-            'name'     => 'logo',
-            'src'      => $school->logo,
-            'alt'      => 'logo',
-            'width'    => '300px',
+            'name'  => 'logo',
+            'src'   => $school->logo,
+            'alt'   => 'logo',
+            'width' => '300px',
             'download' => true,
             'external' => true,
             'filename' => getFileSlug($school->name, $school->logo)
         ])
 
         @include('admin.components.show-row-image', [
-            'name'     => 'logo small',
-            'src'      => $school->logo_small,
-            'alt'      => 'logo',
-            'width'    => '300px',
+            'name'  => 'logo small',
+            'src'   => $school->logo_small,
+            'alt'   => 'logo small',
+            'width' => '100px',
             'download' => true,
             'external' => true,
             'filename' => getFileSlug($school->name, $school->logo_small)

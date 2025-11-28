@@ -96,7 +96,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $framework->image,
-            'alt'      => $framework->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -116,11 +116,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $framework->thumbnail,
-            'alt'      => $framework->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($framework->name, $framework->thumbnail)
+            'filename' => getFileSlug($framework->name . '-thumb', $framework->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -88,7 +88,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $link->image,
-            'alt'      => $link->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -108,11 +108,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $link->thumbnail,
-            'alt'      => $link->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($link->name, $link->thumbnail)
+            'filename' => getFileSlug($link->name . '-thumb', $link->thumbnail)
         ])
 
         @include('admin.components.show-row', [

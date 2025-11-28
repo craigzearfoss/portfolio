@@ -60,7 +60,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $unit->image,
-            'alt'      => $unit->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -80,11 +80,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $unit->thumbnail,
-            'alt'      => $unit->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($unit->name, $unit->thumbnail)
+            'filename' => getFileSlug($unit->name . '-thumb', $unit->thumbnail)
         ])
 
         @include('admin.components.show-row', [

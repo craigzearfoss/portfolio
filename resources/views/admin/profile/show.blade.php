@@ -41,7 +41,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $admin->image,
-            'alt'      => $admin->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -61,11 +61,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $admin->thumbnail,
-            'alt'      => $admin->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($admin->name, $admin->thumbnail)
+            'filename' => getFileSlug($admin->name . '-thumb', $admin->thumbnail)
         ])
 
         @include('admin.components.show-row', [

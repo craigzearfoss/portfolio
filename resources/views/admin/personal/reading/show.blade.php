@@ -123,16 +123,16 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $reading->image,
-            'alt'      => $reading->title . ' - ' . $reading->author,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($reading->title . '-by-' . $reading->author, $reading->image)
+            'filename' => getFileSlug($reading->name, $reading->image)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $reading->image_credit
+            'value' => $ingredient->image_credit
         ])
 
         @include('admin.components.show-row', [
@@ -143,11 +143,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $reading->thumbnail,
-            'alt'      => $reading->title . ' - ' . $reading->author,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($reading->title . '-by-' . $reading->author, $reading->thumbnail)
+            'filename' => getFileSlug($reading->name . '-thumb', $reading->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -96,7 +96,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $library->image,
-            'alt'      => $library->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -116,11 +116,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $library->thumbnail,
-            'alt'      => $library->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($library->name, $library->thumbnail)
+            'filename' => getFileSlug($library->name . '-thumb', $library->thumbnail)
         ])
 
         @include('admin.components.show-row', [

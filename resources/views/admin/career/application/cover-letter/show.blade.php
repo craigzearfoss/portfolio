@@ -77,7 +77,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $application->coverLetter->image,
-            'alt'      => $application->coverLetter->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -97,11 +97,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $application->coverLetter->thumbnail,
-            'alt'      => $application->coverLetter->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($application->coverLetter->name, $application->coverLetter->thumbnail)
+            'filename' => getFileSlug($application->coverLetter->name .'-thumb', $application->coverLetter->thumbnail)
         ])
 
         @include('admin.components.show-row', [

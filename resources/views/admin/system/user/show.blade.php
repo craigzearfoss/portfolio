@@ -113,7 +113,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $user->image,
-            'alt'      => $user->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -133,11 +133,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $user->thumbnail,
-            'alt'      => $user->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($user->name, $user->thumbnail)
+            'filename' => getFileSlug($user->name . '-thumb', $user->thumbnail)
         ])
 
         @include('admin.components.show-row', [

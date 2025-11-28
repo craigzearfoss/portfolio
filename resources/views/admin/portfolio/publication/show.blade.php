@@ -161,47 +161,35 @@
             'value' => view('admin.components.disclaimer', [ 'value' => $publication->disclaimer ?? '' ])
         ])
 
-        @if(!empty($publication->image))
+        @include('admin.components.show-row-image', [
+            'name'     => 'image',
+            'src'      => $publication->image,
+            'alt'      => 'image',
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($publication->name, $publication->image)
+        ])
 
-            @include('admin.components.show-row-image', [
-                'name'     => 'image',
-                'src'      => $publication->image,
-                'alt'      => $publication->name . ', ' . $publication->artist,
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($publication->name . '-by-' . $publication->artist, $publication->image)
-            ])
+        @include('admin.components.show-row', [
+            'name'  => 'image credit',
+            'value' => $publication->image_credit
+        ])
 
-            @if(!empty($publication->image_credit))
-                @include('admin.components.show-row', [
-                    'name'  => 'image credit',
-                    'value' => $publication->image_credit
-                ])
-            @endif
+        @include('admin.components.show-row', [
+            'name'  => 'image source',
+            'value' => $publication->image_source
+        ])
 
-            @if(!empty($publication->image_source))
-                @include('admin.components.show-row', [
-                    'name'  => 'image source',
-                    'value' => $publication->image_source
-                ])
-            @endif
-
-        @endif
-
-        @if(!empty($publication->thumbnail))
-
-            @include('admin.components.show-row-image', [
-                'name'     => 'thumbnail',
-                'src'      => $publication->thumbnail,
-                'alt'      => $publication->name . ', ' . $publication->artist,
-                'width'    => '40px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($publication->name . '-by-' . $publication->artist, $publication->thumbnail)
-            ])
-
-        @endif
+        @include('admin.components.show-row-image', [
+            'name'     => 'thumbnail',
+            'src'      => $publication->thumbnail,
+            'alt'      => 'thumbnail',
+            'width'    => '40px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($publication->name . '-thumb', $publication->thumbnail)
+        ])
 
     </div>
 

@@ -162,11 +162,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $music->image,
-            'alt'      => $music->name . ', ' . $music->artist,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($music->name . '-by-' . $music->artist, $music->image)
+            'filename' => getFileSlug($music->name, $music->image)
         ])
 
         @include('admin.components.show-row', [
@@ -182,11 +182,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $music->thumbnail,
-            'alt'      => $music->name . ', ' . $music->artist,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($music->name . '-by-' . $music->artist, $music->thumbnail)
+            'filename' => getFileSlug($music->name . '-thumb', $music->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -130,7 +130,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $recruiter->image,
-            'alt'      => $recruiter->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -150,11 +150,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $recruiter->thumbnail,
-            'alt'      => $recruiter->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($recruiter->name, $recruiter->thumbnail)
+            'filename' => getFileSlug($recruiter->name . '-thumb', $recruiter->thumbnail)
         ])
 
         @include('admin.components.show-row', [

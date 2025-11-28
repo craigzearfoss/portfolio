@@ -85,7 +85,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $jobBoard->image,
-            'alt'      => $jobBoard->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -105,11 +105,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $jobBoard->thumbnail,
-            'alt'      => $jobBoard->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($jobBoard->name, $jobBoard->thumbnail)
+            'filename' => getFileSlug($jobBoard->name . '-thumb', $jobBoard->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -76,7 +76,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $jobTask->image,
-            'alt'      => $jobTask->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -96,11 +96,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $jobTask->thumbnail,
-            'alt'      => $jobTask->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($jobTask->name, $jobTask->thumbnail)
+            'filename' => getFileSlug($jobTask->name . '-thumb', $jobTask->thumbnail)
         ])
 
         @include('admin.components.show-row', [

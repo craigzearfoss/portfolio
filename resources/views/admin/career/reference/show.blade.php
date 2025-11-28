@@ -131,7 +131,7 @@
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $reference->image,
-            'alt'      => $reference->name,
+            'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -151,11 +151,11 @@
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
             'src'      => $reference->thumbnail,
-            'alt'      => $reference->name,
+            'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($reference->name, $reference->thumbnail)
+            'filename' => getFileSlug($reference->name . '-thumb', $reference->thumbnail)
         ])
 
         @include('admin.components.show-row', [

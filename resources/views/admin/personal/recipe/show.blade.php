@@ -146,10 +146,10 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'image',
-            'src'   => $recipe->image,
-            'alt'   => $recipe->name,
-            'width' => '300px',
+            'name'     => 'image',
+            'src'      => $recipe->image,
+            'alt'      => 'image',
+            'width'    => '300px',
             'download' => true,
             'external' => true,
             'filename' => getFileSlug($recipe->name, $recipe->image)
@@ -166,13 +166,13 @@
         ])
 
         @include('admin.components.show-row-image', [
-            'name'  => 'thumbnail',
-            'src'   => $recipe->thumbnail,
-            'alt'   => $recipe->name,
-            'width' => '40px',
+            'name'     => 'thumbnail',
+            'src'      => $recipe->thumbnail,
+            'alt'      => 'thumbnail',
+            'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($recipe->name, $recipe->image)
+            'filename' => getFileSlug($recipe->name . '-thumb', $recipe->thumbnail)
         ])
 
         @include('admin.components.show-row', [
