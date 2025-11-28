@@ -185,12 +185,12 @@
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => $course->public,
-                'readonly' => $course->readonly,
-                'root'     => $course->root,
-                'disabled' => $course->disabled,
-                'demo'     => $course->demo,
-                'sequence' => $course->sequence,
+                'public'   => old('public') ?? $course->public,
+                'readonly' => old('readonly') ?? $course->readonly,
+                'root'     => old('root') ?? $course->root,
+                'disabled' => old('disabled') ?? $course->disabled,
+                'demo'     => old('demo') ?? $course->demo,
+                'sequence' => old('sequence') ?? $course->sequence,
                 'message'  => $message ?? '',
             ])
 

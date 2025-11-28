@@ -31,6 +31,14 @@
 
             <div class="card p-4 mb-3">
 
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'admin_team_id',
+                    'label'   => 'team',
+                    'value'   => old('admin_team_id') ?? '',
+                    'list'    => \App\Models\System\AdminTeam::listOptions([], true),
+                    'message' => $message ?? '',
+                ])
+
                 @include('admin.components.form-input-horizontal', [
                     'name'      => 'username',
                     'label'     => 'user name',
@@ -58,6 +66,13 @@
                     'message'   => $message ?? '',
                 ])
 
+                @include('admin.components.form-select-horizontal', [
+                    'name'    => 'title',
+                    'value'   => old('title') ?? '',
+                    'list'    => \App\Models\System\User::titleListOptions([], true, true),
+                    'message' => $message ?? '',
+                ])
+
                 @include('admin.components.form-input-horizontal', [
                     'name'      => 'role',
                     'value'     => old('role') ?? '',
@@ -72,12 +87,22 @@
                     'message'   => $message ?? '',
                 ])
 
-                @include('admin.components.form-select-horizontal', [
-                    'name'    => 'admin_team_id',
-                    'label'   => 'team',
-                    'value'   => old('admin_team_id') ?? '',
-                    'list'    => \App\Models\System\AdminTeam::listOptions([], true),
-                    'message' => $message ?? '',
+                @include('admin.components.form-location-horizontal', [
+                    'street'     => old('street') ?? '',
+                    'street2'    => old('street2') ?? '',
+                    'city'       => old('city') ?? '',
+                    'state_id'   => old('state_id') ?? '',
+                    'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                    'zip'        => old('zip') ?? '',
+                    'country_id' => old('country_id') ?? '',
+                    'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                    'message'    => $message ?? '',
+                ])
+
+                @include('admin.components.form-coordinates-horizontal', [
+                    'latitude'  => old('latitude') ?? '',
+                    'longitude' => old('longitude') ?? '',
+                    'message'   => $message ?? '',
                 ])
 
                 @include('admin.components.form-input-horizontal', [
@@ -158,55 +183,15 @@
 
             </div>
 
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field">
-
-                        <div class="checkbox-container card form-container p-4">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'public',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('public') ?? 0,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'readonly',
-                                'label'           => 'read-only',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('readonly') ?? 0,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @if(isRootAdmin())
-                                @include('admin.components.form-checkbox', [
-                                    'name'            => 'root',
-                                    'value'           => 1,
-                                    'unchecked_value' => 0,
-                                    'checked'         => old('root') ?? 0,
-                                    'disabled'        => 0,
-                                    'message'         => $message ?? '',
-                                ])
-                            @endif
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'disabled',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('disabled') ?? 0,
-                                'message'         => $message ?? '',
-                            ])
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+            @include('admin.components.form-settings-horizontal', [
+                'public'   => old('public') ?? '',
+                'readonly' => old('readonly') ?? '',
+                'root'     => old('root') ?? '',
+                'disabled' => old('disabled') ?? '',
+                'demo'     => old('demo') ?? '',
+                'sequence' => old('sequence') ?? '',
+                'message'  => $message ?? '',
+            ])
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Admin',

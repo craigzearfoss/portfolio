@@ -177,12 +177,12 @@
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => $recruiter->public,
-                'readonly' => $recruiter->readonly,
-                'root'     => $recruiter->root,
-                'disabled' => $recruiter->disabled,
-                'demo'     => $recruiter->demo,
-                'sequence' => $recruiter->sequence,
+                'public'   => old('public') ?? $recruiter->public,
+                'readonly' => old('readonly') ?? $recruiter->readonly,
+                'root'     => old('root') ?? $recruiter->root,
+                'disabled' => old('disabled') ?? $recruiter->disabled,
+                'demo'     => old('demo') ?? $recruiter->demo,
+                'sequence' => old('sequence') ?? $recruiter->sequence,
                 'message'  => $message ?? '',
             ])
 

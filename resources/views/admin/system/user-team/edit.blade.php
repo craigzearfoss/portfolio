@@ -75,12 +75,12 @@
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => $userTeam->public,
-                'readonly' => $userTeam->readonly,
-                'root'     => $userTeam->root,
-                'disabled' => $userTeam->disabled,
-                'demo'     => $userTeam->demo,
-                'sequence' => $userTeam->sequence,
+                'public'   => old('public') ?? $userTeam->public,
+                'readonly' => old('readonly') ?? $userTeam->readonly,
+                'root'     => old('root') ?? $userTeam->root,
+                'disabled' => old('disabled') ?? $userTeam->disabled,
+                'demo'     => old('demo') ?? $userTeam->demo,
+                'sequence' => old('sequence') ?? $userTeam->sequence,
                 'message'  => $message ?? '',
             ])
 

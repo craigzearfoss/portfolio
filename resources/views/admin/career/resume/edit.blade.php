@@ -139,12 +139,12 @@
                 ])
 
                 @include('admin.components.form-settings-horizontal', [
-                    'public'   => $resume->public,
-                    'readonly' => $resume->readonly,
-                    'root'     => $resume->root,
-                    'disabled' => $resume->disabled,
-                    'demo'     => $resume->demo,
-                    'sequence' => $resume->sequence,
+                    'public'   => old('public') ?? $resume->public,
+                    'readonly' => old('readonly') ?? $resume->readonly,
+                    'root'     => old('root') ?? $resume->root,
+                    'disabled' => old('disabled') ?? $resume->disabled,
+                    'demo'     => old('demo') ?? $resume->demo,
+                    'sequence' => old('sequence') ?? $resume->sequence,
                     'message'  => $message ?? '',
                 ])
 

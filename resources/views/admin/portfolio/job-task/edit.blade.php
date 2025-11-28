@@ -118,12 +118,12 @@
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => $jobTask->public,
-                'readonly' => $jobTask->readonly,
-                'root'     => $jobTask->root,
-                'disabled' => $jobTask->disabled,
-                'demo'     => $jobTask->demo,
-                'sequence' => $jobTask->sequence,
+                'public'   => old('public') ?? $jobTask->public,
+                'readonly' => old('readonly') ?? $jobTask->readonly,
+                'root'     => old('root') ?? $jobTask->root,
+                'disabled' => old('disabled') ?? $jobTask->disabled,
+                'demo'     => old('demo') ?? $jobTask->demo,
+                'sequence' => old('sequence') ?? $jobTask->sequence,
                 'message'  => $message ?? '',
             ])
 

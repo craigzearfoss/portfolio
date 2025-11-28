@@ -125,48 +125,22 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'street',
-                'value'     => old('street') ?? '',
-                'maxlength' => 255,
+            @include('admin.components.form-location-horizontal', [
+                'street'     => old('street') ?? $admin->street,
+                'street2'    => old('street2') ?? $admin->street2,
+                'city'       => old('city') ?? $admin->city,
+                'state_id'   => old('state_id') ?? $admin->state_id,
+                'states'     => \App\Models\System\State::listOptions([], 'id', 'name', true),
+                'zip'        => old('zip') ?? $admin->zip,
+                'country_id' => old('country_id') ?? $admin->country_id,
+                'countries'  => \App\Models\System\Country::listOptions([], 'id', 'name', true),
+                'message'    => $message ?? '',
+            ])
+
+            @include('admin.components.form-coordinates-horizontal', [
+                'latitude'  => old('latitude') ?? $admin->latitude,
+                'longitude' => old('longitude') ?? $admin->longitude,
                 'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'street2',
-                'value'     => old('street2') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'city',
-                'value'     => old('city') ?? '',
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'state_id',
-                'label'   => 'state',
-                'value'   => old('state_id') ?? '',
-                'list'    => \App\Models\System\State::listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'zip',
-                'value'     => old('zip') ?? '',
-                'maxlength' => 20,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-select-horizontal', [
-                'name'    => 'country_id',
-                'label'    => 'country',
-                'value'   => old('country_id') ?? '',
-                'list'    => \App\Models\System\Country::listOptions([], 'id', 'name', true),
-                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
@@ -225,47 +199,14 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('seq') ?? 0,
-                'min'         => 0,
-                'message'     => $message ?? '',
-            ])
-
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'public',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('public') ?? 0,
-                'message'         => $message ?? '',
-            ])
-
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'readonly',
-                'label'           => 'read-only',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('readonly') ?? 0,
-                'message'         => $message ?? '',
-            ])
-
-            @if (Auth::guard('admin')->user()->root)
-                @include('admin.components.form-checkbox-horizontal', [
-                    'name'            => 'root',
-                    'value'           => 1,
-                    'unchecked_value' => 0,
-                    'checked'         => old('root') ?? 0,
-                    'message'         => $message ?? '',
-                ])
-            @endif
-
-            @include('admin.components.form-checkbox-horizontal', [
-                'name'            => 'disabled',
-                'value'           => 1,
-                'unchecked_value' => 0,
-                'checked'         => old('disabled') ?? 0,
-                'message'         => $message ?? '',
+            @include('admin.components.form-settings-horizontal', [
+                'public'   => old('public') ?? '',
+                'readonly' => old('readonly') ?? '',
+                'root'     => old('root') ?? '',
+                'disabled' => old('disabled') ?? '',
+                'demo'     => old('demo') ?? '',
+                'sequence' => old('sequence') ?? '',
+                'message'  => $message ?? '',
             ])
 
             @include('admin.components.form-button-submit-horizontal', [

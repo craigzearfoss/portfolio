@@ -161,12 +161,12 @@
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => $jobCoworker->public,
-                'readonly' => $jobCoworker->readonly,
-                'root'     => $jobCoworker->root,
-                'disabled' => $jobCoworker->disabled,
-                'demo'     => $jobCoworker->demo,
-                'sequence' => $jobCoworker->sequence,
+                'public'   => old('public') ?? $jobCoworker->public,
+                'readonly' => old('readonly') ?? $jobCoworker->readonly,
+                'root'     => old('root') ?? $jobCoworker->root,
+                'disabled' => old('disabled') ?? $jobCoworker->disabled,
+                'demo'     => old('demo') ?? $jobCoworker->demo,
+                'sequence' => old('sequence') ?? $jobCoworker->sequence,
                 'message'  => $message ?? '',
             ])
 
