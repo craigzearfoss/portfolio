@@ -194,13 +194,6 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-textarea-horizontal', [
-                'name'    => 'description',
-                'id'      => 'inputEditor',
-                'value'   => old('description') ?? '',
-                'message' => $message ?? '',
-            ])
-
             @include('admin.components.form-input-horizontal', [
                 'name'        => 'disclaimer',
                 'value'       => old('disclaimer') ?? '',

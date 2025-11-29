@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Portfolio\StoreAwardsRequest;
 use App\Http\Requests\Portfolio\UpdateAwardsRequest;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
-class AwardController extends Controller
+class AwardController extends BaseAdminController
 {
     /**
      * Display a listing of awards.

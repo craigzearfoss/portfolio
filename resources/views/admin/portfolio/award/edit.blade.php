@@ -4,12 +4,12 @@
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Art',             'href' => route('admin.portfolio.art.index') ],
-        [ 'name' => $art->name,        'href' => route('admin.portfolio.art.show', $art->id) ],
+        [ 'name' => 'Art',             'href' => route('admin.portfolio.award.index') ],
+        [ 'name' => $art->name,        'href' => route('admin.portfolio.award.show', $art->id) ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.art.index') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.award.index') ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
@@ -22,13 +22,13 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.art.update', $art) }}" method="POST">
+        <form action="{{ route('admin.portfolio.award.update', $art) }}" method="POST">
             @csrf
             @method('PUT')
 
             @include('admin.components.form-hidden', [
                 'name'  => 'referer',
-                'value' => referer('admin.portfolio.art.index')
+                'value' => referer('admin.portfolio.award.index')
             ])
 
             @include('admin.components.form-text-horizontal', [
@@ -143,7 +143,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => referer('admin.portfolio.art.index')
+                'cancel_url' => referer('admin.portfolio.award.index')
             ])
 
         </form>

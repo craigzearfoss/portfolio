@@ -1,13 +1,13 @@
 @extends('admin.layouts.default', [
-    'title' => 'Art',
+    'title' => 'Photography',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Art' ],
+        [ 'name' => 'Photography' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Art', 'href' => route('admin.portfolio.art.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Photo', 'href' => route('admin.portfolio.photography.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -25,7 +25,6 @@
                     <th>owner</th>
                 @endif
                 <th>name</th>
-                <th>artist</th>
                 <th class="has-text-centered">featured</th>
                 <th>year</th>
                 <th class="has-text-centered">public</th>
@@ -40,7 +39,6 @@
                     <th>owner</th>
                 @endif
                 <th>name</th>
-                <th>artist</th>
                 <th class="has-text-centered">featured</th>
                 <th>year</th>
                 <th class="has-text-centered">public</th>
@@ -52,49 +50,43 @@
             */ ?>
             <tbody>
 
-            @forelse ($arts as $art)
+            @forelse ($photos as $photo)
 
-                <tr data-id="{{ $art->id }}">
+                <tr data-id="{{ $photo->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $art->owner['username'] ?? '' }}
+                            {{ $photo->owner['username'] ?? '' }}
                         </td>
                     @endif
-                    <td data-field="name">
-                        {{ $art->name }}
-                    </td>
-                    <td data-field="artist">
-                        {{ $art->artist }}
-                    </td>
                     <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $art->featured ])
+                        @include('admin.components.checkmark', [ 'checked' => $photo->featured ])
                     </td>
                     <td data-field="year">
-                        {{ $art->year }}
+                        {{ $photo->year }}
                     </td>
                     <td data-field="public" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $art->public ])
+                        @include('admin.components.checkmark', [ 'checked' => $photo->public ])
                     </td>
                     <td data-field="disabled" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $art->disabled ])
+                        @include('admin.components.checkmark', [ 'checked' => $photo->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
-                        <form action="{{ route('admin.portfolio.art.destroy', $art->id) }}" method="POST">
+                        <form action="{{ route('admin.portfolio.photography.destroy', $photo->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.portfolio.art.show', $art->id) }}">
+                               href="{{ route('admin.portfolio.photography.show', $photo->id) }}">
                                 <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.portfolio.art.edit', $art->id) }}">
+                               href="{{ route('admin.portfolio.photography.edit', $photo->id) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
-                            @if (!empty($art->link))
-                                <a title="{{ !empty($art->link_name) ? $art->link_name : 'link' }}"
+                            @if (!empty($photo->link))
+                                <a title="{{ !empty($photo->link_name) ? $photo->link_name : 'link' }}"
                                    class="button is-small px-1 py-0"
-                                   href="{{ $art->link }}"
+                                   href="{{ $photo->link }}"
                                    target="_blank"
                                 >
                                     <i class="fa-solid fa-external-link"></i>{{-- link --}}
@@ -117,7 +109,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There is no art.</td>
+                    <td colspan="{{ isRootAdmin() ? '7' : '6' }}">There is are no photos.</td>
                 </tr>
 
             @endforelse
@@ -125,7 +117,7 @@
             </tbody>
         </table>
 
-        {!! $arts->links('vendor.pagination.bulma') !!}
+        {!! $photos->links('vendor.pagination.bulma') !!}
 
     </div>
 

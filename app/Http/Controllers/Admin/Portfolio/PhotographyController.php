@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Admin\Portfolio;
 
+use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Portfolio\StoreAwardsRequest;
-use App\Http\Requests\Portfolio\UpdateAwardsRequest;
-use App\Models\Portfolio\Award;
+use App\Http\Requests\Portfolio\StorePhotographyRequest;
+use App\Http\Requests\Portfolio\UpdatePhotographyRequest;
+use App\Models\Portfolio\Photography;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
-class PhotographyController extends Controller
+class PhotographyController extends BaseAdminController
 {
     /**
      * Display a listing of photos.
@@ -24,9 +25,9 @@ class PhotographyController extends Controller
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $photos = Award::orderBy('name', 'asc')->paginate($perPage);
+        $photos = Photography::orderBy('name', 'asc')->paginate($perPage);
 
-        return view('admin.portfolio.award.index', compact('photos'))
+        return view('admin.portfolio.photography.index', compact('photos'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -47,13 +48,12 @@ class PhotographyController extends Controller
     /**
      * Store a newly created photo in storage.
      *
-     *
-     * @param StoreAwardsRequest $StoreAwardsRequest
+     * @param StorePhotographyRequest $storePhotograohyRequest
      * @return RedirectResponse
      */
-    public function store(StoreAwardsRequest $StoreAwardsRequest): RedirectResponse
+    public function store(StorePhotographyRequest $storePhotographyRequest): RedirectResponse
     {
-        $photo = Award::create($StoreAwardsRequest->validated());
+        $photo = Photography::create($storePhotographyRequest->validated());
 
         return redirect()->route('admin.portfolio.photography.show', $photo)
             ->with('success', $photo->name . ' successfully added.');
@@ -62,10 +62,10 @@ class PhotographyController extends Controller
     /**
      * Display the specified photo.
      *
-     * @param Award $photo
+     * @param Photography $photo
      * @return View
      */
-    public function show(Award $photo): View
+    public function show(Photography $photo): View
     {
         return view('admin.portfolio.photography.show', compact('photo'));
     }
@@ -73,10 +73,10 @@ class PhotographyController extends Controller
     /**
      * Show the form for editing the specified photo.
      *
-     * @param Award $photo
+     * @param Photography $photo
      * @return View
      */
-    public function edit(Award $photo): View
+    public function edit(Photography $photo): View
     {
         return view('admin.portfolio.photography.edit', compact('photo'));
     }
@@ -84,13 +84,13 @@ class PhotographyController extends Controller
     /**
      * Update the specified photo in storage.
      *
-     * @param UpdateAwardsRequest $UpdateAwardsRequest
-     * @param Award $photo
+     * @param UpdatePhotographyRequest $updatePhotographyRequest
+     * @param Photography $photo
      * @return RedirectResponse
      */
-    public function update(UpdateAwardsRequest $UpdateAwardsRequest, Award $photo): RedirectResponse
+    public function update(UpdatePhotographyRequest $updatePhotographyRequest, Photography $photo): RedirectResponse
     {
-        $photo->update($UpdateAwardsRequest->validated());
+        $photo->update($updatePhotographyRequest->validated());
 
         return redirect()->route('admin.portfolio.photography.show', $photo)
             ->with('success', $photo->name . ' successfully updated.');
@@ -99,10 +99,10 @@ class PhotographyController extends Controller
     /**
      * Remove the specified photo from storage.
      *
-     * @param Award $photo
+     * @param Photography $photo
      * @return RedirectResponse
      */
-    public function destroy(Award $photo): RedirectResponse
+    public function destroy(Photography $photo): RedirectResponse
     {
         $photo->delete();
 

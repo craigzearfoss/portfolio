@@ -6,7 +6,7 @@ use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StorePhotograpyRequest extends FormRequest
+class StorePhotographyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

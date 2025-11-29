@@ -91,18 +91,9 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link',
-                'value'     => old('link') ?? $event->link,
-                'maxlength' => 255,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'name'      => 'link_name',
-                'label'     => 'link name',
-                'value'     => old('link_name') ?? $event->link_name,
-                'maxlength' => 255,
+            @include('admin.components.form-link-$event', [
+                'link' => old('link') ?? $application->link,
+                'name' => old('link_name') ?? $event->link_name,
                 'message'   => $message ?? '',
             ])
 

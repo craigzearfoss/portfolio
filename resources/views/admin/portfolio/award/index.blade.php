@@ -1,13 +1,13 @@
 @extends('admin.layouts.default', [
-    'title' => 'Art',
+    'title' => 'Award',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Art' ],
+        [ 'name' => 'Award' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Art', 'href' => route('admin.portfolio.art.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Award', 'href' => route('admin.portfolio.award.create') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -25,9 +25,9 @@
                     <th>owner</th>
                 @endif
                 <th>name</th>
-                <th>artist</th>
-                <th class="has-text-centered">featured</th>
                 <th>year</th>
+                <th>organization</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -40,9 +40,9 @@
                     <th>owner</th>
                 @endif
                 <th>name</th>
-                <th>artist</th>
-                <th class="has-text-centered">featured</th>
                 <th>year</th>
+                <th>organization</th>
+                <th class="has-text-centered">featured</th>
                 <th class="has-text-centered">public</th>
                 <th class="has-text-centered">disabled</th>
                 <th>actions</th>
@@ -52,49 +52,49 @@
             */ ?>
             <tbody>
 
-            @forelse ($arts as $art)
+            @forelse ($awards as $award)
 
-                <tr data-id="{{ $art->id }}">
+                <tr data-id="{{ $award->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $art->owner['username'] ?? '' }}
+                            {{ $award->owner['username'] ?? '' }}
                         </td>
                     @endif
                     <td data-field="name">
-                        {{ $art->name }}
-                    </td>
-                    <td data-field="artist">
-                        {{ $art->artist }}
-                    </td>
-                    <td data-field="featured" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $art->featured ])
+                        {{ $award->name }}
                     </td>
                     <td data-field="year">
-                        {{ $art->year }}
+                        {{ $award->year }}
+                    </td>
+                    <td data-field="organization">
+                        {{ $award->organization }}
+                    </td>
+                    <td data-field="featured" class="has-text-centered">
+                        @include('admin.components.checkmark', [ 'checked' => $award->featured ])
                     </td>
                     <td data-field="public" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $art->public ])
+                        @include('admin.components.checkmark', [ 'checked' => $award->public ])
                     </td>
                     <td data-field="disabled" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $art->disabled ])
+                        @include('admin.components.checkmark', [ 'checked' => $award->disabled ])
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
-                        <form action="{{ route('admin.portfolio.art.destroy', $art->id) }}" method="POST">
+                        <form action="{{ route('admin.portfolio.award.destroy', $award->id) }}" method="POST">
 
                             <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.portfolio.art.show', $art->id) }}">
+                               href="{{ route('admin.portfolio.award.show', $award->id) }}">
                                 <i class="fa-solid fa-list"></i>{{-- show --}}
                             </a>
 
                             <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.portfolio.art.edit', $art->id) }}">
+                               href="{{ route('admin.portfolio.award.edit', $award->id) }}">
                                 <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
                             </a>
 
-                            @if (!empty($art->link))
-                                <a title="{{ !empty($art->link_name) ? $art->link_name : 'link' }}"
+                            @if (!empty($award->link))
+                                <a title="{{ !empty($award->link_name) ? $award->link_name : 'link' }}"
                                    class="button is-small px-1 py-0"
-                                   href="{{ $art->link }}"
+                                   href="{{ $award->link }}"
                                    target="_blank"
                                 >
                                     <i class="fa-solid fa-external-link"></i>{{-- link --}}
@@ -117,7 +117,7 @@
             @empty
 
                 <tr>
-                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There is no art.</td>
+                    <td colspan="{{ isRootAdmin() ? '8' : '7' }}">There are no awards.</td>
                 </tr>
 
             @endforelse
@@ -125,7 +125,7 @@
             </tbody>
         </table>
 
-        {!! $arts->links('vendor.pagination.bulma') !!}
+        {!! $awards->links('vendor.pagination.bulma') !!}
 
     </div>
 

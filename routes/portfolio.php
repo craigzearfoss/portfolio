@@ -28,6 +28,7 @@ Route::prefix('admin/portfolio')->middleware('admin')->name('admin.portfolio.')-
     Route::resource('academy', AdminPortfolioAcademyController::class);
     Route::resource('art', AdminPortfolioArtController::class);
     Route::resource('audio', AdminPortfolioAudioController::class);
+    Route::resource('award', AdminPortfolioAwardController::class);
     Route::resource('certificate', AdminPortfolioCertificateController::class);
     Route::resource('certification', AdminPortfolioCertificationController::class);
     Route::resource('course', AdminPortfolioCourseController::class);

@@ -16,7 +16,7 @@ class User
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!isUser()) {
+        if (!isUser() && !isAdmin()) {
             return redirect()->route('system.index');
         }
 
