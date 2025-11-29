@@ -188,9 +188,6 @@ class InitSampleAdmin extends Command
             $this->insertSystemAdminAdminGroups($username, $adminId, $adminGroupId);
         }
 
-        // copy admin source fils
-        $this->copyAdminSourceFiles($username, $adminId);
-
         // get the name of the init files
         $initFile = ucfirst(Str::camel($username)) . '.php';
 
@@ -262,56 +259,6 @@ class InitSampleAdmin extends Command
         }
 
         return $data;
-    }
-
-    /**
-     * Copies admin source files from the source_files directory to the public/images directory.
-     *
-     * @param string $username
-     * @param int $adminId
-     * @return void
-     */
-    protected function copyAdminSourceFiles(string $username, int $adminId): void
-    {
-        // get the source and destination paths
-        $DS = DIRECTORY_SEPARATOR;
-        $sourcePath = base_path() . $DS . 'source_files' . $DS . 'admin' . $DS . $username ;
-        $destinationPath =  base_path() . $DS . 'public' . $DS . 'images' . $DS . 'admin' . $DS . $adminId;
-
-        // make sure the destination directory exists for images
-        if (!File::exists($destinationPath)) {
-            File::makeDirectory($destinationPath, 755, true);
-        }
-
-        $image = null;
-        $thumbnail = null;
-
-        // copy over images
-        if (File::isDirectory($sourcePath)) {
-
-            foreach (scandir($sourcePath) as $sourceFile) {
-
-                if ($sourceFile == '.' || $sourceFile == '..') continue;
-
-                if (File::name($sourceFile) === 'profile') {
-                    $image = "/images/admin/{$adminId}/profile." . File::extension($sourceFile);
-                } elseif (File::name($sourceFile) === 'thumbnail') {
-                    $thumbnail = "/images/admin/{$adminId}/thumbnail." . File::extension($sourceFile);
-                }
-
-                echo '  Copying files ' . $sourcePath . $DS . $sourceFile . ' ... ' . PHP_EOL;
-
-                File::copy(
-                    $sourcePath . $DS . $sourceFile,
-                    $destinationPath . $DS . $sourceFile
-                );
-            }
-
-            Admin::find($adminId)->update([
-                'image'     => $image,
-                'thumbnail' => $thumbnail,
-            ]);
-        }
     }
 
     /**

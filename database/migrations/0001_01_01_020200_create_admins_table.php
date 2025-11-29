@@ -234,39 +234,6 @@ return new class extends Migration
         // add owners to the admin teams
         AdminTeam::where('name', 'Default Admin Team')->update(['owner_id' => 2]);
         AdminTeam::where('name', 'Demo Admin Team')->update(['owner_id' => 3]);
-
-        // copy profile and thumbnail images
-        $DS = DIRECTORY_SEPARATOR;
-        $rootSourcePath = base_path() . $DS . 'source_files' . $DS . 'admin';
-        $rootDestinationPath =  base_path() . $DS . 'public' . $DS . 'images' . $DS . 'admin';
-
-        echo PHP_EOL;
-
-        foreach([1=>'root', 2=>'admin', 3=>'demo'] as $adminId => $username) {
-
-            // make sure the destination directory exists for images
-            if (!File::exists($rootDestinationPath . $DS .$adminId)) {
-                File::makeDirectory($rootDestinationPath . $DS .$adminId, 755, true);
-            }
-
-            foreach (scandir($rootSourcePath . $DS . $username) as $sourceFile) {
-
-                if ($sourceFile == '.' || $sourceFile == '..') continue;
-
-                echo '  Copying  ' . $rootSourcePath . $DS . $username . $DS . $sourceFile . ' ... ' . PHP_EOL;
-
-                if (File::name('profile')) {
-                    $image = "/images/admin/{$adminId}/profile." . File::extension($sourceFile);
-                } elseif (File::name('thumbnail')) {
-                    $thumbnail = "/images/admin/{$adminId}/thumbnail." . File::extension($sourceFile);
-                }
-
-                File::copy(
-                    $rootSourcePath . $DS . $username . $DS . $sourceFile,
-                    $rootDestinationPath . $DS . $adminId . $DS . $sourceFile
-                );
-            }
-        }
     }
 
     /**

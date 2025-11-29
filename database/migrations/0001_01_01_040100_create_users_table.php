@@ -76,7 +76,7 @@ return new class extends Migration
         $data = [
             [
                 'id'                => 1,
-                'username'          => 'sample-user',
+                'username'          => 'sample',
                 'name'              => 'Sample User',
                 'label'             => 'sample-user',
                 'email'             => 'sample-user@gsample.com',
@@ -87,7 +87,7 @@ return new class extends Migration
             ],
             [
                 'id'                => 2,
-                'username'          => 'demo-user',
+                'username'          => 'demo',
                 'name'              => 'Demo User',
                 'label'             => 'demo-user',
                 'email'             => 'demo-user@sample.com',

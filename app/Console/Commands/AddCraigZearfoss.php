@@ -13,11 +13,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use PHPUnit\Event\Runtime\PHP;
 use function Laravel\Prompts\text;
 
 class AddCraigZearfoss extends Command
 {
-    const DEFINED_IMAGE_NAMES = ['image', 'thumbnail', 'profile', 'logo', 'logo_small'];
+    const DEFINED_FILE_NAMES = [
+        'image' => 'image', 'thumbnail', 'profile', 'logo', 'logo_small'];
 
     /**
      * @var string username
@@ -180,10 +182,6 @@ class AddCraigZearfoss extends Command
         $this->insertSystemAdminAdminTeams($adminId, $adminTeamId);
         $this->insertSystemAdminAdminGroups($adminId, $adminGroupId);
 
-        // copy admin source fils
-        //$this->copyAdminSourceFiles($adminId);
-        $this->copyResourceFiles($adminId, 'admin');
-
         // get the name of the init files
         $initFile = ucfirst(Str::camel($this->username)) . '.php';
 
@@ -255,155 +253,6 @@ class AddCraigZearfoss extends Command
         }
 
         return $data;
-    }
-
-    /**
-     * Copies admin source files from the source_files directory to the public/images directory.
-     *
-     * @param int $adminId
-     * @return void
-     */
-    protected function copyAdminSourceFiles(int $adminId): void
-    {
-        // get the source and destination paths
-        $DS = DIRECTORY_SEPARATOR;
-        $sourcePath = base_path() . $DS . 'source_files' . $DS . 'admin' . $DS . $this->username;
-        $destinationPath =  base_path() . $DS . 'public' . $DS . 'images' . $DS . 'admin' . $DS . $adminId;
-
-        // make sure the destination directory exists for images
-        if (!File::exists($destinationPath)) {
-            File::makeDirectory($destinationPath, 755, true);
-        }
-
-        $image = null;
-        $thumbnail = null;
-
-        // copy over images
-        if (File::isDirectory($sourcePath)) {
-
-            foreach (scandir($sourcePath) as $sourceFile) {
-
-                if ($sourceFile == '.' || $sourceFile == '..') continue;
-
-                if (File::name($sourceFile) === 'profile') {
-                    $image = "/images/admin/{$adminId}/profile." . File::extension($sourceFile);
-                } elseif (File::name($sourceFile) === 'thumbnail') {
-                    $thumbnail = "/images/admin/{$adminId}/thumbnail." . File::extension($sourceFile);
-                }
-
-                echo '  Copying files ' . $sourcePath . $DS . $sourceFile . ' ... ' . PHP_EOL;
-
-                File::copy(
-                    $sourcePath . $DS . $sourceFile,
-                    $destinationPath . $DS . $sourceFile
-                );
-            }
-
-            Admin::find($adminId)->update([
-                'image'     => $image,
-                'thumbnail' => $thumbnail,
-            ]);
-        }
-    }
-
-    /**
-     * Copies resource source files from the source_files directory to the public/images directory.
-     *
-     * @param int $adminId
-     * @param string $resourceType
-     * @return void
-     * @throws \Exception
-     */
-    protected function copyResourceFiles(int $adminId, string $resourceType): void
-    {
-        if (!$admin = Admin::find($adminId)) {
-            throw new \Exception("Admin {$adminId} not found");
-        }
-        if (!$resource = Resource::where('name', $resourceType)->first()) {
-            throw new \Exception("Resource type {$resourceType} not found");
-        }
-
-        // get the source and destination paths
-        $DS = DIRECTORY_SEPARATOR;
-        $sourcePath = base_path() . $DS . 'source_files' . $DS . $resource->database->name . $DS . $resourceType;
-        $destinationPath =  base_path() . $DS . 'public' . $DS
-            . 'images' . $DS . $resource->database->name . $DS . $resourceType;
-
-        if (!File::exists($sourcePath)) return;
-
-        // make sure the destination directory exists for images
-        if (!File::exists($destinationPath)) {
-            File::makeDirectory($destinationPath, 755, true);
-        }
-
-        $image = null;
-        $thumbnail = null;
-
-        // copy over images
-        if (File::isDirectory($sourcePath)) {
-
-            foreach (scandir($sourcePath) as $resourceSlug) {
-
-                if ($resourceSlug == '.' || $resourceSlug == '..') continue;
-
-                if (File::isDirectory($resourceSlug)) {
-
-                    if (in_array($resourceType, ['admin', 'user'])) {
-                        $thisResource = $resource->class::where('label', $resourceSlug)->first();
-                    } else {
-                        $thisResource = $resource->has_owner
-                            ? $thisResource = $resource->class::where('owner_id', $adminId)
-                                ->where('slug', $resourceSlug)->first()
-                            : $thisResource = $resource->class::where('slug', $resourceSlug)->first();
-                    }
-
-                    foreach (scandir($sourcePath . $DS . $resourceSlug) as $sourceFile) {
-
-                        if ($sourceFile == '.' || $sourceFile == '..') continue;
-
-                        $sourceFilename = File::name($sourceFile);
-                        $destFilename = in_array($sourceFilename, self::DEFINED_IMAGE_NAMES)
-                            ? rtrim(str_replace(['+', '/'], ['-', '_'], base64_encode($this->adminName)), '=')
-                            : $sourceFilename;
-
-                    }
-
-                    if (in_array(File::name($sourceFile), ['profile', 'thumbnail'])) {
-
-                        $sourceFilename = File::name($sourceFile);
-                        $destFilename = in_array($sourceFilename, self::DEFINED_IMAGE_NAMES)
-                            ? rtrim(str_replace(['+', '/'], ['-', '_'], base64_encode($this->adminName)), '=')
-                            : $sourceFilename;
-
-                        if (File::name($sourceFile) === 'profile') {
-                            $image = "/images/admin/{$adminId}/{$destFilename}." . File::extension($sourceFile);
-                            $admin->image = $image;
-                        } elseif (File::name($sourceFile) === 'thumbnail') {
-                            $thumbnail = "/images/admin/{$adminId}/{$destFilename}_thumb." . File::extension($sourceFile);
-                            $admin->thumbnail = $thumbnail;
-                        }
-
-                        $admin->save();
-
-                    } else {
-
-                        $image = "/images/admin/{$adminId}/" . File::name($sourceFile) . '.' . File::extension($sourceFile);
-                    }
-
-                    echo '  Copying files ' . $sourcePath . $DS . $sourceFile . ' to ' . ' ... ' . PHP_EOL;
-
-                    File::copy(
-                        $sourcePath . $DS . $sourceFile,
-                        $destinationPath . $DS . $sourceFile
-                    );
-                }
-            }
-
-            Admin::find($adminId)->update([
-                'image'     => $image,
-                'thumbnail' => $thumbnail,
-            ]);
-        }
     }
 
     /**
