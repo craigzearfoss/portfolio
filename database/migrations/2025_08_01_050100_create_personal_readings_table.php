@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('author')->nullable()->index('author_idx');
             $table->string('slug');
             $table->boolean('featured')->default(false);
-            $table->string('summary')->nullable();
+            $table->string('summary', 500)->nullable();
             $table->integer('publication_year')->nullable();
             $table->boolean('fiction')->default(false);
             $table->boolean('nonfiction')->default(false);

@@ -30,7 +30,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->foreignIdFor( \App\Models\Portfolio\Job::class);
-            $table->string('summary')->nullable();
+            $table->string('summary', 500)->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();

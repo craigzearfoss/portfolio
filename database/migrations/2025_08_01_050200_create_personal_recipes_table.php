@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('name')->index('name_idx');
             $table->string('slug');
             $table->boolean('featured')->default(false);
-            $table->string('summary')->nullable();
+            $table->string('summary', 500)->nullable();
             $table->string('source')->nullable();
             $table->string('author')->nullable();
             $table->integer('prep_time')->nullable();

@@ -52,19 +52,72 @@
                 ])
             @endif
 
-            @include('admin.components.form-select-horizontal', [
-                'name'      => 'job_id',
-                'label'     => 'job',
-                'value'     => old('job_id') ?? $jobSkill->job_id,
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'name',
+                'value'     => old('name') ?? $jobSkill->name,
                 'required'  => true,
-                'list'      => \App\Models\Portfolio\Job::listOptions([], 'id', 'name', true),
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'        => 'number',
+                'name'        => 'level',
+                'label'       => 'level (1 to 10)',
+                'value'       => old('level') ?? $jobSkill->level,
+                'min'         => 1,
+                'max'         => 10,
+                'required'    => true,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-select-horizontal', [
+                'name'      => 'dictionary_category_id',
+                'label'     => 'category',
+                'value'     => old('job_id') ?? $jobSkill->dictionary_category_id,
+                'required'  => true,
+                'list'      => \App\Models\Dictionary\Category::listOptions([], 'id', 'name', true),
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input', [
+                'type'      => 'hidden',
+                'name'      => 'dictionary_term_id',
+                'value'     => old('dictionary_term_id') ?? $jobSkill->dictionary_term_id,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'start_year',
+                'label'     => 'start year',
+                'value'     => old('start_year') ?? $jobSkill->start_year,
+                'min'       => 1950,
+                'max'       => date("Y"),
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'end_year',
+                'label'     => 'end year',
+                'value'     => old('end_year') ?? $jobSkill->start_year,
+                'min'       => 1950,
+                'max'       => date("Y"),
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'type'      => 'number',
+                'name'      => 'years',
+                'value'     => old('years') ?? $jobSkill->years,
+                'min'       => 0,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',
                 'value'     => old('summary') ?? $jobSkill->summary,
-                'required'  => true,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
@@ -88,6 +141,19 @@
                 'message' => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'name'        => 'disclaimer',
+                'value'       => old('disclaimer') ?? $jobSkill->disclaimer,
+                'maxlength'   => 500,
+                'message'     => $message ?? '',
+            ])
+
+            @include('admin.components.form-link-horizontal', [
+                'link' => old('link') ?? $jobSkill->link,
+                'name' => old('link_name') ?? $jobSkill->link_name,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-image-horizontal', [
                 'image'   => old('image') ?? $jobSkill->image,
                 'credit'  => old('image_credit') ?? $jobSkill->image_credit,
@@ -102,61 +168,15 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'sequence',
-                'value'       => old('sequence') ?? $jobSkill->sequence,
-                'min'         => 0,
-                'message'     => $message ?? '',
+            @include('admin.components.form-settings-horizontal', [
+                'public'   => old('public') ?? $jobSkill->public,
+                'readonly' => old('readonly') ?? $jobSkill->readonly,
+                'root'     => old('root') ?? $jobSkill->root,
+                'disabled' => old('disabled') ?? $jobSkill->disabled,
+                'demo'     => old('demo') ?? $jobSkill->demo,
+                'sequence' => old('sequence') ?? $jobSkill->sequence,
+                'message'  => $message ?? '',
             ])
-
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                </div>
-                <div class="field-body">
-                    <div class="field">
-
-                        <div class="checkbox-container card form-container p-4">
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'public',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('public') ?? $jobSkill->public,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'readonly',
-                                'label'           => 'read-only',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('readonly') ?? $jobSkill->readonly,
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'root',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('root') ?? $jobSkill->root,
-                                'disabled'        => !isRootAdmin(),
-                                'message'         => $message ?? '',
-                            ])
-
-                            @include('admin.components.form-checkbox', [
-                                'name'            => 'disabled',
-                                'value'           => 1,
-                                'unchecked_value' => 0,
-                                'checked'         => old('disabled') ?? $jobSkill->disabled,
-                                'message'         => $message ?? '',
-                            ])
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',

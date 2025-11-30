@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('name')->index('name_idx');
             $table->string('slug');
             $table->boolean('featured')->default(false);
-            $table->string('summary')->nullable();
+            $table->string('summary', 500)->nullable();
             $table->integer('year')->nullable();
             $table->boolean('completed')->default(false);
             $table->date('completion_date')->nullable();

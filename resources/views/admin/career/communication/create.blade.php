@@ -42,7 +42,7 @@
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
-                    'value'    => old('owner_id') ?? '',
+                    'value'    => old('owner_id') ?? old('owner_id') ?? $application->owner_id ?? '',
                     'required' => true,
                     'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
@@ -100,11 +100,11 @@
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? '',
-                'readonly' => old('readonly') ?? '',
-                'root'     => old('root') ?? '',
-                'disabled' => old('disabled') ?? '',
-                'demo'     => old('demo') ?? '',
+                'root'     => old('root') ?? 0,
+                'readonly' => old('readonly') ?? 0,
+                'root'     => old('root') ?? 0,
+                'disabled' => old('disabled') ?? 0,
+                'demo'     => old('demo') ?? 0,
                 'sequence' => old('sequence') ?? 0,
                 'message'  => $message ?? '',
             ])

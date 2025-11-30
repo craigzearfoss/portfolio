@@ -7,7 +7,7 @@ $contacts = $contacts ?? [];
     <th>active</th>
     <th>phone</th>
     <th>email</th>
-    <th>Actions</th>
+    <th>actions</th>
     </thead>
     <tbody>
 

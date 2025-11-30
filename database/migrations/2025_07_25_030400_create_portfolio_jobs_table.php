@@ -50,7 +50,7 @@ return new class extends Migration
             $table->string('role')->index('role_idx');
             $table->string('slug');
             $table->boolean('featured')->default(false);
-            $table->string('summary')->nullable();
+            $table->string('summary', 500)->nullable();
             $table->integer('start_month')->nullable();
             $table->integer('start_year')->nullable();
             $table->integer('end_month')->nullable();

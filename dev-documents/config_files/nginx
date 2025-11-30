@@ -1,0 +1,36 @@
+server {
+    listen 80;
+    server_name mydomain.com;
+
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl;
+
+    ssl                  on;
+    ssl_certificate      /etc/ssl/mydomain.com.crt;
+    ssl_certificate_key  /etc/ssl/private/mydomain.com.key;
+
+    server_name mydomain.com;
+
+    root /var/www/mydomain.com/public;
+
+    index index.php index.html index.htm;
+
+    access_log  /var/log/nginx/nginx.vhost.access.log;
+    error_log   /var/log/nginx/nginx.vhost.error.log;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+     }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}

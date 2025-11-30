@@ -68,7 +68,7 @@ class StoreSkillsRequest extends FormRequest
             'dictionary_category_id'  => ['integer', 'exists:dictionary_db.categories,id'],
             'start_year'              => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
             'end_year'                => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
-            'years'                   => ['integer', 'min:0'],
+            'years'                   => ['integer', 'min:0', 'nullable'],
             'notes'                   => ['nullable'],
             'link'                    => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'               => ['string', 'max:255', 'nullable'],

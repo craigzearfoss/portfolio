@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('slug');
             $table->foreignIdFor(\App\Models\Portfolio\Publication::class, 'parent_id')->nullable();
             $table->boolean('featured')->default(false);
-            $table->string('summary')->nullable();
+            $table->string('summary', 500)->nullable();
             $table->string('publication_name')->nullable();
             $table->string('publisher')->nullable();
             $table->date('date')->nullable();

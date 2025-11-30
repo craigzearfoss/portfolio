@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('slug');
             $table->foreignIdFor(\App\Models\Portfolio\Video::class, 'parent_id')->nullable();
             $table->boolean('featured')->default(false);
-            $table->string('summary')->nullable();
+            $table->string('summary', 500)->nullable();
             $table->boolean('full_episode')->default(false);
             $table->boolean('clip')->default(false);
             $table->boolean('public_access')->default(false);

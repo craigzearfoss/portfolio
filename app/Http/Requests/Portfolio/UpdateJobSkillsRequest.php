@@ -47,6 +47,22 @@ class UpdateJobSkillsRequest extends FormRequest
             'start_year'             => ['integer', 'between:1980,'.date("Y"), 'nullable'],
             'end_year'               => ['integer', 'between:1980,'.date("Y"), 'gt:start_year', 'nullable'],
             'years'                  => ['integer', 'min:0', 'nullable'],
+            'summary'                => ['string', 'max:500', 'nullable'],
+            'notes'                  => ['nullable'],
+            'link'                   => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'link_name'              => ['string', 'max:255', 'nullable'],
+            'description'            => ['nullable'],
+            'disclaimer'             => ['string', 'max:500', 'nullable'],
+            'image'                  => ['string', 'max:500', 'nullable'],
+            'image_credit'           => ['string', 'max:255', 'nullable'],
+            'image_source'           => ['string', 'max:255', 'nullable'],
+            'thumbnail'              => ['string', 'max:500', 'nullable'],
+            'public'                 => ['integer', 'between:0,1'],
+            'readonly'               => ['integer', 'between:0,1'],
+            'root'                   => ['integer', 'between:0,1'],
+            'disabled'               => ['integer', 'between:0,1'],
+            'demo'                   => ['integer', 'between:0,1'],
+            'sequence'               => ['integer', 'min:0', 'nullable'],
         ];
     }
 

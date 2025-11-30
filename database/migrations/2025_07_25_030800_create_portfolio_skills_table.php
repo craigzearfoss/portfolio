@@ -26,12 +26,12 @@ return new class extends Migration
             $table->string('slug');
             $table->string('version', 20)->nullable();
             $table->boolean('featured')->default(false);
-            $table->string('summary')->nullable();
+            $table->string('summary', 500)->nullable();
             $table->tinyInteger('level')->default(1);
             $table->foreignIdFor(\App\Models\Dictionary\Category::class, 'dictionary_category_id')->nullable();
             $table->integer('start_year')->nullable();
             $table->integer('end_year')->nullable();
-            $table->integer('years')->default(0);
+            $table->integer('years')->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();

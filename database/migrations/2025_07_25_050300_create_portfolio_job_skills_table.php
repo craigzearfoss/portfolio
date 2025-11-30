@@ -23,7 +23,25 @@ return new class extends Migration
             $table->integer('dictionary_term_id')->nullable();
             $table->integer('start_year')->nullable();
             $table->integer('end_year')->nullable();
-            $table->integer('years')->default(0);
+            $table->integer('years')->nullable();
+            $table->string('summary', 500)->nullable();
+            $table->text('notes')->nullable();
+            $table->string('link', 500)->nullable();
+            $table->string('link_name')->nullable();
+            $table->text('description')->nullable();
+            $table->string('disclaimer', 500)->nullable();
+            $table->string('image', 500)->nullable();
+            $table->string('image_credit')->nullable();
+            $table->string('image_source')->nullable();
+            $table->string('thumbnail', 500)->nullable();
+            $table->string('logo', 500)->nullable();
+            $table->string('logo_small', 500)->nullable();
+            $table->boolean('public')->default(false);
+            $table->boolean('readonly')->default(false);
+            $table->boolean('root')->default(false);
+            $table->boolean('disabled')->default(false);
+            $table->boolean('demo')->default(false);
+            $table->integer('sequence')->default(false);
 
             $table->unique(['owner_id', 'name'], 'owner_id_name_unique');
         });

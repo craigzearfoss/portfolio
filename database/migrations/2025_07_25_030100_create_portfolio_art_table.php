@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('artist')->nullable()->index('artist_idx');
             $table->string('slug');
             $table->boolean('featured')->default(false);
-            $table->string('summary')->nullable();
+            $table->string('summary', 500)->nullable();
             $table->integer('year')->nullable();
             $table->string('image_url', 500)->nullable();
             $table->text('notes')->nullable();

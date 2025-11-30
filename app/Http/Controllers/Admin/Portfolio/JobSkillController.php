@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Portfolio;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Portfolio\StoreJobSkillsRequest;
 use App\Http\Requests\Portfolio\UpdateJobSkillsRequest;
+use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobSkill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -40,11 +41,10 @@ class JobSkillController extends Controller
      */
     public function create(Request $request): View
     {
-        if ($jobId = $request->query('job_id')) {
-            $job = Job::find($jobId);
-        } else {
-            $job = null;
-        }
+        $jobId = $request->job_id;
+        $job = !empty($jobId)
+            ? Job::find($jobId)
+            : null;
 
         return view('admin.portfolio.job-skill.create', compact('job'));
     }

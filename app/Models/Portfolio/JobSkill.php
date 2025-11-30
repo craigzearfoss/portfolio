@@ -13,7 +13,7 @@ class JobSkill extends Model
 
     protected $connection = 'portfolio_db';
 
-    protected $table = 'application_skills';
+    protected $table = 'job_skills';
 
     public $timestamps = false;
 
@@ -32,6 +32,24 @@ class JobSkill extends Model
         'start_year',
         'end_year',
         'years',
+        'summary',
+        'notes',
+        'link',
+        'link_name',
+        'description',
+        'disclaimer',
+        'image',
+        'image_credit',
+        'image_source',
+        'thumbnail',
+        'logo',
+        'logo_small',
+        'public',
+        'readonly',
+        'root',
+        'disabled',
+        'demo',
+        'sequence',
     ];
 
     /**

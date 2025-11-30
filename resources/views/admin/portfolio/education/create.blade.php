@@ -205,11 +205,11 @@
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? '',
-                'readonly' => old('readonly') ?? '',
-                'root'     => old('root') ?? '',
-                'disabled' => old('disabled') ?? '',
-                'demo'     => old('demo') ?? '',
+                'root'     => old('root') ?? 0,
+                'readonly' => old('readonly') ?? 0,
+                'root'     => old('root') ?? 0,
+                'disabled' => old('disabled') ?? 0,
+                'demo'     => old('demo') ?? 0,
                 'sequence' => old('sequence') ?? 0,
                 'message'  => $message ?? '',
             ])

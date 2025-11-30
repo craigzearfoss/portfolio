@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('name')->index('name_idx');
             $table->string('slug');
             $table->boolean('featured')->default(false);
-            $table->string('summary')->nullable();
+            $table->string('summary', 500)->nullable();
             $table->string('organization')->nullable();
             $table->foreignIdFor( \App\Models\Portfolio\Academy::class)->default(1);
             $table->integer('year')->nullable();
