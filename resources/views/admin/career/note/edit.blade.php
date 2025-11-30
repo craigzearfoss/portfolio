@@ -7,7 +7,7 @@
         [ 'name' => 'Applications',            'href' => route('admin.career.application.index') ],
         [ 'name' => $note->application->name, 'href' => route('admin.career.application.show', $note->application->id) ],
         [ 'name' => 'Notes',                  'href' => route('admin.career.communication.index', ['application_id' => $note->application->id]) ],
-        [ 'name' => 'Note' ],
+        [ 'name' => 'Edit Note' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.note.index') ],

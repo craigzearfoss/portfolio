@@ -1,11 +1,12 @@
 @extends('admin.layouts.default', [
     'title' => 'Job Skill Edit',
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => 'Skills',          'href' => route('admin.portfolio.job-skill.index') ],
+        [ 'name' => 'Home',               'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',          'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Jobs',               'href' => route('admin.portfolio.job.index') ],
+        [ 'name' => $jobSkill->job->name, 'href' => route('admin.portfolio.job.show', $jobSkill->job) ],
+        [ 'name' => 'Skills',             'href' => route('admin.portfolio.job-skill.index', ['job_id' => $jobSkill->job->id]) ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [

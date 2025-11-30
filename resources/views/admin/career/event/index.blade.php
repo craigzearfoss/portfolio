@@ -17,7 +17,7 @@
     'title' => 'Events',
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'href' => route('admin.career.event.create', ['application_id' => $application->id] ?? '') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'href' => route('admin.career.event.create', !empty($application) ? ['application_id' => $application->id] : []) ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

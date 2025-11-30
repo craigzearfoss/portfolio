@@ -7,7 +7,7 @@
         [ 'name' => 'Applications',                    'href' => route('admin.career.application.index') ],
         [ 'name' => $communication->application->name, 'href' => route('admin.career.application.show', $communication->application->id) ],
         [ 'name' => 'Communications',                  'href' => route('admin.career.communication.index', ['application_id' => $communication->application->id]) ],
-        [ 'name' => 'Communication' ],
+        [ 'name' => 'Edit Communication' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.communication.index') ],

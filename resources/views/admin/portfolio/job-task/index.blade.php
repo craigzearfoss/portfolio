@@ -1,14 +1,23 @@
-@extends('admin.layouts.default', [
-    'title' => !empty($job) ? $job->company . ' Tasks' : 'Job Tasks',
-    'breadcrumbs' => [
+@php
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => 'Tasks' ]
-    ],
+        [ 'name' => 'Jobs' ,           'href' => route('admin.portfolio.job.index') ],
+    ];
+    if (!empty($job)) {
+        $breadcrumbs[] = [ 'name' => $job->name, 'href' => route('admin.portfolio.job.show', $job->id) ];
+        $breadcrumbs[] = [ 'name' => 'Tasks',    'href' => route('admin.portfolio.job-task.index', ['job_id' => $job->id]) ];
+
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Tasks', 'href' => route('admin.portfolio.job-task.index') ];
+    }
+@endphp
+@extends('admin.layouts.default', [
+    'title' => !empty($job) ? $job->company . ' Tasks' : 'Job Tasks',
+    'breadcrumbs' =>$breadcrumbs,
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Task', 'href' => route('admin.portfolio.job-task.create') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add Job Task', 'href' => route('admin.portfolio.job-task.create', !empty($job) ? ['job_id' => $job->id] : []) ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

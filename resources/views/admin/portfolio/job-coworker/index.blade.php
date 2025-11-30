@@ -1,14 +1,23 @@
-@extends('admin.layouts.default', [
-    'title' => !empty($job) ? $job->company . ' Coworkers' : 'Job Coworkers',
-    'breadcrumbs' => [
+@php
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',          'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index', ['job_id' => $jobId]) ],
-        [ 'name' => 'Coworkers' ]
-    ],
+        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Jobs' ,           'href' => route('admin.portfolio.job.index') ],
+    ];
+    if (!empty($job)) {
+        $breadcrumbs[] = [ 'name' => $job->name,  'href' => route('admin.portfolio.job.show', $job->id) ];
+        $breadcrumbs[] = [ 'name' => 'Coworkers', 'href' => route('admin.portfolio.job-coworker.index', ['job_id' => $job->id]) ];
+
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Coworkers', 'href' => route('admin.portfolio.job-coworker.index') ];
+    }
+@endphp
+@extends('admin.layouts.default', [
+    'title' => !empty($job) ? $job->company . ' Coworkers' : 'Job Coworkers',
+    'breadcrumbs' => $breadcrumbs,
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'href' => route('admin.portfolio.job-coworker.create', ['job_id' => $jobId]) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add Job Coworker', 'href' => route('admin.portfolio.job-coworker.create', !empty($job) ? ['job_id' => $job->id] : []) ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

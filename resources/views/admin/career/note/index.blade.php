@@ -17,7 +17,7 @@ if (!empty($application)) {
     'title' => 'Notes',
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Note', 'href' => route('admin.career.note.create', ['application_id' => $application->id ?? '']) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New New', 'href' => route('admin.career.note.create', !empty($application) ? ['application_id' => $application->id] : []) ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

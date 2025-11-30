@@ -1,11 +1,12 @@
 @extends('admin.layouts.default', [
     'title' => $jobCoworker->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Home',               'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',          'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => 'Coworkers',       'href' => route('admin.portfolio.job-coworker.index') ],
+        [ 'name' => 'Jobs',               'href' => route('admin.portfolio.job.index') ],
+        [ 'name' => $jobSkill->job->name, 'href' => route('admin.portfolio.job.show', $jobCoworker->job) ],
+        [ 'name' => 'Coworkers',          'href' => route('admin.portfolio.job-coworker.index', ['job_id' => $jobCoworker->job->id]) ],
         [ 'name' => $jobCoworker->name ],
     ],
     'buttons' => [

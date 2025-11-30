@@ -11,10 +11,10 @@
     } else {
         $breadcrumbs[] = [ 'name' => 'Notes', 'href' => route('admin.career.note.index') ];
     }
-    $breadcrumbs[] = [ 'name' => 'Create '];
+    $breadcrumbs[] = [ 'name' => 'Add'];
 @endphp
 @extends('admin.layouts.default', [
-    'title' => $title ?? 'Create Note',
+    'title' => $title ?? 'Add Note',
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.note.index') ],

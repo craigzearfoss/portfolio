@@ -11,10 +11,10 @@
     } else {
         $breadcrumbs[] = [ 'name' => 'Communications', 'href' => route('admin.career.communication.index') ];
     }
-    $breadcrumbs[] = [ 'name' => 'Create '];
+    $breadcrumbs[] = [ 'name' => 'Add'];
 @endphp
 @extends('admin.layouts.default', [
-    'title' => $title ?? 'Add New Communication',
+    'title' => $title ?? 'Add Communication',
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.communication.index') ],

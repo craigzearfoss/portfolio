@@ -1,13 +1,21 @@
+@php
+    $breadcrumbs = [
+       [ 'name' => 'Home',                    'href' => route('system.index') ],
+       [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+       [ 'name' => 'Portfolio',               'href' => route('admin.portfolio.index') ],
+    ];
+    if (!empty($job)) {
+        $breadcrumbs[] = [ 'name' => 'Jobs',     'href' => route('admin.portfolio.job.index') ];
+        $breadcrumbs[] = [ 'name' => $job->name, 'href' => route('admin.portfolio.job.show', $job->id) ];
+        $breadcrumbs[] = [ 'name' => 'Tasks',    'href' => route('admin.portfolio.job-task.index', ['job_id' => $job->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Job Tasks', 'href' => route('admin.portfolio.job-task.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Add'];
+@endphp
 @extends('admin.layouts.default', [
-    'title' =>'Job Task Create',
-    'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => 'Tasks',           'href' => route('admin.portfolio.job-task.index') ],
-        [ 'name' => 'Add' ],
-    ],
+    'title' =>'Add Job Task',
+    'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-task.index') ],
     ],

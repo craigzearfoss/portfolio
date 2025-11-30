@@ -11,7 +11,7 @@ if (!empty($application)) {
 } else {
     $breadcrumbs[] = [ 'name' => 'Events', 'href' => route('admin.career.event.index') ];
 }
-$breadcrumbs[] = [ 'name' => 'Create '];
+$breadcrumbs[] = [ 'name' => 'Add'];
 @endphp
 @extends('admin.layouts.default', [
     'title' => $title ?? 'Add Event',

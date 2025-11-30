@@ -1,17 +1,17 @@
 @php
-$breadcrumbs = [
-   [ 'name' => 'Home',                    'href' => route('system.index') ],
-   [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
-   [ 'name' => 'Portfolio',               'href' => route('admin.portfolio.index') ],
-];
-if (!empty($application)) {
-    $breadcrumbs[] = [ 'name' => 'Jobs',       'href' => route('admin.portfolio.job.index') ];
-    $breadcrumbs[] = [ 'name' => $job->name,   'href' => route('admin.portfolio.job.show', $job->id) ];
-    $breadcrumbs[] = [ 'name' => 'Job Skills', 'href' => route('admin.portfolio.job-skill.index', ['job_id' => $job->id]) ];
-} else {
-    $breadcrumbs[] = [ 'name' => 'Job Skills', 'href' => route('admin.portfolio.job-skill.index') ];
-}
-$breadcrumbs[] = [ 'name' => 'Add '];
+    $breadcrumbs = [
+       [ 'name' => 'Home',                    'href' => route('system.index') ],
+       [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+       [ 'name' => 'Portfolio',               'href' => route('admin.portfolio.index') ],
+    ];
+    if (!empty($job)) {
+        $breadcrumbs[] = [ 'name' => 'Jobs',     'href' => route('admin.portfolio.job.index') ];
+        $breadcrumbs[] = [ 'name' => $job->name, 'href' => route('admin.portfolio.job.show', $job->id) ];
+        $breadcrumbs[] = [ 'name' => 'Skills',   'href' => route('admin.portfolio.job-skill.index', ['job_id' => $job->id]) ];
+    } else {
+        $breadcrumbs[] = [ 'name' => 'Job Skills', 'href' => route('admin.portfolio.job-skill.index') ];
+    }
+    $breadcrumbs[] = [ 'name' => 'Add'];
 @endphp
 @extends('admin.layouts.default', [
     'title' => $title ?? 'Add Job Skill',
