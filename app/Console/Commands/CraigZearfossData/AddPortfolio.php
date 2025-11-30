@@ -76,6 +76,7 @@ class AddPortfolio extends Command
         $this->insertPortfolioEducations();
         $this->insertPortfolioJobs();
         $this->insertPortfolioJobCoworkers();
+        $this->insertPortfolioJobSkills();
         $this->insertPortfolioJobTasks();
         $this->insertPortfolioLinks();
         $this->insertPortfolioMusic();
@@ -1724,6 +1725,42 @@ class AddPortfolio extends Command
 
         // copy job coworker images/files
         $this->copySourceFiles('job-coworker');
+    }
+
+    protected function insertPortfolioJobSkills(): void
+    {
+        echo self::USERNAME . ": Inserting into Portfolio\\JobSkills ...\n";
+
+        $data = [
+            [
+                'job_id'     => null,
+                'name'       => '',
+                'level'      => 1,
+                'start_year' => 2000,
+                'end_year'   => null,
+                'years'      => 2000,
+            ]
+
+            [ 'job_id' => $this->jobId[1], 'summary' => 'Upgraded to modern PHP and Vue.js frameworks.',                                                           'sequence' => 0 ],
+            [ 'job_id' => $this->jobId[1], 'summary' => 'Implemented Role-Base Access Control system (RBAC) and administrative interface.',                        'sequence' => 1 ],
+            [ 'job_id' => $this->jobId[1], 'summary' => 'Created a ticket authoring application using custom Vue components.',                                     'sequence' => 2 ],
+            [ 'job_id' => $this->jobId[3], 'summary' => 'Implemented an application to create PDF test booklets from browser-based student exams.',                'sequence' => 0 ],
+            [ 'job_id' => $this->jobId[3], 'summary' => 'Created custom JavaScript interactions for web-based student exams.',                                     'sequence' => 1 ],
+            [ 'job_id' => $this->jobId[4], 'summary' => 'Designed and implemented administrative applications for controlling website content.',                   'sequence' => 0 ],
+            [ 'job_id' => $this->jobId[4], 'summary' => 'Performed SEO optimization, A/B testing, traffic analysis, and billing audits.',                          'sequence' => 1 ],
+            [ 'job_id' => $this->jobId[5], 'summary' => 'Performed complex statistical analysis of test data.',                                                    'sequence' => 0 ],
+            [ 'job_id' => $this->jobId[5], 'summary' => 'Created individual graphical data analysis PDF reports from test results.',                               'sequence' => 1 ],
+            [ 'job_id' => $this->jobId[7], 'summary' => 'Created and enhanced the build process for preloaded software on IBM desktop and Lenovo laptop systems.', 'sequence' => 0 ],
+            [ 'job_id' => $this->jobId[7], 'summary' => 'Performed software testing, hardware upgrades, and pc maintenance.',                                      'sequence' => 1 ],
+            //[ 'job_id' => $this->jobId[x], 'summary' => '',                                                                                                        'sequence' => 0 ],
+        ];
+
+        if (!empty($data)) {
+            JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+        }
+
+        // copy job task images/files
+        $this->copySourceFiles('job-task');
     }
 
     protected function insertPortfolioJobTasks(): void

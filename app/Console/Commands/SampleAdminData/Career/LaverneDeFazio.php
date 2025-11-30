@@ -124,9 +124,6 @@ class LaverneDeFazio extends Command
         if (!empty($data)) {
             Application::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-
-        // copy application images/files
-        $this->copySourceFiles('application');
     }
 
     protected function insertCareerApplicationSkill(): void
@@ -182,9 +179,6 @@ class LaverneDeFazio extends Command
         if (!empty($data)) {
             Company::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-
-        // copy company images/files
-        $this->copySourceFiles('company');
     }
 
     protected function insertCareerCompanyContacts(): void
@@ -235,9 +229,6 @@ class LaverneDeFazio extends Command
         if (!empty($data)) {
             Contact::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-
-        // copy contact images/files
-        $this->copySourceFiles('contact');
     }
 
     protected function insertCareerCommunications(): void
@@ -279,9 +270,6 @@ class LaverneDeFazio extends Command
         if (!empty($data)) {
             CoverLetter::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-
-        // copy cover letter images/files
-        $this->copySourceFiles('cover-letter');
     }
 
     protected function insertCareerEvents(): void
@@ -366,9 +354,6 @@ class LaverneDeFazio extends Command
         if (!empty($data)) {
             Reference::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-
-        // copy reference images/files
-        $this->copySourceFiles('reference');
     }
 
     protected function insertCareerResumes(): void
@@ -391,9 +376,6 @@ class LaverneDeFazio extends Command
         if (!empty($data)) {
             Resume::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-
-        // copy resume images/files
-        $this->copySourceFiles('resume');
     }
 
     /**
@@ -438,104 +420,5 @@ class LaverneDeFazio extends Command
         }
 
         return $data;
-    }
-
-    /**
-     * Copies files from the source_files directory to the public/images directory.
-     *
-     * @param string $resource
-     * @return void
-     * @throws \Exception
-     */
-    protected function copySourceFiles(string $resource): void
-    {
-        switch ($resource) {
-            case 'application'  : $model = new Application(); break;
-            case 'company'      : $model = new Company(); break;
-            case 'contact'      : $model = new Contact(); break;
-            case 'cover-letter' : $model = new CoverLetter(); break;
-            case 'reference'    : $model = new Reference(); break;
-            case 'resume'       : $model = new Resume(); break;
-            default:
-                throw new \Exception("Unknown resource {$resource}");
-        }
-
-        // get the source and destination paths
-        $DS = DIRECTORY_SEPARATOR;
-        $baseSourcePath = base_path() . $DS . 'source_files' . $DS . self::DATABASE . $DS .$resource . $DS;
-        $baseDestinationPath =  base_path() . $DS . 'public' . $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS;
-
-        // make sure the destination directory exists for images
-        if (!File::exists($baseDestinationPath)) {
-            File::makeDirectory($baseDestinationPath, 755, true);
-        }
-
-        // copy over images
-        if (File::isDirectory($baseSourcePath)) {
-
-            foreach (scandir($baseSourcePath) as $slug) {
-
-                if ($slug == '.' || $slug == '..') continue;
-
-                $sourcePath = $baseSourcePath . $slug . $DS;
-                if (File::isDirectory($sourcePath)) {
-
-                    $rows = $model->where('slug', $slug)->where('owner_id', $this->adminId)->get();
-
-                    if (!empty($rows)) {
-
-                        foreach (scandir($sourcePath) as $image) {
-
-                            if ($image == '.' || $image == '..') continue;
-
-                            if (File::isFile($sourcePath . $DS . $image)) {
-
-                                foreach ($rows as $row) {
-
-                                    $imageName   = File::name($image);
-                                    $sourceImage = $sourcePath . $image;
-                                    $destImage   = $baseDestinationPath . $row->id . $DS . $image;
-
-                                    echo '  Copying ' . $sourceImage . ' ... ' . PHP_EOL;
-
-                                    // make sure the destination directory exists for images
-                                    if (!File:: exists(dirname($destImage))) {
-                                        File::makeDirectory(dirname($destImage), 755, true);
-                                    }
-
-                                    // copy the file
-                                    File::copy($sourceImage, $destImage);
-
-                                    // update corresponding column in database table
-                                    if (in_array($imageName, ['cover_letter_url']) && in_array($resource, ['cover-letter'])) {
-                                        // cover letter file
-                                        $row->update([
-                                            $imageName => $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS . $row->id . $DS . $image
-                                        ]);
-                                    } elseif (in_array($imageName, ['doc_url', 'pdf_url']) && in_array($resource, ['resume'])) {
-                                        // resume file
-                                        $row->update([
-                                            $imageName => $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS . $row->id . $DS . $image
-                                        ]);
-
-                                    } elseif (in_array($imageName, ['logo', 'logo_small']) && in_array($resource, ['job'])) {
-                                        // logo file
-                                        $row->update([
-                                            $imageName => $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS . $row->id . $DS . $image
-                                        ]);
-                                    } elseif (in_array($imageName, ['image', 'thumbnail'])) {
-                                        // logo or thumbnail file
-                                        $row->update([
-                                            $imageName => $DS . 'images' . $DS . self::DATABASE . $DS . $resource . $DS . $row->id . $DS . $image
-                                        ]);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
     }
 }

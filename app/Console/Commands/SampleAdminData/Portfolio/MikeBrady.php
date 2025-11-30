@@ -9,6 +9,7 @@ use App\Models\Portfolio\Course;
 use App\Models\Portfolio\Education;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
+use App\Models\Portfolio\JobSkill;
 use App\Models\Portfolio\JobTask;
 use App\Models\Portfolio\Link;
 use App\Models\Portfolio\Music;
@@ -76,6 +77,7 @@ class MikeBrady extends Command
         $this->insertPortfolioEducations();
         $this->insertPortfolioJobs();
         $this->insertPortfolioJobCoworkers();
+        $this->insertPortfolioJobSkills();
         $this->insertPortfolioJobTasks();
         $this->insertPortfolioLinks();
         $this->insertPortfolioMusic();
@@ -329,6 +331,28 @@ class MikeBrady extends Command
 
         // copy job coworker images/files
         $this->copySourceFiles('job-coworker');
+    }
+
+    protected function insertPortfolioJobSkills(): void
+    {
+        echo self::USERNAME . ": Inserting into Portfolio\\JobSkills ...\n";
+
+        $data = [
+            /*
+            [
+                'job_id'     => null,
+                'name'       => '',
+                'level'      => 1,
+                'start_year' => 2000,
+                'end_year'   => null,
+                'years'      => 2000,
+            ]
+            */
+        ];
+
+        if (!empty($data)) {
+            JobSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+        }
     }
 
     protected function insertPortfolioJobTasks(): void
