@@ -4,14 +4,17 @@ namespace App\Console\Commands\CraigZearfossData;
 
 use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Audio;
+use App\Models\Portfolio\Award;
 use App\Models\Portfolio\Certificate;
 use App\Models\Portfolio\Course;
 use App\Models\Portfolio\Education;
 use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
+use App\Models\Portfolio\JobSkill;
 use App\Models\Portfolio\JobTask;
 use App\Models\Portfolio\Link;
 use App\Models\Portfolio\Music;
+use App\Models\Portfolio\Photography;
 use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Publication;
 use App\Models\Portfolio\Skill;
@@ -1711,31 +1714,69 @@ class AddPortfolio extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\JobSkills ...\n";
 
         $data = [
-            [
-                'job_id'     => null,
-                'name'       => '',
-                'level'      => 1,
-                'start_year' => 2000,
-                'end_year'   => null,
-                'years'      => 2000,
-            ]
-
-            [ 'job_id' => $this->jobId[1], 'summary' => 'Upgraded to modern PHP and Vue.js frameworks.',                                                           'sequence' => 0 ],
-            [ 'job_id' => $this->jobId[1], 'summary' => 'Implemented Role-Base Access Control system (RBAC) and administrative interface.',                        'sequence' => 1 ],
-            [ 'job_id' => $this->jobId[1], 'summary' => 'Created a ticket authoring application using custom Vue components.',                                     'sequence' => 2 ],
-            [ 'job_id' => $this->jobId[3], 'summary' => 'Implemented an application to create PDF test booklets from browser-based student exams.',                'sequence' => 0 ],
-            [ 'job_id' => $this->jobId[3], 'summary' => 'Created custom JavaScript interactions for web-based student exams.',                                     'sequence' => 1 ],
-            [ 'job_id' => $this->jobId[4], 'summary' => 'Designed and implemented administrative applications for controlling website content.',                   'sequence' => 0 ],
-            [ 'job_id' => $this->jobId[4], 'summary' => 'Performed SEO optimization, A/B testing, traffic analysis, and billing audits.',                          'sequence' => 1 ],
-            [ 'job_id' => $this->jobId[5], 'summary' => 'Performed complex statistical analysis of test data.',                                                    'sequence' => 0 ],
-            [ 'job_id' => $this->jobId[5], 'summary' => 'Created individual graphical data analysis PDF reports from test results.',                               'sequence' => 1 ],
-            [ 'job_id' => $this->jobId[7], 'summary' => 'Created and enhanced the build process for preloaded software on IBM desktop and Lenovo laptop systems.', 'sequence' => 0 ],
-            [ 'job_id' => $this->jobId[7], 'summary' => 'Performed software testing, hardware upgrades, and pc maintenance.',                                      'sequence' => 1 ],
-            //[ 'job_id' => $this->jobId[x], 'summary' => '',                                                                                                        'sequence' => 0 ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'Vue.js',                       'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'JavaScript ES6',               'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'jQuery',                       'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'CodeIgniter',                  'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'Cascading Style Sheets (CSS)', 'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'Internet Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[1],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'Vue.js',                       'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'Elasticsearch',                'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'Software Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[2],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'PostgreSQL',                   'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'XML',                          'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'jQuery',                       'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'Software Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[3],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'Symfony2',                     'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'Zend Framework',               'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'jQuery',                       'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'Nginx',                        'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'Apache2',                      'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'Internet Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[4],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'jQuery',                       'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'PDFLib',                       'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'Apache2',                      'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'Software Design',              'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[5],  'name' => 'Server Side Programming',      'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'MySQL',                        'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'Oracle',                       'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'Windows',                      'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'Cascading Style Sheets (CSS)', 'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[6],  'name' => 'SQL',                          'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[7],  'name' => 'PHP',                          'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[7],  'name' => 'JavaScript',                   'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[7],  'name' => 'Windows',                      'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[7],  'name' => 'Software Development',         'dictionary_category_id' => null, 'dictionary_term_id' => null ],
+            [ 'job_id' => $this->jobId[7],  'name' => 'Cascading Style Sheets (CSS)', 'dictionary_category_id' => null, 'dictionary_term_id' => null ],
         ];
 
         if (!empty($data)) {
-            JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            JobSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 

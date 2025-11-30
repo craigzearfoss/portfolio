@@ -11,6 +11,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ *
+ */
 class JobSkillController extends Controller
 {
     /**
@@ -23,13 +26,16 @@ class JobSkillController extends Controller
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        if ($jobId = $request->query('job_id')) {
-            $jobSkills = JobSkill::where('job_id', $jobId)->orderBy('name', 'asc')->paginate($perPage);
+        $jobId = $request->job_id;
+        if (!empty($jobId)) {
+            $job = Job::find($jobId);
+            $jobSkills = JobSkill::where('job_id', $jobId)->latest()->paginate($perPage);
         } else {
-            $jobSkills = JobSkill::orderBy('name', 'asc')->paginate($perPage);
+            $job = null;
+            $jobSkills = JobSkill::latest()->paginate($perPage);
         }
 
-        return view('admin.portfolio.job-skill.index', compact('jobSkills', 'jobId'))
+        return view('admin.portfolio.job-skill.index', compact('jobSkills', 'job'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

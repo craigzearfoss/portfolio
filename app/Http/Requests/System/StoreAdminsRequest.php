@@ -29,6 +29,8 @@ class StoreAdminsRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         // if the account is disabled then force current session to logout
         if (!empty($this['disabled'])) {
             $this->merge(['requires_relogin' => 1]);

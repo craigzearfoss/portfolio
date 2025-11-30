@@ -28,6 +28,8 @@ class StoreUsersRequest extends FormRequest
      */
     public function rules(): array
     {
+        $this->checkDemoMode();
+
         return [
             'username' => [
                 'required',

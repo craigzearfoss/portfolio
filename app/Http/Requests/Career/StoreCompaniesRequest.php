@@ -43,7 +43,7 @@ class StoreCompaniesRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies')->where(function ($query) {
+                Rule::unique('career_db.companies', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
@@ -52,7 +52,7 @@ class StoreCompaniesRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies')->where(function ($query) {
+                Rule::unique('career_db.companies', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })

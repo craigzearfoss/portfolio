@@ -26,9 +26,9 @@ class UpdateUnitsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'         => ['filled', 'max:255', 'unique:personal_db.units,name,'.$this->unit->id],
-            'abbreviation' => ['filled', 'max:10', 'unique:personal_db.units,abbreviation,'.$this->unit->id],
-            'system'       => ['string', 'max:20', 'nullable'],
+            'name'         => ['filled', 'max:50', 'unique:personal_db.units,name,'.$this->unit->id],
+            'abbreviation' => ['filled', 'max:20', 'unique:personal_db.units,abbreviation,'.$this->unit->id],
+            'system'       => ['string', 'max:10', 'nullable'],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:500', 'nullable'],
             'image_credit' => ['string', 'max:255', 'nullable'],

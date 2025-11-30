@@ -43,7 +43,7 @@ class StoreContactsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.contacts')->where(function ($query) {
+                Rule::unique('career_db.contacts', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
@@ -52,7 +52,7 @@ class StoreContactsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.contacts')->where(function ($query) {
+                Rule::unique('career_db.contacts', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })

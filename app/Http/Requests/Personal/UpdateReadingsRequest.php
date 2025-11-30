@@ -47,10 +47,11 @@ class UpdateReadingsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('personal_db.readings')->where(function ($query) {
+                Rule::unique('personal_db.readings', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->reading->id)
-                        ->where('slug', $this->slug);
+                        ->where('id', '!=', $this->reading->id)
+                        ->where('name', $this->slug)
+                        ->where('id', '!-', $this->id);
                 })
             ],
             'featured'         => ['integer', 'between:0,1'],

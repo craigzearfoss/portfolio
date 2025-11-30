@@ -26,13 +26,16 @@ class JobTaskController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        if ($jobId = $request->query('job_id')) {
-	        $jobTasks = JobTask::where('job_id', $jobId)->orderBy('job_id', 'asc')->orderBy('sequence', 'asc')->paginate($perPage);
+        $jobId = $request->job_id;
+        if (!empty($jobId)) {
+            $job = Job::find($jobId);
+            $jobTasks = JobTask::where('job_id', $jobId)->latest()->paginate($perPage);
         } else {
-            $jobTasks = JobTask::orderBy('job_id', 'asc')->orderBy('sequence', 'asc')->paginate($perPage);
+            $job = null;
+            $jobTasks = JobTask::latest()->paginate($perPage);
         }
 
-        return view('admin.portfolio.job-task.index', compact('jobTasks', 'jobId'))
+        return view('admin.portfolio.job-task.index', compact('jobTasks', 'job'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

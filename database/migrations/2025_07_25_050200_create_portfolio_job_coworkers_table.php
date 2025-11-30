@@ -55,7 +55,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['owner_id', 'name'], 'owner_id_name_unique');
+            $table->unique(['owner_id', 'job_id', 'name'], 'owner_id_job_id_name_unique');
         });
 
         /*

@@ -61,7 +61,7 @@ class RecipeIngredient extends Model
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(Owner::class, 'owner_id');
+        return $this->setConnection('system_db')->belongsTo(Owner::class, 'owner_id');
     }
 
     /**
@@ -69,7 +69,7 @@ class RecipeIngredient extends Model
      */
     public function recipe(): BelongsTo
     {
-        return $this->setConnection('personal_db')->belongsTo(Recipe::class, 'recipe_id');
+        return $this->belongsTo(Recipe::class, 'recipe_id');
     }
 
     /**
@@ -77,7 +77,7 @@ class RecipeIngredient extends Model
      */
     public function ingredient(): BelongsTo
     {
-        return $this->setConnection('personal_db')->belongsTo(Ingredient::class, 'ingredient_id');
+        return $this->belongsTo(Ingredient::class, 'ingredient_id');
     }
 
     /**
@@ -85,6 +85,6 @@ class RecipeIngredient extends Model
      */
     public function unit(): BelongsTo
     {
-        return $this->setConnection('personal_db')->belongsTo(Unit::class, 'unit_id');
+        return $this->belongsTo(Unit::class, 'unit_id');
     }
 }

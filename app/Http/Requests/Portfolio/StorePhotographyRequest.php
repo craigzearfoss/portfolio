@@ -41,7 +41,7 @@ class StorePhotographyRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.photography')->where(function ($query) {
+                Rule::unique('portfolio_db.photography', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })
@@ -49,9 +49,9 @@ class StorePhotographyRequest extends FormRequest
             'featured'     => ['integer', 'between:0,1'],
             'summary'      => ['string', 'max:500', 'nullable'],
             'year'         => ['integer', 'between:1900,'.date("Y"), 'nullable'],
+            'photo_url'    => ['string', 'max:255', 'nullable'],
             'notes'        => ['nullable'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
-            'photo_url'    => ['string', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'disclaimer'   => ['string', 'max:500', 'nullable'],

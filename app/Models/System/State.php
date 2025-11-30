@@ -79,7 +79,7 @@ class State extends Model
      */
     public function country(): BelongsTo
     {
-        return $this->setConnection('system_db')->belongsTo(Country::class)
+        return $this->belongsTo(Country::class)
             ->orderBy('name', 'asc');
     }
 

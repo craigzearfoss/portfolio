@@ -36,8 +36,9 @@ class StoreJobCoworkersRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.job_coworkers')->where(function ($query) {
+                Rule::unique('portfolio_db.job_coworkers', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('job_id', $this->job_id)
                         ->where('name', $this->name);
                 })
             ],
@@ -72,6 +73,7 @@ class StoreJobCoworkersRequest extends FormRequest
             'owner_id.exists'   => 'The specified owner does not exist.',
             'job_id.required'   => 'Please select a job for the coworker.',
             'job_id.exists'     => 'The specified job does not exist.',
+            'name.unique'        => '`' . $this->name . '` has already been added.',
             'level_id.required' => 'Please select a level type for the coworker.',
             'level_id.exists'   => 'The specified level does not exist.',
         ];

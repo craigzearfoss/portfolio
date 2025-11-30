@@ -36,17 +36,14 @@ class StoreJobSkillsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.job_skills')->where(function ($query) {
+                Rule::unique('portfolio_db.job_skills', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
+                        ->where('job_id', $this->job_id)
                         ->where('name', $this->name);
                 })
             ],
-            'level'                  => ['integer', 'between:0,10'],
             'dictionary_category_id' => ['integer', 'exists:dictionary_db.categories,id', 'nullable'],
             'dictionary_id_term_id'  => ['integer', 'nullable'],
-            'start_year'             => ['integer', 'between:1980,'.date("Y"), 'nullable'],
-            'end_year'               => ['integer', 'between:1980,'.date("Y"), 'gt:start_year', 'nullable'],
-            'years'                  => ['integer', 'min:0', 'nullable'],
             'summary'                => ['string', 'max:500', 'nullable'],
             'notes'                  => ['nullable'],
             'link'                   => ['string', 'url:http,https', 'max:500', 'nullable'],
@@ -69,8 +66,11 @@ class StoreJobSkillsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.required'  => 'Please select an owner for the tag.',
+            'owner_id.required'  => 'Please select an owner for the job skill.',
             'owner_id.exists'    => 'The specified owner does not exist.',
+            'job_id.required'   => 'Please select a job for the coworker.',
+            'job_id.exists'     => 'The specified job does not exist.',
+            'name.unique'        => '`' . $this->name . '` has already been added.',
             'resource_id.exists' => 'The specified resource does not exist.',
             'category_id.exists' => 'The specified category does not exist.',
         ];

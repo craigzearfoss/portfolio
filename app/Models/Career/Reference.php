@@ -91,7 +91,7 @@ class Reference extends Model
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(Owner::class, 'owner_id');
+        return $this->setConnection('system_db')->belongsTo(Owner::class, 'owner_id');
     }
 
     /**
@@ -99,7 +99,7 @@ class Reference extends Model
      */
     public function company(): BelongsTo
     {
-        return $this->setConnection('system_db')->belongsTo(Company::class, 'company_id');
+        return $this->belongsTo(Company::class, 'company_id');
     }
 
     /**

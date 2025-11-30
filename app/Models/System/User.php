@@ -101,7 +101,7 @@ class User extends Authenticatable
      */
     public function country(): BelongsTo
     {
-        return $this->setConnection('system_db')->belongsTo(Country::class, 'country_id');
+        return $this->belongsTo(Country::class, 'country_id');
     }
 
     /**
@@ -109,7 +109,7 @@ class User extends Authenticatable
      */
     public function state(): BelongsTo
     {
-        return $this->setConnection('system_db')->belongsTo(State::class, 'state_id');
+        return $this->belongsTo(State::class, 'state_id');
     }
 
     /**

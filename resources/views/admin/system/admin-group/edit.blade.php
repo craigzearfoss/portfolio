@@ -64,7 +64,7 @@
                 'value'     => old('name') ?? $adminGroup->name,
                 'required'  => true,
                 'minlength' => 3,
-                'maxlength' => 200,
+                'maxlength' => 100,
                 'message'   => $message ?? '',
             ])
 

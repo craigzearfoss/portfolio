@@ -44,7 +44,7 @@ class StoreVideosRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.videos')->where(function ($query) {
+                Rule::unique('portfolio_db.videos', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
@@ -53,7 +53,7 @@ class StoreVideosRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.videos')->where(function ($query) {
+                Rule::unique('portfolio_db.videos', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })

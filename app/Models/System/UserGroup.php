@@ -59,6 +59,6 @@ class UserGroup extends Model
      */
     public function team(): BelongsTo
     {
-        return $this->setConnection('system_db')->belongsTo(UserTeam::class, 'user_team_id');
+        return $this->belongsTo(UserTeam::class, 'user_team_id');
     }
 }

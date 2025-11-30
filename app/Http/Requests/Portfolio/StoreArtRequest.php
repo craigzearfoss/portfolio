@@ -49,7 +49,7 @@ class StoreArtRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.art')->where(function ($query) {
+                Rule::unique('portfolio_db.art', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })
@@ -57,9 +57,9 @@ class StoreArtRequest extends FormRequest
             'featured'     => ['integer', 'between:0,1'],
             'summary'      => ['string', 'max:500', 'nullable'],
             'year'         => ['integer', 'between:-2000,'.date("Y"), 'nullable'],
+            'image_url'    => ['string', 'max:255', 'nullable'],
             'notes'        => ['nullable'],
             'link'         => ['string', 'url:http,https', 'max:500', 'nullable'],
-            'image_url'    => ['string', 'max:255', 'nullable'],
             'link_name'    => ['string', 'max:255', 'nullable'],
             'description'  => ['nullable'],
             'disclaimer'   => ['string', 'max:500', 'nullable'],

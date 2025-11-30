@@ -49,10 +49,10 @@ class UpdateArtRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.art')->where(function ($query) {
+                Rule::unique('portfolio_db.art', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->art->id)
-                        ->where('slug', $this->slug);
+                        ->where('slug', $this->slug)
+                        ->where('id', '!-', $this->art->id);
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],

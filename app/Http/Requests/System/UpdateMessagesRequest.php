@@ -30,7 +30,7 @@ class UpdateMessagesRequest extends FormRequest
         return [
             'name'     => ['filled', 'string', 'max:255'],
             'email'    => ['filled', 'email:rfc,dns', 'max:255'],
-            'subject'  => ['filled', 'string', 'max:255'],
+            'subject'  => ['filled', 'string', 'max:500'],
             'body'     => ['filled'],
             'public'   => ['integer', 'between:0,1'],
             'readonly' => ['integer', 'between:0,1'],

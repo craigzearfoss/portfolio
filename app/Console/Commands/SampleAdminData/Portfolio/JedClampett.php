@@ -4,6 +4,7 @@ namespace App\Console\Commands\SampleAdminData\Portfolio;
 
 use App\Models\Portfolio\Art;
 use App\Models\Portfolio\Audio;
+use App\Models\Portfolio\Award;
 use App\Models\Portfolio\Certificate;
 use App\Models\Portfolio\Course;
 use App\Models\Portfolio\Education;
@@ -13,6 +14,7 @@ use App\Models\Portfolio\JobSkill;
 use App\Models\Portfolio\JobTask;
 use App\Models\Portfolio\Link;
 use App\Models\Portfolio\Music;
+use App\Models\Portfolio\Photography;
 use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Publication;
 use App\Models\Portfolio\Skill;
@@ -388,12 +390,10 @@ class JedClampett extends Command
         $data = [
             /*
             [
-                'job_id'     => null,
-                'name'       => '',
-                'level'      => 1,
-                'start_year' => 2000,
-                'end_year'   => null,
-                'years'      => 2000,
+                'job_id'                 => null,
+                'name'                   => '',
+                'dictionary_category_id' => null,
+                'dictionary_term_id'     => null,
             ]
             */
         ];

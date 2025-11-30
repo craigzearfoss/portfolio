@@ -57,7 +57,7 @@ class RecipeStep extends Model
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(Owner::class, 'owner_id');
+        return $this->setConnection('system_db')->belongsTo(Owner::class, 'owner_id');
     }
 
     /**
@@ -65,6 +65,6 @@ class RecipeStep extends Model
      */
     public function recipe(): BelongsTo
     {
-        return $this->setConnection('personal_db')->belongsTo(Recipe::class, 'recipe_id');
+        return $this->belongsTo(Recipe::class, 'recipe_id');
     }
 }

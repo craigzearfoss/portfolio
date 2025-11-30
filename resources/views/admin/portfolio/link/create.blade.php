@@ -72,7 +72,7 @@
                 'name'      => 'url',
                 'value'     => old('url') ?? '',
                 'required'  => true,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 

@@ -40,11 +40,11 @@ class StorePublicationsRequest extends FormRequest
 
         return [
             'owner_id'       => ['required', 'integer', 'exists:system_db.admins,id'],
-            'title'           => [
+            'title'          => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.publications')->where(function ($query) {
+                Rule::unique('portfolio_db.publications', 'title')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('title', $this->title);
                 })
@@ -53,7 +53,7 @@ class StorePublicationsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.publications')->where(function ($query) {
+                Rule::unique('portfolio_db.publications', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })

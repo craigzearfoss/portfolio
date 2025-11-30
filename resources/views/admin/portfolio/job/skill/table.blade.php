@@ -4,10 +4,6 @@
 <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
     <thead>
     <th>name</th>
-    <th>level</th>
-    <th>start year</th>
-    <th>end year</th>
-    <th>years</th>
     <th>actions</th>
     </thead>
     <tbody>
@@ -19,22 +15,6 @@
                 {{ $skill->name ?? '' }}
             </td>
             <td>
-                @include('admin.components.star-ratings', [
-                    'rating' => $skill->level ?? 1,
-                    'label'  => null
-                ])
-
-                {{ $skill->level ?? '' }}
-            </td>
-            <td>
-                {{ $skill->start_year ?? '' }}
-            </td>
-            <td>
-                {{ $skill->end_year ?? '' }}
-            </td>
-            <td>
-                {{ $skill->years ?? '' }}
-            </td>
             <td class="is-1" style="white-space: nowrap;">
 
                 <a title="show" class="button is-small px-1 py-0"

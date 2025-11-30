@@ -41,7 +41,7 @@ class UpdateRecipeIngredientsRequest extends FormRequest
             ],
             'ingredient_id' => ['filled', 'integer', Rule::in(Ingredient::all()->pluck('id')->toArray())],
             'amount'        => ['string', 'max:50:', 'nullable'],
-            'unit_id'       => ['filled', 'integer', 'exists:personal_db.units,id'],
+            'unit_id'       => ['filled', 'integer', 'exists:personal_db.units,id', 'nullable'],
             'qualifier'     => ['string', 'max:255:', 'nullable'],
             'description'   => ['nullable'],
             'image'         => ['string', 'max:500', 'nullable'],

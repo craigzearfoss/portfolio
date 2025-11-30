@@ -43,20 +43,20 @@ class UpdateProjectsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.projects')->where(function ($query) {
+                Rule::unique('portfolio_db.projects', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->project->id)
-                        ->where('name', $this->name);
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->project->id);
                 })
             ],
             'slug'             => [
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.projects')->where(function ($query) {
+                Rule::unique('portfolio_db.projects', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->project->id)
-                        ->where('slug', $this->slug);
+                        ->where('slug', $this->slug)
+                        ->where('id', '!-', $this->project->id);
                 })
             ],
             'featured'         => ['integer', 'between:0,1'],

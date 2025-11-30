@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 class StoreResourceSettingsRequest extends FormRequest
 {
     use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -36,7 +37,7 @@ class StoreResourceSettingsRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:200',
-                Rule::unique('system_db.user_teams')->where(function ($query) {
+                Rule::unique('system_db.user_teams', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })

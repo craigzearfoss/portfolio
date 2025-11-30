@@ -48,10 +48,10 @@ class UpdateJobsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.jobs')->where(function ($query) {
+                Rule::unique('portfolio_db.jobs', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->job->id)
-                        ->where('slug', $this->slug);
+                        ->where('slug', $this->slug)
+                        ->where('id', '!-', $this->job->id);
                 })
             ],
             'featured'               => ['integer', 'between:0,1'],

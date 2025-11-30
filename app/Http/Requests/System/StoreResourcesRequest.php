@@ -33,18 +33,17 @@ class StoreResourcesRequest extends FormRequest
                 'required',
                 'string',
                 'max:50',
-                Rule::unique('career_db.resources')->where(function ($query) {
+                Rule::unique('career_db.resources', 'name')->where(function ($query) {
                     return $query->where('database_id', $this->database_id)
                         ->where('name', $this->name);
                 })
             ],
-            'parent_id'   => ['integer', Rule::in(Resource::where('id', '<>', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
+            'parent_id'   => ['integer', Rule::in(Resource::where('id', '!=', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
             'table'       => [
                 'required',
                 'string',
-                'required',
                 'max:50',
-                Rule::unique('career_db.resources')->where(function ($query) {
+                Rule::unique('career_db.resources', 'table')->where(function ($query) {
                     return $query->where('database_id', $this->database_id)
                         ->where('table', $this->table);
                 })

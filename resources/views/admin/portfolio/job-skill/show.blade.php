@@ -43,8 +43,16 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'company',
-            'value' => $jobSkill->job['company'] ?? ''
+            'name'  => 'category',
+            'value' =>  view('admin.components.link', [
+                'name' => $jobSkill->category->name ?? '',
+                'href' => route('admin.dictionary.category.show', $jobSkill->job)
+            ])
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'name',
+            'value' => $jobSkill->name ?? ''
         ])
 
         @include('admin.components.show-row', [

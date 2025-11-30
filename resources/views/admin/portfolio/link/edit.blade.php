@@ -79,7 +79,7 @@
                 'name'      => 'url',
                 'value'     => old('url') ?? $link->url,
                 'required'  => true,
-                'maxlength' => 255,
+                'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 

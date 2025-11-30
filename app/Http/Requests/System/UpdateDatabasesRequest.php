@@ -26,11 +26,11 @@ class UpdateDatabasesRequest extends FormRequest
     {
         return [
             'owner_id'    => ['integer', 'exists:system_db.admins,id'],
-            'name'        => ['string', 'filled', 'max:50', 'unique:databases,name,'.$this->databases->id],
-            'database'    => ['string', 'filled', 'max:50', 'unique:databases,database,'.$this->databases->id],
-            'tag'         => ['string', 'filled', 'max:50', 'unique:databases,tag,'.$this->databases->id],
-            'title'       => ['string', 'filled', 'max:50'],
-            'plural'      => ['string', 'filled', 'max:50'],
+            'name'        => ['filled', 'string', 'max:50', 'unique:databases,name,'.$this->databases->id],
+            'database'    => ['filled', 'string', 'max:50', 'unique:databases,database,'.$this->databases->id],
+            'tag'         => ['filled', 'string', 'max:50', 'unique:databases,tag,'.$this->databases->id],
+            'title'       => ['filled', 'string', 'max:50'],
+            'plural'      => ['filled', 'string', 'max:50'],
             'guest'       => ['integer', 'between:0,1'],
             'user'        => ['integer', 'between:0,1'],
             'admin'       => ['integer', 'between:0,1'],

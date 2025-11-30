@@ -29,9 +29,27 @@ class UpdateResourcesRequest extends FormRequest
         return [
             'owner_id'    => ['filled', 'integer', 'exists:system_db.admins,id'],
             'database_id' => ['filled', 'integer', 'exists:system_db.databases,id'],
-            'name'        => ['filled', 'string', 'max:50', 'unique:resources,name,'.$this->resources->id],
-            'parent_id'   => ['integer', Rule::in(Resource::where('id', '<>', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
-            'table'       => ['filled', 'string', 'max:50', 'unique:resources,table,'.$this->resources->id],
+            'name'        => [
+                'filled',
+                'string',
+                'max:50',
+                Rule::unique('career_db.resources', 'name')->where(function ($query) {
+                    return $query->where('database_id', $this->database_id)
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->resource->id);
+                })
+            ],
+            'parent_id'   => ['integer', Rule::in(Resource::where('id', '!=', $this->id)->all()->pluck('id')->toArray()), 'nullable'],
+            'table'       => [
+                'filled',
+                'string',
+                'max:50',
+                Rule::unique('career_db.resources', 'table')->where(function ($query) {
+                    return $query->where('database_id', $this->database_id)
+                        ->where('table', $this->table)
+                        ->where('id', '!-', $this->resource->id);
+                })
+            ],
             'class'       => ['filled', 'string', 'max:255'],
             'title'       => ['filled', 'string', 'max:50'],
             'plural'      => ['filled', 'string', 'max:50'],
@@ -48,6 +66,16 @@ class UpdateResourcesRequest extends FormRequest
             'disabled'    => ['integer', 'between:0,1'],
             'demo'        => ['integer', 'between:0,1'],
             'sequence'    => ['integer', 'min:0', 'nullable'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'owner_id.required'    => 'Please select an owner for the resource.',
+            'owner_id.exists'      => 'The specified owner does not exist.',
+            'database_id.required' => 'Please select a database for the resource.',
+            'database_id.exists'   => 'The specified database does not exist.',
         ];
     }
 }

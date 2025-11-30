@@ -43,7 +43,7 @@ class StoreLinksRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.links')->where(function ($query) {
+                Rule::unique('portfolio_db.links', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
@@ -53,7 +53,7 @@ class StoreLinksRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.links')->where(function ($query) {
+                Rule::unique('portfolio_db.links', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })
@@ -63,8 +63,10 @@ class StoreLinksRequest extends FormRequest
             'url'          => [
                 'string',
                 'max:255',
-                'required',
-                Rule::unique('portfolio_db.links')->where(function ($query) {
+                'filled',
+                'url:http,https',
+                'max:500',
+                Rule::unique('portfolio_db.links', 'url')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('url', $this->url);
                 })

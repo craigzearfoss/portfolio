@@ -54,7 +54,7 @@
                         'name'        => 'subject',
                         'value'       => old('subject') ?? '',
                         'required'    => true,
-                        'maxlength'   => 255,
+                        'maxlength'   => 500,
                         'placeholder' => 'Subject',
                         'message  '   => $message ?? '',
                     ])

@@ -78,7 +78,7 @@ class JobCoworker extends Model
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(Owner::class, 'owner_id');
+        return $this->setConnection('system_db')->belongsTo(Owner::class, 'owner_id');
     }
 
     /**

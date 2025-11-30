@@ -4,6 +4,7 @@ namespace App\Models\Career;
 
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
+use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -52,11 +53,11 @@ class Note extends Model
     }
 
     /**
-     * Get the admin who owns the note.
+     * Get the owner who owns the note.
      */
-    public function admin(): BelongsTo
+    public function owner(): BelongsTo
     {
-        return $this->setConnection('system_db')->belongsTo(Admin::class, 'admin_id');
+        return $this->setConnection('system_db')->belongsTo(Owner::class, 'owner_id');
     }
 
     /**
@@ -64,8 +65,7 @@ class Note extends Model
      */
     public function application(): BelongsTo
     {
-        return $this->setConnection('career_db')
-            ->belongsTo(Application::class, 'application_id')
+        return $this->belongsTo(Application::class, 'application_id')
             ->orderBy('post_date', 'desc');
     }
 }

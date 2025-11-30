@@ -43,20 +43,20 @@ class UpdateCompaniesRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies')->where(function ($query) {
+                Rule::unique('career_db.companies', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->company->id)
-                        ->where('name', $this->name);
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->company->id);
                 })
             ],
             'slug'            => [
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies')->where(function ($query) {
+                Rule::unique('career_db.companies', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->company->id)
-                        ->where('slug', $this->slug);
+                        ->where('name', $this->slug)
+                        ->where('id', '!-', $this->company->id);
                 })
             ],
             'industry_id'     => ['filled', 'integer', 'exists:career_db.industries,id'],

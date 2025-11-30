@@ -58,7 +58,7 @@ class Event extends Model
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(Owner::class, 'owner_id');
+        return $this->setConnection('system_db')->belongsTo(Owner::class, 'owner_id');
     }
 
 
@@ -67,8 +67,7 @@ class Event extends Model
      */
     public function application(): BelongsTo
     {
-        return $this->setConnection('system_db')
-            ->belongsTo(Application::class, 'application_id')
+        return $this->belongsTo(Application::class, 'application_id')
             ->orderBy('post_date', 'desc');
     }
 }

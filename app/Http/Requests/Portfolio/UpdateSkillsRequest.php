@@ -47,10 +47,10 @@ class UpdateSkillsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.skills')->where(function ($query) {
+                Rule::unique('portfolio_db.skills', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->skill->id)
-                        ->where('name', $this->name);
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->skill->id);
                 })
             ],
             'version'                 => ['string', 'max:20', 'nullable'],
@@ -58,17 +58,18 @@ class UpdateSkillsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.skills')->where(function ($query) {
+                Rule::unique('portfolio_db.skills', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->skill->id)
-                        ->where('slug', $this->slug);
+                        ->where('slug', $this->slug)
+                        ->where('id', '!-', $this->skill->id);
                 })
             ],
             'featured'                => ['integer', 'between:0,1'],
             'summary'                 => ['string', 'max:500', 'nullable'],
             'level'                   => ['integer', 'between:1,10'],
-            'dictionary_category_id'  => ['integer', 'exists:dictionary_db.categories,id'],
+            'dictionary_category_id'  => ['integer', 'exists:dictionary_db.categories,id', 'nullable'],
             'start_year'              => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
+            'end_year'                => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
             'years'                   => ['integer', 'min:0', 'nullable'],
             'notes'                   => ['nullable'],
             'link'                    => ['string', 'url:http,https', 'max:500', 'nullable'],

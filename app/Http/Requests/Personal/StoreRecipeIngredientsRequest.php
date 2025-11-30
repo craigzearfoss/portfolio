@@ -42,7 +42,7 @@ class StoreRecipeIngredientsRequest extends FormRequest
             ],
             'ingredient_id' => ['required', 'integer', Rule::in(Ingredient::all()->pluck('id')->toArray())],
             'amount'        => ['string', 'max:50:', 'nullable'],
-            'unit_id'       => ['required', 'integer', Rule::in(Unit::all()->pluck('id')->toArray()), 'nullable'],
+            'unit_id'       => ['required', 'integer', 'exists:personal_db.units,id', 'nullable'],
             'qualifier'     => ['string', 'max:255:', 'nullable'],
             'description'   => ['nullable'],
             'image'         => ['string', 'max:500', 'nullable'],
@@ -53,6 +53,7 @@ class StoreRecipeIngredientsRequest extends FormRequest
             'readonly'      => ['integer', 'between:0,1'],
             'root'          => ['integer', 'between:0,1'],
             'disabled'      => ['integer', 'between:0,1'],
+            'demo'          => ['integer', 'between:0,1'],
             'sequence'      => ['integer', 'min:0', 'nullable'],
         ];
     }

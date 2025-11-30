@@ -39,12 +39,12 @@ class StoreReferencesRequest extends FormRequest
         }
 
         return [
-            'owner_id'        => ['required', 'integer', 'required', 'exists:system_db.admins,id'],
+            'owner_id'        => ['required', 'integer', 'exists:system_db.admins,id'],
             'name'            => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.references')->where(function ($query) {
+                Rule::unique('career_db.references', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
@@ -53,7 +53,7 @@ class StoreReferencesRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.references')->where(function ($query) {
+                Rule::unique('career_db.references', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })

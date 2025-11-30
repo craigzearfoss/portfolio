@@ -43,20 +43,20 @@ class UpdateContactsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.contacts')->where(function ($query) {
+                Rule::unique('career_db.contacts', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->contact->id)
-                        ->where('name', $this->name);
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->contact->id);
                 })
             ],
             'slug'            => [
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.contacts')->where(function ($query) {
+                Rule::unique('career_db.contacts', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->contact->id)
-                        ->where('slug', $this->slug);
+                        ->where('slug', $this->slug)
+                        ->where('id', '!-', $this->contact->id);
                 })
             ],
             'title'           => ['string', 'max:20', 'nullable'],
@@ -73,7 +73,7 @@ class UpdateContactsRequest extends FormRequest
             'phone_label'     => ['string', 'max:255', 'nullable'],
             'alt_phone'       => ['string', 'max:50', 'nullable'],
             'alt_phone_label' => ['string', 'max:255', 'nullable'],
-            'email'           => ['string', 'max:255', 'nullable'],
+            'email'           => ['email:rfc,dns', 'max:255', 'nullable'],
             'email_label'     => ['string', 'max:255', 'nullable'],
             'alt_email'       => ['string', 'max:255', 'nullable'],
             'alt_email_label' => ['string', 'max:255', 'nullable'],

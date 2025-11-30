@@ -36,10 +36,10 @@ class UpdateResumesRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.resumes')->where(function ($query) {
+                Rule::unique('career_db.resumes', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->resume->id)
-                        ->where('name', $this->name);
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->resume->id);
                 })
             ],
             'date'         => ['date', 'nullable'],

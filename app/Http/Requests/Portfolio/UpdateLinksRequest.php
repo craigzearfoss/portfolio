@@ -40,23 +40,24 @@ class UpdateLinksRequest extends FormRequest
         return [
             'owner_id'     => ['integer', 'exists:system_db.admins,id'],
             'name'         => [
-                'string',
                 'filled',
+                'string',
                 'max:255',
-                Rule::unique('portfolio_db.links')->where(function ($query) {
+                Rule::unique('portfolio_db.links', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->link->id)
-                        ->where('name', $this->name);
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->link->id);
                 })
             ],
             'slug'         => [
                 'string',
                 'filled',
+                'string',
                 'max:255',
-                Rule::unique('portfolio_db.links')->where(function ($query) {
+                Rule::unique('portfolio_db.links', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->link->id)
-                        ->where('slug', $this->slug);
+                        ->where('slug', $this->slug)
+                        ->where('id', '!-', $this->link->id);
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],
@@ -66,11 +67,11 @@ class UpdateLinksRequest extends FormRequest
                 'max:255',
                 'filled',
                 'url:http,https',
-                'max:255',
-                Rule::unique('portfolio_db.links')->where(function ($query) {
+                'max:500',
+                Rule::unique('portfolio_db.links', 'url')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->link->id)
-                        ->where('url', $this->url);
+                        ->where('url', $this->url)
+                        ->where('id', '!-', $this->link->id);
                 })
             ],
             'notes'        => ['nullable'],

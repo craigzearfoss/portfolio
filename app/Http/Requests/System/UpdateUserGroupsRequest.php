@@ -43,15 +43,35 @@ class UpdateUserGroupsRequest extends FormRequest
                 'filled',
                 'string',
                 'min:3',
-                'max:200',
-                Rule::unique('system_db.user_groups')->where(function ($query) {
+                'max:100',
+                Rule::unique('system_db.user_groups', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->user_group->id)
-                        ->where('name', $this->name);
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->user_group->id);
                 })
             ],
-            'slug'          => ['filled', 'string', 'min:20', 'max:220', 'unique:system_db.user_groups,slug,'.$this->user_group->id],
-            'abbreviation'  => ['string', 'max:20', 'unique:system_db.user_groups.abbreviation,'.$this->user_group->id, 'nullable'],
+            'slug'          => [
+                'filled',
+                'string',
+                'min:3',
+                'max:100',
+                Rule::unique('system_db.user_groups', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug)
+                        ->where('id', '!=', $this->user_group->id);
+                })
+            ],
+            'abbreviation'  => [
+                'filled',
+                'string',
+                'max:20',
+                Rule::unique('system_db.user_groups', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('abbreviation', $this->abbreviation)
+                        ->where('id', '!=', $this->user_group->id);
+                }),
+                'nullable',
+            ],
             'description'   => ['nullable'],
             'public'        => ['integer', 'between:0,1'],
             'readonly'      => ['integer', 'between:0,1'],

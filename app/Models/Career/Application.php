@@ -108,7 +108,7 @@ class Application extends Model
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(Owner::class, 'owner_id');
+        return $this->setConnection('system_db')->belongsTo(Owner::class, 'owner_id');
     }
 
     /**
@@ -126,8 +126,7 @@ class Application extends Model
      */
     public function company(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(Company::class)
-            ->orderBy('name', 'asc');
+        return $this->belongsTo(Company::class, 'company_id')->orderBy('name', 'asc');
     }
 
     /**
@@ -135,8 +134,7 @@ class Application extends Model
      */
     public function compensationUnit(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(
-            CompensationUnit::class, 'compensation_unit_id');
+        return $this->belongsTo(CompensationUnit::class, 'compensation_unit_id');
     }
 
     /**
@@ -161,8 +159,7 @@ class Application extends Model
      */
     public function durationType(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(
-            JobDurationType::class, 'job_duration_type_id');
+        return $this->belongsTo(JobDurationType::class, 'job_duration_type_id');
     }
 
     /**
@@ -170,8 +167,7 @@ class Application extends Model
      */
     public function employmentType(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(
-            JobEmploymentType::class, 'job_employment_type_id');
+        return $this->belongsTo(JobEmploymentType::class, 'job_employment_type_id');
     }
 
     /**
@@ -188,8 +184,7 @@ class Application extends Model
      */
     public function jobBoard(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(JobBoard::class)
-            ->orderBy('name', 'asc');
+        return $this->belongsTo(JobBoard::class, 'job_board_id')->orderBy('name', 'asc');
     }
 
     /**
@@ -197,8 +192,7 @@ class Application extends Model
      */
     public function locationType(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(
-            JobLocationType::class,'job_location_type_id');
+        return $this->belongsTo(JobLocationType::class,'job_location_type_id');
     }
 
     /**
@@ -239,8 +233,7 @@ class Application extends Model
      */
     public function resume(): BelongsTo
     {
-        return $this->setConnection('career_db')->belongsTo(Resume::class)
-            ->orderBy('name', 'asc');
+        return $this->belongsTo(Resume::class)->orderBy('name', 'asc');
     }
 
 

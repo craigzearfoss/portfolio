@@ -36,9 +36,10 @@ class UpdateApplicationSkillsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies')->where(function ($query) {
+                Rule::unique('career_db.companies', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('name', $this->name);
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->id);
                 })
             ],
             'level'                  => ['integer', 'between:0,10'],
@@ -59,8 +60,8 @@ class UpdateApplicationSkillsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'owner_id.required' => 'Please select an owner for the tag.',
-            'owner_id.exists' => 'The specified owner does not exist.',
+            'owner_id.required'  => 'Please select an owner for the tag.',
+            'owner_id.exists'    => 'The specified owner does not exist.',
             'resource_id.exists' => 'The specified resource does not exist.',
             'category_id.exists' => 'The specified category does not exist.',
         ];

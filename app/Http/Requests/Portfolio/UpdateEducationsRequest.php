@@ -41,7 +41,7 @@ class UpdateEducationsRequest extends FormRequest
                 'slug' => uniqueSlug(
                         $degreeType . '-in-' . $this['major']
                         . (!empty($this['minor']) ? '-with-a-minor-in-' . $this['minor'] : '')
-                        . '-from-' . $school
+                        . '-from-' .  $school
                 ),
                 'portfolio_db.education',
                 $this->owner_id
@@ -58,10 +58,10 @@ class UpdateEducationsRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.education')->where(function ($query) {
+                Rule::unique('portfolio_db.education', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->education->id)
-                        ->where('slug', $this->slug);
+                        ->where('slug', $this->slug)
+                        ->where('id', '!-', $this->education->id);
                 })
             ],
             'enrollment_month'   => ['integer', 'between:1,12', 'nullable' ],

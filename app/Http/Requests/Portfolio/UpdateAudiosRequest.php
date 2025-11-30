@@ -44,20 +44,20 @@ class UpdateAudiosRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.audios')->where(function ($query) {
+                Rule::unique('portfolio_db.audios', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->audio->id)
-                        ->where('name', $this->name);
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->audio->id);
                 })
             ],
             'slug'              => [
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.audios')->where(function ($query) {
+                Rule::unique('portfolio_db.audios', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->audio->id)
-                        ->where('slug', $this->slug);
+                        ->where('slug', $this->slug)
+                        ->where('id', '!-', $this->audio->id);
                 })
             ],
             'parent_id'         => [
@@ -69,7 +69,7 @@ class UpdateAudiosRequest extends FormRequest
             'summary'           => ['string', 'max:500', 'nullable'],
             'full_episode'      => ['integer', 'between:0,1'],
             'clip'              => ['integer', 'between:0,1'],
-            'public_access'     => ['integer', 'between:0,1'],
+            'podcast'           => ['integer', 'between:0,1'],
             'source_recording'  => ['integer', 'between:0,1'],
             'date'              => ['date', 'nullable'],
             'year'              => ['integer', 'between:1980,'.date("Y"), 'nullable'],

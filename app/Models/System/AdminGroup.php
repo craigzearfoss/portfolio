@@ -58,6 +58,6 @@ class AdminGroup extends Model
      */
     public function team(): BelongsTo
     {
-        return $this->setConnection('system_db')->belongsTo(AdminTeam::class, 'admin_team_id');
+        return $this->belongsTo(AdminTeam::class, 'admin_team_id');
     }
 }

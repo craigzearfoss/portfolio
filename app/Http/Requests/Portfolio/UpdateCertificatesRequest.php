@@ -37,25 +37,26 @@ class UpdateCertificatesRequest extends FormRequest
             ]);
         }
 
-        return [
+        return[
             'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
             'name'            => ['string',
                 'filled',
+                'string',
                 'max:255',
-                Rule::unique('portfolio_db.certificates')->where(function ($query) {
+                Rule::unique('portfolio_db.certificates', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->certificate->id)
-                        ->where('name', $this->name);
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->certificate->id);
                 })
             ],
             'slug'            => [
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.certificates')->where(function ($query) {
+                Rule::unique('portfolio_db.certificates', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->certificate->id)
-                        ->where('slug', $this->slug);
+                        ->where('slug', $this->slug)
+                        ->where('id', '!-', $this->certificate->id);
                 })
             ],
             'featured'        => ['integer', 'between:0,1'],
@@ -68,7 +69,7 @@ class UpdateCertificatesRequest extends FormRequest
             'certificate_url' => ['string', 'max:500', 'nullable'],
             'notes'           => ['nullable'],
             'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
-            'link_name'       => ['string', 'nullable'],
+            'link_name'       => ['string', 'max:255', 'nullable'],
             'description'     => ['nullable'],
             'disclaimer'      => ['string', 'max:500', 'nullable'],
             'image'           => ['string', 'max:500', 'nullable'],

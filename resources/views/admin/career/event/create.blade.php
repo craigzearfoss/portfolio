@@ -14,7 +14,7 @@ if (!empty($application)) {
 $breadcrumbs[] = [ 'name' => 'Create '];
 @endphp
 @extends('admin.layouts.default', [
-    'title' => $title ?? 'Create Event',
+    'title' => $title ?? 'Add Event',
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.event.index') ],

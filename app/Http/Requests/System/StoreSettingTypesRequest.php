@@ -22,7 +22,7 @@ class StoreSettingTypesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['required', 'string', 'max:255', 'unique:portfolio_db.setting_types,name'],
+            'name'        => ['required', 'string', 'max:255', 'unique:system_db.setting_types,name'],
             'value'       => ['nullable'],
             'description' => ['nullable'],
         ];

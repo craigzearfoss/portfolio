@@ -48,7 +48,6 @@ class UpdateUsersRequest extends FormRequest
             'username' => [
                 'filled',
                 'string',
-                'filled',
                 'min:6',
                 'max:200',
                 'unique:users,username,'.$this->user->id,
@@ -59,7 +58,6 @@ class UpdateUsersRequest extends FormRequest
             'label'             => [
                 'filled',
                 'string',
-                'filled',
                 'min:6',
                 'max:200',
                 'unique:users,label,'.$this->user->id,
@@ -77,7 +75,7 @@ class UpdateUsersRequest extends FormRequest
             'latitude'          => [Rule::numeric(), 'nullable'],
             'longitude'         => [Rule::numeric(), 'nullable'],
             'phone'             => ['string', 'max:50', 'nullable'],
-            'email'             => ['email', 'filled', 'max:255', 'unique:users,email,'.$this->user->id],
+            'email'             => ['filled', 'email', 'max:255', 'unique:users,email,'.$this->user->id],
             'email_verified_at' => ['nullable'],
             'birthday'          => ['date', 'nullable'],
             'link'              => ['string', 'url:http,https', 'max:500', 'nullable'],
@@ -92,7 +90,7 @@ class UpdateUsersRequest extends FormRequest
             'confirm_password'  => ['filled', 'string', 'same:password'],
             'remember_token'    => ['string', 'max:200', 'nullable'],
             'token'             => ['string', 'max:255', 'nullable'],
-            'requires_relogin' => ['integer', 'between:0,1'],
+            'requires_relogin'  => ['integer', 'between:0,1'],
             'status'            => ['integer', 'between:0,1'],
             'public'            => ['integer', 'between:0,1'],
             'readonly'          => ['integer', 'between:0,1'],

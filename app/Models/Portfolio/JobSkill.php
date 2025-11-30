@@ -2,20 +2,22 @@
 
 namespace App\Models\Portfolio;
 
+use App\Models\Dictionary\Category;
+use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class JobSkill extends Model
 {
-    use SearchableModelTrait;
+    use SearchableModelTrait, Notifiable, SoftDeletes;
 
     protected $connection = 'portfolio_db';
 
     protected $table = 'job_skills';
-
-    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
@@ -26,12 +28,8 @@ class JobSkill extends Model
         'owner_id',
         'job_id',
         'name',
-        'category_id',
+        'dictionary_category_id',
         'dictionary_term_id',
-        'level',
-        'start_year',
-        'end_year',
-        'years',
         'summary',
         'notes',
         'link',
@@ -55,16 +53,31 @@ class JobSkill extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['owner_id', 'job_id', 'name', 'category_id', 'dictionary_term_id', 'level',
-        'model_item_id', 'start_year', 'end_year', 'years'];
+    const SEARCH_COLUMNS = ['owner_id', 'job_id', 'name', 'dictionary_category_id', 'dictionary_term_id',
+        'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::addGlobalScope(new AdminGlobalScope());
+    }
 
     /**
      * Get the owner of the job skill.
      */
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(Owner::class, 'owner_id');
+        return $this->setConnection('system_db')->belongsTo(Owner::class, 'owner_id');
+    }
+
+    /**
+     * Get the dictionary category of the job skill.
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'dictionary_category_id');
     }
 
     /**

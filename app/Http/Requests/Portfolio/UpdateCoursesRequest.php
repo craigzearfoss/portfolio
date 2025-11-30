@@ -39,24 +39,24 @@ class UpdateCoursesRequest extends FormRequest
 
         return [
             'owner_id'        => ['filled', 'integer', 'exists:system_db.admins,id'],
-            'name' => [
+            'name'            => [
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.courses')->where(function ($query) {
+                Rule::unique('portfolio_db.courses', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->course->id)
-                        ->where('name', $this->name);
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->course->id);
                 })
             ],
             'slug'            => [
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.courses')->where(function ($query) {
+                Rule::unique('portfolio_db.courses', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->course->id)
-                        ->where('slug', $this->slug);
+                        ->where('slug', $this->slug)
+                        ->where('id', '!-', $this->course->id);
                 })
             ],
             'featured'        => ['integer', 'between:0,1'],

@@ -26,13 +26,16 @@ class JobCoworkerController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        if ($jobId = $request->query('job_id')) {
-            $jobCoworkers = JobCoworker::where('job_id', $jobId)->orderBy('name', 'asc')->paginate($perPage);
+        $jobId = $request->job_id;
+        if (!empty($jobId)) {
+            $job = Job::find($jobId);
+            $jobCoworkers = JobCoworker::where('job_id', $jobId)->latest()->paginate($perPage);
         } else {
-            $jobCoworkers = JobCoworker::orderBy('name', 'asc')->paginate($perPage);
+            $job = null;
+            $jobCoworkers = JobCoworker::latest()->paginate($perPage);
         }
 
-        return view('admin.portfolio.job-coworker.index', compact('jobCoworkers', 'jobId'))
+        return view('admin.portfolio.job-coworker.index', compact('jobCoworkers', 'job'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 

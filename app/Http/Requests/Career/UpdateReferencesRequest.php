@@ -44,20 +44,20 @@ class UpdateReferencesRequest extends FormRequest
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.references')->where(function ($query) {
+                Rule::unique('career_db.references', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->reference->id)
-                        ->where('name', $this->name);
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->reference->id);
                 })
             ],
             'slug'            => [
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('career_db.references')->where(function ($query) {
+                Rule::unique('career_db.references', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->reference->id)
-                        ->where('slug', $this->slug);
+                        ->where('name', $this->slug)
+                        ->where('id', '!-', $this->reference->id);
                 })
             ],
             'friend'          => ['integer', 'between:0,1'],

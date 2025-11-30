@@ -43,7 +43,7 @@ class StoreRecipesRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('personal_db.recipes')->where(function ($query) {
+                Rule::unique('personal_db.recipes', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
@@ -52,7 +52,7 @@ class StoreRecipesRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('personal_db.recipes')->where(function ($query) {
+                Rule::unique('personal_db.recipes', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })

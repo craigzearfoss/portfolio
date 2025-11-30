@@ -40,24 +40,24 @@ class UpdatePublicationsRequest extends FormRequest
 
         return [
             'owner_id'          => ['filled', 'integer', 'exists:system_db.admins,id'],
-            'title'              => [
+            'title'             => [
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.publications')->where(function ($query) {
+                Rule::unique('portfolio_db.publications', 'title')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->id)
-                        ->where('title', $this->title);
+                        ->where('title', $this->title)
+                        ->where('id', '!-', $this->publication->id);
                 })
             ],
             'slug'              => [
                 'filled',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.publications')->where(function ($query) {
+                Rule::unique('portfolio_db.publications', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->id)
-                        ->where('slug', $this->slug);
+                        ->where('slug', $this->slug)
+                        ->where('id', '!-', $this->publication->id);
                 })
             ],
             'parent_id'         => [

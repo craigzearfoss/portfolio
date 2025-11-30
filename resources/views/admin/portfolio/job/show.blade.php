@@ -223,8 +223,8 @@
         ])
 
         @include('admin.portfolio.job.skill.panel', [
-            'tasks' => $job->skills ?? [],
-            'job'   => $job
+            'skills' => $job->skills ?? [],
+            'job'    => $job
         ])
 
     </div>

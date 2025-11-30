@@ -51,7 +51,7 @@ class StoreMusicRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.music')->where(function ($query) {
+                Rule::unique('portfolio_db.music', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })

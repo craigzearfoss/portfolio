@@ -33,7 +33,7 @@ class UpdateRecipesRequest extends FormRequest
         // generate the slug
         if (!empty($this['name'])) {
             $this->merge([
-                'slug' => uniqueSlug($this['name'], 'personal_db.recipes', $this->owner_id)
+                'slug' => uniqueSlug($this['name'], 'personal_db.recipes ', $this->owner_id)
             ]);
         }
 
@@ -41,20 +41,22 @@ class UpdateRecipesRequest extends FormRequest
             'owner_id'     => ['filled', 'integer', 'exists:system_db.admins,id'],
             'name'         => [
                 'filled',
+                'string',
                 'max:255',
-                Rule::unique('personal_db.recipes')->where(function ($query) {
+                Rule::unique('personal_db.recipes', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->recipe->id)
-                        ->where('name', $this->name);
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->recipe->id);
                 })
             ],
             'slug'         => [
                 'filled',
+                'string',
                 'max:255',
-                Rule::unique('personal_db.recipes')->where(function ($query) {
+                Rule::unique('personal_db.recipes', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->recipe->id)
-                        ->where('slug', $this->slug);
+                        ->where('name', $this->slug)
+                        ->where('id', '!-', $this->recipe->id);
                 })
             ],
             'featured'     => ['integer', 'between:0,1'],

@@ -41,7 +41,7 @@ class UpdateAdminsRequest extends FormRequest
         }
 
         $ruleArray = [
-            'admin_team_id'    => ['required', 'integer', 'exists:system_db.admin_teams,id'],
+            'admin_team_id'    => ['filled', 'integer', 'exists:system_db.admin_teams,id'],
             /* ADMIN USERNAMES CANNOT BE CHANGED
             'username'         => [
                 'filled',
@@ -52,7 +52,7 @@ class UpdateAdminsRequest extends FormRequest
                 new CaseInsensitiveNotIn(reservedWords()),
             ],
             */
-            'name'             => ['required', 'string', 'min:6', 'max:255'],
+            'name'             => ['filled', 'string', 'min:6', 'max:255'],
             'label'            => [
                 'filled',
                 'string',
@@ -113,9 +113,9 @@ class UpdateAdminsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'admin_team_id.required' => 'A team must be selected.',
-            'state_id.exists'        => 'The specified state does not exist.',
-            'country_id.exists'      => 'The specified country does not exist.',
+            'admin_team_id.filled' => 'A team must be selected.',
+            'state_id.exists'      => 'The specified state does not exist.',
+            'country_id.exists'    => 'The specified country does not exist.',
         ];
     }
 }

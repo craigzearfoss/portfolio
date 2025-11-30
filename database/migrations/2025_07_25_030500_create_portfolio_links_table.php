@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('slug');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
-            $table->string('url');
+            $table->string('url', 500);
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();

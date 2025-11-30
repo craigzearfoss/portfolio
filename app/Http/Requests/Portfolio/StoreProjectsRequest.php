@@ -43,7 +43,7 @@ class StoreProjectsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.projects')->where(function ($query) {
+                Rule::unique('portfolio_db.projects', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
@@ -52,7 +52,7 @@ class StoreProjectsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('portfolio_db.projects')->where(function ($query) {
+                Rule::unique('portfolio_db.projects', 'slug')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('slug', $this->slug);
                 })

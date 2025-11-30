@@ -4,6 +4,7 @@ namespace App\Http\Requests\Portfolio;
 
 use App\Traits\ModelPermissionsTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateJobTasksRequest extends FormRequest
 {
@@ -31,7 +32,17 @@ class UpdateJobTasksRequest extends FormRequest
         return [
             'owner_id'        => ['filled','integer', 'exists:system_db.admins,id'],
             'job_id'          => ['filled', 'integer', 'exists:portfolio_db.jobs,id'],
-            'summary'         => ['filled', 'string', 'max:500'],
+            'summary'         => [
+                'filled',
+                'string',
+                'max:500',
+                Rule::unique('portfolio_db.job_tasks', 'summary')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('job_id', $this->job_id)
+                        ->where('summary', $this->summary)
+                        ->where('id', '!-', $this->job_task->id);
+                })
+            ],
             'notes'           => ['nullable'],
             'link'            => ['string', 'url:http,https', 'max:500', 'nullable'],
             'link_name'       => ['string', 'max:255', 'nullable'],
@@ -57,6 +68,7 @@ class UpdateJobTasksRequest extends FormRequest
             'owner_id.exists' => 'The specified owner does not exist.',
             'job_id.filled'   => 'Please select a job for the task.',
             'job_id.exists'   => 'The specified job does not exist.',
+            'summary.unique'  => '`' . $this->summary . '` has already been added.',
         ];
     }
 }

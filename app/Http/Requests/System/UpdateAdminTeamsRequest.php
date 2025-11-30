@@ -42,21 +42,42 @@ class UpdateAdminTeamsRequest extends FormRequest
                 'filled',
                 'string',
                 'min:3',
-                'max:200',
-                Rule::unique('system_db.admin_teams')->where(function ($query) {
+                'max:100',
+                Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
-                        ->where('id', '<>', $this->admin_team->id)
-                        ->where('name', $this->name);
+                        ->where('name', $this->name)
+                        ->where('id', '!-', $this->admin_team->id);
                 })
             ],
-            'slug'         => ['filled', 'string', 'min:20', 'max:220', 'unique:system_db.admin_teams,slug,'.$this->admin_team->id],
-            'abbreviation' => ['string', 'max:20', 'unique:system_db.admin_teams.abbreviation,'.$this->admin_team->id, 'nullable'],
+            'slug'          => [
+                'filled',
+                'string',
+                'min:3',
+                'max:100',
+                Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug)
+                        ->where('id', '!=', $this->admin_team->id);
+                })
+            ],
+            'abbreviation'  => [
+                'filled',
+                'string',
+                'max:20',
+                Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('abbreviation', $this->abbreviation)
+                        ->where('id', '!=', $this->admin_team->id);
+                }),
+                'nullable',
+            ],
             'description'  => ['nullable'],
             'public'       => ['integer', 'between:0,1'],
             'readonly'     => ['integer', 'between:0,1'],
             'root'         => ['integer', 'between:0,1'],
             'disabled'     => ['integer', 'between:0,1'],
             'demo'         => ['integer', 'between:0,1'],
+            'sequence'     => ['integer', 'min:0', 'nullable'],
         ];
     }
 

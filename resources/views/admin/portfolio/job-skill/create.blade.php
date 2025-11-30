@@ -1,13 +1,21 @@
+@php
+$breadcrumbs = [
+   [ 'name' => 'Home',                    'href' => route('system.index') ],
+   [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
+   [ 'name' => 'Portfolio',               'href' => route('admin.portfolio.index') ],
+];
+if (!empty($application)) {
+    $breadcrumbs[] = [ 'name' => 'Jobs',       'href' => route('admin.portfolio.job.index') ];
+    $breadcrumbs[] = [ 'name' => $job->name,   'href' => route('admin.portfolio.job.show', $job->id) ];
+    $breadcrumbs[] = [ 'name' => 'Job Skills', 'href' => route('admin.portfolio.job-skill.index', ['job_id' => $job->id]) ];
+} else {
+    $breadcrumbs[] = [ 'name' => 'Job Skills', 'href' => route('admin.portfolio.job-skill.index') ];
+}
+$breadcrumbs[] = [ 'name' => 'Add '];
+@endphp
 @extends('admin.layouts.default', [
-    'title' =>'Job Skill Create',
-    'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => 'Skills',          'href' => route('admin.portfolio.job-skill.index') ],
-        [ 'name' => 'Add' ],
-    ],
+    'title' => $title ?? 'Add Job Skill',
+    'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-skill.index') ],
     ],
@@ -63,17 +71,6 @@
                 'message'   => $message ?? '',
             ])
 
-            @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'level',
-                'label'       => 'level (1 to 10)',
-                'value'       => old('level') ?? '',
-                'min'         => 1,
-                'max'         => 10,
-                'required'    => true,
-                'message'     => $message ?? '',
-            ])
-
             @include('admin.components.form-select-horizontal', [
                 'name'      => 'dictionary_category_id',
                 'label'     => 'category',
@@ -91,34 +88,6 @@
                     'message'   => $message ?? '',
                 ])
             </div>
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'start_year',
-                'label'     => 'start year',
-                'value'     => old('start_year') ?? '',
-                'min'       => 1950,
-                'max'       => date("Y"),
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'end_year',
-                'label'     => 'end year',
-                'value'     => old('end_year') ?? '',
-                'min'       => 1950,
-                'max'       => date("Y"),
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'years',
-                'value'     => old('years') ?? '',
-                'min'       => 0,
-                'message'   => $message ?? '',
-            ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',

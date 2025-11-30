@@ -42,14 +42,32 @@ class StoreAdminTeamsRequest extends FormRequest
                 'required',
                 'string',
                 'min:3',
-                'max:200',
-                Rule::unique('system_db.admin_teams')->where(function ($query) {
+                'max:100',
+                Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
             ],
-            'slug'         => ['required', 'string', 'min:20', 'max:220', 'unique:system_db.admin_teams,slug'],
-            'abbreviation' => ['string', 'max:20', 'unique:system_db.admin_teams,slug', 'nullable'],
+            'slug'          => [
+                'filled',
+                'string',
+                'min:3',
+                'max:100',
+                Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('slug', $this->slug);
+                })
+            ],
+            'abbreviation'  => [
+                'filled',
+                'string',
+                'max:20',
+                Rule::unique('system_db.admin_teams', 'name')->where(function ($query) {
+                    return $query->where('owner_id', $this->owner_id)
+                        ->where('abbreviation', $this->abbreviation);
+                }),
+                'nullable',
+            ],
             'description'  => ['nullable'],
             'public'       => ['integer', 'between:0,1'],
             'readonly'     => ['integer', 'between:0,1'],

@@ -52,23 +52,21 @@
                 ])
             @endif
 
+            @include('admin.components.form-select-horizontal', [
+                'name'      => 'job_id',
+                'label'     => 'job',
+                'value'     => old('job_id') ?? $jobSkill->job_id,
+                'required'  => true,
+                'list'      => \App\Models\Portfolio\Job::listOptions([], 'id', 'name', true),
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
                 'value'     => old('name') ?? $jobSkill->name,
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'        => 'number',
-                'name'        => 'level',
-                'label'       => 'level (1 to 10)',
-                'value'       => old('level') ?? $jobSkill->level,
-                'min'         => 1,
-                'max'         => 10,
-                'required'    => true,
-                'message'     => $message ?? '',
             ])
 
             @include('admin.components.form-select-horizontal', [
@@ -84,34 +82,6 @@
                 'type'      => 'hidden',
                 'name'      => 'dictionary_term_id',
                 'value'     => old('dictionary_term_id') ?? $jobSkill->dictionary_term_id,
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'start_year',
-                'label'     => 'start year',
-                'value'     => old('start_year') ?? $jobSkill->start_year,
-                'min'       => 1950,
-                'max'       => date("Y"),
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'end_year',
-                'label'     => 'end year',
-                'value'     => old('end_year') ?? $jobSkill->start_year,
-                'min'       => 1950,
-                'max'       => date("Y"),
-                'message'   => $message ?? '',
-            ])
-
-            @include('admin.components.form-input-horizontal', [
-                'type'      => 'number',
-                'name'      => 'years',
-                'value'     => old('years') ?? $jobSkill->years,
-                'min'       => 0,
                 'message'   => $message ?? '',
             ])
 

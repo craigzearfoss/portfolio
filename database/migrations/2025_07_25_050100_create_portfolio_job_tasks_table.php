@@ -48,6 +48,8 @@ return new class extends Migration
             $table->integer('sequence')->default(false);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['owner_id', 'job_id', 'summary'], 'owner_id_job_id_summary_unique');
         });
 
         /*

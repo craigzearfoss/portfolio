@@ -35,13 +35,13 @@ class StoreTagsRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('career_db.companies')->where(function ($query) {
+                Rule::unique('system_db.tags', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name);
                 })
             ],
-            'resource_id'            => ['integer', 'exists:career_db.resources,id', 'nullable'],
-            'model_class'            => ['string', 'max:255', 'nullable'],
+            'resource_id'            => ['integer', 'exists:system_db.resources,id', 'nullable'],
+            'model_class'            => ['string',  'max:255', 'nullable'],
             'model_item_id'          => ['integer', 'nullable'],
             'level'                  => ['integer', 'between:0,10'],
             'dictionary_category_id' => ['integer', 'exists:dictionary_db.categories,id', 'nullable'],
