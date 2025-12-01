@@ -12,7 +12,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
 
-class DemoAdmin extends Command
+class Demo extends Command
 {
     const DATABASE = 'personal';
 
