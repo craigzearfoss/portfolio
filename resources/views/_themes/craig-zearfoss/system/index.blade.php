@@ -1,102 +1,22 @@
-@php
-$admin = \App\Models\System\Admin::where('username', 'craig-zearfoss')->first();
-$portfolioResources = \App\Models\System\Database::getResources('portfolio', [], ['name', 'asc']);
-@endphp
 @extends('guest.layouts.default', [
-    'title'   => $admin->name,
+    'title'   => $featuredAdmin ? $featuredAdmin->name : config('add.name'),
     'breadcrumbs' => [],
     'buttons' => [],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
 ])
-
 @section('content')
 
-    <div class="card column p-4">
+    <h2 class="title p-4">Welcome to {{ config('app.name') }}</h2>
 
-        <div class="columns">
-
-            <div class="column is-one-third pt-0">
-
-                @include('admin.components.image', [
-                    'name'     => 'image',
-                    'src'      => $admin->image,
-                    'alt'      => $admin->name,
-                    'width'    => '300px',
-                    'filename' => getFileSlug($admin->name, $admin->image)
-                ])
-
-                <div class="show-container p-4">
-
-                    <div class="columns">
-                        <span class="column is-12 has-text-centered">
-                            @include('guest.components.link', [
-                                'name'   => 'Resume',
-                                'href'   => route('guest.admin.resume', $admin),
-                                'class'  => 'button is-primary is-small px-1 py-0',
-                                'target' => '_blank',
-                                'title'  => 'Resume',
-                            ])
-                        </span>
-                    </div>
-
-                    @include('guest.components.show-row', [
-                        'name'  => 'role',
-                        'value' => $admin->role ?? ''
-                    ])
-
-                    @include('guest.components.show-row', [
-                        'name'  => 'employer',
-                        'value' => '<br>' . $admin->employer ?? ''
-                    ])
-
-                    @include('guest.components.show-row', [
-                        'name'  => 'bio',
-                        'value' => $admin->bio ?? ''
-                    ])
-
-                </div>
-
-            </div>
-
-            <div class="column is-two-thirds pt-0">
-
-                <div>
-
-                    <h1 class="title is-size-5 mt-2 mb-0">Portfolio</h1>
-
-                    <ul class="menu-list ml-4 mb-2">
-
-                        @foreach ($portfolioResources as $resource)
-
-                            @if(empty($resource['global']) && Route::has('guest.admin.portfolio.'.$resource['name'].'.index'))
-                                <li>
-                                    @include('guest.components.link', [
-                                        'name'  => $resource['plural'],
-                                        'href'  => route('guest.admin.portfolio.'.$resource['name'].'.index', $admin),
-                                        'class' => 'pt-1 pb-1',
-                                    ])
-                                </li>
-                            @endif
-
-                        @endforeach
-
-                    </ul>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+    @if ($featuredAdmin)
+        @include('guest.components.featured-admin', ['admin' => $featuredAdmin])
+    @endif
 
     <div class="column p-4">
 
         <div class="column has-text-centered">
-
-            <h2 class="title p-4">Welcome to {{ config('app.name') }} Admin!</h2>
 
             <div class="is-flex is-align-items-center is-justify-content-center mb-4">
                 <div class="box has-text-left" style="max-width: 40em;">

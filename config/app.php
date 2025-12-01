@@ -27,6 +27,7 @@ return [
     'name'                  => env('APP_NAME', 'Laravel'),
     'open_enrollment'       => boolval(env('APP_OPEN_ENROLLMENT', false)),
     'owner'                 => env('APP_OWNER', ''),
+    'featured_admin'        => env('APP_FEATURED_ADMIN', null),
     'demo'                  => boolval(env('APP_DEMO', false)),
     'demo_admin_enabled'    => boolval(env('APP_DEMO_ADMIN_ENABLED', false)),
     'demo_admin_username'   => env('APP_DEMO_ADMIN_USERNAME', ''),

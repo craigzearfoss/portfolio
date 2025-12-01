@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\BaseSystemController;
 use App\Http\Requests\MessageStoreRequest;
+use App\Models\System\Admin;
 use App\Models\System\Message;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,7 +21,13 @@ class IndexController extends BaseSystemController
             ->where('disabled', 0)
             ->orderBy('name', 'asc')->paginate($perPage);
 
-        return view(themedTemplate('system.index'), compact('admin', 'admins'))
+        if ($featuredUsername = config('app.featured_admin')) {
+            $featuredAdmin = Admin::where('username', $featuredUsername)->first();
+        } else {
+            $featuredAdmin = null;
+        }
+
+        return view(themedTemplate('system.index'), compact('admin', 'admins', 'featuredAdmin'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
