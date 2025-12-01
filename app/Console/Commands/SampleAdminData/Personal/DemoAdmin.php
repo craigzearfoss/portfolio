@@ -16,7 +16,7 @@ class DemoAdmin extends Command
 {
     const DATABASE = 'personal';
 
-    const USERNAME = 'demo-admin';
+    const USERNAME = 'demo';
 
     protected $demo = 1;
     protected $silent = 0;

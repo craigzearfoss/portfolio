@@ -23,7 +23,7 @@ class DemoAdmin extends Command
 {
     const DATABASE = 'career';
 
-    const USERNAME = 'demo-admin';
+    const USERNAME = 'demo';
 
     protected $demo = 1;
     protected $silent = 0;
