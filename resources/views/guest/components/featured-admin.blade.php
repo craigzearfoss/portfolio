@@ -4,7 +4,7 @@
         $portfolioResources = \App\Models\System\Database::getResources('portfolio', [], ['name', 'asc']);
     @endphp
 
-    <div class="card column p-4">
+    <div class="card column p-4 mb-2">
 
         <div class="columns">
 

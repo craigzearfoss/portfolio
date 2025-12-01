@@ -14,9 +14,9 @@
         @include('guest.components.featured-admin', ['admin' => $featuredAdmin])
     @endif
 
-    <div class="column p-4">
+    <div class="column p-4 mt-2">
 
-        <div class="column has-text-centered">
+        <div class="column has-text-centered p-0">
 
             <div class="is-flex is-align-items-center is-justify-content-center mb-4">
                 <div class="box has-text-left" style="max-width: 40em;">
@@ -24,6 +24,18 @@
                     <p>
                         This project is a multi-user website for people to display their work portfolio and accomplishments,
                         personal projects and collections, or any other type of data. It is in the very early beta stage of development.
+                        You can visit a demo version of this project by clicking the button below.
+                    </p>
+                    <p>
+                        <a class="button is-success"
+                           target="_blank"
+                           href="https://demo.craigzearfoss.com"
+                        >
+                            Visit the demo site at https://demo.craigzearfoss.com
+                        </a>
+
+
+                        </a>
                     </p>
                     <p>
                         It start started out as a system to manage a job search.  If the admin area you can track your
