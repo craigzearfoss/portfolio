@@ -23,7 +23,7 @@
                     <h2 class="subtitle">About This Site</h2>
                     <p>
                         This project is a multi-user website for people to display their work portfolio and accomplishments,
-                        personal projects and collections, or any other type of data. It is in the very early beta stage of development.
+                        personal projects, collections, or other types of data. It is in the very early beta stage of development.
                         You can visit a demo version of this project by clicking the button below.
                     </p>
                     <p>
@@ -38,7 +38,7 @@
                         </a>
                     </p>
                     <p>
-                        It start started out as a system to manage a job search.  If the admin area you can track your
+                        It started out as a system to manage a job search.  In the admin area you can track your
                         job applications, resumes, and cover letter and well a many your references and company contacts.
                         You can add communications, events, and notes to all of you applications.
                     </p>
