@@ -66,6 +66,7 @@
                 'message' => $message ?? '',
             ])
 
+            <?php /*
             @include('admin.components.form-settings-horizontal', [
                 'public'   => old('public') ?? $message->public,
                 'readonly' => old('readonly') ?? $message->readonly,
@@ -75,6 +76,7 @@
                 'sequence' => old('sequence') ?? $message->sequence,
                 'message'  => $message ?? '',
             ])
+            */ ?>
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',

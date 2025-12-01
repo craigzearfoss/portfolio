@@ -46,6 +46,7 @@
             'value' => nl2br($message->body ?? '')
         ])
 
+        <?php /*
         @include('admin.components.show-row', [
             'name'  => 'sequence',
             'value' => $message->sequence
@@ -75,6 +76,7 @@
             'name'    => 'demo',
             'checked' => $message->demo
         ])
+        */ ?>
 
         @include('admin.components.show-row', [
             'name'  => 'created at',

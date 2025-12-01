@@ -60,6 +60,7 @@
                 'message' => $message ?? '',
             ])
 
+            <?php /*
             @include('admin.components.form-settings-horizontal', [
                 'root'     => old('root') ?? 0,
                 'readonly' => old('readonly') ?? 0,
@@ -69,6 +70,7 @@
                 'sequence' => old('sequence') ?? 0,
                 'message'  => $message ?? '',
             ])
+            */ ?>
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Add Message',
