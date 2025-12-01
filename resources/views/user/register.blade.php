@@ -1,4 +1,4 @@
-@extends('user.layouts.default', [
+@extends('guest.layouts.default', [
     'pageTitle'   => 'Register',
     'title'       => '',
     'breadcrumbs' => [

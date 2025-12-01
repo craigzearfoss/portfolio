@@ -135,6 +135,11 @@ class MenuService
 
         }
 
+        $menu[] = $this->menuItem(
+            [ 'name' => 'contact-login', 'title'=> 'Contact', 'route' => 'system.contact' ],
+            $currentRouteName
+        );
+
         return $menu;
     }
 
