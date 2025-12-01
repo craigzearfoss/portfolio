@@ -170,7 +170,7 @@ return new class extends Migration
                 'admin_team_id'     => 1,
                 'username'          => $this->rootUsername,
                 'name'              => $this->rootName,
-                'label'             => $this->rootUsername,
+                'label'             => $this->rootLabel,
                 'email'             => 'root@sample.com',
                 'email_verified_at' => now(),
                 'password'          => Hash::make($this->rootPassword),
