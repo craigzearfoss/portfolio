@@ -54,7 +54,7 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'cover letter url',
-            'href'   => $application->coverLetter->cover_letter_url,
+            'href'   => $application->coverLetter->url,
             'target' => '_blank'
         ])
 

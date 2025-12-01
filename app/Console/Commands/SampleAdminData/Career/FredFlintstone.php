@@ -259,10 +259,10 @@ class FredFlintstone extends Command
         $data = [
             /*
             [
-                'application_id' => $this->applicationId[1],
-                'date'           => '0000-00-00',
-                'content'        => null,
-                'description'    => null,
+                'application_id'    => $this->applicationId[1],
+                'date' => '0000-00-00',
+                'content'           => null,
+                'description'       => null,
             ],
             */
         ];
@@ -364,7 +364,7 @@ class FredFlintstone extends Command
             /*
             [
                 'name'        => '',
-                'date'        => '0000-00-00',
+                'date' => '0000-00-00',
                 'primary'     => 0,
                 'year'        => 2025,
                 'content'     => null,

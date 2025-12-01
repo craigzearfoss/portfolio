@@ -401,10 +401,10 @@ class DemoAdmin extends Command
         $data = [
             /*
             [
-                'application_id' => $this->applicationId[1],
-                'date'           => '0000-00-00',
-                'content'        => null,
-                'description'    => null,
+                'application_id'    => $this->applicationId[1],
+                'date' => '0000-00-00',
+                'content'           => null,
+                'description'       => null,
             ],
             */
         ];

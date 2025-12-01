@@ -1,11 +1,11 @@
 @extends('admin.layouts.default', [
     'title' => 'Cover Letter: ' . $coverLetter->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Cover Letters',   'href' => route('admin.career.cover-letter.index') ],
-        [ 'name' => $coverLetter->name ],
+        [ 'name' => 'Home',             'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+        [ 'name' => $coverLetter->name, 'href' => route('admin.career.application.show', $coverLetter->application)],
+        [ 'name' => 'Cover Letters' ],
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',        'href' => route('admin.career.cover-letter.edit', $coverLetter) ],
@@ -53,8 +53,8 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'cover letter url',
-            'href'   => $coverLetter->cover_letter_url,
+            'name'   => 'url',
+            'href'   => $coverLetter->url,
             'target' => '_blank'
         ])
 

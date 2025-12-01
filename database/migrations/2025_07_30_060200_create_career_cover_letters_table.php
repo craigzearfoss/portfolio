@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Career\Application::class);
             $table->date('date')->nullable();
             $table->text('content')->nullable();
-            $table->string('cover_letter_url', 500)->nullable();
+            $table->string('url', 500)->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
             $table->string('link_name')->nullable();
@@ -49,7 +49,7 @@ return new class extends Migration
             [
                 'owner_id'         => null,
                 'date'             => '',
-                'cover_letter_url' => '',
+                'url' => '',
             ]
         ];
 

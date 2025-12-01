@@ -13,6 +13,8 @@
 
 @section('content')
 
+    @include('guest.components.disclaimer', [ 'value' => $admin->disclaimer ?? null ])
+
     <div class="card column p-4">
 
         <div class="columns">

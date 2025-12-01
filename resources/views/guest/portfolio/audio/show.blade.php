@@ -18,6 +18,8 @@
 
 @section('content')
 
+    @include('guest.components.disclaimer', [ 'value' => $audio->disclaimer ?? null ])
+
     <div class="show-container card p-4">
 
         @include('admin.components.show-row', [

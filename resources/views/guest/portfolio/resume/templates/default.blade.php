@@ -14,6 +14,8 @@
 
 @section('content')
 
+    @include('guest.components.disclaimer', [ 'value' => $resume->disclaimer ?? null ])
+
     <div class="resume-container card p-4">
 
         @foreach($jobs as $i=>$job)
@@ -82,36 +84,14 @@
                         @endif
                     </div>
 
-                </div>
+                    @if(!empty($job->skills))
 
-            </div>
+                        <div class="list-item-description pt-2">
+                            <strong>Skills:</strong>
+                            {{ implode(' · ', array_column($job->skills->toArray(), 'name')) }}
+                        </div>
 
-        @endforeach
-
-    </div>
-
-    <div class="resume-container card p-4">
-
-        <h2 class="title is-5 mb-1">Education</h2>
-
-        @foreach($educations as $i=>$education)
-
-            <div class="list-item-content mb-3 border-bottom is-flex pl-4"
-                 @if($i > 0)
-                     style="border-top:#eee 1px inset; padding-top: 0.4em"
-                @endif
-            >
-                <div style="display: inline-block;">
-
-                    <div class="list-item-description pt-1">
-                        {{ $education->degreeType->name }} in {{ $education->major }}
-                        -
-                        {{ (months()[$education->graduation_month] ?? '') }}, {{ $education->graduation_year }}
-                    </div>
-
-                    <div class="list-item-description pt-1">
-                        {{ $education->school->name ?? '' }}
-                    </div>
+                    @endif
 
                 </div>
 
@@ -119,32 +99,84 @@
 
         @endforeach
 
-    </div>
 
-    <div class="resume-container card p-4">
+        @if(!empty($certificates))
 
-        <h2 class="title is-5 mb-1">Certifications</h2>
+            <h2 class="title is-5 mt-4 pt-2 mb-1">Education</h2>
 
-        @foreach($certificates as $i=>$certificate)
+            @foreach($educations as $i=>$education)
 
-            <div class="list-item-content mb-3 border-bottom is-flex pl-4"
-                 @if($i > 0)
-                     style="border-top:#eee 1px inset; padding-top: 0.4em"
-                @endif
-            >
-                <div style="display: inline-block;">
+                <div class="list-item-content mb-3 border-bottom is-flex pl-4"
+                     @if($i > 0)
+                         style="border-top:#eee 1px inset; padding-top: 0.4em"
+                    @endif
+                >
+                    <div style="display: inline-block;">
 
-                    <div class="list-item-description pt-1">
-                        {{ $certificate->name }}
-                        -
-                        {{ longDate($certificate->received) }}
+                        <div class="list-item-description pt-1">
+                            {{ $education->degreeType->name }} in {{ $education->major }}
+                            -
+                            {{ (months()[$education->graduation_month] ?? '') }}, {{ $education->graduation_year }}
+                        </div>
+
+                        <div class="list-item-description pt-1">
+                            {{ $education->school->name ?? '' }}
+                        </div>
+
                     </div>
+
+                </div>
+
+            @endforeach
+
+        @endif
+
+
+        @if(!empty($certificates))
+
+            <h2 class="title is-5 mt-4 pt-2 mb-1">Certifications</h2>
+
+            @foreach($certificates as $i=>$certificate)
+
+                <div class="list-item-content mb-3 border-bottom is-flex pl-4"
+                     @if($i > 0)
+                         style="border-top:#eee 1px inset; padding-top: 0.4em"
+                    @endif
+                >
+                    <div style="display: inline-block;">
+
+                        <div class="list-item-description pt-1">
+                            {{ $certificate->name }}
+                            -
+                            {{ longDate($certificate->received) }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            @endforeach
+
+        @endif
+
+
+        @if(!empty($skills))
+
+            <h2 class="title is-5 mt-4 pt-2 mb-1">Skills</h2>
+
+            <div class="list-item-content mb-3 border-bottom is-flex pl-4">
+
+                <div class="list-item-description pt-1">
+
+                    <span style="min-width: 9em; display: inline-block;"> ·
+                        {!! implode('</span><span style="min-width: 9em; display: inline-block;"> · ', array_column($skills->toArray(), 'name')) !!}
+                    </span>
 
                 </div>
 
             </div>
 
-        @endforeach
+        @endif
 
     </div>
 

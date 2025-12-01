@@ -53,41 +53,76 @@
             'value' => $application->role
         ])
 
+        <div class="card p-2">
 
-        <div class="card p-4">
-            @include('admin.components.show-row', [
-                'name'  => 'cover letter',
-                'value' => view('admin.components.link', [
-                    'name'  => 'Show',
-                    'href'  => route('admin.career.application.cover-letter.show', $application),
-                    'class' => 'button is-primary is-small px-1 py-0'
-                ])
-            ])
+            <table>
+                <tr>
+                    <tbody>
+                    <th>cover letter:</th>
+                    <td>
+                        {{ longDate($application->coverLetter->date) }}
+                    </td>
 
-            @include('admin.components.show-row', [
-                'name'  => 'cover letter date',
-                'value' => longDate($application->coverLetter['date'])
-            ])
+                    @if(empty($application->coverLetter))
+                        <td>
+                            @include('admin.components.link', [
+                                'name'   => 'Add',
+                                'href'   => route('admin.career.cover-letter.create', ['application_id' => $application->id]),
+                                'class'  => 'button is-primary is-small px-1 py-0'
+                            ])
+                        </td>
 
-            @include('admin.components.show-row', [
-                'name'  => 'cover letter url',
-                'value' => empty($application->coverLetter['cover_letter_url'])
-                    ? view('admin.components.link', [
-                            'name'   => 'Attach',
-                            'href'   => route('admin.career.application.cover-letter.edit', $application->coverLetter),
-                            'class'  => 'button is-primary is-small px-1 py-0'
-                        ])
-                    : view('admin.components.link', [
-                            'name'   => 'View',
-                            'href'   => $application->coverLetter['cover_letter_url'],
-                            'target' => '_blank',
-                            'class'  => 'button is-primary is-small px-1 py-0'
-                        ])
-            ])
+                    @else
+
+                        <td>
+
+                            <a title="show" class="button is-small px-1 py-0"
+                               href="{{ route('admin.career.cover-letter.show', $application->coverLetter) }}">
+                                <i class="fa-solid fa-list"></i>{{-- show --}}
+                            </a>
+
+                            <a title="edit" class="button is-small px-1 py-0"
+                               href="{{ route('admin.career.cover-letter.edit',$application->coverLetter->id) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
+                            </a>
+
+                            @if(!empty($application->coverLetter->url))
+
+                                <a title="{{ !empty($application->coverLetter->url) ? $application->coverLetter->url : 'link' }}"
+                                   class="button is-small px-1 py-0"
+                                   href="{{ $application->coverLetter->url }}"
+                                   target="_blank">
+                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                </a>
+                           @endif
+
+                        </td>
+
+                    @endif
+
+                    </tbody>
+                </tr>
+            </table>
 
         </div>
 
-        <h1 class="subtitle">@TODO: resume</h1>
+        <div class="card p-1">
+
+            <table>
+                <tbody>
+                <tr>
+                    <th>resume</th>
+                </tr>
+                <td>
+                    <strong>@TODO</strong>
+                </td>
+
+                <tbody>
+            </table>
+
+        </div>
+
+
 
         @include('admin.components.show-row-rating', [
             'name'  => 'rating',

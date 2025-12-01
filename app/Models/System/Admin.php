@@ -67,7 +67,7 @@ class Admin extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'admin_team_id', 'username', 'name', 'title', 'street', 'street2', 'city',
+    const SEARCH_COLUMNS = ['id', 'admin_team_id', 'username', 'label', 'name', 'title', 'street', 'street2', 'city',
         'state_id', 'zip', 'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root', 'disabled',
         'demo'];
     const SEARCH_ORDER_BY = ['username', 'asc'];

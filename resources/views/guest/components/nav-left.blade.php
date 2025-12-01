@@ -46,11 +46,11 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
         @if(\App\Models\System\Admin::where('public', 1)->count() > 1)
 
             @include('admin.components.form-select-nolabel', [
-                'value'    => !empty($admin->username) ? $admin->username : '',
+                'value'    => !empty($admin->label) ? $admin->label : '',
                 'list'     => \App\Models\System\Admin::listOptions([
                                         'public' => 1,
                                     ],
-                                    'username',
+                                    'label',
                                     'name',
                                     true,
                                     false,

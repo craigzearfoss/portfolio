@@ -92,7 +92,7 @@ class User extends Authenticatable
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'username', 'name', 'title', 'street', 'street2', 'city', 'state_id', 'zip',
+    const SEARCH_COLUMNS = ['id', 'username', 'label', 'name', 'title', 'street', 'street2', 'city', 'state_id', 'zip',
         'country_id', 'phone', 'email', 'status', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['username', 'asc'];
 

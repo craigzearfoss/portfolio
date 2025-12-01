@@ -233,7 +233,8 @@ class Application extends Model
      */
     public function resume(): BelongsTo
     {
-        return $this->belongsTo(Resume::class)->orderBy('name', 'asc');
+        return $this->belongsTo(Resume::class)->orderBy('date', 'desc')
+            ->orderBy('name', 'asc');
     }
 
 

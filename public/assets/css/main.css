@@ -67,11 +67,13 @@ div.field.is-horizontal div.field-label label.label {
 .edit-container input[name="catalog_number"],
 .edit-container input[name="close_date"],
 .edit-container input[name="completion_date"],
+.edit-container input[name="cvoer_letter_date"],
 .edit-container input[name="date"],
 .edit-container input[name="expiration"],
 .edit-container input[name="post_date"],
 .edit-container input[name="received"],
 .edit-container input[name="release_date"],
+.edit-container input[name="date"],
 .edit-container input[name="version"] {
     width: 10em   ;
 }
@@ -130,6 +132,9 @@ div.field.is-horizontal div.field-label label.label {
     flex: none !important;
 }
 
+.resume-container {
+    max-width: 50em !important;
+}
 .resume-container .list-item-title {
     font-size: 1.1em;
     font-weight: 700;

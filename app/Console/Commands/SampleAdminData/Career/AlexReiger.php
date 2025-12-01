@@ -258,16 +258,16 @@ class AlexReiger extends Command
 
         $data = [
             [
-                'application_id' => $this->applicationId[1],
-                'date'           => '2025-07-27',
-                'content'        => 'Alex Reiger<br>New York, NY<br>214-555-0174<p>July 27, 2025</p><p>Dear Hiring Manager,</p><p>I am very excited to apply for the Driver position at Empire Records. With over six years of experience in the hospitality and driving industries, I am confident that I can proudly serve and benefit this company. Throughout my work history, I\'ve proven my ability to provide exceptional customer service while maintaining efficiency.</p><p>I studied hospitality management at Grand Pearl University, where I earned my bachelor\'s degree. Upon graduation, I qualified for a position as an Assistant Manager at Red Box Cabins and quickly received a promotion to General Manager. I worked in this position for two years and was responsible for supervising the hotel\'s daily operations and providing guests with exceptional experiences.</p><p>I eventually wanted more variety in my work and applied for a position as a Limousine Driver with All-Star Limos. In this position, I picked up passengers, drove them to their destinations safely and maintained a clean vehicle every shift.</p><p>I appreciate your time and consideration. I\'m looking forward to applying my experience and enthusiasm to providing clients with a safe and enjoyable driving experience. The combination of my hospitality experience, driving experience and possession of a commercial driver\'s license can help me exceed my expected job duties and contribute positively to Empire Record\' mission. I eagerly anticipate your phone call in which we can further discuss my qualifications and how I can use my talents to benefit Empire Record\' clients.</p><p>Thank you for your consideration,</p><p>Alex Reiger</p>'
+                'application_id'    => $this->applicationId[1],
+                'date' => '2025-07-27',
+                'content'           => 'Alex Reiger<br>New York, NY<br>214-555-0174<p>July 27, 2025</p><p>Dear Hiring Manager,</p><p>I am very excited to apply for the Driver position at Empire Records. With over six years of experience in the hospitality and driving industries, I am confident that I can proudly serve and benefit this company. Throughout my work history, I\'ve proven my ability to provide exceptional customer service while maintaining efficiency.</p><p>I studied hospitality management at Grand Pearl University, where I earned my bachelor\'s degree. Upon graduation, I qualified for a position as an Assistant Manager at Red Box Cabins and quickly received a promotion to General Manager. I worked in this position for two years and was responsible for supervising the hotel\'s daily operations and providing guests with exceptional experiences.</p><p>I eventually wanted more variety in my work and applied for a position as a Limousine Driver with All-Star Limos. In this position, I picked up passengers, drove them to their destinations safely and maintained a clean vehicle every shift.</p><p>I appreciate your time and consideration. I\'m looking forward to applying my experience and enthusiasm to providing clients with a safe and enjoyable driving experience. The combination of my hospitality experience, driving experience and possession of a commercial driver\'s license can help me exceed my expected job duties and contribute positively to Empire Record\' mission. I eagerly anticipate your phone call in which we can further discuss my qualifications and how I can use my talents to benefit Empire Record\' clients.</p><p>Thank you for your consideration,</p><p>Alex Reiger</p>'
             ],
             /*
             [
-                'application_id' => $this->applicationId[1],
-                'date'           => '0000-00-00',
-                'content'        => null,
-                'description'    => null,
+                'application_id'    => $this->applicationId[1],
+                'date' => '0000-00-00',
+                'content'           => null,
+                'description'       => null,
             ],
             */
         ];
@@ -369,7 +369,7 @@ class AlexReiger extends Command
             /*
             [
                 'name'        => '',
-                'date'        => '0000-00-00',
+                'date' => '0000-00-00',
                 'primary'     => 0,
                 'year'        => 2025,
                 'content'     => null,

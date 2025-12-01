@@ -20,6 +20,8 @@
 
     <div class="show-container card p-4">
 
+        @include('guest.components.disclaimer', [ 'value' => $certificate->disclaimer ?? null ])
+
         @include('guest.components.show-row', [
             'name'  => 'name',
             'value' => $certificate->name

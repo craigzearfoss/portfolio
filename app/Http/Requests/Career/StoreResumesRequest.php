@@ -41,7 +41,7 @@ class StoreResumesRequest extends FormRequest
                         ->where('name', $this->name);
                 })
             ],
-            'date'         => ['date', 'nullable'],
+            'date'  => ['date', 'nullable'],
             'primary'      => ['integer', 'between:0,1'],
             'year'         => ['integer', 'between:0,3000', 'nullable'],
             'content'      => ['nullable'],

@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title' => !rmpty($title) ? $title : 'Cover Letter: ' . $coverLetter->name,
+    'title' => !empty($title) ? $title : 'Cover Letter: ' . $coverLetter->name,
     'breadcrumbs' => [
         [ 'name' => 'Home',             'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
@@ -63,6 +63,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',
                 'name'    => 'date',
+                'label'   => 'date',
                 'value'   => old('date') ?? $coverLetter->date,
                 'message' => $message ?? '',
             ])
@@ -75,9 +76,9 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'cover_letter_url',
+                'name'      => 'url',
                 'name'      => 'cover letter url',
-                'value'     => old('cover_letter_url') ?? $coverLetter->cover_letter_url,
+                'value'     => old('url') ?? $coverLetter->url,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])

@@ -20,7 +20,7 @@
 
         <h2 class="title">Contact Us</h2>
 
-        @if(empty(config('app.contactable')))
+        @if(!config('app.contactable'))
 
             <h3 class="subtitle p-4">Sorry, but we are not currently accepting messages.</h3>
 

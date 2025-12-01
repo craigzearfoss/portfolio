@@ -18,6 +18,8 @@
 
 @section('content')
 
+    @include('guest.components.disclaimer', [ 'value' => $photography->disclaimer ?? null ])
+
     <div class="show-container p-4">
 
         @include('guest.components.show-row', [

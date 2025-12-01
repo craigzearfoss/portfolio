@@ -83,8 +83,8 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'        => 'cover_letter_url',
-                'value'       => old('cover_letter_url') ?? $application->coverLetter->cover_letter_url,
+                'name'        => 'url',
+                'value'       => old('url') ?? $application->coverLetter->url,
                 'maxlength'   => 500,
                 'message'     => $message ?? '',
             ])

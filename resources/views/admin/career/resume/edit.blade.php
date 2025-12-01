@@ -73,6 +73,7 @@
                 @include('admin.components.form-input-horizontal', [
                     'type'      => 'date',
                     'name'      => 'date',
+                    'label'     => 'date',
                     'value'     => old('date') ?? $resume->date,
                     'message'   => $message ?? '',
                 ])

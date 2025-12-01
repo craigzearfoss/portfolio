@@ -18,6 +18,8 @@
 
 @section('content')
 
+    @include('guest.components.disclaimer', [ 'value' => $link->disclaimer ?? null ])
+
     <div class="show-container card p-4">
 
         @include('guest.components.show-row', [

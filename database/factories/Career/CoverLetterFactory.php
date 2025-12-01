@@ -20,7 +20,7 @@ class CoverLetterFactory extends Factory
             'owner_id'         => \App\Models\System\Owner::all()->random()->id,
             'application_id'   => \App\Models\Career\Application::all()->random()->id,
             'date'             => fake()->dateTimeBetween('-2 years')->format('Y-m-d'),
-            'cover_letter_url' => fake()->url(),
+            'url' => fake()->url(),
             'link'             => fake()->url(),
             'link_name'        => fake()->text(20),
             'description'      => fake()->text(200),

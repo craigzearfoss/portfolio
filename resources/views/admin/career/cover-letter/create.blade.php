@@ -56,6 +56,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',
                 'name'    => 'date',
+                'label'   => 'date',
                 'value'   => old('date') ?? '',
                 'message' => $message ?? '',
             ])
@@ -68,9 +69,9 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'cover_letter_url',
+                'name'      => 'url',
                 'name'      => 'cover letter url',
-                'value'     => old('cover_letter_url') ?? '',
+                'value'     => old('url') ?? '',
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])

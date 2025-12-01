@@ -332,6 +332,7 @@ class LaverneDeFazio extends Command
                 'name'                   => '',
                 'dictionary_category_id' => null,
                 'dictionary_term_id'     => null,
+                'public'                 => 1,
             ]
             */
         ];

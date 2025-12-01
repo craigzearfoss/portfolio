@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Portfolio\Certificate;
 use App\Models\Portfolio\Education;
 use App\Models\Portfolio\Job;
+use App\Models\Portfolio\Skill;
 use App\Models\System\Admin;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -39,9 +40,16 @@ class ResumeController extends Controller
             ->orderBy('received', 'desc')
             ->get();
 
+        $skills = Skill::where('owner_id', $admin->id)
+            ->where('public', 1)
+            ->where('disabled', 0)
+            ->orderBy('sequence', 'asc')
+            ->get();
+
+
         return view(
             Job::resumeTemplate(),
-            compact('jobs', 'educations', 'admin', 'certificates')
+            compact('jobs', 'educations', 'admin', 'certificates', 'skills')
         );
     }
 }

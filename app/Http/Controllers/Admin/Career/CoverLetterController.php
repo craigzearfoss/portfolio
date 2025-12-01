@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin\Career;
 
 use App\Http\Controllers\Admin\BaseAdminController;
-use App\Http\Requests\Career\UpdateApplicationsRequest;
-use App\Http\Requests\Career\StoreCoverLettersRequest;
 use App\Http\Requests\Career\UpdateCoverLettersRequest;
 use App\Models\Career\CoverLetter;
 use Illuminate\Http\RedirectResponse;
@@ -83,14 +81,14 @@ class CoverLetterController extends BaseAdminController
     /**
      * Update the specified cover letter in storage.
      *
-     * @param UpdateApplicationsRequest $updateApplicationsRequest
+     * @param UpdateCoverLettersRequest $updateCoverLettersRequest
      * @param CoverLetter $coverLetter
      * @return RedirectResponse
      */
-    public function update(UpdateApplicationsRequest $updateApplicationsRequest,
+    public function update(UpdateCoverLettersRequest $updateCoverLettersRequest,
                            CoverLetter               $coverLetter): RedirectResponse
     {
-        $coverLetter->update($updateApplicationsRequest->validated());
+        $coverLetter->update($updateCoverLettersRequest->validated());
 
         return redirect()->route('admin.career.cover-letter.show', $coverLetter)
             ->with('success', 'Cover letter successfully updated.');

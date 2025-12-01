@@ -12,13 +12,13 @@ class MessageStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (empty(config('app.contactable'))) {
+        if (!config('app.contactable')) {
             throw ValidationException::withMessages([
                 'GLOBAL' => 'Sorry, but we are not currently accepting messages.'
             ]);
         }
 
-        if (!empty(config('app.readonly'))) {
+        if (config('app.readonly')) {
             throw ValidationException::withMessages([
                 'GLOBAL' => 'We are not currently accepting messages because the site is in read-only mode.'
             ]);
