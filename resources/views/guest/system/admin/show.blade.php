@@ -43,20 +43,26 @@
                         </span>
                     </div>
 
-                    @include('guest.components.show-row', [
-                        'name'  => 'role',
-                        'value' => $admin->role ?? ''
-                    ])
+                    @if(!empty($admin->role))
+                        @include('guest.components.show-row', [
+                            'name'  => 'role',
+                            'value' => $admin->role ?? ''
+                        ])
+                    @endif
 
-                    @include('guest.components.show-row', [
-                        'name'  => 'employer',
-                        'value' => '<br>' . $admin->employer ?? ''
-                    ])
+                    @if(!empty($admin->employer))
+                        @include('guest.components.show-row', [
+                            'name'  => 'employer',
+                            'value' => '<br>' . $admin->employer ?? ''
+                        ])
+                    @endif
 
-                    @include('guest.components.show-row', [
-                        'name'  => 'bio',
-                        'value' => $admin->bio ?? ''
-                    ])
+                    @if(!empty($admin->bio))
+                        @include('guest.components.show-row', [
+                            'name'  => 'bio',
+                            'value' => $admin->bio ?? ''
+                        ])
+                    @endif
 
                 </div>
 

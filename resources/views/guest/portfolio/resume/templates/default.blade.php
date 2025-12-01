@@ -84,7 +84,7 @@
                         @endif
                     </div>
 
-                    @if(!empty($job->skills))
+                    @if($job->skills->count() > 0)
 
                         <div class="list-item-description pt-2">
                             <strong>Skills:</strong>
@@ -100,7 +100,7 @@
         @endforeach
 
 
-        @if(!empty($certificates))
+        @if($educations->count() > 0)
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Education</h2>
 
@@ -132,7 +132,7 @@
         @endif
 
 
-        @if(!empty($certificates))
+        @if($certificates->count() > 0)
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Certifications</h2>
 
@@ -160,7 +160,7 @@
         @endif
 
 
-        @if(!empty($skills))
+        @if($skills->count() > 0)
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Skills</h2>
 
