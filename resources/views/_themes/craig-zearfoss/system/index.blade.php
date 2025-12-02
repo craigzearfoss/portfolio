@@ -33,13 +33,10 @@
                         >
                             Visit the demo site at https://demo.craigzearfoss.com
                         </a>
-
-
-                        </a>
                     </p>
                     <p>
                         It started out as a system to manage a job search.  In the admin area you can track your
-                        job applications, resumes, and cover letter and well a many your references and company contacts.
+                        job applications, resumes, and cover letter as well a many your references and company contacts.
                         You can add communications, events, and notes to all of you applications.
                     </p>
                     <p>

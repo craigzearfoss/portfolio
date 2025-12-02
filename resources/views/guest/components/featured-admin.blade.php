@@ -2,6 +2,7 @@
 
     @php
         $portfolioResources = \App\Models\System\Database::getResources('portfolio', [], ['name', 'asc']);
+        $personalResources = \App\Models\System\Database::getResources('personal', [], ['name', 'asc']);
     @endphp
 
     <div class="card column p-4 mb-2">
@@ -72,6 +73,30 @@
                                     @include('guest.components.link', [
                                         'name'  => $resource['plural'],
                                         'href'  => route('guest.admin.portfolio.'.$resource['name'].'.index', $admin),
+                                        'class' => 'pt-1 pb-1',
+                                    ])
+                                </li>
+                            @endif
+
+                        @endforeach
+
+                    </ul>
+
+                </div>
+
+                <div>
+
+                    <h1 class="title is-size-5 mt-2 mb-0">Personal</h1>
+
+                    <ul class="menu-list ml-4 mb-2">
+
+                        @foreach ($personalResources as $resource)
+
+                            @if(empty($resource['global']) && Route::has('guest.admin.personal.'.$resource['name'].'.index'))
+                                <li>
+                                    @include('guest.components.link', [
+                                        'name' => $resource['plural'],
+                                        'href' => route('guest.admin.personal.'.$resource['name'].'.index', $admin),
                                         'class' => 'pt-1 pb-1',
                                     ])
                                 </li>

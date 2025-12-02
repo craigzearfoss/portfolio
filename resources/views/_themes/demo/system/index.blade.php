@@ -25,8 +25,20 @@
                     </p>
                     <p>
                         It started out as a system to manage a job search.  In the admin area you can track your
-                        job applications, resumes, and cover letter and well a many your references and company contacts.
+                        job applications, resumes, as cover letter and well a many your references and company contacts.
                         You can add communications, events, and notes to all of you applications.
+                    </p>
+                    <p>
+                        You can log in as the demo admin to view to view all of the career and application tracking pages
+                        by clicking the button below.
+                        <br>
+                        <a class="button is-success"
+                           href="demo.craigzearfoss.com/admin/'ogin"
+                        >
+                            Log in As the Demo Admin
+                        </a>
+                        <br>
+                        You will be able to view all of the admin pages but not update any of the site data.
                     </p>
                     <p>
                         This project was created by <strong>Craig Zearfoss</strong> who can be found on LinkedIn at
