@@ -27,7 +27,7 @@ class EducationController extends Controller
         $educations = Education::where('owner_id', $admin->id)
             ->where('public', 1)
             ->where('disabled', 0)
-            ->orderBy('graduation_year', 'desc')
+            ->orderBy('graduation_year', 'asc')
             ->paginate($perPage);
 
         return view(themedTemplate('guest.portfolio.education.index'), compact('educations', 'admin'))

@@ -25,7 +25,7 @@ class EducationController extends Controller
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $educations = Education::orderBy('enrollment_year', 'desc')->paginate($perPage);
+        $educations = Education::orderBy('enrollment_year', 'asc')->paginate($perPage);
 
         return view('admin.portfolio.education.index', compact('educations'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
