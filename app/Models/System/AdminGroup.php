@@ -2,7 +2,9 @@
 
 namespace App\Models\System;
 
+use App\Models\System\AdminAdminTeam;
 use App\Traits\SearchableModelTrait;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -59,5 +61,18 @@ class AdminGroup extends Model
     public function team(): BelongsTo
     {
         return $this->belongsTo(AdminTeam::class, 'admin_team_id');
+    }
+
+    /**
+     * Returns the members of the admin group.
+     *
+     * @return Collection
+     */
+    public function members(): Collection
+    {
+        return AdminAdminGroup::select('admins.*')
+            ->where('admin_admin_group.admin_group_id', $this->id)
+            ->join('admins', 'admins.id', '=', 'admin_admin_group.admin_id')
+            ->get();
     }
 }

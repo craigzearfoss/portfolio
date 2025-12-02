@@ -68,6 +68,68 @@
             'value' => longDateTime($adminTeam->updated_at)
         ])
 
+        <div class="card p-4">
+
+            <h2 class="subtitle">
+                Admin Team Members
+            </h2>
+
+            <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
+                <thead>
+                <th>username</th>
+                <th>name</th>
+                <th>email</th>
+                <th></th>
+                </thead>
+                <tbody>
+
+                @php
+                $members = $adminTeam->members();
+                @endphp
+                @if($members->count() > 0)
+
+                    @foreach($members as $member)
+
+                        <tr>
+                            <td>
+                                {{ $member->username }}
+                            </td>
+                            <td>
+                                {{ $member->name }}
+                            </td>
+                            <td>
+                                {{ $member->email }}
+                            </td>
+                            <td>
+                                <a title="show" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.system.admin.show', $member->id) }}">
+                                    <i class="fa-solid fa-list"></i>{{-- show --}}
+                                </a>
+
+                                <a title="edit" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.system.admin.edit', $member->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
+                                </a>
+                            </td>
+                        </tr>
+
+                    @endforeach
+
+                @else
+
+                    <tr>
+                        <td colspan="3">
+                            No members found.
+                        </td>
+                    </tr>
+
+                @endif
+
+                </tbody>
+            </table>
+
+        </div>
+
     </div>
 
 @endsection

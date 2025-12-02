@@ -3,6 +3,8 @@
 namespace App\Models\System;
 
 use App\Traits\SearchableModelTrait;
+use App\Models\System\UserUserTeam;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -60,5 +62,18 @@ class UserTeam extends Model
     public function groups(): hasMany
     {
         return $this->hasMany(UserGroup::class);
+    }
+
+    /**
+     * Returns the members of the user team.
+     *
+     * @return Collection
+     */
+    public function members(): Collection
+    {
+        return UserUserTeam::select('users.*')
+            ->where('user_user_teams.user_team_id', $this->id)
+            ->join('users', 'users.id', '=', 'user_user_teams.user_id')
+            ->get();
     }
 }
