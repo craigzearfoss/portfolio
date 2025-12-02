@@ -32,11 +32,7 @@
                         You can log in as the demo admin to view to view all of the career and application tracking pages
                         by clicking the button below.
                         <br>
-                        <a class="button is-success"
-                           href="demo.craigzearfoss.com/admin/'ogin"
-                        >
-                            Log in As the Demo Admin
-                        </a>
+                        <a class="button is-success" href="/admin/login">Log in As the Demo Admin</a>
                         <br>
                         You will be able to view all of the admin pages but not update any of the site data.
                     </p>
