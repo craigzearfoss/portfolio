@@ -55,7 +55,7 @@
             ])
         @endif
 
-        @if(!empty($projectrepository_urlyear))
+        @if(!empty($project->repository_url))
             @include('guest.components.show-row-link', [
                 'name'   => 'repository',
                 'label'  => $project->repository_name,
