@@ -27,10 +27,12 @@
             'value' => $music->name
         ])
 
-        @include('guest.components.show-row', [
-            'name'  => 'artist',
-            'value' => $music->artist
-        ])
+        @if(!empty($music->artist))
+            @include('guest.components.show-row', [
+                'name'  => 'artist',
+                'value' => $music->artist
+            ])
+        @endif
 
         @if(!empty($music->parent_id))
             @include('guest.components.show-row', [
@@ -44,17 +46,21 @@
             ])
         @endif
 
+        <?php /*
         @include('guest.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $music->featured
         ])
+        */ ?>
 
-        @include('guest.components.show-row', [
-            'name'  => 'summary',
-            'value' => $music->summary
-        ])
+        @if(!empty($music->summary))
+            @include('guest.components.show-row', [
+                'name'  => 'summary',
+                'value' => $music->summary
+            ])
+        @endif
 
-        @if(!empty($music->children))
+        @if($music->children->count() > 0)
             <div class="columns">
                 <div class="column is-2"><strong>children</strong>:</div>
                 <div class="column is-10 pl-0">
@@ -72,105 +78,108 @@
             </div>
         @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $music->featured
-        ])
+        @if(!empty($music->collection))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'collection',
+                'checked' => $music->collection
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'collection',
-            'checked' => $music->collection
-        ])
+        @if(!empty($music->track))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'track',
+                'checked' => $music->track
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'track',
-            'checked' => $music->track
-        ])
+        @if(!empty($music->label))
+            @include('guest.components.show-row', [
+                'name'  => 'label',
+                'value' => $music->label
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'label',
-            'value' => $music->label
-        ])
+        @if(!empty($music->catalog_number))
+            @include('guest.components.show-row', [
+                'name'  => 'catalog number',
+                'value' => $music->catalog_number
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'catalog number',
-            'value' => $music->catalog_number
-        ])
+        @if(!empty($music->year))
+            @include('guest.components.show-row', [
+                'name'  => 'year',
+                'value' => $music->year
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'year',
-            'value' => $music->year
-        ])
+        @if(!empty($music->release_date))
+            @include('guest.components.show-row', [
+                'name'  => 'release date',
+                'value' => longDate($music->release_date)
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'release date',
-            'value' => longDate($music->release_date)
-        ])
+        @if(!empty($music->embed))
+            @include('guest.components.show-row', [
+                'name'  => 'embed',
+                'value' => $music->embed
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'embed',
-            'value' => $music->embed
-        ])
-
-        @include('guest.components.show-row-link', [
-            'name'   => 'audio url',
-            'href'   => $music->audio_url,
-            'target' => '_blank'
-        ])
+        @if(!empty($music->audio_url))
+            @include('guest.components.show-row-link', [
+                'name'   => 'audio url',
+                'href'   => $music->audio_url,
+                'target' => '_blank'
+            ])
+        @endif
 
         @if(!empty($music->link))
             @include('guest.components.show-row-link', [
-                'name'   => $music->link_name,
+                'name'   => $music->link_name ?? 'link',
                 'href'   => $music->link,
                 'target' => '_blank'
             ])
         @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'description',
-            'value' => nl2br($music->description ?? '')
-        ])
-
-        @if(!empty($music->image))
-
-            @include('guest.components.show-row-image', [
-                'name'     => 'image',
-                'src'      => $music->image,
-                'alt'      => $music->name . ', ' . $music->artist,
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($music->name . '-by-' . $music->artist, $music->image)
+        @if(!empty($music->description))
+            @include('guest.components.show-row', [
+                'name'  => 'description',
+                'value' => nl2br($music->description ?? '')
             ])
+        @endif
 
-            @if(!empty($music->image_credit))
-                @include('guest.components.show-row', [
-                    'name'  => 'image credit',
-                    'value' => $music->image_credit
-                ])
-            @endif
-
-            @if(!empty($music->image_source))
-                @include('guest.components.show-row', [
-                    'name'  => 'image source',
-                    'value' => $music->image_source
-                ])
-            @endif
-
+        @if(!empty($course->image))
+            @include('guest.components.show-row-image-credited', [
+                'name'         => 'image',
+                'src'          => $music->image,
+                'alt'          => $music->name . (!empty($music->artist) ? ', ' . $music->artist : ''),
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug(
+                    $music->name . (!empty($music->artist) ? '-by-' . $music->artist : ''),
+                    $music->image
+                 ),
+                'image_credit' => $music->image_credit,
+                'image_source' => $music->image_source,
+            ])
         @endif
 
         @if(!empty($music->thumbnail))
-
             @include('guest.components.show-row-image', [
                 'name'     => 'thumbnail',
                 'src'      => $music->thumbnail,
-                'alt'      => $music->name . ', ' . $music->artist,
+                'alt'      => $music->name . (!empty($music->artist) ? ', ' . $music->artist : '') . ' thumbnail',
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($music->name . '-by-' . $music->artist, $music->thumbnail)
+                'filename' => getFileSlug(
+                    $music->name . (!empty($music->artist) ? '-by-' . $music->artist : '') . '-thumbnail',
+                    $music->image
+                 ),
             ])
-
         @endif
 
     </div>

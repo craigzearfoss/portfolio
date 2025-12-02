@@ -39,17 +39,21 @@
             ])
         @endif
 
+        <?php /*
         @include('guest.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $video->featured
         ])
+        */ ?>
 
-        @include('guest.components.show-row', [
-            'name'  => 'summary',
-            'value' => $video->summary
-        ])
+        @if(!empty($video->summary))
+            @include('guest.components.show-row', [
+                'name'  => 'summary',
+                'value' => $video->summary
+            ])
+        @endif
 
-        @if(!empty($video->children))
+        @if($video->children->count() > 0)
             <div class="columns">
                 <div class="column is-2"><strong>children</strong>:</div>
                 <div class="column is-10 pl-0">
@@ -67,119 +71,129 @@
             </div>
         @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'full episode',
-            'checked' => $video->full_episode
-        ])
+        @if(!empty($video->full_episode))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'full episode',
+                'checked' => $video->full_episode
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'clip',
-            'checked' => $video->clip
-        ])
+        @if(!empty($video->clip))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'clip',
+                'checked' => $video->clip
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'public access',
-            'checked' => $video->public_access
-        ])
+        @if(!empty($video->public_access))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'public access',
+                'checked' => $video->public_access
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'source recording',
-            'checked' => $video->source_recording
-        ])
+        @if(!empty($video->source_recording))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'source recording',
+                'checked' => $video->source_recording
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'date',
-            'value' => longDate($video->date)
-        ])
+        @if(!empty($video->date))
+            @include('guest.components.show-row', [
+                'name'  => 'date',
+                'value' => longDate($video->date)
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'year',
-            'value' => $video->year
-        ])
+        @if(!empty($video->year))
+            @include('guest.components.show-row', [
+                'name'  => 'year',
+                'value' => $video->year
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'company',
-            'value' => $video->company
-        ])
+        @if(!empty($video->company))
+            @include('guest.components.show-row', [
+                'name'  => 'company',
+                'value' => $video->company
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'credit',
-            'value' => $video->credit
-        ])
+        @if(!empty($video->credit))
+            @include('guest.components.show-row', [
+                'name'  => 'credit',
+                'value' => $video->credit
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'show',
-            'value' => $video->show
-        ])
+        @if(!empty($video->show))
+            @include('guest.components.show-row', [
+                'name'  => 'show',
+                'value' => $video->show
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'location',
-            'value' => $video->location
-        ])
+        @if(!empty($video->location))
+            @include('guest.components.show-row', [
+                'name'  => 'location',
+                'value' => $video->location
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'   => 'embed',
-            'value'  => $video->embed,
-        ])
+        @if(!empty($video->embed))
+            @include('guest.components.show-row', [
+                'name'   => 'embed',
+                'value'  => $video->embed,
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'video url',
-            'value' => $video->video_url,
-        ])
+        @if(!empty($video->video_url))
+            @include('guest.components.show-row', [
+                'name'  => 'video url',
+                'value' => $video->video_url,
+            ])
+        @endif
 
         @if(!empty($video->link))
             @include('guest.components.show-row-link', [
-                'name'   => $video->link_name,
+                'name'   => $video->link_name ?? '',
                 'href'   => $video->link,
                 'target' => '_blank'
             ])
         @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'description',
-            'value' => nl2br($video->description ?? '')
-        ])
+        @if(!empty($video->description ))
+            @include('guest.components.show-row', [
+                'name'  => 'description',
+                'value' => $video->description
+            ])
+        @endif
 
         @if(!empty($video->image))
-
             @include('guest.components.show-row-image', [
-                'name'     => 'image',
-                'src'      => $video->image,
-                'alt'      => $video->name . ', ' . $video->artist,
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($video->name . '-by-' . $video->artist, $video->image)
+                'name'         => 'image',
+                'src'          => $video->image,
+                'alt'          => $video->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($video->name, $video->image),
+                'image_credit' => $video->image_credit,
+                'image_source' => $video->image_source,
             ])
-
-            @if(!empty($video->image_credit))
-                @include('guest.components.show-row', [
-                    'name'  => 'image credit',
-                    'value' => $video->image_credit
-                ])
-            @endif
-
-            @if(!empty($video->image_source))
-                @include('guest.components.show-row', [
-                    'name'  => 'image source',
-                    'value' => $video->image_source
-                ])
-            @endif
-
         @endif
 
         @if(!empty($video->thumbnail))
-
             @include('guest.components.show-row-image', [
                 'name'     => 'thumbnail',
-                'src'      => $video->thumbnail,
-                'alt'      => $video->name . ', ' . $video->artist,
+                'src'      => $video->thumbnail . ' thumbnail',
+                'alt'      => $video->name,
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($video->name . '-by-' . $video->artist, $video->thumbnail)
+                'filename' => getFileSlug($video->name . '-thumbnail', $video->thumbnail)
             ])
-
         @endif
 
     </div>

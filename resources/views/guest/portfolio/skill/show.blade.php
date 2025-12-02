@@ -27,31 +27,41 @@
             'value' => $skill->name
         ])
 
-        @include('guest.components.show-row', [
-            'name'  => 'version',
-            'value' => $skill->version
-        ])
+        @if(!empty($skill->version))
+            @include('guest.components.show-row', [
+                'name'  => 'version',
+                'value' => $skill->version
+            ])
+        @endif
 
+        <?php /*
         @include('admin.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $skill->featured
         ])
+        */ ?>
 
-        @include('admin.components.show-row', [
-            'name'  => 'summary',
-            'value' => $skill->summary
-        ])
+        @if(!empty($skill->summary))
+            @include('admin.components.show-row', [
+                'name'  => 'summary',
+                'value' => $skill->summary
+            ])
+        @endif
 
-        @include('admin.components.show-row-rating', [
-            'name'  => 'level',
-            'label' => "({$skill->level} out of 10)",
-            'value' => $skill->level
-        ])
+        @if(!empty($skill->level))
+            @include('admin.components.show-row-rating', [
+                'name'  => 'level',
+                'label' => "({$skill->level} out of 10)",
+                'value' => $skill->level
+            ])
+        @endif
 
-        @include('admin.components.show-row', [
-            'name'  => 'category',
-            'value' => $skill->category['name'] ?? ''
-        ])
+        @if(!empty($skill->category))
+            @include('admin.components.show-row', [
+                'name'  => 'category',
+                'value' => $skill->category->name ?? ''
+            ])
+        @endif
 
         @if(!empty($skill->start_year))
             @include('admin.components.show-row', [
@@ -60,66 +70,63 @@
             ])
         @endif
 
-        @if(!empty($skill->start_year))
+        @php
+        if (!empty($skill->years)) {
+            $years = $skill->years;
+        } elseif (!empty($skill->start_year)) {
+            $years = !empty($skill->start_year)
+                ? intval($skill->end_year) - intval($skill->start_year) + 1
+                : date("Y") - intval($skill->start_year);
+        } else {
+            $years = '';
+        }
+        @endphp
+        @if(!empty($skill->years))
             @include('admin.components.show-row', [
                 'name'  => 'years',
-                'value' => $skill->years
+                'value' => $years
             ])
         @endif
 
         @if(!empty($skill->link))
             @include('guest.components.show-row-link', [
-                'name'   => $skill->link_name,
+                'name'   => $skill->link_name ?? '',
                 'href'   => $skill->link,
                 'target' => '_blank'
             ])
         @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'description',
-            'value' => nl2br($skill->description ?? '')
-        ])
+        @if(!empty($skill->description ))
+            @include('guest.components.show-row', [
+                'name'  => 'description',
+                'value' => $skill->description
+            ])
+        @endif
 
         @if(!empty($skill->image))
-
             @include('guest.components.show-row-image', [
-                'name'     => 'image',
-                'src'      => $skill->image,
-                'alt'      => $skill->name . ', ' . $skill->artist,
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($skill->name . '-by-' . $skill->artist, $skill->image)
+                'name'         => 'image',
+                'src'          => $skill->image,
+                'alt'          => $skill->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($skill->name, $skill->image),
+                'image_credit' => $skill->image_credit,
+                'image_source' => $skill->image_source,
             ])
-
-            @if(!empty($skill->image_credit))
-                @include('guest.components.show-row', [
-                    'name'  => 'image credit',
-                    'value' => $skill->image_credit
-                ])
-            @endif
-
-            @if(!empty($skill->image_source))
-                @include('guest.components.show-row', [
-                    'name'  => 'image source',
-                    'value' => $skill->image_source
-                ])
-            @endif
-
         @endif
 
         @if(!empty($skill->thumbnail))
-
             @include('guest.components.show-row-image', [
                 'name'     => 'thumbnail',
-                'src'      => $skill->thumbnail,
-                'alt'      => $skill->name . ', ' . $skill->artist,
+                'src'      => $skill->thumbnail . ' thumbnail',
+                'alt'      => $skill->name,
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($skill->name . '-by-' . $skill->artist, $skill->thumbnail)
+                'filename' => getFileSlug($skill->name . '-thumbnail', $skill->thumbnail)
             ])
-
         @endif
 
     </div>

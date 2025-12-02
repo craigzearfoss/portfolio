@@ -27,20 +27,26 @@
             'value' => $photo->name
         ])
 
+        <?php /*
         @include('guest.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $photo->featured
         ])
+        */ ?>
 
-        @include('guest.components.show-row', [
-            'name'  => 'summary',
-            'value' => $photo->summary
-        ])
+        @if(!empty($photo->year))
+            @include('guest.components.show-row', [
+                'name'  => 'summary',
+                'value' => $photo->summary
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'    => 'year',
-            'checked' => $photo->year
-        ])
+        @if(!empty($photo->year))
+            @include('guest.components.show-row', [
+                'name'    => 'year',
+                'value' => $photo->year
+            ])
+        @endif
 
         @if(!empty($photo->model))
             @include('guest.components.show-row', [
@@ -65,57 +71,43 @@
 
         @if(!empty($photo->link))
             @include('guest.components.show-row-link', [
-                'name'   => $photo->link_name,
+                'name'   => $photo->link_name ?? '',
                 'href'   => $photo->link,
                 'target' => '_blank'
             ])
         @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'description',
-            'value' => nl2br($photo->description ?? '')
-        ])
+        @if(!empty($photo->description))
+            @include('guest.components.show-row', [
+                'name'  => 'description',
+                'value' => nl2br($photo->description ?? '')
+            ])
+        @endif
 
         @if(!empty($photo->image))
-
-            @include('guest.components.show-row-image', [
-                'name'     => 'image',
-                'src'      => $photo->image,
-                'alt'      => $photo->name,
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($photo->name, $photo->image)
+            @include('guest.components.show-row-image-credited', [
+                'name'         => 'image',
+                'src'          => $photo->image,
+                'alt'          => $photo->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($award->name, $photo->image),
+                'image_credit' => $photo->image_credit,
+                'image_source' => $photo->image_source,
             ])
-
-            @if(!empty($photo->image_credit))
-                @include('guest.components.show-row', [
-                    'name'  => 'image credit',
-                    'value' => $photo->image_credit
-                ])
-            @endif
-
-            @if(!empty($photo->image_source))
-                @include('guest.components.show-row', [
-                    'name'  => 'image source',
-                    'value' => $photo->image_source
-                ])
-            @endif
-
         @endif
 
         @if(!empty($photo->thumbnail))
-
             @include('guest.components.show-row-image', [
                 'name'     => 'thumbnail',
                 'src'      => $photo->thumbnail,
-                'alt'      => $photo->name,
+                'alt'      => $photo->name . '-thumbnail',
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($photo->name), $photo->thumbnail)
+                'filename' => getFileSlug($photo->name . '-thumbnail', $photo->thumbnail)
             ])
-
         @endif
 
     </div>

@@ -27,75 +27,67 @@
             'value' => $link->name
         ])
 
+        <?php /*
         @include('guest.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $link->featured
         ])
+        */ ?>
 
-        @include('guest.components.show-row', [
-            'name'  => 'summary',
-            'value' => $link->summary
-        ])
+        @if(!empty($link->summary))
+            @include('guest.components.show-row', [
+                'name'  => 'summary',
+                'value' => $link->summary
+            ])
+        @endif
 
-        @include('guest.components.show-row-link', [
-            'name'   => 'url',
-            'href'    => $link->url,
-            'target' => '_blank'
-        ])
+        @if(!empty($link->url))
+            @include('guest.components.show-row-link', [
+                'name'   => 'url',
+                'href'    => $link->url,
+                'target' => '_blank'
+            ])
+        @endif
 
         @if(!empty($link->link))
             @include('guest.components.show-row-link', [
-                'name'   => $link->link_name,
+                'name'   => $link->link_name ?? '',
                 'href'   => $link->link,
                 'target' => '_blank'
             ])
         @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'description',
-            'value' => nl2br($link->description ?? '')
-        ])
+        @if(!empty($link->description))
+            @include('guest.components.show-row', [
+                'name'  => 'description',
+                'value' => nl2br($link->description ?? '')
+            ])
+        @endif
 
         @if(!empty($link->image))
-
-            @include('guest.components.show-row-image', [
-                'name'     => 'image',
-                'src'      => $link->image,
-                'alt'      => $link->name . ', ' . $link->artist,
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($link->name . '-by-' . $link->artist, $link->image)
+            @include('guest.components.show-row-image-credited', [
+                'name'         => 'image',
+                'src'          => $link->image,
+                'alt'          => $link->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($award->name, $link->image),
+                'image_credit' => $link->image_credit,
+                'image_source' => $link->image_source,
             ])
-
-            @if(!empty($link->image_credit))
-                @include('guest.components.show-row', [
-                    'name'  => 'image credit',
-                    'value' => $link->image_credit
-                ])
-            @endif
-
-            @if(!empty($link->image_source))
-                @include('guest.components.show-row', [
-                    'name'  => 'image source',
-                    'value' => $link->image_source
-                ])
-            @endif
-
         @endif
 
         @if(!empty($link->thumbnail))
-
             @include('guest.components.show-row-image', [
                 'name'     => 'thumbnail',
                 'src'      => $link->thumbnail,
-                'alt'      => $link->name . ', ' . $link->artist,
+                'alt'      => $link->name . '-thumbnail',
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($link->name . '-by-' . $link->artist, $link->thumbnail)
+                'filename' => getFileSlug($link->name . '-thumbnail', $link->thumbnail)
             ])
-
         @endif
 
     </div>

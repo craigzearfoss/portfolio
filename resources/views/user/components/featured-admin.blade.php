@@ -14,7 +14,7 @@
                     'name'     => 'image',
                     'src'      => $admin->image,
                     'alt'      => $admin->name,
-                    'width'    => '300px',
+                    'width'    => '200px',
                     'filename' => getFileSlug($admin->name, $admin->image)
                 ])
 

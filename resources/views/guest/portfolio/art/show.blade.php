@@ -32,20 +32,26 @@
             'value' => $art->artist
         ])
 
+        <?php /*
         @include('guest.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $art->featured
         ])
+        */ ?>
 
-        @include('guest.components.show-row', [
-            'name'  => 'summary',
-            'value' => $art->summary
-        ])
+        @if(!empty($art->summary))
+            @include('guest.components.show-row', [
+                'name'  => 'summary',
+                'value' => $art->summary
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'    => 'year',
-            'checked' => $art->year
-        ])
+        @if(!empty($art->year))
+            @include('guest.components.show-row', [
+                'name'    => 'year',
+                'value' => $art->year
+            ])
+        @endif
 
         @if(!empty($art->image_url))
 
@@ -61,57 +67,49 @@
 
         @if(!empty($art->link))
             @include('guest.components.show-row-link', [
-                'name'   => $art->link_name,
+                'name'   => $art->link_name ?? '',
                 'href'   => $art->link,
                 'target' => '_blank'
             ])
         @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'description',
-            'value' => nl2br($art->description ?? '')
-        ])
+        @if(!empty($art->description))
+            @include('guest.components.show-row', [
+                'name'  => 'description',
+                'value' => nl2br($art->description ?? '')
+            ])
+        @endif
 
         @if(!empty($art->image))
-
-            @include('guest.components.show-row-image', [
-                'name'     => 'image',
-                'src'      => $art->image,
-                'alt'      => $art->name . ', ' . $art->artist,
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($art->name . '-by-' . $art->artist, $art->image)
+            @include('guest.components.show-row-image-credited', [
+                'name'         => 'image',
+                'src'          => $art->image,
+                'alt'          => $art->name . (!empty($art->artist) ? ', ' . $art->artist : ''),
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug(
+                    $art->name . (!empty($art->artist) ? '-by-' . $art->artist : ''),
+                    $art->image
+                 ),
+                'image_credit' => $course->image_credit,
+                'image_source' => $course->image_source,
             ])
-
-            @if(!empty($art->image_credit))
-                @include('guest.components.show-row', [
-                    'name'  => 'image credit',
-                    'value' => $art->image_credit
-                ])
-            @endif
-
-            @if(!empty($art->image_source))
-                @include('guest.components.show-row', [
-                    'name'  => 'image source',
-                    'value' => $art->image_source
-                ])
-            @endif
-
         @endif
 
         @if(!empty($art->thumbnail))
-
             @include('guest.components.show-row-image', [
                 'name'     => 'thumbnail',
                 'src'      => $art->thumbnail,
-                'alt'      => $art->name . ', ' . $art->artist,
+                'alt'      => $art->name . (!empty($art->artist) ? ', ' . $art->artist : '') . ' thumbnail',
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($art->name . '-by-' . $art->artist, $art->thumbnail)
+                'filename'     => getFileSlug(
+                    $art->name . (!empty($art->artist) ? '-by-' . $art->artist : '') . '-thumbnail',
+                    $art->thumbnail
+                 ),
             ])
-
         @endif
 
     </div>

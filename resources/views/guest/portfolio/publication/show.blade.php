@@ -39,17 +39,21 @@
             ])
         @endif
 
+        <?php /*
         @include('guest.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $publication->featured
         ])
+        */ ?>
 
-        @include('guest.components.show-row', [
-            'name'  => 'summary',
-            'value' => $publication->summary
-        ])
+        @if(!empty($publication->summary))
+            @include('guest.components.show-row', [
+                'name'  => 'summary',
+                'value' => $publication->summary
+            ])
+        @endif
 
-        @if(!empty($publication->children))
+        @if($publication->children->count() > 0)
             <div class="columns">
                 <div class="column is-2"><strong>children</strong>:</div>
                 <div class="column is-10 pl-0">
@@ -67,118 +71,186 @@
             </div>
         @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'publication name',
-            'value' => $publication->publication_name
-        ])
+        @if(empty($publication->publication_name))
+            @include('guest.components.show-row', [
+                'name'  => 'publication name',
+                'value' => $publication->publication_name
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'publisher',
-            'value' => $publication->publisher
-        ])
+        @if(empty($publication->publisher))
+            @include('guest.components.show-row', [
+                'name'  => 'publisher',
+                'value' => $publication->publisher
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'date',
-            'value' => longDate($publication->date)
-        ])
+        @if(empty($publication->date))
+            @include('guest.components.show-row', [
+                'name'  => 'date',
+                'value' => longDate($publication->date)
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'year',
-            'value' => $publication->year
-        ])
+        @if(empty($publication->year))
+            @include('guest.components.show-row', [
+                'name'  => 'year',
+                'value' => $publication->year
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'credit',
-            'value' => $publication->credit
-        ])
+        @if(empty($publication->credit))
+            @include('guest.components.show-row', [
+                'name'  => 'credit',
+                'value' => $publication->credit
+            ])
+        @endif
 
+        @if(!empty($publication->freelance))
         @include('guest.components.show-row-checkbox', [
             'name'    => 'freelance',
             'checked' => $publication->freelance
         ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'fiction',
-            'checked' => $publication->fiction
-        ])
+        @if(!empty($publication->fiction))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'fiction',
+                'checked' => $publication->fiction
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'nonfiction',
-            'checked' => $publication->nonfiction
-        ])
+        @if(!empty($publication->nonfiction))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'nonfiction',
+                'checked' => $publication->nonfiction
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'technical',
-            'checked' => $publication->technical
-        ])
+        @if(!empty($publication->technical))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'technical',
+                'checked' => $publication->technical
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'research',
-            'checked' => $publication->research
-        ])
+        @if(!empty($publication->research))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'research',
+                'checked' => $publication->research
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'poetry',
-            'checked' => $publication->poetry
-        ])
+        @if(!empty($publication->poetry))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'poetry',
+                'checked' => $publication->poetry
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'online',
-            'checked' => $publication->online
-        ])
+        @if(!empty($publication->online))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'online',
+                'checked' => $publication->online
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'novel',
-            'checked' => $publication->novel
-        ])
+        @if(!empty($publication->novel))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'novel',
+                'checked' => $publication->novel
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'book',
-            'checked' => $publication->book
-        ])
+        @if(!empty($publication->book))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'book',
+                'checked' => $publication->book
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'textbook',
-            'checked' => $publication->textbook
-        ])
+        @if(!empty($publication->textbook))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'textbook',
+                'checked' => $publication->textbook
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'story',
-            'checked' => $publication->story
-        ])
+        @if(!empty($publication->story))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'story',
+                'checked' => $publication->story
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'article',
-            'checked' => $publication->article
-        ])
+        @if(!empty($publication->article))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'article',
+                'checked' => $publication->article
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'paper',
-            'checked' => $publication->paper
-        ])
+        @if(!empty($publication->paper))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'paper',
+                'checked' => $publication->paper
+            ])
+        @endif
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'pamphlet',
-            'checked' => $publication->pamphlet
-        ])
+        @if(!empty($publication->pamphlet))
+            @include('guest.components.show-row-checkbox', [
+                'name'    => 'pamphlet',
+                'checked' => $publication->pamphlet
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'publication url',
-            'value' => $publication->publication_url,
-        ])
+        @if(!empty($publication->publication_url))
+            @include('guest.components.show-row', [
+                'name'  => 'publication url',
+                'value' => $publication->publication_url,
+            ])
+        @endif
 
         @if(!empty($publication->link))
             @include('guest.components.show-row-link', [
-                'name'   => $publication->link_name,
+                'name'   => $publication->link_name ?? '',
                 'href'   => $publication->link,
                 'target' => '_blank'
             ])
         @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'description',
-            'value' => nl2br($publication->description ?? '')
-        ])
+        @if(!empty($publication->description ))
+            @include('guest.components.show-row', [
+                'name'  => 'description',
+                'value' => $publication->description
+            ])
+        @endif
+
+        @if(!empty($publication->image))
+            @include('guest.components.show-row-image', [
+                'name'         => 'image',
+                'src'          => $publication->image,
+                'alt'          => $publication->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($publication->name, $publication->image),
+                'image_credit' => $publication->image_credit,
+                'image_source' => $publication->image_source,
+            ])
+        @endif
+
+        @if(!empty($publication->thumbnail))
+            @include('guest.components.show-row-image', [
+                'name'     => 'thumbnail',
+                'src'      => $publication->thumbnail . ' thumbnail',
+                'alt'      => $publication->name,
+                'width'    => '40px',
+                'download' => true,
+                'external' => true,
+                'filename' => getFileSlug($publication->name . '-thumbnail', $publication->thumbnail)
+            ])
+        @endif
 
     </div>
 

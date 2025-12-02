@@ -1,0 +1,28 @@
+<div class="columns">
+    <span class="column is-2"><strong>{{ $name ?? '#name#' }}</strong>:</span>
+    <span class="column is-10 pl-0">
+        @include('guest.components.image', [
+            'src'      => $src ?? '',
+            'alt'      => $alt ?? '',
+            'class'    => $class ?? '',
+            'style'    => $style ?? [],
+            'width'    => $width ?? '',
+            'height'   => $height ?? '',
+            'download' => $download ?? false,
+            'filename' => $filename ?? '',
+        ])
+        <br>
+        <span>
+            @if(!empty($image_credit))
+                <span class="mr-2">
+                    <i>credit: {{$image_credit}}@if(!empty($image_credit)),@endif</i>
+                </span>
+            @endif
+            @if(!empty($image_credit))
+                <span>
+                        <i> source: {{$image_source}}</i>
+                    </span>
+            @endif
+        </span>
+    </span>
+</div>

@@ -54,57 +54,46 @@
 
         @if(!empty($award->link))
             @include('guest.components.show-row-link', [
-                'name'   => $award->link_name,
+                'name'   => $award->link_name ?? '',
                 'href'   => $award->link,
                 'target' => '_blank'
             ])
         @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'description',
-            'value' => nl2br($award->description ?? '')
-        ])
+        @if(!empty($award->description))
+            @include('guest.components.show-row', [
+                'name'  => 'description',
+                'value' => nl2br($award->description ?? '')
+            ])
+        @endif
 
         @if(!empty($award->image))
-
-            @include('guest.components.show-row-image', [
-                'name'     => 'image',
-                'src'      => $award->image,
-                'alt'      => $award->name,
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($award->name . (!empty($award->year) ? ' - ' . $award->year : ''), $award->image)
+            @include('guest.components.show-row-image-credited', [
+                'name'         => 'image',
+                'src'          => $award->image,
+                'alt'          => $award->name . ', ' . (!empty($award->year) ? ' - ' . $award->year : ''),
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($award->name, $award->image),
+                'image_credit' => $award->image_credit,
+                'image_source' => $award->image_source,
             ])
-
-            @if(!empty($award->image_credit))
-                @include('guest.components.show-row', [
-                    'name'  => 'image credit',
-                    'value' => $award->image_credit
-                ])
-            @endif
-
-            @if(!empty($award->image_source))
-                @include('guest.components.show-row', [
-                    'name'  => 'image source',
-                    'value' => $award->image_source
-                ])
-            @endif
-
         @endif
 
         @if(!empty($award->thumbnail))
-
             @include('guest.components.show-row-image', [
                 'name'     => 'thumbnail',
                 'src'      => $award->thumbnail,
-                'alt'      => $award->name . ', ' . (!empty($award->year) ? ' - ' . $award->year : ''),
+                'alt'      => $award->name . ', ' . (!empty($award->year) ? ' - ' . $award->year : '') . ' thumbnail',
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($award->name . (!empty($award->year) ? ' - ' . $award->year : ''), $award->thumbnail)
+                'filename' => getFileSlug(
+                    $award->name . (!empty($award->year) ? ' - ' . $award->year : '') . '-thumbnail',
+                    $award->thumbnail
+                )
             ])
-
         @endif
 
     </div>

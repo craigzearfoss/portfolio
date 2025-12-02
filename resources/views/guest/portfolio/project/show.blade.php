@@ -27,86 +27,82 @@
             'value' => $project->name
         ])
 
+        <?php /*
         @include('guest.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $project->featured
         ])
+        */ ?>
 
-        @include('guest.components.show-row', [
-            'name'  => 'year',
-            'value' => $project->year
-        ])
+        @if(!empty($project->year))
+            @include('guest.components.show-row', [
+                'name'  => 'year',
+                'value' => $project->year
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'language',
-            'value' => $project->language
-        ])
+        @if(!empty($project->language))
+            @include('guest.components.show-row', [
+                'name'  => 'language',
+                'value' => $project->language
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'language version',
-            'value' => $project->language_version
-        ])
+        @if(!empty($project->language_version))
+            @include('guest.components.show-row', [
+                'name'  => 'language version',
+                'value' => $project->language_version
+            ])
+        @endif
 
-        @include('guest.components.show-row-link', [
-            'name'   => 'repository',
-            'label'  => $project->repository_name,
-            'href'   => $project->repository_url,
-            'target' => '_blank'
-        ])
+        @if(!empty($projectrepository_urlyear))
+            @include('guest.components.show-row-link', [
+                'name'   => 'repository',
+                'label'  => $project->repository_name,
+                'href'   => $project->repository_url,
+                'target' => '_blank'
+            ])
+        @endif
 
         @if(!empty($project->link))
             @include('guest.components.show-row-link', [
-                'name'   => $project->link_name,
+                'name'   => $project->link_name ?? '',
                 'href'   => $project->link,
                 'target' => '_blank'
             ])
         @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'description',
-            'value' => nl2br($project->description ?? '')
-        ])
+        @if(!empty($project->description ))
+            @include('guest.components.show-row', [
+                'name'  => 'description',
+                'value' => $project->description
+            ])
+        @endif
 
         @if(!empty($project->image))
-
             @include('guest.components.show-row-image', [
-                'name'     => 'image',
-                'src'      => $project->image,
-                'alt'      => $project->name . ', ' . $project->artist,
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($project->name . '-by-' . $project->artist, $project->image)
+                'name'         => 'image',
+                'src'          => $project->image,
+                'alt'          => $project->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($project->name, $project->image),
+                'image_credit' => $project->image_credit,
+                'image_source' => $project->image_source,
             ])
-
-            @if(!empty($project->image_credit))
-                @include('guest.components.show-row', [
-                    'name'  => 'image credit',
-                    'value' => $project->image_credit
-                ])
-            @endif
-
-            @if(!empty($project->image_source))
-                @include('guest.components.show-row', [
-                    'name'  => 'image source',
-                    'value' => $project->image_source
-                ])
-            @endif
-
         @endif
 
         @if(!empty($project->thumbnail))
-
             @include('guest.components.show-row-image', [
                 'name'     => 'thumbnail',
-                'src'      => $project->thumbnail,
-                'alt'      => $project->name . ', ' . $project->artist,
+                'src'      => $project->thumbnail . ' thumbnail',
+                'alt'      => $project->name,
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($project->name . '-by-' . $project->artist, $project->thumbnail)
+                'filename' => getFileSlug($project->name . '-thumbnail', $project->thumbnail)
             ])
-
         @endif
 
     </div>

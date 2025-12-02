@@ -25,105 +25,107 @@
             'value' => $recipe->name
         ])
 
+        <?php /*
         @include('guest.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $recipe->featured
         ])
+        */ ?>
 
-        @include('guest.components.show-row', [
-            'name'  => 'summary',
-            'value' => $recipe->summary
-        ])
+        @if(!empty($recipe->summary))
+            @include('guest.components.show-row', [
+                'name'  => 'summary',
+                'value' => $recipe->summary
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'source',
-            'value' => $recipe->source
-        ])
+        @if(!empty($recipe->source))
+            @include('guest.components.show-row', [
+                'name'  => 'source',
+                'value' => $recipe->source
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'author',
-            'value' => $recipe->author
-        ])
+        @if(!empty($recipe->author))
+            @include('guest.components.show-row', [
+                'name'  => 'author',
+                'value' => $recipe->author
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'prep time',
-            'value' => !empty($recipe->prep_time) ? ($recipe->prep_time . ' minutes') : ''
-        ])
+        @if(!empty($recipe->prep_time))
+            @include('guest.components.show-row', [
+                'name'  => 'prep time',
+                'value' => $recipe->prep_time . ' minutes'
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'total time',
-            'value' => !empty($recipe->total_time) ? ($recipe->total_time . ' minutes') : ''
-        ])
+        @if(!empty($recipe->total_time))
+            @include('guest.components.show-row', [
+                'name'  => 'total time',
+                'value' => $recipe->total_time . ' minutes'
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'type',
-            'value' => $recipe->type
-        ])
+        @php
+        $types = $recipe->types();
+        @endphp
+        @if(!empty($types))
+            @include('guest.components.show-row', [
+                'name'  => 'type',
+                'value' => implode(', ', $types)
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'meal',
-            'value' => $recipe->meal
-        ])
-
-        @include('guest.components.show-row', [
-            'name'  => 'notes',
-            'value' => $recipe->notes
-        ])
+        @php
+            $meals = $recipe->meals();
+        @endphp
+        @if(!empty($meals))
+            @include('guest.components.show-row', [
+                'name'  => 'meal',
+                'value' => implode(', ', $meals)
+            ])
+        @endif
 
         @if(!empty($recipe->link))
             @include('guest.components.show-row-link', [
-                'name'   => 'link',
-                'label'  => $recipe->link_name,
+                'name'   => $recipe->link_name ?? 'link',
                 'href'   => $recipe->link,
                 'target' => '_blank'
             ])
         @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'description',
-            'value' => nl2br($recipe->description ?? '')
-        ])
+        @if(!empty($recipe->description ))
+            @include('guest.components.show-row', [
+                'name'  => 'description',
+                'value' => $recipe->description
+            ])
+        @endif
 
         @if(!empty($recipe->image))
-
             @include('guest.components.show-row-image', [
-                'name'     => 'image',
-                'src'      => $recipe->image,
-                'alt'      => $recipe->name . ', ' . $recipe->artist,
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($recipe->name . '-by-' . $recipe->artist, $recipe->image)
+                'name'         => 'image',
+                'src'          => $recipe->image,
+                'alt'          => $recipe->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($recipe->name, $recipe->image),
+                'image_credit' => $recipe->image_credit,
+                'image_source' => $recipe->image_source,
             ])
-
-            @if(!empty($recipe->image_credit))
-                @include('guest.components.show-row', [
-                    'name'  => 'image credit',
-                    'value' => $recipe->image_credit
-                ])
-            @endif
-
-            @if(!empty($recipe->image_source))
-                @include('guest.components.show-row', [
-                    'name'  => 'image source',
-                    'value' => $recipe->image_source
-                ])
-            @endif
-
         @endif
 
         @if(!empty($recipe->thumbnail))
-
             @include('guest.components.show-row-image', [
                 'name'     => 'thumbnail',
-                'src'      => $recipe->thumbnail,
-                'alt'      => $recipe->name . ', ' . $recipe->artist,
+                'src'      => $recipe->thumbnail . ' thumbnail',
+                'alt'      => $recipe->name,
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($recipe->name . '-by-' . $recipe->artist, $recipe->thumbnail)
+                'filename' => getFileSlug($recipe->name . '-thumbnail', $recipe->thumbnail)
             ])
-
         @endif
 
     </div>

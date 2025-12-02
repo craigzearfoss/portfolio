@@ -27,59 +27,77 @@
             'value' => $course->name
         ])
 
+        <?php /*
         @include('guest.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $course->featured
         ])
+        */ ?>
 
-        @include('guest.components.show-row', [
-            'name'  => 'summary',
-            'value' => $course->summary
-        ])
+        @if(!empty($course->summary))
+            @include('guest.components.show-row', [
+                'name'  => 'summary',
+                'value' => $course->summary
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'year',
-            'value' => $course->year
-        ])
+        @if(!empty($course->summary))
+            @include('guest.components.show-row', [
+                'name'  => 'year',
+                'value' => $course->year
+            ])
+        @endif
 
         @include('guest.components.show-row-checkbox', [
             'name'    => 'completed',
             'checked' => $course->completed
         ])
 
-        @include('guest.components.show-row', [
-            'name'  => 'completion date',
-            'value' => longDate($course->completion_date)
-        ])
+        @if(!empty($course->date))
+            @include('guest.components.show-row', [
+                'name'  => 'completion date',
+                'value' => longDate($course->completion_date)
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'duration hours',
-            'value' => $course->duration_hours
-        ])
+        @if(!empty($course->duration_hours))
+            @include('guest.components.show-row', [
+                'name'  => 'duration hours',
+                'value' => $course->duration_hours
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name' => 'academy',
-            'value' => view('guest.components.link', [
-                            'name' => $course->academy['name'] ?? '',
-                            'href' => $course->academy['link'] ?? null,
-                            'target' =>'_blank'
-                        ])
-        ])
+        @if(!empty($course->academy))
+            @include('guest.components.show-row', [
+                'name' => 'academy',
+                'value' => view('guest.components.link', [
+                                'name' => $course->academy['name'] ?? '',
+                                'href' => $course->academy['link'] ?? null,
+                                'target' =>'_blank'
+                            ])
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'school',
-            'value' => $course->school
-        ])
+        @if(!empty($course->school))
+            @include('guest.components.show-row', [
+                'name'  => 'school',
+                'value' => $course->school
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'instructor',
-            'value' => $course->instructor
-        ])
+        @if(!empty($course->instructor))
+            @include('guest.components.show-row', [
+                'name'  => 'instructor',
+                'value' => $course->instructor
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'sponsor',
-            'value' => $course->sponsor
-        ])
+        @if(!empty($course->sponsor))
+            @include('guest.components.show-row', [
+                'name'  => 'sponsor',
+                'value' => $course->sponsor
+            ])
+        @endif
 
         @if(!empty($course->certificate_url))
             @include('guest.components.show-row-image', [
@@ -94,57 +112,43 @@
 
         @if(!empty($course->link))
             @include('guest.components.show-row-link', [
-                'name'   => $course->link_name,
+                'name'   => $course->link_name ?? '',
                 'href'   => $course->link,
                 'target' => '_blank'
             ])
         @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'description',
-            'value' => nl2br($course->description ?? '')
-        ])
+        @if(!empty($course->description))
+            @include('guest.components.show-row', [
+                'name'  => 'description',
+                'value' => nl2br($course->description ?? '')
+            ])
+        @endif
 
         @if(!empty($course->image))
-
-            @include('guest.components.show-row-image', [
-                'name'     => 'image',
-                'src'      => $course->image,
-                'alt'      => $course->name . ', ' . $course->artist,
-                'width'    => '300px',
-                'download' => true,
-                'external' => true,
-                'filename' => getFileSlug($course->name . '-by-' . $course->artist, $course->image)
+            @include('guest.components.show-row-image-credited', [
+                'name'         => 'image',
+                'src'          => $course->image,
+                'alt'          => $course->name,
+                'width'        => '300px',
+                'download'     => true,
+                'external'     => true,
+                'filename'     => getFileSlug($course->name, $course->image),
+                'image_credit' => $course->image_credit,
+                'image_source' => $course->image_source,
             ])
-
-            @if(!empty($course->image_credit))
-                @include('guest.components.show-row', [
-                    'name'  => 'image credit',
-                    'value' => $course->image_credit
-                ])
-            @endif
-
-            @if(!empty($course->image_source))
-                @include('guest.components.show-row', [
-                    'name'  => 'image source',
-                    'value' => $course->image_source
-                ])
-            @endif
-
         @endif
 
         @if(!empty($course->thumbnail))
-
             @include('guest.components.show-row-image', [
                 'name'     => 'thumbnail',
                 'src'      => $course->thumbnail,
-                'alt'      => $course->name . ', ' . $course->artist,
+                'alt'      => $course->name . ', ' . ' thumbnail',
                 'width'    => '40px',
                 'download' => true,
                 'external' => true,
-                'filename' => getFileSlug($course->name . '-by-' . $course->artist, $course->thumbnail)
+                'filename' => getFileSlug($course->name . '-thumbnail', $course->thumbnail)
             ])
-
         @endif
 
     </div>

@@ -22,7 +22,7 @@ class AwardController extends Controller
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $awards = Art::where('owner_id', $admin->id)
+        $awards = Award::where('owner_id', $admin->id)
             ->where('public', 1)
             ->where('disabled', 0)
             ->orderBy('name', 'asc')->orderBy('name', 'asc')
@@ -41,7 +41,7 @@ class AwardController extends Controller
      */
     public function show(Admin $admin, string $slug): View
     {
-        if (!$award = Art::where('owner_id', $admin->id)->where('slug', $slug)->first()) {
+        if (!$award = Award::where('owner_id', $admin->id)->where('slug', $slug)->first()) {
             throw new ModelNotFoundException();
         }
 
