@@ -43,7 +43,7 @@
                 //'type'        => 'password',
                 'name'        => 'password',
                 'label'       => 'Password',
-                'value'       => old('password') ?? (config('app.demo_admin_password') ? config('app.demo_admin_password') : ''),
+                'value'       => old('password') ?? (config('app.demo_user_enabled') ? config('app.demo_admin_password') : ''),
                 'placeholder' => 'Password',
                 'required'    => true,
                 'maxlength'   => 255,
