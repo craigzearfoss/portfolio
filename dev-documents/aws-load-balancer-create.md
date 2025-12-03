@@ -1,0 +1,42 @@
+## Create an AWS load balancer
+- [ ] Log into AWS console.
+- [ ] Select the region from the dropdown list in the top right corner.
+- [ ] Navigate to the EC2 page.
+- [ ] From the left menu select "Load Balancers" under "Load Balancing"
+- [ ] From the orange "Create load balancer" at the top right select "Create application load balancer"
+- **Basic configuration**
+    - **Load balancer name**
+        - Enter the name for the load balancer. (The name cannot be changed after the load balancer is created.)
+    - **Scheme**
+        - Select "Internet-facing"
+    - **Load balancer IP address type**
+        - Select "IPv4"
+    - **Network mapping**
+        - Select the VPC that you created.
+    - **IP pools**
+        - Do NOT select.
+    - **Availability Zones and subnets**
+        - Select two.
+    - **Security groups**
+        - Select the security group that you created. (Not the default one.)
+    - **Listeners and routing*
+        - Keep HTTP on Port 80.
+    - **Target group**
+        - If you haven't created any target groups click on "Create target group".
+            - For **Target type** select "Instances".
+            - Give it a **Target group name** like _zearfoss-route53-tg_.
+        - Keep **Protocol** as "HTTP" and **Port" as "80".
+        - **IP address type**
+            - Select "IPv4"
+        - **VPC**
+            - Keep it as the VPC that you created.
+        - **Protocol version**
+            - Keep as "HTTP1".
+        - Keep the rest of the defaults.
+        - Click the orange "Next" button in the bottom right.
+        - Click the orange "Next" button in the bottom right.
+        - Click the orange "Create target group" button in the bottom right.
+        - Go back to the Create Application Load Balancer page and click on the refresh target groups icon.
+- Select you target group.
+- Keep the rest of the defaults.
+- Click on the orange "Create load balancer" in the bottom right corner. 

@@ -1,0 +1,25 @@
+## Create an AWS hosted zone
+- [ ] Log into AWS console.
+- [ ] Select a region from the dropdown list in the top right corner. For example, us-east-1 or us-east-2.
+- [ ] Got to the Route 53 dashboard.
+- [ ] In the **Route 53 Dashboard** lick on "Hosts zones" in the left menu.
+- [ ] Click on the orange "Create hosted zone" button.
+- [ ] On the **Create hosted zone** page:
+    - **Hosted zone configuration**
+        - **Domain**
+            - Enter the domain name.
+        - **Description**
+            - Optional.
+        - **Type**
+            - Select "Public hosted zone".
+        - Click on the orange "Create hosted zone" button in the bottom right.
+- [ ] Add subdomains with A records.
+  - On the Route 53 Host zones page for the domain click on the orange "Create record" button.
+    - **Record name**
+      - Enter the subdomain name.
+    - **Record type**
+      - Select "A"
+    - **TTL (seconds)**
+      - Keep it low for sites in development. 300, which is 5 minutes should be fine.
+    - **Routing policy**
+      - Select "Simple routing".

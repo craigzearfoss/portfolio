@@ -1,0 +1,32 @@
+## Create an AWS VPC
+- [ ] Log into AWS console.
+- [ ] Select a region from the dropdown list in the top right corner. For example, us-east-1 or us-east-2. 
+- [ ] Click on "VPC" or use the search bar to find it.
+- [ ] Click on the orange "Create VPC" button.
+  - **Resources to create**
+    - Select "VPC and more".
+  - **Name tag auto-generation**
+    - Select "Auto-generate" and enter a name. "-vpc" will automatically be appended to the name.
+  - **IPv4 CIDR block**
+    - Change the first number instead of just using the default because everyone uses the default. So use something like 15.0.0.0/20.
+  - **IPv6 CIDR block**
+    - Check "No IPv6 CIDR block"
+  - **Tenancy**
+    - Leave selected as "Default"
+  - **Encryption settings**
+    - No changes.
+  - **Availability Zones**
+    - Select "2"
+  - **Number of public subnets**
+    - Leave at "2"
+  - **Number of private subnets**
+    - Leave at "2"
+  - **NAT gateways ($)**
+    - Don't select NAT gateways. This allows resources in private subnets to initiate outgoing calls to the public internet. This costs $$$.
+  - **VPC endpoints**
+    - Select "S3 Gateway". This is private back channel so you don't need to go out though the public subnet. All traffic stays in the AWS network. I believe there is no charge for the S3 gateway.
+  - **DNS options**
+    - Select both "Enable DNS hostnames" and "Enable DNS resolution".
+  - **Additional tags**
+    - You don't need to do anything with this.
+- [ ] Click on the orange "Create VPC" button.

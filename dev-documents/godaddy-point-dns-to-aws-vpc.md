@@ -1,0 +1,13 @@
+## Point DNS to AWS
+- [ ] Log into AWS console.
+- [ ] Select a region from the dropdown list in the top right corner. For example, us-east-1 or us-east-2.
+- [ ] Got to the Route 53 dashboard.
+- [ ] Select "Hosted zones" from the left menu.
+- [ ] Click on the hosted zone for the domain.
+  - Make a note of the **Value/Route traffic to** records for the "NS" **Type**. 
+- [ ] Log into GoDaddy.com.
+- [ ] Click on you initial icon in the top right and select "My Products".
+- [ ] Click on the domain you want to update.
+- [ ] In the left menu click on "Domain" and then select the "Nameservers" tab on the right.
+- [ ] Click on the "Change Nameservers" button at the right.
+- [ ] Replace the nameservers with the values from AWS in the earlier step. (Don't include the trailing period.)

@@ -1,0 +1,80 @@
+## Create an AWS EC2 instance
+- [ ] Log into AWS console.
+- [ ] Select a region from the dropdown list in the top right corner. For example, us-east-1 or us-east-2. 
+- [ ] Click on "EC2" or use the search bar to find it.
+- [ ] Click on the orange "Launch instance" button
+  - **Name and tags**
+    - Enter a name for the EC2 instance.
+  - **Application and OS Images (Amazon Machine Image)**
+      - **Amazon Machine Image (AMI)**
+        - Select an Amazon Machine Image (AMI). For example, Amazon Linux or Ubuntu.
+      - **Architecture**
+        - Confirm the selected architecture.
+  - **Instance Type**
+    - Select an instance type. For example, t2.micro or t2.small.
+  - **Key pair (login))**
+    - Select a Key pair. If you don't already have one, click on "Create new key pair" and do the following.
+    - Give it a meaningful name. Use only lowercase letters, numbers, and dashes to keep names in a nice, standard format.
+    - Choose RAS or ED25519. You will also use this to access your git repos.
+      - This will download a .pem file.
+        - Copy this fil to your desired directory. I like to user ~/Documents.
+        - Set the permissions on the .pem file.
+          - chmod 400 my-key-pair.pem
+        - Connect to the EC2 instance.
+          - ssh -i "my-key-pair.pem" ubuntu@your_instance_public_ip
+  - **Network settings**
+    - **Network**
+    - **Subnet**
+    - **Auto-assign public IP**
+    - **Firewall (security groups)**
+      - If you haven't created a security group, do so now because the AWS default security group is often too permissive by default and lacks specific rules, which can lead to security vulnerabilities.
+      - Select **Create security group**.
+      - Check "Allow SSH traffic from" and "Anywhere"
+      - Do **NOT** check "Allow HTTPS traffic from the internet". We will set up security rules for that later.
+      - Also, check "Allow HTTP traffic from the internet".
+      - Note that these rules are for inbound traffic. By default, all outbound requests are allowed. 
+  - **Configure storage**
+    - Accept the values that are shown. 
+  - Click on the orange "Create instance" button.
+- [ ] Once the instance is created we need to create a new inbound rule for HTTPS. From the EC2 page:
+  - On the left menu click on "Network & Security".
+  - Click on "Security Groups".
+  - Select the checkbox in front of your security group.
+  - At the bottom of the page select the "Inbound rules" tab.
+  - Click on the "Edit inbound rules" button on the right.
+  - Click on the "Add rule" button at the bottom left.
+  - For **Type** select "HTTPS".
+  - Under **Source** select "Anywhere-IPv4"
+  - Click the orange "Save rules" button at the lower right.
+
+#### \* We should have used an Elastic IP address when we created this EC2 instance instead of auto-assigning an IP address. To associate an Elastic IP address with this EC2 instance follow the instructions in aws-elastic-ip-address-allocate.md.
+
+#### \* Before proceeding to the next step you'll have to request an SSL certification and apply it to your server. The instructions for how to do this are in aws-certificate-acm-request.md
+
+- [ ] Add a listener for Port 443.
+  - Navigate to EC2 => Load balancers.
+  - Select the load balance.
+  - Click the "Add listener" button in the bottom right.
+  - **Listener**
+    - **Protocol**
+      - Select "HTTPS".
+    - **Port**
+      - Select "443".
+    - **Default action**
+      - **Pre-routing action**
+        - Select "No pre-routing action".
+      - **Routing action**
+        - Select "Forward to target groups".
+          - **Forward to target group**
+          - **Target group**
+            - Select the target group.
+  - **Secure listener settings**
+    - **Security policy**
+      - **Security category**
+        - Leave at "All security policies."
+      - **Policy name**
+        - Keep the recommended option.
+      - **Certificate (from ACM)**
+        - Select the certificate that you created above.
+    - For now keep the default settings.
+    - Click the orange "Add listener" button in the bottom right.
