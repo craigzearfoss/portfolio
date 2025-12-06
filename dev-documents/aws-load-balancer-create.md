@@ -11,18 +11,21 @@
         - Select "Internet-facing"
     - **Load balancer IP address type**
         - Select "IPv4"
-    - **Network mapping**
-        - Select the VPC that you created.
-    - **IP pools**
-        - Do NOT select.
-    - **Availability Zones and subnets**
-        - Select two.
+- **Network mapping**
+  - **VPC**
+    - Select the VPC that you created.
+  - **IP pools**
+    - Do NOT select.
+  - **Availability Zones and subnets**
+    - Select at least two public subnets.
     - **Security groups**
-        - Select the security group that you created. (Not the default one.)
-    - **Listeners and routing*
-        - Keep HTTP on Port 80.
-    - **Target group**
-        - If you haven't created any target groups click on "Create target group".
+      - If you haven't created a security then create one following the instructions in aws-security-group-create.md.
+      - Select the security group that you created. (Not the default one.)
+    - **Listeners and routing**
+      - **Protocol** and **Port**
+        - Keep "HTTP" on Port "80".
+      - **Target group**
+        - If you haven't created any target groups click on "Create target group" and following the instructions in aws-target-group-create.md.
             - For **Target type** select "Instances".
             - Give it a **Target group name** like _zearfoss-route53-tg_.
         - Keep **Protocol** as "HTTP" and **Port" as "80".

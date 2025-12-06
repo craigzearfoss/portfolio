@@ -19,7 +19,7 @@
       - This will download a .pem file.
         - Copy this fil to your desired directory. I like to user ~/Documents.
         - Set the permissions on the .pem file.
-          - chmod 400 my-key-pair.pem
+          - chmod 400 yourdomain_key.pem
         - Connect to the EC2 instance.
           - ssh -i "my-key-pair.pem" ubuntu@your_instance_public_ip
   - **Network settings**
@@ -28,11 +28,7 @@
     - **Auto-assign public IP**
     - **Firewall (security groups)**
       - If you haven't created a security group, do so now because the AWS default security group is often too permissive by default and lacks specific rules, which can lead to security vulnerabilities.
-      - Select **Create security group**.
-      - Check "Allow SSH traffic from" and "Anywhere"
-      - Do **NOT** check "Allow HTTPS traffic from the internet". We will set up security rules for that later.
-      - Also, check "Allow HTTP traffic from the internet".
-      - Note that these rules are for inbound traffic. By default, all outbound requests are allowed. 
+        - Follow the instructions in aws-security-group-create.md
   - **Configure storage**
     - Accept the values that are shown. 
   - Click on the orange "Create instance" button.

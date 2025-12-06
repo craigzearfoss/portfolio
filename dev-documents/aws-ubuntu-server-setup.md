@@ -70,7 +70,7 @@ To set the default php version
 > 
 > curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
 > 
-> HASH=`curl -sS https://composer.github.io/installer.sig`
+> HASH=\`curl -sS https://composer.github.io/installer.sig`
 > 
 > php -r "if (hash_file('SHA384', '/tmp/composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 > 
@@ -87,7 +87,7 @@ To set the default php version
 >
 > git config --global user.name "Craig Zearfoss"
 > 
-> git config --global user.email "craigzearfoss@yahoo.com"
+> git config --global user.email "craigzearfoss@gmail.com"
 
 ### Install other tools
 > sudo apt update

@@ -20,8 +20,11 @@
       - For each of the CNAMEs listed copy the CNAME name and CNAME value into the **Quick create record** page you have open in the other browser window.
         - You can click on the "Add another record" button so you can submit them all with one click.
         - Make sure you select "C" for all the record types.
+        - When you add a CNAME don't include the .youdomain.com part because that is automatically appended to the record.
         - When you are done entering all the CNAMEs click the orange "Create records" button in the bottom right.
         - Now you'll have to wait for them to be approved before continuing.
+
+## Create a Hosted Zone for the Domain and Add CNAME records
 
 ## Apply an SSL Certificate to an EC2 Instance
 
