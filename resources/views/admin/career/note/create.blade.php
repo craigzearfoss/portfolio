@@ -1,20 +1,26 @@
 @php
-    $breadcrumbs = [
-       [ 'name' => 'Home',                    'href' => route('system.index') ],
-       [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
-       [ 'name' => 'Career',                  'href' => route('admin.career.index') ],
-    ];
     if (!empty($application)) {
-        $breadcrumbs[] = [ 'name' => 'Applications',     'href' => route('admin.career.application.index') ];
-        $breadcrumbs[] = [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ];
-        $breadcrumbs[] = [ 'name' => 'Notes',           'href' => route('admin.career.note.index', ['application_id' => $application->id]) ];
+        $breadcrumbs = [
+            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => 'Notes',            'href' => route('admin.career.note.index', ['application_id' => $application->id]) ],
+            [ 'name' => 'Add' ]
+        ];
     } else {
-        $breadcrumbs[] = [ 'name' => 'Notes', 'href' => route('admin.career.note.index') ];
+        $breadcrumbs = [
+            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+            [ 'name' => 'Notes',           'href' => route('admin.career.note.index') ],
+            [ 'name' => 'Add' ]
+        ];
     }
-    $breadcrumbs[] = [ 'name' => 'Add'];
 @endphp
 @extends('admin.layouts.default', [
-    'title' => $title ?? 'Add Note',
+    'title' => $title ?? 'Add Note' . (!empty($application) ? ' to ' . $application->name . ' application' : ''),
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.note.index') ],
@@ -30,7 +36,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.note.store') }}" method="POST">
+        <form action="{{ route('admin.career.note.store', $urlParams ?? []) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [

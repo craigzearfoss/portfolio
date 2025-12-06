@@ -1,5 +1,24 @@
+@php
+    if (!empty($application)) {
+        $breadcrumbs = [
+            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index', ['application_id' => $application->id]) ]
+        ];
+    } else {
+        $breadcrumbs = [
+            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+            [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ]
+        ];
+    }
+@endphp
 @extends('admin.layouts.default', [
-    'title' => 'Resume: ' . $resume->name,
+    'title' => $title ?? 'Resume: ' . $resume->name . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
@@ -32,18 +51,6 @@
                 'value' => $resume->owner['username'] ?? ''
             ])
         @endif
-
-        @php
-            $application = !empty($resume->application_id)
-                ? \App\Models\Career\Application::find($resume->application_id)
-                : null;
-        @endphp
-        @include('admin.components.show-row', [
-            'name'  => 'application_id',
-            'value' => !empty($application)
-                ? ($application->company['name'] . ' - ' . $application->role . ' [' . $application->apply_date . ']')
-                : ''
-        ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',

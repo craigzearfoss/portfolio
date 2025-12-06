@@ -22,7 +22,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.cover-letter.update', $coverLetter) }}" method="POST">
+        <form action="{{ route('admin.career.cover-letter.update', $coverLetter, $urlParams ?? []) }}" method="POST">
             @csrf
             @method('PUT')
 

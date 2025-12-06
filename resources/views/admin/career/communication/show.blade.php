@@ -1,14 +1,27 @@
+@php
+    if (!empty($application)) {
+        $breadcrumbs = [
+            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => 'Communications',   'href' => route('admin.career.communication.index', ['application_id' => $application->id]) ],
+            [ 'name' => 'Communication' ]
+        ];
+    } else {
+        $breadcrumbs = [
+            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+            [ 'name' => 'Communications',  'href' => route('admin.career.communication.index') ],
+            [ 'name' => 'Communication' ]
+        ];
+    }
+@endphp
 @extends('admin.layouts.default', [
-    'title' => 'Communication',
-    'breadcrumbs' => [
-        [ 'name' => 'Home',                            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard',                 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',                          'href' => route('admin.career.index') ],
-        [ 'name' => 'Applications',                    'href' => route('admin.career.application.index') ],
-        [ 'name' => $communication->application->name, 'href' => route('admin.career.application.show', $communication->application->id) ],
-        [ 'name' => 'Communications',                  'href' => route('admin.career.communication.index', ['application_id' => $communication->application->id]) ],
-        [ 'name' => 'Communication' ],
-    ],
+    'title' => $title ?? 'Communication' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'breadcrumbs' => $breadcruumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',         'href' => route('admin.career.communication.edit', $communication) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.communication.create') ],
@@ -36,7 +49,7 @@
         @endif
 
         @php
-            $application = !empty($note->application_id)
+            $application = !empty($communication->application_id)
                 ? \App\Models\Career\Application::find($communication->application_id)
                 : null;
         @endphp

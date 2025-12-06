@@ -47,12 +47,14 @@ class EventController extends BaseAdminController
      */
     public function create(Request $request): View
     {
-        $applicationId = $request->application_id;
-        $application = !empty($applicationId)
-            ? Application::find($applicationId)
-            : null;
+        $urlParams = [];
+        $application = null;
+        if ($applicationId = $request->get('application_id')) {
+            $urlParams['application_id'] = $applicationId;
+            $application = Application::find($applicationId);
+        }
 
-        return view('admin.career.event.create', compact('application'));
+        return view('admin.career.event.create', compact('application', 'urlParams'));
     }
 
     /**
@@ -63,10 +65,27 @@ class EventController extends BaseAdminController
      */
     public function store(StoreEventsRequest $storeEventsRequest): RedirectResponse
     {
+        $applicationId = $storeEventsRequest->query('application_id');
+
+        if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
+            $previousUrl = url()->previous();
+            if ($applicationId) {
+                $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
+            }
+            return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
+                ->withInput();
+        }
+
         $event = Event::create($storeEventsRequest->validated());
 
-        return redirect()->route('admin.career.event.show', $event)
-            ->with('success', 'Event successfully added.');
+        if (!empty($application)) {
+            return redirect()->route('admin.career.application.show', $application)
+                ->with('success', 'Event successfully added.');
+
+        } else {
+            return redirect()->route('admin.career.event.show', $event)
+                ->with('success', 'Event successfully added.');
+        }
     }
 
     /**
@@ -84,11 +103,17 @@ class EventController extends BaseAdminController
      * Show the form for editing the specified event.
      *
      * @param Event $event
+     * @param Request $request
      * @return View
      */
-    public function edit(Event $event): View
+    public function edit(Event $event, Request $request): View
     {
-        return view('admin.career.event.edit', compact('event'));
+        $urlParams = [];
+        if ($applicationId = $request->get('application_id')) {
+            $urlParams['application_id'] = $applicationId;
+        }
+
+        return view('admin.career.event.edit', compact('event', 'urlParams'));
     }
 
     /**
@@ -100,10 +125,26 @@ class EventController extends BaseAdminController
      */
     public function update(UpdateEventsRequest $updateEventsRequest, Event $event): RedirectResponse
     {
+        $applicationId = $updateEventsRequest->query('application_id');
+
+        if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
+            $previousUrl = url()->previous();
+            if ($applicationId) {
+                $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
+            }
+            return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
+                ->withInput();
+        }
+
         $event->update($updateEventsRequest->validated());
 
-        return redirect()->route('admin.career.event.show', $event)
-            ->with('success', 'Event successfully updated.');
+        if (!empty($application)) {
+            return redirect()->route('admin.career.application.show', $application)
+                ->with('success', 'Event successfully updated.');
+        } else {
+            return redirect()->route('admin.career.event.show', $event)
+                ->with('success', 'Event successfully updated.');
+        }
     }
 
     /**

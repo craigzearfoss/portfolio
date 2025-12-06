@@ -47,12 +47,14 @@ class CommunicationController extends BaseAdminController
      */
     public function create(Request $request): View
     {
-        $applicationId = $request->application_id;
-        $application = !empty($applicationId)
-            ? Application::find($applicationId)
-            : null;
+        $urlParams = [];
+        $application = null;
+        if ($applicationId = $request->get('application_id')) {
+            $urlParams['application_id'] = $applicationId;
+            $application = Application::find($applicationId);
+        }
 
-        return view('admin.career.communication.create', compact('application'));
+        return view('admin.career.communication.create', compact('application', 'urlParams'));
     }
 
     /**
@@ -63,10 +65,27 @@ class CommunicationController extends BaseAdminController
      */
     public function store(StoreCommunicationsRequest $storeCommunicationsRequest): RedirectResponse
     {
+        $applicationId = $storeCommunicationsRequest->query('application_id');
+
+        if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
+            $previousUrl = url()->previous();
+            if ($applicationId) {
+                $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
+            }
+            return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
+                ->withInput();
+        }
+
         $communication = Communication::create($storeCommunicationsRequest->validated());
 
-        return redirect()->route('admin.career.communication.show', $communication)
-            ->with('success', 'Communication successfully added.');
+        if (!empty($application)) {
+            return redirect()->route('admin.career.application.show', $application)
+                ->with('success', 'Communication successfully added.');
+
+        } else {
+            return redirect()->route('admin.career.communication.show', $communication)
+                ->with('success', 'Communication successfully added.');
+        }
     }
 
     /**
@@ -84,11 +103,17 @@ class CommunicationController extends BaseAdminController
      * Show the form for editing the specified communication.
      *
      * @param Communication $communication
+     * @param Request $request
      * @return View
      */
-    public function edit(Communication $communication): View
+    public function edit(Communication $communication, Request $request): View
     {
-        return view('admin.career.communication.edit', compact('communication'));
+        $urlParams = [];
+        if ($applicationId = $request->get('application_id')) {
+            $urlParams['application_id'] = $applicationId;
+        }
+
+        return view('admin.career.communication.edit', compact('communication', 'urlParams'));
     }
 
     /**
@@ -101,10 +126,26 @@ class CommunicationController extends BaseAdminController
     public function update(UpdateCommunicationsRequest $updateCommunicationsRequest,
                            Communication               $communication): RedirectResponse
     {
+        $applicationId = $updateCommunicationsRequest->query('application_id');
+
+        if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
+            $previousUrl = url()->previous();
+            if ($applicationId) {
+                $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
+            }
+            return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
+                ->withInput();
+        }
+
         $communication->update($updateCommunicationsRequest->validated());
 
-        return redirect()->route('admin.career.communication.show', $communication)
-            ->with('success', 'Communication successfully updated.');
+        if (!empty($application)) {
+            return redirect()->route('admin.career.application.show', $application)
+                ->with('success', 'Communication successfully updated.');
+        } else {
+            return redirect()->route('admin.career.communication.show', $communication)
+                ->with('success', 'Communication successfully updated.');
+        }
     }
 
     /**

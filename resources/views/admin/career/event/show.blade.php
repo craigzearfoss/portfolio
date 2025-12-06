@@ -1,18 +1,31 @@
+@php
+    if (!empty($application)) {
+        $breadcrumbs = [
+            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => 'Event',            'href' => route('admin.career.event.index', ['application_id' => $application->id]) ],
+            [ 'name' => 'Event' ]
+        ];
+    } else {
+        $breadcrumbs = [
+            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+            [ 'name' => 'Events',          'href' => route('admin.career.event.index') ],
+            [ 'name' => 'Event' ]
+        ];
+    }
+@endphp
 @extends('admin.layouts.default', [
-    'title' => 'Event',
-    'breadcrumbs' => [
-        [ 'name' => 'Home',                    'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',                  'href' => route('admin.career.index') ],
-        [ 'name' => 'Applications',            'href' => route('admin.career.application.index') ],
-        [ 'name' => $event->application->name, 'href' => route('admin.career.application.show', $event->application->id) ],
-        [ 'name' => 'Events',                  'href' => route('admin.career.communication.index', ['application_id' => $event->application->id]) ],
-        [ 'name' => 'Event' ],
-    ],
+    'title' => $title ?? 'Event' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'breadcrumbs' => $breadcrumb,
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',         'href' => route('admin.career.event.edit', $event) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.event.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',            'href' => referer('admin.career.event.index') ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.event.edit', $event) ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'href' => route('admin.career.event.create') ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.event.index') ],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
@@ -36,7 +49,7 @@
         @endif
 
         @php
-            $application = !empty($note->application_id)
+            $application = !empty($event->application_id)
                 ? \App\Models\Career\Application::find($event->application_id)
                 : null;
         @endphp

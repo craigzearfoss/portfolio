@@ -1,11 +1,25 @@
-@extends('admin.layouts.default', [
-    'title' => 'Applications',
-    'breadcrumbs' => [
+@php
+if (!empty($resume)) {
+    $breadcrumbs = [
+        [ 'name' => 'Home',            'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+        [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
+        [ 'name' => $resume->name,     'href' => route('admin.career.resume.show', $resume) ],
+        [ 'name' => 'Applications' ]
+    ];
+} else {
+    $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Applications' ]
-    ],
+    ];
+}
+@endphp
+@extends('admin.layouts.default', [
+    'title' => 'Applications' . (!empty($resume) ? ' for ' . $resume->name . ' resume' : ''),
+    'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Create a New Application', 'href' => route('admin.career.application.create') ],
     ],

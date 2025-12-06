@@ -20,9 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin/career')->middleware('admin')->name('admin.career.')->group(function () {
     Route::get('/', [AdminCareerIndexController::class, 'index'])->name('index');
     Route::resource('application', AdminCareerApplicationController::class);
-    Route::get('application/{application}/cover-letter', [AdminCareerApplicationController::class, 'showCoverLetter'])->name('application.cover-letter.show');
-    Route::get('application/{application}/cover-letter/edit', [AdminCareerApplicationController::class, 'editCoverLetter'])->name('application.cover-letter.edit');
-    Route::put('application/{application}/cover-letter/update', [AdminCareerApplicationController::class, 'updateCoverLetter'])->name('application.cover-letter.update');
     Route::resource('application/skill', AdminCareerApplicationSkillController::class);
     Route::resource('communication', AdminCareerCommunicationController::class);
     Route::resource('company', AdminCareerCompanyController::class);

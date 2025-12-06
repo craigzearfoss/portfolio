@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Career;
 use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\Career\StoreResumesRequest;
 use App\Http\Requests\Career\UpdateResumesRequest;
+use App\Models\Career\Application;
 use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,21 +28,36 @@ class ResumeController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $resumes = Resume::orderBy('date', 'desc')
-            ->orderby('name', 'asc')->paginate($perPage);
+        $applicationId = $request->application_id;
+        if (!empty($applicationId)) {
+            $application = Application::find($applicationId);
+            $resumes = Resume::where('application_id', $applicationId)->orderBy('date', 'desc')
+                ->orderby('name', 'asc')->paginate($perPage);
+        } else {
+            $application = null;
+            $resumes = Resume::orderBy('date', 'desc')->orderby('name', 'asc')->paginate($perPage);
+        }
 
-        return view('admin.career.resume.index', compact('resumes'))
+        return view('admin.career.resume.index', compact('resumes', 'application'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
     /**
      * Show the form for creating a new resume.
      *
+     * @param Request $request
      * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.career.resume.create');
+        $urlParams = [];
+        $application = null;
+        if ($applicationId = $request->get('application_id')) {
+            $urlParams['application_id'] = $applicationId;
+            $application = Application::find($applicationId);
+        }
+
+        return view('admin.career.resume.create', compact('application', 'urlParams'));
     }
 
     /**
@@ -52,10 +68,28 @@ class ResumeController extends BaseAdminController
      */
     public function store(StoreResumesRequest $storeResumesRequest): RedirectResponse
     {
+        $applicationId = $storeResumesRequest->query('application_id');
+
+        if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
+            $previousUrl = url()->previous();
+            if ($applicationId) {
+                $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
+            }
+            return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
+                ->withInput();
+        }
+
         $resume = Resume::create($storeResumesRequest->validated());
 
-        return redirect()->route('admin.career.resume.show', $resume)
-            ->with('success', $resume->name . ' resume successfully added.');
+        $application->update(['resume_id' => $resume->id]);
+
+        if (!empty($application)) {
+            return redirect()->route('admin.career.application.show', $application)
+                ->with('success', $resume->name . ' resume successfully added.');
+        } else {
+            return redirect()->route('admin.career.resume.show', $resume, $urlParams)
+                ->with('success', $resume->name . ' resume successfully added.');
+        }
     }
 
     /**
@@ -73,11 +107,17 @@ class ResumeController extends BaseAdminController
      * Show the form for editing the specified resume.
      *
      * @param Resume $resume
+     * @param Request $request
      * @return View
      */
-    public function edit(Resume $resume): View
+    public function edit(Resume $resume, Request $request): View
     {
-        return view('admin.career.resume.edit', compact('resume'));
+        $urlParams = [];
+        if ($applicationId = $request->get('application_id')) {
+            $urlParams['application_id'] = $applicationId;
+        }
+
+        return view('admin.career.resume.edit', compact('resume', 'urlParams'));
     }
 
     /**
@@ -89,10 +129,27 @@ class ResumeController extends BaseAdminController
      */
     public function update(UpdateResumesRequest $updateResumesRequest, Resume $resume): RedirectResponse
     {
+        $applicationId = $updateResumesRequest->query('application_id');
+
+        if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
+            $previousUrl = url()->previous();
+            if ($applicationId) {
+                $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
+            }
+            return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
+                ->withInput();
+        }
+
         $resume->update($updateResumesRequest->validated());
 
-        return redirect()->route('admin.career.resume.show', $resume)
-            ->with('success', $resume->name . ' resume successfully updated.');
+
+        if (!empty($application)) {
+            return redirect()->route('admin.career.application.show', $application)
+                ->with('success', $resume->name . ' resume successfully updated.');
+        } else {
+            return redirect()->route('admin.career.resume.show', $resume)
+                ->with('success', $resume->name . ' resume successfully updated.');
+        }
     }
 
     /**

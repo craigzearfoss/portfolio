@@ -53,76 +53,52 @@
             'value' => $application->role
         ])
 
-        <div class="card p-2">
+        <div class="container card p-2 mb-2" style="display: inline-block; flex-grow: 0;">
 
-            <table>
-                <tr>
-                    <tbody>
-                    <th>cover letter:</th>
-                    <td>
-                        {{ longDate($application->coverLetter->date) }}
-                    </td>
+            <div class="p-2 m-0" style="display: inline-block; flex-grow: 0;">
+                @include('admin.components.show-row', [
+                    'name'         => 'post date',
+                    'value'        => longDate($application->post_date),
+                    'width'        => '20em',
+                    'whiteSpace'   => 'nowrap',
+                    'margin-right' => '2px',
+                ])
+            </div>
 
-                    @if(empty($application->coverLetter))
-                        <td>
-                            @include('admin.components.link', [
-                                'name'   => 'Add',
-                                'href'   => route('admin.career.cover-letter.create', ['application_id' => $application->id]),
-                                'class'  => 'button is-primary is-small px-1 py-0'
-                            ])
-                        </td>
+            <div class="p-2 m-0" style="display: inline-block; flex-grow: 0;">
+                @include('admin.components.show-row', [
+                    'name'         => 'apply date',
+                    'value'        => longDate($application->apply_date),
+                    'width'        => '20em',
+                    'whiteSpace'   => 'nowrap',
+                    'margin-right' => '2px',
+                ])
+            </div>
 
-                    @else
-
-                        <td>
-
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.cover-letter.show', $application->coverLetter) }}">
-                                <i class="fa-solid fa-list"></i>{{-- show --}}
-                            </a>
-
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.cover-letter.edit',$application->coverLetter->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
-                            </a>
-
-                            @if(!empty($application->coverLetter->url))
-
-                                <a title="{{ !empty($application->coverLetter->url) ? $application->coverLetter->url : 'link' }}"
-                                   class="button is-small px-1 py-0"
-                                   href="{{ $application->coverLetter->url }}"
-                                   target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
-                                </a>
-                           @endif
-
-                        </td>
-
-                    @endif
-
-                    </tbody>
-                </tr>
-            </table>
+            <div class="p-2 m-0" style="display: inline-block; flex-grow: 0;">
+                @include('admin.components.show-row', [
+                    'name'       => 'close date',
+                    'value'      => longDate($application->close_date),
+                    'whiteSpace' => 'nowrap',
+                    'width'      => '20em',
+                ])
+            </div>
 
         </div>
 
-        <div class="card p-1">
+        <div class="row mb-2" style="flex-grow: 0;">
 
-            <table>
-                <tbody>
-                <tr>
-                    <th>resume</th>
-                </tr>
-                <td>
-                    <strong>@TODO</strong>
-                </td>
+            @include('admin.career.application.cover-letter.panel', [
+                'coverLetter'   => $application->coverLetter ?? null,
+                'applicationId' => $application->id ?? null,
+            ])
 
-                <tbody>
-            </table>
+            @include('admin.career.application.resume.panel', [
+                'resume'        => $application->resume ?? null,
+                'applicationId' => $application->id ?? null,
+            ])
 
         </div>
-
-
 
         @include('admin.components.show-row-rating', [
             'name'  => 'rating',
@@ -134,20 +110,6 @@
             'checked' => $application->active
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'post date',
-            'value' => longDate($application->post_date)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'apply date',
-            'value' => longDate($application->apply_date)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'close date',
-            'value' => longDate($application->close_date)
-        ])
 
         @include('admin.components.show-row', [
             'name'  => 'compensation',
@@ -235,25 +197,40 @@
             ])
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => !empty($application->phone_label) ? $application->phone_label : 'phone',
-            'value' => $application->phone
-        ])
+        <div class="columns">
+            <div class="column is-6">
 
-        @include('admin.components.show-row', [
-            'name'  => !empty($application->alt_phone_label) ? $application->alt_phone_label : 'alt phone',
-            'value' => $application->alt_phone
-        ])
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><strong>{{ !empty($application->phone_label) ? $application->phone_label : 'phone' }}</strong></td>
+                            <td>{{ $application->phone }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ !empty($application->alt_phone_label) ? $application->alt_phone_label : 'alt phone' }}</strong></td>
+                            <td>{{ $application->alt_phone }}</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        @include('admin.components.show-row', [
-            'name'  => !empty($application->email_label) ? $application->email_label : 'email',
-            'value' => $application->email
-        ])
+            </div>
+            <div class="column is-6">
 
-        @include('admin.components.show-row', [
-            'name'  => !empty($application->alt_email_label) ? $application->alt_email_label : 'alt email',
-            'value' => $application->alt_email
-        ])
+                <table>
+                    <tbody>
+                    <tr>
+                        <td><strong>{{ !empty($application->email_label) ? $application->email_label : 'email' }}</strong></td>
+                        <td>{{ $application->email }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ !empty($application->alt_email_label) ? $application->alt_email_label : 'alt email' }}</strong></td>
+                        <td>{{ $application->alt_email }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
@@ -261,14 +238,9 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
+            'name'   => $application->link_name ?? 'link',
             'href'   => $application->link,
             'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'value'  => $application->link_name,
         ])
 
         @include('admin.components.show-row', [

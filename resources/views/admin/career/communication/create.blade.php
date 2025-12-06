@@ -1,20 +1,26 @@
 @php
-    $breadcrumbs = [
-       [ 'name' => 'Home',                    'href' => route('system.index') ],
-       [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
-       [ 'name' => 'Career',                  'href' => route('admin.career.index') ],
-    ];
     if (!empty($application)) {
-        $breadcrumbs[] = [ 'name' => 'Applications',     'href' => route('admin.career.application.index') ];
-        $breadcrumbs[] = [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ];
-        $breadcrumbs[] = [ 'name' => 'Communications',   'href' => route('admin.career.communication.index', ['application_id' => $application->id]) ];
+        $breadcrumbs = [
+            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => 'Communications',   'href' => route('admin.career.communication.index', ['application_id' => $application->id]) ],
+            [ 'name' => 'Add' ]
+        ];
     } else {
-        $breadcrumbs[] = [ 'name' => 'Communications', 'href' => route('admin.career.communication.index') ];
+        $breadcrumbs = [
+            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+            [ 'name' => 'Communication',   'href' => route('admin.career.communication.index') ],
+            [ 'name' => 'Add' ]
+        ];
     }
-    $breadcrumbs[] = [ 'name' => 'Add'];
 @endphp
 @extends('admin.layouts.default', [
-    'title' => $title ?? 'Add Communication',
+    'title' => $title ?? 'Add Communication' . (!empty($application) ? ' to ' . $application->name . ' application' : ''),
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.communication.index') ],
@@ -30,7 +36,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.communication.store') }}" method="POST">
+        <form action="{{ route('admin.career.communication.store', $urlParams ?? []) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [

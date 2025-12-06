@@ -1,20 +1,24 @@
 @php
-    $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Applications' ,   'href' => route('admin.career.application.index') ],
-    ];
     if (!empty($application)) {
-        $breadcrumbs[] = [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ];
-        $breadcrumbs[] = [ 'name' => 'Events',           'href' => route('admin.career.event.index', ['application_id' => $application->id]) ];
-
+        $breadcrumbs = [
+            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => 'Events' ]
+        ];
     } else {
-        $breadcrumbs[] = [ 'name' => 'Events', 'href' => route('admin.career.event.index') ];
+        $breadcrumbs = [
+            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+            [ 'name' => 'Events' ]
+        ];
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title' => 'Events',
+    'title' => $title ?? 'Events' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'href' => route('admin.career.event.create', !empty($application) ? ['application_id' => $application->id] : []) ],
@@ -78,8 +82,8 @@
                     @if(empty($application))
                         <td data-field="application_id">
                             @include('admin.components.link', [
-                                'name' => $note->application->name,
-                                'href' => route('admin.career.application.show', $note->application->id)
+                                'name' => $event->application->name,
+                                'href' => route('admin.career.application.show', event->application->id)
                             ])
                         </td>
                     @endif
@@ -133,7 +137,7 @@
                     $colspan = isRootAdmin() ? '8' : '7';
                     if (!empty($application)) $colspan = $colspan++;
                     @endphp
-                    <td colspan="{{ $colspan }}">There are no notes.</td>
+                    <td colspan="{{ $colspan }}">There are no events.</td>
                 </tr>
 
             @endforelse

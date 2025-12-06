@@ -1,12 +1,27 @@
+@php
+    if (!empty($application)) {
+        $breadcrumbs = [
+            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => 'Resumes',          'href' => route('admin.career.resume.index', ['application_id' => $application->id]) ],
+            [ 'name' => 'Add' ]
+        ];
+    } else {
+        $breadcrumbs = [
+            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+            [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
+            [ 'name' => 'Add' ]
+        ];
+    }
+@endphp
 @extends('admin.layouts.default', [
-    'title' => $title ?? 'Add New Resume',
-    'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
-        [ 'name' => 'Add' ],
-    ],
+    'title' => $title ?? 'Add Resume' . (!empty($application) ? ' to ' . $application->name . ' application' : ''),
+    'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.resume.index') ],
     ],
@@ -21,7 +36,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.resume.store') }}" method="POST">
+        <form action="{{ route('admin.career.resume.store', $urlParams ?? []) }}" method="POST">
             @csrf
 
             @include('admin.components.form-hidden', [
@@ -44,6 +59,14 @@
                     'value' => Auth::guard('admin')->user()->id
                 ])
             @endif
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'name',
+                'value'     => old('name') ?? '',
+                'required'  => true,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
 
             @include('admin.components.form-checkbox-horizontal', [
                 'name'            => 'primary',

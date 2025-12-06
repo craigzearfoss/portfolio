@@ -1,14 +1,29 @@
+@php
+    if (!empty($application)) {
+        $breadcrumbs = [
+            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => 'Events',           'href' => route('admin.career.event.index', ['application_id' => $application->id]) ],
+            [ 'name' => 'Event',            'href' => route('admin.career.event.show', $event, ['application_id' => $application->id]) ],
+            [ 'name' => 'Edit' ]
+        ];
+    } else {
+        $breadcrumbs = [
+            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+            [ 'name' => 'Events',          'href' => route('admin.career.event.index') ],
+            [ 'name' => 'Event',           'href' => route('admin.career.event.show', $event) ],
+            [ 'name' => 'Edit' ]
+        ];
+    }
+@endphp
 @extends('admin.layouts.default', [
-    'title' => $title ?? 'Edit Event',
-    'breadcrumbs' => [
-        [ 'name' => 'Home',                    'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',                  'href' => route('admin.career.index') ],
-        [ 'name' => 'Applications',            'href' => route('admin.career.application.index') ],
-        [ 'name' => $event->application->name, 'href' => route('admin.career.application.show', $event->application->id) ],
-        [ 'name' => 'Events',                  'href' => route('admin.career.communication.index', ['application_id' => $event->application->id]) ],
-        [ 'name' => 'Edit Event' ],
-    ],
+    'title' => $title ?? 'Edit Event' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.event.index') ],
     ],
@@ -23,7 +38,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.event.update', $event->id) }}" method="POST">
+        <form action="{{ route('admin.career.event.update', $event, $urlParams ?? []) }}" method="POST">
             @csrf
             @method('PUT')
 

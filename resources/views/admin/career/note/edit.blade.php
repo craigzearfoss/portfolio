@@ -1,14 +1,29 @@
+@php
+    if (!empty($application)) {
+        $breadcrumbs = [
+            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => 'Notes',            'href' => route('admin.career.note.index', ['application_id' => $application->id]) ],
+            [ 'name' => 'Note',             'href' => route('admin.career.note.show', $note, ['application_id' => $application->id]) ],
+            [ 'name' => 'Edit' ]
+        ];
+    } else {
+        $breadcrumbs = [
+            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+            [ 'name' => 'Notes',           'href' => route('admin.career.note.index') ],
+            [ 'name' => 'Note',            'href' => route('admin.career.note.show', $note) ],
+            [ 'name' => 'Edit' ]
+        ];
+    }
+@endphp
 @extends('admin.layouts.default', [
-    'title' => $title ?? 'Edit Note',
-    'breadcrumbs' => [
-        [ 'name' => 'Home',                    'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',                  'href' => route('admin.career.index') ],
-        [ 'name' => 'Applications',            'href' => route('admin.career.application.index') ],
-        [ 'name' => $note->application->name, 'href' => route('admin.career.application.show', $note->application->id) ],
-        [ 'name' => 'Notes',                  'href' => route('admin.career.communication.index', ['application_id' => $note->application->id]) ],
-        [ 'name' => 'Edit Note' ],
-    ],
+    'title' => $title ?? 'Edit Note' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.note.index') ],
     ],
@@ -23,7 +38,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.career.note.update', $note->id) }}" method="POST">
+        <form action="{{ route('admin.career.note.update', $note, $urlParams ?? []) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -39,12 +54,12 @@
 
             @if(isRootAdmin())
                 @include('admin.components.form-select-horizontal', [
-                    'name'     => 'owner_id',
-                    'label'    => 'owner',
+                'name'     => 'owner_id',
+                'label'    => 'owner',
                     'value'    => old('owner_id') ?? $note->owner_id,
-                    'required' => true,
-                    'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
-                    'message'  => $message ?? '',
+                'required' => true,
+                'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
+                'message'  => $message ?? '',
                 ])
             @else
                 @include('admin.components.form-hidden', [
@@ -88,7 +103,7 @@
 
             @include('admin.components.form-button-submit-horizontal', [
                 'label'      => 'Save',
-                'cancel_url' => referer('admin.career.note.index')
+                'cancel_url' => referer('admin.career.resume.index')
             ])
 
         </form>

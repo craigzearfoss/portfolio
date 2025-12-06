@@ -31,9 +31,17 @@ class ApplicationController extends BaseAdminController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $applications = Application::latest()->paginate($perPage);
+        $resumeId = $request->resume_id;
+        if (!empty($resumeId)) {
+            $resume = Resume::find($resumeId);
+            $applications = Application::where('resume_id', $resumeId)->latest()->paginate($perPage);
+        } else {
+            $resume = null;
+            $applications = Application::latest()->paginate($perPage);
+        }
 
-        return view('admin.career.application.index', compact('applications'))
+
+        return view('admin.career.application.index', compact('applications', 'resume'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
     }
 
@@ -153,46 +161,6 @@ class ApplicationController extends BaseAdminController
 
         return redirect(referer('admin.portfolio.application.index'))
             ->with('success', 'Application deleted successfully.');
-    }
-
-    public function showCoverLetter(Application $application): View
-    {
-        if (empty($application->coverLetter)) {
-            $application = $this->createCoverLetter($application);
-        }
-
-        return view('admin.career.application.cover-letter.show', compact('application'));
-    }
-
-    /**
-     * Show the form for editing the specified application.
-     *
-     * @param Application $application
-     * @return View
-     */
-    public function editCoverLetter(Application $application): View
-    {
-        if (empty($application->coverLetter)) {
-            $application = $this->createCoverLetter($application);
-        }
-
-        return view('admin.career.application.cover-letter.edit', compact('application'));
-    }
-
-    /**
-     * Update the specified application in storage.
-     *
-     * @param UpdateApplicationsRequest $updateApplicationsRequest
-     * @param Application $application
-     * @return RedirectResponse
-     */
-    public function updateCoverLetter(UpdateApplicationsRequest $updateApplicationsRequest,
-                                      Application               $application): RedirectResponse
-    {
-        $application->update($updateApplicationsRequest->validated());
-
-        return redirect()->route('admin.career.application.show', $application)
-            ->with('success', 'Application successfully updated.');
     }
 
     /**

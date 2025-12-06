@@ -47,12 +47,14 @@ class NoteController extends BaseAdminController
      */
     public function create(Request $request): View
     {
-        $applicationId = $request->application_id;
-        $application = !empty($applicationId)
-            ? Application::find($applicationId)
-            : null;
+        $urlParams = [];
+        $application = null;
+        if ($applicationId = $request->get('application_id')) {
+            $urlParams['application_id'] = $applicationId;
+            $application = Application::find($applicationId);
+        }
 
-        return view('admin.career.note.create', compact('application'));
+        return view('admin.career.note.create', compact('application', 'urlParams'));
     }
 
     /**
@@ -63,10 +65,27 @@ class NoteController extends BaseAdminController
      */
     public function store(StoreNotesRequest $storeNotesRequest): RedirectResponse
     {
+        $applicationId = $storeNotesRequest->query('application_id');
+
+        if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
+            $previousUrl = url()->previous();
+            if ($applicationId) {
+                $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
+            }
+            return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
+                ->withInput();
+        }
+
         $note = Note::create($storeNotesRequest->validated());
 
-        return redirect()->route('admin.career.note.show', $note)
-            ->with('success', 'Note successfully added.');
+        if (!empty($application)) {
+            return redirect()->route('admin.career.application.show', $application)
+                ->with('success', 'Note successfully added.');
+
+        } else {
+            return redirect()->route('admin.career.note.show', $note)
+                ->with('success', 'Note successfully added.');
+        }
     }
 
     /**
@@ -84,11 +103,17 @@ class NoteController extends BaseAdminController
      * Show the form for editing the specified note.
      *
      * @param Note $note
+     * @param Request $request
      * @return View
      */
-    public function edit(Note $note): View
+    public function edit(Note $note, Request $request): View
     {
-        return view('admin.career.note.edit', compact('note'));
+        $urlParams = [];
+        if ($applicationId = $request->get('application_id')) {
+            $urlParams['application_id'] = $applicationId;
+        }
+
+        return view('admin.career.note.edit', compact('note', 'urlParams'));
     }
 
     /**
@@ -100,10 +125,26 @@ class NoteController extends BaseAdminController
      */
     public function update(UpdateNotesRequest $updateNotesRequest, Note $note): RedirectResponse
     {
+        $applicationId = $updateNotesRequest->query('application_id');
+
+        if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
+            $previousUrl = url()->previous();
+            if ($applicationId) {
+                $previousUrl = $previousUrl . '?' . http_build_query(['application_id' => $applicationId]);
+            }
+            return redirect()->to($previousUrl)->with('error', 'Application `' . $applicationId . '` not found.')
+                ->withInput();
+        }
+
         $note->update($updateNotesRequest->validated());
 
-        return redirect()->route('admin.career.note.show', $note)
-            ->with('success', 'Note successfully updated.');
+        if (!empty($application)) {
+            return redirect()->route('admin.career.application.show', $application)
+                ->with('success', 'Note successfully updated.');
+        } else {
+            return redirect()->route('admin.career.note.show', $note)
+                ->with('success', 'Note successfully updated.');
+        }
     }
 
     /**

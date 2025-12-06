@@ -1,14 +1,27 @@
+@php
+    if (!empty($application)) {
+        $breadcrumbs = [
+            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => 'Notes',            'href' => route('admin.career.note.index', ['application_id' => $application->id]) ],
+            [ 'name' => 'Note' ]
+        ];
+    } else {
+        $breadcrumbs = [
+            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+            [ 'name' => 'Notes',           'href' => route('admin.career.note.index') ],
+            [ 'name' => 'Note' ]
+        ];
+    }
+@endphp
 @extends('admin.layouts.default', [
-    'title' => 'Note',
-    'breadcrumbs' => [
-        [ 'name' => 'Home',                    'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard',         'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',                  'href' => route('admin.career.index') ],
-        [ 'name' => 'Applications',            'href' => route('admin.career.application.index') ],
-        [ 'name' => $note->application->name,  'href' => route('admin.career.application.show', $note->application->id) ],
-        [ 'name' => 'Notes',                   'href' => route('admin.career.communication.index', ['application_id' => $note->application->id]) ],
-        [ 'name' => 'Note' ],
-    ],
+    'title' => $title ?? 'Note' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.note.edit', $note) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Note',  'href' => route('admin.career.note.create') ],

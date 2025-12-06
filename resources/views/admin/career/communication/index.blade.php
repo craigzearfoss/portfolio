@@ -1,20 +1,24 @@
 @php
-    $breadcrumbs = [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
-        [ 'name' => 'Career',          'href' => route('admin.career.index') ],
-        [ 'name' => 'Applications' ,   'href' => route('admin.career.application.index') ],
-    ];
     if (!empty($application)) {
-        $breadcrumbs[] = [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ];
-        $breadcrumbs[] = [ 'name' => 'Communications', 'href' => route('admin.career.communication.index', ['application_id' => $application->id]) ];
-
+        $breadcrumbs = [
+            [ 'name' => 'Home',             'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',           'href' => route('admin.career.index') ],
+            [ 'name' => 'Applications' ,    'href' => route('admin.career.application.index') ],
+            [ 'name' => $application->name, 'href' => route('admin.career.application.show', $application->id) ],
+            [ 'name' => 'Communications' ]
+        ];
     } else {
-        $breadcrumbs[] = [ 'name' => 'Communications', 'href' => route('admin.career.communication.index') ];
+        $breadcrumbs = [
+            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+            [ 'name' => 'Career',          'href' => route('admin.career.index') ],
+            [ 'name' => 'Communications' ]
+        ];
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title' => 'Communications',
+    'title' => $title ?? 'Communications' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.communication.create', !empty($application) ? ['application_id' => $application->id] : []) ],
