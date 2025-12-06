@@ -42,11 +42,18 @@ class CompanyController extends BaseAdminController
     /**
      * Show the form for creating a new company.
      *
+     * @param Request $request
      * @return View
      */
-    public function create(): View
+    public function create(Request $request): View
     {
-        return view('admin.career.company.create');
+        $urlParams = [];
+        if ($newApplication = $request->query('new_application')) $urlParams[ 'new_application'] = 1;
+        if ($resumeId = $request->get('resume_id')) $urlParams['resume_id'] = $resumeId;
+        if ($coverLetterId = $request->get('cover_letter_id')) $urlParams['cover_letter_id'] = $coverLetterId;
+        if ($newApplication = $request->query('new_application')) $urlParams[ 'new_application'] = 1;
+
+        return view('admin.career.company.create', compact('urlParams'));
     }
 
     /**
@@ -57,12 +64,19 @@ class CompanyController extends BaseAdminController
      */
     public function store(StoreCompaniesRequest $storeCompaniesRequest): RedirectResponse
     {
+        $urlParams = [];
+        $newApplication = boolval($storeCompaniesRequest->query('new_application'));
+        if ($resumeId = $storeCompaniesRequest->query('resume_id')) $urlParams['resume_id'] = $resumeId;
+        if ($coverLetterId = $storeCompaniesRequest->query('cover_letter_id')) $urlParams['cover_letter_id'] = $coverLetterId;
+
         $company = Company::create($storeCompaniesRequest->validated());
 
         $message = $company->name . ' successfully added.';
-        if (!empty($storeCompaniesRequest->query('new_application'))) {
-            return redirect()->route('admin.career.application.create', ['company_id' => $company->id])
-                    ->with('success', $message);
+        if ($newApplication) {
+            return redirect()->route(
+                'admin.career.application.create',
+                array_merge(['company_id' => $company->id], $urlParams)
+            )->with('success', $message);
         } else {
             return redirect()->route('admin.career.company.show', $company)->with('success', $message);
         }

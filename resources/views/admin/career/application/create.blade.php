@@ -48,11 +48,21 @@
                         'message'  => $message ?? '',
                     ])
 
+                    @include('admin.components.form-hidden', [
+                        'name'     => 'resume_id',
+                        'value'    => old('resume_id') ?? $resumeId ?? '',
+                    ])
+
+                    @include('admin.components.form-hidden', [
+                        'name'     => 'cover_letter_id',
+                        'value'    => old('cover_letter_id') ?? $coverLetterId ?? '',
+                    ])
+
                 </form>
 
                 <h4 class="subtitle has-text-centered pt-4">or</h4>
 
-                <a href="{{ route('admin.career.company.create', ['new_application' => 1]) }}" class="button is-primary my-0">
+                <a href="{{ route('admin.career.company.create', array_merge(['new_application' => 1], $urlParams)) }}" class="button is-primary my-0">
                     Add a New Company
                 </a>
 
@@ -103,6 +113,16 @@
                     'required'  => true,
                     'maxlength' => 255,
                     'message'   => $message ?? '',
+                ])
+
+                @include('admin.components.form-hidden', [
+                    'name'     => 'resume_id',
+                    'value'    => old('resume_id') ?? $resumeId ?? '',
+                ])
+
+                @include('admin.components.form-hidden', [
+                    'name'     => 'cover_letter_id',
+                    'value'    => old('cover_letter_id') ?? $coverLetterId ?? '',
                 ])
 
                 @include('admin.components.form-select-horizontal', [

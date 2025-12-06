@@ -45,14 +45,39 @@ class ApplicationController extends BaseAdminController
      */
     public function create(Request $request): View
     {
-        if ($companyId = $request->query('company_id')) {
-            if (!Company::find($companyId)) {
-                return view('admin.career.application.create')
-                    ->withErrors(['GLOBAL' => "Company $companyId not found."]);
-            }
-        };
+        $errorMessages = [];
+        $urlParams = [];
 
-        return view('admin.career.application.create', compact('companyId'));
+        if ($companyId = $request->query('company_id')) {
+            $urlParams['company_id'] = $companyId;
+            if (!Company::find($companyId)) {
+                $errorMessages[] = "Company `$companyId` not found.";
+            }
+        }
+
+        if ($resumeId = $request->query('resume_id')) {
+            $urlParams['resume_id'] = $resumeId;
+            if (!Resume::find($resumeId)) {
+                $errorMessages[] = "Resume `$resumeId` not found.";
+            }
+        }
+
+        if ($coverLetterId = $request->query('cover_letter_id')) {
+            $urlParams['cover_letter_id'] = $coverLetterId;
+            if (!CoverLetter::find($coverLetterId)) {
+                $errorMessages[] = "Cover letter `$coverLetterId` not found.";
+            }
+        }
+
+        if (!empty($errorMessages)) {
+            return view('admin.career.application.create', $urlParams)
+                ->withErrors(['GLOBAL' => implode('<br>', $errorMessages)]);
+        } else {
+            return view(
+                'admin.career.application.create',
+                compact('companyId', 'resumeId', 'coverLetterId', 'urlParams')
+            );
+        }
     }
 
     /**
