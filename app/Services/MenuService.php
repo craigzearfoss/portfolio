@@ -107,6 +107,11 @@ class MenuService
                         );
                     }
                 }
+
+                $menu[] = $this->menuItem(
+                    [ 'title'=> 'Settings', 'route' => 'admin.system.settings.show' ],
+                    $currentRouteName
+                );
             }
 
         } elseif (isUser()) {

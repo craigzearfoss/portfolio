@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\System\MenuItemController as AdminSystemAdminMenu
 use App\Http\Controllers\Admin\System\MessageController as AdminMessageController;
 use App\Http\Controllers\Admin\System\ResourceController as AdminSystemResourceController;
 use App\Http\Controllers\Admin\System\SessionController as AdminSystemSessionController;
+use App\Http\Controllers\Admin\System\SettingsController as AdminSystemSettingsController;
 use App\Http\Controllers\Admin\System\UserController as AdminSystemUserController;
 use App\Http\Controllers\Admin\System\UserGroupController as AdminSystemUserGroupController;
 use App\Http\Controllers\Admin\System\UserTeamController as AdminSystemUserTeamController;
@@ -99,6 +100,8 @@ Route::prefix('admin/system')->middleware('admin')->name('admin.system.')->group
     Route::resource('message', AdminMessageController::class);
 
     Route::resource('session', AdminSystemSessionController::class);
+
+    Route::get('/settings', [AdminSystemSettingsController::class, 'show'])->name('settings.show');
 
     Route::resource('admin', AdminSystemAdminController::class);
     Route::resource('admin-group', AdminSystemAdminGroupController::class)->parameter('admin-group', 'admin_group');
