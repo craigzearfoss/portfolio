@@ -109,19 +109,16 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => htmlspecialchars($course->notes)
+            'value' => nl2br(htmlspecialchars($course->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => htmlspecialchars($course->link),
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $course->link_name,
-        ])
+        @if(!empty($course->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $course->link_name,
+                'href'   => $course->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -130,7 +127,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $description->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [ 'value' => $course->disclaimer ?? '' ])
         ])
 
         @include('admin.components.show-row-image', [
@@ -140,7 +137,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($course->name, $course->image)
+            'filename' => getFileSlug(htmlspecialchars($course->name), $course->image)
         ])
 
         @include('admin.components.show-row', [
@@ -160,7 +157,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($course->name . '-thumb', $course->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($course->name) . '-thumb', $course->thumbnail)
         ])
 
         @include('admin.components.show-row', [

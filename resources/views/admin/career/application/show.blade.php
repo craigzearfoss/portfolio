@@ -235,18 +235,20 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $application->notes
+            'value' => nl2br(htmlspecialchars($application->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($application->link_name ?? 'link'),
-            'href'   => $application->link,
-            'target' => '_blank'
-        ])
+        @if(!empty($application->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $application->link_name,
+                'href'   => $application->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => htmlspecialchars($application->description)
+            'value' => nl2br($application->description ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -261,21 +263,13 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($application->name, $application->image)
+            'filename' => getFileSlug(htmlspecialchars($application->name), $application->image)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
             'value' => htmlspecialchars($application->image_credit)
         ])
-
-        @include('admin.components.form-image-horizontal', [
-            'image'   => old('image') ?? $application->image,
-            'credit'  => old('image_credit') ?? $application->image_credit,
-            'source'  => old('image_source') ?? $application->image_source,
-            'message' => $message ?? '',
-        ])
-
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
@@ -289,7 +283,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($application->name . '-thumb', $application->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($application->name) . '-thumb', $application->thumbnail)
         ])
 
         @include('admin.components.show-row', [

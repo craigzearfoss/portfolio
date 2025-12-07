@@ -78,16 +78,18 @@
             'value' => htmlspecialchars($jobCoworker->personal_email)
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $jobCoworker->link,
-            'target' => '_blank'
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => nl2br(htmlspecialchars($jobCoworker->notes))
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $jobCoworker->link_name,
-        ])
+        @if(!empty($jobCoworker->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $jobCoworker->link_name,
+                'href'   => $jobCoworker->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -95,8 +97,8 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => 'notes',
-            'value' => nl2br($jobCoworker->notes ?? '')
+            'name'  => 'disclaimer',
+            'value' => view('admin.components.disclaimer', [ 'value' => $jobCoworker->disclaimer ?? '' ])
         ])
 
         @include('admin.components.show-row-image', [
@@ -106,7 +108,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($jobCoworker->name, $jobCoworker->image)
+            'filename' => getFileSlug(htmlspecialchars($jobCoworker->name), $jobCoworker->image)
         ])
 
         @include('admin.components.show-row', [
@@ -126,7 +128,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($jobCoworker->name . '-thumb', $jobCoworker->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($jobCoworker->name) . '-thumb', $jobCoworker->thumbnail)
         ])
 
         @include('admin.components.show-row', [

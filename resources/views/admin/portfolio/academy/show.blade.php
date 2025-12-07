@@ -36,16 +36,13 @@
             'value' => $academy->slug
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'    => $academy->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'   => 'link name',
-            'value'  => $academy->link_name,
-        ])
+        @if(!empty($academy->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $academy->link_name,
+                'href'   => $academy->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -59,17 +56,17 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($academy->name, $academy->image)
+            'filename' => getFileSlug(htmlspecialchars($academy->name), $academy->image)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $academy->image_credit
+            'value' => htmlspecialchars($academy->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $academy->image_source
+            'value' => htmlspecialchars($academy->image_source)
         ])
 
         @include('admin.components.show-row-image', [
@@ -79,7 +76,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($academy->name . '-thumb', $academy->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($academy->name) . '-thumb', $academy->thumbnail)
         ])
 
         @include('admin.components.show-row-image', [
@@ -89,7 +86,7 @@
             'width' => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($academy->name . '-logo', $academy->logo)
+            'filename' => getFileSlug(htmlspecialchars($academy->name) . '-logo', $academy->logo)
         ])
 
         @include('admin.components.show-row-image', [
@@ -99,7 +96,7 @@
             'width' => '100px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($academy->name . '-logo-sm', $academy->logo_small)
+            'filename' => getFileSlug(htmlspecialchars($academy->name) . '-logo-sm', $academy->logo_small)
         ])
 
         @include('admin.components.show-row', [

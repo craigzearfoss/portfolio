@@ -73,58 +73,55 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $art->notes
+            'value' => nl2br(htmlspecialchars($award->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $art->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'   => 'link name',
-            'value'  => $art->link_name,
-        ])
+        @if(!empty($award->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $award->link_name,
+                'href'   => $award->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($art->description ?? '')
+            'value' => nl2br($award->description ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $art->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [ 'value' => $award->disclaimer ?? '' ])
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'image',
-            'src'      => $art->image,
+            'src'      => $award->image,
             'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($art->name, $art->image)
+            'filename' => getFileSlug(htmlspecialchars($award->name), $award->image)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => htmlspecialchars($art->image_credit)
+            'value' => htmlspecialchars($award->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => htmlspecialchars($art->image_source)
+            'value' => htmlspecialchars($award->image_source)
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
-            'src'      => $art->thumbnail,
+            'src'      => $award->thumbnail,
             'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($art->name . '-thumb', $art->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($award->name) . '-thumb', $award->thumbnail)
         ])
 
         @include('admin.components.show-row', [

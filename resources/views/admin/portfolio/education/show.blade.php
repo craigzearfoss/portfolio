@@ -85,19 +85,16 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $education->notes
+            'value' => nl2br(htmlspecialchars($education->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $education->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'value'  => $education->link_name,
-        ])
+        @if(!empty($education->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $education->link_name,
+                'href'   => $education->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -116,7 +113,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($education->name, $education->image)
+            'filename' => getFileSlug(htmlspecialchars($education->name), $education->image)
         ])
 
         @include('admin.components.show-row', [
@@ -136,7 +133,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($education->name . '-thumb', $education->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($education->name) . '-thumb', $education->thumbnail)
         ])
 
         @include('admin.components.show-row', [

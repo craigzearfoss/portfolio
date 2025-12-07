@@ -55,53 +55,55 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br($jobTask->notes ?? '')
+            'value' => nl2br(htmlspecialchars($coverLetter->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $jobTask->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $jobTask->link_name,
-        ])
+        @if(!empty($coverLetter->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $coverLetter->link_name,
+                'href'   => $coverLetter->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($jobTask->description ?? '')
+            'value' => nl2br($coverLetter->description ?? '')
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'disclaimer',
+            'value' => view('admin.components.disclaimer', [ 'value' => $coverLetter->disclaimer ?? '' ])
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'image',
-            'src'      => $jobTask->image,
+            'src'      => $coverLetter->image,
             'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($jobTask->name, $jobTask->image)
+            'filename' => getFileSlug(htmlspecialchars($coverLetter->name), $coverLetter->image)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => htmlspecialchars($jobTask->image_credit)
+            'value' => htmlspecialchars($coverLetter->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => htmlspecialchars($jobTask->image_source)
+            'value' => htmlspecialchars($coverLetter->image_source)
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
-            'src'      => $jobTask->thumbnail,
+            'src'      => $coverLetter->thumbnail,
             'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($jobTask->name . '-thumb', $jobTask->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($coverLetter->name) . '-thumb', $coverLetter->thumbnail)
         ])
 
         @include('admin.components.show-row', [

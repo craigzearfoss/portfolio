@@ -98,18 +98,20 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $company->notes
+            'value' => nl2br(htmlspecialchars($company->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($company->link_name ?? 'link'),
-            'href'   => $company->link,
-            'target' => '_blank'
-        ])
+        @if(!empty($company->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $company->link_name,
+                'href'   => $company->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $company->description
+            'value' => nl2br($company->description ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -124,7 +126,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($company->name, $company->image)
+            'filename' => getFileSlug(htmlspecialchars($company->name), $company->image)
         ])
 
         @include('admin.components.show-row', [
@@ -144,7 +146,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($company->name . '-thumb', $company->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($company->name) . '-thumb', $company->thumbnail)
         ])
 
         @include('admin.components.show-row-image', [
@@ -154,7 +156,7 @@
             'width' => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($company->name . '-logo', $company->logo)
+            'filename' => getFileSlug(htmlspecialchars($company->name) . '-logo', $company->logo)
         ])
 
         @include('admin.components.show-row-image', [
@@ -164,7 +166,7 @@
             'width' => '100px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($company->name . '-logo-sm', $company->logo_small)
+            'filename' => getFileSlug(htmlspecialchars($company->name) . '-logo-sm', $company->logo_small)
         ])
 
         @include('admin.components.show-row', [

@@ -41,12 +41,13 @@
             'value' => $ingredient->slug
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'label'  => $ingredient->link_name,
-            'href'   => $ingredient->link,
-            'target' => '_blank'
-        ])
+        @if(!empty($ingredient->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $ingredient->link_name,
+                'href'   => $ingredient->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -60,7 +61,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($ingredient->name, $ingredient->image)
+            'filename' => getFileSlug(htmlspecialchars($ingredient->name), $ingredient->image)
         ])
 
         @include('admin.components.show-row', [
@@ -80,7 +81,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($ingredient->name . '-thumb', $ingredient->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($ingredient->name) . '-thumb', $ingredient->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -103,19 +103,16 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $job->notes
+            'value' => nl2br(htmlspecialchars($job->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $job->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'value'  => $job->link_name,
-        ])
+        @if(!empty($job->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $job->link_name,
+                'href'   => $job->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -124,7 +121,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $art->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [ 'value' => $job->disclaimer ?? '' ])
         ])
 
         @include('admin.components.show-row-image', [
@@ -134,7 +131,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($job->name, $job->image)
+            'filename' => getFileSlug(htmlspecialchars($job->name), $job->image)
         ])
 
         @include('admin.components.show-row', [
@@ -154,7 +151,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($job->name . '-thumb', $job->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($job->name) . '-thumb', $job->thumbnail)
         ])
 
         @include('admin.components.show-row-image', [

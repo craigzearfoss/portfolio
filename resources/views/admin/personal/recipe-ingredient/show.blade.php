@@ -71,7 +71,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($recipeIngredient->name, $recipeIngredient->image)
+            'filename' => getFileSlug(htmlspecialchars($recipeIngredient->name), $recipeIngredient->image)
         ])
 
         @include('admin.components.show-row', [
@@ -91,7 +91,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($recipeIngredient->name . '-thumb', $recipeIngredient->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($recipeIngredient->name) . '-thumb', $recipeIngredient->thumbnail)
         ])
 
         @include('admin.components.show-row', [

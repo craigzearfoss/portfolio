@@ -66,16 +66,13 @@
             'checked' => $jobBoard->international
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $jobBoard->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $jobBoard->link_name
-        ])
+        @if(!empty($jobBoard->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $jobBoard->link_name,
+                'href'   => $jobBoard->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -89,17 +86,17 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($jobBoard->name, $jobBoard->image)
+            'filename' => getFileSlug(htmlspecialchars($jobBoard->name), $jobBoard->image)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $jobBoard->image_credit
+            'value' => htmlspecialchars($jobBoard->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $jobBoard->image_source
+            'value' => htmlspecialchars($jobBoard->image_source)
         ])
 
         @include('admin.components.show-row-image', [
@@ -109,7 +106,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($jobBoard->name . '-thumb', $jobBoard->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($jobBoard->name) . '-thumb', $jobBoard->thumbnail)
         ])
 
         @include('admin.components.show-row', [

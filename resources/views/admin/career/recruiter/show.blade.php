@@ -111,21 +111,17 @@
             'value' => $recruiter->alt_email
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $recruiter->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'value'  => $recruiter->link_name,
-            'target' => '_blank'
-        ])
+        @if(!empty($recruiter->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $recruiter->link_name,
+                'href'   => $recruiter->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $recruiter->description
+            'value' => nl2br($recruiter->description ?? '')
         ])
 
         @include('admin.components.show-row-image', [
@@ -135,17 +131,17 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($recruiter->name, $recruiter->image)
+            'filename' => getFileSlug(htmlspecialchars($recruiter->name), $recruiter->image)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $recruiter->image_credit
+            'value' => htmlspecialchars($recruiter->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $recruiter->image_source
+            'value' => htmlspecialchars($recruiter->image_source)
         ])
 
         @include('admin.components.show-row-image', [
@@ -155,7 +151,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($recruiter->name . '-thumb', $recruiter->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($recruiter->name) . '-thumb', $recruiter->thumbnail)
         ])
 
         @include('admin.components.show-row', [

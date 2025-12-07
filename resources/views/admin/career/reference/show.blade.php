@@ -103,20 +103,16 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $reference->notes
+            'value' => nl2br(htmlspecialchars($reference->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $reference->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link_name',
-            'label' => 'link name',
-            'value' => htmlspecialchars($reference->link_name),
-        ])
+        @if(!empty($reference->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $reference->link_name,
+                'href'   => $reference->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -135,17 +131,17 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($reference->name, $reference->image)
+            'filename' => getFileSlug(htmlspecialchars($reference->name), $reference->image)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $reference->image_credit
+            'value' => htmlspecialchars($reference->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $reference->image_source
+            'value' => htmlspecialchars($reference->image_source)
         ])
 
         @include('admin.components.show-row-image', [
@@ -155,7 +151,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($reference->name . '-thumb', $reference->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($reference->name) . '-thumb', $reference->thumbnail)
         ])
 
         @include('admin.components.show-row', [

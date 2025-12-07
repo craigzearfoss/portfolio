@@ -60,19 +60,16 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $coverLetter->notes
+            'value' => nl2br(htmlspecialchars($coverLetter->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => htmlspecialchars($coverLetter->link),
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => htmlspecialchars($coverLetter->link_name)
-        ])
+        @if(!empty($coverLetter->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $coverLetter->link_name,
+                'href'   => $coverLetter->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -86,12 +83,12 @@
 
         @include('admin.components.show-row-image', [
             'name'     => 'image',
-            'src'      => $contact->image,
+            'src'      => $coverLetter->image,
             'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($coverLetter->name, $contact->image)
+            'filename' => getFileSlug(htmlspecialchars($coverLetter->name), $coverLetter->image)
         ])
 
         @include('admin.components.show-row', [
@@ -111,7 +108,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($coverLetter->name . '-thumb', $coverLetter->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($coverLetter->name) . '-thumb', $coverLetter->thumbnail)
         ])
 
         @include('admin.components.show-row', [

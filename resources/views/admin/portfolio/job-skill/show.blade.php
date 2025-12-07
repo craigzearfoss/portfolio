@@ -57,29 +57,36 @@
         ])
 
         @include('admin.components.show-row', [
+            'name'  => 'level',
+            'value' => htmlspecialchars($jobSkill->level ?? '')
+        ])
+
+        @include('admin.components.show-row', [
             'name'  => 'summary',
             'value' => $jobSkill->summary
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br($jobSkill->notes ?? '')
+            'value' => nl2br(htmlspecialchars($jobSkill->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $jobSkill->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $jobSkill->link_name,
-        ])
+        @if(!empty($jobSkill->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $jobSkill->link_name,
+                'href'   => $jobSkill->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => nl2br($jobSkill->description ?? '')
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'disclaimer',
+            'value' => view('admin.components.disclaimer', [ 'value' => $jobSkill->disclaimer ?? '' ])
         ])
 
         @include('admin.components.show-row-image', [
@@ -89,7 +96,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($jobSkill->name, $jobSkill->image)
+            'filename' => getFileSlug(htmlspecialchars($jobSkill->name), $jobSkill->image)
         ])
 
         @include('admin.components.show-row', [
@@ -109,12 +116,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($jobSkill->name . '-thumb', $jobSkill->thumbnail)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'    => 'sequence',
-            'checked' => $jobSkill->sequence
+            'filename' => getFileSlug(htmlspecialchars($jobSkill->name) . '-thumb', $jobSkill->thumbnail)
         ])
 
         @include('admin.components.show-row-checkbox', [

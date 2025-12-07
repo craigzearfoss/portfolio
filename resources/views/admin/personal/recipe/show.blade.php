@@ -120,20 +120,16 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $recipe->notes
+            'value' => nl2br(htmlspecialchars($recipe->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'    => $recipe->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'   => 'link name',
-            'value'  => $recipe->link_name,
-            'target' => '_blank'
-        ])
+        @if(!empty($recipe->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $recipe->link_name,
+                'href'   => $recipe->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -152,7 +148,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($recipe->name, $recipe->image)
+            'filename' => getFileSlug(htmlspecialchars($recipe->name), $recipe->image)
         ])
 
         @include('admin.components.show-row', [
@@ -172,7 +168,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($recipe->name . '-thumb', $recipe->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($recipe->name) . '-thumb', $recipe->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -64,7 +64,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($unit->name, $unit->image)
+            'filename' => getFileSlug(htmlspecialchars($unit->name), $unit->image)
         ])
 
         @include('admin.components.show-row', [
@@ -84,7 +84,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($unit->name . '-thumb', $unit->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($unit->name) . '-thumb', $unit->thumbnail)
         ])
 
         @include('admin.components.show-row', [

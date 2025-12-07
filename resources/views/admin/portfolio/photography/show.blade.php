@@ -1,14 +1,14 @@
 @extends('admin.layouts.default', [
-    'title' => 'Art: ' . $art->name,
+    'title' => 'Art: ' . $photo->name,
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Art',             'href' => route('admin.portfolio.photography.index') ],
-        [ 'name' => $art->name ],
+        [ 'name' => $photo->name ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.photography.edit', $art) ],
+        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.photography.edit', $photo) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Art',   'href' => route('admin.portfolio.photography.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.photography.index') ],
     ],
@@ -23,49 +23,49 @@
 
         @include('admin.components.show-row', [
             'name'  => 'id',
-            'value' => $art->id
+            'value' => $photo->id
         ])
 
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $art->owner->username ?? ''
+                'value' => $photo->owner->username ?? ''
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => htmlspecialchars($art->name)
+            'value' => htmlspecialchars($photo->name)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'artist',
-            'value' => htmlspecialchars($art->artist)
+            'value' => htmlspecialchars($photo->artist)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'slug',
-            'value' => $art->slug
+            'value' => $photo->slug
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'featured',
-            'checked' => $art->featured
+            'checked' => $photo->featured
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $art->summary
+            'value' => $photo->summary
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'year',
-            'value' => $art->year
+            'value' => $photo->year
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'image',
-            'src'      => $art->image_url,
+            'src'      => $photo->image_url,
             'width'    => '300px',
             'download' => true,
             'external' => true,
@@ -73,93 +73,90 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $art->notes
+            'value' => nl2br(htmlspecialchars($photo->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $art->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'   => 'link name',
-            'value'  => $art->link_name,
-        ])
+        @if(!empty($photo->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $photo->link_name,
+                'href'   => $photo->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($art->description ?? '')
+            'value' => nl2br($photo->description ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $art->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [ 'value' => $photo->disclaimer ?? '' ])
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'image',
-            'src'      => $art->image,
+            'src'      => $photo->image,
             'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($art->name, $art->image)
+            'filename' => getFileSlug(htmlspecialchars($photo->name), $photo->image)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => htmlspecialchars($art->image_credit)
+            'value' => htmlspecialchars($photo->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => htmlspecialchars($art->image_source)
+            'value' => htmlspecialchars($photo->image_source)
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
-            'src'      => $art->thumbnail,
+            'src'      => $photo->thumbnail,
             'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($art->name . '-thumb', $art->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($photo->name) . '-thumb', $photo->thumbnail)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'sequence',
-            'value' => $art->sequence
+            'value' => $photo->sequence
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'public',
-            'checked' => $art->public
+            'checked' => $photo->public
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'read-only',
-            'checked' => $art->readonly
+            'checked' => $photo->readonly
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'root',
-            'checked' => $art->root
+            'checked' => $photo->root
         ])
 
         @include('admin.components.show-row-checkbox', [
             'name'    => 'disabled',
-            'checked' => $art->disabled
+            'checked' => $photo->disabled
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'created at',
-            'value' => longDateTime($art->created_at)
+            'value' => longDateTime($photo->created_at)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'updated at',
-            'value' => longDateTime($art->updated_at)
+            'value' => longDateTime($photo->updated_at)
         ])
 
     </div>

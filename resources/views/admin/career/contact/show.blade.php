@@ -103,14 +103,16 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $contact->notes
+            'value' => nl2br(htmlspecialchars($contact->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => htmlspecialchars($contact->link_name ?? 'link'),
-            'href'   => $contact->link,
-            'target' => '_blank'
-        ])
+        @if(!empty($contact->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $contact->link_name,
+                'href'   => $contact->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -129,7 +131,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($contact->name, $contact->image)
+            'filename' => getFileSlug(htmlspecialchars($contact->name), $contact->image)
         ])
 
         @include('admin.components.show-row', [
@@ -149,7 +151,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($contact->name . '-thumb', $contact->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($contact->name) . '-thumb', $contact->thumbnail)
         ])
 
         @include('admin.components.show-row', [

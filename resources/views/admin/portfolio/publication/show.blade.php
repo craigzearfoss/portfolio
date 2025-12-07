@@ -143,6 +143,11 @@
             'value' => $publication->publication_url,
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'notes',
+            'value' => nl2br(htmlspecialchars($publication->notes))
+        ])
+
         @if(!empty($publication->link))
             @include('admin.components.show-row-link', [
                 'name'   => $publication->link_name,
@@ -168,7 +173,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($publication->name, $publication->image)
+            'filename' => getFileSlug(htmlspecialchars($publication->name), $publication->image)
         ])
 
         @include('admin.components.show-row', [
@@ -188,7 +193,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($publication->name . '-thumb', $publication->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($publication->name) . '-thumb', $publication->thumbnail)
         ])
 
     </div>

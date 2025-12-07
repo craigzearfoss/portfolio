@@ -73,19 +73,16 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $art->notes
+            'value' => nl2br(htmlspecialchars($art->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $art->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row-link', [
-            'name'   => 'link name',
-            'value'  => $art->link_name,
-        ])
+        @if(!empty($art->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $art->link_name,
+                'href'   => $art->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -104,7 +101,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($art->name, $art->image)
+            'filename' => getFileSlug(htmlspecialchars($art->name), $art->image)
         ])
 
         @include('admin.components.show-row', [
@@ -124,7 +121,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($art->name . '-thumb', $art->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($art->name) . '-thumb', $art->thumbnail)
         ])
 
         @include('admin.components.show-row', [

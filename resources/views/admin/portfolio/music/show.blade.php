@@ -135,19 +135,16 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $music->notes
+            'value' => nl2br(htmlspecialchars($music->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $music->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'value'  => $music->link_name,
-        ])
+        @if(!empty($music->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $music->link_name,
+                'href'   => $music->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -166,7 +163,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($music->name, $music->image)
+            'filename' => getFileSlug(htmlspecialchars($music->name), $music->image)
         ])
 
         @include('admin.components.show-row', [
@@ -186,7 +183,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($music->name . '-thumb', $music->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($music->name) . '-thumb', $music->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -94,19 +94,16 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $certificate->notes
+            'value' => nl2br(htmlspecialchars($certificate->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $certificate->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'value'  => $certificate->link_name,
-        ])
+        @if(!empty($certificate->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $certificate->link_name,
+                'href'   => $certificate->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -125,7 +122,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($certificate->name, $certificate->image)
+            'filename' => getFileSlug(htmlspecialchars($certificate->name), $certificate->image)
         ])
 
         @include('admin.components.show-row', [
@@ -145,7 +142,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($certificate->name . '-thumb', $certificate->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($certificate->name) . '-thumb', $certificate->thumbnail)
         ])
 
         @include('admin.components.show-row', [

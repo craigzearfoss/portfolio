@@ -71,23 +71,25 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $school->notes
+            'value' => nl2br(htmlspecialchars($school->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $school->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'value'  => $school->link_name,
-        ])
+        @if(!empty($school->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $school->link_name,
+                'href'   => $school->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
             'value' => nl2br($school->description ?? '')
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'disclaimer',
+            'value' => view('admin.components.disclaimer', [ 'value' => $school->disclaimer ?? '' ])
         ])
 
         @include('admin.components.show-row-image', [
@@ -97,17 +99,17 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($school->name, $school->image)
+            'filename' => getFileSlug(htmlspecialchars($school->name), $school->image)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $school->image_credit
+            'value' => htmlspecialchars($school->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $school->image_source
+            'value' => htmlspecialchars($school->image_source)
         ])
 
         @include('admin.components.show-row-image', [
@@ -117,7 +119,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($school->name . '-thumb', $school->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($school->name) . '-thumb', $school->thumbnail)
         ])
 
         @include('admin.components.show-row-image', [
@@ -127,7 +129,7 @@
             'width' => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($school->name . '-logo', $school->logo)
+            'filename' => getFileSlug(htmlspecialchars($school->name) . '-logo', $school->logo)
         ])
 
         @include('admin.components.show-row-image', [
@@ -137,7 +139,7 @@
             'width' => '100px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($school->name . '-logo-sm', $school->logo_small)
+            'filename' => getFileSlug(htmlspecialchars($school->name) . '-logo-sm', $school->logo_small)
         ])
 
         @include('admin.components.show-row', [

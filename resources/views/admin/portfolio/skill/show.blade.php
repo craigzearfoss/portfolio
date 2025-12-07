@@ -87,19 +87,16 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $skill->notes
+            'value' => nl2br(htmlspecialchars($skill->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'  => 'link',
-            'url'    => $skill->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name' => 'link name',
-            'href' => $skill->link_name
-        ])
+        @if(!empty($skill->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $skill->link_name,
+                'href'   => $skill->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -118,7 +115,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($skill->name, $skill->image)
+            'filename' => getFileSlug(htmlspecialchars($skill->name), $skill->image)
         ])
 
         @include('admin.components.show-row', [
@@ -138,7 +135,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($skill->name . '-thumb', $skill->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($skill->name) . '-thumb', $skill->thumbnail)
         ])
 
         @include('admin.components.show-row', [

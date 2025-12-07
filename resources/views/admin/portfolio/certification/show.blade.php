@@ -53,19 +53,16 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br($certification->notes ?? '')
+            'value' => nl2br(htmlspecialchars($certification->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'    => $certification->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'value'  => $certification->link_name,
-        ])
+        @if(!empty($certification->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $certification->link_name,
+                'href'   => $certification->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -79,17 +76,17 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($certification->name, $certification->image)
+            'filename' => getFileSlug(htmlspecialchars($certification->name), $certification->image)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $certification->image_credit
+            'value' => htmlspecialchars($certification->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $certification->image_source
+            'value' => htmlspecialchars($certification->image_source)
         ])
 
         @include('admin.components.show-row-image', [
@@ -99,7 +96,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($certification->name . '-thumb', $certification->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($certification->name) . '-thumb', $certification->thumbnail)
         ])
 
         @include('admin.components.show-row-image', [
@@ -109,7 +106,7 @@
             'width' => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($certification->name . '-logo', $certification->logo)
+            'filename' => getFileSlug(htmlspecialchars($certification->name) . '-logo', $certification->logo)
         ])
 
         @include('admin.components.show-row-image', [
@@ -119,7 +116,7 @@
             'width' => '100px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($certification->name . '-logo-sm', $certification->logo_small)
+            'filename' => getFileSlug(htmlspecialchars($certification->name) . '-logo-sm', $certification->logo_small)
         ])
 
         @include('admin.components.show-row', [

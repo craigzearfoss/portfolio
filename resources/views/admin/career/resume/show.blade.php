@@ -88,18 +88,16 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $resume->notes
+            'value' => nl2br(htmlspecialchars($resume->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'  => 'link',
-            'href' => $resume->link,
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $resume->link_name
-        ])
+        @if(!empty($resume->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $resume->link_name,
+                'href'   => $resume->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
@@ -108,7 +106,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $art->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [ 'value' => $resume->disclaimer ?? '' ])
         ])
 
         @include('admin.components.show-row-image', [
@@ -118,7 +116,7 @@
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($resume->name, $resume->image)
+            'filename' => getFileSlug(htmlspecialchars($resume->name), $resume->image)
         ])
 
         @include('admin.components.show-row', [
@@ -138,7 +136,7 @@
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($resume->name . '-thumb', $resume->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($resume->name) . '-thumb', $resume->thumbnail)
         ])
 
         @include('admin.components.show-row', [

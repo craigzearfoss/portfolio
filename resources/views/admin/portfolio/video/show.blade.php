@@ -125,58 +125,55 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $video->notes
+            'value' => nl2br(htmlspecialchars($coverLetter->notes))
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'href'   => $video->link,
-            'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $video->link_name,
-        ])
+        @if(!empty($coverLetter->link))
+            @include('admin.components.show-row-link', [
+                'name'   => $coverLetter->link_name,
+                'href'   => $coverLetter->link,
+                'target' => '_blank'
+            ])
+        @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($video->description ?? '')
+            'value' => nl2br($coverLetter->description ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $video->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [ 'value' => $coverLetter->disclaimer ?? '' ])
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'image',
-            'src'      => $video->image,
+            'src'      => $coverLetter->image,
             'alt'      => 'image',
             'width'    => '300px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($video->name, $video->image)
+            'filename' => getFileSlug(htmlspecialchars($coverLetter->name), $coverLetter->image)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => htmlspecialchars($skill->image_credit)
+            'value' => htmlspecialchars($coverLetter->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => htmlspecialchars($video->image_source)
+            'value' => htmlspecialchars($coverLetter->image_source)
         ])
 
         @include('admin.components.show-row-image', [
             'name'     => 'thumbnail',
-            'src'      => $video->thumbnail,
+            'src'      => $coverLetter->thumbnail,
             'alt'      => 'thumbnail',
             'width'    => '40px',
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($video->name . '-thumb', $video->thumbnail)
+            'filename' => getFileSlug(htmlspecialchars($coverLetter->name) . '-thumb', $coverLetter->thumbnail)
         ])
 
         @include('admin.components.show-row', [
