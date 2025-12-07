@@ -38,19 +38,19 @@
         @include('admin.components.show-row', [
             'name'  => 'job',
             'value' =>  view('admin.components.link', [
-                'name' => $jobCoworker->job->name,
+                'name' => htmlspecialchars($jobCoworker->job->name),
                 'href' => route('admin.portfolio.job.show', $jobCoworker->job)
             ])
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $jobCoworker->name
+            'value' => htmlspecialchars($jobCoworker->name)
         ])
 
         @include('admin.components.show-row', [
             'name' => 'job title',
-            'value' => $jobCoworker->job_title
+            'value' => htmlspecialchars($jobCoworker->job_title)
         ])
 
         @include('admin.components.show-row', [
@@ -60,27 +60,22 @@
 
         @include('admin.components.show-row', [
             'name'  => 'work phone',
-            'value' => $jobCoworker->work_phone
+            'value' => htmlspecialchars($jobCoworker->work_phone)
         ])
 
         @include('admin.components.show-row', [
             'name' => 'personal phone',
-            'value' => $jobCoworker->personal_phone
+            'value' => htmlspecialchars($jobCoworker->personal_phone)
         ])
 
         @include('admin.components.show-row', [
             'name' => 'work email',
-            'value' => $jobCoworker->work_email
+            'value' => htmlspecialchars($jobCoworker->work_email)
         ])
 
         @include('admin.components.show-row', [
             'name' => 'personal email',
-            'value' => $jobCoworker->personal_email
-        ])
-
-        @include('admin.components.show-row', [
-            'name' => 'notes',
-            'value' => $jobCoworker->notes
+            'value' => htmlspecialchars($jobCoworker->personal_email)
         ])
 
         @include('admin.components.show-row-link', [
@@ -116,12 +111,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $jobCoworker->image_credit
+            'value' => htmlspecialchars($jobCoworker->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $jobCoworker->image_source
+            'value' => htmlspecialchars($jobCoworker->image_source)
         ])
 
         @include('admin.components.show-row-image', [

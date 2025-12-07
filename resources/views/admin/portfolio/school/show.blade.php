@@ -49,12 +49,13 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'    => $school->street ?? null,
-                           'street2'   => $school->street2 ?? null,
-                           'city'      => $school->city ?? null,
-                           'state'     => $school->state['code'] ?? null,
-                           'zip'       => $school->zip ?? null,
-                           'country'   => $school->country['iso_alpha3'] ?? null,
+                           'street'          => htmlspecialchars($school->street),
+                           'street2'         => htmlspecialchars($school->street2),
+                           'city'            => htmlspecialchars($school->city),
+                           'state'           => $school->state->code ?? '',
+                           'zip'             => htmlspecialchars($school->zip),
+                           'country'         => $school->country->iso_alpha3 ?? '',
+                           'streetSeparator' => '<br>',
                        ])
         ])
 

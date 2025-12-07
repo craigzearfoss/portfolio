@@ -35,12 +35,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $music->name
+            'value' => htmlspecialchars($music->name)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'artist',
-            'value' => $music->artist
+            'value' => htmlspecialchars($music->artist)
         ])
 
         @include('admin.components.show-row', [
@@ -52,7 +52,7 @@
             'name'  => 'parent',
             'value' => !empty($music->parent)
                 ? view('admin.components.link', [
-                        'name' => $music->parent['name'],
+                        'name' => htmlspecialchars($music->parent->name),
                         'href' => route('admin.portfolio.music.show', $music->parent)
                     ])
                 : ''
@@ -76,7 +76,7 @@
                         @foreach($music->children as $child)
                             <li>
                                 @include('admin.components.link', [
-                                    'name' => $child['name'],
+                                    'name' => htmlspecialchars($child->name),
                                     'href' => route('admin.portfolio.music.show', $child)
                                 ])
                             </li>
@@ -171,12 +171,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $music->image_credit
+            'value' => htmlspecialchars($music->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $music->image_source
+            'value' => htmlspecialchars($music->image_source)
         ])
 
         @include('admin.components.show-row-image', [

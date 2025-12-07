@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $skill->name
+            'value' => htmlspecialchars($skill->name)
         ])
 
         @include('admin.components.show-row', [
@@ -61,7 +61,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'category',
-            'value' => $skill->category['name'] ?? ''
+            'value' => $skill->category->name ?? ''
         ])
 
         @if(!empty($skill->start_year))
@@ -123,12 +123,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $skill->image_credit
+            'value' => htmlspecialchars($skill->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $skill->image_source
+            'value' => htmlspecialchars($skill->image_source)
         ])
 
         @include('admin.components.show-row-image', [

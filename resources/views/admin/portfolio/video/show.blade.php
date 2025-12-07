@@ -47,7 +47,7 @@
             'name'  => 'parent',
             'value' => !empty($video->parent)
                 ? view('admin.components.link', [
-                        'name' => $video->parent['name'],
+                        'name' => htmlspecialchars($video->parent->name),
                         'href' => route('admin.portfolio.video.show', $video->parent)
                     ])
                 : ''
@@ -95,22 +95,22 @@
 
         @include('admin.components.show-row', [
             'name'  => 'company',
-            'value' => $video->company
+            'value' => htmlspecialchars($video->company)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'credit',
-            'value' => $video->credit
+            'value' => htmlspecialchars($video->credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'show',
-            'value' => $video->show
+            'value' => htmlspecialchars($video->show)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
-            'value' => $video->location
+            'value' => htmlspecialchars($video->location)
         ])
 
         @include('admin.components.show-row', [
@@ -161,12 +161,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $skill->image_credit
+            'value' => htmlspecialchars($skill->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $video->image_source
+            'value' => htmlspecialchars($video->image_source)
         ])
 
         @include('admin.components.show-row-image', [

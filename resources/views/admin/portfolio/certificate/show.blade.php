@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $certificate->name
+            'value' => htmlspecialchars($certificate->name)
         ])
 
         @include('admin.components.show-row', [
@@ -50,12 +50,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $certificate->summary
+            'value' => htmlspecialchars($certificate->summary)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'organization',
-            'value' => $certificate->organization
+            'value' => htmlspecialchars($certificate->organization)
         ])
 
         @include('admin.components.show-row', [
@@ -130,12 +130,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $certificate->image_credit
+            'value' => htmlspecialchars($certificate->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $certificate->image_source
+            'value' => htmlspecialchars($certificate->image_source)
         ])
 
         @include('admin.components.show-row-image', [

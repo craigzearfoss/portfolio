@@ -71,12 +71,13 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'    => $recruiter->street ?? null,
-                           'street2'   => $recruiter->street2 ?? null,
-                           'city'      => $recruiter->city ?? null,
-                           'state'     => $recruiter->state['code'] ?? null,
-                           'zip'       => $recruiter->zip ?? null,
-                           'country'   => $recruiter->country['iso_alpha3'] ?? null,
+                           'street'          => htmlspecialchars($recruiter->street),
+                           'street2'         => htmlspecialchars($recruiter->street2),
+                           'city'            => htmlspecialchars($recruiter->city),
+                           'state'           => htmlspecialchars($recruiter->state->code),
+                           'zip'             => $recruiter->zip ?? null,
+                           'country'         => htmlspecialchars($recruiter->country->iso_alpha3),
+                           'streetSeparator' => '<br>',
                        ])
         ])
 

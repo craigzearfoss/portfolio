@@ -29,18 +29,18 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $adminGroup->owner['username'] ?? ''
+                'value' => $adminGroup->owner->username ?? ''
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'team',
-            'value' => $adminGroup->team['name'] ?? ''
+            'value' => htmlspecialchars($adminGroup->team->name ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $adminGroup->name
+            'value' => htmlspecialchars($adminGroup->name)
         ])
 
             @include('admin.components.show-row', [
@@ -50,12 +50,12 @@
 
             @include('admin.components.show-row', [
                 'name'  => 'abbreviation',
-                'value' => $adminGroup->abbreviation
+                'value' => htmlspecialchars($adminGroup->abbreviation)
             ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $adminGroup->description
+            'value' => nl2br($adminGroup->description)
         ])
 
         @include('admin.components.show-row-checkbox', [

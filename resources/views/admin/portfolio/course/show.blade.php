@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $course->name
+            'value' => htmlspecialchars($course->name)
         ])
 
         @include('admin.components.show-row', [
@@ -50,7 +50,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $course->summary
+            'value' => htmlspecialchars($course->summary)
         ])
 
         @include('admin.components.show-row', [
@@ -85,17 +85,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'school',
-            'value' => $course->school
+            'value' => htmlspecialchars($course->school)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'instructor',
-            'value' => $course->instructor
+            'value' => htmlspecialchars($course->instructor)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'sponsor',
-            'value' => $course->sponsor
+            'value' => htmlspecialchars($course->sponsor)
         ])
 
         @include('admin.components.show-row-image', [
@@ -109,12 +109,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => $course->notes
+            'value' => htmlspecialchars($course->notes)
         ])
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'href'   => $course->link,
+            'href'   => htmlspecialchars($course->link),
             'target' => '_blank'
         ])
 
@@ -145,12 +145,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $course->image_credit
+            'value' => htmlspecialchars($course->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $course->image_source
+            'value' => htmlspecialchars($course->image_source)
         ])
 
         @include('admin.components.show-row-image', [

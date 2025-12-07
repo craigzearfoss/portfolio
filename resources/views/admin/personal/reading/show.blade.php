@@ -35,12 +35,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'title',
-            'value' => $reading->title
+            'value' => htmlspecialchars($reading->title)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'author',
-            'value' => $reading->author
+            'value' => htmlspecialchars($reading->author)
         ])
 
         @include('admin.components.show-row', [
@@ -55,7 +55,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $reading->summary
+            'value' => htmlspecialchars($reading->summary)
         ])
 
         @include('admin.components.show-row', [
@@ -107,7 +107,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br($reading->noate ?? '')
+            'value' => nl2br($reading->note ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -132,12 +132,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $ingredient->image_credit
+            'value' => htmlspecialchars($ingredient->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $reading->image_source
+            'value' => htmlspecialchars($reading->image_source)
         ])
 
         @include('admin.components.show-row-image', [

@@ -33,33 +33,34 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $user->name
+            'value' => htmlspecialchars($user->name)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'title',
-            'value' => $user->title
+            'value' => htmlspecialchars($user->title)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'role',
-            'value' => $user->role
+            'value' => htmlspecialchars($user->role)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'employer',
-            'value' => $user->employer
+            'value' => htmlspecialchars($user->employer)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'    => $user->street ?? null,
-                           'street2'   => $user->street2 ?? null,
-                           'city'      => $user->city ?? null,
-                           'state'     => $user->state['code'] ?? null,
-                           'zip'       => $user->zip ?? null,
-                           'country'   => $user->country['iso_alpha3'] ?? null,
+                           'street'          => htmlspecialchars($user->street),
+                           'street2'         => htmlspecialchars($user->street2 ),
+                           'city'            => htmlspecialchars($user->city),
+                           'state'           => $user->state->code ?? '',
+                           'zip'             => htmlspecialchars($user->zip),
+                           'country'         => $user->country->iso_alpha3 ?? '',
+                           'streetSeparator' => '<br>',
                        ])
         ])
 
@@ -75,12 +76,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'phone',
-            'value' => $user->phone
+            'value' => htmlspecialchars($user->phone)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'email',
-            'value' => $user->email
+            'value' => htmlspecialchars($user->email)
         ])
 
         @include('admin.components.show-row', [
@@ -102,7 +103,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $user->description
+            'value' => nl2br($user->description)
         ])
 
         @include('admin.components.show-row', [
@@ -122,12 +123,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $user->image_credit
+            'value' => htmlspecialchars($user->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $user->image_source
+            'value' => htmlspecialchars($user->image_source)
         ])
 
         @include('admin.components.show-row-image', [

@@ -69,12 +69,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $recipeStep->image_credit
+            'value' => htmlspecialchars($recipeStep->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $recipeStep->image_source
+            'value' => htmlspecialchars($recipeStep->image_source)
         ])
 
         @include('admin.components.show-row-image', [

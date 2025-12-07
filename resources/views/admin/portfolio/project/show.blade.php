@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $project->name
+            'value' => htmlspecialchars($project->name)
         ])
 
         @include('admin.components.show-row', [
@@ -76,7 +76,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'repository name',
-            'value' => $project->repository_name,
+            'value' => htmlspecialchars($project->repository_name),
         ])
 
         @include('admin.components.show-row', [
@@ -117,12 +117,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $project->image_credit
+            'value' => htmlspecialchars($project->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $project->image_source
+            'value' => htmlspecialchars($project->image_source)
         ])
 
         @include('admin.components.show-row-image', [

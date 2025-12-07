@@ -38,14 +38,14 @@
         @include('admin.components.show-row', [
             'name'  => 'job',
             'value' =>  view('admin.components.link', [
-                'name' => $jobTask->job->name,
+                'name' => htmlspecialchars($jobTask->job->name),
                 'href' => route('admin.portfolio.job.show', $jobTask->job)
             ])
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'company',
-            'value' => $jobTask->job['company'] ?? ''
+            'value' => htmlspecialchars($jobTask->job->company ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -86,12 +86,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $jobTask->image_credit
+            'value' => htmlspecialchars($jobTask->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $jobTask->image_source
+            'value' => htmlspecialchars($jobTask->image_source)
         ])
 
         @include('admin.components.show-row-image', [

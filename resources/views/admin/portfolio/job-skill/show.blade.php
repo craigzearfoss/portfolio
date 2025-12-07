@@ -38,7 +38,7 @@
         @include('admin.components.show-row', [
             'name'  => 'job',
             'value' =>  view('admin.components.link', [
-                'name' => $jobSkill->job->name,
+                'name' => htmlspecialchars($jobSkill->job->name),
                 'href' => route('admin.portfolio.job.show', $jobSkill->job)
             ])
         ])
@@ -46,14 +46,14 @@
         @include('admin.components.show-row', [
             'name'  => 'category',
             'value' =>  view('admin.components.link', [
-                'name' => $jobSkill->category->name ?? '',
+                'name' => htmlspecialchars($jobSkill->category->name ?? ''),
                 'href' => route('admin.dictionary.category.show', $jobSkill->job)
             ])
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $jobSkill->name ?? ''
+            'value' => htmlspecialchars($jobSkill->name ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -94,12 +94,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $jobSkill->image_credit
+            'value' => htmlspecialchars($jobSkill->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $jobSkill->image_source
+            'value' => htmlspecialchars($jobSkill->image_source)
         ])
 
         @include('admin.components.show-row-image', [

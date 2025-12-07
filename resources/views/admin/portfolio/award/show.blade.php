@@ -35,12 +35,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $art->name
+            'value' => htmlspecialchars($art->name)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'artist',
-            'value' => $art->artist
+            'value' => htmlspecialchars($art->artist)
         ])
 
         @include('admin.components.show-row', [
@@ -55,7 +55,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $art->summary
+            'value' => htmlspecialchars($art->summary)
         ])
 
         @include('admin.components.show-row', [
@@ -109,12 +109,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $art->image_credit
+            'value' => htmlspecialchars($art->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $art->image_source
+            'value' => htmlspecialchars($art->image_source)
         ])
 
         @include('admin.components.show-row-image', [

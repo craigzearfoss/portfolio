@@ -28,17 +28,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $message->name
+            'value' => htmlspecialchars($message->name)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'email',
-            'value' => $message->email
+            'value' => htmlspecialchars($message->email)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'subject',
-            'value' => $message->subject
+            'value' => htmlspecialchars($message->subject)
         ])
 
         @include('admin.components.show-row', [

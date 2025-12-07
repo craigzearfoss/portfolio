@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $link->name
+            'value' => htmlspecialchars($link->name)
         ])
 
         @include('admin.components.show-row', [
@@ -97,12 +97,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $link->image_credit
+            'value' => htmlspecialchars($link->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $link->image_source
+            'value' => htmlspecialchars($link->image_source)
         ])
 
         @include('admin.components.show-row-image', [

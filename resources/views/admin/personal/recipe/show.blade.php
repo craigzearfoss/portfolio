@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $recipe->name
+            'value' => htmlspecialchars($recipe->name)
         ])
 
         @include('admin.components.show-row', [
@@ -50,17 +50,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $recipe->summary
+            'value' => htmlspecialchars($recipe->summary)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'source',
-            'value' => $recipe->source
+            'value' => htmlspecialchars($recipe->source)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'author',
-            'value' => $recipe->author
+            'value' => htmlspecialchars($recipe->author)
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -157,12 +157,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $recipe->image_credit
+            'value' => htmlspecialchars($recipe->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $recipe->image_source
+            'value' => htmlspecialchars($recipe->image_source)
         ])
 
         @include('admin.components.show-row-image', [

@@ -56,12 +56,13 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                'street'    => htmlspecialchars($company->street ?? ''),
-                'street2'   => htmlspecialchars($company->street2 ?? ''),
-                'city'      => htmlspecialchars($company->city ?? ''),
-                'state'     => $company->state['code'] ?? null,
-                'zip'       => htmlspecialchars($company->zip ?? ''),
-                'country'   => $company->country['iso_alpha3'] ?? null,
+                'street'          => htmlspecialchars($company->street),
+                'street2'         => htmlspecialchars($company->street2),
+                'city'            => htmlspecialchars($company->city),
+                'state'           => $company->state->code ?? '',
+                'zip'             => htmlspecialchars($company->zip),
+                'country'         => $company->country->iso_alpha3 ?? '',
+                'streetSeparator' => '<br>',
             ])
         ])
 

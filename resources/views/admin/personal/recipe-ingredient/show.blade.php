@@ -46,12 +46,12 @@
 
         @include('admin.components.show-row', [
             'name'   => 'amount',
-            'value'  => $recipeIngredient->amount,
+            'value'  => htmlspecialchars($recipeIngredient->amount),
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'unit',
-            'value' => $recipeIngredient->unit['name'] ?? ''
+            'value' => $recipeIngredient->unit->name ?? ''
         ])
 
         @include('admin.components.show-row', [
@@ -76,12 +76,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $recipeIngredient->image_credit
+            'value' => htmlspecialchars($recipeIngredient->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $recipeIngredient->image_source
+            'value' => htmlspecialchars($recipeIngredient->image_source)
         ])
 
         @include('admin.components.show-row-image', [

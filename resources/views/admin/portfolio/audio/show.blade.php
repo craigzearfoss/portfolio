@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $audio->name
+            'value' => htmlspecialchars($audio->name)
         ])
 
         @include('admin.components.show-row', [
@@ -47,7 +47,7 @@
             'name'  => 'parent',
             'value' => !empty($audio->parent)
                 ? view('admin.components.link', [
-                        'name' => $audio->parent['name'],
+                        'name' => htmlspecialchars($audio->parent['name']),
                         'href' => route('admin.portfolio.audio.show', $audio->parent)
                     ])
                 : ''
@@ -95,22 +95,22 @@
 
         @include('admin.components.show-row', [
             'name'  => 'company',
-            'value' => $audio->company
+            'value' => htmlspecialchars($audio->company)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'credit',
-            'value' => $audio->credit
+            'value' => htmlspecialchars($audio->credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'show',
-            'value' => $audio->show
+            'value' => htmlspecialchars($audio->show)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
-            'value' => $audio->location
+            'value' => htmlspecialchars($audio->location)
         ])
 
         @include('admin.components.show-row', [
@@ -161,12 +161,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $audio->image_credit
+            'value' => htmlspecialchars($audio->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $audio->image_source
+            'value' => htmlspecialchars($audio->image_source)
         ])
 
         @include('admin.components.show-row-image', [

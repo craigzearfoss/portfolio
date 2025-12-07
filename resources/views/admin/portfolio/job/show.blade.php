@@ -35,12 +35,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'company',
-            'value' => $job->company
+            'value' => htmlspecialchars($job->company)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'role',
-            'value' => $job->role
+            'value' => htmlspecialchars($job->role)
         ])
 
         @include('admin.components.show-row', [
@@ -55,7 +55,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $job->summary
+            'value' => htmlspecialchars($job->summary)
         ])
 
         @include('admin.components.show-row', [
@@ -75,18 +75,19 @@
 
         @include('admin.components.show-row', [
             'name'  => 'employment location',
-            'value' => $job->locationType['name'] ?? ''
+            'value' => $job->locationType->name ?? ''
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'    => $job->street ?? null,
-                           'street2'   => $job->street2 ?? null,
-                           'city'      => $job->city ?? null,
-                           'state'     => $job->state['code'] ?? null,
-                           'zip'       => $job->zip ?? null,
-                           'country'   => $job->country['iso_alpha3'] ?? null,
+                           'street'          => htmlspecialchars($job->street),
+                           'street2'         => htmlspecialchars($job->street2),
+                           'city'            => htmlspecialchars($job->city),
+                           'state'           => $job->state->code ?? '',
+                           'zip'             => htmlspecialchars($job->zip),
+                           'country'         => $job->country->iso_alpha3 ?? '',
+                           'streetSeparator' => '<br>',
                        ])
         ])
 
@@ -138,12 +139,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $job->image_credit
+            'value' => htmlspecialchars($job->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $job->image_source
+            'value' => htmlspecialchars($job->image_source)
         ])
 
         @include('admin.components.show-row-image', [

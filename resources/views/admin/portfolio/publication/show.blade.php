@@ -31,7 +31,7 @@
                 'name'  => 'parent',
                 'value' => !empty($publication->parent)
                     ? view('admin.components.link', [
-                            'name' => $publication->parent['title'],
+                            'name' => htmlspecialchars($publication->parent->title),
                             'href' => route('admin.portfolio.publication.show', $publication->parent->slug)
                         ])
                     : ''
@@ -50,12 +50,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'publication name',
-            'value' => $publication->publication_name
+            'value' => htmlspecialchars($publication->publication_name)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'publisher',
-            'value' => $publication->publisher
+            'value' => htmlspecialchars($publication->publisher)
         ])
 
         @include('admin.components.show-row', [
@@ -70,7 +70,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'credit',
-            'value' => $publication->credit
+            'value' => htmlspecialchars($publication->credit)
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -173,12 +173,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $publication->image_credit
+            'value' => htmlspecialchars($publication->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $publication->image_source
+            'value' => htmlspecialchars($publication->image_source)
         ])
 
         @include('admin.components.show-row-image', [

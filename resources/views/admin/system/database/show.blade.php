@@ -29,33 +29,33 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $database->owner['username'] ?? ''
+                'value' => $database->owner->username ?? ''
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $database->name
+            'value' => htmlspecialchars($database->name)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'database',
-            'value' => $database->database
+            'value' => htmlspecialchars($database->database)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'tag',
-            'value' => $database->tag
+            'value' => htmlspecialchars($database->tag)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'title',
-            'value' => $database->title
+            'value' => htmlspecialchars($database->title)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'plural',
-            'value' => $database->plural
+            'value' => htmlspecialchars($database->plural)
         ])
 
         @include('admin.components.show-row-checkbox', [

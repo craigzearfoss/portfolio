@@ -40,12 +40,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'major',
-            'value' => $education->major ?? ''
+            'value' => htmlspecialchars($education->major ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'minor',
-            'value' => $education->minor ?? ''
+            'value' => htmlspecialchars($education->minor ?? '')
         ])
 
         @include('admin.components.show-row', [
@@ -80,7 +80,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'summary',
-            'value' => $education->summary
+            'value' => htmlspecialchars($education->summary)
         ])
 
         @include('admin.components.show-row', [
@@ -121,12 +121,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $education->image_credit
+            'value' => htmlspecialchars($education->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $education->image_source
+            'value' => htmlspecialchars($education->image_source)
         ])
 
         @include('admin.components.show-row-image', [

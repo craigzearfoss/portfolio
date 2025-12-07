@@ -29,13 +29,13 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $userTeam->owner['username'] ?? ''
+                'value' => htmlspecialchars($userTeam->owner->username ?? '')
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $userTeam->name
+            'value' => htmlspecialchars($userTeam->name)
         ])
 
         @include('admin.components.show-row', [
@@ -45,12 +45,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'abbreviation',
-            'value' => $userTeam->abbreviation
+            'value' => htmlspecialchars($userTeam->abbreviation)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $userTeam->description
+            'value' => nl2br($userTeam->description)
         ])
 
         @include('admin.components.show-row-checkbox', [

@@ -28,12 +28,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'full_name',
-            'value' => $ingredient->full_name
+            'value' => htmlspecialchars($ingredient->full_name)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $ingredient->name
+            'value' => htmlspecialchars($ingredient->name)
         ])
 
         @include('admin.components.show-row', [
@@ -65,12 +65,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $ingredient->image_credit
+            'value' => htmlspecialchars($ingredient->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $ingredient->image_source
+            'value' => htmlspecialchars($ingredient->image_source)
         ])
 
         @include('admin.components.show-row-image', [
