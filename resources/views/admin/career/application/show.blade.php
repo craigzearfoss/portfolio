@@ -29,13 +29,13 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $application->owner['username'] ?? ''
+                'value' => htmlspecialchars($application->owner['username'] ?? '')
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $application->name
+            'value' => htmlspecialchars($application->name)
         ])
 
         @include('admin.components.show-row', [
@@ -50,7 +50,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'role',
-            'value' => $application->role
+            'value' => htmlspecialchars($application->role)
         ])
 
         <div class="container card p-2 mb-2" style="display: inline-block; flex-grow: 0;">
@@ -138,11 +138,11 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-               'street'    => $application->street ?? null,
-               'street2'   => $application->street2 ?? null,
-               'city'      => $application->city ?? null,
+               'street'    => htmlspecialchars($application->street ?? ''),
+               'street2'   => htmlspecialchars($application->street2 ?? ''),
+               'city'      => htmlspecialchars($application->city ?? ''),
                'state'     => $application->state['code'] ?? null,
-               'zip'       => $application->zip ?? null,
+               'zip'       => htmlspecialchars($application->zip ?? ''),
                'country'   => $application->country['iso_alpha3'] ?? null,
            ])
         ])
@@ -159,7 +159,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'bonus',
-            'value' => !empty($application->bonus) ? '$' . $application->bonus : ''
+            'value' => !empty($application->bonus) ? '$' . htmlspecialchars($application->bonus) : ''
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -238,14 +238,14 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => $application->link_name ?? 'link',
+            'name'   => htmlspecialchars($application->link_name ?? 'link'),
             'href'   => $application->link,
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => $application->description
+            'value' => htmlspecialchars($application->description)
         ])
 
         @include('admin.components.show-row', [
@@ -265,12 +265,20 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $application->image_credit
+            'value' => htmlspecialchars($application->image_credit)
         ])
+
+        @include('admin.components.form-image-horizontal', [
+            'image'   => old('image') ?? $application->image,
+            'credit'  => old('image_credit') ?? $application->image_credit,
+            'source'  => old('image_source') ?? $application->image_source,
+            'message' => $message ?? '',
+        ])
+
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $application->image_source
+            'value' => htmlspecialchars($application->image_source)
         ])
 
         @include('admin.components.show-row-image', [

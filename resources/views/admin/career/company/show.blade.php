@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $company->name
+            'value' => htmlspecialchars($company->name)
         ])
 
         @include('admin.components.show-row', [
@@ -56,11 +56,11 @@
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                'street'    => $company->street ?? null,
-                'street2'   => $company->street2 ?? null,
-                'city'      => $company->city ?? null,
+                'street'    => htmlspecialchars($company->street ?? ''),
+                'street2'   => htmlspecialchars($company->street2 ?? ''),
+                'city'      => htmlspecialchars($company->city ?? ''),
                 'state'     => $company->state['code'] ?? null,
-                'zip'       => $company->zip ?? null,
+                'zip'       => htmlspecialchars($company->zip ?? ''),
                 'country'   => $company->country['iso_alpha3'] ?? null,
             ])
         ])
@@ -76,23 +76,23 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($company->phone_label) ? $company->phone_label : 'phone',
-            'value' => $company->phone
+            'name'  => htmlspecialchars(!empty($company->phone_label) ? $company->phone_label : 'phone'),
+            'value' => htmlspecialchars($company->phone)
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($company->alt_phone_label) ? $company->alt_phone_label : 'alt phone',
-            'value' => $company->alt_phone
+            'name'  => htmlspecialchars(!empty($company->alt_phone_label) ? $company->alt_phone_label : 'alt phone'),
+            'value' => htmlspecialchars($company->alt_phone)
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($company->email_label) ? $company->email_label : 'email',
-            'value' => $company->email
+            'name'  => htmlspecialchars(!empty($company->email_label) ? $company->email_label : 'email'),
+            'value' => htmlspecialchars($company->email)
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($company->alt_email_label) ? $company->alt_email_label : 'alt email',
-            'value' => $company->alt_email
+            'name'  => htmlspecialchars(!empty($company->alt_email_label) ? $company->alt_email_label : 'alt email'),
+            'value' => htmlspecialchars($company->alt_email)
         ])
 
         @include('admin.components.show-row', [
@@ -101,14 +101,9 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
+            'name'   => htmlspecialchars($company->link_name ?? 'link'),
             'href'   => $company->link,
             'target' => '_blank'
-        ])
-
-        @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'value'  => $company->link_name,
         ])
 
         @include('admin.components.show-row', [
@@ -133,12 +128,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $company->image_credit
+            'value' => htmlspecialchars($company->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $company->image_source
+            'value' => htmlspecialchars($company->image_source)
         ])
 
         @include('admin.components.show-row-image', [

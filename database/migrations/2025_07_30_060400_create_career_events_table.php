@@ -27,6 +27,7 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->time('time')->nullable();
             $table->string('location')->nullable();
+            $table->string('attendees', 500)->nullable();
             $table->text('description')->nullable();
             $table->boolean('public')->default(false);
             $table->boolean('readonly')->default(false);

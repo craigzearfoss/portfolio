@@ -65,13 +65,13 @@
 
         @include('admin.components.show-row-link', [
             'name'   => 'link',
-            'href'   => $coverLetter->link,
+            'href'   => htmlspecialchars($coverLetter->link),
             'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'link name',
-            'value' => $coverLetter->link_name
+            'value' => htmlspecialchars($coverLetter->link_name)
         ])
 
         @include('admin.components.show-row', [
@@ -84,11 +84,24 @@
             'value' => view('admin.components.disclaimer', [ 'value' => $coverLetter->disclaimer ?? '' ])
         ])
 
-        @include('admin.components.form-image-horizontal', [
-            'image'   => old('image') ?? $coverLetter->image,
-            'credit'  => old('image_credit') ?? $coverLetter->image_credit,
-            'source'  => old('image_source') ?? $coverLetter->image_source,
-            'message' => $message ?? '',
+        @include('admin.components.show-row-image', [
+            'name'     => 'image',
+            'src'      => $contact->image,
+            'alt'      => 'image',
+            'width'    => '300px',
+            'download' => true,
+            'external' => true,
+            'filename' => getFileSlug($coverLetter->name, $contact->image)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'image credit',
+            'value' => htmlspecialchars($coverLetter->image_credit)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'image source',
+            'value' => htmlspecialchars($coverLetter->image_source)
         ])
 
         @include('admin.components.show-row-image', [

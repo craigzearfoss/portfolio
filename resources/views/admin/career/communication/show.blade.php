@@ -67,7 +67,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'subject',
-            'value' => $communication->subject
+            'value' => htmlspecialchars($communication->subject)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'to',
+            'value' => htmlspecialchars($event->to)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'from',
+            'value' => htmlspecialchars($event->from)
         ])
 
         @include('admin.components.show-row', [

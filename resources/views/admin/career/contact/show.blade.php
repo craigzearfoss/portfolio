@@ -35,7 +35,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $contact->name
+            'value' => htmlspecialchars($contact->name)
         ])
 
         @include('admin.components.show-row', [
@@ -50,17 +50,17 @@
 
         @include('admin.components.show-row', [
             'name'  => 'job title',
-            'value' => $contact->job_title
+            'value' => htmlspecialchars($contact->job_title)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'location',
             'value' => formatLocation([
-                           'street'    => $contact->street ?? null,
-                           'street2'   => $company->street2 ?? null,
-                           'city'      => $contact->city ?? null,
+                           'street'    => htmlspecialchars($contact->street ?? ''),
+                           'street2'   => htmlspecialchars($company->street2 ?? ''),
+                           'city'      => htmlspecialchars($contact->city ?? ''),
                            'state'     => $contact->state['code'] ?? null,
-                           'zip'       => $contact->zip ?? null,
+                           'zip'       => htmlspecialchars($contact->zip ?? ''),
                            'country'   => $contact->country['iso_alpha3'] ?? null,
                        ])
         ])
@@ -76,23 +76,23 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($contact->phone_label) ? $contact->phone_label : 'phone',
-            'value' => $contact->phone
+            'name'  => htmlspecialchars(!empty($contact->phone_label) ? $contact->phone_label : 'phone'),
+            'value' => htmlspecialchars($contact->phone)
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($contact->alt_phone_label) ? $contact->alt_phone_label : 'alt phone',
-            'value' => $contact->alt_phone
+            'name'  => htmlspecialchars(!empty($contact->alt_phone_label) ? $contact->alt_phone_label : 'alt phone'),
+            'value' => htmlspecialchars($contact->alt_phone)
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($contact->email_label) ? $contact->email_label : 'email',
-            'value' => $contact->email
+            'name'  => htmlspecialchars(!empty($contact->email_label) ? $contact->email_label : 'email'),
+            'value' => htmlspecialchars($contact->email)
         ])
 
         @include('admin.components.show-row', [
-            'name'  => !empty($contact->alt_email_label) ? $contact->alt_email_label : 'alt email',
-            'value' => $contact->alt_email
+            'name'  => htmlspecialchars(!empty($contact->alt_email_label) ? $contact->alt_email_label : 'alt email'),
+            'value' => htmlspecialchars($contact->alt_email)
         ])
 
         @include('admin.components.show-row', [
@@ -105,14 +105,9 @@
             'value' => $contact->notes
         ])
 
-        @include('admin.components.show-row', [
-            'name'   => 'link',
-            'value'    => $contact->link,
-        ])
-
         @include('admin.components.show-row-link', [
-            'name'   => 'link name',
-            'href'   => $contact->link_name,
+            'name'   => htmlspecialchars($contact->link_name ?? 'link'),
+            'href'   => $contact->link,
             'target' => '_blank'
         ])
 
@@ -138,12 +133,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $contact->image_credit
+            'value' => htmlspecialchars($contact->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $contact->image_source
+            'value' => htmlspecialchars($contact->image_source)
         ])
 
         @include('admin.components.show-row-image', [

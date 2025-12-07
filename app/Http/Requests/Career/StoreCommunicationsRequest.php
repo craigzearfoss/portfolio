@@ -40,6 +40,8 @@ class StoreCommunicationsRequest extends FormRequest
             'application_id'        => ['required', 'integer', 'exists:career_db.applications,id'],
             'communication_type_id' => ['required', 'integer', 'exists:career_db.communication_types,id'],
             'subject'               => ['required', 'string', 'max:255'],
+            'to'                    => ['string', 'max:500', 'nullable'],
+            'from'                  => ['string', 'max:500', 'nullable'],
             'date'                  => ['date_format:Y-m-d', 'nullable'],
             'time'                  => ['date_format:H:i:s', 'nullable'],
             'body'                  => ['nullable'],

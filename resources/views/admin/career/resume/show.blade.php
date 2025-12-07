@@ -54,7 +54,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $resume->name
+            'value' => htmlspecialchars($resume->name)
         ])
 
         @include('admin.components.show-row-checkbox', [
@@ -86,20 +86,14 @@
             'target' => '_blank'
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'  => 'link',
-            'href'   => $resume->link,
-            'target' => '_blank'
-        ])
-
         @include('admin.components.show-row', [
             'name'  => 'notes',
             'value' => $resume->notes
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'link name',
-            'value' => $resume->link_name,
+        @include('admin.components.show-row-link', [
+            'name'  => 'link',
+            'href' => $resume->link,
         ])
 
         @include('admin.components.show-row', [
@@ -129,12 +123,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'image credit',
-            'value' => $resume->image_credit
+            'value' => htmlspecialchars($resume->image_credit)
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'image source',
-            'value' => $resume->image_source
+            'value' => htmlspecialchars($resume->image_source)
         ])
 
         @include('admin.components.show-row-image', [

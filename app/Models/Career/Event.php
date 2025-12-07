@@ -31,6 +31,7 @@ class Event extends Model
         'date',
         'time',
         'location',
+        'attendees',
         'description',
         'public',
         'readonly',
@@ -43,8 +44,8 @@ class Event extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'name', 'date', 'time', 'location', 'public',
-        'readonly', 'root', 'disabled', 'demo'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'application_id', 'name', 'date', 'time', 'location', 'attendees',
+        'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['subject', 'asc'];
 
     protected static function booted()

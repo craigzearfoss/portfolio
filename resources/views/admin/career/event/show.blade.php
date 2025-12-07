@@ -21,7 +21,7 @@
 @endphp
 @extends('admin.layouts.default', [
     'title' => $title ?? 'Event' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs' => $breadcrumb,
+    'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.event.edit', $event) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'href' => route('admin.career.event.create') ],
@@ -62,7 +62,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'name',
-            'value' => $event->name
+            'value' => htmlspecialchars($event->name)
         ])
 
         @include('admin.components.show-row', [
@@ -72,7 +72,12 @@
 
         @include('admin.components.show-row', [
             'name'  => 'location',
-            'value' => $event->location
+            'value' => htmlspecialchars($event->location)
+        ])
+
+        @include('admin.components.show-row', [
+            'name'  => 'attendees',
+            'value' => htmlspecialchars($event->attendees)
         ])
 
         @include('admin.components.show-row', [

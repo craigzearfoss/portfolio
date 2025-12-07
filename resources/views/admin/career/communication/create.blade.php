@@ -85,6 +85,20 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'name'      => 'to',
+                'value'     => old('to') ?? '',
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'from',
+                'value'     => old('from') ?? '',
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'type'    => 'date',
                 'name'    => 'date',
                 'value'   => old('timestamp') ?? '',

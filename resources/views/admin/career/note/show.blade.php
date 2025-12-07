@@ -62,7 +62,7 @@
 
         @include('admin.components.show-row', [
             'name'  => 'subject',
-            'value' => $note->subject
+            'value' => htmlspecialchars($note->subject)
         ])
 
         @include('admin.components.show-row', [

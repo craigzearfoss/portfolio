@@ -26,6 +26,8 @@ return new class extends Migration
             $table->foreignId('application_id', Application::class);
             $table->foreignId('communication_type_id', CommunicationType::class);
             $table->string('subject')->index('subject_idx');
+            $table->string('to', 500)->nullable();
+            $table->string('from', 500)->nullable();
             $table->date('date')->nullable();
             $table->time('time')->nullable();
             $table->text('body')->nullable();
