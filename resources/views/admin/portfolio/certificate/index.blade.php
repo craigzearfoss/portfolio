@@ -60,7 +60,7 @@
                 <tr data-id="{{ $certificate->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $certificate->owner['username'] ?? '' }}
+                            {{ $certificate->owner->username ?? '' }}
                         </td>
                     @endif
                     <td data-field="name">

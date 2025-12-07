@@ -58,7 +58,7 @@
                 <tr data-id="{{ $recipeStep->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $recipeStep->owner['username'] ?? '' }}
+                            {{ $recipeStep->owner->username ?? '' }}
                         </td>
                     @endif
                     @if(empty($recipeId))

@@ -30,7 +30,7 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $recipeIngredient->owner['username'] ?? ''
+                'value' => $recipeIngredient->owner->username ?? ''
             ])
         @endif
 

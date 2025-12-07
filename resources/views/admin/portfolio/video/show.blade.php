@@ -29,7 +29,7 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $video->owner['username'] ?? ''
+                'value' => $video->owner->username ?? ''
             ])
         @endif
 

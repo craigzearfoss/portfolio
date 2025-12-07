@@ -58,7 +58,7 @@
                 <tr data-id="{{ $skill->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $skill->owner['username'] ?? '' }}
+                            {{ $skill->owner->username ?? '' }}
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">

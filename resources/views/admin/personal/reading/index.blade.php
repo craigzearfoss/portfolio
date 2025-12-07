@@ -116,7 +116,7 @@
                 <tr data-id="{{ $reading->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $reading->owner['username'] ?? '' }}
+                            {{ $reading->owner->username ?? '' }}
                         </td>
                     @endif
                     <td data-field="title">

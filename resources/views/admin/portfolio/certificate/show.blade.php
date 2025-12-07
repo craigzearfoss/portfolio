@@ -29,7 +29,7 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $certificate->owner['username'] ?? ''
+                'value' => $certificate->owner->username ?? ''
             ])
         @endif
 

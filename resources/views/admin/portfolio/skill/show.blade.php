@@ -29,7 +29,7 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $skill->owner['username'] ?? ''
+                'value' => $skill->owner->username ?? ''
             ])
         @endif
 

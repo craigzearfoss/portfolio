@@ -53,7 +53,7 @@
                 <tr data-id="{{ $userGroup->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $userGroup->owner['username'] ?? '' }}
+                            {{ $userGroup->owner->username ?? '' }}
                         </td>
                     @endif
                     <td data-field="name">

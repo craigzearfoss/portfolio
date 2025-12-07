@@ -44,7 +44,7 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $note->owner['username'] ?? ''
+                'value' => $note->owner->username ?? ''
             ])
         @endif
 

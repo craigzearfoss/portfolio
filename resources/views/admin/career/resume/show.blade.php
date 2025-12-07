@@ -48,7 +48,7 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $resume->owner['username'] ?? ''
+                'value' => $resume->owner->username ?? ''
             ])
         @endif
 

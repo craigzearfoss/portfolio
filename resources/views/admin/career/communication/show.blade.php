@@ -44,7 +44,7 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $communication->owner['username'] ?? ''
+                'value' => $communication->owner->username ?? ''
             ])
         @endif
 

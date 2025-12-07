@@ -56,7 +56,7 @@
                 <tr data-id="{{ $reference->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $reference->owner['username'] ?? '' }}
+                            {{ $reference->owner->username ?? '' }}
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">

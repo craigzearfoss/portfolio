@@ -76,7 +76,7 @@
                 <tr data-id="{{ $event->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $event->owner['username'] ?? '' }}
+                            {{ $event->owner->username ?? '' }}
                         </td>
                     @endif
                     @if(empty($application))

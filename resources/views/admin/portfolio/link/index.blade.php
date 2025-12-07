@@ -52,7 +52,7 @@
                 <tr data-id="{{ $link->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $link->owner['username'] ?? '' }}
+                            {{ $link->owner->username ?? '' }}
                         </td>
                     @endif
                     <td data-field="name">

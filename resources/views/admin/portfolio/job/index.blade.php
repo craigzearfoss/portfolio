@@ -96,7 +96,7 @@
                 <tr data-id="{{ $job->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $job->owner['username'] ?? '' }}
+                            {{ $job->owner->username ?? '' }}
                         </td>
                     @endif
                     <td data-field="company">

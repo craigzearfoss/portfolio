@@ -72,7 +72,7 @@
                 <tr data-id="{{ $communication->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $communication->owner['username'] ?? '' }}
+                            {{ $communication->owner->username ?? '' }}
                         </td>
                     @endif
                     @if(empty($application))

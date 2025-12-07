@@ -29,7 +29,7 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $audio->owner['username'] ?? ''
+                'value' => $audio->owner->username ?? ''
             ])
         @endif
 

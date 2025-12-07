@@ -54,7 +54,7 @@
                 <tr data-id="{{ $video->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $video->owner['username'] ?? '' }}
+                            {{ $video->owner->username ?? '' }}
                         </td>
                     @endif
                     <td data-field="name">

@@ -73,7 +73,7 @@
                 <tr data-id="{{ $resume->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $resume->owner['username'] ?? '' }}
+                            {{ $resume->owner->username ?? '' }}
                         </td>
                     @endif
                     <td data-field="name" style="white-space: nowrap;">

@@ -31,7 +31,7 @@
         @if(isRootAdmin())
             @include('admin.components.show-row', [
                 'name'  => 'owner',
-                'value' => $jobTask->owner['username'] ?? ''
+                'value' => $jobTask->owner->username ?? ''
             ])
         @endif
 

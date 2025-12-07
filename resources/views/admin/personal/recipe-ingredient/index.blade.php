@@ -59,7 +59,7 @@
                 <tr data-id="{{ $recipeIngredient->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $recipeIngredient->owner['username'] ?? '' }}
+                            {{ $recipeIngredient->owner->username ?? '' }}
                         </td>
                     @endif
                     @if(empty($recipeId))

@@ -102,7 +102,7 @@ if (!empty($resume)) {
                 <tr data-id="{{ $application->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $application->owner['username'] ?? '' }}
+                            {{ $application->owner->username ?? '' }}
                         </td>
                     @endif
                     <td data-field="name">

@@ -55,7 +55,7 @@
                 <tr data-id="{{ $photo->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $photo->owner['username'] ?? '' }}
+                            {{ $photo->owner->username ?? '' }}
                         </td>
                     @endif
                     <td data-field="featured" class="has-text-centered">

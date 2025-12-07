@@ -60,7 +60,7 @@
                 <tr data-id="{{ $music->id }}">
                     @if(isRootAdmin())
                         <td data-field="owner.username">
-                            {{ $music->owner['username'] ?? '' }}
+                            {{ $music->owner->username ?? '' }}
                         </td>
                     @endif
                     <td data-field="name">
