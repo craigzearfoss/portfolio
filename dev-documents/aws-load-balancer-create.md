@@ -6,7 +6,7 @@
 - [ ] From the orange "Create load balancer" at the top right select "Create application load balancer"
 - **Basic configuration**
     - **Load balancer name**
-        - Enter the name for the load balancer. (The name cannot be changed after the load balancer is created.)
+        - Enter the name for the load balancer. Consider appending "-elb" on te end of it. (The name cannot be changed after the load balancer is created.)
     - **Scheme**
         - Select "Internet-facing"
     - **Load balancer IP address type**
@@ -19,27 +19,24 @@
   - **Availability Zones and subnets**
     - Select at least two public subnets.
     - **Security groups**
-      - If you haven't created a security then create one following the instructions in aws-security-group-create.md.
+      - Select the security group you made that allows for public access. (That is the one that allows HTTP and HTTPS access.)
       - Select the security group that you created. (Not the default one.)
     - **Listeners and routing**
       - **Protocol** and **Port**
         - Keep "HTTP" on Port "80".
       - **Target group**
         - If you haven't created any target groups click on "Create target group" and following the instructions in aws-target-group-create.md.
-            - For **Target type** select "Instances".
-            - Give it a **Target group name** like _zearfoss-route53-tg_.
-        - Keep **Protocol** as "HTTP" and **Port" as "80".
-        - **IP address type**
-            - Select "IPv4"
-        - **VPC**
-            - Keep it as the VPC that you created.
-        - **Protocol version**
-            - Keep as "HTTP1".
-        - Keep the rest of the defaults.
-        - Click the orange "Next" button in the bottom right.
-        - Click the orange "Next" button in the bottom right.
-        - Click the orange "Create target group" button in the bottom right.
+        - Select the target group that you set up previously.
         - Go back to the Create Application Load Balancer page and click on the refresh target groups icon.
 - Select you target group.
 - Keep the rest of the defaults.
 - Click on the orange "Create load balancer" in the bottom right corner. 
+-[ ] On the load balancer we want to add a listener for port 443.
+ - Click the "Add Listener" button at the bottom of the page.
+   - Set the protocol as "HTTPS" and the port at 443.
+   - Under default action select "No pre-routing action" and select "Forward to target groups for "Routing action".
+   - Keep the reset of the actions except in the "Default action" tab select your target group.
+   - Keep the rest of the defaults but under the "Secure listener settings" in the "Default SLL/TLS server certificate" click on "From ACM" for "Certificate source" and select the certificate you received at an earlier step.
+   - Click on the orange "Add Listener" button.
+   - Back on the load balancer page at the bottom of the page select the HTTP:80 entry and the "Action" "Edit Rule".
+   - 

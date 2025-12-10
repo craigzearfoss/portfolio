@@ -2,6 +2,7 @@
 - [ ] Log into AWS console.
 - [ ] Select a region from the dropdown list in the top right corner. For example, us-east-1 or us-east-2. 
 - [ ] Click on "VPC" or use the search bar to find it.
+- [ ] There's no need to create a VPC if you can use the existing one. Each region has a default VPC.
 - [ ] Click on the orange "Create VPC" button.
   - **Resources to create**
     - Select "VPC and more".

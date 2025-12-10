@@ -22,27 +22,22 @@
           - chmod 400 yourdomain_key.pem
         - Connect to the EC2 instance.
           - ssh -i "my-key-pair.pem" ubuntu@your_instance_public_ip
-  - **Network settings**
-    - **Network**
+- **Network settings**
+    - **VPC**
+      - Select the VPC that you created earlier created.
     - **Subnet**
+      - For most use cases and especially for prototyping you probably don't need a subnet for a development project. 
     - **Auto-assign public IP**
+      - Select "Enable". 
     - **Firewall (security groups)**
-      - If you haven't created a security group, do so now because the AWS default security group is often too permissive by default and lacks specific rules, which can lead to security vulnerabilities.
+      - If you haven't created a security groups, do so now because the AWS default security group is often too permissive by default and lacks specific rules, which can lead to security vulnerabilities.
         - Follow the instructions in aws-security-group-create.md
+        - Click on "Select existing security group".
+        - Make sure your security groups include SSH, HTTP, and HTTPS access. You can modify security groups even after the EC2 instance is created.
   - **Configure storage**
     - Accept the values that are shown. 
-  - Click on the orange "Create instance" button.
-- [ ] Once the instance is created we need to create a new inbound rule for HTTPS. From the EC2 page:
-  - On the left menu click on "Network & Security".
-  - Click on "Security Groups".
-  - Select the checkbox in front of your security group.
-  - At the bottom of the page select the "Inbound rules" tab.
-  - Click on the "Edit inbound rules" button on the right.
-  - Click on the "Add rule" button at the bottom left.
-  - For **Type** select "HTTPS".
-  - Under **Source** select "Anywhere-IPv4"
-  - Click the orange "Save rules" button at the lower right.
-
+- [ ] Click on the orange "Create instance" button.
+    
 #### \* We should have used an Elastic IP address when we created this EC2 instance instead of auto-assigning an IP address. To associate an Elastic IP address with this EC2 instance follow the instructions in aws-elastic-ip-address-allocate.md.
 
 #### \* Before proceeding to the next step you'll have to request an SSL certification and apply it to your server. The instructions for how to do this are in aws-certificate-acm-request.md
