@@ -32,7 +32,7 @@
             @include('admin.components.form-input', [
                 'name'        => 'username',
                 'label'       => 'User Name',
-                'value'       => old('username') ?? (config('app.demo_user_enabled') ? config('app.demo_admin_username') : ''),
+                'value'       => old('username') ?? (config('app.demo_admin_enabled') ? config('app.demo_admin_username') : ''),
                 'placeholder' => 'User Name',
                 'required'    => true,
                 'maxlength'   => 255,
@@ -43,7 +43,7 @@
                 //'type'        => 'password',
                 'name'        => 'password',
                 'label'       => 'Password',
-                'value'       => old('password') ?? (config('app.demo_user_enabled') ? config('app.demo_admin_password') : ''),
+                'value'       => old('password') ?? (config('app.demo_admin_enabled') ? config('app.demo_admin_password') : ''),
                 'placeholder' => 'Password',
                 'required'    => true,
                 'maxlength'   => 255,
