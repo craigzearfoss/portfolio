@@ -31,7 +31,7 @@
                 <p>
                     The features to manage and track your applications are in the admin area. Since this site is still in
                     development we are not allowing new admins, but the demo site allows you to view the admin area. The
-                    demo site is at <a href="https://demo.craigzearfoss.com"><strong></strong>https://demo.craigzearfoss.com</strong></a>.
+                    demo site is at <a href="https://demo.zearfoss.com"><strong>https://demo.zearfoss.com</strong></a>.
                 </p>
                 <p>
                     In addition to managing your job search, in the admin area you can add your portfolio information,

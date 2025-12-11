@@ -29,9 +29,9 @@
                     <p>
                         <a class="button is-success"
                            target="_blank"
-                           href="https://demo.craigzearfoss.com"
+                           href="https://demo.zearfoss.com"
                         >
-                            Visit the demo site at https://demo.craigzearfoss.com
+                            Visit the demo site at https://demo.zearfoss.com
                         </a>
                     </p>
                     <p>
