@@ -42,8 +42,8 @@ done
 cd $PROJECT_DIR
 echo -e "\nPulling latest changes from the git repository.."
 
-echo -e "git stash"
-git stash
+echo -e "git stash -m\"update_project_$CURRENT_DATE\""
+git stash -m "update_project_$CURRENT_DATE"
 echo -e "git fetch"
 git fetch
 echo -e "git pull"
