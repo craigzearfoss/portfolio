@@ -1,33 +1,70 @@
 #!/bin/bash
-# Make sure the file permissions on this script are correct  by executing:
+# Make sure the file permissions on this script are correct by executing:
 #     chmod +x update_project.sh
+
+CONFIG_FILES=(".env" "composer.json" "composer.lock" "package.json" "package-lock.json")
+
 echo -e "Updating the project...\n"
 
 # Get the project directory
-current_dir=$(pwd)
+CURRENT_DIR=$(pwd)
 char="/"
-project_dir="${current_dir%/*}"
-echo -e "Project directory: $project_dir\n"
-cd $project_dir
+PROJECT_DIR="${CURRENT_DIR%/*}"
 
-echo -e "\nPulling latest changes from the git repository..\n"
-echo -e "git stash\n"
+# create a backup directory for the current configuration files
+CURRENT_DATE=$(date +"%Y%m%d-%H%M%S")
+CURRENT_DATE="${CURRENT_DATE// /_}"
+CURRENT_DATE="${CURRENT_DATE//:/}"
+BACKUPS_DIR="$PROJECT_DIR/logs/backups/$CURRENT_DATE"
+
+if [ ! -d "$BACKUPS_DIR" ]; then
+    mkdir -p $BACKUPS_DIR
+fi
+if [ ! -d "$BACKUPS_DIR" ]; then
+    echo "Backups directory $BACKUPS_DIR could not be created."
+    exit
+fi
+
+echo "Project directory: $PROJECT_DIR"
+echo -e "Backups directory: $BACKUPS_DIR\n"
+
+# Baclkup configuration files
+for FILE in "${CONFIG_FILES[@]}"; do
+    if [ -f "$PROJECT_DIR/$FILE" ]; then
+        echo "cp $PROJECT_DIR/$FILE $BACKUPS_DIR/$FILE"
+        cp "$PROJECT_DIR/$FILE" "$BACKUPS_DIR/$FILE"
+    else
+        echo -e "$PROJECT_DIR/$FILE not be found."
+    fi
+done
+
+# Pull repository
+echo -e "\nPulling latest changes from the git repository.."
+
+echo -e "git stash"
 git stash
-echo -e "git fetch\n"
+echo -e "git fetch"
 git fetch
-echo -e "git pull\n"
+echo -e "git pull"
 git pull
 
-echo -e "\nUpdating file permissions...\n"
-echo -e "sudo chown -R $USER:www-data /var/www/zearfoss.com\n"
-sudo chown -R $USER:www-data /var/www/zearfoss.com
-echo -e "sudo find /var/www/zearfoss.com -type d -exec chmod 755 {} \\;\n"
+# Update file permission
+echo -e "\nUpdating file permissions..."
+echo -e "sudo chown -R $USER:www-data $PROJECT_DIR"
+sudo chown -R $USER:www-data $PROJECT_DIR
+echo -e "sudo find $PROJECT_DIR -type d -exec chmod 755 {} \\;"
 sudo find /var/www/zearfoss.com -type d -exec chmod 755 {} \;
-echo -e "sudo find /var/www/zearfoss.com -type f -exec chmod 644 {} \\;\n"
-sudo find /var/www/zearfoss.com -type f -exec chmod 644 {} \;
-echo -e "sudo chmod -R 775 /var/www/zearfoss.com/storage\n"
-sudo chmod -R 775 /var/www/zearfoss.com/storage
-echo -e "sudo chmod -R 775 /var/www/zearfoss.com/bootstrap/cache\n"
-sudo chmod -R 775 /var/www/zearfoss.com/bootstrap/cache
+echo -e "$PROJECT_DIR -type f -exec chmod 644 {} \\;"
+sudo find $PROJECT_DIR -type f -exec chmod 644 {} \;
+echo -e "sudo chmod -R 775 $PROJECT_DIR/storage"
+sudo chmod -R 775 $PROJECT_DIR/storage
+echo -e "sudo chmod -R 775 $PROJECT_DIR/bootstrap/cache"
+sudo chmod -R 775 $PROJECT_DIR/bootstrap/cache
+echo -e "sudo chmod -R 775 $PROJECT_DIR/logs"
+sudo chmod -R 775 $PROJECT_DIR/logs
 echo -e "chmod +x tools/update_project.sh\n"
 sudo chmod +x tools/update_project.sh
+
+# Run composer install
+echo -e "\nRunning composers update..."
+composer install
