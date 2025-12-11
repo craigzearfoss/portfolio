@@ -50,7 +50,7 @@ echo -e "git pull"
 git pull
 
 # Update file permission
-./update_permissions.sh
+$PROJECT_DIR/tools/update_permissions.sh
 
 # Run composer install
 echo -e "\nRunning composer install..."
