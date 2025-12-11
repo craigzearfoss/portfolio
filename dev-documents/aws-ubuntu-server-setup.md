@@ -14,6 +14,14 @@
     $ sudo npm cache clean -f
     $ sudo npm install -g n
     $ sudo n stable
+
+	composer global require laravel/pint
+npm init -y
+npm create vite@latest
+npm run build
+npm install bulma
+
+
 #### Install git.
     $ sudo apt install git
     $ git --version
@@ -59,16 +67,16 @@
     > sudo apt install software-properties-common
     > sudo add-apt-repository ppa:ondrej/php
     > sudo apt update
-    > sudo apt install php8.3
-    > sudo apt install php8.3-cli php8.3-mysql php8.3-fpm php8.3-gd php8.3-mbstring php8.3-xml php8.3-curl
-    > sudo apt install php-fpm php-mysql php-cli php-curl -y
-    > sudo apt-get install php-xml unzip curl php-mbstring
+    > sudo apt install php8.5
+    > sudo apt install php8.5-cli php8.5-mysql php8.5-curl php8.5-gd php8.5-mbstring php8.5-xml php8.5-fpm -y
+    > sudo apt install php-cli unzip -y
     > apt list --upgradable
     > sudo apt upgrade
     > php -v
+    # To disply a list of current version and installed models
+    > apt list --installed | grep php | cut -d'/' -f1
 #### Install composer
     > sudo apt update
-    > sudo apt install php-cli unzip curl
     > cd ~
     > curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
     > HASH=`curl -sS https://composer.github.io/installer.sig`

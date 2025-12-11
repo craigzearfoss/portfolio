@@ -13,6 +13,7 @@ return [
     |
     */
 
+    'asset_url'             => env('ASSET_URL', null),
     'copyright'             => env('APP_COPYRIGHT', ''),
     'date_format_short'     => env('APP_DATE_FORMAT_SHORT', 'm/d/Y'),
     'date_format_long'      => env('APP_DATE_FORMAT_LONG', 'F j, Y'),
