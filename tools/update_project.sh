@@ -29,4 +29,5 @@ echo -e "sudo chmod -R 775 /var/www/zearfoss.com/storage\n"
 sudo chmod -R 775 /var/www/zearfoss.com/storage
 echo -e "sudo chmod -R 775 /var/www/zearfoss.com/bootstrap/cache\n"
 sudo chmod -R 775 /var/www/zearfoss.com/bootstrap/cache
-
+echo -e "chmod +x tools/update_project.sh\n"
+sudo chmod +x tools/update_project.sh
