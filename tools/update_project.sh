@@ -69,3 +69,6 @@ sudo chmod +x tools/update_project.sh
 # Run composer install
 echo -e "\nRunning composer install..."
 composer install
+
+echo -e "\nphp artisan optimize"
+php artisan optimize

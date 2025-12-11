@@ -17,22 +17,33 @@ sudo find /var/www/zearfoss.com -type d -exec chmod 755 {} \;
 sudo find /var/www/zearfoss.com -type f -exec chmod 644 {} \;
 sudo chmod -R 775 /var/www/zearfoss.com/storage
 sudo chmod -R 775 /var/www/zearfoss.com/bootstrap/cache
+sudo chmod -R 775 /var/www/zearfoss.com/logs
+chmod +x /var/www/zearfoss.com/tools/update_project.sh
 
-cd demo.zearfoss.com
+# Create the .env file and update settings for the site.
+cd zearfoss.com
 cp .env.example .env
-# Update the .env to add database credential and other settings. 
+# Update the .env to add database credentials and other settings. 
 # If this is production then remember to set APP_ENV=production
 
+# Run composer install.
 composer install
 
+# Generate an application key.
 php artisan key:generate
+
+# Create and populate the project databases.
 php artisan migrate
 
 composer install
 
+# If you run into a problem with dependencies you can't resolve you might
+# need to run the following command.
+composer install --ignore-platform-req=php
+
 composer global require laravel/pint
-npm init -y
-npm run build
+sudo npm init -y
+sudo npm run build
 npm install bulma
 npm audit fix
 
