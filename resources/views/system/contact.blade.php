@@ -46,7 +46,7 @@
                         'value'       => old('email') ?? '',
                         'required'    => true,
                         'maxlength'   => 255,
-                        'placeholder' => 'nam@example.com',
+                        'placeholder' => 'name@example.com',
                         'message  '   => $message ?? '',
                     ])
 
