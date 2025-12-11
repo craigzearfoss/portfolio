@@ -28,7 +28,7 @@ fi
 echo "Project directory: $PROJECT_DIR"
 echo -e "Backups directory: $BACKUPS_DIR\n"
 
-# Baclkup configuration files
+# Backup configuration files
 for FILE in "${CONFIG_FILES[@]}"; do
     if [ -f "$PROJECT_DIR/$FILE" ]; then
         echo "cp $PROJECT_DIR/$FILE $BACKUPS_DIR/$FILE"
@@ -39,6 +39,7 @@ for FILE in "${CONFIG_FILES[@]}"; do
 done
 
 # Pull repository
+cd $PROJECT_DIR
 echo -e "\nPulling latest changes from the git repository.."
 
 echo -e "git stash"
