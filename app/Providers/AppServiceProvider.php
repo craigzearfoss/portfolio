@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\PermissionService;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(\Request $request): void
     {
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+
         Paginator::useBootstrap();
 
         view()->share('demo', boolval(config('app.demo')));
