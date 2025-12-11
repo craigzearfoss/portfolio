@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * The tag used to identify the career database.
+     * The tag used to identify the portfolio database.
      *
      * @var string
      */

@@ -8,7 +8,7 @@ use Illuminate\Database\Migrations\Migration;
 return new class extends Migration
 {
     /**
-     * The tag used to identify the career database.
+     * The tag used to identify the career units items.
      *
      * @var string
      */

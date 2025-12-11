@@ -31,12 +31,37 @@
 - Select you target group.
 - Keep the rest of the defaults.
 - Click on the orange "Create load balancer" in the bottom right corner. 
--[ ] On the load balancer we want to add a listener for port 443.
+- [ ] On the load balancer we want to add a listener for port 443.
  - Click the "Add Listener" button at the bottom of the page.
    - Set the protocol as "HTTPS" and the port at 443.
-   - Under default action select "No pre-routing action" and select "Forward to target groups for "Routing action".
-   - Keep the reset of the actions except in the "Default action" tab select your target group.
+   - **Default action**
+     - **Pre-routing action**
+       - Select "No pre-routing action".
+     - **Routing action**
+       - Select "Forward to target groups".
+       - **Target group**
+         - Select the target group that you created.
    - Keep the rest of the defaults but under the "Secure listener settings" in the "Default SLL/TLS server certificate" click on "From ACM" for "Certificate source" and select the certificate you received at an earlier step.
-   - Click on the orange "Add Listener" button.
-   - Back on the load balancer page at the bottom of the page select the HTTP:80 entry and the "Action" "Edit Rule".
-   - 
+- [ ] Click on the orange "Add Listener" button at the bottom of the page.
+- [ ] Back on the load balancer page.
+  - We need to redirect port 80 to port 443.
+    - At the bottom of the page select the **HTTP:80** entry and the "Action" "Edit Listener".
+      - In the **Default action** section select "Redirect to URL"
+        - **Protocol**
+          - Select "HTTPS".
+        - **Port**
+          - Select "443".
+    - Click the orange "Save changes" button at the bottom of the page.
+- [ ] Go to the Hosted Zone for your domain.
+  - Fo to Route 53 dashboard.
+  - Click on "Hosted zones".
+  - Click on the domain.
+  - We want to add an alias to your load balancer.
+    - Click on the orange "Create record" button.
+    - Select "Alias".
+    - **Route traffic to**
+      - Select "Alias to Application and Classic Load Balancer".
+      - Select your region.
+      - Select your load balancer
+      - Leave everything else the same.
+      - Click on orange "Create records" button.

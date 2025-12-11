@@ -2,7 +2,7 @@
 - [ ] Log into AWS console.
 - [ ] Select a region from the dropdown list in the top right corner. For example, us-east-1 or us-east-2.
 - [ ] Got to the Route 53 dashboard.
-- [ ] In the **Route 53 Dashboard** lick on "Hosts zones" in the left menu.
+- [ ] In the **Route 53 Dashboard** click on "Hosted zones" in the left menu.
 - [ ] Click on the orange "Create hosted zone" button.
 - [ ] On the **Create hosted zone** page:
     - **Hosted zone configuration**
