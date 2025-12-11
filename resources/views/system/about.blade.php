@@ -28,11 +28,15 @@
                     applications by not only recording information about the company and job description, but by attaching
                     notes, communications, and events to the application.
                 </p>
-                <p>
-                    The features to manage and track your applications are in the admin area. Since this site is still in
-                    development we are not allowing new admins, but the demo site allows you to view the admin area. The
-                    demo site is at <a href="https://demo.zearfoss.com"><strong>https://demo.zearfoss.com</strong></a>.
-                </p>
+
+                @if($demoUrl = config('app.demo_url'))
+                    <p>
+                        The features to manage and track your applications are in the admin area. Since this site is still in
+                        development we are not allowing new admins, but the demo site allows you to view the admin area. The
+                        demo site is at <a href="{{$demoUrl}}"><strong>{{$demoUrl}}</strong></a>.
+                    </p>
+                @endif
+
                 <p>
                     In addition to managing your job search, in the admin area you can add your portfolio information,
                     such as degrees, certificates, projects, employment history, etc. and control what information

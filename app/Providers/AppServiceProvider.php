@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrap();
 
-        view()->share('demo', boolval(config('app.demo')));
+        view()->share('demo', !empty(config('app.demo_url')));
         view()->share('readonly', boolval(config('app.readonly')));
     }
 }

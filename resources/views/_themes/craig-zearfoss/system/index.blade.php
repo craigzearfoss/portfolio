@@ -24,16 +24,20 @@
                     <p>
                         This project is a multi-user website for people to display their work portfolio and accomplishments,
                         personal projects, collections, or other types of data. It is in the very early beta stage of development.
-                        You can visit a demo version of this project by clicking the button below.
                     </p>
-                    <p>
-                        <a class="button is-success"
-                           target="_blank"
-                           href="https://demo.zearfoss.com"
-                        >
-                            Visit the demo site at https://demo.zearfoss.com
-                        </a>
-                    </p>
+
+                    @if($demoURL = config('app.demo_admin_url'))
+                        <p>
+                            You can visit a demo version of this project by clicking the button below.
+                            <a class="button is-success"
+                               target="_blank"
+                               href="{{$demoURL}}"
+                            >
+                                Visit the demo site at {{$demoURL}}
+                            </a>
+                        </p>
+                    @endif
+
                     <p>
                         It started out as a system to manage a job search.  In the admin area you can track your
                         job applications, resumes, and cover letter as well a many your references and company contacts.

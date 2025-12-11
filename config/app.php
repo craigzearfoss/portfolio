@@ -32,6 +32,7 @@ return [
     'admin_login_enabled'   => boolval(env('APP_ADMIN_LOGIN_ENABLED', false)),
     'user_login_enabled'    => boolval(env('APP_USER_LOGIN_ENABLED', false)),
     'demo_admin_enabled'    => boolval(env('APP_DEMO_ADMIN_ENABLED', false)),
+    'demo_admin_url'        => boolval(env('APP_DEMO_ADMIN_URL', null)),
     'demo_admin_username'   => env('APP_DEMO_ADMIN_USERNAME', ''),
     'demo_admin_password'   => env('APP_DEMO_ADMIN_PASSWORD', ''),
     'demo_user_enabled'     => boolval(env('APP_DEMO_USER_ENABLED', false)),

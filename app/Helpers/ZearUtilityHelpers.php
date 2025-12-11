@@ -360,7 +360,7 @@ if (! function_exists('reservedKeywords')) {
          */
         function isDemo(): bool
         {
-            return (bool) config('app.demo', false);
+            return !empty(config('app.demo_url', false));
         }
     }
 }
