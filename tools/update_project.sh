@@ -67,5 +67,5 @@ echo -e "chmod +x tools/update_project.sh\n"
 sudo chmod +x tools/update_project.sh
 
 # Run composer install
-echo -e "\nRunning composers update..."
+echo -e "\nRunning composer install..."
 composer install
