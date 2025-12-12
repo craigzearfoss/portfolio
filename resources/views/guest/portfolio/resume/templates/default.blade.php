@@ -29,7 +29,7 @@
                 <div class=" is-align-items-flex-start" style="display: inline-block; width: 56px; margin-right: 0.5em;">
                     @include('admin.components.image', [
                         'src'   => $job->logo_small,
-                        'alt'   => $job->name,
+                        'alt'   => ($job->company->name ?? 'company') . ' logo',
                         'width' => '48px',
                     ])
                 </div>
@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="list-item-description pt-1 pb-1">
-                        {{ $job->company }} · {{ $job->employmentType['name'] ?? '' }}
+                        {{ $job->company }} · {{ $job->employmentType->name ?? '' }}
                     </div>
 
                     <div class="list-item-description gray">
