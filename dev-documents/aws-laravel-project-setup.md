@@ -47,5 +47,7 @@ sudo npm run build
 npm install bulma
 npm audit fix
 
-
+php artisan app:add-czearfoxx
+php artisan app:init-sample-admin all
+php artisan app:copy-source-images
 ```
