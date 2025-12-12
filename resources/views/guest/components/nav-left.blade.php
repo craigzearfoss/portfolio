@@ -56,7 +56,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
                                     false,
                                     ['name', 'asc'
                                 ]),
-                'style'    => 'font-size: 1.2em; font-weight: 700',
+                'style'    => 'font-size: 1.1rem; font-weight: 700',
                 'onchange' => "document.location.href='/'+this.value;"
             ])
 
@@ -66,11 +66,12 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
     @foreach ($menuItems as $menuItem)
 
-        <ul class="menu is-menu-main">
+        <ul class="menu is-menu-main" style="font-size: 1rem;">
 
             <p class="menu-label pb-0 mb-0">
                 <a @if (!empty($menuItem->link))href="{{ $menuItem->link }}" @endif
                    class="has-text-white {{ $menuItem->active ? 'is-active' : '' }}"
+                   style="padding: 0.3rem;"
                 >
                     {{ $menuItem->title }}
                 </a>
@@ -78,12 +79,13 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
             @if(!empty($menuItem->children))
 
-                <ul class="menu-list pl-2">
+                <ul class="menu-list pl-2" style="{{ $menuItem->children[0]->level == 2 ? 'margin-left: 1rem;' : ''}}">
 
                     @foreach ($menuItem->children as $menuSubItem)
                         <li @if(($menuItem->name == 'portfolio') && in_array($menuSubItem->name, ['job'])) style="display: none !important" @endif>
                             <a @if (!empty($menuSubItem->link))href="{{ $menuSubItem->link }}"  @endif
                                 class="{{ $menuSubItem->active ? 'is-active' : '' }}"
+                               style="padding: 0.3rem;"
                             >
                                 <div class="menu-item">
                                     <span class="text-xl">

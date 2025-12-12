@@ -39,7 +39,7 @@ class MenuService
         if (($envType == PermissionService::ENV_ADMIN) || (($envType == PermissionService::ENV_GUEST) && !empty($admin))) {
 
             // should we have a resume link?
-            if ($resumeMenuItem = $this->getResumeMenuItem($envType, $currentRouteName, $admin)) {
+            if ($resumeMenuItem = $this->getResumeMenuItem($envType, $currentRouteName, $admin, 1)) {
                 $menu[] = $resumeMenuItem;
             }
 
@@ -53,9 +53,9 @@ class MenuService
                     if ($resource->database['name'] !== $currentDatabaseName) {
                         $currentDatabaseName = $resource->database['name'];
                         $i++;
-                        $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName, $admin);
+                        $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName, $admin, 1);
                     }
-                    $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName, $admin);
+                    $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName, $admin, 2);
                 }
             }
         }
@@ -64,31 +64,36 @@ class MenuService
 
             $menu[] = $this->menuItem(
                 [ 'title' => 'Admin Dashboard', 'route' => 'admin.dashboard' ],
-                $currentRouteName
+                $currentRouteName,
+                1
             );
 
             if (isUser()) {
                 $menu[] = $this->menuItem(
                     ['title' => 'User Dashboard', 'route' => 'user.dashboard'],
-                    $currentRouteName
+                    $currentRouteName,
+                    1
                 );
             }
 
             $menu[] = $this->menuItem(
                 [ 'title' => 'My Profile', 'route'    => 'admin.profile.show' ],
-                $currentRouteName
+                $currentRouteName,
+                1
             );
 
             /*
             $menu[] = $this->menuItem(
                 [ 'title'=> 'Change Password', 'route' => 'admin.profile.change-password' ],
-                $currentRouteName
+                $currentRouteName,
+                1
             );
             */
 
             $menu[] = $this->menuItem(
                 [ 'title'=> 'Logout', 'route' => 'admin.logout' ],
-                $currentRouteName
+                $currentRouteName,
+                1
             );
 
             if (isRootAdmin()) {
@@ -98,19 +103,22 @@ class MenuService
 
                         $menu[$i]->children[] = $this->menuItem(
                             [ 'title' => 'Databases', 'route' => 'admin.system.database.index', 'icon' => 'fa-database' ],
-                            $currentRouteName
+                            $currentRouteName,
+                            2
                         );
 
                         $menu[$i]->children[] = $this->menuItem(
                             [ 'title' => 'Resources', 'route'    => 'admin.system.resource.index', 'icon' => 'fa-table' ],
-                            $currentRouteName
+                            $currentRouteName,
+                            2
                         );
                     }
                 }
 
                 $menu[] = $this->menuItem(
                     [ 'title'=> 'Settings', 'route' => 'admin.system.settings.show' ],
-                    $currentRouteName
+                    $currentRouteName,
+                    1
                 );
             }
 
@@ -118,31 +126,36 @@ class MenuService
 
             $menu[] = $this->menuItem(
                 [ 'title'=> 'My Profile', 'route' => 'user.profile.show' ],
-                $currentRouteName
+                $currentRouteName,
+                1
             );
 
             $menu[] = $this->menuItem(
                 [ 'title'=> 'Logout', 'route' => 'user.logout' ],
-                $currentRouteName
+                $currentRouteName,
+                1
             );
 
         } else {
 
             $menu[] = $this->menuItem(
                 [ 'name' => 'user-login', 'title'=> 'User Login', 'route' => 'user.login' ],
-                $currentRouteName
+                $currentRouteName,
+                1
             );
 
             $menu[] = $this->menuItem(
                 [ 'name' => 'admin-login', 'title'=> 'Admin Login', 'route' => 'admin.login' ],
-                $currentRouteName
+                $currentRouteName,
+                1
             );
 
         }
 
         $menu[] = $this->menuItem(
             [ 'name' => 'contact-login', 'title'=> 'Contact', 'route' => 'system.contact' ],
-            $currentRouteName
+            $currentRouteName,
+            1
         );
 
         return $menu;
@@ -307,9 +320,16 @@ class MenuService
      * @param string $envType
      * @param string $currentRouteName
      * @param $admin
+     * @param int $level
      * @return stdClass
      */
-    public function databaseItem(array $database, string $envType, string $currentRouteName, $admin = null): stdClass
+    public function databaseItem(
+        array $database,
+        string $envType,
+        string $currentRouteName,
+        $admin = null,
+        int $level = 1
+    ): stdClass
     {
         if (!empty($database->global)) {
             $route = $envType.'.'.$database['name'].'.index';
@@ -337,6 +357,7 @@ class MenuService
 
         $menuItem = new stdClass();
         $menuItem->id                = $database['id'] ?? null;
+        $menuItem->level             = $level;
         $menuItem->name              = $database['name'] ?? null;
         $menuItem->database          = $database['database'] ?? null;
         $menuItem->table             = null;
@@ -368,9 +389,15 @@ class MenuService
      * @param string $envType
      * @param string $currentRouteName
      * @param $admin
+     * @param int $level
      * @return stdClass
      */
-    public function resourceItem(Resource $resource, string $envType, string $currentRouteName, $admin = null): stdClass
+    public function resourceItem(
+        Resource $resource,
+        string $envType,
+        string $currentRouteName,
+        $admin = null,
+        int $level = 1): stdClass
     {
         if (!empty($resource->global)) {
 
@@ -390,6 +417,7 @@ class MenuService
 
         $menuItem = new stdClass();
         $menuItem->id                = $resource->id ?? null;
+        $menuItem->level             = $level;
         $menuItem->name              = $resource->name ?? null;
         $menuItem->database          = $resource->database ?? null;
         $menuItem->table             = $resource->table ?? null;
@@ -425,12 +453,18 @@ class MenuService
      * *
      * @param array $data
      * @param string $currentRouteName
+     * @param int $level
      * @return stdClass
      */
-    public function menuItem(array $data, string $currentRouteName): stdClass
+    public function menuItem(
+        array $data,
+        string $currentRouteName,
+        int $level = 1
+    ): stdClass
     {
         $menuItem = new stdClass();
         $menuItem->id                = $data['id'] ?? null;
+        $menuItem->level             = $level;
         $menuItem->name              = $data['name'] ?? null;
         $menuItem->database          = $data['database'] ?? null;
         $menuItem->table             = $data['table'] ?? null;
@@ -461,7 +495,20 @@ class MenuService
         return $menuItem;
     }
 
-    public function getResumeMenuItem(string $envType, string|null $currentRouteName = null, $admin): stdClass|null
+    /**
+     * Returns a menu item.
+     * *
+     * @param string $envType
+     * @param string|null $currentRouteName
+     * @param $admin
+     * @param int $level
+     * @return stdClass|null
+     */
+    public function getResumeMenuItem(
+        string $envType,
+        string|null $currentRouteName = null,
+        $admin = null,
+        int $level = 1): stdClass|null
     {
         if (empty($admin)) {
             return null;
@@ -479,9 +526,9 @@ class MenuService
             return null;
         }
 
-
         $menuItem = new stdClass();
         $menuItem->id       = null;
+        $menuItem->level    = $level;
         $menuItem->name     = 'Resume';
         $menuItem->database = null;
         $menuItem->table    = null;

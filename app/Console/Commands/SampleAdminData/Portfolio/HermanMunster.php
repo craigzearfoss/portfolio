@@ -74,6 +74,7 @@ class HermanMunster extends Command
         // portfolio
         $this->insertPortfolioArt();
         $this->insertPortfolioAudios();
+        $this->insertPortfolioAwards();
         $this->insertPortfolioCertificates();
         $this->insertPortfolioCourses();
         $this->insertPortfolioEducations();
@@ -152,6 +153,34 @@ class HermanMunster extends Command
 
         if (!empty($data)) {
             Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+        }
+    }
+
+    protected function insertPortfolioAwards(): void
+    {
+        echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
+
+        $data = [
+            /*
+            [
+                'name'            => '',
+                'slug'            => '',
+                'featured'        => 0,
+                'summary'         => null,
+                'date_received'   => null,
+                'year'            => null,
+                'organization'    => null,
+                'description'     => null,
+                'link'            => null,
+                'link_name'       => null,
+                'description'     => null,
+                'public'          => 1,
+            ],
+            */
+        ];
+
+        if (!empty($data)) {
+            Award::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
     }
 
