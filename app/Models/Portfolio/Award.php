@@ -31,8 +31,8 @@ class Award extends Model
         'slug',
         'featured',
         'summary',
-        'date_received',
         'year',
+        'date_received',
         'organization',
         'notes',
         'link',
@@ -54,8 +54,8 @@ class Award extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'category', 'nominated_work', 'featured', 'date_received',
-        'year', 'organization', 'public', 'readonly', 'root', 'disabled', 'demo'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'category', 'nominated_work', 'featured', 'year', 'received',
+        'organization', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()

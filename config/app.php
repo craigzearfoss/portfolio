@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'asset_url'             => env('ASSET_URL', null),
+    'asset_url'             => env('ASSET_URL', ''),
+    'image_dir'             => env('IMAGE_DIR', ''),
     'copyright'             => env('APP_COPYRIGHT', ''),
     'date_format_short'     => env('APP_DATE_FORMAT_SHORT', 'm/d/Y'),
     'date_format_long'      => env('APP_DATE_FORMAT_LONG', 'F j, Y'),

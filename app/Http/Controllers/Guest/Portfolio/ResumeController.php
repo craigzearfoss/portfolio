@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guest\Portfolio;
 
 use App\Http\Controllers\Controller;
+use App\Models\Portfolio\Award;
 use App\Models\Portfolio\Certificate;
 use App\Models\Portfolio\Education;
 use App\Models\Portfolio\Job;
@@ -40,16 +41,21 @@ class ResumeController extends Controller
             ->orderBy('received', 'desc')
             ->get();
 
+        $awards = Award::where('owner_id', $admin->id)
+            ->where('public', 1)
+            ->where('disabled', 0)
+            ->orderBy('year', 'asc')
+            ->get();
+
         $skills = Skill::where('owner_id', $admin->id)
             ->where('public', 1)
             ->where('disabled', 0)
             ->orderBy('sequence', 'asc')
             ->get();
 
-
         return view(
             Job::resumeTemplate(),
-            compact('jobs', 'educations', 'admin', 'certificates', 'skills')
+            compact('jobs', 'educations', 'admin', 'certificates', 'awards', 'skills')
         );
     }
 }

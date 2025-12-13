@@ -27,30 +27,47 @@
             'value' => $award->name
         ])
 
-        @include('guest.components.show-row-checkbox', [
-            'name'    => 'featured',
-            'checked' => $award->featured
-        ])
+        @if(!empty($award->category))
+            @include('guest.components.show-row', [
+                'name'  => 'category',
+                'value' => $award->category
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'  => 'summary',
-            'value' => $award->summary
-        ])
+        @if(!empty($award->category))
+            @include('guest.components.show-row', [
+                'name'  => 'nominated_work',
+                'value' => $award->nominated_work
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'    => 'year',
-            'checked' => $award->year
-        ])
+        @if(!empty($award->summary))
+            @include('guest.components.show-row', [
+                'name'  => 'summary',
+                'value' => $award->summary
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'    => 'date received',
-            'checked' => $award->date_received
-        ])
+        @if(!empty($award->year))
+            @include('guest.components.show-row', [
+                'name'  => 'year',
+                'value' => $award->year
+            ])
+        @endif
 
-        @include('guest.components.show-row', [
-            'name'    => 'organization',
-            'checked' => $award->organization
-        ])
+        @if(!empty($award->received))
+            @include('guest.components.show-row', [
+                'name'  => 'date received',
+                'value' => $award->received
+            ])
+        @endif
+
+        @if(!empty($award->organization))
+            @include('guest.components.show-row', [
+                'name'  => 'organization',
+                'value' => $award->organization
+            ])
+        @endif
 
         @if(!empty($award->link))
             @include('guest.components.show-row-link', [

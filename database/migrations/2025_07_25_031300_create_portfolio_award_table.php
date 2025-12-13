@@ -30,13 +30,13 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\System\Owner::class, 'owner_id');
             $table->string('name')->index('name_idx');
-            $table->string('category')->index('category_idx');
-            $table->string('nominated_work')->index('nominated_work_idx');
+            $table->string('category')->nullable()->index('category_idx');
+            $table->string('nominated_work')->nullable()->index('nominated_work_idx');
             $table->string('slug');
             $table->boolean('featured')->default(false);
             $table->string('summary', 500)->nullable();
-            $table->date('date_received')->nullable();
             $table->integer('year')->nullable();
+            $table->date('received')->nullable();
             $table->string('organization')->nullable();
             $table->text('notes')->nullable();
             $table->string('link', 500)->nullable();
@@ -62,13 +62,14 @@ return new class extends Migration
         /*
         $data = [
             [
-                'owner_id'       => null,
                 'name'           => '',
                 'slug'           => '',
+                'category'       => null,
+                'nominated_work' => null,
                 'featured'       => 0,
                 'summary'        => null,
-                'date_received'  => null,
                 'year'           => null,
+                'received'       => null,
                 'organization'   => null,
                 'notes'          => null,
                 'description'    => '',

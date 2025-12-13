@@ -30,6 +30,10 @@ div.field.is-horizontal div.field-label label.label {
     padding-top: calc(0.2em - 1px) !important;
     max-width: 36em;
 }
+.edit-container input[name="summary"], .edit-container input[name="disclaimer"] {
+    width: 100% !important;
+    max-width: 100% !important;
+}
 .edit-container .select,
 .edit-container select {
     height: 2em !important;

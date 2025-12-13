@@ -26,6 +26,10 @@ class CopySourceImages extends Command
 
     protected $destination = 'public' . DIRECTORY_SEPARATOR . 'images';
 
+    protected $imagesSrcPath = null;
+
+    protected $imagesDestPath = null;
+
     protected $overwrite = false;
 
     protected $failedUpdates = [];
@@ -53,12 +57,19 @@ class CopySourceImages extends Command
 
         $DS = DIRECTORY_SEPARATOR;
 
-        $imagesPath = base_path() . $DS . $this->source;
-        foreach (scandir($imagesPath) as $databaseName) {
+        // get the src and destination path for the images
+        $this->imagesSrcPath = rtrim($DS, base_path() . $DS . $this->source);
+        if ($imageDir = config('app.image_dir')) {
+            $this->imagesDestPath = rtrim($DS, $imageDir);
+        } else {
+            $this->imagesDestPath = rtrim($DS, base_path() . $DS . $this->destination);
+        }
+
+        foreach (scandir($this->imagesSrcPath) as $databaseName) {
 
             if ($databaseName == '.' || $databaseName == '..') continue;
 
-            $databasePath = $imagesPath . $DS . $databaseName;
+            $databasePath = $this->imagesSrcPath . $DS . $databaseName;
 
             if (File::isDirectory($databasePath)) {
 
@@ -121,8 +132,8 @@ class CopySourceImages extends Command
 
                                                     // determine the destination file
                                                     // base64 encode known file names
-                                                    $destPath = base_path() . $DS . $this->destination . $DS
-                                                        . $databaseName . $DS . $resourceName . $DS . $item->id;
+                                                    $destPath = $this->imagesDestPath . $DS . $databaseName . $DS
+                                                        . $resourceName . $DS . $item->id;
                                                     $destFileName = in_array($fileName, self::DEFINED_FILE_NAMES)
                                                         ? rtrim(str_replace(['+', '/'], ['-', '_'], base64_encode($slug . $itemName)), '=')
                                                         : $fileName;

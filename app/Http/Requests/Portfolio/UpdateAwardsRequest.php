@@ -8,6 +8,8 @@ use Illuminate\Validation\Rule;
 
 class UpdateAwardsRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -29,7 +31,10 @@ class UpdateAwardsRequest extends FormRequest
     {
         // generate the slug
         if (!empty($this['name'])) {
-            $label = $this['name'] . (!empty($this['year']) ? '-' . $this['year'] : '');
+            $label = (!empty($this['year']) ? $this['year'] . ' ': '') . $this['name'];
+            if (!empty($this['category'])) {
+                $label .= ' for ' . $this['category'];
+            }
             $this->merge([
                 'slug' => uniqueSlug($label, 'portfolio_db.awards', $this->owner_id)
             ]);
@@ -38,6 +43,8 @@ class UpdateAwardsRequest extends FormRequest
         return [
             'owner_id'       => ['filled', 'integer', 'exists:system_db.admins,id'],
             'name'           => ['filled', 'string', 'max:255'],
+            'category'       => ['string', 'max:255', 'nullable'],
+            'nominated_work' => ['string', 'max:255', 'nullable'],
             'slug'           => [
                 'filled',
                 'string',
@@ -48,12 +55,10 @@ class UpdateAwardsRequest extends FormRequest
                         ->where('id', '!-', $this->award->id);
                 })
             ],
-            'category'       => ['string', 'max:255', 'nullable'],
-            'nominated_work' => ['string', 'max:255', 'nullable'],
             'featured'       => ['integer', 'between:0,1'],
             'summary'        => ['string', 'max:500', 'nullable'],
             'year'           => ['integer', 'between:1900,'.date("Y"), 'nullable'],
-            'date_received'  => ['date', 'nullable'],
+            'received'       => ['date', 'nullable'],
             'organization'   => ['string', 'max:255', 'nullable'],
             'notes'          => ['nullable'],
             'link'           => ['string', 'url:http,https', 'max:500', 'nullable'],

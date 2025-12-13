@@ -93,6 +93,14 @@
             ])
 
             @include('admin.components.form-input-horizontal', [
+                'type'    => 'date',
+                'name'    => 'received',
+                'label'   => 'date received',
+                'value'   => old('received') ?? '',
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
                 'name'      => 'organization',
                 'value'     => old('organization') ?? '',
                 'maxlength' => 255,

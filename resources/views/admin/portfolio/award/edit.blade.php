@@ -99,6 +99,21 @@
                 'message'   => $message ?? '',
             ])
 
+            @include('admin.components.form-input-horizontal', [
+                'type'    => 'date',
+                'name'    => 'received',
+                'label'   => 'received',
+                'value'   => old('received') ?? $award->received,
+                'message' => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'organization',
+                'value'     => old('organization') ?? $award->organization,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'notes',
                 'value'   => old('notes') ?? $award->notes,

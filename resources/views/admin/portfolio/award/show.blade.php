@@ -68,6 +68,11 @@
             'value' => $award->year
         ])
 
+        @include('admin.components.show-row', [
+            'name'  => 'date received',
+            'value' => longDate($award->received)
+        ])
+
         @include('admin.components.show-row-image', [
             'name'     => 'image',
             'src'      => $award->image_url,

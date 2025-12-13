@@ -8,6 +8,8 @@ use Illuminate\Validation\Rule;
 
 class UpdatePhotographyRequest extends FormRequest
 {
+    use ModelPermissionsTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */

@@ -160,6 +160,31 @@
         @endif
 
 
+        @if($awards->count() > 0)
+
+            <h2 class="title is-5 mt-4 pt-2 mb-1">Awards</h2>
+
+            @foreach($awards as $i=>$award)
+
+                <div class="list-item-content border-bottom is-flex pl-4">
+                    <div style="display: inline-block;">
+
+                        <div class="list-item-description pt-1">
+                            {{ $award->year ?? '' }}
+                            {{ $award->name ?? '' }}{{ !empty($award->category) ? ', ' . $award->category : '' }}
+                            {{ !empty($award->nominated_work) ? 'for ' . $award->nominated_work : '' }}
+                            {{ (!empty($award->organization) && empty($award->category)) ? '- ' . $award->organization : '' }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            @endforeach
+
+        @endif
+
+
         @if($skills->count() > 0)
 
             <h2 class="title is-5 mt-4 pt-2 mb-1">Skills</h2>

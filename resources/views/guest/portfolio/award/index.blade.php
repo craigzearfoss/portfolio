@@ -21,6 +21,8 @@
             <thead>
             <tr>
                 <th>name</th>
+                <th>category</th>
+                <th>nominated work</th>
                 <th>year</th>
                 <th>organization</th>
             </tr>
@@ -29,6 +31,8 @@
             <tfoot>
             <tr>
                 <th>name</th>
+                <th>category</th>
+                <th>nominated work</th>
                 <th>year</th>
                 <th>organization</th>
             </tr>
@@ -46,6 +50,18 @@
                             'href'  => route('guest.admin.portfolio.award.show', [$admin, $award->slug]),
                             'class' => $award->featured ? 'has-text-weight-bold' : ''
                         ])
+                    </td>
+                    <td>
+                        @if(!empty($award->category))
+                            @include('guest.components.link', [
+                                'name'  => $award->category,
+                                'href'  => route('guest.admin.portfolio.award.show', [$admin, $award->slug]),
+                                'class' => $award->featured ? 'has-text-weight-bold' : ''
+                            ])
+                        @endif
+                    </td>
+                    <td>
+                        {{ $award->nominated_work }}
                     </td>
                     <td class="has-text-centered">
                         {{ $award->year }}
