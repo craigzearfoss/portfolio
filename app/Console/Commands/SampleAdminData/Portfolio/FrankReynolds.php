@@ -162,19 +162,17 @@ class FrankReynolds extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
+            [ 'name' => 'Emmy Award',         'slug' => '1981-emmy-award-for-outstanding-supporting-actor-in-a-comedy-series', 'category' => 'Outstanding Supporting Actor in a Comedy Series', 'nominated_work' => 'Taxi', 'featured' => 1, 'year' => 1981, 'organization' => 'Academy of Television Arts & Sciences', 'public' => 1 ],
+            [ 'name' => 'Golden Globe Award', 'slug' => '1980-golden-globe-award-for-best-supporting-actor-television',        'category' => 'Best Supporting Actor - Television',              'nominated_work' => 'Taxi', 'featured' => 0, 'year' => 1980, 'organization' => 'Hollywood Foreign Correspondents Association', 'public' => 1 ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
+                'category'        => null,
+                'nominated_work'  => null,
                 'featured'        => 0,
-                'summary'         => null,
-                'date_received'   => null,
                 'year'            => null,
                 'organization'    => null,
-                'description'     => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
                 'public'          => 1,
             ],
             */

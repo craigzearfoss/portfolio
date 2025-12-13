@@ -160,19 +160,22 @@ class JREwing extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
+            [ 'name' => 'Bambi Award',                       'slug' => '1983-bambi-award-for-tv-series-international',                    'category' => 'TV Series International',         'nominated_work' => 'Dallas', 'featured' => 0, 'year' => 1983, 'organization' => 'Hubert Burda Media', 'public' => 1 ],
+            [ 'name' => 'Golden Camera',                     'slug' => '1999-golden-camera-millennium-award',                             'category' => 'Millennium Award',                'nominated_work' => null,     'featured' => 0, 'year' => 1999, 'organization' => 'Funke Mediengruppe', 'public' => 1 ],
+            [ 'name' => 'Soap Opera Digest Award',           'slug' => '1989-soap-opera-digest-award-for-outstanding-villain-prime-time', 'category' => 'Outstanding Villain: Prime Time', 'nominated_work' => null,     'featured' => 1, 'year' => 1989, 'organization' => 'Soap Opera Digest', 'public' => 1 ],
+            [ 'name' => 'Soap Opera Digest Award',           'slug' => '1988-soap-opera-digest-award-for-outstanding-villain-prime-time', 'category' => 'Outstanding Villain: Prime Time', 'nominated_work' => null,     'featured' => 1, 'year' => 1988, 'organization' => 'Soap Opera Digest', 'public' => 1 ],
+            [ 'name' => 'Hollywood Walk of Fame',            'slug' => 'hollywood-walk-of-fame',                                          'category' => null,                              'nominated_work' => null,     'featured' => 0, 'year' => 1981, 'organization' => null, 'public' => 1 ],
+            [ 'name' => 'Lone Star Film & Television Award', 'slug' => '1997-lone-star-film-and-television-award-for-best-tv-actor',      'category' => 'Best TV Actor',                   'nominated_work' => null,     'featured' => 0, 'year' => 1997, 'organization' => null, 'public' => 1 ],
+            [ 'name' => 'Lone Star Film & Television Award', 'slug' => 'lone-star-film-and-television-award-texas-legend',                'category' => 'Texas Legend',                    'nominated_work' => null,     'featured' => 0, 'year' => 1996, 'organization' => null, 'public' => 1 ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
+                'category'        => null,
+                'nominated_work'  => null,
                 'featured'        => 0,
-                'summary'         => null,
-                'date_received'   => null,
                 'year'            => null,
                 'organization'    => null,
-                'description'     => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
                 'public'          => 1,
             ],
             */

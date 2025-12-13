@@ -161,19 +161,17 @@ class DwayneSchneider extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
+            [ 'name' => 'Golden Globe Award',   'slug' => '1980-golden-globe-award-for-best-supporting-actor-in-a-television-series',      'category' => 'Best Supporting Actor in a Television Series',    'nominated_work' => 'One Day at a Time', 'featured' => 1, 'year' => 1980, 'organization' => 'Hollywood Foreign Correspondents Association', 'public' => 1 ],
+            [ 'name' => 'Primetime Emmy Award', 'slug' => '1984-primetime-emmy-award-for-outstanding-supporting-actor-in-a-comedy-series', 'category' => 'Outstanding Supporting Actor in a Comedy Series', 'nominated_work' => 'One Day at a Time', 'featured' => 1, 'year' => 1984, 'organization' => 'Academy of Television Arts & Sciences', 'public' => 1 ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
+                'category'        => null,
+                'nominated_work'  => null,
                 'featured'        => 0,
-                'summary'         => null,
-                'date_received'   => null,
                 'year'            => null,
                 'organization'    => null,
-                'description'     => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
                 'public'          => 1,
             ],
             */

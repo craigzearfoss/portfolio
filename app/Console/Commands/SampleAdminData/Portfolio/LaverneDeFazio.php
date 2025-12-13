@@ -164,19 +164,22 @@ class LaverneDeFazio extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
+            [ 'name' => 'Venice Film Festival',                 'slug' => '1988-venice-film-festival-children-and-cinema-award',         'category' => 'Children and Cinema Award',           'nominated_work' => 'Special Mention for Big',  'featured' => 0, 'year' => 1988, 'organization' => null, 'public' => 1 ],
+            [ 'name' => 'American Comedy Award',                'slug' => 'american-comedy-award-lifetime-creative-achievement-award',   'category' => 'Lifetime Creative Achievement Award', 'nominated_work' => null,                       'featured' => 0, 'year' => 1992, 'organization' => null, 'public' => 1 ],
+            [ 'name' => 'Hochi Film Award',                     'slug' => '1992-hochi-film-award-for-best-fForeign-film',                'category' => 'Best Foreign Film',                   'nominated_work' => 'A League of Their Own',    'featured' => 0, 'year' => 1992, 'organization' => 'Sports Hochi', 'public' => 1 ],
+            [ 'name' => 'Hollywood Walk of Fame',               'slug' => 'hollywood-walk-of-fame',                                      'category' => null,                                  'nominated_work' => null,                       'featured' => 0, 'year' => 2004, 'organization' => null, 'public' => 1 ],
+            [ 'name' => 'Online Film & Television Association', 'slug' => 'online-film-and-television-association-tv-hall-of-fame',      'category' => 'OFTA TV Hall of Fame',                'nominated_work' => null,                       'featured' => 0, 'year' => 2000, 'organization' => 'Online Film & Television Association (OFTA)', 'public' => 1 ],
+            [ 'name' => 'Flaiano International Prize',          'slug' => '1995-flaiano-international-prize-for-career-award-in-cinema', 'category' => 'Career Award in Cinema',              'nominated_work' => null,                       'featured' => 0, 'year' => 1995, 'organization' => null, 'public' => 1 ],
+            [ 'name' => 'Munich Film Festival',                 'slug' => '1998-munich-film-festival-high-hopes-award',                  'category' => 'High Hopes Award',          'nominated_work' => 'With Friends Like These…', 'featured' => 0, 'year' => 1998, 'organization' => null, 'public' => 1 ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
+                'category'        => null,
+                'nominated_work'  => null,
                 'featured'        => 0,
-                'summary'         => null,
-                'date_received'   => null,
                 'year'            => null,
                 'organization'    => null,
-                'description'     => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
                 'public'          => 1,
             ],
             */

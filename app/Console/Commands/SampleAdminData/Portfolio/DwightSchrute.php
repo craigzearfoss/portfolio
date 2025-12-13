@@ -159,19 +159,19 @@ class DwightSchrute extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
+            [ 'name' => 'Writers Guild of America Award', 'slug' => '2009-writers-guild-of-america-award-for-best-comedy-variety-specials',                         'category' => 'Best Comedy/Variety – Specials',                            'nominated_work' => '23rd Independent Spirit Awards', 'featured' => 0, 'year' => 2009, 'organization' => 'Writers Guild of America', 'public' => 1 ],
+            [ 'name' => 'Screen Actors Guild Award',      'slug' => '2008-screen-actors-guild-award-for-outstanding-performance-by-an-Ensemble-in-a-comedy-series', 'category' => 'Outstanding Performance by an Ensemble in a Comedy Series', 'nominated_work' => null,                             'featured' => 0, 'year' => 2008, 'organization' => 'Screen Actors Guild', 'public' => 1 ],
+            [ 'name' => 'Screen Actors Guild Award',      'slug' => '2004-screen-actors-guild-award-for-outstanding-performance-by-an-Ensemble-in-a-drama-series',  'category' => 'Outstanding Performance by an Ensemble in a Drama Series',  'nominated_work' => 'Six Feet Under',                 'featured' => 0, 'year' => 2004, 'organization' => 'Screen Actors Guild', 'public' => 1 ],
+            [ 'name' => 'Screen Actors Guild Award',      'slug' => '2007-screen-actors-guild-award-for-outstanding-performance-by-an-Ensemble-in-a-comedy-series', 'category' => 'Outstanding Performance by an Ensemble in a Comedy Series', 'nominated_work' => 'Six Feet Under',                 'featured' => 0, 'year' => 2007, 'organization' => 'Screen Actors Guild', 'public' => 1 ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
+                'category'        => null,
+                'nominated_work'  => null,
                 'featured'        => 0,
-                'summary'         => null,
-                'date_received'   => null,
                 'year'            => null,
                 'organization'    => null,
-                'description'     => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
                 'public'          => 1,
             ],
             */

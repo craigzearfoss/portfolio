@@ -163,19 +163,24 @@ class SamMalone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
+            [ 'name' => 'Primetime Emmy Award',   'slug' => '1990-primetime-emmy-award-for-outstanding-lead-actor-in-a-comedy-series',     'category' => 'Outstanding Lead Actor in a Comedy Series',        'nominated_work' => 'Cheers',                 'featured' => 0, 'year' => 1990, 'organization' => 'Academy of Television Arts & Sciences', 'public' => 1 ],
+            [ 'name' => 'Primetime Emmy Award',   'slug' => '1993-primetime-emmy-award-for-outstanding-lead-actor-in-a-comedy-series',     'category' => 'Outstanding Lead Actor in a Comedy Series',        'nominated_work' => 'Cheers',                 'featured' => 0, 'year' => 1993, 'organization' => 'Academy of Television Arts & Sciences', 'public' => 1 ],
+            [ 'name' => 'Primetime Emmy Award',   'slug' => 'primetime-emmy-award-bob-hope-humanitarian-award',                            'category' => 'Bob Hope Humanitarian Award',                      'nominated_work' => null,                     'featured' => 0, 'year' => 2025, 'organization' => 'Academy of Television Arts & Sciences', 'public' => 1 ],
+            [ 'name' => 'Golden Globe Award',     'slug' => '1984-golden-globe-award-for-best-actor-miniseries-or-television-film',        'category' => 'Best Actor – Miniseries or Television Film',       'nominated_work' => 'Something About Amelia', 'featured' => 0, 'year' => 1984, 'organization' => 'Hollywood Foreign Correspondents Association', 'public' => 1 ],
+            [ 'name' => 'Golden Globe Award',     'slug' => '1989-golden-globe-award-for-best-actor-television-series-musical-or-comedy',  'category' => 'Best Actor – Television Series Musical or Comedy', 'nominated_work' => 'Cheers',                 'featured' => 1, 'year' => 1989, 'organization' => 'Hollywood Foreign Correspondents Association', 'public' => 1 ],
+            [ 'name' => 'Golden Globe Award',     'slug' => '1990-golden-globe-award-for-best-actor-television-series-musical-or-comedy',  'category' => 'Best Actor – Television Series Musical or Comedy', 'nominated_work' => 'Cheers',                 'featured' => 1, 'year' => 1990, 'organization' => 'Hollywood Foreign Correspondents Association', 'public' => 1 ],
+            [ 'name' => 'Carol Burnett Award',    'slug' => '2025-carol-burnett-award-for-funniest-male-performer-in-a-television-series', 'category' => 'Funniest Male Performer in a Television Series',   'nominated_work' => null,                     'featured' => 0, 'year' => 2025, 'organization' => null ],
+            [ 'name' => 'American Comedy Award',  'slug' => '1991-american-comedy-award',                                                  'category' => null,                                               'nominated_work' => 'Cheers',                 'featured' => 0, 'year' => 1991, 'organization' => null ],
+            [ 'name' => 'Critics\' Choice Award', 'slug' => '2017-critics-choice-award-for-best-actor-in-a-comedy-series',                 'category' => 'Best Actor in a Comedy Series',                    'nominated_work' => 'Cheers',                 'featured' => 0, 'year' => 2017, 'organization' => 'Critics Choice Association (CCA)', 'public' => 1 ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
+                'category'        => null,
+                'nominated_work'  => null,
                 'featured'        => 0,
-                'summary'         => null,
-                'date_received'   => null,
                 'year'            => null,
                 'organization'    => null,
-                'description'     => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
                 'public'          => 1,
             ],
             */

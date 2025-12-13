@@ -166,19 +166,21 @@ class DanFielding extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
+            [ 'name' => 'Tony Award',           'slug' => '2011-tony-award-for-best-featured-actor-in-a-musical',                          'category' => 'Best Featured Actor in a Musical',                'nominated_work' => 'How to Succeed in Business Without Really Trying', 'featured' => 1, 'year' => 2011, 'organization' => 'American Theatre Wing and The Broadway League' ],
+            [ 'name' => 'Primetime Emmy Award', 'slug' => '1998-primetime-emmy-award-for-outstanding-guest-actor-in-a-drama-series',       'category' => 'Outstanding Guest Actor in a Drama Series',       'nominated_work' => 'The Practice',                                     'featured' => 0, 'year' => 1998, 'organization' => 'Academy of Television Arts & Sciences' ],
+            [ 'name' => 'Primetime Emmy Award', 'slug' => '1985-primetime-emmy-award-for-outstanding-supporting-actor-in-a-comedy-series', 'category' => 'Outstanding Supporting Actor in a Comedy Series', 'nominated_work' => null,                                               'featured' => 1, 'year' => 1985, 'organization' => 'Academy of Television Arts & Sciences' ],
+            [ 'name' => 'Primetime Emmy Award', 'slug' => '1986-primetime-emmy-award-for-outstanding-supporting-actor-in-a-comedy-series', 'category' => 'Outstanding Supporting Actor in a Comedy Series', 'nominated_work' => null,                                               'featured' => 1, 'year' => 1986, 'organization' => 'Academy of Television Arts & Sciences' ],
+            [ 'name' => 'Primetime Emmy Award', 'slug' => '1987-primetime-emmy-award-for-outstanding-supporting-actor-in-a-comedy-series', 'category' => 'Outstanding Supporting Actor in a Comedy Series', 'nominated_work' => null,                                               'featured' => 1, 'year' => 1987, 'organization' => 'Academy of Television Arts & Sciences' ],
+            [ 'name' => 'Primetime Emmy Award', 'slug' => '1988-primetime-emmy-award-for-outstanding-supporting-actor-in-a-comedy-series', 'category' => 'Outstanding Supporting Actor in a Comedy Series', 'nominated_work' => null,                                               'featured' => 1, 'year' => 1988, 'organization' => 'Academy of Television Arts & Sciences' ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
+                'category'        => null,
+                'nominated_work'  => null,
                 'featured'        => 0,
-                'summary'         => null,
-                'date_received'   => null,
                 'year'            => null,
                 'organization'    => null,
-                'description'     => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
                 'public'          => 1,
             ],
             */

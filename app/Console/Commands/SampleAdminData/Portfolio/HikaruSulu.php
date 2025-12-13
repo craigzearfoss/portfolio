@@ -164,19 +164,20 @@ class HikaruSulu extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
+            [ 'name' => 'Hollywood Walk of Fame',                          'slug' => 'hollywood-walk-of-fame',                         'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => 1986, 'organization' => null, 'public' => 1 ],
+            [ 'name' => 'Order of the Rising Sun, Gold Rays with Rosette', 'slug' => 'order-of-the-rising-sun-gold-rays-with-rosette', 'category' => null, 'nominated_work' => null, 'featured' => 1, 'year' => 2004, 'organization' => 'Japan', 'public' => 1 ],
+            [ 'name' => 'GLAAD Vito Russo Award',                          'slug' => 'glaad-vito-russo-award',                         'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => 2014, 'organization' => 'Gay & Lesbian Alliance Against Defamation', 'public' => 1 ],
+            [ 'name' => 'LGBT Humanist Award',                             'slug' => 'lgbt-humanist-award',                            'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => 2012, 'organization' => 'American Humanist Association', 'public' => 1 ],
+            [ 'name' => 'Doctorate of Humane Letters',                     'slug' => 'doctorate-of-humane-letters-from-ucla',          'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => 2016, 'organization' => 'California State University, Los Angeles', 'public' => 1 ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
+                'category'        => null,
+                'nominated_work'  => null,
                 'featured'        => 0,
-                'summary'         => null,
-                'date_received'   => null,
                 'year'            => null,
                 'organization'    => null,
-                'description'     => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
                 'public'          => 1,
             ],
             */

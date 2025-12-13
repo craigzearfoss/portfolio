@@ -25,6 +25,9 @@ class Award extends Model
     protected $fillable = [
         'owner_id',
         'name',
+        'category',
+        'nominated_work',
+        'name',
         'slug',
         'featured',
         'summary',
@@ -51,8 +54,8 @@ class Award extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'featured', 'date_received', 'year', 'organization', 'public',
-        'readonly', 'root', 'disabled', 'demo'];
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'category', 'nominated_work', 'featured', 'date_received',
+        'year', 'organization', 'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
     protected static function booted()

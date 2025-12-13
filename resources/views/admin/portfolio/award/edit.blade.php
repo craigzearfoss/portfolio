@@ -1,11 +1,11 @@
 @extends('admin.layouts.default', [
-    'title' => 'Art: ' . $art->name,
+    'title' => 'Award: ' . $award->name,
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Art',             'href' => route('admin.portfolio.award.index') ],
-        [ 'name' => $art->name,        'href' => route('admin.portfolio.award.show', $art->id) ],
+        [ 'name' => 'Award',           'href' => route('admin.portfolio.award.index') ],
+        [ 'name' => $award->name,      'href' => route('admin.portfolio.award.show', $award->id) ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
@@ -22,7 +22,7 @@
 
     <div class="edit-container card form-container p-4">
 
-        <form action="{{ route('admin.portfolio.award.update', $art) }}" method="POST">
+        <form action="{{ route('admin.portfolio.award.update', $award) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -33,14 +33,14 @@
 
             @include('admin.components.form-text-horizontal', [
                 'name'  => 'id',
-                'value' => $art->id
+                'value' => $award->id
             ])
 
             @if(isRootAdmin())
                 @include('admin.components.form-select-horizontal', [
                     'name'     => 'owner_id',
                     'label'    => 'owner',
-                    'value'    => old('owner_id') ?? $art->owner_id,
+                    'value'    => old('owner_id') ?? $award->owner_id,
                     'required' => true,
                     'list'     => \App\Models\System\Owner::listOptions([], 'id', 'username', true, false, ['username', 'asc']),
                     'message'  => $message ?? '',
@@ -48,21 +48,29 @@
             @else
                 @include('admin.components.form-hidden', [
                     'name'  => 'owner_id',
-                    'value' => $art->owner_id
+                    'value' => $award->owner_id
                 ])
             @endif
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'name',
-                'value'     => old('name') ?? $art->name,
+                'value'     => old('name') ?? $award->name,
                 'required'  => true,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
-                'name'      => 'artist',
-                'value'     => old('artist') ?? $art->artist,
+                'name'      => 'category',
+                'value'     => old('category') ?? $award->category,
+                'maxlength' => 255,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-input-horizontal', [
+                'name'      => 'nominated_work',
+                'label'     => 'nominated work',
+                'value'     => old('nominated_work') ?? $award->nominated_work,
                 'maxlength' => 255,
                 'message'   => $message ?? '',
             ])
@@ -71,13 +79,13 @@
                 'name'            => 'featured',
                 'value'           => 1,
                 'unchecked_value' => 0,
-                'checked'         => old('featured') ?? $art->featured,
+                'checked'         => old('featured') ?? $award->featured,
                 'message'         => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',
-                'value'     => old('summary') ?? $art->summary,
+                'value'     => old('summary') ?? $award->summary,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
@@ -85,7 +93,7 @@
             @include('admin.components.form-input-horizontal', [
                 'type'      => 'number',
                 'name'      => 'year',
-                'value'     => old('year') ?? $art->year,
+                'value'     => old('year') ?? $award->year,
                 'min'       => -2000,
                 'max'       => date("Y"),
                 'message'   => $message ?? '',
@@ -93,51 +101,51 @@
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'notes',
-                'value'   => old('notes') ?? $art->notes,
+                'value'   => old('notes') ?? $award->notes,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-link-horizontal', [
-                'link' => old('link') ?? $art->link,
-                'name' => old('link_name') ?? $art->link_name,
+                'link' => old('link') ?? $award->link,
+                'name' => old('link_name') ?? $award->link_name,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-textarea-horizontal', [
                 'name'    => 'description',
                 'id'      => 'inputEditor',
-                'value'   => old('description') ?? $art->description,
+                'value'   => old('description') ?? $award->description,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-input-horizontal', [
                 'name'        => 'disclaimer',
-                'value'       => old('disclaimer') ?? $art->disclaimer,
+                'value'       => old('disclaimer') ?? $award->disclaimer,
                 'maxlength'   => 500,
                 'message'     => $message ?? '',
             ])
 
             @include('admin.components.form-image-horizontal', [
-                'image'   => old('image') ?? $art->image,
-                'credit'  => old('image_credit') ?? $art->image_credit,
-                'source'  => old('image_source') ?? $art->image_source,
+                'image'   => old('image') ?? $award->image,
+                'credit'  => old('image_credit') ?? $award->image_credit,
+                'source'  => old('image_source') ?? $award->image_source,
                 'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [
                 'name'      => 'thumbnail',
-                'value'     => old('thumbnail') ?? $art->thumbnail,
+                'value'     => old('thumbnail') ?? $award->thumbnail,
                 'maxlength' => 500,
                 'message'   => $message ?? '',
             ])
 
             @include('admin.components.form-settings-horizontal', [
-                'public'   => old('public') ?? $art->public,
-                'readonly' => old('readonly') ?? $art->readonly,
-                'root'     => old('root') ?? $art->root,
-                'disabled' => old('disabled') ?? $art->disabled,
-                'demo'     => old('demo') ?? $art->demo,
-                'sequence' => old('sequence') ?? $art->sequence,
+                'public'   => old('public') ?? $award->public,
+                'readonly' => old('readonly') ?? $award->readonly,
+                'root'     => old('root') ?? $award->root,
+                'disabled' => old('disabled') ?? $award->disabled,
+                'demo'     => old('demo') ?? $award->demo,
+                'sequence' => old('sequence') ?? $award->sequence,
                 'message'  => $message ?? '',
             ])
 

@@ -31,14 +31,14 @@ class StoreAwardsRequest extends FormRequest
         if (!empty($this['name'])) {
             $label = $this['name'] . (!empty($this['year']) ? '-' . $this['year'] : '');
             $this->merge([
-                'slug' => uniqueSlug($label, 'portfolio_db.photography', $this->owner_id)
+                'slug' => uniqueSlug($label, 'portfolio_db.awards', $this->owner_id)
             ]);
         }
 
         return [
-            'owner_id'      => ['required', 'integer', 'exists:system_db.admins,id'],
-            'name'          => ['required', 'string', 'max:255'],
-            'slug'          => [
+            'owner_id'       => ['required', 'integer', 'exists:system_db.admins,id'],
+            'name'           => ['required', 'string', 'max:255'],
+            'slug'           => [
                 'required',
                 'string',
                 'max:255',
@@ -47,26 +47,28 @@ class StoreAwardsRequest extends FormRequest
                         ->where('slug', $this->slug);
                 })
             ],
-            'featured'      => ['integer', 'between:0,1'],
-            'summary'       => ['string', 'max:500', 'nullable'],
-            'year'          => ['integer', 'between:1900,'.date("Y"), 'nullable'],
-            'date_received' => ['date', 'nullable'],
-            'organization'  => ['string', 'max:255', 'nullable'],
-            'notes'         => ['nullable'],
-            'link'          => ['string', 'url:http,https', 'max:500', 'nullable'],
-            'link_name'     => ['string', 'max:255', 'nullable'],
-            'description'   => ['nullable'],
-            'disclaimer'    => ['string', 'max:500', 'nullable'],
-            'image'         => ['string', 'max:500', 'nullable'],
-            'image_credit'  => ['string', 'max:255', 'nullable'],
-            'image_source'  => ['string', 'max:255', 'nullable'],
-            'thumbnail'     => ['string', 'max:500', 'nullable'],
-            'public'        => ['integer', 'between:0,1'],
-            'readonly'      => ['integer', 'between:0,1'],
-            'root'          => ['integer', 'between:0,1'],
-            'disabled'      => ['integer', 'between:0,1'],
-            'demo'          => ['integer', 'between:0,1'],
-            'sequence'      => ['integer', 'min:0', 'nullable'],
+            'category'       => ['string', 'max:255', 'nullable'],
+            'nominated_work' => ['string', 'max:255', 'nullable'],
+            'featured'       => ['integer', 'between:0,1'],
+            'summary'        => ['string', 'max:500', 'nullable'],
+            'year'           => ['integer', 'between:1900,'.date("Y"), 'nullable'],
+            'date_received'  => ['date', 'nullable'],
+            'organization'   => ['string', 'max:255', 'nullable'],
+            'notes'          => ['nullable'],
+            'link'           => ['string', 'url:http,https', 'max:500', 'nullable'],
+            'link_name'      => ['string', 'max:255', 'nullable'],
+            'description'    => ['nullable'],
+            'disclaimer'     => ['string', 'max:500', 'nullable'],
+            'image'          => ['string', 'max:500', 'nullable'],
+            'image_credit'   => ['string', 'max:255', 'nullable'],
+            'image_source'   => ['string', 'max:255', 'nullable'],
+            'thumbnail'      => ['string', 'max:500', 'nullable'],
+            'public'         => ['integer', 'between:0,1'],
+            'readonly'       => ['integer', 'between:0,1'],
+            'root'           => ['integer', 'between:0,1'],
+            'disabled'       => ['integer', 'between:0,1'],
+            'demo'           => ['integer', 'between:0,1'],
+            'sequence'       => ['integer', 'min:0', 'nullable'],
         ];
     }
 

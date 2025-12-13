@@ -158,19 +158,21 @@ class BoDarville extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
+            [ 'name' => 'Golden Globe Award',     'slug' => '1992-golden-globe-award-for-best-actor-in-a-television-series-musical-or-comedy', 'category' => 'Best Actor in a Television Series-Musical or Comedy', 'nominated_work' => 'Evening Shade', 'featured' => 1, 'year' => 1992, 'organization' => 'Hollywood Foreign Correspondents Association', 'public' => 1 ],
+            [ 'name' => 'People\'s Choice Award', 'slug' => '1983-peoples-choice-award-for-favorite-motion-picture-actor',                     'category' => 'Favorite Motion Picture Actor',                       'nominated_work' => null,            'featured' => 0, 'year' => 1983, 'organization' => 'Procter & Gamble', 'public' => 1 ],
+            [ 'name' => 'People\'s Choice Award', 'slug' => '1983-peoples-choice-award-for-favorite-all-around-male',                          'category' => 'Favorite All-Around Male',                            'nominated_work' => null,            'featured' => 1, 'year' => 1983, 'organization' => 'Procter & Gamble', 'public' => 1 ],
+            [ 'name' => 'People\'s Choice Award', 'slug' => '1984-peoples-choice-award-for-favorite-motion-picture-actor',                     'category' => 'Favorite Motion Picture Actor',                       'nominated_work' => null,            'featured' => 0, 'year' => 1984, 'organization' => 'Procter & Gamble', 'public' => 1 ],
+            [ 'name' => 'People\'s Choice Award', 'slug' => '1991-peoples-choice-award-for-favorite-male-performer-in-a-new-tv-series',        'category' => 'Favorite Male Performer in a New TV Series',          'nominated_work' => null,            'featured' => 0, 'year' => 1991, 'organization' => null, 'public' => 1 ],
+            [ 'name' => 'Honorary Doctorate',     'slug' => 'honorary-doctorate-from-florida-state-university',                                'category' => null,                                                  'nominated_work' => null,            'featured' => 0, 'year' => 1981, 'organization' => 'Florida State University', 'public' => 1 ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
+                'category'        => null,
+                'nominated_work'  => null,
                 'featured'        => 0,
-                'summary'         => null,
-                'date_received'   => null,
                 'year'            => null,
                 'organization'    => null,
-                'description'     => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
                 'public'          => 1,
             ],
             */

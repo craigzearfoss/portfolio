@@ -166,19 +166,18 @@ class RickyRicardo extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
+            [ 'name' => 'Army Good Conduct Medal',    'slug' => 'army-good-conduct-medal',    'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => null, 'organization' => 'United States Armed Forces', 'public' => 1 ],
+            [ 'name' => 'American Campaign Medal',    'slug' => 'american-campaign-medal',    'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => null, 'organization' => 'United States Armed Forces', 'public' => 1 ],
+            [ 'name' => 'World War II Victory Medal', 'slug' => 'world-war-ii-victory-medal', 'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => null, 'organization' => 'United States Armed Forces', 'public' => 1 ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
+                'category'        => null,
+                'nominated_work'  => null,
                 'featured'        => 0,
-                'summary'         => null,
-                'date_received'   => null,
                 'year'            => null,
                 'organization'    => null,
-                'description'     => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
                 'public'          => 1,
             ],
             */

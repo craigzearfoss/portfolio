@@ -162,19 +162,26 @@ class AlexReiger extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
+            [ 'name' => 'Academy Award',                  'slug' => '2022-academy-award-for-best-supporting-actor',                                     'category' => 'Best Supporting Actor',                                 'nominated_work' => 'The Fabelmans',                'featured' => 0, 'year' => 2022, 'organization' => 'Academy of Motion Picture Arts and Sciences', 'public' => 1 ],
+            [ 'name' => 'Golden Globe Award',             'slug' => '1988-golden-globe-award-for-best-actor-in-a-television-series-musical-or-comedy',  'category' => 'Best Actor in a Television Series – Musical or Comedy', 'nominated_work' => 'Dear John',                    'featured' => 1, 'year' => 1988, 'organization' => 'Hollywood Foreign Correspondents Association', 'public' => 1 ],
+            [ 'name' => 'Primetime Emmy Award',           'slug' => '1981-primetime-emmy-award-for-outstanding-lead-actor-in-a-comedy-series',          'category' => 'Outstanding Lead Actor in a Comedy Series',             'nominated_work' => 'Taxi',                         'featured' => 1, 'year' => 1981, 'organization' => 'Academy of Television Arts & Sciences', 'public' => 1 ],
+            [ 'name' => 'Primetime Emmy Award',           'slug' => '1983-primetime-emmy-award-for-outstanding-lead-actor-in-a-comedy-series',          'category' => 'Outstanding Lead Actor in a Comedy Series',             'nominated_work' => 'Taxi',                         'featured' => 1, 'year' => 1983, 'organization' => 'Academy of Television Arts & Sciences', 'public' => 1 ],
+            [ 'name' => 'AARP Movies for Grownups Award', 'slug' => '2022-aarp-movies-for-grownups-award-for-best-supporting-actor',                    'category' => 'Best Supporting Actor',                                 'nominated_work' => 'The Fabelmans',                'featured' => 0, 'year' => 2022, 'organization' => 'AARP', 'public' => 1 ],
+            [ 'name' => 'Drama Desk Award',               'slug' => '1976-drama-desk-award-for-outstanding-featured-actor-in-a-play',                   'category' => 'Outstanding Featured Actor in a Play',                  'nominated_work' => 'Knock Knock',                  'featured' => 0, 'year' => 1976, 'organization' => 'The Drama Desk', 'public' => 1 ],
+            [ 'name' => 'Indie Series Award',             'slug' => '2014-indie-series-award-for-best-supporting-actor-drama',                          'category' => 'Best Supporting Actor (Drama)',                         'nominated_work' => 'Small Miracles',               'featured' => 0, 'year' => 2014, 'organization' => 'We Love Soaps', 'public' => 1 ],
+            [ 'name' => 'Obie Award',                     'slug' => '1979-obie-award-for-best-performance',                                             'category' => 'Best Performance',                                      'nominated_work' => 'Talley\'s Folly',              'featured' => 0, 'year' => 1979, 'organization' => 'The Village Voice', 'public' => 1 ],
+            [ 'name' => 'Vanguard Award',                 'slug' => '2022-vanguard-award-for-the-fabelmans',                                            'category' => null,                                                    'nominated_work' => 'The Fabelmans',                'featured' => 0, 'year' => 2022, 'organization' => 'Palm Springs International Film Festival', 'public' => 1 ],
+            [ 'name' => 'Tony Award',                     'slug' => '1986-tony-award-for-best-leading-actor-in-a-play',                                 'category' => 'Best Leading Actor in a Play',                          'nominated_work' => 'I\'m Not Rappaport',           'featured' => 0, 'year' => 1986, 'organization' => 'American Theatre Wing and The Broadway League', 'public' => 1 ],
+            [ 'name' => 'Tony Award',                     'slug' => '1992-tony-award-for-best-leading-actor-in-a-play',                                 'category' => 'Best Leading Actor in a Play',                          'nominated_work' => 'Conversations with My Father', 'featured' => 0, 'year' => 1992, 'organization' => 'American Theatre Wing and The Broadway League', 'public' => 1 ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
+                'category'        => null,
+                'nominated_work'  => null,
                 'featured'        => 0,
-                'summary'         => null,
-                'date_received'   => null,
                 'year'            => null,
                 'organization'    => null,
-                'description'     => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
                 'public'          => 1,
             ],
             */

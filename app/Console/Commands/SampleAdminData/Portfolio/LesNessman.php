@@ -166,19 +166,18 @@ class LesNessman extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Awards ...\n";
 
         $data = [
+            [ 'name' => 'Buckeye Newshawk Award', 'slug' => 'buckeye-newshawk-award', 'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => null, 'organization' => null, 'public' => 1 ],
+            [ 'name' => 'Silver Sow Award',       'slug' => 'silver-sow-award',       'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => null, 'organization' => null, 'public' => 1 ],
+            [ 'name' => 'Copper Cob Award',       'slug' => 'copper-cob-award',       'category' => null, 'nominated_work' => null, 'featured' => 0, 'year' => null, 'organization' => null, 'public' => 1 ],
             /*
             [
                 'name'            => '',
                 'slug'            => '',
+                'category'        => null,
+                'nominated_work'  => null,
                 'featured'        => 0,
-                'summary'         => null,
-                'date_received'   => null,
                 'year'            => null,
                 'organization'    => null,
-                'description'     => null,
-                'link'            => null,
-                'link_name'       => null,
-                'description'     => null,
                 'public'          => 1,
             ],
             */
