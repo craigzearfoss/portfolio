@@ -42,6 +42,7 @@ class StoreJobSkillsRequest extends FormRequest
                         ->where('name', $this->name);
                 })
             ],
+            'type'                   => ['integer', 'between:0,1'],
             'dictionary_category_id' => ['integer', 'exists:dictionary_db.categories,id', 'nullable'],
             'dictionary_id_term_id'  => ['integer', 'nullable'],
             'summary'                => ['string', 'max:500', 'nullable'],

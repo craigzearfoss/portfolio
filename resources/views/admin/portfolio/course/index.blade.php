@@ -85,24 +85,28 @@
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.course.destroy', $course->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.portfolio.course.show', $course->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- show --}}
-                            </a>
+                            @if(canRead($course))
+                                <a title="show" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.portfolio.course.show', $course->id) }}">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            @endif
 
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.portfolio.course.edit', $course->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
-                            </a>
+                            @if(canUpdate($course))
+                                <a title="edit" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.portfolio.course.edit', $course->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            @endif
 
                             @if (!empty($course->certificate_url))
                                 <a title="open certificate in a new window" class="button is-small px-1 py-0" href="{{ $course->certificate_url }}"
                                    target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- certificate_url --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- certificate_url --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @endif
 
@@ -112,19 +116,21 @@
                                    href="{{ $course->link }}"
                                    target="_blank"
                                 >
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @endif
 
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
-                            </button>
+                            @if(canDelete($course))
+                                @csrf
+                                @method('DELETE')
+                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            @endif
                         </form>
                     </td>
                 </tr>

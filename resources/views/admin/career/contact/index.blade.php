@@ -80,15 +80,19 @@
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.contact.destroy', $contact->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.contact.show', $contact->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- show --}}
-                            </a>
+                            @if(canRead($contact))
+                                <a title="show" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.career.contact.show', $contact->id) }}">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            @endif
 
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.contact.edit', $contact->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
-                            </a>
+                            @if(canUpdate($contact))
+                                <a title="edit" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.career.contact.edit', $contact->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            @endif
 
                             @if (!empty($contact->link))
                                 <a title="{{ !empty($contact->link_name) ? $contact->link_name : 'link' }}"
@@ -96,19 +100,21 @@
                                    href="{{ $contact->link }}"
                                    target="_blank"
                                 >
-                                    <i class="fa-solid fa-external-link"></i>{{-- lLink --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @endif
 
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
-                            </button>
+                            @if(canDelete($contact))
+                                @csrf
+                                @method('DELETE')
+                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            @endif
                         </form>
                     </td>
                 </tr>

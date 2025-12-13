@@ -94,15 +94,19 @@
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.resume.destroy', $resume->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.resume.show', $resume->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- show --}}
-                            </a>
+                            @if(canRead($resume))
+                                <a title="show" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.career.resume.show', $resume->id) }}">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            @endif
 
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.resume.edit', $resume->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
-                            </a>
+                            @if(canUpdate($resume))
+                                <a title="edit" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.career.resume.edit', $resume->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            @endif
 
                             @if (!empty($resume->doc_url))
                                 <a title="Open Microsoft Word document"
@@ -110,11 +114,11 @@
                                    href="{{ $resume->doc_url }}"
                                    target="_blank"
                                 >
-                                    <i class="fa-solid fa-file-word"></i>{{-- doc_url --}}
+                                    <i class="fa-solid fa-file-word"></i>
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-file-word"></i>{{-- doc_url --}}
+                                    <i class="fa-solid fa-file-word"></i>
                                 </a>
                             @endif
 
@@ -124,11 +128,11 @@
                                    px-1 py-0" href="{{ $resume->pdf_url }}"
                                    target="_blank"
                                 >
-                                    <i class="fa-solid fa-file-pdf"></i>{{-- pdf_url --}}
+                                    <i class="fa-solid fa-file-pdf"></i>
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-file-pdf"></i>{{-- pdf_url --}}
+                                    <i class="fa-solid fa-file-pdf"></i>
                                 </a>
                             @endif
 
@@ -138,19 +142,21 @@
                                    href="{{ $resume->link }}"
                                    target="_blank"
                                 >
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @endif
 
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
-                            </button>
+                            @if(canDelete($resume))
+                                @csrf
+                                @method('DELETE')
+                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            @endif
                         </form>
                     </td>
                 </tr>

@@ -575,13 +575,17 @@ class DarrinStephens extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
+            [ 'name' => 'sales',              'slug' => 'sales',              'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'customer relations', 'slug' => 'customer-relations', 'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'advertising',        'slug' => 'advertising',        'version' => null, 'featured' => 1, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
             /*
             [
                 'name'                   => '',
                 'slug'                   => '',
                 'version'                => null,
-                'dictionary_category_id' => null,
                 'featured'               => 1,
+                'type'                   => 1,
+                'dictionary_category_id' => null,
                 'level'                  => 5,
                 'years'                  => 5,
                 'start_year'             => 2020,

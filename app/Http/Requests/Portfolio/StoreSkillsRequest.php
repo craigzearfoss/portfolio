@@ -53,6 +53,7 @@ class StoreSkillsRequest extends FormRequest
                 })
             ],
             'version'                 => ['string', 'max:20', 'nullable'],
+            'type'                    => ['integer', 'between:0,1'],
             'slug'                    => [
                 'required',
                 'string',
@@ -64,7 +65,7 @@ class StoreSkillsRequest extends FormRequest
             ],
             'featured'                => ['integer', 'between:0,1'],
             'summary'                 => ['string', 'max:500', 'nullable'],
-            'level'                   => ['integer', 'between:1,10'],
+            'level'                   => ['integer', 'between:1,10', 'nullable'],
             'dictionary_category_id'  => ['integer', 'exists:dictionary_db.categories,id', 'nullable'],
             'start_year'              => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],
             'end_year'                => ['integer', 'min:1980', 'max:'.date("Y"), 'nullable'],

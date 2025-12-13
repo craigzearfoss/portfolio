@@ -88,15 +88,19 @@
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.portfolio.skill.destroy', $skill->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.portfolio.skill.show', $skill->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- show --}}
-                            </a>
+                            @if(canRead($skill))
+                                <a title="show" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.portfolio.skill.show', $skill->id) }}">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            @endif
 
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.portfolio.skill.edit', $skill->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
-                            </a>
+                            @if(canUpdate($skill))
+                                <a title="edit" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.portfolio.skill.edit', $skill->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            @endif
 
                             @if (!empty($skill->link))
                                 <a title="{{ !empty($skill->link_name) ? $skill->link_name : 'link' }}"
@@ -104,19 +108,21 @@
                                    href="{{ $skill->link }}"
                                    target="_blank"
                                 >
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @endif
 
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
-                            </button>
+                            @if(canDelete($skill))
+                                @csrf
+                                @method('DELETE')
+                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            @endif
                         </form>
                     </td>
                 </tr>

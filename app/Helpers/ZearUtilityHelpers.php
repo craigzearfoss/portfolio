@@ -93,6 +93,145 @@ if (! function_exists('isRootAdmin')) {
     }
 }
 
+if (! function_exists('canCreate')) {
+    /**
+     * Returns true if admin/user/guest can create the specified resource type.
+     *
+     * @param string $resourceName
+     * @param int|null $adminId
+     * @return bool
+     */
+    function canCreate(string $resourceName, int|null $adminId = null): bool
+    {
+        if (!empty($adminId)) {
+            if (!$admin = \App\Models\Admin::find($adminId)) {
+                return false;
+            }
+        } else {
+            if (Auth::guard('admin')->check()) {
+                if (!$admin = Auth::guard('admin')->user()) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        if ($admin->root) {
+            // root admins can create any type of resource
+            return true;
+        }
+
+        if (!$resource = \App\Models\System\Resource::where('name', $resourceName)->first()) {
+            return false;
+        }
+
+        // non-root admins can only edit resources with an owner_id field
+        if (in_array('owner_id', (new $resource->class)->getFillable())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+if (! function_exists('canRead')) {
+    /**
+     * Returns true if admin/user/guest can read the specified resource.
+     *
+     * @param $resource
+     * @param int|null $adminId
+     * @return bool
+     */
+    function canRead($resource, int|null $adminId = null): bool
+    {
+        // admins can read any resource
+        if (!empty($adminId)) {
+            if (!$admin = \App\Models\Admin::find($adminId)) {
+                return false;
+            } else {
+                return true;
+            }
+        } elseif (Auth::guard('admin')->check()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+if (! function_exists('canUpdate')) {
+    /**
+     * Returns true if admin/user/guest can update/edit the specified resource.
+     *
+     * @param $resource
+     * @param int|null $adminId
+     * @return bool
+     */
+    function canUpdate($resource, int|null $adminId = null): bool
+    {
+        if (!empty($adminId)) {
+            if (!$admin = \App\Models\Admin::find($adminId)) {
+                return false;
+            }
+        } else {
+            if (Auth::guard('admin')->check()) {
+                if (!$admin = Auth::guard('admin')->user()) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        if ($admin->root) {
+            // root admins can edit anything
+            return true;
+        } elseif (!empty($resource->owner_id) && ($resource->owner_id == $admin->id)) {
+            // non-root admins can edit their own resources
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+if (! function_exists('canDelete')) {
+    /**
+     * Returns true if admin/user/guest can delete the specified resource.
+     *
+     * @param $resource
+     * @param int|null $adminId
+     * @return bool
+     */
+    function canDelete($resource, int|null $adminId = null): bool
+    {
+        if (!empty($adminId)) {
+            if (!$admin = \App\Models\Admin::find($adminId)) {
+                return false;
+            }
+        } else {
+            if (Auth::guard('admin')->check()) {
+                if (!$admin = Auth::guard('admin')->user()) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        if ($admin->root) {
+            // root admins can delete anything
+            return true;
+        } elseif (!empty($resource->owner_id) && ($resource->owner_id == $admin->id)) {
+            // non-root admins can delete their own resources
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
 if (! function_exists('formatCompensation')) {
     /**
      * Returns a formatted compensation.
@@ -131,6 +270,42 @@ if (! function_exists('formatCompensation')) {
         }
 
         return $compensation;
+    }
+}
+
+if (! function_exists('canDelete')) {
+    /**
+     * Returns true if admin/user/guest can delete the specified resource.
+     *
+     * @param $resource
+     * @param int|null $adminId
+     * @return bool
+     */
+    function canDelete($resource, int|null $adminId = null): bool
+    {
+        if (!empty($adminId)) {
+            if (!$admin = \App\Models\Admin::find($adminId)) {
+                return false;
+            }
+        } else {
+            if (Auth::guard('admin')->check()) {
+                if (!$admin = Auth::guard('admin')->user()) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        if ($admin->root) {
+            // root admins can delete anything
+            return true;
+        } elseif (!empty($resource->owner_id) && ($resource->owner_id == $admin->id)) {
+            // non-root admins can delete their own resources
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 

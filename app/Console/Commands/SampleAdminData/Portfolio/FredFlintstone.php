@@ -617,13 +617,16 @@ class FredFlintstone extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
+            [ 'name' => 'crane operating', 'slug' => 'crane-operating', 'version' => null, 'featured' => 1, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'bowling',         'slug' => 'bowling',         'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
             /*
             [
                 'name'                   => '',
                 'slug'                   => '',
                 'version'                => null,
-                'dictionary_category_id' => null,
                 'featured'               => 1,
+                'type'                   => 1,
+                'dictionary_category_id' => null,
                 'level'                  => 5,
                 'years'                  => 5,
                 'start_year'             => 2020,

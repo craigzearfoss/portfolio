@@ -98,21 +98,27 @@
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.communication.destroy', $communication->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.communication.show', $communication->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show--}}
-                            </a>
+                            @if(canRead($communication))
+                                <a title="show" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.career.communication.show', $communication->id) }}">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            @endif
 
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.communication.edit', $communication->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit--}}
-                            </a>
+                            @if(canUpdate($communication))
+                                <a title="edit" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.career.communication.edit', $communication->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            @endif
 
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{--  Delete--}}
-                            </button>
+                            @if(canDelete($communication))
+                                @csrf
+                                @method('DELETE')
+                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            @endif
                         </form>
                     </td>
                 </tr>

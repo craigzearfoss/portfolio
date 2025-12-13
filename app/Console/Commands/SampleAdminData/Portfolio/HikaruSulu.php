@@ -620,13 +620,22 @@ class HikaruSulu extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
+            [ 'name' => 'navigation',       'slug' => 'navigation',       'version' => null, 'featured' => 1, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'astrophysics',     'slug' => 'astrophysics',     'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'warp drive',       'slug' => 'warp drive',       'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'impulse engines',  'slug' => 'impulse engines',  'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'martial arts',     'slug' => 'martial-arts',     'version' => null, 'featured' => 0, 'type' => 1, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'fencing',          'slug' => 'fencing',          'version' => null, 'featured' => 0, 'type' => 1, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'botany',           'slug' => 'botany',           'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'antique firearms', 'slug' => 'antique-firearms', 'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
             /*
             [
                 'name'                   => '',
                 'slug'                   => '',
                 'version'                => null,
-                'dictionary_category_id' => null,
                 'featured'               => 1,
+                'type'                   => 1,
+                'dictionary_category_id' => null,
                 'level'                  => 5,
                 'years'                  => 5,
                 'start_year'             => 2020,

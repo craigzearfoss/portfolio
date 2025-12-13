@@ -28,6 +28,7 @@ class JobSkill extends Model
         'owner_id',
         'job_id',
         'name',
+        'type', // 0=soft skill, 1=hard skill
         'dictionary_category_id',
         'dictionary_term_id',
         'summary',
@@ -53,7 +54,7 @@ class JobSkill extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['owner_id', 'job_id', 'name', 'dictionary_category_id', 'dictionary_term_id',
+    const SEARCH_COLUMNS = ['owner_id', 'job_id', 'name', 'type', 'dictionary_category_id', 'dictionary_term_id',
         'public', 'readonly', 'root', 'disabled', 'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 

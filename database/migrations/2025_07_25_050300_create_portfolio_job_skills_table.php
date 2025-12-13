@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignIdFor( \App\Models\System\Owner::class);
             $table->foreignIdFor( \App\Models\Portfolio\Job::class)->nullable();
             $table->string('name', 100)->index('name_idx');
+            $table->boolean('type')->default(true);
             $table->foreignIdFor(\App\Models\Dictionary\Category::class, 'dictionary_category_id')->nullable();
             $table->integer('dictionary_term_id')->nullable();
             $table->string('summary', 500)->nullable();

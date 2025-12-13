@@ -577,13 +577,19 @@ class DwayneSchneider extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
+            [ 'name' => 'building maintenance',   'slug' => 'building-maintenance',   'version' => null, 'featured' => 1, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'small appliance repair', 'slug' => 'small-appliance-repair', 'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'commercial electronics', 'slug' => 'commercial-electronics', 'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'carpentry',              'slug' => 'carpentry',              'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'time management',        'slug' => 'time-management',        'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
             /*
             [
                 'name'                   => '',
                 'slug'                   => '',
                 'version'                => null,
-                'dictionary_category_id' => null,
                 'featured'               => 1,
+                'type'                   => 1,
+                'dictionary_category_id' => null,
                 'level'                  => 5,
                 'years'                  => 5,
                 'start_year'             => 2020,

@@ -69,15 +69,19 @@
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.recruiter.destroy', $recruiter->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.recruiter.show', $recruiter->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- show--}}
-                            </a>
+                            @if(canRead($recruiter))
+                                <a title="show" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.career.recruiter.show', $recruiter->id) }}">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            @endif
 
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.recruiter.edit', $recruiter->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
-                            </a>
+                            @if(canUpdate($recruiter))
+                                <a title="edit" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.career.recruiter.edit', $recruiter->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            @endif
 
                             @if (!empty($recruiter->link))
                                 <a title="{{ !empty($recruiter->link_name) ? $recruiter->link_name : 'link' }}"
@@ -85,11 +89,11 @@
                                    href="{{ $recruiter->link }}"
                                    target="_blank"
                                 >
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @endif
 
@@ -99,19 +103,21 @@
                                    href="{{ $recruiter->postings_url }}"
                                    target="_blank"
                                 >
-                                    <i class="fa-solid fa-external-link-square"></i>{{-- job_postings --}}
+                                    <i class="fa-solid fa-external-link-square"></i>
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link-square"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link-square"></i>
                                 </a>
                             @endif
 
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
-                            </button>
+                            @if(canDelete($recruiter))
+                                @csrf
+                                @method('DELETE')
+                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            @endif
                         </form>
                     </td>
                 </tr>

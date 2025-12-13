@@ -193,8 +193,8 @@
 
                 <div class="list-item-description pt-1">
 
-                    <span style="min-width: 9em; display: inline-block;"> ·
-                        {!! implode('</span><span style="min-width: 9em; display: inline-block;"> · ', array_column($skills->toArray(), 'name')) !!}
+                    <span class="mr-1" style="display: inline-block;"> ·
+                        {!! implode('</span><span class="mr-1" style="display: inline-block;"> · ', array_column($skills->toArray(), 'name')) !!}
                     </span>
 
                 </div>

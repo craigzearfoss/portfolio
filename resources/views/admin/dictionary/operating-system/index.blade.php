@@ -68,15 +68,17 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.operating-system.show', $operatingSystem->id) }}">
-                            <i class="fa-solid fa-list"></i>{{-- show --}}
-                        </a>
+                        @if(canRead($operatingSystem))
+                            <a title="show" class="button is-small px-1 py-0"
+                               href="{{ route('admin.dictionary.operating-system.show', $operatingSystem->id) }}">
+                                <i class="fa-solid fa-list"></i>
+                            </a>
+                        @endif
 
-                        @if(isRootAdmin())
+                        @if(canUpdate($operatingSystem))
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.dictionary.operating-system.edit', $operatingSystem->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
+                                <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                         @endif
 
@@ -86,11 +88,11 @@
                                href="{{ !empty($operatingSystem->link_name) ? $operatingSystem->link_name : 'link' }}"
                                target="_blank"
                             >
-                                <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                <i class="fa-solid fa-external-link"></i>
                             </a>
                         @else
                             <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                <i class="fa-solid fa-external-link"></i>
                             </a>
                         @endif
 
@@ -100,15 +102,15 @@
                                href="{{ $operatingSystem->wikipedia }}"
                                target="_blank"
                             >
-                                <i class="fa-solid fa-file"></i>{{-- wikipedia --}}
+                                <i class="fa-solid fa-file"></i>
                             </a>
                         @else
                             <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-file"></i>{{-- wikipedia --}}
+                                <i class="fa-solid fa-file"></i>
                             </a>
                         @endif
 
-                        @if(isRootAdmin())
+                        @if(canDelete($operatingSystem))
                             <form action="{{ route('admin.dictionary.operating-system.destroy', $operatingSystem->id) }}"
                                   method="POST"
                                   style="display:inline-flex"
@@ -116,7 +118,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                    <i class="fa-solid fa-trash"></i>{{-- delete --}}
+                                    <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
                         @endif

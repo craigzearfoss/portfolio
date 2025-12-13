@@ -165,6 +165,7 @@ class PeterGibbons extends Command
 
         $data = [
             /*
+             *
             [
                 'name'            => '',
                 'slug'            => '',
@@ -573,13 +574,18 @@ class PeterGibbons extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Skill ...\n";
 
         $data = [
+            [ 'name' => 'software development', 'slug' => 'software-development', 'version' => null, 'featured' => 1, 'type' => 1, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'filling out forms',    'slug' => 'filling-out-forms',    'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'COBOL',                'slug' => 'cobol',                'version' => null, 'featured' => 0, 'type' => 1, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
+            [ 'name' => 'karaoke',              'slug' => 'karaoke',              'version' => null, 'featured' => 0, 'type' => 0, 'dictionary_category_id' => null, 'level' => null, 'years' => null, 'start_year' => null, 'public' => 1 ],
             /*
             [
                 'name'                   => '',
                 'slug'                   => '',
                 'version'                => null,
-                'dictionary_category_id' => null,
                 'featured'               => 1,
+                'type'                   => 1,
+                'dictionary_category_id' => null,
                 'level'                  => 5,
                 'years'                  => 5,
                 'start_year'             => 2020,

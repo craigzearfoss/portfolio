@@ -64,34 +64,40 @@
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.job-board.destroy', $jobBoard->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.job-board.show', $jobBoard->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show --}}
-                            </a>
+                            @if(canRead($jobBoard))
+                                <a title="show" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.career.job-board.show', $jobBoard->id) }}">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            @endif
 
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.job-board.edit', $jobBoard->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
-                            </a>
+                            @if(canUpdate($jobBoard))
+                                <a title="edit" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.career.job-board.edit', $jobBoard->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            @endif
 
                             @if (!empty($jobBoard->link))
                                 <a title="{{ !empty($jobBoard->link_name) ? $jobBoard->link_name : 'link' }}link"
                                    class="button is-small px-1 py-0"
                                    href="{{ $jobBoard->link }}"
                                    target="_blank">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- Link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @endif
 
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- Delete --}}
-                            </button>
+                            @if(canDelete($jobBoard))
+                                @csrf
+                                @method('DELETE')
+                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            @endif
                         </form>
                     </td>
                 </tr>

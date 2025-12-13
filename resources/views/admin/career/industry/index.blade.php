@@ -50,15 +50,19 @@
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.career.industry.destroy', $industry->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.industry.show', $industry->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- show --}}
-                            </a>
+                            @if(canRead($industry))
+                                <a title="show" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.career.industry.show', $industry->id) }}">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            @endif
 
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.career.industry.edit', $industry->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
-                            </a>
+                            @if(canUpdate($industry))
+                                <a title="edit" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.career.industry.edit', $industry->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            @endif
 
                             @if (!empty($industry->link))
                                 <a title="{{ !empty($industry->link_name) ? $industry->link_name : 'link' }}"
@@ -66,18 +70,20 @@
                                    href="{{ $industry->link }}"
                                    target="_blank"
                                 >
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @endif
 
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
+                            @if(canDelete($industry))
+                                @csrf
+                                @method('DELETE')
+                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>
+                                @endif
                             </button>
                         </form>
                     </td>

@@ -8,6 +8,7 @@ use App\Models\System\Resource;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use function Laravel\Prompts\text;
 
 class CopySourceImages extends Command
 {
@@ -58,12 +59,19 @@ class CopySourceImages extends Command
         $DS = DIRECTORY_SEPARATOR;
 
         // get the src and destination path for the images
-        $this->imagesSrcPath = rtrim($DS, base_path() . $DS . $this->source);
+        $this->imagesSrcPath = rtrim(base_path() . $DS . $this->source, $DS);
         if ($imageDir = config('app.image_dir')) {
-            $this->imagesDestPath = rtrim($DS, $imageDir);
+            $this->imagesDestPath = rtrim($imageDir, $DS);
         } else {
-            $this->imagesDestPath = rtrim($DS, base_path() . $DS . $this->destination);
+            $this->imagesDestPath = rtrim(base_path() . $DS . $this->destination, $DS);
         }
+
+        // prompt to continue
+        echo PHP_EOL . 'Copying images: ' . PHP_EOL;
+        echo '    from: ' . $this->imagesSrcPath . PHP_EOL;
+        echo '    to:   ' . $this->imagesDestPath . PHP_EOL;
+
+        $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
 
         foreach (scandir($this->imagesSrcPath) as $databaseName) {
 
@@ -114,9 +122,7 @@ class CopySourceImages extends Command
 
                                         foreach ($query->get() as $item) {
 
-                                            echo 'Copying files from '
-                                                . str_replace(base_path(), '', $itemPath)
-                                                . ' ...'. PHP_EOL;
+                                            echo 'Copying files from ' . $itemPath . PHP_EOL;
 
                                             foreach (scandir($itemPath) as $itemName) {
 
@@ -143,7 +149,10 @@ class CopySourceImages extends Command
                                                         File::makeDirectory($destPath, 755, true);
                                                     }
 
-                                                    if ($this->overwrite || !File::exists($destFile)) {
+                                                    if (File::exists($destFile) && !$this->overwrite) {
+                                                        echo '    Skipping ' . $itemName . PHP_EOL;
+
+                                                    } elseif ($this->overwrite || !File::exists($destFile)) {
 
                                                         // copy the file
                                                         echo '    ' . $itemName . ' => '

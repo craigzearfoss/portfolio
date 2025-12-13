@@ -29,6 +29,7 @@ class Skill extends Model
         'owner_id',
         'name',
         'version',
+        'type', // 0=soft skill, 1=hard skill
         'featured',
         'slug',
         'summary',
@@ -57,7 +58,7 @@ class Skill extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'version', 'featured', 'level', 'dictionary_category_id',
+    const SEARCH_COLUMNS = ['id', 'owner_id', 'name', 'version', 'type', 'featured', 'level', 'dictionary_category_id',
         'start_year', 'end_year', 'years', 'public', 'readonly', 'root', 'disabled','demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 

@@ -26,8 +26,9 @@ return new class extends Migration
             $table->string('slug');
             $table->string('version', 20)->nullable();
             $table->boolean('featured')->default(false);
+            $table->boolean('type')->default(true);
             $table->string('summary', 500)->nullable();
-            $table->tinyInteger('level')->default(1);
+            $table->tinyInteger('level')->nullable();
             $table->foreignIdFor(\App\Models\Dictionary\Category::class, 'dictionary_category_id')->nullable();
             $table->integer('start_year')->nullable();
             $table->integer('end_year')->nullable();
@@ -63,8 +64,8 @@ return new class extends Migration
                 'version'                => null,
                 'dictionary_category_id' => 11,
                 'featured'               => 1,
-                'level'                  => 10,
-                'years'                  => 20,
+                'level'                  => null,
+                'years'                  => null,
                 'start_year'             => null,
                 'public'                 => 1
             ],

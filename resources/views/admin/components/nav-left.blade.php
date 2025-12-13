@@ -41,6 +41,29 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
         </div>
     </div>
 
+    <div class="control ml-2 mt-2">
+
+        @if(\App\Models\System\Admin::where('public', 1)->count() > 1)
+
+            @include('admin.components.form-select-nolabel', [
+                'value'    => !empty($admin->label) ? $admin->label : '',
+                'list'     => \App\Models\System\Admin::listOptions([
+                                        'public' => 1,
+                                    ],
+                                    'label',
+                                    'name',
+                                    true,
+                                    false,
+                                    ['name', 'asc'
+                                ]),
+                'style'    => 'font-size: 1.1rem; font-weight: 700',
+                'onchange' => "document.location.href='/'+this.value;"
+            ])
+
+        @endif
+
+    </div>
+
     @foreach ($menuItems as $menuItem)
 
         <ul class="menu is-menu-main" style="font-size: 1rem;">

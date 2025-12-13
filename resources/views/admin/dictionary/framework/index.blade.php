@@ -68,15 +68,17 @@
                     </td>
                     <td class="is-1" style="white-space: nowrap;">
 
-                        <a title="show" class="button is-small px-1 py-0"
-                           href="{{ route('admin.dictionary.framework.show', $framework->id) }}">
-                            <i class="fa-solid fa-list"></i>{{-- show --}}
-                        </a>
+                        @if(canRead($framework))
+                            <a title="show" class="button is-small px-1 py-0"
+                               href="{{ route('admin.dictionary.framework.show', $framework->id) }}">
+                                <i class="fa-solid fa-list"></i>
+                            </a>
+                        @endif
 
-                        @if(isRootAdmin())
+                        @if(canUpdate($framework))
                             <a title="edit" class="button is-small px-1 py-0"
                                href="{{ route('admin.dictionary.framework.edit', $framework->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
+                                <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                         @endif
 
@@ -86,11 +88,11 @@
                                href="{{ !empty($framework->link_name) ? $framework->link_name : 'link' }}"
                                target="_blank"
                             >
-                                <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                <i class="fa-solid fa-external-link"></i>
                             </a>
                         @else
                             <a title="link" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                <i class="fa-solid fa-external-link"></i>
                             </a>
                         @endif
 
@@ -100,24 +102,26 @@
                                href="{{ $framework->wikipedia }}"
                                target="_blank"
                             >
-                                <i class="fa-solid fa-file"></i>{{-- wikipedia --}}
+                                <i class="fa-solid fa-file"></i>
                             </a>
                         @else
                             <a title="Wikipedia page" class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                <i class="fa-solid fa-file"></i>{{-- wikipedia --}}
+                                <i class="fa-solid fa-file"></i>
                             </a>
                         @endif
 
-                        <form action="{{ route('admin.dictionary.framework.destroy', $framework->id) }}"
-                              method="POST"
-                              style="display:inline-flex"
-                        >
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
-                            </button>
-                        </form>
+                        @if(canDelete($framework))
+                            <form action="{{ route('admin.dictionary.framework.destroy', $framework->id) }}"
+                                  method="POST"
+                                  style="display:inline-flex"
+                            >
+                                @csrf
+                                @method('DELETE')
+                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        @endif
 
                     </td>
                 </tr>
