@@ -27,40 +27,39 @@
         ])
 
         @if(isRootAdmin())
-                @include('admin.components.show-row', [
-                    'name'  => 'owner',
-                    'value' => $userGroup->owner->username ?? ''
-                ])
-            @endif
-
             @include('admin.components.show-row', [
-                'name'  => 'team',
-                'value' => htmlspecialchars($userGroup->team->name ?? '')
+                'name'  => 'owner',
+                'value' => $userGroup->owner->username ?? ''
             ])
+        @endif
 
-            @include('admin.components.show-row', [
-                'name'  => 'name',
-                'value' => htmlspecialchars($userGroup->name)
-            ])
+        @include('admin.components.show-row', [
+            'name'  => 'team',
+            'value' => htmlspecialchars($userGroup->team->name ?? '')
+        ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'slug',
-                'value' => $userGroup->slug
-            ])
+        @include('admin.components.show-row', [
+            'name'  => 'name',
+            'value' => htmlspecialchars($userGroup->name)
+        ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'abbreviation',
-                'value' => htmlspecialchars($userGroup->abbreviation)
-            ])
+        @include('admin.components.show-row', [
+            'name'  => 'slug',
+            'value' => $userGroup->slug
+        ])
 
-            @include('admin.components.show-row', [
-                'name'  => 'description',
-                'value' => nl2br($userGroup->description)
-            ])
+        @include('admin.components.show-row', [
+            'name'  => 'abbreviation',
+            'value' => htmlspecialchars($userGroup->abbreviation)
+        ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $userGroup->disabled
+        @include('admin.components.show-row', [
+            'name'  => 'description',
+            'value' => nl2br($userGroup->description)
+        ])
+
+        @include('admin.components.show-row-settings', [
+            'resource' => $userGroup,
         ])
 
         @include('admin.components.show-row', [

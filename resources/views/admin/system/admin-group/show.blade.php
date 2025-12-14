@@ -58,9 +58,8 @@
             'value' => nl2br($adminGroup->description)
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $adminGroup->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $adminGroup,
         ])
 
         @include('admin.components.show-row', [

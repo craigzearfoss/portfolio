@@ -69,29 +69,8 @@
             'external' => true,
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $unit->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $unit->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $unit->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $unit->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $unit->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $unit,
         ])
 
         @include('admin.components.show-row', [

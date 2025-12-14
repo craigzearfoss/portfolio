@@ -123,29 +123,8 @@
             'filename' => getFileSlug($language->name . '-thumb', $language->thumbnail)
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $language->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $language->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $language->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $language->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $language->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $language,
         ])
 
         @include('admin.components.show-row', [

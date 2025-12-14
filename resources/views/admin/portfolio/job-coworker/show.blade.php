@@ -1,12 +1,12 @@
 @extends('admin.layouts.default', [
     'title' => $jobCoworker->name,
     'breadcrumbs' => [
-        [ 'name' => 'Home',              'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',         'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs',              'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => $jobTask->job->name, 'href' => route('admin.portfolio.job.show', $jobCoworker->job) ],
-        [ 'name' => 'Coworkers',         'href' => route('admin.portfolio.job-coworker.index', ['job_id' => $jobCoworker->job->id]) ],
+        [ 'name' => 'Home',                  'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',       'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',             'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Jobs',                  'href' => route('admin.portfolio.job.index') ],
+        [ 'name' => $jobCoworker->job->name, 'href' => route('admin.portfolio.job.show', $jobCoworker->job) ],
+        [ 'name' => 'Coworkers',             'href' => route('admin.portfolio.job-coworker.index', ['job_id' => $jobCoworker->job->id]) ],
         [ 'name' => $jobCoworker->name ],
     ],
     'buttons' => [
@@ -107,29 +107,8 @@
             'external' => true,
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $jobCoworker->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $jobCoworker->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $jobCoworker->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $jobCoworker->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $jobCoworker->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $jobCoworker,
         ])
 
         @include('admin.components.show-row', [

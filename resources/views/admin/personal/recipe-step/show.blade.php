@@ -69,29 +69,8 @@
             'external' => true,
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $recipeStep->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $recipeStep->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $recipeStep->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $recipeStep->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $recipeStep->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $recipeStep,
         ])
 
         @include('admin.components.show-row', [

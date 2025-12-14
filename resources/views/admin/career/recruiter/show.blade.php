@@ -140,35 +140,8 @@
             'external' => true,
         ])
 
-        @include('admin.components.show-row', [
-            'name'    => 'sequence',
-            'checked' => $recruiter->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $recruiter->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'     => 'readonly',
-            'readonly' => 'read-only',
-            'checked'  => $recruiter->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $recruiter->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $recruiter->disabled
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'owner',
-            'value' => $recruiter->admin['username'] ?? ''
+        @include('admin.components.show-row-settings', [
+            'resource' => $recruiter,
         ])
 
         @include('admin.components.show-row', [

@@ -92,36 +92,14 @@
             'value' => view('admin.components.disclaimer', [ 'value' => $art->disclaimer ?? '' ])
         ])
 
-
         @include('admin.components.show-row-images', [
             'resource' => $art,
             'download' => true,
             'external' => true,
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $art->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $art->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $art->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $art->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $art->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $art,
         ])
 
         @include('admin.components.show-row', [

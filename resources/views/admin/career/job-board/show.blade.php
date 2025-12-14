@@ -91,30 +91,8 @@
             'external' => true,
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $jobBoard->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $jobBoard->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'readonly',
-            'label'   => 'read-only',
-            'checked' => $jobBoard->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $jobBoard->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $jobBoard->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $jobBoard,
         ])
 
         @include('admin.components.show-row', [

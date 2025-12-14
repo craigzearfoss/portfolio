@@ -95,25 +95,8 @@
             'external' => true,
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $jobSkill->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'     => 'readonly',
-            'readonly' => 'read-only',
-            'checked'  => $jobSkill->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $jobSkill->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $jobSkill->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $jobSkill,
         ])
 
         @include('admin.components.show-row', [

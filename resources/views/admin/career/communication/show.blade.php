@@ -101,30 +101,8 @@
             'value' => nl2br($communication->body ?? '')
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $communication->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $communication->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'readonly',
-            'label'   => 'read-only',
-            'checked' => $communication->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $communication->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $communication->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $communication,
         ])
 
         @include('admin.components.show-row', [

@@ -133,34 +133,8 @@
             'value' => \App\Models\System\User::statusName($admin->status)
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $admin->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $admin->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $admin->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $admin->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $admin->disabled
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'demo',
-            'checked' => $admin->demo
+        @include('admin.components.show-row-settings', [
+            'resource' => $admin,
         ])
 
         @include('admin.components.show-row-checkbox', [

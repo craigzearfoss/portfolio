@@ -136,30 +136,8 @@
             'external' => true,
         ])
 
-        @include('admin.components.show-row', [
-            'name'    => 'sequence',
-            'checked' => $contact->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $contact->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'     => 'readonly',
-            'readonly' => 'read-only',
-            'checked'  => $contact->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $contact->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $contact->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $contact,
         ])
 
         @include('admin.components.show-row', [

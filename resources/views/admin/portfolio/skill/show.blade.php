@@ -120,30 +120,8 @@
             'external' => true,
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $skill->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $skill->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'readonly',
-            'label'   => 'read-only',
-            'checked' => $skill->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $skill->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $skill->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $skill,
         ])
 
         @include('admin.components.show-row', [

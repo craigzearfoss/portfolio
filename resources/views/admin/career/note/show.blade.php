@@ -75,30 +75,8 @@
             'value' => nl2br($note->body ?? '')
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $note->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $note->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'readonly',
-            'label'   => 'read-only',
-            'checked' => $note->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $note->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $note->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $note,
         ])
 
         @include('admin.components.show-row', [

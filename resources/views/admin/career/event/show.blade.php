@@ -90,30 +90,8 @@
             'value' => nl2br($event->description ?? '')
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $event->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $event->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'readonly',
-            'label'   => 'read-only',
-            'checked' => $event->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $event->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $event->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $event,
         ])
 
         @include('admin.components.show-row', [

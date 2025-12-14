@@ -61,9 +61,8 @@ if (canCreate('admin-team')) {
             'value' => nl2br($userTeam->description)
         ])
 
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $userTeam->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $userTeam,
         ])
 
         @include('admin.components.show-row', [

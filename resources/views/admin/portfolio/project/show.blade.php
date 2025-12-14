@@ -109,34 +109,13 @@
         ])
 
         @include('admin.components.show-row-images', [
-            'resource' => $photo,
+            'resource' => $project,
             'download' => true,
             'external' => true,
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'sequence',
-            'value' => $project->sequence
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'public',
-            'checked' => $project->public
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'read-only',
-            'checked' => $project->readonly
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'root',
-            'checked' => $project->root
-        ])
-
-        @include('admin.components.show-row-checkbox', [
-            'name'    => 'disabled',
-            'checked' => $project->disabled
+        @include('admin.components.show-row-settings', [
+            'resource' => $project,
         ])
 
         @include('admin.components.show-row', [

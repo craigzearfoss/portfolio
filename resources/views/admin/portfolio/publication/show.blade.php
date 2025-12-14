@@ -178,6 +178,10 @@
             'external' => true,
         ])
 
+        @include('admin.components.show-row-settings', [
+            'resource' => $publication,
+        ])
+
     </div>
 
 @endsection
