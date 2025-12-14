@@ -21,7 +21,9 @@
     'title' => $title ?? 'Notes' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New New', 'href' => route('admin.career.note.create', !empty($application) ? ['application_id' => $application->id] : []) ],
+        canCreate('note')
+            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Note', 'href' => route('admin.career.note.create') ]]
+            : [],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

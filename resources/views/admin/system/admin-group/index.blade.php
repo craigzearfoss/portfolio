@@ -1,3 +1,12 @@
+@php
+$buttons = [];
+if (canCreate('admin-group')) {
+    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Add New Admin Group', 'href' => route('admin.system.admin-group.create') ];
+}
+if (canRead('admin-team')) {
+    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Teams', 'href' => route('admin.system.admin-team.index') ];
+}
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Admin Groups',
     'breadcrumbs' => [
@@ -6,10 +15,7 @@
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admin Groups' ]
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Admin Group', 'href' => route('admin.system.admin-group.create') ],
-        [ 'name' => '<i class="fa fa-list"></i> Admin Teams',         'href' => route('admin.system.admin-team.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
@@ -71,21 +77,27 @@
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.system.admin-group.destroy', $adminGroup->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.system.admin-group.show', $adminGroup->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- show --}}
-                            </a>
+                            @if(canRead($adminGroup))
+                                <a title="show" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.system.admin-group.show', $adminGroup->id) }}">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            @endif
 
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.system.admin-group.edit', $adminGroup->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
-                            </a>
+                            @if(canUpdate($adminGroup))
+                                <a title="edit" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.system.admin-group.edit', $adminGroup->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            @endif
 
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
-                            </button>
+                            @if(canRead($adminGroup))
+                                @csrf
+                                @method('DELETE')
+                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            @endif
                         </form>
                     </td>
                 </tr>

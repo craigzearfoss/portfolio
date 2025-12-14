@@ -1,3 +1,15 @@
+@php
+$buttons = [];
+if (canCreate('admin')) {
+    $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Admin', 'href' => route('admin.system.admin.create') ];
+}
+if (canRead('admin-team')) {
+    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Teams', 'href' => route('admin.system.admin-team.index') ];
+}
+if (canRead('admin-group')) {
+    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Groups', 'href' => route('admin.system.admin-group.index') ];
+}
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Admins',
     'breadcrumbs' => [
@@ -6,11 +18,7 @@
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admins' ]
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Admin', 'href' => route('admin.system.admin.create') ],
-        [ 'name' => '<i class="fa fa-list"></i> Admin Teams',   'href' => route('admin.system.admin-team.index') ],
-        [ 'name' => '<i class="fa fa-list"></i> Admin Groups',  'href' => route('admin.system.admin-group.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
@@ -84,15 +92,19 @@
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.system.admin.destroy', $admin->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.system.admin.show', $admin->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- show --}}
-                            </a>
+                            @if(canRead($admin))
+                                <a title="show" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.system.admin.show', $admin->id) }}">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            @endif
 
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.system.admin.edit', $admin->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
-                            </a>
+                            @if(canUpdate($admin))
+                                <a title="edit" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.system.admin.edit', $admin->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            @endif
 
                             @if (!empty($admin->link))
                                 <a title="{{ !empty($admin->link_name) ? $admin->$project : 'link' }}"
@@ -100,19 +112,21 @@
                                    href="{{ $admin->link }}"
                                    target="_blank"
                                 >
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @endif
 
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
-                            </button>
+                            @if(canDelete($admin))
+                                @csrf
+                                @method('DELETE')
+                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            @endif
                         </form>
                     </td>
                 </tr>

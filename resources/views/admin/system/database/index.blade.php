@@ -115,19 +115,25 @@
                     <td>
                         <form action="{{ route('admin.system.database.destroy', $database->id) }}" method="POST">
 
-                            <a class="button is-small px-1 py-0" href="{{ route('admin.system.database.show', $database->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- Show --}}
-                            </a>
+                            @if(canRead($database))
+                                <a class="button is-small px-1 py-0" href="{{ route('admin.system.database.show', $database->id) }}">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            @endif
 
-                            <a class="button is-small px-1 py-0" href="{{ route('admin.system.database.edit', $database->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- Edit --}}
-                            </a>
+                            @if(canUpdate($database))
+                                <a class="button is-small px-1 py-0" href="{{ route('admin.system.database.edit', $database->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            @endif
 
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- Delete --}}
-                            </button>
+                            @if(canDelete($database))
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            @endif
                         </form>
                     </td>
                 </tr>

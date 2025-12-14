@@ -1,3 +1,15 @@
+@php
+$buttons = [];
+if (canUpdate('admin-team')) {
+    $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'href' => route('admin.system.user-team.edit', $userTeam) ];
+}
+if (canRead('admin-group')) {
+    $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New User Team', 'href' => route('admin.system.user-team.create') ];
+}
+if (canCreate('admin-team')) {
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',        'href' => referer('admin.system.user-team.index') ];
+}
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'User Team: ' . $userTeam->name,
     'breadcrumbs' => [
@@ -7,11 +19,7 @@
         [ 'name' => 'User Teams',      'href' => route('admin.system.user-team.index') ],
         [ 'name' => $userTeam->name ]
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'href' => route('admin.system.user-team.edit', $userTeam) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New User Team', 'href' => route('admin.system.user-team.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',        'href' => referer('admin.system.user-team.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

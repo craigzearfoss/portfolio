@@ -7,7 +7,9 @@
         [ 'name' => 'Cover Letters' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Cover Letter', 'href' => route('admin.career.cover-letter.create') ],
+        canCreate('cover-letter')
+            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Cover Letter', 'href' => route('admin.career.cover-letter.create') ]]
+            : [],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

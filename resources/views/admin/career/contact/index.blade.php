@@ -7,7 +7,9 @@
         [ 'name' => 'Contacts' ]
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Contact', 'href' => route('admin.career.contact.create') ],
+        canCreate('contact')
+            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Contact', 'href' => route('admin.career.contact.create') ]]
+            : [],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

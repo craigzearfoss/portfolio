@@ -17,7 +17,9 @@
     'title' => !empty($job) ? $job->company . ' Skills' : 'Job Skills',
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add Job Skill', 'href' => route('admin.portfolio.job-skill.create', !empty($job) ? ['job_id' => $job->id] : []) ],
+        canCreate('job-skill')
+            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Job Skill', 'href' => route('admin.portfolio.job-skill.create') ]]
+            : [],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

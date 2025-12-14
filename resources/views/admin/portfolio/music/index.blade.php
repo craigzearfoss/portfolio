@@ -7,7 +7,9 @@
         [ 'name' => 'Music' ],
     ],
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Music', 'href' => route('admin.portfolio.music.create') ],
+        canCreate('music')
+            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Music', 'href' => route('admin.portfolio.music.create') ]]
+            : [],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

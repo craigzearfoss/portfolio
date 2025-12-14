@@ -21,7 +21,9 @@
     'title' => $title ?? 'Events' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'href' => route('admin.career.event.create', !empty($application) ? ['application_id' => $application->id] : []) ],
+        canCreate('event')
+            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'href' => route('admin.career.event.create') ]]
+            : [],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

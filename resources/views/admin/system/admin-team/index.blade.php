@@ -1,3 +1,12 @@
+@php
+$buttons = [];
+if (canCreate('admin-team')) {
+    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Add New Admin Team', 'href' => route('admin.system.admin-team.create') ];
+}
+if (canRead('admin-group')) {
+    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Groups', 'href' => route('admin.system.admin-group.index') ];
+}
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Admin Teams',
     'breadcrumbs' => [
@@ -6,10 +15,7 @@
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admin Teams' ]
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Admin Team', 'href' => route('admin.system.admin-team.create') ],
-        [ 'name' => '<i class="fa fa-list"></i> Admin Groups',       'href' => route('admin.system.admin-group.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
@@ -66,21 +72,27 @@
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.system.admin-team.destroy', $adminTeam->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.system.admin-team.show', $adminTeam->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- show --}}
-                            </a>
+                            @if(canRead($adminTeam))
+                                <a title="show" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.system.admin-team.show', $adminTeam->id) }}">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            @endif
 
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.system.admin-team.edit', $adminTeam->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
-                            </a>
+                            @if(canUpdate($adminTeam))
+                                <a title="edit" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.system.admin-team.edit', $adminTeam->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            @endif
 
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{-- delete --}}
-                            </button>
+                            @if(canDelete($adminTeam))
+                                @csrf
+                                @method('DELETE')
+                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            @endif
                         </form>
                     </td>
                 </tr>

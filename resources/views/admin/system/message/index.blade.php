@@ -58,26 +58,32 @@
                     </td>
                     <td style="white-space: nowrap;">
 
-                        <a class="btn btn-sm" href="{{ route('admin.system.message.show', $message->id) }}">
-                            <i class="fa-solid fa-list"></i>{{-- show --}}
-                        </a>
+                        @if(canRead($message))
+                            <a class="btn btn-sm" href="{{ route('admin.system.message.show', $message->id) }}">
+                                <i class="fa-solid fa-list"></i>
+                            </a>
+                        @endif
 
                         <?php /*
-                        <a class="btn btn-sm" href="{{ route('admin.system.message.edit', $message->id) }}">
-                            <i class="fa-solid fa-pen-to-square"></i>{{-- edit--}}
-                        </a>
+                        @if(canUpdate($message))
+                            <a class="btn btn-sm" href="{{ route('admin.system.message.edit', $message->id) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        @endif
                         */ ?>
 
-                        <form action="{{ route('admin.system.message.destroy', $message->id) }}"
-                              method="POST"
-                              style="display: inline-block;"
-                        >
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm">
-                                <i class="fa-solid fa-trash"></i>{{-- delete--}}
-                            </button>
-                        </form>
+                        @if(canDelete($message))
+                            <form action="{{ route('admin.system.message.destroy', $message->id) }}"
+                                  method="POST"
+                                  style="display: inline-block;"
+                            >
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        @endif
 
                     </td>
                 </tr>

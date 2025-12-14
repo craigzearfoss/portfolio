@@ -109,25 +109,32 @@
                     <td style="white-space: nowrap;">
 
                         <?php /*
-                        <a class="btn btn-sm" href="{{ route('admin.system.menu-item.show', $menuItem->id) }}">
-                            <i class="fa-solid fa-list"></i>{{-- show --}}
-                        </a>
+                        @if(canRead($menuItem))
+                            <a class="btn btn-sm" href="{{ route('admin.system.menu-item.show', $menuItem->id) }}">
+                                <i class="fa-solid fa-list"></i>
+                            </a>
+                        @endif
 
                         <?php /*
-                        <a class="btn btn-sm" href="{{ route('admin.system.menu-item.edit', $menuItem->id) }}">
-                            <i class="fa-solid fa-pen-to-square"></i>{{-- edit--}}
-                        </a>
+                        @if(canUpdate($menuItem))
+                            <a class="btn btn-sm" href="{{ route('admin.system.menu-item.edit', $menuItem->id) }}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        @endif
                         * / ?>
 
                         <form action="{{ route('admin.system.menu-item.destroy', $menuItem->id) }}"
                               method="POST"
                               style="display: inline-block;"
                         >
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm">
-                                <i class="fa-solid fa-trash"></i>{{-- delete--}}
-                            </button>
+
+                            @if(canDelete($menuItem))
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            @endif
                         </form>
                         */ ?>
 

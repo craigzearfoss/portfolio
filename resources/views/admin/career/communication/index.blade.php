@@ -21,7 +21,9 @@
     'title' => $title ?? 'Communications' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.communication.create', !empty($application) ? ['application_id' => $application->id] : []) ],
+        canCreate('communication')
+            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.communication.create') ]]
+            : [],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

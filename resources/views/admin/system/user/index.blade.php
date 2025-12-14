@@ -1,3 +1,15 @@
+@php
+$buttons = [];
+if (canCreate('user')) {
+    $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'href' => route('admin.system.user.create') ];
+}
+if (canRead('user-team')) {
+    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Teams', 'href' => route('admin.system.user-team.index') ];
+}
+if (canRead('user-group')) {
+    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Groups', 'href' => route('admin.system.user-group.index') ];
+}
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Users',
     'breadcrumbs' => [
@@ -6,11 +18,7 @@
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Users' ]
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'href' => route('admin.system.user.create') ],
-        [ 'name' => '<i class="fa fa-list"></i> User Teams',   'href' => route('admin.system.user-team.index') ],
-        [ 'name' => '<i class="fa fa-list"></i> User Groups',  'href' => route('admin.system.user-group.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
@@ -71,10 +79,12 @@
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.system.user.destroy', $user->id) }}" method="POST">
 
-                            <a title="show" class="button is-small px-1 py-0"
-                               href="{{ route('admin.system.user.show', $user->id) }}">
-                                <i class="fa-solid fa-list"></i>{{-- show --}}
-                            </a>
+                            @if(canRead($userGroup))
+                                <a title="show" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.system.user.show', $user->id) }}">
+                                    <i class="fa-solid fa-list"></i>
+                                </a>
+                            @endif
 
                             @if (!empty($user->link))
                                 <a title="{{ !empty($user->link_name) ? $user->link_name : 'link' }}"
@@ -82,29 +92,35 @@
                                    href="{{ $user->link }}"
                                    target="_blank"
                                 >
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @else
                                 <a class="button is-small px-1 py-0" style="cursor: default; opacity: 0.5;">
-                                    <i class="fa-solid fa-external-link"></i>{{-- link --}}
+                                    <i class="fa-solid fa-external-link"></i>
                                 </a>
                             @endif
 
-                            <a title="edit" class="button is-small px-1 py-0"
-                               href="{{ route('admin.system.user.edit', $user->id) }}">
-                                <i class="fa-solid fa-pen-to-square"></i>{{-- edit --}}
-                            </a>
+                            @if(canUpdate($userGroup))
+                                <a title="edit" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.system.user.edit', $user->id) }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            @endif
 
-                            <a title="change password" class="button is-small px-1 py-0"
-                               href="{{ route('admin.system.user.change-password', $user->id) }}">
-                                <i class="fa-solid fa-key"></i>{{-- change password --}}
-                            </a>
+                            @if(canUpdate($userGroup))
+                                <a title="change password" class="button is-small px-1 py-0"
+                                   href="{{ route('admin.system.user.change-password', $user->id) }}">
+                                    <i class="fa-solid fa-key"></i>
+                                </a>
+                            @endif
 
-                            @csrf
-                            @method('DELETE')
-                            <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
-                                <i class="fa-solid fa-trash"></i>{{--  Delete--}}
-                            </button>
+                            @if(canDelete($userGroup))
+                                @csrf
+                                @method('DELETE')
+                                <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            @endif
                         </form>
                     </td>
                 </tr>

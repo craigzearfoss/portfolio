@@ -21,7 +21,9 @@ if (!empty($resume)) {
     'title' => 'Applications' . (!empty($resume) ? ' for ' . $resume->name . ' resume' : ''),
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Create a New Application', 'href' => route('admin.career.application.create') ],
+        canCreate('application')
+            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Application', 'href' => route('admin.career.application.create') ]]
+            : [],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

@@ -17,7 +17,9 @@
     'title' => !empty($job) ? $job->company . ' Tasks' : 'Job Tasks',
     'breadcrumbs' =>$breadcrumbs,
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add Job Task', 'href' => route('admin.portfolio.job-task.create', !empty($job) ? ['job_id' => $job->id] : []) ],
+        canCreate('job-task')
+            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Job Task', 'href' => route('admin.portfolio.job-task.create') ]]
+            : [],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,

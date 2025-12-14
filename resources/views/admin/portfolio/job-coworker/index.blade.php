@@ -17,7 +17,9 @@
     'title' => !empty($job) ? $job->company . ' Coworkers' : 'Job Coworkers',
     'breadcrumbs' => $breadcrumbs,
     'buttons' => [
-        [ 'name' => '<i class="fa fa-plus"></i> Add Job Coworker', 'href' => route('admin.portfolio.job-coworker.create', !empty($job) ? ['job_id' => $job->id] : []) ],
+        canCreate('job-coworker')
+            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'href' => route('admin.portfolio.job-coworker.create') ]]
+            : [],
     ],
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
