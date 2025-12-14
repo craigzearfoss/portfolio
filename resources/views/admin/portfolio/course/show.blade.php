@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($course)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.course.edit', $course) ];
+    }
+    if (canCreate($course)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Course', 'href' => route('admin.portfolio.course.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.course.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Course: ' . $course->name,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Courses',         'href' => route('admin.portfolio.course.index') ],
         [ 'name' => $course->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'href' => route('admin.portfolio.course.edit', $course) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Course', 'href' => route('admin.portfolio.course.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'href' => referer('admin.portfolio.course.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

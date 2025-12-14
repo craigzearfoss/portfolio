@@ -1,17 +1,23 @@
+@php
+    $buttons = [];
+    if (canUpdate($photo)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.photography.edit', $photo) ];
+    }
+    if (canCreate($photo)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Photo', 'href' => route('admin.portfolio.photography.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.photography.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Art: ' . $photo->name,
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Art',             'href' => route('admin.portfolio.photography.index') ],
+        [ 'name' => 'Photo',           'href' => route('admin.portfolio.photography.index') ],
         [ 'name' => $photo->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.photography.edit', $photo) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Art',   'href' => route('admin.portfolio.photography.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.photography.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

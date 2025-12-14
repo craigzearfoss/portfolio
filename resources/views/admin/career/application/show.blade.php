@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($application)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.application.edit', $application) ];
+    }
+    if (canCreate($application)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Application', 'href' => route('admin.career.application.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.application.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Application: ' . $application->name,
     'breadcrumbs' => [

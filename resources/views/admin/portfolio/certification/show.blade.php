@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($certification)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.certification.edit', $certification) ];
+    }
+    if (canCreate($certification)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Certification', 'href' => route('admin.portfolio.certification.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.certification.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Certification: ' . $certification->name,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Certifications',  'href' => route('admin.portfolio.certification.index') ],
         [ 'name' => $certification->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.portfolio.certification.edit', $certification) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Certification', 'href' => route('admin.portfolio.certification.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'href' => referer('admin.portfolio.certification.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

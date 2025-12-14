@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($contact)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.contact.edit', $contact) ];
+    }
+    if (canCreate($contact)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Contact', 'href' => route('admin.career.contact.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.contact.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Contact: ' . $contact->name,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Contacts',        'href' => route('admin.career.contact.index') ],
         [ 'name' => $contact->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.career.contact.edit', $contact) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Contact', 'href' => route('admin.career.contact.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'href' => referer('admin.career.contact.index') ],
-    ],
+    'buttons' => $butons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

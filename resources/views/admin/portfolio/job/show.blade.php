@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($job)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.job.edit', $job) ];
+    }
+    if (canCreate($job)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Job', 'href' => route('admin.portfolio.job.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.job.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Job: ' . $job->name,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Jobs',            'href' => route('admin.portfolio.job.index') ],
         [ 'name' => $job->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.job.edit', $job) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Job',   'href' => route('admin.portfolio.job.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.job-task.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

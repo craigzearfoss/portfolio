@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($link)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.link.edit', $link) ];
+    }
+    if (canCreate($link)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Link', 'href' => route('admin.portfolio.link.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.link.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Link: ' . $link->name,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Links',           'href' => route('admin.portfolio.link.index') ],
         [ 'name' => $link->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.link.edit', $link) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Link',  'href' => route('admin.portfolio.link.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.link.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

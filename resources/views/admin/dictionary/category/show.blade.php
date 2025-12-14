@@ -1,3 +1,11 @@
+@php
+    $buttons = [];
+    if (isRootAdmin()) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.dictionary.category.edit', $category) ];
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Category', 'href' => route('admin.dictionary.category.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.dictionary.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => $category->name . ' (category)',
     'breadcrumbs' => [
@@ -7,15 +15,7 @@
         [ 'name' => 'Categories',      'href' => route('admin.dictionary.category.index') ],
         [ 'name' => $category->name ],
     ],
-    'buttons' => isRootAdmin()
-            ? [
-                [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.dictionary.category.edit', $category) ],
-                [ 'name' => '<i class="fa fa-plus"></i> Add New Category', 'href' => route('admin.dictionary.category.create') ],
-                [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.dictionary.index') ],
-              ]
-            : [
-                [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.dictionary.index') ],
-              ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

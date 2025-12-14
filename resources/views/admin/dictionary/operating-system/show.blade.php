@@ -1,3 +1,11 @@
+@php
+    $buttons = [];
+    if (isRootAdmin()) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',            'href' => route('admin.dictionary.operating-system.edit', $operatingSystem) ];
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Operating System', 'href' => route('admin.dictionary.operating-system.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.dictionary.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => $operatingSystem->name . ' (operating system)',
     'breadcrumbs' => [
@@ -7,15 +15,7 @@
         [ 'name' => 'Operating Systems', 'href' => route('admin.dictionary.operating-system.index') ],
         [ 'name' => $operatingSystem->name ],
     ],
-    'buttons' => isRootAdmin()
-            ? [
-                [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',             'href' => route('admin.dictionary.operating-system.edit', $operatingSystem) ],
-                [ 'name' => '<i class="fa fa-plus"></i> Add New Operating Systems', 'href' => route('admin.dictionary.operating-system.create') ],
-                [ 'name' => '<i class="fa fa-arrow-left"></i> Back',                'href' => referer('admin.dictionary.index') ],
-              ]
-            : [
-                [ 'name' => '<i class="fa fa-arrow-left"></i> Back',                'href' => referer('admin.dictionary.index') ],
-              ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

@@ -18,15 +18,20 @@
             [ 'name' => 'Note' ]
         ];
     }
+
+    $buttons = [];
+    if (canUpdate($note)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.note.edit', $note) ];
+    }
+    if (canCreate($note)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Note', 'href' => route('admin.career.note.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.note.index') ];
 @endphp
 @extends('admin.layouts.default', [
     'title' => $title ?? 'Note' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs' => $breadcrumbs,
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.note.edit', $note) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Note',  'href' => route('admin.career.note.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.note.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

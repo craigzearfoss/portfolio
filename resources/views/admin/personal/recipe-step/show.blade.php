@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($recipeStep)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.personal.recipe-step.edit', $recipeStep) ];
+    }
+    if (canCreate($recipeStep)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Step', 'href' => route('admin.personal.recipe-step.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.personal.recipe-step.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step,
     'breadcrumbs' => [
@@ -8,11 +18,7 @@
         [ 'name' => $recipeStep->recipe['name'], 'href' => route('admin.personal.recipe.show', $recipeStep->recipe) ],
         [ 'name' => 'Step ' . $recipeStep->step ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.personal.recipe-step.edit', $recipeStep) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Step',  'href' => route('admin.personal.recipe-step.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.personal.recipe-step.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

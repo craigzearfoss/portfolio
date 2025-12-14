@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($award)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.award.edit', $award) ];
+    }
+    if (canCreate($award)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Award', 'href' => route('admin.portfolio.award.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.award.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Award: ' . $award->name,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Award',           'href' => route('admin.portfolio.award.index') ],
         [ 'name' => $award->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.award.edit', $award) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Award', 'href' => route('admin.portfolio.award.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.award.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

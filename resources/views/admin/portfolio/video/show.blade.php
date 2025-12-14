@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($video)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.video.edit', $video) ];
+    }
+    if (canCreate($video)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Video', 'href' => route('admin.portfolio.video.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.video.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Video: ' . $video->name,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Video',           'href' => route('admin.portfolio.video.index') ],
         [ 'name' => $video->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.video.edit', $video) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Video', 'href' => route('admin.portfolio.video.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.video.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

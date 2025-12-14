@@ -1,4 +1,14 @@
 @php
+    $buttons = [];
+    if (canUpdate($communication)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.communication.edit', $communication) ];
+    }
+    if (canCreate($communication)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.communication.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.communication.index') ];
+@endphp
+@php
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('system.index') ],
@@ -22,11 +32,7 @@
 @extends('admin.layouts.default', [
     'title' => $title ?? 'Communication' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs' => $breadcruumbs,
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',         'href' => route('admin.career.communication.edit', $communication) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.communication.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',            'href' => referer('admin.career.communication.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

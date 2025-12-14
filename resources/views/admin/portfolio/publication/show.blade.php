@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($publication)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.publication.edit', $publication) ];
+    }
+    if (canCreate($publication)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Publication', 'href' => route('admin.portfolio.publication.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.publication.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Publication: ' . $publication->title,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Publications',    'href' => route('admin.portfolio.publication.index') ],
         [ 'name' => $publication->title ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',       'href' => route('admin.portfolio.publication.edit', $publication) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Publication', 'href' => route('admin.portfolio.publication.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',          'href' => referer('admin.portfolio.publication.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

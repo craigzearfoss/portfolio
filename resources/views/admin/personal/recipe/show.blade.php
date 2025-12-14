@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($recipe)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.personal.recipe.edit', $recipe) ];
+    }
+    if (canCreate($recipe)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe', 'href' => route('admin.personal.recipe.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.personal.recipe.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Recipe: ' . $recipe->name,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
         [ 'name' => $recipe->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'href' => route('admin.personal.recipe.edit', $recipe) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe', 'href' => route('admin.personal.recipe.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'href' => referer('admin.personal.recipe.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

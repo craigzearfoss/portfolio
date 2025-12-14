@@ -1,3 +1,11 @@
+@php
+    $buttons = [];
+    if (isRootAdmin()) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.dictionary.library.edit', $library) ];
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Library', 'href' => route('admin.dictionary.library.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.dictionary.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => $library->name . ' (library)',
     'breadcrumbs' => [
@@ -7,15 +15,7 @@
         [ 'name' => 'Libraries',       'href' => route('admin.dictionary.library.index') ],
         [ 'name' => $library->name ],
     ],
-    'buttons' => isRootAdmin()
-            ? [
-                [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.dictionary.library.edit', $library) ],
-                [ 'name' => '<i class="fa fa-plus"></i> Add New Library', 'href' => route('admin.dictionary.library.create') ],
-                [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'href' => referer('admin.dictionary.index') ],
-              ]
-            : [
-                [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'href' => referer('admin.dictionary.index') ],
-              ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

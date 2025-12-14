@@ -1,3 +1,11 @@
+@php
+    $buttons = [];
+    if (isRootAdmin()) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.dictionary.language.edit', $language) ];
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Language', 'href' => route('admin.dictionary.language.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.dictionary.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => $language->name . ' (language)',
     'breadcrumbs' => [
@@ -7,15 +15,7 @@
         [ 'name' => 'Languages',       'href' => route('admin.dictionary.language.index') ],
         [ 'name' => $language->name ],
     ],
-    'buttons' => isRootAdmin()
-            ? [
-                [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.dictionary.language.edit', $language) ],
-                [ 'name' => '<i class="fa fa-plus"></i> Add New Language', 'href' => route('admin.dictionary.language.create') ],
-                [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.dictionary.index') ],
-              ]
-            : [
-                [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.dictionary.index') ],
-              ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

@@ -16,7 +16,17 @@
             [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ]
         ];
     }
+
+    $buttons = [];
+    if (canUpdate($resume)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.resume.edit', $resume) ];
+    }
+    if (canCreate($resume)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.career.resume.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.resume.index') ];
 @endphp
+
 @extends('admin.layouts.default', [
     'title' => $title ?? 'Resume: ' . $resume->name . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs' => [
@@ -26,11 +36,7 @@
         [ 'name' => 'Resumes',         'href' => route('admin.career.resume.index') ],
         [ 'name' => $resume->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'href' => route('admin.career.resume.edit', $resume) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.career.resume.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',     'href' => referer('admin.career.resume.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

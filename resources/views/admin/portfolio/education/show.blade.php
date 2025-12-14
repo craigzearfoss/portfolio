@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($education)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.education.edit', $education) ];
+    }
+    if (canCreate($education)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Education', 'href' => route('admin.portfolio.education.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.education.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Education: ' . $education->degreeType->name . ' ' . $education->major,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Education',       'href' => route('admin.portfolio.education.index') ],
         [ 'name' => $education->degreeType->name . ' ' . $education->major ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'href' => route('admin.portfolio.education.edit', $education) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Education', 'href' => route('admin.portfolio.education.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',        'href' => referer('admin.portfolio.education.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

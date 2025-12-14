@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($recruiter)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.recruiter.edit', $recruiter) ];
+    }
+    if (canCreate($recruiter)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recruiter', 'href' => route('admin.career.recruiter.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.recruiter.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Recruiter: ' . $recruiter->name,
     'breadcrumbs' => [

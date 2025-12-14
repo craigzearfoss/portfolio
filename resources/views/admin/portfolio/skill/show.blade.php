@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($skill)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.skill.edit', $skill) ];
+    }
+    if (canCreate($skill)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Skill', 'href' => route('admin.portfolio.skill.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.skill.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Skill: ' . $skill->name,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Skills',          'href' => route('admin.portfolio.skill.index') ],
         [ 'name' => $skill->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.skill.edit', $skill) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Skill', 'href' => route('admin.portfolio.skill.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.skill.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

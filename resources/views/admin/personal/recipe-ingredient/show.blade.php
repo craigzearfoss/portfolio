@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($recipeIngredient)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.personal.recipe-ingredient.edit', $recipeIngredient) ];
+    }
+    if (canCreate($recipeIngredient)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.personal.recipe-ingredient.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Recipe Ingredient: ' . $recipeIngredient->name,
     'breadcrumbs' => [
@@ -8,11 +18,7 @@
         [ 'name' => 'Ingredients',     'href' => route('admin.personal.recipe-ingredient.index') ],
         [ 'name' => $recipeIngredient->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',             'href' => route('admin.personal.recipe-ingredient.edit', $recipeIngredient) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',                'href' => referer('admin.personal.recipe-ingredient.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

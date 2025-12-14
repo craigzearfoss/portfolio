@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($unit)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.personal.unit.edit', $unit) ];
+    }
+    if (canCreate($unit)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Unit', 'href' => route('admin.personal.unit.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.personal.unit.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Unit: ' . $unit->name,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Units',           'href' => route('admin.personal.unit.index') ],
         [ 'name' => $unit->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.personal.unit.edit', $unit) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Unit',  'href' => route('admin.personal.unit.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.personal.unit.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

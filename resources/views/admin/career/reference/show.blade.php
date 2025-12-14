@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($reference)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.reference.edit', $reference) ];
+    }
+    if (canCreate($reference)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Reference', 'href' => route('admin.career.reference.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.reference.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Reference: ' . $reference->name,
     'breadcrumbs' => [

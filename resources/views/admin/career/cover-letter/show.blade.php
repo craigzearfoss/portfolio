@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($coverLetter)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.cover-letter.edit', $coverLetter) ];
+    }
+    if (canCreate($coverLetter)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Cover Letter', 'href' => route('admin.career.cover-letter.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.cover-letter.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Cover Letter: ' . $coverLetter->name,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => $coverLetter->name, 'href' => route('admin.career.application.show', $coverLetter->application)],
         [ 'name' => 'Cover Letters' ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',        'href' => route('admin.career.cover-letter.edit', $coverLetter) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Cover Letter', 'href' => route('admin.career.cover-letter.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',           'href' => referer('admin.career.cover-letter.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

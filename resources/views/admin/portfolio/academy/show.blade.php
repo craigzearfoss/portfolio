@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($academy)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.academy.edit', $academy) ];
+    }
+    if (canCreate($academy)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Academy', 'href' => route('admin.portfolio.academy.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.academy.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Academy: ' . $academy->name,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Academies',       'href' => route('admin.portfolio.academy.index') ],
         [ 'name' => $academy->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.portfolio.academy.edit', $academy) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Academy', 'href' => route('admin.portfolio.academy.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'href' => referer('admin.portfolio.academy.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

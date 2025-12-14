@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($art)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.art.edit', $art) ];
+    }
+    if (canCreate($art)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Art', 'href' => route('admin.portfolio.art.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.art.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'Art: ' . $art->name,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Art',             'href' => route('admin.portfolio.art.index') ],
         [ 'name' => $art->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.art.edit', $art) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Art',   'href' => route('admin.portfolio.art.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.art.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,

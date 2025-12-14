@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($school)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.school.edit', $school) ];
+    }
+    if (canCreate($school)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New School', 'href' => route('admin.portfolio.school.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.school.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => 'School: ' . $school->name,
     'breadcrumbs' => [
@@ -7,11 +17,7 @@
         [ 'name' => 'Schools',         'href' => route('admin.portfolio.school.index') ],
         [ 'name' => $school->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.school.edit', $school) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New School',   'href' => route('admin.portfolio.school.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.school-task.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
