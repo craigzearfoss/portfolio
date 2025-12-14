@@ -65,14 +65,8 @@
                        ])
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'latitude',
-            'value' => $school->latitude
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'longitude',
-            'value' => $school->longitude
+        @include('admin.components.show-row-coordinates', [
+            'resource' => $school
         ])
 
         @include('admin.components.show-row', [

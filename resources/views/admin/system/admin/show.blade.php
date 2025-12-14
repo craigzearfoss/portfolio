@@ -75,14 +75,8 @@
                        ])
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'latitude',
-            'value' => $admin->latitude
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'longitude',
-            'value' => $admin->longitude
+        @include('admin.components.show-row-coordinates', [
+            'resource' => $admin
         ])
 
         @include('admin.components.show-row', [

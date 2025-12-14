@@ -158,14 +158,8 @@
            ])
         ])
 
-        @include('admin.components.show-row', [
-            'name'  => 'latitude',
-            'value' => $application->latitude
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'longitude',
-            'value' => $application->longitude
+        @include('admin.components.show-row-coordinates', [
+            'resource' => $application
         ])
 
         @include('admin.components.show-row', [
