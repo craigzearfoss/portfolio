@@ -23,6 +23,8 @@ echo -e "sudo chmod -R 775 $PROJECT_DIR/bootstrap/cache"
 sudo chmod -R 775 $PROJECT_DIR/bootstrap/cache
 echo -e "sudo chmod -R 775 $PROJECT_DIR/logs"
 sudo chmod -R 775 $PROJECT_DIR/logs
+echo -e "sudo chmod -R 775 $PROJECT_DIR/public/images"
+sudo chmod -R 775 $PROJECT_DIR/public/images
 echo -e "chmod +x tools/update_permissions.sh\n"
 sudo chmod +x $PROJECT_DIR/tools/update_permissions.sh
 echo -e "chmod +x $PROJECT_DIR/tools/update_project.sh\n"
