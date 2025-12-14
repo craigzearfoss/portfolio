@@ -33,6 +33,8 @@ class UserTeam extends Model
         'slug',
         'description',
         'image',
+        'image_credit',
+        'image_source',
         'thumbnail',
         'logo',
         'logo_small',

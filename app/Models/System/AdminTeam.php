@@ -34,6 +34,8 @@ class AdminTeam extends Model
         'abbreviation',
         'description',
         'image',
+        'image_credit',
+        'image_source',
         'thumbnail',
         'logo',
         'logo_small',

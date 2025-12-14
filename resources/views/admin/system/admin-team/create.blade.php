@@ -68,11 +68,11 @@
                 'message' => $message ?? '',
             ])
 
-            @include('admin.components.form-file-upload-horizontal', [
-                'image'     => 'image',
-                'value'     => old('image') ?? '',
-                'maxlength' => 500,
-                'message'   => $message ?? '',
+            @include('admin.components.form-image-horizontal', [
+                'image'   => old('image') ?? '',
+                'credit'  => old('image_credit') ?? '',
+                'source'  => old('image_source') ?? '',
+                'message' => $message ?? '',
             ])
 
             @include('admin.components.form-file-upload-horizontal', [

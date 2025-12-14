@@ -70,6 +70,8 @@ class StoreAdminTeamsRequest extends FormRequest
             ],
             'description'  => ['nullable'],
             'image'        => ['string', 'max:500', 'nullable'],
+            'image_credit' => ['string', 'max:255', 'nullable'],
+            'image_source' => ['string', 'max:255', 'nullable'],
             'thumbnail'    => ['string', 'max:500', 'nullable'],
             'logo'         => ['string', 'max:500', 'nullable'],
             'logo_small'   => ['string', 'max:500', 'nullable'],
