@@ -27,7 +27,7 @@
             @csrf
             @method('PUT')
 
-            @include('admin.components.form-hidden', [
+            @include('user.components.form-hidden', [
                 'name'  => 'referer',
                 'value' => Request::header('referer')
             ])

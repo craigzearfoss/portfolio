@@ -23,9 +23,7 @@ class StackController extends BaseGuestController
     {
         $perPage = $request->query('per_page', $this->perPage);
 
-        $stacks = Stack::where('disabled', 0)
-            ->where('public', 1)
-            ->where('name', '!=', 'other')
+        $stacks = Stack::where('name', '!=', 'other')
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 

@@ -49,6 +49,13 @@ class ApplicationSkill extends Model
         'demo'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
 
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::addGlobalScope(new AdminGlobalScope());
+    }
+
     /**
      * Get the owner of the application skill.
      */

@@ -35,7 +35,7 @@
 
             <div class="column is-one-third pt-0">
 
-                @include('admin.components.image', [
+                @include('guest.components.image', [
                     'name'     => 'image',
                     'src'      => $admin->image,
                     'alt'      => $admin->name,

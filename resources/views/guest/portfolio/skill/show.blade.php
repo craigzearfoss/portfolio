@@ -35,21 +35,21 @@
         @endif
 
         <?php /*
-        @include('admin.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $skill->featured
         ])
         */ ?>
 
         @if(!empty($skill->summary))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'summary',
                 'value' => $skill->summary
             ])
         @endif
 
         @if(!empty($skill->level))
-            @include('admin.components.show-row-rating', [
+            @include('guest.components.show-row-rating', [
                 'name'  => 'level',
                 'label' => "({$skill->level} out of 10)",
                 'value' => $skill->level
@@ -57,14 +57,14 @@
         @endif
 
         @if(!empty($skill->category))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'category',
                 'value' => $skill->category->name ?? ''
             ])
         @endif
 
         @if(!empty($skill->start_year))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'start year',
                 'value' => $skill->start_year
             ])
@@ -82,7 +82,7 @@
         }
         @endphp
         @if(!empty($skill->years))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'years',
                 'value' => $years
             ])

@@ -150,6 +150,8 @@ class CopySourceImages extends Command
                                                     }
 
                                                     if (File::exists($destFile) && !$this->overwrite) {
+
+                                                        // the file already exists
                                                         echo '    Skipping ' . $itemName . PHP_EOL;
 
                                                     } elseif ($this->overwrite || !File::exists($destFile)) {

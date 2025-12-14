@@ -273,42 +273,6 @@ if (! function_exists('formatCompensation')) {
     }
 }
 
-if (! function_exists('canDelete')) {
-    /**
-     * Returns true if admin/user/guest can delete the specified resource.
-     *
-     * @param $resource
-     * @param int|null $adminId
-     * @return bool
-     */
-    function canDelete($resource, int|null $adminId = null): bool
-    {
-        if (!empty($adminId)) {
-            if (!$admin = \App\Models\Admin::find($adminId)) {
-                return false;
-            }
-        } else {
-            if (Auth::guard('admin')->check()) {
-                if (!$admin = Auth::guard('admin')->user()) {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
-
-        if ($admin->root) {
-            // root admins can delete anything
-            return true;
-        } elseif (!empty($resource->owner_id) && ($resource->owner_id == $admin->id)) {
-            // non-root admins can delete their own resources
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-
 if (! function_exists('formatLocation')) {
     /**
      * Returns a formatted address.
@@ -472,7 +436,11 @@ if (! function_exists('imageUrl')) {
         } elseif ('https://' === strtolower(substr($source, 0, 8))) {
             return $source;
         } else {
-            return asset($source);
+            if ($imageUrl = config('app.image_url')) {
+                return $imageUrl . '/' . $source;
+            } else {
+                return asset($source);
+            }
         }
     }
 }

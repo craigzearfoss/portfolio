@@ -30,8 +30,8 @@
             <tr data-id="{{ $admin->id }}">
                 <td data-field="thumbnail" style="width: 32px;">
                     @if(!empty($admin->thumbnail))
-                        @include('guest.components.link', [
-                            'name' => view('guest.components.image', [
+                        @include('admin.components.link', [
+                            'name' => view('admin.components.image', [
                                             'src'      => $admin->thumbnail,
                                             'alt'      => 'profile image',
                                             'width'    => '30px',
@@ -42,7 +42,7 @@
                     @endif
                 </td>
                 <td data-field="name">
-                    @include('guest.components.link', [
+                    @include('admin.components.link', [
                         'name' => !empty($admin->name) ? $admin->name : $admin->label,
                         'href' => route('admin.system.admin.show', $admin),
                     ])

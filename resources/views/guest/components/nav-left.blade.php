@@ -11,7 +11,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
             @if(isAdmin())
 
-                @include('admin.components.link', [
+                @include('guest.components.link', [
                     'name'  => 'Home',
                     'href'  => route('system.index'),
                     'class' => 'has-text-primary',
@@ -20,7 +20,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
                 /
 
-                @include('admin.components.link', [
+                @include('guest.components.link', [
                     'name'  => 'Admin',
                     'href'  => route('admin.index'),
                     'class' => 'has-text-primary',
@@ -29,7 +29,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
             @else
 
-                @include('admin.components.link', [
+                @include('guest.components.link', [
                     'name'  => 'Home',
                     'href'  => route('system.index'),
                     'class' => 'has-text-primary',
@@ -45,7 +45,7 @@ $menuItems = (new \App\Services\MenuService())->getLeftMenu(
 
         @if(\App\Models\System\Admin::where('public', 1)->count() > 1)
 
-            @include('admin.components.form-select-nolabel', [
+            @include('guest.components.form-select-nolabel', [
                 'value'    => !empty($admin->label) ? $admin->label : '',
                 'list'     => \App\Models\System\Admin::listOptions([
                                         'public' => 1,

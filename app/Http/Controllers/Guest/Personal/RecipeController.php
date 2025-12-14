@@ -26,8 +26,6 @@ class RecipeController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage);
 
         $recipes = Recipe::where('owner_id', $admin->id)
-            ->where('public', 1)
-            ->where('disabled', 0)
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 

@@ -26,8 +26,6 @@ class LinkController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage);
 
         $links = Link::where('owner_id', $admin->id)
-            ->where('public', 1)
-            ->where('disabled', 0)
             ->orderBy('sequence', 'asc')
             ->paginate($perPage);
 

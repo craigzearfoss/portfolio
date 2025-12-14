@@ -2,6 +2,7 @@
 
 namespace App\Models\Dictionary;
 
+use App\Models\Scopes\AdminGlobalScope;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 
@@ -50,6 +51,13 @@ class Framework extends Model
      */
     const SEARCH_COLUMNS = ['id', 'name', 'full_name', 'abbreviation', 'open_source', 'proprietary', 'compiled', 'owner'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::addGlobalScope(new AdminGlobalScope());
+    }
 
     /**
      * Return the languages for the framework.

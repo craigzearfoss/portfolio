@@ -69,13 +69,13 @@
                         {{ $education->school->name }}
                     </td>
                     <td data-field="graduated" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $education->graduated ])
+                        @include('guest.components.checkmark', [ 'checked' => $education->graduated ])
                     </td>
                     <td data-field="graduation_month|graduation_year">
                         {{ $education->graduation_year }}
                     </td>
                     <td data-field="currently_enrolled" class="has-text-centered">
-                        @include('admin.components.checkmark', [ 'checked' => $education->currently_enrolled ])
+                        @include('guest.components.checkmark', [ 'checked' => $education->currently_enrolled ])
                     </td>
                 </tr>
 

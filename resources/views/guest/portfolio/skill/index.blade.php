@@ -54,7 +54,7 @@
                     </td>
                     <td data-field="level" style="white-space: nowrap;" class="is">
                         @if(!empty($skill->level))
-                            @include('admin.components.star-ratings', [
+                            @include('guest.components.star-ratings', [
                                 'rating' => $skill->level ?? 1,
                                 'label'  => '(' . ($skill->level ?? 1) . ')'
                             ])

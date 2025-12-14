@@ -20,7 +20,7 @@
     <div class="search-container card p-2 pb-0 mb-1">
         <form id="searchForm" action="{{ route('guest.personal.reading.index') }}" method="get">
             <div class="control">
-                @include('admin.components.form-select', [
+                @include('guest.components.form-select', [
                     'name'     => 'author',
                     'value'    => Request::get('author'),
                     'list'     => \App\Models\Personal\Reading::listOptions([], 'author', 'author', true, false, ['author', 'asc']),

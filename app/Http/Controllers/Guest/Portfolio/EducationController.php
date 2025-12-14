@@ -25,8 +25,6 @@ class EducationController extends Controller
         $perPage = $request->query('per_page', $this->perPage);
 
         $educations = Education::where('owner_id', $admin->id)
-            ->where('public', 1)
-            ->where('disabled', 0)
             ->orderBy('graduation_year', 'asc')
             ->paginate($perPage);
 

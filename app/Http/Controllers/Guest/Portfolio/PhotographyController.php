@@ -23,8 +23,6 @@ class PhotographyController extends Controller
         $perPage = $request->query('per_page', $this->perPage);
 
         $photos = Photography::where('owner_id', $admin->id)
-            ->where('public', 1)
-            ->where('disabled', 0)
             ->orderBy('name', 'asc')->orderBy('name', 'asc')
             ->paginate($perPage);
 

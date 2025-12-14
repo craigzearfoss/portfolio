@@ -23,8 +23,6 @@ class SkillController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage);
 
         $skills = Skill::where('owner_id', $admin->id)
-            ->where('public', 1)
-            ->where('disabled', 0)
             ->orderBy('level', 'desc')->orderBy('name', 'asc')
             ->paginate($perPage);
 

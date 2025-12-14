@@ -22,8 +22,6 @@ class ResumeController extends Controller
     public function index(Admin $admin, Request $request): View
     {
         $jobs = Job::where('owner_id', $admin->id)
-            ->where('public', 1)
-            ->where('disabled', 0)
             ->orderBy('start_year', 'desc')
             ->orderBy('start_month', 'desc')
             ->get();

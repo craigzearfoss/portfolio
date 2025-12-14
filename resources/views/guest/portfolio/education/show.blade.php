@@ -44,40 +44,40 @@
         @endif
 
         @if(!empty($education->school))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'school',
                 'value' => $education->school->name ?? ''
             ])
         @endif
 
         @if(!empty($education->enrollment_month) || !empty($education->enrollment_year))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'enrollment',
                 'value' => (!empty($education->enrollment_month) ? date('F', mktime(0, 0, 0, $education->enrollment_month, 10)) : '') . ' ' . $education->enrollment_year
             ])
         @endif
 
-        @include('admin.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkbox', [
             'name'    => 'graduated',
             'checked' => $education->graduated
         ])
 
         @if(!empty($education->graduation_month) || !empty($education->graduation_year))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'graduation',
                 'value' => (!empty($education->graduation_month) ? date('F', mktime(0, 0, 0, $education->graduation_month, 10)) : '') . ' ' . $education->graduation_year
             ])
         @endif
 
         @if(!empty($education->currently_enrolled))
-            @include('admin.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkbox', [
                 'name'    => 'currently enrolled',
                 'checked' => $education->currently_enrolled
             ])
         @endif
 
         @if(!empty($education->summary))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'summary',
                 'value' => $education->summary
             ])

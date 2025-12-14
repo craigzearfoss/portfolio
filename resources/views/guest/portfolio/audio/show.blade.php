@@ -22,7 +22,7 @@
 
     <div class="show-container card p-4">
 
-        @include('admin.components.show-row', [
+        @include('guest.components.show-row', [
             'name'  => 'name',
             'value' => $audio->name
         ])
@@ -40,14 +40,14 @@
         @endif
 
         <?php /*
-        @include('admin.components.show-row-checkbox', [
+        @include('guest.components.show-row-checkbox', [
             'name'    => 'featured',
             'checked' => $audio->featured
         ])
         */
         ?>
 
-        @include('admin.components.show-row', [
+        @include('guest.components.show-row', [
             'name'  => 'summary',
             'value' => $audio->summary
         ])
@@ -71,84 +71,84 @@
         @endif
 
         @if(!empty($audio->full_episode))
-            @include('admin.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkbox', [
                 'name'    => 'full episode',
                 'checked' => $audio->full_episode
             ])
         @endif
 
         @if(!empty($audio->clip))
-            @include('admin.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkbox', [
                 'name'    => 'clip',
                 'checked' => $audio->clip
             ])
         @endif
 
         @if(!empty($audio->podcast))
-            @include('admin.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkbox', [
                 'name'    => 'podcast',
                 'checked' => $audio->podcast
             ])
         @endif
 
         @if(!empty($audio->source_recording))
-            @include('admin.components.show-row-checkbox', [
+            @include('guest.components.show-row-checkbox', [
                 'name'    => 'source recording',
                 'checked' => $audio->source_recording
             ])
         @endif
 
         @if(!empty($audio->date))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'date',
                 'value' => longDate($audio->date)
             ])
         @endif
 
         @if(!empty($audio->year))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'year',
                 'value' => $audio->year
             ])
         @endif
 
         @if(!empty($audio->company))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'company',
                 'value' => $audio->company
             ])
         @endif
 
         @if(!empty($audio->credit))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'credit',
                 'value' => $audio->credit
             ])
         @endif
 
         @if(!empty($audio->show))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'show',
                 'value' => $audio->show
             ])
         @endif
 
         @if(!empty($audio->location))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'location',
                 'value' => $audio->location
             ])
         @endif
 
         @if(!empty($audio->embed))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'   => 'embed',
                 'value'  => $audio->embed,
             ])
         @endif
 
         @if(!empty($audio->audio_url))
-            @include('admin.components.show-row', [
+            @include('guest.components.show-row', [
                 'name'  => 'audio url',
                 'value' => $audio->audio_url,
             ])

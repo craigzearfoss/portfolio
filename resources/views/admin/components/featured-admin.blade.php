@@ -22,7 +22,7 @@
 
                     <div class="columns">
                         <span class="column is-12 has-text-centered">
-                            @include('guest.components.link', [
+                            @include('admin.components.link', [
                                 'name'   => 'Resume',
                                 'href'   => route('guest.admin.resume', $admin),
                                 'class'  => 'button is-primary is-small px-1 py-0',
@@ -33,21 +33,21 @@
                     </div>
 
                     @if(!empty($admin->role))
-                        @include('guest.components.show-row', [
+                        @include('admin.components.show-row', [
                             'name'  => 'role',
                             'value' => $admin->role ?? ''
                         ])
                     @endif
 
                     @if(!empty($admin->employer))
-                        @include('guest.components.show-row', [
+                        @include('admin.components.show-row', [
                             'name'  => 'employer',
                             'value' => '<br>' . $admin->employer ?? ''
                         ])
                     @endif
 
                     @if(!empty($admin->bio))
-                        @include('guest.components.show-row', [
+                        @include('admin.components.show-row', [
                             'name'  => 'bio',
                             'value' => $admin->bio ?? ''
                         ])
@@ -69,7 +69,7 @@
 
                             @if(empty($resource['global']) && Route::has('guest.admin.portfolio.'.$resource['name'].'.index'))
                                 <li>
-                                    @include('guest.components.link', [
+                                    @include('admin.components.link', [
                                         'name'  => $resource['plural'],
                                         'href'  => route('guest.admin.portfolio.'.$resource['name'].'.index', $admin),
                                         'class' => 'pt-1 pb-1',

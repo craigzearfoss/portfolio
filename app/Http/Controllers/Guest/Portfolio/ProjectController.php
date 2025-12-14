@@ -26,8 +26,6 @@ class ProjectController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage);
 
         $projects = Project::where('owner_id', $admin->id)
-            ->where('public', 1)
-            ->where('disabled', 0)
             ->orderBy('sequence', 'asc')
             ->paginate($perPage);
 

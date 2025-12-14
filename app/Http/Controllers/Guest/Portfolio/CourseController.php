@@ -28,8 +28,6 @@ class CourseController extends BaseGuestController
         $perPage = $request->query('per_page', $this->perPage);
 
         $courses = Course::where('owner_id', $admin->id)
-            ->where('public', 1)
-            ->where('disabled', 0)
             ->orderBy('name', 'asc')
             ->paginate($perPage);
 

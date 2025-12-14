@@ -4,6 +4,7 @@ namespace App\Models\Dictionary;
 
 use App\Models\Portfolio\JobSkill;
 use App\Models\Portfolio\Skill;
+use App\Models\Scopes\AdminGlobalScope;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -53,6 +54,13 @@ class Category extends Model
      */
     const SEARCH_COLUMNS = ['id', 'name', 'full_name', 'abbreviation', 'open_source', 'proprietary', 'compiled', 'owner'];
     const SEARCH_ORDER_BY = ['name', 'asc'];
+
+    protected static function booted()
+    {
+        parent::booted();
+
+        static::addGlobalScope(new AdminGlobalScope());
+    }
 
     /**
      * Get the job skills for the category.
