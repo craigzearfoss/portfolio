@@ -55,54 +55,10 @@
             'value' => nl2br($academy->description ?? '')
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $academy->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $academy,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($academy->name), $academy->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($academy->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($academy->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $academy->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($academy->name) . '-thumb', $academy->thumbnail)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'logo',
-            'src'   => $academy->logo,
-            'alt'   => 'logo',
-            'width' => '300px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($academy->name) . '-logo', $academy->logo)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'logo small',
-            'src'   => $academy->logo_small,
-            'alt'   => 'logo small',
-            'width' => '100px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($academy->name) . '-logo-sm', $academy->logo_small)
         ])
 
         @include('admin.components.show-row', [

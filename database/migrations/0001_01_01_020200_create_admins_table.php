@@ -149,6 +149,8 @@ return new class extends Migration
             $table->string('image_credit')->nullable();
             $table->string('image_source')->nullable();
             $table->string('thumbnail', 500)->nullable();
+            $table->string('logo', 500)->nullable();
+            $table->string('logo_small', 500)->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->string('token')->nullable();

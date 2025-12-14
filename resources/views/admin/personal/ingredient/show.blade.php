@@ -60,34 +60,10 @@
             'value' => nl2br($ingredient->description ?? '')
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $ingredient->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $ingredient,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($ingredient->name), $ingredient->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($ingredient->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($ingredient->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $ingredient->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($ingredient->name) . '-thumb', $ingredient->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -114,34 +114,10 @@
             'value' => view('admin.components.disclaimer', [ 'value' => $skill->disclaimer ?? '' ])
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $skill->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $skill,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($skill->name), $skill->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($skill->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($skill->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $skill->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($skill->name) . '-thumb', $skill->thumbnail)
         ])
 
         @include('admin.components.show-row', [

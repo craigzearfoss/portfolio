@@ -86,6 +86,8 @@ class UpdateUsersRequest extends FormRequest
             'image_credit'      => ['string', 'max:255', 'nullable'],
             'image_source'      => ['string', 'max:255', 'nullable'],
             'thumbnail'         => ['string', 'max:500', 'nullable'],
+            'logo'              => ['string', 'max:500', 'nullable'],
+            'logo_small'        => ['string', 'max:500', 'nullable'],
             'password'          => ['filled', 'string', 'min:8', 'max:255'],
             'confirm_password'  => ['filled', 'string', 'same:password'],
             'remember_token'    => ['string', 'max:200', 'nullable'],

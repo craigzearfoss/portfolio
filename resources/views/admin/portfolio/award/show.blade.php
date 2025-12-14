@@ -79,10 +79,8 @@
             'value' => longDate($award->received)
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $award->image_url,
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $award,
             'download' => true,
             'external' => true,
         ])

@@ -134,34 +134,10 @@
             'value' => nl2br($recruiter->description ?? '')
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $recruiter->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $recruiter,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($recruiter->name), $recruiter->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($recruiter->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($recruiter->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $recruiter->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($recruiter->name) . '-thumb', $recruiter->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -112,34 +112,10 @@
             'value' => view('admin.components.disclaimer', [ 'value' => $education->disclaimer ?? '' ])
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $education->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $education,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($education->name), $education->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($education->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($education->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $education->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($education->name) . '-thumb', $education->thumbnail)
         ])
 
         @include('admin.components.show-row', [

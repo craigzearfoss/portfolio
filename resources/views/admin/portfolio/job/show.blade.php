@@ -130,54 +130,10 @@
             'value' => view('admin.components.disclaimer', [ 'value' => $job->disclaimer ?? '' ])
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $job->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $job,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($job->name), $job->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($job->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($job->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $job->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($job->name) . '-thumb', $job->thumbnail)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'logo',
-            'src'   => $job->logo,
-            'alt'   => 'logo',
-            'width' => '300px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug($job->name . '-logo', $job->logo)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'logo small',
-            'src'   => $job->logo_small,
-            'alt'   => 'logo small',
-            'width' => '100px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug($job->name . '-logo-sm', $job->logo_small)
         ])
 
         @include('admin.components.show-row', [

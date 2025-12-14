@@ -69,14 +69,6 @@
             'value' => $photo->year
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $photo->image_url,
-            'width'    => '300px',
-            'download' => true,
-            'external' => true,
-        ])
-
         @include('admin.components.show-row', [
             'name'  => 'notes',
             'value' => nl2br(htmlspecialchars($photo->notes))
@@ -100,34 +92,10 @@
             'value' => view('admin.components.disclaimer', [ 'value' => $photo->disclaimer ?? '' ])
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $photo->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $photo,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($photo->name), $photo->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($photo->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($photo->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $photo->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($photo->name) . '-thumb', $photo->thumbnail)
         ])
 
         @include('admin.components.show-row', [

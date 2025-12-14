@@ -101,34 +101,10 @@
             'value' => view('admin.components.disclaimer', [ 'value' => $jobCoworker->disclaimer ?? '' ])
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $jobCoworker->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $jobCoworker,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($jobCoworker->name), $jobCoworker->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($jobCoworker->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($jobCoworker->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $jobCoworker->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($jobCoworker->name) . '-thumb', $jobCoworker->thumbnail)
         ])
 
         @include('admin.components.show-row', [

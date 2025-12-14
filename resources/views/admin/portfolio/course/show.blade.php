@@ -104,15 +104,6 @@
             'value' => htmlspecialchars($course->sponsor)
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'certificate url',
-            'src'      => imageUrl($course->certificate_url),
-            'width'    => '300px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug($course->name, $course->certificate_url)
-        ])
-
         @include('admin.components.show-row', [
             'name'  => 'notes',
             'value' => nl2br(htmlspecialchars($course->notes))
@@ -136,34 +127,10 @@
             'value' => view('admin.components.disclaimer', [ 'value' => $course->disclaimer ?? '' ])
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $course->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $course,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($course->name), $course->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($course->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($course->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $course->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($course->name) . '-thumb', $course->thumbnail)
         ])
 
         @include('admin.components.show-row', [

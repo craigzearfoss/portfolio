@@ -63,34 +63,10 @@
             'value' => nl2br($recipeStep->description ?? '')
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $recipeStep->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $recipeStep,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($recipeStep->name), $recipeStep->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($recipeStep->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($recipeStep->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $recipeStep->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($recipeStep->name) . '-thumb', $recipeStep->thumbnail)
         ])
 
         @include('admin.components.show-row', [

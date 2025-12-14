@@ -70,34 +70,10 @@
             'value' => nl2br($recipeIngredient->description ?? '')
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $recipeIngredient->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $recipeIngredient,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($recipeIngredient->name), $recipeIngredient->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($recipeIngredient->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($recipeIngredient->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $recipeIngredient->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($recipeIngredient->name) . '-thumb', $recipeIngredient->thumbnail)
         ])
 
         @include('admin.components.show-row', [

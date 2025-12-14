@@ -75,6 +75,8 @@
                 'message'         => $message ?? '',
             ])
 
+            TYPE @TODO
+
             @include('admin.components.form-input-horizontal', [
                 'name'      => 'summary',
                 'value'     => old('summary') ?? $skill->summary,

@@ -147,34 +147,10 @@
             'value' => view('admin.components.disclaimer', [ 'value' => $recipe->disclaimer ?? '' ])
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $recipe->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $recipe,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($recipe->name), $recipe->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($recipe->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($recipe->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $recipe->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($recipe->name) . '-thumb', $recipe->thumbnail)
         ])
 
         @include('admin.components.show-row', [

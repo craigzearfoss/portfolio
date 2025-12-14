@@ -74,6 +74,20 @@
                 'message' => $message ?? '',
             ])
 
+            @include('admin.components.form-file-upload-horizontal', [
+                'image'     => 'image',
+                'value'     => old('image') ?? $userTeam->image,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
+            @include('admin.components.form-file-upload-horizontal', [
+                'name'      => 'thumbnail',
+                'value'     => old('thumbnail') ?? $userTeam->thumbnail,
+                'maxlength' => 500,
+                'message'   => $message ?? '',
+            ])
+
             @include('admin.components.form-settings-horizontal', [
                 'public'   => old('public') ?? $userTeam->public,
                 'readonly' => old('readonly') ?? $userTeam->readonly,

@@ -367,7 +367,7 @@ return new class extends Migration
                     'user'        => 1,
                     'admin'       => 1,
                     'global'      => 0,
-                    'icon'        => 'fa-photo',
+                    'icon'        => 'fa-camera',
                     'level'       => 2,
                     'sequence'    => $database->sequence + 105,
                     'public'      => 1,

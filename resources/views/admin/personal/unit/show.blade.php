@@ -63,34 +63,10 @@
             'value' => nl2br($unit->description ?? '')
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $unit->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $unit,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($unit->name), $unit->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => $unit->image_credit
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => $unit->image_source
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $unit->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($unit->name) . '-thumb', $unit->thumbnail)
         ])
 
         @include('admin.components.show-row', [

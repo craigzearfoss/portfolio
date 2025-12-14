@@ -75,54 +75,10 @@
             'value' => nl2br($certification->description ?? '')
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $certification->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $certification,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($certification->name), $certification->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($certification->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($certification->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $certification->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($certification->name) . '-thumb', $certification->thumbnail)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'logo',
-            'src'   => $certification->logo,
-            'alt'   => 'logo',
-            'width' => '300px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($certification->name) . '-logo', $certification->logo)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'logo small',
-            'src'   => $certification->logo_small,
-            'alt'   => 'logo small',
-            'width' => '100px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($certification->name) . '-logo-sm', $certification->logo_small)
         ])
 
         @include('admin.components.show-row', [

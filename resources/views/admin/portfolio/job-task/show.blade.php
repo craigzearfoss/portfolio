@@ -55,55 +55,31 @@
 
         @include('admin.components.show-row', [
             'name'  => 'notes',
-            'value' => nl2br(htmlspecialchars($coverLetter->notes))
+            'value' => nl2br(htmlspecialchars($jobTask->notes))
         ])
 
-        @if(!empty($coverLetter->link))
+        @if(!empty($jobTask->link))
             @include('admin.components.show-row-link', [
-                'name'   => $coverLetter->link_name,
-                'href'   => $coverLetter->link,
+                'name'   => $jobTask->link_name,
+                'href'   => $jobTask->link,
                 'target' => '_blank'
             ])
         @endif
 
         @include('admin.components.show-row', [
             'name'  => 'description',
-            'value' => nl2br($coverLetter->description ?? '')
+            'value' => nl2br($jobTask->description ?? '')
         ])
 
         @include('admin.components.show-row', [
             'name'  => 'disclaimer',
-            'value' => view('admin.components.disclaimer', [ 'value' => $coverLetter->disclaimer ?? '' ])
+            'value' => view('admin.components.disclaimer', [ 'value' => $jobTask->disclaimer ?? '' ])
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $coverLetter->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $jobTask,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($coverLetter->name), $coverLetter->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($coverLetter->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($coverLetter->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $coverLetter->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($coverLetter->name) . '-thumb', $coverLetter->thumbnail)
         ])
 
         @include('admin.components.show-row', [

@@ -85,34 +85,10 @@
             'value' => nl2br($jobBoard->description ?? '')
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $jobBoard->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $jobBoard,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($jobBoard->name), $jobBoard->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($jobBoard->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($jobBoard->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $jobBoard->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($jobBoard->name) . '-thumb', $jobBoard->thumbnail)
         ])
 
         @include('admin.components.show-row', [

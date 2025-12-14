@@ -98,54 +98,10 @@
             'value' => view('admin.components.disclaimer', [ 'value' => $school->disclaimer ?? '' ])
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $school->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $school,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($school->name), $school->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($school->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($school->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $school->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($school->name) . '-thumb', $school->thumbnail)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'logo',
-            'src'   => $school->logo,
-            'alt'   => 'logo',
-            'width' => '300px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($school->name) . '-logo', $school->logo)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'  => 'logo small',
-            'src'   => $school->logo_small,
-            'alt'   => 'logo small',
-            'width' => '100px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($school->name) . '-logo-sm', $school->logo_small)
         ])
 
         @include('admin.components.show-row', [

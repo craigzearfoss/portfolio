@@ -69,8 +69,12 @@
                     <td data-field="featured" class="has-text-centered">
                         @include('admin.components.checkmark', [ 'checked' => $skill->featured ])
                     </td>
-                    <td data-field="category">
-                        {{ $skill->category['name'] ?? '' }}
+                    <td data-field="dictionary_category_id">
+                        <?php /* @TODO: fix this
+                        @if(!empty($skill->category->name))
+                            {{ $skill->category->name ?? '' }}
+                        @endif
+                        */ ?>
                     </td>
                     <td data-field="level" style="white-space: nowrap;">
                         @include('admin.components.star-ratings', [

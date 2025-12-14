@@ -51,6 +51,8 @@ class Admin extends Authenticatable
         'image_credit',
         'image_source',
         'thumbnail',
+        'logo',
+        'logo_small',
         'password',
         'remember_token',
         'token',

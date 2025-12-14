@@ -89,13 +89,10 @@
             'value' => longDate($certificate->expiration)
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'certificate url',
-            'src'      => imageUrl($certificate->certificate_url),
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $certificate,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug($certificate->name, $certificate->certificate_url)
         ])
 
         @include('admin.components.show-row', [

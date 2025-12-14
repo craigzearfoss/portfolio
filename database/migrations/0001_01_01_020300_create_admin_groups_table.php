@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('slug', 100)->unique();
             $table->string('abbreviation', 20)->nullable();
             $table->text('description')->nullable();
+            $table->string('image', 500)->nullable();
+            $table->string('thumbnail', 500)->nullable();
+            $table->string('logo', 500)->nullable();
+            $table->string('logo_small', 500)->nullable();
             $table->boolean('public')->default(true);
             $table->boolean('readonly')->default(false);
             $table->boolean('root')->default(false);

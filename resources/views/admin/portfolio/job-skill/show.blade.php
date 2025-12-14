@@ -89,34 +89,10 @@
             'value' => view('admin.components.disclaimer', [ 'value' => $jobSkill->disclaimer ?? '' ])
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $jobSkill->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $jobSkill,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($jobSkill->name), $jobSkill->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($jobSkill->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($jobSkill->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $jobSkill->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($jobSkill->name) . '-thumb', $jobSkill->thumbnail)
         ])
 
         @include('admin.components.show-row-checkbox', [

@@ -87,34 +87,10 @@
             'value' => view('admin.components.disclaimer', [ 'value' => $coverLetter->disclaimer ?? '' ])
         ])
 
-        @include('admin.components.show-row-image', [
-            'name'     => 'image',
-            'src'      => $coverLetter->image,
-            'alt'      => 'image',
-            'width'    => '300px',
+        @include('admin.components.show-row-images', [
+            'resource' => $coverLetter,
             'download' => true,
             'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($coverLetter->name), $coverLetter->image)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image credit',
-            'value' => htmlspecialchars($coverLetter->image_credit)
-        ])
-
-        @include('admin.components.show-row', [
-            'name'  => 'image source',
-            'value' => htmlspecialchars($coverLetter->image_source)
-        ])
-
-        @include('admin.components.show-row-image', [
-            'name'     => 'thumbnail',
-            'src'      => $coverLetter->thumbnail,
-            'alt'      => 'thumbnail',
-            'width'    => '40px',
-            'download' => true,
-            'external' => true,
-            'filename' => getFileSlug(htmlspecialchars($coverLetter->name) . '-thumb', $coverLetter->thumbnail)
         ])
 
         @include('admin.components.show-row', [
