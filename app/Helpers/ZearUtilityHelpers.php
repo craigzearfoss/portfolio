@@ -503,7 +503,11 @@ if (! function_exists('reservedKeywords')) {
          */
         function isDemo(): bool
         {
-            return !empty(config('app.demo_url', false));
+            if (!empty(config('app.demo_admin_enabled')) || !empty(config('app.demo_user_enabled'))) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }
