@@ -5,7 +5,7 @@
         [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',          'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Jobs',               'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => $jobSkill->job->name, 'href' => route('admin.portfolio.job.show', $jobSkill->job) ],
+        [ 'name' => $jobSTask->job->name, 'href' => route('admin.portfolio.job.show', $jobTask->job) ],
         [ 'name' => 'Tasks',              'href' => route('admin.portfolio.job-task.index', ['job_id' => $jobTask->job->id]) ],
         [ 'name' => 'Edit' ],
     ],
