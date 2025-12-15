@@ -72,13 +72,11 @@
             'checked' => $jobBoard->international
         ])
 
-        @if(!empty($jobBoard->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $jobBoard->link_name,
-                'href'   => $jobBoard->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $jobBoard->link_name ?? 'link',
+            'href'   => $jobBoard->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

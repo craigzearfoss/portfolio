@@ -58,13 +58,11 @@
             'value' => nl2br(htmlspecialchars($jobTask->notes))
         ])
 
-        @if(!empty($jobTask->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $jobTask->link_name,
-                'href'   => $jobTask->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $jobTask->link_name ?? 'link',
+            'href'   => $jobTask->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

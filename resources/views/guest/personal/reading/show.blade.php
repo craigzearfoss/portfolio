@@ -57,7 +57,7 @@
 
         @if(!empty($reading->link))
             @include('guest.components.show-row-link', [
-                'name'   => $reading->link_name ?? '',
+                'name'   => $reading->link_name ?? 'link',
                 'href'   => $reading->link,
                 'target' => '_blank'
             ])

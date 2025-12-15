@@ -129,13 +129,11 @@
             'value' => nl2br(htmlspecialchars($recipe->notes))
         ])
 
-        @if(!empty($recipe->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $recipe->link_name,
-                'href'   => $recipe->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $recipe->link_name ?? 'link',
+            'href'   => $recipe->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

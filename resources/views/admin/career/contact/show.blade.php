@@ -106,13 +106,11 @@
             'value' => nl2br(htmlspecialchars($contact->notes))
         ])
 
-        @if(!empty($contact->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $contact->link_name,
-                'href'   => $contact->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $contact->link_name ?? 'link',
+            'href'   => $contact->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

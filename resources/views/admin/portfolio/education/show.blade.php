@@ -94,13 +94,11 @@
             'value' => nl2br(htmlspecialchars($education->notes))
         ])
 
-        @if(!empty($education->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $education->link_name,
-                'href'   => $education->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $education->link_name ?? 'link',
+            'href'   => $education->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

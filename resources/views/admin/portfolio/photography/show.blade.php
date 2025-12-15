@@ -74,13 +74,11 @@
             'value' => nl2br(htmlspecialchars($photo->notes))
         ])
 
-        @if(!empty($photo->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $photo->link_name,
-                'href'   => $photo->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $photo->link_name ?? 'link',
+            'href'   => $photo->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

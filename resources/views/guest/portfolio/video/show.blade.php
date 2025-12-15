@@ -157,7 +157,7 @@
 
         @if(!empty($video->link))
             @include('guest.components.show-row-link', [
-                'name'   => $video->link_name ?? '',
+                'name'   => $video->link_name ?? 'link',
                 'href'   => $video->link,
                 'target' => '_blank'
             ])

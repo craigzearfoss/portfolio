@@ -66,7 +66,7 @@
 
         @if(!empty($project->link))
             @include('guest.components.show-row-link', [
-                'name'   => $project->link_name ?? '',
+                'name'   => $project->link_name ?? 'link',
                 'href'   => $project->link,
                 'target' => '_blank'
             ])

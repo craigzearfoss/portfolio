@@ -82,8 +82,7 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'label'  => $operatingSystem->link_name,
+            'name'   => $operatingSystem->link_name ?? 'link',
             'href'   => $operatingSystem->link,
             'target' => '_blank'
         ])

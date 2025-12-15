@@ -85,7 +85,7 @@
 
         @if(!empty($education->link))
             @include('guest.components.show-row-link', [
-                'name'   => $education->link_name ?? '',
+                'name'   => $education->link_name ?? 'link',
                 'href'   => $education->link,
                 'target' => '_blank'
             ])

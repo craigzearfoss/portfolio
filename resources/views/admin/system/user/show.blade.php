@@ -88,10 +88,9 @@
             'value' => longDate($user->birthday),
         ])
 
-        @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'label'  => $user->link,
-            'href'   => $user->link_name,
+        @include('guest.components.show-row-link', [
+            'name'   => $user->link_name ?? 'link',
+            'href'   => $user->link,
             'target' => '_blank'
         ])
 

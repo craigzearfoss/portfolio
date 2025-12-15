@@ -134,13 +134,11 @@
             'value' => nl2br(htmlspecialchars($audio->notes))
         ])
 
-        @if(!empty($audio->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $audio->link_name,
-                'href'   => $audio->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $audio->link_name ?? 'link',
+            'href'   => $audio->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

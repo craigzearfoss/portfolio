@@ -90,8 +90,7 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'label'  => $stack->link_name,
+            'name'   => $stack->link_name ?? 'link',
             'href'   => $stack->link,
             'target' => '_blank'
         ])

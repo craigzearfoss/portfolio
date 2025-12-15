@@ -67,7 +67,7 @@
 
         @if(!empty($art->link))
             @include('guest.components.show-row-link', [
-                'name'   => $art->link_name ?? '',
+                'name'   => $art->link_name ?? 'link',
                 'href'   => $art->link,
                 'target' => '_blank'
             ])

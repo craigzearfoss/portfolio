@@ -60,9 +60,8 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => 'link',
+            'name'   => $framework->link_name ?? 'link',
             'href'   => $framework->link,
-            'label'  => $framework->link_name,
             'target' => '_blank'
         ])
 

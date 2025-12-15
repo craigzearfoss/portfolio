@@ -82,8 +82,7 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'label'  => $language->link_name,
+            'name'   => $language->link_name ?? 'link',
             'href'   => $language->link,
             'target' => '_blank'
         ])

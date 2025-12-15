@@ -60,9 +60,8 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => 'link',
+            'name'   => $database->link_name ?? 'link',
             'href'   => $database->link,
-            'label'  => $database->link_name,
             'target' => '_blank'
         ])
 

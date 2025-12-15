@@ -42,13 +42,11 @@
             'value' => $academy->slug
         ])
 
-        @if(!empty($academy->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $academy->link_name,
-                'href'   => $academy->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $academy->link_name ?? 'link',
+            'href'   => $academy->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

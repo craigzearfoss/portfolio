@@ -54,8 +54,9 @@
         ])
 
         @include('admin.components.show-row', [
-            'name'   => 'link name',
-            'value'  => $unit->link_name,
+            'name'   => $unit->link_name ?? 'link',
+            'href'   => $unit->link,
+            'target' => '_blank'
         ])
 
         @include('admin.components.show-row', [

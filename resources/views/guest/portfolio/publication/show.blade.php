@@ -213,7 +213,7 @@
 
         @if(!empty($publication->link))
             @include('guest.components.show-row-link', [
-                'name'   => $publication->link_name ?? '',
+                'name'   => $publication->link_name ?? 'link',
                 'href'   => $publication->link,
                 'target' => '_blank'
             ])

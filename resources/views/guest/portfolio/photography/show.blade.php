@@ -71,7 +71,7 @@
 
         @if(!empty($photo->link))
             @include('guest.components.show-row-link', [
-                'name'   => $photo->link_name ?? '',
+                'name'   => $photo->link_name ?? 'link',
                 'href'   => $photo->link,
                 'target' => '_blank'
             ])

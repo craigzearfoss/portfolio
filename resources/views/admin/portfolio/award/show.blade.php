@@ -90,13 +90,11 @@
             'value' => nl2br(htmlspecialchars($award->notes))
         ])
 
-        @if(!empty($award->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $award->link_name,
-                'href'   => $award->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $award->link_name ?? 'link',
+            'href'   => $award->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

@@ -74,13 +74,11 @@
             'value' => nl2br(htmlspecialchars($art->notes))
         ])
 
-        @if(!empty($art->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $art->link_name,
-                'href'   => $art->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $art->link_name ?? 'link',
+            'href'   => $art->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

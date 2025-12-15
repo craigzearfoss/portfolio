@@ -101,13 +101,11 @@
             'value' => nl2br(htmlspecialchars($company->notes))
         ])
 
-        @if(!empty($company->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $company->link_name,
-                'href'   => $company->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $company->link_name ?? '',
+            'href'   => $company->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

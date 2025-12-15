@@ -71,7 +71,7 @@
 
         @if(!empty($award->link))
             @include('guest.components.show-row-link', [
-                'name'   => $award->link_name ?? '',
+                'name'   => $award->link_name ?? 'link',
                 'href'   => $award->link,
                 'target' => '_blank'
             ])

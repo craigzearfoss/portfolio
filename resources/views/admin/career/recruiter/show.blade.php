@@ -115,13 +115,11 @@
             'value' => $recruiter->alt_email
         ])
 
-        @if(!empty($recruiter->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $recruiter->link_name,
-                'href'   => $recruiter->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $recruiter->link_name ?? 'link',
+            'href'   => $recruiter->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

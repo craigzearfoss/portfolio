@@ -60,9 +60,8 @@
         ])
 
         @include('guest.components.show-row-link', [
-            'name'   => 'link',
+            'name'   => $category->link_name ?? 'link',
             'href'   => $category->link,
-            'label'  => $category->link_name,
             'target' => '_blank'
         ])
 

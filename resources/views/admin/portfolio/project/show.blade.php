@@ -90,13 +90,11 @@
             'value' => nl2br(htmlspecialchars($project->notes))
         ])
 
-        @if(!empty($project->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $project->link_name,
-                'href'   => $project->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $project->link_name ?? 'link',
+            'href'   => $project->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

@@ -83,13 +83,11 @@
             'value' => nl2br(htmlspecialchars($jobCoworker->notes))
         ])
 
-        @if(!empty($jobCoworker->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $jobCoworker->link_name,
-                'href'   => $jobCoworker->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $jobCoworker->link_name ?? 'link',
+            'href'   => $jobCoworker->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

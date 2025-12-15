@@ -82,8 +82,7 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'label'  => $database->link_name,
+            'name'   => $database->link_name ?? 'link',
             'href'   => $database->link,
             'target' => '_blank'
         ])

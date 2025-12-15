@@ -112,7 +112,7 @@
 
         @if(!empty($course->link))
             @include('guest.components.show-row-link', [
-                'name'   => $course->link_name ?? '',
+                'name'   => $course->link_name ?? 'link',
                 'href'   => $course->link,
                 'target' => '_blank'
             ])

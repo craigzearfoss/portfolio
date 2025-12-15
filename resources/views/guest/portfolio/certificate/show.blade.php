@@ -80,9 +80,8 @@
 
         @if(!empty($certificate->link))
             @include('guest.components.show-row-link', [
-                'name'   => 'link',
+                'name'   => $certificate->link_name ?? 'link',
                 'href'   => $certificate->link,
-                'label'  => $certificate->link_name ?? '',
                 'target' => '_blank'
             ])
         @endif

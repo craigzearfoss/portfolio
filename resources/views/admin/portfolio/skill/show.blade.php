@@ -96,13 +96,11 @@
             'value' => nl2br(htmlspecialchars($skill->notes))
         ])
 
-        @if(!empty($skill->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $skill->link_name,
-                'href'   => $skill->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $skill->link_name ?? 'link',
+            'href'   => $skill->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

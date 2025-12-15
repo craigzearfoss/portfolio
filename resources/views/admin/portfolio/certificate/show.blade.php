@@ -100,13 +100,11 @@
             'value' => nl2br(htmlspecialchars($certificate->notes))
         ])
 
-        @if(!empty($certificate->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $certificate->link_name,
-                'href'   => $certificate->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $certificate->link_name ?? 'link',
+            'href'   => $certificate->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

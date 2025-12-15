@@ -134,13 +134,11 @@
             'value' => nl2br(htmlspecialchars($video->notes))
         ])
 
-        @if(!empty($video->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $video->link_name,
-                'href'   => $video->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $video->link_name >> 'link',
+            'href'   => $video->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

@@ -47,13 +47,11 @@
             'value' => $ingredient->slug
         ])
 
-        @if(!empty($ingredient->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $ingredient->link_name,
-                'href'   => $ingredient->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $ingredient->link_name ?? 'link',
+            'href'   => $ingredient->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

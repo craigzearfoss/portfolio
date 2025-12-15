@@ -109,13 +109,11 @@
             'value' => nl2br(htmlspecialchars($course->notes))
         ])
 
-        @if(!empty($course->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $course->link_name,
-                'href'   => $course->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $course->link_name ?? 'link',
+            'href'   => $course->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

@@ -69,13 +69,11 @@
             'value' => nl2br(htmlspecialchars($coverLetter->notes))
         ])
 
-        @if(!empty($coverLetter->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $coverLetter->link_name,
-                'href'   => $coverLetter->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $coverLetter->link_name ?? 'link',
+            'href'   => $coverLetter->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

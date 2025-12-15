@@ -90,7 +90,7 @@
 
         @if(!empty($skill->link))
             @include('guest.components.show-row-link', [
-                'name'   => $skill->link_name ?? '',
+                'name'   => $skill->link_name ?? 'link',
                 'href'   => $skill->link,
                 'target' => '_blank'
             ])

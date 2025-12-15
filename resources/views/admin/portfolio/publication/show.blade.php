@@ -154,13 +154,11 @@
             'value' => nl2br(htmlspecialchars($publication->notes))
         ])
 
-        @if(!empty($publication->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $publication->link_name,
-                'href'   => $publication->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $publication->link_name ?? 'link',
+            'href'   => $publication->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

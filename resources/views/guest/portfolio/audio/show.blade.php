@@ -156,7 +156,7 @@
 
         @if(!empty($audio->link))
             @include('guest.components.show-row-link', [
-                'name'   => $audio->link_name ?? '',
+                'name'   => $audio->link_name ?? 'link',
                 'href'   => $audio->link,
                 'target' => '_blank'
             ])

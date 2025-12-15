@@ -144,13 +144,11 @@
             'value' => nl2br(htmlspecialchars($music->notes))
         ])
 
-        @if(!empty($music->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $music->link_name,
-                'href'   => $music->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $music->link_name ?? 'link',
+            'href'   => $music->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',

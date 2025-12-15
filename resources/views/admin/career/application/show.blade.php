@@ -244,7 +244,7 @@
 
         @if(!empty($application->link))
             @include('admin.components.show-row-link', [
-                'name'   => $application->link_name,
+                'name'   => $application->link_name ?? 'link',
                 'href'   => $application->link,
                 'target' => '_blank'
             ])

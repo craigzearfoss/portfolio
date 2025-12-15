@@ -100,9 +100,8 @@
         ])
 
         @include('admin.components.show-row-link', [
-            'name'   => 'link',
-            'label'  => $admin->link,
-            'href'   => $admin->link_name,
+            'name'   => $admin->link_name ?? 'link',
+            'href'   => $admin->link,
             'target' => '_blank'
         ])
 

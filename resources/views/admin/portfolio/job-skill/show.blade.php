@@ -71,13 +71,11 @@
             'value' => nl2br(htmlspecialchars($jobSkill->notes))
         ])
 
-        @if(!empty($jobSkill->link))
-            @include('admin.components.show-row-link', [
-                'name'   => $jobSkill->link_name,
-                'href'   => $jobSkill->link,
-                'target' => '_blank'
-            ])
-        @endif
+        @include('admin.components.show-row-link', [
+            'name'   => $jobSkill->link_name ?? 'link',
+            'href'   => $jobSkill->link,
+            'target' => '_blank'
+        ])
 
         @include('admin.components.show-row', [
             'name'  => 'description',
