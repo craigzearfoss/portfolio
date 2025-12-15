@@ -18,7 +18,7 @@ $resource = $resource ?? null;
 
                 @if($resource->hasAttribute('sequence'))
 
-                    <div class="item" style="padding: 0.3em; border: 1px solid #ccc; flex: 1; white-space: nowrap;">
+                    <div class="item" style="padding: 0.3em; flex: 1; white-space: nowrap;">
                         <span><strong>sequence:</strong></span>
                         <span>{{ empty($resource->sequence) ? $resource->sequence : '0' }}</span>
                     </div>
@@ -29,7 +29,7 @@ $resource = $resource ?? null;
 
                     @if($resource->hasAttribute($setting))
 
-                        <div class="item" style="padding: 0.3em; border: 1px solid #ccc; flex: 1; white-space: nowrap;">
+                        <div class="item" style="padding: 0.3em; flex: 1; white-space: nowrap;">
                             <span>
                                 @include('guest.components.checkbox', [ 'checked' => !empty($resource->{$setting}) ])
                             </span>
