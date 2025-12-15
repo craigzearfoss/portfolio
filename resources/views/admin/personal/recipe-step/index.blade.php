@@ -1,15 +1,27 @@
+@php
+    if (!empty($application)) {
+        $breadcrumbs = [
+            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+            [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
+            [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
+            [ 'name' => $recipe->name,     'href' => route('admin.personal.recipe.show', $recipe) ],
+            [ 'name' => 'Steps' ],
+        ];
+    } else {
+        $breadcrumbs = [
+            [ 'name' => 'Home',            'href' => route('system.index') ],
+            [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
+            [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
+            [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
+        ];
+    }
+@endphp
 @extends('admin.layouts.default', [
-    'title' => (!empty($recipeId) && !empty($recipeStep->recipe))
-        ?  $recipeStep->recipe['name'] . ' Instructions'
+    'title' => (!empty($recipe->name))
+        ?  $recipe->name . ' Instructions'
         : 'Recipe Instructions',
-    'breadcrumbs' => [
-        [ 'name' => 'Home',            'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard',           'href' => route('admin.dashboard') ],
-        [ 'name' => 'Personal',                  'href' => route('admin.personal.index') ],
-        [ 'name' => 'Recipes',                   'href' => route('admin.personal.recipe.index') ],
-        [ 'name' => $recipeStep->recipe['name'], 'href' => route('admin.personal.recipe.show', $recipeStep->recipe) ],
-        [ 'name' => 'Steps' ],
-    ],
+    'breadcrumbs' => $breadcrumbs,
     'buttons' => [
         canCreate('recipe-step')
             ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Step', 'href' => route('admin.personal.recipe-step.create') ]]

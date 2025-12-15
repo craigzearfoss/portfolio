@@ -93,7 +93,7 @@
                                 </a>
                             @endif
 
-                            @if(canRead($jobUpdate))
+                            @if(canRead($jobTask))
                                 <a title="edit" class="button is-small px-1 py-0"
                                    href="{{ route('admin.portfolio.job-task.edit', $jobTask->id) }}">
                                     <i class="fa-solid fa-pen-to-square"></i>

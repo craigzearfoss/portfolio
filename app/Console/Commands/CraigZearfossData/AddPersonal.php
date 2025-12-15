@@ -500,7 +500,7 @@ class AddPersonal extends Command
         ];
 
         if (!empty($data)) {
-            RecipeIngredient::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
+            RecipeIngredient::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
         }
     }
 
@@ -527,6 +527,11 @@ class AddPersonal extends Command
             [ 'recipe_id' => $this->recipeId[5],  'step' => 4,  'description'   => 'Bake in buttered 1.5 or 2 quart casserole dish for 40 to 50 minutes.' ],
             //[ 'id' => 1,  'recipe_id' => 1,  'step' => 1,  'description'   => '' ],
         ];
+
+        if (!empty($data)) {
+            RecipeStep::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+        }
+
     }
 
     /**
