@@ -1,12 +1,12 @@
 @extends('admin.layouts.default', [
     'title' => 'Job Task Edit',
     'breadcrumbs' => [
-        [ 'name' => 'Home',               'href' => route('system.index') ],
-        [ 'name' => 'Admin Dashboard',    'href' => route('admin.dashboard') ],
-        [ 'name' => 'Portfolio',          'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Jobs',               'href' => route('admin.portfolio.job.index') ],
-        [ 'name' => $jobSTask->job->name, 'href' => route('admin.portfolio.job.show', $jobTask->job) ],
-        [ 'name' => 'Tasks',              'href' => route('admin.portfolio.job-task.index', ['job_id' => $jobTask->job->id]) ],
+        [ 'name' => 'Home',              'href' => route('system.index') ],
+        [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
+        [ 'name' => 'Portfolio',         'href' => route('admin.portfolio.index') ],
+        [ 'name' => 'Jobs',              'href' => route('admin.portfolio.job.index') ],
+        [ 'name' => $jobTask->job->name, 'href' => route('admin.portfolio.job.show', $jobTask->job) ],
+        [ 'name' => 'Tasks',             'href' => route('admin.portfolio.job-task.index', ['job_id' => $jobTask->job->id]) ],
         [ 'name' => 'Edit' ],
     ],
     'buttons' => [
