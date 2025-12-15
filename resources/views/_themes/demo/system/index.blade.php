@@ -39,7 +39,7 @@
                     <p>
                         This project was created by <strong>Craig Zearfoss</strong> who can be found on LinkedIn at
                         <a href="https://www.linkedin.com/in/craig-zearfoss/" target="_blank"><strong>https://www.linkedin.com/in/craig-zearfoss/</strong></a>
-                        or at his personal page at <a href="https://craigzearfoss.com" target="_blank"><strong>https://craigzearfoss.com</strong></a>.
+                        or at his personal page at <a href="https://zearfoss.com" target="_blank"><strong>https://zearfoss.com</strong></a>.
                     </p>
                     <p>
                         For more details about this site, as well as a to-do-list of work that is being done and features
