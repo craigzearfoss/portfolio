@@ -6,7 +6,7 @@
     if (canCreate($communication)) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.communication.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.communication.index') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.communication.index') ];
 @endphp
 @php
     if (!empty($application)) {
@@ -30,12 +30,13 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title' => $title ?? 'Communication' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs' => $breadcruumbs,
-    'buttons' => $buttons,
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'title'         => $title ?? 'Communication' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'breadcrumbs'   => $breadcruumbs,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

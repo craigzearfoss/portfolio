@@ -1,6 +1,6 @@
 @extends('admin.layouts.default', [
-    'title' => $jobSkill->name,
-    'breadcrumbs' => [
+    'title'         => $jobSkill->name,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',              'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard',   'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',         'href' => route('admin.portfolio.index') ],
@@ -9,14 +9,15 @@
         [ 'name' => 'Skills',            'href' => route('admin.portfolio.job-skill.index', ['job_id' => $jobSkill->job->id]) ],
         [ 'name' => 'Show' ],
     ],
-    'buttons' => [
+    'buttons'       => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.job-skill.edit', $jobSkill) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add Skill',     'href' => route('admin.portfolio.job-skill.create', ['job_id' => $jobSkill->job->id]) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.job-skill.index') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add Skill', 'href' => route('admin.portfolio.job-skill.create', ['job_id' => $jobSkill->job->id]) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-skill.index') ],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

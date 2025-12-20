@@ -6,21 +6,22 @@
     if (canCreate($award)) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Award', 'href' => route('admin.portfolio.award.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.award.index') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.award.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title' => 'Award: ' . $award->name,
-    'breadcrumbs' => [
+    'title'         => 'Award: ' . $award->name,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Award',           'href' => route('admin.portfolio.award.index') ],
         [ 'name' => $award->name ],
     ],
-    'buttons' => $buttons,
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

@@ -6,11 +6,11 @@
     if (canCreate($recipeStep)) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Step', 'href' => route('admin.personal.recipe-step.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.personal.recipe-step.index') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.personal.recipe-step.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title' => $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step,
-    'breadcrumbs' => [
+    'title'         => $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',                      'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard',           'href' => route('admin.dashboard')],
         [ 'name' => 'Personal',                  'href' => route('admin.personal.index') ],
@@ -18,10 +18,11 @@
         [ 'name' => $recipeStep->recipe['name'], 'href' => route('admin.personal.recipe.show', $recipeStep->recipe) ],
         [ 'name' => 'Step ' . $recipeStep->step ],
     ],
-    'buttons' => $buttons,
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

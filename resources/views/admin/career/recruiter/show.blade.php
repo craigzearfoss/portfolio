@@ -6,25 +6,26 @@
     if (canCreate($recruiter)) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recruiter', 'href' => route('admin.career.recruiter.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.recruiter.index') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.recruiter.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title' => 'Recruiter: ' . $recruiter->name,
-    'breadcrumbs' => [
+    'title'         => 'Recruiter: ' . $recruiter->name,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Recruiters',      'href' => route('admin.career.recruiter.index') ],
         [ 'name' => $recruiter->name ],
     ],
-    'buttons' => [
+    'buttons'       => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'href' => route('admin.career.recruiter.edit', $recruiter) ],
         [ 'name' => '<i class="fa fa-plus"></i> Add New Recruiter', 'href' => route('admin.career.recruiter.create') ],
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back',        'href' => referer('admin.career.recruiter.index') ],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

@@ -14,6 +14,7 @@
         : [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

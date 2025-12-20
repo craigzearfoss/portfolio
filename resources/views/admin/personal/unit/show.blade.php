@@ -6,21 +6,22 @@
     if (canCreate($unit)) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Unit', 'href' => route('admin.personal.unit.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.personal.unit.index') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.personal.unit.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title' => 'Unit: ' . $unit->name,
-    'breadcrumbs' => [
+    'title'         => 'Unit: ' . $unit->name,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Units',           'href' => route('admin.personal.unit.index') ],
         [ 'name' => $unit->name ],
     ],
-    'buttons' => $buttons,
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

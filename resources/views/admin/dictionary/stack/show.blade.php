@@ -4,18 +4,18 @@
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.dictionary.stack.edit', $stack) ];
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'href' => route('admin.dictionary.stack.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.dictionary.index') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title' => $stack->name . ' (stack)',
-    'breadcrumbs' => [
+    'title'         => $stack->name . ' (stack)',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Stacks',          'href' => route('admin.dictionary.stack.index') ],
         [ 'name' => $stack->name ],
     ],
-    'buttons' => isRootAdmin()
+    'buttons'       => isRootAdmin()
             ? [
                 [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.dictionary.stack.edit', $stack) ],
                 [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'href' => route('admin.dictionary.stack.create') ],
@@ -24,9 +24,10 @@
             : [
                 [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.dictionary.index') ],
               ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

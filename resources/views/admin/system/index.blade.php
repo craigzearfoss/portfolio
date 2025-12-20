@@ -1,14 +1,15 @@
 @extends('admin.layouts.default', [
-    'title' => 'System',
-    'breadcrumbs' => [
+    'title'         => 'System',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard')],
         [ 'name' => 'System']
     ],
-    'buttons' => [],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => [],
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

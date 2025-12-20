@@ -1,24 +1,25 @@
 @php
     $buttons = [];
     if (isRootAdmin()) {
-        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'href' => route('admin.dictionary.server.edit', $server) ];
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.dictionary.server.edit', $server) ];
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Server', 'href' => route('admin.dictionary.server.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.dictionary.index') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title' => $server->name . ' (server)',
-    'breadcrumbs' => [
+    'title'         => $server->name . ' (server)',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Servers',         'href' => route('admin.dictionary.server.index') ],
         [ 'name' => $server->name ],
     ],
-    'buttons' => $buttons,
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

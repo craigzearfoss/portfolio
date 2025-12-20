@@ -6,21 +6,22 @@
     if (canCreate($coverLetter)) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Cover Letter', 'href' => route('admin.career.cover-letter.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.cover-letter.index') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.cover-letter.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title' => 'Cover Letter: ' . $coverLetter->name,
-    'breadcrumbs' => [
+    'title'         => 'Cover Letter: ' . $coverLetter->name,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',             'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',           'href' => route('admin.career.index') ],
         [ 'name' => $coverLetter->name, 'href' => route('admin.career.application.show', $coverLetter->application)],
         [ 'name' => 'Cover Letters' ],
     ],
-    'buttons' => $buttons,
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

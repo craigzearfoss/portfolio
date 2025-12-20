@@ -1,17 +1,18 @@
 @extends('admin.layouts.default', [
-    'title' => 'My Profile',
-    'breadcrumbs' => [
+    'title'         => 'My Profile',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'My Profile' ],
     ],
-    'buttons' => [
+    'buttons'       => [
         [ 'name' => '<i class="fa fa-key"></i> Change Password', 'href' => route('admin.profile.change-password') ],
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',  'href' => route('admin.profile.edit') ],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

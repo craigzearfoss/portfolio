@@ -1,10 +1,10 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add New Art',
+    'title' =>'Add New Photo',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
-        [ 'name' => 'Art',             'href' => route('admin.portfolio.photography.index') ],
+        [ 'name' => 'Photo',           'href' => route('admin.portfolio.photography.index') ],
         [ 'name' => 'Add' ],
     ],
     'buttons' => [
@@ -135,7 +135,7 @@
             ])
 
             @include('admin.components.form-button-submit-horizontal', [
-                'label'      => 'Add Art',
+                'label'      => 'Add Photo',
                 'cancel_url' => referer('admin.portfolio.photography.index')
             ])
 

@@ -11,12 +11,13 @@
     ],
     'buttons' => [
         [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.job-coworker.edit', $jobCoworker) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add Coworker',  'href' => route('admin.portfolio.job-coworker.create', ['job_id' => $jobCoworker->job->id]) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.portfolio.job-coworker.index') ],
+        [ 'name' => '<i class="fa fa-plus"></i> Add Coworker', 'href' => route('admin.portfolio.job-coworker.create', ['job_id' => $jobCoworker->job->id]) ],
+        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-coworker.index') ],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

@@ -1,33 +1,33 @@
 @extends('admin.layouts.default', [
-    'pageTitle' => ucfirst($envType) . ' Menu',
-    'title'     => view('admin.components.form-select-nolabel', [
-                    'name'  => '',
-                    'id'    => 'env_type',
-                    'value' => route('admin.system.menu-item.index', $envType),
-                    'list'  => [
-                                    route('admin.system.menu-item.index', 'admin') => 'Admin',
-                                    route('admin.system.menu-item.index', 'user')  => 'User',
-                                    route('admin.system.menu-item.index', 'guest') => 'Guest',
-                               ],
-
-                    'class' => 'subtitle is-bold',
-                    'style' => 'display: inline-block; font-weight: 700;',
-                    'onchange' => "window.location.href = document.getElementById('env_type').value"
-               ]) . ' Menu',
-    'breadcrumbs' => [
+    'pageTitle'     => ucfirst($envType) . ' Menu',
+    'title'         => view('admin.components.form-select-nolabel', [
+                            'name'  => '',
+                            'id'    => 'env_type',
+                            'value' => route('admin.system.menu-item.index', $envType),
+                            'list'  => [
+                                            route('admin.system.menu-item.index', 'admin') => 'Admin',
+                                            route('admin.system.menu-item.index', 'user')  => 'User',
+                                            route('admin.system.menu-item.index', 'guest') => 'Guest',
+                                       ],
+                            'class' => 'subtitle is-bold',
+                            'style' => 'display: inline-block; font-weight: 700;',
+                            'onchange' => "window.location.href = document.getElementById('env_type').value"
+                       ]) . ' Menu',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => ucfirst($envType) .  ' Menu' ],
     ],
-    'buttons' => [
+    'buttons'       => [
         /*
         [ 'name' => '<i class="fa fa-plus"></i> Add New Message', 'href' => route('admin.system.menu-item.create') ],
         */
     ],
-    'errorMessages'=> $errors->any() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->any() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

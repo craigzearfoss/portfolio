@@ -1,5 +1,5 @@
 @extends('admin.layouts.default', [
-    'title'         => '',
+    'title'         => 'Login',
     'breadcrumbs'   => [],
     'buttons'       => [],
     'errorMessages' => $errors->messages() ?? [],

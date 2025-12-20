@@ -1,11 +1,12 @@
 @extends('admin.layouts.default', [
-    'pageTitle'   => 'Forgot Password',
-    'title'       => '',
-    'breadcrumbs' => [],
-    'buttons' => [],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'pageTitle'     => 'Forgot Password',
+    'title'         => '',
+    'breadcrumbs'   => [],
+    'buttons'       => [],
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => null,
 ])
 
 @section('content')

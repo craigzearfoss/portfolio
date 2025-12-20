@@ -1,18 +1,19 @@
 @extends('admin.layouts.default', [
-    'title' => 'User Teams',
-    'breadcrumbs' => [
+    'title'         => 'User Teams',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'User Teams' ]
     ],
-    'buttons' => [
+    'buttons'       => [
         [ 'name' => '<i class="fa fa-plus"></i> Add New User Team', 'href' => route('admin.system.user-team.create') ],
         [ 'name' => '<i class="fa fa-list"></i> User Groups',       'href' => route('admin.system.user-group.index') ],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

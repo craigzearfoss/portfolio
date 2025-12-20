@@ -26,15 +26,16 @@
     if (canCreate($note)) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Note', 'href' => route('admin.career.note.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.career.note.index') ];
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.note.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title' => $title ?? 'Note' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs' => $breadcrumbs,
-    'buttons' => $buttons,
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'title'         => $title ?? 'Note' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'breadcrumbs'   => $breadcrumbs,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')
