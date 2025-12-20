@@ -22,16 +22,17 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title' => $title ?? 'Edit Resume' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs' => $breadcrumbs,
-    'buttons' => [
+    'title'         => $title ?? 'Edit Resume' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'breadcrumbs'   => $breadcrumbs,
+    'buttons'       => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.resume.index') ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

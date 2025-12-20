@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('contact', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Contact', 'href' => route('admin.career.contact.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'Contacts',
     'breadcrumbs'   => [
@@ -6,11 +12,7 @@
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Contacts' ]
     ],
-    'buttons'       => [
-        canCreate('contact')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Contact', 'href' => route('admin.career.contact.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

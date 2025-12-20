@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($coverLetter)) {
+    if (canUpdate($coverLetter, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.cover-letter.edit', $coverLetter) ];
     }
-    if (canCreate($coverLetter)) {
+    if (canCreate($coverLetter, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Cover Letter', 'href' => route('admin.career.cover-letter.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.cover-letter.index') ];

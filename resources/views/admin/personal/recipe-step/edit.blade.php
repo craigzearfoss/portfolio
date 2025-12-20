@@ -1,6 +1,6 @@
 @extends('admin.layouts.default', [
-    'title' => $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step,
-    'breadcrumbs' => [
+    'title'         => $recipeStep->recipe['name'] . ' - step ' . $recipeStep->step,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',                       'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard',            'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',                   'href' => route('admin.personal.index') ],
@@ -9,14 +9,15 @@
         [ 'name' => 'Step ' . $recipeStep->step , 'href' => route('admin.personal.recipe-step.show', $recipeStep->id) ],
         [ 'name' => 'Edit' ],
     ],
-    'buttons' => [
+    'buttons'       => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.personal.recipe-step.index') ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($application)) {
+    if (canUpdate($application, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.application.edit', $application) ];
     }
-    if (canCreate($application)) {
+    if (canCreate($application, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Application', 'href' => route('admin.career.application.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.application.index') ];
@@ -17,11 +17,7 @@
         [ 'name' => 'Applications',    'href' => route('admin.career.application.index') ],
         [ 'name' => $application->name ],
     ],
-    'buttons'       => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',            'href' => route('admin.career.application.edit', $application) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Create a New Application', 'href' => route('admin.career.application.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',               'href' => referer('admin.career.application.index') ],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

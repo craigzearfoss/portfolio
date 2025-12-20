@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('link', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Link', 'href' => route('admin.portfolio.link.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'Links',
     'breadcrumbs'   => [
@@ -6,11 +12,7 @@
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Links' ],
     ],
-    'buttons'       => [
-        canCreate('link')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Link', 'href' => route('admin.portfolio.link.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

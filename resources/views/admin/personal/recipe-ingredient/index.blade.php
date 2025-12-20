@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('recipe-ingredient', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => (!empty($recipeId) && !empty($recipeIngredient->recipe))
         ?  $recipeIngredient->recipe['name'] . ' Ingredients'
@@ -9,11 +15,7 @@
         [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
         [ 'name' => 'Ingredients' ],
     ],
-    'buttons'       => [
-        canCreate('recipe-ingredient')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

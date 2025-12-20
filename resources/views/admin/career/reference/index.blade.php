@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('reference', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Reference', 'href' => route('admin.career.reference.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'References',
     'breadcrumbs'   => [
@@ -6,11 +12,7 @@
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'References' ]
     ],
-    'buttons'       => [
-        canCreate('reference')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Reference', 'href' => route('admin.career.reference.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

@@ -20,10 +20,10 @@
     }
 
     $buttons = [];
-    if (canUpdate($event)) {
+    if (canUpdate($event, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.event.edit', $event) ];
     }
-    if (canCreate($event)) {
+    if (canCreate($event, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'href' => route('admin.career.event.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.event.index') ];

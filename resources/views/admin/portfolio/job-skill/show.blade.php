@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($jobSkill, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.job-skill.edit', $jobSkill) ];
+    }
+    if (canCreate($jobSkill, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add Skill', 'href' => route('admin.portfolio.job-skill.create', ['job_id' => $jobSkill->job->id]) ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-skill.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title'         => $jobSkill->name,
     'breadcrumbs'   => [
@@ -9,11 +19,7 @@
         [ 'name' => 'Skills',            'href' => route('admin.portfolio.job-skill.index', ['job_id' => $jobSkill->job->id]) ],
         [ 'name' => 'Show' ],
     ],
-    'buttons'       => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.job-skill.edit', $jobSkill) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add Skill', 'href' => route('admin.portfolio.job-skill.create', ['job_id' => $jobSkill->job->id]) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-skill.index') ],
-    ],
+    'buttons'       => $button,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

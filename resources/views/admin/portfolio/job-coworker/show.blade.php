@@ -1,3 +1,13 @@
+@php
+    $buttons = [];
+    if (canUpdate($jobCorker, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.job-coworker.edit', $jobCoworker) ];
+    }
+    if (canCreate($jobCoworker, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add Coworker', 'href' => route('admin.portfolio.job-coworker.create', ['job_id' => $jobCoworker->job->id]) ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-coworker.index') ];
+@endphp
 @extends('admin.layouts.default', [
     'title' => $jobCoworker->name,
     'breadcrumbs' => [
@@ -9,11 +19,7 @@
         [ 'name' => 'Coworkers',             'href' => route('admin.portfolio.job-coworker.index', ['job_id' => $jobCoworker->job->id]) ],
         [ 'name' => $jobCoworker->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.job-coworker.edit', $jobCoworker) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add Coworker', 'href' => route('admin.portfolio.job-coworker.create', ['job_id' => $jobCoworker->job->id]) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.job-coworker.index') ],
-    ],
+    'buttons' => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

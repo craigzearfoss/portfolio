@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('photography', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Photo', 'href' => route('admin.portfolio.photography.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'Photography',
     'breadcrumbs'   => [
@@ -6,11 +12,7 @@
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Photography' ],
     ],
-    'buttons'       => [
-        canCreate('photography')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Photo', 'href' => route('admin.portfolio.photography.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

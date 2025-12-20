@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('job-board', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Job Board', 'href' => route('admin.career.job-board.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'Job Boards',
     'breadcrumbs'   => [
@@ -6,11 +12,7 @@
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Job Boards' ]
     ],
-    'buttons'       => [
-        canCreate('job-board')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Job Board', 'href' => route('admin.career.job-board.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('recruiter', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recruiter', 'href' => route('admin.career.recruiter.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'Recruiters',
     'breadcrumbs'   => [
@@ -6,11 +12,7 @@
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Recruiters' ]
     ],
-    'buttons'       => [
-        canCreate('recruiter')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Recruiter', 'href' => route('admin.career.recruiter.create') ]]
-            : [],
-    ],
+    'buttons'       =>$buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

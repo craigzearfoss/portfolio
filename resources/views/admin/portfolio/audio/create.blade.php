@@ -1,20 +1,21 @@
 @extends('admin.layouts.default', [
-    'title' =>'Add New Audio',
-    'breadcrumbs' => [
+    'title'         => 'Add New Audio',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Audio' ,          'href' => route('admin.portfolio.audio.index') ],
         [ 'name' => 'Add' ],
     ],
-    'buttons' => [
+    'buttons'       => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.audio.index') ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

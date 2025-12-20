@@ -1,6 +1,6 @@
 @extends('admin.layouts.default', [
-    'title' => 'Certificate: ' . $certificate->name,
-    'breadcrumbs' => [
+    'title'         => 'Certificate: ' . $certificate->name,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',             'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard',  'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',        'href' => route('admin.portfolio.index') ],
@@ -8,14 +8,15 @@
         [ 'name' => $certificate->name, 'href' => route('admin.portfolio.certificate.show', $certificate->id) ],
         [ 'name' => 'Edit' ],
     ],
-    'buttons' => [
+    'buttons'       => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.certificate.index') ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

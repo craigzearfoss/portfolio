@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($recipe)) {
+    if (canUpdate($recipe, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.personal.recipe.edit', $recipe) ];
     }
-    if (canCreate($recipe)) {
+    if (canCreate($recipe, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe', 'href' => route('admin.personal.recipe.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.personal.recipe.index') ];

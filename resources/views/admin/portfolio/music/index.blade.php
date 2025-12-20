@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('music', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Music', 'href' => route('admin.portfolio.music.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'Music',
     'breadcrumbs'   => [
@@ -6,11 +12,7 @@
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Music' ],
     ],
-    'buttons'       => [
-        canCreate('music')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Music', 'href' => route('admin.portfolio.music.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

@@ -1,4 +1,10 @@
 @php
+    $buttons = [];
+    if (canCreate('resume', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.career.resume.create') ];
+    }
+@endphp
+@php
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('system.index') ],
@@ -25,11 +31,7 @@
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Resumes' ]
     ],
-    'buttons'       => [
-        canCreate('resume')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.career.resume.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

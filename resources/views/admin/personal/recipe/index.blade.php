@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('recipe', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe', 'href' => route('admin.personal.recipe.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'Recipes',
     'breadcrumbs'   => [
@@ -6,11 +12,7 @@
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Recipes' ],
     ],
-    'buttons'       => [
-        canCreate('recipe')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe', 'href' => route('admin.personal.recipe.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

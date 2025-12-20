@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($course)) {
+    if (canUpdate($course, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.course.edit', $course) ];
     }
-    if (canCreate($course)) {
+    if (canCreate($course, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Course', 'href' => route('admin.portfolio.course.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.course.index') ];

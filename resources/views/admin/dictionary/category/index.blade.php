@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('category', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Category', 'href' => route('admin.dictionary.category.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'Dictionary',
     'breadcrumbs'   => [
@@ -14,11 +20,7 @@
             'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
             'message'  => $message ?? '',
         ]),
-    'buttons'       => [
-        canCreate('category')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Category', 'href' => route('admin.dictionary.category.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

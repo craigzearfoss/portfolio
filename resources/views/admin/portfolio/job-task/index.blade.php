@@ -12,15 +12,16 @@
     } else {
         $breadcrumbs[] = [ 'name' => 'Tasks', 'href' => route('admin.portfolio.job-task.index') ];
     }
+
+    $buttons = [];
+    if (canCreate('job-task', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Job Task', 'href' => route('admin.portfolio.job-task.create') ];
+    }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => !empty($job) ? $job->company . ' Tasks' : 'Job Tasks',
     'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => [
-        canCreate('job-task')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Job Task', 'href' => route('admin.portfolio.job-task.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

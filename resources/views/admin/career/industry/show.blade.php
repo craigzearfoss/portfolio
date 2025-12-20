@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($industry)) {
+    if (canUpdate($industry, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.industry.edit', $industry) ];
     }
-    if (canCreate($industry)) {
+    if (canCreate($industry, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Industry', 'href' => route('admin.career.industry.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.industry.index') ];

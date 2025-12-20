@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('unit', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Unit', 'href' => route('admin.personal.unit.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'Units',
     'breadcrumbs'   => [
@@ -6,11 +12,7 @@
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Units' ],
     ],
-    'buttons'       => [
-        canCreate('unit')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Unit', 'href' => route('admin.personal.unit.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

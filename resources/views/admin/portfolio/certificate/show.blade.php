@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($certificate)) {
+    if (canUpdate($certificate, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.certificate.edit', $certificate) ];
     }
-    if (canCreate($certificate)) {
+    if (canCreate($certificate, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Certificate', 'href' => route('admin.portfolio.certificate.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.certificate.index') ];

@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($unit)) {
+    if (canUpdate($unit, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.personal.unit.edit', $unit) ];
     }
-    if (canCreate($unit)) {
+    if (canCreate($unit, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Unit', 'href' => route('admin.personal.unit.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.personal.unit.index') ];

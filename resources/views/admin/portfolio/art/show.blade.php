@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($art)) {
+    if (canUpdate($art, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.art.edit', $art) ];
     }
-    if (canCreate($art)) {
+    if (canCreate($art, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Art', 'href' => route('admin.portfolio.art.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.art.index') ];

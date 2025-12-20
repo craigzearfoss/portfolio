@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('cover-letter', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Cover Letter', 'href' => route('admin.career.cover-letter.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'Cover Letters',
     'breadcrumbs'   => [
@@ -6,11 +12,7 @@
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Cover Letters' ]
     ],
-    'buttons'       => [
-        canCreate('cover-letter')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Cover Letter', 'href' => route('admin.career.cover-letter.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

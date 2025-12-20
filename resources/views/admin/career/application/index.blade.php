@@ -1,4 +1,10 @@
 @php
+    $buttons = [];
+    if (canCreate('application', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Application', 'href' => route('admin.career.application.create') ];
+    }
+@endphp
+@php
 if (!empty($resume)) {
     $breadcrumbs = [
         [ 'name' => 'Home',            'href' => route('system.index') ],
@@ -20,11 +26,7 @@ if (!empty($resume)) {
 @extends('admin.layouts.default', [
     'title'         => 'Applications' . (!empty($resume) ? ' for ' . $resume->name . ' resume' : ''),
     'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => [
-        canCreate('application')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Application', 'href' => route('admin.career.application.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

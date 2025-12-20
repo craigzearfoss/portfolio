@@ -1,10 +1,12 @@
 @php
     $buttons = [];
-    if (isRootAdmin()) {
+    if (canUpdate($category, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.dictionary.category.edit', $category) ];
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Category', 'href' => route('admin.dictionary.category.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ];
+    if (canCreate($category, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.dictionary.category.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.category.index') ];
 @endphp
 @extends('admin.layouts.default', [
     'title'         => $category->name . ' (category)',

@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('ingredient', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Reading', 'href' => route('admin.personal.reading.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'Readings',
     'breadcrumbs'   => [
@@ -6,11 +12,7 @@
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Readings' ],
     ],
-    'buttons'       => [
-        canCreate('reading')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Reading', 'href' => route('admin.personal.reading.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

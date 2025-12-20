@@ -12,15 +12,16 @@
     } else {
         $breadcrumbs[] = [ 'name' => 'Coworkers', 'href' => route('admin.portfolio.job-coworker.index') ];
     }
+
+    $buttons = [];
+    if (canCreate('job-coworker', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'href' => route('admin.portfolio.job-coworker.create') ];
+    }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => !empty($job) ? $job->company . ' Coworkers' : 'Job Coworkers',
     'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => [
-        canCreate('job-coworker')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'href' => route('admin.portfolio.job-coworker.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

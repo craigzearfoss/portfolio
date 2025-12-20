@@ -16,15 +16,16 @@
             [ 'name' => 'Events' ]
         ];
     }
+
+    $buttons = [];
+    if (canCreate('event', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'href' => route('admin.career.event.create') ];
+    }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => $title ?? 'Events' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => [
-        canCreate('event')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Event', 'href' => route('admin.career.event.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

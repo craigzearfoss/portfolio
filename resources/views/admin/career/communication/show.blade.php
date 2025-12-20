@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($communication)) {
+    if (canUpdate($communication, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.communication.edit', $communication) ];
     }
-    if (canCreate($communication)) {
+    if (canCreate($communication, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.communication.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.communication.index') ];

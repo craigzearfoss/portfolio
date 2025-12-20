@@ -1,6 +1,6 @@
 @extends('admin.layouts.default', [
-    'title' => $operatingSystem->name . ' (operating system)',
-    'breadcrumbs' => [
+    'title'         => $operatingSystem->name . ' (operating system)',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',                  'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard',       'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',            'href' => route('admin.dictionary.index') ],
@@ -8,14 +8,15 @@
         [ 'name' => $operatingSystem->name,  'href' => route('admin.dictionary.operating-system.show', $operatingSystem->id) ],
         [ 'name' => 'Edit' ],
     ],
-    'buttons' => [
+    'buttons'       => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ],
     ],
     'errorMessages' => $errors->any()
         ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
         : [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => Auth::guard('admin')->user(),
 ])
 
 @section('content')

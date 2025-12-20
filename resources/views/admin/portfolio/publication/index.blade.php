@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('publication', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Publication', 'href' => route('admin.portfolio.publication.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'Publications',
     'breadcrumbs'   => [
@@ -6,11 +12,7 @@
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Publications' ],
     ],
-    'buttons'       => [
-        canCreate('publication')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Publication', 'href' => route('admin.portfolio.publication.create') ]]
-            : [],
-    ],
+    'buttons'       => $butttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

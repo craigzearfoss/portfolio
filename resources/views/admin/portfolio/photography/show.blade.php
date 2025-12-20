@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($photo)) {
+    if (canUpdate($photo, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.photography.edit', $photo) ];
     }
-    if (canCreate($photo)) {
+    if (canCreate($photo, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Photo', 'href' => route('admin.portfolio.photography.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.photography.index') ];

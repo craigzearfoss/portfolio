@@ -1,10 +1,12 @@
 @php
     $buttons = [];
-    if (isRootAdmin()) {
+    if (canUpdate($server, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.dictionary.server.edit', $server) ];
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Server', 'href' => route('admin.dictionary.server.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ];
+    if (canCreate($server, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.dictionary.server.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.server.index') ];
 @endphp
 @extends('admin.layouts.default', [
     'title'         => $server->name . ' (server)',

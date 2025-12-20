@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($recruiter)) {
+    if (canUpdate($recruiter, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.recruiter.edit', $recruiter) ];
     }
-    if (canCreate($recruiter)) {
+    if (canCreate($recruiter, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Recruiter', 'href' => route('admin.career.recruiter.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.recruiter.index') ];
@@ -17,11 +17,7 @@
         [ 'name' => 'Recruiters',      'href' => route('admin.career.recruiter.index') ],
         [ 'name' => $recruiter->name ],
     ],
-    'buttons'       => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'href' => route('admin.career.recruiter.edit', $recruiter) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Recruiter', 'href' => route('admin.career.recruiter.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',        'href' => referer('admin.career.recruiter.index') ],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($reference)) {
+    if (canUpdate($reference, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.reference.edit', $reference) ];
     }
-    if (canCreate($reference)) {
+    if (canCreate($reference, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Reference', 'href' => route('admin.career.reference.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.reference.index') ];
@@ -17,11 +17,7 @@
         [ 'name' => 'References',      'href' => route('admin.career.reference.index') ],
         [ 'name' => $reference->name ],
     ],
-    'buttons'       => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'href' => route('admin.career.reference.edit', $reference) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Reference', 'href' => route('admin.career.reference.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',        'href' => referer('admin.career.reference.index') ],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

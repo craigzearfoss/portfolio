@@ -1,10 +1,12 @@
 @php
     $buttons = [];
-    if (isRootAdmin()) {
+    if (canUpdate($stack, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.dictionary.stack.edit', $stack) ];
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'href' => route('admin.dictionary.stack.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ];
+    if (canCreate($stack, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.dictionary.stack.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.stack.index') ];
 @endphp
 @extends('admin.layouts.default', [
     'title'         => $stack->name . ' (stack)',
@@ -15,15 +17,7 @@
         [ 'name' => 'Stacks',          'href' => route('admin.dictionary.stack.index') ],
         [ 'name' => $stack->name ],
     ],
-    'buttons'       => isRootAdmin()
-            ? [
-                [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.dictionary.stack.edit', $stack) ],
-                [ 'name' => '<i class="fa fa-plus"></i> Add New Stack', 'href' => route('admin.dictionary.stack.create') ],
-                [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.dictionary.index') ],
-              ]
-            : [
-                [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.dictionary.index') ],
-              ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

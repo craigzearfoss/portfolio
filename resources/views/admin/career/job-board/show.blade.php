@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($jobBoard)) {
+    if (canUpdate($jobBoard), currentAdminId()) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.job-board.edit', $jobBoard) ];
     }
-    if (canCreate($jobBoard)) {
+    if (canCreate($jobBoard, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Job Board', 'href' => route('admin.career.job-board.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.job-board.index') ];
@@ -17,7 +17,7 @@
         [ 'name' => 'Job Boards',      'href' => route('admin.career.job-board.index') ],
         [ 'name' => $jobBoard->name ],
     ],
-    'buttons' => $buttons,
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

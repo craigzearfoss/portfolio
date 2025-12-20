@@ -1,10 +1,12 @@
 @php
     $buttons = [];
-    if (isRootAdmin()) {
+    if (canUpdate($library, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.dictionary.library.edit', $library) ];
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Library', 'href' => route('admin.dictionary.library.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ];
+    if (canCreate($library, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.dictionary.library.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.library.index') ];
 @endphp
 @extends('admin.layouts.default', [
     'title'         => $library->name . ' (library)',

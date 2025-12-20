@@ -16,15 +16,16 @@
             [ 'name' => 'Notes' ]
         ];
     }
+
+    $buttons = [];
+    if (canCreate('note', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Note', 'href' => route('admin.career.note.create') ];
+    }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => $title ?? 'Notes' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => [
-        canCreate('note')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Note', 'href' => route('admin.career.note.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

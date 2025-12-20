@@ -20,10 +20,10 @@
     }
 
     $buttons = [];
-    if (canUpdate($note)) {
+    if (canUpdate($note, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.career.note.edit', $note) ];
     }
-    if (canCreate($note)) {
+    if (canCreate($note, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Note', 'href' => route('admin.career.note.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.career.note.index') ];

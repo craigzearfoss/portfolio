@@ -1,10 +1,12 @@
 @php
     $buttons = [];
-    if (isRootAdmin()) {
+    if (canUpdate($language, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.dictionary.language.edit', $language) ];
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Language', 'href' => route('admin.dictionary.language.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ];
+    if (canCreate($language, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.dictionary.language.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.language.index') ];
 @endphp
 @extends('admin.layouts.default', [
     'title'         => $language->name . ' (language)',

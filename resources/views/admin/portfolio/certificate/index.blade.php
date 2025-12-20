@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('certificate', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Certificate', 'href' => route('admin.portfolio.certificate.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'Certificates',
     'breadcrumbs'   => [
@@ -6,11 +12,7 @@
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Certificates' ],
     ],
-    'buttons'       => [
-        canCreate('certificate')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Certificate', 'href' => route('admin.portfolio.certificate.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

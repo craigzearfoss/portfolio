@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($audio)) {
+    if (canUpdate($audio, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.portfolio.audio.edit', $audio) ];
     }
-    if (canCreate($audio)) {
+    if (canCreate($audio, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Audio', 'href' => route('admin.portfolio.audio.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.portfolio.audio.index') ];

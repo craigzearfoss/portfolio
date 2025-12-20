@@ -1,3 +1,9 @@
+@php
+    $buttons = [];
+    if (canCreate('operating-system', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Operating System', 'href' => route('admin.dictionary.operating-system.create') ];
+    }
+@endphp
 @extends('admin.layouts.default', [
     'title'         => 'Dictionary',
     'breadcrumbs'   => [
@@ -14,11 +20,7 @@
             'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
             'message'  => $message ?? '',
         ]),
-    'buttons'       => [
-        canCreate('operating-system')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Operating System', 'href' => route('admin.dictionary.operating-system.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

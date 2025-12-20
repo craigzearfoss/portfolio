@@ -1,10 +1,12 @@
 @php
     $buttons = [];
-    if (isRootAdmin()) {
+    if (canUpdate($operatingSystem, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.dictionary.operating-system.edit', $operatingSystem) ];
-        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Operating System', 'href' => route('admin.dictionary.operating-system.create') ];
     }
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.index') ];
+    if (canCreate($operatingSystem, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.dictionary.operating-system.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.dictionary.operating-system.index') ];
 @endphp
 @extends('admin.layouts.default', [
     'title'         => $operatingSystem->name . ' (operating system)',

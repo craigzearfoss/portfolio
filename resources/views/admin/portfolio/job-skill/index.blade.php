@@ -12,15 +12,16 @@
     } else {
         $breadcrumbs[] = [ 'name' => 'name', 'href' => route('admin.portfolio.job-skill.index') ];
     }
+
+    $buttons = [];
+    if (canCreate('job-skill', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Job Skill', 'href' => route('admin.portfolio.job-skill.create') ];
+    }
 @endphp
 @extends('admin.layouts.default', [
     'title'         => !empty($job) ? $job->company . ' Skills' : 'Job Skills',
     'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => [
-        canCreate('job-skill')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Job Skill', 'href' => route('admin.portfolio.job-skill.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,

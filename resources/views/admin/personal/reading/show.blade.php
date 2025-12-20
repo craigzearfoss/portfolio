@@ -1,9 +1,9 @@
 @php
     $buttons = [];
-    if (canUpdate($reading)) {
+    if (canUpdate($reading, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.personal.reading.edit', $reading) ];
     }
-    if (canCreate($reading)) {
+    if (canCreate($reading, currentAdminId())) {
         $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Reading', 'href' => route('admin.personal.reading.create') ];
     }
     $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.personal.reading.index') ];

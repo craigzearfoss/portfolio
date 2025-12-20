@@ -1,4 +1,10 @@
 @php
+    $buttons = [];
+    if (canCreate('communication', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.communication.create') ];
+    }
+@endphp
+@php
     if (!empty($application)) {
         $breadcrumbs = [
             [ 'name' => 'Home',             'href' => route('system.index') ],
@@ -20,11 +26,7 @@
 @extends('admin.layouts.default', [
     'title'         => $title ?? 'Communications' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
     'breadcrumbs'   => $breadcrumbs,
-    'buttons'       => [
-        canCreate('communication')
-            ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.communication.create') ]]
-            : [],
-    ],
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
