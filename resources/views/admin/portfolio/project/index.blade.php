@@ -1,19 +1,19 @@
 @extends('admin.layouts.default', [
-    'title' => 'Projects',
-    'breadcrumbs' => [
+    'title'         => 'Projects',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Projects' ],
     ],
-    'buttons' => [
+    'buttons'       => [
         canCreate('project')
             ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Project', 'href' => route('admin.portfolio.project.create') ]]
             : [],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

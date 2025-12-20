@@ -1,19 +1,19 @@
 @extends('admin.layouts.default', [
-    'title' => 'Ingredients',
-    'breadcrumbs' => [
+    'title'         => 'Ingredients',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Ingredients' ],
     ],
-    'buttons' => [
+    'buttons'       => [
         canCreate('ingredient')
             ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Ingredient', 'href' => route('admin.personal.ingredient.create') ]]
             : [],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

@@ -1,19 +1,19 @@
 @extends('admin.layouts.default', [
-    'title' => 'Links',
-    'breadcrumbs' => [
+    'title'         => 'Links',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Links' ],
     ],
-    'buttons' => [
+    'buttons'       => [
         canCreate('link')
             ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Link', 'href' => route('admin.portfolio.link.create') ]]
             : [],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

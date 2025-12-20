@@ -1,19 +1,19 @@
 @extends('admin.layouts.default', [
-    'title' => 'Music',
-    'breadcrumbs' => [
+    'title'         => 'Music',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
         [ 'name' => 'Music' ],
     ],
-    'buttons' => [
+    'buttons'       => [
         canCreate('music')
             ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Music', 'href' => route('admin.portfolio.music.create') ]]
             : [],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

@@ -18,21 +18,21 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title' => $title ?? 'Resumes' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs' => [
+    'title'         => $title ?? 'Resumes' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Career',          'href' => route('admin.career.index') ],
         [ 'name' => 'Resumes' ]
     ],
-    'buttons' => [
+    'buttons'       => [
         canCreate('resume')
             ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Resume', 'href' => route('admin.career.resume.create') ]]
             : [],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

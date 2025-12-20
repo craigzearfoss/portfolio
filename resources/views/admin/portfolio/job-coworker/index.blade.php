@@ -1,5 +1,5 @@
 @php
-    $breadcrumbs = [
+    $breadcrumbs    = [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Portfolio',       'href' => route('admin.portfolio.index') ],
@@ -14,16 +14,16 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title' => !empty($job) ? $job->company . ' Coworkers' : 'Job Coworkers',
-    'breadcrumbs' => $breadcrumbs,
-    'buttons' => [
+    'title'         => !empty($job) ? $job->company . ' Coworkers' : 'Job Coworkers',
+    'breadcrumbs'   => $breadcrumbs,
+    'buttons'       => [
         canCreate('job-coworker')
             ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Job Coworker', 'href' => route('admin.portfolio.job-coworker.create') ]]
             : [],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

@@ -18,16 +18,16 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title' => $title ?? 'Communications' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs' => $breadcrumbs,
-    'buttons' => [
+    'title'         => $title ?? 'Communications' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'breadcrumbs'   => $breadcrumbs,
+    'buttons'       => [
         canCreate('communication')
             ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Communication', 'href' => route('admin.career.communication.create') ]]
             : [],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

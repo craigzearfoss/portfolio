@@ -18,16 +18,16 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title' => $title ?? 'Notes' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
-    'breadcrumbs' => $breadcrumbs,
-    'buttons' => [
+    'title'         => $title ?? 'Notes' . (!empty($application) ? ' for ' . $application->name . ' application' : ''),
+    'breadcrumbs'   => $breadcrumbs,
+    'buttons'       => [
         canCreate('note')
             ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Note', 'href' => route('admin.career.note.create') ]]
             : [],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

@@ -1,12 +1,12 @@
 @extends('admin.layouts.default', [
-    'title' => 'Dictionary',
-    'breadcrumbs' => [
+    'title'         => 'Dictionary',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Dictionary',      'href' => route('admin.dictionary.index') ],
         [ 'name' => 'Operating Systems' ]
     ],
-    'selectList' => View::make('admin.components.form-select', [
+    'selectList'    => View::make('admin.components.form-select', [
             'name'     => '',
             'label'    => '',
             'value'    => route('admin.dictionary.operating-system.index'),
@@ -14,14 +14,14 @@
             'onchange' => "window.location.href = this.options[this.selectedIndex].value;",
             'message'  => $message ?? '',
         ]),
-    'buttons' => [
+    'buttons'       => [
         canCreate('operating-system')
             ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Operating System', 'href' => route('admin.dictionary.operating-system.create') ]]
             : [],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

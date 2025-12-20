@@ -100,21 +100,21 @@ if (canRead('user', currentAdminId())) {
                                 </a>
                             @endif
 
-                            @if(canUpdate($userGroup))
+                            @if(canUpdate($user))
                                 <a title="edit" class="button is-small px-1 py-0"
                                    href="{{ route('admin.system.user.edit', $user->id) }}">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             @endif
 
-                            @if(canUpdate($userGroup))
+                            @if(canUpdate($user))
                                 <a title="change password" class="button is-small px-1 py-0"
                                    href="{{ route('admin.system.user.change-password', $user->id) }}">
                                     <i class="fa-solid fa-key"></i>
                                 </a>
                             @endif
 
-                            @if(canDelete($userGroup))
+                            @if(canDelete($user))
                                 @csrf
                                 @method('DELETE')
                                 <button title="delete" type="submit" class="delete-btn button is-small px-1 py-0">

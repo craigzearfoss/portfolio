@@ -18,18 +18,18 @@
     }
 @endphp
 @extends('admin.layouts.default', [
-    'title' => (!empty($recipe->name))
+    'title'         => (!empty($recipe->name))
         ?  $recipe->name . ' Instructions'
         : 'Recipe Instructions',
-    'breadcrumbs' => $breadcrumbs,
-    'buttons' => [
+    'breadcrumbs'   => $breadcrumbs,
+    'buttons'       => [
         canCreate('recipe-step')
             ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Step', 'href' => route('admin.personal.recipe-step.create') ]]
             : [],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

@@ -18,16 +18,16 @@ if (!empty($resume)) {
 }
 @endphp
 @extends('admin.layouts.default', [
-    'title' => 'Applications' . (!empty($resume) ? ' for ' . $resume->name . ' resume' : ''),
-    'breadcrumbs' => $breadcrumbs,
-    'buttons' => [
+    'title'         => 'Applications' . (!empty($resume) ? ' for ' . $resume->name . ' resume' : ''),
+    'breadcrumbs'   => $breadcrumbs,
+    'buttons'       => [
         canCreate('application')
             ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Application', 'href' => route('admin.career.application.create') ]]
             : [],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

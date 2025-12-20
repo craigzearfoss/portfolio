@@ -1,22 +1,22 @@
 @extends('admin.layouts.default', [
-    'title' => (!empty($recipeId) && !empty($recipeIngredient->recipe))
+    'title'         => (!empty($recipeId) && !empty($recipeIngredient->recipe))
         ?  $recipeIngredient->recipe['name'] . ' Ingredients'
         : 'Recipe Ingredients',
-    'breadcrumbs' => [
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Recipes',         'href' => route('admin.personal.recipe.index') ],
         [ 'name' => 'Ingredients' ],
     ],
-    'buttons' => [
+    'buttons'       => [
         canCreate('recipe-ingredient')
             ? [ [ 'name' => '<i class="fa fa-plus"></i> Add New Recipe Ingredient', 'href' => route('admin.personal.recipe-ingredient.create') ]]
             : [],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')
