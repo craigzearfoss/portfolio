@@ -4,7 +4,7 @@
 @endphp
 <div class="card p-4">
 
-    <h3 class="is-size-5 title mb-1">
+    <h3 class="is-size-5 title mb-3">
 
         Cover Letter
 
@@ -53,9 +53,11 @@
 
     @if(!empty($coverLetter))
 
+        <div style="height: 12px; margin: 0; padding: 0;"></div>
+
         @include('admin.components.show-row-link', [
             'name'  => 'date',
-            'value' => longDate($coverLetter->date)
+            'value' => longDate($coverLetter->date),
         ])
 
         @include('admin.components.show-row', [

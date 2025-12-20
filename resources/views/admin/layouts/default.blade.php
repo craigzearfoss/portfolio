@@ -13,7 +13,7 @@
 
 <div id="app">
 
-    @include('admin.components.nav-top')
+    @include('admin.components.nav-top', ['admin' => $admin ?? null])
 
     @include('admin.components.nav-left')
 

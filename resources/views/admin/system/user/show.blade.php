@@ -1,20 +1,27 @@
+@php
+    $buttons = [];
+    if (canDelete($user)) {
+        $buttons[] = [ 'name' => '<i class="fa fa-key"></i>Change Password', 'href' => route('admin.system.user.change-password', $user->id) ];
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.system.user.edit', $user) ];
+    }
+    if (canCreate($user, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'href' => route('admin.system.user.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.user.index') ];
+@endphp
 @extends('admin.layouts.default', [
-    'title' => 'User: ' . $user->username,
-    'breadcrumbs' => [
+    'title'         => 'User: ' . $user->username,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Users',           'href' => route('admin.system.user.index') ],
         [ 'name' => $user->username ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-key"></i>Change Password', 'href' => route('admin.system.user.change-password', $user->id) ],
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.system.user.edit', $user) ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',    'href' => referer('admin.system.user.index') ],
-    ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

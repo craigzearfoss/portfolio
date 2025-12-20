@@ -13,7 +13,7 @@
                     'class' => 'subtitle is-bold',
                     'style' => 'display: inline-block; font-weight: 700;',
                     'onchange' => "window.location.href = document.getElementById('env_type').value"
-                ]) . ' Menu',
+               ]) . ' Menu',
     'breadcrumbs' => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],

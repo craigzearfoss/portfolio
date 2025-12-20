@@ -8,6 +8,7 @@
     'errorMessages'=> $errors->messages() ?? [],
     'success' => session('success') ?? null,
     'error'   => session('error') ?? null,
+    'admin'   => 1,
 ])
 
 @section('content')

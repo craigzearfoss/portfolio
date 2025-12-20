@@ -14,12 +14,12 @@ class MenuService
     /**
      * Returns the array of items for the left nav menu.
      *
-     * @param string | null $envType
-     * @param $admin
+     * @param string|null $envType
+     * @param \App\Models\System\Admin|null $admin
      * @return array
      * @throws \Exception
      */
-    public function getLeftMenu(string | null $envType = null, $admin = null): array
+    public function getLeftMenu(string | null $envType = null, \App\Models\System\Admin|null $admin = null): array
     {
         // Verify the ENV type.
         if (empty($envType)) {
@@ -43,19 +43,21 @@ class MenuService
                 $menu[] = $resumeMenuItem;
             }
 
-            $currentDatabaseName = null;
-            $i = 0;
-            foreach (Resource::bySequence(null, $envType) as $resource) {
+            if (!empty($admin)) {
+                $currentDatabaseName = null;
+                $i = 0;
+                foreach (Resource::bySequence(null, $envType) as $resource) {
 
-                // note that we skip some menu items
-                if (!in_array($resource->database['name'], ['job'])) {
+                    // note that we skip some menu items
+                    if (!in_array($resource->database['name'], ['job'])) {
 
-                    if ($resource->database['name'] !== $currentDatabaseName) {
-                        $currentDatabaseName = $resource->database['name'];
-                        $i++;
-                        $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName, $admin, 1);
+                        if ($resource->database['name'] !== $currentDatabaseName) {
+                            $currentDatabaseName = $resource->database['name'];
+                            $i++;
+                            $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName, $admin, 1);
+                        }
+                        $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName, $admin, 2);
                     }
-                    $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName, $admin, 2);
                 }
             }
         }
@@ -164,12 +166,12 @@ class MenuService
     /**
      * Returns the array of items for the left nav menu.
      *
-     * @param string | null $envType
-     * @param $admin
+     * @param string|null $envType
+     * @param \App\Models\System\Admin|null $admin
      * @return array
      * @throws \Exception
      */
-    public function getTopMenu(string | null $envType = null, $admin = null): array
+    public function getTopMenu(string|null $envType = null, \App\Models\System\Admin|null $admin = null): array
     {
         // Verify the ENV type.
         if (empty($envType)) {
@@ -195,15 +197,17 @@ class MenuService
 
             $currentDatabaseName = null;
 
-            $i = 0;
-            foreach (Resource::bySequence(null, $envType) as $resource) {
-                if ($resource->database['name'] !== $currentDatabaseName) {
-                    $currentDatabaseName = $resource->database['name'];
-                    $i++;
-                    $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName, $admin);
-                }
+            if (!empty($admin)) {
+                $i = 0;
+                foreach (Resource::bySequence(null, $envType) as $resource) {
+                    if ($resource->database['name'] !== $currentDatabaseName) {
+                        $currentDatabaseName = $resource->database['name'];
+                        $i++;
+                        $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName, $admin);
+                    }
 
-                $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName, $admin);
+                    $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName, $admin);
+                }
             }
         }
 
@@ -319,7 +323,7 @@ class MenuService
      * @param array $database
      * @param string $envType
      * @param string $currentRouteName
-     * @param $admin
+     * @param \App\Models\System\Admin|null $admin
      * @param int $level
      * @return stdClass
      */
@@ -327,7 +331,7 @@ class MenuService
         array $database,
         string $envType,
         string $currentRouteName,
-        $admin = null,
+        \App\Models\System\Admin|null $admin = null,
         int $level = 1
     ): stdClass
     {
@@ -388,7 +392,7 @@ class MenuService
      * @param Resource $resource
      * @param string $envType
      * @param string $currentRouteName
-     * @param $admin
+     * @param \App\Models\System\Admin|null $admin
      * @param int $level
      * @return stdClass
      */
@@ -396,7 +400,7 @@ class MenuService
         Resource $resource,
         string $envType,
         string $currentRouteName,
-        $admin = null,
+        \App\Models\System\Admin|null $admin = null,
         int $level = 1): stdClass
     {
         if (!empty($resource->global)) {
@@ -500,14 +504,14 @@ class MenuService
      * *
      * @param string $envType
      * @param string|null $currentRouteName
-     * @param $admin
+     * @param \App\Models\System\Admin|null $admin
      * @param int $level
      * @return stdClass|null
      */
     public function getResumeMenuItem(
         string $envType,
         string|null $currentRouteName = null,
-        $admin = null,
+        \App\Models\System\Admin|null $admin = null,
         int $level = 1): stdClass|null
     {
         if (empty($admin)) {

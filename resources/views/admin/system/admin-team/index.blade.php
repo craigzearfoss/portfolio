@@ -1,24 +1,24 @@
 @php
-$buttons = [];
-if (canCreate('admin-team')) {
-    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Add New Admin Team', 'href' => route('admin.system.admin-team.create') ];
-}
-if (canRead('admin-group')) {
-    $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Groups', 'href' => route('admin.system.admin-group.index') ];
-}
+    $buttons = [];
+    if (canCreate('admin-team', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Add New Admin Team', 'href' => route('admin.system.admin-team.create') ];
+    }
+    if (canRead('admin-group', currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Admin Groups', 'href' => route('admin.system.admin-group.index') ];
+    }
 @endphp
 @extends('admin.layouts.default', [
-    'title' => 'Admin Teams',
-    'breadcrumbs' => [
+    'title'         => 'Admin Teams',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admin Teams' ]
     ],
-    'buttons' => $buttons,
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

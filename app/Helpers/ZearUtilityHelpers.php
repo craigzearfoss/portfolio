@@ -45,6 +45,26 @@ if (! function_exists('referer')) {
     }
 }
 
+if (! function_exists('currentUserId')) {
+    /**
+     * Returns id of the current user or null if there is no logged in user.
+     *
+     * @return int|null
+     */
+    function currentUserId(): int|null
+    {
+        try {
+            if (Auth::guard('user')->check()) {
+                return Auth::guard('user')->user()->id;
+            } else {
+                return null;
+            }
+        } catch (\Throwable $th) {
+            return null;
+        }
+    }
+}
+
 if (! function_exists('isUser')) {
     /**
      * Returns true if a user.
@@ -57,6 +77,26 @@ if (! function_exists('isUser')) {
             return Auth::guard('user')->check();
         } catch (\Throwable $th) {
             return false;
+        }
+    }
+}
+
+if (! function_exists('currentAdminId')) {
+    /**
+     * Returns id of the current admin or null if there is no logged in admin.
+     *
+     * @return int|null
+     */
+    function currentAdminId(): int|null
+    {
+        try {
+            if (Auth::guard('admin')->check()) {
+                return Auth::guard('admin')->user()->id;
+            } else {
+                return null;
+            }
+        } catch (\Throwable $th) {
+            return null;
         }
     }
 }
@@ -104,7 +144,7 @@ if (! function_exists('canCreate')) {
     function canCreate(string $resourceName, int|null $adminId = null): bool
     {
         if (!empty($adminId)) {
-            if (!$admin = \App\Models\Admin::find($adminId)) {
+            if (!$admin = \App\Models\System\Admin::find($adminId)) {
                 return false;
             }
         } else {
@@ -147,7 +187,7 @@ if (! function_exists('canRead')) {
     {
         // admins can read any resource
         if (!empty($adminId)) {
-            if (!$admin = \App\Models\Admin::find($adminId)) {
+            if (!$admin = \App\Models\System\Admin::find($adminId)) {
                 return false;
             } else {
                 return true;
@@ -171,7 +211,7 @@ if (! function_exists('canUpdate')) {
     function canUpdate($resource, int|null $adminId = null): bool
     {
         if (!empty($adminId)) {
-            if (!$admin = \App\Models\Admin::find($adminId)) {
+            if (!$admin = \App\Models\System\Admin::find($adminId)) {
                 return false;
             }
         } else {
@@ -207,7 +247,7 @@ if (! function_exists('canDelete')) {
     function canDelete($resource, int|null $adminId = null): bool
     {
         if (!empty($adminId)) {
-            if (!$admin = \App\Models\Admin::find($adminId)) {
+            if (!$admin = \App\Models\System\Admin::find($adminId)) {
                 return false;
             }
         } else {

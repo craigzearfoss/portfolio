@@ -4,7 +4,7 @@
 @endphp
 <div class="card p-4">
 
-    <h3 class="is-size-5 title mb-1">
+    <h3 class="is-size-5 title mb-3">
 
         Communications
 

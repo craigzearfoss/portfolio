@@ -4,7 +4,7 @@
 @endphp
 <div class="card p-4">
 
-    <h3 class="is-size-5 title mb-1">
+    <h3 class="is-size-5 title mb-3">
 
         Resume
 
@@ -28,7 +28,7 @@
     </h3>
 
     <hr class="navbar-divider">
-
+    <div style="height: 12px; margin: 0; padding: 0;"></div>
 
     @if (!empty($resume))
 

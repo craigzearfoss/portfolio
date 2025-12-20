@@ -4,7 +4,7 @@
 @endphp
 <div class="card p-4">
 
-    <h3 class="is-size-5 title mb-1">
+    <h3 class="is-size-5 title mb-3">
 
         Events
 
@@ -30,7 +30,7 @@
 
     </h3>
 
-    <hr class="navbar-divider">
+    <hr class="navbar-divider mt-2">
 
     @include('admin.career.application.event.table', [
         'events' => $events

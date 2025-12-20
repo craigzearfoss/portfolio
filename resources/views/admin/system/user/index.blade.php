@@ -1,27 +1,27 @@
 @php
 $buttons = [];
-if (canCreate('user')) {
+if (canCreate('user', currentAdminId())) {
     $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New User', 'href' => route('admin.system.user.create') ];
 }
-if (canRead('user-team')) {
+if (canRead('user', currentAdminId())) {
     $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Teams', 'href' => route('admin.system.user-team.index') ];
 }
-if (canRead('user-group')) {
+if (canRead('user', currentAdminId())) {
     $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Groups', 'href' => route('admin.system.user-group.index') ];
 }
 @endphp
 @extends('admin.layouts.default', [
-    'title' => 'Users',
-    'breadcrumbs' => [
+    'title'         => 'Users',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Users' ]
     ],
-    'buttons' => $buttons,
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')
@@ -79,7 +79,7 @@ if (canRead('user-group')) {
                     <td class="is-1" style="white-space: nowrap;">
                         <form action="{{ route('admin.system.user.destroy', $user->id) }}" method="POST">
 
-                            @if(canRead($userGroup))
+                            @if(canRead($user))
                                 <a title="show" class="button is-small px-1 py-0"
                                    href="{{ route('admin.system.user.show', $user->id) }}">
                                     <i class="fa-solid fa-list"></i>

@@ -1,20 +1,26 @@
+@php
+    $buttons = [];
+    if (canDelete($adminTeam, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.system.admin-team.edit', $adminTeam) ];
+    }
+    if (canCreate($adminTeam, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Admin Team', 'href' => route('admin.system.admin-team.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.admin-team.index') ];
+@endphp
 @extends('admin.layouts.default', [
-    'title' => 'Admin Team: ' . $adminTeam->name,
-    'breadcrumbs' => [
+    'title'         => 'Admin Team: ' . $adminTeam->name,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Admin Teams',     'href' => route('admin.system.admin-team.index') ],
         [ 'name' => $adminTeam->name ]
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',      'href' => route('admin.system.admin-team.edit', $adminTeam) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Admin Team', 'href' => route('admin.system.admin-team.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',         'href' => referer('admin.system.admin-team.index') ],
-    ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

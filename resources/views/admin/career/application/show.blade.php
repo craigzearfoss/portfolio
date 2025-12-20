@@ -64,9 +64,10 @@
 
                             <div class="card p-4">
 
-                                <h3 class="is-size-5 title mb-1">Overview</h3>
+                                <h3 class="is-size-5 title mb-3">Overview</h3>
 
                                 <hr class="navbar-divider">
+                                <div style="height: 12px; margin: 0; padding: 0;"></div>
 
                                 @include('admin.components.show-row', [
                                     'name'  => 'id',
@@ -100,7 +101,7 @@
                                     'value' => htmlspecialchars($application->role)
                                 ])
 
-                                <div class="container card p-2 mb-2" style="display: inline-block; flex-grow: 0;">
+                                <div class="container card p-2 mb-4" style="display: inline-block; flex-grow: 0;">
 
                                     <div class="p-2 m-0" style="display: inline-block; flex-grow: 0;">
                                         @include('admin.components.show-row', [

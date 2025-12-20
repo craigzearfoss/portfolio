@@ -1,20 +1,26 @@
+@php
+    $buttons = [];
+    if (canDelete($userGroup, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.system.admin-group.edit', $userGroup) ];
+    }
+    if (canCreate($userGroup, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Add New User Group', 'href' => referer('admin.system.admin-group.index') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.admin.index') ];
+@endphp
 @extends('admin.layouts.default', [
-    'title' => 'User Group: ' . $userGroup->name,
-    'breadcrumbs' => [
+    'title'         => 'User Group: ' . $userGroup->name,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'User Groups',     'href' => route('admin.system.user-group.index') ],
         [ 'name' => $userGroup->name ]
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',       'href' => route('admin.system.admin-group.edit', $userGroup) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Admin Group', 'href' => route('admin.system.admin-group.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',          'href' => referer('admin.system.admin-group.index') ],
-    ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

@@ -1,28 +1,26 @@
 @php
-$buttons = [];
-if (canUpdate('admin-team')) {
-    $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',     'href' => route('admin.system.user-team.edit', $userTeam) ];
-}
-if (canRead('admin-group')) {
-    $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New User Team', 'href' => route('admin.system.user-team.create') ];
-}
-if (canCreate('admin-team')) {
-    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back',        'href' => referer('admin.system.user-team.index') ];
-}
+    $buttons = [];
+    if (canDelete($userTeam, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.system.admin-team.edit', $userTeam) ];
+    }
+    if (canCreate($userTeam, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Add New User Team', 'href' => referer('admin.system.admin-team.index') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.admin.index') ];
 @endphp
 @extends('admin.layouts.default', [
-    'title' => 'User Team: ' . $userTeam->name,
-    'breadcrumbs' => [
+    'title'         => 'User Team: ' . $userTeam->name,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'User Teams',      'href' => route('admin.system.user-team.index') ],
         [ 'name' => $userTeam->name ]
     ],
-    'buttons' => $buttons,
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

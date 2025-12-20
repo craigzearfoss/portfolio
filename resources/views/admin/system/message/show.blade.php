@@ -1,20 +1,26 @@
+@php
+    $buttons = [];
+    if (canDelete($message, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.system.message.edit', $message) ];
+    }
+    if (canCreate($message, currentAdminId())) {
+        $button[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Message', 'href' => route('admin.system.message.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.message.index') ];
+@endphp
 @extends('admin.layouts.default', [
-    'title' => 'Message',
-    'breadcrumbs' => [
+    'title'         => 'Message',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Messages',        'href' => route('admin.system.message.index') ],
         [ 'name' => 'Show' ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',   'href' => route('admin.system.message.edit', $message) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Message', 'href' => route('admin.system.message.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',      'href' => referer('admin.message.index') ],
-    ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => $buttons,
+    'errorMessages' =>  $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

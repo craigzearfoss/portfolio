@@ -1,24 +1,24 @@
 @php
 $buttons = [];
-if (canCreate('user-group')) {
+if (canCreate('user-group', currentAdminId())) {
     $buttons[] = [ 'name' => '<i class="fa fa-list"></i> Add New User Group', 'href' => route('admin.system.user-group.create') ];
 }
-if (canRead('user-team')) {
+if (canRead('user-team', currentAdminId())) {
     $buttons[] = [ 'name' => '<i class="fa fa-list"></i> User Teams', 'href' => route('admin.system.user-team.index') ];
 }
 @endphp
 @extends('admin.layouts.default', [
-    'title' => 'Admin Groups',
-    'breadcrumbs' => [
+    'title'         => 'Admin Groups',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'User Groups' ]
     ],
-    'buttons' => $buttons,
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')

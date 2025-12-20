@@ -4,23 +4,33 @@
 @endphp
 <div class="card p-4">
 
-    <h2 class="subtitle">
+    <h3 class="is-size-5 title mb-3">
 
         Contacts
 
-        @if(!empty($company))
+        <span style="display: inline-flex; float: right;">
 
             @include('admin.components.link', [
-                'name'  => 'Add a Contact',
-                'href'  => route('admin.career.company.contact.add', $company),
+                'name'  => 'Edit contacts',
+                'href'  => route('admin.career.contact.index', ['company_id' => $company->id]),
+                'class' => 'button is-primary is-small px-1 py-0 mr-2',
+                'title' => 'edit contacts',
+                'icon'  => 'fa-pen-to-square'
+            ])
+
+            @include('admin.components.link', [
+                'name'  => 'Add a contact',
+                'href'  => route('admin.career.contact.create', ['company_id' => $company->id]),
                 'class' => 'button is-primary is-small px-1 py-0',
-                'title' => 'add a contact',
+                'title' => 'add contact',
                 'icon'  => 'fa-plus'
             ])
 
-        @endif
+        </span>
 
-    </h2>
+    </h3>
+
+    <hr class="navbar-divider mt-2">
 
     @include('admin.career.company.contact.table', [
         'contacts' => $contacts ?? []

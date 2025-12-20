@@ -1,20 +1,26 @@
+@php
+    $buttons = [];
+    if (canDelete($resource, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit', 'href' => route('admin.system.resource.edit', $resource) ];
+    }
+    if (canCreate($resource, currentAdminId())) {
+        $buttons[] = [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'href' => route('admin.system.resource.create') ];
+    }
+    $buttons[] = [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('admin.system.resource.index') ];
+@endphp
 @extends('admin.layouts.default', [
-    'title' => 'Resource: ' . $resource->database->name . '.' . $resource->name,
-    'breadcrumbs' => [
+    'title'         => 'Resource: ' . $resource->database->name . '.' . $resource->name,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',            'href' => route('system.index') ],
         [ 'name' => 'Admin Dashboard', 'href' => route('admin.dashboard') ],
         [ 'name' => 'System',          'href' => route('admin.system.index') ],
         [ 'name' => 'Resources',       'href' => route('admin.system.resource.index') ],
         [ 'name' => $resource->database->name . '.' . $resource->name ],
     ],
-    'buttons' => [
-        [ 'name' => '<i class="fa fa-pen-to-square"></i> Edit',    'href' => route('admin.system.resource.edit', $resource) ],
-        [ 'name' => '<i class="fa fa-plus"></i> Add New Resource', 'href' => route('admin.system.resource.create') ],
-        [ 'name' => '<i class="fa fa-arrow-left"></i> Back',       'href' => referer('admin.system.resource.index') ],
-    ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => $buttons,
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
 ])
 
 @section('content')
