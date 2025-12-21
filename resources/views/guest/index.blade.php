@@ -1,10 +1,14 @@
+@php /* for url '/' */ @endphp
 @extends('guest.layouts.default', [
-    'title'   => config('app.name'),
-    'breadcrumbs' => [],
-    'buttons' => [],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'title'         => config('app.name'),
+    'breadcrumbs'   => [],
+    'buttons'       => [],
+    'errorMessages' => $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
+        : [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => null,
 ])
 
 @section('content')

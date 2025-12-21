@@ -1,17 +1,20 @@
 @extends('guest.layouts.default', [
-    'title' => $server->name . ' server',
-    'breadcrumbs' => [
+    'title'         => $server->name . ' server',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',       'href' => route('system.index') ],
         [ 'name' => 'Dictionary', 'href' => route('guest.dictionary.index') ],
         [ 'name' => 'Servers',    'href' => route('guest.dictionary.server.index') ],
         [ 'name' => $server->name ],
     ],
-    'buttons' => [
+    'buttons'       => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.dictionary.index') ],
     ],
-    'errorMessages' => $errors->messages()  ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
+        : [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => null,
 ])
 
 @section('content')

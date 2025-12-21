@@ -12,7 +12,7 @@
         [ 'name' => 'Personal',        'href' => route('admin.personal.index') ],
         [ 'name' => 'Ingredients' ],
     ],
-    'buttons'       => $button,
+    'buttons'       => $buttons,
     'errorMessages' => $errors->messages() ?? [],
     'success'       => session('success') ?? null,
     'error'         => session('error') ?? null,
@@ -66,7 +66,7 @@
                                 </a>
                             @endif
 
-                            @if(canUpdateRead($ingredient))
+                            @if(canUpdate($ingredient))
                                 <a title="edit" class="button is-small px-1 py-0"
                                    href="{{ route('admin.personal.ingredient.edit', $ingredient->id) }}">
                                     <i class="fa-solid fa-pen-to-square"></i>

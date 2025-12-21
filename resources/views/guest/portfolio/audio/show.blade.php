@@ -1,6 +1,6 @@
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Audio: ' . $audio->name,
-    'breadcrumbs' => [
+    'title'         => $title ?? 'Audio: ' . $audio->name,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',       'href' => route('system.index') ],
         [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
         [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
@@ -8,12 +8,15 @@
         [ 'name' => 'Audio',      'href' => route('guest.admin.portfolio.audio.index', $admin) ],
         [ 'name' => $audio->name ],
     ],
-    'buttons' => [
+    'buttons'       => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.audio.index', $admin) ],
     ],
-    'errors'  => $errors->messages()  ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
+        : [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => null,
 ])
 
 @section('content')

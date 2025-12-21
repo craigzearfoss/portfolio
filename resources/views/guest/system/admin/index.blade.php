@@ -1,14 +1,17 @@
 @php @endphp
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Users',
-    'breadcrumbs' => [
-        [ 'name' => 'Home',       'href' => route('system.index') ],
+    'title'         => $title ?? 'Users',
+    'breadcrumbs'   => [
+        [ 'name' => 'Home', 'href' => route('system.index') ],
         [ 'name' => 'Users']
     ],
-    'buttons' => [],
-    'errorMessages' => $errors->messages()  ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => [],
+    'errorMessages' => $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
+        : [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => null,
 ])
 
 @section('content')

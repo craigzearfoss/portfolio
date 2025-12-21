@@ -1,5 +1,6 @@
-@extends('admin.layouts.empty', [
-    'title'         => 'Admin',
+@php /* for url '/admin/' */ @endphp
+@extends('guest.layouts.default', [
+    'title'         => config('app.name'),
     'breadcrumbs'   => [],
     'buttons'       => [],
     'errorMessages' => $errors->messages() ?? [],

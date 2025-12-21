@@ -1,12 +1,15 @@
 @extends('user.layouts.empty', [
-    'title' => 'Set New Password',
-    'breadcrumbs' => [
+    'title'         => 'Set New Password',
+    'breadcrumbs'   => [
         [ 'name' => 'Home', 'href' => route('system.index')],
     ],
-    'buttons' => [],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => [],
+    'errorMessages' => $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
+        : [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => null,
 ])
 
 @section('content')

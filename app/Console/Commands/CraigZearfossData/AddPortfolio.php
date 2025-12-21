@@ -21,6 +21,10 @@ use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
+use App\Models\System\Database;
+use App\Models\System\MenuItem;
+use App\Models\System\Resource;
+use App\Models\System\AdminMenuItem;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
@@ -34,6 +38,7 @@ class AddPortfolio extends Command
     protected $demo = 0;
     protected $silent = 0;
 
+    protected $databaseId = null;
     protected $adminId = null;
 
     protected $jobId = [];
@@ -57,12 +62,18 @@ class AddPortfolio extends Command
      */
     public function handle()
     {
+        // get the database id
+        if (!$database = Database::where('name', self::DATABASE)->first()) {
+            echo PHP_EOL . 'Database `' .self::DATABASE . '` not found.' . PHP_EOL . PHP_EOL;
+            die;
+        }
+        $this->databaseId = $database->id;
+
         // get the admin
         if (!$admin = Admin::where('username', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' .self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
-
         $this->adminId = $admin->id;
 
         if (!$this->silent) {
@@ -199,6 +210,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             Art::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Art');
         }
     }
 
@@ -234,6 +246,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Audio');
         }
     }
 
@@ -284,6 +297,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             Certificate::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Certificates');
         }
     }
 
@@ -1450,6 +1464,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             Course::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Courses');
         }
     }
 
@@ -1515,6 +1530,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             Education::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Education');
         }
     }
 
@@ -1694,6 +1710,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Jobs');
         }
     }
 
@@ -1731,6 +1748,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             JobCoworker::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Job Coworkers');
         }
     }
 
@@ -1802,6 +1820,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             JobSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Job Skills');
         }
     }
 
@@ -1826,6 +1845,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Job Tasks');
         }
     }
 
@@ -1842,6 +1862,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             Link::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Links');
         }
     }
 
@@ -2652,6 +2673,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Music');
         }
     }
 
@@ -2754,6 +2776,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Projects');
         }
     }
 
@@ -2767,6 +2790,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             Publication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Publications');
         }
     }
 
@@ -2818,6 +2842,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             Skill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Skills');
         }
     }
 
@@ -3530,6 +3555,7 @@ class AddPortfolio extends Command
 
         if (!empty($data)) {
             Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Videos');
         }
     }
 
@@ -3575,5 +3601,22 @@ class AddPortfolio extends Command
         }
 
         return $data;
+    }
+
+    /**
+     * Add a menu item for the resource.
+     *
+     * @param string $itemName
+     * @return void
+     */
+    protected function addMenuItem($itemName)
+    {
+        if ($menuItem = MenuItem::where('database_id', $this->databaseId)->where('name', $itemName)->first()) {
+
+            AdminMenuItem::insert([
+                'admin_id'     => $this->adminId,
+                'menu_item_id' => $menuItem->id,
+            ]);
+        }
     }
 }

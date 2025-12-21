@@ -1,15 +1,18 @@
 @extends('guest.layouts.default', [
-    'pageTitle'   => 'Privacy Policy',
-    'title'       => '',
-    'subtitle'    => null,
-    'breadcrumbs' => [
+    'pageTitle'     => 'Privacy Policy',
+    'title'         => '',
+    'subtitle'      => null,
+    'breadcrumbs'   => [
         [ 'name' => 'Home', 'href' => route('system.index')],
         [ 'name' => 'Privacy Policy']
     ],
-    'buttons' => [],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => [],
+    'errorMessages' => $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
+        : [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => null,
 ])
 
 @section('content')

@@ -15,6 +15,10 @@ use App\Models\Career\Reference;
 use App\Models\Career\Resume;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
+use App\Models\System\Database;
+use App\Models\System\MenuItem;
+use App\Models\System\Resource;
+use App\Models\System\AdminMenuItem;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
@@ -28,6 +32,7 @@ class AddCareer extends Command
     protected $demo = 0;
     protected $silent = 0;
 
+    protected $databaseId = null;
     protected $adminId = null;
 
     protected $applicationId = [];
@@ -53,12 +58,18 @@ class AddCareer extends Command
      */
     public function handle()
     {
+        // get the database id
+        if (!$database = Database::where('name', self::DATABASE)->first()) {
+            echo PHP_EOL . 'Database `' .self::DATABASE . '` not found.' . PHP_EOL . PHP_EOL;
+            die;
+        }
+        $this->databaseId = $database->id;
+
         // get the admin
         if (!$admin = Admin::where('username', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
-
         $this->adminId = $admin->id;
 
         if (!$this->silent) {
@@ -171,6 +182,7 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Application::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Applications');
         }
     }
 
@@ -195,6 +207,7 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             ApplicationSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Application Skills');
         }
     }
 
@@ -298,6 +311,7 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Company::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Companies');
         }
     }
 
@@ -370,6 +384,7 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Contact::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Contacts');
         }
     }
 
@@ -391,6 +406,7 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Communication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Communications');
         }
     }
 
@@ -403,6 +419,7 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             CoverLetter::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Cover Letters');
         }
     }
 
@@ -425,6 +442,7 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Event::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Events');
         }
     }
 
@@ -446,6 +464,7 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Note::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Notes');
         }
     }
 
@@ -468,6 +487,7 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Reference::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('References');
         }
     }
 
@@ -501,6 +521,7 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Resume::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
+            $this->addMenuItem('Resumes');
         }
     }
 
@@ -546,5 +567,22 @@ class AddCareer extends Command
         }
 
         return $data;
+    }
+
+    /**
+     * Add a menu item for the resource.
+     *
+     * @param string $itemName
+     * @return void
+     */
+    protected function addMenuItem($itemName)
+    {
+        if ($menuItem = MenuItem::where('database_id', $this->databaseId)->where('name', $itemName)->first()) {
+
+            AdminMenuItem::insert([
+                'admin_id'     => $this->adminId,
+                'menu_item_id' => $menuItem->id,
+            ]);
+        }
     }
 }

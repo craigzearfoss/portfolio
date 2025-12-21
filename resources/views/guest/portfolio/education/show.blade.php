@@ -1,6 +1,6 @@
 @extends('guest.layouts.default', [
-    'title' => $title ?? 'Education: ' . $education->degreeType->name . ' ' . $education->major,
-    'breadcrumbs' => [
+    'title'         => $title ?? 'Education: ' . $education->degreeType->name . ' ' . $education->major,
+    'breadcrumbs'   => [
         [ 'name' => 'Home',           'href' => route('system.index') ],
         [ 'name' => 'Users',          'href' => route('guest.admin.index') ],
         [ 'name' => $admin->name,     'href' => route('guest.admin.show', $admin) ],
@@ -8,12 +8,15 @@
         [ 'name' => 'Education',      'href' => route('guest.admin.portfolio.education.index', $education->owner) ],
         [ 'name' => $education->degreeType->name . ' ' . $education->major ],
     ],
-    'buttons' => [
+    'buttons'       => [
         [ 'name' => '<i class="fa fa-arrow-left"></i> Back', 'href' => referer('guest.admin.portfolio.education.index', $education->owner) ],
     ],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'errorMessages' => $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
+        : [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => null,
 ])
 
 @section('content')

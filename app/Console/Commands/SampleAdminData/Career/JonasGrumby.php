@@ -15,6 +15,10 @@ use App\Models\Career\Reference;
 use App\Models\Career\Resume;
 use App\Models\Scopes\AdminGlobalScope;
 use App\Models\System\Admin;
+use App\Models\System\Database;
+use App\Models\System\MenuItem;
+use App\Models\System\Resource;
+use App\Models\System\AdminMenuItem;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
@@ -28,6 +32,7 @@ class JonasGrumby extends Command
     protected $demo = 1;
     protected $silent = 0;
 
+    protected $databaseId = null;
     protected $adminId = null;
 
     protected $applicationId = [];
@@ -53,12 +58,18 @@ class JonasGrumby extends Command
      */
     public function handle()
     {
+        // get the database id
+        if (!$database = Database::where('name', self::DATABASE)->first()) {
+            echo PHP_EOL . 'Database `' .self::DATABASE . '` not found.' . PHP_EOL . PHP_EOL;
+            die;
+        }
+        $this->databaseId = $database->id;
+
         // get the admin
         if (!$admin = Admin::where('username', self::USERNAME)->first()) {
             echo PHP_EOL . 'Admin `' . self::USERNAME . '` not found.' . PHP_EOL . PHP_EOL;
             die;
         }
-
         $this->adminId = $admin->id;
 
         if (!$this->silent) {
@@ -420,5 +431,22 @@ class JonasGrumby extends Command
         }
 
         return $data;
+    }
+
+    /**
+     * Add a menu item for the resource.
+     *
+     * @param string $itemName
+     * @return void
+     */
+    protected function addMenuItem($itemName)
+    {
+        if ($menuItem = MenuItem::where('database_id', $this->databaseId)->where('name', $itemName)->first()) {
+
+            AdminMenuItem::insert([
+                'admin_id'     => $this->adminId,
+                'menu_item_id' => $menuItem->id,
+            ]);
+        }
     }
 }

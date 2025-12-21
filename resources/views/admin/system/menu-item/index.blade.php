@@ -37,11 +37,10 @@
         <table class="table is-bordered is-striped is-narrow is-hoverable mb-2">
             <thead>
             <tr>
-                <th>parent</th>
-                <th style="white-space: nowrap;">database->resource</th>
+                <th>level 1</th>
+                <th style="white-space: nowrap;">level 2</th>
                 <th style="white-space: nowrap;">route</th>
-                <th style="white-space: nowrap;">name</th>
-                <th>icon</th>
+                <th>icon+name</th>
                 <th>sequence</th>
                 <th>public</th>
                 <th>disabled</th>
@@ -51,11 +50,10 @@
             <?php /*
             <tfoot>
             <tr>
-                <th>parent</th>
-                <th style="white-space: nowrap;">database->resource</th>
+                <th>level 1</th>
+                <th style="white-space: nowrap;">level 2</th>
                 <th style="white-space: nowrap;">route</th>
-                <th style="white-space: nowrap;">name</th>
-                <th>icon</th>
+                <th>icon+/name</th>
                 <th>sequence</th>
                 <th>public</th>
                 <th>disabled</th>
@@ -68,33 +66,26 @@
             @forelse ($menuItems as $menuItem)
 
                 <tr data-id="{{ $menuItem->id }}">
-                    <td data-field="parent" class="has-text-centered">
-                        @if(!empty($menuItem['parent_id']))
-                            @include('admin.components.link', [
-                                'name' => view('admin.components.icon', [ 'icon' => 'fa-arrow-left' ]),
-                                'href' => ''
-                            ])
-
+                    <td data-field="parent_id" data-value="{{$menuItem->parent_id}}" style="white-space: nowrap;">
+                        @if(empty($menuItem->parent_id))
+                            {{$menuItem->name}}
+                        @else
+                            {{ \App\Models\System\MenuItem::find($menuItem->parent_id)->name ?? '' }}
                         @endif
                     </td>
-                    <td data-field="database_id|resource_id" style="white-space: nowrap;">
-                        @php
-                            $parts = [];
-                            if (!empty($menuItem->database['name'])) $parts[] = $menuItem->database['name'];
-                            if (!empty($menuItem->resource['name'])) $parts[] = $menuItem->resource['name'];
-                        @endphp
-                        {{ implode('->', $parts) }}
+                    <td data-field="resource_id" data-value="{{$menuItem->resource_id}}" style="white-space: nowrap;">
+                        @if(!empty($menuItem->parent_id))
+                            {{$menuItem->name}}
+                        @endif
                     </td>
-                    <td data-field="route" style="white-space: nowrap;">
-                        {{ $menuItem->route }}
+                    <td data-field="route" data-value="{{$menuItem->route}}" style="white-space: nowrap;">
+                        {{$menuItem->route}}
                     </td>
-                    <td data-field="name" style="white-space: nowrap;">
-                        {{ $menuItem->name }}
-                    </td>
-                    <td data-field="icon">
+                    <td data-field="icon" data-value="{{$menuItem->icon}}">
                         @if (!empty($menuItem->icon))
                             @include('admin.components.icon', [ 'icon' => $menuItem->icon ])
                         @endif
+                        {{$menuItem->name}}
                     </td>
                     <td data-field="sequence" class="has-text-right">
                         {{ $menuItem->sequence }}

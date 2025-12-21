@@ -1,15 +1,18 @@
 @extends('guest.layouts.default', [
-    'title' => $title ?? $admin->name . ' resume',
-    'breadcrumbs' => [
+    'title'         => $title ?? $admin->name . ' resume',
+    'breadcrumbs'   => [
         [ 'name' => 'Home',       'href' => route('system.index') ],
         [ 'name' => 'Users',      'href' => route('guest.admin.index') ],
         [ 'name' => $admin->name, 'href' => route('guest.admin.show', $admin)],
         [ 'name' => $title ?? 'Resume' ],
     ],
-    'buttons' => [],
-    'errorMessages' => $errors->messages()  ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'buttons'       => [],
+    'errorMessages' => $errors->any()
+        ? !empty($errors->get('GLOBAL')) ? [$errors->get('GLOBAL')] : ['Fix the indicated errors before saving.']
+        : [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => null,
 ])
 
 @section('content')

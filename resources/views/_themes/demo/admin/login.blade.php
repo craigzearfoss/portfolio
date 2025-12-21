@@ -1,3 +1,4 @@
+@php /* for url '/admin/login' */ @endphp
 @extends('admin.layouts.default', [
     'title'         => '',
     'breadcrumbs'   => [],

@@ -1,11 +1,13 @@
 @extends('guest.layouts.default', [
-    'title'   => $featuredAdmin ? $featuredAdmin->name : config('add.name'),
-    'breadcrumbs' => [],
-    'buttons' => [],
-    'errorMessages'=> $errors->messages() ?? [],
-    'success' => session('success') ?? null,
-    'error'   => session('error') ?? null,
+    'title'         => $featuredAdmin ? $featuredAdmin->name : config('add.name'),
+    'breadcrumbs'   => [],
+    'buttons'       => [],
+    'errorMessages' => $errors->messages() ?? [],
+    'success'       => session('success') ?? null,
+    'error'         => session('error') ?? null,
+    'admin'         => null,
 ])
+
 @section('content')
 
     <h2 class="title p-4">Welcome to {{ config('app.name') }}</h2>
