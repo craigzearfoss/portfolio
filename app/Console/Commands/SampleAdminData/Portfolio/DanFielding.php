@@ -135,6 +135,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             Art::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('art', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioAudios(): void
@@ -170,6 +171,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('audio', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioAwards(): void
@@ -200,6 +202,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             Award::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('award', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioCertificates(): void
@@ -227,6 +230,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             Certificate::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('certificate', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioCourses(): void
@@ -270,6 +274,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             Course::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('course', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioEducations(): void
@@ -335,6 +340,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             Education::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('education', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioJobs(): void
@@ -375,6 +381,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('job', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioJobCoworkers(): void
@@ -392,6 +399,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             JobCoworker::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('job-coworker', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioJobSkills(): void
@@ -413,6 +421,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             JobSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('job-skill', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioJobTasks(): void
@@ -433,6 +442,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('job-task', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioLinks(): void
@@ -487,6 +497,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             Link::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('link', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioMusic(): void
@@ -566,6 +577,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('music', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioProjects(): void
@@ -593,6 +605,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('project', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioPublications(): void
@@ -637,6 +650,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             Publication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('publication', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioSkills(): void
@@ -668,6 +682,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             Skill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('skill', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioVideos(): void
@@ -702,6 +717,7 @@ class DanFielding extends Command
         if (!empty($data)) {
             Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('video', count($data) ? 1 : 0);
     }
 
     /**

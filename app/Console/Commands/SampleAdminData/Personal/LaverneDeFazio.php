@@ -90,6 +90,7 @@ class LaverneDeFazio extends Command
         if (!empty($data)) {
             Reading::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('reading', count($data) ? 1 : 0);
     }
 
     protected function insertPersonalRecipes(): void
@@ -113,6 +114,7 @@ class LaverneDeFazio extends Command
         if (!empty($data)) {
             Recipe::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('recipe', count($data) ? 1 : 0);
     }
 
     protected function insertPersonalRecipeIngredients(): void
@@ -171,6 +173,7 @@ class LaverneDeFazio extends Command
         if (!empty($data)) {
             RecipeIngredient::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
         }
+        $this->attachAdminResource('recipe-ingredient', count($data) ? 1 : 0);
     }
 
     protected function insertPersonalRecipeSteps(): void
@@ -199,6 +202,7 @@ class LaverneDeFazio extends Command
         if (!empty($data)) {
             RecipeStep::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], false));
         }
+        $this->attachAdminResource('recipe-step', count($data) ? 1 : 0);
     }
 
     /**

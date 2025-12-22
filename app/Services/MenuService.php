@@ -21,48 +21,15 @@ class MenuService
      */
     public function getLeftMenu(string|null $envType = null, \App\Models\System\Admin|null $admin = null): array
     {
+        $menu = $this->getResourceMenu($envType, $admin);
+
         // Verify the ENV type.
         if (empty($envType)) {
             $envType = PermissionService::currentEnvType();
         }
-        if (!in_array($envType, PermissionService::ENV_TYPES)) {
-            throw new \Exception('Invalid current ENV type');
-        }
 
         // Get the name of the current route.
         $currentRouteName = Route::currentRouteName();
-
-        // Create the array of menu items.
-        $menu = [];
-
-        // add admin-specific and guest-specific items
-        if (in_array($envType, [PermissionService::ENV_ADMIN, PermissionService::ENV_GUEST])) {
-
-            // should we have a resume link?
-            if ($resumeMenuItem = $this->getResumeMenuItem($envType, $currentRouteName, $admin, 1)) {
-                $menu[] = $resumeMenuItem;
-            }
-
-            $currentDatabaseName = null;
-
-            $i = 0;
-            foreach (Resource::bySequence(null, $envType) as $resource) {
-
-                // note that we skip some menu items
-                if (!in_array($resource->database['name'], ['job'])) {
-
-                    if (!empty($admin) || in_array($resource->database['name'], ['dictionary'])) {
-
-                        if ($resource->database['name'] !== $currentDatabaseName) {
-                            $currentDatabaseName = $resource->database['name'];
-                            $i++;
-                            $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName, $admin, 1);
-                        }
-                        $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName, $admin, 2);
-                    }
-                }
-            }
-        }
 
         if (isAdmin()) {
 
@@ -175,8 +142,176 @@ class MenuService
      */
     public function getTopMenu(string|null $envType = null, \App\Models\System\Admin|null $admin = null): array
     {
-        // fo now the top menu is the same as the left menu
-        return $this->getLeftMenu($envType, $admin);
+        $menu = $this->getResourceMenu($envType, $admin);
+
+        // Verify the ENV type.
+        if (empty($envType)) {
+            $envType = PermissionService::currentEnvType();
+        }
+
+        // Get the name of the current route.
+        $currentRouteName = Route::currentRouteName();
+
+        if (isAdmin()) {
+
+            $admin = Auth::guard('admin')->user();
+
+            // Create user dropdown menu.
+            $i = count($menu);
+            $menu[$i] = $this->menuItem(
+                [ 'name' => 'user-dropdown', 'title' => $admin->username ],
+                $currentRouteName
+            );
+            $menu[$i]->thumbnail = Auth::guard('admin')->user()->thumbnail ?? null;
+
+            $menu[$i]->children[] = $this->menuItem(
+                [
+                    'title' => 'Admin Dashboard',
+                    'route' => 'admin.dashboard',
+                    'icon'  => 'fa-dashboard'
+                ],
+                $currentRouteName
+            );
+
+            $menu[$i]->children[] = $this->menuItem(
+                [
+                    'title' => 'User Dashboard',
+                    'route' => 'user.dashboard',
+                    'icon'  => 'fa-dashboard'
+                ],
+                $currentRouteName
+            );
+
+            $menu[$i]->children[] = $this->menuItem(
+                [
+                    'title' => 'My Profile',
+                    'route' => 'admin.profile.show',
+                    'icon'  => 'fa-user'
+                ],
+                $currentRouteName
+            );
+
+            /*
+            $menu[$i]->children[] = $this->menuItem(
+                [
+                    'title' => 'Change Password',
+                    'route' => 'admin.profile.change-password',
+                    'icon'  => 'fa-lock'
+                ],
+                $currentRouteName
+            );
+            */
+
+            $menu[$i]->children[] = $this->menuItem(
+                [
+                    'title' => 'Logout',
+                    'route' => 'admin.logout',
+                    'icon'  => 'fa-sign-out'
+                ],
+                $currentRouteName
+            );
+
+            if (isRootAdmin()) {
+
+                foreach ($menu as $i=>$menuItem) {
+                    if (property_exists($menuItem,'tag') && ($menuItem->tag === 'db')) {
+
+                        $menu[$i]->children[] = $this->menuItem(
+                            [ 'title' => 'Databases', 'route'    => 'admin.system.database.index', 'icon' => 'fa-database' ],
+                            $currentRouteName
+                        );
+
+                        $menu[$i]->children[] = $this->menuItem(
+                            [ 'title' => 'Resources', 'route'    => 'admin.system.resource.index', 'icon' => 'fa-table' ],
+                            $currentRouteName
+                        );
+                    }
+                }
+            }
+
+        } elseif (isUser()) {
+
+            $menu[] = $this->menuItem(
+                [ 'title'=> 'My Profile', 'route' => 'user.profile.show' ],
+                $currentRouteName
+            );
+
+            $menu[] = $this->menuItem(
+                [ 'title'=> 'Logout', 'route' => 'user.logout' ],
+                $currentRouteName
+            );
+
+        } else {
+
+            $menu[] = $this->menuItem(
+                [ 'title'=> 'User Login', 'route' => 'user.login' ],
+                $currentRouteName
+            );
+
+            $menu[] = $this->menuItem(
+                [ 'title'=> 'Admin Login', 'route' => 'admin.login' ],
+                $currentRouteName
+            );
+
+        }
+
+        return $menu;
+    }
+
+    /**
+     * Returns the array of menu items fpr resources.
+     *
+     * @param string|null $envType
+     * @param \App\Models\System\Admin|null $admin
+     * @return array
+     * @throws \Exception
+     */
+    public function getResourceMenu(string|null $envType = null, \App\Models\System\Admin|null $admin = null): array
+    {
+        // Verify the ENV type.
+        if (empty($envType)) {
+            $envType = PermissionService::currentEnvType();
+        }
+        if (!in_array($envType, PermissionService::ENV_TYPES)) {
+            throw new \Exception('Invalid current ENV type');
+        }
+
+        // Get the name of the current route.
+        $currentRouteName = Route::currentRouteName();
+
+        // Create the array of menu items.
+        $menu = [];
+
+        // add admin-specific and guest-specific items
+        if (in_array($envType, [PermissionService::ENV_ADMIN, PermissionService::ENV_GUEST])) {
+
+            // should we have a resume link?
+            if ($resumeMenuItem = $this->getResumeMenuItem($envType, $currentRouteName, $admin, 1)) {
+                $menu[] = $resumeMenuItem;
+            }
+
+            $currentDatabaseName = null;
+
+            $i = 0;
+            foreach (Resource::bySequence(null, $envType) as $resource) {
+
+                // note that we skip some menu items
+                if (!in_array($resource->database['name'], ['job'])) {
+
+                    if (!empty($admin) || in_array($resource->database['name'], ['dictionary'])) {
+
+                        if ($resource->database['name'] !== $currentDatabaseName) {
+                            $currentDatabaseName = $resource->database['name'];
+                            $i++;
+                            $menu[$i] = $this->databaseItem($resource->database, $envType, $currentRouteName, $admin, 1);
+                        }
+                        $menu[$i]->children[] = $this->resourceItem($resource, $envType, $currentRouteName, $admin, 2);
+                    }
+                }
+            }
+        }
+
+        return $menu;
     }
 
     /**
