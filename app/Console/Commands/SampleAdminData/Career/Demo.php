@@ -183,6 +183,7 @@ class Demo extends Command
         if (!empty($data)) {
             Application::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('application', count($data) ? 1 : 0);
     }
 
     protected function insertCareerApplicationSkill(): void
@@ -207,6 +208,7 @@ class Demo extends Command
         if (!empty($data)) {
             ApplicationSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('application-skill', count($data) ? 1 : 0);
     }
 
     protected function insertCareerCompanies(): void
@@ -310,6 +312,7 @@ class Demo extends Command
         if (!empty($data)) {
             Company::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('company', count($data) ? 1 : 0);
     }
 
     protected function insertCareerCompanyContacts(): void
@@ -382,6 +385,7 @@ class Demo extends Command
         if (!empty($data)) {
             Contact::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('contact', count($data) ? 1 : 0);
     }
 
     protected function insertCareerCommunications(): void
@@ -403,6 +407,7 @@ class Demo extends Command
         if (!empty($data)) {
             Communication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('communication', count($data) ? 1 : 0);
     }
 
     protected function insertCareerCoverLetters(): void
@@ -423,6 +428,7 @@ class Demo extends Command
         if (!empty($data)) {
             CoverLetter::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('cover-letter', count($data) ? 1 : 0);
     }
 
     protected function insertCareerEvents(): void
@@ -445,6 +451,7 @@ class Demo extends Command
         if (!empty($data)) {
             Event::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('event', count($data) ? 1 : 0);
     }
 
     protected function insertCareerNotes(): void
@@ -466,6 +473,7 @@ class Demo extends Command
         if (!empty($data)) {
             Note::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('note', count($data) ? 1 : 0);
     }
 
     protected function insertCareerReferences(): void
@@ -488,6 +496,7 @@ class Demo extends Command
         if (!empty($data)) {
             Reference::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('reference', count($data) ? 1 : 0);
     }
 
     protected function insertCareerResumes(): void
@@ -520,6 +529,7 @@ class Demo extends Command
         if (!empty($data)) {
             Resume::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
+        $this->attachAdminResource('resume', count($data) ? 1 : 0);
     }
 
     /**

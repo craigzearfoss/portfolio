@@ -671,7 +671,7 @@ class MikeBrady extends Command
         if (!empty($data)) {
             Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
         }
-        $this->attachAdminResource('art', count($data) ? 1 : 0);
+        $this->attachAdminResource('video', count($data) ? 1 : 0);
     }
 
     /**
