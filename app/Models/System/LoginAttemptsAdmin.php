@@ -19,10 +19,10 @@ class LoginAttemptsAdmin extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'owner_id',
         'admin_id',
-        'ip_address',
+        'username',
         'action',
+        'ip_address',
         'success',
         'created_at',
         'updated_at',
@@ -31,6 +31,6 @@ class LoginAttemptsAdmin extends Model
     /**
      * SearchableModelTrait variables.
      */
-    const SEARCH_COLUMNS = ['id', 'admin_id', 'ip_address', 'action', 'success', 'created_at'];
+    const SEARCH_COLUMNS = ['id', 'user_id', 'username', 'action', 'ip_address', 'success', 'created_at'];
     const SEARCH_ORDER_BY = ['created_at', 'desc'];
 }

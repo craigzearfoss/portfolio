@@ -96,7 +96,7 @@ return new class extends Migration
             }
         }
 
-        // prompt for the defaut admin password
+        // prompt for the default admin password
         $passwordGood= false;
         while (!$passwordGood) {
 
@@ -213,12 +213,6 @@ return new class extends Migration
                 'root'              => 0,
             ]
         ];
-
-        // add timestamps
-        for($i=0; $i<count($data);$i++) {
-            $data[$i]['created_at'] = now();
-            $data[$i]['updated_at'] = now();
-        }
 
         // add timestamps
         for($i=0; $i<count($data);$i++) {

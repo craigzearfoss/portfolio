@@ -4,16 +4,80 @@ use App\Models\System\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use function Laravel\Prompts\text;
 
 return new class extends Migration
 {
     protected $database_tag = 'system_db';
 
     /**
+     * @var string sample user username
+     */
+    protected $sampleUsername = 'sample';
+
+    /**
+     * @var string sample user password
+     */
+    protected $samplePassword = null;
+
+    /**
+     * @var string sample user name
+     */
+    protected $sampleName = 'Default User';
+
+    /**
+     * @var string sample user label
+     */
+    protected $sampleLabel = 'sample-user';
+
+    /**
+     * @var string demo user username
+     */
+    protected $demoUsername = 'demo';
+
+    /**
+     * @var string demo user password
+     */
+    protected $demoPassword = 'Shpadoinkle!';
+
+    /**
+     * @var string demo user name
+     */
+    protected $demoName = 'Demo User';
+
+    /**
+     * @var string demo user label
+     */
+    protected $demoLabel = 'demo-user';
+
+    /**
      * Run the migrations.
      */
     public function up(): void
     {
+        // prompt for the sample user password
+        $passwordGood= false;
+        while (!$passwordGood) {
+
+            while (strlen($this->samplePassword) < 8) {
+                $this->samplePassword = text('Enter a password for sample user (at least 8 characters).');
+            }
+
+            $confirmPassword = text('Confirm the sample user password.');
+
+            if ($confirmPassword === $this->samplePassword) {
+                $passwordGood = true;
+            } else {
+                echo 'Passwords do not match.';
+                $this->samplePassword = null;
+            }
+        }
+
+        echo PHP_EOL . 'Record fhe following admin credentials so you don\'t forget them:' . PHP_EOL;
+        echo '    Sample User:    ' . $this->sampleUsername . ' / ' . $this->samplePassword . PHP_EOL . PHP_EOL;
+
+        $dummy = text('Hit Enter to continue or Ctrl-C to cancel');
+
         Schema::connection($this->database_tag)->create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username', 200)->unique();
@@ -78,25 +142,29 @@ return new class extends Migration
         $data = [
             [
                 'id'                => 1,
-                'username'          => 'sample',
-                'name'              => 'Sample User',
-                'label'             => 'sample-user',
+                'username'          => $this->sampleUsername,
+                'name'              => $this->sampleName,
+                'label'             => $this->sampleLabel,
                 'email'             => 'sample-user@gsample.com',
                 'email_verified_at' => now(),
-                'password'          => Hash::make(uniqid()),
+                'password'          => Hash::make($this->samplePassword),
                 'status'            => 1,
-                'token'             => null
+                'image'             => '/images/user/1/profile.png',
+                'thumbnail'         => '/images/user/1/thumbnail.png',
+                'token'             => ''
             ],
             [
                 'id'                => 2,
-                'username'          => 'demo',
-                'name'              => 'Demo User',
-                'label'             => 'demo-user',
+                'username'          => $this->demoUsername,
+                'name'              => $this->demoName,
+                'label'             => $this->demoLabel,
                 'email'             => 'demo-user@sample.com',
                 'email_verified_at' => now(),
-                'password'          => Hash::make(uniqid()),
+                'password'          => Hash::make($this->demoPassword),
+                'image'             => '/images/admin/2/profile.png',
+                'thumbnail'         => '/images/admin/2/thumbnail.png',
                 'status'            => 1,
-                'token'             => null,
+                'token'             => '',
             ],
         ];
 

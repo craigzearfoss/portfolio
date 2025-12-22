@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('login_attempts_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('ip_address', 50)->nullable();
+            $table->string('username', 200)->nullable();
             $table->string('action', 10);
+            $table->string('ip_address', 50)->nullable();
             $table->tinyInteger('success')->default(0);
             $table->timestamps();
         });
