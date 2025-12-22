@@ -9,6 +9,7 @@ use App\Models\Dictionary\Language;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -85,9 +86,7 @@ class LanguageController extends BaseAdminController
      */
     public function edit(Language $language): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit languages.');
-        }
+        Gate::authorize('update-resource', $language);
 
         return view('admin.dictionary.language.edit', compact('language'));
     }
@@ -101,9 +100,7 @@ class LanguageController extends BaseAdminController
      */
     public function update(UpdateLanguagesRequest $updateLanguagesRequest, Language $language): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update languages.');
-        }
+        Gate::authorize('update-resource', $language);
 
         $language->update($updateLanguagesRequest->validated());
 
@@ -119,9 +116,7 @@ class LanguageController extends BaseAdminController
      */
     public function destroy(Language $language): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete languages.');
-        }
+        Gate::authorize('delete-resource', $language);
 
         $language->delete();
 

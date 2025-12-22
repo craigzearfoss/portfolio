@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreMessagesRequest;
 use App\Http\Requests\System\UpdateMessagesRequest;
 use App\Models\System\Message;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -38,6 +39,10 @@ class MessageController extends BaseAdminController
      */
     public function create(): View
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Only root admins can access this page.');
+        }
+
         return view('admin.system.message.create');
     }
 
@@ -49,6 +54,10 @@ class MessageController extends BaseAdminController
      */
     public function store(StoreMessagesRequest $storeMessagesRequest): RedirectResponse
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Only root admins can create new messages.');
+        }
+
         $message = Message::create($storeMessagesRequest->validated());
 
         return redirect()->route('admin.system.message.show', $message)
@@ -74,6 +83,9 @@ class MessageController extends BaseAdminController
      */
     public function edit(Message $message): View
     {
+        // any admin can edit a message
+        //Gate::authorize('update-resource', $message);
+
         return view('admin.system.message.edit', compact('message'));
     }
 
@@ -86,6 +98,9 @@ class MessageController extends BaseAdminController
      */
     public function update(UpdateMessagesRequest $updateMessagesRequest, Message $message): RedirectResponse
     {
+        // any admin can update a message
+        //Gate::authorize('update-resource', $message);
+
         $message->update($updateMessagesRequest->validated());
 
         return redirect()->route('admin.system.message.index')
@@ -100,6 +115,8 @@ class MessageController extends BaseAdminController
      */
     public function destroy(Message $message): RedirectResponse
     {
+        Gate::authorize('delete-resource', $message);
+
         $message->delete();
 
         return redirect(referer('admin.system.message.index'))

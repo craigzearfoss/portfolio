@@ -9,6 +9,7 @@ use App\Models\Portfolio\Academy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -85,6 +86,8 @@ class AcademyController extends BaseAdminController
      */
     public function edit(Academy $academy): View
     {
+        Gate::authorize('update-resource', $academy);
+
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit academies.');
         }
@@ -101,6 +104,8 @@ class AcademyController extends BaseAdminController
      */
     public function update(UpdateAcademiesRequest $updateAcademiesRequest, Academy $academy): RedirectResponse
     {
+        Gate::authorize('update-resource', $academy);
+
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update academies.');
         }
@@ -119,6 +124,8 @@ class AcademyController extends BaseAdminController
      */
     public function destroy(Academy $academy): RedirectResponse
     {
+        Gate::authorize('delete-resource', $academy);
+
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete academies.');
         }

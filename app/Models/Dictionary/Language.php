@@ -2,7 +2,7 @@
 
 namespace App\Models\Dictionary;
 
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AdminPublicScope;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 
@@ -56,7 +56,7 @@ class Language extends Model
     {
         parent::booted();
 
-        static::addGlobalScope(new AdminGlobalScope());
+        static::addGlobalScope(new AdminPublicScope());
     }
 
     /**

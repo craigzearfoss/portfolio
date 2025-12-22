@@ -19,12 +19,12 @@ use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Publication;
 use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Database;
 use App\Models\System\MenuItem;
 use App\Models\System\Resource;
-use App\Models\System\AdminMenuItem;
+use App\Models\System\AdminResource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
@@ -290,7 +290,7 @@ class MikeBrady extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Job ...\n";
 
         $this->jobId = [];
-        $maxId = Job::withoutGlobalScope(AdminGlobalScope::class)->max('id');
+        $maxId = Job::withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=7; $i++) {
             $this->jobId[$i] = ++$maxId;
         }
@@ -450,7 +450,7 @@ class MikeBrady extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
         $id = [];
-        $maxId = Music::withoutGlobalScope(AdminGlobalScope::class)->max('id');
+        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=36; $i++) {
             $id[$i] = ++$maxId;
         }
@@ -703,18 +703,20 @@ class MikeBrady extends Command
     }
 
     /**
-     * Add a menu item for the resource.
+     * Attach a resource to the admin.
      *
-     * @param string $itemName
+     * @param string $resourceName
+     * @param int|null $public
      * @return void
      */
-    protected function addMenuItem($itemName)
+    protected function attachAdminResource(string $resourceName, int|null $public = 0)
     {
-        if ($menuItem = MenuItem::where('database_id', $this->databaseId)->where('name', $itemName)->first()) {
+        if ($resource = Resource::where('database_id', $this->databaseId)->where('name', $resourceName)->first()) {
 
-            AdminMenuItem::insert([
-                'admin_id'     => $this->adminId,
-                'menu_item_id' => $menuItem->id,
+            AdminResource::insert([
+                'admin_id'    => $this->adminId,
+                'resource_id' => $resource->id,
+                'public'      => $public,
             ]);
         }
     }

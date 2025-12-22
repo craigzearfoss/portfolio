@@ -38,10 +38,6 @@ class AwardController extends BaseAdminController
      */
     public function create(): View
     {
-        if (! Gate::allows('root-only')) {
-            abort(403, 'Unauthorized action.');
-        }
-        Gate::authorize('create-get', Auth::guard('admin')->user());
         return view('admin.portfolio.award.create');
     }
 
@@ -79,6 +75,8 @@ class AwardController extends BaseAdminController
      */
     public function edit(Award $award): View
     {
+        Gate::authorize('update-resource', $award);
+
         return view('admin.portfolio.award.edit', compact('award'));
     }
 
@@ -91,6 +89,8 @@ class AwardController extends BaseAdminController
      */
     public function update(UpdateAwardsRequest $UpdateAwardsRequest, Award $award): RedirectResponse
     {
+        Gate::authorize('update-resource', $award);
+
         $award->update($UpdateAwardsRequest->validated());
 
         return redirect()->route('admin.portfolio.award.show', $award)
@@ -105,6 +105,8 @@ class AwardController extends BaseAdminController
      */
     public function destroy(Award $award): RedirectResponse
     {
+        Gate::authorize('delete-resource', $award);
+
         $award->delete();
 
         return redirect(referer('admin.portfolio.award.index'))

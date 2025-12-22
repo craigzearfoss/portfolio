@@ -9,6 +9,7 @@ use App\Models\Dictionary\OperatingSystem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -85,9 +86,7 @@ class OperatingSystemController extends BaseAdminController
      */
     public function edit(OperatingSystem $operatingSystem): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit operating systems.');
-        }
+        Gate::authorize('update-resource', $operatingSystem);
 
         return view('admin.dictionary.operating-system.edit', compact('operatingSystem'));
     }
@@ -102,9 +101,7 @@ class OperatingSystemController extends BaseAdminController
     public function update(UpdateOperatingSystemsRequest $updateOperatingSystemsRequest,
                            OperatingSystem               $operatingSystem): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update operating systems.');
-        }
+        Gate::authorize('update-resource', $operatingSystem);
 
         $operatingSystem->update($updateOperatingSystemsRequest->validated());
 
@@ -120,9 +117,7 @@ class OperatingSystemController extends BaseAdminController
      */
     public function destroy(OperatingSystem $operatingSystem): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete operating systems.');
-        }
+        Gate::authorize('delete-resource', $operatingSystem);
 
         $operatingSystem->delete();
 

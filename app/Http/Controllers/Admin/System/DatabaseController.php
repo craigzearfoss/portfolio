@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreDatabasesRequest;
 use App\Http\Requests\System\UpdateDatabasesRequest;
 use App\Models\System\Database;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -38,6 +39,10 @@ class DatabaseController extends BaseAdminController
      */
     public function create(): View
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Only root admins can access this page.');
+        }
+
         return view('admin.system.database.create');
     }
 
@@ -49,6 +54,10 @@ class DatabaseController extends BaseAdminController
      */
     public function store(StoreDatabasesRequest $storeDatabasesRequest): RedirectResponse
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Only root admins can add new databases.');
+        }
+
         $database = Database::create($storeDatabasesRequest->validated());
 
         return redirect()->route('admin.system.database.show', $database)
@@ -74,6 +83,8 @@ class DatabaseController extends BaseAdminController
      */
     public function edit(Database $database): View
     {
+        Gate::authorize('update-resource', $database);
+
         return view('admin.system.database.edit', compact('database'));
     }
 
@@ -86,6 +97,8 @@ class DatabaseController extends BaseAdminController
      */
     public function update(UpdateDatabasesRequest $updateDatabasesRequest, Database $database): RedirectResponse
     {
+        Gate::authorize('update-resource', $database);
+
         $database->update($updateDatabasesRequest->validated());
 
         return redirect()->route('admin.system.database.show', $database)
@@ -100,6 +113,8 @@ class DatabaseController extends BaseAdminController
      */
     public function destroy(Database $database): RedirectResponse
     {
+        Gate::authorize('delete-resource', $database);
+
         $database->delete();
 
         return redirect(referer('admin.system.database.index'))

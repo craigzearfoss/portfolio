@@ -14,6 +14,7 @@ use App\Models\Career\Note;
 use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -130,6 +131,8 @@ class ApplicationController extends BaseAdminController
      */
     public function edit(Application $application): View
     {
+        Gate::authorize('update-resource', $application);
+
         return view('admin.career.application.edit', compact('application'));
     }
 
@@ -143,6 +146,8 @@ class ApplicationController extends BaseAdminController
     public function update(UpdateApplicationsRequest $updateApplicationsRequest,
                            Application               $application): RedirectResponse
     {
+        Gate::authorize('update-resource', $application);
+
         $application->update($updateApplicationsRequest->validated());
 
         return redirect()->route('admin.career.application.show', $application)
@@ -157,6 +162,8 @@ class ApplicationController extends BaseAdminController
      */
     public function destroy(Application $application): RedirectResponse
     {
+        Gate::authorize('delete-resource', $application);
+
         $application->delete();
 
         return redirect(referer('admin.portfolio.application.index'))

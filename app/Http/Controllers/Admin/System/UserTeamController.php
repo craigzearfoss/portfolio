@@ -8,6 +8,7 @@ use App\Http\Requests\System\UpdateUserTeamsRequest;
 use App\Models\System\UserTeam;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class UserTeamController extends BaseAdminController
@@ -71,9 +72,7 @@ class UserTeamController extends BaseAdminController
      */
     public function edit(UserTeam $userTeam): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
-        }
+        Gate::authorize('update-resource', $userTeam);
 
         return view('admin.system.user-team.edit', compact('userTeam'));
     }
@@ -87,6 +86,8 @@ class UserTeamController extends BaseAdminController
      */
     public function update(UpdateUserTeamsRequest $updateUserTeamsRequest, UserTeam $userTeam): RedirectResponse
     {
+        Gate::authorize('update-resource', $userTeam);
+
         $userTeam->update($updateUserTeamsRequest->validated());
 
         return redirect()->route('admin.system.user-team.show', $userTeam)
@@ -101,9 +102,7 @@ class UserTeamController extends BaseAdminController
      */
     public function destroy(UserTeam $userTeam): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
-        }
+        Gate::authorize('delete-resource', $userTeam);
 
         $userTeam->delete();
 

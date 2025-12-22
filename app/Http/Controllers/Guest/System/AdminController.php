@@ -47,12 +47,26 @@ class AdminController extends BaseGuestController
             abort(404);
         }
 
-        $portfolioResources = Database::getResources('portfolio', [], ['name', 'asc']);
-        $personalResources = Database::getResources('personal', [], ['name', 'asc']);
+        $portfolioResourceTypes = Database::getAdminResourceTypes(
+            $admin->id,
+            'portfolio',
+            [
+                'public'   => 1,
+                'disabled' => 0,
+            ]
+        );
+
+        $personalResourceTypes = Database::getAdminResourceTypes(
+            $admin->id,
+            'personal',
+            [
+                'public'   => 1,
+                'disabled' => 0,
+            ]);
 
         return view(themedTemplate(
             'guest.system.admin.show'),
-            compact('admin', 'portfolioResources', 'personalResources')
+            compact('admin', 'portfolioResourceTypes', 'personalResourceTypes')
         );
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Career\Application;
 use App\Models\Career\Communication;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -108,6 +109,8 @@ class CommunicationController extends BaseAdminController
      */
     public function edit(Communication $communication, Request $request): View
     {
+        Gate::authorize('update-resource', $communication);
+
         $urlParams = [];
         if ($applicationId = $request->get('application_id')) {
             $urlParams['application_id'] = $applicationId;
@@ -126,6 +129,8 @@ class CommunicationController extends BaseAdminController
     public function update(UpdateCommunicationsRequest $updateCommunicationsRequest,
                            Communication               $communication): RedirectResponse
     {
+        Gate::authorize('update-resource', $communication);
+
         $applicationId = $updateCommunicationsRequest->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
@@ -156,6 +161,8 @@ class CommunicationController extends BaseAdminController
      */
     public function destroy(Communication $communication): RedirectResponse
     {
+        Gate::authorize('delete-resource', $communication);
+
         $communication->delete();
 
         return redirect(referer('admin.career.communication.index'))

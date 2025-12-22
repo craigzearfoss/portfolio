@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Http\Middleware\Admin;
 use App\Services\PermissionService;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -30,6 +32,30 @@ class AppServiceProvider extends ServiceProvider
         }
 
         Paginator::useBootstrap();
+
+        // define gate for admin editing a resource
+        Gate::define('update-resource', function (Admin $admin, $resourceObj): bool
+        {
+            if (isRootAdmin()) return true;
+
+            if (property_exists($resourceObj, 'owner_id') && ($resourceObj->owner_id === $admin->id)) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+        // define gate for an admin deleting a resource
+        Gate::define('delete-resource', function (Admin $admin, $resourceObj): bool
+        {
+            if (isRootAdmin()) return true;
+
+            if (property_exists($resourceObj, 'owner_id') && ($resourceObj->owner_id === $admin->id)) {
+                return true;
+            } else {
+                return false;
+            }
+        });
 
         view()->share('demo', !empty(config('app.demo_url')));
         view()->share('readonly', boolval(config('app.readonly')));

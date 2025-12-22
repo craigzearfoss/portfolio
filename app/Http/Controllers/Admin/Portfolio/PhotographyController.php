@@ -48,7 +48,7 @@ class PhotographyController extends BaseAdminController
     /**
      * Store a newly created photo in storage.
      *
-     * @param StorePhotographyRequest $storePhotograohyRequest
+     * @param StorePhotographyRequest $storePhotographyRequest
      * @return RedirectResponse
      */
     public function store(StorePhotographyRequest $storePhotographyRequest): RedirectResponse
@@ -78,6 +78,8 @@ class PhotographyController extends BaseAdminController
      */
     public function edit(Photography $photo): View
     {
+        Gate::authorize('update-resource', $photo);
+
         return view('admin.portfolio.photography.edit', compact('photo'));
     }
 
@@ -90,6 +92,8 @@ class PhotographyController extends BaseAdminController
      */
     public function update(UpdatePhotographyRequest $updatePhotographyRequest, Photography $photo): RedirectResponse
     {
+        Gate::authorize('update-resource', $photo);
+
         $photo->update($updatePhotographyRequest->validated());
 
         return redirect()->route('admin.portfolio.photography.show', $photo)
@@ -104,6 +108,8 @@ class PhotographyController extends BaseAdminController
      */
     public function destroy(Photography $photo): RedirectResponse
     {
+        Gate::authorize('delete-resource', $photo);
+
         $photo->delete();
 
         return redirect(referer('admin.portfolio.photography.index'))

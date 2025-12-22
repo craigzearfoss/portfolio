@@ -2,7 +2,7 @@
 
 namespace App\Models\Career;
 
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
@@ -49,7 +49,7 @@ class Note extends Model
     {
         parent::booted();
 
-        static::addGlobalScope(new AdminGlobalScope());
+        static::addGlobalScope(new AdminPublicScope());
     }
 
     /**

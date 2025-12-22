@@ -9,6 +9,7 @@ use App\Models\Career\JobBoard;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -86,6 +87,8 @@ class JobBoardController extends BaseAdminController
      */
     public function edit(JobBoard $jobBoard, Request $request): View
     {
+        Gate::authorize('update-resource', $jobBoard);
+
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit job boards.');
         }
@@ -102,9 +105,7 @@ class JobBoardController extends BaseAdminController
      */
     public function update(UpdateJobBoardsRequest $updateJobBoardsRequest, JobBoard $jobBoard): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update job boards.');
-        }
+        Gate::authorize('update-resource', $jobBoard);
 
         $jobBoard->update($updateJobBoardsRequest->validated());
 
@@ -120,9 +121,7 @@ class JobBoardController extends BaseAdminController
      */
     public function destroy(JobBoard $jobBoard): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete job boards.');
-        }
+        Gate::authorize('delete-resource', $jobBoard);
 
         $jobBoard->delete();
 

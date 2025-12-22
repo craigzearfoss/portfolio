@@ -22,8 +22,15 @@ class IndexController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $personalResources = Database::getResources('personal', [], ['name', 'asc']);
+        $personalResourceTypes = Database::getAdminResourceTypes(
+            $admin->id,
+            'personal',
+            [
+                'public'   => true,
+                'disabled' => false,
+            ]
+        );
 
-        return view(themedTemplate('guest.personal.index'), compact('personalResources', 'admin'));
+        return view(themedTemplate('guest.personal.index'), compact('personalResourceTypes', 'admin'));
     }
 }

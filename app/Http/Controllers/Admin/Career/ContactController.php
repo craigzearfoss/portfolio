@@ -10,6 +10,7 @@ use App\Models\Career\Company;
 use App\Models\Career\Contact;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -78,6 +79,8 @@ class ContactController extends BaseAdminController
      */
     public function edit(Contact $contact): View
     {
+        Gate::authorize('update-resource', $contact);
+
         return view('admin.career.contact.edit', compact('contact'));
     }
 
@@ -90,6 +93,8 @@ class ContactController extends BaseAdminController
      */
     public function update(UpdateContactsRequest $updateContactsRequest, Contact $contact): RedirectResponse
     {
+        Gate::authorize('update-resource', $contact);
+
         $contact->update($updateContactsRequest->validated());
 
         return redirect()->route('admin.career.application.show', $contact)
@@ -104,6 +109,8 @@ class ContactController extends BaseAdminController
      */
     public function destroy(Contact $contact): RedirectResponse
     {
+        Gate::authorize('delete-resource', $contact);
+
         $contact->delete();
 
         return redirect(referer('admin.career.contact.index'))

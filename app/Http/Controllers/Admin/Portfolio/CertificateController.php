@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateCertificatesRequest;
 use App\Models\Portfolio\Certificate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -76,6 +77,8 @@ class CertificateController extends BaseAdminController
      */
     public function edit(Certificate $certificate): View
     {
+        Gate::authorize('edit-resource', $certificate);
+
         return view('admin.portfolio.certificate.edit', compact('certificate'));
     }
 
@@ -89,6 +92,8 @@ class CertificateController extends BaseAdminController
     public function update(UpdateCertificatesRequest $updateCertificatesRequest,
                            Certificate               $certificate): RedirectResponse
     {
+        Gate::authorize('edit-resource', $certificate);
+
         $certificate->update($updateCertificatesRequest->validated());
 
         return redirect()->route('admin.portfolio.certificate.show', $certificate)
@@ -103,6 +108,8 @@ class CertificateController extends BaseAdminController
      */
     public function destroy(Certificate $certificate): RedirectResponse
     {
+        Gate::authorize('delete-resource', $certificate);
+
         $certificate->delete();
 
         return redirect(referer('admin.portfolio.certificate.index'))

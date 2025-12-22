@@ -42,10 +42,6 @@ class ArtController extends BaseAdminController
      */
     public function create(): View
     {
-        if (! Gate::allows('root-only')) {
-            abort(403, 'Unauthorized action.');
-        }
-        Gate::authorize('create-get', Auth::guard('admin')->user());
         return view('admin.portfolio.art.create');
     }
 
@@ -83,6 +79,8 @@ class ArtController extends BaseAdminController
      */
     public function edit(Art $art): View
     {
+        Gate::authorize('update-resource', $art);
+
         return view('admin.portfolio.art.edit', compact('art'));
     }
 
@@ -95,6 +93,8 @@ class ArtController extends BaseAdminController
      */
     public function update(UpdateArtRequest $updateArtRequest, Art $art): RedirectResponse
     {
+        Gate::authorize('update-resource', $art);
+
         $art->update($updateArtRequest->validated());
 
         return redirect()->route('admin.portfolio.art.show', $art)
@@ -109,6 +109,8 @@ class ArtController extends BaseAdminController
      */
     public function destroy(Art $art): RedirectResponse
     {
+        Gate::authorize('delete-resource', $art);
+
         $art->delete();
 
         return redirect(referer('admin.portfolio.art.index'))

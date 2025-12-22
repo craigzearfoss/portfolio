@@ -8,6 +8,7 @@ use App\Http\Requests\System\UpdateUserGroupsRequest;
 use App\Models\System\UserGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class UserGroupController extends BaseAdminController
@@ -75,9 +76,7 @@ class UserGroupController extends BaseAdminController
      */
     public function edit(UserGroup $userGroup): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
-        }
+        Gate::authorize('update-resource', $userGroup);
 
         return view('admin.system.user-group.edit', compact('userGroup'));
     }
@@ -91,6 +90,8 @@ class UserGroupController extends BaseAdminController
      */
     public function update(UpdateUserGroupsRequest $updateUserGroupRequest, UserGroup $userGroup): RedirectResponse
     {
+        Gate::authorize('update-resource', $userGroup);
+
         $userGroup->update($updateUserGroupRequest->validated());
 
         return redirect()->route('admin.system.user-group.show', $userGroup)
@@ -105,9 +106,7 @@ class UserGroupController extends BaseAdminController
      */
     public function destroy(UserGroup $userGroup): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
-        }
+        Gate::authorize('delete-resource', $userGroup);
 
         $userGroup->delete();
 

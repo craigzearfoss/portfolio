@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateEducationsRequest;
 use App\Models\Portfolio\Education;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -74,6 +75,8 @@ class EducationController extends Controller
      */
     public function edit(Education $education): View
     {
+        Gate::authorize('update-resource', $education);
+
         return view('admin.portfolio.education.edit', compact('education'));
     }
 
@@ -87,6 +90,8 @@ class EducationController extends Controller
     public function update(UpdateEducationsRequest $updateEducationsRequest,
                            Education               $education): RedirectResponse
     {
+        Gate::authorize('update-resource', $education);
+
         $education->update($updateEducationsRequest->validated());
 
         return redirect()->route('admin.portfolio.education.show', $education)
@@ -101,6 +106,8 @@ class EducationController extends Controller
      */
     public function destroy(Education $education): RedirectResponse
     {
+        Gate::authorize('delete-resource', $education);
+
         $education->delete();
 
         return redirect(referer('admin.portfolio.education.index'))

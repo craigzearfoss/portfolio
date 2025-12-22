@@ -8,6 +8,7 @@ use App\Http\Requests\Career\UpdateRecruitersRequest;
 use App\Models\Career\Recruiter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class RecruiterController extends BaseAdminController
@@ -35,6 +36,10 @@ class RecruiterController extends BaseAdminController
      */
     public function create(): View
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can add recruiters.');
+        }
+
         return view('admin.career.recruiter.create');
     }
 
@@ -46,6 +51,10 @@ class RecruiterController extends BaseAdminController
      */
     public function store(StoreRecruitersRequest $storeRecruitersRequest): RedirectResponse
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Only admins with root access can add recruiters.');
+        }
+
         $recruiter = Recruiter::create($storeRecruitersRequest->validated());
 
         return redirect()->route('admin.career.recruiter.show', $recruiter)
@@ -71,6 +80,8 @@ class RecruiterController extends BaseAdminController
      */
     public function edit(Recruiter $recruiter): View
     {
+        Gate::authorize('update-resource', $recruiter);
+
         return view('admin.career.recruiter.edit', compact('recruiter'));
     }
 
@@ -83,6 +94,8 @@ class RecruiterController extends BaseAdminController
      */
     public function update(UpdateRecruitersRequest $updateRecruitersRequest, Recruiter $recruiter): RedirectResponse
     {
+        Gate::authorize('update-resource', $recruiter);
+
         $recruiter->update($updateRecruitersRequest->validated());
 
         return redirect()->route('admin.career.recruiter.show', $recruiter)
@@ -97,6 +110,8 @@ class RecruiterController extends BaseAdminController
      */
     public function destroy(Recruiter $recruiter): RedirectResponse
     {
+        Gate::authorize('delete-resource', $recruiter);
+
         $recruiter->delete();
 
         return redirect(referer('admin.career.recruiter.index'))

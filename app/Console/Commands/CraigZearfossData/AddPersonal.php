@@ -6,12 +6,12 @@ use App\Models\Personal\Reading;
 use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeIngredient;
 use App\Models\Personal\RecipeStep;
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Database;
 use App\Models\System\MenuItem;
 use App\Models\System\Resource;
-use App\Models\System\AdminMenuItem;
+use App\Models\System\AdminResource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
@@ -429,8 +429,8 @@ class AddPersonal extends Command
 
         if (!empty($data)) {
             Reading::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Readings');
         }
+        $this->attachAdminResource('reading', count($data) ? 1 : 0);
     }
 
     protected function insertPersonalRecipes(): void
@@ -438,7 +438,7 @@ class AddPersonal extends Command
         echo self::USERNAME . ": Inserting into Personal\\Recipe ...\n";
 
         $this->recipeId = [];
-        $maxId = Recipe::withoutGlobalScope(AdminGlobalScope::class)->max('id');
+        $maxId = Recipe::withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=7; $i++) {
             $this->recipeId[$i] = ++$maxId;
         }
@@ -454,8 +454,8 @@ class AddPersonal extends Command
 
         if (!empty($data)) {
             Recipe::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Recipes');
         }
+        $this->attachAdminResource('recipe', count($data) ? 1 : 0);
     }
 
     protected function insertPersonalRecipeIngredients(): void
@@ -514,8 +514,8 @@ class AddPersonal extends Command
 
         if (!empty($data)) {
             RecipeIngredient::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo]));
-            $this->addMenuItem('Recipe Ingredients');
         }
+        $this->attachAdminResource('recipe-ingredient', count($data) ? 1 : 0);
     }
 
     protected function insertPersonalRecipeSteps(): void
@@ -544,9 +544,8 @@ class AddPersonal extends Command
 
         if (!empty($data)) {
             RecipeStep::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Recipe Steps');
         }
-
+        $this->attachAdminResource('recipe-step', count($data) ? 1 : 0);
     }
 
     /**
@@ -594,18 +593,20 @@ class AddPersonal extends Command
     }
 
     /**
-     * Add a menu item for the resource.
+     * Attach a resource to the admin.
      *
-     * @param string $itemName
+     * @param string $resourceName
+     * @param int|null $public
      * @return void
      */
-    protected function addMenuItem($itemName)
+    protected function attachAdminResource(string $resourceName, int|null $public = 0)
     {
-        if ($menuItem = MenuItem::where('database_id', $this->databaseId)->where('name', $itemName)->first()) {
+        if ($resource = Resource::where('database_id', $this->databaseId)->where('name', $resourceName)->first()) {
 
-            AdminMenuItem::insert([
-                'admin_id'     => $this->adminId,
-                'menu_item_id' => $menuItem->id,
+            AdminResource::insert([
+                'admin_id'    => $this->adminId,
+                'resource_id' => $resource->id,
+                'public'      => $public,
             ]);
         }
     }

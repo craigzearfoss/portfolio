@@ -9,6 +9,7 @@ use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobTask;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -90,6 +91,8 @@ class JobTaskController extends BaseAdminController
      */
     public function edit(JobTask $jobTask, Request $request): View
     {
+        Gate::authorize('update-resource', $jobTask);
+
         return view('admin.portfolio.job-task.edit', compact('jobTask'));
     }
 
@@ -102,6 +105,8 @@ class JobTaskController extends BaseAdminController
      */
     public function update(UpdateJobTasksRequest $updateJobTasksRequest, JobTask $jobTask): RedirectResponse
     {
+        Gate::authorize('update-resource', $jobTask);
+
         $jobTask->update($updateJobTasksRequest->validated());
 
         return redirect()->route('admin.portfolio.job-task.show', $jobTask)
@@ -116,6 +121,8 @@ class JobTaskController extends BaseAdminController
      */
     public function destroy(JobTask $jobTask): RedirectResponse
     {
+        Gate::authorize('delete-resource', $jobTask);
+
         $jobTask->delete();
 
         return redirect(referer('admin.portfolio.job-task.index'))

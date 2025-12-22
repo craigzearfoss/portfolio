@@ -9,6 +9,7 @@ use App\Models\Career\Industry;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -83,6 +84,8 @@ class IndustryController extends BaseAdminController
      */
     public function edit(Industry $industry): View
     {
+        Gate::authorize('update-resource', $industry);
+
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can edit industries.');
         }
@@ -99,6 +102,8 @@ class IndustryController extends BaseAdminController
      */
     public function update(UpdateIndustriesRequest $updateIndustriesRequest, Industry $industry): RedirectResponse
     {
+        Gate::authorize('update-resource', $industry);
+
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update industries.');
         }
@@ -117,6 +122,8 @@ class IndustryController extends BaseAdminController
      */
     public function destroy(Industry $industry): RedirectResponse
     {
+        Gate::authorize('delete-resource', $industry);
+
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can delete industries.');
         }

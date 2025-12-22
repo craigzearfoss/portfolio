@@ -9,6 +9,7 @@ use App\Models\Dictionary\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -85,9 +86,7 @@ class CategoryController extends BaseAdminController
      */
     public function edit(Category $category): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit categories.');
-        }
+        Gate::authorize('update-resource', $category);
 
         return view('admin.dictionary.category.edit', compact('category'));
     }
@@ -101,9 +100,7 @@ class CategoryController extends BaseAdminController
      */
     public function update(UpdateCategoriesRequest $updateCategoriesRequest, Category $category): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update categories.');
-        }
+        Gate::authorize('update-resource', $category);
 
         $category->update($updateCategoriesRequest->validated());
 
@@ -119,9 +116,7 @@ class CategoryController extends BaseAdminController
      */
     public function destroy(Category $category): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete categories.');
-        }
+        Gate::authorize('delete-resource', $category);
 
         $category->delete();
 

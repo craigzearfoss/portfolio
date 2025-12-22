@@ -4,7 +4,7 @@ namespace App\Models\Dictionary;
 
 use App\Models\Portfolio\JobSkill;
 use App\Models\Portfolio\Skill;
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AdminPublicScope;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -59,7 +59,7 @@ class Category extends Model
     {
         parent::booted();
 
-        static::addGlobalScope(new AdminGlobalScope());
+        static::addGlobalScope(new AdminPublicScope());
     }
 
     /**

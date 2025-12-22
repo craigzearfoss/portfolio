@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\AdminAdminGroup;
 use App\Models\System\AdminAdminTeam;
@@ -116,7 +116,7 @@ class AddCraigZearfoss extends Command
         $errors = [];
 
         // get the next available admin id
-        $adminId = Admin::withoutGlobalScope(AdminGlobalScope::class)->max('id') + 1;
+        $adminId = Admin::withoutGlobalScope(AdminPublicScope::class)->max('id') + 1;
 
         // get/validate the team id (Every admin must belong to a team.)
         if (!empty($adminTeamId)) $adminTeamId = intval($adminTeamId);

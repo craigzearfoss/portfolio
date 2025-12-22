@@ -8,6 +8,7 @@ use App\Http\Requests\System\UpdateResourcesRequest;
 use App\Models\System\Resource;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -34,6 +35,7 @@ class ResourceController extends BaseAdminController
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return View
      */
     public function create(Request $request): View
@@ -49,6 +51,10 @@ class ResourceController extends BaseAdminController
      */
     public function store(StoreResourcesRequest $storeResourcesRequest): RedirectResponse
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Only root admins can add new resources.');
+        }
+
         $resource = Resource::create($storeResourcesRequest->validated());
 
         return redirect()->route('admin.system.resource.show', $resource)
@@ -74,6 +80,8 @@ class ResourceController extends BaseAdminController
      */
     public function edit(Resource $resource): View
     {
+        Gate::authorize('update-resource', $resource);
+
         return view('admin.system.resource.edit', compact('resource'));
     }
 
@@ -86,6 +94,8 @@ class ResourceController extends BaseAdminController
      */
     public function update(UpdateResourcesRequest $updateResourcesRequest, Resource $resource): RedirectResponse
     {
+        Gate::authorize('update-resource', $resource);
+
         $resource->update($updateResourcesRequest->validated());
 
         return redirect()->route('admin.system.resource.show', $resource)
@@ -100,6 +110,8 @@ class ResourceController extends BaseAdminController
      */
     public function destroy(Resource $resource): RedirectResponse
     {
+        Gate::authorize('delete-resource', $resource);
+
         $resource->delete();
 
         return redirect(referer('admin.system.resource.index'))

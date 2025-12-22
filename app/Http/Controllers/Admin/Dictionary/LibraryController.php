@@ -9,6 +9,7 @@ use App\Models\Dictionary\Library;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -85,9 +86,7 @@ class LibraryController extends BaseAdminController
      */
     public function edit(Library $library): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit libraries.');
-        }
+        Gate::authorize('update-resource', $library);
 
         return view('admin.dictionary.library.edit', compact('library'));
     }
@@ -101,9 +100,7 @@ class LibraryController extends BaseAdminController
      */
     public function update(UpdateLibrariesRequest $updateLibrariesRequest, Library $library): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update libraries.');
-        }
+        Gate::authorize('update-resource', $library);
 
         $library->update($updateLibrariesRequest->validated());
 
@@ -119,9 +116,7 @@ class LibraryController extends BaseAdminController
      */
     public function destroy(Library $library): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete libraries.');
-        }
+        Gate::authorize('delete-resource', $library);
 
         $library->delete();
 

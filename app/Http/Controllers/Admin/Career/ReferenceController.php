@@ -8,6 +8,7 @@ use App\Http\Requests\Career\UpdateReferencesRequest;
 use App\Models\Career\Reference;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -76,6 +77,8 @@ class ReferenceController extends BaseAdminController
      */
     public function edit(Reference $reference): View
     {
+        Gate::authorize('update-resource', $reference);
+
         return view('admin.career.reference.edit', compact('reference'));
     }
 
@@ -88,6 +91,8 @@ class ReferenceController extends BaseAdminController
      */
     public function update(UpdateReferencesRequest $updateReferencesUpdateRequest, Reference $reference): RedirectResponse
     {
+        Gate::authorize('update-resource', $reference);
+
         $reference->update($updateReferencesUpdateRequest->validated());
 
         return redirect()->route('admin.career.reference.show', $reference)
@@ -102,6 +107,8 @@ class ReferenceController extends BaseAdminController
      */
     public function destroy(Reference $reference): RedirectResponse
     {
+        Gate::authorize('delete-resource', $reference);
+
         $reference->delete();
 
         return redirect(referer('admin.career.reference.index'))

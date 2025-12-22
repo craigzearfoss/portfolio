@@ -9,6 +9,7 @@ use App\Models\Personal\Unit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -82,9 +83,7 @@ class UnitController extends BaseAdminController
      */
     public function edit(Unit $unit): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit units.');
-        }
+        Gate::authorize('update-resource', $unit);
 
         return view('admin.personal.unit.edit', compact('unit'));
     }
@@ -98,9 +97,7 @@ class UnitController extends BaseAdminController
      */
     public function update(UpdateUnitsRequest $updateUnitsRequest, Unit $unit): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update units.');
-        }
+        Gate::authorize('update-resource', $unit);
 
         $unit->update($updateUnitsRequest->validated());
 
@@ -116,9 +113,7 @@ class UnitController extends BaseAdminController
      */
     public function destroy(Unit $unit): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete units.');
-        }
+        Gate::authorize('delete-resource', $unit);
 
         $unit->delete();
 

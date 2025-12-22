@@ -9,6 +9,7 @@ use App\Models\System\Admin;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
@@ -40,6 +41,10 @@ class AdminController extends BaseAdminController
      */
     public function create(): View
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Only root admins can access this page.');
+        }
+
         return view('admin.system.admin.create');
     }
 
@@ -51,6 +56,10 @@ class AdminController extends BaseAdminController
      */
     public function store(StoreAdminsRequest $storeAdminsRequest): RedirectResponse
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Only root admins can create new admins.');
+        }
+
         $storeAdminsRequest->validate($storeAdminsRequest->rules());
 
         $admin = new Admin();
@@ -84,10 +93,7 @@ class AdminController extends BaseAdminController
      */
     public function edit(Admin $admin): View
     {
-        // Note that any admin can edit themselves but only root admins can edit other admins.
-        if (!isRootAdmin() && ($admin->id !== Auth::guard('admin')->user()->id)) {
-            abort(403);
-        }
+        Gate::authorize('update-resource', $admin);
 
         return view('admin.system.admin.edit', compact('admin'));
     }
@@ -101,6 +107,8 @@ class AdminController extends BaseAdminController
      */
     public function update(UpdateAdminsRequest $updateAdminsRequest, Admin $admin): RedirectResponse
     {
+        Gate::authorize('update-resource', $admin);
+
         $admin->update($updateAdminsRequest->validated());
 
         return redirect()->route('admin.system.admin.show', $admin)
@@ -115,12 +123,7 @@ class AdminController extends BaseAdminController
      */
     public function destroy(Admin $admin): RedirectResponse
     {
-        // Note that only root admins can delete other admins, but they cannot delete themselves.
-        if (isRootAdmin() && ($admin->id !== Auth::guard('admin')->user()->id)) {
-            $admin->delete();
-        } else {
-            abort(403);
-        }
+        Gate::authorize('delete-resource', $admin);
 
         return redirect(referer('admin.system.admin.index'))
             ->with('success', $admin->username . ' deleted successfully.');

@@ -3,7 +3,7 @@
 namespace App\Models\Career;
 
 use App\Models\Career\CommunicationType;
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -54,7 +54,7 @@ class Communication extends Model
     {
         parent::booted();
 
-        static::addGlobalScope(new AdminGlobalScope());
+        static::addGlobalScope(new AdminPublicScope());
     }
 
     /**

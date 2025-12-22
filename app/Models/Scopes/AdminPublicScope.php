@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-class AdminGlobalScope implements Scope
+class AdminPublicScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {

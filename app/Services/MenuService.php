@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Admin;
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Resource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +19,7 @@ class MenuService
      * @return array
      * @throws \Exception
      */
-    public function getLeftMenu(string | null $envType = null, \App\Models\System\Admin|null $admin = null): array
+    public function getLeftMenu(string|null $envType = null, \App\Models\System\Admin|null $admin = null): array
     {
         // Verify the ENV type.
         if (empty($envType)) {
@@ -380,7 +380,7 @@ class MenuService
             return null;
         }
 
-        if (Resource::withoutGlobalScope(AdminGlobalScope::class)
+        if (Resource::withoutGlobalScope(AdminPublicScope::class)
             ->where('name', 'job')->where($envType, 1)->where('public', 1)->count() == 0
         ) {
             return false;

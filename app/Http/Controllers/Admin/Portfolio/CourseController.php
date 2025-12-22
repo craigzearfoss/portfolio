@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateCoursesRequest;
 use App\Models\Portfolio\Course;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -76,6 +77,8 @@ class CourseController extends BaseAdminController
      */
     public function edit(Course $course): View
     {
+        Gate::authorize('update-resource', $course);
+
         return view('admin.portfolio.course.edit', compact('course'));
     }
 
@@ -88,6 +91,8 @@ class CourseController extends BaseAdminController
      */
     public function update(UpdateCoursesRequest $updateCourseUpdateRequest, Course $course): RedirectResponse
     {
+        Gate::authorize('update-resource', $course);
+
         $course->update($updateCourseUpdateRequest->validated());
 
         return redirect()->route('admin.portfolio.course.show', $course)
@@ -102,6 +107,8 @@ class CourseController extends BaseAdminController
      */
     public function destroy(Course $course): RedirectResponse
     {
+        Gate::authorize('delete-resource', $course);
+
         $course->delete();
 
         return redirect(referer('admin.portfolio.course.index'))

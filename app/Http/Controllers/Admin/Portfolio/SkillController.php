@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateSkillsRequest;
 use App\Models\Portfolio\Skill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -75,6 +76,8 @@ class SkillController extends BaseAdminController
      */
     public function edit(Skill $skill): View
     {
+        Gate::authorize('update-resource', $skill);
+
         return view('admin.portfolio.skill.edit', compact('skill'));
     }
 
@@ -87,6 +90,8 @@ class SkillController extends BaseAdminController
      */
     public function update(UpdateSkillsRequest $updateSkillsRequest, Skill $skill): RedirectResponse
     {
+        Gate::authorize('update-resource', $skill);
+
         $skill->update($updateSkillsRequest->validated());
 
         return redirect()->route('admin.portfolio.skill.show', $skill)
@@ -101,6 +106,8 @@ class SkillController extends BaseAdminController
      */
     public function destroy(Skill $skill): RedirectResponse
     {
+        Gate::authorize('delete-resource', $skill);
+
         $skill->delete();
 
         return redirect(referer('admin.portfolio.skill.index'))

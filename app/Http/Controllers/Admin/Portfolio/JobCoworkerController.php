@@ -9,6 +9,7 @@ use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobCoworker;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -90,6 +91,8 @@ class JobCoworkerController extends BaseAdminController
      */
     public function edit(JobCoworker $jobCoworker, Request $request): View
     {
+        Gate::authorize('update-resource', $jobCoworker);
+
         return view('admin.portfolio.job-coworker.edit', compact('jobCoworker'));
     }
 
@@ -102,6 +105,8 @@ class JobCoworkerController extends BaseAdminController
      */
     public function update(UpdateJobCoworkersRequest $updateJobCoworkerRequest, JobCoworker $jobCoworker): RedirectResponse
     {
+        Gate::authorize('update-resource', $jobCoworker);
+
         $jobCoworker->update($updateJobCoworkerRequest->validated());
 
         return redirect()->route('admin.portfolio.job-coworker.show', $jobCoworker)
@@ -116,6 +121,8 @@ class JobCoworkerController extends BaseAdminController
      */
     public function destroy(JobCoworker $jobCoworker): RedirectResponse
     {
+        Gate::authorize('delete-resource', $jobCoworker);
+
         $jobCoworker->delete();
 
         return redirect(referer('admin.portfolio.job-coworker.index'))

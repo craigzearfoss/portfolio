@@ -133,7 +133,7 @@ class User extends Authenticatable
      * @param int $id
      * @return string|null
      */
-    public static function statusName(int $id): string | null
+    public static function statusName(int $id): string|null
     {
         return self::STATUSES[$id] ?? null;
     }
@@ -155,7 +155,7 @@ class User extends Authenticatable
      * @param int $id
      * @return string|null
      */
-    public static function titleName(int $id): string | null
+    public static function titleName(int $id): string|null
     {
         return self::TITLES[$id] ?? null;
     }

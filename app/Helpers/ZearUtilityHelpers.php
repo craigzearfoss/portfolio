@@ -4,9 +4,9 @@ if (! function_exists('refererRouteName')) {
     /**
      * Returns the route name of the refering page or null if there was no refering page.
      *
-     * @return string | null
+     * @return string|null
      */
-    function refererRouteName(): string | null
+    function refererRouteName(): string|null
     {
         try {
             $referer = Request::header('referer');
@@ -23,12 +23,12 @@ if (! function_exists('referer')) {
     /**
      * Returns the url of the refering page or the specified fallback route if there was no referer.
      *
-     * @param string | null $fallbackRoute
+     * @param string|null $fallbackRoute
      * @param mixed $parameters
      * @param bool $absolute
-     * @return string | null
+     * @return string|null
      */
-    function referer(string | null $fallbackRoute = null, mixed $parameters = [], bool $absolute = true): string | null
+    function referer(string|null $fallbackRoute = null, mixed $parameters = [], bool $absolute = true): string|null
     {
         $referer = Request::input('referer') ?? (Request::header('referer') ?? null);
         $refererRouteName = refererRouteName();
@@ -77,6 +77,23 @@ if (! function_exists('isUser')) {
             return Auth::guard('user')->check();
         } catch (\Throwable $th) {
             return false;
+        }
+    }
+}
+
+
+if (! function_exists('currentAdmin')) {
+    /**
+     * Returns Admin object of the current user or null if there is not one.
+     *
+     * @return \App\Models\System\Admin|null
+     */
+    function currentAdmin(): \App\Models\System\Admin|null
+    {
+        if (! Auth::guard('admin')->check()) {
+            return null;
+        } else {
+            return Auth::guard('admin')->user();
         }
     }
 }
@@ -464,7 +481,7 @@ if (! function_exists('imageUrl')) {
     /**
      * Returns the url of an image. If not a fully specifed url then the asset directory is used.
      *
-     * @param string | null $source
+     * @param string|null $source
      * @return string
      */
     function imageUrl(string|null $source): string

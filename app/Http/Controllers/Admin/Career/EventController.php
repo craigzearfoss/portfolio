@@ -9,6 +9,7 @@ use App\Models\Career\Application;
 use App\Models\Career\Event;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -108,6 +109,8 @@ class EventController extends BaseAdminController
      */
     public function edit(Event $event, Request $request): View
     {
+        Gate::authorize('update-resource', $event);
+
         $urlParams = [];
         if ($applicationId = $request->get('application_id')) {
             $urlParams['application_id'] = $applicationId;
@@ -125,6 +128,8 @@ class EventController extends BaseAdminController
      */
     public function update(UpdateEventsRequest $updateEventsRequest, Event $event): RedirectResponse
     {
+        Gate::authorize('update-resource', $event);
+
         $applicationId = $updateEventsRequest->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
@@ -155,6 +160,8 @@ class EventController extends BaseAdminController
      */
     public function destroy(Event $event): RedirectResponse
     {
+        Gate::authorize('delete-resource', $event);
+
         $event->delete();
 
         return redirect(referer('admin.career.event.index'))

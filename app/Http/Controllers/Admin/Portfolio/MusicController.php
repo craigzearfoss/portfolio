@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateMusicRequest;
 use App\Models\Portfolio\Music;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -76,6 +77,8 @@ class MusicController extends BaseAdminController
      */
     public function edit(Music $music): View
     {
+        Gate::authorize('update-resource', $music);
+
         return view('admin.portfolio.music.edit', compact('music'));
     }
 
@@ -88,6 +91,8 @@ class MusicController extends BaseAdminController
      */
     public function update(UpdateMusicRequest $updateMusicRequest, Music $music): RedirectResponse
     {
+        Gate::authorize('update-resource', $music);
+
         $music->update($updateMusicRequest->validated());
 
         return redirect()->route('admin.portfolio.music.show', $music)
@@ -102,6 +107,8 @@ class MusicController extends BaseAdminController
      */
     public function destroy(Music $music): RedirectResponse
     {
+        Gate::authorize('delete-resource', $music);
+
         $music->delete();
 
         return redirect(referer('admin.portfolio.music.index'))

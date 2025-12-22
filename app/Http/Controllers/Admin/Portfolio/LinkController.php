@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateLinksRequest;
 use App\Models\Portfolio\Link;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -76,6 +77,8 @@ class LinkController extends BaseAdminController
      */
     public function edit(Link $link): View
     {
+        Gate::authorize('update-resource', $link);
+
         return view('admin.portfolio.link.edit', compact('link'));
     }
 
@@ -88,6 +91,8 @@ class LinkController extends BaseAdminController
      */
     public function update(UpdateLinksRequest $updateLinksRequest, Link $link): RedirectResponse
     {
+        Gate::authorize('update-resource', $link);
+
         $link->update($updateLinksRequest->validated());
 
         return redirect()->route('admin.portfolio.link.show', $link)
@@ -102,6 +107,8 @@ class LinkController extends BaseAdminController
      */
     public function destroy(Link $link): RedirectResponse
     {
+        Gate::authorize('delete-resource', $link);
+
         $link->delete();
 
         return redirect(referer('admin.portfolio.link.index'))

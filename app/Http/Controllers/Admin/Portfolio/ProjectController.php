@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateProjectsRequest;
 use App\Models\Portfolio\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -76,6 +77,8 @@ class ProjectController extends BaseAdminController
      */
     public function edit(Project $project): View
     {
+        Gate::authorize('update-resource', $project);
+
         return view('admin.portfolio.project.edit', compact('project'));
     }
 
@@ -88,6 +91,8 @@ class ProjectController extends BaseAdminController
      */
     public function update(UpdateProjectsRequest $updateProjectsRequest, Project $project): RedirectResponse
     {
+        Gate::authorize('update-resource', $project);
+
         $project->update($updateProjectsRequest->validated());
 
         return redirect()->route('admin.portfolio.project.show', $project)
@@ -102,6 +107,8 @@ class ProjectController extends BaseAdminController
      */
     public function destroy(Project $project): RedirectResponse
     {
+        Gate::authorize('delete-resource', $project);
+
         $project->delete();
 
         return redirect(referer('admin.portfolio.project.index'))

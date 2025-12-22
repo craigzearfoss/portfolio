@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateCertificationsRequest;
 use App\Models\Portfolio\Certification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -82,9 +83,7 @@ class CertificationController extends Controller
      */
     public function edit(Certification $certification): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit certifications.');
-        }
+        Gate::authorize('update-resource', $certification);
 
         return view('admin.portfolio.certification.edit', compact('certification'));
     }
@@ -98,6 +97,8 @@ class CertificationController extends Controller
      */
     public function update(UpdateCertificationsRequest $updateCertificationsRequest, Certification $certification): RedirectResponse
     {
+        Gate::authorize('update-resource', $certification);
+
         if (!isRootAdmin()) {
             abort(403, 'Only admins with root access can update certifications.');
         }
@@ -116,9 +117,7 @@ class CertificationController extends Controller
      */
     public function destroy(Certification $certification): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete certifications.');
-        }
+        Gate::authorize('delete-resource', $certification);
 
         $certification->delete();
 

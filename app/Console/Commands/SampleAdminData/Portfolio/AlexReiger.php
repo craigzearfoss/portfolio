@@ -19,12 +19,12 @@ use App\Models\Portfolio\Project;
 use App\Models\Portfolio\Publication;
 use App\Models\Portfolio\Skill;
 use App\Models\Portfolio\Video;
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Database;
 use App\Models\System\MenuItem;
 use App\Models\System\Resource;
-use App\Models\System\AdminMenuItem;
+use App\Models\System\AdminResource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
@@ -130,8 +130,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             Art::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Art');
         }
+        $this->attachAdminResource('art', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioAudios(): void
@@ -166,8 +166,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             Audio::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Audio');
         }
+        $this->attachAdminResource('audio', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioAwards(): void
@@ -202,8 +202,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             Award::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Awards');
         }
+        $this->attachAdminResource('award', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioCertificates(): void
@@ -230,8 +230,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             Certificate::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Certificates');
         }
+        $this->attachAdminResource('certificate', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioCourses(): void
@@ -266,8 +266,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             Course::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Courses');
         }
+        $this->attachAdminResource('course', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioEducations(): void
@@ -315,8 +315,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             Education::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Education');
         }
+        $this->attachAdminResource('education', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioJobs(): void
@@ -324,7 +324,7 @@ class AlexReiger extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Job ...\n";
 
         $this->jobId = [];
-        $maxId = Job::withoutGlobalScope(AdminGlobalScope::class)->max('id');
+        $maxId = Job::withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=7; $i++) {
             $this->jobId[$i] = ++$maxId;
         }
@@ -400,8 +400,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             Job::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Jobs');
         }
+        $this->attachAdminResource('job', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioJobCoworkers(): void
@@ -419,8 +419,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             JobCoworker::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Job Coworkers');
         }
+        $this->attachAdminResource('job-coworker', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioJobSkills(): void
@@ -441,8 +441,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             JobSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Job Skills');
         }
+        $this->attachAdminResource('job-skill', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioJobTasks(): void
@@ -462,8 +462,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             JobTask::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Job Tasks');
         }
+        $this->attachAdminResource('job-task', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioLinks(): void
@@ -527,8 +527,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             Link::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Links');
         }
+        $this->attachAdminResource('link', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioMusic(): void
@@ -536,7 +536,7 @@ class AlexReiger extends Command
         echo self::USERNAME . ": Inserting into Portfolio\\Music ...\n";
 
         $id = [];
-        $maxId = Music::withoutGlobalScope(AdminGlobalScope::class)->max('id');
+        $maxId = Music::withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=36; $i++) {
             $id[$i] = ++$maxId;
         }
@@ -594,8 +594,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             Music::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Music');
         }
+        $this->attachAdminResource('music', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioProjects(): void
@@ -622,8 +622,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             Project::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Projects');
         }
+        $this->attachAdminResource('project', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioPublications(): void
@@ -667,8 +667,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             Publication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Publications');
         }
+        $this->attachAdminResource('publication', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioSkills(): void
@@ -697,8 +697,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             Skill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Skills');
         }
+        $this->attachAdminResource('skill', count($data) ? 1 : 0);
     }
 
     protected function insertPortfolioVideos(): void
@@ -732,8 +732,8 @@ class AlexReiger extends Command
 
         if (!empty($data)) {
             Video::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Videos');
         }
+        $this->attachAdminResource('video', count($data) ? 1 : 0);
     }
 
     /**
@@ -781,18 +781,20 @@ class AlexReiger extends Command
     }
 
     /**
-     * Add a menu item for the resource.
+     * Attach a resource to the admin.
      *
-     * @param string $itemName
+     * @param string $resourceName
+     * @param int|null $public
      * @return void
      */
-    protected function addMenuItem($itemName)
+    protected function attachAdminResource(string $resourceName, int|null $public = 0)
     {
-        if ($menuItem = MenuItem::where('database_id', $this->databaseId)->where('name', $itemName)->first()) {
+        if ($resource = Resource::where('database_id', $this->databaseId)->where('name', $resourceName)->first()) {
 
-            AdminMenuItem::insert([
-                'admin_id'     => $this->adminId,
-                'menu_item_id' => $menuItem->id,
+            AdminResource::insert([
+                'admin_id'    => $this->adminId,
+                'resource_id' => $resource->id,
+                'public'      => $public,
             ]);
         }
     }

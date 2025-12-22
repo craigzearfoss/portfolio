@@ -8,6 +8,7 @@ use App\Http\Requests\System\UpdateAdminGroupsRequest;
 use App\Models\System\AdminGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class AdminGroupController extends BaseAdminController
@@ -50,6 +51,10 @@ class AdminGroupController extends BaseAdminController
      */
     public function store(StoreAdminGroupsRequest $storeAdminGroupsRequest): RedirectResponse
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Only root admins can add new admin groups.');
+        }
+
         $adminGroup = AdminGroup::create($storeAdminGroupsRequest->validated());
 
         return redirect()->route('admin.system.admin-group.show', $adminGroup)
@@ -75,9 +80,7 @@ class AdminGroupController extends BaseAdminController
      */
     public function edit(AdminGroup $adminGroup): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
-        }
+        Gate::authorize('update-resource', $adminGroup);
 
         return view('admin.system.admin-group.edit', compact('adminGroup'));
     }
@@ -91,6 +94,8 @@ class AdminGroupController extends BaseAdminController
      */
     public function update(UpdateAdminGroupsRequest $updateAdminGroupsRequest, AdminGroup $adminGroup): RedirectResponse
     {
+        Gate::authorize('update-resource', $adminGroup);
+
         $adminGroup->update($updateAdminGroupsRequest->validated());
 
         return redirect()->route('admin.system.admin-group.show', $adminGroup)
@@ -105,9 +110,7 @@ class AdminGroupController extends BaseAdminController
      */
     public function destroy(AdminGroup $adminGroup): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
-        }
+        Gate::authorize('delete-resource', $adminGroup);
 
         $adminGroup->delete();
 

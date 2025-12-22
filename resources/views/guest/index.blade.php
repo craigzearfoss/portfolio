@@ -72,13 +72,13 @@
 
                 <ul class="menu-list" style="max-width: 20em;">
 
-                    @foreach ($portfolioResources as $resource)
+                    @foreach ($portfolioResourceTypes as $resourceType)
 
-                        @if(empty($resource['global']) && Route::has('guest.admin.portfolio.'.$resource['name'].'.index'))
+                        @if(empty($resourceType['global']) && Route::has('guest.admin.portfolio.'.$resourceType['name'].'.index'))
                             <li>
                                 @include('guest.components.link', [
-                                    'name' => $resource['plural'],
-                                    'href' => route('guest.admin.portfolio.'.$resource['name'].'.index', $admin),
+                                    'name' => $resourceType['plural'],
+                                    'href' => route('guest.admin.portfolio.'.$resourceType['name'].'.index', $admin),
                                 ])
                             </li>
                         @endif

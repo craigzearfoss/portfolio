@@ -46,7 +46,7 @@ class UpdateUserTeamsRequest extends FormRequest
                 Rule::unique('system_db.user_teams', 'name')->where(function ($query) {
                     return $query->where('owner_id', $this->owner_id)
                         ->where('name', $this->name)
-                        ->where('id', '!-', $this->user_team->id);
+                        ->where('id', '!=', $this->user_team->id);
                 })
             ],
             'slug'          => [

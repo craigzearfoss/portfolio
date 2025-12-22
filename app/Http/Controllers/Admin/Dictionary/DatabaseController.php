@@ -9,6 +9,7 @@ use App\Models\Dictionary\Database;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -85,9 +86,7 @@ class DatabaseController extends BaseAdminController
      */
     public function edit(Database $database): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit databases.');
-        }
+        Gate::authorize('update-resource', $database);
 
         return view('admin.dictionary.database.edit', compact('database'));
     }
@@ -120,9 +119,7 @@ class DatabaseController extends BaseAdminController
      */
     public function destroy(Database $database, Request $request): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete databases.');
-        }
+        Gate::authorize('delete-resource', $database);
 
         $database->delete();
 

@@ -9,6 +9,7 @@ use App\Models\Personal\Ingredient;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -83,9 +84,7 @@ class IngredientController extends BaseAdminController
      */
     public function edit(Ingredient $ingredient): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit ingredients.');
-        }
+        Gate::authorize('update-resource', $ingredient);
 
         return view('admin.personal.ingredient.edit', compact('ingredient'));
     }
@@ -99,9 +98,7 @@ class IngredientController extends BaseAdminController
      */
     public function update(UpdateIngredientsRequest $updateIngredientsRequest, Ingredient $ingredient): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update ingredients.');
-        }
+        Gate::authorize('update-resource', $ingredient);
 
         $ingredient->update($updateIngredientsRequest->validated());
 
@@ -117,9 +114,7 @@ class IngredientController extends BaseAdminController
      */
     public function destroy(Ingredient $ingredient): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete ingredients.');
-        }
+        Gate::authorize('delete-resource', $ingredient);
 
         $ingredient->delete();
 

@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateAudiosRequest;
 use App\Models\Portfolio\Audio;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -76,6 +77,8 @@ class AudioController extends BaseAdminController
      */
     public function edit(Audio $audio): View
     {
+        Gate::authorize('update-resource', $audio);
+
         return view('admin.portfolio.audio.edit', compact('audio'));
     }
 
@@ -88,6 +91,8 @@ class AudioController extends BaseAdminController
      */
     public function update(UpdateAudiosRequest $updateAudiosRequest, Audio $audio): RedirectResponse
     {
+        Gate::authorize('update-resource', $audio);
+
         $audio->update($updateAudiosRequest->validated());
 
         return redirect()->route('admin.portfolio.audio.show', $audio)
@@ -102,6 +107,8 @@ class AudioController extends BaseAdminController
      */
     public function destroy(Audio $audio): RedirectResponse
     {
+        Gate::authorize('delete-resource', $audio);
+
         $audio->delete();
 
         return redirect(referer('admin.portfolio.audio.index'))

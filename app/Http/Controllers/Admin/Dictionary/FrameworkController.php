@@ -9,6 +9,7 @@ use App\Models\Dictionary\Framework;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -86,9 +87,7 @@ class FrameworkController extends BaseAdminController
      */
     public function edit(Framework $framework, Request $request): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit frameworks.');
-        }
+        Gate::authorize('update-resource', $framework);
 
         $referer = $request->headers->get('referer');
 
@@ -104,9 +103,7 @@ class FrameworkController extends BaseAdminController
      */
     public function update(UpdateFrameworksRequest $updateFrameworksRequest, Framework $framework): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update frameworks.');
-        }
+        Gate::authorize('update-resource', $framework);
 
         $framework->update($updateFrameworksRequest->validated());
 
@@ -123,9 +120,7 @@ class FrameworkController extends BaseAdminController
      */
     public function destroy(Framework $framework, Request $request): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete frameworks.');
-        }
+        Gate::authorize('delete-resource', $framework);
 
         $framework->delete();
 

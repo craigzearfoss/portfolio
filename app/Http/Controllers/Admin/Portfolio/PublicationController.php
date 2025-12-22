@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdatePublicationsRequest;
 use App\Models\Portfolio\Publication;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -76,6 +77,8 @@ class PublicationController extends BaseAdminController
      */
     public function edit(Publication $publication): View
     {
+        Gate::authorize('update-resource', $publication);
+
         return view('admin.portfolio.publication.edit', compact('publication'));
     }
 
@@ -88,6 +91,8 @@ class PublicationController extends BaseAdminController
      */
     public function update(UpdatePublicationsRequest $updatePublicationsRequest, Publication $publication): RedirectResponse
     {
+        Gate::authorize('update-resource', $publication);
+
         $publication->update($updatePublicationsRequest->validated());
 
         return redirect()->route('admin.portfolio.publication.show', $publication)
@@ -102,6 +107,8 @@ class PublicationController extends BaseAdminController
      */
     public function destroy(Publication $publication): RedirectResponse
     {
+        Gate::authorize('delete-resource', $publication);
+
         $publication->delete();
 
         return redirect(referer('admin.portfolio.publication.index'))

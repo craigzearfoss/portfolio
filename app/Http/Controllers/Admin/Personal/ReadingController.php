@@ -8,6 +8,7 @@ use App\Http\Requests\Personal\UpdateReadingsRequest;
 use App\Models\Personal\Reading;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -77,6 +78,8 @@ class ReadingController extends BaseAdminController
      */
     public function edit(Reading $reading): View
     {
+        Gate::authorize('update-resource', $reading);
+
         return view('admin.personal.reading.edit', compact('reading'));
     }
 
@@ -89,6 +92,8 @@ class ReadingController extends BaseAdminController
      */
     public function update(UpdateReadingsRequest $updateReadingsRequest, Reading $reading): RedirectResponse
     {
+        Gate::authorize('update-resource', $reading);
+
         $reading->update($updateReadingsRequest->validated());
 
         return redirect()->route('admin.personal.reading.show', $reading)
@@ -103,6 +108,8 @@ class ReadingController extends BaseAdminController
      */
     public function destroy(Reading $reading): RedirectResponse
     {
+        Gate::authorize('delete-resource', $reading);
+
         $reading->delete();
 
         return redirect(referer('admin.personal.reading.index'))

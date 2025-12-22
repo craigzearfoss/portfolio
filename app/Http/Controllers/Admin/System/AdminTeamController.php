@@ -8,6 +8,7 @@ use App\Http\Requests\System\UpdateAdminTeamsRequest;
 use App\Models\System\AdminTeam;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class AdminTeamController extends BaseAdminController
@@ -50,6 +51,10 @@ class AdminTeamController extends BaseAdminController
      */
     public function store(StoreAdminTeamsRequest $storeAdminTeamsRequest): RedirectResponse
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Only root admins can add new admin teams.');
+        }
+
         $adminTeam = AdminTeam::create($storeAdminTeamsRequest->validated());
 
         return redirect()->route('admin.system.admin-team.show', $adminTeam)
@@ -75,9 +80,7 @@ class AdminTeamController extends BaseAdminController
      */
     public function edit(AdminTeam $adminTeam): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
-        }
+        Gate::authorize('update-resource', $adminTeam);
 
         return view('admin.system.admin-team.edit', compact('adminTeam'));
     }
@@ -91,6 +94,8 @@ class AdminTeamController extends BaseAdminController
      */
     public function update(UpdateAdminTeamsRequest $updateAdminTeamsRequest, AdminTeam $adminTeam): RedirectResponse
     {
+        Gate::authorize('update-resource', $adminTeam);
+
         $adminTeam->update($updateAdminTeamsRequest->validated());
 
         return redirect()->route('admin.system.admin-team.show', $adminTeam)
@@ -105,9 +110,7 @@ class AdminTeamController extends BaseAdminController
      */
     public function destroy(AdminTeam $adminTeam): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only root admins can access this page.');
-        }
+        Gate::authorize('delete-resource', $adminTeam);
 
         $adminTeam->delete();
 

@@ -13,12 +13,12 @@ use App\Models\Career\Event;
 use App\Models\Career\Note;
 use App\Models\Career\Reference;
 use App\Models\Career\Resume;
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Admin;
 use App\Models\System\Database;
 use App\Models\System\MenuItem;
 use App\Models\System\Resource;
-use App\Models\System\AdminMenuItem;
+use App\Models\System\AdminResource;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use function Laravel\Prompts\text;
@@ -97,7 +97,7 @@ class AddCareer extends Command
         echo self::USERNAME . ": Inserting into Career\\Application ...\n";
 
         $this->applicationId = [];
-        $maxId = Contact::withoutGlobalScope(AdminGlobalScope::class)->max('id');
+        $maxId = Contact::withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->applicationId[$i] = ++$maxId;
         }
@@ -182,8 +182,8 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Application::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Applications');
         }
+        $this->attachAdminResource('application', 0);
     }
 
     protected function insertCareerApplicationSkill(): void
@@ -207,8 +207,8 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             ApplicationSkill::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Application Skills');
         }
+        $this->attachAdminResource('application-skill', 0);
     }
 
     protected function insertCareerCompanies(): void
@@ -216,7 +216,7 @@ class AddCareer extends Command
         echo self::USERNAME . ": Inserting into Career\\Company ...\n";
 
         $this->companyId = [];
-        $maxId = Company::withoutGlobalScope(AdminGlobalScope::class)->max('id');
+        $maxId = Company::withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=84; $i++) {
             $this->companyId[$i] = ++$maxId;
         }
@@ -311,8 +311,8 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Company::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Companies');
         }
+        $this->attachAdminResource('company', 0);
     }
 
     protected function insertCareerCompanyContacts(): void
@@ -350,7 +350,7 @@ class AddCareer extends Command
         echo self::USERNAME . ": Inserting into Career\\Contact ...\n";
 
         $this->contactId = [];
-        $maxId = Contact::withoutGlobalScope(AdminGlobalScope::class)->max('id');
+        $maxId = Contact::withoutGlobalScope(AdminPublicScope::class)->max('id');
         for ($i=1; $i<=23; $i++) {
             $this->contactId[$i] = ++$maxId;
         }
@@ -384,8 +384,8 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Contact::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Contacts');
         }
+        $this->attachAdminResource('contact', 0);
     }
 
     protected function insertCareerCommunications(): void
@@ -406,8 +406,8 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Communication::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Communications');
         }
+        $this->attachAdminResource('communication', 0);
     }
 
     protected function insertCareerCoverLetters(): void
@@ -419,8 +419,8 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             CoverLetter::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Cover Letters');
         }
+        $this->attachAdminResource('cover-letter', 0);
     }
 
     protected function insertCareerEvents(): void
@@ -442,8 +442,8 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Event::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Events');
         }
+        $this->attachAdminResource('event', 0);
     }
 
     protected function insertCareerNotes(): void
@@ -464,8 +464,8 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Note::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Notes');
         }
+        $this->attachAdminResource('note', 0);
     }
 
     protected function insertCareerReferences(): void
@@ -487,8 +487,8 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Reference::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('References');
         }
+        $this->attachAdminResource('reference', 0);
     }
 
     protected function insertCareerResumes(): void
@@ -521,8 +521,8 @@ class AddCareer extends Command
 
         if (!empty($data)) {
             Resume::insert($this->additionalColumns($data, true, $this->adminId, ['demo' => $this->demo], boolval($this->demo)));
-            $this->addMenuItem('Resumes');
         }
+        $this->attachAdminResource('resume', 0);
     }
 
     /**
@@ -570,18 +570,20 @@ class AddCareer extends Command
     }
 
     /**
-     * Add a menu item for the resource.
+     * Attach a resource to the admin.
      *
-     * @param string $itemName
+     * @param string $resourceName
+     * @param int|null $public
      * @return void
      */
-    protected function addMenuItem($itemName)
+    protected function attachAdminResource(string $resourceName, int|null $public = 0)
     {
-        if ($menuItem = MenuItem::where('database_id', $this->databaseId)->where('name', $itemName)->first()) {
+        if ($resource = Resource::where('database_id', $this->databaseId)->where('name', $resourceName)->first()) {
 
-            AdminMenuItem::insert([
-                'admin_id'     => $this->adminId,
-                'menu_item_id' => $menuItem->id,
+            AdminResource::insert([
+                'admin_id'    => $this->adminId,
+                'resource_id' => $resource->id,
+                'public'      => $public,
             ]);
         }
     }

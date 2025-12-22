@@ -2,7 +2,7 @@
 
 namespace App\Models\Portfolio;
 
-use App\Models\Scopes\AdminGlobalScope;
+use App\Models\Scopes\AdminPublicScope;
 use App\Models\System\Owner;
 use App\Traits\SearchableModelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -63,7 +63,7 @@ class Project extends Model
     {
         parent::booted();
 
-        static::addGlobalScope(new AdminGlobalScope());
+        static::addGlobalScope(new AdminPublicScope());
     }
 
     /**

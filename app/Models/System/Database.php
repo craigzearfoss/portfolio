@@ -63,9 +63,17 @@ class Database extends Model
         return $this->hasMany(Resource::class)->orderBy('name', 'asc');
     }
 
-    public static function getResources(string | null $dbName = null,
-                                        array $filters = [],
-                                        array $orderBy = ['seq', 'asc']):  array
+    /**
+     * Returns the resource types.
+     *
+     * @param string|null $dbName
+     * @param array $filters
+     * @param array $orderBy
+     * @return array
+     */
+    public static function getResourceTypes(string|null $dbName = null,
+                                        array       $filters = [],
+                                        array       $orderBy = ['seq', 'asc']):  array
     {
         $query = Database::select( 'resources.*', 'databases.id as database_id', 'databases.name as database_name'
             , 'databases.database as database_database'
@@ -81,6 +89,39 @@ class Database extends Model
         if (isset($filters['readonly'])) $query->where('resources.readonly', boolval($filters['readonly']) ? 1 : 0);
         if (isset($filters['root'])) $query->where('resources.root', boolval($filters['root']) ? 1 : 0);
         if (isset($filters['disabled'])) $query->where('resources.disabled', boolval($filters['disabled']) ? 1 : 0);
+
+        return $query->get()->toArray();
+    }
+
+    /**
+     * Returns the resource types available for a specific admin.
+     *
+     * @param int $adminId
+     * @param string|null $dbName
+     * @param array $filters
+     * @param array $orderBy
+     * @return array
+     */
+    public static function getAdminResourceTypes(int   $adminId, string|null $dbName = null,
+                                                 array $filters = [],
+                                                 array $orderBy = ['resources.sequence', 'asc']):  array
+    {
+        $query = AdminResource::where('admin_id', $adminId)
+            ->join('resources', 'resources.id', '=', 'admin_resource.resource_id')
+            ->Join('databases', 'databases.id', '=', 'resources.database_id')
+            ->select( 'resources.*', 'admin_resource.public', 'admin_resource.readonly', 'admin_resource.disabled',
+                /* @TODO: figure out how to override the sequence at the admin level 'admin_resource.sequence', */
+                'databases.id as database_id', 'databases.name as database_name', 'databases.database as database_database')
+            ->orderBy($orderBy[0] ?? 'resources.sequence', $orderBy[1] ?? 'asc');
+
+        if(!empty($dbName)) {
+            $query->where('databases.name', $dbName);
+        }
+
+        if (isset($filters['public'])) $query->where('admin_resource.public', boolval($filters['public']) ? 1 : 0);
+        if (isset($filters['readonly'])) $query->where('admin_resource.readonly', boolval($filters['readonly']) ? 1 : 0);
+        if (isset($filters['root'])) $query->where('resources.root', boolval($filters['root']) ? 1 : 0);
+        if (isset($filters['disabled'])) $query->where('admin_resource.disabled', boolval($filters['disabled']) ? 1 : 0);
 
         return $query->get()->toArray();
     }

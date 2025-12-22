@@ -9,6 +9,7 @@ use App\Models\Career\Application;
 use App\Models\Career\Resume;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -112,6 +113,8 @@ class ResumeController extends BaseAdminController
      */
     public function edit(Resume $resume, Request $request): View
     {
+        Gate::authorize('update-resource', $resume);
+
         $urlParams = [];
         if ($applicationId = $request->get('application_id')) {
             $urlParams['application_id'] = $applicationId;
@@ -129,6 +132,8 @@ class ResumeController extends BaseAdminController
      */
     public function update(UpdateResumesRequest $updateResumesRequest, Resume $resume): RedirectResponse
     {
+        Gate::authorize('update-resource', $resume);
+
         $applicationId = $updateResumesRequest->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
@@ -160,6 +165,8 @@ class ResumeController extends BaseAdminController
      */
     public function destroy(Resume $resume): RedirectResponse
     {
+        Gate::authorize('delete-resource', $resume);
+
         $resume->delete();
 
         return redirect(referer('admin.career.resume.index'))

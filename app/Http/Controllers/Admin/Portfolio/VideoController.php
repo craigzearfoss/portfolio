@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateVideosRequest;
 use App\Models\Portfolio\Video;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -76,6 +77,8 @@ class VideoController extends BaseAdminController
      */
     public function edit(Video $video): View
     {
+        Gate::authorize('update-resource', $video);
+
         return view('admin.portfolio.video.edit', compact('video'));
     }
 
@@ -88,6 +91,8 @@ class VideoController extends BaseAdminController
      */
     public function update(UpdateVideosRequest $updateVideosRequest, Video $video): RedirectResponse
     {
+        Gate::authorize('update-resource', $video);
+
         $video->update($updateVideosRequest->validated());
 
         return redirect()->route('admin.portfolio.video.show', $video)
@@ -102,6 +107,8 @@ class VideoController extends BaseAdminController
      */
     public function destroy(Video $video): RedirectResponse
     {
+        Gate::authorize('delete-resource', $video);
+
         $video->delete();
 
         return redirect(referer('admin.portfolio.video.index'))

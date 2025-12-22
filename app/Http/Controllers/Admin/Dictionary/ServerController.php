@@ -9,6 +9,7 @@ use App\Models\Dictionary\Server;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -85,9 +86,7 @@ class ServerController extends BaseAdminController
      */
     public function edit(Server $server): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit servers.');
-        }
+        Gate::authorize('update-resource', $server);
 
         return view('admin.dictionary.server.edit', compact('server'));
     }
@@ -101,9 +100,7 @@ class ServerController extends BaseAdminController
      */
     public function update(UpdateServersRequest $updateServersRequest, Server $server): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update servers.');
-        }
+        Gate::authorize('update-resource', $server);
 
         $server->update($updateServersRequest->validated());
 
@@ -119,9 +116,7 @@ class ServerController extends BaseAdminController
      */
     public function destroy(Server $server): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete servers.');
-        }
+        Gate::authorize('delete-resource', $server);
 
         $server->delete();
 

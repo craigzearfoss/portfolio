@@ -13,6 +13,7 @@ use App\Models\Career\CompanyContact;
 use App\Models\Career\Contact;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
@@ -101,6 +102,8 @@ class CompanyController extends BaseAdminController
      */
     public function edit(Company $company): View
     {
+        Gate::authorize('update-resource', $company);
+
         return view('admin.career.company.edit', compact('company'));
     }
 
@@ -113,6 +116,8 @@ class CompanyController extends BaseAdminController
      */
     public function update(UpdateCompaniesRequest $updateCompaniesRequest, Company $company): RedirectResponse
     {
+        Gate::authorize('update-resource', $company);
+
         $company->update($updateCompaniesRequest->validated());
 
         return redirect()->route('admin.career.company.show', $company)
@@ -127,6 +132,8 @@ class CompanyController extends BaseAdminController
      */
     public function destroy(Company $company): RedirectResponse
     {
+        Gate::authorize('delete-resource', $company);
+
         $company->delete();
 
         return redirect(referer('admin.career.company.index'))

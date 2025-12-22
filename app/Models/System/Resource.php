@@ -98,14 +98,14 @@ class Resource extends Model
     /**
      * Returns the resources for the ENV type sorted by database and resource sequence.
      *
-     * @param string | null $database
-     * @param string | null $envType
+     * @param string|null $database
+     * @param string|null $envType
      * @param array $filters
      * @return Collection
      * @throws \Exception
      */
-    public static function bySequence(string | null $database,
-                                      string | null $envType,
+    public static function bySequence(string|null $database,
+                                      string|null $envType,
                                       array $filters = []): Collection
     {
         if (!in_array($envType, PermissionService::ENV_TYPES)) {

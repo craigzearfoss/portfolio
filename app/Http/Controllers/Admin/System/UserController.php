@@ -8,6 +8,7 @@ use App\Http\Requests\System\UpdateUsersRequest;
 use App\Models\System\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
@@ -72,6 +73,8 @@ class UserController extends BaseAdminController
      */
     public function edit(User $user): View
     {
+        Gate::authorize('update-resource', $user);
+
         return view('admin.system.user.edit', compact('user'));
     }
 
@@ -84,6 +87,8 @@ class UserController extends BaseAdminController
      */
     public function update(UpdateUsersRequest $updateUsersRequest, User $user): RedirectResponse
     {
+        Gate::authorize('update-resource', $user);
+
         $user->update($updateUsersRequest->validated());
 
         return redirect()->route('admin.system.user.show', $user)
@@ -98,6 +103,8 @@ class UserController extends BaseAdminController
      */
     public function destroy(User $user): RedirectResponse
     {
+        Gate::authorize('delete-resource', $user);
+
         $user->delete();
 
         return redirect(referer('admin.system.user.index'))

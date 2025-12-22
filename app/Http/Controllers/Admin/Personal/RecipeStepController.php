@@ -9,6 +9,7 @@ use App\Models\Personal\Recipe;
 use App\Models\Personal\RecipeStep;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -85,6 +86,8 @@ class RecipeStepController extends BaseAdminController
      */
     public function edit(RecipeStep $recipeStep): View
     {
+        Gate::authorize('update-resource', $recipeStep);
+
         return view('admin.personal.recipe-step.edit', compact('recipeStep'));
     }
 
@@ -97,6 +100,8 @@ class RecipeStepController extends BaseAdminController
      */
     public function update(UpdateRecipeStepsRequest $updateRecipeStepsRequest, RecipeStep $recipeStep): RedirectResponse
     {
+        Gate::authorize('update-resource', $recipeStep);
+
         $recipeStep->update($updateRecipeStepsRequest->validated());
 
         return redirect()->route('admin.personal.recipe-step.show', $recipeStep)
@@ -111,6 +116,8 @@ class RecipeStepController extends BaseAdminController
      */
     public function destroy(RecipeStep $recipeStep): RedirectResponse
     {
+        Gate::authorize('delete-resource', $recipeStep);
+
         $recipeStep->delete();
 
         return redirect(referer('admin.personal.recipe-step.index'))

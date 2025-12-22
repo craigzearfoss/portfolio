@@ -9,6 +9,7 @@ use App\Models\Dictionary\Stack;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
@@ -85,9 +86,7 @@ class StackController extends BaseAdminController
      */
     public function edit(Stack $stack): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit stacks.');
-        }
+        Gate::authorize('update-resource', $stack);
 
         return view('admin.dictionary.stack.edit', compact('stack'));
     }
@@ -101,9 +100,7 @@ class StackController extends BaseAdminController
      */
     public function update(UpdateStacksRequest $updateStacksRequest, Stack $stack): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update stacks.');
-        }
+        Gate::authorize('update-resource', $stack);
 
         $stack->update($updateStacksRequest->validated());
 
@@ -119,9 +116,7 @@ class StackController extends BaseAdminController
      */
     public function destroy(Stack $stack): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete stacks.');
-        }
+        Gate::authorize('delete-resource', $stack);
 
         $stack->delete();
 

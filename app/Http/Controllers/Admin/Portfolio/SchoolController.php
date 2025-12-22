@@ -8,6 +8,7 @@ use App\Http\Requests\Portfolio\UpdateSchoolsRequest;
 use App\Models\Portfolio\School;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -85,9 +86,7 @@ class SchoolController extends Controller
      */
     public function edit(School $school): View
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can edit schools.');
-        }
+        Gate::authorize('update-resource', $school);
 
         return view('admin.portfolio.school.edit', compact('school'));
     }
@@ -101,9 +100,7 @@ class SchoolController extends Controller
      */
     public function update(UpdateSchoolsRequest $updateSchoolsRequest, School $school): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can update schools.');
-        }
+        Gate::authorize('update-resource', $school);
 
         $school->update($updateSchoolsRequest->validated());
 
@@ -119,9 +116,7 @@ class SchoolController extends Controller
      */
     public function destroy(School $school): RedirectResponse
     {
-        if (!isRootAdmin()) {
-            abort(403, 'Only admins with root access can delete schools.');
-        }
+        Gate::authorize('delete-resource', $school);
 
         $school->delete();
 

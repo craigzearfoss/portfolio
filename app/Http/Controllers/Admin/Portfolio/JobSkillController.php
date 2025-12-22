@@ -9,6 +9,7 @@ use App\Models\Portfolio\Job;
 use App\Models\Portfolio\JobSkill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -89,6 +90,8 @@ class JobSkillController extends Controller
      */
     public function edit(JobSkill $jobSkill, Request $request): View
     {
+        Gate::authorize('update-resource', $jobSkill);
+
         return view('admin.portfolio.job-skill.edit', compact('jobSkill'));
     }
 
@@ -101,6 +104,8 @@ class JobSkillController extends Controller
      */
     public function update(UpdateJobSkillsRequest $updateJobSkillRequest, JobSkill $jobSkill): RedirectResponse
     {
+        Gate::authorize('update-resource', $jobSkill);
+
         $jobSkill->update($updateJobSkillRequest->validated());
 
         return redirect()->route('admin.portfolio.job-skill.show', $jobSkill)
@@ -115,6 +120,8 @@ class JobSkillController extends Controller
      */
     public function destroy(JobSkill $jobSkill): RedirectResponse
     {
+        Gate::authorize('delete-resource', $jobSkill);
+
         $jobSkill->delete();
 
         return redirect(referer('admin.portfolio.job-skill.index'))

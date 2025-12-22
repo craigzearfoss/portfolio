@@ -9,6 +9,7 @@ use App\Models\Career\Application;
 use App\Models\Career\Note;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -108,6 +109,8 @@ class NoteController extends BaseAdminController
      */
     public function edit(Note $note, Request $request): View
     {
+        Gate::authorize('update-resource', $note);
+
         $urlParams = [];
         if ($applicationId = $request->get('application_id')) {
             $urlParams['application_id'] = $applicationId;
@@ -125,6 +128,8 @@ class NoteController extends BaseAdminController
      */
     public function update(UpdateNotesRequest $updateNotesRequest, Note $note): RedirectResponse
     {
+        Gate::authorize('update-resource', $note);
+
         $applicationId = $updateNotesRequest->query('application_id');
 
         if (!empty($applicationId) && (!$application = Application::find($applicationId)))  {
@@ -155,6 +160,8 @@ class NoteController extends BaseAdminController
      */
     public function destroy(Note $note): RedirectResponse
     {
+        Gate::authorize('delete-resource', $note);
+
         $note->delete();
 
         return redirect(referer('admin.career.note.index'))

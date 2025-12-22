@@ -8,6 +8,7 @@ use App\Http\Requests\Personal\UpdateRecipeIngredientsRequest;
 use App\Models\Personal\RecipeIngredient;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**
@@ -78,6 +79,8 @@ class RecipeIngredientController extends BaseAdminController
      */
     public function edit(RecipeIngredient $recipeIngredient): View
     {
+        Gate::authorize('update-resource', $recipeIngredient);
+
         return view('admin.personal.recipe-ingredient.edit', compact('recipeIngredient'));
     }
 
@@ -91,6 +94,8 @@ class RecipeIngredientController extends BaseAdminController
     public function update(UpdateRecipeIngredientsRequest $updateRecipeIngredientsRequest,
                            RecipeIngredient               $recipeIngredient): RedirectResponse
     {
+        Gate::authorize('update-resource', $recipeIngredient);
+
         $recipeIngredient->update($updateRecipeIngredientsRequest->validated());
 
         return redirect()->route('admin.personal.recipe-ingredient.show', $recipeIngredient)
@@ -105,6 +110,8 @@ class RecipeIngredientController extends BaseAdminController
      */
     public function destroy(RecipeIngredient $recipeIngredient): RedirectResponse
     {
+        Gate::authorize('delete-resource', $recipeIngredient);
+
         $recipeIngredient->delete();
 
         return redirect(referer('admin.personal.recipe-ingredient.index'))

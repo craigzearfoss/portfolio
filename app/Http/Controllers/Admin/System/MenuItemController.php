@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseAdminController;
 use App\Http\Requests\System\StoreMenuItemsRequest;
 use App\Http\Requests\System\UpdateMenuItemsRequest;
 use App\Services\PermissionService;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -16,10 +17,10 @@ class MenuItemController extends BaseAdminController
     /**
      * Display a listing of menu items.
      *
-     * @param string $envType
+     * @param string|null $envType
      * @return View
      */
-    public function index(string | null $envType = 'admin'): View
+    public function index(string|null $envType = 'guest'): View
     {
         if (!in_array($envType, PermissionService::ENV_TYPES)) {
 
@@ -43,11 +44,14 @@ class MenuItemController extends BaseAdminController
                     ->orderBy('level', 'asc')
                     ->get();
             } else {
+                $menuItems = MenuItem::getGuestMenuItems();
+                /*
                 $menuItems = MenuItem::where('guest', 1)
                     ->orderBy('sequence', 'asc')
                     //->orderBy('parent_id', 'asc')
                     ->orderBy('level', 'asc')
                     ->get();
+                */
             }
 
             return view('admin.system.menu-item.index', compact('envType', 'menuItems'));
@@ -61,6 +65,10 @@ class MenuItemController extends BaseAdminController
      */
     public function create(): View
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Only root admins can access this page.');
+        }
+
         return view('admin.system.menu-item.create');
     }
 
@@ -72,6 +80,10 @@ class MenuItemController extends BaseAdminController
      */
     public function store(StoreMenuItemsRequest $storeMenuItemsRequest): RedirectResponse
     {
+        if (!isRootAdmin()) {
+            abort(403, 'Only root admins can add new menu items.');
+        }
+
         $menuItem = MenuItem::create($storeMenuItemsRequest->validated());
 
         return redirect()->route('admin.system.menu-item.index')
@@ -97,6 +109,8 @@ class MenuItemController extends BaseAdminController
      */
     public function edit(MenuItem $menuItem): View
     {
+        Gate::authorize('update-resource', $menuItem);
+
         return view('admin.system.menu-item.edit', compact('menuItem'));
     }
 
@@ -109,6 +123,8 @@ class MenuItemController extends BaseAdminController
      */
     public function update(UpdateMenuItemsRequest $updateMenuItemsRequest, MenuItem $menuItem): RedirectResponse
     {
+        Gate::authorize('update-resource', $menuItem);
+
         $menuItem->update($updateMenuItemsRequest->validated());
 
         return redirect()->route('admin.system.menu-item.index')
@@ -123,6 +139,8 @@ class MenuItemController extends BaseAdminController
      */
     public function destroy(MenuItem $menuItem): RedirectResponse
     {
+        Gate::authorize('delete-resource', $menuItem);
+
         $menuItem->delete();
 
         return redirect(referer('admin.system.menu-item.index'))

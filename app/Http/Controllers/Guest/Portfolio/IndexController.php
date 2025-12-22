@@ -22,8 +22,15 @@ class IndexController extends BaseGuestController
      */
     public function index(Admin $admin, Request $request): View
     {
-        $portfolioResources = Database::getResources('portfolio', [], ['name', 'asc']);
+        $portfolioResourceTypes = Database::getAdminResourceTypes(
+            $admin->id,
+            'portfolio',
+            [
+                'public'   => true,
+                'disabled' => false,
+            ]
+        );
 
-        return view(themedTemplate('guest.portfolio.index'), compact('portfolioResources', 'admin'));
+        return view(themedTemplate('guest.portfolio.index'), compact('portfolioResourceTypes', 'admin'));
     }
 }
